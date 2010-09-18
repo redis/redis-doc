@@ -1,0 +1,541 @@
+[
+{ "arguments":["APPEND","key","value"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["AUTH","password"],
+  "optional":[],
+  "since":[],
+  "type":"connection" },
+
+{ "arguments":["BGSAVE"],
+  "optional":[],
+  "since":[],
+  "type":"control" },
+
+{ "arguments":["BLPOP","key1","key2","...","keyN","timeout"],
+  "optional":[],
+  "since":"1.3.1",
+  "type":"list" },
+
+{ "arguments":["BRPOP","key1","key2","...","keyN","timeout"],
+  "optional":[],
+  "since":"1.3.1",
+  "type":"list" },
+
+{ "arguments":["CONFIG","GET","pattern"],
+  "optional":[],
+  "since":"2.0",
+  "type":"control" },
+
+{ "arguments":["CONFIG","SET","parameter","value"],
+  "optional":[],
+  "since":"2.0",
+  "type":"control" },
+
+{ "arguments":["DBSIZE"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["DEL","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["EXISTS","key"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["EXPIRE","key","seconds"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["EXPIREAT","key","unixtime"],
+  "optional":[],
+  "since":"1.1",
+  "type":"generic" },
+
+{ "arguments":["PERSIST","key"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["FLUSHALL"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["FLUSHDB"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["GET","key"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["GETSET","key","value"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["HDEL","key","field"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HEXISTS","key","field"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HKEYS","key"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HVALS","key"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HGETALL","key"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HGET","key","field"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HINCRBY","key","field","value"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HLEN","key"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HMGET","key","field1","...","fieldN"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["HMSET","key","field1","value1","...","fieldN","valueN"],
+  "optional":[],
+  "since":[],
+  "type":"hash" },
+
+{ "arguments":["HSET","key","field","value"],
+  "optional":[],
+  "since":"1.3.10",
+  "type":"hash" },
+
+{ "arguments":["INCR","key"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["INCRBY","key","integer"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["DECR","key","integer"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["DECRBY","key","integer"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["INFO"],
+  "optional":[],
+  "since":[],
+  "type":"control" },
+
+{ "arguments":["KEYS","pattern"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["LASTSAVE"],
+  "optional":[],
+  "since":[],
+  "type":"control" },
+
+{ "arguments":["LINDEX","key","index"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["LLEN","key"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["LPOP","key"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["RPOP","key"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["LRANGE","key","start","end"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["LREM","key","count","value"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["LSET","key","index","value"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["LTRIM","key","start","end"],
+  "optional":[],
+  "since":[],
+  "type":"list" },
+
+{ "arguments":["MGET","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["MONITOR"],
+  "optional":[],
+  "since":[],
+  "type":"control" },
+
+{ "arguments":["MOVE","key","dbindex"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["MSET","key1","value1","key2","value2","...","keyN","valueN"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["MSETNX","key1","value1","key2","value2","...","keyN","valueN"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["WATCH","key1","key2","...","keyN"],
+  "optional":[],
+  "since":"2.1.0",
+  "type":"generic" },
+
+{ "arguments":["UNWATCH"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["MULTI"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["COMMAND","1","..."],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["COMMAND","2","..."],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["COMMAND","N","..."],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["EXEC","or","DISCARD"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["SUBSCRIBE","channel","1","channel","2","...","channel","N"],
+  "optional":[],
+  "since":[],
+  "type":"pubsub" },
+
+{ "arguments":["UNSUBSCRIBE","channel","1","channel","2","...","channel","N"],
+  "optional":[],
+  "since":[],
+  "type":"pubsub" },
+
+{ "arguments":["UNSUBSCRIBE","(unsubscribe","from","all","channels)"],
+  "optional":[],
+  "since":[],
+  "type":"pubsub" },
+
+{ "arguments":["PSUBSCRIBE","pattern","1","pattern","2","...","pattern","N"],
+  "optional":[],
+  "since":[],
+  "type":"pubsub" },
+
+{ "arguments":["PUNSUBSCRIBE","pattern","1","pattern","2","...","pattern","N"],
+  "optional":[],
+  "since":[],
+  "type":"pubsub" },
+
+{ "arguments":["PUNSUBSCRIBE","(unsubscribe","from","all","patterns)"],
+  "optional":[],
+  "since":[],
+  "type":"pubsub" },
+
+{ "arguments":["PUBLISH","channel","message"],
+  "optional":[],
+  "since":[],
+  "type":"pubsub" },
+
+{ "arguments":["Quit"],
+  "optional":[],
+  "since":[],
+  "type":"connection" },
+
+{ "arguments":["RANDOMKEY"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["RENAME","oldkey","newkey"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["RENAMENX","oldkey","newkey"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["RPOPLPUSH","srckey","dstkey"],
+  "optional":[],
+  "since":"1.1",
+  "type":"list" },
+
+{ "arguments":["SADD","key","member"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SCARD","key"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SDIFF","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SDIFFSTORE","dstkey","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SELECT","index"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["SET","key","value"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["SETEX","key","time","value"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["SETNX","key","value"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["SHUTDOWN"],
+  "optional":[],
+  "since":[],
+  "type":"control" },
+
+{ "arguments":["SINTER","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SINTERSTORE","dstkey","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SISMEMBER","key","member"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SLAVEOF","host","port"],
+  "optional":[],
+  "since":[],
+  "type":"control" },
+
+{ "arguments":["SLAVEOF","no","one"],
+  "optional":[],
+  "since":[],
+  "type":"control" },
+
+{ "arguments":["SMEMBERS","key"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SMOVE","srckey","dstkey","member"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SORT","key"],
+  "optional":[["GET","pattern"],["BY","pattern"],["LIMIT","start","count"]],
+  "since":[],
+  "type":"sort" },
+
+{ "arguments":["SPOP","key"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SRANDMEMBER","key"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SREM","key","member"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SUBSTR","key","start","end"],
+  "optional":[],
+  "since":[],
+  "type":"string" },
+
+{ "arguments":["SUNION","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["SUNIONSTORE","dstkey","key1","key2","...","keyN"],
+  "optional":[],
+  "since":[],
+  "type":"set" },
+
+{ "arguments":["TTL","key"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["TYPE","key"],
+  "optional":[],
+  "since":[],
+  "type":"generic" },
+
+{ "arguments":["ZADD","key","score","member"],
+  "optional":[],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZCARD","key"],
+  "optional":[],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZINCRBY","key","increment","member"],
+  "optional":[],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZRANGEBYSCORE","key","min","max"],
+  "optional":[["LIMIT","offset","count"]],
+  "since":[],
+  "type":"sorted_set" },
+
+{ "arguments":["ZRANGEBYSCORE","key","min","max"],
+  "optional":[["WITHSCORES"],["LIMIT","offset","count"]],
+  "since":[],
+  "type":"sorted_set" },
+
+{ "arguments":["ZCOUNT","key","min","max"],
+  "optional":[],
+  "since":[],
+  "type":"sorted_set" },
+
+{ "arguments":["ZRANGE","key","start","end"],
+  "optional":[["WITHSCORES"]],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZREVRANGE","key","start","end"],
+  "optional":[["WITHSCORES"]],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZRANK","key","member"],
+  "optional":[],
+  "since":"1.3.4",
+  "type":"sorted_set" },
+
+{ "arguments":["ZREVRANK","key","member"],
+  "optional":[],
+  "since":"1.3.4",
+  "type":"sorted_set" },
+
+{ "arguments":["ZREM","key","member"],
+  "optional":[],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZREMRANGEBYRANK","key","start","end"],
+  "optional":[],
+  "since":"1.3.4",
+  "type":"sorted_set" },
+
+{ "arguments":["ZREMRANGEBYSCORE","key","min","max"],
+  "optional":[],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZSCORE","key","element"],
+  "optional":[],
+  "since":"1.1",
+  "type":"sorted_set" },
+
+{ "arguments":["ZUNIONSTORE","dstkey","N","k1","...","kN"],
+  "optional":[["AGGREGATE","SUM|MIN|MAX"],["WEIGHTS","w1","...","wN"]],
+  "since":[],
+  "type":"sorted_set" },
+
+{ "arguments":["ZINTERSTORE","dstkey","N","k1","...","kN"],
+  "optional":[["AGGREGATE","SUM|MIN|MAX"],["WEIGHTS","w1","...","wN"]],
+  "since":[],
+  "type":"sorted_set" }
+]
