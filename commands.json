@@ -89,6 +89,20 @@
     "since": null,
     "group": "server"
   },
+  "debug object": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": null,
+    "group": "server"
+  },
+  "debug segfault": {
+    "since": null,
+    "group": "server"
+  },
   "decr": {
     "arguments": [
       {
@@ -154,7 +168,7 @@
       }
     ],
     "since": null,
-    "group": "generic"
+    "group": "server"
   },
   "expire": {
     "arguments": [
@@ -438,6 +452,29 @@
     "since": null,
     "group": "list"
   },
+  "linsert": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": ["before", "after"]
+      },
+      {
+        "name": "pivot",
+        "type": "string"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "since": null,
+    "group": "list"
+  },
   "llen": {
     "arguments": [
       {
@@ -453,6 +490,34 @@
       {
         "name": "key",
         "type": "key"
+      }
+    ],
+    "since": null,
+    "group": "list"
+  },
+  "lpush": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "since": null,
+    "group": "list"
+  },
+  "lpushx": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "value",
+        "type": "string"
       }
     ],
     "since": null,
@@ -594,6 +659,10 @@
     "since": null,
     "group": "generic"
   },
+  "ping": {
+    "since": null,
+    "group": "connection"
+  },
   "psubscribe": {
     "arguments": [
       {
@@ -689,6 +758,34 @@
     "since": "1.1",
     "group": "list"
   },
+  "rpush": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "since": null,
+    "group": "list"
+  },
+  "rpushx": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "since": null,
+    "group": "list"
+  },
   "sadd": {
     "arguments": [
       {
@@ -702,6 +799,10 @@
     ],
     "since": null,
     "group": "set"
+  },
+  "save": {
+    "since": null,
+    "group": "control"
   },
   "scard": {
     "arguments": [
@@ -962,6 +1063,16 @@
     "since": null,
     "group": "set"
   },
+  "strlen": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": null,
+    "group": "string"
+  },
   "subscribe": {
     "arguments": [
       {
@@ -1015,6 +1126,10 @@
     ],
     "since": null,
     "group": "set"
+  },
+  "sync": {
+    "since": null,
+    "group": "control"
   },
   "ttl": {
     "arguments": [
@@ -1250,6 +1365,24 @@
       {
         "name": "max",
         "type": "double"
+      }
+    ],
+    "since": "1.1",
+    "group": "sorted_set"
+  },
+  "zrevrange": {
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "integer"
+      },
+      {
+        "name": "stop",
+        "type": "integer"
       }
     ],
     "since": "1.1",
