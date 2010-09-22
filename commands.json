@@ -1270,10 +1270,10 @@
         "multiple": true
       },
       {
-        // TODO: multiple here doesn't mean the same as in SORT ... GET
+        "command": "weights",
         "name": "weight",
         "type": "integer",
-        "multiple": true,
+        "variadic": true,
         "optional": true
       },
       {
@@ -1297,6 +1297,20 @@
         "name": "key",
         "type": "key",
         "multiple": true
+      },
+      {
+        "command": "weights",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "aggregate",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": ["sum", "min", "max"],
+        "optional": true
       }
     ],
     "since": null,
