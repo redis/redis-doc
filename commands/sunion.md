@@ -11,7 +11,7 @@ produces the same result as [SMEMBERS][1].
 
 Non existing keys are considered like empty sets.
 
-## Return value
+@return
 
 [Multi bulk reply][2], specifically the list of common elements.
 

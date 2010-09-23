@@ -117,9 +117,9 @@ This means that at any given moment the maximum amount of keys already
 expired that are using memory is at max equal to max setting operations
 per second divided by 4.
 
-## Return value
+@return
 
-[Integer reply][2], specifically:
+@integer-reply, specifically:
 
 	1: the timeout was set.
 	0: the timeout was not set since the key already has an associated timeou

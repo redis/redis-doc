@@ -9,9 +9,9 @@ If the Set is empty or the key does not exist, a nil object is returned.
 The [SPOP][1] command does a similar work but the returned elemen
 is popped (removed) from the Set.
 
-## Return value
+@return
 
-[Bulk reply][2]
+@bulk-reply
 
 
 

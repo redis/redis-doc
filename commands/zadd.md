@@ -15,9 +15,9 @@ point number.
 
 For an introduction to sorted sets check the [Introduction to Redis data types][1] page.
 
-## Return value
+@return
 
-[Integer reply][2], specifically:
+@integer-reply, specifically:
 
 	1 if the new element was added
 	0 if the element was already a member of the sorted set and the score was updated

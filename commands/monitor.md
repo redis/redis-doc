@@ -32,7 +32,7 @@ a distributed caching system.
 
 In order to end a monitoring session just issue a QUIT command by hand.
 
-## Return value
+@return
 
 **Non standard return value**, just dumps the received commands in an infinite
 flow.

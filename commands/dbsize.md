@@ -2,9 +2,9 @@
 
 Return the number of keys in the currently selected database.
 
-## Return value
+@return
 
-[Integer reply][1]
+@integer-reply
 
 
 

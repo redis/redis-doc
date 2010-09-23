@@ -16,7 +16,7 @@ it is possible to turn the slave into a master and set the application to
 use the new master in read/write. Later when the other Redis server will be
 fixed it can be configured in order to work as slave.
 
-## Return value
+@return
 
 [Status code reply][1]
 

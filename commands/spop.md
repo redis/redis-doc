@@ -9,9 +9,9 @@ If the Set is empty or the key does not exist, a nil object is returned.
 The [SRANDMEMBER][1] command does a similar work bu
 the returned element is not removed from the Set.
 
-## Return value
+@return
 
-[Bulk reply][2]
+@bulk-reply
 
 
 

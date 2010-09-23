@@ -2,9 +2,9 @@
 
 The info command returns different information and statistics about the server in an format that's simple to parse by computers and easy to red by huamns.
 
-## Return value
+@return
 
-[Bulk reply][1], specifically in the following format:
+@bulk-reply, specifically in the following format:
 
 	edis_version:0.07
 	connected_clients:1

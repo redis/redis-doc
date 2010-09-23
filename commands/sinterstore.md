@@ -5,7 +5,7 @@ set and M the number of sets_
 
 This commnad works exactly like SINTER but instead of being returned the resulting set is sotred as _dstkey_.
 
-## Return value
+@return
 
 [Status code reply][1]
 

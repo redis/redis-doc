@@ -9,9 +9,9 @@ does not exist a new set with the specified _member_ as sole member is
 created. If the key exists but does not hold a set value an error is
 returned.
 
-## Return value
+@return
 
-[Integer reply][1], specifically:
+@integer-reply, specifically:
 
 	1 if the new element was added
 	0 if the element was already a member of the se

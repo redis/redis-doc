@@ -40,15 +40,15 @@ Will return all the values with score ** 1.3 and = 5**, while for instance:
 
 Will return all the values with score ** 5 and 10** (5 and 10 excluded).
 
-## Return value
+@return
 
 ZRANGEBYSCORE returns a [Multi bulk reply][1] specifically a list of elements
 in the specified score range.
 
-ZCOUNT returns a [Integer reply][1] specifically the number of elements matching
+ZCOUNT returns a @integer-reply specifically the number of elements matching
 the specified score range.
 
-## Examples
+@examples
 
 	redis zadd zset 1 foo
 	(integer) 1

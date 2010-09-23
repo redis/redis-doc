@@ -27,7 +27,7 @@ Glob style patterns examples:
 
 Use \ to escape special chars if you want to match them verbatim.
 
-## Return value
+@return
 
 [Multi bulk reply][2]
 

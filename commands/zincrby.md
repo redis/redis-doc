@@ -16,9 +16,9 @@ point number. It's possible to provide a negative value to perform a decrement.
 
 For an introduction to sorted sets check the [Introduction to Redis data types][1] page.
 
-## Return value
+@return
 
-[Bulk reply][2]
+@bulk-reply
 
 	The new score (a double precision floating point number) represented as string.
 	

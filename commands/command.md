@@ -180,7 +180,7 @@ is the simplest implementation:
 
 If EXEC fails (returns a nil value) we just re-iterate the operation.
 
-## Return value
+@return
 
 [Multi bulk reply][2], specifically:
 

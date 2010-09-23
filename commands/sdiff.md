@@ -11,7 +11,7 @@ set provided and all the successive sets. Example:
 	SDIFF key1,key2,key3 = x,b
 Non existing keys are considered like empty sets.
 
-## Return value
+@return
 
 [Multi bulk reply][1], specifically the list of common elements.
 

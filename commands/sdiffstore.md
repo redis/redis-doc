@@ -5,7 +5,7 @@ sets_
 
 This command works exactly like SDIFF but instead of being returned the resulting set is stored in _dstkey_.
 
-## Return value
+@return
 
 [Status code reply][1]
 

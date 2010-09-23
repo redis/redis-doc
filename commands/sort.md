@@ -87,7 +87,7 @@ It's possible to use BY and GET options against Hash fields using the following 
 	SORT mylist BY weight_*-fieldname
 	SORT mylist GET object_*-fieldnameThe two chars string - is used in order to signal the name of the Hash field. The key is substituted as documented above with sort BY and GET against normal keys, and the Hash stored at the resulting key is accessed in order to retrieve the specified field.
 
-## Return value
+@return
 
 [Multi bulk reply][6], specifically a list of sorted elements.
 

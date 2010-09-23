@@ -14,7 +14,7 @@ Non existing keys are considered like empty sets, so if one of the keys is
 missing an empty set is returned (since the intersection with an empty
 set always is an empty set).
 
-## Return value
+@return
 
 [Multi bulk reply][1], specifically the list of common elements.
 

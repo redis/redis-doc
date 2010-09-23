@@ -10,9 +10,9 @@ will return a and the list will become b,c.
 If the _key_ does not exist or the list is already empty the special
 value 'nil' is returned.
 
-## Return value
+@return
 
-[Bulk reply][1]
+@bulk-reply
 
 
 

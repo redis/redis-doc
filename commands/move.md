@@ -6,9 +6,9 @@ successfully moved, and 0 if the target key was already there or if the
 source key was not found at all, so it is possible to use MOVE as a locking
 primitive.
 
-## Return value
+@return
 
-[Integer reply][1], specifically:
+@integer-reply, specifically:
 
 	1 if the key was moved
 	0 if the key was not moved because already present on the target DB or was not found in the current DB.

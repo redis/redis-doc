@@ -13,9 +13,9 @@ as an integer, see below for more information about the returned value.
 Note that non existing keys are considered like empty lists by LREM, so LREM
 against non existing keys will always return 0.
 
-## Return value
+@return
 
-[Integer Reply][1], specifically:
+@integer-reply, specifically:
 
 `The number of removed elements if the operation succeeded`
 

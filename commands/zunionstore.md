@@ -12,9 +12,9 @@ Using the WEIGHTS option, it is possible to add weight to each input sorted set.
 
 With the AGGREGATE option, it's possible to specify how the results of the union or intersection are aggregated. This option defaults to SUM, where the score of an element is summed across the inputs where it exists. When this option is set to be either MIN or MAX, the resulting set will contain the minimum or maximum score of an element across the inputs where it exists.
 
-## Return value
+@return
 
-[Integer reply][1], specifically the number of elements in the sorted set a
+@integer-reply, specifically the number of elements in the sorted set a
 _dstkey_.
 
 

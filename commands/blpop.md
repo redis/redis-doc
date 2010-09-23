@@ -49,9 +49,9 @@ earlier, in a first-blpopping first-served fashion.
 
 BLPOP and BRPOP can be used with pipelining (sending multiple commands and reading the replies in batch), but it does not make sense to use BLPOP or BRPOP inside a MULTI/EXEC block (a Redis transaction).
 
-The behavior of BLPOP inside MULTI/EXEC when the list is empty is to return a multi-bulk nil reply, exactly what  happens when the timeout is reached. If you like science fiction, think at it like if inside MULTI/EXEC the time will  flow at infinite speed :)
+The behavior of BLPOP inside MULTI/EXEC when the list is empty is to return a @nil-reply, exactly what  happens when the timeout is reached. If you like science fiction, think at it like if inside MULTI/EXEC the time will  flow at infinite speed :)
 
-## Return value
+@return
 
 BLPOP returns a two-elements array via a multi bulk reply in order to return
 both the unblocking key and the popped value.

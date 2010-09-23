@@ -7,7 +7,7 @@ Return the type of the value stored at _key_ in form of a
 string. The type can be one of none, string, list, set.
 none is returned if the key does not exist.
 
-## Return value
+@return
 
 [Status code reply][1], specifically:
 

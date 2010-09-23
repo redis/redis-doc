@@ -14,9 +14,9 @@ If the index is out of range a 'nil' reply is returned.
 Note that even if the average time complexity is O(n) asking for
 the first or the last element of the list is O(1).
 
-## Return value
+@return
 
-[Bulk reply][1], specifically the requested element.
+@bulk-reply, specifically the requested element.
 
 
 

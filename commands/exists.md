@@ -8,9 +8,9 @@ Test if the specified key exists. The command returns
 Note that even keys set with an empty string as value will
 return 1.
 
-## Return value
+@return
 
-[Integer reply][1], specifically:
+@integer-reply, specifically:
 
 	1 if the key exists.
 	0 if the key does not exist.

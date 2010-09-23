@@ -8,9 +8,9 @@ does not exist the special value 'nil' is returned.
 If the value stored at _key_ is not a string an error
 is returned because GET can only handle string values.
 
-## Return value
+@return
 
-[Bulk reply][1]
+@bulk-reply
 
 
 

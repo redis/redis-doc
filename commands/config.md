@@ -32,7 +32,7 @@ list of key-value pairs. Example:
 	3. maxmemory
 	4. 0\n
 
-The return type of the command is a [bulk reply][1].
+The return type of the command is a @bulk-reply.
 
 ## CONFIG SET parameter  value
 

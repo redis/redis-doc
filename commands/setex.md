@@ -10,7 +10,7 @@ operation was already provided
 using [MULTI/EXEC][3], but SETEX is a faster alternative provided
 because this operation is very common when Redis is used as a Cache.
 
-## Return value
+@return
 
 [Status code reply][4]
 

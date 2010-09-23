@@ -13,11 +13,11 @@ so forth.
 The function handles out of range requests without raising an error, bu
 just limiting the resulting range to the actual length of the string.
 
-## Return value
+@return
 
-[Bulk reply][1]
+@bulk-reply
 
-## Examples
+@examples
 
 	redis set s This is a string
 	OK

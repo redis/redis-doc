@@ -12,7 +12,7 @@ Note that for the high performance nature of Redis it is possible to try
 a lot of passwords in parallel in very short time, so make sure to generate
 a strong and very long password so that this attack is infeasible.
 
-## Return value
+@return
 
 [Status code reply][1]
 

@@ -7,7 +7,7 @@ Set the respective fields to the respective values. HMSET replaces old values wi
 
 If _key_ does not exist, a new key holding a hash is created.
 
-## Return value
+@return
 
 [Status code reply][1] Always +OK because HMSET can't fail
 

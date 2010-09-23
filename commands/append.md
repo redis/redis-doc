@@ -10,12 +10,12 @@ provided value at the end of the string.
 If the _key_ does not exist it is created and set as an empty string, so
 APPEND will be very similar to SET in this special case.
 
-## Return value
+@return
 
-[Integer reply][1], specifically the total length of the string after the append
+@integer-reply, specifically the total length of the string after the append
 operation.
 
-## Examples
+@examples
 
 	redis exists mykey
 	(integer) 0

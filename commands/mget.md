@@ -7,7 +7,7 @@ Get the values of all the specified keys. If one or more keys dont exis
 or is not of type String, a 'nil' value is returned instead of the value
 of the specified key, but the operation never fails.
 
-## Return value
+@return
 
 [Multi bulk reply][1]
 

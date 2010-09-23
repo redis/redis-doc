@@ -2,7 +2,7 @@
 
 Delete all the keys of the currently selected DB. This command never fails.
 
-## Return value
+@return
 
 [Status code reply][1]
 

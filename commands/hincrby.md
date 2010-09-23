@@ -7,7 +7,7 @@ Increment the number stored at _field_ in the hash at _key_ by _value_. If _key_
 
 The range of values supported by HINCRBY is limited to 64 bit signed integers.
 
-## Examples
+@examples
 
 Since the _value_ argument is signed you can use this command to perform both
 increments and decrements:
@@ -16,9 +16,9 @@ increments and decrements:
 	HINCRBY key field -1 (decrement by one, just like the DECR command)
 	HINCRBY key field -10 (decrement by 10)
 
-## Return value
+@return
 
-[Integer reply][1] The new value at _field_ after the increment operation.
+@integer-reply The new value at _field_ after the increment operation.
 
 
 
