@@ -8,7 +8,7 @@ commands.
 
 @return
 
-[Status code reply][1] on error. On success nothing is returned since the server
+@status-reply on error. On success nothing is returned since the server
 quits and the connection is closed.
 
 

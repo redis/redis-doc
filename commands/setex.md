@@ -12,7 +12,7 @@ because this operation is very common when Redis is used as a Cache.
 
 @return
 
-[Status code reply][4]
+@status-reply
 
 
 

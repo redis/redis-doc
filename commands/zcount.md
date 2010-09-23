@@ -42,7 +42,7 @@ Will return all the values with score ** 5 and 10** (5 and 10 excluded).
 
 @return
 
-`ZRANGEBYSCORE` returns a [Multi bulk reply][1] specifically a list of elements
+`ZRANGEBYSCORE` returns a @multi-bulk-reply specifically a list of elements
 in the specified score range.
 
 `ZCOUNT` returns a @integer-reply specifically the number of elements matching

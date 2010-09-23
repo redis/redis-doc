@@ -13,7 +13,7 @@ Non existing keys are considered like empty sets.
 
 @return
 
-[Multi bulk reply][1], specifically the list of common elements.
+@multi-bulk-reply, specifically the list of common elements.
 
 
 

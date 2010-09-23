@@ -16,7 +16,7 @@ set always is an empty set).
 
 @return
 
-[Multi bulk reply][1], specifically the list of common elements.
+@multi-bulk-reply, specifically the list of common elements.
 
 
 

@@ -8,7 +8,7 @@ is just syntax glue for `SINTER`.
 
 @return
 
-[Multi bulk reply][1]
+@multi-bulk-reply
 
 
 

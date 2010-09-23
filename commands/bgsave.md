@@ -7,7 +7,7 @@ operation succeeded using the `LASTSAVE` command.
 
 @return
 
-[Status code reply][2]
+@status-reply
 
 
 

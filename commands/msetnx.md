@@ -17,7 +17,7 @@ see the changes to both A and B at once, or no modification at all.
 
 ## `MSET` Return value
 
-[Status code reply][1] Basically +OK as `MSET` can't fail
+@status-reply Basically +OK as `MSET` can't fail
 
 ## `MSETNX` Return value
 

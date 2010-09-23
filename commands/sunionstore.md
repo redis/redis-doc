@@ -7,7 +7,7 @@ This command works exactly like `SUNION` but instead of being returned the resul
 
 @return
 
-[Status code reply][1]
+@status-reply
 
 
 

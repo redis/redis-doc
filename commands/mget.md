@@ -9,7 +9,7 @@ of the specified key, but the operation never fails.
 
 @return
 
-[Multi bulk reply][1]
+@multi-bulk-reply
 
 ## Example
 

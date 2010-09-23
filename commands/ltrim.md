@@ -31,7 +31,7 @@ just one element is removed from the tail of the list.
 
 @return
 
-[Status code reply][1]
+@status-reply
 
 
 

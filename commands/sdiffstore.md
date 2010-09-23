@@ -7,7 +7,7 @@ This command works exactly like `SDIFF` but instead of being returned the result
 
 @return
 
-[Status code reply][1]
+@status-reply
 
 
 

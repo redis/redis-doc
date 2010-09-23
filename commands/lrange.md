@@ -32,7 +32,7 @@ the list Redis will threat it just like the last element of the list.
 
 @return
 
-[Multi bulk reply][1], specifically a list of elements in the specified range.
+@multi-bulk-reply, specifically a list of elements in the specified range.
 
 
 

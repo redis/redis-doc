@@ -4,7 +4,7 @@ Delete all the keys of all the existing databases, not just the currently select
 
 @return
 
-[Status code reply][1]
+@status-reply
 
 
 

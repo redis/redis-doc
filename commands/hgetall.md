@@ -7,7 +7,7 @@ O(N), where N is the total number of entries
 
 @return
 
-[Multi Bulk Reply][1]
+@multi-bulk-reply
 
 
 

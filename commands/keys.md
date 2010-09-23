@@ -29,7 +29,7 @@ Use \ to escape special chars if you want to match them verbatim.
 
 @return
 
-[Multi bulk reply][2]
+@multi-bulk-reply
 
 
 

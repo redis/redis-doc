@@ -89,7 +89,7 @@ It's possible to use BY and `GET` options against Hash fields using the followin
 
 @return
 
-[Multi bulk reply][6], specifically a list of sorted elements.
+@multi-bulk-reply, specifically a list of sorted elements.
 
 
 

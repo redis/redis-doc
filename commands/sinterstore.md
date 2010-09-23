@@ -7,7 +7,7 @@ This commnad works exactly like `SINTER` but instead of being returned the resul
 
 @return
 
-[Status code reply][1]
+@status-reply
 
 
 

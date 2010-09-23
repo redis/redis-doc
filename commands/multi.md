@@ -182,7 +182,7 @@ If `EXEC` fails (returns a nil value) we just re-iterate the operation.
 
 @return
 
-[Multi bulk reply][2], specifically:
+@multi-bulk-reply, specifically:
 
     The result of a MULTI/EXEC command is a multi bulk reply where every elemen
     is the return value of every command in the atomic transaction.

@@ -9,7 +9,7 @@ If _key_ does not exist, a new key holding a hash is created.
 
 @return
 
-[Status code reply][1] Always +OK because `HMSET` can't fail
+@status-reply Always +OK because `HMSET` can't fail
 
 
 

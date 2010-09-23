@@ -18,7 +18,7 @@ fixed it can be configured in order to work as slave.
 
 @return
 
-[Status code reply][1]
+@status-reply
 
 
 

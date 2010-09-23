@@ -10,7 +10,7 @@ Non existing keys are considered like empty hashes.
 
 @return
 
-[Multi Bulk Reply][1] specifically a list of all the values associated with
+@multi-bulk-reply specifically a list of all the values associated with
 the specified fields, in the same order of the request.
 
 

@@ -12,7 +12,7 @@ Similarly to other list commands accepting indexes, the index can be negative to
 
 @return
 
-[Status code reply][1]
+@status-reply
 
 
 

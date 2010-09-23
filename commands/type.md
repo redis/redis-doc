@@ -9,7 +9,7 @@ none is returned if the key does not exist.
 
 @return
 
-[Status code reply][1], specifically:
+@status-reply, specifically:
 
     none if the key does not exis
     string if the key contains a String value

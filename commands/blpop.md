@@ -60,7 +60,7 @@ When a non-zero timeout is specified, and the `BLPOP` operation timed out,
 the return value is a nil multi bulk reply. Most client values will return
 false or nil accordingly to the programming language used.
 
-[Multi bulk reply][3]
+@multi-bulk-reply
 
 
 
