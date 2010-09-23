@@ -10,7 +10,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "1.3.3",
     "group": "string"
   },
   "AUTH": {
@@ -20,15 +20,15 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.08",
     "group": "connection"
   },
   "BGREWRITEAOF": {
-    "since": null,
+    "since": "1.07",
     "group": "server"
   },
   "BGSAVE": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "BLPOP": {
@@ -86,7 +86,7 @@
     "group": "server"
   },
   "DBSIZE": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "DEBUG OBJECT": {
@@ -96,11 +96,11 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.101",
     "group": "server"
   },
   "DEBUG SEGFAULT": {
-    "since": null,
+    "since": "0.101",
     "group": "server"
   },
   "DECR": {
@@ -114,7 +114,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "DECRBY": {
@@ -128,7 +128,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "DEL": {
@@ -139,11 +139,11 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "DISCARD": {
-    "since": null,
+    "since": "1.3.3",
     "group": "transactions"
   },
   "ECHO": {
@@ -153,11 +153,11 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "connection"
   },
   "EXEC": {
-    "since": null,
+    "since": "1.1.95",
     "group": "transactions"
   },
   "EXISTS": {
@@ -167,7 +167,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "EXPIRE": {
@@ -181,7 +181,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.09",
     "group": "generic"
   },
   "EXPIREAT": {
@@ -199,11 +199,11 @@
     "group": "generic"
   },
   "FLUSHALL": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "FLUSHDB": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "GET": {
@@ -213,7 +213,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "GETSET": {
@@ -227,7 +227,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.091",
     "group": "string"
   },
   "HDEL": {
@@ -347,7 +347,7 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "1.3.8",
     "group": "hash"
   },
   "HSET": {
@@ -383,7 +383,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "1.3.8",
     "group": "hash"
   },
   "HVALS": {
@@ -403,7 +403,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "INCRBY": {
@@ -417,11 +417,11 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "INFO": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "KEYS": {
@@ -431,11 +431,11 @@
         "type": "pattern"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "LASTSAVE": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "LINDEX": {
@@ -449,7 +449,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "LINSERT": {
@@ -472,7 +472,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "2.1.1",
     "group": "list"
   },
   "LLEN": {
@@ -482,7 +482,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "LPOP": {
@@ -492,7 +492,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "LPUSH": {
@@ -506,7 +506,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "LPUSHX": {
@@ -520,7 +520,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "2.1.1",
     "group": "list"
   },
   "LRANGE": {
@@ -538,7 +538,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "LREM": {
@@ -556,7 +556,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "LSET": {
@@ -574,7 +574,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "LTRIM": {
@@ -592,7 +592,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "MGET": {
@@ -603,11 +603,11 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "MONITOR": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "MOVE": {
@@ -621,7 +621,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "MSET": {
@@ -631,7 +631,7 @@
         "type": ["key", "string"]
       }
     ],
-    "since": null,
+    "since": "1.001",
     "group": "string"
   },
   "MSETNX": {
@@ -642,11 +642,11 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "1.001",
     "group": "string"
   },
   "MULTI": {
-    "since": null,
+    "since": "1.1.95",
     "group": "transactions"
   },
   "PERSIST": {
@@ -656,11 +656,11 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "2.1.2",
     "group": "generic"
   },
   "PING": {
-    "since": null,
+    "since": "0.07",
     "group": "connection"
   },
   "PSUBSCRIBE": {
@@ -670,7 +670,7 @@
         "type": ["pattern"]
       }
     ],
-    "since": null,
+    "since": "1.3.8",
     "group": "pubsub"
   },
   "PUBLISH": {
@@ -684,7 +684,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "1.3.8",
     "group": "pubsub"
   },
   "PUNSUBSCRIBE": {
@@ -695,15 +695,15 @@
         "optional": true
       }
     ],
-    "since": null,
+    "since": "1.3.8",
     "group": "pubsub"
   },
   "QUIT": {
-    "since": null,
+    "since": "",
     "group": "connection"
   },
   "RANDOMKEY": {
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "RENAME": {
@@ -717,7 +717,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "RENAMENX": {
@@ -731,7 +731,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "RPOP": {
@@ -741,7 +741,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "RPOPLPUSH": {
@@ -769,7 +769,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "list"
   },
   "RPUSHX": {
@@ -783,7 +783,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "2.1.1",
     "group": "list"
   },
   "SADD": {
@@ -797,11 +797,11 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "set"
   },
   "SAVE": {
-    "since": null,
+    "since": "0.07",
     "group": "control"
   },
   "SCARD": {
@@ -811,7 +811,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "set"
   },
   "SDIFF": {
@@ -822,7 +822,7 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.100",
     "group": "set"
   },
   "SDIFFSTORE": {
@@ -837,7 +837,7 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.100",
     "group": "set"
   },
   "SELECT": {
@@ -847,7 +847,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "connection"
   },
   "SET": {
@@ -861,7 +861,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "SETEX": {
@@ -879,7 +879,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "1.3.10",
     "group": "string"
   },
   "SETNX": {
@@ -893,11 +893,11 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "string"
   },
   "SHUTDOWN": {
-    "since": null,
+    "since": "0.07",
     "group": "server"
   },
   "SINTER": {
@@ -908,7 +908,7 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "set"
   },
   "SINTERSTORE": {
@@ -923,7 +923,7 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "set"
   },
   "SISMEMBER": {
@@ -937,7 +937,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "set"
   },
   "SLAVEOF": {
@@ -951,7 +951,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.100",
     "group": "server"
   },
   "SMEMBERS": {
@@ -961,7 +961,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "set"
   },
   "SMOVE": {
@@ -979,7 +979,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.091",
     "group": "set"
   },
   "SORT": {
@@ -1026,7 +1026,7 @@
         "optional": true
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "SPOP": {
@@ -1036,7 +1036,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.101",
     "group": "set"
   },
   "SRANDMEMBER": {
@@ -1046,7 +1046,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "1.001",
     "group": "set"
   },
   "SREM": {
@@ -1060,7 +1060,7 @@
         "type": "string"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "set"
   },
   "STRLEN": {
@@ -1070,7 +1070,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "2.1.2",
     "group": "string"
   },
   "SUBSCRIBE": {
@@ -1080,7 +1080,7 @@
         "type": ["string"]
       }
     ],
-    "since": null,
+    "since": "1.3.8",
     "group": "pubsub"
   },
   "SUBSTR": {
@@ -1098,7 +1098,7 @@
         "type": "integer"
       }
     ],
-    "since": null,
+    "since": "1.3.4",
     "group": "string"
   },
   "SUNION": {
@@ -1109,7 +1109,7 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.091",
     "group": "set"
   },
   "SUNIONSTORE": {
@@ -1124,11 +1124,11 @@
         "multiple": true
       }
     ],
-    "since": null,
+    "since": "0.091",
     "group": "set"
   },
   "SYNC": {
-    "since": null,
+    "since": "0.07",
     "group": "control"
   },
   "TTL": {
@@ -1138,7 +1138,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.100",
     "group": "generic"
   },
   "TYPE": {
@@ -1148,7 +1148,7 @@
         "type": "key"
       }
     ],
-    "since": null,
+    "since": "0.07",
     "group": "generic"
   },
   "UNSUBSCRIBE": {
@@ -1159,11 +1159,11 @@
         "optional": true
       }
     ],
-    "since": null,
+    "since": "1.3.8",
     "group": "pubsub"
   },
   "UNWATCH": {
-    "since": null,
+    "since": "2.1.0",
     "group": "transactions"
   },
   "WATCH": {
@@ -1220,7 +1220,7 @@
         "type": "double"
       }
     ],
-    "since": null,
+    "since": "1.3.3",
     "group": "sorted_set"
   },
   "ZINCRBY": {
@@ -1267,7 +1267,7 @@
         "optional": true
       }
     ],
-    "since": null,
+    "since": "1.3.10",
     "group": "sorted_set"
   },
   "ZRANGE": {
@@ -1303,7 +1303,7 @@
         "type": "double"
       }
     ],
-    "since": null,
+    "since": "1.050",
     "group": "sorted_set"
   },
   "ZRANK": {
@@ -1442,7 +1442,7 @@
         "optional": true
       }
     ],
-    "since": null,
+    "since": "1.3.10",
     "group": "sorted_set"
   }
 }
