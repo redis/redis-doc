@@ -629,6 +629,7 @@
       {
         "name": ["key", "value"],
         "type": ["key", "string"]
+        "multiple": true
       }
     ],
     "since": "1.001",
