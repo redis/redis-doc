@@ -16,7 +16,7 @@ the first or the last element of the list is O(1).
 
 @return
 
-@bulk-reply, specifically the requested element.
+@bulk-reply: the requested element.
 
 
 

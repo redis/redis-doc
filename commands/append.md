@@ -12,7 +12,7 @@ If the _key_ does not exist it is created and set as an empty string, so
 
 @return
 
-@integer-reply, specifically the total length of the string after the append
+@integer-reply: the total length of the string after the append
 operation.
 
 @examples

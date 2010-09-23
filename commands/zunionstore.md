@@ -14,7 +14,7 @@ With the AGGREGATE option, it's possible to specify how the results of the union
 
 @return
 
-@integer-reply, specifically the number of elements in the sorted set a
+@integer-reply: the number of elements in the sorted set a
 _dstkey_.
 
 

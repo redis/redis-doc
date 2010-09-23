@@ -4,7 +4,7 @@ The info command returns different information and statistics about the server i
 
 @return
 
-@bulk-reply, specifically in the following format:
+@bulk-reply: in the following format:
 
     edis_version:0.07
     connected_clients:1

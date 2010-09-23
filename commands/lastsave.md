@@ -7,7 +7,7 @@ every N seconds if `LASTSAVE` changed.
 
 @return
 
-@integer-reply, specifically an UNIX time stamp.
+@integer-reply: an UNIX time stamp.
 
 
 

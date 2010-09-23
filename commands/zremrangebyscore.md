@@ -8,7 +8,7 @@ _min_ and _max_ (including elements with score equal to min or max).
 
 @return
 
-@integer-reply, specifically the number of elements removed.
+@integer-reply: the number of elements removed.
 
 
 
