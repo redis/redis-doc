@@ -5,9 +5,9 @@ sorted set and M the number of elements requested)_
 
 Return the specified elements of the sorted set at the specified
 key. The elements are considered sorted from the lowerest to the highes
-score when using ZRANGE, and in the reverse order when using ZREVRANGE.
+score when using `ZRANGE`, and in the reverse order when using `ZREVRANGE`.
 Start and end are zero-based indexes. 0 is the first elemen
-of the sorted set (the one with the lowerest score when using ZRANGE), 1
+of the sorted set (the one with the lowerest score when using `ZRANGE`), 1
 the next element by score and so on.
 
 _start_ and _end_ can also be negative numbers indicating offsets

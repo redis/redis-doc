@@ -3,12 +3,12 @@
 Sort the elements contained in the [List][1], [Set][2], or
 [Sorted Set][3] value at _key_. By defaul
 sorting is numeric with elements being compared as double precision
-floating point numbers. This is the simplest form of SORT:
-`SORT mylist`
+floating point numbers. This is the simplest form of `SORT`:
+``SORT` mylist`
 Assuming mylist contains a list of numbers, the return value will be
 the list of numbers ordered from the smallest to the biggest number.
 In order to get the sorting in reverse order use **DESC**:
-`SORT mylist DESC`
+``SORT` mylist DESC`
 The **ASC** option is also supported but it's the default so you don'
 really need it.
 If you want to sort lexicographically use **ALPHA**. Note that Redis is
@@ -17,11 +17,11 @@ environment variable.
 
 Sort is able to limit the number of returned elements using the **LIMIT**
 option:
-`SORT mylist LIMIT 0 10`
-In the above example SORT will return only 10 elements, starting from
+``SORT` mylist LIMIT 0 10`
+In the above example `SORT` will return only 10 elements, starting from
 the first one (start is zero-based). Almost all the sort options can
 be mixed together. For example the command:
-`SORT mylist LIMIT 0 10 ALPHA DESC`
+``SORT` mylist LIMIT 0 10 ALPHA DESC`
 Will sort _mylist_ lexicographically, in descending order, returning only
 the first 10 elements.
 
@@ -35,7 +35,7 @@ identifiers. We can use the following command:
 
 ## Sorting by external keys
 
-`SORT mylist BY weight_*`
+``SORT` mylist BY weight_*`
 the **BY** option takes a pattern (weight_* in our example) that is used
 in order to generate the key names of the weights used for sorting.
 Weight key names are obtained substituting the first occurrence of *
@@ -47,45 +47,45 @@ example). We can do it with the following command:
 
 ## Not Sorting at all
 
-`SORT mylist BY nosort`
+``SORT` mylist BY nosort`
 also the **BY** option can take a nosort specifier. This is useful if you
-want to retrieve a external key (using GET, read below) but you don'
+want to retrieve a external key (using `GET`, read below) but you don'
 want the sorting overhead.
 
 ## Retrieving external keys
 
-`SORT mylist BY weight_* GET object_*`
-Note that **GET** can be used multiple times in order to get more keys for
+``SORT` mylist BY weight_* `GET` object_*`
+Note that **`GET`** can be used multiple times in order to get more keys for
 every element of the original List, Set or Sorted Set sorted.
 
-Since Redis = 1.1 it's possible to also GET the list elements itself
+Since Redis = 1.1 it's possible to also `GET` the list elements itself
 using the special # pattern:
-`SORT mylist BY weight_* GET object_* GET #`
+``SORT` mylist BY weight_* `GET` object_* `GET` #`
 
-## Storing the result of a SORT operation
+## Storing the result of a `SORT` operation
 
-By default SORT returns the sorted elements as its return value.
-Using the **STORE** option instead to return the elements SORT will
+By default `SORT` returns the sorted elements as its return value.
+Using the **STORE** option instead to return the elements `SORT` will
 store this elements as a [Redis List][1] in the specified key.
 An example:
-`SORT mylist BY weight_* STORE resultkey`
-An interesting pattern using SORT ... STORE consists in associating
-an [EXPIRE][4] timeout to the resulting key so that in
+``SORT` mylist BY weight_* STORE resultkey`
+An interesting pattern using `SORT` ... STORE consists in associating
+an `EXPIRE` timeout to the resulting key so that in
 applications where the result of a sort operation can be cached for
-some time other clients will use the cached list instead to call SORT
+some time other clients will use the cached list instead to call `SORT`
 for every request. When the key will timeout an updated version of
-the cache can be created using SORT ... STORE again.
+the cache can be created using `SORT` ... STORE again.
 
 Note that implementing this pattern it is important to avoid that multiple
 clients will try to rebuild the cached version of the cache
 at the same time, so some form of locking should be implemented
-(for instance using [SETNX][5]).
+(for instance using `SETNX`).
 
-## SORT and Hashes: BY and GET by hash field
+## `SORT` and Hashes: BY and `GET` by hash field
 
-It's possible to use BY and GET options against Hash fields using the following syntax:
-	SORT mylist BY weight_*-fieldname
-	SORT mylist GET object_*-fieldnameThe two chars string - is used in order to signal the name of the Hash field. The key is substituted as documented above with sort BY and GET against normal keys, and the Hash stored at the resulting key is accessed in order to retrieve the specified field.
+It's possible to use BY and `GET` options against Hash fields using the following syntax:
+    SORT mylist BY weight_*-fieldname
+    SORT mylist GET object_*-fieldnameThe two chars string - is used in order to signal the name of the Hash field. The key is substituted as documented above with sort BY and GET against normal keys, and the Hash stored at the resulting key is accessed in order to retrieve the specified field.
 
 @return
 

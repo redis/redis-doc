@@ -17,7 +17,7 @@ elements in an SQL-alike way. Note that if _offset_ is large the commands
 needs to traverse the list for _offset_ elements and this adds up to the
 O(M) figure.
 
-The **ZCOUNT** command is similar to **ZRANGEBYSCORE** but instead of returning
+The **`ZCOUNT`** command is similar to **`ZRANGEBYSCORE`** but instead of returning
 the actual elements in the specified interval, it just returns the number
 of matching elements.
 
@@ -31,47 +31,47 @@ Also while the interval is for default closed (inclusive) it's possible to
 specify open intervals prefixing the score with a ( character, so for instance:
 
 
-`ZRANGEBYSCORE zset (1.3 5`
+``ZRANGEBYSCORE` zset (1.3 5`
 
 Will return all the values with score ** 1.3 and = 5**, while for instance:
 
 
-`ZRANGEBYSCORE zset (5 (10`
+``ZRANGEBYSCORE` zset (5 (10`
 
 Will return all the values with score ** 5 and 10** (5 and 10 excluded).
 
 @return
 
-ZRANGEBYSCORE returns a [Multi bulk reply][1] specifically a list of elements
+`ZRANGEBYSCORE` returns a [Multi bulk reply][1] specifically a list of elements
 in the specified score range.
 
-ZCOUNT returns a @integer-reply specifically the number of elements matching
+`ZCOUNT` returns a @integer-reply specifically the number of elements matching
 the specified score range.
 
 @examples
 
-	redis zadd zset 1 foo
-	(integer) 1
-	redis zadd zset 2 bar
-	(integer) 1
-	redis zadd zset 3 biz
-	(integer) 1
-	redis zadd zset 4 foz
-	(integer) 1
-	redis zrangebyscore zset -inf +inf
-	1. foo
-	2. bar
-	3. biz
-	4. foz
-	redis zcount zset 1 2
-	(integer) 2
-	redis zrangebyscore zset 1 2
-	1. foo
-	2. bar
-	redis zrangebyscore zset (1 2
-	1. bar
-	redis zrangebyscore zset (1 (2
-	(empty list or set)
+    redis zadd zset 1 foo
+    (integer) 1
+    redis zadd zset 2 bar
+    (integer) 1
+    redis zadd zset 3 biz
+    (integer) 1
+    redis zadd zset 4 foz
+    (integer) 1
+    redis zrangebyscore zset -inf +inf
+    1. foo
+    2. bar
+    3. biz
+    4. foz
+    redis zcount zset 1 2
+    (integer) 2
+    redis zrangebyscore zset 1 2
+    1. foo
+    2. bar
+    redis zrangebyscore zset (1 2
+    1. bar
+    redis zrangebyscore zset (1 (2
+    (empty list or set)
 
 
 

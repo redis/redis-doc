@@ -13,25 +13,25 @@ expires and stopping the server does not stop the flow of time as Redis
 stores on disk the time when the key will no longer be available as Unix
 time, and not the remaining seconds.
 
-EXPIREAT works exctly like EXPIRE but instead to get the number of seconds
+`EXPIREAT` works exctly like `EXPIRE` but instead to get the number of seconds
 representing the Time To Live of the key as a second argument (that is a
-relative way of specifing the TTL), it takes an absolute one in the form of
+relative way of specifing the `TTL`), it takes an absolute one in the form of
 a UNIX timestamp (Number of seconds elapsed since 1 Gen 1970).
 
-EXPIREAT was introduced in order to implement [the Append Only File persistence mode][1]
-so that EXPIRE commands are automatically translated into
-EXPIREAT commands for the append only file. Of course EXPIREAT can also
+`EXPIREAT` was introduced in order to implement [the Append Only File persistence mode][1]
+so that `EXPIRE` commands are automatically translated into
+`EXPIREAT` commands for the append only file. Of course `EXPIREAT` can also
 used by programmers that need a way to simply specify that a given key
 should expire at a given time in the future.
 
 Since Redis 2.1.3 you can update the value of the timeout of a key already
 having an expire set. It is also possible to undo the expire at all
-turning the key into a normal key using the PERSIST command.
+turning the key into a normal key using the `PERSIST` command.
 
 ## How the expire is removed from a key
 
-When the key is set to a new value using the SET command, or when a key
-is destroied via DEL, the timeout is removed from the key.
+When the key is set to a new value using the `SET` command, or when a key
+is destroied via `DEL`, the timeout is removed from the key.
 
 ## Restrictions with write operations against volatile keys
 
@@ -40,21 +40,21 @@ the operations you can perform against volatile keys, however older versions
 of Redis, including the current stable version 2.0.0, has the following
 limitations:
 
-Write operations like LPUSH, LSET and every other command that has the
+Write operations like `LPUSH`, `LSET` and every other command that has the
 effect of modifying the value stored at a volatile key have a special semantic:
 basically a volatile key is destroyed when it is target of a write operation.
 See for example the following usage pattern:
-	% ./redis-cli lpush mylist foobar /Users/antirez/hack/redis
-	OK
-	% ./redis-cli lpush mylist hello  /Users/antirez/hack/redis
-	OK
-	% ./redis-cli expire mylist 10000 /Users/antirez/hack/redis
-	1
-	% ./redis-cli lpush mylist newelemen
-	OK
-	% ./redis-cli lrange mylist 0 -1  /Users/antirez/hack/redis
-	1. newelemen
-What happened here is that LPUSH against the key with a timeout set deleted
+    % ./redis-cli lpush mylist foobar /Users/antirez/hack/redis
+    OK
+    % ./redis-cli lpush mylist hello  /Users/antirez/hack/redis
+    OK
+    % ./redis-cli expire mylist 10000 /Users/antirez/hack/redis
+    1
+    % ./redis-cli lpush mylist newelemen
+    OK
+    % ./redis-cli lrange mylist 0 -1  /Users/antirez/hack/redis
+    1. newelemen
+What happened here is that `LPUSH` against the key with a timeout set deleted
 the key before to perform the operation. There is so a simple rule, write
 operations against volatile keys will destroy the key before to perform the
 operation. Why Redis uses this behavior? In order to retain an importan
@@ -67,7 +67,7 @@ that supports replication.
 ## Restrictions for write operations with volatile keys as sources
 
 Even when the volatile key is not modified as part of a write operation, if
-it is read in a composite write operation (such as SINTERSTORE) it will be
+it is read in a composite write operation (such as `SINTERSTORE`) it will be
 cleared at the start of the operation. This is done to avoid concurrency issues
 in replication. Imagine a key that is about to expire and the composite operation
 is run against it. On a slave node, this key might already be expired, which
@@ -75,9 +75,9 @@ leaves you with a desync in your dataset.
 
 ## Setting the timeout again on already volatile keys
 
-Trying to call EXPIRE against a key that already has an associated timeou
+Trying to call `EXPIRE` against a key that already has an associated timeou
 will not change the timeout of the key, but will just return 0. If instead
-the key does not have a timeout associated the timeout will be set and EXPIRE
+the key does not have a timeout associated the timeout will be set and `EXPIRE`
 will return 1.
 
 ## Enhanced Lazy Expiration algorithm
@@ -121,21 +121,21 @@ per second divided by 4.
 
 @integer-reply, specifically:
 
-	1: the timeout was set.
-	0: the timeout was not set since the key already has an associated timeou
-	   (this may happen only in Redis versions  2.1.3, Redis = 2.1.3 will
-	   happily update the timeout), or the key does not exist.
+    1: the timeout was set.
+    0: the timeout was not set since the key already has an associated timeou
+       (this may happen only in Redis versions  2.1.3, Redis = 2.1.3 will
+       happily update the timeout), or the key does not exist.
 
 ##
 
 Ok let's start with the problem:
 
-	redis set a 100
-	OK
-	redis expire a 360
-	(integer) 1
-	redis incr a
-	(integer) 1
+    redis set a 100
+    OK
+    redis expire a 360
+    (integer) 1
+    redis incr a
+    (integer) 1
 
 I set a key to the value of 100, then set an expire of 360 seconds, and then
 incremented the key (before the 360 timeout expired of course). The obvious
@@ -143,21 +143,21 @@ result would be: 101, instead the key is set to the value of 1. Why? There
 is a very important reason involving the Append Only File and Replication.
 Let's rework a bit hour example adding the notion of time to the mix:
 
-	SET a 100
-	EXPIRE a 5
-	... wait 10 seconds ...
-	INCR a
+    SET a 100
+    EXPIRE a 5
+    ... wait 10 seconds ...
+    INCR a
 
 Imagine a Redis version that does not implement the Delete keys with an expire
 set on write operation semantic. Running the above example with the 10 seconds
 pause will lead to 'a' being set to the value of 1, as it no longer exists
-when INCR is called 10 seconds later.
+when `INCR` is called 10 seconds later.
 
 Instead if we drop the 10 seconds pause, the result is that 'a' is set to 101.
 
 
 And in the practice timing changes! For instance the client may wait 10 seconds
-before INCR, but the sequence written in the Append Only File (and later replayed-back
+before `INCR`, but the sequence written in the Append Only File (and later replayed-back
 as fast as possible when Redis is restarted) will not have the pause. Even
 if we add a timestamp in the AOF, when the time difference is smaller than
 our timer resolution, we have a race condition.
@@ -173,7 +173,7 @@ timeouts on keys is to destroy volatile keys when a write operation is attempted
 against it.
 
 After all Redis is one of the rare fully persistent databases that will give
-you EXPIRE. This comes to a cost :)
+you `EXPIRE`. This comes to a cost :)
 
 ## FAQ: How this limitations were solved in Redis versions > 2.1
 
@@ -182,7 +182,7 @@ write commands against volatile keys, still the replication and AOF file are
 guaranteed to be fully consistent.
 
 In order to obtain a correct behavior without sacrificing consistency now when
-a key expires, a DEL operation is synthesized in both the AOF file and agains
+a key expires, a `DEL` operation is synthesized in both the AOF file and agains
 all the attached slaves. This way the expiration process is centralized in
 the master instance, and there is no longer a chance of consistency errors.
 

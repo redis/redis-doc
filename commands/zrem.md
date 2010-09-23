@@ -11,8 +11,8 @@ does not not hold a set value an error is returned.
 
 @integer-reply, specifically:
 
-	1 if the new element was removed
-	0 if the new element was not a member of the se
+    1 if the new element was removed
+    0 if the new element was not a member of the se
 
 
 

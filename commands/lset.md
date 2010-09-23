@@ -3,7 +3,7 @@
 O(N) (with N being the length of the list)
 
 
-Set the list element at _index_ (see LINDEX for information about the
+Set the list element at _index_ (see `LINDEX` for information about the
 _index_ argument) with the new _value_. Out of range indexes will
 generate an error. Note that setting the first or last elements of
 the list is O(1).

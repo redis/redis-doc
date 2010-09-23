@@ -7,7 +7,7 @@ Return the specified elements of the list stored at the specified key. Star
 and end are zero-based indexes. 0 is the first element of the list (the lis
 head), 1 the next element and so on.
 
-For example LRANGE foobar 0 2 will return the first three elements of the list.
+For example `LRANGE` foobar 0 2 will return the first three elements of the list.
 
 
 _start_ and _end_ can also be negative numbers indicating offsets from the
@@ -16,13 +16,13 @@ element and so on.
 
 ## Consistency with range functions in various programming language
 
-Note that if you have a list of numbers from 0 to 100, LRANGE 0 10 will return
+Note that if you have a list of numbers from 0 to 100, `LRANGE` 0 10 will return
 11 elements, that is, rightmost item is included. This **may or may not** be
 consistent with behavior of range-related functions in your programming language
 of choice (think Ruby's Range.new, Array#slice or Python's range() function).
 
 
-LRANGE behavior is consistent with one of Tcl.
+`LRANGE` behavior is consistent with one of Tcl.
 
 ## Out-of-range indexes
 

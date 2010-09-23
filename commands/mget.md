@@ -13,18 +13,18 @@ of the specified key, but the operation never fails.
 
 ## Example
 
-	$ ./redis-cli set foo 1000
-	+OK
-	$ ./redis-cli set bar 2000
-	+OK
-	$ ./redis-cli mget foo bar
-	1. 1000
-	2. 2000
-	$ ./redis-cli mget foo bar nokey
-	1. 1000
-	2. 2000
-	3. (nil)
-	$
+    $ ./redis-cli set foo 1000
+    +OK
+    $ ./redis-cli set bar 2000
+    +OK
+    $ ./redis-cli mget foo bar
+    1. 1000
+    2. 2000
+    $ ./redis-cli mget foo bar nokey
+    1. 1000
+    2. 2000
+    3. (nil)
+    $
 
 
 

@@ -19,16 +19,16 @@ just limiting the resulting range to the actual length of the string.
 
 @examples
 
-	redis set s This is a string
-	OK
-	redis substr s 0 3
-	This
-	redis substr s -3 -1
-	ing
-	redis substr s 0 -1
-	This is a string
-	redis substr s 9 100000
-	 string
+    redis set s This is a string
+    OK
+    redis substr s 0 3
+    This
+    redis substr s -3 -1
+    ing
+    redis substr s 0 -1
+    This is a string
+    redis substr s 9 100000
+     string
 
 
 

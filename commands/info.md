@@ -6,16 +6,16 @@ The info command returns different information and statistics about the server i
 
 @bulk-reply, specifically in the following format:
 
-	edis_version:0.07
-	connected_clients:1
-	connected_slaves:0
-	used_memory:3187
-	changes_since_last_save:0
-	last_save_time:1237655729
-	total_connections_received:1
-	total_commands_processed:1
-	uptime_in_seconds:25
-	uptime_in_days:0
+    edis_version:0.07
+    connected_clients:1
+    connected_slaves:0
+    used_memory:3187
+    changes_since_last_save:0
+    last_save_time:1237655729
+    total_connections_received:1
+    total_commands_processed:1
+    uptime_in_seconds:25
+    uptime_in_days:0
 
 All the fields are in the form field:value
 

@@ -13,8 +13,8 @@ returned.
 
 @integer-reply, specifically:
 
-	1 if the new element was added
-	0 if the element was already a member of the se
+    1 if the new element was added
+    0 if the element was already a member of the se
 
 
 

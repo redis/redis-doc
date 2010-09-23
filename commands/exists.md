@@ -12,8 +12,8 @@ return 1.
 
 @integer-reply, specifically:
 
-	1 if the key exists.
-	0 if the key does not exist.
+    1 if the key exists.
+    0 if the key does not exist.
 
 
 

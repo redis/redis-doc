@@ -5,7 +5,7 @@ keys and pattern of limited length)_
 
 Returns all the keys matching the glob-style _pattern_ as
 space separated strings. For example if you have in the
-database the keys foo and foobar the command KEYS foo*
+database the keys foo and foobar the command `KEYS` foo*
 will return foo foobar.
 
 Note that while the time complexity for this operation is O(n)

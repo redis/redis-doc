@@ -11,8 +11,8 @@ keys removed.
 
 @integer-reply, specifically:
 
-	an integer greater than 0 if one or more keys were removed
-	0 if none of the specified key existed
+    an integer greater than 0 if one or more keys were removed
+    0 if none of the specified key existed
 
 
 
