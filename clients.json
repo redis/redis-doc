@@ -1,0 +1,205 @@
+{
+  "redis-rb": {
+    "language": "Ruby",
+    "repository": "http://github.com/ezmobius/redis-rb",
+    "authors": ["ezmobius", "soveran", "djanowski"]
+  },
+
+  "as3redis": {
+    "language": "ActionScript",
+    "repository": "http://github.com/claus/as3redis",
+    "authors": ["cwahlers"]
+  },
+
+  "redis-clojure": {
+    "language": "Clojure",
+    "repository": "http://github.com/ragnard/redis-clojure",
+    "authors": ["ragge"]
+  },
+
+  "CL-Redis": {
+    "language": "Common Lisp",
+    "url": "http://www.cliki.net/cl-redis",
+    "repository": "http://github.com/vseloved/cl-redis",
+    "authors": ["BigThingist"]
+  },
+
+  "erldis": {
+    "language": "Erlang",
+    "repository": "http://bitbucket.org/adroll/erldis",
+    "authors": ["dialtone_"]
+  },
+
+  "Go-Redis": {
+    "language": "Go",
+    "repository": "http://github.com/alphazero/Go-Redis",
+    "authors": ["SunOf27"]
+  },
+
+  "haskell-redis": {
+    "language": "Haskell",
+    "url": "http://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
+    "repository": "http://bitbucket.org/videlalvaro/redis-haskell/src",
+    "authors": ["old_sound"]
+  },
+
+  "JDBC-Redis": {
+    "language": "Java",
+    "url": "http://code.google.com/p/jdbc-redis",
+    "repository": "http://code.google.com/p/jdbc-redis/source/browse",
+    "authors": ["mavcunha"]
+  },
+
+  "JRedis": {
+    "language": "Java",
+    "url": "http://code.google.com/p/jredis",
+    "repository": "http://github.com/alphazero/jredis",
+    "authors": ["SunOf27"]
+  },
+
+  "Jedis": {
+    "language": "Java",
+    "repository": "http://github.com/xetorthio/jedis",
+    "authors": ["xetorthio"]
+  },
+
+  "redis-lua": {
+    "language": "Lua",
+    "repository": "http://github.com/nrk/redis-lua",
+    "authors": ["JoL1hAHN"]
+  },
+
+  "Perl Client": {
+    "language": "Perl",
+    "repository": "http://github.com/dpavlin/perl-Redis",
+    "authors": ["dpavlin"]
+  },
+
+  "AnyEvent::Redis": {
+    "language": "Perl",
+    "repository": "http://github.com/miyagawa/AnyEvent-Redis",
+    "authors": ["miyagawa"]
+  },
+
+  "Redis PHP bindings": {
+    "language": "PHP",
+    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
+    "authors": ["ludo"]
+  },
+
+  "phpredis": {
+    "language": "PHP",
+    "repository": "http://github.com/owlient/phpredis",
+    "authors": ["alfonsojimenez"]
+  },
+
+  "Predis": {
+    "language": "PHP",
+    "repository": "http://github.com/nrk/predis",
+    "authors": ["JoL1hAHN"]
+  },
+
+  "Redisent": {
+    "language": "PHP",
+    "repository": "http://github.com/jdp/redisent",
+    "authors": ["justinpoliey"]
+  },
+
+  "Python Client": {
+    "language": "Python",
+    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/python",
+    "authors": ["ludo"]
+  },
+
+  "redis-py": {
+    "language": "Python",
+    "repository": "http://github.com/andymccurdy/redis-py",
+    "authors": ["andymccurdy"]
+  },
+
+  "txredis": {
+    "language": "Python",
+    "url": "http://pypi.python.org/pypi/txredis/0.1.1",
+    "authors": ["dio_rian"]
+  },
+
+  "scala-redis": {
+    "language": "Scala",
+    "repository": "http://github.com/acrosa/scala-redis",
+    "authors": ["alejandrocrosa"]
+  },
+
+  "Tcl Client": {
+    "language": "Tcl",
+    "repository": "http://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
+    "authors": ["antirez"]
+  },
+
+  "Rediska": {
+    "language": "PHP",
+    "url": "http://rediska.geometria-lab.net",
+    "repository": "http://github.com/Shumkov/Rediska",
+    "authors": ["shumkov"]
+  },
+
+  "ServiceStack.Redis": {
+    "language": "C#",
+    "url": "http://code.google.com/p/servicestack/wiki/ServiceStackRedis",
+    "authors": ["demisbellot"]
+  },
+
+  "hxneko-redis": {
+    "language": "haXe",
+    "url": "http://code.google.com/p/hxneko-redis",
+    "repository": "http://code.google.com/p/hxneko-redis/source/browse",
+    "authors": []
+  },
+
+  "em-redis": {
+    "language": "Ruby",
+    "repository": "http://github.com/madsimian/em-redis",
+    "authors": ["madsimian"]
+  },
+
+  "hiredis": {
+    "language": "C",
+    "repository": "http://github.com/antirez/hiredis",
+    "authors": ["antirez"]
+  },
+
+  "credis": {
+    "language": "C",
+    "repository": "http://code.google.com/p/credis/source/browse",
+    "authors": [""]
+  },
+
+  "redis-node-client": {
+    "language": "Node.js",
+    "repository": "http://github.com/fictorial/redis-node-client",
+    "authors": ["fictorial"]
+  },
+
+  "iodis": {
+    "language": "Io",
+    "repository": "http://github.com/ichverstehe/iodis",
+    "authors": ["ichverstehe"]
+  },
+
+  "redis.go": {
+    "language": "Go",
+    "repository": "http://github.com/hoisie/redis.go",
+    "authors": ["hoisie"]
+  },
+
+  "SmallTalk Redis Client": {
+    "language": "SmallTalk",
+    "repository": "http://www.squeaksource.com/Redis.html",
+    "authors": []
+  },
+
+  "redis-sharp": {
+    "language": "C#",
+    "repository": "http://github.com/migueldeicaza/redis-sharp",
+    "authors": ["migueldeicaza"]
+  }
+}
