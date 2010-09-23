@@ -699,7 +699,7 @@
     "group": "pubsub"
   },
   "QUIT": {
-    "since": "",
+    "since": "0.07",
     "group": "connection"
   },
   "RANDOMKEY": {
