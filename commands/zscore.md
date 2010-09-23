@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity O(1)_
 
 Return the score of the specified element of the sorted set at key.
 If the specified element does not exist in the sorted set, or the key

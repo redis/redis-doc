@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity O(N) where N is the total number of elements in all the provided
+O(N) where N is the total number of elements in all the provided
 sets_
 
 Return the members of a set resulting from the union of all the

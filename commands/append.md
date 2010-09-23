@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity: O(1). The amortized time complexity is O(1) assuming the
+O(1). The amortized time complexity is O(1) assuming the
 appended value is small and the already present value is of any size, since
 the dynamic string library used by Redis will double the free space available
 on every reallocation._

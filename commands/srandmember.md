@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity O(1)_
 
 Return a random element from a Set, without removing the element.
 If the Set is empty or the key does not exist, a nil object is returned.

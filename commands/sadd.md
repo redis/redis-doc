@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity O(1)_
 
 Add the specified _member_ to the set value stored at _key_. If _member_
 is already a member of the set no operation is performed. If _key_

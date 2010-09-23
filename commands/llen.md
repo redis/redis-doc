@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Return the length of the list stored at the specified key. If the
 key does not exist zero is returned (the same behaviour as for

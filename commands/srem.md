@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity O(1)_
 
 Remove the specified _member_ from the set value stored at _key_. If
 _member_ was not a member of the set no operation is performed. If _key_

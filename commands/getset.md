@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 GETSET is an atomic _set this value and return the old value_ command.
 Set _key_ to the string _value_ and return the old value stored at _key_.

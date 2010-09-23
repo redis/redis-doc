@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 BLPOP (and BRPOP) is a blocking list pop primitive. You can see this commands
 as blocking versions of [LPOP][1] and [RPOP][1] able to

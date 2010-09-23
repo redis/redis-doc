@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity O(1)_
 
 Return 1 if _member_ is a member of the set stored at _key_, otherwise
 0 is returned.

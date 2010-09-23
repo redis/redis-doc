@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 If _key_ holds a hash, retrieve the value associated to the specified _field_.
 

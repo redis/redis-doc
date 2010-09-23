@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity: O(log(N))+O(M) with N being the number of elements in the
+O(log(N))+O(M) with N being the number of elements in the
 sorted set and M the number of elements returned by the command, so if M is
 constant (for instance you always ask for the first ten elements with LIMIT)
 you can consider it O(log(N))_

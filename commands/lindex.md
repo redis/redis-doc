@@ -1,6 +1,7 @@
+@complexity
 
+O(n) (with n being the length of the list)
 
-_Time complexity: O(n) (with n being the length of the list)_
 
 Return the specified element of the list stored at the specified
 key. 0 is the first element, 1 the second and so on. Negative indexes

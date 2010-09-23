@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Increment or decrement the number stored at _key_ by one. If the key does
 not exist or contains a value of a wrong type, set the key to the

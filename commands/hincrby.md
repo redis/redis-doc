@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Increment the number stored at _field_ in the hash at _key_ by _value_. If _key_ does not exist, a new key holding a hash is created. If _field_ does not exist or holds a string, the value is set to 0 before applying the operation.
 

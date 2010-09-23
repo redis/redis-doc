@@ -1,6 +1,7 @@
+@complexity
 
+O(n) (with n being len of list - len of range)
 
-_Time complexity: O(n) (with n being len of list - len of range)_
 
 Trim an existing list so that it will contain only the specified
 range of elements specified. Start and end are zero-based indexes.

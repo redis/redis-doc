@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity O(1)_
 
 Move the specifided _member_ from the set at _srckey_ to the set at _dstkey_.
 This operation is atomic, in every given moment the element will appear to

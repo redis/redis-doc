@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Get the value of the specified key. If the key
 does not exist the special value 'nil' is returned.

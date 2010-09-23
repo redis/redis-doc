@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Return the type of the value stored at _key_ in form of a
 string. The type can be one of none, string, list, set.

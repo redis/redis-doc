@@ -1,6 +1,7 @@
+@complexity
 
+O(1) to set every key
 
-_Time complexity: O(1) to set every key_
 
 Set the the respective keys to the respective values. MSET will replace old
 values with new values, while MSETNX will not perform any operation at all

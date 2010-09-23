@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity: O(N) + O(M log(M)) with N being the sum of the sizes of the
+O(N) + O(M log(M)) with N being the sum of the sizes of the
 input sorted sets, and M being the number of elements in the resulting sorted
 set_
 

@@ -1,6 +1,7 @@
+@complexity
 
+O(N) (with N being the number of fields)
 
-_Time complexity: O(N) (with N being the number of fields)_
 
 Retrieve the values associated to the specified _fields_.
 

@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Rename _oldkey_ into _newkey_ but fails if the destination key _newkey_ already exists.
 

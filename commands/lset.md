@@ -1,6 +1,7 @@
+@complexity
 
+O(N) (with N being the length of the list)
 
-_Time complexity: O(N) (with N being the length of the list)_
 
 Set the list element at _index_ (see LINDEX for information about the
 _index_ argument) with the new _value_. Out of range indexes will

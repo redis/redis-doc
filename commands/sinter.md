@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity O(N*M) worst case where N is the cardinality of the smalles
+O(N*M) worst case where N is the cardinality of the smalles
 set and M the number of sets_
 
 Return the members of a set resulting from the intersection of all the

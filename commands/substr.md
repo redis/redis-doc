@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity: O(start+n) (with start being the start index and n the total
+O(start+n) (with start being the start index and n the total
 length of the requested range). Note that the lookup part of this command is
 O(1) so for small strings this is actually an O(1) command._
 

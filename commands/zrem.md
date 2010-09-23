@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity O(log(N)) with N being the number of elements in the sorted
+O(log(N)) with N being the number of elements in the sorted
 set_
 
 Remove the specified _member_ from the sorted set value stored at _key_. If

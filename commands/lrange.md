@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity: O(start+n) (with n being the length of the range and star
+O(start+n) (with n being the length of the range and star
 being the start offset)_
 
 Return the specified elements of the list stored at the specified key. Star

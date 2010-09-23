@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Return 1 if the hash stored at _key_ contains the specified _field_.
 

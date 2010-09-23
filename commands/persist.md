@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Set a timeout on the specified key. After the timeout the key will be
 automatically deleted by the server. A key with an associated timeout is

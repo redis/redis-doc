@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Remove the specified _field_ from an hash stored at _key_.
 

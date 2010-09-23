@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 The command is exactly equivalent to the following group of commands:
 	SET _key_ _value_

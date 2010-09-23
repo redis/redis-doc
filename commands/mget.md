@@ -1,6 +1,7 @@
+@complexity
 
+O(1) for every key
 
-_Time complexity: O(1) for every key_
 
 Get the values of all the specified keys. If one or more keys dont exis
 or is not of type String, a 'nil' value is returned instead of the value

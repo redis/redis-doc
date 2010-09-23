@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity O(log(N)) with N being the number of elements in the sorted
+O(log(N)) with N being the number of elements in the sorted
 set_
 
 If _member_ already exists in the sorted set adds the _increment_ to its score

@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Atomically return and remove the last (tail) element of the _srckey_ list,
 and push the element as the first (head) element of the _dstkey_ list. For

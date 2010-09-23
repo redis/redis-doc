@@ -1,6 +1,7 @@
+@complexity
 
+subscribe is O(1), unsubscribe is O(N) where N is the number of clients already subscribed to a channel, publish is O(N+M) where N is the number of clients subscribed to the receiving channel, and M is the total number of subscribed patterns (by any client). Psubscribe is O(N) where N is the number of patterns the Psubscribing client is already subscribed to. Punsubscribe is O(N+M) where N is the number of patterns the Punsubscribing client is already subscribed and M is the number of total patterns subscribed in the system (by any client).
 
-  _Time complexity: subscribe is O(1), unsubscribe is O(N) where N is the number of clients already subscribed to a channel, publish is O(N+M) where N is the number of clients subscribed to the receiving channel, and M is the total number of subscribed patterns (by any client). Psubscribe is O(N) where N is the number of patterns the Psubscribing client is already subscribed to. Punsubscribe is O(N+M) where N is the number of patterns the Punsubscribing client is already subscribed and M is the number of total patterns subscribed in the system (by any client). _
 
 **Note**: this commands are available starting form Redis 2.0.0
 

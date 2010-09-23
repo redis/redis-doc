@@ -1,6 +1,7 @@
+@complexity
 
+O(N) (with N being the length of the list)
 
-_Time complexity: O(N) (with N being the length of the list)_
 
 Remove the first _count_ occurrences of the _value_ element from the list.
 If _count_ is zero all the elements are removed. If _count_ is negative

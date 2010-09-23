@@ -1,6 +1,7 @@
+@complexity
 
+O(N) (with N being the number of fields)
 
-_Time complexity: O(N) (with N being the number of fields)_
 
 Set the respective fields to the respective values. HMSET replaces old values with new values.
 

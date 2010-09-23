@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 SETNX works exactly like [SET][1] with the only difference tha
 if the key already exists no operation is performed.

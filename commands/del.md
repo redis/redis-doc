@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Remove the specified keys. If a given key does not exis
 no operation is performed for this key. The command returns the number of

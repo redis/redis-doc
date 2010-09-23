@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Test if the specified key exists. The command returns
 0 if the key exists, otherwise 1 is returned.

@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity O(log(N)) with N being the number of elements in the sorted
+O(log(N)) with N being the number of elements in the sorted
 set_
 
 Add the specified _member_ having the specifeid _score_ to the sorted

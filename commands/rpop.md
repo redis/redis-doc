@@ -1,6 +1,7 @@
+@complexity
 
+O(1)
 
-_Time complexity: O(1)_
 
 Atomically return and remove the first (LPOP) or last (RPOP) elemen
 of the list. For example if the list contains the elements a,b,c LPOP

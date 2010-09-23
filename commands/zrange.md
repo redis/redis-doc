@@ -1,6 +1,6 @@
+@complexity
 
-
-_Time complexity: O(log(N))+O(M) (with N being the number of elements in the
+O(log(N))+O(M) (with N being the number of elements in the
 sorted set and M the number of elements requested)_
 
 Return the specified elements of the sorted set at the specified
