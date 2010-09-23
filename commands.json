@@ -628,7 +628,7 @@
     "arguments": [
       {
         "name": ["key", "value"],
-        "type": ["key", "string"]
+        "type": ["key", "string"],
         "multiple": true
       }
     ],
