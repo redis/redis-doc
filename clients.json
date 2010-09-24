@@ -179,6 +179,12 @@
     "authors": ["fictorial"]
   },
 
+  "node_redis": {
+    "language": "Node.js",
+    "repository": "http://github.com/mranney/node_redis",
+    "authors": ["mranney"]
+  },
+
   "iodis": {
     "language": "Io",
     "repository": "http://github.com/ichverstehe/iodis",
