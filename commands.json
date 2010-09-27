@@ -1,5 +1,6 @@
 {
   "APPEND": {
+    "summary": "Append a value to a key",
     "arguments": [
       {
         "name": "key",
@@ -14,6 +15,7 @@
     "group": "string"
   },
   "AUTH": {
+    "summary": "Authenticate to the server",
     "arguments": [
       {
         "name": "password",
@@ -24,14 +26,17 @@
     "group": "connection"
   },
   "BGREWRITEAOF": {
+    "summary": "Asynchronously rewrite the append-only file",
     "since": "1.07",
     "group": "server"
   },
   "BGSAVE": {
+    "summary": "Asynchronously save the dataset to disk",
     "since": "0.07",
     "group": "server"
   },
   "BLPOP": {
+    "summary": "Remove and get the first element in a list, or block until one is available",
     "arguments": [
       {
         "name": "key",
@@ -47,6 +52,7 @@
     "group": "list"
   },
   "BRPOP": {
+    "summary": "Remove and get the last element in a list, or block until one is available",
     "arguments": [
       {
         "name": "key",
@@ -62,6 +68,7 @@
     "group": "list"
   },
   "CONFIG GET": {
+    "summary": "Get the value of a configuration parameter",
     "arguments": [
       {
         "name": "parameter",
@@ -72,6 +79,7 @@
     "group": "server"
   },
   "CONFIG SET": {
+    "summary": "Set a configuration parameter to the given value",
     "arguments": [
       {
         "name": "parameter",
@@ -86,10 +94,12 @@
     "group": "server"
   },
   "DBSIZE": {
+    "summary": "Return the number of keys in the selected database",
     "since": "0.07",
     "group": "server"
   },
   "DEBUG OBJECT": {
+    "summary": "Get debugging information about a key",
     "arguments": [
       {
         "name": "key",
@@ -100,10 +110,12 @@
     "group": "server"
   },
   "DEBUG SEGFAULT": {
+    "summary": "Make the server crash",
     "since": "0.101",
     "group": "server"
   },
   "DECR": {
+    "summary": "Decrement the integer value of a key by one",
     "arguments": [
       {
         "name": "key",
@@ -118,6 +130,7 @@
     "group": "string"
   },
   "DECRBY": {
+    "summary": "Decrement the integer value of a key by the given number",
     "arguments": [
       {
         "name": "key",
@@ -132,6 +145,7 @@
     "group": "string"
   },
   "DEL": {
+    "summary": "Delete a key",
     "arguments": [
       {
         "name": "key",
@@ -143,10 +157,12 @@
     "group": "generic"
   },
   "DISCARD": {
+    "summary": "Discard all commands issued after MULTI",
     "since": "1.3.3",
     "group": "transactions"
   },
   "ECHO": {
+    "summary": "Echo the given string",
     "arguments": [
       {
         "name": "message",
@@ -157,10 +173,12 @@
     "group": "connection"
   },
   "EXEC": {
+    "summary": "Execute all commands issued after MULTI",
     "since": "1.1.95",
     "group": "transactions"
   },
   "EXISTS": {
+    "summary": "Determine if a key exists",
     "arguments": [
       {
         "name": "key",
@@ -171,6 +189,7 @@
     "group": "server"
   },
   "EXPIRE": {
+    "summary": "Set a key's time to live in seconds",
     "arguments": [
       {
         "name": "key",
@@ -185,6 +204,7 @@
     "group": "generic"
   },
   "EXPIREAT": {
+    "summary": "Set the expiration for a key as a UNIX timestamp",
     "arguments": [
       {
         "name": "key",
@@ -199,14 +219,17 @@
     "group": "generic"
   },
   "FLUSHALL": {
+    "summary": "Remove all keys from all databases",
     "since": "0.07",
     "group": "server"
   },
   "FLUSHDB": {
+    "summary": "Remove all keys from the current database",
     "since": "0.07",
     "group": "server"
   },
   "GET": {
+    "summary": "Get the value of a key",
     "arguments": [
       {
         "name": "key",
@@ -217,6 +240,7 @@
     "group": "string"
   },
   "GETSET": {
+    "summary": "Set the string value of a key and return its old value",
     "arguments": [
       {
         "name": "key",
@@ -231,6 +255,7 @@
     "group": "string"
   },
   "HDEL": {
+    "summary": "Delete a hash field",
     "arguments": [
       {
         "name": "key",
@@ -245,6 +270,7 @@
     "group": "hash"
   },
   "HEXISTS": {
+    "summary": "Determine if a hash field exists",
     "arguments": [
       {
         "name": "key",
@@ -259,6 +285,7 @@
     "group": "hash"
   },
   "HGET": {
+    "summary": "Get the value of a hash field",
     "arguments": [
       {
         "name": "key",
@@ -273,6 +300,7 @@
     "group": "hash"
   },
   "HGETALL": {
+    "summary": "Get all the fields and values in a hash",
     "arguments": [
       {
         "name": "key",
@@ -283,6 +311,7 @@
     "group": "hash"
   },
   "HINCRBY": {
+    "summary": "Increment the integer value of a hash field by the given number",
     "arguments": [
       {
         "name": "key",
@@ -301,6 +330,7 @@
     "group": "hash"
   },
   "HKEYS": {
+    "summary": "Get all the fields in a hash",
     "arguments": [
       {
         "name": "key",
@@ -311,6 +341,7 @@
     "group": "hash"
   },
   "HLEN": {
+    "summary": "Get the number of fields in a hash",
     "arguments": [
       {
         "name": "key",
@@ -321,6 +352,7 @@
     "group": "hash"
   },
   "HMGET": {
+    "summary": "Get the values of all the given hash fields",
     "arguments": [
       {
         "name": "key",
@@ -336,6 +368,7 @@
     "group": "hash"
   },
   "HMSET": {
+    "summary": "Set multiple hash fields to multiple values",
     "arguments": [
       {
         "name": "key",
@@ -351,6 +384,7 @@
     "group": "hash"
   },
   "HSET": {
+    "summary": "Set the string value of a hash field",
     "arguments": [
       {
         "name": "key",
@@ -369,6 +403,7 @@
     "group": "hash"
   },
   "HSETNX": {
+    "summary": "Set the value of a hash field, only if the field does not exist",
     "arguments": [
       {
         "name": "key",
@@ -387,6 +422,7 @@
     "group": "hash"
   },
   "HVALS": {
+    "summary": "Get all the values in a hash",
     "arguments": [
       {
         "name": "key",
@@ -397,6 +433,7 @@
     "group": "hash"
   },
   "INCR": {
+    "summary": "Increment the integer value of a key by one",
     "arguments": [
       {
         "name": "key",
@@ -407,6 +444,7 @@
     "group": "string"
   },
   "INCRBY": {
+    "summary": "Increment the integer value of a key by the given number",
     "arguments": [
       {
         "name": "key",
@@ -421,10 +459,12 @@
     "group": "string"
   },
   "INFO": {
+    "summary": "Get information and statistics about the server",
     "since": "0.07",
     "group": "server"
   },
   "KEYS": {
+    "summary": "Find all keys matching the given pattern",
     "arguments": [
       {
         "name": "pattern",
@@ -435,10 +475,12 @@
     "group": "generic"
   },
   "LASTSAVE": {
+    "summary": "Get the UNIX time stamp of the last successful save to disk",
     "since": "0.07",
     "group": "server"
   },
   "LINDEX": {
+    "summary": "Get an element from a list by its index",
     "arguments": [
       {
         "name": "key",
@@ -453,6 +495,7 @@
     "group": "list"
   },
   "LINSERT": {
+    "summary": "Insert an element before or after another element in a list",
     "arguments": [
       {
         "name": "key",
@@ -476,6 +519,7 @@
     "group": "list"
   },
   "LLEN": {
+    "summary": "Get the length of a list",
     "arguments": [
       {
         "name": "key",
@@ -486,6 +530,7 @@
     "group": "list"
   },
   "LPOP": {
+    "summary": "Remove and get the first element in a list",
     "arguments": [
       {
         "name": "key",
@@ -496,6 +541,7 @@
     "group": "list"
   },
   "LPUSH": {
+    "summary": "Prepend a value to a list",
     "arguments": [
       {
         "name": "key",
@@ -510,6 +556,7 @@
     "group": "list"
   },
   "LPUSHX": {
+    "summary": "Prepend a value to a list, only if the list exists",
     "arguments": [
       {
         "name": "key",
@@ -524,6 +571,7 @@
     "group": "list"
   },
   "LRANGE": {
+    "summary": "Get a range of elements from a list",
     "arguments": [
       {
         "name": "key",
@@ -542,6 +590,7 @@
     "group": "list"
   },
   "LREM": {
+    "summary": "Remove elements from a list",
     "arguments": [
       {
         "name": "key",
@@ -560,6 +609,7 @@
     "group": "list"
   },
   "LSET": {
+    "summary": "Set the value of an element in a list by its index",
     "arguments": [
       {
         "name": "key",
@@ -578,6 +628,7 @@
     "group": "list"
   },
   "LTRIM": {
+    "summary": "Trim a list to the specified range",
     "arguments": [
       {
         "name": "key",
@@ -596,6 +647,7 @@
     "group": "list"
   },
   "MGET": {
+    "summary": "Get the values of all the given keys",
     "arguments": [
       {
         "name": "key",
@@ -607,10 +659,12 @@
     "group": "string"
   },
   "MONITOR": {
+    "summary": "Listen for all requests received by the server in real time",
     "since": "0.07",
     "group": "server"
   },
   "MOVE": {
+    "summary": "Move a key to another database",
     "arguments": [
       {
         "name": "key",
@@ -625,6 +679,7 @@
     "group": "generic"
   },
   "MSET": {
+    "summary": "Set multiple keys to multiple values",
     "arguments": [
       {
         "name": ["key", "value"],
@@ -636,6 +691,7 @@
     "group": "string"
   },
   "MSETNX": {
+    "summary": "Set multiple keys to multiple values, only if none of the keys exist",
     "arguments": [
       {
         "name": ["key", "value"],
@@ -647,10 +703,12 @@
     "group": "string"
   },
   "MULTI": {
+    "summary": "Mark the start of a transaction block",
     "since": "1.1.95",
     "group": "transactions"
   },
   "PERSIST": {
+    "summary": "Remove the expiration from a key",
     "arguments": [
       {
         "name": "key",
@@ -661,10 +719,12 @@
     "group": "generic"
   },
   "PING": {
+    "summary": "Ping the server",
     "since": "0.07",
     "group": "connection"
   },
   "PSUBSCRIBE": {
+    "summary": "Listen for messages published to channels matching the given patterns",
     "arguments": [
       {
         "name": ["pattern"],
@@ -675,6 +735,7 @@
     "group": "pubsub"
   },
   "PUBLISH": {
+    "summary": "Post a message to a channel",
     "arguments": [
       {
         "name": "channel",
@@ -689,6 +750,7 @@
     "group": "pubsub"
   },
   "PUNSUBSCRIBE": {
+    "summary": "Stop listening for messages posted to channels matching the given patterns",
     "arguments": [
       {
         "name": "pattern",
@@ -701,14 +763,17 @@
     "group": "pubsub"
   },
   "QUIT": {
+    "summary": "Close the connection",
     "since": "0.07",
     "group": "connection"
   },
   "RANDOMKEY": {
+    "summary": "Return a random key from the keyspace",
     "since": "0.07",
     "group": "generic"
   },
   "RENAME": {
+    "summary": "Rename a key",
     "arguments": [
       {
         "name": "old",
@@ -723,6 +788,7 @@
     "group": "generic"
   },
   "RENAMENX": {
+    "summary": "Rename a key, only if the new key does not exist",
     "arguments": [
       {
         "name": "old",
@@ -737,6 +803,7 @@
     "group": "generic"
   },
   "RPOP": {
+    "summary": "Remove and get the last element in a list",
     "arguments": [
       {
         "name": "key",
@@ -747,6 +814,7 @@
     "group": "list"
   },
   "RPOPLPUSH": {
+    "summary": "Remove the last element in a list, append it to another list and return it",
     "arguments": [
       {
         "name": "source",
@@ -761,6 +829,7 @@
     "group": "list"
   },
   "RPUSH": {
+    "summary": "Append a value to a list",
     "arguments": [
       {
         "name": "key",
@@ -775,6 +844,7 @@
     "group": "list"
   },
   "RPUSHX": {
+    "summary": "Append a value to a list, only if the list exists",
     "arguments": [
       {
         "name": "key",
@@ -789,6 +859,7 @@
     "group": "list"
   },
   "SADD": {
+    "summary": "Add a member to a set",
     "arguments": [
       {
         "name": "key",
@@ -803,10 +874,12 @@
     "group": "set"
   },
   "SAVE": {
+    "summary": "Synchronously save the dataset to disk",
     "since": "0.07",
-    "group": "control"
+    "group": "server"
   },
   "SCARD": {
+    "summary": "Get the number of members in a set",
     "arguments": [
       {
         "name": "key",
@@ -817,6 +890,7 @@
     "group": "set"
   },
   "SDIFF": {
+    "summary": "Subtract multiple sets",
     "arguments": [
       {
         "name": "key",
@@ -828,6 +902,7 @@
     "group": "set"
   },
   "SDIFFSTORE": {
+    "summary": "Subtract multiple sets and store the resulting set in a key",
     "arguments": [
       {
         "name": "destination",
@@ -843,6 +918,7 @@
     "group": "set"
   },
   "SELECT": {
+    "summary": "Change the selected database for the current connection",
     "arguments": [
       {
         "name": "index",
@@ -853,6 +929,7 @@
     "group": "connection"
   },
   "SET": {
+    "summary": "Set the string value of a key",
     "arguments": [
       {
         "name": "key",
@@ -867,6 +944,7 @@
     "group": "string"
   },
   "SETEX": {
+    "summary": "Set the value and expiration of a key",
     "arguments": [
       {
         "name": "key",
@@ -885,6 +963,7 @@
     "group": "string"
   },
   "SETNX": {
+    "summary": "Set the value of a key, only if the key does not exist",
     "arguments": [
       {
         "name": "key",
@@ -899,10 +978,12 @@
     "group": "string"
   },
   "SHUTDOWN": {
+    "summary": "Synchronously save the dataset to disk and then shut down the server",
     "since": "0.07",
     "group": "server"
   },
   "SINTER": {
+    "summary": "Intersect multiple sets",
     "arguments": [
       {
         "name": "key",
@@ -914,6 +995,7 @@
     "group": "set"
   },
   "SINTERSTORE": {
+    "summary": "Intersect multiple sets and store the resulting set in a key",
     "arguments": [
       {
         "name": "destination",
@@ -929,6 +1011,7 @@
     "group": "set"
   },
   "SISMEMBER": {
+    "summary": "Determine if a given value is a member of a set",
     "arguments": [
       {
         "name": "key",
@@ -943,6 +1026,7 @@
     "group": "set"
   },
   "SLAVEOF": {
+    "summary": "Make the server a slave of another instance, or promote it as master",
     "arguments": [
       {
         "name": "host",
@@ -957,6 +1041,7 @@
     "group": "server"
   },
   "SMEMBERS": {
+    "summary": "Get all the members in a set",
     "arguments": [
       {
         "name": "key",
@@ -967,6 +1052,7 @@
     "group": "set"
   },
   "SMOVE": {
+    "summary": "Move a member from one set to another",
     "arguments": [
       {
         "name": "source",
@@ -985,6 +1071,7 @@
     "group": "set"
   },
   "SORT": {
+    "summary": "Sort the elements in a list, set or sorted set",
     "arguments": [
       {
         "name": "key",
@@ -1032,6 +1119,7 @@
     "group": "generic"
   },
   "SPOP": {
+    "summary": "Remove and return a random member from a set",
     "arguments": [
       {
         "name": "key",
@@ -1042,6 +1130,7 @@
     "group": "set"
   },
   "SRANDMEMBER": {
+    "summary": "Get a random member from a set",
     "arguments": [
       {
         "name": "key",
@@ -1052,6 +1141,7 @@
     "group": "set"
   },
   "SREM": {
+    "summary": "Remove a member from a set",
     "arguments": [
       {
         "name": "key",
@@ -1066,6 +1156,7 @@
     "group": "set"
   },
   "STRLEN": {
+    "summary": "Get the length of the value stored in a key",
     "arguments": [
       {
         "name": "key",
@@ -1076,6 +1167,7 @@
     "group": "string"
   },
   "SUBSCRIBE": {
+    "summary": "Listen for messages published to the given channels",
     "arguments": [
       {
         "name": ["channel"],
@@ -1086,6 +1178,7 @@
     "group": "pubsub"
   },
   "SUBSTR": {
+    "summary": "Get a substring of the string stored at a key",
     "arguments": [
       {
         "name": "key",
@@ -1104,6 +1197,7 @@
     "group": "string"
   },
   "SUNION": {
+    "summary": "Add multiple sets",
     "arguments": [
       {
         "name": "key",
@@ -1115,6 +1209,7 @@
     "group": "set"
   },
   "SUNIONSTORE": {
+    "summary": "Add multiple sets and store the resulting set in a key",
     "arguments": [
       {
         "name": "destination",
@@ -1130,10 +1225,12 @@
     "group": "set"
   },
   "SYNC": {
+    "summary": "Internal command used for replication",
     "since": "0.07",
-    "group": "control"
+    "group": "server"
   },
   "TTL": {
+    "summary": "Get the time to live for a key",
     "arguments": [
       {
         "name": "key",
@@ -1144,6 +1241,7 @@
     "group": "generic"
   },
   "TYPE": {
+    "summary": "Determine the type stored at key",
     "arguments": [
       {
         "name": "key",
@@ -1154,6 +1252,7 @@
     "group": "generic"
   },
   "UNSUBSCRIBE": {
+    "summary": "Stop listening for messages posted to the given channels",
     "arguments": [
       {
         "name": "channel",
@@ -1166,10 +1265,12 @@
     "group": "pubsub"
   },
   "UNWATCH": {
+    "summary": "Forget about all watched keys",
     "since": "2.1.0",
     "group": "transactions"
   },
   "WATCH": {
+    "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
     "arguments": [
       {
         "name": "key",
@@ -1181,6 +1282,7 @@
     "group": "transactions"
   },
   "ZADD": {
+    "summary": "Add a member to a sorted set, or update its score if it already exists",
     "arguments": [
       {
         "name": "key",
@@ -1199,6 +1301,7 @@
     "group": "sorted_set"
   },
   "ZCARD": {
+    "summary": "Get the number of members in a sorted set",
     "arguments": [
       {
         "name": "key",
@@ -1209,6 +1312,7 @@
     "group": "sorted_set"
   },
   "ZCOUNT": {
+    "summary": "Count the members in a sorted set with scores within the given values",
     "arguments": [
       {
         "name": "key",
@@ -1227,6 +1331,7 @@
     "group": "sorted_set"
   },
   "ZINCRBY": {
+    "summary": "Increment the score of a member in a sorted set",
     "arguments": [
       {
         "name": "key",
@@ -1245,6 +1350,7 @@
     "group": "sorted_set"
   },
   "ZINTERSTORE": {
+    "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
     "arguments": [
       {
         "name": "destination",
@@ -1274,6 +1380,7 @@
     "group": "sorted_set"
   },
   "ZRANGE": {
+    "summary": "Return a range of members in a sorted set, by index",
     "arguments": [
       {
         "name": "key",
@@ -1292,6 +1399,7 @@
     "group": "sorted_set"
   },
   "ZRANGEBYSCORE": {
+    "summary": "Return a range of members in a sorted set, by score",
     "arguments": [
       {
         "name": "key",
@@ -1310,6 +1418,7 @@
     "group": "sorted_set"
   },
   "ZRANK": {
+    "summary": "Determine the index of a member in a sorted set",
     "arguments": [
       {
         "name": "key",
@@ -1324,6 +1433,7 @@
     "group": "sorted_set"
   },
   "ZREM": {
+    "summary": "Remove a member from a sorted set",
     "arguments": [
       {
         "name": "key",
@@ -1338,6 +1448,7 @@
     "group": "sorted_set"
   },
   "ZREMRANGEBYRANK": {
+    "summary": "Remove all members in a sorted set within the given indexes",
     "arguments": [
       {
         "name": "key",
@@ -1356,6 +1467,7 @@
     "group": "sorted_set"
   },
   "ZREMRANGEBYSCORE": {
+    "summary": "Remove all members in a sorted set within the given scores",
     "arguments": [
       {
         "name": "key",
@@ -1374,6 +1486,7 @@
     "group": "sorted_set"
   },
   "ZREVRANGE": {
+    "summary": "Return a range of members in a sorted set, by index, with scores ordered from high to low",
     "arguments": [
       {
         "name": "key",
@@ -1392,6 +1505,7 @@
     "group": "sorted_set"
   },
   "ZREVRANK": {
+    "summary": "Determine the index of a member in a sorted set, with scores ordered from high to low",
     "arguments": [
       {
         "name": "key",
@@ -1406,6 +1520,7 @@
     "group": "sorted_set"
   },
   "ZSCORE": {
+    "summary": "Get the score associated with the given member in a sorted set",
     "arguments": [
       {
         "name": "key",
@@ -1420,6 +1535,7 @@
     "group": "sorted_set"
   },
   "ZUNIONSTORE": {
+    "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
     "arguments": [
       {
         "name": "destination",
