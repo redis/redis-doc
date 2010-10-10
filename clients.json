@@ -241,5 +241,12 @@
     "repository": "http://github.com/migueldeicaza/redis-sharp",
     "description": "",
     "authors": ["migueldeicaza"]
+  },
+
+  "ObjCRedis": {
+    "language": "Objective-C",
+    "repository": "http://github.com/lp/ObjCRedis",
+    "description": "",
+    "authors": ["loopole"]
   }
 }
