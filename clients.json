@@ -243,10 +243,10 @@
     "authors": ["migueldeicaza"]
   },
 
-  "ObjCRedis": {
+  "ObjCHiredis": {
     "language": "Objective-C",
-    "repository": "http://github.com/lp/ObjCRedis",
-    "description": "",
-    "authors": ["loopole"]
+    "repository": "https://github.com/lp/ObjCHiredis",
+    "description": "Static Library for iOS4 device and Simulator, PLUS Objective-C Framework for MacOS 10.5 and higher also compatible with MacRuby and Nu.  BONUS 'ruby-objc' wrapper for MacRuby faking 'ruby-rb' methods",
+    "authors": ["lp"]
   }
 }
