@@ -229,8 +229,8 @@
     "authors": ["hoisie"]
   },
 
-  "SmallTalk Redis Client": {
-    "language": "SmallTalk",
+  "Smalltalk Redis Client": {
+    "language": "Smalltalk",
     "repository": "http://www.squeaksource.com/Redis.html",
     "description": "",
     "authors": []
