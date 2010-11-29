@@ -1,7 +1,6 @@
-
-
-Ask the server to silently close the connection.
+Ask the server to close the connection. The connection is closed after all
+pending replies have been written to the client.
 
 @return
 
-None. The connection is closed as soon as the `QUIT` command is received.
+@status-reply: Always returns OK.
