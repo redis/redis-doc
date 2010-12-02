@@ -5,17 +5,22 @@ sorted set and M the number of elements returned by the command, so if M is
 constant (for instance you always ask for the first ten elements with `LIMIT`)
 you can consider it O(log(N)).
 
-Return the all the elements in the sorted set at key with a score between
+Returns all the elements in the sorted set at key with a score between
 `min` and `max` (including elements with score equal to `min` or `max`).
 
 The elements having the same score are returned sorted lexicographically as
-ASCII strings (this follows from a property of Redis sorted sets and does not
-involve further computation).
+ASCII strings (this follows from a property of the sorted set implementation in
+Redis and does not involve further computation).
 
-Using the optional `LIMIT` it's possible to get only a range of the matching
-elements in an SQL-alike way. Note that if `offset` is large the commands
-needs to traverse the list for `offset` elements and this adds up to the
-O(M) figure.
+The optional `LIMIT` argument can be used to only get a range of the matching
+elements (similar to _SELECT LIMIT offset, count_ in SQL). Keep in mind that if
+`offset` is large, the sorted set needs to be traversed for `offset` elements
+before getting to the elements to return, which can add up to O(M) time
+complexity.
+
+The optional `WITHSCORES` argument makes the command return both the element and
+its score, instead of the element alone. This option is available since Redis
+2.0.
 
 ## Exclusive intervals and infinity
 
@@ -26,13 +31,13 @@ up to a given value.
 Also while the interval is for default closed (inclusive) it's possible to
 specify open intervals prefixing the score with a `(` character, so for instance:
 
-    ZRANGEBYSCORE zset (1.3 5
+    ZRANGEBYSCORE zset (1 5
 
-will return all the values with score ** 1.3 and = 5**, while for instance:
+Will return all the elements with _1 < `score` <= 5_ while:
 
     ZRANGEBYSCORE zset (5 (10
 
-Will return all the values with score ** 5 and 10** (5 and 10 excluded).
+Will return all the elements with _5 < `score` < 10_ (5 and 10 excluded).
 
 @return
 
@@ -67,3 +72,4 @@ Will return all the values with score ** 5 and 10** (5 and 10 excluded).
 
     ZRANGEBYSCORE zset (1 (2
     (empty list or set)
+
