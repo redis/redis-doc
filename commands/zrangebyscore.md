@@ -5,7 +5,7 @@ sorted set and M the number of elements returned by the command, so if M is
 constant (for instance you always ask for the first ten elements with `LIMIT`)
 you can consider it O(log(N)).
 
-Returns all the elements in the sorted set at key with a score between
+Returns all the elements in the sorted set at `key` with a score between
 `min` and `max` (including elements with score equal to `min` or `max`).
 
 The elements having the same score are returned sorted lexicographically as
