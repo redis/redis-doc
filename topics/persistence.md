@@ -1,9 +1,11 @@
 Persistence
 ===
 
+<a name="snapshotting"></a>
 Snapshotting
 ---
 
+<a name="append-only-file"></a>
 Append-only file
 ---
 
