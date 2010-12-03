@@ -17,11 +17,11 @@ if a client loses the connection to the server in the context of a
 transaction before calling the `MULTI` command none of the operations
 are performed, instead if the `EXEC` command is called, all the
 operations are performed. An exception to this rule is when the
-@append-only-file is enabled: every command that is part of a Redis
-transaction will log in the AOF as long as the operation is completed,
-so if the Redis server crashes or is killed by the system administrator
-in some hard way it is possible that only a partial number of operations
-are registered.
+[append-only file](/topics/persistence#append-only-file) is enabled:
+every command that is part of a Redis transaction will log in the AOF as
+long as the operation is completed, so if the Redis server crashes or is
+killed by the system administrator in some hard way it is possible that
+only a partial number of operations are registered.
 
 Redis 2.2 allows for an extra guarantee to the above two, in the form
 of optimistic locking in a way very similar to a check-and-set (CAS)
