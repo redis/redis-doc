@@ -19,7 +19,3 @@ fixed it can be configured in order to work as slave.
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

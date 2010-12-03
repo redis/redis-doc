@@ -62,10 +62,3 @@ holding a lock should always check the timeout didn't expired before to unlock
 the key with `DEL` because client failures can be complex, not just crashing
 but also blocking a lot of time against some operation and trying to issue
 `DEL` after a lot of time (when the LOCK is already hold by some other client).
-
-
-
-
-[1]: /p/redis/wiki/SetCommand
-[2]: /p/redis/wiki/ReplyTypes
-[3]: /p/redis/wiki/GetsetCommand

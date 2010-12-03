@@ -42,11 +42,3 @@ are actively `RPUSH`ing against the list, and still no element will be skipped.
 @return
 
 @bulk-reply
-
-
-
-[1]: /p/redis/wiki/RpushCommand
-[2]: /p/redis/wiki/LpopCommand
-[3]: /p/redis/wiki/LremCommand
-[4]: /p/redis/wiki/LrangeCommand
-[5]: /p/redis/wiki/ReplyTypes

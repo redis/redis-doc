@@ -21,8 +21,3 @@ For an introduction to sorted sets check the [Introduction to Redis data types][
 
     1 if the new element was added
     0 if the element was already a member of the sorted set and the score was updated
-
-
-
-[1]: /p/redis/wiki/IntroductionToRedisDataTypes
-[2]: /p/redis/wiki/ReplyTypes

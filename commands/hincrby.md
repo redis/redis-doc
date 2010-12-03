@@ -19,8 +19,3 @@ increments and decrements:
 @return
 
 @integer-reply The new value at _field_ after the increment operation.
-
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

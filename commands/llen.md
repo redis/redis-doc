@@ -12,7 +12,3 @@ empty lists). If the value stored at _key_ is not a list an error is returned.
 @integer-reply, specifically:
 
 `The length of the list.`
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

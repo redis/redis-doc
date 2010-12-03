@@ -14,8 +14,3 @@ Non existing keys are considered like empty sets.
 @return
 
 @multi-bulk-reply, specifically the list of common elements.
-
-
-
-[1]: /p/redis/wiki/SmembersCommand
-[2]: /p/redis/wiki/ReplyTypes

@@ -90,12 +90,3 @@ It's possible to use BY and `GET` options against Hash fields using the followin
 @return
 
 @multi-bulk-reply, specifically a list of sorted elements.
-
-
-
-[1]: /p/redis/wiki/Lists
-[2]: /p/redis/wiki/Sets
-[3]: /p/redis/wiki/SortedSets
-[4]: /p/redis/wiki/ExpireCommand
-[5]: /p/redis/wiki/SetnxCommand
-[6]: /p/redis/wiki/ReplyTypes

@@ -29,8 +29,3 @@ order to preserve sorting).
 @return
 
 @multi-bulk-reply, specifically a list of elements in the specified range.
-
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

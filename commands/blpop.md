@@ -61,9 +61,3 @@ the return value is a nil multi bulk reply. Most client values will return
 false or nil accordingly to the programming language used.
 
 @multi-bulk-reply
-
-
-
-[1]: /p/redis/wiki/LpopCommand
-[2]: /p/redis/wiki/RpushCommand
-[3]: /p/redis/wiki/ReplyTypes

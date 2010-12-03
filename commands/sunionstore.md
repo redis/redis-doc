@@ -8,7 +8,3 @@ This command works exactly like `SUNION` but instead of being returned the resul
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

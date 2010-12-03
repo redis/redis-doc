@@ -12,8 +12,3 @@ the returned element is not removed from the Set.
 @return
 
 @bulk-reply
-
-
-
-[1]: /p/redis/wiki/SrandmemberCommand
-[2]: /p/redis/wiki/ReplyTypes

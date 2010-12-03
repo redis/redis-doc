@@ -12,8 +12,3 @@ does not exist at all, a special 'nil' value is returned.
 @bulk-reply
 
     the score (a double precision floating point number) represented as string.
-    
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

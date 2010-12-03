@@ -8,7 +8,3 @@ This command works exactly like `SDIFF` but instead of being returned the result
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

@@ -17,7 +17,3 @@ set always is an empty set).
 @return
 
 @multi-bulk-reply, specifically the list of common elements.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

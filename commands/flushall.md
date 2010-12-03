@@ -5,7 +5,3 @@ Delete all the keys of all the existing databases, not just the currently select
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

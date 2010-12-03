@@ -13,7 +13,3 @@ Similarly to other list commands accepting indexes, the index can be negative to
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

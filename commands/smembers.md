@@ -9,7 +9,3 @@ is just syntax glue for `SINTER`.
 @return
 
 @multi-bulk-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

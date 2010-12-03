@@ -7,7 +7,3 @@ to DB 0.
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

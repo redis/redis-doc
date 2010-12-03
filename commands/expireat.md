@@ -130,11 +130,11 @@ per second divided by 4.
 
 Ok let's start with the problem:
 
-    redis set a 100
+    SET a 100
     OK
-    redis expire a 360
+    EXPIRE a 360
     (integer) 1
-    redis incr a
+    INCR a
     (integer) 1
 
 I set a key to the value of 100, then set an expire of 360 seconds, and then
@@ -191,8 +191,3 @@ However while the slaves while connected to a master will not expire keys indepe
 they'll still take the full state of the expires existing in the dataset, so
 when a slave is elected to a master it will be able to expire the keys independently,
 fully acting as a master.
-
-
-
-[1]: /p/redis/wiki/AppendOnlyFileHowto
-[2]: /p/redis/wiki/ReplyTypes

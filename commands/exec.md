@@ -149,7 +149,7 @@ So what is `WATCH` really about? It is a command that will make the `EXEC` condi
 we are asking Redis to perform the transaction only if no other client modified
 any of the `WATCH`ed keys. Otherwise the transaction is not entered at all. (Note
 that if you `WATCH` a volatile key and Redis expires the key after you `WATCH`ed
-it, `EXEC` will still work. [More][1].)
+it, `EXEC` will still work. [More](http://code.google.com/p/redis/issues/detail?id=270).)
 
 `WATCH` can be called multiple times. Simply all the `WATCH` calls will have the
 effects to watch for changes starting from the call, up to the moment `EXEC`
@@ -189,8 +189,3 @@ If `EXEC` fails (returns a nil value) we just re-iterate the operation.
 
 If a `MULTI`/`EXEC` transaction is aborted because of `WATCH` detected modified keys,
 a @nil-reply is returned.
-
-
-
-[1]: http://code.google.com/p/redis/issues/detail?id=270
-[2]: /p/redis/wiki/ReplyTypes

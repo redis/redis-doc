@@ -17,11 +17,3 @@ none is returned if the key does not exist.
     set if the key contains a Set value
     zset if the key contains a Sorted Set value
     hash if the key contains a Hash value
-
-## See also
-
-* Redis Data Types
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

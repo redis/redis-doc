@@ -24,7 +24,3 @@ All the fields are in the form field:value
 * used_memory is returned in bytes, and is the total number of bytes allocated by the program using malloc.
 * uptime_in_days is redundant since the uptime in seconds contains already the full uptime information, this field is only mainly present for humans.
 * changes_since_last_save does not refer to the number of key changes, but to the number of operations that produced some kind of change in the dataset.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

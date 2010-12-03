@@ -16,7 +16,3 @@ With the AGGREGATE option, it's possible to specify how the results of the union
 
 @integer-reply: the number of elements in the sorted set a
 _dstkey_.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

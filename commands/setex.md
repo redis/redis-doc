@@ -13,10 +13,3 @@ because this operation is very common when Redis is used as a Cache.
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/SetCommand
-[2]: /p/redis/wiki/ExpireCommand
-[3]: /p/redis/wiki/MultiExecCommand
-[4]: /p/redis/wiki/ReplyTypes

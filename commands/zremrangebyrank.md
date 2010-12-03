@@ -8,7 +8,3 @@ Remove all elements in the sorted set at _key_ with rank between _start_ and _en
 @return
 
 @integer-reply: the number of elements removed.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

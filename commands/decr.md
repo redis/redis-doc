@@ -20,7 +20,3 @@ bit signed integer, incremented, and then converted back as a string.
 
 @integer-reply, this commands will reply with the new value of _key_ after
 the increment or decrement.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

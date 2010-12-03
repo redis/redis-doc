@@ -8,7 +8,3 @@ O(N), where N is the total number of entries
 @return
 
 @multi-bulk-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

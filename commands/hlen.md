@@ -8,7 +8,3 @@ Return the number of entries (fields) contained in the hash stored at _key_. If 
 @return
 
 @integer-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

@@ -10,7 +10,3 @@ If the _field_ was present in the hash it is deleted and 1 is returned, otherwis
 @return
 
 @integer-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

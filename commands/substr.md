@@ -2,7 +2,7 @@
 
 O(start+n) (with start being the start index and n the total
 length of the requested range). Note that the lookup part of this command is
-O(1) so for small strings this is actually an O(1) command._
+O(1) so for small strings this is actually an O(1) command.
 
 Return a subset of the string from offset _start_ to offset _end_
 (both offsets are inclusive).
@@ -19,17 +19,13 @@ just limiting the resulting range to the actual length of the string.
 
 @examples
 
-    redis set s This is a string
+    SET s This is a string
     OK
-    redis substr s 0 3
+    SUBSTR s 0 3
     This
-    redis substr s -3 -1
+    SUBSTR s -3 -1
     ing
-    redis substr s 0 -1
+    SUBSTR s 0 -1
     This is a string
-    redis substr s 9 100000
+    SUBSTR s 9 100000
      string
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

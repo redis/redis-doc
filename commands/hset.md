@@ -13,7 +13,3 @@ value, 0 is returned, otherwise if a new field is created 1 is returned.
 @return
 
 @integer-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

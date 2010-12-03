@@ -10,7 +10,3 @@ If the _field_ is not found or the _key_ does not exist, a special 'nil' value i
 @return
 
 @bulk-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

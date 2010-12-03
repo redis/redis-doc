@@ -18,7 +18,3 @@ a given condition arises. For example a process may call `INCR` against the
 key _mycounter_ every time some event occurred, but from time to
 time we need to get the value of the counter and reset it to zero atomically
 using `GETSET` mycounter 0.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

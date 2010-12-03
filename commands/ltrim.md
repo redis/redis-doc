@@ -32,7 +32,3 @@ just one element is removed from the tail of the list.
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

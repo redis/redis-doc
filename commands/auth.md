@@ -15,7 +15,3 @@ a strong and very long password so that this attack is infeasible.
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

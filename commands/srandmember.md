@@ -12,8 +12,3 @@ is popped (removed) from the Set.
 @return
 
 @bulk-reply
-
-
-
-[1]: /p/redis/wiki/SpopCommand
-[2]: /p/redis/wiki/ReplyTypes

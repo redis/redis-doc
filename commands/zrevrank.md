@@ -11,7 +11,3 @@ O(log(N))
 
     the rank of the element as an integer reply if the element exists.
     A nil bulk reply if there is no such element.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

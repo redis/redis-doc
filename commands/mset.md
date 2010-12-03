@@ -25,7 +25,3 @@ see the changes to both A and B at once, or no modification at all.
 
     1 if the all the keys were se
     0 if no key was set (at least one key already existed)
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

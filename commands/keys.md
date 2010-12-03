@@ -17,7 +17,7 @@ with care**.
 
 In other words this command is intended only for debugging and **special** operations like
 creating a script to change the DB schema. Don't use it in your normal code. Use Redis
-[Sets][1] in order to group together a subset of objects.
+sets in order to group together a subset of objects.
 
 Glob style patterns examples:
 
@@ -30,8 +30,3 @@ Use \ to escape special chars if you want to match them verbatim.
 @return
 
 @multi-bulk-reply
-
-
-
-[1]: /p/redis/wiki/Sets
-[2]: /p/redis/wiki/ReplyTypes

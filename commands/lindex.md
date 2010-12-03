@@ -17,7 +17,3 @@ the first or the last element of the list is O(1).
 @return
 
 @bulk-reply: the requested element.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

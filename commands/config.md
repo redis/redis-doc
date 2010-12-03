@@ -47,15 +47,15 @@ server that will start acting as specified starting from the next command.
 
 Example:
     $ ./redis-cli
-    redis set x 10
+    SET x 10
     OK
-    redis config set maxmemory 200
+    CONFIG set maxmemory 200
     OK
-    redis set y 20
+    SET y 20
     (error) ERR command not allowed when used memory  'maxmemory'
-    redis config set maxmemory 0
+    CONFIG set maxmemory 0
     OK
-    redis set y 20
+    SET y 20
     OK
 
 ## Parameters value forma
@@ -70,8 +70,3 @@ same parameter in the Redis configuration file, with the following exceptions:
 
 The `INFO` command can be used in order to read configuriaton parameters
 that are not available in the CONFIG command.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes
-[2]: /p/redis/wiki/InfoCommand

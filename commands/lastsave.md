@@ -8,8 +8,3 @@ every N seconds if `LASTSAVE` changed.
 @return
 
 @integer-reply: an UNIX time stamp.
-
-
-
-[1]: /p/redis/wiki/BgsaveCommand
-[2]: /p/redis/wiki/ReplyTypes

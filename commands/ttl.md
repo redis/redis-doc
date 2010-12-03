@@ -5,8 +5,3 @@ The `TTL` command returns the remaining time to live in seconds of a key that ha
 @return
 
 @integer-reply
-
-
-
-[1]: /p/redis/wiki/ExpireCommand
-[2]: /p/redis/wiki/ReplyTypes

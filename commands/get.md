@@ -11,7 +11,3 @@ is returned because `GET` can only handle string values.
 @return
 
 @bulk-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

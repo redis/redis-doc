@@ -25,7 +25,3 @@ of the specified key, but the operation never fails.
     2. 2000
     3. (nil)
     $
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

@@ -10,7 +10,3 @@ Return 0 if the _key_ is not found or the _field_ is not present.
 @return
 
 @integer-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

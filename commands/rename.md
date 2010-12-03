@@ -9,8 +9,4 @@ already exists it is overwritten.
 
 @return
 
-[Status code repy][1]
-
-
-
-[1]: /p/redis/wiki/ReplyTypes
+@status-reply

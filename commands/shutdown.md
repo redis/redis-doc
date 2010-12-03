@@ -10,7 +10,3 @@ commands.
 
 @status-reply on error. On success nothing is returned since the server
 quits and the connection is closed.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

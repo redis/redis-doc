@@ -8,7 +8,3 @@ This commnad works exactly like `SINTER` but instead of being returned the resul
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

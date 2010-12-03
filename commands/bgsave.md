@@ -8,8 +8,3 @@ operation succeeded using the `LASTSAVE` command.
 @return
 
 @status-reply
-
-
-
-[1]: /p/redis/wiki/LastsaveCommand
-[2]: /p/redis/wiki/ReplyTypes

@@ -9,7 +9,3 @@ _min_ and _max_ (including elements with score equal to min or max).
 @return
 
 @integer-reply: the number of elements removed.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

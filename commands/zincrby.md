@@ -21,9 +21,3 @@ For an introduction to sorted sets check the [Introduction to Redis data types][
 @bulk-reply
 
     The new score (a double precision floating point number) represented as string.
-    
-
-
-
-[1]: /p/redis/wiki/IntroductionToRedisDataTypes
-[2]: /p/redis/wiki/ReplyTypes

@@ -12,7 +12,3 @@ primitive.
 
     1 if the key was moved
     0 if the key was not moved because already present on the target DB or was not found in the current DB.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

@@ -12,7 +12,3 @@ Non existing keys are considered like empty hashes.
 
 @multi-bulk-reply specifically a list of all the values associated with
 the specified fields, in the same order of the request.
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

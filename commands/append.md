@@ -3,7 +3,7 @@
 O(1). The amortized time complexity is O(1) assuming the
 appended value is small and the already present value is of any size, since
 the dynamic string library used by Redis will double the free space available
-on every reallocation._
+on every reallocation.
 
 If the _key_ already exists and is a string, this command appends the
 provided value at the end of the string.
@@ -17,15 +17,11 @@ operation.
 
 @examples
 
-    redis exists mykey
+    EXISTS mykey
     (integer) 0
-    redis append mykey Hello
+    APPEND mykey Hello
     (integer) 6
-    redis append mykey World
+    APPEND mykey World
     (integer) 11
-    redis get mykey
+    GET mykey
     Hello World
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

@@ -18,7 +18,3 @@ against non existing keys will always return 0.
 @integer-reply, specifically:
 
 `The number of removed elements if the operation succeeded`
-
-
-
-[1]: /p/redis/wiki/ReplyTypes

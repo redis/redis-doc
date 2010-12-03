@@ -11,7 +11,3 @@ exist 0 is returned, like for empty sets.
 @integer-reply, specifically:
 
 `the cardinality (number of elements) of the set as an integer.`
-
-
-
-[1]: /p/redis/wiki/ReplyTypes
