@@ -947,8 +947,8 @@
         "type": "key"
       },
       {
-        "name": "timestamp",
-        "type": "posix time"
+        "name": "seconds",
+        "type": "integer"
       },
       {
         "name": "value",

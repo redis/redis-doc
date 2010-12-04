@@ -3,13 +3,21 @@
 O(1)
 
 
-The command is exactly equivalent to the following group of commands:
-    SET _key_ _value_
-    EXPIRE _key_ _time_The operation is atomic. An atomic [SET][1]+[EXPIRE][2]
-operation was already provided
-using `MULTI`/`EXEC`, but `SETEX` is a faster alternative provided
-because this operation is very common when Redis is used as a Cache.
+Set `key` to hold the string `value` and set `key` to timeout after a given
+number of seconds.  This command is equivalent to exeucting the following
+commands:
+
+    SET key value
+    EXPIRE key seconds
+
+`SETEX` is atomic, and can be reproduced by using the previous two commands
+inside an `MULTI`/`EXEC` block. It is provided as a faster alternative to the
+given sequence of operations, because this operation is very common when Redis
+is used as a cache.
+
+An error is returned when `seconds` is invalid.
 
 @return
 
 @status-reply
+
