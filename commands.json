@@ -120,10 +120,6 @@
       {
         "name": "key",
         "type": "key"
-      },
-      {
-        "name": "decrement",
-        "type": "integer"
       }
     ],
     "since": "0.07",
