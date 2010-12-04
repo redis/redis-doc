@@ -1,7 +1,13 @@
+@complexity
+
+O(1)
 
 
-The `TTL` command returns the remaining time to live in seconds of a key that has an `EXPIRE` set. This introspection capability allows a Redis client to check how many seconds a given key will continue to be part of the dataset. If the Key does not exists or does not have an associated expire, -1 is returned.
+Returns the remaining time to live of a key that has a timeout.  This
+introspection capability allows a Redis client to check how many seconds a
+given key will continue to be part of the dataset.
 
 @return
 
-@integer-reply
+@integer-reply: TTL in seconds or `-1` when `key` does not exist or does not have a timeout.
+
