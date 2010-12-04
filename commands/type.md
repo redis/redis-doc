@@ -3,17 +3,11 @@
 O(1)
 
 
-Return the type of the value stored at _key_ in form of a
-string. The type can be one of none, string, list, set.
-none is returned if the key does not exist.
+Returns the string representation of the type of the value stored at `key`.
+The different types that can be returned are: `string`, `list`, `set`, `zset`
+and `hash`.
 
 @return
 
-@status-reply, specifically:
+@status-reply: type of `key`, or `none` when `key` does not exist.
 
-    none if the key does not exis
-    string if the key contains a String value
-    list if the key contains a List value
-    set if the key contains a Set value
-    zset if the key contains a Sorted Set value
-    hash if the key contains a Hash value
