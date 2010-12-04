@@ -1,27 +1,26 @@
 @complexity
 
-O(1) for every key
+O(N) where N is the number of keys to retrieve
 
 
-Get the values of all the specified keys. If one or more keys dont exis
-or is not of type String, a 'nil' value is returned instead of the value
-of the specified key, but the operation never fails.
+Returns the values of all specified keys. For every key that does not hold a string value
+or does not exist, the special value `nil` is returned.
+Because of this, the operation never fails.
 
 @return
 
-@multi-bulk-reply
+@multi-bulk-reply: list of values at the specified keys.
 
-## Example
+@examples
 
-    $ ./redis-cli set foo 1000
+    SET foo 1000
     +OK
-    $ ./redis-cli set bar 2000
+
+    SET bar 2000
     +OK
-    $ ./redis-cli mget foo bar
-    1. 1000
-    2. 2000
-    $ ./redis-cli mget foo bar nokey
+
+    MGET foo bar nokey
     1. 1000
     2. 2000
     3. (nil)
-    $
+

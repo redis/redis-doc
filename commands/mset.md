@@ -1,27 +1,16 @@
 @complexity
 
-O(1) to set every key
+O(N) where N is the number of keys to set
 
 
-Set the the respective keys to the respective values. `MSET` will replace old
-values with new values, while `MSETNX` will not perform any operation at all
-even if just a single key already exists.
+Sets the given keys to their respective values. `MSET` replaces existing values
+with new values, just as regular `SET`.  See `MSETNX` if you don't want to
+overwrite existing values.
 
-Because of this semantic `MSETNX` can be used in order to set different keys
-representing different fields of an unique logic object in a way tha
-ensures that either all the fields or none at all are set.
+`MSET` is atomic, so all given keys are set at once. It is not possible for
+clients to see that some of the keys were updated while others are unchanged.
 
-Both `MSET` and `MSETNX` are atomic operations. This means that for instance
-if the keys A and B are modified, another client talking to Redis can either
-see the changes to both A and B at once, or no modification at all.
+@return
 
-## `MSET` Return value
+@status-reply: always `OK` since `MSET` can't fail.
 
-@status-reply Basically +OK as `MSET` can't fail
-
-## `MSETNX` Return value
-
-@integer-reply, specifically:
-
-    1 if the all the keys were se
-    0 if no key was set (at least one key already existed)
