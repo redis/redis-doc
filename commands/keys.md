@@ -1,32 +1,30 @@
 @complexity
 
-O(n) (with n being the number of keys in the DB, and assuming
-keys and pattern of limited length)_
+O(N) with N being the number of keys in the database, under the assumption that
+the key names in the database and the given pattern have limited length.
 
-Returns all the keys matching the glob-style _pattern_ as
-space separated strings. For example if you have in the
-database the keys foo and foobar the command `KEYS` foo*
-will return foo foobar.
+Returns all keys matching `pattern`.
 
-Note that while the time complexity for this operation is O(n)
-the constant times are pretty low. For example Redis running
-on an entry level laptop can scan a 1 million keys database
-in 40 milliseconds. **Still it's better to consider this one of
-the slow commands that may ruin the DB performance if not used
-with care**.
+While the time complexity for this operation is O(N), the constant
+times are fairly low. For example, Redis running on an entry level laptop can
+scan a 1 million key database in 40 milliseconds.
 
-In other words this command is intended only for debugging and **special** operations like
-creating a script to change the DB schema. Don't use it in your normal code. Use Redis
-sets in order to group together a subset of objects.
+**Warning**: consider `KEYS` as a command that should only be used in
+production environments with extreme care.  It may ruin performance when it is
+executed against large databases. This command is intended for debugging and
+special operations, such as changing your keyspace layout. Don't use `KEYS`
+in your regular application code.  If you're looking for a way to find keys in
+a subset of your keyspace, consider using [sets](/topics/data-types#sets).
 
-Glob style patterns examples:
+Supported glob-style patterns:
 
-* h?llo will match hello hallo hhllo
-* h*llo will match hllo heeeello
-* h[ae]llo will match hello and hallo, but not hillo
+* `h?llo` matches `hello`, `hallo` and `hxllo`
+* `h*llo` matches `hllo` and `heeeello`
+* `h[ae]llo` matches `hello` and `hallo,` but not `hillo`
 
-Use \ to escape special chars if you want to match them verbatim.
+Use `\` to escape special characters if you want to match them verbatim.
 
 @return
 
-@multi-bulk-reply
+@multi-bulk-reply: list of keys matching `pattern`.
+
