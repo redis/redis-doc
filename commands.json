@@ -1185,7 +1185,7 @@
         "type": "integer"
       },
       {
-        "name": "stop",
+        "name": "end",
         "type": "integer"
       }
     ],

@@ -1,17 +1,16 @@
 @complexity
 
-O(start+n) (with start being the start index and n the total
-length of the requested range). Note that the lookup part of this command is
-O(1) so for small strings this is actually an O(1) command.
+O(N) where N is the length of the returned string. The complexity is ultimately
+determined by the returned length, but because creating a substring from an
+existing string is very cheap, it can be considered O(1) for small strings.
 
-Return a subset of the string from offset _start_ to offset _end_
-(both offsets are inclusive).
-Negative offsets can be used in order to provide an offset starting from
-the end of the string. So -1 means the last char, -2 the penultimate and
-so forth.
+Returns the substring of the string value stored at `key`, determined by the
+offsets `start` and `end` (both are inclusive). Negative offsets can be used in
+order to provide an offset starting from the end of the string. So -1 means the
+last character, -2 the penultimate and so forth.
 
-The function handles out of range requests without raising an error, bu
-just limiting the resulting range to the actual length of the string.
+The function handles out of range requests by limiting the resulting range to
+the actual length of the string.
 
 @return
 
@@ -21,11 +20,16 @@ just limiting the resulting range to the actual length of the string.
 
     SET s This is a string
     OK
+
     SUBSTR s 0 3
     This
+
     SUBSTR s -3 -1
     ing
+
     SUBSTR s 0 -1
     This is a string
+
     SUBSTR s 9 100000
-     string
+    string
+
