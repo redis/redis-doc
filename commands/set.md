@@ -3,9 +3,10 @@
 O(1)
 
 
-Set the string _value_ as value of the _key_.
-The string can't be longer than 1073741824 bytes (1 GB).
+Set `key` to hold the string `value`. If `key` already holds a value, it is
+overwritten, regardless of its type.
 
 @return
 
-@status-reply
+@status-reply: always `OK` since `SET` can't fail.
+
