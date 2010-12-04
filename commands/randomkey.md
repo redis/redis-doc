@@ -3,9 +3,9 @@
 O(1)
 
 
-Return a randomly selected key from the currently selected DB.
+Return a random key from the currently selected database.
 
 @return
 
-[Singe line reply][1], specifically the randomly selected key or an empty string
-is the database is empty.
+@bulk-reply: the random key, or `nil` when the database is empty.
+
