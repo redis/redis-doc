@@ -3,10 +3,11 @@
 O(1)
 
 
-Atomically renames the key _oldkey_ to _newkey_. If the source and
-destination name are the same an error is returned. If _newkey_
-already exists it is overwritten.
+Renames `key` to `newkey`. It returns an error when the source and destination
+names are the same, or when `key` does not exist. If `newkey` already exists it
+is overwritten.
 
 @return
 
 @status-reply
+

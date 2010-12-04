@@ -776,11 +776,11 @@
     "summary": "Rename a key",
     "arguments": [
       {
-        "name": "old",
+        "name": "key",
         "type": "key"
       },
       {
-        "name": "new",
+        "name": "newkey",
         "type": "key"
       }
     ],
@@ -791,11 +791,11 @@
     "summary": "Rename a key, only if the new key does not exist",
     "arguments": [
       {
-        "name": "old",
+        "name": "key",
         "type": "key"
       },
       {
-        "name": "new",
+        "name": "newkey",
         "type": "key"
       }
     ],
