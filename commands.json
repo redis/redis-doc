@@ -1085,7 +1085,7 @@
       },
       {
         "command": "LIMIT",
-        "name": ["start", "count"],
+        "name": ["offset", "count"],
         "type": ["integer", "integer"],
         "optional": true
       },
