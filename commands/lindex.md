@@ -1,19 +1,35 @@
 @complexity
 
-O(n) (with n being the length of the list)
+O(N) where N is the number of elements to traverse to get to the element
+at `index`. This makes asking for the first or the last
+element of the list O(1).
 
+Returns the element at index `index` in the list stored at `key`.
+The index is zero-based, so `0` means the first element, `1` the second
+element and so on. Negative indices can be used to designate elements
+starting at the tail of the list. Here, `-1` means the last element, `-2` means
+the penultimate and so forth.
 
-Return the specified element of the list stored at the specified
-key. 0 is the first element, 1 the second and so on. Negative indexes
-are supported, for example -1 is the last element, -2 the penultimate
-and so on.
-
-If the value stored at key is not of list type an error is returned.
-If the index is out of range a 'nil' reply is returned.
-
-Note that even if the average time complexity is O(n) asking for
-the first or the last element of the list is O(1).
+When the value at `key` is not a list, an error is returned.
 
 @return
 
-@bulk-reply: the requested element.
+@bulk-reply: the requested element, or `nil` when `index` is out of range.
+
+@examples
+
+    LPUSH mylist "world"
+    1
+
+    LPUSH mylist "hello"
+    2
+
+    LINDEX mylist 0
+    "hello"
+
+    LINDEX mylist -1
+    "world"
+
+    LINDEX mylist 3
+    (nil)
+
