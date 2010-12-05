@@ -3,42 +3,45 @@
 O(1)
 
 
-Atomically return and remove the last (tail) element of the _srckey_ list,
-and push the element as the first (head) element of the _dstkey_ list. For
-example if the source list contains the elements a,b,c and the
-destination list contains the elements foo,bar after an `RPOPLPUSH` command
-the content of the two lists will be a,b and c,foo,bar.
+Atomically returns and removes the last element (tail) of the list stored at
+`source`, and pushes the element at the first element (head) of the list stored
+at `destination`.
 
-If the _key_ does not exist or the list is already empty the special
-value 'nil' is returned. If the _srckey_ and _dstkey_ are the same the
-operation is equivalent to removing the last element from the list and pusing
-it as first element of the list, so it's a list rotation command.
+For example: consider `source` holding the list `a,b,c`, and `destination`
+holding the list `x,y,z`. Executing `RPOPLPUSH` results in `source` holding
+`a,b` and `destination` holding `c,x,y,z`.
 
-## Programming patterns: safe queues
+If `source` does not exist, the value `nil` is returned and no operation is
+performed. If `source` and `destination` are the same, the operation is
+equivalent to removing the last element from the list and pushing it as first
+element of the list, so it can be considered as a list rotation command.
+
+## Design pattern: safe queues
 
 Redis lists are often used as queues in order to exchange messages between
 different programs. A program can add a message performing an `LPUSH` operation
-against a Redis list (we call this program a Producer), while another program
-(that we call Consumer) can process the messages performing an `RPOP` command
-in order to start reading the messages from the oldest.
+against a Redis list (we call this program the _Producer_), while another program
+(that we call _Consumer_) can process the messages performing an `RPOP` command
+in order to start reading the messages starting at the oldest.
 
-Unfortunately if a Consumer crashes just after an `RPOP` operation the message
-gets lost. `RPOPLPUSH` solves this problem since the returned message is
-added to another backup list. The Consumer can later remove the message
+Unfortunately, if a _Consumer_ crashes just after an `RPOP` operation, the message
+is lost. `RPOPLPUSH` solves this problem since the returned message is
+added to another backup list. The _Consumer_ can later remove the message
 from the backup list using the `LREM` command when the message was correctly
 processed.
 
-Another process, called Helper, can monitor the backup list to check for
+Another process (that we call _Helper_), can monitor the backup list to check for
 timed out entries to repush against the main queue.
 
-## Programming patterns: server-side O(N) list traversal
+## Design pattern: server-side O(N) list traversal
 
-Using RPOPPUSH with the same source and destination key a process can
-visit all the elements of an N-elements List in O(N) without to transfer
+Using `RPOPLPUSH` with the same source and destination key, a process can
+visit all the elements of an N-elements list in O(N) without transferring
 the full list from the server to the client in a single `LRANGE` operation.
 Note that a process can traverse the list even while other processes
-are actively `RPUSH`ing against the list, and still no element will be skipped.
+are actively `RPUSH`-ing against the list, and still no element will be skipped.
 
 @return
 
-@bulk-reply
+@bulk-reply: the element being popped and pushed.
+
