@@ -6,7 +6,7 @@ sorted set and M the number of elements returned.
 Returns the specified range of elements in the sorted set stored at `key`. The
 elements are considered to be ordered from the highest to the lowest score.
 
-Apart from the reversed ordering, `ZREVRANGE` is identical to `ZRANGE`.
+Apart from the reversed ordering, `ZREVRANGE` is similar to `ZRANGE`.
 
 @return
 

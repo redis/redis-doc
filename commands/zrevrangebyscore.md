@@ -11,8 +11,8 @@ considered to be ordered from high to low scores.
 
 The elements having the same score are returned in reverse lexographical order.
 
-Apart from the reversed ordering of elements, this command takes the same
-options as `ZRANGEBYSCORE`.
+Apart from the reversed ordering, `ZREVRANGEBYSCORE` is similar to
+`ZRANGEBYSCORE`.
 
 @return
 
