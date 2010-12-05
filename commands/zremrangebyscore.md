@@ -1,11 +1,15 @@
 @complexity
 
-O(log(N))+O(M) with N being the number of elements in the
-sorted set and M the number of elements removed by the operation_
+O(log(N)+M) with N being the number of elements in the sorted set and M the
+number of elements removed by the operation.
 
-Remove all the elements in the sorted set at key with a score between
-_min_ and _max_ (including elements with score equal to min or max).
+Removes all elements in the sorted set stored at `key` with a score between
+`min` and `max` (inclusive).
+
+Since version 2.1.6, `min` and `max` can be exclusive, following the syntax of
+`ZRANGEBYSCORE`.
 
 @return
 
 @integer-reply: the number of elements removed.
+
