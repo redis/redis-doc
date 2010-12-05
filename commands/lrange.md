@@ -1,35 +1,53 @@
 @complexity
 
-O(start+n) (with n being the length of the range and star
-being the start offset)_
+O(S+N) where S is the `start` offset and N is the number of elements in the
+specified range.
 
-Return the specified elements of the list stored at the specified key. Star
-and end are zero-based indexes. 0 is the first element of the list (the lis
-head), 1 the next element and so on.
+Returns the specified elements of the list stored at `key`.  The offsets
+`start` and `end` are zero-based indexes, with `0` being the first element of
+the list (the head of the list), `1` being the next element and so on.
 
-For example `LRANGE` foobar 0 2 will return the first three elements of the list.
+These offsets can also be negative numbers indicating offsets starting at the
+end of the list. For example, `-1` is the last element of the list, `-2` the
+penultimate, and so on.
 
+## Consistency with range functions in various programming languages
 
-_start_ and _end_ can also be negative numbers indicating offsets from the
-end of the list. For example -1 is the last element of the list, -2 the penultimate
-element and so on.
-
-## Consistency with range functions in various programming language
-
-Note that if you have a list of numbers from 0 to 100, `LRANGE` 0 10 will return
-11 elements, that is, rightmost item is included. This **may or may not** be
-consistent with behavior of range-related functions in your programming language
-of choice (think Ruby's Range.new, Array#slice or Python's range() function).
-
-
-`LRANGE` behavior is consistent with one of Tcl.
+Note that if you have a list of numbers from 0 to 100, `LRANGE list 0 10` will
+return 11 elements, that is, the rightmost item is included. This **may or may
+not** be consistent with behavior of range-related functions in your
+programming language of choice (think Ruby's `Range.new`, `Array#slice` or
+Python's `range()` function).
 
 ## Out-of-range indexes
 
-Indexes out of range will not produce an error: if start is over the end of
-the list, or start end, an empty list is returned. If end is over the end of
-the list Redis will threat it just like the last element of the list.
+Out of range indexes will not produce an error. If `start` is larger than the
+end of the list, or `start > end`, an empty list is returned.  If `end` is
+larger than the actual end of the list, Redis will treat it like the last
+element of the list.
 
 @return
 
-@multi-bulk-reply, specifically a list of elements in the specified range.
+@multi-bulk-reply: list of elements in the specified range.
+
+@examples
+
+    RPUSH list "one"
+    1
+    RPUSH list "two"
+    2
+    RPUSH list "three"
+    3
+    LRANGE list 0 0
+    1) "one"
+    LRANGE list -3 2
+    1) "one"
+    2) "two"
+    3) "three"
+    LRANGE list -100 100
+    1) "one"
+    2) "two"
+    3) "three"
+    LRANGE list 5 10
+    (empty list)
+
