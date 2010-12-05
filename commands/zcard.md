@@ -3,11 +3,11 @@
 O(1)
 
 
-Return the sorted set cardinality (number of elements). If the _key_ does no
-exist 0 is returned, like for empty sorted sets.
+Returns the sorted set cardinality (number of elements) of the sorted set
+stored at `key`.
 
 @return
 
-@integer-reply, specifically:
+@integer-reply: the cardinality (number of elements) of the sorted set, or `0`
+if `key` does not exist.
 
-`the cardinality (number of elements) of the set as an integer.`
