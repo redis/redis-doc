@@ -1353,6 +1353,10 @@
         "type": "key"
       },
       {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
         "name": "key",
         "type": "key",
         "multiple": true
@@ -1591,6 +1595,10 @@
       {
         "name": "destination",
         "type": "key"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
       },
       {
         "name": "key",
