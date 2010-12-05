@@ -1389,6 +1389,12 @@
       {
         "name": "stop",
         "type": "integer"
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": ["WITHSCORES"],
+        "optional": true
       }
     ],
     "since": "1.1",
@@ -1507,6 +1513,12 @@
       {
         "name": "stop",
         "type": "integer"
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": ["WITHSCORES"],
+        "optional": true
       }
     ],
     "since": "1.1",
