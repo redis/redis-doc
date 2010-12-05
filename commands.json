@@ -1524,6 +1524,37 @@
     "since": "1.1",
     "group": "sorted_set"
   },
+  "ZREVRANGEBYSCORE": {
+    "summary": "Return a range of members in a sorted set, by score, with scores ordered from high to low",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "max",
+        "type": "double"
+      },
+      {
+        "name": "min",
+        "type": "double"
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": ["WITHSCORES"],
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": ["offset", "count"],
+        "type": ["integer", "integer"],
+        "optional": true
+      }
+    ],
+    "since": "2.1.6",
+    "group": "sorted_set"
+  },
   "ZREVRANK": {
     "summary": "Determine the index of a member in a sorted set, with scores ordered from high to low",
     "arguments": [
