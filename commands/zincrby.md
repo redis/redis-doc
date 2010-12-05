@@ -1,23 +1,21 @@
 @complexity
 
-O(log(N)) with N being the number of elements in the sorted
-set_
+O(log(N)) where N is the number of elements in the sorted set.
 
-If _member_ already exists in the sorted set adds the _increment_ to its score
-and updates the position of the element in the sorted set accordingly.
-If _member_ does not already exist in the sorted set it is added with
-_increment_ as score (that is, like if the previous score was virtually zero).
-If _key_ does not exist a new sorted set with the specified
-_member_ as sole member is crated. If the key exists but does not hold a
-sorted set value an error is returned.
+Increments the score of `member` in the sorted set stored at `key` by
+`increment`.  If `member` does not exist in the sorted set, it is added with
+`increment` as its score (as if its previous score was `0.0`).  If `key` does
+not exist, a new sorted set with the specified `member` as its sole member is
+created.
 
-The score value can be the string representation of a double precision floating
-point number. It's possible to provide a negative value to perform a decrement.
+An error is returned when `key` exists but does not hold a sorted set.
 
-For an introduction to sorted sets check the [Introduction to Redis data types][1] page.
+The `score` value should be the string representation of a numeric value, and
+accepts double precision floating point numbers. It is possible to provide a
+negative value to decrement the score.
 
 @return
 
-@bulk-reply
+@bulk-reply: the new score of `member` (a double precision floating point
+number), represented as string.
 
-    The new score (a double precision floating point number) represented as string.
