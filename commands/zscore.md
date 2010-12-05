@@ -3,12 +3,13 @@
 O(1)
 
 
-Return the score of the specified element of the sorted set at key.
-If the specified element does not exist in the sorted set, or the key
-does not exist at all, a special 'nil' value is returned.
+Returns the score of `member` in the sorted set at `key`.
+
+If `member` does not exist in the sorted set, or `key` does not exist,
+`nil` is returned.
 
 @return
 
-@bulk-reply
+@bulk-reply: the score of `member` (a double precision floating point number),
+represented as string.
 
-    the score (a double precision floating point number) represented as string.
