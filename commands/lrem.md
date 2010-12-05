@@ -1,20 +1,22 @@
 @complexity
 
-O(N) (with N being the length of the list)
+O(N) where N is the length of the list.
 
+Removes the first `count` occurrences of elements equal to `value` from the
+list stored at `key`. The `count` argument influences the operation in the
+following ways:
 
-Remove the first _count_ occurrences of the _value_ element from the list.
-If _count_ is zero all the elements are removed. If _count_ is negative
-elements are removed from tail to head, instead to go from head to tail
-that is the normal behaviour. So for example `LREM` with count -2 and
-_hello_ as value to remove against the list (a,b,c,hello,x,hello,hello) will
-lave the list (a,b,c,hello,x). The number of removed elements is returned
-as an integer, see below for more information about the returned value.
-Note that non existing keys are considered like empty lists by `LREM`, so `LREM`
-against non existing keys will always return 0.
+* `count > 0`: Remove elements equal to `value` moving from head to tail.
+* `count < 0`: Remove elements equal to `value` moving from tail to head.
+* `count = 0`: Remove all elements equal to `value`.
+
+For example, `LREM list -2 "hello"` will remove the last two occurances of
+`"hello"` in the list stored at `list`.
+
+Note that non-existing keys are treated like empty lists, so when `key` does
+not exist, the command will always return `0`.
 
 @return
 
-@integer-reply, specifically:
+@integer-reply: the number of removed elements.
 
-`The number of removed elements if the operation succeeded`
