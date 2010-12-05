@@ -1,11 +1,12 @@
 @complexity
 
-O(N)
+O(N) where N is the set cardinality.
 
+Returns all the members of the set value stored at `key`.
 
-Return all the members (elements) of the set value stored at _key_. This
-is just syntax glue for `SINTER`.
+This has the same effect as running `SINTER` with one argument `key`.
 
 @return
 
-@multi-bulk-reply
+@multi-bulk-reply: all elements of the set.
+

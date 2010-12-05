@@ -3,11 +3,10 @@
 O(1)
 
 
-Return the set cardinality (number of elements). If the _key_ does no
-exist 0 is returned, like for empty sets.
+Returns the set cardinality (number of elements) of the set stored at `key`.
 
 @return
 
-@integer-reply, specifically:
+@integer-reply: the cardinality (number of elements) of the set, or `0` if
+`key` does not exist.
 
-`the cardinality (number of elements) of the set as an integer.`
