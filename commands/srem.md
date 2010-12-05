@@ -3,13 +3,15 @@
 O(1)
 
 
-Remove the specified _member_ from the set value stored at _key_. If
-_member_ was not a member of the set no operation is performed. If _key_
-does not hold a set value an error is returned.
+Remove `member` from the set stored at `key`. If `member` is not a member of
+this set, no operation is performed.
+
+An error is returned when the value stored at `key` is not a set.
 
 @return
 
 @integer-reply, specifically:
 
-    1 if the new element was removed
-    0 if the new element was not a member of the se
+* `1` if the element was removed.
+* `0` if the element was not a member of the set.
+
