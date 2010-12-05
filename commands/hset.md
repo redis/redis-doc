@@ -3,13 +3,14 @@
 O(1)
 
 
-Set the specified hash _field_ to the specified _value_.
-
-If _key_ does not exist, a new key holding a hash is created.
-
-If the field already exists, and the `HSET` just produced an update of the
-value, 0 is returned, otherwise if a new field is created 1 is returned.
+Sets `field` in the hash stored at `key` to `value`. If `key` does not exist, a
+new key holding a hash is created. If `field` already exists in the hash, it
+is overwritten.
 
 @return
 
-@integer-reply
+@integer-reply, specifically:
+
+* `1` if `field` is a new field in the hash and `value` was set.
+* `0` if `field` already exists in the hash and the value was updated.
+
