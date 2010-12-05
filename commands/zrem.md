@@ -1,15 +1,16 @@
 @complexity
 
-O(log(N)) with N being the number of elements in the sorted
-set_
+O(log(N)) with N being the number of elements in the sorted set.
 
-Remove the specified _member_ from the sorted set value stored at _key_. If
-_member_ was not a member of the set no operation is performed. If _key_
-does not not hold a set value an error is returned.
+Removes the `member` from the sorted set stored at `key`. If
+`member` is not a member of the sorted set, no operation is performed.
+
+An error is returned when `key` exists and does not hold a sorted set.
 
 @return
 
 @integer-reply, specifically:
 
-    1 if the new element was removed
-    0 if the new element was not a member of the se
+* `1` if `member` was removed.
+* `0` if `member` is not a member of the sorted set.
+
