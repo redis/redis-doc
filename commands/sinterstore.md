@@ -1,10 +1,14 @@
 @complexity
 
-O(N*M) worst case where N is the cardinality of the smalles
-set and M the number of sets_
+O(N*M) worst case where N is the cardinality of the smallest set and M is the
+number of sets.
 
-This commnad works exactly like `SINTER` but instead of being returned the resulting set is sotred as _dstkey_.
+This command is equal to `SINTER`, but instead of returning the resulting set,
+it is stored in `destination`.
+
+If `destination` already exists, it is overwritten.
 
 @return
 
 @status-reply
+

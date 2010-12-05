@@ -1,16 +1,20 @@
 @complexity
 
-O(N) where N is the total number of elements in all the provided
-sets_
+O(N) where N is the total number of elements in all given sets.
 
-Return the members of a set resulting from the union of all the
-sets hold at the specified keys. Like in `LRANGE` the result is sent to
-the client as a multi-bulk reply (see the protocol specification for
-more information). If just a single key is specified, then this command
-produces the same result as `SMEMBERS`.
+Returns the members of the set resulting from the union of all the
+given sets.
 
-Non existing keys are considered like empty sets.
+For example:
+
+    key1 = {a,b,c,d}
+    key2 = {c}
+    key3 = {a,c,e}
+    SUNION key1 key2 key3 = {a,b,c,d,e}
+
+Keys that do not exist are considered to be empty sets.
 
 @return
 
-@multi-bulk-reply, specifically the list of common elements.
+@multi-bulk-reply: list with members of the resulting set.
+

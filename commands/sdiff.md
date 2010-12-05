@@ -1,16 +1,20 @@
 @complexity
 
-O(N) with N being the total number of elements of all the
-sets_
+O(N) where N is the total number of elements in all given sets.
 
-Return the members of a set resulting from the difference between the firs
-set provided and all the successive sets. Example:
-    key1 = x,a,b,c
-    key2 = c
-    key3 = a,d
-    SDIFF key1,key2,key3 = x,b
-Non existing keys are considered like empty sets.
+Returns the members of the set resulting from the difference between the first
+set and all the successive sets.
+
+For example:
+
+    key1 = {a,b,c,d}
+    key2 = {c}
+    key3 = {a,c,e}
+    SDIFF key1 key2 key3 = {b,d}
+
+Keys that do not exist are considered to be empty sets.
 
 @return
 
-@multi-bulk-reply, specifically the list of common elements.
+@multi-bulk-reply: list with members of the resulting set.
+

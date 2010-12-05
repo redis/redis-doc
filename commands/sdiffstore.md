@@ -1,10 +1,13 @@
 @complexity
 
-O(N) where N is the total number of elements in all the provided
-sets_
+O(N) where N is the total number of elements in all given sets.
 
-This command works exactly like `SDIFF` but instead of being returned the resulting set is stored in _dstkey_.
+This command is equal to `SDIFF`, but instead of returning the resulting set,
+it is stored in `destination`.
+
+If `destination` already exists, it is overwritten.
 
 @return
 
 @status-reply
+
