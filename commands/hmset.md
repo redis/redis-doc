@@ -1,12 +1,12 @@
 @complexity
 
-O(N) (with N being the number of fields)
+O(N) where N is the number of fields being set.
 
-
-Set the respective fields to the respective values. `HMSET` replaces old values with new values.
-
-If _key_ does not exist, a new key holding a hash is created.
+Sets the specified fields to their respective values in the hash
+stored at `key`. This command overwrites any existing fields in the hash.
+If `key` does not exist, a new key holding a hash is created.
 
 @return
 
-@status-reply Always +OK because `HMSET` can't fail
+@status-reply
+
