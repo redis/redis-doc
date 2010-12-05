@@ -3,12 +3,12 @@
 O(1)
 
 
-Remove a random element from a Set returning it as return value.
-If the Set is empty or the key does not exist, a nil object is returned.
+Removes and returns a random element from the set value stored at `key`.
 
-The `SRANDMEMBER` command does a similar work bu
-the returned element is not removed from the Set.
+This operation is similar to `SRANDMEMBER`, that returns a random
+element from a set but does not remove it.
 
 @return
 
-@bulk-reply
+@bulk-reply: the removed element, or `nil` when `key` does not exist.
+

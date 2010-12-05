@@ -3,12 +3,12 @@
 O(1)
 
 
-Return a random element from a Set, without removing the element.
-If the Set is empty or the key does not exist, a nil object is returned.
+Returns a random element from the set value stored at `key`.
 
-The `SPOP` command does a similar work but the returned elemen
-is popped (removed) from the Set.
+This operation is similar to `SPOP`, that also removes the randomly
+selected element.
 
 @return
 
-@bulk-reply
+@bulk-reply: the randomly selected element, or `nil` when `key` does not exist.
+
