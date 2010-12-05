@@ -1,7 +1,8 @@
 @complexity
 
-O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets,
-and M being the number of elements in the resulting sorted set.
+O(N\*K)+O(M\*log(M)) worst case with N being the smallest input sorted set, K
+being the number of input sorted sets and M being the number of elements in the
+resulting sorted set.
 
 Computes the intersection of `numkeys` sorted sets given by the specified keys,
 and stores the result in `destination`. It is mandatory to provide the number
