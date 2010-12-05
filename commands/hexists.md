@@ -3,10 +3,12 @@
 O(1)
 
 
-Return 1 if the hash stored at _key_ contains the specified _field_.
-
-Return 0 if the _key_ is not found or the _field_ is not present.
+Returns if `field` is an existing field in the hash stored at `key`.
 
 @return
 
-@integer-reply
+@integer-reply, specifically:
+
+* `1` if the hash contains `field`.
+* `0` if the hash does not contain `field`, or `key` does not exist.
+

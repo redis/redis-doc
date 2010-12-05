@@ -3,10 +3,10 @@
 O(1)
 
 
-If _key_ holds a hash, retrieve the value associated to the specified _field_.
-
-If the _field_ is not found or the _key_ does not exist, a special 'nil' value is returned.
+Returns the value associated with `field` in the hash stored at `key`.
 
 @return
 
-@bulk-reply
+@bulk-reply: the value associated with `field`, or `nil` when `field` is not
+present in the hash or `key` does not exist.
+

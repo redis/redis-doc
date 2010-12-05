@@ -3,10 +3,12 @@
 O(1)
 
 
-Remove the specified _field_ from an hash stored at _key_.
-
-If the _field_ was present in the hash it is deleted and 1 is returned, otherwise 0 is returned and no operation is performed.
+Removes `field` from the hash stored at `key`.
 
 @return
 
-@integer-reply
+@integer-reply: specifically,
+
+* `1` if `field` was present in the hash and is now removed.
+* `0` if `field` does not exist in the hash, or `key` does not exist.
+
