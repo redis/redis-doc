@@ -3,19 +3,32 @@
 O(1)
 
 
-Increment the number stored at _field_ in the hash at _key_ by _value_. If _key_ does not exist, a new key holding a hash is created. If _field_ does not exist or holds a string, the value is set to 0 before applying the operation.
+Increments the number stored at `field` in the hash stored at `key` by
+`increment`. If `key` does not exist, a new key holding a hash is created. If
+`field` does not exist or holds a string that cannot be interpreted as integer,
+the value is set to `0` before the operation is performed.
 
-The range of values supported by `HINCRBY` is limited to 64 bit signed integers.
-
-@examples
-
-Since the _value_ argument is signed you can use this command to perform both
-increments and decrements:
-
-    HINCRBY key field 1 (increment by one)
-    HINCRBY key field -1 (decrement by one, just like the DECR command)
-    HINCRBY key field -10 (decrement by 10)
+The range of values supported by `HINCRBY` is limited to 64 bit signed
+integers.
 
 @return
 
-@integer-reply The new value at _field_ after the increment operation.
+@integer-reply: the value at `field` after the increment operation.
+
+@examples
+
+Since the `increment` argument is signed, both increment and decrement
+operations can be performed:
+
+    HSET key field 5
+    1
+
+    HINCRBY key field 1
+    6
+
+    HINCRBY key field -1
+    5
+
+    HINCRBY key field -10
+    -5
+
