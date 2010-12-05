@@ -3,11 +3,16 @@
 O(log(N))
 
 
-`ZRANK` returns the rank of the member in the sorted set, with scores ordered from low to high. `ZREVRANK` returns the rank with scores ordered from high to low. When the given member does not exist in the sorted set, the special value 'nil' is returned. The returned rank (or index) of the member is 0-based for both commands.
+Returns the rank of `member` in the sorted set stored at `key`, with the scores
+ordered from high to low. The rank (or index) is 0-based, which means that the
+member with the highest score has rank `0`.
+
+Use `ZRANK` to get the rank of an element with the scores ordered from low to
+high.
 
 @return
 
-@integer-reply or a @nil-reply, specifically:
+* If `member` exists in the sorted set, @integer-reply: the rank of `member`.
+* If `member` does not exist in the sorted set or `key` does not exist,
+@bulk-reply: `nil`.
 
-    the rank of the element as an integer reply if the element exists.
-    A nil bulk reply if there is no such element.
