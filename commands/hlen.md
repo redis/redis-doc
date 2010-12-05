@@ -3,8 +3,9 @@
 O(1)
 
 
-Return the number of entries (fields) contained in the hash stored at _key_. If the specified _key_ does not exist, 0 is returned assuming an empty hash.
+Returns the number of fields contained in the hash stored at `key`.
 
 @return
 
-@integer-reply
+@integer-reply: number of fields in the hash, or `0` when `key` does not exist.
+
