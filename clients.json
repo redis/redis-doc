@@ -82,6 +82,7 @@
 
   "Perl Client": {
     "language": "Perl",
+    "url": "http://search.cpan.org/dist/Redis",
     "repository": "http://github.com/dpavlin/perl-Redis",
     "description": "",
     "authors": ["dpavlin"]
