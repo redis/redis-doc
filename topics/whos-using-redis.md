@@ -9,7 +9,7 @@ Who's using Redis?
   <li>
     <a href="https://github.com/blog/530-how-we-made-github-fast"><img src="https://github.com/images/modules/header/logov3.png" alt="GitHub"></a>
   </li>
-  
+
   <li>
     <span style="font: 32px serif">craigslist</span>
   </li>
@@ -17,7 +17,7 @@ Who's using Redis?
   <li>
     <a href="http://simonwillison.net/2009/Dec/20/crowdsourcing"><img src="http://static.guim.co.uk/static/97665/networkfront/images/guardian_logo.png" alt="The Guardian"></a>
   </li>
-  
+
   <li>
     <img src="http://static.mlstatic.com/org-img/logo_ml/logoAlpha.png" alt="MercadoLibre">
   </li>
