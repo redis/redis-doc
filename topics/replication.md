@@ -8,42 +8,39 @@ replication:
 
 * A master can have multiple slaves.
 
-* Slaves are able to accept other slaves connections, so instead
-to connect a number of slaves against the same master it is also
-possible to connect some of the slaves to other slaves in a graph-alike
-structure.
+* Slaves are able to accept other slaves connections. Aside from
+connecting a number of slaves to the same master, slaves can also be
+connected to other slaves in a graph-like structure.
 
 * Redis replication is non-blocking on the master side, this means that
-the master will continue to serve queries while one or more slaves are
-performing the first synchronization. Instead replication is blocking on
-the slave side: while the slave is performing the first synchronization
-it can't reply to queries.
+the master will continue to serve queries when one or more slaves perform
+the first synchronization. Instead, replication is blocking on the slave
+side: while the slave is performing the first synchronization it can't
+reply to queries.
 
 * Replications can be used both for scalability, in order to have
-multiple slaves for read-only queries (for example heavy `SORT`
-operations can be launched against slaves), or simply for data
-redundancy.
+multiple slaves for read-only queries (for example, heavy `SORT`
+operations can be offloaded to slaves, or simply for data redundancy.
 
 * It is possible to use replication to avoid the saving process on the
-master side: just configure your master redis.conf in order to avoid
-saving at all (just comment al the "save" directives), then connect a
-slave configured to save from time to time.
+master side: just configure your master redis.conf to avoid saving
+(just comment all the "save" directives), then connect a slave
+configured to save from time to time.
 
 How Redis replication works
 ---
 
-In order to start the replication, or after the connection closes in
-order resynchronize with the master, the slave connects to the master
-and issues the `SYNC` command.
+If you set up a slave, upon connection it sends a SYNC command. And
+it doesn't matter if it's the first time it has connected or if it's
+a reconnection.
 
-The master starts a background saving, and at the same time starts to
-collect all the new commands received that had the effect to modify the
-dataset. When the background saving completed the master starts the
-transfer of the database file to the slave, that saves it on disk, and
-then load it in memory. At this point the master starts to send all the
-accumulated commands, and all the new commands received from clients
-that had the effect of a dataset modification, to the slave, as a stream
-of commands, in the same format of the Redis protocol itself.
+The master then starts background saving, and collects all new
+commands received that will modify the dataset. When the background
+saving is complete, the master transfers the database file to the slave,
+which saves it on disk, and then loads it into memory. The master will
+then send to the slave all accumulated commands, and all new commands
+received from clients that will modify the dataset. This is done as a
+stream of commands and is in the same format of the Redis protocol itself.
 
 You can try it yourself via telnet. Connect to the Redis port while the
 server is doing some work and issue the `SYNC` command. You'll see a bulk
@@ -52,8 +49,8 @@ in the telnet session.
 
 Slaves are able to automatically reconnect when the master <->
 slave link goes down for some reason. If the master receives multiple
-concurrent slave synchronization requests it performs a single
-background saving in order to serve all them.
+concurrent slave synchronization requests, it performs a single
+background save in order to serve all of them.
 
 Configuration
 ---
