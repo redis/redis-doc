@@ -112,6 +112,11 @@
     "since": "2.0",
     "group": "server"
   },
+  "CONFIG RESETSTAT": {
+    "summary": "Reset the stats returned by INFO",
+    "since": "2.0",
+    "group": "server"
+  },
   "DBSIZE": {
     "summary": "Return the number of keys in the selected database",
     "since": "0.07",
