@@ -259,6 +259,21 @@
     "since": "0.07",
     "group": "string"
   },
+  "GETBIT": {
+    "summary": "Returns the bit value at offset in the string value stored at key",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "offset",
+        "type": "integer"
+      }
+    ],
+    "since": "2.1.8",
+    "group": "string"
+  },
   "GETSET": {
     "summary": "Set the string value of a key and return its old value",
     "arguments": [
@@ -963,6 +978,25 @@
     "since": "0.07",
     "group": "string"
   },
+  "SETBIT": {
+    "summary": "Sets or clears the bit at offset in the string value stored at key",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "offset",
+        "type": "integer"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "since": "2.1.8",
+    "group": "string"
+  },
   "SETEX": {
     "summary": "Set the value and expiration of a key",
     "arguments": [
@@ -995,6 +1029,25 @@
       }
     ],
     "since": "0.07",
+    "group": "string"
+  },
+  "SETRANGE": {
+    "summary": "Overwrite part of a string at key starting at the specified offset",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "offset",
+        "type": "integer"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "since": "2.1.8",
     "group": "string"
   },
   "SHUTDOWN": {
