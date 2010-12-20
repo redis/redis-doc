@@ -28,7 +28,7 @@ the values are loaded back from the swap file to the main memory.
 
 Before using VM you should ask yourself if you really need it. Redis is a disk
 backed, in memory database. The right way to use Redis is almost always to have
-enough RAM to fit all the data in memory. Still there are a scenarios where this
+enough RAM to fit all the data in memory. Still there are scenarios where this
 is not possible:
 
 * Data access is very biased. Only a small percentage of keys (for instance
@@ -142,10 +142,10 @@ you can expect from blocking VM:
 * Clients accessing swapped out keys will block other clients while reading
   from disk, so the latency experienced by clients can be larger, especially
   if the disk is slow or busy and/or if there are big values swapped on disk.
-* The blocking VM performances are better *overall*, as there is no time lost
+* The blocking VM performance is better *overall*, as there is no time lost
   in synchronization, spawning of threads, and resuming blocked clients waiting
-  for values.  So if you are willing to accept an higher latency from time to time,
-  blocking VM can be a good pick, especially if swapping happens rarely as most
+  for values. So if you are willing to accept an higher latency from time to time,
+  blocking VM can be a good pick. Especially if swapping happens rarely and most
   of your often accessed data happens to fit in your memory.
 
 If instead you have a lot of swap in and swap out operations and you have many
