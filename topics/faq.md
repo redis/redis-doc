@@ -2,9 +2,9 @@
 
 ## Why do I need Redis instead of memcachedb, Tokyo Cabinet, ...?
 
-Memcachedb is basically memcached done persistent. Redis is a different
+Memcachedb is basically memcached made persistent. Redis is a different
 evolution path in the key-value DBs, the idea is that the main advantages of
-key-value DBs are retained even without a so severe loss of comfort of plain
+key-value DBs are retained even without severe loss of comfort of plain
 key-value DBs.  So Redis offers more features:
 
 * Keys can store different data types, not just strings. Notably Lists and
@@ -13,7 +13,7 @@ key-value DBs.  So Redis offers more features:
   key`. Don't want to save more than 1000 log lines per computer? Just issue a
   `LTRIM computer_ID 0 999` command to trim the list after every push.
 * Another example is about Sets. Imagine to build a social news site like
-  [Reddit][reddit]. Every time a user upvote a given news you can just add to
+  [Reddit][reddit]. Every time a user upvotes a given news you can just add to
   the news_ID_upmods key holding a value of type SET the id of the user that
   did the upmodding. Sets can also be used to index things. Every key can be a
   tag holding a SET with the IDs of all the objects associated to this tag.
@@ -49,7 +49,7 @@ sensible data structure for the work, right? Incredibly when data is put inside
 a relational DB this is no longer true, and we create an absurd data model even
 if our need is to put data and get this data back in the same order we put it
 inside (an ORDER BY is required when the data should be already sorted.
-Strange, dont' you think?).
+Strange, don't you think?).
 
 Key-value DBs bring this back at home, to create sensible data models and use
 the right data structures for the problem we are trying to solve.
@@ -79,7 +79,7 @@ takes 8 bytes in 64 bit systems. But of course the advantage is that you can
 have a lot of memory in 64 bit systems, so to run large Redis servers a 64 bit
 system is more or less required.
 
-## I like Redis high level operations and features, but I don't like it takes everything in memory and I can't have a dataset larger the memory. Plans to change this?
+## I like Redis high level operations and features, but I don't like that it takes everything in memory and I can't have a dataset larger the memory. Plans to change this?
 
 Short answer: If you are using a Redis client that supports consistent hashing
 you can distribute the dataset across different nodes. For instance the Ruby
@@ -330,4 +330,3 @@ working I liked the idea to share the work with other guys, and Redis was
 turned into an open source project.
 
 [lloogg]: http://lloogg.com
-
