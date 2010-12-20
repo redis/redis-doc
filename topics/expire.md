@@ -1,6 +1,6 @@
 # Expiring keys
 
-Voltile keys are stored on disk like the other keys, the timeout is persisten
+Voltile keys are stored on disk like the other keys, the timeout is persistent
 too like all the other aspects of the dataset. Saving a dataset containing
 expires and stopping the server does not stop the flow of time as Redis
 stores on disk the time when the key will no longer be available as Unix
@@ -9,13 +9,13 @@ time, and not the remaining seconds.
 ## How the expire is removed from a key
 
 When the key is set to a new value using the `SET` command, or when a key
-is destroied via `DEL`, the timeout is removed from the key.
+is destroyed via `DEL`, the timeout is removed from the key.
 
 ## Restrictions with write operations against volatile keys
 
-IMPORTANT: Since Redis 2.1.3 or greater, there are no restrictions abou
+IMPORTANT: Since Redis 2.1.3 or greater, there are no restrictions about
 the operations you can perform against volatile keys, however older versions
-of Redis, including the current stable version 2.0.0, has the following
+of Redis, including the current stable version 2.0.0, have the following
 limitations:
 
 Write operations like `LPUSH`, `LSET` and every other command that has the
@@ -35,12 +35,11 @@ See for example the following usage pattern:
 What happened here is that `LPUSH` against the key with a timeout set deleted
 the key before to perform the operation. There is so a simple rule, write
 operations against volatile keys will destroy the key before to perform the
-operation. Why Redis uses this behavior? In order to retain an importan
+operation. Why Redis uses this behavior? In order to retain an important
 property: a server that receives a given number of commands in the same
 sequence will end with the same dataset in memory. Without the delete-on-write
-semantic what happens is that the state of the server depends on the time
-the commands were issued. This is not a desirable property in a distributed database
-that supports replication.
+semantic the state of the server depends on the time the commands were issued.
+This is not a desirable property in a distributed database that supports replication.
 
 ## Restrictions for write operations with volatile keys as sources
 
@@ -53,7 +52,7 @@ leaves you with a desync in your dataset.
 
 ## Setting the timeout again on already volatile keys
 
-Trying to call `EXPIRE` against a key that already has an associated timeou
+Trying to call `EXPIRE` against a key that already has an associated timeout
 will not change the timeout of the key, but will just return 0. If instead
 the key does not have a timeout associated the timeout will be set and `EXPIRE`
 will return 1.
@@ -71,9 +70,9 @@ All the keys that are already expired are deleted from the keyspace.
 
 ### Version 1.0
 
-Each time a fixed number of keys where tested (100 by default). So if
+Each time a fixed number of keys were tested (100 by default). So if
 you had a client setting keys with a very short expire faster than 100
-for second the memory continued to grow. When you stopped to inser
+for second the memory continued to grow. When you stopped to insert
 new keys the memory started to be freed, 100 keys every second in the
 best conditions. Under a peak Redis continues to use more and more RAM
 even if most keys are expired in each sweep.
@@ -84,7 +83,7 @@ Each time Redis:
 
 1. Tests 100 random keys from expired keys set.
 2. Deletes all the keys found expired.
-3. If more than 25 keys were expired, it start again from 1.
+3. If more than 25 keys were expired, it starts again from 1.
 
 This is a trivial probabilistic algorithm, basically the assumption is
 that our sample is representative of the whole key space,
@@ -110,7 +109,7 @@ I set a key to the value of 100, then set an expire of 360 seconds, and then
 incremented the key (before the 360 timeout expired of course). The obvious
 result would be: 101, instead the key is set to the value of 1. Why? There
 is a very important reason involving the Append Only File and Replication.
-Let's rework a bit hour example adding the notion of time to the mix:
+Let's rework our example a bit by adding the notion of time to the mix:
 
     SET a 100
     EXPIRE a 5
@@ -132,12 +131,12 @@ if we add a timestamp in the AOF, when the time difference is smaller than
 our timer resolution, we have a race condition.
 
 The same happens with master-slave replication. Again, consider the example
-above: the client will use the same sequence of commands without the 10 seconds
+above: the client will use the same sequence of commands without the 10 second
 pause, but the replication link will slow down for a few seconds due to a network
-problem. Result? The master will contain 'a' set to 101, the slave 'a' se
+problem. Result? The master will contain 'a' set to 101, the slave 'a' set
 to 1.
 
-The only way to avoid this but at the same time have reliable non time dependen
+The only way to avoid this but at the same time have reliable non time dependent
 timeouts on keys is to destroy volatile keys when a write operation is attempted
 against it.
 
@@ -151,13 +150,12 @@ write commands against volatile keys, still the replication and AOF file are
 guaranteed to be fully consistent.
 
 In order to obtain a correct behavior without sacrificing consistency now when
-a key expires, a `DEL` operation is synthesized in both the AOF file and agains
+a key expires, a `DEL` operation is synthesized in both the AOF file and gains
 all the attached slaves. This way the expiration process is centralized in
 the master instance, and there is no longer a chance of consistency errors.
 
 
-However while the slaves while connected to a master will not expire keys independently,
-they'll still take the full state of the expires existing in the dataset, so
-when a slave is elected to a master it will be able to expire the keys independently,
-fully acting as a master.
-
+However while the slaves connected to a master will not expire keys
+independently, they'll still take the full state of the expires existing in
+the dataset, so when a slave is elected to a master it will be able to expire
+the keys independently, fully acting as a master.
