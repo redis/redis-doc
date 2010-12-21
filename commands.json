@@ -274,6 +274,25 @@
     "since": "2.1.8",
     "group": "string"
   },
+  "GETRANGE": {
+    "summary": "Get a substring of the string stored at a key",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "integer"
+      },
+      {
+        "name": "end",
+        "type": "integer"
+      }
+    ],
+    "since": "1.3.4",
+    "group": "string"
+  },
   "GETSET": {
     "summary": "Set the string value of a key and return its old value",
     "arguments": [
@@ -1249,25 +1268,6 @@
     ],
     "since": "1.3.8",
     "group": "pubsub"
-  },
-  "SUBSTR": {
-    "summary": "Get a substring of the string stored at a key",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "start",
-        "type": "integer"
-      },
-      {
-        "name": "end",
-        "type": "integer"
-      }
-    ],
-    "since": "1.3.4",
-    "group": "string"
   },
   "SUNION": {
     "summary": "Add multiple sets",
