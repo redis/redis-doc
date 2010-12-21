@@ -3,10 +3,8 @@
 O(1)
 
 
-Test if the specified key exists. The command returns
-0 if the key exists, otherwise 1 is returned.
-Note that even keys set with an empty string as value will
-return 1.
+Test if the specified key exists. The command returns "1" if the key exists,
+otherwise "0" is returned.
 
 @return
 

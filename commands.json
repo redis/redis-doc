@@ -206,7 +206,7 @@
       }
     ],
     "since": "0.07",
-    "group": "server"
+    "group": "generic"
   },
   "EXPIRE": {
     "summary": "Set a key's time to live in seconds",
