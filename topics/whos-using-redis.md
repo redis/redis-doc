@@ -35,6 +35,8 @@ And many others:
 * [Dark Curse](http://www.darkcurse.com)
 * [Virgilio Film](http://film.virgilio.it)
 * [OKNOtizie](http://film.virgilio.it)
+* [Moodstocks](http://www.moodstocks.com/2010/11/26/the-tech-behind-moodstocks-notes) uses Redis as its
+main database by means of [Ohm](http://ohm.keyvalue.org).
 
 This is an incomplete list. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
