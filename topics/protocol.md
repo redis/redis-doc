@@ -69,6 +69,8 @@ check the kind of reply from the first byte sent by the server:
 * With bulk reply the first byte of the reply will be "$"
 * With multi-bulk reply the first byte of the reply will be "`*`"
 
+<a name="status-reply"></a>
+
 Single line reply
 -----------------
 
@@ -94,6 +96,8 @@ you try to perform an operation against the wrong data type, or if the command
 does not exist and so forth. So an exception should be raised by the library
 client when an Error Reply is received.
 
+<a name="integer-reply"></a>
+
 Integer reply
 -------------
 
@@ -113,6 +117,9 @@ actually done, 0 otherwise.
 The following commands will reply with an integer reply: SETNX, DEL, EXISTS,
 INCR, INCRBY, DECR, DECRBY, DBSIZE, LASTSAVE, RENAMENX, MOVE, LLEN, SADD, SREM,
 SISMEMBER, SCARD
+
+<a name="nil-reply"></a>
+<a name="bulk-reply"></a>
 
 Bulk replies
 ------------
@@ -140,6 +147,8 @@ The client library API should not return an empty string, but a nil object,
 when the requested object does not exist.  For example a Ruby library should
 return 'nil' while a C library should return NULL (or set a special flag in the
 reply object), and so forth.
+
+<a name="multi-bulk-reply"></a>
 
 Multi-bulk replies
 ------------------
