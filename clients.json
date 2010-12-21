@@ -123,6 +123,14 @@
     "authors": ["justinpoliey"]
   },
 
+  "desir": {
+    "language": "Python",
+    "repository": "https://github.com/aallamaa/desir",
+    "description": "",
+    "authors": ["aallamaa"]
+  },
+
+
   "Python Client": {
     "language": "Python",
     "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/python",
