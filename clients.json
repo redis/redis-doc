@@ -106,7 +106,7 @@
     "language": "PHP",
     "repository": "http://github.com/owlient/phpredis",
     "description": "",
-    "authors": ["alfonsojimenez"]
+    "authors": ["yowgi"]
   },
 
   "Predis": {
