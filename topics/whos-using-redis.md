@@ -21,6 +21,18 @@ Who's using Redis?
   <li>
     <img src="http://static.mlstatic.com/org-img/logo_ml/logoAlpha.png" alt="MercadoLibre">
   </li>
+
+  <li>
+    <img src="http://us.blizzard.com/_images/company/about/awards/logo-dev.gif" alt="Blizzard" width="100">
+  </li>
+
+  <li>
+    <img src="http://developers.diggstatic.com/sites/all/themes/about/img/footer_logo.jpg" alt="Digg">
+  </li>
+
+  <li>
+    <img src="http://static.pe.studivz.net/20101222-0/Img/logo.png" alt="StudiVZ">
+  </li>
 </ul>
 
 And many others:
@@ -31,10 +43,8 @@ And many others:
 * [Ruby Minds](http://rubyminds.com)
 * [Boxcar](http://www.boxcar.io)
 * [Zoombu](http://www.zoombu.co.uk)
-* [LLOOGG](http://lloogg.com)
 * [Dark Curse](http://www.darkcurse.com)
-* [Virgilio Film](http://film.virgilio.it)
-* [OKNOtizie](http://film.virgilio.it)
+* [OKNOtizie](http://oknotizie.virgilio.it)
 * [Moodstocks](http://www.moodstocks.com/2010/11/26/the-tech-behind-moodstocks-notes) uses Redis as its
 main database by means of [Ohm](http://ohm.keyvalue.org).
 
