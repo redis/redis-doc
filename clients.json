@@ -2,7 +2,7 @@
   "redis-rb": {
     "language": "Ruby",
     "repository": "http://github.com/ezmobius/redis-rb",
-    "description": "",
+    "description": "very stable and mature client.",
     "authors": ["ezmobius", "soveran", "djanowski"]
   },
 
@@ -98,21 +98,21 @@
   "Redis PHP bindings": {
     "language": "PHP",
     "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
-    "description": "",
+    "description": "This is a deprecated client, check Predis, Rediska, PHPRedis for up to date alternatives.",
     "authors": ["ludo"]
   },
 
   "phpredis": {
     "language": "PHP",
     "repository": "http://github.com/owlient/phpredis",
-    "description": "",
+    "description": "This is a client written in C as a PHP module.",
     "authors": ["yowgi"]
   },
 
   "Predis": {
     "language": "PHP",
     "repository": "http://github.com/nrk/predis",
-    "description": "",
+    "description": "Mature and supported",
     "authors": ["JoL1hAHN"]
   },
 
@@ -141,7 +141,7 @@
   "redis-py": {
     "language": "Python",
     "repository": "http://github.com/andymccurdy/redis-py",
-    "description": "",
+    "description": "Mature and supproted. Probably the way to go for Python client.",
     "authors": ["andymccurdy"]
   },
 
@@ -162,7 +162,7 @@
   "Tcl Client": {
     "language": "Tcl",
     "repository": "http://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
-    "description": "",
+    "description": "The client used in the Redis test suite.",
     "authors": ["antirez"]
   },
 
@@ -177,7 +177,7 @@
   "ServiceStack.Redis": {
     "language": "C#",
     "url": "http://code.google.com/p/servicestack/wiki/ServiceStackRedis",
-    "description": "",
+    "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
     "authors": ["demisbellot"]
   },
 
