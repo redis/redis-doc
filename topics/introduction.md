@@ -35,8 +35,7 @@ and configuration settings to make Redis behave like a
 You can use Redis from [most programming languages](/clients) out there. 
 
 Redis is written in **ANSI C** and works in most POSIX systems like Linux,
-\*BSD, OS X and Solaris without external dependencies. Redis is **free
-software** released under the very liberal BSD license. There
+\*BSD, OS X and Solaris without external dependencies. There
 is no official support for Windows builds, although you may
 have [some](http://code.google.com/p/redis/issues/detail?id=34)
 [options](https://github.com/dmajkic/redis).
