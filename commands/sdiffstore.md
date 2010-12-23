@@ -9,5 +9,4 @@ If `destination` already exists, it is overwritten.
 
 @return
 
-@status-reply
-
+@integer-reply: the number of elements in the resulting set.
