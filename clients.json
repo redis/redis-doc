@@ -257,5 +257,11 @@
     "repository": "https://github.com/lp/ObjCHiredis",
     "description": "Static Library for iOS4 device and Simulator, plus Objective-C Framework for MacOS 10.5 and higher",
     "authors": ["loopole"]
+  },
+
+  "C++ Client": {
+    "language": "C++",
+    "repository": "https://github.com/mrpi/redis-cplusplus-client",
+    "authors": []
   }
 }
