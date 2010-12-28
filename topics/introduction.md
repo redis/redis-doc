@@ -1,13 +1,12 @@
 Introduction to Redis
 ===
 
-Redis is an open source, **BSD licensed**, advanced **key-value store**.
-It is often referred as *a data structure server* since
-keys can contain different
-**data structures**, such as [strings](/topics/data-types#strings),
-[hashes](/topics/data-types#hashes),
-[lists](/topics/data-types#lists), [sets](/topics/data-types#sets) and
-[sorted sets](/topics/data-types#sorted-sets).
+Redis is an open source, advanced **key-value store**.  It
+is often referred to as a **data structure server** since
+keys can contain [strings](/topics/data-types#strings),
+[hashes](/topics/data-types#hashes), [lists](/topics/data-types#lists),
+[sets](/topics/data-types#sets) and [sorted
+sets](/topics/data-types#sorted-sets).
 
 You can run **atomic operations**
 on these types, like [appending to a string](/commands/append);
