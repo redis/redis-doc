@@ -50,8 +50,7 @@ their scores).
     @cli
     ZADD zset 1 foo
     ZADD zset 2 bar
-    ZADD zset 3 biz
-    ZADD zset 4 foz
+    ZADD zset 3 qux
     ZRANGEBYSCORE zset -inf +inf
     ZRANGEBYSCORE zset 1 2
     ZRANGEBYSCORE zset (1 2
