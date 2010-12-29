@@ -13,11 +13,8 @@ When `key` holds a value that is not a list, an error is returned.
 
 @examples
 
+    @cli
     LPUSH list "world"
-    1
     LPUSH list "hello"
-    2
     LRANGE list 0 -1
-    1) "hello"
-    2) "world"
 

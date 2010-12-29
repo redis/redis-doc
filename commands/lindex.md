@@ -18,18 +18,10 @@ When the value at `key` is not a list, an error is returned.
 
 @examples
 
+    @cli
     LPUSH mylist "world"
-    1
-
     LPUSH mylist "hello"
-    2
-
     LINDEX mylist 0
-    "hello"
-
     LINDEX mylist -1
-    "world"
-
     LINDEX mylist 3
-    (nil)
 

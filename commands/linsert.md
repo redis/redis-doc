@@ -19,14 +19,9 @@ the value `pivot` was not found.
 
 @examples
 
+    @cli
     RPUSH list "hello"
-    1
     RPUSH list "world"
-    2
     LINSERT list BEFORE "world" "there"
-    3
     LRANGE list
-    1) hello
-    2) there
-    3) world
 

@@ -13,14 +13,8 @@ Because of this, the operation never fails.
 
 @examples
 
-    SET foo 1000
-    +OK
-
-    SET bar 2000
-    +OK
-
-    MGET foo bar nokey
-    1. 1000
-    2. 2000
-    3. (nil)
+    @cli
+    SET key1 "Hello"
+    SET key2 "World"
+    MGET key1 key2 nokey
 

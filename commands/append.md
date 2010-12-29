@@ -15,12 +15,9 @@ empty string, so `APPEND` will be similar to `SET` in this special case.
 
 @examples
 
+    @cli
     EXISTS mykey
-    (integer) 0
-    APPEND mykey "Hello "
-    (integer) 6
-    APPEND mykey "World"
-    (integer) 11
+    APPEND mykey "Hello"
+    APPEND mykey " World"
     GET mykey
-    Hello World
 

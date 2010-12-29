@@ -11,15 +11,10 @@ Removes and returns the first element of the list stored at `key`.
 
 @examples
 
+    @cli
     RPUSH list "one"
-    1
     RPUSH list "two"
-    2
     RPUSH list "three"
-    3
     LPOP list
-    "one"
     LRANGE list 0 -1
-    1) "two"
-    2) "three"
 

@@ -20,15 +20,9 @@ integers.
 Since the `increment` argument is signed, both increment and decrement
 operations can be performed:
 
+    @cli
     HSET key field 5
-    1
-
     HINCRBY key field 1
-    6
-
     HINCRBY key field -1
-    5
-
     HINCRBY key field -10
-    -5
 

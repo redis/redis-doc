@@ -32,22 +32,12 @@ element of the list.
 
 @examples
 
+    @cli
     RPUSH list "one"
-    1
     RPUSH list "two"
-    2
     RPUSH list "three"
-    3
     LRANGE list 0 0
-    1) "one"
     LRANGE list -3 2
-    1) "one"
-    2) "two"
-    3) "three"
     LRANGE list -100 100
-    1) "one"
-    2) "two"
-    3) "three"
     LRANGE list 5 10
-    (empty list)
 

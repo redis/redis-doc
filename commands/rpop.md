@@ -11,15 +11,10 @@ Removes and returns the last element of the list stored at `key`.
 
 @examples
 
+    @cli
     RPUSH list "one"
-    1
     RPUSH list "two"
-    2
     RPUSH list "three"
-    3
     RPOP list
-    "three"
     LRANGE list 0 -1
-    1) "one"
-    2) "two"
 

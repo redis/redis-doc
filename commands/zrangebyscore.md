@@ -47,28 +47,13 @@ their scores).
 
 @examples
 
+    @cli
     ZADD zset 1 foo
-    (integer) 1
     ZADD zset 2 bar
-    (integer) 1
     ZADD zset 3 biz
-    (integer) 1
     ZADD zset 4 foz
-    (integer) 1
-
     ZRANGEBYSCORE zset -inf +inf
-    1. foo
-    2. bar
-    3. biz
-    4. foz
-
     ZRANGEBYSCORE zset 1 2
-    1. foo
-    2. bar
-
     ZRANGEBYSCORE zset (1 2
-    1. bar
-
     ZRANGEBYSCORE zset (1 (2
-    (empty list or set)
 
