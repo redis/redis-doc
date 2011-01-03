@@ -33,11 +33,11 @@ element of the list.
 @examples
 
     @cli
-    RPUSH list "one"
-    RPUSH list "two"
-    RPUSH list "three"
-    LRANGE list 0 0
-    LRANGE list -3 2
-    LRANGE list -100 100
-    LRANGE list 5 10
+    RPUSH mylist "one"
+    RPUSH mylist "two"
+    RPUSH mylist "three"
+    LRANGE mylist 0 0
+    LRANGE mylist -3 2
+    LRANGE mylist -100 100
+    LRANGE mylist 5 10
 

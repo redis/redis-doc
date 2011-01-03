@@ -11,3 +11,10 @@ An error is returned when the value stored at `key` is not a list.
 
 @integer-reply: the length of the list at `key`.
 
+@examples
+
+    @cli
+    LPUSH mylist "World"
+    LPUSH mylist "Hello"
+    LLEN mylist
+

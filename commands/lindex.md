@@ -19,8 +19,8 @@ When the value at `key` is not a list, an error is returned.
 @examples
 
     @cli
-    LPUSH mylist "world"
-    LPUSH mylist "hello"
+    LPUSH mylist "World"
+    LPUSH mylist "Hello"
     LINDEX mylist 0
     LINDEX mylist -1
     LINDEX mylist 3

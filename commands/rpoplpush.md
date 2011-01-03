@@ -16,6 +16,20 @@ performed. If `source` and `destination` are the same, the operation is
 equivalent to removing the last element from the list and pushing it as first
 element of the list, so it can be considered as a list rotation command.
 
+@return
+
+@bulk-reply: the element being popped and pushed.
+
+@examples
+
+    @cli
+    RPUSH mylist "one"
+    RPUSH mylist "two"
+    RPUSH mylist "three"
+    RPOPLPUSH mylist myotherlist
+    LRANGE mylist 0 -1
+    LRANGE myotherlist 0 -1
+
 ## Design pattern: safe queues
 
 Redis lists are often used as queues in order to exchange messages between
@@ -40,8 +54,4 @@ visit all the elements of an N-elements list in O(N) without transferring
 the full list from the server to the client in a single `LRANGE` operation.
 Note that a process can traverse the list even while other processes
 are actively `RPUSH`-ing against the list, and still no element will be skipped.
-
-@return
-
-@bulk-reply: the element being popped and pushed.
 

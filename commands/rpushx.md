@@ -11,3 +11,12 @@ be performed when `key` does not yet exist.
 
 @integer-reply: the length of the list after the push operation.
 
+@examples
+
+    @cli
+    RPUSH mylist "Hello"
+    RPUSHX mylist "World"
+    RPUSHX myotherlist "World"
+    LRANGE mylist 0 -1
+    LRANGE myotherlist 0 -1
+

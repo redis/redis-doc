@@ -20,3 +20,13 @@ not exist, the command will always return `0`.
 
 @integer-reply: the number of removed elements.
 
+@examples
+
+    @cli
+    RPUSH mylist "hello"
+    RPUSH mylist "hello"
+    RPUSH mylist "foo"
+    RPUSH mylist "hello"
+    LREM mylist -2 "hello"
+    LRANGE mylist 0 -1
+

@@ -12,9 +12,9 @@ Removes and returns the first element of the list stored at `key`.
 @examples
 
     @cli
-    RPUSH list "one"
-    RPUSH list "two"
-    RPUSH list "three"
-    LPOP list
-    LRANGE list 0 -1
+    RPUSH mylist "one"
+    RPUSH mylist "two"
+    RPUSH mylist "three"
+    LPOP mylist
+    LRANGE mylist 0 -1
 

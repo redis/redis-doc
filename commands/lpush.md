@@ -14,7 +14,7 @@ When `key` holds a value that is not a list, an error is returned.
 @examples
 
     @cli
-    LPUSH list "world"
-    LPUSH list "hello"
-    LRANGE list 0 -1
+    LPUSH mylist "World"
+    LPUSH mylist "Hello"
+    LRANGE mylist 0 -1
 

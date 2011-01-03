@@ -33,3 +33,12 @@ element is removed from the tail of the list.
 
 @status-reply
 
+@examples
+
+    @cli
+    RPUSH mylist "one"
+    RPUSH mylist "two"
+    RPUSH mylist "three"
+    LTRIM mylist 1 -1
+    LRANGE mylist 0 -1
+
