@@ -14,3 +14,9 @@ See `INCR` for extra information on increment/decrement operations.
 
 @integer-reply: the value of `key` after the increment
 
+@examples
+
+    @cli
+    SET key "10"
+    INCRBY key 5
+

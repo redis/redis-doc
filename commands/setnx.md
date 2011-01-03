@@ -6,7 +6,7 @@ O(1)
 Set `key` to hold string `value` if `key` does not exist.
 In that case, it is equal to `SET`. When `key` already holds
 a value, no operation is performed.
-`SETNX` is short for "SET if Not eXists".
+`SETNX` is short for "**SET** if **N**ot e**X**ists".
 
 @return
 
@@ -14,6 +14,13 @@ a value, no operation is performed.
 
 * `1` if the key was set
 * `0` if the key was not set
+
+@examples
+
+    @cli
+    SETNX key "Hello"
+    SETNX key "World"
+    GET key
 
 ## Design pattern: Locking with `!SETNX`
 

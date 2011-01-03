@@ -11,3 +11,10 @@ only handles string values.
 
 @bulk-reply: the value of `key`, or `nil` when `key` does not exist.
 
+@examples
+
+    @cli
+    GET nonexisting
+    SET key "Hello"
+    GET key
+

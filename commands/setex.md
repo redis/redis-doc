@@ -21,3 +21,10 @@ An error is returned when `seconds` is invalid.
 
 @status-reply
 
+@examples
+
+    @cli
+    SETEX key 10 "Hello"
+    TTL key
+    GET key
+

@@ -10,3 +10,9 @@ overwritten, regardless of its type.
 
 @status-reply: always `OK` since `SET` can't fail.
 
+@examples
+
+    @cli
+    SET key "Hello"
+    GET key
+

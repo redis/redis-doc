@@ -26,3 +26,10 @@ _key_ will not have the allocation overhead.
 
 @integer-reply: the original bit value stored at _offset_.
 
+@examples
+
+    @cli
+    SETBIT key 7 1
+    SETBIT key 7 0
+    GET key
+

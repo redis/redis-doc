@@ -20,3 +20,10 @@ string representation of the integer.
 
 @integer-reply: the value of `key` after the increment
 
+@examples
+
+    @cli
+    SET key "10"
+    INCR key
+    GET key
+

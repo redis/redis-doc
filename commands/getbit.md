@@ -14,3 +14,11 @@ to be a contiguous space with 0 bits.
 
 @integer-reply: the bit value stored at _offset_.
 
+@examples
+
+    @cli
+    SETBIT key 7 1
+    GETBIT key 0
+    GETBIT key 7
+    GETBIT key 100
+

@@ -20,3 +20,10 @@ clients to see that some of the keys were updated while others are unchanged.
 * `1` if the all the keys were set.
 * `0` if no key was set (at least one key already existed).
 
+@examples
+
+    @cli
+    MSETNX key1 "Hello" key2 "there"
+    MSETNX key2 "there" key3 "world"
+    MGET key1 key2 key3
+
