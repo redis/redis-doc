@@ -13,3 +13,12 @@ for `ZRANGEBYSCORE`.
 
 @integer-reply: the number of elements in the specified score range.
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "three"
+    ZCOUNT myzset -inf +inf
+    ZCOUNT myzset (1 3
+

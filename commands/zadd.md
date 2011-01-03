@@ -23,3 +23,11 @@ sets](/topics/data-types#sorted-sets).
 * `0` if the element was already a member of the sorted set and the score was
   updated.
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "two"
+    ZRANGE myzset 0 -1 WITHSCORES
+

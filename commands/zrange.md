@@ -30,3 +30,13 @@ with (value, score) arrays/tuples).
 @multi-bulk-reply: list of elements in the specified range (optionally with
 their scores).
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "three"
+    ZRANGE myzset 0 -1
+    ZRANGE myzset 2 3
+    ZRANGE myzset -2 -1
+

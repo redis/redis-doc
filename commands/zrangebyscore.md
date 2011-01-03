@@ -48,11 +48,11 @@ their scores).
 @examples
 
     @cli
-    ZADD zset 1 foo
-    ZADD zset 2 bar
-    ZADD zset 3 qux
-    ZRANGEBYSCORE zset -inf +inf
-    ZRANGEBYSCORE zset 1 2
-    ZRANGEBYSCORE zset (1 2
-    ZRANGEBYSCORE zset (1 (2
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "three"
+    ZRANGEBYSCORE myzset -inf +inf
+    ZRANGEBYSCORE myzset 1 2
+    ZRANGEBYSCORE myzset (1 2
+    ZRANGEBYSCORE myzset (1 (2
 

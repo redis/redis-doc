@@ -14,3 +14,12 @@ An error is returned when `key` exists and does not hold a sorted set.
 * `1` if `member` was removed.
 * `0` if `member` is not a member of the sorted set.
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "three"
+    ZREM myzset "two"
+    ZRANGE myzset 0 -1 WITHSCORES
+

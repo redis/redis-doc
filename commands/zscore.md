@@ -13,3 +13,9 @@ If `member` does not exist in the sorted set, or `key` does not exist,
 @bulk-reply: the score of `member` (a double precision floating point number),
 represented as string.
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZSCORE myzset "one"
+

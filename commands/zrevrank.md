@@ -16,3 +16,12 @@ high.
 * If `member` does not exist in the sorted set or `key` does not exist,
 @bulk-reply: `nil`.
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "three"
+    ZREVRANK myzset "one"
+    ZREVRANK myzset "four"
+

@@ -14,3 +14,12 @@ second highest score and so forth.
 
 @integer-reply: the number of elements removed.
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "three"
+    ZREMRANGEBYRANK myzset 0 1
+    ZRANGE myzset 0 -1 WITHSCORES
+

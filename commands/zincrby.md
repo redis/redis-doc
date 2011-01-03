@@ -19,3 +19,11 @@ negative value to decrement the score.
 @bulk-reply: the new score of `member` (a double precision floating point
 number), represented as string.
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZINCRBY myzset 2 "one"
+    ZRANGE myzset 0 -1 WITHSCORES
+

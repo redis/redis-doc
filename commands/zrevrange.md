@@ -13,3 +13,13 @@ Apart from the reversed ordering, `ZREVRANGE` is similar to `ZRANGE`.
 @multi-bulk-reply: list of elements in the specified range (optionally with
 their scores).
 
+@examples
+
+    @cli
+    ZADD myzset 1 "one"
+    ZADD myzset 2 "two"
+    ZADD myzset 3 "three"
+    ZREVRANGE myzset 0 -1
+    ZREVRANGE myzset 2 3
+    ZREVRANGE myzset -2 -1
+
