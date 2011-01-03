@@ -13,3 +13,11 @@ It returns an error under the same conditions as `RENAME`.
 * `1` if `key` was renamed to `newkey`.
 * `0` if `newkey` already exists.
 
+@examples
+
+    @cli
+    SET key "Hello"
+    SET otherkey "World"
+    RENAMENX key otherkey
+    GET otherkey
+

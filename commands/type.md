@@ -11,3 +11,13 @@ and `hash`.
 
 @status-reply: type of `key`, or `none` when `key` does not exist.
 
+@examples
+
+    @cli
+    SET key1 "value"
+    LPUSH key2 "value"
+    SADD key3 "value"
+    TYPE key1
+    TYPE key2
+    TYPE key3
+

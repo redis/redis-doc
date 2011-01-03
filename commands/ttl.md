@@ -11,3 +11,10 @@ given key will continue to be part of the dataset.
 
 @integer-reply: TTL in seconds or `-1` when `key` does not exist or does not have a timeout.
 
+@examples
+
+    @cli
+    SET key "Hello"
+    EXPIRE key 10
+    TTL key
+

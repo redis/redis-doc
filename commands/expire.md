@@ -22,3 +22,10 @@ for more information.
 * `1` if the timeout was set.
 * `0` if `key` does not exist or the timeout could not be set.
 
+@examples
+
+    @cli
+    SET key "Hello"
+    EXPIRE key 10
+    TTL key
+

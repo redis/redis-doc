@@ -11,3 +11,10 @@ is overwritten.
 
 @status-reply
 
+@examples
+
+    @cli
+    SET key "Hello"
+    RENAME key otherkey
+    GET otherkey
+

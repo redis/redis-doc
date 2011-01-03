@@ -26,3 +26,11 @@ specify that a given key should expire at a given time in the future.
 * `1` if the timeout was set.
 * `0` if `key` does not exist or the timeout could not be set (see: `EXPIRE`).
 
+@examples
+
+    @cli
+    SET key "Hello"
+    EXISTS key
+    EXPIREAT key 1293840000
+    EXISTS key
+
