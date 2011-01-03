@@ -1,6 +1,9 @@
-Ask the server to close the connection. The connection is closed after all
+@description
+
+Ask the server to close the connection. The connection is closed as soon as all
 pending replies have been written to the client.
 
 @return
 
-@status-reply: Always returns OK.
+@status-reply: always OK.
+

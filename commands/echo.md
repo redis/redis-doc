@@ -1,7 +1,13 @@
-@complexity
-
 @description
+
+Returns `message`.
+
+@return
+
+@bulk-reply
 
 @examples
 
-@return
+    @cli
+    ECHO "Hello World!"
+
