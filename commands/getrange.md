@@ -20,18 +20,10 @@ the actual length of the string.
 
 @examples
 
-    SET s This is a string
-    OK
-
-    GETRANGE s 0 3
-    This
-
-    GETRANGE s -3 -1
-    ing
-
-    GETRANGE s 0 -1
-    This is a string
-
-    GETRANGE s 9 100000
-    string
+    @cli
+    SET key "This is a string"
+    GETRANGE key 0 3
+    GETRANGE key -3 -1
+    GETRANGE key 0 -1
+    GETRANGE key 10 100
 

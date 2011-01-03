@@ -37,21 +37,16 @@ efficient storage in many real world use cases.
 
 @examples
 
-Basic usage, setting a range:
+Basic usage:
 
-    redis> set foo "Hello World"
-    OK
-    redis> setrange foo 6 "Redis"
-    (integer) 11
-    redis> get foo
-    "Hello Redis"
+    @cli
+    SET key1 "Hello World"
+    SETRANGE key1 6 "Redis"
+    GET key1
 
 Example of zero padding:
 
-    redis> del foo
-    (integer) 1
-    redis> setrange foo 10 bar
-    (integer) 13
-    redis> get foo
-    "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00bar"
+    @cli
+    SETRANGE key2 6 "Redis"
+    GET key2
 
