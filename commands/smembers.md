@@ -10,3 +10,10 @@ This has the same effect as running `SINTER` with one argument `key`.
 
 @multi-bulk-reply: all elements of the set.
 
+@examples
+
+    @cli
+    SADD myset "Hello"
+    SADD myset "World"
+    SMEMBERS myset
+

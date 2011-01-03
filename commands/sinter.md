@@ -1,6 +1,6 @@
 @complexity
 
-O(N*M) worst case where N is the cardinality of the smallest set and M is the
+O(N\*M) worst case where N is the cardinality of the smallest set and M is the
 number of sets.
 
 Returns the members of the set resulting from the intersection of all the given
@@ -20,4 +20,15 @@ with an empty set always results in an empty set).
 @return
 
 @multi-bulk-reply: list with members of the resulting set.
+
+@examples
+
+    @cli
+    SADD key1 "a"
+    SADD key1 "b"
+    SADD key1 "c"
+    SADD key2 "c"
+    SADD key2 "d"
+    SADD key2 "e"
+    SINTER key1 key2
 

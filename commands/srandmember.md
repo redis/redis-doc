@@ -12,3 +12,11 @@ selected element.
 
 @bulk-reply: the randomly selected element, or `nil` when `key` does not exist.
 
+@examples
+
+    @cli
+    SADD myset "one"
+    SADD myset "two"
+    SADD myset "three"
+    SRANDMEMBER myset
+

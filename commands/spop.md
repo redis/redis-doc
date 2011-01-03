@@ -12,3 +12,12 @@ element from a set but does not remove it.
 
 @bulk-reply: the removed element, or `nil` when `key` does not exist.
 
+@examples
+
+    @cli
+    SADD myset "one"
+    SADD myset "two"
+    SADD myset "three"
+    SPOP myset
+    SMEMBERS myset
+

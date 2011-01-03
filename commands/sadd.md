@@ -16,3 +16,11 @@ An error is returned when the value stored at `key` is not a set.
 * `1` if the element was added.
 * `0` if the element was already a member of the set.
 
+@examples
+
+    @cli
+    SADD myset "Hello"
+    SADD myset "World"
+    SADD myset "World"
+    SMEMBERS myset
+

@@ -22,3 +22,13 @@ An error is returned if `source` or `destination` does not hold a set value.
 * `1` if the element is moved.
 * `0` if the element is not a member of `source` and no operation was performed.
 
+@examples
+
+    @cli
+    SADD myset "one"
+    SADD myset "two"
+    SADD myotherset "three"
+    SMOVE myset myotherset "two"
+    SMEMBERS myset
+    SMEMBERS myotherset
+
