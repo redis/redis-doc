@@ -10,3 +10,10 @@ If `key` does not exist, a new key holding a hash is created.
 
 @status-reply
 
+@examples
+
+    @cli
+    HMSET hash field1 "Hello" field2 "World"
+    HGET hash field1
+    HGET hash field2
+

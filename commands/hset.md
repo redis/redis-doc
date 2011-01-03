@@ -14,3 +14,9 @@ is overwritten.
 * `1` if `field` is a new field in the hash and `value` was set.
 * `0` if `field` already exists in the hash and the value was updated.
 
+@examples
+
+    @cli
+    HSET hash field1 "Hello"
+    HGET hash field1
+
