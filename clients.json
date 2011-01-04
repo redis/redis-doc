@@ -1,6 +1,7 @@
 {
   "redis-rb": {
     "language": "Ruby",
+    "url": "http://redis-rb.keyvalue.org",
     "repository": "http://github.com/ezmobius/redis-rb",
     "description": "very stable and mature client.",
     "authors": ["ezmobius", "soveran", "djanowski"]
