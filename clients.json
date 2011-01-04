@@ -241,19 +241,19 @@
   },
 
   {
-    "name": "redis-node-client",
-    "language": "Node.js",
-    "repository": "http://github.com/fictorial/redis-node-client",
-    "description": "",
-    "authors": ["fictorial"]
-  },
-
-  {
     "name": "node_redis",
     "language": "Node.js",
     "repository": "http://github.com/mranney/node_redis",
-    "description": "",
+    "description": "Recommended client for node.",
     "authors": ["mranney"]
+  },
+
+  {
+    "name": "redis-node-client",
+    "language": "Node.js",
+    "repository": "http://github.com/fictorial/redis-node-client",
+    "description": "No longer maintained, does not work with node 0.3.",
+    "authors": ["fictorial"]
   },
 
   {
