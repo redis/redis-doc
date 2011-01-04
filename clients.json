@@ -142,7 +142,7 @@
   "redis-py": {
     "language": "Python",
     "repository": "http://github.com/andymccurdy/redis-py",
-    "description": "Mature and supproted. Probably the way to go for Python client.",
+    "description": "Mature and supported. Currently the way to go for Python.",
     "authors": ["andymccurdy"]
   },
 
