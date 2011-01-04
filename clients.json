@@ -1,5 +1,6 @@
-{
-  "redis-rb": {
+[
+  {
+    "name": "redis-rb",
     "language": "Ruby",
     "url": "http://redis-rb.keyvalue.org",
     "repository": "http://github.com/ezmobius/redis-rb",
@@ -7,21 +8,24 @@
     "authors": ["ezmobius", "soveran", "djanowski"]
   },
 
-  "as3redis": {
+  {
+    "name": "as3redis",
     "language": "ActionScript",
     "repository": "http://github.com/claus/as3redis",
     "description": "",
     "authors": ["cwahlers"]
   },
 
-  "redis-clojure": {
+  {
+    "name": "redis-clojure",
     "language": "Clojure",
     "repository": "http://github.com/ragnard/redis-clojure",
     "description": "",
     "authors": ["ragge"]
   },
 
-  "CL-Redis": {
+  {
+    "name": "CL-Redis",
     "language": "Common Lisp",
     "url": "http://www.cliki.net/cl-redis",
     "repository": "http://github.com/vseloved/cl-redis",
@@ -29,21 +33,24 @@
     "authors": ["BigThingist"]
   },
 
-  "erldis": {
+  {
+    "name": "erldis",
     "language": "Erlang",
     "repository": "http://bitbucket.org/adroll/erldis",
     "description": "",
     "authors": ["dialtone_"]
   },
 
-  "Go-Redis": {
+  {
+    "name": "Go-Redis",
     "language": "Go",
     "repository": "http://github.com/alphazero/Go-Redis",
     "description": "",
     "authors": ["SunOf27"]
   },
 
-  "haskell-redis": {
+  {
+    "name": "haskell-redis",
     "language": "Haskell",
     "url": "http://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
     "repository": "http://bitbucket.org/videlalvaro/redis-haskell/src",
@@ -51,7 +58,8 @@
     "authors": ["old_sound"]
   },
 
-  "JDBC-Redis": {
+  {
+    "name": "JDBC-Redis",
     "language": "Java",
     "url": "http://code.google.com/p/jdbc-redis",
     "repository": "http://code.google.com/p/jdbc-redis/source/browse",
@@ -59,7 +67,8 @@
     "authors": ["mavcunha"]
   },
 
-  "JRedis": {
+  {
+    "name": "JRedis",
     "language": "Java",
     "url": "http://code.google.com/p/jredis",
     "repository": "http://github.com/alphazero/jredis",
@@ -67,21 +76,24 @@
     "authors": ["SunOf27"]
   },
 
-  "Jedis": {
+  {
+    "name": "Jedis",
     "language": "Java",
     "repository": "http://github.com/xetorthio/jedis",
     "description": "",
     "authors": ["xetorthio"]
   },
 
-  "redis-lua": {
+  {
+    "name": "redis-lua",
     "language": "Lua",
     "repository": "http://github.com/nrk/redis-lua",
     "description": "",
     "authors": ["JoL1hAHN"]
   },
 
-  "Perl Client": {
+  {
+    "name": "Perl Client",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis",
     "repository": "http://github.com/dpavlin/perl-Redis",
@@ -89,42 +101,48 @@
     "authors": ["dpavlin"]
   },
 
-  "AnyEvent::Redis": {
+  {
+    "name": "AnyEvent::Redis",
     "language": "Perl",
     "repository": "http://github.com/miyagawa/AnyEvent-Redis",
     "description": "",
     "authors": ["miyagawa"]
   },
 
-  "Redis PHP bindings": {
+  {
+    "name": "Redis PHP bindings",
     "language": "PHP",
     "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
     "description": "This is a deprecated client, check Predis, Rediska, PHPRedis for up to date alternatives.",
     "authors": ["ludo"]
   },
 
-  "phpredis": {
+  {
+    "name": "phpredis",
     "language": "PHP",
     "repository": "http://github.com/owlient/phpredis",
     "description": "This is a client written in C as a PHP module.",
     "authors": ["yowgi"]
   },
 
-  "Predis": {
+  {
+    "name": "Predis",
     "language": "PHP",
     "repository": "http://github.com/nrk/predis",
     "description": "Mature and supported",
     "authors": ["JoL1hAHN"]
   },
 
-  "Redisent": {
+  {
+    "name": "Redisent",
     "language": "PHP",
     "repository": "http://github.com/jdp/redisent",
     "description": "",
     "authors": ["justinpoliey"]
   },
 
-  "desir": {
+  {
+    "name": "desir",
     "language": "Python",
     "repository": "https://github.com/aallamaa/desir",
     "description": "",
@@ -132,42 +150,48 @@
   },
 
 
-  "Python Client": {
+  {
+    "name": "Python Client",
     "language": "Python",
     "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/python",
     "description": "",
     "authors": ["ludo"]
   },
 
-  "redis-py": {
+  {
+    "name": "redis-py",
     "language": "Python",
     "repository": "http://github.com/andymccurdy/redis-py",
     "description": "Mature and supported. Currently the way to go for Python.",
     "authors": ["andymccurdy"]
   },
 
-  "txredis": {
+  {
+    "name": "txredis",
     "language": "Python",
     "url": "http://pypi.python.org/pypi/txredis/0.1.1",
     "description": "",
     "authors": ["dio_rian"]
   },
 
-  "scala-redis": {
+  {
+    "name": "scala-redis",
     "language": "Scala",
     "repository": "http://github.com/acrosa/scala-redis",
     "description": "",
     "authors": ["alejandrocrosa"]
   },
 
-  "Tcl Client": {
+  {
+    "name": "Tcl Client",
     "language": "Tcl",
     "repository": "http://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
     "description": "The client used in the Redis test suite.",
     "authors": ["antirez"]
   },
 
-  "Rediska": {
+  {
+    "name": "Rediska",
     "language": "PHP",
     "url": "http://rediska.geometria-lab.net",
     "repository": "http://github.com/Shumkov/Rediska",
@@ -175,14 +199,16 @@
     "authors": ["shumkov"]
   },
 
-  "ServiceStack.Redis": {
+  {
+    "name": "ServiceStack.Redis",
     "language": "C#",
     "url": "http://code.google.com/p/servicestack/wiki/ServiceStackRedis",
     "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
     "authors": ["demisbellot"]
   },
 
-  "hxneko-redis": {
+  {
+    "name": "hxneko-redis",
     "language": "haXe",
     "url": "http://code.google.com/p/hxneko-redis",
     "repository": "http://code.google.com/p/hxneko-redis/source/browse",
@@ -190,79 +216,90 @@
     "authors": []
   },
 
-  "em-redis": {
+  {
+    "name": "em-redis",
     "language": "Ruby",
     "repository": "http://github.com/madsimian/em-redis",
     "description": "",
     "authors": ["madsimian"]
   },
 
-  "hiredis": {
+  {
+    "name": "hiredis",
     "language": "C",
     "repository": "http://github.com/antirez/hiredis",
     "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
     "authors": ["antirez","pnoordhuis"]
   },
 
-  "credis": {
+  {
+    "name": "credis",
     "language": "C",
     "repository": "http://code.google.com/p/credis/source/browse",
     "description": "",
     "authors": [""]
   },
 
-  "redis-node-client": {
+  {
+    "name": "redis-node-client",
     "language": "Node.js",
     "repository": "http://github.com/fictorial/redis-node-client",
     "description": "",
     "authors": ["fictorial"]
   },
 
-  "node_redis": {
+  {
+    "name": "node_redis",
     "language": "Node.js",
     "repository": "http://github.com/mranney/node_redis",
     "description": "",
     "authors": ["mranney"]
   },
 
-  "iodis": {
+  {
+    "name": "iodis",
     "language": "Io",
     "repository": "http://github.com/ichverstehe/iodis",
     "description": "",
     "authors": ["ichverstehe"]
   },
 
-  "redis.go": {
+  {
+    "name": "redis.go",
     "language": "Go",
     "repository": "http://github.com/hoisie/redis.go",
     "description": "",
     "authors": ["hoisie"]
   },
 
-  "Smalltalk Redis Client": {
+  {
+    "name": "Smalltalk Redis Client",
     "language": "Smalltalk",
     "repository": "http://www.squeaksource.com/Redis.html",
     "description": "",
     "authors": []
   },
 
-  "redis-sharp": {
+  {
+    "name": "redis-sharp",
     "language": "C#",
     "repository": "http://github.com/migueldeicaza/redis-sharp",
     "description": "",
     "authors": ["migueldeicaza"]
   },
 
-  "ObjCHiredis": {
+  {
+    "name": "ObjCHiredis",
     "language": "Objective-C",
     "repository": "https://github.com/lp/ObjCHiredis",
     "description": "Static Library for iOS4 device and Simulator, plus Objective-C Framework for MacOS 10.5 and higher",
     "authors": ["loopole"]
   },
 
-  "C++ Client": {
+  {
+    "name": "C++ Client",
     "language": "C++",
     "repository": "https://github.com/mrpi/redis-cplusplus-client",
     "authors": []
   }
-}
+]
