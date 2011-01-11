@@ -1,6 +1,8 @@
 Who's using Redis?
 ===
 
+Logos are linked to the relevant story when available.
+
 <ul>
   <li>
     <img src="http://www.engineyard.com/images/logo.png" alt="EngineYard">
@@ -33,6 +35,15 @@ Who's using Redis?
   <li>
     <img src="http://static.pe.studivz.net/20101222-0/Img/logo.png" alt="StudiVZ">
   </li>
+
+  <li>
+    <a href="http://disqus.com/analytics/"><img style="background-color:#4e7ba3; padding:10px;" src="http://mediacdn.disqus.com/1294274648/img/disqus-logo.png" alt="Disqus"></a>
+  </li>
+
+  <li>
+    <a href="http://meta.stackoverflow.com/questions/69164/does-stackoverflow-use-caching-and-if-so-how/69172"><img src="http://sstatic.net/stackoverflow/img/logo.png" alt="Stack Overflow"></a>
+  </li>
+
 </ul>
 
 And many others:
