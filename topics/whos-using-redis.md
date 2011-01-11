@@ -43,7 +43,6 @@ Logos are linked to the relevant story when available.
   <li>
     <a href="http://meta.stackoverflow.com/questions/69164/does-stackoverflow-use-caching-and-if-so-how/69172"><img src="http://sstatic.net/stackoverflow/img/logo.png" alt="Stack Overflow"></a>
   </li>
-
 </ul>
 
 And many others:
@@ -56,8 +55,12 @@ And many others:
 * [Zoombu](http://www.zoombu.co.uk)
 * [Dark Curse](http://www.darkcurse.com)
 * [OKNOtizie](http://oknotizie.virgilio.it)
-* [Moodstocks](http://www.moodstocks.com/2010/11/26/the-tech-behind-moodstocks-notes) uses Redis as its
-main database by means of [Ohm](http://ohm.keyvalue.org).
+* [Moodstocks](http://www.moodstocks.com/2010/11/26/the-tech-behind-moodstocks-notes) uses Redis as its main database by means of [Ohm](http://ohm.keyvalue.org).
+* [Favstar](http://favstar.fm)
+* [Heywatch](http://heywatch.com)
+* [Sharpcloud](http://sharpcloud)
 
 This is an incomplete list. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
+
+Note: we'll use a logo for very big and recognized companies / sites, and a mention in the text-only list for all the other companies.
