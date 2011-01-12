@@ -59,6 +59,7 @@ And many others:
 * [Favstar](http://favstar.fm)
 * [Heywatch](http://heywatch.com)
 * [Sharpcloud](http://www.sharpcloud.com)
+* [Wooga](http://www.wooga.com/games/) for the games _"Happy Hospital"_ and _"Monster World"_.
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
