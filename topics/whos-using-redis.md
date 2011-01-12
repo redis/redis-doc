@@ -58,9 +58,9 @@ And many others:
 * [Moodstocks](http://www.moodstocks.com/2010/11/26/the-tech-behind-moodstocks-notes) uses Redis as its main database by means of [Ohm](http://ohm.keyvalue.org).
 * [Favstar](http://favstar.fm)
 * [Heywatch](http://heywatch.com)
-* [Sharpcloud](http://sharpcloud)
+* [Sharpcloud](http://www.sharpcloud.com)
 
-This is an incomplete list. If you're using Redis and would like to be
+This list is incomplete. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
 
-Note: we'll use a logo for very big and recognized companies / sites, and a mention in the text-only list for all the other companies.
+**Note:** we'll use a logo for very big and recognized companies / sites, and a mention in the text-only list for all the other companies.
