@@ -50,11 +50,19 @@
   },
 
   {
+    "name": "redis",
+    "language": "Haskell",
+    "url": "http://hackage.haskell.org/package/redis",
+    "description": "",
+    "authors": []
+  },
+
+  {
     "name": "haskell-redis",
     "language": "Haskell",
     "url": "http://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
     "repository": "http://bitbucket.org/videlalvaro/redis-haskell/src",
-    "description": "",
+    "description": "Not actively maintained, supports Redis <= 2.0.",
     "authors": ["old_sound"]
   },
 
