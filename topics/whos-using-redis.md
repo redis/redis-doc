@@ -60,6 +60,8 @@ And many others:
 * [Heywatch](http://heywatch.com)
 * [Sharpcloud](http://www.sharpcloud.com)
 * [Wooga](http://www.wooga.com/games/) for the games _"Happy Hospital"_ and _"Monster World"_.
+* [Sina Weibo](http://t.sina.com.cn/)
+* [Engage](http://engage.calibreapps.com/)
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
