@@ -1,7 +1,7 @@
 A case study: Design and implementation of a simple Twitter clone using only the Redis key-value store as database and PHP
 ===
 
-In this article I'll explain the design and the implementation of a [http://retwis.antirez.com simple clone of Twitter] written using PHP and Redis as only database. The programming community uses to look at key-value stores like special databases that can't be used as drop in replacement for a relational database for the development of web applications. This article will try to prove the contrary.
+In this article I'll explain the design and the implementation of a [simple clone of Twitter](http://retwis.antirez.com) written using PHP and Redis as only database. The programming community uses to look at key-value stores like special databases that can't be used as drop in replacement for a relational database for the development of web applications. This article will try to prove the contrary.
 
 Our Twitter clone, [called Retwis](http://retwis.antirez.com), is structurally simple, has very good performances, and can be distributed among N web servers and M Redis servers with very little efforts. You can find the source code [here](http://code.google.com/p/redis/downloads/list).
 
@@ -66,7 +66,7 @@ LRANGE uses zero-based indexes, that is the first element is 0, the second 1, an
 
     LRANGE mylist 0 -1 => c,b,a
 
-Other important operations are LLEN that returns the length of the list, and LTRIM that is like LRANGE but instead of returning the specified range *trims* the list, so it is like _Get range from mylist, Set this range as new value_ but atomic. We will use only this List operations, but make sure to check the [http://code.google.com/p/redis/wiki/README Redis documentation] to discover all the List operations supported by Redis.
+Other important operations are LLEN that returns the length of the list, and LTRIM that is like LRANGE but instead of returning the specified range *trims* the list, so it is like _Get range from mylist, Set this range as new value_ but atomic. We will use only this List operations, but make sure to check the [Redis documentation](http://code.google.com/p/redis/wiki/README) to discover all the List operations supported by Redis.
 
 The set data type
 ---
