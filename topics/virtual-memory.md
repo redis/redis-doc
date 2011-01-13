@@ -190,7 +190,7 @@ interested to know how it's working: how many objects are swapped in total,
 the number of objects swapped and loaded every second, and so forth.
 
 There is an utility that is very handy in checking how the VM is working, that
-is part of [http://github.com/antirez/redis-tools Redis Tools]. This tool is
+is part of [Redis Tools](http://github.com/antirez/redis-tools). This tool is
 called redis-stat, and using it is pretty straightforward:
 
     $ ./redis-stat vmstat

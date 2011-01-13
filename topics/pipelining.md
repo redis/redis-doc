@@ -6,7 +6,7 @@ Redis is a TCP server using the client-server model and what is called a *Reques
 This means that usually a request is accomplished with the following steps:
 
 * The client sends a query to the server, and reads from the socket, usually in a blocking way, for the server response.
-* The server processes the command and sends the response back to the server.
+* The server processes the command and sends the response back to the client.
 
 So for instance a four commands sequence is something like this:
 
