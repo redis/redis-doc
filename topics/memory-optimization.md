@@ -36,54 +36,56 @@ If you want to know more about this, read the next section.
 Using hashes to abstract a very memory efficient plain key-value store on top of Redis
 --------------------------------------------------------------------------------------
 
-I understand the title of this section is a bit scaring, but I'm going to explain very well what this is about. In short:
+I understand the title of this section is a bit scaring, but I'm going to explain in details what this is about.
 
-You can model a plain key-value store in Redis where values can just be
-just strings, that is not just more memory efficient than Redis plain keys
-but also much more memory efficient than memcached.
+Basically it is possible to model a plain key-value store using Redis
+where values can just be just strings, that is not just more memory efficient
+than Redis plain keys but also much more memory efficient than memcached.
 
-Let's start with some fact: five keys use a lot more memory than a single key
-containing an hash with five fields. How is this possible? We use a trick.
+Let's start with some fact: a few keys use a lot more memory than a single key
+containing an hash with a few fields. How is this possible? We use a trick.
 In theory in order to guarantee that we perform lookups in constant time
 (also known as O(1) in big O notation) there is the need to use a data structure
 with a constant time complexity in the average case, like an hash table.
 
 But many times hashes contain just a few fields. When hashes are small we can
-instead just encode this hashes in an O(N) data structure, like a linear
+instead just encode them in an O(N) data structure, like a linear
 array with length-prefixed key value pairs. Since we do this only when N
 is small, the amortized time for HGET and HSET commands is still O(1): the
 hash will be converted into a real hash table as soon as the number of elements
-will grow too much.
+it contains will grow too much (you can configure the limit in redis.conf).
 
 This does not work well just from the point of view of time complexity, but
-also from the point of view of constant time, since a linear array of key
+also from the point of view of constant times, since a linear array of key
 value pairs happens to play very well with the CPU cache (it has a better
-locality than an hash table).
+cache locality than an hash table).
 
-Not everything is cool about that: since hash fields and values are not
-(always) represented as full featured Redis objects, hash fields can't have
-an associated time to live (expire) like a real key, and can only contain
-a string. But we are ok with this, this was anyway the intention when the
-hash data type API was designed (we trust simplicity more than features).
+However since hash fields and values are not (always) represented as full
+featured Redis objects, hash fields can't have an associated time to live
+(expire) like a real key, and can only contain a string. But we are ok with
+this, this was anyway the intention when the hash data type API was
+designed (we trust simplicity more than features, so nested data structures
+are not allowed, as expires of single fields are not allowed).
 
-Ok so hashes are memory efficient. This is very useful when using hashes
-to represent objects or to model other problems when there is an object
-containing fields. But what about if we have a plain key value business?
-We can still take advantage of hashes.
+So hashes are memory efficient. This is very useful when using hashes
+to represent objects or to model other problems when there are group of
+related fields. But what about if we have a plain key value business?
 
 Imagine we want to use Redis as a cache for many small objects, that can be
 JSON encoded objects, small HTML fragments, simple key -> boolean values
-and so forth. Whatever is a string -> string map with small key and value.
+and so forth. Basically anything is a string -> string map with small keys
+and values.
+
 Now let's assume the objects we want to cache are numbered, like:
 
  * object:102393
  * object:1234
  * object:5
 
-And so forth. This is what we can do. Every time there is to perform a
+This is what we can do. Every time there is to perform a
 SET operation to set a new value, we actually split the key into two parts,
 one used as a key, and used as field name for the hash. For instance the
-object named *object:1234" is actually split in:
+object named *object:1234" is actually split into:
 
 * a Key named object:12
 * a Field named 34
@@ -94,10 +96,11 @@ command:
 
     HSET object:12 34 somevalue
 
-As you can see every hash will end containing, more or less, 100 fields, that
-is optimal as a compromise between CPU and memory saved.
+As you can see every hash will end containing 100 fields, that
+is an ptimal compromise between CPU and memory saved.
 
-There is another very important thing to note, every hash will have more or
+There is another very important thing to note, with this schema
+every hash will have more or
 less 100 fields regardless of the number of objects we cached. This is since
 our objects will always end with a number, and not a random string. In some
 way the final number can be considered as a form of implicit pre-sharding.
@@ -153,10 +156,29 @@ This is the result against a 64 bit instance of Redis 2.2:
 This is an order of magnitude, I think this makes Redis more or less the most
 memory efficient plain key value store out there.
 
-IMPORTANT, for this to work, make sure that in your redis.conf you have
+*WARNING*: for this to work, make sure that in your redis.conf you have
 something like this:
 
     hash-max-zipmap-entries 256
+
+Also remember to set the following field accordingly to the maximum size
+of your keys and values:
+
+    hash-max-zipmap-value 1024
+
+Every time an hash will exceed the number of elements or element size specified
+it will be converted into a real hash table, and the memory saving will be lost.
+
+You may ask, why don't you do this implicitly in the normal key space so that
+I don't have to care? There are two reasons: one is that we tend to make
+trade offs explicit, and this is a clear tradeoff between many things: CPU,
+memory, max element size. The second is that the top level key space must
+support a lot of interesting things like expires, LRU informations, and so
+forth so it is not practical to do this in a general way.
+
+But the Redis Way is that the user must understand how things work so that
+he is able to pick the best compromise, and to understand how the system will
+behave exactly.
 
 Work in progress
 ----------------
