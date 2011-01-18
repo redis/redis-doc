@@ -125,3 +125,40 @@ child.
 
 * Profit! Now Redis atomically renames the old file into the new one,
 and starts appending new data into the new file.
+
+### How I can switch to AOF, if I'm currently using dump.rdb snapshots?
+
+There is a different procedure to do this in Redis 2.0 and Redis 2.2, as you
+can guess it's simpler in Redis 2.2 and does not require a restart at all.
+
+#### Redis 2.2
+
+* Make a backup of your latest dump.rdb file.
+* Transfer this backup into a safe place.
+* Issue the following two commands:
+* redis-cli config set appendonly yes
+* redis-cli config set save ""
+* Make sure that your database contains the same number of keys it contained.
+* Make sure that writes are appended to the append only file correctly.
+
+The first CONFIG command enables the Append Only File. In order to do so *Redis will block* to generate the initial dump, then will open the file for writing, and will start appending all the next write queries.
+
+The second CONFIG command is used to turn off snapshotting persistence. This is optional, if you wish you can take both the persistence methods enabled.
+
+*IMPORTANT:* remember to edit your redis.conf to turn on the AOF, otherwise
+when you restart the server the configuration changes will be lost and the
+server will start again with the old configuration.
+
+#### Redis 2.0
+
+* Make a backup of your latest dump.rdb file.
+* Transfer this backup into a safe place.
+* Stop all the writes against the database!
+* Issue a redis-cli bgrewriteaof. This will create the append only file.
+* Stop the server when Redis finished generating the AOF dump.
+* Edit redis.conf end enable append only file persistence.
+* Restart the server.
+* Make sure that your database contains the same number of keys it contained.
+* Make sure that writes are appended to the append only file correctly.
+
+
