@@ -7,7 +7,7 @@ In the past Redis accepted donations from the following companies:
 
 * [Linode](http://linode.com) 15 January 2010, provided Virtual Machines for Redis testing in a virtualized environment.
 * [Slicehost](http://slicehost.com) 14 January 2010, provided Virtual Machines for Redis testing in a virtualized environment.
-* [Cytusbyte](http://citrusbyte.com) 18 Dec 2009, part of Virtual Memory. Cytrus byte is also the company developing the Redis-rb bindings for Redis and this very web site.
+* [Citrusbyte](http://citrusbyte.com) 18 Dec 2009, part of Virtual Memory. Citrusbyte is also the company developing the Redis-rb bindings for Redis and this very web site.
 * [Hitmeister](http://www.hitmeister.de/) 15 Dec 2009, part of Redis Cluster.
 * [Engine Yard](http://engineyard.com) 13 Dec 2009, for blocking POP (BLPOP) and part of the Virtual Memory implementation.
 
