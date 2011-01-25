@@ -36,9 +36,9 @@
   {
     "name": "erldis",
     "language": "Erlang",
-    "repository": "http://bitbucket.org/adroll/erldis",
+    "repository": "http://github.com/japerk/erldis",
     "description": "",
-    "authors": ["dialtone_"]
+    "authors": ["dialtone_","japerk"]
   },
 
   {
