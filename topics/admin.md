@@ -4,7 +4,7 @@ Redis Administration
 This page contains topics related to administration of Redis.
 Every topic is self contained in form of a FAQ. New topics will be created in the future.
 
-Upgrading or restarting Redis instance without downtime
+Upgrading or restarting a Redis instance without downtime
 -------------------------------------------------------
 
 Redis is designed to be a very long running process in your server.
