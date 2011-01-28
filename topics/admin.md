@@ -1,4 +1,4 @@
-Virtual Memory technical specification
+Redis Administration
 ===
 
 This page contains topics related to administration of Redis.
