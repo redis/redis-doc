@@ -173,18 +173,25 @@ always `*`. Example:
 As you can see the multi bulk reply is exactly the same format used in order
 to send commands to the Redis server unsing the unified protocol.
 
-The first line the server sent is "*4\r\n" in order to specify that four bulk
+The first line the server sent is `*4\r\n` in order to specify that four bulk
 replies will follow. Then every bulk write is transmitted.
 
-If the specified key does not exist, instead of the number of elements in the
-list the special value -1 is sent as count. Example:
+If the specified key does not exist, the key is considered to hold an empty
+list and the value `0` is sent as multi bulk count. Example:
 
     C: LRANGE nokey 0 1
+    S: *0
+
+When the `BLPOP` command times out, it returns the nil multi bulk reply. This
+type of multi bulk has count `-1` and should be interpreted as a nil value.
+Example:
+
+    C: BLPOP key 1
     S: *-1
 
-A client library API SHOULD return a nil object and not an empty list when this
-happens. This makes possible to distinguish between empty list and other error
-conditions (for instance a timeout condition in the BLPOP command).
+A client library API *SHOULD* return a nil object and not an empty list when this
+happens. This is necessary to distinguish between an empty list and an error
+condition (for instance the timeout condition of the `BLPOP` command).
 
 Nil elements in Multi-Bulk replies
 ----------------------------------
