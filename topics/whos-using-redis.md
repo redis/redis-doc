@@ -43,6 +43,11 @@ Logos are linked to the relevant story when available.
   <li>
     <a href="http://meta.stackoverflow.com/questions/69164/does-stackoverflow-use-caching-and-if-so-how/69172"><img src="http://sstatic.net/stackoverflow/img/logo.png" alt="Stack Overflow"></a>
   </li>
+
+  <li>
+    <!-- https://github.com/antirez/redis-doc/issues#issue/8 //-->
+    <img src="http://www.tweetdeck.com/assets/logo/UpdatedLogo-500x500.png" alt="Tweetdeck">
+  </li>
 </ul>
 
 And many others:
@@ -62,6 +67,9 @@ And many others:
 * [Wooga](http://www.wooga.com/games/) for the games _"Happy Hospital"_ and _"Monster World"_.
 * [Sina Weibo](http://t.sina.com.cn/)
 * [Engage](http://engage.calibreapps.com/)
+* [PoraOra](http://www.poraora.com/)
+* [Leatherbound](http://leatherbound.me/)
+* [AuthorityLabs](http://authoritylabs.com/)
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
