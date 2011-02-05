@@ -136,6 +136,14 @@
   },
 
   {
+    "name": "Danga::Socket::Redis",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/Danga-Socket-Redis",
+    "description": "An asynchronous redis client using the Danga::Socket async library",
+    "authors": ["martinredmond"]
+  },
+
+  {
     "name": "Redis PHP bindings",
     "language": "PHP",
     "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
