@@ -101,12 +101,12 @@
   },
 
   {
-    "name": "Perl Client",
+    "name": "Redis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis",
-    "repository": "http://github.com/dpavlin/perl-Redis",
-    "description": "",
-    "authors": ["dpavlin"]
+    "repository": "https://github.com/melo/perl-redis",
+    "description": "Perl binding for Redis database",
+    "authors": ["pedromelo"]
   },
 
   {
