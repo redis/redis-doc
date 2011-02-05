@@ -112,8 +112,9 @@
   {
     "name": "AnyEvent::Redis",
     "language": "Perl",
+    "url": "http://search.cpan.org/dist/AnyEvent-Redis",
     "repository": "http://github.com/miyagawa/AnyEvent-Redis",
-    "description": "",
+    "description": "Non-blocking Redis client",
     "authors": ["miyagawa"]
   },
 
