@@ -110,6 +110,14 @@
   },
 
   {
+    "name": "Redis::hiredis",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/Redis-hiredis/",
+    "description": "Perl binding for the hiredis C client",
+    "authors": ["neophenix"]
+  },
+
+  {
     "name": "AnyEvent::Redis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/AnyEvent-Redis",
