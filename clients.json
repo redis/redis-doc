@@ -127,6 +127,15 @@
   },
 
   {
+    "name": "MojoX::Redis",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/MojoX-Redis",
+    "repository": "https://github.com/und3f/mojox-redis",
+    "description": "asynchronous Redis client for Mojolicious",
+    "authors": ["und3f"]
+  },
+
+  {
     "name": "Redis PHP bindings",
     "language": "PHP",
     "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
