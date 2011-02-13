@@ -20,5 +20,5 @@ for `ZRANGEBYSCORE`.
     ZADD myzset 2 "two"
     ZADD myzset 3 "three"
     ZCOUNT myzset -inf +inf
-    ZCOUNT myzset (1 3
+    ZCOUNT myzset 1 3
 
