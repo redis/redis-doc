@@ -5,9 +5,10 @@ number of elements returned.
 
 Returns the specified range of elements in the sorted set stored at `key`. The
 elements are considered to be ordered from the lowest to the highest score.
+Lexicographical order is used for elements with equal score.
 
 See `ZREVRANGE` when you need the elements ordered from highest to lowest
-score.
+score (and descending lexicographical order for elements with equal score).
 
 Both `start` and `stop` are zero-based indexes, where `0` is the first element,
 `1` is the next element and so on. They can also be negative numbers indicating
