@@ -37,7 +37,7 @@ Logos are linked to the relevant story when available.
   </li>
 
   <li>
-    <a href="http://disqus.com/analytics/"><img style="background-color:#4e7ba3; padding:10px;" src="http://mediacdn.disqus.com/1294274648/img/disqus-logo.png" alt="Disqus"></a>
+    <a href="http://bretthoerner.com/2011/2/21/redis-at-disqus/"><img style="background-color:#4e7ba3; padding:10px;" src="http://mediacdn.disqus.com/1294274648/img/disqus-logo.png" alt="Disqus"></a>
   </li>
 
   <li>
