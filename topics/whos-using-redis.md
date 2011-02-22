@@ -48,6 +48,10 @@ Logos are linked to the relevant story when available.
     <!-- https://github.com/antirez/redis-doc/issues#issue/8 //-->
     <img src="http://www.tweetdeck.com/assets/logo/UpdatedLogo-500x500.png" alt="Tweetdeck">
   </li>
+
+  <li>
+    <a href="http://devblog.bu.mp/how-we-use-redis-at-bump"><img src="/images/bump.png" alt="Bump"></a>
+  </li>
 </ul>
 
 And many others:
