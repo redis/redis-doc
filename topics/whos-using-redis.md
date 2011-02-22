@@ -50,7 +50,7 @@ Logos are linked to the relevant story when available.
   </li>
 
   <li>
-    <a href="http://devblog.bu.mp/how-we-use-redis-at-bump"><img src="/images/bump.png" alt="Bump"></a>
+    <a href="http://devblog.bu.mp/how-we-use-redis-at-bump"><img src="/images/companies/bump.png" alt="Bump"></a>
   </li>
 </ul>
 
