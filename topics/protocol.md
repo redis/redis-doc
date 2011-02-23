@@ -48,7 +48,7 @@ See the following example:
 This is how the above command looks as a quoted string, so that it is possible
 to see the exact value of every byte in the query:
 
-    "*3\r\n$3\r\nSET\r\n$5\r\nmykey\r\n$8\r\nmyvalue\r\n"
+    "*3\r\n$3\r\nSET\r\n$5\r\nmykey\r\n$7\r\nmyvalue\r\n"
 
 As you will see in a moment this format is also used in Redis replies. The
 format used for every argument `$6\r\nmydata\r\n` is called a Bulk Reply.
