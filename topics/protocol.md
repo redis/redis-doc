@@ -171,7 +171,7 @@ always `*`. Example:
     s: World
 
 As you can see the multi bulk reply is exactly the same format used in order
-to send commands to the Redis server unsing the unified protocol.
+to send commands to the Redis server using the unified protocol.
 
 The first line the server sent is `*4\r\n` in order to specify that four bulk
 replies will follow. Then every bulk write is transmitted.
@@ -232,7 +232,7 @@ Before of the Unified Request Protocol Redis used a different protocol to send
 commands, that is still supported since it is simpler to type by hand via
 telnet. In this protocol there are two kind of commands:
 
-* Inline commands: simple commands where argumnets are just space separated
+* Inline commands: simple commands where arguments are just space separated
   strings. No binary safeness is possible.
 * Bulk commands: bulk commands are exactly like inline commands, but the last
   argument is handled in a special way in order to allow for a binary-safe last
@@ -272,7 +272,7 @@ See for instance the following example:
     C: foobar
     S: +OK
 
-The last argument of the commnad is '6'. This specify the number of DATA bytes
+The last argument of the command is '6'. This specify the number of DATA bytes
 that will follow, that is, the string "foobar". Note that even this bytes are
 terminated by two additional bytes of CRLF.
 
