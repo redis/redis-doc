@@ -71,25 +71,22 @@ check the kind of reply from the first byte sent by the server:
 
 <a name="status-reply"></a>
 
-Single line reply
+Status reply
 -----------------
 
-A single line reply is in the form of a single line string
+A status reply (or: single line reply) is in the form of a single line string
 starting with "+" terminated by "\r\n". For example:
 
     +OK
 
 The client library should return everything after the "+", that is, the string
-"OK" in the example.
-
-The following commands reply with a single line reply:
-PING, SET, SELECT, SAVE, BGSAVE, SHUTDOWN, RENAME, LPUSH, RPUSH, LSET, LTRIM
+"OK" in this example.
 
 Error reply
 -----------
 
-Errors are sent exactly like Single Line Replies. The only difference is that
-the first byte is "-" instead of "+".
+Errors are sent similar to status replies. The only difference is that the first
+byte is "-" instead of "+".
 
 Error replies are only sent when something strange happened, for instance if
 you try to perform an operation against the wrong data type, or if the command
