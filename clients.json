@@ -217,6 +217,22 @@
   },
 
   {
+    "name": "scala-redis",
+    "language": "Scala",
+    "repository": "https://github.com/debasishg/scala-redis",
+    "description": "Apparently a fork of the original client from @alejandrocrosa",
+    "authors": ["debasishg"]
+  },
+
+  {
+    "name": "redis-client-scala-netty",
+    "language": "Scala",
+    "repository": "https://github.com/andreyk0/redis-client-scala-netty"
+    "description": "",
+    "authors": [""]
+  },
+
+  {
     "name": "Tcl Client",
     "language": "Tcl",
     "repository": "http://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
