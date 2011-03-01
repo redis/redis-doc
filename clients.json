@@ -5,7 +5,7 @@
     "url": "http://redis-rb.keyvalue.org",
     "repository": "http://github.com/ezmobius/redis-rb",
     "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
-    "authors": ["ezmobius", "soveran", "djanowski"]
+    "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"]
   },
 
   {
