@@ -227,7 +227,7 @@
   {
     "name": "redis-client-scala-netty",
     "language": "Scala",
-    "repository": "https://github.com/andreyk0/redis-client-scala-netty"
+    "repository": "https://github.com/andreyk0/redis-client-scala-netty",
     "description": "",
     "authors": [""]
   },
