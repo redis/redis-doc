@@ -14,7 +14,7 @@ When `key` holds a value that is not a list, an error is returned.
 @examples
 
     @cli
-    RPUSH list "hello"
-    RPUSH list "world"
-    LRANGE list 0 -1
+    RPUSH mylist "hello"
+    RPUSH mylist "world"
+    LRANGE mylist 0 -1
 
