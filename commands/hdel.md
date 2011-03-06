@@ -15,7 +15,7 @@ Removes `field` from the hash stored at `key`.
 @examples
 
     @cli
-    HSET hash field1 "foo"
-    HDEL hash field1
-    HDEL hash field2
+    HSET myhash field1 "foo"
+    HDEL myhash field1
+    HDEL myhash field2
 

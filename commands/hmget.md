@@ -15,7 +15,7 @@ against a non-existing `key` will return a list of `nil` values.
 order as they are requested.
 
     @cli
-    HSET hash field1 "Hello"
-    HSET hash field2 "World"
-    HMGET hash field1 field2 nofield
+    HSET myhash field1 "Hello"
+    HSET myhash field2 "World"
+    HMGET myhash field1 field2 nofield
 

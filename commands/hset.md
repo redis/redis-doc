@@ -17,6 +17,6 @@ is overwritten.
 @examples
 
     @cli
-    HSET hash field1 "Hello"
-    HGET hash field1
+    HSET myhash field1 "Hello"
+    HGET myhash field1
 

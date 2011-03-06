@@ -14,7 +14,7 @@ empty list when `key` does not exist.
 @examples
 
     @cli
-    HSET hash field1 "Hello"
-    HSET hash field2 "World"
-    HGETALL hash
+    HSET myhash field1 "Hello"
+    HSET myhash field2 "World"
+    HGETALL myhash
 
