@@ -25,7 +25,7 @@ reset it to zero atomically.  This can be done using `GETSET mycounter "0"`:
 @examples
 
     @cli
-    SET key "Hello"
-    GETSET key "World"
-    GET key
+    SET mykey "Hello"
+    GETSET mykey "World"
+    GET mykey
 

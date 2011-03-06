@@ -16,5 +16,5 @@ Because of this, the operation never fails.
     @cli
     SET key1 "Hello"
     SET key2 "World"
-    MGET key1 key2 nokey
+    MGET key1 key2 nonexisting
 

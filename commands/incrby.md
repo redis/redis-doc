@@ -17,6 +17,6 @@ See `INCR` for extra information on increment/decrement operations.
 @examples
 
     @cli
-    SET key "10"
-    INCRBY key 5
+    SET mykey "10"
+    INCRBY mykey 5
 

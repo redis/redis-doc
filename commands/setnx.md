@@ -18,9 +18,9 @@ a value, no operation is performed.
 @examples
 
     @cli
-    SETNX key "Hello"
-    SETNX key "World"
-    GET key
+    SETNX mykey "Hello"
+    SETNX mykey "World"
+    GET mykey
 
 ## Design pattern: Locking with `!SETNX`
 

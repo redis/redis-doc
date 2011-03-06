@@ -13,6 +13,6 @@ overwritten, regardless of its type.
 @examples
 
     @cli
-    SET key "Hello"
-    GET key
+    SET mykey "Hello"
+    GET mykey
 

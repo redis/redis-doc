@@ -17,6 +17,6 @@ See `INCR` for extra information on increment/decrement operations.
 @examples
 
     @cli
-    SET key "10"
-    DECR key
+    SET mykey "10"
+    DECR mykey
 
