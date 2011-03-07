@@ -195,10 +195,10 @@ atomic operations otherwise not supported by Redis is to implement ZPOP,
 that is a command that pops the element with the lower score from a
 sorted set in an atomic way. This is the simplest implementation:
 
-    WATCH zse
-    ele = ZRANGE zset 0 0
+    WATCH zset
+    element = ZRANGE zset 0 0
     MULTI
-    ZREM zset ele
+    ZREM zset element
     EXEC
 
-If `EXEC` fails (ie returns a @nil-reply) we just repeat the operation.
+If `EXEC` fails (i.e. returns a @nil-reply) we just repeat the operation.
