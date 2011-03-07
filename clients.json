@@ -189,28 +189,11 @@
   },
 
   {
-    "name": "Redis PHP bindings",
-    "language": "PHP",
-    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
-    "description": "This is a deprecated client, check Predis, Rediska, PHPRedis for up to date alternatives.",
-    "authors": ["ludo"]
-  },
-
-  {
     "name": "desir",
     "language": "Python",
     "repository": "https://github.com/aallamaa/desir",
     "description": "",
     "authors": ["aallamaa"]
-  },
-
-
-  {
-    "name": "Python Client",
-    "language": "Python",
-    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/python",
-    "description": "",
-    "authors": ["ludo"]
   },
 
   {
