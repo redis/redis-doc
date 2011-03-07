@@ -93,6 +93,14 @@
   },
 
   {
+    "name": "RJC",
+    "language": "Java",
+    "repository": "https://github.com/e-mzungu/rjc",
+    "description": "",
+    "authors": ["e_mzungu"]
+  },
+
+  {
     "name": "redis-lua",
     "language": "Lua",
     "repository": "http://github.com/nrk/redis-lua",
