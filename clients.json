@@ -5,7 +5,8 @@
     "url": "http://redis-rb.keyvalue.org",
     "repository": "http://github.com/ezmobius/redis-rb",
     "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
-    "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"]
+    "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
+    "recommended": true
   },
 
   {
@@ -275,7 +276,8 @@
     "language": "C",
     "repository": "http://github.com/antirez/hiredis",
     "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
-    "authors": ["antirez","pnoordhuis"]
+    "authors": ["antirez","pnoordhuis"],
+    "recommended": true
   },
 
   {
@@ -291,7 +293,8 @@
     "language": "Node.js",
     "repository": "http://github.com/mranney/node_redis",
     "description": "Recommended client for node.",
-    "authors": ["mranney"]
+    "authors": ["mranney"],
+    "recommended": true
   },
 
   {
