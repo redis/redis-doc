@@ -154,11 +154,12 @@
   },
 
   {
-    "name": "Redis PHP bindings",
+    "name": "Predis",
     "language": "PHP",
-    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
-    "description": "This is a deprecated client, check Predis, Rediska, PHPRedis for up to date alternatives.",
-    "authors": ["ludo"]
+    "repository": "http://github.com/nrk/predis",
+    "description": "Mature and supported",
+    "authors": ["JoL1hAHN"],
+    "recommended": true
   },
 
   {
@@ -166,15 +167,17 @@
     "language": "PHP",
     "repository": "http://github.com/owlient/phpredis",
     "description": "This is a client written in C as a PHP module.",
-    "authors": ["yowgi"]
+    "authors": ["yowgi"],
+    "recommended": true
   },
 
   {
-    "name": "Predis",
+    "name": "Rediska",
     "language": "PHP",
-    "repository": "http://github.com/nrk/predis",
-    "description": "Mature and supported",
-    "authors": ["JoL1hAHN"]
+    "url": "http://rediska.geometria-lab.net",
+    "repository": "http://github.com/Shumkov/Rediska",
+    "description": "",
+    "authors": ["shumkov"]
   },
 
   {
@@ -183,6 +186,14 @@
     "repository": "http://github.com/jdp/redisent",
     "description": "",
     "authors": ["justinpoliey"]
+  },
+
+  {
+    "name": "Redis PHP bindings",
+    "language": "PHP",
+    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
+    "description": "This is a deprecated client, check Predis, Rediska, PHPRedis for up to date alternatives.",
+    "authors": ["ludo"]
   },
 
   {
@@ -248,15 +259,6 @@
     "repository": "http://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
     "description": "The client used in the Redis test suite.",
     "authors": ["antirez"]
-  },
-
-  {
-    "name": "Rediska",
-    "language": "PHP",
-    "url": "http://rediska.geometria-lab.net",
-    "repository": "http://github.com/Shumkov/Rediska",
-    "description": "",
-    "authors": ["shumkov"]
   },
 
   {
