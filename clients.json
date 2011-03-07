@@ -189,19 +189,12 @@
   },
 
   {
-    "name": "desir",
-    "language": "Python",
-    "repository": "https://github.com/aallamaa/desir",
-    "description": "",
-    "authors": ["aallamaa"]
-  },
-
-  {
     "name": "redis-py",
     "language": "Python",
     "repository": "http://github.com/andymccurdy/redis-py",
     "description": "Mature and supported. Currently the way to go for Python.",
-    "authors": ["andymccurdy"]
+    "authors": ["andymccurdy"],
+    "recommended": true
   },
 
   {
@@ -210,6 +203,14 @@
     "url": "http://pypi.python.org/pypi/txredis/0.1.1",
     "description": "",
     "authors": ["dio_rian"]
+  },
+
+  {
+    "name": "desir",
+    "language": "Python",
+    "repository": "https://github.com/aallamaa/desir",
+    "description": "",
+    "authors": ["aallamaa"]
   },
 
   {
