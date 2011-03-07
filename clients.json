@@ -67,12 +67,12 @@
   },
 
   {
-    "name": "JDBC-Redis",
+    "name": "Jedis",
     "language": "Java",
-    "url": "http://code.google.com/p/jdbc-redis",
-    "repository": "http://code.google.com/p/jdbc-redis/source/browse",
+    "repository": "http://github.com/xetorthio/jedis",
     "description": "",
-    "authors": ["mavcunha"]
+    "authors": ["xetorthio"],
+    "recommended": true
   },
 
   {
@@ -85,11 +85,12 @@
   },
 
   {
-    "name": "Jedis",
+    "name": "JDBC-Redis",
     "language": "Java",
-    "repository": "http://github.com/xetorthio/jedis",
+    "url": "http://code.google.com/p/jdbc-redis",
+    "repository": "http://code.google.com/p/jdbc-redis/source/browse",
     "description": "",
-    "authors": ["xetorthio"]
+    "authors": ["mavcunha"]
   },
 
   {
