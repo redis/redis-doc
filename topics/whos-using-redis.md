@@ -74,6 +74,10 @@ And many others:
 * [PoraOra](http://www.poraora.com/)
 * [Leatherbound](http://leatherbound.me/)
 * [AuthorityLabs](http://authoritylabs.com/)
+* [Fotolog](http://www.fotolog.com/)
+* [TheMatchFixer](http://www.thematchfixer.com/)
+* [Check-Host](http://check-host.net/) describes their architecture [here](http://showmetheco.de/articles/2011/1/using-perl-mojolicious-and-redis-in-a-real-world-asynchronous-application.html).
+* [ShopSquad](http://shopsquad.com/)
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
