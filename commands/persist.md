@@ -15,9 +15,9 @@ Remove the existing timeout on `key`.
 @examples
 
     @cli
-    SET key "Hello"
-    EXPIRE key 10
-    TTL key
-    PERSIST key
-    TTL key
+    SET mykey "Hello"
+    EXPIRE mykey 10
+    TTL mykey
+    PERSIST mykey
+    TTL mykey
 

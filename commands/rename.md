@@ -14,7 +14,7 @@ is overwritten.
 @examples
 
     @cli
-    SET key "Hello"
-    RENAME key otherkey
-    GET otherkey
+    SET mykey "Hello"
+    RENAME mykey myotherkey
+    GET myotherkey
 

@@ -13,7 +13,7 @@ An error is returned when `key` holds a non-string value.
 @examples
 
     @cli
-    SET key "Hello world"
-    STRLEN key
-    STRLEN doesntexist
+    SET mykey "Hello world"
+    STRLEN mykey
+    STRLEN nonexisting
 

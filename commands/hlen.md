@@ -12,7 +12,7 @@ Returns the number of fields contained in the hash stored at `key`.
 @examples
 
     @cli
-    HSET hash field1 "Hello"
-    HSET hash field2 "World"
-    HLEN hash
+    HSET myhash field1 "Hello"
+    HSET myhash field2 "World"
+    HLEN myhash
 

@@ -16,8 +16,8 @@ It returns an error under the same conditions as `RENAME`.
 @examples
 
     @cli
-    SET key "Hello"
-    SET otherkey "World"
-    RENAMENX key otherkey
-    GET otherkey
+    SET mykey "Hello"
+    SET myotherkey "World"
+    RENAMENX mykey myotherkey
+    GET myotherkey
 

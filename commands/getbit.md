@@ -17,8 +17,8 @@ to be a contiguous space with 0 bits.
 @examples
 
     @cli
-    SETBIT key 7 1
-    GETBIT key 0
-    GETBIT key 7
-    GETBIT key 100
+    SETBIT mykey 7 1
+    GETBIT mykey 0
+    GETBIT mykey 7
+    GETBIT mykey 100
 

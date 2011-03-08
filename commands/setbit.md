@@ -29,7 +29,7 @@ _key_ will not have the allocation overhead.
 @examples
 
     @cli
-    SETBIT key 7 1
-    SETBIT key 7 0
-    GET key
+    SETBIT mykey 7 1
+    SETBIT mykey 7 0
+    GET mykey
 

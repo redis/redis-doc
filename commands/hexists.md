@@ -15,7 +15,7 @@ Returns if `field` is an existing field in the hash stored at `key`.
 @examples
 
     @cli
-    HSET hash field1 "foo"
-    HEXISTS hash field1
-    HEXISTS hash field2
+    HSET myhash field1 "foo"
+    HEXISTS myhash field1
+    HEXISTS myhash field2
 

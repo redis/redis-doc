@@ -15,6 +15,6 @@ only handles string values.
 
     @cli
     GET nonexisting
-    SET key "Hello"
-    GET key
+    SET mykey "Hello"
+    GET mykey
 

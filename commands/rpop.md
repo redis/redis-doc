@@ -12,9 +12,9 @@ Removes and returns the last element of the list stored at `key`.
 @examples
 
     @cli
-    RPUSH list "one"
-    RPUSH list "two"
-    RPUSH list "three"
-    RPOP list
-    LRANGE list 0 -1
+    RPUSH mylist "one"
+    RPUSH mylist "two"
+    RPUSH mylist "three"
+    RPOP mylist
+    LRANGE mylist 0 -1
 

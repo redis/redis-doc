@@ -29,8 +29,8 @@ specify that a given key should expire at a given time in the future.
 @examples
 
     @cli
-    SET key "Hello"
-    EXISTS key
-    EXPIREAT key 1293840000
-    EXISTS key
+    SET mykey "Hello"
+    EXISTS mykey
+    EXPIREAT mykey 1293840000
+    EXISTS mykey
 

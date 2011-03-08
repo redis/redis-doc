@@ -14,7 +14,7 @@ given key will continue to be part of the dataset.
 @examples
 
     @cli
-    SET key "Hello"
-    EXPIRE key 10
-    TTL key
+    SET mykey "Hello"
+    EXPIRE mykey 10
+    TTL mykey
 

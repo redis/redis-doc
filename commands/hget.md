@@ -13,7 +13,7 @@ present in the hash or `key` does not exist.
 @examples
 
     @cli
-    HSET hash field1 "foo"
-    HGET hash field1
-    HGET hash field2
+    HSET myhash field1 "foo"
+    HGET myhash field1
+    HGET myhash field2
 

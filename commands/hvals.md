@@ -2,7 +2,7 @@
 
 O(N) where N is the size of the hash.
 
-Returns all values of the hash stored at `key`.
+Returns all values in the hash stored at `key`.
 
 @return
 
@@ -12,7 +12,7 @@ not exist.
 @examples
 
     @cli
-    HSET hash field1 "Hello"
-    HSET hash field2 "World"
-    HVALS hash
+    HSET myhash field1 "Hello"
+    HSET myhash field2 "World"
+    HVALS myhash
 

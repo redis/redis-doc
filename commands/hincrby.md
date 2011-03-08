@@ -21,8 +21,8 @@ Since the `increment` argument is signed, both increment and decrement
 operations can be performed:
 
     @cli
-    HSET hash field 5
-    HINCRBY hash field 1
-    HINCRBY hash field -1
-    HINCRBY hash field -10
+    HSET myhash field 5
+    HINCRBY myhash field 1
+    HINCRBY myhash field -1
+    HINCRBY myhash field -10
 

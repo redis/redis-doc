@@ -5,7 +5,8 @@
     "url": "http://redis-rb.keyvalue.org",
     "repository": "http://github.com/ezmobius/redis-rb",
     "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
-    "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"]
+    "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
+    "recommended": true
   },
 
   {
@@ -67,12 +68,12 @@
   },
 
   {
-    "name": "JDBC-Redis",
+    "name": "Jedis",
     "language": "Java",
-    "url": "http://code.google.com/p/jdbc-redis",
-    "repository": "http://code.google.com/p/jdbc-redis/source/browse",
+    "repository": "http://github.com/xetorthio/jedis",
     "description": "",
-    "authors": ["mavcunha"]
+    "authors": ["xetorthio"],
+    "recommended": true
   },
 
   {
@@ -85,11 +86,20 @@
   },
 
   {
-    "name": "Jedis",
+    "name": "JDBC-Redis",
     "language": "Java",
-    "repository": "http://github.com/xetorthio/jedis",
+    "url": "http://code.google.com/p/jdbc-redis",
+    "repository": "http://code.google.com/p/jdbc-redis/source/browse",
     "description": "",
-    "authors": ["xetorthio"]
+    "authors": ["mavcunha"]
+  },
+
+  {
+    "name": "RJC",
+    "language": "Java",
+    "repository": "https://github.com/e-mzungu/rjc",
+    "description": "",
+    "authors": ["e_mzungu"]
   },
 
   {
@@ -106,7 +116,8 @@
     "url": "http://search.cpan.org/dist/Redis",
     "repository": "https://github.com/melo/perl-redis",
     "description": "Perl binding for Redis database",
-    "authors": ["pedromelo"]
+    "authors": ["pedromelo"],
+    "recommended": true
   },
 
   {
@@ -144,11 +155,12 @@
   },
 
   {
-    "name": "Redis PHP bindings",
+    "name": "Predis",
     "language": "PHP",
-    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/php",
-    "description": "This is a deprecated client, check Predis, Rediska, PHPRedis for up to date alternatives.",
-    "authors": ["ludo"]
+    "repository": "http://github.com/nrk/predis",
+    "description": "Mature and supported",
+    "authors": ["JoL1hAHN"],
+    "recommended": true
   },
 
   {
@@ -156,15 +168,17 @@
     "language": "PHP",
     "repository": "http://github.com/owlient/phpredis",
     "description": "This is a client written in C as a PHP module.",
-    "authors": ["yowgi"]
+    "authors": ["yowgi"],
+    "recommended": true
   },
 
   {
-    "name": "Predis",
+    "name": "Rediska",
     "language": "PHP",
-    "repository": "http://github.com/nrk/predis",
-    "description": "Mature and supported",
-    "authors": ["JoL1hAHN"]
+    "url": "http://rediska.geometria-lab.net",
+    "repository": "http://github.com/Shumkov/Rediska",
+    "description": "",
+    "authors": ["shumkov"]
   },
 
   {
@@ -176,28 +190,12 @@
   },
 
   {
-    "name": "desir",
-    "language": "Python",
-    "repository": "https://github.com/aallamaa/desir",
-    "description": "",
-    "authors": ["aallamaa"]
-  },
-
-
-  {
-    "name": "Python Client",
-    "language": "Python",
-    "repository": "http://code.google.com/p/redis/source/browse/#svn/trunk/client-libraries/python",
-    "description": "",
-    "authors": ["ludo"]
-  },
-
-  {
     "name": "redis-py",
     "language": "Python",
     "repository": "http://github.com/andymccurdy/redis-py",
     "description": "Mature and supported. Currently the way to go for Python.",
-    "authors": ["andymccurdy"]
+    "authors": ["andymccurdy"],
+    "recommended": true
   },
 
   {
@@ -206,6 +204,14 @@
     "url": "http://pypi.python.org/pypi/txredis/0.1.1",
     "description": "",
     "authors": ["dio_rian"]
+  },
+
+  {
+    "name": "desir",
+    "language": "Python",
+    "repository": "https://github.com/aallamaa/desir",
+    "description": "",
+    "authors": ["aallamaa"]
   },
 
   {
@@ -241,15 +247,6 @@
   },
 
   {
-    "name": "Rediska",
-    "language": "PHP",
-    "url": "http://rediska.geometria-lab.net",
-    "repository": "http://github.com/Shumkov/Rediska",
-    "description": "",
-    "authors": ["shumkov"]
-  },
-
-  {
     "name": "ServiceStack.Redis",
     "language": "C#",
     "url": "https://github.com/ServiceStack/ServiceStack.Redis",
@@ -279,7 +276,8 @@
     "language": "C",
     "repository": "http://github.com/antirez/hiredis",
     "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
-    "authors": ["antirez","pnoordhuis"]
+    "authors": ["antirez","pnoordhuis"],
+    "recommended": true
   },
 
   {
@@ -295,7 +293,8 @@
     "language": "Node.js",
     "repository": "http://github.com/mranney/node_redis",
     "description": "Recommended client for node.",
-    "authors": ["mranney"]
+    "authors": ["mranney"],
+    "recommended": true
   },
 
   {

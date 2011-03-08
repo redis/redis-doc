@@ -23,7 +23,7 @@ string representation of the integer.
 @examples
 
     @cli
-    SET key "10"
-    INCR key
-    GET key
+    SET mykey "10"
+    INCR mykey
+    GET mykey
 
