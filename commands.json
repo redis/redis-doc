@@ -782,7 +782,8 @@
     "arguments": [
       {
         "name": ["pattern"],
-        "type": ["pattern"]
+        "type": ["pattern"],
+        "multiple": true
       }
     ],
     "since": "1.3.8",
@@ -1263,7 +1264,8 @@
     "arguments": [
       {
         "name": ["channel"],
-        "type": ["string"]
+        "type": ["string"],
+        "multiple": true
       }
     ],
     "since": "1.3.8",
