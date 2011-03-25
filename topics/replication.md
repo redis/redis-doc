@@ -60,3 +60,16 @@ To configure replication is trivial: just add the following line to the slave co
     slaveof 192.168.1.1 6379
 
 Of course you need to replace 192.168.1.1 6379 with your master ip address (or hostname) and port.
+
+Setting a slave to authenticate to a master
+---
+
+If your master has a password via `requirepass`, it's trivial to configure the slave to use that password in all sync operations.
+
+To do it on a running instance, use `redis-cli` and type:
+
+    config set masterauth <password>
+
+To set it permanently, add this to your config file:
+
+    masterauth <password>
