@@ -51,6 +51,14 @@
   },
 
   {
+    "name": "Tideland Common Go Library",
+    "language": "Go",
+    "repository": "http://code.google.com/p/tideland-cgl/",
+    "description": "",
+    "authors": ["themue"]
+  },
+
+  {
     "name": "redis",
     "language": "Haskell",
     "url": "http://hackage.haskell.org/package/redis",
