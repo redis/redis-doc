@@ -4,7 +4,7 @@ O(1)
 
 
 Set `key` to hold the string `value` and set `key` to timeout after a given
-number of seconds.  This command is equivalent to exeucting the following
+number of seconds.  This command is equivalent to executing the following
 commands:
 
     SET mykey value
