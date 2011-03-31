@@ -3,7 +3,7 @@ A case study: Design and implementation of a simple Twitter clone using only the
 
 In this article I'll explain the design and the implementation of a [simple clone of Twitter](http://retwis.antirez.com) written using PHP and Redis as only database. The programming community uses to look at key-value stores like special databases that can't be used as drop in replacement for a relational database for the development of web applications. This article will try to prove the contrary.
 
-Our Twitter clone, [called Retwis](http://retwis.antirez.com), is structurally simple, has very good performances, and can be distributed among N web servers and M Redis servers with very little efforts. You can find the source code [here](http://code.google.com/p/redis/downloads/list).
+Our Twitter clone, [called Retwis](http://retwis.antirez.com), is structurally simple, has very good performance, and can be distributed among N web servers and M Redis servers with very little effort. You can find the source code [here](http://code.google.com/p/redis/downloads/list).
 
 We use PHP for the example since it can be read by everybody. The same (or... much better) results can be obtained using Ruby, Python, Erlang, and so on.
 
@@ -11,7 +11,7 @@ We use PHP for the example since it can be read by everybody. The same (or... mu
 
 Key-value stores basics
 ---
-The essence of a key-value store is the ability to store some data, called _value_, inside a key. This data can later be retrieved only if we know the exact key used to store it. There is no way to search something by value. So for example I can use the command SET to store the value *bar* at key *foo*:
+The essence of a key-value store is the ability to store some data, called _value_, inside a key. This data can later be retrieved only if we know the exact key used to store it. There is no way to search something by value. In a sense, it is like a very large hash/dictionary, but it is persistent, i.e. when your application ends, the data doesn't go away. So for example I can use the command SET to store the value *bar* at key *foo*:
 
     SET foo bar
 
