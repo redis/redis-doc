@@ -46,7 +46,7 @@ The problem is that doing the increment this way will work as long as there is o
 
 Something is wrong with that! We incremented the value two times, but instead to go from 10 to 12 our key holds 11. This is because the INCR operation done with `GET / increment / SET` *is not an atomic operation*. Instead the INCR provided by Redis, Memcached, ..., are atomic implementations, the server will take care to protect the get-increment-set for all the time needed to complete in order to prevent simultaneous accesses.
 
-What makes Redis different from other key-value stores is that it provides more operations similar to INCR that can be used together to model complex problems. This is why you can use Redis to write whole web applications without using an SQL database and without to get mad.
+What makes Redis different from other key-value stores is that it provides more operations similar to INCR that can be used together to model complex problems. This is why you can use Redis to write whole web applications without using an SQL database and without going crazy.
 
 Beyond key-value stores
 ---
