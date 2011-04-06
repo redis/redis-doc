@@ -776,6 +776,7 @@
         "optional": true,
         "multiple": true
       }
+    ]
   },
   "PERSIST": {
     "summary": "Remove the expiration from a key",
