@@ -6,7 +6,7 @@ O(1)
 Return a random element from the set value stored at `key`.
 
 This operation is similar to `SPOP`, however while `SPOP` also removes the
-randomly selected element from the Set, `SRANDMEMBER` will just return a random
+randomly selected element from the set, `SRANDMEMBER` will just return a random
 element without altering the original set in any way.
 
 @return
