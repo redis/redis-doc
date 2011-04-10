@@ -132,6 +132,6 @@ Using ZRANK and ZRANGE together you can show users with a score similar to
 a given user. All this *fast*.
 * Sorted Sets are often used in order to index data that is stored inside Redis.
 For instance if you have many hashes representing users you can use a sorted set with elements having as score the age of the user, and as value the ID of the user. So using [ZRANGEBYSCORE](/commands/zrangebyscore) it will be trivial and fast to retrieve all the users with a given interval of ages.
-* Sorted Sets are probably the most advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#zset) to discover what you can do with Redis!
+* Sorted Sets are probably the most advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis!
 
 
