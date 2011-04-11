@@ -35,11 +35,19 @@
   },
 
   {
-    "name": "erldis",
+    "name": "Erldis",
     "language": "Erlang",
     "repository": "http://github.com/japerk/erldis",
     "description": "",
     "authors": ["dialtone_","japerk"]
+  },
+
+  {
+    "name": "Eredis",
+    "language": "Erlang",
+    "repository": "https://github.com/wooga/eredis",
+    "description": "Redis client with a focus on performance",
+    "authors": ["wooga"]
   },
 
   {
@@ -260,6 +268,14 @@
     "url": "https://github.com/ServiceStack/ServiceStack.Redis",
     "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
     "authors": ["demisbellot"]
+  },
+
+  {
+    "name": "Booksleeve - pipelined .NET bindings for redis",
+    "language": "C#",
+    "url": "http://code.google.com/p/booksleeve/",
+    "description": "This client was developed by Stack Exchange for very high performance needs.",
+    "authors": ["marcgravell"]
   },
 
   {
