@@ -67,6 +67,14 @@
   },
 
   {
+    "name": "godis",
+    "language": "Go",
+    "repository": "http://github.com/simonz05/godis",
+    "description": "",
+    "authors": ["simonz05"]
+  },
+
+  {
     "name": "redis",
     "language": "Haskell",
     "url": "http://hackage.haskell.org/package/redis",
