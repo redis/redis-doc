@@ -54,7 +54,7 @@
     "name": "Go-Redis",
     "language": "Go",
     "repository": "http://github.com/alphazero/Go-Redis",
-    "description": "",
+    "description": "currently unmaintained, does not compile with latest version of Go",
     "authors": ["SunOf27"]
   },
 
