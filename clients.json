@@ -123,7 +123,8 @@
     "language": "Lua",
     "repository": "http://github.com/nrk/redis-lua",
     "description": "",
-    "authors": ["JoL1hAHN"]
+    "authors": ["JoL1hAHN"],
+    "recommended": true
   },
 
   {
@@ -243,7 +244,8 @@
     "language": "Scala",
     "repository": "https://github.com/debasishg/scala-redis",
     "description": "Apparently a fork of the original client from @alejandrocrosa",
-    "authors": ["debasishg"]
+    "authors": ["debasishg"],
+    "recommended": true
   },
 
   {
