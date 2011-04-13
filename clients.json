@@ -267,7 +267,8 @@
     "language": "C#",
     "url": "https://github.com/ServiceStack/ServiceStack.Redis",
     "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
-    "authors": ["demisbellot"]
+    "authors": ["demisbellot"],
+    "recommended": true
   },
 
   {
@@ -275,7 +276,8 @@
     "language": "C#",
     "url": "http://code.google.com/p/booksleeve/",
     "description": "This client was developed by Stack Exchange for very high performance needs.",
-    "authors": ["marcgravell"]
+    "authors": ["marcgravell"],
+    "recommended": true
   },
 
   {
