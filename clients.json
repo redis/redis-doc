@@ -272,7 +272,7 @@
   },
 
   {
-    "name": "Booksleeve - pipelined .NET bindings for redis",
+    "name": "Booksleeve",
     "language": "C#",
     "url": "http://code.google.com/p/booksleeve/",
     "description": "This client was developed by Stack Exchange for very high performance needs.",
