@@ -285,7 +285,7 @@
     "language": "C#",
     "url": "http://nuget.org/List/Packages/Sider",
     "description": "Minimalistic client for C#/.NET 4.0",
-    "authors": ["@chakrit"]
+    "authors": ["chakrit"]
   },
 
   {
