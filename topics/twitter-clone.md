@@ -7,7 +7,18 @@ Our Twitter clone, [called Retwis](http://retwis.antirez.com), is structurally s
 
 We use PHP for the example since it can be read by everybody. The same (or... much better) results can be obtained using Ruby, Python, Erlang, and so on.
 
-*News! [Retwis-rb](http://retwisrb.danlucraft.com/) is a port of Retwis to Ruby and Sinatra written by Daniel Lucraft!* With full source code included of course, the git repository is linked at the end of the Retwis-RB page. The rest of this article targets PHP, but Ruby programmers can also check the other source code, it conceptually very similar.
+**Note:** [Retwis-RB](http://retwisrb.danlucraft.com/) is a port of Retwis to
+Ruby and Sinatra written by Daniel Lucraft! With full source code included of
+course, the Git repository is linked in the footer of the web page. The rest
+of this article targets PHP, but Ruby programmers can also check the other
+source code, it conceptually very similar.
+
+**Note:** [Retwis-J](http://retwisj.cloudfoundry.com/) is a port of Retwis to
+Java, using the Spring Data Framework, written by Costin Leau. The source code
+can be found on
+[GitHub](https://github.com/SpringSource/spring-data-keyvalue-examples) and
+there is comprehensive documentation available at
+[springsource.org](http://j.mp/eo6z6I).
 
 Key-value stores basics
 ---
