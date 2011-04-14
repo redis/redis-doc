@@ -761,6 +761,23 @@
     "since": "1.1.95",
     "group": "transactions"
   },
+  "OBJECT": {
+    "summary": "Inspect the internals of Redis objects",
+    "since": "2.2.3",
+    "group": "generic",
+    "arguments": [
+      {
+        "name": "subcommand",
+        "type": "string"
+      },
+      {
+        "name": "arguments",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      }
+    ]
+  },
   "PERSIST": {
     "summary": "Remove the expiration from a key",
     "arguments": [

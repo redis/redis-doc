@@ -35,11 +35,19 @@
   },
 
   {
-    "name": "erldis",
+    "name": "Erldis",
     "language": "Erlang",
     "repository": "http://github.com/japerk/erldis",
     "description": "",
     "authors": ["dialtone_","japerk"]
+  },
+
+  {
+    "name": "Eredis",
+    "language": "Erlang",
+    "repository": "https://github.com/wooga/eredis",
+    "description": "Redis client with a focus on performance",
+    "authors": ["wooga"]
   },
 
   {
@@ -115,7 +123,8 @@
     "language": "Lua",
     "repository": "http://github.com/nrk/redis-lua",
     "description": "",
-    "authors": ["JoL1hAHN"]
+    "authors": ["JoL1hAHN"],
+    "recommended": true
   },
 
   {
@@ -235,7 +244,8 @@
     "language": "Scala",
     "repository": "https://github.com/debasishg/scala-redis",
     "description": "Apparently a fork of the original client from @alejandrocrosa",
-    "authors": ["debasishg"]
+    "authors": ["debasishg"],
+    "recommended": true
   },
 
   {
@@ -259,7 +269,25 @@
     "language": "C#",
     "url": "https://github.com/ServiceStack/ServiceStack.Redis",
     "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
-    "authors": ["demisbellot"]
+    "authors": ["demisbellot"],
+    "recommended": true
+  },
+
+  {
+    "name": "Booksleeve",
+    "language": "C#",
+    "url": "http://code.google.com/p/booksleeve/",
+    "description": "This client was developed by Stack Exchange for very high performance needs.",
+    "authors": ["marcgravell"],
+    "recommended": true
+  },
+
+  {
+    "name": "Sider",
+    "language": "C#",
+    "url": "http://nuget.org/List/Packages/Sider",
+    "description": "Minimalistic client for C#/.NET 4.0",
+    "authors": ["chakrit"]
   },
 
   {
