@@ -111,6 +111,11 @@ Will receive all the messages sent to the channel `news.art.figurative`,
 `news.music.jazz`, etc.  All the glob-style patterns are valid, so
 multiple wildcards are supported.
 
+    PUNSUBSCRIBE news.*
+
+Will then unsubscribe the client from that pattern.  No other subscriptions
+will be affected by this call.
+
 Messages received as a result of pattern matching are sent in a
 different format:
 
