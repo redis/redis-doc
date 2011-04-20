@@ -54,27 +54,27 @@ Even if strings are the basic values of Redis, there are interesting operations 
 
 The [INCR](/commands/incr) command parses the string value as an integer, increments it by one, and finally sets the obtained value as the new string value. There are other similar commands like [INCRBY](/commands/incrby), [DECR](commands/decr) and [DECRBY](/commands/decrby). Actually internally it's always the same command, acting in a slightly different way.
 
-What means that INCR is atomic? That even multiple clients issuing INCR against the same key will never incur into a race condition. For instance it can't never happen that client 1 read "10", client 2 read "10" at the same time, both increment to 11, and set the new value of 11. The final value will always be of 12 ad the read-increment-set operation is performed while all the other clients are not executing a command at the same time.
+What means that INCR is atomic? That even multiple clients issuing INCR against the same key will never incur into a race condition. For instance it can never happen that client 1 read "10", client 2 read "10" at the same time, both increment to 11, and set the new value of 11. The final value will always be of 12 and the read-increment-set operation is performed while all the other clients are not executing a command at the same time.
 
-Another interesting operation on string is the [GETSET](/commands/getset) command, that does just what its name suggests: Set a key to a new value, returning the old value, as result. Why this is useful? Example: you have a system that increments a Redis key using the [INCR](/commands/incr) command every time your web site receives a new visit. You want to collect this information one time every hour, without loosing a single key. You can GETSET the key assigning it the new value of "0" and reading the old value back.
+Another interesting operation on string is the [GETSET](/commands/getset) command, that does just what its name suggests: Set a key to a new value, returning the old value, as result. Why this is useful? Example: you have a system that increments a Redis key using the [INCR](/commands/incr) command every time your web site receives a new visit. You want to collect this information one time every hour, without losing a single key. You can GETSET the key assigning it the new value of "0" and reading the old value back.
 
 The List type
 ---
 
-To explain the List data type it's better to start with a little of theory, as the term *List* is often used in an improper way by information technology folks. For instance "Python Lists" are not what the name may suggest (Linked Lists), but them are actually Arrays (the same data type is called Array in Ruby actually).
+To explain the List data type it's better to start with a little bit of theory, as the term *List* is often used in an improper way by information technology folks. For instance "Python Lists" are not what the name may suggest (Linked Lists), but them are actually Arrays (the same data type is called Array in Ruby actually).
 
-From a very general point of view a List is just a sequence of ordered elements: 10,20,1,2,3 is a list, but when a list of items is implemented using an Array and when instead a *Linked List* is used for the implementation, the properties change a lot.
+From a very general point of view a List is just a sequence of ordered elements: 10,20,1,2,3 is a list. But the properties of a List implemented using an Array are very different from the properties of a List implemented using a *Linked List*.
 
-Redis lists are implemented via Linked Lists, this means that even if you have million of elements inside a list, the operation of adding a new element in the head or in the tail of the list is performed *in constant time*. Adding a new element with the [LPUSH](/commands/lpush) command to the head of a ten elements list is the same speed as adding an element to the head of a 10 million elements list.
+Redis lists are implemented via Linked Lists. This means that even if you have millions of elements inside a list, the operation of adding a new element in the head or in the tail of the list is performed *in constant time*. Adding a new element with the [LPUSH](/commands/lpush) command to the head of a ten elements list is the same speed as adding an element to the head of a 10 million elements list.
 
-What's the downside? That accessing an element *by index* is very fast in lists implemented with an Array and not so fast in lists implemented by linked lists.
+What's the downside? Accessing an element *by index* is very fast in lists implemented with an Array and not so fast in lists implemented by linked lists.
 
-Redis Lists are implemented with linked lists because for a database system is crucial to be able to add elements to a very long list in a very fast way. Another strong advantage is, as you'll see in a moment, that Redis Lists can be taken at constant length in constant time.
+Redis Lists are implemented with linked lists because for a database system it is crucial to be able to add elements to a very long list in a very fast way. Another strong advantage is, as you'll see in a moment, that Redis Lists can be taken at constant length in constant time.
 
 First steps with Redis lists
 ---
 
-The [LPUSH](/commands/lpush) command add a new element into a list, on the left (on head), while the [RPUSH](/commands/rpush) command add a new element into alist, ot the right (on tail). Finally the [LRANGE](/commands/lrange) command extract ranges of elements from lists:
+The [LPUSH](/commands/lpush) command adds a new element into a list, on the left (at the head), while the [RPUSH](/commands/rpush) command adds a new element into a list, on the right (at the tail). Finally the [LRANGE](/commands/lrange) command extracts ranges of elements from lists:
 
     $ ./redis-cli rpush messages "Hello how are you?"
     OK
@@ -87,7 +87,7 @@ The [LPUSH](/commands/lpush) command add a new element into a list, on the left 
     2. Fine thanks. I'm having fun with Redis
     3. I should look into this NOSQL thing ASAP
 
-Note that [LRANGE](/commands/lrange) takes two indexes, the first and the last element of the range to return. Both the indexes can be negative to tell Redis to start to count for the end, so -1 is the last element, -2 is the penultimate element of the list, and so forth.
+Note that [LRANGE](/commands/lrange) takes two indexes, the first and the last element of the range to return. Both the indexes can be negative to tell Redis to start to count from the end, so -1 is the last element, -2 is the penultimate element of the list, and so forth.
 
 As you can guess from the example above, lists can be used, for instance, in order to implement a chat system. Another use is as queues in order to route messages between different processes. But the key point is that *you can use Redis lists every time you require to access data in the same order they are added*. This will not require any SQL ORDER BY operation, will be very fast, and will scale to millions of elements even with a toy Linux box.
 
@@ -140,7 +140,7 @@ Now let's check if a given element exists:
     $ ./redis-cli sismember myset 30
     (integer) 0
 
-"3" is a member of the set, while "30" is not. Sets are very good in order to express relations between objects. For instance we can easily use Redis Sets in order to implement tags.
+"3" is a member of the set, while "30" is not. Sets are very good for expressing relations between objects. For instance we can easily use Redis Sets in order to implement tags.
 
 A simple way to model this is to have, for every object you want to tag, a Set with all the IDs of the tags associated with the object, and for every tag that exists, a Set of of all the objects tagged with this tag.
 
@@ -176,7 +176,7 @@ But there are other non trivial operations that are still easy to implement usin
     $ ./redis-cli sinter tag:1:objects tag:2:objects tag:10:objects tag:27:objects
     ... no result in our dataset composed of just one object ;) ...
 
-Look at the [Command Reference](/commands) to discover other Set related commands, there are a bunch of interesting one. Also make sure to check the [SORT](/commands/sort) command as both Redis Sets and Lists are sortable.
+Look at the [Command Reference](/commands) to discover other Set related commands, there are a bunch of interesting ones. Also make sure to check the [SORT](/commands/sort) command as both Redis Sets and Lists are sortable.
 
 A digression. How to get unique identifiers for strings
 ---
@@ -222,7 +222,7 @@ Basically Sorted Sets are in some way the Redis equivalent of Indexes in the SQL
     $ ./redis-cli zadd hackers 1912 "Alan Turing"
     (integer) 1
 
-For sorted sets it's a joke to return these hackers sorted by their birth year because actually *they are already sorted*. Sorted sets are implemented via a dual-ported data structure containing both a skip list and an hash table, so every time we add an element Redis performs an O(log(N)) operation, that's good, but when we ask for sorted elements Redis does not have to do any work at all, it's already all sorted:
+For sorted sets it's a joke to return these hackers sorted by their birth year because actually *they are already sorted*. Sorted sets are implemented via a dual-ported data structure containing both a skip list and an hash table, so every time we add an element Redis performs an O(log(N)) operation. That's good, but when we ask for sorted elements Redis does not have to do any work at all, it's already all sorted:
 
     $ ./redis-cli zrange hackers 0 -1
     1. Alan Turing
@@ -234,7 +234,7 @@ For sorted sets it's a joke to return these hackers sorted by their birth year b
 
 Didn't know that Linus was younger than Yukihiro btw ;)
 
-Anyway I want to order this elements the other way around, using [ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange) this time:
+Anyway I want to order these elements the other way around, using [ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange) this time:
 
     $ ./redis-cli zrevrange hackers 0 -1
     1. Linus Torvalds
@@ -249,14 +249,14 @@ A very important note, ZSets have just a "default" ordering but you are still fr
 Operating on ranges
 ---
 
-Sorted sets are more powerful than this. They can operate on ranges. For instance let's try to get all the individuals that born up to the 1950. We use the [ZRANGEBYSCORE](/commands/zrangebyscore) command to do it:
+Sorted sets are more powerful than this. They can operate on ranges. For instance let's try to get all the individuals that were born up to the 1950. We use the [ZRANGEBYSCORE](/commands/zrangebyscore) command to do it:
 
     $ ./redis-cli zrangebyscore hackers -inf 1950
     1. Alan Turing
     2. Claude Shannon
     3. Alan Kay
 
-We asked Redis to return all the elements with a score between negative infinite and 1950 (both extremes are included).
+We asked Redis to return all the elements with a score between negative infinity and 1950 (both extremes are included).
 
 It's also possible to remove ranges of elements. For instance let's remove all the hackers born between 1940 and 1960 from the sorted set:
 
@@ -268,14 +268,14 @@ It's also possible to remove ranges of elements. For instance let's remove all t
 Back to the reddit example
 ---
 
-For the last time, back to the Reddit example. Now we have a decent plan to populate a sorted set in order to generate the home page. A sorted set can contain all the news that are not older than a few days (we remove old entries from time to time using ZREMRANGEBYSCORE). A background job gets all the elements from this sorted set, get the user votes and the time of the news, and compute the score to populate the *reddit.home.page* sorted set with the news IDs and associated scores. To show the home page we have just to perform a blazingly fast call to ZRANGE.
+For the last time, back to the Reddit example. Now we have a decent plan to populate a sorted set in order to generate the home page. A sorted set can contain all the news that are not older than a few days (we remove old entries from time to time using ZREMRANGEBYSCORE). A background job gets all the elements from this sorted set, get the user votes and the time of the news, and compute the score to populate the *reddit.home.page* sorted set with the news IDs and associated scores. To show the home page we just have to perform a blazingly fast call to ZRANGE.
 
 From time to time we'll remove too old news from the *reddit.home.page* sorted set as well in order for our system to work always against a limited set of news.
 
 Updating the scores of a sorted set
 ---
 
-Just a final note before to finish this tutorial. Sorted sets scores can be updated at any time. Just calling again ZADD against an element already included in the sorted set will update its score (and position) in O(log(N)), so sorted sets are suitable even when there are tons of updates.
+Just a final note before wrapping up this tutorial. Sorted sets scores can be updated at any time. Just calling again ZADD against an element already included in the sorted set will update its score (and position) in O(log(N)), so sorted sets are suitable even when there are tons of updates.
 
 This tutorial is in no way complete, this is just the basics to get started with Redis, read the [Command Reference](/commands) to discover a lot more.
 
