@@ -374,6 +374,14 @@
   },
 
   {
+    "name": "TeamDev Redis Client",
+    "language": "C#",
+    "repository": "http://redis.codeplex.com/",
+    "description": "Redis Client is based on redis-sharp for the basic communication functions, but it offers some differences.",
+    "authors": ["@TeamDevPerugia"]
+  },
+
+  {
     "name": "redis-sharp",
     "language": "C#",
     "repository": "http://github.com/migueldeicaza/redis-sharp",
