@@ -59,9 +59,9 @@
   },
 
   {
-    "name": "Tideland Common Go Library",
+    "name": "Tideland RDC",
     "language": "Go",
-    "repository": "http://code.google.com/p/tideland-cgl/",
+    "repository": "http://code.google.com/p/tideland-rdc/",
     "description": "",
     "authors": ["themue"]
   },
