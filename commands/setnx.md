@@ -30,7 +30,7 @@ the lock of the key `foo`, the client could try the following:
     SETNX lock.foo <current Unix time + lock timeout + 1>
 
 If `SETNX` returns `1` the client acquired the lock, setting the `lock.foo`
-key to the Unix time at witch the lock should no longer be considered valid.
+key to the Unix time at which the lock should no longer be considered valid.
 The client will later use `DEL lock.foo` in order to release the lock.
 
 If `SETNX` returns `0` the key is already locked by some other client. We can
