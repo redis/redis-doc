@@ -247,7 +247,7 @@ Updates, also known as posts, are even simpler. In order to create a new post on
     INCR global:nextPostId => 10343
     SET post:10343 "$owner_id|$time|I'm having fun with Retwis"
 
-As you can se the user id and time of the post are stored directly inside the string, we don't need to lookup by time or user id in the example application so it is better to compact everything inside the post string.
+As you can see the user id and time of the post are stored directly inside the string, we don't need to lookup by time or user id in the example application so it is better to compact everything inside the post string.
 
 After we create a post we obtain the post id. We need to LPUSH this post id in every user that's following the author of the post, and of course in the list of posts of the author. This is the file update.php that shows how this is performed:
 
