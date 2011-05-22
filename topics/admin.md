@@ -19,6 +19,6 @@ The following steps provide a very commonly used way in order to avoid any downt
 * Setup your new Redis instance as a slave for your current Redis instance. In order to do so you need a different server, or a server that has enough RAM to keep two instances of Redis running at the same time.
 * If you use a single server, make sure that the slave is started in a different port than the master instance, otherwise the slave will not be able to start at all.
 * Wait for the replication initial synchronization to complete (check the slave log file).
-* Make sure using INFO that there are the same number of keys in the master and in the slave. Check with redis-cli that the salve is working as you wish and is replying to your commands.
+* Make sure using INFO that there are the same number of keys in the master and in the slave. Check with redis-cli that the slave is working as you wish and is replying to your commands.
 * Configure all your clients in order to use the new instance (that is, the slave).
 * Once you are sure that the master is no longer receiving any query (you can check this with the [MONITOR command](/commands/monitor)), elect the slave to master using the **SLAVEOF NO ONE** command, and shut down your master.
