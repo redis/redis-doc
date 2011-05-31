@@ -80,6 +80,7 @@ And many others:
 * [ShopSquad](http://shopsquad.com/)
 * [localshow.tv](http://localshow.tv/)
 * [PennyAce](http://pennyace.com/)
+* [Nasza Klasa](http://nk.pl/)
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [let us know](https://github.com/antirez/redis-doc/issues).
