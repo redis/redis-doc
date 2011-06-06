@@ -264,7 +264,7 @@ in RAM is also atomic from the point of view of the disk snapshot.
 ## Redis is single threaded, how can I exploit multiple CPU / cores?
 
 Simply start multiple instances of Redis in different ports in the same box and
-threat them as different servers! Given that Redis is a distributed database
+treat them as different servers! Given that Redis is a distributed database
 anyway in order to scale you need to think in terms of multiple computational
 units. At some point a single box may not be enough anyway.
 
