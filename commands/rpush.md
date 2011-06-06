@@ -11,6 +11,11 @@ When `key` holds a value that is not a list, an error is returned.
 
 @integer-reply: the length of the list after the push operation.
 
+History
+---
+
+Up until Redis 2.3, `RPUSH` accepted a single `value`.
+
 @examples
 
     @cli
