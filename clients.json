@@ -410,5 +410,13 @@
     "repository": "https://github.com/toymachine/libredis",
     "description": "Support for executing commands on multiple servers in parallel via poll(2), ketama hashing. Includes PHP bindings.",
     "authors": []
+  },
+
+  {
+    "name": "iRedis",
+    "language": "PHP",
+    "repository": "https://github.com/ivorychicken/iRedis",
+    "description": "",
+    "authors": ["dhorrigan"]
   }
 ]
