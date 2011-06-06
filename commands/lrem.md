@@ -10,7 +10,7 @@ following ways:
 * `count < 0`: Remove elements equal to `value` moving from tail to head.
 * `count = 0`: Remove all elements equal to `value`.
 
-For example, `LREM list -2 "hello"` will remove the last two occurances of
+For example, `LREM list -2 "hello"` will remove the last two occurrences of
 `"hello"` in the list stored at `list`.
 
 Note that non-existing keys are treated like empty lists, so when `key` does

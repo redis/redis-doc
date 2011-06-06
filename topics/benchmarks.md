@@ -7,7 +7,7 @@ against a Linux box.
 
 * The test was done with 50 simultaneous clients performing 100000 requests.
 * The value SET and GET is a 256 bytes string.
-* The Linux box is running *Linux 2.6*, it's *Xeon X3320 2.5Ghz*.
+* The Linux box is running *Linux 2.6*, it's *Xeon X3320 2.5 GHz*.
 * Text executed using the loopback interface (127.0.0.1).
 
 Results: *about 110000 SETs per second, about 81000 GETs per second.*
@@ -97,7 +97,7 @@ GETs may be slower with big payloads). The same for the number of clients, from
 a bit slower.
 
 You can expect different results from different boxes. For example a low
-profile box like *Intel core duo T5500 clocked at 1.66Ghz running Linux 2.6*
+profile box like *Intel core duo T5500 clocked at 1.66 GHz running Linux 2.6*
 will output the following:
 
     $ ./redis-benchmark -q -n 100000
@@ -107,7 +107,7 @@ will output the following:
     LPUSH: 34803.41 requests per second
     LPOP: 37367.20 requests per second
 
-Another one using a 64 bit box, a Xeon L5420 clocked at 2.5 Ghz:
+Another one using a 64 bit box, a Xeon L5420 clocked at 2.5 GHz:
 
     $ ./redis-benchmark -q -n 100000
     PING: 111731.84 requests per second

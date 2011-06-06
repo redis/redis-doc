@@ -4,7 +4,7 @@ Not applicable.
 
 @description
 
-The CONFIG GET ommand is used to read the configuration parameters of a running
+The `CONFIG GET` command is used to read the configuration parameters of a running
 Redis server. Not all the configuration parameters are supported.
 The symmetric command used to alter the configuration at run time is
 `CONFIG SET`.
@@ -22,7 +22,7 @@ list of key-value pairs. Example:
     6) "512"
 
 You can obtain a list of all the supported configuration parameters typing
-`CONFIG GET *` in an open redis-cli prompt.
+`CONFIG GET *` in an open `redis-cli` prompt.
 
 All the supported parameters have the same meaning of the equivalent
 configuration parameter used in the [redis.conf](http://github.com/antirez/redis/raw/2.2/redis.conf) file, with the following important differences:

@@ -45,7 +45,7 @@ from the backup list using the `LREM` command when the message was correctly
 processed.
 
 Another process (that we call _Helper_), can monitor the backup list to check for
-timed out entries to repush against the main queue.
+timed out entries to re-push against the main queue.
 
 ## Design pattern: server-side O(N) list traversal
 
@@ -53,5 +53,5 @@ Using `RPOPLPUSH` with the same source and destination key, a process can
 visit all the elements of an N-elements list in O(N) without transferring
 the full list from the server to the client in a single `LRANGE` operation.
 Note that a process can traverse the list even while other processes
-are actively `RPUSH`-ing against the list, and still no element will be skipped.
+are actively pushing to the list, and still no element will be skipped.
 

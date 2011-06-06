@@ -11,7 +11,7 @@ In the past Redis accepted donations from the following companies:
 * [Hitmeister](http://www.hitmeister.de/) 15 Dec 2009, part of Redis Cluster.
 * [Engine Yard](http://engineyard.com) 13 Dec 2009, for blocking POP (BLPOP) and part of the Virtual Memory implementation.
 
-Also thaks to the following people or organizations that donated to the Project:
+Also thanks to the following people or organizations that donated to the Project:
 
 * Emil Vladev
 * [Brad Jasper](http://bradjasper.com/)

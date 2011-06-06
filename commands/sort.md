@@ -16,7 +16,7 @@ large to small, use the `!DESC` modifier:
 
     SORT mylist DESC
 
-When `mylist` contains string values and you want to sort them lexographically,
+When `mylist` contains string values and you want to sort them lexicographically,
 use the `!ALPHA` modifier:
 
     SORT mylist ALPHA
@@ -24,7 +24,7 @@ use the `!ALPHA` modifier:
 Redis is UTF-8 aware, assuming you correctly set the `!LC_COLLATE` environment
 variable.
 
-The number of returned elementes can be limited using the `!LIMIT` modifier.
+The number of returned elements can be limited using the `!LIMIT` modifier.
 This modifier takes the `offset` argument, specifying the number of elements to
 skip and the `count` argument, specifying the number of elements to return from
 starting at `offset`.  The following example will return 10 elements of the
@@ -33,7 +33,7 @@ sorted version of `mylist`, starting at element 0 (`offset` is zero-based):
     SORT mylist LIMIT 0 10
 
 Almost all modifiers can be used together. The following example will return
-the first 5 elements, lexographically sorted in descending order:
+the first 5 elements, lexicographically sorted in descending order:
 
     SORT mylist LIMIT 0 5 ALPHA DESC
 
@@ -56,7 +56,7 @@ element in the list (`1`, `2` and `3` in this example).
 
 ## Skip sorting the elements
 
-The `!BY` option can also take a nonexisting key, which causes `SORT` to skip
+The `!BY` option can also take a non-existent key, which causes `SORT` to skip
 the sorting operation. This is useful if you want to retrieve external keys
 (see the `!GET` option below) without the overhead of sorting.
 

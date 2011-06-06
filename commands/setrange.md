@@ -1,7 +1,7 @@
 @complexity
 
 O(1), not counting the time taken to copy the new string in place. Usually,
-this string is very small so the amortized complexity is O(1). Otheriwse,
+this string is very small so the amortized complexity is O(1). Otherwise,
 complexity is O(M) with M being the length of the _value_ argument.
 
 Overwrites part of the string stored at _key_, starting at the specified
@@ -18,7 +18,7 @@ can use multiple keys.
 **Warning**: When setting the last possible byte and the string value stored at
 _key_ does not yet hold a string value, or holds a small string value, Redis
 needs to allocate all intermediate memory which can block the server for some
-time.  On a 2010 Macbook Pro, setting byte number 536870911 (512MB allocation)
+time.  On a 2010 MacBook Pro, setting byte number 536870911 (512MB allocation)
 takes ~300ms, setting byte number 134217728 (128MB allocation) takes ~80ms,
 setting bit number 33554432 (32MB allocation) takes ~30ms and setting bit
 number 8388608 (8MB allocation) takes ~8ms. Note that once this first

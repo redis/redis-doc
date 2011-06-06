@@ -2,7 +2,7 @@
 
 Request for authentication in a password protected Redis server.
 Redis can be instructed to require a password before allowing clients
-to execute commands. This is done using the _requirepass_ directive in the
+to execute commands. This is done using the `requirepass` directive in the
 configuration file.
 
 If `password` matches the password in the configuration file, the server replies with

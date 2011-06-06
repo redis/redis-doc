@@ -1,9 +1,9 @@
 Hacking Strings
 ===
 
-The implementation of Redis strings is contained in **sds.c** ( sds stands for Simple Dynamic Strings ).
+The implementation of Redis strings is contained in `sds.c` (`sds` stands for Simple Dynamic Strings).
 
-The C structure _sdshdr_ declared in *sds.h* represents a Redis string:
+The C structure `sdshdr` declared in `sds.h` represents a Redis string:
 
     struct sdshdr {
         long len;
@@ -11,23 +11,23 @@ The C structure _sdshdr_ declared in *sds.h* represents a Redis string:
         char buf[];
     };
 
-The _buf_ character array stores the actual string.
+The `buf` character array stores the actual string.
 
-The _len_ field stores the length of _buf_. This makes obtaining the length
+The `len` field stores the length of `buf`. This makes obtaining the length
 of a Redis string an O(1) operation.
 
-The _free_ field stores the number of additional bytes available for use.
+The `free` field stores the number of additional bytes available for use.
 
-Together the _len_ and _free_ field can be thought of as holding the metadata of the _buf_ character array.
+Together the `len` and `free` field can be thought of as holding the metadata of the `buf` character array.
 
 Creating Redis Strings
 ---
 
-A new data type named `sds` is defined in *sds.h* to be a synonymn for a character pointer:
+A new data type named `sds` is defined in `sds.h` to be a synonym for a character pointer:
 
     typedef char *sds;
 
-`sdsnewlen` function defined in *sds.c* creates a new Redis String: 
+`sdsnewlen` function defined in `sds.c` creates a new Redis String:
 
     sds sdsnewlen(const void *init, size_t initlen) {
         struct sdshdr *sh;
@@ -56,20 +56,20 @@ Suppose I create a Redis string using `sdsnewlen` like below:
 
     sdsnewlen("redis", 5);
 
-This creates a new variable of type `struct sdshdr` allocating memory for _len_ and _free_
-fields as well as for the _buf_ character array.
+This creates a new variable of type `struct sdshdr` allocating memory for `len` and `free`
+fields as well as for the `buf` character array.
 
     sh = zmalloc(sizeof(struct sdshdr)+initlen+1); // initlen is length of init argument.
 
-After `sdsnewlen` succesfully creates a Redis string the result is something like:
+After `sdsnewlen` successfully creates a Redis string the result is something like:
 
     -----------
     |5|0|redis|
     -----------
     ^   ^
-    sh  sh->buf 
+    sh  sh->buf
 
-`sdsnewlen` returns sh->buf to the caller.
+`sdsnewlen` returns `sh->buf` to the caller.
 
 What do you do if you need to free the Redis string pointed by `sh`?
 
@@ -77,10 +77,10 @@ You want the pointer `sh` but you only have the pointer `sh->buf`.
 
 Can you get the pointer `sh` from `sh->buf`?
 
-Yes. Pointer arithmetic. Notice from the above ASCII art that if you subtract 
-the size of two longs from `sh->buf` you get the pointer `sh`. 
+Yes. Pointer arithmetic. Notice from the above ASCII art that if you subtract
+the size of two longs from `sh->buf` you get the pointer `sh`.
 
-The sizeof two longs happens to be the size of `struct sdshdr`.
+The `sizeof` two longs happens to be the size of `struct sdshdr`.
 
 Look at `sdslen` function and see this trick at work:
 
@@ -89,6 +89,6 @@ Look at `sdslen` function and see this trick at work:
         return sh->len;
     }
 
-Knowing this trick you could easily go through the rest of the functions in *sds.c*.
+Knowing this trick you could easily go through the rest of the functions in `sds.c`.
 
 The Redis string implementation is hidden behind an interface that accepts only character pointers. The users of Redis strings need not care about how its implemented and treat Redis strings as a character pointer.

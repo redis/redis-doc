@@ -49,7 +49,7 @@ backticks. For example: <code>`INCR`</code>.
 example: `@multi-bulk-reply`. These keywords will get expanded and
 auto-linked to relevant parts of the documentation.
 
-There should be at least three pre-defined sections: time complexity,
+There should be at least three predefined sections: time complexity,
 description and return value. These sections are marked using magic
 keywords, too:
 
@@ -83,3 +83,10 @@ files compile properly. You can do this by running Rake inside your
 working directory.
 
     $ rake
+
+Additionally, if you have [Aspell](http://aspell.net/) installed, you
+can spell check the documentation:
+
+    $ rake spellcheck
+
+Exceptions can be added to `./wordlist`.

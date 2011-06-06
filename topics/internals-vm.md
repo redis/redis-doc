@@ -89,7 +89,7 @@ Redis takes a "bitmap" (an contiguous array of bits set to zero or one) in memor
 
 Taking this bitmap (that will call the page table) in memory is a huge win in terms of performances, and the memory used is small: we just need 1 bit for every page on disk. For instance in the example below 134217728 pages of 32 bytes each (4GB swap file) is using just 16 MB of RAM for the page table.
 
-Transfering objects from memory to swap
+Transferring objects from memory to swap
 ---
 
 In order to transfer an object from memory to disk we need to perform the following steps (assuming non threaded VM, just a simple blocking approach):
@@ -126,11 +126,11 @@ If this function detects we are out of memory, that is, the memory used is great
 vmSwapOneObject acts performing the following steps:
 
  * The key space in inspected in order to find a good candidate for swapping (we'll see later what a good candidate for swapping is).
- * The associated value is transfered to disk, in a blocking way.
+ * The associated value is transferred to disk, in a blocking way.
  * The key storage field is set to REDIS_VM_SWAPPED, while the _vm_ fields of the object are set to the right values (the page index where the object was swapped, and the number of pages used to swap it).
  * Finally the value object is freed and the value entry of the hash table is set to NULL.
 
-The function is called again and again until one of the following happens: there is no way to swap more objects because either the swap file is full or nearly all the objects are already transfered on disk, or simply the memory usage is already under the vm-max-memory parameter.
+The function is called again and again until one of the following happens: there is no way to swap more objects because either the swap file is full or nearly all the objects are already transferred on disk, or simply the memory usage is already under the vm-max-memory parameter.
 
 What values to swap when we are out of memory?
 ---
@@ -152,7 +152,7 @@ If the value object of the `foo` key is swapped we need to load it back in memor
 
 So this is what happens:
 
- * The user calls some command having as argumenet a swapped key
+ * The user calls some command having as argument a swapped key
  * The command implementation calls the lookup function
  * The lookup function search for the key in the top level hash table. If the value associated with the requested key is swapped (we can see that checking the _storage_ field of the key object), we load it back in memory in a blocking way before to return to the user.
 
@@ -170,7 +170,7 @@ The child process will just store the whole dataset into the dump.rdb file and f
 * The parent process needs to access the swap file in order to load values back into memory if an operation against swapped out values are performed.
 * The child process needs to access the swap file in order to retrieve the full dataset while saving the data set on disk.
 
-In order to avoid problems while both the processes are accessing the same swap file we do a simple thing, that is, not allowing values to be swapped out in the parent process while a background saving is in progress. This way both the processes will access the swap file in read only. This approach has the problem that while the child process is saving no new values can be transfered on the swap file even if Redis is using more memory than the max memory parameters dictates. This is usually not a problem as the background saving will terminate in a short amount of time and if still needed a percentage of values will be swapped on disk ASAP.
+In order to avoid problems while both the processes are accessing the same swap file we do a simple thing, that is, not allowing values to be swapped out in the parent process while a background saving is in progress. This way both the processes will access the swap file in read only. This approach has the problem that while the child process is saving no new values can be transferred on the swap file even if Redis is using more memory than the max memory parameters dictates. This is usually not a problem as the background saving will terminate in a short amount of time and if still needed a percentage of values will be swapped on disk ASAP.
 
 An alternative to this scenario is to enable the Append Only File that will have this problem only when a log rewrite is performed using the BGREWRITEAOF command.
 
@@ -197,7 +197,7 @@ I/O Threads
 
 The threaded VM design goals where the following, in order of importance:
 
- * Simple implementation, little room for race condtions, simple locking, VM system more or less completeley decoupled from the rest of Redis code.
+ * Simple implementation, little room for race conditions, simple locking, VM system more or less completely decoupled from the rest of Redis code.
  * Good performances, no locks for clients accessing values in memory.
  * Ability to decode/encode objects in the I/O threads.
 
@@ -248,7 +248,7 @@ For instance in the case of the SORT command used together with the GET or BY op
 Blocking clients on swapped keys
 ---
 
-How to block clients? To suspend a client in an event-loop based server is pretty trivial. All we do is cancelling its read handler. Sometimes we do something different (for instance for BLPOP) that is just marking the client as blocked, but not processing new data (just accumulating the new data into input buffers).
+How to block clients? To suspend a client in an event-loop based server is pretty trivial. All we do is canceling its read handler. Sometimes we do something different (for instance for BLPOP) that is just marking the client as blocked, but not processing new data (just accumulating the new data into input buffers).
 
 Aborting I/O jobs
 ---

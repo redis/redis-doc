@@ -53,7 +53,7 @@ to see the exact value of every byte in the query:
 As you will see in a moment this format is also used in Redis replies. The
 format used for every argument `$6\r\nmydata\r\n` is called a Bulk Reply.
 While the actual unified request protocol is what Redis uses to return list of
-items, and is called a Multi Bulk Reply. It is just the sum of N different Bulk
+items, and is called a @multi-bulk-reply. It is just the sum of N different Bulk
 Replies prefixed by a `*<argc>\r\n` string where `<argc>` is the number of
 arguments (Bulk Replies) that will follow.
 

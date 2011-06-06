@@ -15,7 +15,7 @@ bits are set to 0.
 **Warning**: When setting the last possible bit (_offset_ equal to 2^32 -1) and
 the string value stored at _key_ does not yet hold a string value, or holds a
 small string value, Redis needs to allocate all intermediate memory which can
-block the server for some time.  On a 2010 Macbook Pro, setting bit number
+block the server for some time.  On a 2010 MacBook Pro, setting bit number
 2^32 -1 (512MB allocation) takes ~300ms, setting bit number 2^30 -1 (128MB
 allocation) takes ~80ms, setting bit number 2^28 -1 (32MB allocation) takes
 ~30ms and setting bit number 2^26 -1 (8MB allocation) takes ~8ms.  Note that

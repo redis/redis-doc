@@ -40,7 +40,7 @@ Other common operations provided by key-value stores are DEL used to delete a gi
 Atomic operations
 ---
 
-So far it should be pretty simple, but there is something special about INCR. Think about this, why to provide such an operation if we can do it ourself with a bit of code? After all it is as simple as:
+So far it should be pretty simple, but there is something special about INCR. Think about this, why to provide such an operation if we can do it ourselves with a bit of code? After all it is as simple as:
 
     x = GET foo
     x = x + 1
@@ -73,7 +73,7 @@ This is very useful for our Twitter clone. Updates of users can be stored into a
 
     LRANGE mylist 0 1 => c,b
 
-LRANGE uses zero-based indexes, that is the first element is 0, the second 1, and so on. The command aguments are `LRANGE key first-index last-index`. The _last index_ argument can be negative, with a special meaning: -1 is the last element of the list, -2 the penultimate, and so on. So in order to get the whole list we can use:
+LRANGE uses zero-based indexes, that is the first element is 0, the second 1, and so on. The command arguments are `LRANGE key first-index last-index`. The _last index_ argument can be negative, with a special meaning: -1 is the last element of the list, -2 the penultimate, and so on. So in order to get the whole list we can use:
 
     LRANGE mylist 0 -1 => c,b,a
 
@@ -103,12 +103,12 @@ SINTER can return the intersection between Sets but it is not limited to two set
     SISMEMBER myset foo => 1
     SISMEMBER myset notamember => 0
 
-Ok I think we are ready to start coding!
+Okay, I think we are ready to start coding!
 
 Prerequisites
 ---
 
-If you didn't download it already please grab the [source code of Retwis](http://code.google.com/p/redis/downloads/list). It's a simple tar.gz file with a few of .php files inside. The implementation is very simple. You will find the PHP library client inside (redis.php) that is used to talk with the Redis server from PHP. This library was written by [Ludovico Magnocavallo](http://qix.it) and you are free to reuse this in your own projects, but for updated version of the library please download the Redis distribution. (Note: there are now better PHP libraries available, check our [clients page](/clients).
+If you didn't download it already please grab the [source code of Retwis](http://code.google.com/p/redis/downloads/list). It's a simple tar.gz file with a few of PHP files inside. The implementation is very simple. You will find the PHP library client inside (redis.php) that is used to talk with the Redis server from PHP. This library was written by [Ludovico Magnocavallo](http://qix.it) and you are free to reuse this in your own projects, but for updated version of the library please download the Redis distribution. (Note: there are now better PHP libraries available, check our [clients page](/clients).
 
 Another thing you probably want is a working Redis server. Just get the source, compile with make, and run with ./redis-server and you are done. No configuration is required at all in order to play with it or to run Retwis in your computer.
 
@@ -117,7 +117,7 @@ Data layout
 
 Working with a relational database this is the stage were the database layout should be produced in form of tables, indexes, and so on. We don't have tables, so what should be designed? We need to identify what keys are needed to represent our objects and what kind of values this keys need to hold.
 
-Let's start from Users. We need to represent this users of course, with the username, userid, password, followers and following users, and so on. The first question is, what should identify an user inside our system? The username can be a good idea since it is unique, but it is also too big, and we want to stay low on memory. So like if our DB was a relational one we can associate an unique ID to every user. Every other reference to this user will be done by id. That's very simple to do, because we have our atomic INCR operation! When we create a new user we can do something like this, assuming the user is callled "antirez":
+Let's start from Users. We need to represent this users of course, with the username, userid, password, followers and following users, and so on. The first question is, what should identify an user inside our system? The username can be a good idea since it is unique, but it is also too big, and we want to stay low on memory. So like if our DB was a relational one we can associate an unique ID to every user. Every other reference to this user will be done by id. That's very simple to do, because we have our atomic INCR operation! When we create a new user we can do something like this, assuming the user is called "antirez":
 
     INCR global:nextUserId => 1000
     SET uid:1000:username antirez
@@ -145,12 +145,12 @@ Another important thing we need is a place were we can add the updates to displa
 Authentication
 ---
 
-Ok we have more or less everything about the user, but authentication. We'll handle authentication in a simple but robust way: we don't want to use PHP sessions or other things like this, our system must be ready in order to be distributed among different servers, so we'll take the whole state in our Redis database. So all we need is a random string to set as the cookie of an authenticated user, and a key that will tell us what is the user ID of the client holding such a random string. We need two keys in order to make this thing working in a robust way:
+OK, we have more or less everything about the user, but authentication. We'll handle authentication in a simple but robust way: we don't want to use PHP sessions or other things like this, our system must be ready in order to be distributed among different servers, so we'll take the whole state in our Redis database. So all we need is a random string to set as the cookie of an authenticated user, and a key that will tell us what is the user ID of the client holding such a random string. We need two keys in order to make this thing working in a robust way:
 
     SET uid:1000:auth fea5e81ac8ca77622bed1c2132a021f9
     SET auth:fea5e81ac8ca77622bed1c2132a021f9 1000
 
-In order to authenticate an user we'll do this simple work (login.php):
+In order to authenticate an user we'll do this simple work (`login.php`):
  * Get the username and password via the login form
  * Check if the username:`<username>`:uid key actually exists
  * If it exists we have the user id, (i.e. 1000)
@@ -165,7 +165,7 @@ This is the actual code:
     if (!gt("username") || !gt("password"))
         goback("You need to enter both username and password to login.");
 
-    # The form is ok, check if the username is available
+    # The form is OK, check if the username is available
     $username = gt("username");
     $password = gt("password");
     $r = redisLink();
@@ -183,9 +183,9 @@ This is the actual code:
 
 This happens every time the users log in, but we also need a function isLoggedIn in order to check if a given user is already authenticated or not. These are the logical steps preformed by the `isLoggedIn` function:
  * Get the "auth" cookie from the user. If there is no cookie, the user is not logged in, of course. Let's call the value of this cookie `<authcookie>`
- * Check if auth:`<authcookie>` exists, and what the value (the user id) is (1000 in the exmple).
+ * Check if auth:`<authcookie>` exists, and what the value (the user id) is (1000 in the example).
  * In order to be sure check that uid:1000:auth matches.
- * Ok the user is authenticated, and we loaded a bit of information in the $User global variable.
+ * OK the user is authenticated, and we loaded a bit of information in the $User global variable.
 
 The code is simpler than the description, possibly:
 
@@ -237,7 +237,7 @@ The code is simpler than the description, possibly:
 
     header("Location: index.php");
 
-That is just what we described and should be simple to undestand.
+That is just what we described and should be simple to understand.
 
 Updates
 ---

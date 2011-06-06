@@ -1,6 +1,6 @@
 # Expiring keys
 
-Voltile keys are stored on disk like the other keys, the timeout is persistent
+Volatile keys are stored on disk like the other keys, the timeout is persistent
 too like all the other aspects of the dataset. Saving a dataset containing
 expires and stopping the server does not stop the flow of time as Redis
 stores on disk the time when the key will no longer be available as Unix
@@ -96,7 +96,7 @@ per second divided by 4.
 
 ## Example
 
-Ok let's start with the problem:
+OK, let's start with the problem:
 
     SET a 100
     OK

@@ -22,7 +22,7 @@ Q: How do Event Libraries do what they do?<br/>
 A: They use the operating system's [polling](http://www.devshed.com/c/a/BrainDump/Linux-Files-and-the-Event-Poll-Interface/) facility along with timers.
 
 Q: So are there any open source event libraries that do what you just described? <br/>
-A: Yes. Libevent and Libev are two such event libraries that I can recall off the top of my head.
+A: Yes. `libevent` and `libev` are two such event libraries that I can recall off the top of my head.
 
 Q: Does Redis use such open source event libraries for handling socket I/O?<br/>
 A: No. For various [reasons](http://groups.google.com/group/redis-db/browse_thread/thread/b52814e9ef15b8d0/) Redis uses its own event library.

@@ -179,7 +179,7 @@ out. A file system not supporting sparse files can at some point block the
 Redis process while creating a very big file at once.
 
 For a list of file systems supporting spare files, [check this check this
-Wikipedia pkage comparing different files systems][wikifs].
+Wikipedia page comparing different files systems][wikifs].
 
 [wikifs]: http://en.wikipedia.org/wiki/Comparison_of_file_systems
 

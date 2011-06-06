@@ -19,9 +19,9 @@ So for instance a four commands sequence is something like this:
  * *Client:* INCR X
  * *Server:* 4
 
-Clients and Servers are connected via a networking link. Such a link can be very fast (a loopback interface) or very slow (a connection established over the internet with many hops between the two hosts). Whatever the network latency is, there is a time for the packets to travel from the client to the server, and back from the server to the client to carry the reply.
+Clients and Servers are connected via a networking link. Such a link can be very fast (a loopback interface) or very slow (a connection established over the Internet with many hops between the two hosts). Whatever the network latency is, there is a time for the packets to travel from the client to the server, and back from the server to the client to carry the reply.
 
-This time is called RTT (Round Trip Time). It is very easy to see how this can affect the performances when a client needs to perform many requests in a row (for instance adding many elements to the same list, or populating a database with many keys). For instance if the RTT time is 250 milliseconds (in the case of a very slow link over the internet), even if the server is able to process 100k requests per second, we'll be able to process at max four requests per second.
+This time is called RTT (Round Trip Time). It is very easy to see how this can affect the performances when a client needs to perform many requests in a row (for instance adding many elements to the same list, or populating a database with many keys). For instance if the RTT time is 250 milliseconds (in the case of a very slow link over the Internet), even if the server is able to process 100k requests per second, we'll be able to process at max four requests per second.
 
 If the interface used is a loopback interface, the RTT is much shorter (for instance my host reports 0,044 milliseconds pinging 127.0.0.1), but it is still a lot if you need to perform many writes in a row.
 
@@ -104,6 +104,6 @@ Pipelining VS other multi-commands
 ---
 
 Often we get requests about adding new commands performing multiple operations in a single pass.
-For instance there is no command to add multiple elements in a set. You need calling many times [SADD](/commands/sadd).
+For instance there is no command to add multiple elements in a set. You need calling many times `SADD`.
 
 With pipelining you can have performances near to an hypothetical MSADD command, but at the same time we'll avoid bloating the Redis command set with too many commands. An additional advantage is that the version written using just SADD will be ready for a distributed environment (for instance Redis Cluster, that is in the process of being developed) just dropping the pipelining code.

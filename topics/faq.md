@@ -58,7 +58,7 @@ the right data structures for the problem we are trying to solve.
 
 Yes you can. When Redis saves the DB it actually creates a temp file, then
 rename(2) that temp file name to the destination file name. So even while the
-server is working it is safe to save the database file just with the _cp_ unix
+server is working it is safe to save the database file just with the _cp_ UNIX
 command. Note that you can use master-slave replication in order to have
 redundancy of data, but if all you need is backups, cp or scp will do the work
 pretty well.
@@ -66,7 +66,7 @@ pretty well.
 ## What's the Redis memory footprint?
 
 Worst case scenario: 1 Million keys with the key being the natural numbers from
-0 to 999999 and the string "Hello World" as value use 100MB on my Intel macbook
+0 to 999999 and the string "Hello World" as value use 100MB on my Intel MacBook
 (32bit). Note that the same data stored linearly in an unique string takes
 something like 16MB, this is the norm because with small keys and values there
 is a lot of overhead. Memcached will perform similarly.
@@ -181,7 +181,7 @@ MMAP_THRESHOLD=4096`
 
 ## I have an empty Redis server but INFO and logs are reporting megabytes of memory in use!
 
-This may happen and it's prefectly ok. Redis objects are small C structures
+This may happen and it's perfectly okay. Redis objects are small C structures
 allocated and freed a lot of times. This costs a lot of CPU so instead of being
 freed, released objects are taken into a free list and reused when needed. This
 memory is taken exactly by this free objects ready to be reused.
@@ -251,7 +251,7 @@ more optimistic allocation fashion, and this is indeed what you want for Redis.
 
 A good source to understand how Linux Virtual Memory work and other
 alternatives for `overcommit_memory` and `overcommit_ratio` is this classic
-from Red Hat Magaize, ["Understanding Virtual Memory"][redhatvm].
+from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
 
 [redhatvm]: http://www.redhat.com/magazine/001nov04/features/vm/
 

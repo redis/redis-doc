@@ -14,7 +14,7 @@ Since this is a CPU / memory trade off it is possible to tune the maximum number
     list-max-ziplist-value 64
     set-max-intset-entries 512
 
-If a specially encoded value will overflow the configured max size, Redis will automatically convert it into normal encoding. This operation is very fast for small values, but if you change the setting in order to use specially encoded values for much larger aggregate types the suggestin is to run some benchmark and test to check the convertion time.
+If a specially encoded value will overflow the configured max size, Redis will automatically convert it into normal encoding. This operation is very fast for small values, but if you change the setting in order to use specially encoded values for much larger aggregate types the suggestion is to run some benchmark and test to check the conversion time.
 
 Using 32 bit instances
 ----------------------
@@ -24,7 +24,7 @@ Redis compiled with 32 bit target uses a lot less memory per key, since pointers
 New 2.2 bit and byte level operations
 -------------------------------------
 
-Redis 2.2 introduced new bit and byte level operations: [GETRANGE](/commands/getrange), [SETRANGE](/commands/setrange), [GETBIT](/commands/getbit) and [SETBIT](/commands/setbit). Using this commands you can treat the Redis string type as a random access array. For instance if you have an application where users are identified by an unique progressive integer number, you can use a bitmap in order to save information about sex of users, setting the bit for females and clearing it for males, or the other way around. With 100 millions of users this data will take just 12 megabyte of RAM in a Redis instance. You can do the same using [GETRANGE](/commands/getrange) and [SETRANGE](/commands/setrange) in order to store one byte of information for user. This is just an example but it is actually possible to model a number of problems in very little space with this new primitives.
+Redis 2.2 introduced new bit and byte level operations: `GETRANGE`, `SETRANGE`, `GETBIT` and `SETBIT`. Using this commands you can treat the Redis string type as a random access array. For instance if you have an application where users are identified by an unique progressive integer number, you can use a bitmap in order to save information about sex of users, setting the bit for females and clearing it for males, or the other way around. With 100 millions of users this data will take just 12 megabyte of RAM in a Redis instance. You can do the same using `GETRANGE` and `SETRANGE` in order to store one byte of information for user. This is just an example but it is actually possible to model a number of problems in very little space with this new primitives.
 
 Use hashes when possible
 ------------------------
@@ -62,7 +62,7 @@ cache locality than an hash table).
 
 However since hash fields and values are not (always) represented as full
 featured Redis objects, hash fields can't have an associated time to live
-(expire) like a real key, and can only contain a string. But we are ok with
+(expire) like a real key, and can only contain a string. But we are okay with
 this, this was anyway the intention when the hash data type API was
 designed (we trust simplicity more than features, so nested data structures
 are not allowed, as expires of single fields are not allowed).
@@ -173,7 +173,7 @@ You may ask, why don't you do this implicitly in the normal key space so that
 I don't have to care? There are two reasons: one is that we tend to make
 trade offs explicit, and this is a clear tradeoff between many things: CPU,
 memory, max element size. The second is that the top level key space must
-support a lot of interesting things like expires, LRU informations, and so
+support a lot of interesting things like expires, LRU data, and so
 forth so it is not practical to do this in a general way.
 
 But the Redis Way is that the user must understand how things work so that

@@ -23,8 +23,8 @@ All the fields are in the form of `field:value` terminated by `\r\n`.
 ## Notes
 
 * `used_memory` is the total number of bytes allocated by Redis using its
-  allocator (either standard libc malloc, or an alternative allocator such as
-  [tcmalloc][1]
+  allocator (either standard `libc` `malloc`, or an alternative allocator such as
+  [`tcmalloc`][1]
 
 * `used_memory_rss` is the number of bytes that Redis allocated as seen by the
   operating system. Optimally, this number is close to `used_memory` and there
