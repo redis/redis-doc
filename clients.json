@@ -3,7 +3,7 @@
     "name": "redis-rb",
     "language": "Ruby",
     "url": "http://redis-rb.keyvalue.org",
-    "repository": "http://github.com/ezmobius/redis-rb",
+    "repository": "https://github.com/ezmobius/redis-rb",
     "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
     "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
     "recommended": true
@@ -12,7 +12,7 @@
   {
     "name": "as3redis",
     "language": "ActionScript",
-    "repository": "http://github.com/claus/as3redis",
+    "repository": "https://github.com/claus/as3redis",
     "description": "",
     "authors": ["cwahlers"]
   },
@@ -20,7 +20,7 @@
   {
     "name": "redis-clojure",
     "language": "Clojure",
-    "repository": "http://github.com/ragnard/redis-clojure",
+    "repository": "https://github.com/ragnard/redis-clojure",
     "description": "",
     "authors": ["ragge"]
   },
@@ -29,7 +29,7 @@
     "name": "CL-Redis",
     "language": "Common Lisp",
     "url": "http://www.cliki.net/cl-redis",
-    "repository": "http://github.com/vseloved/cl-redis",
+    "repository": "https://github.com/vseloved/cl-redis",
     "description": "",
     "authors": ["BigThingist"]
   },
@@ -37,7 +37,7 @@
   {
     "name": "Erldis",
     "language": "Erlang",
-    "repository": "http://github.com/japerk/erldis",
+    "repository": "https://github.com/japerk/erldis",
     "description": "",
     "authors": ["dialtone_","japerk"]
   },
@@ -53,7 +53,7 @@
   {
     "name": "Go-Redis",
     "language": "Go",
-    "repository": "http://github.com/alphazero/Go-Redis",
+    "repository": "https://github.com/alphazero/Go-Redis",
     "description": "",
     "authors": ["SunOf27"]
   },
@@ -69,7 +69,7 @@
   {
     "name": "godis",
     "language": "Go",
-    "repository": "http://github.com/simonz05/godis",
+    "repository": "https://github.com/simonz05/godis",
     "description": "",
     "authors": ["simonz05"]
   },
@@ -94,7 +94,7 @@
   {
     "name": "Jedis",
     "language": "Java",
-    "repository": "http://github.com/xetorthio/jedis",
+    "repository": "https://github.com/xetorthio/jedis",
     "description": "",
     "authors": ["xetorthio"],
     "recommended": true
@@ -104,7 +104,7 @@
     "name": "JRedis",
     "language": "Java",
     "url": "http://code.google.com/p/jredis",
-    "repository": "http://github.com/alphazero/jredis",
+    "repository": "https://github.com/alphazero/jredis",
     "description": "",
     "authors": ["SunOf27"]
   },
@@ -129,7 +129,7 @@
   {
     "name": "redis-lua",
     "language": "Lua",
-    "repository": "http://github.com/nrk/redis-lua",
+    "repository": "https://github.com/nrk/redis-lua",
     "description": "",
     "authors": ["JoL1hAHN"],
     "recommended": true
@@ -157,7 +157,7 @@
     "name": "AnyEvent::Redis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/AnyEvent-Redis",
-    "repository": "http://github.com/miyagawa/AnyEvent-Redis",
+    "repository": "https://github.com/miyagawa/AnyEvent-Redis",
     "description": "Non-blocking Redis client",
     "authors": ["miyagawa"]
   },
@@ -182,7 +182,7 @@
   {
     "name": "Predis",
     "language": "PHP",
-    "repository": "http://github.com/nrk/predis",
+    "repository": "https://github.com/nrk/predis",
     "description": "Mature and supported",
     "authors": ["JoL1hAHN"],
     "recommended": true
@@ -191,7 +191,7 @@
   {
     "name": "phpredis",
     "language": "PHP",
-    "repository": "http://github.com/owlient/phpredis",
+    "repository": "https://github.com/owlient/phpredis",
     "description": "This is a client written in C as a PHP module.",
     "authors": ["yowgi"],
     "recommended": true
@@ -201,7 +201,7 @@
     "name": "Rediska",
     "language": "PHP",
     "url": "http://rediska.geometria-lab.net",
-    "repository": "http://github.com/Shumkov/Rediska",
+    "repository": "https://github.com/Shumkov/Rediska",
     "description": "",
     "authors": ["shumkov"]
   },
@@ -209,7 +209,7 @@
   {
     "name": "Redisent",
     "language": "PHP",
-    "repository": "http://github.com/jdp/redisent",
+    "repository": "https://github.com/jdp/redisent",
     "description": "",
     "authors": ["justinpoliey"]
   },
@@ -217,7 +217,7 @@
   {
     "name": "redis-py",
     "language": "Python",
-    "repository": "http://github.com/andymccurdy/redis-py",
+    "repository": "https://github.com/andymccurdy/redis-py",
     "description": "Mature and supported. Currently the way to go for Python.",
     "authors": ["andymccurdy"],
     "recommended": true
@@ -242,7 +242,7 @@
   {
     "name": "scala-redis",
     "language": "Scala",
-    "repository": "http://github.com/acrosa/scala-redis",
+    "repository": "https://github.com/acrosa/scala-redis",
     "description": "",
     "authors": ["alejandrocrosa"]
   },
@@ -267,7 +267,7 @@
   {
     "name": "Tcl Client",
     "language": "Tcl",
-    "repository": "http://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
+    "repository": "https://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
     "description": "The client used in the Redis test suite.",
     "authors": ["antirez"]
   },
@@ -310,7 +310,7 @@
   {
     "name": "em-redis",
     "language": "Ruby",
-    "repository": "http://github.com/madsimian/em-redis",
+    "repository": "https://github.com/madsimian/em-redis",
     "description": "",
     "authors": ["madsimian"]
   },
@@ -318,7 +318,7 @@
   {
     "name": "hiredis",
     "language": "C",
-    "repository": "http://github.com/antirez/hiredis",
+    "repository": "https://github.com/antirez/hiredis",
     "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
     "authors": ["antirez","pnoordhuis"],
     "recommended": true
@@ -335,7 +335,7 @@
   {
     "name": "node_redis",
     "language": "Node.js",
-    "repository": "http://github.com/mranney/node_redis",
+    "repository": "https://github.com/mranney/node_redis",
     "description": "Recommended client for node.",
     "authors": ["mranney"],
     "recommended": true
@@ -344,7 +344,7 @@
   {
     "name": "redis-node-client",
     "language": "Node.js",
-    "repository": "http://github.com/fictorial/redis-node-client",
+    "repository": "https://github.com/fictorial/redis-node-client",
     "description": "No longer maintained, does not work with node 0.3.",
     "authors": ["fictorial"]
   },
@@ -352,7 +352,7 @@
   {
     "name": "iodis",
     "language": "Io",
-    "repository": "http://github.com/ichverstehe/iodis",
+    "repository": "https://github.com/ichverstehe/iodis",
     "description": "",
     "authors": ["ichverstehe"]
   },
@@ -360,7 +360,7 @@
   {
     "name": "redis.go",
     "language": "Go",
-    "repository": "http://github.com/hoisie/redis.go",
+    "repository": "https://github.com/hoisie/redis.go",
     "description": "",
     "authors": ["hoisie"]
   },
@@ -384,7 +384,7 @@
   {
     "name": "redis-sharp",
     "language": "C#",
-    "repository": "http://github.com/migueldeicaza/redis-sharp",
+    "repository": "https://github.com/migueldeicaza/redis-sharp",
     "description": "",
     "authors": ["migueldeicaza"]
   },
