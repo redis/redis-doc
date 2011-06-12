@@ -352,9 +352,9 @@
   {
     "name": "iodis",
     "language": "Io",
-    "repository": "https://github.com/ichverstehe/iodis",
+    "repository": https://github.com/vangberg/iodis",
     "description": "",
-    "authors": ["ichverstehe"]
+    "authors": ["vangberg"]
   },
 
   {
