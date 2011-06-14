@@ -14,6 +14,7 @@ keyspace
 MacBook
 multi
 pipelining
+Redis
 RDB
 SHA
 SQL

@@ -97,7 +97,7 @@ command:
     HSET object:12 34 somevalue
 
 As you can see every hash will end containing 100 fields, that
-is an ptimal compromise between CPU and memory saved.
+is an optimal compromise between CPU and memory saved.
 
 There is another very important thing to note, with this schema
 every hash will have more or

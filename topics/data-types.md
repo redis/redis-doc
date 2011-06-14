@@ -26,10 +26,10 @@ Lists
 Redis Lists are simply lists of strings, sorted by insertion order.
 It is possible to add elements to a Redis List pushing new elements on the head  (on the left) or on the tail (on the right) of the list.
 
-The [LPUSH](/commands/lpush) command inserts a new elmenet on head, while
+The [LPUSH](/commands/lpush) command inserts a new element on head, while
 [RPUSH](/commands/rpush) inserts a new element on tail. A new list is created
 when one of this operations is performed against an empty key.
-Similary the key is removed from the key space if a list operation will
+Similarly the key is removed from the key space if a list operation will
 empty the list. This is a very handy semantics since all the list commands will
 behave exactly like if called with an empty list if they are called with a
 non existing key as argument.

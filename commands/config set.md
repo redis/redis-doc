@@ -10,7 +10,7 @@ switch from one to another persistence option using this command.
 
 The list of configuration parameters supported by `CONFIG SET` can be
 obtained issuing a `CONFIG GET *` command, that is the symmetrical command
-used to obtain informations about the configuration of a running
+used to obtain information about the configuration of a running
 Redis instance.
 
 All the configuration parameters set using `CONFIG SET` are immediately loaded
