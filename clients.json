@@ -136,6 +136,14 @@
   },
 
   {
+    "name": "lua-hiredis",
+    "language": "Lua",
+    "repository": "https://github.com/agladysh/lua-hiredis",
+    "description": "Lua bindings for the hiredis library",
+    "authors": ["agladysh"]
+  },
+
+  {
     "name": "Redis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis",
