@@ -1,7 +1,7 @@
+**Important Note:** Redis VM is now deprecated. Redis 2.4 will be the latest Redis version featuring Virtual Memory (but it also warns you that Virtual Memory usage is discouraged). We found that using VM has several disadvantages and problems. In the future of Redis we want to simply provide the best in-memory database (but persistent on disk as usually) ever, without considering at least for now the support for databases bigger than RAM. Our future efforts are focused into providing scripting, cluster, and better persistence.
+
 Virtual Memory
 ===
-
-**Important Note:** Redis VM is now deprecated. Redis 2.4 will be the latest Redis version featuring Virtual Memory (but it also warns you that Virtual Memory usage is discouraged). We found that using VM has several disadvantages and problems. In the future of Redis we want to simply provide the best in-memory database (but persistent on disk as usually) ever, without considering at least for now the support for databases bigger than RAM. Our future efforts are focused into providing scripting, cluster, and better persistence.
 
 Redis Virtual Memory is a feature that will appear for the first time in a
 stable Redis distribution in Redis 2.0. However Virtual Memory (called VM
