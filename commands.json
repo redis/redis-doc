@@ -317,7 +317,8 @@
       },
       {
         "name": "field",
-        "type": "string"
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "1.3.10",
