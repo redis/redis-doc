@@ -348,6 +348,21 @@ this time with an associated score, and an operation similar to the List LRANGE
 operation to return items in order, but working against Sorted Sets, that is,
 the [ZRANGE](/commands/zrange) command.
 
+All members of a sorted set have a score and an index. Index (also
+called rank), is a relative, dynamic total position, based primarily
+on the score, which is like an ordering prefix and only secondarily
+based on lexicographic ordering of values sharing the same score.
+Hence the index of a given element changes if another element  is
+added or removed which has a lower score or the same score but a lower
+lexicographic ordering. If you want your sorted set to be ordered only
+by lexicographic ordering, use always the same score, (i.e. 0 in: zadd
+color 0 red; zadd color 0 blue -> 1: blue, 2: red). If you want your
+sorted set to be ordered only by arbitrary position, use a different
+score for each elemen (i.e. zadd color 1 red; zadd color 2 blue --> 1)
+red, 2) blue). The order of the scores is again lexicographic. While
+the score remains constant, the effect of a score on the rank of a
+member is not that it gives a constant index.
+
 Basically Sorted Sets are in some way the Redis equivalent of Indexes in the
 SQL world. For instance in our reddit.com example above there was no mention
 about how to generate the actual home page with news raked by user votes and
