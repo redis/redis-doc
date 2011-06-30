@@ -604,7 +604,8 @@
       },
       {
         "name": "value",
-        "type": "string"
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "0.07",
@@ -910,7 +911,8 @@
       },
       {
         "name": "value",
-        "type": "string"
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "0.07",
@@ -940,7 +942,8 @@
       },
       {
         "name": "member",
-        "type": "string"
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "0.07",
