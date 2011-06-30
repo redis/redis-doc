@@ -29,9 +29,9 @@ at the point that you can enable the logging of all the commands (setting the
 *slowlog-log-slower-than* config parameter to zero) with minor performance
 hit.
 
-To read the slow log the **SLOWLOG READ** command is used, that returns every
+To read the slow log the **SLOWLOG GET** command is used, that returns every
 entry in the slow log. It is possible to return only the N most recent entries
-passing an additional argument to the command (for instance **SLOWLOG READ 10**).
+passing an additional argument to the command (for instance **SLOWLOG GET 10**).
 
 Note that you need a recent version of redis-cli in order to read the slow
 log output, since this uses some feature of the protocol that was not
