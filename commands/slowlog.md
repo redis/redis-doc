@@ -27,7 +27,7 @@ The slow log is accumulated in memory, so no file is written with information
 about the slow command executions. This makes the slow log remarkably fast
 at the point that you can enable the logging of all the commands (setting the
 *slowlog-log-slower-than* config parameter to zero) with minor performance
-hint.
+hit.
 
 To read the slow log the **SLOWLOG READ** command is used, that returns every
 entry in the slow log. It is possible to return only the N most recent entries
