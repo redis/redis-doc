@@ -39,19 +39,30 @@ formerly implemented in redis-cli (deeply nested multi bulk replies).
 
 ## Output format
 
-    redis 127.0.0.1:6379> slowlog get
-    1) 1) (integer) 1309444013
-       2) (integer) 11
-       3) 1) "ping"
-    2) 1) (integer) 1309444010
-       2) (integer) 43
-       3) 1) "slowlog"
+    redis 127.0.0.1:6379> slowlog get 2
+    1) 1) (integer) 14
+       2) (integer) 1309448221
+       3) (integer) 15
+       4) 1) "ping"
+    2) 1) (integer) 13
+       2) (integer) 1309448128
+       3) (integer) 30
+       4) 1) "slowlog"
           2) "get"
+          3) "100"
 
 Every entry is composed of three fields:
+* An unique progressive identifier for every slow log entry.
 * The unix timestamp at which the logged command was processed.
 * The amount of time needed for its execution, in microseconds.
 * The array composing the arguments of the command.
+
+The entries unique ID can be used in order to void processing slow log entries
+multiple times (for instance you may have a scripting sending you an email
+alert for every new slow log entry).
+
+The ID is never reset in the course of the Redis server execution, only a
+server restart will reset it.
 
 ## Obtaining the current length of the slow log
 
