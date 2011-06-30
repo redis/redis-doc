@@ -1,5 +1,7 @@
 This command is used in order to read and reset the Redis slow queries log.
 
+## Redis slow log overview
+
 The Redis Slow Log is a system to log queries that exceeded a specified
 execution time. The execution time does not include the I/O operations
 like talking with the client, sending the reply and so forth,
@@ -28,7 +30,7 @@ hint.
 
 To read the slow log the **SLOWLOG READ** command is used, that returns every
 entry in the slow log. It is possible to return only the N most recent entries
-passing an additional argument to the command (for instance *SLOWLOG READ 10*).
+passing an additional argument to the command (for instance **SLOWLOG READ 10**).
 
 Note that you need a recent version of redis-cli in order to read the slow
 log output, since this uses some feature of the protocol that was not
