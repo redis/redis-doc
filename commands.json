@@ -1150,6 +1150,22 @@
     "since": "0.100",
     "group": "server"
   },
+  "SLOWLOG": {
+    "summary": "Manages the Redis slow queries log",
+    "arguments": [
+      {
+        "name": "subcommand",
+        "type": "string"
+      },
+      {
+        "name": "arugment",
+        "type": "string"
+        "optional": true
+      }
+    ],
+    "since": "2.2.12",
+    "group": "server"
+  },
   "SMEMBERS": {
     "summary": "Get all the members in a set",
     "arguments": [
