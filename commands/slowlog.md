@@ -12,8 +12,9 @@ other requests in the meantime).
 You can configure the slow log with two parameters: one tells Redis
 what is the execution time, in microseconds, to exceed in order for the
 command to get logged, and the other parameter is the length of the
-slow log. When a new command is logged the oldest one is removed from the
-queue of logged commands.
+slow log. When a new command is logged and the slow log is already at its
+maximum length, the oldest one is removed from the queue of logged commands
+in order to make space.
 
 The configuration can be done both editing the redis.conf file or 
 while the server is running using
