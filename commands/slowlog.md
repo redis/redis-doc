@@ -51,7 +51,7 @@ formerly implemented in redis-cli (deeply nested multi bulk replies).
           2) "get"
           3) "100"
 
-Every entry is composed of three fields:
+Every entry is composed of four fields:
 * An unique progressive identifier for every slow log entry.
 * The unix timestamp at which the logged command was processed.
 * The amount of time needed for its execution, in microseconds.
