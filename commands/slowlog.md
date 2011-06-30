@@ -18,7 +18,7 @@ while the server is running using
 the [CONFIG GET](/commands/config-get) and [CONFIG SET](/commands/config-set)
 commands.
 
-@Reding the slow log
+## Reding the slow log
 
 The slow log is accumulated in memory, so no file is written with information
 about the slow command executions. This makes the slow log remarkably fast
@@ -34,7 +34,7 @@ Note that you need a recent version of redis-cli in order to read the slow
 log output, since this uses some feature of the protocol that was not
 formerly implemented in redis-cli (deeply nested multi bulk replies).
 
-Example output:
+## Output format
 
     redis 127.0.0.1:6379> slowlog get
     1) 1) (integer) 1309444013
@@ -50,9 +50,11 @@ Every entry is composed of three fields:
 * The amount of time needed for its execution, in microseconds.
 * The array composing the arguments of the command.
 
+## Obtaining the current length of the slow log
+
 It is possible to get just the length of the slow log using the command **SLOWLOG LEN**.
 
-@Resetting the slow log.
+## Resetting the slow log.
 
 You can reset the slow log using the **SLOWLOG RESET** command.
 Once deleted the information is lost forever.
