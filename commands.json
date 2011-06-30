@@ -1163,7 +1163,7 @@
       },
       {
         "name": "arugment",
-        "type": "string"
+        "type": "string",
         "optional": true
       }
     ],
