@@ -11,6 +11,10 @@ _volatile_ in Redis terminology.
 specifying the number of seconds representing the TTL (time to live), it takes
 an absolute [UNIX timestamp][2] (seconds since January 1, 1970).
 
+As in the case of `EXPIRE` command, if `key` is updated before the timeout has
+expired, then the timeout is removed as if the `PERSIST` command was invoked on
+`key`.
+
 [2]: http://en.wikipedia.org/wiki/Unix_time
 
 ## Background
