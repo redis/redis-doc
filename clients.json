@@ -199,9 +199,9 @@
   {
     "name": "phpredis",
     "language": "PHP",
-    "repository": "https://github.com/owlient/phpredis",
+    "repository": "https://github.com/nicolasff/phpredis",
     "description": "This is a client written in C as a PHP module.",
-    "authors": ["yowgi"],
+    "authors": ["yowgi","nicolasff"],
     "recommended": true
   },
 
@@ -214,6 +214,14 @@
     "authors": ["shumkov"]
   },
 
+  {
+    "name": "RedisServer",
+    "language": "PHP",
+    "repository": "https://github.com/jamm/Memory/blob/master/RedisServer.php",
+    "description": "Standalone and full-featured class for Redis in PHP",
+    "authors": ["OZ"]
+  },
+  
   {
     "name": "Redisent",
     "language": "PHP",
@@ -420,11 +428,4 @@
     "authors": []
   },
 
-  {
-    "name": "iRedis",
-    "language": "PHP",
-    "repository": "https://github.com/ivorychicken/iRedis",
-    "description": "",
-    "authors": ["dhorrigan"]
-  }
 ]
