@@ -13,7 +13,7 @@ supported as values:
   value.
 * Sorted sets, similar to Sets but where every element is associated to a
   floating number score. The elements are taken sorted by score. You can think
-  at this as Ruby hashes where the key is the element and the value is the
+  of this as Ruby hashes where the key is the element and the value is the
   score, but where elements are always taken in order without requiring a
   sorting operation.
 
@@ -27,9 +27,9 @@ handy command line utility to issue commands against the Redis server.
 Redis keys
 ---
 
-Before to start talking about the different kind of values supported by Redis
-it is better to start saying that keys are not binary safe strings in Redis,
-but just strings not containing a space or a newline character. For instance
+Before getting in to the different kinds of values supported by Redis,
+it should be pointed out that keys are not binary safe strings in Redis.
+Key strings should not contain a space or a newline character. For instance
 "foo" or "123456789" or "foo\_bar" are valid keys, while "hello world" or
 "hello\n" are not.
 
