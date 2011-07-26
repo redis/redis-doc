@@ -3,7 +3,7 @@ This command is used in order to read and reset the Redis slow queries log.
 ## Redis slow log overview
 
 The Redis Slow Log is a system to log queries that exceeded a specified
-execution time. The execution time does not include the I/O operations
+execution time. The execution time does not include I/O operations
 like talking with the client, sending the reply and so forth,
 but just the time needed to actually execute the command (this is the only
 stage of command execution where the thread is blocked and can not serve
@@ -21,7 +21,7 @@ while the server is running using
 the [CONFIG GET](/commands/config-get) and [CONFIG SET](/commands/config-set)
 commands.
 
-## Reding the slow log
+## Reading the slow log
 
 The slow log is accumulated in memory, so no file is written with information
 about the slow command executions. This makes the slow log remarkably fast
@@ -34,7 +34,7 @@ entry in the slow log. It is possible to return only the N most recent entries
 passing an additional argument to the command (for instance **SLOWLOG GET 10**).
 
 Note that you need a recent version of redis-cli in order to read the slow
-log output, since this uses some feature of the protocol that was not
+log output, since it uses some features of the protocol that were not
 formerly implemented in redis-cli (deeply nested multi bulk replies).
 
 ## Output format
@@ -52,13 +52,13 @@ formerly implemented in redis-cli (deeply nested multi bulk replies).
           3) "100"
 
 Every entry is composed of four fields:
-* An unique progressive identifier for every slow log entry.
+* A unique progressive identifier for every slow log entry.
 * The unix timestamp at which the logged command was processed.
 * The amount of time needed for its execution, in microseconds.
 * The array composing the arguments of the command.
 
-The entries unique ID can be used in order to void processing slow log entries
-multiple times (for instance you may have a scripting sending you an email
+The entry's unique ID can be used in order to avoid processing slow log entries
+multiple times (for instance you may have a script sending you an email
 alert for every new slow log entry).
 
 The ID is never reset in the course of the Redis server execution, only a
