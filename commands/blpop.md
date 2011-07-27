@@ -26,9 +26,9 @@ that order).
 
 ## Blocking behavior
 
-If none of the specified keys exist or contain non-empty lists, `BLPOP` blocks
+If none of the specified keys exist, `BLPOP` blocks
 the connection until another client performs an `LPUSH` or `RPUSH` operation
-against one of the lists.
+against one of the keys.
 
 Once new data is present on one of the lists, the client returns with the name
 of the key unblocking it and the popped value.
