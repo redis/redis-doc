@@ -1,11 +1,11 @@
 @complexity
 
-O(1)
+O(N) where N is the number of members to be added.
 
 
-Add `member` to the set stored at `key`. If `member` is already a member of
-this set, no operation is performed. If `key` does not exist, a new set is
-created with `member` as its sole member.
+Add the specified members to the set stored at `key`. Specified members that
+are already a member of this set are ignored.  If `key` does not exist, a new
+set is created before adding the specified members.
 
 An error is returned when the value stored at `key` is not a set.
 

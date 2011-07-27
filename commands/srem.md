@@ -1,10 +1,11 @@
 @complexity
 
-O(1)
+O(N) where N is the number of members to be removed.
 
 
-Remove `member` from the set stored at `key`. If `member` is not a member of
-this set, no operation is performed.
+Remove the specified members from the set stored at `key`. Specified members
+that are not a member of this set are ignored.  If `key` does not exist, it is
+treated as an empty set and this command returns `0`.
 
 An error is returned when the value stored at `key` is not a set.
 
