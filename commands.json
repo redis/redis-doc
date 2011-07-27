@@ -1279,7 +1279,8 @@
       },
       {
         "name": "member",
-        "type": "string"
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "0.07",
