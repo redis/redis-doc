@@ -11,15 +11,14 @@ When `key` holds a value that is not a list, an error is returned.
 
 @integer-reply: the length of the list after the push operation.
 
-History
----
+@history
 
-Up until Redis 2.3, `LPUSH` accepted a single `value`.
+* `>= 2.4`: Accepts multiple `value` arguments.
 
 @examples
 
     @cli
-    LPUSH mylist "World"
-    LPUSH mylist "Hello"
+    LPUSH mylist "world"
+    LPUSH mylist "hello"
     LRANGE mylist 0 -1
 
