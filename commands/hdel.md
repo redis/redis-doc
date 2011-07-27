@@ -1,18 +1,23 @@
 @complexity
 
-O(N) where N is the number of fields that will be removed.
+O(N) where N is the number of fields to be removed.
 
-Removes the specified fields from the hash stored at `key`. Non-existing fields
-are ignored. Non-existing keys are treated as empty hashes and this command
-returns `0`.
 
-For Redis versions 2.2 and below, this command is only available as a
-non-variadic variant. To remove multiple fields from a hash in an atomic
-fashion for those versions, use a `MULTI`/`EXEC` block.
+Removes the specified fields from the hash stored at `key`. Specified fields
+that do not exist within this hash are ignored.
+If `key` does not exist, it is treated as an empty hash and this command returns
+`0`.
 
 @return
 
-@integer-reply: The number of fields that were removed.
+@integer-reply: the number of fields that were removed from the hash.
+
+@history
+
+* `>= 2.4`: Accepts multiple `field` arguments.
+
+  To remove multiple fields from a hash in an atomic fashion in earlier
+  versions, use a `MULTI`/`EXEC` block.
 
 @examples
 
