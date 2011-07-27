@@ -11,12 +11,11 @@ An error is returned when the value stored at `key` is not a set.
 
 @return
 
-@integer-reply: the number of elements actually added to the set.
+@integer-reply: the number of elements that were added to the set.
 
-History
----
+@history
 
-Up until Redis 2.3, `SADD` accepted a single `member`.
+* `>= 2.4`: Accepts multiple `member` arguments.
 
 @examples
 

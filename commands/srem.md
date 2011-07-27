@@ -10,10 +10,11 @@ An error is returned when the value stored at `key` is not a set.
 
 @return
 
-@integer-reply, specifically:
+@integer-reply: the number of members that were removed from the set.
 
-* `1` if the element was removed.
-* `0` if the element was not a member of the set.
+@history
+
+* `>= 2.4`: Accepts multiple `member` arguments.
 
 @examples
 
