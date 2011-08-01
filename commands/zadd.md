@@ -2,14 +2,12 @@
 
 O(log(N)) where N is the number of elements in the sorted set.
 
-Adds the `member` with the specified `score` to the sorted set stored at `key`.
-If `member` is already a member of the sorted set, the score is updated and the
-element reinserted at the right position to ensure the correct ordering.  If
-`key` does not exist, a new sorted set with the specified `member` as sole
-member is created.  If the key exists but does not hold a sorted set, an error
-is returned.
+Adds all the specified members with the specified scores to the sorted set stored at `key`. It is possible to specify multiple member/score pairs.
+If a specified member is already a member of the sorted set, the score is updated and the element reinserted at the right position to ensure the correct ordering.  If `key` does not exist, a new sorted set with the specified members as sole
+members is created, like if the sorted set was empty.
+If the key exists but does not hold a sorted set, an error is returned.
 
-The `score` value should be the string representation of a numeric value, and
+The score values should be the string representation of a numeric value, and
 accepts double precision floating point numbers.
 
 For an introduction to sorted sets, see the data types page on [sorted
@@ -19,9 +17,11 @@ sets](/topics/data-types#sorted-sets).
 
 @integer-reply, specifically:
 
-* `1` if the element was added.
-* `0` if the element was already a member of the sorted set and the score was
-  updated.
+* The number of elements added to the sorted sets, not including elements already existing for which the score was updated.
+
+@history
+
+* `>= 2.4`: Accepts multiple elements. In Redis versions older than 2.4 it was possible to add or update a single member per call.
 
 @examples
 

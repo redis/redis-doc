@@ -10,11 +10,11 @@ If `key` does not exist, it is treated as an empty hash and this command returns
 
 @return
 
-@integer-reply: the number of fields that were removed from the hash.
+@integer-reply: the number of fields that were removed from the hash, not including specified but non existing fields.
 
 @history
 
-* `>= 2.4`: Accepts multiple `field` arguments.
+* `>= 2.4`: Accepts multiple `field` arguments. Redis versions older than 2.4 can only remove a field per call.
 
   To remove multiple fields from a hash in an atomic fashion in earlier
   versions, use a `MULTI`/`EXEC` block.
