@@ -415,7 +415,7 @@
   
   {
     "name": "Puredis",
-    "language": "pd",
+    "language": "Pure Data",
     "repository": "https://github.com/lp/puredis",
     "description": "Pure Data Redis sync, async and subscriber client",
     "authors": ["loopole"]
