@@ -412,6 +412,14 @@
     "description": "Static Library for iOS4 device and Simulator, plus Objective-C Framework for MacOS 10.5 and higher",
     "authors": ["loopole"]
   },
+  
+  {
+    "name": "Puredis",
+    "language": "pd",
+    "repository": "https://github.com/lp/puredis",
+    "description": "Pure Data Redis sync, async and subscriber client",
+    "authors": ["loopole"]
+  },
 
   {
     "name": "C++ Client",
