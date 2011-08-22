@@ -29,7 +29,7 @@ synchronization, auto-reconnection on net split and so forth.
 Other features include a simple [check-and-set
 mechanism](/topics/transactions), [pub/sub](/topics/pubsub)
 and configuration settings to make Redis behave like a
-[cache](/topics/cache).
+cache.
 
 You can use Redis from [most programming languages](/clients) out there. 
 
