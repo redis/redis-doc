@@ -83,7 +83,7 @@ You can do many interesting things using Redis Sets, for instance you can:
 Hashes
 ---
 
-Redis Hashes are maps between string field and string values, so they are the perfect data type to represent objects (for instance Users with a number of fields like name, surname, age, and so forth):
+Redis Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (eg: A User with a number of fields like name, surname, age, and so forth):
 
     @cli
     HMSET user:1000 username antirez password P1pp0 age 34
@@ -91,13 +91,13 @@ Redis Hashes are maps between string field and string values, so they are the pe
     HSET user:1000 password 12345
     HGETALL user:1000
 
-An hash with a few fields (where few means even one hundred) is stored in a way
-that takes very few space, so you can store millions of objects even in a small
+A hash with a few fields (where few means up to one hundred or so) is stored in a way
+that takes very little space, so you can store millions of objects in a small
 Redis instance.
 
-While Hashes are used mainly to represent objects, they are actually capable of storing many many elements, so you can use Hashes for many other tasks as well.
+While Hashes are used mainly to represent objects, they are capable of storing many elements, so you can use Hashes for many other tasks as well.
 
-Every hash can store up to 2^32-1 field-value pairs (more than 4 billions).
+Every hash can store up to 2^32-1 field-value pairs (more than 4 billion).
 
 Check the [full list of Hash commands](/commands#hash) for more information.
 
