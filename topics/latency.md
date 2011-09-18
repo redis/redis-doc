@@ -47,9 +47,9 @@ Here are some guidelines:
 On Linux, some people can achieve better latencies by playing with process
 placement (taskset), cgroups, real-time priorities (chrt), NUMA
 configuration (numactl), or by using a low-latency kernel. Please note
-vanilla Redis is not really suitable to be bound on a *single* CPU core.
+vanilla Redis is not really suitable to be bound on a **single** CPU core.
 Redis can fork background tasks that can be extremely CPU consuming
-like bgsave or AOF rewrite. These tasks must *never* run on the same core
+like bgsave or AOF rewrite. These tasks must **never** run on the same core
 as the main event loop.
 
 In most situations, these kind of system level optimizations are not needed.
@@ -106,7 +106,7 @@ Depending on the chosen persistency mechanism, Redis has to fork background
 processes. The fork operation (running in the main thread) can induce latency
 by itself.
 
-Fork is an expensive operation on most Unix-like systems, since it involves
+Forking is an expensive operation on most Unix-like systems, since it involves
 copying a good number of objects linked to the process. This is especially
 true for the page table associated to the virtual memory mechanism.
 
@@ -142,14 +142,13 @@ http://lwn.net/Articles/374424/
 
 There are currently two ways to patch Redis to support huge pages.
 
-For Redis 2.4, the embedded jemalloc allocator must be patched.
-https://gist.github.com/1171054 by Pieter Noordhuis.
++ For Redis 2.4, the embedded jemalloc allocator must be patched.
+https://gist.github.com/1171054 by Pieter Noordhuis. Note this patch relies
+on the anonymous mmap huge page support, only available starting 2.6.32,
+so this method cannot be used for older distributions (RH 5, SLES 10,
+and derivatives).
 
-Note this patch relies on the anonymous mmap huge page support,
-only available starting 2.6.32, so this method cannot be used
-for older distributions (RH 5, SLES 10, and derivatives).
-
-For Redis 2.2, or 2.4 with the libc allocator, Redis makefile
++ For Redis 2.2, or 2.4 with the libc allocator, Redis makefile
 must be altered to link Redis with the libhugetlbfs library
 whose source code is available at
 http://libhugetlbfs.sourceforge.net/
@@ -158,10 +157,12 @@ It is a straighforward change.
 Then, the system must be configured to support huge pages.
 
 The following command allocates and makes N huge pages available:
-$ sudo sysctl -w vm.nr_hugepages=<N>
+
+    $ sudo sysctl -w vm.nr_hugepages=<N>
 
 The following command mounts the huge page filesystem:
-$ sudo mount -t hugetlbfs none /mnt/hugetlbfs
+
+    $ sudo mount -t hugetlbfs none /mnt/hugetlbfs
 
 In all cases, once Redis is running with huge pages (transparent or
 not), the following benefits are expected:
