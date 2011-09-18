@@ -17,7 +17,7 @@ The typical latency of a 1 GBits/s network is about 200 us, while the latency
 with a Unix domain socket can be as low as 30 us. It actually depends on your
 network and system hardware. On top of the communication itself, the system
 adds some more latency (due to thread scheduling, CPU caches, NUMA placement,
-etc ...). System induced latencies are signigicantly higher on a virtualized
+etc ...). System induced latencies are significantly higher on a virtualized
 environment than on a physical machine.
 
 The consequence is even if Redis processes most commands in sub microsecond
@@ -152,7 +152,7 @@ and derivatives).
 must be altered to link Redis with the libhugetlbfs library
 whose source code is available at
 http://libhugetlbfs.sourceforge.net/
-It is a straighforward change.
+It is a straightforward change.
 
 Then, the system must be configured to support huge pages.
 
@@ -170,10 +170,12 @@ not), the following benefits are expected:
 + The latency due to the fork operations is dramatically reduced.
   This is mostly useful for very large instances, and especially
   on a VM.
-+ Redis is faster due to the fact the translation lookaside buffer
++ Redis is faster due to the fact the translation look-aside buffer
   (TLB) of the CPU is more efficient to cache page table entries
   (i.e. the hit ratio is better). Do not expect miracle, it is only
   a few percent gain at most.
++ Redis memory cannot be swapped out anymore, which is interesting
+  to avoid outstanding latencies due to virtual memory.
 
 Unfortunately, and on top of the extra operational complexity,
 there is also a significant drawback of running Redis with
@@ -181,9 +183,9 @@ huge pages. The COW mechanism granularity is the page. With
 2 MB pages, the probability a page is modified during a background
 save operation is 512 times higher than with 4 KB pages. The actual
 memory required for a background save therefore increases a lot,
-especially if the write traffic is truely random, with poor locality.
+especially if the write traffic is truly random, with poor locality.
 With huge pages, using twice the memory while saving is not anymore
-a theorical incident. It may really happen.
+a theoretical incident. It may really happen.
 
 Latency due to AOF and disk I/O
 -------------------------------
