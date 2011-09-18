@@ -6,8 +6,54 @@ are experiencing latency problems with Redis.
 
 In this context *latency* is the maximum delay between the time a client
 issues a command and the time the reply to the command is received by the
-client. Usually the Redis latency is extremely low, in the sub microsecond
+client. Usually Redis processing time is extremely low, in the sub microsecond
 range, but there are certain conditions leading to higher latency figures.
+
+Latency induced by network and communication
+--------------------------------------------
+
+Clients connect to Redis using a TCP/IP connection or a Unix domain connection.
+The typical latency of a 1 GBits/s network is about 200 us, while the latency
+with a Unix domain socket can be as low as 30 us. It actually depends on your
+network and system hardware. On top of the communication itself, the system
+adds some more latency (due to thread scheduling, CPU caches, NUMA placement,
+etc ...). System induced latencies are signigicantly higher on a virtualized
+environment than on a physical machine.
+
+The consequence is even if Redis processes most commands in sub microsecond
+range, a client performing many roundtrips to the server will have to pay
+for these network and system related latencies.
+
+An efficient client will therefore try to limit the number of roundtrips by
+pipelining several commands together. This is fully supported by the servers
+and most clients. Aggregated commands like MSET/MGET can be also used for
+that purpose. Starting with Redis 2.4, a number of commands also support
+variadic parameters for all data types.
+
+Here are some guidelines:
+
++ If you can afford it, prefer a physical machine over a VM to host the server.
++ Do not systematically connect/disconnect to the server (especially true
+  for web based applications). Keep your connections as long lived as possible.
++ If your client is on the same host than the server, use Unix domain sockets.
++ Prefer to use aggregated commands (MSET/MGET), or commands with variadic
+  parameters (if possible) over pipelining.
++ Prefer to use pipelining (if possible) over sequence of roundtrips.
++ Future version of Redis will support Lua server-side scripting
+  (experimental branches are already available) to cover cases that are not
+  suitable for raw pipelining (for instance when the result of a command is
+  an input for the following commands).
+
+On Linux, some people can achieve better latencies by playing with process
+placement (taskset), cgroups, real-time priorities (chrt), NUMA
+configuration (numactl), or by using a low-latency kernel. Please note
+vanilla Redis is not really suitable to be bound on a *single* CPU core.
+Redis can fork background tasks that can be extremely CPU consuming
+like bgsave or AOF rewrite. These tasks must *never* run on the same core
+as the main event loop.
+
+In most situations, these kind of system level optimizations are not needed.
+Only do them if you require them, and if you are familiar with them.
 
 Single threaded nature of Redis
 -------------------------------
@@ -18,7 +64,7 @@ This means that Redis can serve a single request in every given moment, so
 all the requests are served sequentially. This is very similar to how node.js
 works as well. However you usually don't feel at all Redis or Node are slow
 since the time to serve a single request is very small, and this kind of
-programs are designed to don't block on system calls, for instance to read
+programs are designed to do not block on system calls, for instance to read
 new data from sockets.
 
 I said that Redis is *mostly* single threaded since actually from Redis 2.4
@@ -33,19 +79,110 @@ A consequence of being single thread is that when a request is slow to serve
 all the other clients will wait for this request to be served. When executing
 normal commands, like **GET** or **SET** or **LPUSH** this is not a problem
 at all since this commands are executed in constant (and very small) time.
-However there are commands operating on many elements, like **SORT**, **LREM**, **SUNION** and others. For instance taking the intersection of two big sets
+However there are commands operating on many elements, like **SORT**, **LREM**,
+**SUNION** and others. For instance taking the intersection of two big sets
 can take a considerable amount of time.
+
+The algorithmic complexity of all commands is documented. A good practice
+is to systematically check it when using commands you are not familiar with.
 
 If you have latency concerns you should either not use slow commands against
 values composed of many elements, or you should run a replica using Redis
 replication where to run all your slow queries.
 
-It is possible to monitor slow commands using the Redis [Slow Log feature](/commands/slowlog).
+It is possible to monitor slow commands using the Redis
+[Slow Log feature](/commands/slowlog).
+
+Additionally, you can use your favorite per-process monitoring program
+(top, htop, prstat, etc ...) to quickly check the CPU consumption of the
+main Redis process. If it is high while the traffic is not, it is usually
+a sign that slow commands are used.
+
 
 Latency generated by fork
 -------------------------
 
-TODO: Put here info about huge pages support of Linux kernel.
+Depending on the chosen persistency mechanism, Redis has to fork background
+processes. The fork operation (running in the main thread) can induce latency
+by itself.
+
+Fork is an expensive operation on most Unix-like systems, since it involves
+copying a good number of objects linked to the process. This is especially
+true for the page table associated to the virtual memory mechanism.
+
+For instance on a Linux/AMD64 system, the memory is divided in 4 KB pages.
+To convert virtual addresses to physical addresses, each process stores
+a page table (actually represented as a tree) containing at least a pointer
+per page of the address space of the process. So a large 24 GB Redis instance
+requires a page table of 24 GB / 4 KB * 8 = 48 MB.
+
+When a background save is performed, this instance will have to be forked,
+which will involve allocating and copying 48 MB of memory. It takes time
+and CPU, especially on virtual machines where allocation and initialization
+of a large memory chunk can be expensive.
+
+Some CPUs can use different page size though. AMD and Intel CPUs can support
+2 MB page size if needed. These pages are nicknamed *huge pages*. Some
+operating systems can optimize page size in real time, transparently
+aggregating small pages into huge pages on the fly.
+
+On Linux, explicit huge pages management has been introduced in 2.6.16, and
+implicit transparent huge pages are available starting in 2.6.38. If you
+run recent Linux distributions (for example RH 6 or derivatives), transparent
+huge pages can be activated, and you can use a vanilla Redis version with them.
+
+This is the preferred way to experiment/use with huge pages on Linux.
+
+Now, if you run older distributions (RH 5, SLES 10-11, or derivatives), and
+not afraid of a few hacks, Redis requires to be patched in order to support
+huge pages.
+
+The first step would be to read Mel Gorman's primer on huge pages.
+http://lwn.net/Articles/374424/
+
+There are currently two ways to patch Redis to support huge pages.
+
+For Redis 2.4, the embedded jemalloc allocator must be patched.
+https://gist.github.com/1171054 by Pieter Noordhuis.
+
+Note this patch relies on the anonymous mmap huge page support,
+only available starting 2.6.32, so this method cannot be used
+for older distributions (RH 5, SLES 10, and derivatives).
+
+For Redis 2.2, or 2.4 with the libc allocator, Redis makefile
+must be altered to link Redis with the libhugetlbfs library
+whose source code is available at
+http://libhugetlbfs.sourceforge.net/
+It is a straighforward change.
+
+Then, the system must be configured to support huge pages.
+
+The following command allocates and makes N huge pages available:
+$ sudo sysctl -w vm.nr_hugepages=<N>
+
+The following command mounts the huge page filesystem:
+$ sudo mount -t hugetlbfs none /mnt/hugetlbfs
+
+In all cases, once Redis is running with huge pages (transparent or
+not), the following benefits are expected:
+
++ The latency due to the fork operations is dramatically reduced.
+  This is mostly useful for very large instances, and especially
+  on a VM.
++ Redis is faster due to the fact the translation lookaside buffer
+  (TLB) of the CPU is more efficient to cache page table entries
+  (i.e. the hit ratio is better). Do not expect miracle, it is only
+  a few percent gain at most.
+
+Unfortunately, and on top of the extra operational complexity,
+there is also a significant drawback of running Redis with
+huge pages. The COW mechanism granularity is the page. With
+2 MB pages, the probability a page is modified during a background
+save operation is 512 times higher than with 4 KB pages. The actual
+memory required for a background save therefore increases a lot,
+especially if the write traffic is truely random, with poor locality.
+With huge pages, using twice the memory while saving is not anymore
+a theorical incident. It may really happen.
 
 Latency due to AOF and disk I/O
 -------------------------------
