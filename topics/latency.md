@@ -1,7 +1,7 @@
 Redis latency problems troubleshooting
 ===
 
-This document will help you understanding what the problem could be if you
+This document will help you understand what the problem could be if you
 are experiencing latency problems with Redis.
 
 In this context *latency* is the maximum delay between the time a client
