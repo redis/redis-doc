@@ -61,11 +61,11 @@ Single threaded nature of Redis
 Redis uses a *mostly* single threaded design. This means that a single process
 serves all the client requests, using a technique called **multiplexing**.
 This means that Redis can serve a single request in every given moment, so
-all the requests are served sequentially. This is very similar to how node.js
-works as well. However you usually don't feel at all Redis or Node are slow
-since the time to serve a single request is very small, and this kind of
-programs are designed to do not block on system calls, for instance to read
-new data from sockets.
+all the requests are served sequentially. This is very similar to how Node.js
+works as well. However, both products are often not perceived as being slow.
+This is caused in part by the small about of time to complete a single request,
+but primarily because these products are designed to not block on system calls,
+such as reading data from or writing data to a socket.
 
 I said that Redis is *mostly* single threaded since actually from Redis 2.4
 we use threads in Redis in order to perform some slow I/O operations in the
