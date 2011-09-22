@@ -14,9 +14,13 @@ connected to other slaves in a graph-like structure.
 
 * Redis replication is non-blocking on the master side, this means that
 the master will continue to serve queries when one or more slaves perform
-the first synchronization. Instead, replication is blocking on the slave
-side: while the slave is performing the first synchronization it can't
-reply to queries.
+the first synchronization.
+
+* Replication is non blocking on the slave side: while the slave is performing
+the first synchronization it can reply to queries using the old version of
+the data set, assuming you configured Redis to do so in redis.conf.
+Otherwise you can configure Redis slaves to send clients an error if the
+link with the master is down.
 
 * Replications can be used both for scalability, in order to have
 multiple slaves for read-only queries (for example, heavy `SORT`
@@ -51,6 +55,8 @@ Slaves are able to automatically reconnect when the master <->
 slave link goes down for some reason. If the master receives multiple
 concurrent slave synchronization requests, it performs a single
 background save in order to serve all of them.
+
+When a master and a slave reconnects after the link went down, a full resync is performed.
 
 Configuration
 ---
