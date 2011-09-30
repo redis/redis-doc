@@ -27,27 +27,20 @@ handy command line utility to issue commands against the Redis server.
 Redis keys
 ---
 
-Before getting in to the different kinds of values supported by Redis,
-it should be pointed out that keys are not binary safe strings in Redis.
-Key strings should not contain a space or a newline character. For instance
-"foo" or "123456789" or "foo\_bar" are valid keys, while "hello world" or
-"hello\n" are not.
-
-Actually there is nothing inside the Redis internals preventing the use of
-binary keys, it's just a matter of protocol, and actually the new protocol
-introduced with Redis 1.2 (1.2 betas are 1.1.x) in order to implement commands
-like MSET, is totally binary safe. Still for now consider this as an hard limit
-as the database is only tested with "normal" keys.
+Redis keys are binary safe, this means that you can use any binary sequence as a
+key, from a string like "foo" to the content of a JPEG file.
+The empty string is also a valid key.
 
 A few other rules about keys:
 
 * Too long keys are not a good idea, for instance a key of 1024 bytes is not a
   good idea not only memory-wise, but also because the lookup of the key in the
   dataset may require several costly key-comparisons.
-* Too short keys are not a good idea. There is no point in writing "u:1000:pwd"
+* Too short keys are often not a good idea. There is little point in writing "u:1000:pwd"
   as key if you can write instead "user:1000:password", the latter is more
-  readable and the added space is very little compared to the space used by the
-  key object itself.
+  readable and the added space is little compared to the space used by the
+  key object itself and the value object. However it is not possible to deny
+  that short keys will consume a bit less memory.
 * Try to stick with a schema. For instance "object-type:id:field" can be a nice
   idea, like in "user:1000:password". I like to use dots for multi-words
   fields, like in "comment:1234:reply.to".
