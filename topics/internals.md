@@ -18,7 +18,7 @@ these are composed of strings.
 Redis Virtual Memory
 ---
 
-We have a document explaining [virutal memory implementation details](/topics/internals-vm), but warning: this document refers to the 2.0 VM implementation. 2.2 is different... and better.
+We have a document explaining [virtual memory implementation details](/topics/internals-vm), but warning: this document refers to the 2.0 VM implementation. 2.2 is different... and better.
 
 Redis Event Library
 ---
