@@ -82,6 +82,7 @@ And many others:
 * [PennyAce](http://pennyace.com/)
 * [Nasza Klasa](http://nk.pl/)
 * [Forrst](http://forrst.com)
+* [Surfingbird](http://surfingbird.com)
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [send a pull request](https://github.com/antirez/redis-doc).
