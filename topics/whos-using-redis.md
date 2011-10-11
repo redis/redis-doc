@@ -52,6 +52,10 @@ Logos are linked to the relevant story when available.
   <li>
     <a href="http://devblog.bu.mp/how-we-use-redis-at-bump"><img src="/images/companies/bump.png" alt="Bump"></a>
   </li>
+  
+  <li>
+    <img src="http://www.mendeley.com/graphics/commonnew/logo-mendeley.png" alt="Mendeley" width="200">
+  </li>
 </ul>
 
 And many others:
