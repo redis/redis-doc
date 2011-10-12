@@ -52,6 +52,10 @@ Logos are linked to the relevant story when available.
   <li>
     <a href="http://devblog.bu.mp/how-we-use-redis-at-bump"><img src="/images/companies/bump.png" alt="Bump"></a>
   </li>
+
+  <li>
+    <a href="http://code.flickr.com/blog/2011/10/11/talk-real-time-updates-on-the-cheap-for-fun-and-profit/"><img src="http://l.yimg.com/g/images/en-us/flickr-yahoo-logo.png.v3" alt="Flickr"></a>
+  </li>
 </ul>
 
 And many others:
