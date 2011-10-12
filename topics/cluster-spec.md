@@ -329,7 +329,10 @@ Clients implementations hints
 Fault Tolerance
 ===
 
-Fault tolerance is implemented in the following way:
+Node failure detection
+---
+
+Failure detection is implemented in the following way:
 
 * A node marks another node setting the PFAIL flag (possible failure) if the node is not responding to our PING requests for a given time.
 * Nodes broadcast information about other nodes (three random nodes taken at random) when pinging other nodes. The gossip section contains information about other nodes flags.
@@ -341,9 +344,6 @@ So basically a node is not able to mark another node as failing without external
 The described failure detection is already implemented, but not complete.
 
 * Work in progress.
-
-Node failure detection
----
 
 Slave election (not implemented)
 ---
