@@ -168,7 +168,7 @@ A node will accept another node as part of the cluster only in two ways:
 * If a node will present itself with a MEET message. A meet message is exactly
 like a PING message, but forces the receiver to accept the node as part of
 the cluster. Nodes will send MEET messages to other nodes ONLY IF the system
-administrator requests this via the following commnad:
+administrator requests this via the following command:
 
 
     CLUSTER MEET <ip> <port>
