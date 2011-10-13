@@ -341,19 +341,84 @@ Failure detection is implemented in the following way:
 
 So basically a node is not able to mark another node as failing without external acknowledge.
 
-The described failure detection is already implemented, but not complete.
+(still to implement:)
+Once a node is marked as failing, any other node receiving a PING or
+connection attempt from this node will send back a "MARK AS FAIL" message
+in reply that will force the receiving node to set itself as failing.
 
-* Work in progress.
+Cluster state detection (only partially implemented)
+---
+
+Every cluster node scan the list of nodes every time a configuration change
+happens in the cluster (this can be an update to an hash slot, or simply
+a node that is now in a failure state).
+
+Once the configuration is processed the node enters one of the following states:
+
+* FAIL: the cluster can't work. When the node is in this state it will not serve queries at all and will return an error for every query. This state is entered when the node detects that the current nodes are not able to serve all the 4096 slots.
+* OK: the cluster can work as all the 4096 slots are served by nodes that are not flagged as FAIL.
+
+This means that the Redis Cluster is designed to stop accepting queries once even a subset of the hash slots are not available. However there is a portion of time in which an hash slot can't be accessed correctly since the associated node is experiencing problems, but the node is still not marked as failing.
+In this range of time the cluster will only accept queries about a subset of the 4096 hash slots.
+
+Since Redis cluster does not support MULTI/EXEC transactions the application
+developer should make sure the application can recover from only a subset of queries being accepted by the cluster.
 
 Slave election (not implemented)
 ---
 
-* Work in progress.
+Every master can have any number of slaves (including zero).
+Slaves are responsible of electing themselves to masters when a given
+master fails. For instance we may have node A1, A2, A3, where A1 is the
+master an A2 and A3 are two slaves.
 
-Publish/Subscribe
+If A1 is failing in some way and no longer replies to pings, other nodes
+will end marking it as failing using the gossip protocol. When this happens
+its **first slave** will try to perform the election.
+
+The concept of first slave is very simple. Of all the slaves of a master
+the first slave is the one that has the smallest node ID, sorting node IDs
+lexicographically. If the first slave is also marked as failing, the next
+slave is in charge of performing the election and so forth.
+
+So after a configuration update every slave checks if it is the first slave
+of the failing master. In the case it is it changes its state to master
+and broadcasts a message to all the other nodes to update the configuration.
+
+Protection mode (not implemented)
+---
+
+After a net split resulting into a few isolated nodes, this nodes will
+end thinking all the other nodes are failing. In the process they may try
+to start a slave election or some other action to modify the cluster
+configuration. In order to avoid this problem, nodes seeing a majority of
+other nodes in PFAIL or FAIL state for a long enough time should enter
+a protection mode that will prevent them from taking actions.
+
+The protection mode is cleared once the cluster state is OK again.
+
+Majority of masters rule (not implemented)
+---
+
+As a result of a net split it is possible that two or more partitions are
+independently able to serve all the hash slots.
+Since Redis Cluster try to be consistent this is not what we want, and
+a net split should always produce zero or one single partition able to
+operate.
+
+In order to enforce this rule nodes into a partition should only try to
+serve queries if they have the **majority of the original master nodes**.
+
+Publish/Subscribe (implemented, but to refine)
 ===
 
-* Work in progress.
+In a Redis Cluster clients can subscribe to every node, and can also
+publish to every other node. The cluster will make sure that publish
+messages are forwarded as needed.
+
+The current implementation will simply broadcast all the publish messages
+to all the other nodes, but at some point this will be optimized either
+using bloom filters or other algorithms.
 
 Appendix A: CRC16 reference implementation in ANSI C
 ---
