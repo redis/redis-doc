@@ -171,7 +171,7 @@ the cluster. Nodes will send MEET messages to other nodes ONLY IF the system
 administrator requests this via the following command:
 
 
-    CLUSTER MEET <ip> <port>
+    CLUSTER MEET ip port
 
 
 * A node will also register another node as part of the cluster if a node that is already trusted will gossip about this other node. So if A knows B, and B nows C, eventually B will send gossip messages to A about C. When this happens A will register C as part of the network, and will try to connect with C.
@@ -243,11 +243,11 @@ that are used to manipulate the slots translation table in a Redis cluster node.
 
 The following subcommands are available:
 
-* CLUSTER ADDSLOTS <slot1> [slot2] ... [slotN]
-* CLUSTER DELSLOTS <slot1> [slot2] ... [slotN]
-* CLUSTER SETSLOT <slot> NODE <node>
-* CLUSTER SETSLOT <slot> MIGRATING <node>
-* CLUSTER SETSLOT <slot> IMPORTING <node>
+* CLUSTER ADDSLOTS slot1 [slot2] ... [slotN]
+* CLUSTER DELSLOTS slot1 [slot2] ... [slotN]
+* CLUSTER SETSLOT slot NODE node
+* CLUSTER SETSLOT slot MIGRATING node
+* CLUSTER SETSLOT slot IMPORTING node
 
 The first two commands, ADDSLOTS and DELSLOTS, are simply used to assign
 (or remove) slots to a Redis node. After the hash slots are assigned they
@@ -288,7 +288,7 @@ In the meantime, a special client that is called `redis-trib` and is
 the Redis cluster configuration utility will make sure to migrate existing
 keys from A to B. This is performed using the following command:
 
-    CLUSTER GETKEYSINSLOT <slot> <count>
+    CLUSTER GETKEYSINSLOT slot count
 
 the above command will return `count` keys in the specified hash slot.
 For every key returned, redis-trib sends node A a `MIGRATE` command, that
@@ -296,7 +296,7 @@ will migrate the specified key from A to B in an atomic way (both instances
 are locked for the time needed to migrate a key so there are no race
 conditions). This is how MIGRATE works:
 
-    MIGRATE <target host> <target port> <key> <target database id> <timeout>
+    MIGRATE target_host target_port key target_database id timeout
 
 MIGRATE will connect to the target instance, send a serialized version of
 the key, and once an OK code is received will delete the old key from its own
