@@ -1,7 +1,6 @@
 
-
-Stop all the clients, save the DB, then quit the server. This commands
-makes sure that the DB is switched off without the lost of any data.
+Stop all the clients, save the DB (if saving is configured), then quit the server.
+This commands makes sure that the DB is switched off without the lost of any data.
 This is not guaranteed if the client uses simply `SAVE` and then
 `QUIT` because other clients may alter the DB data between the two
 commands.
