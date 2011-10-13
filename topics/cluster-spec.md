@@ -155,7 +155,7 @@ d289c575dcbc4bdd2931585fd4339089e461a27d 127.0.0.1:6381 master - 1318428931 1318
 
 In the above listing the different fields are in order: node id, address:port, flags, last ping sent, last pong received, link state, slots.
 
-Nodes handshake
+Nodes handshake (implemented)
 ---
 
 Nodes always accept connection in the cluster bus port, and even reply to
