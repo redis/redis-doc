@@ -155,6 +155,31 @@ d289c575dcbc4bdd2931585fd4339089e461a27d 127.0.0.1:6381 master - 1318428931 1318
 
 In the above listing the different fields are in order: node id, address:port, flags, last ping sent, last pong received, link state, slots.
 
+Nodes handshake
+---
+
+Nodes always accept connection in the cluster bus port, and even reply to
+pings when received, even if the pinging node is not trusted.
+However all the other packets will be discareded by the node if the node
+is not considered part of the cluster.
+
+A node will accept another node as part of the cluster only in two ways:
+
+* If a node will present itself with a MEET message. A meet message is exactly
+like a PING message, but forces the receiver to accept the node as part of
+the cluster. Nodes will send MEET messages to other nodes ONLY IF the system
+administrator requests this via the following commnad:
+
+    CLUSTER MEET <ip> <port>
+
+* A node will also register another node as part of the cluster if a node that is already trusted will gossip about this other node. So if A knows B, and B nows C, eventually B will send gossip messages to A about C. When this happens A will register C as part of the network, and will try to connect with C.
+
+This means that as long as we join nodes in any connected graph, they'll eventually form a fully connected graph automatically. This means that basically the cluster is able to auto-discover other nodes, but only if there is a trusted relationship that was forced by the system administrator.
+
+This mechanism makes the cluster more robust but prevents that different Redis clusters will accidentally mix after change of IP addresses or other network related events.
+
+All the nodes actively try to connect to all the other known nodes if the link is down.
+
 MOVED Redirection
 ---
 
