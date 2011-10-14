@@ -1,7 +1,7 @@
 The command behavior is the following:
 
 * Stop all the clients.
-* Blocking save the RDB file of teh current data set If at least one **save point** is configured.
+* Perform a blocking SAVE if at least one **save point** is configured.
 * Flush the Append Only File if AOF is enabled.
 * Quit the server.
 
