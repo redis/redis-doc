@@ -108,7 +108,8 @@ Sorted sets
 Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of
 Strings. The difference is that every member of a Sorted Set is associated
 with score, that is used in order to take the sorted set ordered, from the
-smallest to the greatest score.
+smallest to the greatest score.  While members are unique, scores may be
+repeated.
 
 With sorted sets you can add, remove, or update elements in a very fast way
 (in a time proportional to the logarithm of the number of elements). Since
