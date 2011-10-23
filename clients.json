@@ -279,6 +279,13 @@
     "description": "",
     "authors": [""]
   },
+  {
+    "name": "sedis",
+    "language": "Scala",
+    "repository": "https://github.com/pk11/sedis",
+    "description": "a thin scala wrapper for the popular Redis Java client, Jedis",
+    "authors": ["pk11"]
+  },
 
   {
     "name": "Tcl Client",
