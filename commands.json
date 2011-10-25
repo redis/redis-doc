@@ -1771,7 +1771,7 @@
         "name": "arg",
         "type": "string",
         "multiple": true
-      },
+      }
     ],
     "since": "1.3.10",
     "group": "generic"
