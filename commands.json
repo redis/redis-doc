@@ -1750,5 +1750,30 @@
     ],
     "since": "1.3.10",
     "group": "sorted_set"
+  },
+  "EVAL": {
+    "summary": "Execute a Lua script server side",
+    "arguments": [
+      {
+        "name": "script",
+        "type": "string"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "multiple": true
+      },
+    ],
+    "since": "1.3.10",
+    "group": "generic"
   }
 }
