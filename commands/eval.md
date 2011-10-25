@@ -212,7 +212,7 @@ This means that if an EVAL is performed against a Redis instance all the
 subsequent EVALSHA calls will succeed.
 
 The only way to flush the script cache is by explicitly calling the
-EVALCTL FLUSH command, that will flush the scripts cache. This is usually
+SCRIPT FLUSH command, that will flush the scripts cache. This is usually
 needed only when the instance is going to be instantiated for another
 customer in a cloud environment.
 
