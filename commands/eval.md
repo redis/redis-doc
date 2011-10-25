@@ -188,14 +188,14 @@ it has the SHA1 sum of a script. The behavior is the following:
 
 Example:
 
-> set foo bar
-OK
-> eval "return redis.call('get','foo')" 0
-"bar"
-> evalsha 6b1bf486c81ceb7edf3c093f4c48582e38c0e791 0
-"bar"
-> evalsha ffffffffffffffffffffffffffffffffffffffff 0
-(error) NOSCRIPT No matching script. Please use EVAL.
+    > set foo bar
+    OK
+    > eval "return redis.call('get','foo')" 0
+    "bar"
+    > evalsha 6b1bf486c81ceb7edf3c093f4c48582e38c0e791 0
+    "bar"
+    > evalsha ffffffffffffffffffffffffffffffffffffffff 0
+    (error) NOSCRIPT No matching script. Please use EVAL.
 
 The client library implementation can always optimistically send EVALSHA under
 the hoods even when the client actually called EVAL, in the hope the script
