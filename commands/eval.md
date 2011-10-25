@@ -133,8 +133,8 @@ Atomicity of scripts
 ---
 
 Redis uses the same Lua interpreter to run all the commands. Also Redis
-guarantees that a script is executed in an atomic way: nor other scripts
-or other Redis commands will be executed while a script is being executed.
+guarantees that a script is executed in an atomic way: no other script
+or Redis command will be executed while a script is being executed.
 This semantics is very similar to the one of `MULTI` / `EXEC`.
 
 However this also means that executing slow scripts is not a good idea.
