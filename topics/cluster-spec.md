@@ -90,7 +90,7 @@ All the master nodes will handle a percentage of the 4096 hash slots.
 When the cluster is **stable**, that means that there is no a cluster
 reconfiguration in progress (where hash slots are moved from one node
 to another) a single hash slot will be served exactly by a single node
-(however the serving node can have one ore more slaves that will replace
+(however the serving node can have one or more slaves that will replace
 it in the case of net splits or failures).
 
 The algorithm used to map keys to hash slots is the following:
@@ -124,12 +124,12 @@ same ID forever, or at least as long as the node configuration file is not
 deleted by the system administrator.
 
 The node ID is used to identify every node across the whole cluster.
-It is possible for a give node to change IP and address without any need
+It is possible for a given node to change IP and address without any need
 to also change the node ID. The cluster is also able to detect the change
 in IP/port and reconfigure broadcast the information using the gossip
 protocol running over the cluster bus.
 
-Every node has other associated informations that all the other nodes
+Every node has other associated information that all the other nodes
 know:
 
 * The IP address and TCP port where the node is located.
@@ -140,7 +140,7 @@ know:
 * The number of slaves of this node.
 * The master node ID, if this node is a slave (or 0000000... if it is a master).
 
-All this informations are available using the `CLUSTER NODES` command that
+All this information is available using the `CLUSTER NODES` command that
 can be sent to all the nodes in the cluster, both master and slave nodes.
 
 The following is an example of output of CLUSTER NODES sent to a master
@@ -172,7 +172,7 @@ administrator requests this via the following command:
     CLUSTER MEET ip port
 
 
-* A node will also register another node as part of the cluster if a node that is already trusted will gossip about this other node. So if A knows B, and B nows C, eventually B will send gossip messages to A about C. When this happens A will register C as part of the network, and will try to connect with C.
+* A node will also register another node as part of the cluster if a node that is already trusted will gossip about this other node. So if A knows B, and B knows C, eventually B will send gossip messages to A about C. When this happens, A will register C as part of the network, and will try to connect with C.
 
 This means that as long as we join nodes in any connected graph, they'll eventually form a fully connected graph automatically. This means that basically the cluster is able to auto-discover other nodes, but only if there is a trusted relationship that was forced by the system administrator.
 
