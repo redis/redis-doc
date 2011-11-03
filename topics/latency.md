@@ -187,6 +187,174 @@ especially if the write traffic is truly random, with poor locality.
 With huge pages, using twice the memory while saving is not anymore
 a theoretical incident. It may really happen.
 
+Latency induced by swapping (opearating system paging)
+------------------------------------------------------
+
+Linux (and many other modern operating systems) is able to relocate memory
+pages from the memory to the disk, and vice versa, in order to use the
+system memory efficiently.
+
+If a Redis page is moved by the kernel from the memory to the swap file, when
+the data stored in this memory page is used by Redis (for example accessing
+a key stored into this memory page) the kernel will stop the Redis process
+in order to move the page back into the main memory. This is a slow operation
+(compared to accessing a page that is already in memory) and will result into
+anomalous latency experienced by Redis clients.
+
+The kernel relocates Redis memory pages on disk mainly because of two reasons:
+
+* The system is under memory pressure since the running processes are demanding more physical memory than the amount that is available. The simplest instance of this problem is simply Redis using more memory than the one available.
+* The Redis instance data set, or part of the data set, is mostly completely idle (never accessed by clients), so the kernel could swap idle memory pages on disk. This problem is very rare since even a moderately slow instance will touch all the memory pages often, forcing the kernel to retain all the pages in memory.
+
+Fortunately Linux offers good tools to investigate the problem, so the simplest
+thing to do is when latency due to swapping is suspected is just to check if
+this is the case.
+
+The first thing to do is to checking the amount of Redis memory that is swapped
+on disk. In order to do so you need to obtain the Redis instance pid:
+
+    $ redis-cli info | grep redis-cli info | grep process_id
+    process_id:5454
+
+Now enter the /proc file system directory for this process:
+
+    $ cd /proc/5454
+
+Here you'll find a file called **smaps** that describes the memory layout of
+the Redis process (assuming you are using Linux 2.6.16 or newer).
+This file contains very detailed information about our process memory maps,
+and one field called **Swap** is exactly what we are looking for. However
+there is not just a single swap field since the smaps file contains the
+different memory maps of our Redis process (The memory layout of a process
+is more complex than a simple linear array of pages).
+
+Since we are interested in all the memory swapped by our process the first thing
+to do is to grep for the Swap field across all the file:
+
+    $ cat smaps | grep 'Swap:'
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                 12 kB
+    Swap:                156 kB
+    Swap:                  8 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  4 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  4 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  4 kB
+    Swap:                  4 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+    Swap:                  0 kB
+
+If everything is 0 kb, or if there are sporadic 4k entries, everything is perfectly normal. Actually in our example instance (the one of a real web site running Redis and serving hundreds of users every second) there are a few entries that
+show more swapped pages. To investigate if this is a serious problem or not we
+change our command in order to also print the size of the memory map:
+
+    $ cat smaps | egrep '^(Swap|Size)'
+    Size:                316 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                  8 kB
+    Swap:                  0 kB
+    Size:                 40 kB
+    Swap:                  0 kB
+    Size:                132 kB
+    Swap:                  0 kB
+    Size:             720896 kB
+    Swap:                 12 kB
+    Size:               4096 kB
+    Swap:                156 kB
+    Size:               4096 kB
+    Swap:                  8 kB
+    Size:               4096 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:               1272 kB
+    Swap:                  0 kB
+    Size:                  8 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                 16 kB
+    Swap:                  0 kB
+    Size:                 84 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                  8 kB
+    Swap:                  4 kB
+    Size:                  8 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  4 kB
+    Size:                144 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  4 kB
+    Size:                 12 kB
+    Swap:                  4 kB
+    Size:                108 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+    Size:                272 kB
+    Swap:                  0 kB
+    Size:                  4 kB
+    Swap:                  0 kB
+
+As you can see from the output, there is a map of 720896 kB (with just 12 kB swapped) and 156 kb more swapped in another map: basically a very small amount of our memory is swapped so this is not going to create any problem at all.
+
+If instead a non trivial amount of the process memory is swapped on disk your latency problems are likely related to swapping. If this is the case with your
+Redis instance you can further verify it using the **vmstat** command:
+
+    $ vmstat 1
+    procs -----------memory---------- ---swap-- -----io---- -system-- ----cpu----
+     r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa
+     0  0   3980 697932 147180 1406456    0    0     2     2    2    0  4  4 91  0
+     0  0   3980 697428 147180 1406580    0    0     0     0 19088 16104  9  6 84  0
+     0  0   3980 697296 147180 1406616    0    0     0    28 18936 16193  7  6 87  0
+     0  0   3980 697048 147180 1406640    0    0     0     0 18613 15987  6  6 88  0
+     2  0   3980 696924 147180 1406656    0    0     0     0 18744 16299  6  5 88  0
+     0  0   3980 697048 147180 1406688    0    0     0     4 18520 15974  6  6 88  0
+^C
+
+The interesting part of the output for our needs are the two columns **si**
+and **so**, that counts the amount of memory swapped from/to the swap file. If
+you see non zero counts in those two columns then there is swapping activity
+in your system.
+
+If your latency problem is due to Redis memory being swapped on disk you need
+to lower the memory pressure in your system, either adding more RAM if Redis
+is using more memory than the available, or avoiding running other memory
+hungry processes in the same system.
+
 Latency due to AOF and disk I/O
 -------------------------------
 
