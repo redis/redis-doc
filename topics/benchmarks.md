@@ -127,16 +127,16 @@ for many common operations, Redis does not add much overhead on top of the
 required system calls and network interruptions. Prefer to run Redis on a
 physical box, especially if you favor deterministic latencies. On a
 state-of-the-art hypervisor (VMWare), result of redis-benchmark on a VM
-through the physical network is almost divided by 2 compared to the 
+through the physical network is almost divided by 2 compared to the
 physical machine, with some significant CPU time spent in system and
 interruptions.
-+ When the server and client benchmark programs run on the same box, both 
++ When the server and client benchmark programs run on the same box, both
 the TCP/IP loopback and unix domain sockets can be used. It depends on the
 platform, but unix domain sockets can achieve around 50% more throughput than
 the TCP/IP loopback (on Linux for instance). The default behavior of
 redis-benchmark is to use the TCP/IP loopback.
 + On multi CPU sockets servers, Redis performance becomes dependant on the
-NUMA configuration and process location. The most visible effect is that 
+NUMA configuration and process location. The most visible effect is that
 redis-benchmark results seem non deterministic because client and server
 processes are distributed randomly on the cores. To get deterministic results,
 it is required to use process placement tools (on Linux: taskset or numactl).
@@ -145,7 +145,7 @@ Nehalem EX, and Intel Westmere) with different relative placement. The most
 efficient combination is always to put the client and server on two different
 cores of the same CPU to benefit from the L3 cache.
 
-![NUMA chart](NUMA_chart.gif)
+![NUMA chart](topics/NUMA_chart.gif)
 
 + Management of interruptions and NIC configuration
 
