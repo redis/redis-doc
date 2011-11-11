@@ -145,7 +145,7 @@ Nehalem EX, and Intel Westmere) with different relative placement. The most
 efficient combination is always to put the client and server on two different
 cores of the same CPU to benefit from the L3 cache.
 
-![NUMA chart](/dspezia/redis-doc/blob/system_info/topics/NUMA_chart.gif)
+![NUMA chart](https://github.com/dspezia/redis-doc/raw/6374a07f93e867353e5e946c1e39a573dfc83f6c/topics/NUMA_chart.gif)
 
 + Management of interruptions and NIC configuration
 
