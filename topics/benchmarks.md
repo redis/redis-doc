@@ -92,9 +92,11 @@ connections, the comparison is actually meaningful.
 This perfect example is illustrated by the dialog between Redis (antirez) and
 memcached (dormando) developers.
 
-[antirez 1](http://antirez.com/post/redis-memcached-benchmark.html)
-[dormando](http://dormando.livejournal.com/525147.html)
-[antirez 2](http://antirez.com/post/update-on-memcached-redis-benchmark.html)
+[antirez 1 - On Redis, Memcached, Speed, Benchmarks and The Toilet](http://antirez.com/post/redis-memcached-benchmark.html)
+
+[dormando - Redis VS Memcached (slightly better bench)](http://dormando.livejournal.com/525147.html)
+
+[antirez 2 - An update on the Memcached/Redis benchmark](http://antirez.com/post/update-on-memcached-redis-benchmark.html)
 
 You can see that in the end, the difference between the two solutions is not
 so staggering, once all technical aspects are considered. Please note both
@@ -109,7 +111,10 @@ must be fixed, or perhaps scaled out, in order to reach the maximum throughput.
 Factors impacting Redis performance
 -----------------------------------
 
-There are multiple factors that can impact the result of a Redis benchmark.
+There are multiple factors having direct consequences on Redis performance.
+We mention them here, since they can alter the result of any benchmarks.
+Please note however, that a typical Redis instance running on a low end,
+non tuned, box usually provides good enough performance for most applications.
 
 + Network bandwidth and latency usually have a direct impact on the performance.
 It is a good practice to use the ping program to quickly check the latency
@@ -130,9 +135,9 @@ an AMD Opteron CPU compared to similar Nehalem EP/Westmere EP/Sandy bridge
 Intel CPUs with Redis. When client and server run on the same box, the CPU is
 the limiting factor with redis-benchmark.
 + Speed of RAM and memory bandwidth seem less critical for global performance
-especially for small objects. For large objects (>10 KB), it may become noticeable
-though. Usually, it is not really cost effective to buy expensive fast memory
-modules to optimize Redis.
+especially for small objects. For large objects (>10 KB), it may become
+noticeable though. Usually, it is not really cost effective to buy expensive
+fast memory modules to optimize Redis.
 + Redis runs slower on a VM. Virtualization toll is quite high because
 for many common operations, Redis does not add much overhead on top of the
 required system calls and network interruptions. Prefer to run Redis on a
@@ -151,37 +156,58 @@ NUMA configuration and process location. The most visible effect is that
 redis-benchmark results seem non deterministic because client and server
 processes are distributed randomly on the cores. To get deterministic results,
 it is required to use process placement tools (on Linux: taskset or numactl).
-Here are some results of 4 KB SET benchmark for 3 CPUs (AMD Istanbul, Intel
-Nehalem EX, and Intel Westmere) with different relative placements. The most
-efficient combination is always to put the client and server on two different
-cores of the same CPU to benefit from the L3 cache.
+The most efficient combination is always to put the client and server on two
+different cores of the same CPU to benefit from the L3 cache.
+Here are some results of 4 KB SET benchmark for 3 server CPUs (AMD Istanbul,
+Intel Nehalem EX, and Intel Westmere) with different relative placements.
+Please note this benchmark is not meant to compare CPU models between themselves
+(CPUs exact model and frequency are therefore not disclosed).
 
 ![NUMA chart](https://github.com/dspezia/redis-doc/raw/6374a07f93e867353e5e946c1e39a573dfc83f6c/topics/NUMA_chart.gif)
 
-+ With high-end configurations, the number of connections is also an important
-factor. Being based on epoll/kqueue, Redis event loop is quite scalable.
-Redis has already been benchmarked at more than 60000 connections, and was
-still able to sustain 50000 q/s in these conditions. As a rule of thumb,
++ With high-end configurations, the number of client connections is also an
+important factor. Being based on epoll/kqueue, Redis event loop is quite
+scalable. Redis has already been benchmarked at more than 60000 connections,
+and was still able to sustain 50000 q/s in these conditions. As a rule of thumb,
 an instance with 30000 connections can only process half the throughput
 achievable with 100 connections.
 + With high-end configurations, it is possible to achieve higher throughput by
 tuning the NIC(s) configuration and associated interruptions. Best throughput
-is achieved by associating Rx/Tx NIC queues to dedicated cores, and activating
-RPS (Receive Packet Steering) support. More information in this
+is achieved by setting an affinity between Rx/Tx NIC queues and CPU cores,
+and activating RPS (Receive Packet Steering) support. More information in this
 [thread](https://groups.google.com/forum/#!msg/redis-db/gUhc19gnYgc/BruTPCOroiMJ).
+Jumbo frames may also provide a performance boost when large objects are used.
++ Depending on the platform, Redis can be compiled against different memory
+allocators (libc malloc, jemalloc, tcmalloc), which may have different behaviors
+in term of raw speed, internal and external fragementation.
+If you did not compile Redis by itself, you can use the INFO command to check
+the mem_allocator field. Please note most benchmarks do not run long enough to
+generate significant external fragementation (contrary to production Redis
+instances).
 
 Other things to consider
 ------------------------
 
-- Fixed CPU frequency policy
-- isolated environment as far as possible
-- check the system: no swapping, no other I/O activity than the one of Redis etc ...
-- 32/64 bits and memory consumption
-- memory allocator
+One important goal of any benchmark is to get reproducible results, so they
+can be compared to the results of other tests.
 
-
-
-
++ A good practice is to try to run tests on isolated hardware as far as possible.
+If it is not possible, then the system must be monitored to check the benchmark
+is not perturbated by some external activity.
++ Some configurations (desktops and laptops for sure, some servers as well)
+have a variable CPU core frequency mechanism. The policy controlling this
+mechanism can be set at the OS level. Some CPU models are more aggressive than
+others at adapting the frequency of the CPU cores to the workload. To get
+reproducible results, it is better to set the highest possible fixed frequency
+for all the CPU cores involved in the benchmark.
++ An important point is to size the system accordingly to the benchmark.
+The system must have enough RAM and must not swap. On Linux, do not forget
+to set the overcommit_memory parameter correctly. Please note 32 and 64 bits
+Redis instances have not the same memory footprint.
++ If you plan to use RDB or AOF for your benchmark, please check there is no other
+I/O activity in the system. Avoid putting RDB or AOF files on NAS or NFS shares,
+or on any other devices impacting your network bandwidth and/or latency
+(for instance, EBS on Amazon EC2).
 
 
 # Example of benchmark result
