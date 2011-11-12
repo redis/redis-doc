@@ -127,7 +127,7 @@ and probably fit with a 10 GBits/s link, but not a 1 Gbits/s one. In many real
 world scenarios, Redis throughput is limited by the network well before being
 limited by the CPU. To consolidate several high-throughput Redis instances
 on a single server, it worth considering putting a 10 Gbits/s NIC
-or several 1 Gbits/s NICs.
+or multiple 1 Gbits/s NICs with TCP/IP bonding.
 + CPU is another very important factor. Being single-threaded, Redis favors
 fast CPUs with large caches and not many cores. At this game, Intel CPUs are
 currently the winners. It is not uncommon to get only half the performance on
@@ -170,7 +170,11 @@ important factor. Being based on epoll/kqueue, Redis event loop is quite
 scalable. Redis has already been benchmarked at more than 60000 connections,
 and was still able to sustain 50000 q/s in these conditions. As a rule of thumb,
 an instance with 30000 connections can only process half the throughput
-achievable with 100 connections.
+achievable with 100 connections. Here is an example showing the throughput of
+a Redis instance per number of connections:
+
+![connections chart](http://allinram.info/redis/concurrency/req_sec_2-62K.png)
+
 + With high-end configurations, it is possible to achieve higher throughput by
 tuning the NIC(s) configuration and associated interruptions. Best throughput
 is achieved by setting an affinity between Rx/Tx NIC queues and CPU cores,
