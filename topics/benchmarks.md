@@ -184,7 +184,7 @@ Jumbo frames may also provide a performance boost when large objects are used.
 + Depending on the platform, Redis can be compiled against different memory
 allocators (libc malloc, jemalloc, tcmalloc), which may have different behaviors
 in term of raw speed, internal and external fragementation.
-If you did not compile Redis by itself, you can use the INFO command to check
+If you did not compile Redis by yourself, you can use the INFO command to check
 the mem_allocator field. Please note most benchmarks do not run long enough to
 generate significant external fragementation (contrary to production Redis
 instances).
