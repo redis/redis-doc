@@ -92,8 +92,13 @@ connections, the comparison is actually meaningful.
 This perfect example is illustrated by the dialog between Redis (antirez) and
 memcached (dormando) developers.
 
+[antirez 1](http://antirez.com/post/redis-memcached-benchmark.html)
+[dormando](http://dormando.livejournal.com/525147.html)
+[antirez 2](http://antirez.com/post/update-on-memcached-redis-benchmark.html)
+
 You can see that in the end, the difference between the two solutions is not
-so staggering.
+so staggering, once all technical aspects are considered. Please note both
+Redis and memcached have been optimized further after these benchmarks ...
 
 Finally, when very efficient servers are benchmarked (and stores like Redis
 or memcached definitely fall in this category), it may be difficult to saturate
@@ -115,13 +120,19 @@ of the network. For instance a benchmark setting 4 KB strings
 in Redis at 100000 q/s, would actually consume 3.2 Gbits/s of bandwidth
 and probably fit with a 10 GBits/s link, but not a 1 Gbits/s one. In many real
 world scenarios, Redis throughput is limited by the network well before being
-limited by the CPU.
+limited by the CPU. To consolidate several high-throughput Redis instances
+on a single server, it worth considering putting a 10 Gbits/s NIC
+or several 1 Gbits/s NICs.
 + CPU is another very important factor. Being single-threaded, Redis favors
 fast CPUs with large caches and not many cores. At this game, Intel CPUs are
 currently the winners. It is not uncommon to get only half the performance on
 an AMD Opteron CPU compared to similar Nehalem EP/Westmere EP/Sandy bridge
 Intel CPUs with Redis. When client and server run on the same box, the CPU is
 the limiting factor with redis-benchmark.
++ Speed of RAM and memory bandwidth seem less critical for global performance
+especially for small objects. For large objects (>10 KB), it may become noticeable
+though. Usually, it is not really cost effective to buy expensive fast memory
+modules to optimize Redis.
 + Redis runs slower on a VM. Virtualization toll is quite high because
 for many common operations, Redis does not add much overhead on top of the
 required system calls and network interruptions. Prefer to run Redis on a
@@ -140,14 +151,24 @@ NUMA configuration and process location. The most visible effect is that
 redis-benchmark results seem non deterministic because client and server
 processes are distributed randomly on the cores. To get deterministic results,
 it is required to use process placement tools (on Linux: taskset or numactl).
-Here are some results of the SET benchmark for 3 CPUs (AMD Istanbul, Intel
-Nehalem EX, and Intel Westmere) with different relative placement. The most
+Here are some results of 4 KB SET benchmark for 3 CPUs (AMD Istanbul, Intel
+Nehalem EX, and Intel Westmere) with different relative placements. The most
 efficient combination is always to put the client and server on two different
 cores of the same CPU to benefit from the L3 cache.
 
 ![NUMA chart](https://github.com/dspezia/redis-doc/raw/6374a07f93e867353e5e946c1e39a573dfc83f6c/topics/NUMA_chart.gif)
 
-+ Management of interruptions and NIC configuration
++ With high-end configurations, the number of connections is also an important
+factor. Being based on epoll/kqueue, Redis event loop is quite scalable.
+Redis has already been benchmarked at more than 60000 connections, and was
+still able to sustain 50000 q/s in these conditions. As a rule of thumb,
+an instance with 30000 connections can only process half the throughput
+achievable with 100 connections.
++ With high-end configurations, it is possible to achieve higher throughput by
+tuning the NIC(s) configuration and associated interruptions. Best throughput
+is achieved by associating Rx/Tx NIC queues to dedicated cores, and activating
+RPS (Receive Packet Steering) support. More information in this
+[thread](https://groups.google.com/forum/#!msg/redis-db/gUhc19gnYgc/BruTPCOroiMJ).
 
 Other things to consider
 ------------------------
@@ -156,7 +177,7 @@ Other things to consider
 - isolated environment as far as possible
 - check the system: no swapping, no other I/O activity than the one of Redis etc ...
 - 32/64 bits and memory consumption
-
+- memory allocator
 
 
 
