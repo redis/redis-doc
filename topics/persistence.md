@@ -217,4 +217,60 @@ server will start again with the old configuration.
 * Make sure that your database contains the same number of keys it contained.
 * Make sure that writes are appended to the append only file correctly.
 
+Interactions between AOF and RDB persistence
+---
+
+Redis >= 2.4 makes sure to avoid triggering an AOF rewrite when an RDB
+snapshotting operation is already in progress, or allowing a BGSAVE while the
+the AOF rewrite is in progress. This prevents two Redis background processes
+from doing heavy disk I/O at the same time.
+
+When snapshotting is in progress and the user explicitly requests a log
+rewrite operation using BGREWRITEAOF the server will reply with an OK
+status code telling the user the operation is scheduled, and the rewirte
+will start once the snapshotting is completed.
+
+Backing up Redis data
+---
+
+Before starting this section, make sure to read the following sentence: **Make Sure to Backup Your Database**. Disks break, instances in the cloud disappear, and so forth: no backups means huge risk of data disappearing into /dev/null.
+
+Redis is very data backup friendly since you can copy RDB files while the
+database is running: the RDB is never modified once produced, and while it
+gets produced it uses a temporary name and is renamed into its final destination
+atomically using rename(2) only when the new snapshot is complete.
+
+This means that copying the RDB file is completely safe while the server is
+running. This is what we suggest:
+
+* Create a cron job in your server creating hourly snapshots of the RDB file in one directory, and daily snapshots in a different directory.
+* Every time the cron script runs, make sure to call the `find` command to make sure too old snapshots are deleted: for instance you can take hourly snapshots for the latest 48 hours, and daily snapshots for one or two months. Make sure to name the snapshots with data and time information.
+* At least one time every day make sure to transfer an RDB snapshot *outside your data center* or at least *outside the physical machine* running your Redis instance.
+
+Disaster recovery
+---
+
+Disaster recovery in the context of Redis is basically the same story as
+backups, plus the ability to transfer those backups in many different external
+data centers. This way data is secured even in the case of some catastrophic
+event affecting the main data center where Redis is running and producing its
+snapshots.
+
+Since many Redis users are in the startup scene and thus don't have plenty
+of money to spend we'll review the most interesting disaster recovery techniques
+that don't have too high costs.
+
+* Amazon S3 and other similar services are a good way for mounting your disaster recovery system. Simply transfer your daily or hourly RDB snapshot to S3 in an encrypted form. You can encrypt your data using gpg -c (in symmetric encryption mode). Make sure to store your password in many differnet safe places (for instance give a copy to the most important guys of your organization). It is recommanded to use multiple storage services for improved data safety.
+* Transfer your snapshots using scp (part of ssh) to far servers. This is a fairly simple and safe route: get a small VPS in a place that is very far from you, install ssh there, and greate an ssh client key without passphrase, then make
+add it in the authorized_keys file of your small VPS. You are ready to transfer
+backups in an automated fashion. Get at least two VPS in two different providers
+for best results.
+
+It is important to understand that this systems can easily fail if not coded
+in the right way. At least make absolutely sure that after the transfer is
+completed you are able to verify the file size (that should match the one of
+the file you copied) and possibly the SHA1 sum if you are using a VPS.
+
+You also need some kind of independent alert system if the transfer of fresh
+backups is not working for some reason.
 
