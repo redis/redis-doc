@@ -55,8 +55,8 @@ operations). Comparing Redis to stores involving one-way queries is only
 mildly useful.
 + Naively iterating on synchronous Redis commands does not benchmark Redis
 itself, but rather measure your network (or IPC) latency. To really test Redis,
-you need multiple connections (like redis-benchmark) and/or use pipelining
-to aggregate several commands.
+you need multiple connections (like redis-benchmark) and/or to use pipelining
+to aggregate several commands and/or multiple threads or processes.
 + Redis is an in-memory data store with some optional persistency options. If
 you plan to compare it to transactional servers (MySQL, PostgreSQL, etc ...),
 then you should consider activating AOF and decide of a suitable fsync policy.
@@ -80,8 +80,10 @@ evaluate the performance of a Redis instance on a given hardware. However,
 it does not represent the maximum throughput a Redis instance can sustain.
 Actually, by using pipelining and a fast client (hiredis), it is fairly easy
 to write a program generating more throughput than redis-benchmark. The current
-version of redis-benchmark achieves throughput only by parallelizing
-connections. It does not use pipelining at all.
+version of redis-benchmark achieves throughput by exploiting concurrency only
+(i.e. it creates several connections to the server). It does not use pipelining
+or any parallelism at all (one pending query per connection at most, and
+no multi-threading).
 
 For instance, Redis and memcached in single-threaded mode can be compared on
 GET/SET operations. Both are in-memory data stores, working mostly in the same
