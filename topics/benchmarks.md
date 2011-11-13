@@ -340,6 +340,7 @@ Another one using a 64 bit box, a Xeon L5420 clocked at 2.5 GHz:
 * The Linux box is running *SLES10 SP3 2.6.16.60-0.54.5-smp*, CPU is 2 x *Intel X5670 @ 2.93 GHz*.
 * Text executed using a **unix domain socket**.
 
+Results:
 
     PING (inline): 194552.53 requests per second
     PING: 194931.77 requests per second
@@ -356,4 +357,3 @@ Another one using a 64 bit box, a Xeon L5420 clocked at 2.5 GHz:
     LRANGE (first 300 elements): 46339.20 requests per second
     LRANGE (first 450 elements): 33333.33 requests per second
     LRANGE (first 600 elements): 25866.53 requests per second
-
