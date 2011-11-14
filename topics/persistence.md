@@ -231,6 +231,10 @@ rewrite operation using BGREWRITEAOF the server will reply with an OK
 status code telling the user the operation is scheduled, and the rewirte
 will start once the snapshotting is completed.
 
+In the case both AOF and RDB persistence are enabled and Redis restarts the
+AOF file will be used to reconstruct the original dataset since it is
+guaranteed to be the most complete.
+
 Backing up Redis data
 ---
 
