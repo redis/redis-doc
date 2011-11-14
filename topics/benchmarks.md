@@ -185,10 +185,10 @@ and activating RPS (Receive Packet Steering) support. More information in this
 Jumbo frames may also provide a performance boost when large objects are used.
 + Depending on the platform, Redis can be compiled against different memory
 allocators (libc malloc, jemalloc, tcmalloc), which may have different behaviors
-in term of raw speed, internal and external fragementation.
+in term of raw speed, internal and external fragmentation.
 If you did not compile Redis by yourself, you can use the INFO command to check
 the mem_allocator field. Please note most benchmarks do not run long enough to
-generate significant external fragementation (contrary to production Redis
+generate significant external fragmentation (contrary to production Redis
 instances).
 
 Other things to consider
@@ -199,7 +199,7 @@ can be compared to the results of other tests.
 
 + A good practice is to try to run tests on isolated hardware as far as possible.
 If it is not possible, then the system must be monitored to check the benchmark
-is not perturbated by some external activity.
+is not impacted by some external activity.
 + Some configurations (desktops and laptops for sure, some servers as well)
 have a variable CPU core frequency mechanism. The policy controlling this
 mechanism can be set at the OS level. Some CPU models are more aggressive than
