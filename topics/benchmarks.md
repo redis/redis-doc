@@ -335,27 +335,47 @@ Another one using a 64 bit box, a Xeon L5420 clocked at 2.5 GHz:
     LPOP: 93722.59 requests per second
 
 
-# Example of benchmark result on high-end hardware
+# Example of benchmark results with optimized high-end server hardware
 
-* Redis version **2.2.12**
-* Default number of connections and payload size.
+* Redis version **2.4.2**
+* Default number of connections, payload size = 256
 * The Linux box is running *SLES10 SP3 2.6.16.60-0.54.5-smp*, CPU is 2 x *Intel X5670 @ 2.93 GHz*.
-* Text executed using a **unix domain socket**.
+* Text executed while running redis server and benchmark client on the same CPU, but different cores.
 
-Results:
+Using a unix domain socket:
 
-    PING (inline): 194552.53 requests per second
-    PING: 194931.77 requests per second
-    MSET (10 keys): 96805.42 requests per second
-    SET: 194931.77 requests per second
-    GET: 193423.59 requests per second
-    INCR: 194931.77 requests per second
-    LPUSH: 196463.66 requests per second
-    LPOP: 194174.77 requests per second
-    SADD: 194174.77 requests per second
-    SPOP: 192307.70 requests per second
-    LPUSH (again, in order to bench LRANGE): 196078.44 requests per second
-    LRANGE (first 100 elements): 94966.77 requests per second
-    LRANGE (first 300 elements): 46339.20 requests per second
-    LRANGE (first 450 elements): 33333.33 requests per second
-    LRANGE (first 600 elements): 25866.53 requests per second
+    $ numactl -C 6 ./redis-benchmark -q -n 100000 -s /tmp/redis.sock -d 256
+    PING (inline): 200803.22 requests per second
+    PING: 200803.22 requests per second
+    MSET (10 keys): 78064.01 requests per second
+    SET: 198412.69 requests per second
+    GET: 198019.80 requests per second
+    INCR: 200400.80 requests per second
+    LPUSH: 200000.00 requests per second
+    LPOP: 198019.80 requests per second
+    SADD: 203665.98 requests per second
+    SPOP: 200803.22 requests per second
+    LPUSH (again, in order to bench LRANGE): 200000.00 requests per second
+    LRANGE (first 100 elements): 42123.00 requests per second
+    LRANGE (first 300 elements): 15015.02 requests per second
+    LRANGE (first 450 elements): 10159.50 requests per second
+    LRANGE (first 600 elements): 7548.31 requests per second
+
+Using the TCP loopback:
+
+    $ numactl -C 6 ./redis-benchmark -q -n 100000 -d 256
+    PING (inline): 145137.88 requests per second
+    PING: 144717.80 requests per second
+    MSET (10 keys): 65487.89 requests per second
+    SET: 142653.36 requests per second
+    GET: 142450.14 requests per second
+    INCR: 143061.52 requests per second
+    LPUSH: 144092.22 requests per second
+    LPOP: 142247.52 requests per second
+    SADD: 144717.80 requests per second
+    SPOP: 143678.17 requests per second
+    LPUSH (again, in order to bench LRANGE): 143061.52 requests per second
+    LRANGE (first 100 elements): 29577.05 requests per second
+    LRANGE (first 300 elements): 10431.88 requests per second
+    LRANGE (first 450 elements): 7010.66 requests per second
+    LRANGE (first 600 elements): 5296.61 requests per second
