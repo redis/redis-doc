@@ -137,22 +137,20 @@ Now, if you run older distributions (RH 5, SLES 10-11, or derivatives), and
 not afraid of a few hacks, Redis requires to be patched in order to support
 huge pages.
 
-The first step would be to read Mel Gorman's primer on huge pages.
-http://lwn.net/Articles/374424/
+The first step would be to read [Mel Gorman's primer on huge pages](http://lwn.net/Articles/374424/)
 
 There are currently two ways to patch Redis to support huge pages.
 
 + For Redis 2.4, the embedded jemalloc allocator must be patched.
-https://gist.github.com/1171054 by Pieter Noordhuis. Note this patch relies
-on the anonymous mmap huge page support, only available starting 2.6.32,
-so this method cannot be used for older distributions (RH 5, SLES 10,
-and derivatives).
+[patch](https://gist.github.com/1171054) by Pieter Noordhuis.
+Note this patch relies on the anonymous mmap huge page support,
+only available starting 2.6.32, so this method cannot be used for older
+distributions (RH 5, SLES 10, and derivatives).
 
 + For Redis 2.2, or 2.4 with the libc allocator, Redis makefile
-must be altered to link Redis with the libhugetlbfs library
-whose source code is available at
-http://libhugetlbfs.sourceforge.net/
-It is a straightforward change.
+must be altered to link Redis with
+[the libhugetlbfs library](http://libhugetlbfs.sourceforge.net/).
+It is a straightforward [change](https://gist.github.com/1240452)
 
 Then, the system must be configured to support huge pages.
 
@@ -185,10 +183,14 @@ save operation is 512 times higher than with 4 KB pages. The actual
 memory required for a background save therefore increases a lot,
 especially if the write traffic is truly random, with poor locality.
 With huge pages, using twice the memory while saving is not anymore
-a theoretical incident. It may really happen.
+a theoretical incident. It really happens.
 
-Latency induced by swapping (opearating system paging)
-------------------------------------------------------
+The result of a complete benchmark can be found
+[here](https://gist.github.com/1272254).
+
+
+Latency induced by swapping (operating system paging)
+-----------------------------------------------------
 
 Linux (and many other modern operating systems) is able to relocate memory
 pages from the memory to the disk, and vice versa, in order to use the
@@ -198,13 +200,22 @@ If a Redis page is moved by the kernel from the memory to the swap file, when
 the data stored in this memory page is used by Redis (for example accessing
 a key stored into this memory page) the kernel will stop the Redis process
 in order to move the page back into the main memory. This is a slow operation
-(compared to accessing a page that is already in memory) and will result into
-anomalous latency experienced by Redis clients.
+involving random I/Os (compared to accessing a page that is already in memory)
+and will result into anomalous latency experienced by Redis clients.
 
-The kernel relocates Redis memory pages on disk mainly because of two reasons:
+The kernel relocates Redis memory pages on disk mainly because of three reasons:
 
-* The system is under memory pressure since the running processes are demanding more physical memory than the amount that is available. The simplest instance of this problem is simply Redis using more memory than the one available.
-* The Redis instance data set, or part of the data set, is mostly completely idle (never accessed by clients), so the kernel could swap idle memory pages on disk. This problem is very rare since even a moderately slow instance will touch all the memory pages often, forcing the kernel to retain all the pages in memory.
+* The system is under memory pressure since the running processes are demanding
+more physical memory than the amount that is available. The simplest instance of
+this problem is simply Redis using more memory than the one available.
+* The Redis instance data set, or part of the data set, is mostly completely idle
+(never accessed by clients), so the kernel could swap idle memory pages on disk.
+This problem is very rare since even a moderately slow instance will touch all
+the memory pages often, forcing the kernel to retain all the pages in memory.
+* Some processes are generating massive read or write I/Os on the system. Because
+files are generally cached, it tends to put pressure on the kernel to increase
+the filesystem cache, and therefore generate swapping activity. Please note it
+includes Redis RDB and/or AOF background threads which can produce large files.
 
 Fortunately Linux offers good tools to investigate the problem, so the simplest
 thing to do is when latency due to swapping is suspected is just to check if
@@ -263,9 +274,12 @@ to do is to grep for the Swap field across all the file:
     Swap:                  0 kB
     Swap:                  0 kB
 
-If everything is 0 kb, or if there are sporadic 4k entries, everything is perfectly normal. Actually in our example instance (the one of a real web site running Redis and serving hundreds of users every second) there are a few entries that
-show more swapped pages. To investigate if this is a serious problem or not we
-change our command in order to also print the size of the memory map:
+If everything is 0 kb, or if there are sporadic 4k entries, everything is
+perfectly normal. Actually in our example instance (the one of a real web
+site running Redis and serving hundreds of users every second) there are a
+few entries that show more swapped pages. To investigate if this is a serious
+problem or not we change our command in order to also print the size of the
+memory map:
 
     $ cat smaps | egrep '^(Swap|Size)'
     Size:                316 kB
@@ -329,9 +343,13 @@ change our command in order to also print the size of the memory map:
     Size:                  4 kB
     Swap:                  0 kB
 
-As you can see from the output, there is a map of 720896 kB (with just 12 kB swapped) and 156 kb more swapped in another map: basically a very small amount of our memory is swapped so this is not going to create any problem at all.
+As you can see from the output, there is a map of 720896 kB
+(with just 12 kB swapped) and 156 kb more swapped in another map:
+basically a very small amount of our memory is swapped so this is not
+going to create any problem at all.
 
-If instead a non trivial amount of the process memory is swapped on disk your latency problems are likely related to swapping. If this is the case with your
+If instead a non trivial amount of the process memory is swapped on disk your
+latency problems are likely related to swapping. If this is the case with your
 Redis instance you can further verify it using the **vmstat** command:
 
     $ vmstat 1
@@ -349,6 +367,17 @@ The interesting part of the output for our needs are the two columns **si**
 and **so**, that counts the amount of memory swapped from/to the swap file. If
 you see non zero counts in those two columns then there is swapping activity
 in your system.
+
+Finally, the **iostat** command be be used to check the global I/O activity of
+the system.
+
+    $ iostat -xk 1
+    avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+              13.55    0.04    2.92    0.53    0.00   82.95
+
+    Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await  svctm  %util
+    sda               0.77     0.00    0.01    0.00     0.40     0.00    73.65     0.00    3.62   2.58   0.00
+    sdb               1.27     4.75    0.82    3.54    38.00    32.32    32.19     0.11   24.80   4.24   1.85
 
 If your latency problem is due to Redis memory being swapped on disk you need
 to lower the memory pressure in your system, either adding more RAM if Redis
