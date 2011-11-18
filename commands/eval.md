@@ -268,6 +268,13 @@ the Redis script cache. The command is useful in all the contexts where
 we want to make sure that `EVALSHA` will not fail (for instance during a
 pipeline or MULTI/EXEC operation).
 
+* SCRIPT KILL. This command is the only wait to interrupt a long running
+script that reached the configured maximum execution time for scripts.
+The SCRIPT KILL command can only be used with scripts that did not modified
+the dataset during their execution (since stopping a read only script does
+not violate the scripting engine guaranteed atomicity).
+See the next sections for more information about long running scripts.
+
 Scripts as pure functions
 ---
 
@@ -414,6 +421,18 @@ It is possible to modify the maximum time a script can be executed
 with milliseconds precision, either via `redis.conf` or using the
 CONFIG GET / CONFIG SET command. The configuration parameter
 affecting max execution time is called `lua-time-limit`.
+
+When a script reaches the timeout it is not automatically terminated by
+Redis since this violates the contract Redis has with the scripting engine
+to ensure that scripts are atomic in nature. Stopping a script half-way means
+to possibly leave the dataset with half-written data inside.
+For this reasons when a script executes for more than the specified time
+the following happens:
+
+* Redis logs that a script that is running for too much time is still in execution.
+* It starts accepting commands again from other clients, but will reply with a BUSY error to all the clients sending normal commands. The only allowed commands in this status are `SCRIPT KILL` and `SHUTDOWN NOSAVE`.
+* It is possible to terminate a script that executed only read-only commands using the `SCRIPT KILL` command. This does not violate the scripting semantic as no data was yet written on the dataset by the script.
+* If the script already called write commands against the data set the only allowed command becomes `SHUTDOWN NOSAVE` that stops the server not saving the current data set on disk (basically the server is aborted).
 
 EVALSHA in the context of pipelining
 ---
