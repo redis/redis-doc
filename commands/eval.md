@@ -3,7 +3,7 @@
 Looking up the script both with `EVAL` or `EVALSHA` is an O(1) business. The
 additional complexity is up to the script you execute.
 
-Waring
+Warning
 ---
 
 Redis scripting support is currently a work in progress. This feature
