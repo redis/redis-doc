@@ -201,7 +201,7 @@
     "language": "PHP",
     "repository": "https://github.com/nicolasff/phpredis",
     "description": "This is a client written in C as a PHP module.",
-    "authors": ["yowgi","nicolasff"],
+    "authors": ["yowgi"],
     "recommended": true
   },
 
