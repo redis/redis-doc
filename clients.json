@@ -20,9 +20,9 @@
   {
     "name": "redis-clojure",
     "language": "Clojure",
-    "repository": "https://github.com/ragnard/redis-clojure",
+    "repository": "https://github.com/tavisrudd/redis-clojure",
     "description": "",
-    "authors": ["ragge"]
+    "authors": ["tavisrudd"]
   },
 
   {
