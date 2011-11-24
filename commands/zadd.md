@@ -27,6 +27,7 @@ sets](/topics/data-types#sorted-sets).
 
     @cli
     ZADD myzset 1 "one"
+    ZADD myzset 1 "uno"
     ZADD myzset 2 "two"
     ZADD myzset 3 "two"
     ZRANGE myzset 0 -1 WITHSCORES
