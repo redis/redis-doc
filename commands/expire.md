@@ -16,6 +16,11 @@ Since Redis **2.1.3**, you can update the timeout of a key. It is also possible
 to remove the timeout using the `PERSIST` command. See the page on [key expiry][1]
 for more information.
 
+Note that in Redis 2.4 the expire might not be pin-point accurate, and
+it could be between zero to one seconds out. Development versions of
+Redis fixed this bug and Redis 2.6 will feature a millisecond precision
+`EXPIRE`.
+
 [1]: /topics/expire
 
 @return
