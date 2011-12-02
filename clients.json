@@ -51,6 +51,14 @@
   },
 
   {
+    "name": "redis.fy",
+    "language": "Fancy",
+    "repository": "https://github.com/bakkdoor/redis.fy",
+    "description": "A Fancy Redis client library",
+    "authors": ["bakkdoor"]
+  },
+
+  {
     "name": "Go-Redis",
     "language": "Go",
     "repository": "https://github.com/alphazero/Go-Redis",
