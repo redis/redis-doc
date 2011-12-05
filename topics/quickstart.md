@@ -161,7 +161,7 @@ Both the pid file path and the configuration file name depend on the port number
     sudo mkdir /var/redis/6379
 
 * Edit the configuration file, making sure to perform the following changes:
-    * Set **demonize** to yes (by default it is set to no).
+    * Set **daemonize** to yes (by default it is set to no).
     * Set the **pidfile** to /var/run/redis_6379.pid (modify the port if needed).
     * Change the **port** accordingly. In our example it is not needed as the default port is already 6379.
     * Set your preferred **loglevel**.
