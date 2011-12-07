@@ -305,7 +305,7 @@ to get a unique ID for the tag "redis":
   tag:b840fc02d524045429941cc15f59e41cb7be6c52:id 123456* and return the new ID
   to the caller.
 
-Nice. Or better.. broken! What about if two clients perform this commands at
+Nice. Or better.. broken! What about if two clients perform these commands at
 the same time trying to get the unique ID for the tag "redis"? If the timing is
 right they'll both get *nil* from the GET operation, will both increment the
 *next.tag.id* key and will set two times the key. One of the two clients will
@@ -363,7 +363,7 @@ type. Let's add a few selected hackers with their year of birth as "score".
 
 For sorted sets it's a joke to return these hackers sorted by their birth year
 because actually *they are already sorted*. Sorted sets are implemented via a
-dual-ported data structure containing both a skip list and an hash table, so
+dual-ported data structure containing both a skip list and a hash table, so
 every time we add an element Redis performs an O(log(N)) operation. That's
 good, but when we ask for sorted elements Redis does not have to do any work at
 all, it's already all sorted:
