@@ -2,7 +2,7 @@
 ===
 
 This is a quick start document that targets people without prior experience
-with Redis. Reading this document you'll near how:
+with Redis. Reading this document you'll learn how:
 
 * Download and compile Redis to start hacking.
 * Using **redis-cli** to access the server.
