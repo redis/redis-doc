@@ -290,12 +290,12 @@ strings with unique IDs, but how to do this today with the current commands
 exported by Redis in a reliable way?
 
 Our first attempt (that is broken) can be the following. Let's suppose we want
-to get an unique ID for the tag "redis":
+to get a unique ID for the tag "redis":
 
 * In order to make this algorithm binary safe (they are just tags but think to
   utf8, spaces and so forth) we start performing the SHA1 sum of the tag.
   SHA1(redis) = b840fc02d524045429941cc15f59e41cb7be6c52.
-* Let's check if this tag is already associated with an unique ID with the
+* Let's check if this tag is already associated with a unique ID with the
   command *GET tag:b840fc02d524045429941cc15f59e41cb7be6c52:id*.
 * If the above GET returns an ID, return it back to the user. We already have
   the unique ID.
@@ -315,7 +315,7 @@ fortunately, and this is the sane version:
 * In order to make this algorithm binary safe (they are just tags but think to
   utf8, spaces and so forth) we start performing the SHA1 sum of the tag.
   SHA1(redis) = b840fc02d524045429941cc15f59e41cb7be6c52.
-* Let's check if this tag is already associated with an unique ID with the
+* Let's check if this tag is already associated with a unique ID with the
   command *GET tag:b840fc02d524045429941cc15f59e41cb7be6c52:id*.
 * If the above GET returns an ID, return it back to the user. We already have
   the unique ID.
