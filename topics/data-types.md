@@ -10,12 +10,13 @@ JPEG image or a serialized Ruby object.
 
 A String value can be at max 512 Megabytes in length.
 
-You can do a number of interesting things using strings in Redis, for instance yo can:
+You can do a number of interesting things using strings in Redis, for instance you can:
 
 * Use Strings as atomic counters using commands in the INCR family: [INCR](/commands/incr), [DECR](/commands/decr), [INCRBY](/commands/incrby).
 * Append to strings with the [APPEND](/commands/append) command.
 * Use Strings as a random access vectors with [GETRANGE](/commands/getrange) and [SETRANGE](/commands/setrange).
-* Encode a lot of data in little space, or create a Redis backed Bloom Filter using [GETBIT](/commands/getbit) and [SETBIT](/commands/setbit).
+* Encode a lot of data in little space, or create a Redis backed [Bloom Filter](http://en.wikipedia.org/wiki/Bloom_filter)
+using [GETBIT](/commands/getbit) and [SETBIT](/commands/setbit).
 
 Check all the [available string commands](/commands/#string) for more information.
 
@@ -24,7 +25,7 @@ Lists
 ---
 
 Redis Lists are simply lists of strings, sorted by insertion order.
-It is possible to add elements to a Redis List pushing new elements on the head  (on the left) or on the tail (on the right) of the list.
+It is possible to add elements to a Redis List pushing new elements on the head (on the left) or on the tail (on the right) of the list.
 
 The [LPUSH](/commands/lpush) command inserts a new element on head, while
 [RPUSH](/commands/rpush) inserts a new element on tail. A new list is created
@@ -32,7 +33,7 @@ when one of this operations is performed against an empty key.
 Similarly the key is removed from the key space if a list operation will
 empty the list. This is a very handy semantics since all the list commands will
 behave exactly like if called with an empty list if they are called with a
-non existing key as argument.
+non existing key as an argument.
 
 Some example of list operations and resulting lists:
 
@@ -53,8 +54,10 @@ You can do many interesting things with Redis Lists, for instance you can:
 
 * Model a timeline in a social network, using [LPUSH](/commands/lpush) in order to add new elements in the user time line, and using [LRANGE](/commands/lrange) in order to retrieve a few of recently inserted items.
 * You can use [LPUSH](/commands/lpush) together with [LTRIM](/commands/ltrim) to create a list that never exceeds a given number of elements, but just remembers the latest N elements.
-* Lists can be used as a message passing primitive, See for instance the well known [Resque](https://github.com/defunkt/resque) Ruby library for creating background jobs.
-* You can do a lot more with lists, this data type supports a number of commands, including blocking commands like [BLPOP](/commands/blpop). Please check all the [available commands operating on lists](/commands#list) for more information.
+* Lists can be used as a message passing primitive, see for instance the well known [Resque](https://github.com/defunkt/resque) Ruby library for creating background jobs.
+* You can do a lot more with the lists, this data type supports a number of
+* commands, including blocking commands like [BLPOP](/commands/blpop). Please
+check all the [available commands operating on the lists](/commands#list) for more information.
 
 <a name="sets"></a>
 Sets
@@ -64,17 +67,19 @@ Redis Sets are an unordered collection of Strings. It is possible to add,
 remove, and test for existence of members in O(1) (constant time regardless
 of the number of elements contained inside the Set).
 
-Redis Sets have the desirable property of not allowing repeated members. Adding the same element multiple times will result in a set having a single copy of    this element. Practically speaking this means that adding an members does not   require a *check if exists then add* operation.
+Redis Sets have the desirable property of not allowing repeated members. Adding the same element multiple times will result in a set having a single copy of this element. Practically speaking this means that adding members does not require a *check if exists then add* operation.
 
 A very interesting thing about Redis Sets is that they support a number of
-server side commands to compute sets starting from existing sets, so you
+server side commands to compute sets starting from the existing sets, so you
 can do unions, intersections, differences of sets in very short time.
 
-The max number of members in a set is 2^32-1 (4294967295, more than 4 billion   of members per set).
+The max number of members in a set is 2^32-1 (4294967295, more than 4 billion of members per set).
 
 You can do many interesting things using Redis Sets, for instance you can:
 
-* You can track unique things using Redis Sets. Want to know all the unique IP addresses visiting a given blog post? Simply use [SADD](/commands/sadd) every time you process a page view. You are sure repeated IPs will not be inserted.
+* You can track unique things using Redis Sets. Want to know all the unique IP
+addresses visiting a given blog post? Simply use [SADD](/commands/sadd) every
+time you process a page view. You can be sure that repeated IPs would not be inserted.
 * Redis Sets are good to represent relations. You can create a tagging system with Redis using a Set to represent every tag. Then you can add all the IDs of all the objects having a given tag into a Set representing this particular tag, using the [SADD](/commands/sadd) command. Do you want all the IDs of all the Objects having a three different tags at the same time? Just use [SINTER](/commands/sinter).
 * You can use Sets to extract elements at random using the [SPOP](/commands/spop) or [SRANDMEMBER](/commands/srandmember) commands.
 * As usually check the [full list of Set commands](/commands#set) for more information.
@@ -107,8 +112,8 @@ Sorted sets
 
 Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of
 Strings. The difference is that every member of a Sorted Set is associated
-with score, that is used in order to take the sorted set ordered, from the
-smallest to the greatest score.  While members are unique, scores may be
+with a score, that is used in order to take the sorted set ordered, from the
+smallest to the greatest score. While the members are unique, the scores may be
 repeated.
 
 With sorted sets you can add, remove, or update elements in a very fast way
@@ -116,23 +121,25 @@ With sorted sets you can add, remove, or update elements in a very fast way
 elements are *taken in order* and not ordered afterwards, you can also get
 ranges by score or by rank (position) in a very fast way.
 Accessing the middle of a sorted set is also very fast, so you can use
-Sorted Sets as a smart list of non repeating elements where you every
+Sorted Sets as a smart list of non repeating elements where you have
 everything you need: elements in order, fast existence test, fast access
 to elements in the middle!
 
-In short with sorted sets you can do with great performances a lot of tasks
-that are really hard to model in other kind of databases.
+In short, with help of sorted sets you can do handle a lot of tasks with
+high performance that are really hard to model in other kinds of databases.
 
 With Sorted Sets you can:
 
 * Take a leader board in a massive online game, where every time a new score
 is submitted you update it using [ZADD](/commands/zadd). You can easily
-take the top users using [ZRANGE](/commands/zrange), you can also, given an
+take the top users using [ZRANGE](/commands/zrange), you can also, given a
 user name, return its rank in the listing using [ZRANK](/commands/zrank).
 Using ZRANK and ZRANGE together you can show users with a score similar to
-a given user. All this *fast*.
+a given user. Moreover, all of this can be done really *fast*.
 * Sorted Sets are often used in order to index data that is stored inside Redis.
-For instance if you have many hashes representing users you can use a sorted set with elements having as score the age of the user, and as value the ID of the user. So using [ZRANGEBYSCORE](/commands/zrangebyscore) it will be trivial and fast to retrieve all the users with a given interval of ages.
-* Sorted Sets are probably the most advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis!
-
-
+For instance if you have many hashes representing users you can use a sorted set
+with elements having as a score the age of the user, and as a value the ID of the user.
+So using [ZRANGEBYSCORE](/commands/zrangebyscore) it will be trivial and fast to retrieve
+all the users within a given interval of ages.
+* Sorted Sets are probably the most advanced Redis data types, so take some time to check
+the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis!
