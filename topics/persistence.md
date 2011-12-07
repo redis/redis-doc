@@ -97,13 +97,13 @@ make this point more clear: the Redis AOF is constructed by incrementally
 updating an existing state, like MySQL or MongoDB does, while the RDB
 snapshotting creates everything from the scratch again and again, which is
 conceptually more robust. However, it should be noted that:
-1. every time the AOF is rewritten by Redis it is recreated from the scratch
-starting from an up to date information stored in the data set, making its
-resistance to the bugs stronger comparing to a way if it would be written by
-always appending data to the AOF file (or one rewritten by reading the old AOF
-instead of reading the data from the memory).
-2. we have never had a single report from users about an AOF corruption that
-was detected in the wild.
+  1. every time the AOF is rewritten by Redis it is recreated from the scratch
+  starting from an up to date information stored in the data set, making its
+  resistance to the bugs stronger comparing to a way if it would be written by
+  always appending data to the AOF file (or one rewritten by reading the old AOF
+  instead of reading the data from the memory).
+  2. we have never had a single report from users about an AOF corruption that
+  was detected in the wild.
 
 Ok, so what should I use?
 ---
