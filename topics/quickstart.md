@@ -2,14 +2,14 @@
 ===
 
 This is a quick start document that targets people without prior experience
-with Redis. Reading this document you'll near how:
+with Redis. Reading this document will help you:
 
 * Download and compile Redis to start hacking.
-* Using **redis-cli** to access the server.
-* Learn how to use Redis from your application.
+* Use **redis-cli** to access the server.
+* Use Redis from your application.
 * Understand how Redis persistence works.
-* Installing Redis more properly.
-* What to read next to understand more about Redis.
+* Install Redis more properly.
+* Find out what to read next to understand more about Redis.
 
 Installing Redis
 ===
@@ -94,8 +94,8 @@ For instance if you happen to use the Ruby programming language our best advice
 is to use the [Redis-rb](http://github.com/ezmobius/redis-rb) client.
 You can install it using the command **gem install redis** (also make sure to install the **SystemTimer** gem as well).
 
-This instructions are Ruby specific but actually many library clients for
-popular languages look a lot similar: you create a Redis object and execute
+These instructions are Ruby specific but actually many library clients for
+popular languages look quite similar: you create a Redis object and execute
 commands calling methods. A short interactive example using Ruby:
 
     >> require 'rubygems'
