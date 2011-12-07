@@ -158,7 +158,7 @@ Redis lists every time you require to access data in the same order they are
 added*. This will not require any SQL ORDER BY operation, will be very fast,
 and will scale to millions of elements even with a toy Linux box.
 
-For instance in ranking systems like the social news reddit.com you can add
+For instance in ranking systems like that used by social news site reddit.com you can add
 every new submitted link into a List, and with [LRANGE](/commands/lrange) it's
 possible to paginate results in a trivial way.
 
