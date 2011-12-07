@@ -2,14 +2,14 @@
 ===
 
 This is a quick start document that targets people without prior experience
-with Redis. Reading this document you'll learn how:
+with Redis. Reading this document will help you:
 
 * Download and compile Redis to start hacking.
-* Using **redis-cli** to access the server.
-* Learn how to use Redis from your application.
+* Use **redis-cli** to access the server.
+* Use Redis from your application.
 * Understand how Redis persistence works.
-* Installing Redis more properly.
-* What to read next to understand more about Redis.
+* Install Redis more properly.
+* Find out what to read next to understand more about Redis.
 
 Installing Redis
 ===
