@@ -278,8 +278,8 @@ commands, there are a bunch of interesting ones. Also make sure to check the
 A digression: How to get unique identifiers for strings
 ---
 
-In our tags example we showed tag IDs without to mention how this IDs can be
-obtained. Basically for every tag added to the system, you need an unique
+In our tags example we showed tag IDs without mention of how the IDs can be
+obtained. Basically for every tag added to the system, you need a unique 
 identifier. You also want to be sure that there are no race conditions if
 multiple clients are trying to add the same tag at the same time. Also, if a
 tag already exists, you want its ID returned, otherwise a new unique ID should
