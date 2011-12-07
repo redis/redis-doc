@@ -104,7 +104,7 @@ The List type
 To explain the List data type it's better to start with a little bit of theory,
 as the term *List* is often used in an improper way by information technology
 folks. For instance "Python Lists" are not what the name may suggest (Linked
-Lists), but them are actually Arrays (the same data type is called Array in
+Lists), they are actually Arrays (the same data type is called Array in
 Ruby actually).
 
 From a very general point of view a List is just a sequence of ordered
