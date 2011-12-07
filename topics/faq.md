@@ -28,6 +28,10 @@ key-value DBs.  So Redis offers more features:
   moves a key form a DB to another one, if the target DB already contains such
   a key it returns an error: this basically means a way to perform locking in
   distributed processing.
+* Relaxed size limits. For example, in memcachedb, keys can only be 250
+  bytes and values can only be 1MB. If your data doesn't fit, you have to come
+  a chunking scheme which ruins your chances of being atomic. In Redis, these
+  elements can be 512MB. See below for more details.
 * *So what is Redis really about?* The User interface with the programmer.
   Redis aims to export to the programmer the right tools to model a wide range
   of problems. *Sets, Lists with O(1) push operation, lrange and ltrim,
@@ -78,6 +82,14 @@ keys, especially if the keys and values are small, this is because pointers
 takes 8 bytes in 64 bit systems. But of course the advantage is that you can
 have a lot of memory in 64 bit systems, so to run large Redis servers a 64 bit
 system is more or less required.
+
+## What are the size limits for keys and values in Redis?
+
+Individual keys or values may be up to 512MB. For example, elements in a list
+can have elements that are 512MB each. Lists, hashes, sets, and sorted sets can
+contain up to 2^31 members per key (this is for a 32 bit instance, 64 bit systems
+can do more). Needless to say, you will run out of physical memory before you
+could reach Redis's limits.
 
 ## I like Redis high level operations and features, but I don't like that it takes everything in memory and I can't have a dataset larger the memory. Plans to change this?
 
