@@ -104,7 +104,7 @@ The List type
 To explain the List data type it's better to start with a little bit of theory,
 as the term *List* is often used in an improper way by information technology
 folks. For instance "Python Lists" are not what the name may suggest (Linked
-Lists), but them are actually Arrays (the same data type is called Array in
+Lists), they are actually Arrays (the same data type is called Array in
 Ruby actually).
 
 From a very general point of view a List is just a sequence of ordered
@@ -158,7 +158,7 @@ Redis lists every time you require to access data in the same order they are
 added*. This will not require any SQL ORDER BY operation, will be very fast,
 and will scale to millions of elements even with a toy Linux box.
 
-For instance in ranking systems like the social news reddit.com you can add
+For instance in ranking systems like that used by social news site reddit.com you can add
 every new submitted link into a List, and with [LRANGE](/commands/lrange) it's
 possible to paginate results in a trivial way.
 
@@ -186,7 +186,7 @@ submitted links (news) to the list is the following:
     $ redis-cli lpush submitted.news 1
     OK
 
-We obtained an unique incremental ID for our news object just incrementing a
+We obtained a unique incremental ID for our news object just incrementing a
 key, then used this ID to create the object setting a key for every field in
 the object. Finally the ID of the new object was pushed on the *submitted.news*
 list.
@@ -278,8 +278,8 @@ commands, there are a bunch of interesting ones. Also make sure to check the
 A digression: How to get unique identifiers for strings
 ---
 
-In our tags example we showed tag IDs without to mention how this IDs can be
-obtained. Basically for every tag added to the system, you need an unique
+In our tags example we showed tag IDs without mention of how the IDs can be
+obtained. Basically for every tag added to the system, you need a unique 
 identifier. You also want to be sure that there are no race conditions if
 multiple clients are trying to add the same tag at the same time. Also, if a
 tag already exists, you want its ID returned, otherwise a new unique ID should
@@ -290,12 +290,12 @@ strings with unique IDs, but how to do this today with the current commands
 exported by Redis in a reliable way?
 
 Our first attempt (that is broken) can be the following. Let's suppose we want
-to get an unique ID for the tag "redis":
+to get a unique ID for the tag "redis":
 
 * In order to make this algorithm binary safe (they are just tags but think to
   utf8, spaces and so forth) we start performing the SHA1 sum of the tag.
   SHA1(redis) = b840fc02d524045429941cc15f59e41cb7be6c52.
-* Let's check if this tag is already associated with an unique ID with the
+* Let's check if this tag is already associated with a unique ID with the
   command *GET tag:b840fc02d524045429941cc15f59e41cb7be6c52:id*.
 * If the above GET returns an ID, return it back to the user. We already have
   the unique ID.
@@ -305,7 +305,7 @@ to get an unique ID for the tag "redis":
   tag:b840fc02d524045429941cc15f59e41cb7be6c52:id 123456* and return the new ID
   to the caller.
 
-Nice. Or better.. broken! What about if two clients perform this commands at
+Nice. Or better.. broken! What about if two clients perform these commands at
 the same time trying to get the unique ID for the tag "redis"? If the timing is
 right they'll both get *nil* from the GET operation, will both increment the
 *next.tag.id* key and will set two times the key. One of the two clients will
@@ -315,7 +315,7 @@ fortunately, and this is the sane version:
 * In order to make this algorithm binary safe (they are just tags but think to
   utf8, spaces and so forth) we start performing the SHA1 sum of the tag.
   SHA1(redis) = b840fc02d524045429941cc15f59e41cb7be6c52.
-* Let's check if this tag is already associated with an unique ID with the
+* Let's check if this tag is already associated with a unique ID with the
   command *GET tag:b840fc02d524045429941cc15f59e41cb7be6c52:id*.
 * If the above GET returns an ID, return it back to the user. We already have
   the unique ID.
@@ -363,7 +363,7 @@ type. Let's add a few selected hackers with their year of birth as "score".
 
 For sorted sets it's a joke to return these hackers sorted by their birth year
 because actually *they are already sorted*. Sorted sets are implemented via a
-dual-ported data structure containing both a skip list and an hash table, so
+dual-ported data structure containing both a skip list and a hash table, so
 every time we add an element Redis performs an O(log(N)) operation. That's
 good, but when we ask for sorted elements Redis does not have to do any work at
 all, it's already all sorted:
