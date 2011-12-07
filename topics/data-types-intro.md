@@ -186,7 +186,7 @@ submitted links (news) to the list is the following:
     $ redis-cli lpush submitted.news 1
     OK
 
-We obtained an unique incremental ID for our news object just incrementing a
+We obtained a unique incremental ID for our news object just incrementing a
 key, then used this ID to create the object setting a key for every field in
 the object. Finally the ID of the new object was pushed on the *submitted.news*
 list.
