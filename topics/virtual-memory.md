@@ -177,7 +177,7 @@ more. Not all kinds of file systems are able to deal with large files in a good
 way, especially the Mac OS X file system which tends to be really lame about it.
 
 The recommendation is to use Linux ext3 file system, or any other file system
-with a good support for *sparse files*.
+with a good support for [sparse files](http://en.wikipedia.org/wiki/Sparse_file).
 
 ### What are the sparse files?
 
