@@ -109,6 +109,14 @@
   },
 
   {
+    "name": "lettuce",
+    "language": "Java",
+    "repository": "https://github.com/wg/lettuce",
+    "description": "high performance thread-safe client supporting async usage and key/value codecs",
+    "authors": ["ar3te"]
+  },
+
+  {
     "name": "JRedis",
     "language": "Java",
     "url": "http://code.google.com/p/jredis",
