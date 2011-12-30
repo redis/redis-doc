@@ -25,11 +25,11 @@ of the Redis server.
 The second argument of `EVAL` is the number of arguments that follows
 (starting from the third argument) that represent Redis key names.
 This arguments can be accessed by Lua using the `KEYS` global variable in
-the form of an one-based array (so KEY[1], KEY[2], ...).
+the form of a one-based array (so `KEYS[1]`, `KEYS[2]`, ...).
 
 All the additional arguments that should not represent key names can
 be accessed by Lua using the `ARGV` global variable, very similarly to
-what happens with keys (so ARGV[1], ARGV[2], ...).
+what happens with keys (so `ARGV[1]`, `ARGV[2]`, ...).
 
 The following example can clarify what stated above:
 
