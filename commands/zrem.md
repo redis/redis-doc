@@ -1,6 +1,6 @@
 @complexity
 
-O(log(N)) with N being the number of elements in the sorted set.
+O(M log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.
 
 Removes the specified members from the sorted set stored at `key`. Non existing members are ignored.
 
