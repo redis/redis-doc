@@ -74,7 +74,7 @@ In the above example the process ID is **58414**.
 + (Optional but recommended) Start **screen** or **tmux** or any other program that will make sure that your GDB session will not be closed if your ssh connection will timeout. If you don't know what screen is do yourself a favour and [Read this article](http://www.linuxjournal.com/article/6340)
 + Attach GDB to the running Redis server typing:
 
-    gdb <path-to-redis-executable> <pid>
+    gdb `<path-to-redis-executable>` `<pid>`
 
     For example: gdb /usr/local/bin/redis-server 58414
 
