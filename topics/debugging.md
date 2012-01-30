@@ -83,10 +83,12 @@ GDB will start and will attach to the running server printing something like the
     Reading symbols for shared libraries + done
     0x00007fff8d4797e6 in epoll_wait ()
     (gdb)
-+ At this point GDB is attached but **your Redis instance** is blocked by GDB. In order to let the Redis instance continue the execution just type **continue** at the GDB prompt, and press enter:
+
++ At this point GDB is attached but **your Redis instance is blocked by GDB**. In order to let the Redis instance continue the execution just type **continue** at the GDB prompt, and press enter:
 
     (gdb) continue
     Continuing.
+
 + Done! Now your Redis instance has GDB attached. All you need is to wait for a rash...
 + Now it's time to detach from your screen / tmux session if you are running GDB using it, pressing the usual **Ctrl-a a** key combination.
 
