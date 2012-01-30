@@ -42,8 +42,8 @@ same time it makes Redis (like any other program) harder to inspect using GDB.
 It is better to attach GDB to Redis compiled without optimizations using the
 `make noopt` command to compile it (instead of just using the plain `make`
 command). However if you have an already running Redis in production there is
-no need to recompile and restart it if this is going to create problems in
-your side. Even if at a lesser extend GDB still works against executables
+no need to recompile and restart it if this is going to create problems on
+your side. Even if by a lesser extent GDB still works against executables
 compiled with optimizations.
 
 It is great if you make sure to recompile Redis with `make noopt` after the
