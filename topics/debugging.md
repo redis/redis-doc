@@ -108,8 +108,8 @@ crash) using the `DEBUG SEGFAULT` command (don't use it against a real productio
 
 As you can see GDB detected that Redis crashed, and was able to show me
 even the file name and line number causing the crash. This is already much
-better than the Redis crash report back trace, that contains just function
-names and binary offsets.
+better than the Redis crash report back trace (containing just function
+names and binary offsets).
 
 Obtaining the stack trace
 -------------------------
@@ -160,7 +160,7 @@ Please **make sure to include** both this outputs in your bug report.
 Obtaining the core file
 -----------------------
 
-The next step is to generate the core dump, that is the image of the memory of the running Redis process. This is performed using the 'gcore' command:
+The next step is to generate the core dump, that is the image of the memory of the running Redis process. This is performed using the `gcore` command:
 
     (gdb) gcore
     Saved corefile core.58414
