@@ -20,7 +20,7 @@ What is GDB?
 GDB is the Gnu Debugger: a program that is able to inspect the internal state
 of another program. Usually tracking and fixing a bug is an exercise in
 gathering more informations about the state of the program at the moment the
-bug happens, so GDB is an extremely useful bug.
+bug happens, so GDB is an extremely useful tool.
 
 GDB can be used in two ways:
 
@@ -86,8 +86,8 @@ GDB will start and will attach to the running server printing something like the
 
 + At this point GDB is attached but **your Redis instance is blocked by GDB**. In order to let the Redis instance continue the execution just type **continue** at the GDB prompt, and press enter.
 
-    (gdb) continue
-    Continuing.
+        (gdb) continue
+        Continuing.
 
 + Done! Now your Redis instance has GDB attached. You can wait for... the next crash :)
 + Now it's time to detach your screen / tmux session, if you are running GDB using it, pressing the usual **Ctrl-a a** key combination.
