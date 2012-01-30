@@ -90,6 +90,7 @@ GDB will start and will attach to the running server printing something like the
     (gdb) continue
     Continuing.
 
+
 + Done! Now your Redis instance has GDB attached. All you need is to wait for a rash...
 + Now it's time to detach from your screen / tmux session if you are running GDB using it, pressing the usual **Ctrl-a a** key combination.
 
