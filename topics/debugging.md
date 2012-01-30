@@ -86,6 +86,7 @@ GDB will start and will attach to the running server printing something like the
 
 + At this point GDB is attached but **your Redis instance is blocked by GDB**. In order to let the Redis instance continue the execution just type **continue** at the GDB prompt, and press enter:
 
+
     (gdb) continue
     Continuing.
 
