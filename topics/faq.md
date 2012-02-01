@@ -139,34 +139,7 @@ disks.
 
 ## Do you plan to implement Virtual Memory in Redis? Why don't just let the Operating System handle it for you?
 
-Yes, in order to support datasets bigger than RAM there is the plan to
-implement transparent Virtual Memory in Redis, that is, the ability to transfer
-large values associated to keys rarely used on Disk, and reload them
-transparently in memory when this values are requested in some way.
-
-So you may ask why don't let the operating system VM do the work for us. There
-are two main reasons: in Redis even a large value stored at a given key, for
-instance a 1 million elements list, is not allocated in a contiguous piece of
-memory. It's actually *very* fragmented since Redis uses quite aggressive
-object sharing and allocated Redis Objects structures reuse.
-
-So you can imagine the memory layout composed of 4096 bytes pages that actually
-contain different parts of different large values. Not only, but a lot of
-values that are large enough for us to swap out to disk, like a 1024k value, is
-just one quarter the size of a memory page, and likely in the same page there
-are other values that are not rarely used. So this value wil never be swapped
-out by the operating system.  This is the first reason for implementing
-application-level virtual memory in Redis.
-
-There is another one, as important as the first. A complex object in memory
-like a list or a set is something *10 times bigger* than the same object
-serialized on disk. Probably you already noticed how Redis snapshots on disk
-are damn smaller compared to the memory usage of Redis for the same objects.
-This happens because when data is in memory is full of pointers, reference
-counters and other metadata. Add to this malloc fragmentation and need to
-return word-aligned chunks of memory and you have a clear picture of what
-happens. So this means to have 10 times the I/O between memory and disk than
-otherwise needed.
+See the Virtual Memory topic document.
 
 ## Is there something I can do to lower the Redis memory usage?
 
