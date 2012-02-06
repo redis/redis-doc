@@ -9,6 +9,16 @@ issues a command and the time the reply to the command is received by the
 client. Usually Redis processing time is extremely low, in the sub microsecond
 range, but there are certain conditions leading to higher latency figures.
 
+Measuring latency
+-----------------
+
+If you are experiencing latency problems, probably you know how to measure
+it in the context of your application, or maybe your latency problem is very
+evident even macroscopically. However redis-cli can be used to measure the
+latency of a Redis server in milliseconds, just try:
+
+    redis-cli --latency -h `host` -p `port`
+
 Latency induced by network and communication
 --------------------------------------------
 
