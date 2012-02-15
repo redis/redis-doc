@@ -63,7 +63,7 @@ command](/commands/get) is trivial to set values to strings and have this
 strings returned back.
 
 Values can be strings (including binary data) of every kind, for instance you
-can store a jpeg image inside a key. A value can't be bigger than 1 Gigabyte.
+can store a jpeg image inside a key. A value can't be bigger than 512 MB.
 
 Even if strings are the basic values of Redis, there are interesting operations
 you can perform against them. For instance one is atomic increment:
