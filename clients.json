@@ -83,6 +83,15 @@
   },
 
   {
+    "name": "hedis",
+    "language": "Haskell",
+    "url": "http://hackage.haskell.org/package/hedis",
+    "repository": "https://github.com/informatikr/hedis",
+    "description": "Supports the complete command set. Commands are automatically pipelined for high performance.",
+    "authors": []
+  },
+
+  {
     "name": "redis",
     "language": "Haskell",
     "url": "http://hackage.haskell.org/package/redis",

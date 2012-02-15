@@ -40,7 +40,7 @@ Some example of list operations and resulting lists:
     LPUSH mylist b   # now the list is "b","a"
     RPUSH mylist c   # now the list is "b","a","c" (RPUSH was used this time)
 
-The max length of a list is 2^32-1 elements (4294967295, more than 4 billion of elements per list).
+The max length of a list is 2^32 - 1 elements (4294967295, more than 4 billion of elements per list).
 
 The main features of Redis Lists from the point of view of time complexity are
 the support for constant time insertion and deletion of elements near the
@@ -70,7 +70,7 @@ A very interesting thing about Redis Sets is that they support a number of
 server side commands to compute sets starting from existing sets, so you
 can do unions, intersections, differences of sets in very short time.
 
-The max number of members in a set is 2^32-1 (4294967295, more than 4 billion   of members per set).
+The max number of members in a set is 2^32 - 1 (4294967295, more than 4 billion   of members per set).
 
 You can do many interesting things using Redis Sets, for instance you can:
 
@@ -97,7 +97,7 @@ Redis instance.
 
 While Hashes are used mainly to represent objects, they are capable of storing many elements, so you can use Hashes for many other tasks as well.
 
-Every hash can store up to 2^32-1 field-value pairs (more than 4 billion).
+Every hash can store up to 2^32 - 1 field-value pairs (more than 4 billion).
 
 Check the [full list of Hash commands](/commands#hash) for more information.
 
