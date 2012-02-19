@@ -120,7 +120,7 @@ So Redis supports an interesting feature: it is able to rebuild the AOF
 in the background without interrupting service to clients. Whenever
 you issue a `BGREWRITEAOF` Redis will write the shortest sequence of
 commands needed to rebuild the current dataset in memory.  If you're
-using the AOF with Redid 2.2 you'll need to run `BGREWRITEAOF` from time to
+using the AOF with Redis 2.2 you'll need to run `BGREWRITEAOF` from time to
 time. Redis 2.4 is able to trigger log rewriting automatically (see the
 2.4 example configuration file for more information).
 
