@@ -248,6 +248,14 @@
   },
 
   {
+    "name": "Credis",
+    "language": "PHP",
+    "repository": "https://github.com/colinmollenhour/credis",
+    "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
+    "authors": ["colinmollenhour"]
+  },
+
+  {
     "name": "redis-py",
     "language": "Python",
     "repository": "https://github.com/andymccurdy/redis-py",
