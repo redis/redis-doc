@@ -112,7 +112,7 @@ Attacks triggered by carefully selected inputs by external clients
 ---
 
 There is a class of attacks that an attacker can trigger from the outside even
-without external access to the instance. An example of such attackers are
+without external access to the instance. An example of such attacks are
 the ability to insert data into Redis that triggers pathological (worst case)
 algorithm complexity on data structures implemented inside Redis internals.
 
