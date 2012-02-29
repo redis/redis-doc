@@ -139,9 +139,12 @@ All the protocol uses prefixed-length strings and is completely binary safe.
 Lua scripts executed by the **EVAL** and **EVALSHA** commands also follow the
 same rules, thus those commands are also safe.
 
-While it would be a very strange use case, nevertheless the application should
-avoid composing the body of the Lua script using strings obtained by untrusted
-sources.
+Applications composing the body of a Lua script using strings obtained from 
+untrusted sources are vulnerable to code injection. To prevent injection, 
+applications should instead bind input parameters either as keys or as arguments. 
+Within the Lua script, these input parameters will be available via the 
+special global variables **KEYS[1]** through **KEYS[n]** or **ARGS[1]** 
+through **ARGS[N]**. For more information, refer to the documentation of **EVAL**.
 
 Code security
 ---
