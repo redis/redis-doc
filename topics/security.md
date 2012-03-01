@@ -132,19 +132,20 @@ randomized.
 String escaping and NoSQL injection
 ---
 
-In the Redis protocol there is no concept of string escaping, so no injecting
-is possible under normal circumstances using a normal client library.
+In the Redis protocol there is no concept of string escaping, so code injection
+is not possible under normal circumstances using a normal client library.
 All the protocol uses prefixed-length strings and is completely binary safe.
 
 Lua scripts executed by the **EVAL** and **EVALSHA** commands also follow the
 same rules, thus those commands are also safe.
 
-Applications composing the body of a Lua script using strings obtained from 
-untrusted sources are vulnerable to code injection. To prevent injection, 
-applications should instead bind input parameters either as keys or as arguments. 
+Applications must not compose the body of a Lua script using strings obtained from 
+untrusted sources. Doing so would make the application vulnerable to code injection. 
+
+Applications should instead bind input parameters either as keys or as arguments. 
 Within the Lua script, these input parameters will be available via the 
-special global variables **KEYS[1]** through **KEYS[n]** or **ARGS[1]** 
-through **ARGS[N]**. For more information, refer to the documentation of **EVAL**.
+special global variables **KEYS[1]** through **KEYS[n]** or **ARGV[1]** 
+through **ARGV[N]**. For more information, refer to the documentation of **EVAL**.
 
 Code security
 ---
