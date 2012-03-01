@@ -22,16 +22,19 @@ The first argument of `EVAL` itself is a Lua script. The script does not need
 to define a Lua function, it is just a Lua program that will run in the context
 of the Redis server.
 
-The second argument of `EVAL` is the number of arguments that follows
-(starting from the third argument) that represent Redis key names.
-This arguments can be accessed by Lua using the `KEYS` global variable in
-the form of a one-based array (so `KEYS[1]`, `KEYS[2]`, ...).
+The second argument of `EVAL` is the number of Redis keys that follow.
 
-All the additional arguments that should not represent key names can
-be accessed by Lua using the `ARGV` global variable, very similarly to
-what happens with keys (so `ARGV[1]`, `ARGV[2]`, ...).
+The next *numkeys* arguments represent Redis key names. Any Redis keys that the 
+script uses must be passed as input parameters to the script. These input 
+parameters can be accessed within the Lua script using the `KEYS` global 
+variable in the form of a one-based array (so `KEYS[1]`, `KEYS[2]`, ...).
 
-The following example can clarify what stated above:
+Any additional input parameters provided after the keys can be accessed within the 
+Lua script using the `ARGV` global variable, similar to what happens with keys
+(so `ARGV[1]`, `ARGV[2]`, ...).
+
+In the example below, the script takes two Redis keys, followed by two 
+additional arguments
 
     > eval "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}" 2 key1 key2 first second
     1) "key1"
