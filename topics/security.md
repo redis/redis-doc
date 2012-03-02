@@ -69,9 +69,9 @@ for two reasons:
 * The Redis password is stored inside the **redis.conf** file and inside the client configuration, so it does not need to be remembered by the system administrator, and thus it can be very long.
 
 The goal of the authentication layer is to optionally provide a layer of
-redundancy. Should firewalling or any other system implemented to protect Redis
+redundancy. If firewalling or any other system implemented to protect Redis
 from external attackers fail, an external client will still not be able to 
-access the Redis instance.
+access the Redis instance without knowledge of the authentication password.
 
 The AUTH command, like every other Redis command, is sent unencrypted, so it 
 does not protect against an attacker that has enough access to the network to 
