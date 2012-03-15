@@ -2,7 +2,7 @@
 
 O(1).
 
-Resets the statistics reported by Redis using the `INFO` command.
+Resets the statistics reported by Redis using the [INFO](/commands/info) command.
 
 These are the counters that are reset:
 
