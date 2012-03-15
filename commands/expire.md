@@ -4,22 +4,37 @@ O(1)
 
 
 Set a timeout on `key`. After the timeout has expired, the key will
-automatically be deleted. A key with an associated timeout is said to be
+automatically be deleted. A key with an associated timeout is often said to be
 _volatile_ in Redis terminology.
 
-If `key` is updated before the timeout has expired, then the timeout is removed
-as if the `PERSIST` command was invoked on `key`.
+The timeout is cleared only when the key is removed using the [DEL](/commands/del) or overwritten using the [SET](/commands/set) command. This means that all the operations that conceptually *alter* the value stored at key without replacing it with a new one will leave the expire untouched. For instance incrementing the value of a key with [INCR](/commands/incr), pushing a new value into a list with [LPUSH](/commands/lpush), or altering the field value of an Hash with [HSET](/commands/hset), are all operations that will leave the expire untouched.
 
-For Redis versions **< 2.1.3**, existing timeouts cannot be overwritten. So, if
-`key` already has an associated timeout, it will do nothing and return `0`.
-Since Redis **2.1.3**, you can update the timeout of a key. It is also possible
-to remove the timeout using the `PERSIST` command. See the page on [key expiry][1]
-for more information.
+The timeout can also be cleared, turning the key back into a persistent key,
+using the [PERSIST](/commands/persist) command.
 
-Note that in Redis 2.4 the expire might not be pin-point accurate, and
-it could be between zero to one seconds out. Development versions of
-Redis fixed this bug and Redis 2.6 will feature a millisecond precision
-`EXPIRE`.
+If a key is renamed using the [RENAME](/commands/rename) command, the
+associated time to live is transfered to the new key name.
+
+If a key is overwritten by [RENAME](commands/rename), like in the
+case of an existing key `a` that is overwritten by a call like
+`RENAME b a`, it does not matter if the original `a` had a timeout associated
+or not, the new key `a` will inherit all the characteristics of `b`.
+
+Expire accuracy
+---
+
+In Redis 2.4 the expire might not be pin-point accurate, and it could be
+between zero to one seconds out.
+
+Since Redis 2.6 the expire error is from 0 to 1 milliseconds.
+
+Differences in Redis prior 2.1.3
+---
+
+In Redis versions prior **2.1.3** altering a key with an expire set using
+a command altering its value had the effect of removing the key entirely.
+This semantics was needed because of limitations in the replication layer that
+are now fixed.
 
 [1]: /topics/expire
 
