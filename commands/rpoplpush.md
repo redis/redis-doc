@@ -30,23 +30,6 @@ element of the list, so it can be considered as a list rotation command.
     LRANGE mylist 0 -1
     LRANGE myotherlist 0 -1
 
-## Design pattern: safe queues
-
-Redis lists are often used as queues in order to exchange messages between
-different programs. A program can add a message performing an `LPUSH` operation
-against a Redis list (we call this program the _Producer_), while another program
-(that we call _Consumer_) can process the messages performing an `RPOP` command
-in order to start reading the messages starting at the oldest.
-
-Unfortunately, if a _Consumer_ crashes just after an `RPOP` operation, the message
-is lost. `RPOPLPUSH` solves this problem since the returned message is
-added to another backup list. The _Consumer_ can later remove the message
-from the backup list using the `LREM` command when the message was correctly
-processed.
-
-Another process (that we call _Helper_), can monitor the backup list to check for
-timed out entries to re-push against the main queue.
-
 Pattern: Reliable queue
 ---
 
