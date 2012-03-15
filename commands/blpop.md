@@ -77,3 +77,31 @@ infinite speed inside a `MULTI`/`EXEC` block.
     redis> BLPOP list1 list2 0
     1) "list1"
     2) "a"
+
+## Pattern: Event notification
+
+Using blocking list operations it is possible to mount different blocking
+primitives. For instance for some application you may need to block
+waiting for elements into a Redis Set, so that as far as a new element is
+added to the Set, it is possible to retrieve it without resort to polling.
+This would require a blocking version of [SPOP](/commands/spop) that is
+not available, but using blocking list operations we can easily accomplish
+this task:
+
+This can be obtained using the following algorithm. The consumer will do:
+
+    LOOP forever
+        WHILE SPOP(key) returns elements
+            ... process elements ...
+        END
+        BRPOP helper_key
+    END
+
+While in the producer side we'll use simply:
+
+    MULTI
+    SADD key element
+    LPUSH helper_key x
+    EXEC
+
+
