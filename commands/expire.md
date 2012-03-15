@@ -7,24 +7,32 @@ Set a timeout on `key`. After the timeout has expired, the key will
 automatically be deleted. A key with an associated timeout is often said to be
 _volatile_ in Redis terminology.
 
-The timeout is cleared only when the key is removed using the [DEL](/commands/del) command or overwritten using the [SET](/commands/set) or [GETSET](/commands/getset) commands. This means that all the operations that conceptually *alter* the value stored at key without replacing it with a new one will leave the expire untouched. For instance incrementing the value of a key with [INCR](/commands/incr), pushing a new value into a list with [LPUSH](/commands/lpush), or altering the field value of an Hash with [HSET](/commands/hset), are all operations that will leave the expire untouched.
+The timeout is cleared only when the key is removed using the `DEL` command or
+overwritten using the `SET` or `GETSET` commands. This means that all the
+operations that conceptually *alter* the value stored at the key without
+replacing it with a new one will leave the timeout untouched. For instance,
+incrementing the value of a key with `INCR`, pushing a new value into a list
+with `LPUSH`, or altering the field value of a hash with `HSET` are all
+operations that will leave the timeout untouched.
 
 The timeout can also be cleared, turning the key back into a persistent key,
-using the [PERSIST](/commands/persist) command.
+using the `PERSIST` command.
 
-If a key is renamed using the [RENAME](/commands/rename) command, the
-associated time to live is transfered to the new key name.
+If a key is renamed with `RENAME`, the associated time to live is transfered to
+the new key name.
 
-If a key is overwritten by [RENAME](commands/rename), like in the
-case of an existing key `Key_A` that is overwritten by a call like
-`RENAME Key_B Key_A`, it does not matter if the original `Key_A` had a timeout
-associated or not, the new key `Key_A` will inherit all the characteristics
-of `Key_B`.
+If a key is overwritten by `RENAME`, like in the case of an existing key
+`Key_A` that is overwritten by a call like `RENAME Key_B Key_A`, it does not
+matter if the original `Key_A` had a timeout associated or not, the new key
+`Key_A` will inherit all the characteristics of `Key_B`.
 
 Refreshing expires
 ---
 
-It is possible to call `EXPIRE` using as argument a key that already has an existing expire set. In this case the time to live of a key is *updated* to the new value. There are many useful applications for this, an example is documented in the *Navigation session* pattern section below.
+It is possible to call `EXPIRE` using as argument a key that already has an
+existing expire set. In this case the time to live of a key is *updated* to the
+new value. There are many useful applications for this, an example is
+documented in the *Navigation session* pattern section below.
 
 Expire accuracy
 ---
@@ -41,8 +49,6 @@ In Redis versions prior **2.1.3** altering a key with an expire set using
 a command altering its value had the effect of removing the key entirely.
 This semantics was needed because of limitations in the replication layer that
 are now fixed.
-
-[1]: /topics/expire
 
 @return
 
@@ -82,4 +88,5 @@ If the user will be idle more than 60 seconds, the key will be deleted and only
 subsequent pageviews that have less than 60 seconds of difference will be
 recorded.
 
-This pattern is easily modified to use counters using [INCR](/commands/incr) instead of lists using [RPUSH](/commands/rpush).
+This pattern is easily modified to use counters using `INCR` instead of lists
+using `RPUSH`.
