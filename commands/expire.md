@@ -24,7 +24,7 @@ of `Key_B`.
 Refreshing expires
 ---
 
-It is possible to call `EXPIRE` using as argument a key that already has an existing expire set. In this case the time to live of a key is *updated* to the new value. There are many useful applications for this, an example is documented in the *Navigation session* pattern belove.
+It is possible to call `EXPIRE` using as argument a key that already has an existing expire set. In this case the time to live of a key is *updated* to the new value. There are many useful applications for this, an example is documented in the *Navigation session* pattern section below.
 
 Expire accuracy
 ---
