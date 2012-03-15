@@ -70,7 +70,10 @@ infinite speed inside a `MULTI`/`EXEC` block.
 
 @examples
 
-    @cli
-    DEL list1 list2
-    LPUSH list1 a b c
-    BLPOP list1 list2 0
+    redis> DEL list1 list2
+    (integer) 0
+    redis> RPUSH list1 a b c
+    (integer) 3
+    redis> BLPOP list1 list2 0
+    1) "list1"
+    2) "a"
