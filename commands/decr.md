@@ -9,7 +9,8 @@ error is returned if the key contains a value of the wrong type or contains a
 string that is not representable as integer. This operation is limited to 64
 bit signed integers.
 
-See `INCR` for extra information on increment/decrement operations.
+See [INCR](/commands/incr) for extra information on increment/decrement
+operations.
 
 @return
 
@@ -20,4 +21,5 @@ See `INCR` for extra information on increment/decrement operations.
     @cli
     SET mykey "10"
     DECR mykey
-
+    SET mykey "234293482390480948029348230948"
+    DECR mykey
