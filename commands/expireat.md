@@ -3,17 +3,10 @@
 O(1)
 
 
-Set a timeout on `key`. After the timeout has expired, the key will
-automatically be deleted. A key with an associated timeout is said to be
-_volatile_ in Redis terminology.
+`EXPIREAT` has the same effect and semantic as [EXPIRE](/commands/expire), but
+instead of specifying the number of seconds representing the TTL (time to live), it takes an absolute [UNIX timestamp][2] (seconds since January 1, 1970).
 
-`EXPIREAT` has the same effect and semantic as `EXPIRE`, but instead of
-specifying the number of seconds representing the TTL (time to live), it takes
-an absolute [UNIX timestamp][2] (seconds since January 1, 1970).
-
-As in the case of `EXPIRE` command, if `key` is updated before the timeout has
-expired, then the timeout is removed as if the `PERSIST` command was invoked on
-`key`.
+Please for the specific semantics of the commands refer to the [EXPIRE command documentation](/commands/expire).
 
 [2]: http://en.wikipedia.org/wiki/Unix_time
 
