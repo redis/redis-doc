@@ -4,10 +4,13 @@ Not applicable.
 
 @description
 
-The `CONFIG GET` command is used to read the configuration parameters of a running
-Redis server. Not all the configuration parameters are supported.
+The `CONFIG GET` command is used to read the configuration parameters of a
+running Redis server. Not all the configuration parameters are
+supported in Redis 2.4, while Redis 2.6 can read the whole configuration of
+a server using this command.
+
 The symmetric command used to alter the configuration at run time is
-`CONFIG SET`.
+[CONFIG SET](/commands/config-set).
 
 `CONFIG GET` takes a single argument, that is glob style pattern. All the
 configuration parameters matching this parameter are reported as a
