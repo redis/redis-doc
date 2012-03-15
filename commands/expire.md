@@ -16,9 +16,10 @@ If a key is renamed using the [RENAME](/commands/rename) command, the
 associated time to live is transfered to the new key name.
 
 If a key is overwritten by [RENAME](commands/rename), like in the
-case of an existing key `a` that is overwritten by a call like
-`RENAME b a`, it does not matter if the original `a` had a timeout associated
-or not, the new key `a` will inherit all the characteristics of `b`.
+case of an existing key `Key_A` that is overwritten by a call like
+`RENAME Key_B Key_A`, it does not matter if the original `Key_A` had a timeout
+associated or not, the new key `Key_A` will inherit all the characteristics
+of `Key_B`.
 
 Refreshing expires
 ---
