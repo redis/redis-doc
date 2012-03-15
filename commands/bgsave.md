@@ -10,3 +10,10 @@ Please refer to the [persistence documentation](/topics/persistence) for detaile
 @return
 
 @status-reply
+
+@examples
+
+    @cli
+    DEL list1 list2
+    LPUSH list1 a b c
+    BLPOP list1 list2 0

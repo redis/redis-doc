@@ -68,3 +68,9 @@ infinite speed inside a `MULTI`/`EXEC` block.
 * A two-element multi-bulk with the first element being the name of the key where an element
   was popped and the second element being the value of the popped element.
 
+@examples
+
+    @cli
+    DEL list1 list2
+    LPUSH list1 a b c
+    BLPOP list1 list2 0
