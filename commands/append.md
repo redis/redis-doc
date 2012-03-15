@@ -9,6 +9,26 @@ If `key` already exists and is a string, this command appends the `value` at
 the end of the string.  If `key` does not exist it is created and set as an
 empty string, so `APPEND` will be similar to `SET` in this special case.
 
+Pattern: Time series
+---
+
+The `APPEND` command can be used to create a very compact representation of
+a list of fixed-size samples, usually referred as *time series*.
+Every time a new sample arrives we can store it using the command
+
+    APPEND timeseries "fixed-size sample"
+
+Accessing to individual elements in the time serie is not hard:
+
+* [STRLEN](/commands/strlen) can be used in order to obtain the number of samples.
+* [GETRANGE](/commands/getrange) allows for random access of elements. If our time series have an associated time information we can easily implement a binary search to get range combining `GETRANGE` with the Lua scripting engine available in Redis 2.6.
+* [SETRANGE](/commands/setrange) can be used to overwrite an existing time serie.
+
+The limitations of this pattern is that we are forced into an append-only mode of operation, there is no way to cut the time series to a given size easily because Redis currently lacks a command able to trim string objects. However the space efficiency of time series stored in this way is remarkable.
+
+Hint: it is possible to switch to a different key based on the current unix time, in this way it is possible to have just a relatively small amount of samples per key, to avoid dealing with very big keys, and to make this pattern more
+firendly to be distributed across many Redis instances.
+
 @return
 
 @integer-reply: the length of the string after the append operation.
