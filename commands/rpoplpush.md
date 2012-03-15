@@ -47,11 +47,42 @@ processed.
 Another process (that we call _Helper_), can monitor the backup list to check for
 timed out entries to re-push against the main queue.
 
-## Design pattern: server-side O(N) list traversal
+Pattern: Reliable queue
+---
 
-Using `RPOPLPUSH` with the same source and destination key, a process can
-visit all the elements of an N-elements list in O(N) without transferring
-the full list from the server to the client in a single `LRANGE` operation.
-Note that a process can traverse the list even while other processes
-are actively pushing to the list, and still no element will be skipped.
+Redis is often used as a messaging server to implement processing of
+background jobs or other kinds of messaging tasks. A simple form of queue
+is often obtained pushing values into a list in the producer side, and
+waiting for this values in the consumer side using [RPOP](/commadns/rpop)
+(using polling), or [BRPOP](/commands/brpop) if the client is better served
+by a blocking operation.
 
+However in this context the obtained queue is not *reliable* as messages can
+be lost, for example in the case there is a network problem or if the consumer
+crashes just after the message is received but it is still to process.
+
+`RPOPLPUSH` (or [BRPOPLPUSH](/commands/brpoplpush) for the blocking variant)
+offers a way to avoid this problem: the consumer fetches the message and
+at the same time pushes it into a *processing* list. It will use the
+[LREM](/commands/lrem) command in order to remove the message from the
+*processing* list once the message has been processed.
+
+An additional client may monitor the *processing* list for items that remain
+there for too much time, and will push those timed out items into the queue
+again if needed.
+
+Pattern: Circular list
+---
+
+Using `RPOPLPUSH` with the same source and destination key, a client can
+visit all the elements of an N-elements list, one after the other, in O(N)
+without transferring the full list from the server to the client using a single
+[LRANGE](/commands/lrange) operation.
+
+The above pattern works even if the following two conditions:
+* There are multiple clients rotating the list: they'll fetch different elements, until all the elements of the list are visited, and the process restarts.
+* Even if other clients are actively pushing new items at the end of the list.
+
+The above makes it very simple to implement a system where a set of items must be processed by N workers continuously as fast as possible. An example is a monitoring system that must check that a set of web sites are reachable, with the smallest delay possible, using a number of parallel workers.
+
+Note that this implementation of workers is trivially scalable and reliable, because even if a message is lost the item is still in the queue and will be processed at the next iteration.
