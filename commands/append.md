@@ -9,10 +9,22 @@ If `key` already exists and is a string, this command appends the `value` at
 the end of the string.  If `key` does not exist it is created and set as an
 empty string, so `APPEND` will be similar to `SET` in this special case.
 
+@return
+
+@integer-reply: the length of the string after the append operation.
+
+@examples
+
+    @cli
+    EXISTS mykey
+    APPEND mykey "Hello"
+    APPEND mykey " World"
+    GET mykey
+
 Pattern: Time series
 ---
 
-The `APPEND` command can be used to create a very compact representation of
+the `APPEND` command can be used to create a very compact representation of
 a list of fixed-size samples, usually referred as *time series*.
 Every time a new sample arrives we can store it using the command
 
@@ -29,15 +41,10 @@ The limitations of this pattern is that we are forced into an append-only mode o
 Hint: it is possible to switch to a different key based on the current unix time, in this way it is possible to have just a relatively small amount of samples per key, to avoid dealing with very big keys, and to make this pattern more
 firendly to be distributed across many Redis instances.
 
-@return
-
-@integer-reply: the length of the string after the append operation.
-
-@examples
+An example sampling the temperature of a sensor using fixed-size strings (using a binary format is better in real implementations).
 
     @cli
-    EXISTS mykey
-    APPEND mykey "Hello"
-    APPEND mykey " World"
-    GET mykey
-
+    APPEND ts "0043"
+    APPEND ts "0035"
+    GETRANGE ts 0 3
+    GETRANGE ts 4 7

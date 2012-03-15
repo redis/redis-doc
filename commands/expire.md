@@ -42,6 +42,24 @@ a command altering its value had the effect of removing the key entirely.
 This semantics was needed because of limitations in the replication layer that
 are now fixed.
 
+[1]: /topics/expire
+
+@return
+
+@integer-reply, specifically:
+
+* `1` if the timeout was set.
+* `0` if `key` does not exist or the timeout could not be set.
+
+@examples
+
+    @cli
+    SET mykey "Hello"
+    EXPIRE mykey 10
+    TTL mykey
+    SET mykey "Hello World"
+    TTL mykey
+
 Pattern: Navigation session
 ---
 
@@ -65,21 +83,3 @@ subsequent pageviews that have less than 60 seconds of difference will be
 recorded.
 
 This pattern is easily modified to use counters using [INCR](/commands/incr) instead of lists using [RPUSH](/commands/rpush).
-
-[1]: /topics/expire
-
-@return
-
-@integer-reply, specifically:
-
-* `1` if the timeout was set.
-* `0` if `key` does not exist or the timeout could not be set.
-
-@examples
-
-    @cli
-    SET mykey "Hello"
-    EXPIRE mykey 10
-    TTL mykey
-    SET mykey "Hello World"
-    TTL mykey
