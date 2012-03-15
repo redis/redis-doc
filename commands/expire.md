@@ -20,6 +20,11 @@ case of an existing key `a` that is overwritten by a call like
 `RENAME b a`, it does not matter if the original `a` had a timeout associated
 or not, the new key `a` will inherit all the characteristics of `b`.
 
+Refreshing expires
+---
+
+It is possible to call `EXPIRE` using as argument a key that already has an existing expire set. In this case the time to live of a key is *updated* to the new value. There are many useful applications for this, an example is documented in the *Navigation session* pattern above.
+
 Expire accuracy
 ---
 
@@ -35,6 +40,30 @@ In Redis versions prior **2.1.3** altering a key with an expire set using
 a command altering its value had the effect of removing the key entirely.
 This semantics was needed because of limitations in the replication layer that
 are now fixed.
+
+Pattern: Navigation session
+---
+
+Imagine you have a web service and you are interested in the latest N pages
+*recently* visited by your users, such that each adiacent pageview was not
+performed more than 60 seconds after the previous. Conceptually you may think
+at this set of pageviews as a *Navigation session* if your user, that may
+contain interesting informations about what kind of products he or she is
+looking for currently, so that you can recommend related products.
+
+You can easily model this pattern in Redis using the following strategy:
+every time the user does a pageview you call the following commands:
+
+    MULTI
+    RPUSH pagewviews.user:<userid> http://.....
+    EXPIRE pagewviews.user:<userid> 60
+    EXEC
+
+If the user will be idle more than 60 seconds, the key will be deleted and only
+subsequent pageviews that have less than 60 seconds of difference will be
+recorded.
+
+This pattern is easily modified to use counters using [INCR](/commands/incr) instead of lists using [RPUSH](/commands/rpush).
 
 [1]: /topics/expire
 
