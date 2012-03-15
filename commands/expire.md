@@ -7,7 +7,7 @@ Set a timeout on `key`. After the timeout has expired, the key will
 automatically be deleted. A key with an associated timeout is often said to be
 _volatile_ in Redis terminology.
 
-The timeout is cleared only when the key is removed using the [DEL](/commands/del) command or overwritten using the [SET](/commands/set) command. This means that all the operations that conceptually *alter* the value stored at key without replacing it with a new one will leave the expire untouched. For instance incrementing the value of a key with [INCR](/commands/incr), pushing a new value into a list with [LPUSH](/commands/lpush), or altering the field value of an Hash with [HSET](/commands/hset), are all operations that will leave the expire untouched.
+The timeout is cleared only when the key is removed using the [DEL](/commands/del) command or overwritten using the [SET](/commands/set) or [GETSET](/commands/getset) commands. This means that all the operations that conceptually *alter* the value stored at key without replacing it with a new one will leave the expire untouched. For instance incrementing the value of a key with [INCR](/commands/incr), pushing a new value into a list with [LPUSH](/commands/lpush), or altering the field value of an Hash with [HSET](/commands/hset), are all operations that will leave the expire untouched.
 
 The timeout can also be cleared, turning the key back into a persistent key,
 using the [PERSIST](/commands/persist) command.
