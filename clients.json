@@ -3,7 +3,7 @@
     "name": "redis-rb",
     "language": "Ruby",
     "url": "http://redis-rb.keyvalue.org",
-    "repository": "https://github.com/ezmobius/redis-rb",
+    "repository": "https://github.com/redis/redis-rb",
     "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
     "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
     "recommended": true
@@ -238,7 +238,7 @@
     "description": "Standalone and full-featured class for Redis in PHP",
     "authors": ["OZ"]
   },
-  
+
   {
     "name": "Redisent",
     "language": "PHP",
@@ -436,7 +436,7 @@
     "description": "Static Library for iOS4 device and Simulator, plus Objective-C Framework for MacOS 10.5 and higher",
     "authors": ["loopole"]
   },
-  
+
   {
     "name": "Puredis",
     "language": "Pure Data",
