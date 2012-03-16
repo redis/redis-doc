@@ -40,6 +40,7 @@ performs a page view, creating the key name concatenating the User ID and a
 string representing the current date.
 
 This simple pattern can be extended in may ways:
+
 * It is possible to use `INCR` and `EXPIRE` together at every page view to have a counter counting only the latest N page views separated by less than the specified amount of seconds.
 * A client may use GETSET in order to atomically get the current counter value and reset it to zero.
 * Using other atomic increment/decrement commands like `DECR` or `INCRBY` it is possible to handle values that may get bigger or smaller depending on the operations performed by the user. Imagine for instance the score of different users in an online game.
