@@ -113,9 +113,9 @@ Lua script that is send using the `EVAL` command (only available since Redis
 version 2.6).
 
     local current
-    current = redis.incr(KEYS[1])
+    current = redis.call("incr",KEYS[1])
     if tonumber(current) == 1 then
-        redis.expire(KEYS[1],1)
+        redis.call("expire",KEYS[1],1)
     end
 
 There is a different way to fix this issue without using scripting, but using
