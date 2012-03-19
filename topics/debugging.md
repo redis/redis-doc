@@ -78,7 +78,7 @@ In the above example the process ID is **58414**.
 
     For example: gdb /usr/local/bin/redis-server 58414
 
-GDB will start and will attach to the running server printing something like the followig:
+GDB will start and will attach to the running server printing something like the following:
 
     Reading symbols for shared libraries + done
     0x00007fff8d4797e6 in epoll_wait ()

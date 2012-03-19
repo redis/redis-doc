@@ -228,7 +228,7 @@ from doing heavy disk I/O at the same time.
 
 When snapshotting is in progress and the user explicitly requests a log
 rewrite operation using BGREWRITEAOF the server will reply with an OK
-status code telling the user the operation is scheduled, and the rewirte
+status code telling the user the operation is scheduled, and the rewrite
 will start once the snapshotting is completed.
 
 In the case both AOF and RDB persistence are enabled and Redis restarts the
