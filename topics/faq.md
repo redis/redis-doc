@@ -20,7 +20,7 @@ To give you an example: 1 Million keys with the key being the natural numbers fr
 something like 16MB, this is expected because with small keys and values there
 is a lot of overhead. Memcached will perform similarly, but a bit better as
 Redis has more overhead (type information, refcount and so forth) to represent
-differnet kinds of objects.
+different kinds of objects.
 
 With large keys/values the ratio is much better of course.
 
