@@ -18,8 +18,7 @@ in order to make space.
 
 The configuration can be done both editing the redis.conf file or 
 while the server is running using
-the [CONFIG GET](/commands/config-get) and [CONFIG SET](/commands/config-set)
-commands.
+the `CONFIG GET` and `CONFIG SET` commands.
 
 ## Reading the slow log
 

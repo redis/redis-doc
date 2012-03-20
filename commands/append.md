@@ -32,9 +32,9 @@ Every time a new sample arrives we can store it using the command
 
 Accessing to individual elements in the time serie is not hard:
 
-* [STRLEN](/commands/strlen) can be used in order to obtain the number of samples.
-* [GETRANGE](/commands/getrange) allows for random access of elements. If our time series have an associated time information we can easily implement a binary search to get range combining `GETRANGE` with the Lua scripting engine available in Redis 2.6.
-* [SETRANGE](/commands/setrange) can be used to overwrite an existing time serie.
+* `STRLEN` can be used in order to obtain the number of samples.
+* `GETRANGE` allows for random access of elements. If our time series have an associated time information we can easily implement a binary search to get range combining `GETRANGE` with the Lua scripting engine available in Redis 2.6.
+* `SETRANGE` can be used to overwrite an existing time serie.
 
 The limitations of this pattern is that we are forced into an append-only mode of operation, there is no way to cut the time series to a given size easily because Redis currently lacks a command able to trim string objects. However the space efficiency of time series stored in this way is remarkable.
 

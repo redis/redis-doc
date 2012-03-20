@@ -9,7 +9,7 @@ error is returned if the key contains a value of the wrong type or contains a
 string that is not representable as integer. This operation is limited to **64
 bit signed integers**.
 
-See [INCR](/commands/incr) for extra information on increment/decrement
+See `INCR` for extra information on increment/decrement
 operations.
 
 @return
