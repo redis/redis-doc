@@ -1,8 +1,3 @@
-@complexity
-
-O(S+N) where S is the `start` offset and N is the number of elements in the
-specified range.
-
 Returns the specified elements of the list stored at `key`.  The offsets
 `start` and `stop` are zero-based indexes, with `0` being the first element of
 the list (the head of the list), `1` being the next element and so on.

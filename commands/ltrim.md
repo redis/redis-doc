@@ -1,7 +1,3 @@
-@complexity
-
-O(N) where N is the number of elements to be removed by the operation.
-
 Trim an existing list so that it will contain only the specified range of
 elements specified. Both `start` and `stop` are zero-based indexes, where `0`
 is the first element of the list (the head), `1` the next element and so on.

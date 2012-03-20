@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns the bit value at _offset_ in the string value stored at _key_.
 
 When _offset_ is beyond the string length, the string is assumed to be a

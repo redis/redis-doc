@@ -1,7 +1,3 @@
-@complexity
-
-O(N) where N is the length of the list.
-
 Removes the first `count` occurrences of elements equal to `value` from the
 list stored at `key`. The `count` argument influences the operation in the
 following ways:

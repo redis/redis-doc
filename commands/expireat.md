@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 `EXPIREAT` has the same effect and semantic as [EXPIRE](/commands/expire), but
 instead of specifying the number of seconds representing the TTL (time to live), it takes an absolute [UNIX timestamp][2] (seconds since January 1, 1970).
 

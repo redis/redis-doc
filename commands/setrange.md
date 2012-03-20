@@ -1,9 +1,3 @@
-@complexity
-
-O(1), not counting the time taken to copy the new string in place. Usually,
-this string is very small so the amortized complexity is O(1). Otherwise,
-complexity is O(M) with M being the length of the _value_ argument.
-
 Overwrites part of the string stored at _key_, starting at the specified
 offset, for the entire length of _value_. If the offset is larger than the
 current length of the string at _key_, the string is padded with zero-bytes to

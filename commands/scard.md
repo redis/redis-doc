@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns the set cardinality (number of elements) of the set stored at `key`.
 
 @return

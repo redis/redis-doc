@@ -1,7 +1,3 @@
-@complexity
-
-O(N+M\*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-
 Returns or stores the elements contained in the
 [list](/topics/data-types#lists), [set](/topics/data-types#set) or [sorted
 set](/topics/data-types#sorted-sets) at `key`.  By default, sorting is numeric

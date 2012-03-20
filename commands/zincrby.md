@@ -1,7 +1,3 @@
-@complexity
-
-O(log(N)) where N is the number of elements in the sorted set.
-
 Increments the score of `member` in the sorted set stored at `key` by
 `increment`.  If `member` does not exist in the sorted set, it is added with
 `increment` as its score (as if its previous score was `0.0`).  If `key` does

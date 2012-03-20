@@ -1,9 +1,3 @@
-@complexity
-
-O(N) where N is the number of elements to traverse before seeing the value
-`pivot`. This means that inserting somewhere on the left end on the list (head)
-can be considered O(1) and inserting somewhere on the right end (tail) is O(N).
-
 Inserts `value` in the list stored at `key` either before or after the
 reference value `pivot`.
 

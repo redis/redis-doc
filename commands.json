@@ -1,6 +1,7 @@
 {
   "APPEND": {
     "summary": "Append a value to a key",
+    "complexity": "O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.",
     "arguments": [
       {
         "name": "key",
@@ -37,6 +38,7 @@
   },
   "BLPOP": {
     "summary": "Remove and get the first element in a list, or block until one is available",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -53,6 +55,7 @@
   },
   "BRPOP": {
     "summary": "Remove and get the last element in a list, or block until one is available",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -69,6 +72,7 @@
   },
   "BRPOPLPUSH": {
     "summary": "Pop a value from a list, push it to another list and return it; or block until one is available",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "source",
@@ -114,6 +118,7 @@
   },
   "CONFIG RESETSTAT": {
     "summary": "Reset the stats returned by INFO",
+    "complexity": "O(1)",
     "since": "2.0",
     "group": "server"
   },
@@ -140,6 +145,7 @@
   },
   "DECR": {
     "summary": "Decrement the integer value of a key by one",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -151,6 +157,7 @@
   },
   "DECRBY": {
     "summary": "Decrement the integer value of a key by the given number",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -166,6 +173,7 @@
   },
   "DEL": {
     "summary": "Delete a key",
+    "complexity": "O(N) where N is the number of keys that will be removed. When a key to remove holds a value other than a string, the individual complexity for this key is O(M) where M is the number of elements in the list, set, sorted set or hash. Removing a single key that holds a string value is O(1).",
     "arguments": [
       {
         "name": "key",
@@ -199,6 +207,7 @@
   },
   "EXISTS": {
     "summary": "Determine if a key exists",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -210,6 +219,7 @@
   },
   "EXPIRE": {
     "summary": "Set a key's time to live in seconds",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -225,6 +235,7 @@
   },
   "EXPIREAT": {
     "summary": "Set the expiration for a key as a UNIX timestamp",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -250,6 +261,7 @@
   },
   "GET": {
     "summary": "Get the value of a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -261,6 +273,7 @@
   },
   "GETBIT": {
     "summary": "Returns the bit value at offset in the string value stored at key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -276,6 +289,7 @@
   },
   "GETRANGE": {
     "summary": "Get a substring of the string stored at a key",
+    "complexity": "O(N) where N is the length of the returned string. The complexity is ultimately determined by the returned length, but because creating a substring from an existing string is very cheap, it can be considered O(1) for small strings.",
     "arguments": [
       {
         "name": "key",
@@ -295,6 +309,7 @@
   },
   "GETSET": {
     "summary": "Set the string value of a key and return its old value",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -310,6 +325,7 @@
   },
   "HDEL": {
     "summary": "Delete one or more hash fields",
+    "complexity": "O(N) where N is the number of fields to be removed.",
     "arguments": [
       {
         "name": "key",
@@ -326,6 +342,7 @@
   },
   "HEXISTS": {
     "summary": "Determine if a hash field exists",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -341,6 +358,7 @@
   },
   "HGET": {
     "summary": "Get the value of a hash field",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -356,6 +374,7 @@
   },
   "HGETALL": {
     "summary": "Get all the fields and values in a hash",
+    "complexity": "O(N) where N is the size of the hash.",
     "arguments": [
       {
         "name": "key",
@@ -367,6 +386,7 @@
   },
   "HINCRBY": {
     "summary": "Increment the integer value of a hash field by the given number",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -386,6 +406,7 @@
   },
   "HKEYS": {
     "summary": "Get all the fields in a hash",
+    "complexity": "O(N) where N is the size of the hash.",
     "arguments": [
       {
         "name": "key",
@@ -397,6 +418,7 @@
   },
   "HLEN": {
     "summary": "Get the number of fields in a hash",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -408,6 +430,7 @@
   },
   "HMGET": {
     "summary": "Get the values of all the given hash fields",
+    "complexity": "O(N) where N is the number of fields being requested.",
     "arguments": [
       {
         "name": "key",
@@ -424,6 +447,7 @@
   },
   "HMSET": {
     "summary": "Set multiple hash fields to multiple values",
+    "complexity": "O(N) where N is the number of fields being set.",
     "arguments": [
       {
         "name": "key",
@@ -440,6 +464,7 @@
   },
   "HSET": {
     "summary": "Set the string value of a hash field",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -459,6 +484,7 @@
   },
   "HSETNX": {
     "summary": "Set the value of a hash field, only if the field does not exist",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -478,6 +504,7 @@
   },
   "HVALS": {
     "summary": "Get all the values in a hash",
+    "complexity": "O(N) where N is the size of the hash.",
     "arguments": [
       {
         "name": "key",
@@ -489,6 +516,7 @@
   },
   "INCR": {
     "summary": "Increment the integer value of a key by one",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -500,6 +528,7 @@
   },
   "INCRBY": {
     "summary": "Increment the integer value of a key by the given number",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -520,6 +549,7 @@
   },
   "KEYS": {
     "summary": "Find all keys matching the given pattern",
+    "complexity": "O(N) with N being the number of keys in the database, under the assumption that the key names in the database and the given pattern have limited length.",
     "arguments": [
       {
         "name": "pattern",
@@ -536,6 +566,7 @@
   },
   "LINDEX": {
     "summary": "Get an element from a list by its index",
+    "complexity": "O(N) where N is the number of elements to traverse to get to the element at `index`. This makes asking for the first or the last element of the list O(1).",
     "arguments": [
       {
         "name": "key",
@@ -551,6 +582,7 @@
   },
   "LINSERT": {
     "summary": "Insert an element before or after another element in a list",
+    "complexity": "O(N) where N is the number of elements to traverse before seeing the value `pivot`. This means that inserting somewhere on the left end on the list (head) can be considered O(1) and inserting somewhere on the right end (tail) is O(N).",
     "arguments": [
       {
         "name": "key",
@@ -575,6 +607,7 @@
   },
   "LLEN": {
     "summary": "Get the length of a list",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -586,6 +619,7 @@
   },
   "LPOP": {
     "summary": "Remove and get the first element in a list",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -597,6 +631,7 @@
   },
   "LPUSH": {
     "summary": "Prepend one or multiple values to a list",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -613,6 +648,7 @@
   },
   "LPUSHX": {
     "summary": "Prepend a value to a list, only if the list exists",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -628,6 +664,7 @@
   },
   "LRANGE": {
     "summary": "Get a range of elements from a list",
+    "complexity": "O(S+N) where S is the `start` offset and N is the number of elements in the specified range.",
     "arguments": [
       {
         "name": "key",
@@ -647,6 +684,7 @@
   },
   "LREM": {
     "summary": "Remove elements from a list",
+    "complexity": "O(N) where N is the length of the list.",
     "arguments": [
       {
         "name": "key",
@@ -666,6 +704,7 @@
   },
   "LSET": {
     "summary": "Set the value of an element in a list by its index",
+    "complexity": "O(N) where N is the length of the list. Setting either the first or the last element of the list is O(1).",
     "arguments": [
       {
         "name": "key",
@@ -685,6 +724,7 @@
   },
   "LTRIM": {
     "summary": "Trim a list to the specified range",
+    "complexity": "O(N) where N is the number of elements to be removed by the operation.",
     "arguments": [
       {
         "name": "key",
@@ -704,6 +744,7 @@
   },
   "MGET": {
     "summary": "Get the values of all the given keys",
+    "complexity": "O(N) where N is the number of keys to retrieve.",
     "arguments": [
       {
         "name": "key",
@@ -721,6 +762,7 @@
   },
   "MOVE": {
     "summary": "Move a key to another database",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -736,6 +778,7 @@
   },
   "MSET": {
     "summary": "Set multiple keys to multiple values",
+    "complexity": "O(N) where N is the number of keys to set.",
     "arguments": [
       {
         "name": ["key", "value"],
@@ -748,6 +791,7 @@
   },
   "MSETNX": {
     "summary": "Set multiple keys to multiple values, only if none of the keys exist",
+    "complexity": "O(N) where N is the number of keys to set.",
     "arguments": [
       {
         "name": ["key", "value"],
@@ -765,6 +809,7 @@
   },
   "OBJECT": {
     "summary": "Inspect the internals of Redis objects",
+    "complexity": "O(1) for all the currently implemented subcommands.",
     "since": "2.2.3",
     "group": "generic",
     "arguments": [
@@ -782,6 +827,7 @@
   },
   "PERSIST": {
     "summary": "Remove the expiration from a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -798,6 +844,7 @@
   },
   "PSUBSCRIBE": {
     "summary": "Listen for messages published to channels matching the given patterns",
+    "complexity": "O(N) where N is the number of patterns the client is already subscribed to.",
     "arguments": [
       {
         "name": ["pattern"],
@@ -810,6 +857,7 @@
   },
   "PUBLISH": {
     "summary": "Post a message to a channel",
+    "complexity": "O(N+M) where N is the number of clients subscribed to the receiving channel and M is the total number of subscribed patterns (by any client).",
     "arguments": [
       {
         "name": "channel",
@@ -825,6 +873,7 @@
   },
   "PUNSUBSCRIBE": {
     "summary": "Stop listening for messages posted to channels matching the given patterns",
+    "complexity": "O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).",
     "arguments": [
       {
         "name": "pattern",
@@ -843,11 +892,13 @@
   },
   "RANDOMKEY": {
     "summary": "Return a random key from the keyspace",
+    "complexity": "O(1)",
     "since": "0.07",
     "group": "generic"
   },
   "RENAME": {
     "summary": "Rename a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -863,6 +914,7 @@
   },
   "RENAMENX": {
     "summary": "Rename a key, only if the new key does not exist",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -878,6 +930,7 @@
   },
   "RPOP": {
     "summary": "Remove and get the last element in a list",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -889,6 +942,7 @@
   },
   "RPOPLPUSH": {
     "summary": "Remove the last element in a list, append it to another list and return it",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "source",
@@ -904,6 +958,7 @@
   },
   "RPUSH": {
     "summary": "Append one or multiple values to a list",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -920,6 +975,7 @@
   },
   "RPUSHX": {
     "summary": "Append a value to a list, only if the list exists",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -935,6 +991,7 @@
   },
   "SADD": {
     "summary": "Add one or more members to a set",
+    "complexity": "O(N) where N is the number of members to be added.",
     "arguments": [
       {
         "name": "key",
@@ -956,6 +1013,7 @@
   },
   "SCARD": {
     "summary": "Get the number of members in a set",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -967,6 +1025,7 @@
   },
   "SDIFF": {
     "summary": "Subtract multiple sets",
+    "complexity": "O(N) where N is the total number of elements in all given sets.",
     "arguments": [
       {
         "name": "key",
@@ -979,6 +1038,7 @@
   },
   "SDIFFSTORE": {
     "summary": "Subtract multiple sets and store the resulting set in a key",
+    "complexity": "O(N) where N is the total number of elements in all given sets.",
     "arguments": [
       {
         "name": "destination",
@@ -1006,6 +1066,7 @@
   },
   "SET": {
     "summary": "Set the string value of a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1021,6 +1082,7 @@
   },
   "SETBIT": {
     "summary": "Sets or clears the bit at offset in the string value stored at key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1040,6 +1102,7 @@
   },
   "SETEX": {
     "summary": "Set the value and expiration of a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1059,6 +1122,7 @@
   },
   "SETNX": {
     "summary": "Set the value of a key, only if the key does not exist",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1074,6 +1138,7 @@
   },
   "SETRANGE": {
     "summary": "Overwrite part of a string at key starting at the specified offset",
+    "complexity": "O(1), not counting the time taken to copy the new string in place. Usually, this string is very small so the amortized complexity is O(1). Otherwise, complexity is O(M) with M being the length of the `value` argument.",
     "arguments": [
       {
         "name": "key",
@@ -1098,6 +1163,7 @@
   },
   "SINTER": {
     "summary": "Intersect multiple sets",
+    "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
     "arguments": [
       {
         "name": "key",
@@ -1110,6 +1176,7 @@
   },
   "SINTERSTORE": {
     "summary": "Intersect multiple sets and store the resulting set in a key",
+    "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
     "arguments": [
       {
         "name": "destination",
@@ -1126,6 +1193,7 @@
   },
   "SISMEMBER": {
     "summary": "Determine if a given value is a member of a set",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1172,6 +1240,7 @@
   },
   "SMEMBERS": {
     "summary": "Get all the members in a set",
+    "complexity": "O(N) where N is the set cardinality.",
     "arguments": [
       {
         "name": "key",
@@ -1183,6 +1252,7 @@
   },
   "SMOVE": {
     "summary": "Move a member from one set to another",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "source",
@@ -1202,6 +1272,7 @@
   },
   "SORT": {
     "summary": "Sort the elements in a list, set or sorted set",
+    "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.",
     "arguments": [
       {
         "name": "key",
@@ -1250,6 +1321,7 @@
   },
   "SPOP": {
     "summary": "Remove and return a random member from a set",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1261,6 +1333,7 @@
   },
   "SRANDMEMBER": {
     "summary": "Get a random member from a set",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1272,6 +1345,7 @@
   },
   "SREM": {
     "summary": "Remove one or more members from a set",
+    "complexity": "O(N) where N is the number of members to be removed.",
     "arguments": [
       {
         "name": "key",
@@ -1288,6 +1362,7 @@
   },
   "STRLEN": {
     "summary": "Get the length of the value stored in a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1299,6 +1374,7 @@
   },
   "SUBSCRIBE": {
     "summary": "Listen for messages published to the given channels",
+    "complexity": "O(N) where N is the number of channels to subscribe to.",
     "arguments": [
       {
         "name": ["channel"],
@@ -1311,6 +1387,7 @@
   },
   "SUNION": {
     "summary": "Add multiple sets",
+    "complexity": "O(N) where N is the total number of elements in all given sets.",
     "arguments": [
       {
         "name": "key",
@@ -1323,6 +1400,7 @@
   },
   "SUNIONSTORE": {
     "summary": "Add multiple sets and store the resulting set in a key",
+    "complexity": "O(N) where N is the total number of elements in all given sets.",
     "arguments": [
       {
         "name": "destination",
@@ -1344,6 +1422,7 @@
   },
   "TTL": {
     "summary": "Get the time to live for a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1355,6 +1434,7 @@
   },
   "TYPE": {
     "summary": "Determine the type stored at key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1366,6 +1446,7 @@
   },
   "UNSUBSCRIBE": {
     "summary": "Stop listening for messages posted to the given channels",
+    "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
     "arguments": [
       {
         "name": "channel",
@@ -1379,11 +1460,13 @@
   },
   "UNWATCH": {
     "summary": "Forget about all watched keys",
+    "complexity": "O(1)",
     "since": "2.1.0",
     "group": "transactions"
   },
   "WATCH": {
     "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
+    "complexity": "O(1) for every key.",
     "arguments": [
       {
         "name": "key",
@@ -1396,6 +1479,7 @@
   },
   "ZADD": {
     "summary": "Add one or more members to a sorted set, or update its score if it already exists",
+    "complexity": "O(log(N)) where N is the number of elements in the sorted set.",
     "arguments": [
       {
         "name": "key",
@@ -1425,6 +1509,7 @@
   },
   "ZCARD": {
     "summary": "Get the number of members in a sorted set",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1436,6 +1521,7 @@
   },
   "ZCOUNT": {
     "summary": "Count the members in a sorted set with scores within the given values",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M being the number of elements between `min` and `max`.",
     "arguments": [
       {
         "name": "key",
@@ -1455,6 +1541,7 @@
   },
   "ZINCRBY": {
     "summary": "Increment the score of a member in a sorted set",
+    "complexity": "O(log(N)) where N is the number of elements in the sorted set.",
     "arguments": [
       {
         "name": "key",
@@ -1474,6 +1561,7 @@
   },
   "ZINTERSTORE": {
     "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
+    "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
     "arguments": [
       {
         "name": "destination",
@@ -1508,6 +1596,7 @@
   },
   "ZRANGE": {
     "summary": "Return a range of members in a sorted set, by index",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
     "arguments": [
       {
         "name": "key",
@@ -1533,6 +1622,7 @@
   },
   "ZRANGEBYSCORE": {
     "summary": "Return a range of members in a sorted set, by score",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with `LIMIT`), you can consider it O(log(N)).",
     "arguments": [
       {
         "name": "key",
@@ -1564,6 +1654,7 @@
   },
   "ZRANK": {
     "summary": "Determine the index of a member in a sorted set",
+    "complexity": "O(log(N))",
     "arguments": [
       {
         "name": "key",
@@ -1579,6 +1670,7 @@
   },
   "ZREM": {
     "summary": "Remove one or more members from a sorted set",
+    "complexity": "O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.",
     "arguments": [
       {
         "name": "key",
@@ -1595,6 +1687,7 @@
   },
   "ZREMRANGEBYRANK": {
     "summary": "Remove all members in a sorted set within the given indexes",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
     "arguments": [
       {
         "name": "key",
@@ -1614,6 +1707,7 @@
   },
   "ZREMRANGEBYSCORE": {
     "summary": "Remove all members in a sorted set within the given scores",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
     "arguments": [
       {
         "name": "key",
@@ -1633,6 +1727,7 @@
   },
   "ZREVRANGE": {
     "summary": "Return a range of members in a sorted set, by index, with scores ordered from high to low",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
     "arguments": [
       {
         "name": "key",
@@ -1658,6 +1753,7 @@
   },
   "ZREVRANGEBYSCORE": {
     "summary": "Return a range of members in a sorted set, by score, with scores ordered from high to low",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with `LIMIT`), you can consider it O(log(N)).",
     "arguments": [
       {
         "name": "key",
@@ -1689,6 +1785,7 @@
   },
   "ZREVRANK": {
     "summary": "Determine the index of a member in a sorted set, with scores ordered from high to low",
+    "complexity": "O(log(N))",
     "arguments": [
       {
         "name": "key",
@@ -1704,6 +1801,7 @@
   },
   "ZSCORE": {
     "summary": "Get the score associated with the given member in a sorted set",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -1719,6 +1817,7 @@
   },
   "ZUNIONSTORE": {
     "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
+    "complexity": "O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
     "arguments": [
       {
         "name": "destination",
@@ -1753,6 +1852,7 @@
   },
   "EVAL": {
     "summary": "Execute a Lua script server side",
+    "complexity": "Looking up the script both with `EVAL` or `EVALSHA` is an O(1) business. The additional complexity is up to the script you execute.",
     "arguments": [
       {
         "name": "script",

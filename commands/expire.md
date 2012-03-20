@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Set a timeout on `key`. After the timeout has expired, the key will
 automatically be deleted. A key with an associated timeout is often said to be
 _volatile_ in Redis terminology.

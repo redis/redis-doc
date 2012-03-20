@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Insert all the specified values at the head of the list stored at `key`.
 If `key` does not exist, it is created as empty list before performing
 the push operations.

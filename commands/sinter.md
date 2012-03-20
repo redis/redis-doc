@@ -1,8 +1,3 @@
-@complexity
-
-O(N\*M) worst case where N is the cardinality of the smallest set and M is the
-number of sets.
-
 Returns the members of the set resulting from the intersection of all the given
 sets.
 

@@ -1,9 +1,3 @@
-@complexity
-
-Not applicable.
-
-@description
-
 The `CONFIG SET` command is used in order to reconfigure the server at runtime
 without the need to restart Redis. You can change both trivial parameters or
 switch from one to another persistence option using this command.

@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Atomically returns and removes the last element (tail) of the list stored at
 `source`, and pushes the element at the first element (head) of the list stored
 at `destination`.

@@ -1,7 +1,3 @@
-@complexity
-
-O(1).
-
 `BRPOPLPUSH` is the blocking variant of [RPOPLPUSH](/commands/rpoplpush).
 When `source` contains elements, this command behaves exactly like
 [RPOPLPUSH](/commands/rpoplpush). When `source` is empty, Redis will block

@@ -1,9 +1,3 @@
-@complexity
-
-O(N) where N is the length of the returned string. The complexity is ultimately
-determined by the returned length, but because creating a substring from an
-existing string is very cheap, it can be considered O(1) for small strings.
-
 **Warning**: this command was renamed to `GETRANGE`, it is called `SUBSTR` in Redis versions `<= 2.0`.
 
 Returns the substring of the string value stored at `key`, determined by the

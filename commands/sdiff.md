@@ -1,7 +1,3 @@
-@complexity
-
-O(N) where N is the total number of elements in all given sets.
-
 Returns the members of the set resulting from the difference between the first
 set and all the successive sets.
 

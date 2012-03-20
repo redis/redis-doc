@@ -1,8 +1,3 @@
-@complexity
-
-O(log(N))
-
-
 Returns the rank of `member` in the sorted set stored at `key`, with the scores
 ordered from high to low. The rank (or index) is 0-based, which means that the
 member with the highest score has rank `0`.

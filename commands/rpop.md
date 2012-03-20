@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Removes and returns the last element of the list stored at `key`.
 
 @return

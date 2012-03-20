@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Removes and returns the first element of the list stored at `key`.
 
 @return

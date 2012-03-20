@@ -1,5 +1,3 @@
-@description
-
 Request for authentication in a password protected Redis server.
 Redis can be instructed to require a password before allowing clients
 to execute commands. This is done using the `requirepass` directive in the

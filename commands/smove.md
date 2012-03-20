@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Move `member` from the set at `source` to the set at `destination`. This
 operation is atomic. In every given moment the element will appear to be a
 member of `source` **or** `destination` for other clients.

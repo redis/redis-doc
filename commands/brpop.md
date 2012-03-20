@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 `BRPOP` is a blocking list pop primitive.  It is the blocking version of
 [RPOP](/commands/rpop) because it blocks the connection when there are no
 elements to pop from any of the given lists. An element is popped from the

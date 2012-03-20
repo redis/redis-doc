@@ -1,8 +1,3 @@
-@complexity
-
-Looking up the script both with `EVAL` or `EVALSHA` is an O(1) business. The
-additional complexity is up to the script you execute.
-
 Warning
 ---
 
