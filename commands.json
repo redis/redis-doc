@@ -806,6 +806,21 @@
     "since": "2.6.0",
     "group": "generic"
   },
+  "PEXPIREAT": {
+    "summary": "Set the expiration for a key as a UNIX timestamp specified in milliseconds",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "milliseconds timestamp",
+        "type": "posix time"
+      }
+    ],
+    "since": "2.6.0",
+    "group": "generic"
+  },
   "PING": {
     "summary": "Ping the server",
     "since": "0.07",
