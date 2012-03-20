@@ -15,6 +15,13 @@ Note: A Redis instance that is configured for not persisting on disk
 `SHUTDOWN`, as usually you don't want Redis instances used only for caching
 to block on when shutting down.
 
+## SAVE and NOSAVE modifiers
+
+It is possible to specify an optional modifier to alter the behavior of the command. Specifically:
+
+* **SHUTDOWN SAVE** will force a DB saving operation even if no save points are configured.
+* **SHUTDOWN NOSAVE** will prevent a DB saving operation even if one or more save points are configured. (You can think at this variant as an hypothetical **ABORT** command that just stops the server).
+
 @return
 
 @status-reply on error. On success nothing is returned since the server

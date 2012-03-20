@@ -1093,6 +1093,20 @@
   },
   "SHUTDOWN": {
     "summary": "Synchronously save the dataset to disk and then shut down the server",
+    "arguments": [
+      {
+        "name": "NOSAVE",
+        "type": "enum",
+        "enum": ["NOSAVE"],
+        "optional": true
+      },
+      {
+        "name": "SAVE",
+        "type": "enum",
+        "enum": ["SAVE"],
+        "optional": true
+      }
+    ],
     "since": "0.07",
     "group": "server"
   },
