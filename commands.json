@@ -192,6 +192,31 @@
     "since": "1.0.0",
     "group": "connection"
   },
+  "EVAL": {
+    "summary": "Execute a Lua script server side",
+    "arguments": [
+      {
+        "name": "script",
+        "type": "string"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "2.6.0",
+    "group": "generic"
+  },
   "EXEC": {
     "summary": "Execute all commands issued after MULTI",
     "since": "1.2.0",
@@ -1829,30 +1854,5 @@
     ],
     "since": "2.0.0",
     "group": "sorted_set"
-  },
-  "EVAL": {
-    "summary": "Execute a Lua script server side",
-    "arguments": [
-      {
-        "name": "script",
-        "type": "string"
-      },
-      {
-        "name": "numkeys",
-        "type": "integer"
-      },
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      },
-      {
-        "name": "arg",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "2.6.0",
-    "group": "generic"
   }
 }
