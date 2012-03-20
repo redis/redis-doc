@@ -11,6 +11,7 @@ Basically the interface is very similar to the one of the `gethostbyname` syscal
 @multi-bulk-reply, specifically:
 
 A multi bulk reply containing two elements:
+
 * unix time in seconds.
 * microseconds.
 
