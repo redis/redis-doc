@@ -1342,6 +1342,11 @@
     "since": "0.07",
     "group": "server"
   },
+  "TIME": {
+    "summary": "Return the current server time",
+    "since": "2.6.0",
+    "group": "server"
+  },
   "TTL": {
     "summary": "Get the time to live for a key",
     "arguments": [
