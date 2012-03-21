@@ -118,12 +118,8 @@
   },
   "CONFIG RESETSTAT": {
     "summary": "Reset the stats returned by INFO",
-<<<<<<< HEAD
-    "since": "2.0.0",
-=======
     "complexity": "O(1)",
-    "since": "2.0",
->>>>>>> origin/complexity-in-json
+    "since": "2.0.0",
     "group": "server"
   },
   "DBSIZE": {
