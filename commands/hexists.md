@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns if `field` is an existing field in the hash stored at `key`.
 
 @return

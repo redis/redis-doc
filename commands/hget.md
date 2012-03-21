@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns the value associated with `field` in the hash stored at `key`.
 
 @return

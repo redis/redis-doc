@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns the length of the string value stored at `key`.
 An error is returned when `key` holds a non-string value.
 

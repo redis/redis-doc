@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Atomically sets `key` to `value` and returns the old value stored at `key`.
 Returns an error when `key` exists but does not hold a string value.
 

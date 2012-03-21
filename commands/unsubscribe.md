@@ -1,7 +1,3 @@
-@complexity
-
-O(N) where N is the number of clients already subscribed to a channel.
-
 Unsubscribes the client from the given channels, or from all of them if
 none is given.
 

@@ -1,7 +1,3 @@
-@complexity
-
-O(log(N)) where N is the number of elements in the sorted set.
-
 Adds all the specified members with the specified scores to the sorted set stored at `key`. It is possible to specify multiple score/member pairs.
 If a specified member is already a member of the sorted set, the score is updated and the element reinserted at the right position to ensure the correct ordering.  If `key` does not exist, a new sorted set with the specified members as sole
 members is created, like if the sorted set was empty.

@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns the score of `member` in the sorted set at `key`.
 
 If `member` does not exist in the sorted set, or `key` does not exist,

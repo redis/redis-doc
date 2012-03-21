@@ -1,7 +1,3 @@
-@complexity
-
-O(N) where N is the number of fields being requested.
-
 Returns the values associated with the specified `fields` in the hash stored at
 `key`.
 

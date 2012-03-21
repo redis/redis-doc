@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Removes and returns a random element from the set value stored at `key`.
 
 This operation is similar to `SRANDMEMBER`, that returns a random

@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns the number of fields contained in the hash stored at `key`.
 
 @return

@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Set `key` to hold string `value` if `key` does not exist.
 In that case, it is equal to `SET`. When `key` already holds
 a value, no operation is performed.

@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns if `member` is a member of the set stored at `key`.
 
 @return

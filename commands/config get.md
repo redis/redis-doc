@@ -1,9 +1,3 @@
-@complexity
-
-Not applicable.
-
-@description
-
 The `CONFIG GET` command is used to read the configuration parameters of a
 running Redis server. Not all the configuration parameters are
 supported in Redis 2.4, while Redis 2.6 can read the whole configuration of

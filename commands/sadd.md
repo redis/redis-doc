@@ -1,8 +1,3 @@
-@complexity
-
-O(N) where N is the number of members to be added.
-
-
 Add the specified members to the set stored at `key`. Specified members that
 are already a member of this set are ignored.  If `key` does not exist, a new
 set is created before adding the specified members.

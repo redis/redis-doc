@@ -1,8 +1,3 @@
-@complexity
-
-O(N) where N is the number of members to be removed.
-
-
 Remove the specified members from the set stored at `key`. Specified members
 that are not a member of this set are ignored.  If `key` does not exist, it is
 treated as an empty set and this command returns `0`.

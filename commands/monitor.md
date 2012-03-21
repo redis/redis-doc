@@ -1,5 +1,3 @@
-
-
 `MONITOR` is a debugging command that outputs the whole sequence of commands
 received by the Redis server. is very handy in order to understand
 what is happening into the database. This command is used directly

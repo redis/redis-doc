@@ -1,5 +1,3 @@
-@description
-
 Returns `message`.
 
 @return

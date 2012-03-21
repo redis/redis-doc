@@ -1,8 +1,3 @@
-@complexity
-
-O(N) where N is the number of keys to set
-
-
 Sets the given keys to their respective values. `MSETNX` will not perform any
 operation at all even if just a single key already exists.
 

@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Sets or clears the bit at _offset_ in the string value stored at _key_.
 
 The bit is either set or cleared depending on _value_, which can be either 0 or

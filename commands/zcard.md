@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns the sorted set cardinality (number of elements) of the sorted set
 stored at `key`.
 

@@ -1,8 +1,3 @@
-@complexity
-
-O(log(N)+M) with N being the number of elements in the sorted set and M the
-number of elements removed by the operation.
-
 Removes all elements in the sorted set stored at `key` with rank between
 `start` and `stop`.  Both `start` and `stop` are `0`-based indexes with `0`
 being the element with the lowest score. These indexes can be negative numbers,

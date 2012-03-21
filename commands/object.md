@@ -1,7 +1,3 @@
-@complexity
-
-O(1) for all the currently implemented subcommands.
-
 The `OBJECT` command allows to inspect the internals of Redis Objects associated
 with keys. It is useful for debugging or to understand if your keys are using
 the specially encoded data types to save space. Your application may also use

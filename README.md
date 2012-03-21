@@ -49,19 +49,11 @@ backticks. For example: <code>`INCR`</code>.
 example: `@multi-bulk-reply`. These keywords will get expanded and
 auto-linked to relevant parts of the documentation.
 
-There should be at least three predefined sections: time complexity,
-description and return value. These sections are marked using magic
-keywords, too:
-
-    @complexity
-
-    O(n), where N is the number of keys in the database.
-
-
-    @description
+There should be at least two predefined sections: description and
+return value. The return value section is marked using the @return
+keyword:
 
     Returns all keys matching the given pattern.
-
 
     @return
 
@@ -82,7 +74,7 @@ Once you're done, the very least you should do is make sure that all
 files compile properly. You can do this by running Rake inside your
 working directory.
 
-    $ rake
+    $ rake parse
 
 Additionally, if you have [Aspell](http://aspell.net/) installed, you
 can spell check the documentation:

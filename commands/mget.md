@@ -1,8 +1,3 @@
-@complexity
-
-O(N) where N is the number of keys to retrieve
-
-
 Returns the values of all specified keys. For every key that does not hold a string value
 or does not exist, the special value `nil` is returned.
 Because of this, the operation never fails.

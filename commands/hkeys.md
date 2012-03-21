@@ -1,7 +1,3 @@
-@complexity
-
-O(N) where N is the size of the hash.
-
 Returns all field names in the hash stored at `key`.
 
 @return

@@ -1,8 +1,3 @@
-@complexity
-
-O(1)
-
-
 Returns if `key` exists.
 
 @return
