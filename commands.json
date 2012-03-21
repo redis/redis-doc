@@ -865,6 +865,7 @@
   },
   "PEXPIRE": {
     "summary": "Set a key's time to live in milliseconds",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -880,6 +881,7 @@
   },
   "PEXPIREAT": {
     "summary": "Set the expiration for a key as a UNIX timestamp specified in milliseconds",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -900,6 +902,7 @@
   },
   "PSETEX": {
     "summary": "Set the value and expiration in milliseconds of a key",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -932,6 +935,7 @@
   },
   "PTTL": {
     "summary": "Get the time to live for a key in milliseconds",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
