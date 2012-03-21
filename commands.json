@@ -202,7 +202,7 @@
   },
   "EVAL": {
     "summary": "Execute a Lua script server side",
-    "complexity": "Looking up the script both with `EVAL` or `EVALSHA` is an O(1) business. The additional complexity is up to the script you execute.",
+    "complexity": "Looking up the script both with EVAL or EVALSHA is an O(1) business. The additional complexity is up to the script you execute.",
     "arguments": [
       {
         "name": "script",
@@ -592,7 +592,7 @@
   },
   "LINDEX": {
     "summary": "Get an element from a list by its index",
-    "complexity": "O(N) where N is the number of elements to traverse to get to the element at `index`. This makes asking for the first or the last element of the list O(1).",
+    "complexity": "O(N) where N is the number of elements to traverse to get to the element at index. This makes asking for the first or the last element of the list O(1).",
     "arguments": [
       {
         "name": "key",
@@ -608,7 +608,7 @@
   },
   "LINSERT": {
     "summary": "Insert an element before or after another element in a list",
-    "complexity": "O(N) where N is the number of elements to traverse before seeing the value `pivot`. This means that inserting somewhere on the left end on the list (head) can be considered O(1) and inserting somewhere on the right end (tail) is O(N).",
+    "complexity": "O(N) where N is the number of elements to traverse before seeing the value pivot. This means that inserting somewhere on the left end on the list (head) can be considered O(1) and inserting somewhere on the right end (tail) is O(N).",
     "arguments": [
       {
         "name": "key",
@@ -690,7 +690,7 @@
   },
   "LRANGE": {
     "summary": "Get a range of elements from a list",
-    "complexity": "O(S+N) where S is the `start` offset and N is the number of elements in the specified range.",
+    "complexity": "O(S+N) where S is the start offset and N is the number of elements in the specified range.",
     "arguments": [
       {
         "name": "key",
@@ -1224,7 +1224,7 @@
   },
   "SETRANGE": {
     "summary": "Overwrite part of a string at key starting at the specified offset",
-    "complexity": "O(1), not counting the time taken to copy the new string in place. Usually, this string is very small so the amortized complexity is O(1). Otherwise, complexity is O(M) with M being the length of the `value` argument.",
+    "complexity": "O(1), not counting the time taken to copy the new string in place. Usually, this string is very small so the amortized complexity is O(1). Otherwise, complexity is O(M) with M being the length of the value argument.",
     "arguments": [
       {
         "name": "key",
@@ -1626,7 +1626,7 @@
   },
   "ZCOUNT": {
     "summary": "Count the members in a sorted set with scores within the given values",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M being the number of elements between `min` and `max`.",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M being the number of elements between min and max.",
     "arguments": [
       {
         "name": "key",
@@ -1727,7 +1727,7 @@
   },
   "ZRANGEBYSCORE": {
     "summary": "Return a range of members in a sorted set, by score",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with `LIMIT`), you can consider it O(log(N)).",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
     "arguments": [
       {
         "name": "key",
@@ -1858,7 +1858,7 @@
   },
   "ZREVRANGEBYSCORE": {
     "summary": "Return a range of members in a sorted set, by score, with scores ordered from high to low",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with `LIMIT`), you can consider it O(log(N)).",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
     "arguments": [
       {
         "name": "key",
