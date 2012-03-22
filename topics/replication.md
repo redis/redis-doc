@@ -20,7 +20,7 @@ the first synchronization.
 the first synchronization it can reply to queries using the old version of
 the data set, assuming you configured Redis to do so in redis.conf.
 Otherwise you can configure Redis slaves to send clients an error if the
-link with the master is down.
+link with the master is down. However there is a moment where the old dataset must be deleted and the new one must be loaded by the slave where it will block incoming connections.
 
 * Replications can be used both for scalability, in order to have
 multiple slaves for read-only queries (for example, heavy `SORT`
@@ -69,6 +69,16 @@ configuration file:
 Of course you need to replace 192.168.1.1 6379 with your master IP address (or
 hostname) and port. Alternatively, you can call the `SLAVEOF` command and the
 master host will start a sync with the slave.
+
+Read only slave
+---
+
+Since Redis 2.6 slaves support a read-only mode that is enabled by default.
+This behavior is controlled by the `slave-read-only` option in the redis.conf file, and can be enabled and disabled at runtime using `CONFIG SET`.
+
+Read only slaves will reject all the write commadns, so that it is not possible to write to a slave because of a mistake. This does not mean that the feature is conceived to expose a slave instance to the internet or more generally to a network where untrusted clients exist, because administrative commands like `DEBUG` or `CONFIG` are still enabled. However security of read-only instances can be improved disabling commands in redis.conf using the `rename-command` directive.
+
+You may wonder why it is possible to revert the default and have slave instances that can be target of write operations. The reason is that while this writes will be discarded if the slave and the master will resynchronize, or if the slave is restarted, often there is ephemeral data that is unimportant that can be stored into slaves. For instance clients may take information about reachability of master in the slave instance to coordinate a fail over strategy.
 
 Setting a slave to authenticate to a master
 ---
