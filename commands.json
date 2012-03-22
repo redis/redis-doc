@@ -224,7 +224,7 @@
       }
     ],
     "since": "2.6.0",
-    "group": "generic"
+    "group": "scripting"
   },
   "EXEC": {
     "summary": "Execute all commands issued after MULTI",
@@ -1112,6 +1112,43 @@
     ],
     "since": "1.0.0",
     "group": "set"
+  },
+  "SCRIPT EXISTS": {
+    "summary": "Check existence of scripts in the script cache.",
+    "complexity": "O(N) with N being the number of scripts to check (so checking a single script is an O(1) operation).",
+    "arguments": [
+      {
+        "name": "script",
+        "type": "string",
+        "multiple": true
+      },
+    ],
+    "since": "2.6.0",
+    "group": "scripting"
+  },
+  "SCRIPT FLUSH": {
+    "summary": "Remove all the scripts from the script cache.",
+    "complexity": "O(N) with N being the number of scripts in cache",
+    "since": "2.6.0",
+    "group": "scripting"
+  },
+  "SCRIPT KILL": {
+    "summary": "Kill the script currently in execution.",
+    "complexity": "O(1)",
+    "since": "2.6.0",
+    "group": "scripting"
+  },
+  "SCRIPT LOAD": {
+    "summary": "Load the specified Lua script into the script cache.",
+    "complexity": "O(N) with N being the length in bytes of the script body.",
+    "arguments": [
+      {
+        "name": "script",
+        "type": "string"
+      },
+    ],
+    "since": "2.6.0",
+    "group": "scripting"
   },
   "SDIFF": {
     "summary": "Subtract multiple sets",
