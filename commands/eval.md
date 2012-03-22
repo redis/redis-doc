@@ -1,32 +1,22 @@
-Warning
----
-
-Redis scripting support is currently a work in progress. This feature
-will be shipped as stable with the release of Redis 2.6. The information
-in this document reflects what is currently implemented, but it is
-possible that changes will be made before the release of the stable
-version.
-
 Introduction to EVAL
 ---
 
 `EVAL` and `EVALSHA` are used to evaluate scripts using the Lua interpreter
 built into Redis starting from version 2.6.0.
 
-The first argument of `EVAL` itself is a Lua script. The script does not need
-to define a Lua function, it is just a Lua program that will run in the context
-of the Redis server.
+The first argument of `EVAL` is a Lua 5.1 script. The script does not need
+to define a Lua function (and should not).  It is just a Lua program that will run in the context of the Redis server.
 
 The second argument of `EVAL` is the number of arguments that follows
-(starting from the third argument) that represent Redis key names.
+the script (starting from the third argument) that represent Redis key names.
 This arguments can be accessed by Lua using the `KEYS` global variable in
 the form of a one-based array (so `KEYS[1]`, `KEYS[2]`, ...).
 
-All the additional arguments that should not represent key names can
+All the additional arguments should not represent key names and can
 be accessed by Lua using the `ARGV` global variable, very similarly to
 what happens with keys (so `ARGV[1]`, `ARGV[2]`, ...).
 
-The following example can clarify what stated above:
+The following example should clarify what stated above:
 
     > eval "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}" 2 key1 key2 first second
     1) "key1"
@@ -36,18 +26,19 @@ The following example can clarify what stated above:
 
 Note: as you can see Lua arrays are returned as Redis multi bulk
 replies, that is a Redis return type that your client library will
-likely convert into an Array in your programming language.
+likely convert into an Array type in your programming language.
 
-It is possible to call Redis program from a Lua script using two different
+It is possible to call Redis commands from a Lua script using two different
 Lua functions:
 
 * `redis.call()`
 * `redis.pcall()`
 
 `redis.call()` is similar to `redis.pcall()`, the only difference is that if a
-Redis command call will result into an error, `redis.call()` will raise a
-Lua error that in turn will make `EVAL` to fail, while `redis.pcall` will trap
-the error returning a Lua table representing the error.
+Redis command call will result into an error, `redis.call()` will raise a Lua
+error that in turn will force `EVAL` to return an error to the command caller,
+while `redis.pcall` will trap the error returning a Lua table representing the
+error.
 
 The arguments of the `redis.call()` and `redis.pcall()` functions are simply
 all the arguments of a well formed Redis command:
@@ -55,7 +46,7 @@ all the arguments of a well formed Redis command:
     > eval "return redis.call('set','foo','bar')" 0
     OK
 
-The above script works and will set the key `foo` to the string "bar".
+The above script actually sets the key `foo` to the string `bar`.
 However it violates the `EVAL` command semantics as all the keys that the
 script uses should be passed using the KEYS array, in the following way:
 
@@ -70,18 +61,17 @@ In order for this to be true for `EVAL` also keys must be explicit.
 This is useful in many ways, but especially in order to make sure Redis Cluster
 is able to forward your request to the appropriate cluster node (Redis
 Cluster is a work in progress, but the scripting feature was designed
-in order to play well with it).
+in order to play well with it). However this rule is not envorced in order to provide the user with opportunities to abuse the Redis single instance configuration, at the cost of writing scripts not compatible with Redis Cluster.
 
-Lua scripts can return a value that is converted from Lua to the Redis protocol
-using a set of conversion rules.
+Lua scripts can return a value, that is converted from the Lua type to the Redis protocol using a set of conversion rules.
 
 Conversion between Lua and Redis data types
 ---
 
 Redis return values are converted into Lua data types when Lua calls a
 Redis command using call() or pcall(). Similarly Lua data types are
-converted into Redis data types when a script returns some value, that
-we need to use as the `EVAL` reply.
+converted into Redis protocol when a Lua script returns some value, so that
+scripts can control what `EVAL` will reply to the client.
 
 This conversion between data types is designed in a way that if
 a Redis type is converted into a Lua type, and then the result is converted
@@ -108,8 +98,8 @@ The following table shows you all the conversions rules:
 * Lua table with a single `err` field -> Redis error reply
 * Lua boolean false -> Redis Nil bulk reply.
 
-There is an additional Lua to Redis conversion that has no corresponding
-Redis to Lua conversion:
+There is an additional Lua to Redis conversion rule that has no corresponding
+Redis to Lua conversion rule:
 
  * Lua boolean true -> Redis integer reply with value of 1.
 
@@ -138,6 +128,8 @@ Redis uses the same Lua interpreter to run all the commands. Also Redis
 guarantees that a script is executed in an atomic way: no other script
 or Redis command will be executed while a script is being executed.
 This semantics is very similar to the one of `MULTI` / `EXEC`.
+From the point of view of all the other clients the effects of a script
+are either still not visible or already completed.
 
 However this also means that executing slow scripts is not a good idea.
 It is not hard to create fast scripts, as the script overhead is very low,
@@ -150,7 +142,7 @@ Error handling
 
 As already stated calls to `redis.call()` resulting into a Redis command error
 will stop the execution of the script and will return that error back, in a
-way that makes it obvious the error was generated by a script:
+way that makes it obvious that the error was generated by a script:
 
     > del foo
     (integer) 1
@@ -161,34 +153,30 @@ way that makes it obvious the error was generated by a script:
 
 Using the `redis.pcall()` command no error is raised, but an error object
 is returned in the format specified above (as a Lua table with an `err`
-field). The user can later return this error to the user just returning the
-error object returned by `redis.pcall()`.
+field). The user can later return this exact error to the user just returning
+the error object returned by `redis.pcall()`.
 
 Bandwidth and EVALSHA
 ---
 
-The `EVAL` command forces you to send the script body again and again, even if
-it does not need to recompile the script every time as it uses an internal
-caching mechanism. However paying the cost of the additional bandwidth may
-not be optimal in all the contexts.
+The `EVAL` command forces you to send the script body again and again.
+Redis does not need to recompile the script every time as it uses an internal
+caching mechanism, however paying the cost of the additional bandwidth may
+not be optimal in may contexts.
 
 On the other hand defining commands using a special command or via `redis.conf`
 would be a problem for a few reasons:
 
-* Different instances may have different versions of a command
-implementation.
+* Different instances may have different versions of a command implementation.
 
-* Deployment is hard if there is to make sure all the instances contain
-a given command, especially in a distributed environment.
+* Deployment is hard if there is to make sure all the instances contain a given command, especially in a distributed environment.
 
-* Reading an application code the full semantic could not be clear since
-the application would call commands defined server side.
+* Reading an application code the full semantic could not be clear since the application would call commands defined server side.
 
 In order to avoid the above three problems and at the same time don't incur
-in the bandwidth penalty Redis implements the `EVALSHA` command.
+in the bandwidth penalty, Redis implements the `EVALSHA` command.
 
-`EVALSHA` works exactly as `EVAL`, but instead of having a script as first argument
-it has the SHA1 sum of a script. The behavior is the following:
+`EVALSHA` works exactly as `EVAL`, but instead of having a script as first argument it has the SHA1 sum of a script. The behavior is the following:
 
 * If the server still remembers a script whose SHA1 sum was the one
 specified, the script is executed.
@@ -209,22 +197,24 @@ Example:
 
 The client library implementation can always optimistically send `EVALSHA` under
 the hoods even when the client actually called `EVAL`, in the hope the script
-was already seen by the server. If the `NOSCRIPT` error is returned `EVAL` will be
-used instead. Passing keys and arguments as `EVAL` additional arguments is also
+was already seen by the server. If the `NOSCRIPT` error is returned `EVAL` will be used instead.
+
+Passing keys and arguments as `EVAL` additional arguments is also
 very useful in this context as the script string remains constant and can be
 efficiently cached by Redis.
 
 Script cache semantics
 ---
 
-Executed scripts are guaranteed to be in the script cache forever.
+Executed scripts are guaranteed to be in the script cache **forever**.
 This means that if an `EVAL` is performed against a Redis instance all the
 subsequent `EVALSHA` calls will succeed.
 
 The only way to flush the script cache is by explicitly calling the
-SCRIPT FLUSH command, that will flush the scripts cache. This is usually
+SCRIPT FLUSH command, that will *completely flush* the scripts cache removing
+all the scripts executed so far. This is usually
 needed only when the instance is going to be instantiated for another
-customer in a cloud environment.
+customer or application in a cloud environment.
 
 The reason why scripts can be cached for long time is that it is unlikely
 for a well written application to have so many different scripts to create
@@ -237,7 +227,7 @@ The fact that the user can count on Redis not removing scripts
 is semantically a very good thing. For instance an application taking
 a persistent connection to Redis can stay sure that if a script was
 sent once it is still in memory, thus for instance can use EVALSHA
-against those scripts in a pipeline without the change that an error
+against those scripts in a pipeline without the chance that an error
 will be generated since the script is not known (we'll see this problem
 in its details later).
 
@@ -261,7 +251,8 @@ cache, while 0 means that a script with this SHA1 was never seen before
 * SCRIPT LOAD *script*. This command registers the specified script in
 the Redis script cache. The command is useful in all the contexts where
 we want to make sure that `EVALSHA` will not fail (for instance during a
-pipeline or MULTI/EXEC operation).
+pipeline or MULTI/EXEC operation), without the need to actually execute the
+script.
 
 * SCRIPT KILL. This command is the only wait to interrupt a long running
 script that reached the configured maximum execution time for scripts.
@@ -279,32 +270,38 @@ same script, instead of the resulting commands. The same happens for the
 Append Only File. The reason is that scripts are much faster than sending
 commands one after the other to a Redis instance, so if the client is
 taking the master very busy sending scripts, turning this scripts into single
-commands for the slave / AOF would result in too much load for the replication
-link or the Append Only File.
+commands for the slave / AOF would result in too much bandwidth for the
+replication link or the Append Only File (and also too much CPU since
+dispatching a command received via network is a lot more work for Redis
+compared to dispatching a command invoked by Lua scripts).
 
 The only drawback with this approach is that scripts are required to
 have the following property:
 
 * The script always evaluates the same Redis *write* commands with the
 same arguments given the same input data set. Operations performed by
-the script cannot depend on any hidden information or state that may
-change as script execution proceeds or between different executions of
+the script cannot depend on any hidden (non explicit) information or state
+that may change as script execution proceeds or between different executions of
 the script, nor can it depend on any external input from I/O devices.
 
 Things like using the system time, calling Redis random commands like
-RANDOMKEY, or using Lua random number generator, could result into scripts
+`RANDOMKEY`, or using Lua random number generator, could result into scripts
 that will not evaluate always in the same way.
 
 In order to enforce this behavior in scripts Redis does the following:
 
-* Lua does not export commands to access the system time or other
-external state.
+* Lua does not export commands to access the system time or other external state.
 
 * Redis will block the script with an error if a script will call a
-Redis command able to alter the data set **after** a Redis random
-command like RANDOMKEY or SRANDMEMBER. This means that if a script is
-read only and does not modify the data set it is free to call those
-commands.
+Redis command able to alter the data set **after** a Redis *random*
+command like `RANDOMKEY`, `SRANDMEMBER`, `TIME`. This means that if a script is
+read only and does not modify the data set it is free to call those commands.
+Note that a *random command* does not necessarily identifies a command that
+uses random numbers: any non deterministic command is considered a random
+command (the best example in this regard is the `TIME` command).
+
+* Redis commands that may return elements in random order, like `SMEMBERS`
+(because Redis Sets are *unordered*) have a different behavior when called from Lua, and undergone a silent lexicographical sorting filter before returning data to Lua scripts. So `redis.call("smembers",KEYS[1])` will always return the Set elements in the same order, while the same command invoked from normal clients may return different results even if the key contains exactly the same elements.
 
 * Lua pseudo random number generation functions `math.random` and
 `math.randomseed` are modified in order to always have the same seed every
@@ -313,7 +310,7 @@ always generate the same sequence of numbers every time a script is
 executed if `math.randomseed` is not used.
 
 However the user is still able to write commands with random behaviors
-using the following simple trick. For example I want to write a Redis
+using the following simple trick. Imagine I want to write a Redis
 script that will populate a list with N random integers.
 
 I can start writing the following script, using a small Ruby program:
@@ -351,9 +348,10 @@ following elements:
     10) "0.17082803611217"
 
 In order to make it a pure function, but still making sure that every
-invocation of the script will result in a different random elements, we can
+invocation of the script will result in different random elements, we can
 simply add an additional argument to the script, that will be used in order to
-seed the Lua PRNG. The new script will be like the following:
+seed the Lua pseudo random number generator. The new script will be like the
+following:
 
     RandomPushScript = <<EOF
         local i = tonumber(ARGV[1])
@@ -368,7 +366,7 @@ seed the Lua PRNG. The new script will be like the following:
     r.del(:mylist)
     puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
 
-What we are doing here is to send the seed of the PRNG as one of the
+What we are doing here is sending the seed of the PRNG as one of the
 arguments. This way the script output will be the same given the same
 arguments, but we are changing one of the argument at every invocation,
 generating the random seed client side. The seed will be propagated as
@@ -386,12 +384,13 @@ Available libraries
 
 The Redis Lua interpreter loads the following Lua libraries:
 
-* Base lib.
-* Table lib.
-* String lib.
-* Math lib.
-* Debug lib.
-* CJSON lib.
+* base lib.
+* table lib.
+* string lib.
+* math lib.
+* debug lib.
+* cjson lib.
+* cmsgpack lib.
 
 Every Redis instance is *guaranteed* to have all the above libraries so you
 can be sure that the environment for your Redis scripts is always the same.
@@ -399,14 +398,40 @@ can be sure that the environment for your Redis scripts is always the same.
 The CJSON library allows to manipulate JSON data in a very fast way from Lua.
 All the other libraries are standard Lua libraries.
 
+Emitting Redis logs from scripts
+---
+
+It is possible to write to the Redis log file from Lua scripts using the
+`redis.log` function.
+
+    redis.log(loglevel,message)
+
+loglevel is one of:
+
+* `redis.LOG_DEBUG`
+* `redis.LOG_VERBOSE`
+* `redis.LOG_NOTICE`
+* `redis.LOG_WARNING`
+
+They exactly correspond to the normal Redis log levels. Only logs emitted by scripting using a log level that is equal or greater than the currently configured
+Redis instance log level will be emitted.
+
+The `message` argument is simply a string. Example:
+
+    redis.log(redis.LOG_WARNING,"Something is wrong with this script.")
+
+Will generate the following:
+
+    [32343] 22 Mar 15:21:39 # Something is wrong with this script.
+
 Sandbox and maximum execution time
 ---
 
 Scripts should never try to access the external system, like the file system,
 nor calling any other system call. A script should just do its work operating
-on Redis data, starting form Redis data.
+on Redis data and passed arguments.
 
-Scripts also are subject to a maximum execution time of five seconds.
+Scripts are also subject to a maximum execution time (five seconds by default).
 This default timeout is huge since a script should run usually in a sub
 millisecond amount of time. The limit is mostly needed in order to avoid
 problems when developing scripts that may loop forever for a programming
@@ -427,7 +452,7 @@ the following happens:
 * Redis logs that a script that is running for too much time is still in execution.
 * It starts accepting commands again from other clients, but will reply with a BUSY error to all the clients sending normal commands. The only allowed commands in this status are `SCRIPT KILL` and `SHUTDOWN NOSAVE`.
 * It is possible to terminate a script that executed only read-only commands using the `SCRIPT KILL` command. This does not violate the scripting semantic as no data was yet written on the dataset by the script.
-* If the script already called write commands against the data set the only allowed command becomes `SHUTDOWN NOSAVE` that stops the server not saving the current data set on disk (basically the server is aborted).
+* If the script already called write commands the only allowed command becomes `SHUTDOWN NOSAVE` that stops the server not saving the current data set on disk (basically the server is aborted).
 
 EVALSHA in the context of pipelining
 ---
@@ -443,6 +468,6 @@ approaches:
 * Always use plain `EVAL` when in the context of a pipeline.
 
 * Accumulate all the commands to send into the pipeline, then check for
-`EVAL` commands and use the SCRIPT EXISTS command to check if all the
-scripts are already defined. If not add SCRIPT LOAD commands on top of
+`EVAL` commands and use the `SCRIPT EXISTS` command to check if all the
+scripts are already defined. If not add `SCRIPT LOAD` commands on top of
 the pipeline as required, and use `EVALSHA` for all the `EVAL` calls.
