@@ -1121,7 +1121,7 @@
         "name": "script",
         "type": "string",
         "multiple": true
-      },
+      }
     ],
     "since": "2.6.0",
     "group": "scripting"
