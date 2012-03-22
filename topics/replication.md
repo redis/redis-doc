@@ -76,7 +76,7 @@ Read only slave
 Since Redis 2.6 slaves support a read-only mode that is enabled by default.
 This behavior is controlled by the `slave-read-only` option in the redis.conf file, and can be enabled and disabled at runtime using `CONFIG SET`.
 
-Read only slaves will reject all the write commadns, so that it is not possible to write to a slave because of a mistake. This does not mean that the feature is conceived to expose a slave instance to the internet or more generally to a network where untrusted clients exist, because administrative commands like `DEBUG` or `CONFIG` are still enabled. However security of read-only instances can be improved disabling commands in redis.conf using the `rename-command` directive.
+Read only slaves will reject all the write commands, so that it is not possible to write to a slave because of a mistake. This does not mean that the feature is conceived to expose a slave instance to the internet or more generally to a network where untrusted clients exist, because administrative commands like `DEBUG` or `CONFIG` are still enabled. However security of read-only instances can be improved disabling commands in redis.conf using the `rename-command` directive.
 
 You may wonder why it is possible to revert the default and have slave instances that can be target of write operations. The reason is that while this writes will be discarded if the slave and the master will resynchronize, or if the slave is restarted, often there is ephemeral data that is unimportant that can be stored into slaves. For instance clients may take information about reachability of master in the slave instance to coordinate a fail over strategy.
 
