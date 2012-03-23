@@ -12,10 +12,10 @@ The exact behavior of this command is identical to the one of the `INCRBYFLOAT` 
 @examples
 
     @cli
-    HSET mykey 10.50
-    HINCRBYFLOAT mykey 0.1
-    HSET mykey 5.0e3
-    HINCRBYFLOAT mykey 2.0e2
+    HSET mykey field 10.50
+    HINCRBYFLOAT mykey field 0.1
+    HSET mykey field 5.0e3
+    HINCRBYFLOAT mykey field 2.0e2
 
 ## Implementation details
 
