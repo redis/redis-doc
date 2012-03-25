@@ -7,6 +7,9 @@ These are the counters that are reset:
 * Number of commands processed
 * Number of connections received
 * Number of expired keys
+* Number of rejected connections
+* Latest fork(2) time
+* The `aof_delayed_fsync` counter
 
 @return
 
