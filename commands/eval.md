@@ -162,7 +162,7 @@ Bandwidth and EVALSHA
 The `EVAL` command forces you to send the script body again and again.
 Redis does not need to recompile the script every time as it uses an internal
 caching mechanism, however paying the cost of the additional bandwidth may
-not be optimal in may contexts.
+not be optimal in many contexts.
 
 On the other hand defining commands using a special command or via `redis.conf`
 would be a problem for a few reasons:
