@@ -61,7 +61,7 @@ In order for this to be true for `EVAL` also keys must be explicit.
 This is useful in many ways, but especially in order to make sure Redis Cluster
 is able to forward your request to the appropriate cluster node (Redis
 Cluster is a work in progress, but the scripting feature was designed
-in order to play well with it). However this rule is not envorced in order to provide the user with opportunities to abuse the Redis single instance configuration, at the cost of writing scripts not compatible with Redis Cluster.
+in order to play well with it). However this rule is not enforced in order to provide the user with opportunities to abuse the Redis single instance configuration, at the cost of writing scripts not compatible with Redis Cluster.
 
 Lua scripts can return a value, that is converted from the Lua type to the Redis protocol using a set of conversion rules.
 
