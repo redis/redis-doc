@@ -5,7 +5,7 @@ This page tries to help you about what to do if you have issues with Redis. Part
 
 * If you have **latency problems** with Redis, that is some way appears to be idle for some time, read our [Redis latency trubleshooting guide](/topics/latency).
 * Redis stable releases are usually very reliable, however in the rare event you are **experiencing crashes** the developers can help a lot more if you provide debugging informations. Please read our [Debugging Redis guide](/topics/debugging).
-* It happened multiple times that users experiencing problems with Redis actually had a server with **broken RAM**. Please test your RAM using **redis-server --test-memory** in case Redis is not stable in your system. Redis built-in memory test is fast and reasonably reliable, but if you can you should reboot your server and use [memcheck86](http://memcheck86.com).
+* It happened multiple times that users experiencing problems with Redis actually had a server with **broken RAM**. Please test your RAM using **redis-server --test-memory** in case Redis is not stable in your system. Redis built-in memory test is fast and reasonably reliable, but if you can you should reboot your server and use [memtest86](http://memtest86.com).
 
 For every other problem please drop a message to the [Redis Google Group](http://groups.google.com/group/redis-db). We will be glad to help.
 
