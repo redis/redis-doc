@@ -473,3 +473,58 @@ Apparently there is no way to tell strace to just show slow system calls so
 I use the following command:
 
     sudo strace -f -p $(pidof redis-server) -T -e trace=fdatasync,write 2>&1 | grep -v '0.0' | grep -v unfinished
+
+Redis software watchdog
+---
+
+Redis 2.6 introduces the *Redis Software Watchdog* that is a debugging tool
+designed to track those latency problems that for one reason or the other
+esacped an analysis using normal tools.
+
+The software watchdog is an experimental feature. While it is designed to
+be used in production enviroments care should be taken to backup the database
+before proceeding as it could possibly have unexpected interactions with the
+normal execution of the Redis server.
+
+It is important to use it only as *last resort* when there is no way to track the issue by other means.
+
+This is how this feature works:
+
+* The user enables the softare watchdog using te `CONFIG SET` command.
+* Redis starts monitoring itself constantly.
+* If Redis detects that the server is blocked into some operation that is not returning fast enough, and that may be the source of the latency issue, a low level report about where the server is blocked is dumped on the log file.
+* The user contacts the developers writing a message in the Redis Google Group, including the watchdog report in the message.
+
+Note that this feature can not be enabled using the redis.conf file, because it is designed to be enabled only in already running instances and only for debugging purposes.
+
+To enable the feature just use the following:
+
+    CONFIG SET watchdog-period 500
+
+The period is specified in milliseconds. In the above example I specified to log latency issues only if the server detects a delay of 500 milliseconds or greater. The minimum configurable period is 200 milliseconds.
+
+When you are done with the software watchdog you can turn it off setting the `watchdog-period` parameter to 0. **Important:** remember to do this because keeping the instance with the watchdog turned on for a longer time than needed is generally not a good idea.
+
+The following is an example of what you'll see printed in the log file once the software watchdog detects a delay longer than the configured one:
+
+    [8547 | signal handler] (1333114359)
+    --- WATCHDOG TIMER EXPIRED ---
+    /lib/libc.so.6(nanosleep+0x2d) [0x7f16b5c2d39d]
+    /lib/libpthread.so.0(+0xf8f0) [0x7f16b5f158f0]
+    /lib/libc.so.6(nanosleep+0x2d) [0x7f16b5c2d39d]
+    /lib/libc.so.6(usleep+0x34) [0x7f16b5c62844]
+    ./redis-server(debugCommand+0x3e1) [0x43ab41]
+    ./redis-server(call+0x5d) [0x415a9d]
+    ./redis-server(processCommand+0x375) [0x415fc5]
+    ./redis-server(processInputBuffer+0x4f) [0x4203cf]
+    ./redis-server(readQueryFromClient+0xa0) [0x4204e0]
+    ./redis-server(aeProcessEvents+0x128) [0x411b48]
+    ./redis-server(aeMain+0x2b) [0x411dbb]
+    ./redis-server(main+0x2b6) [0x418556]
+    /lib/libc.so.6(__libc_start_main+0xfd) [0x7f16b5ba1c4d]
+    ./redis-server() [0x411099]
+    ------
+
+Note: in the example the **DEBUG SLEEP** command was used in order to block the server. The stack trace is different if the server blocks in a different context.
+
+If you happen to collect multiple watchdog stack traces you are encouraged to send everything to the Redis Google Group: the more traces we obtain, the simpler it will be to understand what the problem with your instance is.
