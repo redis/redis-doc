@@ -195,7 +195,7 @@
     "arguments": [
       {
         "name": "key",
-        "type": "key",
+        "type": "key"
       }
     ],
     "since": "2.6.0",
@@ -835,11 +835,11 @@
     "arguments": [
       {
         "name": "host",
-        "type": "string",
+        "type": "string"
       },
       {
         "name": "port",
-        "type": "string",
+        "type": "string"
       },
       {
         "name": "key",
@@ -1100,11 +1100,11 @@
     "arguments": [
       {
         "name": "key",
-        "type": "key",
+        "type": "key"
       },
       {
         "name": "ttl",
-        "type": "integer",
+        "type": "integer"
       },
       {
         "name": "serialized value",
