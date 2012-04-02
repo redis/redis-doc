@@ -5,15 +5,18 @@ The command is atomic and blocks the two instances for the time required to tran
 The command internally uses `DUMP` to generate the serialized version of the key value, and `RESTORE` in order to synthesize the key in the target instance.
 The source instance acts as a client for the target instance. If the target instance returns OK to the `RESTORE` command, the source instance deletes the key using `DEL`.
 
-The timeout specifies the maximum idle time in any moment of the communication with the destination instance in milliseconds. If this idle time is reached the operation is aborted, an error returned, and one of the following cases are possible:
+The timeout specifies the maximum idle time in any moment of the communication with the destination instance in milliseconds. This means that the operation does not need to be completed within the specified amount of milliseconds, but that the transfer should make progresses without blocking for more than the specified amount of milliseconds.
+
+`MIGRATE` needs to perform I/O operations and to honour the specified timeout. When there is an I/O error during the transfer or if the timeout is reached the operation is aborted and the special error -IOERR returned. When this happens the following two cases are possible:
 
 * The key may be on both the instances.
 * The key may be only in the source instance.
 
 It is not possible for the key to get lost in the event of a timeout, but the client calling `MIGRATE`, in the event of a timeout error, should check if the key is *also* present in the target instance and act accordingly.
 
-On success OK is returned, otherwise an error is returned.
-If the error is a timeout the special error -TIMEOUT is returned so that clients can distinguish between this and other errors.
+When any other error is returned (startign with "ERR") `MIGRATE` guarantees that the key is still only present in the originating instance (unless a key with the same name was also *already* present on the target instance).
+
+On success OK is returned.
 
 @return
 
