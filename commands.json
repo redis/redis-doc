@@ -846,7 +846,7 @@
         "type": "key"
       },
       {
-        "name": "destination db",
+        "name": "destination-db",
         "type": "integer"
       },
       {
@@ -964,7 +964,7 @@
         "type": "key"
       },
       {
-        "name": "milliseconds timestamp",
+        "name": "milliseconds-timestamp",
         "type": "posix time"
       }
     ],
@@ -1107,7 +1107,7 @@
         "type": "integer"
       },
       {
-        "name": "serialized value",
+        "name": "serialized-value",
         "type": "string"
       }
     ],
