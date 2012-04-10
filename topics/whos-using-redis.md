@@ -9,7 +9,7 @@ Logos are linked to the relevant story when available.
   </li>
 
   <li>
-    <a href="https://github.com/blog/530-how-we-made-github-fast"><img src="https://github.com/images/modules/header/logov3.png" alt="GitHub"></a>
+    <a href="https://github.com/blog/530-how-we-made-github-fast"><img src="https://github.com/images/modules/header/logo.png" alt="GitHub"></a>
   </li>
 
   <li>
