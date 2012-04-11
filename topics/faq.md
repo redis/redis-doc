@@ -129,8 +129,6 @@ In other words your limit is likely the available memory in your system.
 
 ## What Redis means actually?
 
-Redis means two things:
-
 It means REmote DIctionary Server.
 
 ## Why did you started the Redis project?
