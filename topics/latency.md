@@ -136,7 +136,7 @@ Fork time in different systems
 
 Modern hardware is pretty fast to copy the page table, but Xen is not.
 The problem with Xen is not virtualization-specific, but Xen-specific. For instance
-The using VMware or Virutal Box does not result into slow fork time.
+using VMware or Virutal Box does not result into slow fork time.
 The following is a table that comprares fork time for difference Redis instance
 size. Data is obtained performing a BGSAVE and looking at the `latest_fork_usec` filed in the `INFO` command output.
 
