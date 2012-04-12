@@ -87,6 +87,7 @@ And many others:
 * [Nasza Klasa](http://nk.pl/)
 * [Forrst](http://forrst.com)
 * [Surfingbird](http://surfingbird.com)
+* [Wikipedia Game](http://thewikigame.com) - [Redis architecture description](http://www.clemesha.org/blog/really-using-redis-to-build-fast-real-time-web-apps/).
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [send a pull request](https://github.com/antirez/redis-doc).
