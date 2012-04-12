@@ -143,7 +143,7 @@ size. Data is obtained performing a BGSAVE and looking at the `latest_fork_usec`
 * **Linux beefy VM on VMware** 6.0GB RSS forked in 77 milliseconds (12.8 milliseconds per GB).
 * **Linux running on physical machine (Unknown HW)** 6.1GB RSS forked in 80 milliseconds (13.1 milliseconds per GB)
 * **Linux running on physical machine (Xeon @ 2.27Ghz)** 6.9GB RSS forked into 62 millisecodns (9 milliseconds per GB).
-* **Linux VM on KVM** 360 MB RSS forked in 8.2 milliseconds (23.3 millisecond per GB).
+* **Linux VM on 6sync (KVM)** 360 MB RSS forked in 8.2 milliseconds (23.3 millisecond per GB).
 * **Linux VM on EC2 (Xen)** 6.1GB RSS forked in 1460 milliseconds (239.3 milliseconds per GB).
 * **Linux VM on Linode (Xen)** 0.9GBRSS forked into 382 millisecodns (424 milliseconds per GB).
 
