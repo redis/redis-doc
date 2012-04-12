@@ -137,7 +137,7 @@ Fork time in different systems
 Modern hardware is pretty fast to copy the page table, but Xen is not.
 The problem with Xen is not virtualization-specific, but Xen-specific. For instance
 using VMware or Virutal Box does not result into slow fork time.
-The following is a table that compares fork time for difference Redis instance
+The following is a table that compares fork time for different Redis instance
 size. Data is obtained performing a BGSAVE and looking at the `latest_fork_usec` filed in the `INFO` command output.
 
 * **Linux beefy VM on VMware** 6.0GB RSS forked in 77 milliseconds (12.8 milliseconds per GB).
