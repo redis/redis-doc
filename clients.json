@@ -159,6 +159,14 @@
     "description": "Lua bindings for the hiredis library",
     "authors": ["agladysh"]
   },
+  
+   {
+    "name": "luvit-redis",
+    "language": "Lua",
+    "repository": "https://github.com/twojcik/luvit-redis",
+    "description": "fast luvit redis client",
+    "authors": ["twojcik"]
+  },
 
   {
     "name": "Redis",
