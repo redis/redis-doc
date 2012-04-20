@@ -100,10 +100,9 @@ Running the above simple script will provide this figures in my Mac OS X system,
 
 As you can see using pipelining we improved the transfer by a factor of five.
 
-Pipelining VS other multi-commands
+Pipelining VS Scripting
 ---
 
-Often we get requests about adding new commands performing multiple operations in a single pass.
-For instance there is no command to add multiple elements in a set. You need calling many times `SADD`.
+Using [Redis scripting](/commands/eval) (available in Redis version 2.6 or greater) a number of use cases for pipelining can be addressed more efficiently using scripts that perform a lot of the work needed server side. A big advantage of scripting is that it is able to both read and write data with minimal latency, making operations like *read, compute, write* very fast (pipelining can't help in this scenario since the client needs the reply of the read command before it can call the write command).
 
-With pipelining you can have performances near to an hypothetical MSADD command, but at the same time we'll avoid bloating the Redis command set with too many commands. An additional advantage is that the version written using just SADD will be ready for a distributed environment (for instance Redis Cluster, that is in the process of being developed) just dropping the pipelining code.
+Sometimes the application may also want to send `EVAL` or `EVALSHA` commands in a pipeline. This is entirely possible and Redis explicitly supports it with the [SCRIPT LOAD](http://redis.io/commands/script-load) command (it guarantees that `EVALSHA` can be called without the risk of failing).
