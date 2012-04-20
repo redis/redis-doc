@@ -14,6 +14,8 @@ List of known critical bugs in previous Redis releases.
 
 Note: this list may not be complete as we staretd it March 30, 2012, and did not included much historical data.
 
+* Redis version up to 2.4.10: SORT using GET or BY option with keys with an expire set may crash the server. [Issue #460](http://github.com/antirez/redis/issues/460).
+* Redis version up to 2.4.10: a bug in the aeWait() implementation in ae.c may result in a server crash under extremely hard to replicate conditions. [Issue #267](http://github.com/antirez/redis/issues/267).
 * Redis version up to 2.4.9: **memory leak in replication**. A memory leak was triggered by replicating a master contaning a database ID greatear than ID 9.
 * Redis version up to 2.4.9: **chained replication bug**. In environments where a slave B is attached to another instance `A`, and the instance `A` is switched between master and slave using the `SLAVEOF` command, it is possilbe that `B` will not be correctly disconnected to force a resync when `A` changes status (and data set content).
 * Redis version up to 2.4.7: **redis-check-aof does not work properly in 32 bit instances with AOF files bigger than 2GB**.
