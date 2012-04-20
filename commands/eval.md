@@ -381,7 +381,7 @@ as `math.random` and `math.randomseed` is guaranteed to have the same output
 regardless of the architecture of the system running Redis. 32 or 64 bit systems
 like big or little endian systems will still produce the same output.
 
-Globals variables protection
+Global variables protection
 ---
 
 Redis scripts are not allowed to create global variables, in order to avoid
