@@ -322,6 +322,7 @@ I can start writing the following script, using a small Ruby program:
 
     RandomPushScript = <<EOF
         local i = tonumber(ARGV[1])
+        local res
         while (i > 0) do
             res = redis.call('lpush',KEYS[1],math.random())
             i = i-1
@@ -355,6 +356,7 @@ following:
 
     RandomPushScript = <<EOF
         local i = tonumber(ARGV[1])
+        local res
         math.randomseed(tonumber(ARGV[2]))
         while (i > 0) do
             res = redis.call('lpush',KEYS[1],math.random())
@@ -378,6 +380,28 @@ Note: an important part of this behavior is that the PRNG that Redis implements
 as `math.random` and `math.randomseed` is guaranteed to have the same output
 regardless of the architecture of the system running Redis. 32 or 64 bit systems
 like big or little endian systems will still produce the same output.
+
+Globals variables protection
+---
+
+Redis scripts are not allowed to create global variables, in order to avoid
+leaking data into the Lua state. If a script requires to take state across
+calls (a pretty uncommon need) it should use Redis keys instead.
+
+When a global variable access is attempted the script is terminated and EVAL returns with an error:
+
+    redis 127.0.0.1:6379> eval 'a=10' 0
+    (error) ERR Error running script (call to f_933044db579a2f8fd45d8065f04a8d0249383e57): user_script:1: Script attempted to create global variable 'a' 
+
+Accessing a *non existing* global variable generates a similar error.
+
+Using Lua debugging functionalities or other approaches like altering the meta
+table used to implement global protections, in order to circumvent globals
+protection, is not hard. However it is hardly possible to do it accidentally.
+If the user messes with the Lua global state, the consistency of AOF and
+replication is not guaranteed: don't do it.
+
+Note for Lua newbies: in order to avoid using global variables in your scripts simply declare every variable you are going to use using the *local* keyword.
 
 Available libraries
 ---
