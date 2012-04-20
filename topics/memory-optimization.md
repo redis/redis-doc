@@ -3,15 +3,17 @@ This page is a work in progress. Currently it is just a list of things you shoul
 Special encoding of small aggregate data types
 ----------------------------------------------
 
-Since Redis 2.2 many data types are optimized to use less space up to a certain size. Hashes, Lists of any kind and Sets composed of just integers, when smaller than a given number of elements, and up to a maximum element size, are encoded in a very memory efficient way that uses *up to 10 times less memory* (with 5 time less memory used being the average saving).
+Since Redis 2.2 many data types are optimized to use less space up to a certain size. Hashes, Lists, Sets composed of just integers, and Sorted Sets, when smaller than a given number of elements, and up to a maximum element size, are encoded in a very memory efficient way that uses *up to 10 times less memory* (with 5 time less memory used being the average saving).
 
 This is completely transparent from the point of view of the user and API.
 Since this is a CPU / memory trade off it is possible to tune the maximum number of elements and maximum element size for special encoded types using the following redis.conf directives.
 
-    hash-max-zipmap-entries 64
-    hash-max-zipmap-value 512
+    hash-max-zipmap-entries 64 (hahs-max-ziplist-entries for Redis >= 2.6)
+    hash-max-zipmap-value 512  (hash-max-ziplist-value for Redis >= 2.6)
     list-max-ziplist-entries 512
     list-max-ziplist-value 64
+    zset-max-ziplist-entries 128
+    zset-max-ziplist-value 64
     set-max-intset-entries 512
 
 If a specially encoded value will overflow the configured max size, Redis will automatically convert it into normal encoding. This operation is very fast for small values, but if you change the setting in order to use specially encoded values for much larger aggregate types the suggestion is to run some benchmark and test to check the conversion time.
