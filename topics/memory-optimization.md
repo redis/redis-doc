@@ -23,8 +23,8 @@ Using 32 bit instances
 
 Redis compiled with 32 bit target uses a lot less memory per key, since pointers are small, but such an instance will be limited to 4 GB of maximum memory usage. To compile Redis as 32 bit binary use *make 32bit*. RDB and AOF files are compatible between 32 bit and 64 bit instances (and between little and big endian of course) so you can switch from 32 to 64 bit, or the contrary, without problems.
 
-New 2.2 bit and byte level operations
--------------------------------------
+Bit and byte level operations
+-----------------------------
 
 Redis 2.2 introduced new bit and byte level operations: `GETRANGE`, `SETRANGE`, `GETBIT` and `SETBIT`. Using this commands you can treat the Redis string type as a random access array. For instance if you have an application where users are identified by an unique progressive integer number, you can use a bitmap in order to save information about sex of users, setting the bit for females and clearing it for males, or the other way around. With 100 millions of users this data will take just 12 megabyte of RAM in a Redis instance. You can do the same using `GETRANGE` and `SETRANGE` in order to store one byte of information for user. This is just an example but it is actually possible to model a number of problems in very little space with this new primitives.
 
