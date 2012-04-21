@@ -34,7 +34,7 @@ cache.
 You can use Redis from [most programming languages](/clients) out there. 
 
 Redis is written in **ANSI C** and works in most POSIX systems like Linux,
-\*BSD, OS X and Solaris without external dependencies. There
+\*BSD, OS X without external dependencies. Linux and OSX are the two operating systems where Redis is developed and more tested, and we **recommend using Linux for deploying**. Redis may work in Solaris-derived systems like SmartOS, but the support is *best effort*. There
 is no official support for Windows builds, although you may
 have [some](http://code.google.com/p/redis/issues/detail?id=34)
 [options](https://github.com/dmajkic/redis).
