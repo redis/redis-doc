@@ -307,7 +307,7 @@
   {
     "name": "Tcl Client",
     "language": "Tcl",
-    "repository": "https://github.com/antirez/redis/blob/master/tests/support/redis.tcl",
+    "repository": "https://github.com/antirez/redis/blob/unstable/tests/support/redis.tcl",
     "description": "The client used in the Redis test suite.",
     "authors": ["antirez"]
   },
