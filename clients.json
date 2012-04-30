@@ -273,6 +273,14 @@
   },
 
   {
+    "name": "Sider",
+    "language": "Python",
+    "repository": "http://sider.dahlia.kr/",
+    "description": "Python persistent object library using Redis.",
+    "authors": ["hongminhee"]
+  },
+
+  {
     "name": "scala-redis",
     "language": "Scala",
     "repository": "https://github.com/acrosa/scala-redis",
