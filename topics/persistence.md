@@ -276,7 +276,7 @@ for best results.
 It is important to understand that this systems can easily fail if not coded
 in the right way. At least make absolutely sure that after the transfer is
 completed you are able to verify the file size (that should match the one of
-the file you copied) and possibly the SHA1 sum if you are using a VPS.
+the file you copied) and possibly the SHA1 digest if you are using a VPS.
 
 You also need some kind of independent alert system if the transfer of fresh
 backups is not working for some reason.

@@ -176,11 +176,11 @@ would be a problem for a few reasons:
 In order to avoid these problems while avoiding
 the bandwidth penalty, Redis implements the `EVALSHA` command.
 
-`EVALSHA` works exactly like `EVAL`, but instead of having a script as the first argument it has the SHA1 hash of a script. The behavior is the following:
+`EVALSHA` works exactly like `EVAL`, but instead of having a script as the first argument it has the SHA1 digest of a script. The behavior is the following:
 
-* If the server still remembers a script with a matching SHA1 hash, the script is executed.
+* If the server still remembers a script with a matching SHA1 digest, the script is executed.
 
-* If the server does not remember a script with this SHA1 hash, a special
+* If the server does not remember a script with this SHA1 digest, a special
 error is returned telling the client to use `EVAL` instead.
 
 Example:
