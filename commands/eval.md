@@ -169,9 +169,9 @@ would be a problem for a few reasons:
 
 * Different instances may have different versions of a command implementation.
 
-* Deployment is hard if all the instances do not support a given command, especially in a distributed environment.
+* Deployment is hard if there is to make sure all the instances contain a given command, especially in a distributed environment.
 
-* Application code which uses commands defined server-side may cause confusion for other developers.
+* Reading an application code the full semantic could not be clear since the application would call commands defined server side.
 
 In order to avoid these problems while avoiding
 the bandwidth penalty, Redis implements the `EVALSHA` command.
