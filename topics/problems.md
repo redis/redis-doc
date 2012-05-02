@@ -14,6 +14,7 @@ List of known critical bugs in previous Redis releases.
 
 Note: this list may not be complete as we staretd it March 30, 2012, and did not included much historical data.
 
+* Redis version up to 2.4.12 and 2.6.0-RC1: KEYS may not list all the keys, or may list duplicated keys, if keys with an expire set are present in the database. [Issue #488](https://github.com/antirez/redis/pull/488).
 * Redis version up to 2.4.10: SORT using GET or BY option with keys with an expire set may crash the server. [Issue #460](http://github.com/antirez/redis/issues/460).
 * Redis version up to 2.4.10: a bug in the aeWait() implementation in ae.c may result in a server crash under extremely hard to replicate conditions. [Issue #267](http://github.com/antirez/redis/issues/267).
 * Redis version up to 2.4.9: **memory leak in replication**. A memory leak was triggered by replicating a master contaning a database ID greatear than ID 9.
