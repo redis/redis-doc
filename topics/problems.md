@@ -37,3 +37,4 @@ List of known Linux related bugs affecting Redis.
 ===
 
 * Ubuntu 10.04 and 10.10 have serious bugs (especially 10.10) that cause slow downs if not just instance hangs. Please move away from the default kernels shipped with this distributions. [Link to 10.04 bug](https://silverline.librato.com/blog/main/EC2_Users_Should_be_Cautious_When_Booting_Ubuntu_10_04_AMIs). [Link to 10.10 bug](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/666211). Both bugs were reported many times in the context of EC2 instances, but other users confirmed that also native servers are affected (at least by one of the two).
+* Certain versions of the Xen hypervisor are known to have very bad fork() performances. See [the latency page](/topics/latency) for more information.
