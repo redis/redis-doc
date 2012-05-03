@@ -199,7 +199,7 @@ The fail over process consists of the following steps:
 * 6) Call an user script to notify the system administrator.
 * 7) Turn all the remaining slaves, if any, to slaves of the new master.
 * 8) Send a SENTINEL NEWMASTER command to all the reachable sentinels.
-* 0) Start monitoring the new master.
+* 9) Start monitoring the new master.
 
 If Steps "1","2" or "3" fail, the fail over is aborted.
 If Step "6" fails (the script returns non zero) the new master is contacted again and turned back into a slave of the previous master, and the fail over aborted.
