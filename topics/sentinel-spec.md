@@ -12,10 +12,10 @@ short time, preferrably in mid June 2012.
 
 In short this is what Redis Sentinel will be able to do:
 
-1) Monitor master instances to see if they are available.
-2) Promote a slave to master when the master fails.
-3) Modify clients configurations when a slave is elected.
-4) Inform the system administrator about incidents using notifications.
+* Monitor master instances to see if they are available.
+* Promote a slave to master when the master fails.
+* Modify clients configurations when a slave is elected.
+* Inform the system administrator about incidents using notifications.
 
 The following document explains what is the design of Redis Sentinel in order
 to accomplish this goals.
@@ -74,11 +74,11 @@ master or slaves.
 
 The list of networking tasks performed by every sentinel is the following:
 
-1) A Sentinel PUBLISH its presence using the master Pub/Sub every minute.
-2) A Sentinel accepts commands using a TCP port.
-3) A Sentinel constantly monitors master and slaves sending PING commands.
-4) A Sentinel sends INFO commands to the master every minute in order to take a fresh list of connected slaves.
-5) A Sentinel monitors the snetinels Pub/SUb channel in order to discover newly connected setninels.
+* A Sentinel PUBLISH its presence using the master Pub/Sub every minute.
+* A Sentinel accepts commands using a TCP port.
+* A Sentinel constantly monitors master and slaves sending PING commands.
+* A Sentinel sends INFO commands to the master every minute in order to take a fresh list of connected slaves.
+* A Sentinel monitors the snetinels Pub/SUb channel in order to discover newly connected setninels.
 
 Sentinels discovering
 ===
@@ -110,15 +110,15 @@ the specified number of seconds, consecutively.
 For a PING reply to be considered valid, one of the following conditions
 should be true:
 
-1) PING replied with +PONG.
-2) PING replied with -LOADING error.
-3) PING replied with -MASTERDOWN error.
+* PING replied with +PONG.
+* PING replied with -LOADING error.
+* PING replied with -MASTERDOWN error.
 
 What is not considered an acceptable reply:
 
-1) PING replied with -BUSY error.
-2) PING replied with -MISCONF error.
-3) PING reply not received after more than a specified number of milliseconds.
+* PING replied with -BUSY error.
+* PING replied with -MISCONF error.
+* PING reply not received after more than a specified number of milliseconds.
 
 PING should never reply with a different error code than the ones listed above
 but any other error code is considered an acceptable reply by Redis Sentinel.
@@ -191,15 +191,15 @@ Fail over process
 
 The fail over process consists of the following steps:
 
-1) Check that no slave was already elected.
-2) Find suitable slave.
-3) Turn the slave into a master using the SLAVEOF NO ONE command.
-4) Verify the state of the new master again using INFO.
-5) Call an user script to inform the clients that the configuration changed.
-6) Call an user script to notify the system administrator.
-7) Turn all the remaining slaves, if any, to slaves of the new master.
-8) Send a SENTINEL NEWMASTER command to all the reachable sentinels.
-0) Start monitoring the new master.
+* 1) Check that no slave was already elected.
+* 2) Find suitable slave.
+* 3) Turn the slave into a master using the SLAVEOF NO ONE command.
+* 4) Verify the state of the new master again using INFO.
+* 5) Call an user script to inform the clients that the configuration changed.
+* 6) Call an user script to notify the system administrator.
+* 7) Turn all the remaining slaves, if any, to slaves of the new master.
+* 8) Send a SENTINEL NEWMASTER command to all the reachable sentinels.
+* 0) Start monitoring the new master.
 
 If Steps "1","2" or "3" fail, the fail over is aborted.
 If Step "6" fails (the script returns non zero) the new master is contacted again and turned back into a slave of the previous master, and the fail over aborted.
@@ -229,19 +229,19 @@ User provided scripts
 
 Sentinels call user-provided scripts to perform two tasks:
 
-1) Inform clients that the configuration changed.
-2) Notify the system administrator of problems.
+* Inform clients that the configuration changed.
+* Notify the system administrator of problems.
 
 The script to inform clients of a configuration change has the following parameters:
 
-1) ip:port of the calling Sentinel.
-2) old master ip:port.
-3) new master ip:port.
+* ip:port of the calling Sentinel.
+* old master ip:port.
+* new master ip:port.
 
 The script to send notifications is called with the following parameters:
 
-1) ip:port of the calling Sentinel.
-2) The message to deliver to the system administrator is passed writing to the standard input.
+* ip:port of the calling Sentinel.
+* The message to deliver to the system administrator is passed writing to the standard input.
 
 Using the ip:port of the calling sentinel, scripts may call SENTINEL subcommands
 to get more info if needed.
