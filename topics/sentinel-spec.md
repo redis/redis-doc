@@ -1,4 +1,12 @@
-Redis Sentinel design draft
+Redis Sentinel design draft 1.1
+===
+
+Changelog:
+
+* 1.0 first version.
+* 1.1 fail over steps modified: slaves are pointed to new master one after the other and not simultaneously. New section about monitoring slaves to ensure they are replicating correctly.
+
+Introduction
 ===
 
 Redis Sentinel is the name of the Redis high availability solution that's
@@ -197,8 +205,8 @@ The fail over process consists of the following steps:
 * 4) Verify the state of the new master again using INFO.
 * 5) Call an user script to inform the clients that the configuration changed.
 * 6) Call an user script to notify the system administrator.
-* 7) Turn all the remaining slaves, if any, to slaves of the new master.
-* 8) Send a SENTINEL NEWMASTER command to all the reachable sentinels.
+* 7) Send a SENTINEL NEWMASTER command to all the reachable sentinels.
+* 8) Turn all the remaining slaves, if any, to slaves of the new master. This is done incrementally, one slave after the other, waiting for the previous slave to complete the synchronization process before starting with the next one.
 * 9) Start monitoring the new master.
 
 If Steps "1","2" or "3" fail, the fail over is aborted.
@@ -212,6 +220,25 @@ SENTINEL NEWMASTER command
 The SENTINEL NEWMASTER command reconfigures a sentinel to monitor a new master.
 The effect is similar of completely restarting a sentinel against a new master.
 If a fail over was scheduled by the sentinel it is cancelled as well.
+
+Slaves monitoring
+===
+
+A successful fail over can be only performed if there is at least one slave
+that contains a reasonably update version of the master dataset.
+We perform this check before electing the slave using the INFO command
+to check how many seconds elapsed since master and slave disconnected.
+
+However if there is a problem in the replication process (networking problem,
+redis bug, a problem with the slave operating system, ...), when the master
+fail we can be in the unhappy condition of not having a slave that's good
+enough for the fail over.
+
+For this reason every sentinel also continuously monitors slaves as well,
+checking if the replication is up. If the replication appears to be failing
+for too long time (configurable), a notification is sent to the system
+administrator that should make sure that slaves are correctly configured
+and operational.
 
 Sentinels monitoring other sentinels
 ===
