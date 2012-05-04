@@ -10,14 +10,15 @@ Changelog:
 Introduction
 ===
 
-Redis Sentinel is the name of the Redis high availability solution that's
-currently under development. It has nothing to do with Redis Cluster and
-is intended to be used by people that don't need Redis Cluster, but simply
-a way to perform automatic fail over when a master instance is not functioning
-correctly.
+This document provides an overview of the motivation for, and the design of, the 'Redis Sentinel'.
 
-The plan is to provide an usable beta implementaiton of Redis Sentinel in a
-short time, preferrably in mid June 2012.
+Redis Sentinel' is a Redis high availability solution for Redis that is
+currently under development. It should be noted that this solution is not in anyway related to to Redis Cluster: it is
+simply intended as a viable option for high availability use-cases that require automatic detection 
+and failover of a single faulty master instance.
+
+The projected delivery plan is to provide a usable beta implementation of Redis Sentinel in a
+short time, preferably by mid June 2012.
 
 In short this is what Redis Sentinel will be able to do:
 
@@ -26,48 +27,48 @@ In short this is what Redis Sentinel will be able to do:
 * Modify clients configurations when a slave is elected.
 * Inform the system administrator about incidents using notifications.
 
-The following document explains what is the design of Redis Sentinel in order
-to accomplish this goals.
-
 Redis Sentinel idea
 ===
 
 The idea of Redis Sentinel is to have multiple "monitoring devices" in
-different places of your network, monitoring the Redis master instance.
+different places of your network, monitoring a designated Redis master instance.
 
-However this independent devices can't act without agreement with other
+However these independent devices can't act without agreement with other
 sentinels.
 
-Once a Redis master instance is detected as failing, for the fail over process
-to start the sentinel must verify that there is a given level of agreement.
+For the fail-over process to start, a reliable mechanism for the detection of a faulty 
+Redis master instance is necessary.  The sentinels fulfill that role by monitoring 
+the master instance, and employ a configurable consensus strategy for determining system health.
 
-The amount of sentinels, their location in the network, and the
-"minimal agreement" configured, select the desired behavior among many
-possibilities.
+The number of the sentinels, their location in the network, and the
+degree of "minimal agreement" to arrive at consensus, all affect the overall behavior among many
+possibilities.  These are the configuration options for Redis Sentinel.
 
-Redis Sentinel does not use any proxy: client reconfiguration are performed
-running user-provided executables (for instance a shell script or a
-Python program) in a user setup specific way.
+Redis Sentinel does not use proxies: Redis client reconfigurations are performed
+by running user-provided executables -- for example a shell script or a
+Python program -- in a user setup specific way.
 
 In what form it will be shipped
 ===
 
-Redis Sentinel will just be a special mode of the redis-server executable.
+Redis Sentinel is simply a special execution mode of the redis-server executable:
 
-If the redis-server is called with "redis-sentinel" as argv[0] (for instance
-using a symbolic link or copying the file), or if --sentinel option is passed,
-the Redis instance starts in sentinel mode and will only understand sentinel
-related commands. All the other commands will be refused.
+Executing the redis-server with "redis-sentinel" as argv[0] (for instance
+using a symbolic link or copying the file), or, the --sentinel command-line option,
+will start the Redis instance in sentinel mode.
 
-The whole implementation of sentinel will live in a separated file sentinel.c
-with minimal impact on the rest of the code base. However this solution allows
-to use all the facilities already implemented inside Redis without any need
-to reimplement them or to maintain a separated code base for Redis Sentinel.
+A redis-server in sentinel mode will only respond to Redis Sentinel
+commands. All the other commands will be refused.
 
-Sentinels networking
+The entirety of sentinel related code will be isolated in a separated file sentinel.c
+and will have minimal impact on the rest of the code base. This approach still allows
+a sentinel to fully use all the facilities already implemented inside Redis without any need
+to re-implement them or to maintain a separated code base for Redis Sentinel.
+
+Sentinel networking
 ===
 
-All the sentinels take a connection with the monitored master.
+All the sentinels will maintain a connection with the monitored master.
 
 Sentinels use the Redis protocol to talk with each other when needed.
 
@@ -77,37 +78,44 @@ command are used in order to perform different actions.
 For instance to check what a sentinel thinks about the state of the master
 it is possible to send the "SENTINEL STATUS" command using redis-cli.
 
-There is no gossip going on between sentinels. A sentinel instance will query
-other instances only when an agreement is needed about the state of the
-master or slaves.
+Interactions between the Redis Sentinel instances is minimal and not chatty. A sentinel instance will query
+other instances only when an agreement is needed about the state of the master or slaves.
 
 The list of networking tasks performed by every sentinel is the following:
 
-* A Sentinel PUBLISH its presence using the master Pub/Sub every minute.
 * A Sentinel accepts commands using a TCP port.
-* A Sentinel constantly monitors master and slaves sending PING commands.
-* A Sentinel sends INFO commands to the master every minute in order to take a fresh list of connected slaves.
-* A Sentinel monitors the snetinels Pub/SUb channel in order to discover newly connected setninels.
+* A Sentinel periodically sends PUBLISH to advertise its presence using the master Pub/Sub.  Period is one minute.
+* A Sentinel periodically sends INFO to the master in order to take a fresh list of connected slaves. Period is one minute.
+* A Sentinel periodically sends PING to the reeds master and slave instances to monitor their health.  
+* A Sentinel will subscribe to the sentinels Pub/SUb channel in order to discover newly connected sentinels. (See PUBLISH above.)
 
-Sentinels discovering
+Sentinel presence and discovery
 ===
 
-While sentinels don't use some kind of bus interconnecting every Redis Sentinel
-instance to each other, they still need to know the IP address and port of
-each other sentinel instance, because this is useful to run the agreement
-protocol needed to perform the slave election.
+Sentinels do not use peer-to-peer interconnect. 
 
-To make the configuration of sentinels as simple as possible every sentinel
-broadcasts its presence using the Redis master Pub/Sub functionality.
+But clearly they will need to know the IP address and port of
+other peer sentinel instances, because this is necessary for a robust agreement
+protocol to fulfill the required functionality e.g. slave election and promotion.
 
-Every sentinel is subscribed to the same channel, and broadcast information
-about its existence to the same channel, including the "Run ID" of the Sentinel,
-and the IP address and port where it is listening for commands.
+To make the configuration of sentinels as simple as possible, Redis Sentinels leverage 
+the existing Pub/Sub functionality, via the Redis master instance. 
 
-Every sentinel maintain a list of other sentinels ID, IP and port.
-A sentinel that does no longer announce its presence using Pub/Sub for too
-long time is removed from the list. In that case, optionally, a notification
-is delivered to the system administrator.
+A single channel is used to support the presence and discovery protocol. Every sentinel 
+will subscribe to the this channel and also use it to convey information to its peers.
+
+A sentinel instance will advertise its presence via broadcasts to this channel.
+This presence advertisement includes the "Run ID" of the Sentinel,
+and the IP address and port where it listens for commands.
+
+In addition, each sentinel instance will maintain a list of other known sentinels 
+and their associated properties such as ID, IP and port.
+
+A sentinel must periodically re-assert its presence to its peers.  
+
+A sentinel that fails to assert its presence using Pub/Sub (within a given time window) 
+is removed from the list of known peer sentinels that is maintained by its peers. In this 
+case, optionally, a notification is delivered to the system administrator. (See user defined scripts below.)
 
 Detection of failing masters
 ===
@@ -123,7 +131,7 @@ should be true:
 * PING replied with -LOADING error.
 * PING replied with -MASTERDOWN error.
 
-What is not considered an acceptable reply:
+Invalid replies are:
 
 * PING replied with -BUSY error.
 * PING replied with -MISCONF error.
@@ -145,7 +153,7 @@ Agreement with other sentinels
 
 Once a Sentinel detects that the master is failing, in order to perform the
 fail over, it must make sure that the required number of other sentinels
-are agreeing as well.
+are in agreement with its failure diagnosis.
 
 To do so one sentinel after the other is checked to see if the needed
 quorum is reached, as configured by the user.
@@ -204,8 +212,8 @@ The fail over process consists of the following steps:
 * 2) Find suitable slave.
 * 3) Turn the slave into a master using the SLAVEOF NO ONE command.
 * 4) Verify the state of the new master again using INFO.
-* 5) Call an user script to inform the clients that the configuration changed.
-* 6) Call an user script to notify the system administrator.
+* 5) Call a user script to inform the clients that the configuration changed.
+* 6) Call a user script to notify the system administrator.
 * 7) Send a SENTINEL NEWMASTER command to all the reachable sentinels.
 * 8) Turn all the remaining slaves, if any, to slaves of the new master. This is done incrementally, one slave after the other, waiting for the previous slave to complete the synchronization process before starting with the next one.
 * 9) Start monitoring the new master.
@@ -232,21 +240,21 @@ to check how many seconds elapsed since master and slave disconnected.
 
 However if there is a problem in the replication process (networking problem,
 redis bug, a problem with the slave operating system, ...), when the master
-fail we can be in the unhappy condition of not having a slave that's good
+fail, we can be in the unhappy condition of not having any slave that's good
 enough for the fail over.
 
 For this reason every sentinel also continuously monitors slaves as well,
 checking if the replication is up. If the replication appears to be failing
-for too long time (configurable), a notification is sent to the system
-administrator that should make sure that slaves are correctly configured
-and operational.
+(taking longer than a configurable time window), a notification is sent to the system
+administrator alerting them to that fact and that they should make sure 
+that slaves are correctly configured and operational.
 
 Sentinels monitoring other sentinels
 ===
 
-When a sentinel no longer advertises itself using the Pub/Sub channel for too
-much time (configurable), the other sentinels can send (if configured) a
-notification to the system administrator to notify that a sentinel may be down.
+When a sentinel no longer advertises itself using the Pub/Sub channel (taking 
+longer than a configurable time window), the other sentinels can send (if configured) 
+a notification to the system administrator to notify that a sentinel may be down.
 
 At the same time the sentinel is removed from the list of sentinels (but it
 will be automatically re-added to this list once it starts advertising itself
@@ -324,3 +332,4 @@ TODO
 * Add a "push" notification system for configuration changes.
 * Consider adding a "name" to every set of slaves / masters, so that clients can identify services by name.
 * Make clear that we handle a single Sentinel monitoring multiple masters.
+* Make clear the configuration for sentinel PING heartbeat period.
