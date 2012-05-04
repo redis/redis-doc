@@ -5,6 +5,7 @@ Changelog:
 
 * 1.0 first version.
 * 1.1 fail over steps modified: slaves are pointed to new master one after the other and not simultaneously. New section about monitoring slaves to ensure they are replicating correctly.
+* 1.2 Fixed a typo in the fail over section about: critical error is in step 5 and not 6. Added TODO section.
 
 Introduction
 ===
@@ -210,7 +211,7 @@ The fail over process consists of the following steps:
 * 9) Start monitoring the new master.
 
 If Steps "1","2" or "3" fail, the fail over is aborted.
-If Step "6" fails (the script returns non zero) the new master is contacted again and turned back into a slave of the previous master, and the fail over aborted.
+If Step "5" fails (the script returns non zero) the new master is contacted again and turned back into a slave of the previous master, and the fail over aborted.
 
 All the other errors are considered to be non-fatal.
 
@@ -315,4 +316,11 @@ In general if a complex network topology is present, the minimal agreement
 should be set to the max number of sentinels existing at the same time in
 the same network arm, plus one.
 
+TODO
+===
 
+* More detailed specification of user script error handling, including what return codes may mean, like 0: try again. 1: fatal error. 2: try again, and so forth.
+* More detailed specification of what happens when an user script does not return in a given amount of time.
+* Add a "push" notification system for configuration changes.
+* Consider adding a "name" to every set of slaves / masters, so that clients can identify services by name.
+* Make clear that we handle a single Sentinel monitoring multiple masters.
