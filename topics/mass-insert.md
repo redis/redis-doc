@@ -117,7 +117,7 @@ in the above example, with this program:
 We can run the program directly in pipe to redis-cli in order to perform our
 first mass import session.
 
-    $ ruby proto.rb | ../src/redis-cli --pipe
+    $ ruby proto.rb | redis-cli --pipe
     All data transferred. Waiting for the last reply...
     Last reply received from server.
     errors: 0, replies: 1000
