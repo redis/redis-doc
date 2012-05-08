@@ -35,7 +35,7 @@ following commands in the Redis protocol format:
 
 Once this file is created, the remaining action is to feed it to Redis
 as fast as possible. In the past the way to do this was to use the
-following `netcat` with the following command:
+`netcat` with the following command:
 
     (cat data.txt; sleep 10) | nc localhost 6379 > /dev/null
 
@@ -99,8 +99,8 @@ The following Ruby function generates valid protocol:
         proto = ""
         proto << "*"+cmd.length.to_s+"\r\n"
         cmd.each{|arg|
-            proto <<= "$"+arg.length.to_s+"\r\n"
-            proto <<= arg.to_s+"\r\n"
+            proto << "$"+arg.length.to_s+"\r\n"
+            proto << arg.to_s+"\r\n"
         }
         proto
     end
