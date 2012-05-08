@@ -74,7 +74,7 @@ protocol, but just that every command is represented in the following way:
     ...
     <argN><cr><lf>
 
-Where <cr> means "\r" (or ASCII character 13) and <lf> means "\n" (or ASCII character 10).
+Where `<cr>` means "\r" (or ASCII character 13) and `<lf>` means "\n" (or ASCII character 10).
 
 For instance the command **SET key value** is represented by the following protocol:
 
