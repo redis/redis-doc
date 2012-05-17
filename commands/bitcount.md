@@ -29,8 +29,8 @@ Pattern: real time metrics using bitmaps
 ---
 
 Bitmaps are a very space efficient representation of certain kinds of
-information. One example is a web application that needs to the history
-of every user visits, so that for instance it is possible to understand what
+information. One example is a web application that needs the history
+of user visits, so that for instance it is possible to determine what
 users are good targets of beta features, or for any other purpose.
 
 Using the `SETBIT` command this is trivial to accomplish, identifying every
