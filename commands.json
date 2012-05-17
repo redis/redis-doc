@@ -64,11 +64,11 @@
     "arguments": [
       {
         "name": "destkey",
-        "type": "key",
+        "type": "key"
       },
       {
         "name": "operation",
-        "type": "string",
+        "type": "string"
       },
       {
         "name": "key",
