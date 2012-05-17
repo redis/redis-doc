@@ -59,7 +59,7 @@
     "group": "string"
   },
   "BITOP": {
-    "summary": "Perform bitwise opeations between strings",
+    "summary": "Perform bitwise operations between strings",
     "complexity": "O(N)",
     "arguments": [
       {
