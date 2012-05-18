@@ -14,6 +14,7 @@ List of known critical bugs in previous Redis releases.
 
 Note: this list may not be complete as we staretd it March 30, 2012, and did not included much historical data.
 
+* Redis version up to 2.4.12 and 2.6.0-RC1: KEYS may not list all the keys, or may list duplicated keys, if keys with an expire set are present in the database. [Issue #487](https://github.com/antirez/redis/pull/487).
 * Redis version up to 2.4.10: SORT using GET or BY option with keys with an expire set may crash the server. [Issue #460](http://github.com/antirez/redis/issues/460).
 * Redis version up to 2.4.10: a bug in the aeWait() implementation in ae.c may result in a server crash under extremely hard to replicate conditions. [Issue #267](http://github.com/antirez/redis/issues/267).
 * Redis version up to 2.4.9: **memory leak in replication**. A memory leak was triggered by replicating a master contaning a database ID greatear than ID 9.
@@ -36,3 +37,4 @@ List of known Linux related bugs affecting Redis.
 ===
 
 * Ubuntu 10.04 and 10.10 have serious bugs (especially 10.10) that cause slow downs if not just instance hangs. Please move away from the default kernels shipped with this distributions. [Link to 10.04 bug](https://silverline.librato.com/blog/main/EC2_Users_Should_be_Cautious_When_Booting_Ubuntu_10_04_AMIs). [Link to 10.10 bug](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/666211). Both bugs were reported many times in the context of EC2 instances, but other users confirmed that also native servers are affected (at least by one of the two).
+* Certain versions of the Xen hypervisor are known to have very bad fork() performances. See [the latency page](/topics/latency) for more information.

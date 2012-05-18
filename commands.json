@@ -36,6 +36,49 @@
     "since": "1.0.0",
     "group": "server"
   },
+  "BITCOUNT": {
+    "summary": "Count set bits in a string",
+    "complexity": "O(N)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "end",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.6.0",
+    "group": "string"
+  },
+  "BITOP": {
+    "summary": "Perform bitwise operations between strings",
+    "complexity": "O(N)",
+    "arguments": [
+      {
+        "name": "destkey",
+        "type": "key"
+      },
+      {
+        "name": "operation",
+        "type": "string"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "2.6.0",
+    "group": "list"
+  },
   "BLPOP": {
     "summary": "Remove and get the first element in a list, or block until one is available",
     "complexity": "O(1)",
