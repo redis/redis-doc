@@ -339,6 +339,15 @@
   },
 
   {
+    "name": "DartRedisClient",
+    "language": "Dart",
+    "url": "https://github.com/mythz/DartRedisClient",
+    "description": "A high-performance async/non-blocking Redis client for Dart",
+    "authors": ["demisbellot"],
+    "recommended": true
+  },
+
+  {
     "name": "hxneko-redis",
     "language": "haXe",
     "url": "http://code.google.com/p/hxneko-redis",
