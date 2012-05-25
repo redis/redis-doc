@@ -14,6 +14,7 @@ Redis setup hints
 + Even if you have persistence disabled, Redis will need to perform RDB saves if you use replication.
 + The use of Redis persistence with **EC2 EBS volumes is discouraged** since EBS performance is usually poor. Use ephemeral storage to persist and then move your persistence files to EBS when possible.
 + If you are deploying using a virtual machine that uses the **Xen hypervisor you may experience slow fork() times**. This may block Redis from a few milliseconds up to a few seconds depending on the dataset size. Check the [latency page](/topics/latency) for more information. This problem is not common to other hypervisors.
++ Use `daemonize no` when run under daemontools.
 
 Upgrading or restarting a Redis instance without downtime
 -------------------------------------------------------
