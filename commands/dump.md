@@ -2,7 +2,7 @@ Serialize the value stored at key in a Redis-specific format and return it to th
 
 The serialization format is opaque and non-standard, however it has a few semantical characteristics:
 
-* It contains a 64bit checksum that is used to make sure errors will be detected. The `RESTORE` command makes sure to check the checksum before synthesizing a key using the serialized value.
+* It contains a 64-bit checksum that is used to make sure errors will be detected. The `RESTORE` command makes sure to check the checksum before synthesizing a key using the serialized value.
 * Values are encoded in the same format used by RDB.
 * An RDB version is encoded inside the serialized value, so that different Redis versions with incompatible RDB formats will refuse to process the serialized value.
 
