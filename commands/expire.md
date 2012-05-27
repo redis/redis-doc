@@ -106,7 +106,7 @@ Keys expiring information is stored as absolute unix timestamps (in milliseconds
 
 For expires to work well, the computer time must be taken stable. If you move an RDB file from two computers with a big desynch in their clocks, funny things may happen (like all the keys loaded to be expired at loading time).
 
-Even runnign instances will always check the computer clock, so for instance if you set a key with a time to live of 1000 seconds, and then set your computer time 2000 seconds in the future, the key will be expired immediatly, instead of lasting for 1000 seconds.
+Even running instances will always check the computer clock, so for instance if you set a key with a time to live of 1000 seconds, and then set your computer time 2000 seconds in the future, the key will be expired immediatly, instead of lasting for 1000 seconds.
 
 ## How Redis expires keys
 
