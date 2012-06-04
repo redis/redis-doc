@@ -56,6 +56,10 @@ Logos are linked to the relevant story when available.
   <li>
     <a href="http://code.flickr.com/blog/2011/10/11/talk-real-time-updates-on-the-cheap-for-fun-and-profit/"><img src="http://l.yimg.com/g/images/en-us/flickr-yahoo-logo.png.v3" alt="Flickr"></a>
   </li>
+  
+  <li>
+    <img src="http://c.mfcreative.com/offer/landingpages/us_logo.png" alt="Ancestry.com">
+  </li>
 </ul>
 
 And many others:
@@ -87,6 +91,7 @@ And many others:
 * [Nasza Klasa](http://nk.pl/)
 * [Forrst](http://forrst.com)
 * [Surfingbird](http://surfingbird.com)
+* [Ancestry.com](http://www.ancestry.com/)
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [send a pull request](https://github.com/antirez/redis-doc).
