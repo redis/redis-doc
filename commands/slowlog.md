@@ -9,10 +9,13 @@ but just the time needed to actually execute the command (this is the only
 stage of command execution where the thread is blocked and can not serve
 other requests in the meantime).
 
-You can configure the slow log with two parameters: one tells Redis
+You can configure the slow log with two parameters:
+*slowlog-log-slower-than* tells Redis
 what is the execution time, in microseconds, to exceed in order for the
-command to get logged, and the other parameter is the length of the
-slow log. When a new command is logged and the slow log is already at its
+command to get logged. Note that a negative number disables the slow log,
+while a value of zero forces the logging of every command.
+*slowlog-max-len* is the length of the slow log. The minimum value is zero.
+When a new command is logged and the slow log is already at its
 maximum length, the oldest one is removed from the queue of logged commands
 in order to make space.
 
