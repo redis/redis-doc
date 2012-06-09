@@ -1,7 +1,7 @@
 Count the number of set bits (population counting) in a string.
 
 By default all the bytes contained in the string are examined. It is possible
-to specifiy the counting operation only in an interval passing the additional
+to specify the counting operation only in an interval passing the additional
 arguments *start* and *end*.
 
 Like for the `GETRANGE` command start and end can contain negative values
@@ -45,7 +45,7 @@ Later it will be trivial to know the number of single days the user visited
 the web site simply calling the `BITCOUNT` command against the bitmap.
 
 A similar pattern where user IDs are used instead of days is described
-in the article [Fast easy realtime metrics usign Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/).
+in the article [Fast easy realtime metrics using Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/).
 
 Performance considerations
 ---

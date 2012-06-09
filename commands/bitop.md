@@ -1,5 +1,5 @@
 Perform a bitwise operation between multiple keys (containing string
-values) and store the result in the destionation key.
+values) and store the result in the destination key.
 
 The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR** and **NOT**, thus the valid forms to call the command are:
 
@@ -9,7 +9,7 @@ The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR** a
 + BITOP NOT *destkey srckey*
 
 As you can see **NOT** is special as it only takes an input key, because it
-performs invertion of bits so it only makes sense as an unary operator.
+performs inversion of bits so it only makes sense as an unary operator.
 
 The result of the operation is always stored at *destkey*.
 
@@ -43,7 +43,7 @@ Pattern: real time metrics using bitmaps
 `BITOP` is a good complement to the pattern documented in the `BITCOUNT` command documentation. Different bitmaps can be combined in order to obtain a target
 bitmap where to perform the population counting operation.
 
-See the article [Fast easy realtime metrics usign Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/) for an interesting use cases.
+See the article [Fast easy realtime metrics using Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/) for an interesting use cases.
 
 Performance considerations
 ---
