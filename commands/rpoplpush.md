@@ -25,8 +25,7 @@ element of the list, so it can be considered as a list rotation command.
     LRANGE mylist 0 -1
     LRANGE myotherlist 0 -1
 
-Pattern: Reliable queue
----
+## Pattern: Reliable queue
 
 Redis is often used as a messaging server to implement processing of
 background jobs or other kinds of messaging tasks. A simple form of queue
@@ -49,8 +48,7 @@ An additional client may monitor the *processing* list for items that remain
 there for too much time, and will push those timed out items into the queue
 again if needed.
 
-Pattern: Circular list
----
+## Pattern: Circular list
 
 Using `RPOPLPUSH` with the same source and destination key, a client can
 visit all the elements of an N-elements list, one after the other, in O(N)

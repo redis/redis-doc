@@ -13,8 +13,7 @@ performs inversion of bits so it only makes sense as an unary operator.
 
 The result of the operation is always stored at *destkey*.
 
-Handling of strings with different lengths
----
+## Handling of strings with different lengths
 
 When an operation is performed between strings having different lengths, all
 the strings shorter than the longest string in the set are treated as if
@@ -37,16 +36,14 @@ The size of the string stored into the destination key, that is equal to the siz
     BITOP AND dest key1 key2
     GET dest
 
-Pattern: real time metrics using bitmaps
----
+## Pattern: real time metrics using bitmaps
 
 `BITOP` is a good complement to the pattern documented in the `BITCOUNT` command documentation. Different bitmaps can be combined in order to obtain a target
 bitmap where to perform the population counting operation.
 
 See the article [Fast easy realtime metrics using Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/) for an interesting use cases.
 
-Performance considerations
----
+## Performance considerations
 
 `BITOP` is a potentially slow command as it runs in O(N) time.
 Care should be taken when running it against long input strings.

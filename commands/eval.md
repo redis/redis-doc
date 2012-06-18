@@ -1,5 +1,4 @@
-Introduction to EVAL
----
+## Introduction to EVAL
 
 `EVAL` and `EVALSHA` are used to evaluate scripts using the Lua interpreter
 built into Redis starting from version 2.6.0.
@@ -65,8 +64,7 @@ in order to play well with it). However this rule is not enforced in order to pr
 
 Lua scripts can return a value, that is converted from the Lua type to the Redis protocol using a set of conversion rules.
 
-Conversion between Lua and Redis data types
----
+## Conversion between Lua and Redis data types
 
 Redis return values are converted into Lua data types when Lua calls a
 Redis command using call() or pcall(). Similarly Lua data types are
@@ -121,8 +119,7 @@ The last example shows how it is possible to directly return from Lua
 the return value of `redis.call()` and `redis.pcall()` with the result of
 returning exactly what the called command would return if called directly.
 
-Atomicity of scripts
----
+## Atomicity of scripts
 
 Redis uses the same Lua interpreter to run all the commands. Also Redis
 guarantees that a script is executed in an atomic way: no other script
@@ -137,8 +134,7 @@ but if you are going to use slow scripts you should be aware that while the
 script is running no other client can execute commands since the server
 is busy.
 
-Error handling
----
+## Error handling
 
 As already stated calls to `redis.call()` resulting into a Redis command error
 will stop the execution of the script and will return that error back, in a
@@ -156,8 +152,7 @@ is returned in the format specified above (as a Lua table with an `err`
 field). The user can later return this exact error to the user just returning
 the error object returned by `redis.pcall()`.
 
-Bandwidth and EVALSHA
----
+## Bandwidth and EVALSHA
 
 The `EVAL` command forces you to send the script body again and again.
 Redis does not need to recompile the script every time as it uses an internal
@@ -203,8 +198,7 @@ Passing keys and arguments as `EVAL` additional arguments is also
 very useful in this context as the script string remains constant and can be
 efficiently cached by Redis.
 
-Script cache semantics
----
+## Script cache semantics
 
 Executed scripts are guaranteed to be in the script cache **forever**.
 This means that if an `EVAL` is performed against a Redis instance all the
@@ -231,8 +225,7 @@ against those scripts in a pipeline without the chance that an error
 will be generated since the script is not known (we'll see this problem
 in its details later).
 
-The SCRIPT command
----
+## The SCRIPT command
 
 Redis offers a SCRIPT command that can be used in order to control
 the scripting subsystem. SCRIPT currently accepts three different commands:
@@ -261,8 +254,7 @@ the dataset during their execution (since stopping a read only script does
 not violate the scripting engine guaranteed atomicity).
 See the next sections for more information about long running scripts.
 
-Scripts as pure functions
----
+## Scripts as pure functions
 
 A very important part of scripting is writing scripts that are pure functions.
 Scripts executed in a Redis instance are replicated on slaves sending the
@@ -381,8 +373,7 @@ as `math.random` and `math.randomseed` is guaranteed to have the same output
 regardless of the architecture of the system running Redis. 32 or 64 bit systems
 like big or little endian systems will still produce the same output.
 
-Global variables protection
----
+## Global variables protection
 
 Redis scripts are not allowed to create global variables, in order to avoid
 leaking data into the Lua state. If a script requires to take state across
@@ -403,8 +394,7 @@ replication is not guaranteed: don't do it.
 
 Note for Lua newbies: in order to avoid using global variables in your scripts simply declare every variable you are going to use using the *local* keyword.
 
-Available libraries
----
+## Available libraries
 
 The Redis Lua interpreter loads the following Lua libraries:
 
@@ -422,8 +412,7 @@ can be sure that the environment for your Redis scripts is always the same.
 The CJSON library allows to manipulate JSON data in a very fast way from Lua.
 All the other libraries are standard Lua libraries.
 
-Emitting Redis logs from scripts
----
+## Emitting Redis logs from scripts
 
 It is possible to write to the Redis log file from Lua scripts using the
 `redis.log` function.
@@ -448,8 +437,7 @@ Will generate the following:
 
     [32343] 22 Mar 15:21:39 # Something is wrong with this script.
 
-Sandbox and maximum execution time
----
+## Sandbox and maximum execution time
 
 Scripts should never try to access the external system, like the file system,
 nor calling any other system call. A script should just do its work operating
@@ -478,8 +466,7 @@ the following happens:
 * It is possible to terminate a script that executed only read-only commands using the `SCRIPT KILL` command. This does not violate the scripting semantic as no data was yet written on the dataset by the script.
 * If the script already called write commands the only allowed command becomes `SHUTDOWN NOSAVE` that stops the server not saving the current data set on disk (basically the server is aborted).
 
-EVALSHA in the context of pipelining
----
+## EVALSHA in the context of pipelining
 
 Care should be taken when executing `EVALSHA` in the context of a pipelined
 request, since even in a pipeline the order of execution of commands must

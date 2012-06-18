@@ -14,8 +14,7 @@ empty string, so `APPEND` will be similar to `SET` in this special case.
     APPEND mykey " World"
     GET mykey
 
-Pattern: Time series
----
+## Pattern: Time series
 
 the `APPEND` command can be used to create a very compact representation of
 a list of fixed-size samples, usually referred as *time series*.

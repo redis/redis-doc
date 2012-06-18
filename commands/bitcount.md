@@ -25,8 +25,7 @@ The number of bits set to 1.
     BITCOUNT mykey 0 0
     BITCOUNT mykey 1 1
 
-Pattern: real time metrics using bitmaps
----
+## Pattern: real time metrics using bitmaps
 
 Bitmaps are a very space efficient representation of certain kinds of
 information. One example is a web application that needs the history
@@ -47,8 +46,7 @@ the web site simply calling the `BITCOUNT` command against the bitmap.
 A similar pattern where user IDs are used instead of days is described
 in the article [Fast easy realtime metrics using Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/).
 
-Performance considerations
----
+## Performance considerations
 
 In the above example of counting days, even after 10 years the application
 is online we still have just `365*10` bits of data per user, that is

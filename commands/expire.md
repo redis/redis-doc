@@ -21,16 +21,14 @@ If a key is overwritten by `RENAME`, like in the case of an existing key
 matter if the original `Key_A` had a timeout associated or not, the new key
 `Key_A` will inherit all the characteristics of `Key_B`.
 
-Refreshing expires
----
+## Refreshing expires
 
 It is possible to call `EXPIRE` using as argument a key that already has an
 existing expire set. In this case the time to live of a key is *updated* to the
 new value. There are many useful applications for this, an example is
 documented in the *Navigation session* pattern section below.
 
-Differences in Redis prior 2.1.3
----
+## Differences in Redis prior 2.1.3
 
 In Redis versions prior **2.1.3** altering a key with an expire set using
 a command altering its value had the effect of removing the key entirely.
@@ -53,8 +51,7 @@ are now fixed.
     SET mykey "Hello World"
     TTL mykey
 
-Pattern: Navigation session
----
+## Pattern: Navigation session
 
 Imagine you have a web service and you are interested in the latest N pages
 *recently* visited by your users, such that each adiacent page view was not

@@ -10,12 +10,10 @@ See `RPOPLPUSH` for more information.
 @bulk-reply: the element being popped from `source` and pushed to
 `destination`. If `timeout` is reached, a @nil-reply is returned.
 
-Pattern: Reliable queue
----
+## Pattern: Reliable queue
 
 Please see the pattern description in the `RPOPLPUSH` documentation.
 
-Pattern: Circular list
----
+## Pattern: Circular list
 
 Please see the pattern description in the `RPOPLPUSH` documentation.
