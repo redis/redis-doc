@@ -257,7 +257,7 @@
   },
   "EVAL": {
     "summary": "Execute a Lua script server side",
-    "complexity": "Looking up the script both with EVAL or EVALSHA is an O(1) business. The additional complexity is up to the script you execute.",
+    "complexity": "Depends on the script that is executed.",
     "arguments": [
       {
         "name": "script",
@@ -283,7 +283,7 @@
   },
   "EVALSHA": {
     "summary": "Execute a Lua script server side",
-    "complexity": "Looking up the script both with EVAL or EVALSHA is an O(1) business. The additional complexity is up to the script you execute.",
+    "complexity": "Depends on the script that is executed.",
     "arguments": [
       {
         "name": "sha1",
