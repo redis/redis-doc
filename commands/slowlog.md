@@ -19,7 +19,7 @@ When a new command is logged and the slow log is already at its
 maximum length, the oldest one is removed from the queue of logged commands
 in order to make space.
 
-The configuration can be done both editing the redis.conf file or 
+The configuration can be done by editing `redis.conf` or
 while the server is running using
 the `CONFIG GET` and `CONFIG SET` commands.
 

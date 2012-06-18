@@ -8,7 +8,7 @@ If the command is successful the new incremented value is stored as the new valu
 
 Both the value already contained in the string key and the increment argument
 can be optionally provided in exponential notation, however the value computed
-after the incremnet is stored consistently in the same format, that is, an integer number followed (if needed) by a dot, and a variable number of digits representing the decimal part of the number. Trailing zeroes are always removed.
+after the increment is stored consistently in the same format, that is, an integer number followed (if needed) by a dot, and a variable number of digits representing the decimal part of the number. Trailing zeroes are always removed.
 
 The precision of the output is fixed at 17 digits after the decimal point
 regardless of the actual internal precision of the computation.

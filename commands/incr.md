@@ -1,7 +1,7 @@
 Increments the number stored at `key` by one.
 If the key does not exist, it is set to `0` before performing the operation. An
 error is returned if the key contains a value of the wrong type or contains a
-string that is not representable as integer. This operation is limited to 64
+string that can not be represented as integer. This operation is limited to 64
 bit signed integers.
 
 **Note**: this is a string operation because Redis does not have a dedicated
@@ -69,7 +69,7 @@ The more simple and direct implementation of this pattern is the following:
         PERFORM_API_CALL()
     END
 
-Basically we have a counter for every IP, for every differet second.
+Basically we have a counter for every IP, for every different second.
 But this counters are always incremented setting an expire of 10 seconds so
 that they'll be removed by Redis automatically when the current second is
 a different one.
@@ -138,4 +138,4 @@ The `RPUSHX` command only pushes the element if the key already exists.
 
 Note that we have a race here, but it is not a problem: `EXISTS` may return false but the key may be created by another client before we create it inside the
 `MULTI`/`EXEC` block. However this race will just miss an API call under rare
-conditons, so the rate limiting will still work correctly.
+conditions, so the rate limiting will still work correctly.

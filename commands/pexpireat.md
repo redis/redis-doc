@@ -3,7 +3,7 @@
 O(1)
 
 
-`PEXPIREAT` has the same effect and semantic as `EXPIREAT`, but the unix time at which the key will expire is specified in milliseconds instead of seconds.
+`PEXPIREAT` has the same effect and semantic as `EXPIREAT`, but the Unix time at which the key will expire is specified in milliseconds instead of seconds.
 
 @return
 

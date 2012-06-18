@@ -391,7 +391,7 @@ calls (a pretty uncommon need) it should use Redis keys instead.
 When a global variable access is attempted the script is terminated and EVAL returns with an error:
 
     redis 127.0.0.1:6379> eval 'a=10' 0
-    (error) ERR Error running script (call to f_933044db579a2f8fd45d8065f04a8d0249383e57): user_script:1: Script attempted to create global variable 'a' 
+    (error) ERR Error running script (call to f_933044db579a2f8fd45d8065f04a8d0249383e57): user_script:1: Script attempted to create global variable 'a'
 
 Accessing a *non existing* global variable generates a similar error.
 
@@ -430,7 +430,7 @@ It is possible to write to the Redis log file from Lua scripts using the
 
     redis.log(loglevel,message)
 
-loglevel is one of:
+`loglevel` is one of:
 
 * `redis.LOG_DEBUG`
 * `redis.LOG_VERBOSE`

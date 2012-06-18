@@ -1,6 +1,6 @@
 Flush the Lua scripts cache.
 
-Plase check the `EVAL` page for detailed information about how Redis Lua scripting works.
+Please refer to the `EVAL` documentation for detailed information about Redis Lua scripting.
 
 @return
 

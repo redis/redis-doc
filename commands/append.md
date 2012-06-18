@@ -23,7 +23,7 @@ Every time a new sample arrives we can store it using the command
 
     APPEND timeseries "fixed-size sample"
 
-Accessing to individual elements in the time serie is not hard:
+Accessing individual elements in the time series is not hard:
 
 * `STRLEN` can be used in order to obtain the number of samples.
 * `GETRANGE` allows for random access of elements. If our time series have an associated time information we can easily implement a binary search to get range combining `GETRANGE` with the Lua scripting engine available in Redis 2.6.
@@ -31,8 +31,8 @@ Accessing to individual elements in the time serie is not hard:
 
 The limitations of this pattern is that we are forced into an append-only mode of operation, there is no way to cut the time series to a given size easily because Redis currently lacks a command able to trim string objects. However the space efficiency of time series stored in this way is remarkable.
 
-Hint: it is possible to switch to a different key based on the current unix time, in this way it is possible to have just a relatively small amount of samples per key, to avoid dealing with very big keys, and to make this pattern more
-firendly to be distributed across many Redis instances.
+Hint: it is possible to switch to a different key based on the current Unix time, in this way it is possible to have just a relatively small amount of samples per key, to avoid dealing with very big keys, and to make this pattern more
+friendly to be distributed across many Redis instances.
 
 An example sampling the temperature of a sensor using fixed-size strings (using a binary format is better in real implementations).
 

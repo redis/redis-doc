@@ -13,7 +13,7 @@ operations that will leave the timeout untouched.
 The timeout can also be cleared, turning the key back into a persistent key,
 using the `PERSIST` command.
 
-If a key is renamed with `RENAME`, the associated time to live is transfered to
+If a key is renamed with `RENAME`, the associated time to live is transferred to
 the new key name.
 
 If a key is overwritten by `RENAME`, like in the case of an existing key
@@ -57,14 +57,14 @@ Pattern: Navigation session
 ---
 
 Imagine you have a web service and you are interested in the latest N pages
-*recently* visited by your users, such that each adiacent pageview was not
+*recently* visited by your users, such that each adiacent page view was not
 performed more than 60 seconds after the previous. Conceptually you may think
-at this set of pageviews as a *Navigation session* if your user, that may
-contain interesting informations about what kind of products he or she is
+at this set of page views as a *Navigation session* if your user, that may
+contain interesting information about what kind of products he or she is
 looking for currently, so that you can recommend related products.
 
 You can easily model this pattern in Redis using the following strategy:
-every time the user does a pageview you call the following commands:
+every time the user does a page view you call the following commands:
 
     MULTI
     RPUSH pagewviews.user:<userid> http://.....
@@ -72,7 +72,7 @@ every time the user does a pageview you call the following commands:
     EXEC
 
 If the user will be idle more than 60 seconds, the key will be deleted and only
-subsequent pageviews that have less than 60 seconds of difference will be
+subsequent page views that have less than 60 seconds of difference will be
 recorded.
 
 This pattern is easily modified to use counters using `INCR` instead of lists
@@ -91,7 +91,7 @@ at the cost of some additional memory used by the key. When a key has an expire
 set, Redis will make sure to remove the key when the specified amount of time
 elapsed.
 
-The key time to live can be updated or entierly removed using the `EXPIRE` and `PERSIST` command (or other strictly related commands).
+The key time to live can be updated or entirely removed using the `EXPIRE` and `PERSIST` command (or other strictly related commands).
 
 ## Expire accuracy
 
@@ -102,11 +102,11 @@ Since Redis 2.6 the expire error is from 0 to 1 milliseconds.
 
 ## Expires and persistence
 
-Keys expiring information is stored as absolute unix timestamps (in milliseconds in case of Redis version 2.6 or greater). This means that the time is flowing even when the Redis instance is not active.
+Keys expiring information is stored as absolute Unix timestamps (in milliseconds in case of Redis version 2.6 or greater). This means that the time is flowing even when the Redis instance is not active.
 
-For expires to work well, the computer time must be taken stable. If you move an RDB file from two computers with a big desynch in their clocks, funny things may happen (like all the keys loaded to be expired at loading time).
+For expires to work well, the computer time must be taken stable. If you move an RDB file from two computers with a big desync in their clocks, funny things may happen (like all the keys loaded to be expired at loading time).
 
-Even runnign instances will always check the computer clock, so for instance if you set a key with a time to live of 1000 seconds, and then set your computer time 2000 seconds in the future, the key will be expired immediatly, instead of lasting for 1000 seconds.
+Even running instances will always check the computer clock, so for instance if you set a key with a time to live of 1000 seconds, and then set your computer time 2000 seconds in the future, the key will be expired immediately, instead of lasting for 1000 seconds.
 
 ## How Redis expires keys
 

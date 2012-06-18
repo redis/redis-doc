@@ -5,7 +5,7 @@ The script is guaranteed to stay in the script cache forever (unless `SCRIPT FLU
 
 The command works in the same way even if the script was already present in the script cache.
 
-Plase check the `EVAL` page for detailed information about how Redis Lua scripting works.
+Please refer to the `EVAL` documentation for detailed information about Redis Lua scripting.
 
 @return
 
