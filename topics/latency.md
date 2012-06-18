@@ -183,7 +183,7 @@ this is the case.
 The first thing to do is to checking the amount of Redis memory that is swapped
 on disk. In order to do so you need to obtain the Redis instance pid:
 
-    $ redis-cli info | grep redis-cli info | grep process_id
+    $ redis-cli info | grep process_id
     process_id:5454
 
 Now enter the /proc file system directory for this process:
