@@ -6,7 +6,8 @@ An error is returned when the value stored at `key` is not a set.
 
 @return
 
-@integer-reply: the number of members that were removed from the set, not including non existing members.
+@integer-reply: the number of members that were removed from the set, not
+including non existing members.
 
 @history
 

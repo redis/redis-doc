@@ -9,7 +9,8 @@ time in seconds while `PTTL` returns it in milliseconds.
 
 @return
 
-@integer-reply: Time to live in milliseconds or `-1` when `key` does not exist or does not have a timeout.
+@integer-reply: Time to live in milliseconds or `-1` when `key` does not exist
+or does not have a timeout.
 
 @examples
 

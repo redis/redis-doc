@@ -14,5 +14,5 @@ Lua scripting.
 
 @return
 
-@bulk-reply
-This command returns the SHA1 sum of the script added into the script cache.
+@bulk-reply This command returns the SHA1 sum of the script added into the
+script cache.

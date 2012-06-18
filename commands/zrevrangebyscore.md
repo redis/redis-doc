@@ -11,8 +11,8 @@ Apart from the reversed ordering, `ZREVRANGEBYSCORE` is similar to
 
 @return
 
-@multi-bulk-reply: list of elements in the specified score range (optionally with
-their scores).
+@multi-bulk-reply: list of elements in the specified score range (optionally
+with their scores).
 
 @examples
 

@@ -4,7 +4,8 @@ key will continue to be part of the dataset.
 
 @return
 
-@integer-reply: TTL in seconds or `-1` when `key` does not exist or does not have a timeout.
+@integer-reply: TTL in seconds or `-1` when `key` does not exist or does not
+have a timeout.
 
 @examples
 

@@ -5,7 +5,8 @@ treated as an empty hash and this command returns
 
 @return
 
-@integer-reply: the number of fields that were removed from the hash, not including specified but non existing fields.
+@integer-reply: the number of fields that were removed from the hash, not
+including specified but non existing fields.
 
 @history
 

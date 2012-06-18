@@ -25,5 +25,5 @@ command. Specifically:
 
 @return
 
-@status-reply on error. On success nothing is returned since the server
-quits and the connection is closed.
+@status-reply on error. On success nothing is returned since the server quits
+and the connection is closed.

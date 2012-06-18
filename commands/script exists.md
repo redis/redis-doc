@@ -12,8 +12,10 @@ Lua scripting.
 
 @return
 
-@multi-bulk-reply
-The command returns an array of integers that correspond to the specified SHA1 sum arguments. For every corresponding SHA1 sum of a script that actually exists in the script cache, an 1 is returned, otherwise 0 is returned.
+@multi-bulk-reply The command returns an array of integers that correspond to
+the specified SHA1 sum arguments. For every corresponding SHA1 sum of a script
+that actually exists in the script cache, an 1 is returned, otherwise 0 is
+returned.
 
 @example
 

@@ -3,7 +3,8 @@ when `key` holds a non-string value.
 
 @return
 
-@integer-reply: the length of the string at `key`, or `0` when `key` does not exist.
+@integer-reply: the length of the string at `key`, or `0` when `key` does not
+exist.
 
 @examples
 

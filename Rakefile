@@ -48,7 +48,7 @@ namespace :format do
     STDOUT.print "formatting #{file}..."
     STDOUT.flush
 
-    matcher = /^(?:\A|\r?\n)((?:[a-zA-Z].+?\r?\n)+)/m
+    matcher = /^(?:\A|\r?\n)((?:[a-zA-Z@].+?\r?\n)+)/m
     body = File.read(file).gsub(matcher) do |match|
       formatted = nil
 
