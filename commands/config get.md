@@ -1,7 +1,7 @@
 The `CONFIG GET` command is used to read the configuration parameters of a
-running Redis server. Not all the configuration parameters are
-supported in Redis 2.4, while Redis 2.6 can read the whole configuration of
-a server using this command.
+running Redis server. Not all the configuration parameters are supported in
+Redis 2.4, while Redis 2.6 can read the whole configuration of a server using
+this command.
 
 The symmetric command used to alter the configuration at run time is
 `CONFIG SET`.
@@ -22,7 +22,8 @@ You can obtain a list of all the supported configuration parameters typing
 `CONFIG GET *` in an open `redis-cli` prompt.
 
 All the supported parameters have the same meaning of the equivalent
-configuration parameter used in the [redis.conf][conf] file, with the following important differences:
+configuration parameter used in the [redis.conf][conf] file, with the following
+important differences:
 
 [conf]: http://github.com/antirez/redis/raw/2.2/redis.conf
 
@@ -34,9 +35,9 @@ For instance what in `redis.conf` looks like:
     save 900 1
     save 300 10
 
-that means, save after 900 seconds if there is at least 1 change to the
-dataset, and after 300 seconds if there are at least 10 changes to the
-datasets, will be reported by `CONFIG GET` as "900 1 300 10".
+that means, save after 900 seconds if there is at least 1 change to the dataset,
+and after 300 seconds if there are at least 10 changes to the datasets, will be
+reported by `CONFIG GET` as "900 1 300 10".
 
 @return
 

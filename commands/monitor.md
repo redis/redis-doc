@@ -3,9 +3,9 @@ processed by the Redis server. It can help in understanding what is
 happening to the database. This command can both be used via `redis-cli`
 and via `telnet`.
 
-The ability to see all the requests processed by the server is useful in
-order to spot bugs in an application both when using Redis as a database
-and as a distributed caching system.
+The ability to see all the requests processed by the server is useful in order
+to spot bugs in an application both when using Redis as a database and as a
+distributed caching system.
 
     $ redis-cli monitor
     1339518083.107412 [0 127.0.0.1:60866] "keys" "*"
@@ -39,9 +39,9 @@ Manually issue the `QUIT` command to stop a `MONITOR` stream running via
 
 ## Cost of running `MONITOR`
 
-Because `MONITOR` streams back **all** commands, its use comes at a
-cost. The following (totally unscientific) benchmark numbers illustrate
-what the cost of running `MONITOR` can be.
+Because `MONITOR` streams back **all** commands, its use comes at a cost. The
+following (totally unscientific) benchmark numbers illustrate what the cost of
+running `MONITOR` can be.
 
 Benchmark result **without** `MONITOR` running:
 
@@ -62,9 +62,9 @@ Benchmark result **with** `MONITOR` running (`redis-cli monitor >
     GET: 45330.91 requests per second
     INCR: 41771.09 requests per second
 
-In this particular case, running a single `MONITOR` client can reduce
-the throughput by more than 50%. Running more `MONITOR` clients will
-reduce throughput even more.
+In this particular case, running a single `MONITOR` client can reduce the
+throughput by more than 50%. Running more `MONITOR` clients will reduce
+throughput even more.
 
 @return
 

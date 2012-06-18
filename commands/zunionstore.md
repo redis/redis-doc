@@ -9,7 +9,7 @@ sorted sets where it exists.
 Using the `WEIGHTS` option, it is possible to specify a multiplication factor
 for each input sorted set. This means that the score of every element in every
 input sorted set is multiplied by this factor before being passed to the
-aggregation function.  When `WEIGHTS` is not given, the multiplication factors
+aggregation function. When `WEIGHTS` is not given, the multiplication factors
 default to `1`.
 
 With the `AGGREGATE` option, it is possible to specify how the results of the

@@ -1,8 +1,8 @@
-Returns the number of elements in the sorted set at `key` with
-a score between `min` and `max`.
+Returns the number of elements in the sorted set at `key` with a score between
+`min` and `max`.
 
-The `min` and `max` arguments have the same semantic as described
-for `ZRANGEBYSCORE`.
+The `min` and `max` arguments have the same semantic as described for
+`ZRANGEBYSCORE`.
 
 @return
 

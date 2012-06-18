@@ -18,7 +18,9 @@ Objects can be encoded in different ways:
 * Hashes can be encoded as `zipmap` or `hashtable`. The `zipmap` is a special encoding used for small hashes.
 * Sorted Sets can be encoded as `ziplist` or `skiplist` format. As for the List type small sorted sets can be specially encoded using `ziplist`, while the `skiplist` encoding is the one that works with sorted sets of any size.
 
-All the specially encoded types are automatically converted to the general type once you perform an operation that makes it no possible for Redis to retain the space saving encoding.
+All the specially encoded types are automatically converted to the general type
+once you perform an operation that makes it no possible for Redis to retain the
+space saving encoding.
 
 @return
 
@@ -40,7 +42,8 @@ If the object you try to inspect is missing, a null bulk reply is returned.
     redis> object idletime mylist
     (integer) 10
 
-In the following example you can see how the encoding changes once Redis is no longer able to use the space saving encoding.
+In the following example you can see how the encoding changes once Redis is no
+longer able to use the space saving encoding.
 
     redis> set foo 1000
     OK

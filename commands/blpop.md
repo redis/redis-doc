@@ -21,15 +21,14 @@ that order).
 
 ## Blocking behavior
 
-If none of the specified keys exist, `BLPOP` blocks
-the connection until another client performs an `LPUSH` or `RPUSH` operation
-against one of the keys.
+If none of the specified keys exist, `BLPOP` blocks the connection until another
+client performs an `LPUSH` or `RPUSH` operation against one of the keys.
 
 Once new data is present on one of the lists, the client returns with the name
 of the key unblocking it and the popped value.
 
-When `BLPOP` causes a client to block and a non-zero timeout is specified, the
-client will unblock returning a `nil` multi-bulk value when the specified
+When `BLPOP` causes a client to block and a non-zero timeout is specified,
+the client will unblock returning a `nil` multi-bulk value when the specified
 timeout has expired without a push operation against at least one of the
 specified keys.
 
@@ -38,9 +37,9 @@ be used to block indefinitely.
 
 ## Multiple clients blocking for the same keys
 
-Multiple clients can block for the same key. They are put into
-a queue, so the first to be served will be the one that started to wait
-earlier, in a first-`!BLPOP` first-served fashion.
+Multiple clients can block for the same key. They are put into a queue, so
+the first to be served will be the one that started to wait earlier, in a
+first-`!BLPOP` first-served fashion.
 
 ## `!BLPOP` inside a `!MULTI`/`!EXEC` transaction
 
@@ -51,8 +50,8 @@ execute the block atomically, which in turn does not allow other clients to
 perform a push operation.
 
 The behavior of `BLPOP` inside `MULTI`/`EXEC` when the list is empty is to
-return a `nil` multi-bulk reply, which is the same thing that happens when the
-timeout is reached. If you like science fiction, think of time flowing at
+return a `nil` multi-bulk reply, which is the same thing that happens when
+the timeout is reached. If you like science fiction, think of time flowing at
 infinite speed inside a `MULTI`/`EXEC` block.
 
 @return
@@ -76,12 +75,11 @@ infinite speed inside a `MULTI`/`EXEC` block.
 ## Pattern: Event notification
 
 Using blocking list operations it is possible to mount different blocking
-primitives. For instance for some application you may need to block
-waiting for elements into a Redis Set, so that as far as a new element is
-added to the Set, it is possible to retrieve it without resort to polling.
-This would require a blocking version of `SPOP` that is
-not available, but using blocking list operations we can easily accomplish
-this task.
+primitives. For instance for some application you may need to block waiting for
+elements into a Redis Set, so that as far as a new element is added to the Set,
+it is possible to retrieve it without resort to polling. This would require
+a blocking version of `SPOP` that is not available, but using blocking list
+operations we can easily accomplish this task.
 
 The consumer will do:
 

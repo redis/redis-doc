@@ -1,9 +1,9 @@
-Overwrites part of the string stored at _key_, starting at the specified
-offset, for the entire length of _value_. If the offset is larger than the
-current length of the string at _key_, the string is padded with zero-bytes to
-make _offset_ fit. Non-existing keys are considered as empty strings, so this
-command will make sure it holds a string large enough to be able to set _value_
-at _offset_.
+Overwrites part of the string stored at _key_, starting at the specified offset,
+for the entire length of _value_. If the offset is larger than the current
+length of the string at _key_, the string is padded with zero-bytes to make
+_offset_ fit. Non-existing keys are considered as empty strings, so this command
+will make sure it holds a string large enough to be able to set _value_ at
+_offset_.
 
 Note that the maximum offset that you can set is 2^29 -1 (536870911), as Redis
 Strings are limited to 512 megabytes. If you need to grow beyond this size, you
@@ -21,8 +21,8 @@ have the allocation overhead.
 
 ## Patterns
 
-Thanks to `SETRANGE` and the analogous `GETRANGE` commands, you can use Redis strings
-as a linear array with O(1) random access. This is a very fast and
+Thanks to `SETRANGE` and the analogous `GETRANGE` commands, you can use Redis
+strings as a linear array with O(1) random access. This is a very fast and
 efficient storage in many real world use cases.
 
 @return

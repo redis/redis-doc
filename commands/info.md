@@ -1,5 +1,5 @@
-The `INFO` command returns information and statistics about the server
-in a format that is simple to parse by computers and easy to read by humans.
+The `INFO` command returns information and statistics about the server in a
+format that is simple to parse by computers and easy to read by humans.
 
 @return
 

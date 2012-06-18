@@ -1,7 +1,8 @@
 `EXPIREAT` has the same effect and semantic as `EXPIRE`, but
 instead of specifying the number of seconds representing the TTL (time to live), it takes an absolute [Unix timestamp][2] (seconds since January 1, 1970).
 
-Please for the specific semantics of the command refer to the documentation of `EXPIRE`.
+Please for the specific semantics of the command refer to the documentation of
+`EXPIRE`.
 
 [2]: http://en.wikipedia.org/wiki/Unix_time
 

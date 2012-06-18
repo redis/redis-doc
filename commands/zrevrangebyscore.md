@@ -3,7 +3,8 @@ and `min` (including elements with score equal to `max` or `min`). In contrary
 to the default ordering of sorted sets, for this command the elements are
 considered to be ordered from high to low scores.
 
-The elements having the same score are returned in reverse lexicographical order.
+The elements having the same score are returned in reverse lexicographical
+order.
 
 Apart from the reversed ordering, `ZREVRANGEBYSCORE` is similar to
 `ZRANGEBYSCORE`.

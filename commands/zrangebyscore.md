@@ -1,6 +1,6 @@
 Returns all the elements in the sorted set at `key` with a score between `min`
-and `max` (including elements with score equal to `min` or `max`). The
-elements are considered to be ordered from low to high scores.
+and `max` (including elements with score equal to `min` or `max`). The elements
+are considered to be ordered from low to high scores.
 
 The elements having the same score are returned in lexicographical order (this
 follows from a property of the sorted set implementation in Redis and does not
@@ -12,9 +12,9 @@ elements (similar to _SELECT LIMIT offset, count_ in SQL). Keep in mind that if
 before getting to the elements to return, which can add up to O(N) time
 complexity.
 
-The optional `WITHSCORES` argument makes the command return both the element
-and its score, instead of the element alone. This option is available since
-Redis 2.0.
+The optional `WITHSCORES` argument makes the command return both the element and
+its score, instead of the element alone. This option is available since Redis
+2.0.
 
 ## Exclusive intervals and infinity
 
@@ -22,9 +22,9 @@ Redis 2.0.
 the highest or lowest score in the sorted set to get all elements from or up to
 a certain score.
 
-By default, the interval specified by `min` and `max` is closed (inclusive).
-It is possible to specify an open interval (exclusive) by prefixing the score
-with the character `(`. For example:
+By default, the interval specified by `min` and `max` is closed (inclusive). It
+is possible to specify an open interval (exclusive) by prefixing the score with
+the character `(`. For example:
 
     ZRANGEBYSCORE zset (1 5
 

@@ -1,5 +1,5 @@
-Returns the sorted set cardinality (number of elements) of the sorted set
-stored at `key`.
+Returns the sorted set cardinality (number of elements) of the sorted set stored
+at `key`.
 
 @return
 

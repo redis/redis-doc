@@ -39,3 +39,42 @@ task :spellcheck do
     puts "#{file}: #{words.uniq.sort.join(" ")}" if words.any?
   end
 end
+
+namespace :format do
+
+  def format(file)
+    return unless File.exist?(file)
+
+    STDOUT.print "formatting #{file}..."
+    STDOUT.flush
+
+    matcher = /^(?:\A|\r?\n)((?:[a-zA-Z].+?\r?\n)+)/m
+    body = File.read(file).gsub(matcher) do |match|
+      formatted = nil
+
+      IO.popen("par p0s0w80", "r+") do |io|
+        io.puts match
+        io.close_write
+        formatted = io.read
+      end
+
+      formatted
+    end
+
+    File.open(file, "w") do |f|
+      f.print body
+    end
+
+    STDOUT.puts
+  end
+
+  task :file, :path do |t, args|
+    format(args[:path])
+  end
+
+  task :all do
+    Dir["commands/*.md"].each do |path|
+      format(path)
+    end
+  end
+end

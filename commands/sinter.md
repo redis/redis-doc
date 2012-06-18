@@ -9,8 +9,8 @@ For example:
     SINTER key1 key2 key3 = {c}
 
 Keys that do not exist are considered to be empty sets. With one of the keys
-being an empty set, the resulting set is also empty (since set intersection
-with an empty set always results in an empty set).
+being an empty set, the resulting set is also empty (since set intersection with
+an empty set always results in an empty set).
 
 @return
 

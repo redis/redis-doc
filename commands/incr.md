@@ -1,16 +1,15 @@
-Increments the number stored at `key` by one.
-If the key does not exist, it is set to `0` before performing the operation. An
-error is returned if the key contains a value of the wrong type or contains a
-string that can not be represented as integer. This operation is limited to 64
-bit signed integers.
+Increments the number stored at `key` by one. If the key does not exist, it
+is set to `0` before performing the operation. An error is returned if the
+key contains a value of the wrong type or contains a string that can not be
+represented as integer. This operation is limited to 64 bit signed integers.
 
 **Note**: this is a string operation because Redis does not have a dedicated
 integer type. The the string stored at the key is interpreted as a base-10 **64
 bit signed integer** to execute the operation.
 
 Redis stores integers in their integer representation, so for string values
-that actually hold an integer, there is no overhead for storing the
-string representation of the integer.
+that actually hold an integer, there is no overhead for storing the string
+representation of the integer.
 
 @return
 
@@ -44,12 +43,12 @@ This simple pattern can be extended in many ways:
 
 The rate limiter pattern is a special counter that is used to limit the rate
 at which an operation can be performed. The classical materialization of this
-pattern involves limiting the number of requests that can be performed against
-a public API.
+pattern involves limiting the number of requests that can be performed against a
+public API.
 
 We provide two implementations of this pattern using `INCR`, where we assume
-that the problem to solve is limiting the number of API calls to a maximum
-of *ten requests per second per IP address*.
+that the problem to solve is limiting the number of API calls to a maximum of
+*ten requests per second per IP address*.
 
 ## Pattern: Rate limiter 1
 
@@ -69,19 +68,17 @@ The more simple and direct implementation of this pattern is the following:
         PERFORM_API_CALL()
     END
 
-Basically we have a counter for every IP, for every different second.
-But this counters are always incremented setting an expire of 10 seconds so
-that they'll be removed by Redis automatically when the current second is
-a different one.
+Basically we have a counter for every IP, for every different second. But this
+counters are always incremented setting an expire of 10 seconds so that they'll
+be removed by Redis automatically when the current second is a different one.
 
 Note the used of `MULTI` and `EXEC` in order to make sure that we'll both
 increment and set the expire at every API call.
 
 ## Pattern: Rate limiter 2
 
-An alternative implementation uses a single counter, but is a bit more
-complex to get it right without race conditions. We'll examine different
-variants.
+An alternative implementation uses a single counter, but is a bit more complex
+to get it right without race conditions. We'll examine different variants.
 
     FUNCTION LIMIT_API_CALL(ip):
     current = GET(ip)
@@ -104,9 +101,9 @@ from the first request performed in the current second. If there are more than
 client performs the `INCR` command but does not perform the `EXPIRE` the
 key will be leaked until we'll see the same IP address again.
 
-This can be fixed easily turning the `INCR` with optional `EXPIRE` into a
-Lua script that is send using the `EVAL` command (only available since Redis
-version 2.6).
+This can be fixed easily turning the `INCR` with optional `EXPIRE` into a Lua
+script that is send using the `EVAL` command (only available since Redis version
+2.6).
 
     local current
     current = redis.call("incr",KEYS[1])
@@ -115,8 +112,10 @@ version 2.6).
     end
 
 There is a different way to fix this issue without using scripting, but using
-Redis lists instead of counters.
-The implementation is more complex and uses more advanced features but has the advantage of remembering the IP addresses of the clients currently performing an API call, that may be useful or not depending on the application.
+Redis lists instead of counters. The implementation is more complex and uses
+more advanced features but has the advantage of remembering the IP addresses
+of the clients currently performing an API call, that may be useful or not
+depending on the application.
 
     FUNCTION LIMIT_API_CALL(ip)
     current = LLEN(ip)
@@ -136,6 +135,8 @@ The implementation is more complex and uses more advanced features but has the a
 
 The `RPUSHX` command only pushes the element if the key already exists.
 
-Note that we have a race here, but it is not a problem: `EXISTS` may return false but the key may be created by another client before we create it inside the
+Note that we have a race here, but it is not a problem: `EXISTS` may return
+false but the key may be created by another client before we create it inside
+the
 `MULTI`/`EXEC` block. However this race will just miss an API call under rare
 conditions, so the rate limiting will still work correctly.

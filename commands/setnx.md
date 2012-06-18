@@ -1,6 +1,5 @@
-Set `key` to hold string `value` if `key` does not exist.
-In that case, it is equal to `SET`. When `key` already holds
-a value, no operation is performed.
+Set `key` to hold string `value` if `key` does not exist. In that case, it is
+equal to `SET`. When `key` already holds a value, no operation is performed.
 `SETNX` is short for "**SET** if **N**ot e**X**ists".
 
 @return
@@ -24,22 +23,20 @@ the lock of the key `foo`, the client could try the following:
 
     SETNX lock.foo <current Unix time + lock timeout + 1>
 
-If `SETNX` returns `1` the client acquired the lock, setting the `lock.foo`
-key to the Unix time at which the lock should no longer be considered valid.
-The client will later use `DEL lock.foo` in order to release the lock.
+If `SETNX` returns `1` the client acquired the lock, setting the `lock.foo` key
+to the Unix time at which the lock should no longer be considered valid. The
+client will later use `DEL lock.foo` in order to release the lock.
 
-If `SETNX` returns `0` the key is already locked by some other client. We can
-either return to the caller if it's a non blocking lock, or enter a
-loop retrying to hold the lock until we succeed or some kind of timeout
-expires.
+If `SETNX` returns `0` the key is already locked by some other client. We
+can either return to the caller if it's a non blocking lock, or enter a loop
+retrying to hold the lock until we succeed or some kind of timeout expires.
 
 ### Handling deadlocks
 
 In the above locking algorithm there is a problem: what happens if a client
-fails, crashes, or is otherwise not able to release the lock?
-It's possible to detect this condition because the lock key contains a
-UNIX timestamp. If such a timestamp is equal to the current Unix time the lock
-is no longer valid.
+fails, crashes, or is otherwise not able to release the lock? It's possible to
+detect this condition because the lock key contains a UNIX timestamp. If such a
+timestamp is equal to the current Unix time the lock is no longer valid.
 
 When this happens we can't just call `DEL` against the key to remove the lock
 and then try to issue a `SETNX`, as there is a race condition here, when

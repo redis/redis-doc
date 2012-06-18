@@ -3,7 +3,9 @@
 O(1)
 
 
-Like `TTL` this command returns the remaining time to live of a key that has an expire set, with the sole difference that `TTL` returns the amount of remaining time in seconds while `PTTL` returns it in milliseconds.
+Like `TTL` this command returns the remaining time to live of a key that has an
+expire set, with the sole difference that `TTL` returns the amount of remaining
+time in seconds while `PTTL` returns it in milliseconds.
 
 @return
 
