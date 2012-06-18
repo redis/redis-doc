@@ -1,4 +1,6 @@
-Instruct Redis to start an [Append Only File](/topics/persistence#append-only-file) rewrite process. The rewrite will create a small optimized version of the current Append Only File.
+Instruct Redis to start an [Append Only File][aof] rewrite process. The rewrite will create a small optimized version of the current Append Only File.
+
+[aof]: /topics/persistence#append-only-file
 
 If `BGREWRITEAOF` fails, no data gets lost as the old AOF will be untouched.
 
@@ -9,7 +11,9 @@ The rewrite will be only triggered by Redis if there is not already a background
 
 Since Redis 2.4 the AOF rewrite is automatically triggered by Redis, however the `BGREWRITEAOF` command can be used to trigger a rewrite at any time.
 
-Please check the documentation about [Redis Persistence](/topics/persistence#append-only-file) for more information.
+Please refer to the [persistence documentation][persistence] for detailed information.
+
+[persistence]: /topics/persistence
 
 @return
 

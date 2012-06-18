@@ -12,7 +12,9 @@ by Redis that will start acting as specified starting from the next command
 executed.
 
 All the supported parameters have the same meaning of the equivalent
-configuration parameter used in the [redis.conf](http://github.com/antirez/redis/raw/2.2/redis.conf) file, with the following important differences:
+configuration parameter used in the [redis.conf][conf] file, with the following important differences:
+
+[conf]: http://github.com/antirez/redis/raw/2.2/redis.conf
 
 * Where bytes or other quantities are specified, it is not possible to use the `redis.conf` abbreviated form (10k 2gb ... and so forth), everything should be specified as a well formed 64 bit integer, in the base unit of the configuration directive.
 * The save parameter is a single string of space separated integers. Every pair of integers represent a seconds/modifications threshold.
@@ -28,7 +30,9 @@ datasets, should be set using `CONFIG SET` as "900 1 300 10".
 
 It is possible to switch persistence from RDB snapshotting to append only file
 (and the other way around) using the `CONFIG SET` command. For more information
-about how to do that please check [persistence page](/topics/persistence).
+about how to do that please check [persistence page][persistence].
+
+[persistence]: /topics/persistence
 
 In general what you should know is that setting the `appendonly` parameter to
 `yes` will start a background process to save the initial append only file

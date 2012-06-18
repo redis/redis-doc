@@ -41,7 +41,9 @@ The size of the string stored into the destination key, that is equal to the siz
 `BITOP` is a good complement to the pattern documented in the `BITCOUNT` command documentation. Different bitmaps can be combined in order to obtain a target
 bitmap where to perform the population counting operation.
 
-See the article [Fast easy realtime metrics using Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/) for an interesting use cases.
+See the article called "[Fast easy realtime metrics using Redis bitmaps][bitmaps]" for an interesting use cases.
+
+[bitmaps]: http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps
 
 ## Performance considerations
 

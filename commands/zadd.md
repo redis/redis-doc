@@ -7,7 +7,9 @@ The score values should be the string representation of a numeric value, and
 accepts double precision floating point numbers.
 
 For an introduction to sorted sets, see the data types page on [sorted
-sets](/topics/data-types#sorted-sets).
+sets][sorted-sets].
+
+[sorted-sets]: /topics/data-types#sorted-sets
 
 @return
 

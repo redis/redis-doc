@@ -1,10 +1,14 @@
 Returns or stores the elements contained in the
-[list](/topics/data-types#lists), [set](/topics/data-types#set) or [sorted
-set](/topics/data-types#sorted-sets) at `key`.  By default, sorting is numeric
+[list][lists], [set][sets] or [sorted set][sorted-sets]
+ at `key`.  By default, sorting is numeric
 and elements are compared by their value interpreted as double precision
 floating point number.  This is `SORT` in its simplest form:
 
     SORT mylist
+
+[lists]: /topics/data-types#lists
+[sets]: /topics/data-types#set
+[sorted-sets]: /topics/data-types#sorted-sets
 
 Assuming `mylist` is a list of numbers, this command will return the same list
 with the elements sorted from small to large. In order to sort the numbers from

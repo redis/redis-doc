@@ -1,6 +1,8 @@
 Flushes all previously queued commands in a
-[transaction](/topics/transactions) and restores the connection state to
+[transaction][transactions] and restores the connection state to
 normal.
+
+[transactions]: /topics/transactions
 
 If `WATCH` was used, `DISCARD` unwatches all keys.
 

@@ -9,7 +9,9 @@ production environments with extreme care.  It may ruin performance when it is
 executed against large databases. This command is intended for debugging and
 special operations, such as changing your keyspace layout. Don't use `KEYS`
 in your regular application code.  If you're looking for a way to find keys in
-a subset of your keyspace, consider using [sets](/topics/data-types#sets).
+a subset of your keyspace, consider using [sets][sets].
+
+[sets]: /topics/data-types#sets
 
 Supported glob-style patterns:
 
