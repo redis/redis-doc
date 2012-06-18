@@ -281,6 +281,32 @@
     "since": "2.6.0",
     "group": "scripting"
   },
+  "EVALSHA": {
+    "summary": "Execute a Lua script server side",
+    "complexity": "Looking up the script both with EVAL or EVALSHA is an O(1) business. The additional complexity is up to the script you execute.",
+    "arguments": [
+      {
+        "name": "sha1",
+        "type": "string"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "2.6.0",
+    "group": "scripting"
+  },
   "EXEC": {
     "summary": "Execute all commands issued after MULTI",
     "since": "1.2.0",
