@@ -63,9 +63,35 @@ keyword:
 Styling guidelines
 ---
 
-Please wrap your text to 80 characters. You can easily accomplish this
-using a CLI tool called `par`.
+Please use the following formatting rules:
 
+* Wrap lines to 80 characters.
+* Start every sentence on a new line.
+
+Luckily, this repository comes with an automated Markdown formatter.
+To only reformat the files you have modified, first stage them using
+`git add` (this makes sure that your changes won't be lost in case of an
+error), then run the formatter:
+
+    $ rake format:cached
+
+The formatter has the following dependencies:
+
+* RDiscount
+* Nokogiri
+* The `par` tool
+
+Installation of the Ruby gems:
+
+    gem install rdiscount nokogiri
+
+Installation of par (OSX):
+
+    brew install par
+
+Installation of par (Ubuntu):
+
+    sudo apt-get install par
 
 Checking your work
 ---
