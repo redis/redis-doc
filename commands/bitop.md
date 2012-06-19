@@ -41,8 +41,9 @@ size of the longest input string.
 ## Pattern: real time metrics using bitmaps
 
 `BITOP` is a good complement to the pattern documented in the `BITCOUNT` command
-documentation. Different bitmaps can be combined in order to obtain a target
-bitmap where to perform the population counting operation.
+documentation.
+Different bitmaps can be combined in order to obtain a target bitmap where to
+perform the population counting operation.
 
 See the article called "[Fast easy realtime metrics using Redis
 bitmaps][hbgc212fermurb]" for an interesting use cases.
@@ -51,8 +52,8 @@ bitmaps][hbgc212fermurb]" for an interesting use cases.
 
 ## Performance considerations
 
-`BITOP` is a potentially slow command as it runs in O(N) time. Care should be
-taken when running it against long input strings.
+`BITOP` is a potentially slow command as it runs in O(N) time.
+Care should be taken when running it against long input strings.
 
 For real time metrics and statistics involving large inputs a good approach is
 to use a slave (with read-only option disabled) where to perform the bit-wise

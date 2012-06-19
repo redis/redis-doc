@@ -1,5 +1,5 @@
-Set `key` to hold the string `value`. If `key` already holds a value, it is
-overwritten, regardless of its type.
+Set `key` to hold the string `value`.
+If `key` already holds a value, it is overwritten, regardless of its type.
 
 @return
 

@@ -93,7 +93,12 @@ class ReMarkdown
       end
     end
 
-    par(result).chomp
+    sentences = result.gsub(/\s*\r?\n\s*/, " ").split(/(?<=[^.]\.)\s+/)
+    sentences = sentences.map do |e|
+      par(e).chomp
+    end
+
+    sentences.join("\n")
   end
 
   def format_inline_node(node)

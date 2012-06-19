@@ -10,8 +10,9 @@ Please for the specific semantics of the command refer to the documentation of
 ## Background
 
 `EXPIREAT` was introduced in order to convert relative timeouts to absolute
-timeouts for the AOF persistence mode. Of course, it can be used directly to
-specify that a given key should expire at a given time in the future.
+timeouts for the AOF persistence mode.
+Of course, it can be used directly to specify that a given key should expire at
+a given time in the future.
 
 @return
 
