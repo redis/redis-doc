@@ -25,4 +25,3 @@ exist, the command will always return `0`.
     RPUSH mylist "hello"
     LREM mylist -2 "hello"
     LRANGE mylist 0 -1
-

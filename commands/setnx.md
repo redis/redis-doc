@@ -1,6 +1,6 @@
 Set `key` to hold string `value` if `key` does not exist. In that case, it is
 equal to `SET`. When `key` already holds a value, no operation is performed.
-`SETNX` is short for "**SET** if **N**ot e**X**ists".
+`SETNX` is short for "**SET** if **N** ot e **X** ists".
 
 @return
 
@@ -18,8 +18,8 @@ equal to `SET`. When `key` already holds a value, no operation is performed.
 
 ## Design pattern: Locking with `!SETNX`
 
-`SETNX` can be used as a locking primitive. For example, to acquire
-the lock of the key `foo`, the client could try the following:
+`SETNX` can be used as a locking primitive. For example, to acquire the lock of
+the key `foo`, the client could try the following:
 
     SETNX lock.foo <current Unix time + lock timeout + 1>
 
@@ -63,16 +63,17 @@ Let's see how C4, our sane client, uses the good algorithm:
 
       GETSET lock.foo <current Unix timestamp + lock timeout + 1>
 
-* Because of the `GETSET` semantic, C4 can check if the old value stored
-  at `key` is still an expired timestamp. If it is, the lock was acquired.
-* If another client, for instance C5, was faster than C4 and acquired
-  the lock with the `GETSET` operation, the C4 `GETSET` operation will return a non
+* Because of the `GETSET` semantic, C4 can check if the old value stored at
+  `key` is still an expired timestamp. If it is, the lock was acquired.
+
+* If another client, for instance C5, was faster than C4 and acquired the lock
+  with the `GETSET` operation, the C4 `GETSET` operation will return a non
   expired timestamp. C4 will simply restart from the first step. Note that even
   if C4 set the key a bit a few seconds in the future this is not a problem.
 
-**Important note**: In order to make this locking algorithm more robust, a client
-holding a lock should always check the timeout didn't expire before unlocking
-the key with `DEL` because client failures can be complex, not just crashing
-but also blocking a lot of time against some operations and trying to issue
-`DEL` after a lot of time (when the LOCK is already held by another client).
-
+**Important note**: In order to make this locking algorithm more robust, a
+client holding a lock should always check the timeout didn't expire before
+unlocking the key with `DEL` because client failures can be complex, not just
+crashing but also blocking a lot of time against some operations and trying
+to issue `DEL` after a lot of time (when the LOCK is already held by another
+client).

@@ -10,19 +10,21 @@ The score values should be the string representation of a numeric value, and
 accepts double precision floating point numbers.
 
 For an introduction to sorted sets, see the data types page on [sorted
-sets][sorted-sets].
+sets][tdtss].
 
-[sorted-sets]: /topics/data-types#sorted-sets
+[tdtss]: /topics/data-types#sorted-sets
 
 @return
 
 @integer-reply, specifically:
 
-* The number of elements added to the sorted sets, not including elements already existing for which the score was updated.
+* The number of elements added to the sorted sets, not including elements
+  already existing for which the score was updated.
 
 @history
 
-* `>= 2.4`: Accepts multiple elements. In Redis versions older than 2.4 it was possible to add or update a single member per call.
+* `>= 2.4`: Accepts multiple elements. In Redis versions older than 2.4 it was
+  possible to add or update a single member per call.
 
 @examples
 
@@ -32,4 +34,3 @@ sets][sorted-sets].
     ZADD myzset 2 "two"
     ZADD myzset 3 "two"
     ZRANGE myzset 0 -1 WITHSCORES
-

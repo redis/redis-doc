@@ -26,4 +26,3 @@ an empty set always results in an empty set).
     SADD key2 "d"
     SADD key2 "e"
     SINTER key1 key2
-

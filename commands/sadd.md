@@ -11,7 +11,8 @@ all the elements already present into the set.
 
 @history
 
-* `>= 2.4`: Accepts multiple `member` arguments. Redis versions before 2.4 are only able to add a single member per call.
+* `>= 2.4`: Accepts multiple `member` arguments. Redis versions before 2.4 are
+  only able to add a single member per call.
 
 @examples
 
@@ -20,4 +21,3 @@ all the elements already present into the set.
     SADD myset "World"
     SADD myset "World"
     SMEMBERS myset
-

@@ -13,4 +13,3 @@ Returns if `member` is a member of the set stored at `key`.
     SADD myset "one"
     SISMEMBER myset "one"
     SISMEMBER myset "two"
-

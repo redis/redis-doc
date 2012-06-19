@@ -15,4 +15,3 @@ clients to see that some of the keys were updated while others are unchanged.
     MSET key1 "Hello" key2 "World"
     GET key1
     GET key2
-

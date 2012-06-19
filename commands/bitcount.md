@@ -42,10 +42,11 @@ the bit corresponding to the current day.
 Later it will be trivial to know the number of single days the user visited the
 web site simply calling the `BITCOUNT` command against the bitmap.
 
-A similar pattern where user IDs are used instead of days is described in the
-article called "[Fast easy realtime metrics using Redis bitmaps][bitmaps]".
+A similar pattern where user IDs are used instead of days is described
+in the article called "[Fast easy realtime metrics using Redis
+bitmaps][hbgc212fermurb]".
 
-[bitmaps]: http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps
+[hbgc212fermurb]: http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps
 
 ## Performance considerations
 
@@ -56,5 +57,8 @@ Redis command like `GET` or `INCR`.
 
 When the bitmap is big, there are two alternatives:
 
-+ Taking a separated key that is incremented every time the bitmap is modified. This can be very efficient and atomic using a small Redis Lua script.
-+ Running the bitmap incrementally using the `BITCOUNT` *start* and *end* optional parameters, accumulating the results client-side, and optionally caching the result into a key.
+* Taking a separated key that is incremented every time the bitmap is modified.
+  This can be very efficient and atomic using a small Redis Lua script.
+* Running the bitmap incrementally using the `BITCOUNT` *start* and *end*
+  optional parameters, accumulating the results client-side, and optionally
+  caching the result into a key.

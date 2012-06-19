@@ -4,7 +4,8 @@ exist, it is set to `0` before performing the operation. An error is returned if
 one of the following conditions occur:
 
 * The field contains a value of the wrong type (not a string).
-* The current field content or the specified increment are not parsable as a double precision floating point number.
+* The current field content or the specified increment are not parsable as a
+  double precision floating point number.
 
 The exact behavior of this command is identical to the one of the `INCRBYFLOAT`
 command, please refer to the documentation of `INCRBYFLOAT` for further

@@ -14,4 +14,3 @@ when `key` does not yet exist.
     RPUSHX myotherlist "World"
     LRANGE mylist 0 -1
     LRANGE myotherlist 0 -1
-

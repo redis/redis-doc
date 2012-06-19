@@ -8,10 +8,9 @@ of issues preventing Redis to create the background saving child (for instance
 errors in the fork(2) system call), the `SAVE` command can be a good last resort
 to perform the dump of the latest dataset.
 
-Please refer to the [persistence documentation][persistence] for detailed
-information.
+Please refer to the [persistence documentation][tp] for detailed information.
 
-[persistence]: /topics/persistence
+[tp]: /topics/persistence
 
 @return
 

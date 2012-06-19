@@ -14,4 +14,3 @@ when `key` does not yet exist.
     LPUSHX myotherlist "Hello"
     LRANGE mylist 0 -1
     LRANGE myotherlist 0 -1
-

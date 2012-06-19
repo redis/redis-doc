@@ -14,4 +14,3 @@ See `INCR` for extra information on increment/decrement operations.
     @cli
     SET mykey "10"
     INCRBY mykey 5
-

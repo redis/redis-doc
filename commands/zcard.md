@@ -12,4 +12,3 @@ if `key` does not exist.
     ZADD myzset 1 "one"
     ZADD myzset 2 "two"
     ZCARD myzset
-

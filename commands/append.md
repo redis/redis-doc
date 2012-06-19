@@ -25,7 +25,10 @@ sample arrives we can store it using the command
 Accessing individual elements in the time series is not hard:
 
 * `STRLEN` can be used in order to obtain the number of samples.
-* `GETRANGE` allows for random access of elements. If our time series have an associated time information we can easily implement a binary search to get range combining `GETRANGE` with the Lua scripting engine available in Redis 2.6.
+* `GETRANGE` allows for random access of elements. If our time series have an
+  associated time information we can easily implement a binary search to get
+  range combining `GETRANGE` with the Lua scripting engine available in Redis
+  2.6.
 * `SETRANGE` can be used to overwrite an existing time serie.
 
 The limitations of this pattern is that we are forced into an append-only mode

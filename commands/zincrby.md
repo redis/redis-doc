@@ -1,6 +1,6 @@
 Increments the score of `member` in the sorted set stored at `key` by
-`increment`.  If `member` does not exist in the sorted set, it is added with
-`increment` as its score (as if its previous score was `0.0`).  If `key` does
+`increment`. If `member` does not exist in the sorted set, it is added with
+`increment` as its score (as if its previous score was `0.0`). If `key` does
 not exist, a new sorted set with the specified `member` as its sole member is
 created.
 
@@ -22,4 +22,3 @@ number), represented as string.
     ZADD myzset 2 "two"
     ZINCRBY myzset 2 "one"
     ZRANGE myzset 0 -1 WITHSCORES
-

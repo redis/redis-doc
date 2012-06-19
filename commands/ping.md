@@ -9,4 +9,3 @@ alive, or to measure latency.
 
     @cli
     PING
-

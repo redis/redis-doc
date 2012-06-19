@@ -18,4 +18,3 @@ the value `pivot` was not found.
     RPUSH mylist "World"
     LINSERT mylist BEFORE "World" "There"
     LRANGE mylist 0 -1
-

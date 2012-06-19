@@ -9,7 +9,7 @@ high.
 
 * If `member` exists in the sorted set, @integer-reply: the rank of `member`.
 * If `member` does not exist in the sorted set or `key` does not exist,
-@bulk-reply: `nil`.
+  @bulk-reply: `nil`.
 
 @examples
 
@@ -19,4 +19,3 @@ high.
     ZADD myzset 3 "three"
     ZREVRANK myzset "one"
     ZREVRANK myzset "four"
-

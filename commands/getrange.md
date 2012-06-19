@@ -1,4 +1,5 @@
-**Warning**: this command was renamed to `GETRANGE`, it is called `SUBSTR` in Redis versions `<= 2.0`.
+**Warning**: this command was renamed to `GETRANGE`, it is called `SUBSTR` in
+Redis versions `<= 2.0`.
 
 Returns the substring of the string value stored at `key`, determined by the
 offsets `start` and `end` (both are inclusive). Negative offsets can be used in
@@ -20,4 +21,3 @@ the actual length of the string.
     GETRANGE mykey -3 -1
     GETRANGE mykey 0 -1
     GETRANGE mykey 10 100
-

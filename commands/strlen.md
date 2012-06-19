@@ -12,4 +12,3 @@ exist.
     SET mykey "Hello world"
     STRLEN mykey
     STRLEN nonexisting
-

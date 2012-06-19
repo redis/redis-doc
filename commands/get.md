@@ -12,4 +12,3 @@ because `GET` only handles string values.
     GET nonexisting
     SET mykey "Hello"
     GET mykey
-

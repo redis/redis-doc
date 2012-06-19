@@ -15,4 +15,3 @@ different types that can be returned are: `string`, `list`, `set`, `zset` and
     TYPE key1
     TYPE key2
     TYPE key3
-

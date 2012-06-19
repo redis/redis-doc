@@ -12,4 +12,3 @@ Removes and returns the last element of the list stored at `key`.
     RPUSH mylist "three"
     RPOP mylist
     LRANGE mylist 0 -1
-

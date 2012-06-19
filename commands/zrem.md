@@ -7,11 +7,13 @@ An error is returned when `key` exists and does not hold a sorted set.
 
 @integer-reply, specifically:
 
-* The number of members removed from the sorted set, not including non existing members.
+* The number of members removed from the sorted set, not including non existing
+  members.
 
 @history
 
-* `>= 2.4`: Accepts multiple elements. In Redis versions older than 2.4 it was possible to remove a single member per call.
+* `>= 2.4`: Accepts multiple elements. In Redis versions older than 2.4 it was
+  possible to remove a single member per call.
 
 @examples
 
@@ -21,4 +23,3 @@ An error is returned when `key` exists and does not hold a sorted set.
     ZADD myzset 3 "three"
     ZREM myzset "two"
     ZRANGE myzset 0 -1 WITHSCORES
-

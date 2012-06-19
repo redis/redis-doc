@@ -10,4 +10,3 @@ overwritten, regardless of its type.
     @cli
     SET mykey "Hello"
     GET mykey
-

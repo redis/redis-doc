@@ -24,4 +24,3 @@ with their scores).
     ZREVRANGEBYSCORE myzset 2 1
     ZREVRANGEBYSCORE myzset 2 (1
     ZREVRANGEBYSCORE myzset (2 (1
-

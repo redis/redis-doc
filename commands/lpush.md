@@ -15,7 +15,8 @@ third element.
 
 @history
 
-* `>= 2.4`: Accepts multiple `value` arguments. In Redis versions older than 2.4 it was possible to push a single value per command.
+* `>= 2.4`: Accepts multiple `value` arguments. In Redis versions older than 2.4
+  it was possible to push a single value per command.
 
 @examples
 
@@ -23,4 +24,3 @@ third element.
     LPUSH mylist "world"
     LPUSH mylist "hello"
     LRANGE mylist 0 -1
-

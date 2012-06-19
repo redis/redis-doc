@@ -1,6 +1,6 @@
 Set a timeout on `key`. After the timeout has expired, the key will
 automatically be deleted. A key with an associated timeout is often said to be
-_volatile_ in Redis terminology.
+*volatile* in Redis terminology.
 
 The timeout is cleared only when the key is removed using the `DEL` command
 or overwritten using the `SET` or `GETSET` commands. This means that all the
@@ -16,10 +16,10 @@ using the `PERSIST` command.
 If a key is renamed with `RENAME`, the associated time to live is transferred to
 the new key name.
 
-If a key is overwritten by `RENAME`, like in the case of an existing key
-`Key_A` that is overwritten by a call like `RENAME Key_B Key_A`, it does not
-matter if the original `Key_A` had a timeout associated or not, the new key
-`Key_A` will inherit all the characteristics of `Key_B`.
+If a key is overwritten by `RENAME`, like in the case of an existing key `Key_A`
+that is overwritten by a call like `RENAME Key_B Key_A`, it does not matter if
+the original `Key_A` had a timeout associated or not, the new key `Key_A` will
+inherit all the characteristics of `Key_B`.
 
 ## Refreshing expires
 
@@ -55,10 +55,10 @@ now fixed.
 
 Imagine you have a web service and you are interested in the latest N pages
 *recently* visited by your users, such that each adiacent page view was not
-performed more than 60 seconds after the previous. Conceptually you may think
-at this set of page views as a *Navigation session* if your user, that may
-contain interesting information about what kind of products he or she is
-looking for currently, so that you can recommend related products.
+performed more than 60 seconds after the previous. Conceptually you may think at
+this set of page views as a *Navigation session* if your user, that may contain
+interesting information about what kind of products he or she is looking for
+currently, so that you can recommend related products.
 
 You can easily model this pattern in Redis using the following strategy: every
 time the user does a page view you call the following commands:

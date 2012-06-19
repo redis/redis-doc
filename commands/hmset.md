@@ -12,4 +12,3 @@ not exist, a new key holding a hash is created.
     HMSET myhash field1 "Hello" field2 "World"
     HGET myhash field1
     HGET myhash field2
-

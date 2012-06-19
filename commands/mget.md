@@ -12,4 +12,3 @@ this, the operation never fails.
     SET key1 "Hello"
     SET key2 "World"
     MGET key1 key2 nonexisting
-

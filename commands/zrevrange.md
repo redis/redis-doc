@@ -18,4 +18,3 @@ their scores).
     ZREVRANGE myzset 0 -1
     ZREVRANGE myzset 2 3
     ZREVRANGE myzset -2 -1
-

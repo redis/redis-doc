@@ -14,4 +14,3 @@ overwritten.
     @cli
     HSET myhash field1 "Hello"
     HGET myhash field1
-

@@ -25,4 +25,3 @@ An error is returned if `source` or `destination` does not hold a set value.
     SMOVE myset myotherset "two"
     SMEMBERS myset
     SMEMBERS myotherset
-

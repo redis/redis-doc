@@ -14,7 +14,7 @@ end of the list, or `start > end`, the result will be an empty list (which
 causes `key` to be removed). If `end` is larger than the end of the list, Redis
 will treat it like the last element of the list.
 
-A common use of `LTRIM` is together with `LPUSH`/`RPUSH`. For example:
+A common use of `LTRIM` is together with `LPUSH` / `RPUSH`. For example:
 
     LPUSH mylist someelement
     LTRIM mylist 0 99
@@ -37,4 +37,3 @@ element is removed from the tail of the list.
     RPUSH mylist "three"
     LTRIM mylist 1 -1
     LRANGE mylist 0 -1
-

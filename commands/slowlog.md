@@ -8,15 +8,13 @@ with the client, sending the reply and so forth, but just the time needed to
 actually execute the command (this is the only stage of command execution where
 the thread is blocked and can not serve other requests in the meantime).
 
-You can configure the slow log with two parameters:
-*slowlog-log-slower-than* tells Redis
-what is the execution time, in microseconds, to exceed in order for the
-command to get logged. Note that a negative number disables the slow log,
-while a value of zero forces the logging of every command.
-*slowlog-max-len* is the length of the slow log. The minimum value is zero.
-When a new command is logged and the slow log is already at its
-maximum length, the oldest one is removed from the queue of logged commands
-in order to make space.
+You can configure the slow log with two parameters: *slowlog-log-slower-than*
+tells Redis what is the execution time, in microseconds, to exceed in order for
+the command to get logged. Note that a negative number disables the slow log,
+while a value of zero forces the logging of every command. *slowlog-max-len*
+is the length of the slow log. The minimum value is zero. When a new command
+is logged and the slow log is already at its maximum length, the oldest one is
+removed from the queue of logged commands in order to make space.
 
 The configuration can be done by editing `redis.conf` or while the server is
 running using the `CONFIG GET` and `CONFIG SET` commands.
@@ -26,8 +24,7 @@ running using the `CONFIG GET` and `CONFIG SET` commands.
 The slow log is accumulated in memory, so no file is written with information
 about the slow command executions. This makes the slow log remarkably fast at
 the point that you can enable the logging of all the commands (setting the
-*slowlog-log-slower-than* config parameter to zero) with minor performance
-hit.
+*slowlog-log-slower-than* config parameter to zero) with minor performance hit.
 
 To read the slow log the **SLOWLOG GET** command is used, that returns every
 entry in the slow log. It is possible to return only the N most recent entries
@@ -52,6 +49,7 @@ implemented in redis-cli (deeply nested multi bulk replies).
           3) "100"
 
 Every entry is composed of four fields:
+
 * A unique progressive identifier for every slow log entry.
 * The unix timestamp at which the logged command was processed.
 * The amount of time needed for its execution, in microseconds.

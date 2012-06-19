@@ -42,24 +42,17 @@ end
 
 namespace :format do
 
+  require "./remarkdown"
+
   def format(file)
     return unless File.exist?(file)
 
     STDOUT.print "formatting #{file}..."
     STDOUT.flush
 
-    matcher = /^(?:\A|\r?\n)((?:[a-zA-Z@].+?\r?\n)+)/m
-    body = File.read(file).gsub(matcher) do |match|
-      formatted = nil
-
-      IO.popen("par p0s0w80", "r+") do |io|
-        io.puts match
-        io.close_write
-        formatted = io.read
-      end
-
-      formatted
-    end
+    body = File.read(file)
+    body = ReMarkdown.new(body).to_s
+    body = body.gsub(/^\s+$/, "")
 
     File.open(file, "w") do |f|
       f.print body

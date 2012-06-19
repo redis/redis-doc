@@ -18,7 +18,10 @@ does not need to be completed within the specified amount of milliseconds, but
 that the transfer should make progresses without blocking for more than the
 specified amount of milliseconds.
 
-`MIGRATE` needs to perform I/O operations and to honor the specified timeout. When there is an I/O error during the transfer or if the timeout is reached the operation is aborted and the special error -`IOERR` returned. When this happens the following two cases are possible:
+`MIGRATE` needs to perform I/O operations and to honor the specified timeout.
+When there is an I/O error during the transfer or if the timeout is reached the
+operation is aborted and the special error - `IOERR` returned. When this happens
+the following two cases are possible:
 
 * The key may be on both the instances.
 * The key may be only in the source instance.

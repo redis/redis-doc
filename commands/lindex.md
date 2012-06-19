@@ -18,4 +18,3 @@ When the value at `key` is not a list, an error is returned.
     LINDEX mylist 0
     LINDEX mylist -1
     LINDEX mylist 3
-

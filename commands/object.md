@@ -6,17 +6,30 @@ key eviction policies when using Redis as a Cache.
 
 The `OBJECT` command supports multiple sub commands:
 
-* `OBJECT REFCOUNT <key>` returns the number of references of the value associated with the specified key. This command is mainly useful for debugging.
-* `OBJECT ENCODING <key>` returns the kind of internal representation used in order to store the value associated with a key.
-* `OBJECT IDLETIME <key>` returns the number of seconds since the object stored at the specified key is idle (not requested by read or write operations). While the value is returned in seconds the actual resolution of this timer is 10 seconds, but may vary in future implementations.
+* `OBJECT REFCOUNT <key>` returns the number of references of the value
+  associated with the specified key. This command is mainly useful for
+  debugging.
+* `OBJECT ENCODING <key>` returns the kind of internal representation used in
+  order to store the value associated with a key.
+* `OBJECT IDLETIME <key>` returns the number of seconds since the object stored
+  at the specified key is idle (not requested by read or write operations).
+  While the value is returned in seconds the actual resolution of this timer is
+  10 seconds, but may vary in future implementations.
 
 Objects can be encoded in different ways:
 
-* Strings can be encoded as `raw` (normal string encoding) or `int` (strings representing integers in a 64 bit signed interval are encoded in this way in order to save space).
-* Lists can be encoded as `ziplist` or `linkedlist`. The `ziplist` is the special representation that is used to save space for small lists.
-* Sets can be encoded as `intset` or `hashtable`. The `intset` is a special encoding used for small sets composed solely of integers.
-* Hashes can be encoded as `zipmap` or `hashtable`. The `zipmap` is a special encoding used for small hashes.
-* Sorted Sets can be encoded as `ziplist` or `skiplist` format. As for the List type small sorted sets can be specially encoded using `ziplist`, while the `skiplist` encoding is the one that works with sorted sets of any size.
+* Strings can be encoded as `raw` (normal string encoding) or `int` (strings
+  representing integers in a 64 bit signed interval are encoded in this way in
+  order to save space).
+* Lists can be encoded as `ziplist` or `linkedlist`. The `ziplist` is the
+  special representation that is used to save space for small lists.
+* Sets can be encoded as `intset` or `hashtable`. The `intset` is a special
+  encoding used for small sets composed solely of integers.
+* Hashes can be encoded as `zipmap` or `hashtable`. The `zipmap` is a special
+  encoding used for small hashes.
+* Sorted Sets can be encoded as `ziplist` or `skiplist` format. As for the List
+  type small sorted sets can be specially encoded using `ziplist`, while the
+  `skiplist` encoding is the one that works with sorted sets of any size.
 
 All the specially encoded types are automatically converted to the general type
 once you perform an operation that makes it no possible for Redis to retain the
@@ -55,4 +68,3 @@ longer able to use the space saving encoding.
     "1000bar"
     redis> object encoding foo
     "raw"
-

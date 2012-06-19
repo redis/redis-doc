@@ -1,13 +1,12 @@
-Executes all previously queued commands in a
-[transaction][transactions] and restores the connection state to
-normal.
+Executes all previously queued commands in a [transaction][tt] and restores the
+connection state to normal.
 
-[transactions]: /topics/transactions
+[tt]: /topics/transactions
 
 When using `WATCH`, `EXEC` will execute commands only if the watched keys were
-not modified, allowing for a [check-and-set mechanism][cas].
+not modified, allowing for a [check-and-set mechanism][ttc].
 
-[cas]: /topics/transactions#cas
+[ttc]: /topics/transactions#cas
 
 @return
 

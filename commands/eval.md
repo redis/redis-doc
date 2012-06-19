@@ -103,7 +103,7 @@ following table shows you all the conversions rules:
 There is an additional Lua to Redis conversion rule that has no corresponding
 Redis to Lua conversion rule:
 
- * Lua boolean true -> Redis integer reply with value of 1.
+* Lua boolean true -> Redis integer reply with value of 1.
 
 The followings are a few conversion examples:
 
@@ -167,20 +167,23 @@ would be a problem for a few reasons:
 
 * Different instances may have different versions of a command implementation.
 
-* Deployment is hard if there is to make sure all the instances contain a given command, especially in a distributed environment.
+* Deployment is hard if there is to make sure all the instances contain a given
+  command, especially in a distributed environment.
 
-* Reading an application code the full semantic could not be clear since the application would call commands defined server side.
+* Reading an application code the full semantic could not be clear since the
+  application would call commands defined server side.
 
 In order to avoid the above three problems and at the same time don't incur in
 the bandwidth penalty, Redis implements the `EVALSHA` command.
 
-`EVALSHA` works exactly as `EVAL`, but instead of having a script as first argument it has the SHA1 sum of a script. The behavior is the following:
+`EVALSHA` works exactly as `EVAL`, but instead of having a script as first
+argument it has the SHA1 sum of a script. The behavior is the following:
 
-* If the server still remembers a script whose SHA1 sum was the one
-specified, the script is executed.
+* If the server still remembers a script whose SHA1 sum was the one specified,
+  the script is executed.
 
-* If the server does not remember a script with this SHA1 sum, a special
-error is returned that will tell the client to use `EVAL` instead.
+* If the server does not remember a script with this SHA1 sum, a special error
+  is returned that will tell the client to use `EVAL` instead.
 
 Example:
 
@@ -232,29 +235,28 @@ this problem in its details later).
 Redis offers a SCRIPT command that can be used in order to control the scripting
 subsystem. SCRIPT currently accepts three different commands:
 
-* SCRIPT FLUSH. This command is the only way to force Redis to flush the
-scripts cache. It is mostly useful in a cloud environment where the same
-instance can be reassigned to a different user. It is also useful for
-testing client libraries implementations of the scripting feature.
+* SCRIPT FLUSH. This command is the only way to force Redis to flush the scripts
+  cache. It is mostly useful in a cloud environment where the same instance
+  can be reassigned to a different user. It is also useful for testing client
+  libraries implementations of the scripting feature.
 
-* SCRIPT EXISTS *sha1* *sha2* ... *shaN*. Given a list of SHA1 digests
-as arguments this command returns an array of 1 or 0, where 1 means the
-specific SHA1 is recognized as a script already present in the scripting
-cache, while 0 means that a script with this SHA1 was never seen before
-(or at least never seen after the latest SCRIPT FLUSH command).
+* SCRIPT EXISTS *sha1* *sha2*... *shaN*. Given a list of SHA1 digests as
+  arguments this command returns an array of 1 or 0, where 1 means the specific
+  SHA1 is recognized as a script already present in the scripting cache, while
+  0 means that a script with this SHA1 was never seen before (or at least never
+  seen after the latest SCRIPT FLUSH command).
 
-* SCRIPT LOAD *script*. This command registers the specified script in
-the Redis script cache. The command is useful in all the contexts where
-we want to make sure that `EVALSHA` will not fail (for instance during a
-pipeline or MULTI/EXEC operation), without the need to actually execute the
-script.
+* SCRIPT LOAD *script*. This command registers the specified script in the
+  Redis script cache. The command is useful in all the contexts where we want
+  to make sure that `EVALSHA` will not fail (for instance during a pipeline or
+  MULTI/EXEC operation), without the need to actually execute the script.
 
-* SCRIPT KILL. This command is the only wait to interrupt a long running
-script that reached the configured maximum execution time for scripts.
-The SCRIPT KILL command can only be used with scripts that did not modified
-the dataset during their execution (since stopping a read only script does
-not violate the scripting engine guaranteed atomicity).
-See the next sections for more information about long running scripts.
+* SCRIPT KILL. This command is the only wait to interrupt a long running script
+  that reached the configured maximum execution time for scripts. The SCRIPT
+  KILL command can only be used with scripts that did not modified the dataset
+  during their execution (since stopping a read only script does not violate
+  the scripting engine guaranteed atomicity). See the next sections for more
+  information about long running scripts.
 
 ## Scripts as pure functions
 
@@ -272,11 +274,11 @@ scripts).
 The only drawback with this approach is that scripts are required to have the
 following property:
 
-* The script always evaluates the same Redis *write* commands with the
-same arguments given the same input data set. Operations performed by
-the script cannot depend on any hidden (non explicit) information or state
-that may change as script execution proceeds or between different executions of
-the script, nor can it depend on any external input from I/O devices.
+* The script always evaluates the same Redis *write* commands with the same
+  arguments given the same input data set. Operations performed by the script
+  cannot depend on any hidden (non explicit) information or state that may
+  change as script execution proceeds or between different executions of the
+  script, nor can it depend on any external input from I/O devices.
 
 Things like using the system time, calling Redis random commands like
 `RANDOMKEY`, or using Lua random number generator, could result into scripts
@@ -284,24 +286,30 @@ that will not evaluate always in the same way.
 
 In order to enforce this behavior in scripts Redis does the following:
 
-* Lua does not export commands to access the system time or other external state.
+* Lua does not export commands to access the system time or other external
+  state.
 
-* Redis will block the script with an error if a script will call a
-Redis command able to alter the data set **after** a Redis *random*
-command like `RANDOMKEY`, `SRANDMEMBER`, `TIME`. This means that if a script is
-read only and does not modify the data set it is free to call those commands.
-Note that a *random command* does not necessarily identifies a command that
-uses random numbers: any non deterministic command is considered a random
-command (the best example in this regard is the `TIME` command).
+* Redis will block the script with an error if a script will call a Redis
+  command able to alter the data set **after** a Redis *random* command like
+  `RANDOMKEY`, `SRANDMEMBER`, `TIME`. This means that if a script is read only
+  and does not modify the data set it is free to call those commands. Note that
+  a *random command* does not necessarily identifies a command that uses random
+  numbers: any non deterministic command is considered a random command (the
+  best example in this regard is the `TIME` command).
 
 * Redis commands that may return elements in random order, like `SMEMBERS`
-(because Redis Sets are *unordered*) have a different behavior when called from Lua, and undergone a silent lexicographical sorting filter before returning data to Lua scripts. So `redis.call("smembers",KEYS[1])` will always return the Set elements in the same order, while the same command invoked from normal clients may return different results even if the key contains exactly the same elements.
+  (because Redis Sets are *unordered*) have a different behavior when called
+  from Lua, and undergone a silent lexicographical sorting filter before
+  returning data to Lua scripts. So `redis.call("smembers",KEYS[1])` will always
+  return the Set elements in the same order, while the same command invoked from
+  normal clients may return different results even if the key contains exactly
+  the same elements.
 
 * Lua pseudo random number generation functions `math.random` and
-`math.randomseed` are modified in order to always have the same seed every
-time a new script is executed. This means that calling `math.random` will
-always generate the same sequence of numbers every time a script is
-executed if `math.randomseed` is not used.
+  `math.randomseed` are modified in order to always have the same seed every
+  time a new script is executed. This means that calling `math.random` will
+  always generate the same sequence of numbers every time a script is executed
+  if `math.randomseed` is not used.
 
 However the user is still able to write commands with random behaviors using
 the following simple trick. Imagine I want to write a Redis script that will
@@ -463,10 +471,17 @@ that scripts are atomic in nature. Stopping a script half-way means to possibly
 leave the dataset with half-written data inside. For this reasons when a script
 executes for more than the specified time the following happens:
 
-* Redis logs that a script that is running for too much time is still in execution.
-* It starts accepting commands again from other clients, but will reply with a BUSY error to all the clients sending normal commands. The only allowed commands in this status are `SCRIPT KILL` and `SHUTDOWN NOSAVE`.
-* It is possible to terminate a script that executed only read-only commands using the `SCRIPT KILL` command. This does not violate the scripting semantic as no data was yet written on the dataset by the script.
-* If the script already called write commands the only allowed command becomes `SHUTDOWN NOSAVE` that stops the server not saving the current data set on disk (basically the server is aborted).
+* Redis logs that a script that is running for too much time is still in
+  execution.
+* It starts accepting commands again from other clients, but will reply with
+  a BUSY error to all the clients sending normal commands. The only allowed
+  commands in this status are `SCRIPT KILL` and `SHUTDOWN NOSAVE`.
+* It is possible to terminate a script that executed only read-only commands
+  using the `SCRIPT KILL` command. This does not violate the scripting semantic
+  as no data was yet written on the dataset by the script.
+* If the script already called write commands the only allowed command becomes
+  `SHUTDOWN NOSAVE` that stops the server not saving the current data set on
+  disk (basically the server is aborted).
 
 ## EVALSHA in the context of pipelining
 
@@ -479,7 +494,7 @@ The client library implementation should take one of the following approaches:
 
 * Always use plain `EVAL` when in the context of a pipeline.
 
-* Accumulate all the commands to send into the pipeline, then check for
-`EVAL` commands and use the `SCRIPT EXISTS` command to check if all the
-scripts are already defined. If not add `SCRIPT LOAD` commands on top of
-the pipeline as required, and use `EVALSHA` for all the `EVAL` calls.
+* Accumulate all the commands to send into the pipeline, then check for `EVAL`
+  commands and use the `SCRIPT EXISTS` command to check if all the scripts are
+  already defined. If not add `SCRIPT LOAD` commands on top of the pipeline as
+  required, and use `EVALSHA` for all the `EVAL` calls.

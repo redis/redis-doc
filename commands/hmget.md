@@ -14,4 +14,3 @@ order as they are requested.
     HSET myhash field1 "Hello"
     HSET myhash field2 "World"
     HMGET myhash field1 field2 nofield
-

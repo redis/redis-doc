@@ -12,4 +12,3 @@ is overwritten.
     SET mykey "Hello"
     RENAME mykey myotherkey
     GET myotherkey
-

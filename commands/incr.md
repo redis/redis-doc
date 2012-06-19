@@ -35,9 +35,15 @@ string representing the current date.
 
 This simple pattern can be extended in many ways:
 
-* It is possible to use `INCR` and `EXPIRE` together at every page view to have a counter counting only the latest N page views separated by less than the specified amount of seconds.
-* A client may use GETSET in order to atomically get the current counter value and reset it to zero.
-* Using other atomic increment/decrement commands like `DECR` or `INCRBY` it is possible to handle values that may get bigger or smaller depending on the operations performed by the user. Imagine for instance the score of different users in an online game.
+* It is possible to use `INCR` and `EXPIRE` together at every page view to have
+  a counter counting only the latest N page views separated by less than the
+  specified amount of seconds.
+* A client may use GETSET in order to atomically get the current counter value
+  and reset it to zero.
+* Using other atomic increment/decrement commands like `DECR` or `INCRBY` it
+  is possible to handle values that may get bigger or smaller depending on the
+  operations performed by the user. Imagine for instance the score of different
+  users in an online game.
 
 ## Pattern: Rate limiter
 
@@ -94,12 +100,12 @@ to get it right without race conditions. We'll examine different variants.
 
 The counter is created in a way that it only will survive one second, starting
 from the first request performed in the current second. If there are more than
-10 requests in the same second the counter will reach a value greater than
-10, otherwise it will expire and start again from 0.
+10 requests in the same second the counter will reach a value greater than 10,
+otherwise it will expire and start again from 0.
 
-**In the above code there is a race condition**. If for some reason the
-client performs the `INCR` command but does not perform the `EXPIRE` the
-key will be leaked until we'll see the same IP address again.
+**In the above code there is a race condition**. If for some reason the client
+performs the `INCR` command but does not perform the `EXPIRE` the key will be
+leaked until we'll see the same IP address again.
 
 This can be fixed easily turning the `INCR` with optional `EXPIRE` into a Lua
 script that is send using the `EVAL` command (only available since Redis version
@@ -137,6 +143,5 @@ The `RPUSHX` command only pushes the element if the key already exists.
 
 Note that we have a race here, but it is not a problem: `EXISTS` may return
 false but the key may be created by another client before we create it inside
-the
-`MULTI`/`EXEC` block. However this race will just miss an API call under rare
-conditions, so the rate limiting will still work correctly.
+the `MULTI` / `EXEC` block. However this race will just miss an API call under
+rare conditions, so the rate limiting will still work correctly.

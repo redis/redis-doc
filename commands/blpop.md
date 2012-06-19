@@ -1,4 +1,4 @@
-`BLPOP` is a blocking list pop primitive.  It is the blocking version of `LPOP`
+`BLPOP` is a blocking list pop primitive. It is the blocking version of `LPOP`
 because it blocks the connection when there are no elements to pop from any of
 the given lists. An element is popped from the head of the first list that is
 non-empty, with the given keys being checked in the order that they are given.
@@ -10,8 +10,8 @@ non-empty list, an element is popped from the head of the list and returned to
 the caller together with the `key` it was popped from.
 
 Keys are checked in the order that they are given. Let's say that the key
-`list1` doesn't exist and `list2` and `list3` hold non-empty lists. Consider
-the following command:
+`list1` doesn't exist and `list2` and `list3` hold non-empty lists. Consider the
+following command:
 
     BLPOP list1 list2 list3 0
 
@@ -37,30 +37,31 @@ be used to block indefinitely.
 
 ## Multiple clients blocking for the same keys
 
-Multiple clients can block for the same key. They are put into a queue, so
-the first to be served will be the one that started to wait earlier, in a
-first-`!BLPOP` first-served fashion.
+Multiple clients can block for the same key. They are put into a queue, so the
+first to be served will be the one that started to wait earlier, in a first-
+`!BLPOP` first-served fashion.
 
-## `!BLPOP` inside a `!MULTI`/`!EXEC` transaction
+## `!BLPOP` inside a `!MULTI` / `!EXEC` transaction
 
 `BLPOP` can be used with pipelining (sending multiple commands and reading the
-replies in batch), but it does not make sense to use `BLPOP` inside a
-`MULTI`/`EXEC` block. This would require blocking the entire server in order to
-execute the block atomically, which in turn does not allow other clients to
-perform a push operation.
+replies in batch), but it does not make sense to use `BLPOP` inside a `MULTI` /
+`EXEC` block. This would require blocking the entire server in order to execute
+the block atomically, which in turn does not allow other clients to perform a
+push operation.
 
-The behavior of `BLPOP` inside `MULTI`/`EXEC` when the list is empty is to
+The behavior of `BLPOP` inside `MULTI` / `EXEC` when the list is empty is to
 return a `nil` multi-bulk reply, which is the same thing that happens when
 the timeout is reached. If you like science fiction, think of time flowing at
-infinite speed inside a `MULTI`/`EXEC` block.
+infinite speed inside a `MULTI` / `EXEC` block.
 
 @return
 
 @multi-bulk-reply: specifically:
 
 * A `nil` multi-bulk when no element could be popped and the timeout expired.
-* A two-element multi-bulk with the first element being the name of the key where an element
-  was popped and the second element being the value of the popped element.
+* A two-element multi-bulk with the first element being the name of the key
+  where an element was popped and the second element being the value of the
+  popped element.
 
 @examples
 
@@ -96,5 +97,3 @@ While in the producer side we'll use simply:
     SADD key element
     LPUSH helper_key x
     EXEC
-
-

@@ -1,14 +1,13 @@
-Returns or stores the elements contained in the
-[list][lists], [set][sets] or [sorted set][sorted-sets]
- at `key`.  By default, sorting is numeric
-and elements are compared by their value interpreted as double precision
-floating point number.  This is `SORT` in its simplest form:
+Returns or stores the elements contained in the [list][tdtl], [set][tdts] or
+[sorted set][tdtss] at `key`. By default, sorting is numeric and elements are
+compared by their value interpreted as double precision floating point number.
+This is `SORT` in its simplest form:
+
+[tdtl]: /topics/data-types#lists
+[tdts]: /topics/data-types#set
+[tdtss]: /topics/data-types#sorted-sets
 
     SORT mylist
-
-[lists]: /topics/data-types#lists
-[sets]: /topics/data-types#set
-[sorted-sets]: /topics/data-types#sorted-sets
 
 Assuming `mylist` is a list of numbers, this command will return the same list
 with the elements sorted from small to large. In order to sort the numbers from
@@ -41,9 +40,9 @@ first 5 elements, lexicographically sorted in descending order:
 
 Sometimes you want to sort elements using external keys as weights to compare
 instead of comparing the actual elements in the list, set or sorted set. Let's
-say the list `mylist` contains the elements `1`, `2` and `3` representing unique
-IDs of objects stored in `object_1`, `object_2` and `object_3`. When these
-objects have associated weights stored in `weight_1`, `weight_2` and
+say the list `mylist` contains the elements `1`, `2` and `3` representing
+unique IDs of objects stored in `object_1`, `object_2` and `object_3`. When
+these objects have associated weights stored in `weight_1`, `weight_2` and
 `weight_3`, `SORT` can be instructed to use these weights to sort `mylist` with
 the following statement:
 
@@ -57,8 +56,8 @@ element in the list (`1`, `2` and `3` in this example).
 ## Skip sorting the elements
 
 The `!BY` option can also take a non-existent key, which causes `SORT` to skip
-the sorting operation. This is useful if you want to retrieve external keys
-(see the `!GET` option below) without the overhead of sorting.
+the sorting operation. This is useful if you want to retrieve external keys (see
+the `!GET` option below) without the overhead of sorting.
 
     SORT mylist BY nosort
 
@@ -90,12 +89,12 @@ An interesting pattern using `SORT ... STORE` consists in associating an
 `EXPIRE` timeout to the resulting key so that in applications where the result
 of a `SORT` operation can be cached for some time. Other clients will use the
 cached list instead of calling `SORT` for every request. When the key will
-timeout, an updated version of the cache can be created by calling `SORT ... STORE` again.
+timeout, an updated version of the cache can be created by calling `SORT ...
+STORE` again.
 
 Note that for correctly implementing this pattern it is important to avoid
 multiple clients rebuilding the cache at the same time. Some kind of locking is
-needed here
-(for instance using `SETNX`).
+needed here (for instance using `SETNX`).
 
 ## Using hashes in `!BY` and `!GET`
 
@@ -111,4 +110,3 @@ is accessed to retrieve the specified hash field.
 @return
 
 @multi-bulk-reply: list of sorted elements.
-

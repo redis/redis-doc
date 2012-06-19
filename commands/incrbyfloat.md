@@ -4,7 +4,8 @@ before performing the operation. An error is returned if one of the following
 conditions occur:
 
 * The key contains a value of the wrong type (not a string).
-* The current key content or the specified increment are not parsable as a double precision floating point number.
+* The current key content or the specified increment are not parsable as a
+  double precision floating point number.
 
 If the command is successful the new incremented value is stored as the new
 value of the key (replacing the old one), and returned to the caller as a

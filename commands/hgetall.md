@@ -13,4 +13,3 @@ empty list when `key` does not exist.
     HSET myhash field1 "Hello"
     HSET myhash field2 "World"
     HGETALL myhash
-

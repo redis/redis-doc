@@ -12,4 +12,3 @@ This has the same effect as running `SINTER` with one argument `key`.
     SADD myset "Hello"
     SADD myset "World"
     SMEMBERS myset
-

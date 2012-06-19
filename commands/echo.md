@@ -8,4 +8,3 @@ Returns `message`.
 
     @cli
     ECHO "Hello World!"
-

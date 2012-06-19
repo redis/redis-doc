@@ -13,4 +13,3 @@ have a timeout.
     SET mykey "Hello"
     EXPIRE mykey 10
     TTL mykey
-

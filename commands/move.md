@@ -9,4 +9,3 @@ it does not exist in the source database, it does nothing. It is possible to use
 
 * `1` if `key` was moved.
 * `0` if `key` was not moved.
-
