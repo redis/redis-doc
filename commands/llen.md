@@ -12,4 +12,3 @@ An error is returned when the value stored at `key` is not a list.
     LPUSH mylist "World"
     LPUSH mylist "Hello"
     LLEN mylist
-

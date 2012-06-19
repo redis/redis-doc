@@ -1,5 +1,4 @@
-Returns the members of the set resulting from the union of all the
-given sets.
+Returns the members of the set resulting from the union of all the given sets.
 
 For example:
 
@@ -24,4 +23,3 @@ Keys that do not exist are considered to be empty sets.
     SADD key2 "d"
     SADD key2 "e"
     SUNION key1 key2
-

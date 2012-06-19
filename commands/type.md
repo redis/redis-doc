@@ -15,4 +15,3 @@ and `hash`.
     TYPE key1
     TYPE key2
     TYPE key3
-

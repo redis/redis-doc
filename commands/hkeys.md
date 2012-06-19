@@ -11,4 +11,3 @@ not exist.
     HSET myhash field1 "Hello"
     HSET myhash field2 "World"
     HKEYS myhash
-

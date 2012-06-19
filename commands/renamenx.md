@@ -15,4 +15,3 @@ It returns an error under the same conditions as `RENAME`.
     SET myotherkey "World"
     RENAMENX mykey myotherkey
     GET myotherkey
-

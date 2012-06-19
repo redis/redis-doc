@@ -1,24 +1,24 @@
-Perform a bitwise operation between multiple keys (containing string
-values) and store the result in the destionation key.
+Perform a bitwise operation between multiple keys (containing string values) and
+store the result in the destination key.
 
-The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR** and **NOT**, thus the valid forms to call the command are:
+The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR**
+and **NOT**, thus the valid forms to call the command are:
 
-+ BITOP AND *destkey srckey1 srckey2 srckey3 ... srckeyN*
-+ BITOP OR *destkey srckey1 srckey2 srckey3 ... srckeyN*
-+ BITOP XOR *destkey srckey1 srckey2 srckey3 ... srckeyN*
-+ BITOP NOT *destkey srckey*
+* BITOP AND _destkey srckey1 srckey2 srckey3 ... srckeyN_
+* BITOP OR _destkey srckey1 srckey2 srckey3 ... srckeyN_
+* BITOP XOR _destkey srckey1 srckey2 srckey3 ... srckeyN_
+* BITOP NOT _destkey srckey_
 
 As you can see **NOT** is special as it only takes an input key, because it
-performs invertion of bits so it only makes sense as an unary operator.
+performs inversion of bits so it only makes sense as an unary operator.
 
-The result of the operation is always stored at *destkey*.
+The result of the operation is always stored at _destkey_.
 
-Handling of strings with different lengths
----
+## Handling of strings with different lengths
 
-When an operation is performed between strings having different lengths, all
-the strings shorter than the longest string in the set are treated as if
-they were zero-padded up to the length of the longest string.
+When an operation is performed between strings having different lengths, all the
+strings shorter than the longest string in the set are treated as if they were
+zero-padded up to the length of the longest string.
 
 The same holds true for non-existing keys, that are considered as a stream of
 zero bytes up to the length of the longest string.
@@ -27,7 +27,8 @@ zero bytes up to the length of the longest string.
 
 @integer-reply
 
-The size of the string stored into the destination key, that is equal to the size of the longest input string.
+The size of the string stored into the destination key, that is equal to the
+size of the longest input string.
 
 @examples
 
@@ -37,20 +38,23 @@ The size of the string stored into the destination key, that is equal to the siz
     BITOP AND dest key1 key2
     GET dest
 
-Pattern: real time metrics using bitmaps
----
+## Pattern: real time metrics using bitmaps
 
-`BITOP` is a good complement to the pattern documented in the `BITCOUNT` command documentation. Different bitmaps can be combined in order to obtain a target
-bitmap where to perform the population counting operation.
+`BITOP` is a good complement to the pattern documented in the `BITCOUNT` command
+documentation.
+Different bitmaps can be combined in order to obtain a target bitmap where to
+perform the population counting operation.
 
-See the article [Fast easy realtime metrics usign Redis bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/) for an interesting use cases.
+See the article called "[Fast easy realtime metrics using Redis
+bitmaps][hbgc212fermurb]" for an interesting use cases.
 
-Performance considerations
----
+[hbgc212fermurb]: http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps
+
+## Performance considerations
 
 `BITOP` is a potentially slow command as it runs in O(N) time.
 Care should be taken when running it against long input strings.
 
-For real time metrics and statistics involving large inputs a good approach
-is to use a slave (with read-only option disabled) where to perform the
-bit-wise operations without blocking the master instance.
+For real time metrics and statistics involving large inputs a good approach is
+to use a slave (with read-only option disabled) where to perform the bit-wise
+operations without blocking the master instance.

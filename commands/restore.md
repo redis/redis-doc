@@ -1,8 +1,11 @@
-Create a key assosicated with a value that is obtained unserializing the provided serialized value (obtained via `DUMP`).
+Create a key associated with a value that is obtained by deserializing the
+provided serialized value (obtained via `DUMP`).
 
-If `ttl` is 0 the key is created without any expire, otherwise the specified expire time (in milliseconds) is set.
+If `ttl` is 0 the key is created without any expire, otherwise the specified
+expire time (in milliseconds) is set.
 
-`RESTORE` checks the RDB version and data checksum. If they don't match an error is returned.
+`RESTORE` checks the RDB version and data checksum.
+If they don't match an error is returned.
 
 @return
 

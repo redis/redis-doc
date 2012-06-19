@@ -13,4 +13,3 @@ Returns if `key` exists.
     SET key1 "Hello"
     EXISTS key1
     EXISTS key2
-
