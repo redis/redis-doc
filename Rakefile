@@ -65,6 +65,12 @@ namespace :format do
     format(args[:path])
   end
 
+  task :cached do
+    `git diff --cached --name-only -- commands/`.split.each do |path|
+      format(path)
+    end
+  end
+
   task :all do
     Dir["commands/*.md"].each do |path|
       format(path)
