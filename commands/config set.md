@@ -8,8 +8,7 @@ issuing a `CONFIG GET *` command, that is the symmetrical command used to obtain
 information about the configuration of a running Redis instance.
 
 All the configuration parameters set using `CONFIG SET` are immediately loaded
-by Redis that will start acting as specified starting from the next command
-executed.
+by Redis and will take effect starting with the next command executed.
 
 All the supported parameters have the same meaning of the equivalent
 configuration parameter used in the [redis.conf][hgcarr22rc] file, with the
@@ -19,9 +18,9 @@ following important differences:
 
 * Where bytes or other quantities are specified, it is not possible to use
   the `redis.conf` abbreviated form (10k 2gb ... and so forth), everything
-  should be specified as a well formed 64 bit integer, in the base unit of the
+  should be specified as a well-formed 64-bit integer, in the base unit of the
   configuration directive.
-* The save parameter is a single string of space separated integers.
+* The save parameter is a single string of space-separated integers.
   Every pair of integers represent a seconds/modifications threshold.
 
 For instance what in `redis.conf` looks like:
@@ -33,16 +32,17 @@ that means, save after 900 seconds if there is at least 1 change to the dataset,
 and after 300 seconds if there are at least 10 changes to the datasets, should
 be set using `CONFIG SET` as "900 1 300 10".
 
-It is possible to switch persistence from RDB snapshotting to append only file
+It is possible to switch persistence from RDB snapshotting to append-only file
 (and the other way around) using the `CONFIG SET` command.
-For more information about how to do that please check [persistence page][tp].
+For more information about how to do that please check the [persistence
+page][tp].
 
 [tp]: /topics/persistence
 
 In general what you should know is that setting the `appendonly` parameter to
-`yes` will start a background process to save the initial append only file
+`yes` will start a background process to save the initial append-only file
 (obtained from the in memory data set), and will append all the subsequent
-commands on the append only file, thus obtaining exactly the same effect of a
+commands on the append-only file, thus obtaining exactly the same effect of a
 Redis server that started with AOF turned on since the start.
 
 You can have both the AOF enabled with RDB snapshotting if you want, the two

@@ -6,7 +6,7 @@ given keys being checked in the order that they are given.
 
 ## Non-blocking behavior
 
-When `BLPOP` is called, if at least one of the specified keys contain a
+When `BLPOP` is called, if at least one of the specified keys contains a
 non-empty list, an element is popped from the head of the list and returned to
 the caller together with the `key` it was popped from.
 

@@ -293,7 +293,7 @@ Our first attempt (that is broken) can be the following. Let's suppose we want
 to get a unique ID for the tag "redis":
 
 * In order to make this algorithm binary safe (they are just tags but think to
-  utf8, spaces and so forth) we start performing the SHA1 sum of the tag.
+  utf8, spaces and so forth) we start performing the SHA1 digest of the tag.
   SHA1(redis) = b840fc02d524045429941cc15f59e41cb7be6c52.
 * Let's check if this tag is already associated with a unique ID with the
   command *GET tag:b840fc02d524045429941cc15f59e41cb7be6c52:id*.
@@ -313,7 +313,7 @@ return the wrong ID to the caller. To fix the algorithm is not hard
 fortunately, and this is the sane version:
 
 * In order to make this algorithm binary safe (they are just tags but think to
-  utf8, spaces and so forth) we start performing the SHA1 sum of the tag.
+  utf8, spaces and so forth) we start performing the SHA1 digest of the tag.
   SHA1(redis) = b840fc02d524045429941cc15f59e41cb7be6c52.
 * Let's check if this tag is already associated with a unique ID with the
   command *GET tag:b840fc02d524045429941cc15f59e41cb7be6c52:id*.

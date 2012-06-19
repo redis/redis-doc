@@ -6,7 +6,7 @@ command.
 The serialization format is opaque and non-standard, however it has a few
 semantical characteristics:
 
-* It contains a 64bit checksum that is used to make sure errors will be
+* It contains a 64-bit checksum that is used to make sure errors will be
   detected.
   The `RESTORE` command makes sure to check the checksum before synthesizing a
   key using the serialized value.
