@@ -1,11 +1,14 @@
-Move `member` from the set at `source` to the set at `destination`. This
-operation is atomic. In every given moment the element will appear to be a
-member of `source` **or** `destination` for other clients.
+Move `member` from the set at `source` to the set at `destination`.
+This operation is atomic.
+In every given moment the element will appear to be a member of `source` **or**
+`destination` for other clients.
 
 If the source set does not exist or does not contain the specified element, no
-operation is performed and `0` is returned. Otherwise, the element is removed
-from the source set and added to the destination set. When the specified element
-already exists in the destination set, it is only removed from the source set.
+operation is performed and `0` is returned.
+Otherwise, the element is removed from the source set and added to the
+destination set.
+When the specified element already exists in the destination set, it is only
+removed from the source set.
 
 An error is returned if `source` or `destination` does not hold a set value.
 
@@ -25,4 +28,3 @@ An error is returned if `source` or `destination` does not hold a set value.
     SMOVE myset myotherset "two"
     SMEMBERS myset
     SMEMBERS myotherset
-

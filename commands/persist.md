@@ -17,4 +17,3 @@ is associated).
     TTL mykey
     PERSIST mykey
     TTL mykey
-

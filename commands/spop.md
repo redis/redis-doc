@@ -15,4 +15,3 @@ set but does not remove it.
     SADD myset "three"
     SPOP myset
     SMEMBERS myset
-

@@ -23,4 +23,3 @@ Keys that do not exist are considered to be empty sets.
     SADD key2 "d"
     SADD key2 "e"
     SUNION key1 key2
-

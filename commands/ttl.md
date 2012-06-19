@@ -1,6 +1,6 @@
-Returns the remaining time to live of a key that has a timeout. This
-introspection capability allows a Redis client to check how many seconds a given
-key will continue to be part of the dataset.
+Returns the remaining time to live of a key that has a timeout.
+This introspection capability allows a Redis client to check how many seconds a
+given key will continue to be part of the dataset.
 
 @return
 
@@ -13,4 +13,3 @@ have a timeout.
     SET mykey "Hello"
     EXPIRE mykey 10
     TTL mykey
-

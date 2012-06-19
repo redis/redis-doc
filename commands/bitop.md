@@ -4,15 +4,15 @@ store the result in the destination key.
 The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR**
 and **NOT**, thus the valid forms to call the command are:
 
-+ BITOP AND *destkey srckey1 srckey2 srckey3 ... srckeyN*
-+ BITOP OR *destkey srckey1 srckey2 srckey3 ... srckeyN*
-+ BITOP XOR *destkey srckey1 srckey2 srckey3 ... srckeyN*
-+ BITOP NOT *destkey srckey*
+* BITOP AND _destkey srckey1 srckey2 srckey3 ... srckeyN_
+* BITOP OR _destkey srckey1 srckey2 srckey3 ... srckeyN_
+* BITOP XOR _destkey srckey1 srckey2 srckey3 ... srckeyN_
+* BITOP NOT _destkey srckey_
 
 As you can see **NOT** is special as it only takes an input key, because it
 performs inversion of bits so it only makes sense as an unary operator.
 
-The result of the operation is always stored at *destkey*.
+The result of the operation is always stored at _destkey_.
 
 ## Handling of strings with different lengths
 
@@ -40,13 +40,15 @@ size of the longest input string.
 
 ## Pattern: real time metrics using bitmaps
 
-`BITOP` is a good complement to the pattern documented in the `BITCOUNT` command documentation. Different bitmaps can be combined in order to obtain a target
-bitmap where to perform the population counting operation.
+`BITOP` is a good complement to the pattern documented in the `BITCOUNT` command
+documentation.
+Different bitmaps can be combined in order to obtain a target bitmap where to
+perform the population counting operation.
 
 See the article called "[Fast easy realtime metrics using Redis
-bitmaps][bitmaps]" for an interesting use cases.
+bitmaps][hbgc212fermurb]" for an interesting use cases.
 
-[bitmaps]: http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps
+[hbgc212fermurb]: http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps
 
 ## Performance considerations
 

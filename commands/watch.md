@@ -1,7 +1,7 @@
 Marks the given keys to be watched for conditional execution of a
-[transaction][transactions].
+[transaction][tt].
 
-[transactions]: /topics/transactions
+[tt]: /topics/transactions
 
 @return
 

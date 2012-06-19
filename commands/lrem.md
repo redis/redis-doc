@@ -1,6 +1,6 @@
 Removes the first `count` occurrences of elements equal to `value` from the list
-stored at `key`. The `count` argument influences the operation in the following
-ways:
+stored at `key`.
+The `count` argument influences the operation in the following ways:
 
 * `count > 0`: Remove elements equal to `value` moving from head to tail.
 * `count < 0`: Remove elements equal to `value` moving from tail to head.
@@ -25,4 +25,3 @@ exist, the command will always return `0`.
     RPUSH mylist "hello"
     LREM mylist -2 "hello"
     LRANGE mylist 0 -1
-

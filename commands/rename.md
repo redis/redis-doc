@@ -1,6 +1,7 @@
-Renames `key` to `newkey`. It returns an error when the source and destination
-names are the same, or when `key` does not exist. If `newkey` already exists it
-is overwritten.
+Renames `key` to `newkey`.
+It returns an error when the source and destination names are the same, or when
+`key` does not exist.
+If `newkey` already exists it is overwritten.
 
 @return
 
@@ -12,4 +13,3 @@ is overwritten.
     SET mykey "Hello"
     RENAME mykey myotherkey
     GET myotherkey
-

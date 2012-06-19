@@ -12,4 +12,3 @@ Removes and returns the first element of the list stored at `key`.
     RPUSH mylist "three"
     LPOP mylist
     LRANGE mylist 0 -1
-

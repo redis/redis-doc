@@ -1,5 +1,6 @@
-Returns `PONG`. This command is often used to test if a connection is still
-alive, or to measure latency.
+Returns `PONG`.
+This command is often used to test if a connection is still alive, or to measure
+latency.
 
 @return
 
@@ -9,4 +10,3 @@ alive, or to measure latency.
 
     @cli
     PING
-

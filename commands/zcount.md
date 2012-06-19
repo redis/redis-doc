@@ -16,4 +16,3 @@ The `min` and `max` arguments have the same semantic as described for
     ZADD myzset 3 "three"
     ZCOUNT myzset -inf +inf
     ZCOUNT myzset (1 3
-

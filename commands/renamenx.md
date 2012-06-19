@@ -1,5 +1,5 @@
-Renames `key` to `newkey` if `newkey` does not yet exist. It returns an error
-under the same conditions as `RENAME`.
+Renames `key` to `newkey` if `newkey` does not yet exist.
+It returns an error under the same conditions as `RENAME`.
 
 @return
 
@@ -15,4 +15,3 @@ under the same conditions as `RENAME`.
     SET myotherkey "World"
     RENAMENX mykey myotherkey
     GET myotherkey
-
