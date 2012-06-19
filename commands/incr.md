@@ -54,7 +54,7 @@ public API.
 
 We provide two implementations of this pattern using `INCR`, where we assume
 that the problem to solve is limiting the number of API calls to a maximum of
-*ten requests per second per IP address*.
+_ten requests per second per IP address_.
 
 ## Pattern: Rate limiter 1
 

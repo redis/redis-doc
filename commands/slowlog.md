@@ -8,10 +8,10 @@ with the client, sending the reply and so forth, but just the time needed to
 actually execute the command (this is the only stage of command execution where
 the thread is blocked and can not serve other requests in the meantime).
 
-You can configure the slow log with two parameters: *slowlog-log-slower-than*
+You can configure the slow log with two parameters: _slowlog-log-slower-than_
 tells Redis what is the execution time, in microseconds, to exceed in order for
 the command to get logged. Note that a negative number disables the slow log,
-while a value of zero forces the logging of every command. *slowlog-max-len*
+while a value of zero forces the logging of every command. _slowlog-max-len_
 is the length of the slow log. The minimum value is zero. When a new command
 is logged and the slow log is already at its maximum length, the oldest one is
 removed from the queue of logged commands in order to make space.
@@ -24,7 +24,7 @@ running using the `CONFIG GET` and `CONFIG SET` commands.
 The slow log is accumulated in memory, so no file is written with information
 about the slow command executions. This makes the slow log remarkably fast at
 the point that you can enable the logging of all the commands (setting the
-*slowlog-log-slower-than* config parameter to zero) with minor performance hit.
+_slowlog-log-slower-than_ config parameter to zero) with minor performance hit.
 
 To read the slow log the **SLOWLOG GET** command is used, that returns every
 entry in the slow log. It is possible to return only the N most recent entries

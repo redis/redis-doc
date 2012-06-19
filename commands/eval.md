@@ -212,7 +212,7 @@ means that if an `EVAL` is performed against a Redis instance all the subsequent
 `EVALSHA` calls will succeed.
 
 The only way to flush the script cache is by explicitly calling the SCRIPT FLUSH
-command, that will *completely flush* the scripts cache removing all the scripts
+command, that will _completely flush_ the scripts cache removing all the scripts
 executed so far. This is usually needed only when the instance is going to be
 instantiated for another customer or application in a cloud environment.
 
@@ -240,13 +240,13 @@ subsystem. SCRIPT currently accepts three different commands:
   can be reassigned to a different user. It is also useful for testing client
   libraries implementations of the scripting feature.
 
-* SCRIPT EXISTS *sha1* *sha2*... *shaN*. Given a list of SHA1 digests as
+* SCRIPT EXISTS _sha1_ _sha2_... _shaN_. Given a list of SHA1 digests as
   arguments this command returns an array of 1 or 0, where 1 means the specific
   SHA1 is recognized as a script already present in the scripting cache, while
   0 means that a script with this SHA1 was never seen before (or at least never
   seen after the latest SCRIPT FLUSH command).
 
-* SCRIPT LOAD *script*. This command registers the specified script in the
+* SCRIPT LOAD _script_. This command registers the specified script in the
   Redis script cache. The command is useful in all the contexts where we want
   to make sure that `EVALSHA` will not fail (for instance during a pipeline or
   MULTI/EXEC operation), without the need to actually execute the script.
@@ -274,7 +274,7 @@ scripts).
 The only drawback with this approach is that scripts are required to have the
 following property:
 
-* The script always evaluates the same Redis *write* commands with the same
+* The script always evaluates the same Redis _write_ commands with the same
   arguments given the same input data set. Operations performed by the script
   cannot depend on any hidden (non explicit) information or state that may
   change as script execution proceeds or between different executions of the
@@ -290,15 +290,15 @@ In order to enforce this behavior in scripts Redis does the following:
   state.
 
 * Redis will block the script with an error if a script will call a Redis
-  command able to alter the data set **after** a Redis *random* command like
+  command able to alter the data set **after** a Redis _random_ command like
   `RANDOMKEY`, `SRANDMEMBER`, `TIME`. This means that if a script is read only
   and does not modify the data set it is free to call those commands. Note that
-  a *random command* does not necessarily identifies a command that uses random
+  a _random command_ does not necessarily identifies a command that uses random
   numbers: any non deterministic command is considered a random command (the
   best example in this regard is the `TIME` command).
 
 * Redis commands that may return elements in random order, like `SMEMBERS`
-  (because Redis Sets are *unordered*) have a different behavior when called
+  (because Redis Sets are _unordered_) have a different behavior when called
   from Lua, and undergone a silent lexicographical sorting filter before
   returning data to Lua scripts. So `redis.call("smembers",KEYS[1])` will always
   return the Set elements in the same order, while the same command invoked from
@@ -394,7 +394,7 @@ returns with an error:
     redis 127.0.0.1:6379> eval 'a=10' 0
     (error) ERR Error running script (call to f_933044db579a2f8fd45d8065f04a8d0249383e57): user_script:1: Script attempted to create global variable 'a'
 
-Accessing a *non existing* global variable generates a similar error.
+Accessing a _non existing_ global variable generates a similar error.
 
 Using Lua debugging functionalities or other approaches like altering the meta
 table used to implement global protections, in order to circumvent globals
@@ -403,7 +403,7 @@ If the user messes with the Lua global state, the consistency of AOF and
 replication is not guaranteed: don't do it.
 
 Note for Lua newbies: in order to avoid using global variables in your scripts
-simply declare every variable you are going to use using the *local* keyword.
+simply declare every variable you are going to use using the _local_ keyword.
 
 ## Available libraries
 
@@ -417,7 +417,7 @@ The Redis Lua interpreter loads the following Lua libraries:
 * cjson lib.
 * cmsgpack lib.
 
-Every Redis instance is *guaranteed* to have all the above libraries so you can
+Every Redis instance is _guaranteed_ to have all the above libraries so you can
 be sure that the environment for your Redis scripts is always the same.
 
 The CJSON library allows to manipulate JSON data in a very fast way from Lua.

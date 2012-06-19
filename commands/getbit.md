@@ -1,13 +1,13 @@
-Returns the bit value at *offset* in the string value stored at *key*.
+Returns the bit value at _offset_ in the string value stored at _key_.
 
-When *offset* is beyond the string length, the string is assumed to be a
-contiguous space with 0 bits. When *key* does not exist it is assumed to be an
-empty string, so *offset* is always out of range and the value is also assumed
+When _offset_ is beyond the string length, the string is assumed to be a
+contiguous space with 0 bits. When _key_ does not exist it is assumed to be an
+empty string, so _offset_ is always out of range and the value is also assumed
 to be a contiguous space with 0 bits.
 
 @return
 
-@integer-reply: the bit value stored at *offset*.
+@integer-reply: the bit value stored at _offset_.
 
 @examples
 

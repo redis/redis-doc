@@ -1,10 +1,10 @@
 Set a timeout on `key`. After the timeout has expired, the key will
 automatically be deleted. A key with an associated timeout is often said to be
-*volatile* in Redis terminology.
+_volatile_ in Redis terminology.
 
 The timeout is cleared only when the key is removed using the `DEL` command
 or overwritten using the `SET` or `GETSET` commands. This means that all the
-operations that conceptually *alter* the value stored at the key without
+operations that conceptually _alter_ the value stored at the key without
 replacing it with a new one will leave the timeout untouched. For instance,
 incrementing the value of a key with `INCR`, pushing a new value into a list
 with `LPUSH`, or altering the field value of a hash with `HSET` are all
@@ -24,9 +24,9 @@ inherit all the characteristics of `Key_B`.
 ## Refreshing expires
 
 It is possible to call `EXPIRE` using as argument a key that already has an
-existing expire set. In this case the time to live of a key is *updated* to the
+existing expire set. In this case the time to live of a key is _updated_ to the
 new value. There are many useful applications for this, an example is documented
-in the *Navigation session* pattern section below.
+in the _Navigation session_ pattern section below.
 
 ## Differences in Redis prior 2.1.3
 
@@ -54,9 +54,9 @@ now fixed.
 ## Pattern: Navigation session
 
 Imagine you have a web service and you are interested in the latest N pages
-*recently* visited by your users, such that each adiacent page view was not
+_recently_ visited by your users, such that each adiacent page view was not
 performed more than 60 seconds after the previous. Conceptually you may think at
-this set of page views as a *Navigation session* if your user, that may contain
+this set of page views as a _Navigation session_ if your user, that may contain
 interesting information about what kind of products he or she is looking for
 currently, so that you can recommend related products.
 

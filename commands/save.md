@@ -1,5 +1,5 @@
 The `SAVE` commands performs a **synchronous** save of the dataset producing a
-*point in time* snapshot of all the data inside the Redis instance, in the form
+_point in time_ snapshot of all the data inside the Redis instance, in the form
 of an RDB file.
 
 You almost never what to call `SAVE` in production environments where it will

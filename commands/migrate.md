@@ -28,11 +28,11 @@ the following two cases are possible:
 
 It is not possible for the key to get lost in the event of a timeout, but the
 client calling `MIGRATE`, in the event of a timeout error, should check if the
-key is *also* present in the target instance and act accordingly.
+key is _also_ present in the target instance and act accordingly.
 
 When any other error is returned (starting with `ERR`) `MIGRATE` guarantees that
 the key is still only present in the originating instance (unless a key with the
-same name was also *already* present on the target instance).
+same name was also _already_ present on the target instance).
 
 On success OK is returned.
 

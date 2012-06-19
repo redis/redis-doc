@@ -7,7 +7,7 @@ follows from a property of the sorted set implementation in Redis and does not
 involve further computation).
 
 The optional `LIMIT` argument can be used to only get a range of the matching
-elements (similar to *SELECT LIMIT offset, count* in SQL). Keep in mind that if
+elements (similar to _SELECT LIMIT offset, count_ in SQL). Keep in mind that if
 `offset` is large, the sorted set needs to be traversed for `offset` elements
 before getting to the elements to return, which can add up to O(N) time
 complexity.

@@ -2,7 +2,7 @@ Count the number of set bits (population counting) in a string.
 
 By default all the bytes contained in the string are examined. It is possible
 to specify the counting operation only in an interval passing the additional
-arguments *start* and *end*.
+arguments _start_ and _end_.
 
 Like for the `GETRANGE` command start and end can contain negative values in
 order to index bytes starting from the end of the string, where -1 is the last
@@ -59,6 +59,6 @@ When the bitmap is big, there are two alternatives:
 
 * Taking a separated key that is incremented every time the bitmap is modified.
   This can be very efficient and atomic using a small Redis Lua script.
-* Running the bitmap incrementally using the `BITCOUNT` *start* and *end*
+* Running the bitmap incrementally using the `BITCOUNT` _start_ and _end_
   optional parameters, accumulating the results client-side, and optionally
   caching the result into a key.

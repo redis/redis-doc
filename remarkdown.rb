@@ -102,7 +102,7 @@ class ReMarkdown
     else
       case node.name
       when "em"
-        "*" + format_inline_node(node.child) + "*"
+        "_" + format_inline_node(node.child) + "_"
       when "strong"
         "**" + format_inline_node(node.child) + "**"
       when "code"

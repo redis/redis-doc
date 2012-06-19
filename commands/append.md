@@ -17,7 +17,7 @@ string, so `APPEND` will be similar to `SET` in this special case.
 ## Pattern: Time series
 
 the `APPEND` command can be used to create a very compact representation of a
-list of fixed-size samples, usually referred as *time series*. Every time a new
+list of fixed-size samples, usually referred as _time series_. Every time a new
 sample arrives we can store it using the command
 
     APPEND timeseries "fixed-size sample"

@@ -9,7 +9,7 @@ The rewrite will be only triggered by Redis if there is not already a background
 process doing persistence. Specifically:
 
 * If a Redis child is creating a snapshot on disk, the AOF rewrite is
-  *scheduled* but not started until the saving child producing the RDB file
+  _scheduled_ but not started until the saving child producing the RDB file
   terminates. In this case the `BGREWRITEAOF` will still return an OK code, but
   with an appropriate message. You can check if an AOF rewrite is scheduled
   looking at the `INFO` command starting from Redis 2.6.
