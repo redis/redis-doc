@@ -1,12 +1,10 @@
-Redis documentation
-===
+# Redis documentation
 
+## Clients
 
-Clients
----
-
-All clients are listed in the `clients.json` file. Each key in the JSON
-object represents a single client library. For example:
+All clients are listed in the `clients.json` file.
+Each key in the JSON object represents a single client library.
+For example:
 
     "Rediska": {
 
@@ -32,26 +30,25 @@ object represents a single client library. For example:
 
     }
 
-
-Commands
----
+## Commands
 
 Redis commands are described in the `commands.json` file.
 
 For each command there's a Markdown file with a complete, human-readable
-description. We process this Markdown to provide a better experience, so
-some things to take into account:
+description.
+We process this Markdown to provide a better experience, so some things to take
+into account:
 
-* Inside text, all commands should be written in all caps, in between
-backticks. For example: <code>`INCR`</code>.
+* Inside text, all commands should be written in all caps, in between backticks.
+  For example: ``INCR``.
 
-* You can use some magic keywords to name common elements in Redis. For
-example: `@multi-bulk-reply`. These keywords will get expanded and
-auto-linked to relevant parts of the documentation.
+* You can use some magic keywords to name common elements in Redis.
+  For example: `@multi-bulk-reply`.
+  These keywords will get expanded and auto-linked to relevant parts of the
+  documentation.
 
-There should be at least two predefined sections: description and
-return value. The return value section is marked using the @return
-keyword:
+There should be at least two predefined sections: description and return value.
+The return value section is marked using the @return keyword:
 
     Returns all keys matching the given pattern.
 
@@ -59,9 +56,7 @@ keyword:
 
     @multi-bulk-reply: all the keys that matched the pattern.
 
-
-Styling guidelines
----
+## Styling guidelines
 
 Please use the following formatting rules:
 
@@ -69,9 +64,9 @@ Please use the following formatting rules:
 * Start every sentence on a new line.
 
 Luckily, this repository comes with an automated Markdown formatter.
-To only reformat the files you have modified, first stage them using
-`git add` (this makes sure that your changes won't be lost in case of an
-error), then run the formatter:
+To only reformat the files you have modified, first stage them using `git add`
+(this makes sure that your changes won't be lost in case of an error), then run
+the formatter:
 
     $ rake format:cached
 
@@ -93,17 +88,18 @@ Installation of par (Ubuntu):
 
     sudo apt-get install par
 
-Checking your work
----
+## Checking your work
 
-Once you're done, the very least you should do is make sure that all
-files compile properly. You can do this by running Rake inside your
-working directory.
+Once you're done, the very least you should do is make sure that all files
+compile properly.
+You can do this by running Rake inside your working directory.
 
     $ rake parse
 
-Additionally, if you have [Aspell](http://aspell.net/) installed, you
-can spell check the documentation:
+Additionally, if you have [Aspell][han] installed, you can spell check the
+documentation:
+
+[han]: http://aspell.net/
 
     $ rake spellcheck
 
