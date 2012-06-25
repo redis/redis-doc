@@ -72,13 +72,13 @@ the formatter:
 
 The formatter has the following dependencies:
 
-* RDiscount
+* Redcarpet
 * Nokogiri
 * The `par` tool
 
 Installation of the Ruby gems:
 
-    gem install rdiscount nokogiri
+    gem install redcarpet nokogiri
 
 Installation of par (OSX):
 
