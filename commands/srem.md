@@ -17,10 +17,11 @@ including non existing members.
 
 @examples
 
-    @cli
-    SADD myset "one"
-    SADD myset "two"
-    SADD myset "three"
-    SREM myset "one"
-    SREM myset "four"
-    SMEMBERS myset
+```cli
+SADD myset "one"
+SADD myset "two"
+SADD myset "three"
+SREM myset "one"
+SREM myset "four"
+SMEMBERS myset
+```

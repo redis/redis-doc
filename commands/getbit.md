@@ -12,8 +12,9 @@ always out of range and the value is also assumed to be a contiguous space with
 
 @examples
 
-    @cli
-    SETBIT mykey 7 1
-    GETBIT mykey 0
-    GETBIT mykey 7
-    GETBIT mykey 100
+```cli
+SETBIT mykey 7 1
+GETBIT mykey 0
+GETBIT mykey 7
+GETBIT mykey 100
+```

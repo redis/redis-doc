@@ -15,7 +15,9 @@ Let's say that the key `list1` doesn't exist and `list2` and `list3` hold
 non-empty lists.
 Consider the following command:
 
-    BLPOP list1 list2 list3 0
+```
+BLPOP list1 list2 list3 0
+```
 
 `BLPOP` guarantees to return an element from the list stored at `list2` (since
 it is the first non empty list when checking `list1`, `list2` and `list3` in
@@ -69,13 +71,15 @@ If you like science fiction, think of time flowing at infinite speed inside a
 
 @examples
 
-    redis> DEL list1 list2
-    (integer) 0
-    redis> RPUSH list1 a b c
-    (integer) 3
-    redis> BLPOP list1 list2 0
-    1) "list1"
-    2) "a"
+```
+redis> DEL list1 list2
+(integer) 0
+redis> RPUSH list1 a b c
+(integer) 3
+redis> BLPOP list1 list2 0
+1) "list1"
+2) "a"
+```
 
 ## Pattern: Event notification
 
@@ -89,16 +93,20 @@ blocking list operations we can easily accomplish this task.
 
 The consumer will do:
 
-    LOOP forever
-        WHILE SPOP(key) returns elements
-            ... process elements ...
-        END
-        BRPOP helper_key
+```
+LOOP forever
+    WHILE SPOP(key) returns elements
+        ... process elements ...
     END
+    BRPOP helper_key
+END
+```
 
 While in the producer side we'll use simply:
 
-    MULTI
-    SADD key element
-    LPUSH helper_key x
-    EXEC
+```
+MULTI
+SADD key element
+LPUSH helper_key x
+EXEC
+```

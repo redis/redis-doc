@@ -20,6 +20,7 @@ script cache, an 1 is returned, otherwise 0 is returned.
 
 @example
 
-    @cli
-    SCRIPT LOAD "return 1"
-    SCRIPT EXISTS e0e1f9fabfc9d4800c877a703b823ac0578ff8db ffffffffffffffffffffffffffffffffffffffff
+```cli
+SCRIPT LOAD "return 1"
+SCRIPT EXISTS e0e1f9fabfc9d4800c877a703b823ac0578ff8db ffffffffffffffffffffffffffffffffffffffff
+```

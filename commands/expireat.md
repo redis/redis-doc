@@ -23,8 +23,9 @@ a given time in the future.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    EXISTS mykey
-    EXPIREAT mykey 1293840000
-    EXISTS mykey
+```cli
+SET mykey "Hello"
+EXISTS mykey
+EXPIREAT mykey 1293840000
+EXISTS mykey
+```

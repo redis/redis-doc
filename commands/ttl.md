@@ -9,7 +9,8 @@ have a timeout.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    EXPIRE mykey 10
-    TTL mykey
+```cli
+SET mykey "Hello"
+EXPIRE mykey 10
+TTL mykey
+```

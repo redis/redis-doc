@@ -17,8 +17,9 @@ all the elements already present into the set.
 
 @examples
 
-    @cli
-    SADD myset "Hello"
-    SADD myset "World"
-    SADD myset "World"
-    SMEMBERS myset
+```cli
+SADD myset "Hello"
+SADD myset "World"
+SADD myset "World"
+SMEMBERS myset
+```

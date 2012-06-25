@@ -29,11 +29,12 @@ the last element of the list.
 
 @examples
 
-    @cli
-    RPUSH mylist "one"
-    RPUSH mylist "two"
-    RPUSH mylist "three"
-    LRANGE mylist 0 0
-    LRANGE mylist -3 2
-    LRANGE mylist -100 100
-    LRANGE mylist 5 10
+```cli
+RPUSH mylist "one"
+RPUSH mylist "two"
+RPUSH mylist "three"
+LRANGE mylist 0 0
+LRANGE mylist -3 2
+LRANGE mylist -100 100
+LRANGE mylist 5 10
+```

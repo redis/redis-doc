@@ -34,13 +34,15 @@ This is a very fast and efficient storage in many real world use cases.
 
 Basic usage:
 
-    @cli
-    SET key1 "Hello World"
-    SETRANGE key1 6 "Redis"
-    GET key1
+```cli
+SET key1 "Hello World"
+SETRANGE key1 6 "Redis"
+GET key1
+```
 
 Example of zero padding:
 
-    @cli
-    SETRANGE key2 6 "Redis"
-    GET key2
+```cli
+SETRANGE key2 6 "Redis"
+GET key2
+```

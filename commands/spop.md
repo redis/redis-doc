@@ -9,9 +9,10 @@ set but does not remove it.
 
 @examples
 
-    @cli
-    SADD myset "one"
-    SADD myset "two"
-    SADD myset "three"
-    SPOP myset
-    SMEMBERS myset
+```cli
+SADD myset "one"
+SADD myset "two"
+SADD myset "three"
+SPOP myset
+SMEMBERS myset
+```

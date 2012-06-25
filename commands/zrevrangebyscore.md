@@ -16,11 +16,12 @@ with their scores).
 
 @examples
 
-    @cli
-    ZADD myzset 1 "one"
-    ZADD myzset 2 "two"
-    ZADD myzset 3 "three"
-    ZREVRANGEBYSCORE myzset +inf -inf
-    ZREVRANGEBYSCORE myzset 2 1
-    ZREVRANGEBYSCORE myzset 2 (1
-    ZREVRANGEBYSCORE myzset (2 (1
+```cli
+ZADD myzset 1 "one"
+ZADD myzset 2 "two"
+ZADD myzset 3 "three"
+ZREVRANGEBYSCORE myzset +inf -inf
+ZREVRANGEBYSCORE myzset 2 1
+ZREVRANGEBYSCORE myzset 2 (1
+ZREVRANGEBYSCORE myzset (2 (1
+```

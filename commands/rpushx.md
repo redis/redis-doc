@@ -9,9 +9,10 @@ exist.
 
 @examples
 
-    @cli
-    RPUSH mylist "Hello"
-    RPUSHX mylist "World"
-    RPUSHX myotherlist "World"
-    LRANGE mylist 0 -1
-    LRANGE myotherlist 0 -1
+```cli
+RPUSH mylist "Hello"
+RPUSHX mylist "World"
+RPUSHX myotherlist "World"
+LRANGE mylist 0 -1
+LRANGE myotherlist 0 -1
+```

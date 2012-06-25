@@ -12,7 +12,8 @@ If `field` already exists, this operation has no effect.
 
 @examples
 
-    @cli
-    HSETNX myhash field "Hello"
-    HSETNX myhash field "World"
-    HGET myhash field
+```cli
+HSETNX myhash field "Hello"
+HSETNX myhash field "World"
+HGET myhash field
+```

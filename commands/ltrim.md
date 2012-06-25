@@ -19,8 +19,10 @@ element of the list.
 A common use of `LTRIM` is together with `LPUSH` / `RPUSH`.
 For example:
 
-    LPUSH mylist someelement
-    LTRIM mylist 0 99
+```
+LPUSH mylist someelement
+LTRIM mylist 0 99
+```
 
 This pair of commands will push a new element on the list, while making sure
 that the list will not grow larger than 100 elements.
@@ -35,9 +37,10 @@ list.
 
 @examples
 
-    @cli
-    RPUSH mylist "one"
-    RPUSH mylist "two"
-    RPUSH mylist "three"
-    LTRIM mylist 1 -1
-    LRANGE mylist 0 -1
+```cli
+RPUSH mylist "one"
+RPUSH mylist "two"
+RPUSH mylist "three"
+LTRIM mylist 1 -1
+LRANGE mylist 0 -1
+```

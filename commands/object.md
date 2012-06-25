@@ -51,25 +51,29 @@ If the object you try to inspect is missing, a null bulk reply is returned.
 
 @examples
 
-    redis> lpush mylist "Hello World"
-    (integer) 4
-    redis> object refcount mylist
-    (integer) 1
-    redis> object encoding mylist
-    "ziplist"
-    redis> object idletime mylist
-    (integer) 10
+```
+redis> lpush mylist "Hello World"
+(integer) 4
+redis> object refcount mylist
+(integer) 1
+redis> object encoding mylist
+"ziplist"
+redis> object idletime mylist
+(integer) 10
+```
 
 In the following example you can see how the encoding changes once Redis is no
 longer able to use the space saving encoding.
 
-    redis> set foo 1000
-    OK
-    redis> object encoding foo
-    "int"
-    redis> append foo bar
-    (integer) 7
-    redis> get foo
-    "1000bar"
-    redis> object encoding foo
-    "raw"
+```
+redis> set foo 1000
+OK
+redis> object encoding foo
+"int"
+redis> append foo bar
+(integer) 7
+redis> get foo
+"1000bar"
+redis> object encoding foo
+"raw"
+```

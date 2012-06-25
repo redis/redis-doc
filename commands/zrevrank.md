@@ -14,9 +14,10 @@ high.
 
 @examples
 
-    @cli
-    ZADD myzset 1 "one"
-    ZADD myzset 2 "two"
-    ZADD myzset 3 "three"
-    ZREVRANK myzset "one"
-    ZREVRANK myzset "four"
+```cli
+ZADD myzset 1 "one"
+ZADD myzset 2 "two"
+ZADD myzset 3 "three"
+ZREVRANK myzset "one"
+ZREVRANK myzset "four"
+```

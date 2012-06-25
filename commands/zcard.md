@@ -8,7 +8,8 @@ if `key` does not exist.
 
 @examples
 
-    @cli
-    ZADD myzset 1 "one"
-    ZADD myzset 2 "two"
-    ZCARD myzset
+```cli
+ZADD myzset 1 "one"
+ZADD myzset 2 "two"
+ZCARD myzset
+```

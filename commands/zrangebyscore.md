@@ -27,11 +27,15 @@ It is possible to specify an open interval (exclusive) by prefixing the score
 with the character `(`.
 For example:
 
-    ZRANGEBYSCORE zset (1 5
+```
+ZRANGEBYSCORE zset (1 5
+```
 
 Will return all elements with `1 < score <= 5` while:
 
-    ZRANGEBYSCORE zset (5 (10
+```
+ZRANGEBYSCORE zset (5 (10
+```
 
 Will return all the elements with `5 < score < 10` (5 and 10 excluded).
 
@@ -42,11 +46,12 @@ with their scores).
 
 @examples
 
-    @cli
-    ZADD myzset 1 "one"
-    ZADD myzset 2 "two"
-    ZADD myzset 3 "three"
-    ZRANGEBYSCORE myzset -inf +inf
-    ZRANGEBYSCORE myzset 1 2
-    ZRANGEBYSCORE myzset (1 2
-    ZRANGEBYSCORE myzset (1 (2
+```cli
+ZADD myzset 1 "one"
+ZADD myzset 2 "two"
+ZADD myzset 3 "three"
+ZRANGEBYSCORE myzset -inf +inf
+ZRANGEBYSCORE myzset 1 2
+ZRANGEBYSCORE myzset (1 2
+ZRANGEBYSCORE myzset (1 (2
+```

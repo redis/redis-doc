@@ -11,6 +11,7 @@ If `field` already exists in the hash, it is overwritten.
 
 @examples
 
-    @cli
-    HSET myhash field1 "Hello"
-    HGET myhash field1
+```cli
+HSET myhash field1 "Hello"
+HGET myhash field1
+```

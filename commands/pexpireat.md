@@ -14,8 +14,9 @@ which the key will expire is specified in milliseconds instead of seconds.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    PEXPIREAT mykey 1555555555005
-    TTL mykey
-    PTTL mykey
+```cli
+SET mykey "Hello"
+PEXPIREAT mykey 1555555555005
+TTL mykey
+PTTL mykey
+```

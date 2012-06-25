@@ -5,18 +5,20 @@ format that is simple to parse by computers and easy to read by humans.
 
 @bulk-reply: in the following format (compacted for brevity):
 
-    redis_version:2.2.2
-    uptime_in_seconds:148
-    used_cpu_sys:0.01
-    used_cpu_user:0.03
-    used_memory:768384
-    used_memory_rss:1536000
-    mem_fragmentation_ratio:2.00
-    changes_since_last_save:118
-    keyspace_hits:174
-    keyspace_misses:37
-    allocation_stats:4=56,8=312,16=1498,...
-    db0:keys=1240,expires=0
+```
+redis_version:2.2.2
+uptime_in_seconds:148
+used_cpu_sys:0.01
+used_cpu_user:0.03
+used_memory:768384
+used_memory_rss:1536000
+mem_fragmentation_ratio:2.00
+changes_since_last_save:118
+keyspace_hits:174
+keyspace_misses:37
+allocation_stats:4=56,8=312,16=1498,...
+db0:keys=1240,expires=0
+```
 
 All the fields are in the form of `field:value` terminated by `\r\n`.
 

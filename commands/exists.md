@@ -9,7 +9,8 @@ Returns if `key` exists.
 
 @examples
 
-    @cli
-    SET key1 "Hello"
-    EXISTS key1
-    EXISTS key2
+```cli
+SET key1 "Hello"
+EXISTS key1
+EXISTS key2
+```

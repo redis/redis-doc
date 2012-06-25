@@ -21,10 +21,11 @@ An error is returned if `source` or `destination` does not hold a set value.
 
 @examples
 
-    @cli
-    SADD myset "one"
-    SADD myset "two"
-    SADD myotherset "three"
-    SMOVE myset myotherset "two"
-    SMEMBERS myset
-    SMEMBERS myotherset
+```cli
+SADD myset "one"
+SADD myset "two"
+SADD myotherset "three"
+SMOVE myset myotherset "two"
+SMEMBERS myset
+SMEMBERS myotherset
+```

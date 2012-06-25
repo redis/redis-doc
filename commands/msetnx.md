@@ -19,7 +19,8 @@ others are unchanged.
 
 @examples
 
-    @cli
-    MSETNX key1 "Hello" key2 "there"
-    MSETNX key2 "there" key3 "world"
-    MGET key1 key2 key3
+```cli
+MSETNX key1 "Hello" key2 "there"
+MSETNX key2 "there" key3 "world"
+MGET key1 key2 key3
+```

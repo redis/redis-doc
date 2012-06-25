@@ -18,7 +18,8 @@ including specified but non existing fields.
 
 @examples
 
-    @cli
-    HSET myhash field1 "foo"
-    HDEL myhash field1
-    HDEL myhash field2
+```cli
+HSET myhash field1 "foo"
+HDEL myhash field1
+HDEL myhash field2
+```

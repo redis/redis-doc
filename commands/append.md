@@ -9,11 +9,12 @@ will be similar to `SET` in this special case.
 
 @examples
 
-    @cli
-    EXISTS mykey
-    APPEND mykey "Hello"
-    APPEND mykey " World"
-    GET mykey
+```cli
+EXISTS mykey
+APPEND mykey "Hello"
+APPEND mykey " World"
+GET mykey
+```
 
 ## Pattern: Time series
 
@@ -21,7 +22,9 @@ the `APPEND` command can be used to create a very compact representation of a
 list of fixed-size samples, usually referred as _time series_.
 Every time a new sample arrives we can store it using the command
 
-    APPEND timeseries "fixed-size sample"
+```
+APPEND timeseries "fixed-size sample"
+```
 
 Accessing individual elements in the time series is not hard:
 
@@ -45,8 +48,9 @@ more friendly to be distributed across many Redis instances.
 An example sampling the temperature of a sensor using fixed-size strings (using
 a binary format is better in real implementations).
 
-    @cli
-    APPEND ts "0043"
-    APPEND ts "0035"
-    GETRANGE ts 0 3
-    GETRANGE ts 4 7
+```cli
+APPEND ts "0043"
+APPEND ts "0035"
+GETRANGE ts 0 3
+GETRANGE ts 4 7
+```

@@ -8,5 +8,6 @@ latency.
 
 @examples
 
-    @cli
-    PING
+```cli
+PING
+```

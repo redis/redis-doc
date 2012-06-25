@@ -9,7 +9,8 @@ empty list when `key` does not exist.
 
 @examples
 
-    @cli
-    HSET myhash field1 "Hello"
-    HSET myhash field2 "World"
-    HGETALL myhash
+```cli
+HSET myhash field1 "Hello"
+HSET myhash field2 "World"
+HGETALL myhash
+```

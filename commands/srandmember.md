@@ -10,8 +10,9 @@ element without altering the original set in any way.
 
 @examples
 
-    @cli
-    SADD myset "one"
-    SADD myset "two"
-    SADD myset "three"
-    SRANDMEMBER myset
+```cli
+SADD myset "one"
+SADD myset "two"
+SADD myset "three"
+SRANDMEMBER myset
+```

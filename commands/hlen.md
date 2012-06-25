@@ -6,7 +6,8 @@ Returns the number of fields contained in the hash stored at `key`.
 
 @examples
 
-    @cli
-    HSET myhash field1 "Hello"
-    HSET myhash field2 "World"
-    HLEN myhash
+```cli
+HSET myhash field1 "Hello"
+HSET myhash field2 "World"
+HLEN myhash
+```

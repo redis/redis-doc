@@ -55,7 +55,20 @@ class ReMarkdown
     when "p"
       format_inline_nodes(node.children) + "\n"
     when "pre"
-      indent(node.child.content.chomp, 4) + "\n"
+      code = node.child
+      content = code.content.chomp
+
+      if code["class"]
+        klass = code["class"]
+      else
+        # Test for @cli clause
+        if content =~ /\A@cli\n/
+          content = content.gsub(/\A@cli\n/, "")
+          klass = "cli"
+        end
+      end
+
+      "```#{klass}\n" + content + "\n```\n"
     when "ul"
       format_ul(node) + "\n"
     when "ol"

@@ -22,7 +22,8 @@ containing `a` as first element, `b` as second element and `c` as third element.
 
 @examples
 
-    @cli
-    RPUSH mylist "hello"
-    RPUSH mylist "world"
-    LRANGE mylist 0 -1
+```cli
+RPUSH mylist "hello"
+RPUSH mylist "world"
+LRANGE mylist 0 -1
+```

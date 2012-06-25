@@ -19,10 +19,11 @@ representation of the integer.
 
 @examples
 
-    @cli
-    SET mykey "10"
-    INCR mykey
-    GET mykey
+```cli
+SET mykey "10"
+INCR mykey
+GET mykey
+```
 
 ## Pattern: Counter
 
@@ -64,19 +65,21 @@ _ten requests per second per IP address_.
 
 The more simple and direct implementation of this pattern is the following:
 
-    FUNCTION LIMIT_API_CALL(ip)
-    ts = CURRENT_UNIX_TIME()
-    keyname = ip+":"+ts
-    current = GET(keyname)
-    IF current != NULL AND current > 10 THEN
-        ERROR "too many requests per second"
-    ELSE
-        MULTI
-            INCR(keyname,1)
-            EXPIRE(keyname,10)
-        EXEC
-        PERFORM_API_CALL()
-    END
+```
+FUNCTION LIMIT_API_CALL(ip)
+ts = CURRENT_UNIX_TIME()
+keyname = ip+":"+ts
+current = GET(keyname)
+IF current != NULL AND current > 10 THEN
+    ERROR "too many requests per second"
+ELSE
+    MULTI
+        INCR(keyname,1)
+        EXPIRE(keyname,10)
+    EXEC
+    PERFORM_API_CALL()
+END
+```
 
 Basically we have a counter for every IP, for every different second.
 But this counters are always incremented setting an expire of 10 seconds so that
@@ -92,17 +95,19 @@ An alternative implementation uses a single counter, but is a bit more complex
 to get it right without race conditions.
 We'll examine different variants.
 
-    FUNCTION LIMIT_API_CALL(ip):
-    current = GET(ip)
-    IF current != NULL AND current > 10 THEN
-        ERROR "too many requests per second"
-    ELSE
-        value = INCR(ip)
-        IF value == 1 THEN
-            EXPIRE(value,1)
-        END
-        PERFORM_API_CALL()
+```
+FUNCTION LIMIT_API_CALL(ip):
+current = GET(ip)
+IF current != NULL AND current > 10 THEN
+    ERROR "too many requests per second"
+ELSE
+    value = INCR(ip)
+    IF value == 1 THEN
+        EXPIRE(value,1)
     END
+    PERFORM_API_CALL()
+END
+```
 
 The counter is created in a way that it only will survive one second, starting
 from the first request performed in the current second.
@@ -117,11 +122,13 @@ This can be fixed easily turning the `INCR` with optional `EXPIRE` into a Lua
 script that is send using the `EVAL` command (only available since Redis version
 2.6).
 
-    local current
-    current = redis.call("incr",KEYS[1])
-    if tonumber(current) == 1 then
-        redis.call("expire",KEYS[1],1)
-    end
+```
+local current
+current = redis.call("incr",KEYS[1])
+if tonumber(current) == 1 then
+    redis.call("expire",KEYS[1],1)
+end
+```
 
 There is a different way to fix this issue without using scripting, but using
 Redis lists instead of counters.
@@ -129,21 +136,23 @@ The implementation is more complex and uses more advanced features but has the
 advantage of remembering the IP addresses of the clients currently performing an
 API call, that may be useful or not depending on the application.
 
-    FUNCTION LIMIT_API_CALL(ip)
-    current = LLEN(ip)
-    IF current > 10 THEN
-        ERROR "too many requests per second"
+```
+FUNCTION LIMIT_API_CALL(ip)
+current = LLEN(ip)
+IF current > 10 THEN
+    ERROR "too many requests per second"
+ELSE
+    IF EXISTS(ip) == FALSE
+        MULTI
+            RPUSH(ip,ip)
+            EXPIRE(ip,1)
+        EXEC
     ELSE
-        IF EXISTS(ip) == FALSE
-            MULTI
-                RPUSH(ip,ip)
-                EXPIRE(ip,1)
-            EXEC
-        ELSE
-            RPUSHX(ip,ip)
-        END
-        PERFORM_API_CALL()
+        RPUSHX(ip,ip)
     END
+    PERFORM_API_CALL()
+END
+```
 
 The `RPUSHX` command only pushes the element if the key already exists.
 

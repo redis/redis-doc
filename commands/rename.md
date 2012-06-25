@@ -9,7 +9,8 @@ If `newkey` already exists it is overwritten.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    RENAME mykey myotherkey
-    GET myotherkey
+```cli
+SET mykey "Hello"
+RENAME mykey myotherkey
+GET myotherkey
+```

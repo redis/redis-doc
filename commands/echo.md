@@ -6,5 +6,6 @@ Returns `message`.
 
 @examples
 
-    @cli
-    ECHO "Hello World!"
+```cli
+ECHO "Hello World!"
+```

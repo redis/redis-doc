@@ -12,10 +12,11 @@ When `key` already holds a value, no operation is performed.
 
 @examples
 
-    @cli
-    SETNX mykey "Hello"
-    SETNX mykey "World"
-    GET mykey
+```cli
+SETNX mykey "Hello"
+SETNX mykey "World"
+GET mykey
+```
 
 ## Design pattern: Locking with `!SETNX`
 
@@ -23,7 +24,9 @@ When `key` already holds a value, no operation is performed.
 For example, to acquire the lock of the key `foo`, the client could try the
 following:
 
-    SETNX lock.foo <current Unix time + lock timeout + 1>
+```
+SETNX lock.foo <current Unix time + lock timeout + 1>
+```
 
 If `SETNX` returns `1` the client acquired the lock, setting the `lock.foo` key
 to the Unix time at which the lock should no longer be considered valid.
@@ -67,7 +70,9 @@ Let's see how C4, our sane client, uses the good algorithm:
 *   Instead, if the lock is expired because the Unix time at `lock.foo` is older
     than the current Unix time, C4 tries to perform:
 
-        GETSET lock.foo <current Unix timestamp + lock timeout + 1>
+    ```
+    GETSET lock.foo <current Unix timestamp + lock timeout + 1>
+    ```
 
 *   Because of the `GETSET` semantic, C4 can check if the old value stored at
     `key` is still an expired timestamp.

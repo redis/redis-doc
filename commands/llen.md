@@ -8,7 +8,8 @@ An error is returned when the value stored at `key` is not a list.
 
 @examples
 
-    @cli
-    LPUSH mylist "World"
-    LPUSH mylist "Hello"
-    LLEN mylist
+```cli
+LPUSH mylist "World"
+LPUSH mylist "Hello"
+LLEN mylist
+```

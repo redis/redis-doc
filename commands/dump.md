@@ -27,6 +27,7 @@ If `key` does not exist a nil bulk reply is returned.
 
 @examples
 
-    @cli
-    SET mykey 10
-    DUMP mykey
+```cli
+SET mykey 10
+DUMP mykey
+```

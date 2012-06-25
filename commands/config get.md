@@ -11,13 +11,15 @@ All the configuration parameters matching this parameter are reported as a list
 of key-value pairs.
 Example:
 
-    redis> config get *max-*-entries*
-    1) "hash-max-zipmap-entries"
-    2) "512"
-    3) "list-max-ziplist-entries"
-    4) "512"
-    5) "set-max-intset-entries"
-    6) "512"
+```
+redis> config get *max-*-entries*
+1) "hash-max-zipmap-entries"
+2) "512"
+3) "list-max-ziplist-entries"
+4) "512"
+5) "set-max-intset-entries"
+6) "512"
+```
 
 You can obtain a list of all the supported configuration parameters by typing
 `CONFIG GET *` in an open `redis-cli` prompt.
@@ -37,8 +39,10 @@ following important differences:
 
 For instance what in `redis.conf` looks like:
 
-    save 900 1
-    save 300 10
+```
+save 900 1
+save 300 10
+```
 
 that means, save after 900 seconds if there is at least 1 change to the dataset,
 and after 300 seconds if there are at least 10 changes to the datasets, will be

@@ -13,7 +13,8 @@ or does not have a timeout.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    EXPIRE mykey 1
-    PTTL mykey
+```cli
+SET mykey "Hello"
+EXPIRE mykey 1
+PTTL mykey
+```
