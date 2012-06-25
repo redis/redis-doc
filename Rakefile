@@ -61,16 +61,19 @@ namespace :format do
     STDOUT.puts
   end
 
+  desc "Reformat single file"
   task :file, :path do |t, args|
     format(args[:path])
   end
 
+  desc "Reformat changes staged for commit"
   task :cached do
     `git diff --cached --name-only -- commands/`.split.each do |path|
       format(path)
     end
   end
 
+  desc "Reformat everything"
   task :all do
     Dir["commands/*.md"].each do |path|
       format(path)
