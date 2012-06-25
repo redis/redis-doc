@@ -1,4 +1,4 @@
-require "rdiscount"
+require "redcarpet"
 require "nokogiri"
 
 class ReMarkdown
@@ -6,8 +6,15 @@ class ReMarkdown
   attr_reader :xml
 
   def initialize(input)
-    html = RDiscount.new(input).to_html
-    @xml = Nokogiri::XML::Document.parse("<doc>#{html}</doc>")
+    render = Redcarpet::Render::HTML.new \
+      :filter_html => true
+
+    markdown = Redcarpet::Markdown.new render, \
+      :no_intra_emphasis => true,
+      :fenced_code_blocks => true,
+      :superscript => true
+
+    @xml = Nokogiri::XML::Document.parse("<doc>#{markdown.render(input)}</doc>")
 
     @links = []
     @indent = 0
@@ -39,24 +46,6 @@ class ReMarkdown
     @links = []
 
     rv
-  end
-
-  def format_nodes(nodes)
-    if nodes.any? { |node| block_nodes.include?(node.name) }
-      format_block_nodes(nodes)
-    else
-      format_inline_nodes(nodes) + "\n"
-    end
-  end
-
-  def block_nodes
-    ["p", "pre"]
-  end
-
-  def format_block_nodes(nodes)
-    nodes.map do |node|
-      format_block_node(node)
-    end.join("\n") + "\n"
   end
 
   def format_block_node(node)
@@ -144,15 +133,49 @@ class ReMarkdown
     str
   end
 
+  def block_nodes
+    ["p", "pre"]
+  end
+
+  def detect_block_in_li(nodes)
+    nodes.detect do |node|
+      node.name.downcase == "li" &&
+        node.children.any? { |node| block_nodes.include?(node.name) }
+    end
+  end
+
+  def format_li_children(nodes, has_block)
+    if nodes.any? { |node| block_nodes.include?(node.name) }
+      result = nodes.map do |node|
+        format_block_node(node)
+      end.join("\n") + "\n"
+    else
+      result = format_inline_nodes(nodes) + "\n"
+
+      # Add extra newline when ul/ol contains a multi-line li
+      result += "\n" if has_block
+
+      result
+    end
+  end
+
   def format_ul(node)
+    has_block = detect_block_in_li(node.children)
+
     children = node.children.map do |child|
       next unless child.name.downcase == "li"
 
-      @indent += 2
-      txt = format_nodes(child.children)
-      @indent -= 2
+      if has_block
+        indent = 4
+      else
+        indent = 2
+      end
 
-      txt = indent(txt, 2)
+      @indent += indent
+      txt = format_li_children(child.children, has_block)
+      @indent -= indent
+
+      txt = indent(txt, indent)
       txt[0] = "*"
 
       txt
@@ -167,16 +190,24 @@ class ReMarkdown
     @ol_depth += 1
     @ol_index[@ol_depth] = 0
 
+    has_block = detect_block_in_li(node.children)
+
     children = node.children.map do |child|
       next unless child.name.downcase == "li"
 
       @ol_index[@ol_depth] += 1
 
-      @indent += 3
-      txt = format_nodes(child.children)
-      @indent -= 3
+      if has_block
+        indent = 4
+      else
+        indent = 3
+      end
 
-      txt = indent(txt, 3)
+      @indent += indent
+      txt = format_li_children(child.children, has_block)
+      @indent -= indent
+
+      txt = indent(txt, indent)
       txt[0, 2] = "%d." % @ol_index[@ol_depth]
 
       txt

@@ -57,25 +57,28 @@ multiple clients detected an expired lock and are trying to release it.
 Fortunately, it's possible to avoid this issue using the following algorithm.
 Let's see how C4, our sane client, uses the good algorithm:
 
-* C4 sends `SETNX lock.foo` in order to acquire the lock
-* The crashed client C3 still holds it, so Redis will reply with `0` to C4.
-* C4 sends `GET lock.foo` to check if the lock expired.
-  If it is not, it will sleep for some time and retry from the start.
-* Instead, if the lock is expired because the Unix time at `lock.foo` is older
-  than the current Unix time, C4 tries to perform:
+*   C4 sends `SETNX lock.foo` in order to acquire the lock
 
-      GETSET lock.foo <current Unix timestamp + lock timeout + 1>
+*   The crashed client C3 still holds it, so Redis will reply with `0` to C4.
 
-* Because of the `GETSET` semantic, C4 can check if the old value stored at
-  `key` is still an expired timestamp.
-  If it is, the lock was acquired.
+*   C4 sends `GET lock.foo` to check if the lock expired.
+    If it is not, it will sleep for some time and retry from the start.
 
-* If another client, for instance C5, was faster than C4 and acquired the lock
-  with the `GETSET` operation, the C4 `GETSET` operation will return a non
-  expired timestamp.
-  C4 will simply restart from the first step.
-  Note that even if C4 set the key a bit a few seconds in the future this is not
-  a problem.
+*   Instead, if the lock is expired because the Unix time at `lock.foo` is older
+    than the current Unix time, C4 tries to perform:
+
+        GETSET lock.foo <current Unix timestamp + lock timeout + 1>
+
+*   Because of the `GETSET` semantic, C4 can check if the old value stored at
+    `key` is still an expired timestamp.
+    If it is, the lock was acquired.
+
+*   If another client, for instance C5, was faster than C4 and acquired the lock
+    with the `GETSET` operation, the C4 `GETSET` operation will return a non
+    expired timestamp.
+    C4 will simply restart from the first step.
+    Note that even if C4 set the key a bit a few seconds in the future this is
+    not a problem.
 
 **Important note**: In order to make this locking algorithm more robust, a
 client holding a lock should always check the timeout didn't expire before

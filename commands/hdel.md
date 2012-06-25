@@ -10,11 +10,11 @@ including specified but non existing fields.
 
 @history
 
-* `>= 2.4`: Accepts multiple `field` arguments.
-  Redis versions older than 2.4 can only remove a field per call.
+*   `>= 2.4`: Accepts multiple `field` arguments.
+    Redis versions older than 2.4 can only remove a field per call.
 
-  To remove multiple fields from a hash in an atomic fashion in earlier
-  versions, use a `MULTI` / `EXEC` block.
+    To remove multiple fields from a hash in an atomic fashion in earlier
+    versions, use a `MULTI` / `EXEC` block.
 
 @examples
 
