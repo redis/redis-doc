@@ -225,7 +225,7 @@ Interactions between AOF and RDB persistence
 
 Redis >= 2.4 makes sure to avoid triggering an AOF rewrite when an RDB
 snapshotting operation is already in progress, or allowing a BGSAVE while the
-the AOF rewrite is in progress. This prevents two Redis background processes
+AOF rewrite is in progress. This prevents two Redis background processes
 from doing heavy disk I/O at the same time.
 
 When snapshotting is in progress and the user explicitly requests a log
