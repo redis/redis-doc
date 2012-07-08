@@ -46,12 +46,13 @@ are now fixed.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    EXPIRE mykey 10
-    TTL mykey
-    SET mykey "Hello World"
-    TTL mykey
+```cli
+SET mykey "Hello"
+EXPIRE mykey 10
+TTL mykey
+SET mykey "Hello World"
+TTL mykey
+```
 
 ## Pattern: Navigation session
 
@@ -66,10 +67,12 @@ products.
 You can easily model this pattern in Redis using the following strategy: every
 time the user does a page view you call the following commands:
 
-    MULTI
-    RPUSH pagewviews.user:<userid> http://.....
-    EXPIRE pagewviews.user:<userid> 60
-    EXEC
+```
+MULTI
+RPUSH pagewviews.user:<userid> http://.....
+EXPIRE pagewviews.user:<userid> 60
+EXEC
+```
 
 If the user will be idle more than 60 seconds, the key will be deleted and only
 subsequent page views that have less than 60 seconds of difference will be

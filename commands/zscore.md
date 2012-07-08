@@ -10,6 +10,7 @@ represented as string.
 
 @examples
 
-    @cli
-    ZADD myzset 1 "one"
-    ZSCORE myzset "one"
+```cli
+ZADD myzset 1 "one"
+ZSCORE myzset "one"
+```

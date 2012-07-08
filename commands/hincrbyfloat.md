@@ -17,11 +17,12 @@ information.
 
 @examples
 
-    @cli
-    HSET mykey field 10.50
-    HINCRBYFLOAT mykey field 0.1
-    HSET mykey field 5.0e3
-    HINCRBYFLOAT mykey field 2.0e2
+```cli
+HSET mykey field 10.50
+HINCRBYFLOAT mykey field 0.1
+HSET mykey field 5.0e3
+HINCRBYFLOAT mykey field 2.0e2
+```
 
 ## Implementation details
 

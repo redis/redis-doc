@@ -2,8 +2,10 @@ Set `key` to hold the string `value` and set `key` to timeout after a given
 number of seconds.
 This command is equivalent to executing the following commands:
 
-    SET mykey value
-    EXPIRE mykey seconds
+```
+SET mykey value
+EXPIRE mykey seconds
+```
 
 `SETEX` is atomic, and can be reproduced by using the previous two commands
 inside an `MULTI` / `EXEC` block.
@@ -18,7 +20,8 @@ An error is returned when `seconds` is invalid.
 
 @examples
 
-    @cli
-    SETEX mykey 10 "Hello"
-    TTL mykey
-    GET mykey
+```cli
+SETEX mykey 10 "Hello"
+TTL mykey
+GET mykey
+```

@@ -18,6 +18,7 @@ A multi bulk reply containing two elements:
 
 @examples
 
-    @cli
-    TIME
-    TIME
+```cli
+TIME
+TIME
+```

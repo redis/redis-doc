@@ -12,8 +12,9 @@ See `INCR` for extra information on increment/decrement operations.
 
 @examples
 
-    @cli
-    SET mykey "10"
-    DECR mykey
-    SET mykey "234293482390480948029348230948"
-    DECR mykey
+```cli
+SET mykey "10"
+DECR mykey
+SET mykey "234293482390480948029348230948"
+DECR mykey
+```

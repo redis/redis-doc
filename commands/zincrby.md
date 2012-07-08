@@ -18,8 +18,9 @@ number), represented as string.
 
 @examples
 
-    @cli
-    ZADD myzset 1 "one"
-    ZADD myzset 2 "two"
-    ZINCRBY myzset 2 "one"
-    ZRANGE myzset 0 -1 WITHSCORES
+```cli
+ZADD myzset 1 "one"
+ZADD myzset 2 "two"
+ZINCRBY myzset 2 "one"
+ZRANGE myzset 0 -1 WITHSCORES
+```

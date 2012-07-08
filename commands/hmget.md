@@ -10,7 +10,8 @@ a non-existing `key` will return a list of `nil` values.
 @multi-bulk-reply: list of values associated with the given fields, in the same
 order as they are requested.
 
-    @cli
-    HSET myhash field1 "Hello"
-    HSET myhash field2 "World"
-    HMGET myhash field1 field2 nofield
+```cli
+HSET myhash field1 "Hello"
+HSET myhash field2 "World"
+HMGET myhash field1 field2 nofield
+```

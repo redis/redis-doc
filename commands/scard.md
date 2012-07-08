@@ -7,7 +7,8 @@ does not exist.
 
 @examples
 
-    @cli
-    SADD myset "Hello"
-    SADD myset "World"
-    SCARD myset
+```cli
+SADD myset "Hello"
+SADD myset "World"
+SCARD myset
+```

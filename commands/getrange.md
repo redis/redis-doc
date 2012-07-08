@@ -16,9 +16,10 @@ the actual length of the string.
 
 @examples
 
-    @cli
-    SET mykey "This is a string"
-    GETRANGE mykey 0 3
-    GETRANGE mykey -3 -1
-    GETRANGE mykey 0 -1
-    GETRANGE mykey 10 100
+```cli
+SET mykey "This is a string"
+GETRANGE mykey 0 3
+GETRANGE mykey -3 -1
+GETRANGE mykey 0 -1
+GETRANGE mykey 10 100
+```

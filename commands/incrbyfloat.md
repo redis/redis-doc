@@ -27,11 +27,12 @@ regardless of the actual internal precision of the computation.
 
 @examples
 
-    @cli
-    SET mykey 10.50
-    INCRBYFLOAT mykey 0.1
-    SET mykey 5.0e3
-    INCRBYFLOAT mykey 2.0e2
+```cli
+SET mykey 10.50
+INCRBYFLOAT mykey 0.1
+SET mykey 5.0e3
+INCRBYFLOAT mykey 2.0e2
+```
 
 ## Implementation details
 

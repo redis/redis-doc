@@ -7,7 +7,8 @@ time is specified in milliseconds instead of seconds.
 
 @examples
 
-    @cli
-    PSETEX mykey 1000 "Hello"
-    PTTL mykey
-    GET mykey
+```cli
+PSETEX mykey 1000 "Hello"
+PTTL mykey
+GET mykey
+```

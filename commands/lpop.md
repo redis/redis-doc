@@ -6,9 +6,10 @@ Removes and returns the first element of the list stored at `key`.
 
 @examples
 
-    @cli
-    RPUSH mylist "one"
-    RPUSH mylist "two"
-    RPUSH mylist "three"
-    LPOP mylist
-    LRANGE mylist 0 -1
+```cli
+RPUSH mylist "one"
+RPUSH mylist "two"
+RPUSH mylist "three"
+LPOP mylist
+LRANGE mylist 0 -1
+```

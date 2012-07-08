@@ -13,8 +13,9 @@ the value `pivot` was not found.
 
 @examples
 
-    @cli
-    RPUSH mylist "Hello"
-    RPUSH mylist "World"
-    LINSERT mylist BEFORE "World" "There"
-    LRANGE mylist 0 -1
+```cli
+RPUSH mylist "Hello"
+RPUSH mylist "World"
+LINSERT mylist BEFORE "World" "There"
+LRANGE mylist 0 -1
+```

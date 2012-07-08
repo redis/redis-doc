@@ -12,7 +12,8 @@ others are unchanged.
 
 @examples
 
-    @cli
-    MSET key1 "Hello" key2 "World"
-    GET key1
-    GET key2
+```cli
+MSET key1 "Hello" key2 "World"
+GET key1
+GET key2
+```

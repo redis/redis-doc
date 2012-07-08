@@ -25,8 +25,10 @@ following important differences:
 
 For instance what in `redis.conf` looks like:
 
-    save 900 1
-    save 300 10
+```
+save 900 1
+save 300 10
+```
 
 that means, save after 900 seconds if there is at least 1 change to the dataset,
 and after 300 seconds if there are at least 10 changes to the datasets, should

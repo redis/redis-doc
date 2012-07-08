@@ -32,11 +32,12 @@ size of the longest input string.
 
 @examples
 
-    @cli
-    SET key1 "foobar"
-    SET key2 "abcdef"
-    BITOP AND dest key1 key2
-    GET dest
+```cli
+SET key1 "foobar"
+SET key2 "abcdef"
+BITOP AND dest key1 key2
+GET dest
+```
 
 ## Pattern: real time metrics using bitmaps
 

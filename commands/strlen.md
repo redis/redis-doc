@@ -8,7 +8,8 @@ exist.
 
 @examples
 
-    @cli
-    SET mykey "Hello world"
-    STRLEN mykey
-    STRLEN nonexisting
+```cli
+SET mykey "Hello world"
+STRLEN mykey
+STRLEN nonexisting
+```

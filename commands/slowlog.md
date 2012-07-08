@@ -42,17 +42,19 @@ implemented in redis-cli (deeply nested multi bulk replies).
 
 ## Output format
 
-    redis 127.0.0.1:6379> slowlog get 2
-    1) 1) (integer) 14
-       2) (integer) 1309448221
-       3) (integer) 15
-       4) 1) "ping"
-    2) 1) (integer) 13
-       2) (integer) 1309448128
-       3) (integer) 30
-       4) 1) "slowlog"
-          2) "get"
-          3) "100"
+```
+redis 127.0.0.1:6379> slowlog get 2
+1) 1) (integer) 14
+   2) (integer) 1309448221
+   3) (integer) 15
+   4) 1) "ping"
+2) 1) (integer) 13
+   2) (integer) 1309448128
+   3) (integer) 30
+   4) 1) "slowlog"
+      2) "get"
+      3) "100"
+```
 
 Every entry is composed of four fields:
 

@@ -22,7 +22,8 @@ containing `c` as first element, `b` as second element and `a` as third element.
 
 @examples
 
-    @cli
-    LPUSH mylist "world"
-    LPUSH mylist "hello"
-    LRANGE mylist 0 -1
+```cli
+LPUSH mylist "world"
+LPUSH mylist "hello"
+LRANGE mylist 0 -1
+```

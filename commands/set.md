@@ -7,6 +7,7 @@ If `key` already holds a value, it is overwritten, regardless of its type.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    GET mykey
+```cli
+SET mykey "Hello"
+GET mykey
+```

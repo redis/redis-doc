@@ -19,13 +19,14 @@ list, so it can be considered as a list rotation command.
 
 @examples
 
-    @cli
-    RPUSH mylist "one"
-    RPUSH mylist "two"
-    RPUSH mylist "three"
-    RPOPLPUSH mylist myotherlist
-    LRANGE mylist 0 -1
-    LRANGE myotherlist 0 -1
+```cli
+RPUSH mylist "one"
+RPUSH mylist "two"
+RPUSH mylist "three"
+RPOPLPUSH mylist myotherlist
+LRANGE mylist 0 -1
+LRANGE myotherlist 0 -1
+```
 
 ## Pattern: Reliable queue
 

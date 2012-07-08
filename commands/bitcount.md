@@ -18,11 +18,12 @@ The number of bits set to 1.
 
 @examples
 
-    @cli
-    SET mykey "foobar"
-    BITCOUNT mykey
-    BITCOUNT mykey 0 0
-    BITCOUNT mykey 1 1
+```cli
+SET mykey "foobar"
+BITCOUNT mykey
+BITCOUNT mykey 0 0
+BITCOUNT mykey 1 1
+```
 
 ## Pattern: real time metrics using bitmaps
 

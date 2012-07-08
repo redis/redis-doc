@@ -11,9 +11,10 @@ is associated).
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    EXPIRE mykey 10
-    TTL mykey
-    PERSIST mykey
-    TTL mykey
+```cli
+SET mykey "Hello"
+EXPIRE mykey 10
+TTL mykey
+PERSIST mykey
+TTL mykey
+```
