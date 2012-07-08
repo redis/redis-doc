@@ -1,5 +1,5 @@
-Inserts `value` in the list stored at `key` either before or after the
-reference value `pivot`.
+Inserts `value` in the list stored at `key` either before or after the reference
+value `pivot`.
 
 When `key` does not exist, it is considered an empty list and no operation is
 performed.
@@ -13,9 +13,9 @@ the value `pivot` was not found.
 
 @examples
 
-    @cli
-    RPUSH mylist "Hello"
-    RPUSH mylist "World"
-    LINSERT mylist BEFORE "World" "There"
-    LRANGE mylist 0 -1
-
+```cli
+RPUSH mylist "Hello"
+RPUSH mylist "World"
+LINSERT mylist BEFORE "World" "There"
+LRANGE mylist 0 -1
+```

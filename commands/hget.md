@@ -7,8 +7,8 @@ present in the hash or `key` does not exist.
 
 @examples
 
-    @cli
-    HSET myhash field1 "foo"
-    HGET myhash field1
-    HGET myhash field2
-
+```cli
+HSET myhash field1 "foo"
+HGET myhash field1
+HGET myhash field2
+```

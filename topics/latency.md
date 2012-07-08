@@ -183,7 +183,7 @@ this is the case.
 The first thing to do is to checking the amount of Redis memory that is swapped
 on disk. In order to do so you need to obtain the Redis instance pid:
 
-    $ redis-cli info | grep redis-cli info | grep process_id
+    $ redis-cli info | grep process_id
     process_id:5454
 
 Now enter the /proc file system directory for this process:
@@ -408,7 +408,7 @@ file you can use the strace command under Linux:
 The above command will show all the fdatasync(2) system calls performed by
 Redis in the main thread. With the above command you'll not see the
 fdatasync system calls performed by the background thread when the
-the appendfsync config option is set to **everysec**. In order to do so
+appendfsync config option is set to **everysec**. In order to do so
 just add the -f switch to strace.
 
 If you wish you can also see both fdatasync and write system calls with the

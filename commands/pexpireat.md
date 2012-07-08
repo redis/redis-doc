@@ -2,8 +2,8 @@
 
 O(1)
 
-
-`PEXPIREAT` has the same effect and semantic as `EXPIREAT`, but the unix time at which the key will expire is specified in milliseconds instead of seconds.
+`PEXPIREAT` has the same effect and semantic as `EXPIREAT`, but the Unix time at
+which the key will expire is specified in milliseconds instead of seconds.
 
 @return
 
@@ -14,8 +14,9 @@ O(1)
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    PEXPIREAT mykey 1555555555005
-    TTL mykey
-    PTTL mykey
+```cli
+SET mykey "Hello"
+PEXPIREAT mykey 1555555555005
+TTL mykey
+PTTL mykey
+```

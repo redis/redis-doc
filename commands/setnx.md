@@ -1,7 +1,7 @@
 Set `key` to hold string `value` if `key` does not exist.
-In that case, it is equal to `SET`. When `key` already holds
-a value, no operation is performed.
-`SETNX` is short for "**SET** if **N**ot e**X**ists".
+In that case, it is equal to `SET`.
+When `key` already holds a value, no operation is performed.
+`SETNX` is short for "**SET** if **N** ot e **X** ists".
 
 @return
 
@@ -12,34 +12,37 @@ a value, no operation is performed.
 
 @examples
 
-    @cli
-    SETNX mykey "Hello"
-    SETNX mykey "World"
-    GET mykey
+```cli
+SETNX mykey "Hello"
+SETNX mykey "World"
+GET mykey
+```
 
 ## Design pattern: Locking with `!SETNX`
 
-`SETNX` can be used as a locking primitive. For example, to acquire
-the lock of the key `foo`, the client could try the following:
+`SETNX` can be used as a locking primitive.
+For example, to acquire the lock of the key `foo`, the client could try the
+following:
 
-    SETNX lock.foo <current Unix time + lock timeout + 1>
+```
+SETNX lock.foo <current Unix time + lock timeout + 1>
+```
 
-If `SETNX` returns `1` the client acquired the lock, setting the `lock.foo`
-key to the Unix time at which the lock should no longer be considered valid.
+If `SETNX` returns `1` the client acquired the lock, setting the `lock.foo` key
+to the Unix time at which the lock should no longer be considered valid.
 The client will later use `DEL lock.foo` in order to release the lock.
 
-If `SETNX` returns `0` the key is already locked by some other client. We can
-either return to the caller if it's a non blocking lock, or enter a
-loop retrying to hold the lock until we succeed or some kind of timeout
-expires.
+If `SETNX` returns `0` the key is already locked by some other client.
+We can either return to the caller if it's a non blocking lock, or enter a loop
+retrying to hold the lock until we succeed or some kind of timeout expires.
 
 ### Handling deadlocks
 
 In the above locking algorithm there is a problem: what happens if a client
-fails, crashes, or is otherwise not able to release the lock?
-It's possible to detect this condition because the lock key contains a
-UNIX timestamp. If such a timestamp is equal to the current Unix time the lock
-is no longer valid.
+fails, crashes, or is otherwise not able to release the lock? It's possible to
+detect this condition because the lock key contains a UNIX timestamp.
+If such a timestamp is equal to the current Unix time the lock is no longer
+valid.
 
 When this happens we can't just call `DEL` against the key to remove the lock
 and then try to issue a `SETNX`, as there is a race condition here, when
@@ -57,25 +60,34 @@ multiple clients detected an expired lock and are trying to release it.
 Fortunately, it's possible to avoid this issue using the following algorithm.
 Let's see how C4, our sane client, uses the good algorithm:
 
-* C4 sends `SETNX lock.foo` in order to acquire the lock
-* The crashed client C3 still holds it, so Redis will reply with `0` to C4.
-* C4 sends `GET lock.foo` to check if the lock expired. If it is not, it will
-  sleep for some time and retry from the start.
-* Instead, if the lock is expired because the Unix time at `lock.foo` is older
-  than the current Unix time, C4 tries to perform:
+*   C4 sends `SETNX lock.foo` in order to acquire the lock
 
-      GETSET lock.foo <current Unix timestamp + lock timeout + 1>
+*   The crashed client C3 still holds it, so Redis will reply with `0` to C4.
 
-* Because of the `GETSET` semantic, C4 can check if the old value stored
-  at `key` is still an expired timestamp. If it is, the lock was acquired.
-* If another client, for instance C5, was faster than C4 and acquired
-  the lock with the `GETSET` operation, the C4 `GETSET` operation will return a non
-  expired timestamp. C4 will simply restart from the first step. Note that even
-  if C4 set the key a bit a few seconds in the future this is not a problem.
+*   C4 sends `GET lock.foo` to check if the lock expired.
+    If it is not, it will sleep for some time and retry from the start.
 
-**Important note**: In order to make this locking algorithm more robust, a client
-holding a lock should always check the timeout didn't expire before unlocking
-the key with `DEL` because client failures can be complex, not just crashing
-but also blocking a lot of time against some operations and trying to issue
-`DEL` after a lot of time (when the LOCK is already held by another client).
+*   Instead, if the lock is expired because the Unix time at `lock.foo` is older
+    than the current Unix time, C4 tries to perform:
 
+    ```
+    GETSET lock.foo <current Unix timestamp + lock timeout + 1>
+    ```
+
+*   Because of the `GETSET` semantic, C4 can check if the old value stored at
+    `key` is still an expired timestamp.
+    If it is, the lock was acquired.
+
+*   If another client, for instance C5, was faster than C4 and acquired the lock
+    with the `GETSET` operation, the C4 `GETSET` operation will return a non
+    expired timestamp.
+    C4 will simply restart from the first step.
+    Note that even if C4 set the key a bit a few seconds in the future this is
+    not a problem.
+
+**Important note**: In order to make this locking algorithm more robust, a
+client holding a lock should always check the timeout didn't expire before
+unlocking the key with `DEL` because client failures can be complex, not just
+crashing but also blocking a lot of time against some operations and trying
+to issue `DEL` after a lot of time (when the LOCK is already held by another
+client).

@@ -225,7 +225,7 @@ Interactions between AOF and RDB persistence
 
 Redis >= 2.4 makes sure to avoid triggering an AOF rewrite when an RDB
 snapshotting operation is already in progress, or allowing a BGSAVE while the
-the AOF rewrite is in progress. This prevents two Redis background processes
+AOF rewrite is in progress. This prevents two Redis background processes
 from doing heavy disk I/O at the same time.
 
 When snapshotting is in progress and the user explicitly requests a log
@@ -276,7 +276,7 @@ for best results.
 It is important to understand that this systems can easily fail if not coded
 in the right way. At least make absolutely sure that after the transfer is
 completed you are able to verify the file size (that should match the one of
-the file you copied) and possibly the SHA1 sum if you are using a VPS.
+the file you copied) and possibly the SHA1 digest if you are using a VPS.
 
 You also need some kind of independent alert system if the transfer of fresh
 backups is not working for some reason.

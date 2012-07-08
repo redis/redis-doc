@@ -4,4 +4,3 @@ New connections always use DB 0.
 @return
 
 @status-reply
-

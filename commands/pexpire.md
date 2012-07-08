@@ -12,8 +12,9 @@ specified in milliseconds instead of seconds.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    PEXPIRE mykey 1500
-    TTL mykey
-    PTTL mykey
+```cli
+SET mykey "Hello"
+PEXPIRE mykey 1500
+TTL mykey
+PTTL mykey
+```

@@ -10,9 +10,9 @@ It returns an error under the same conditions as `RENAME`.
 
 @examples
 
-    @cli
-    SET mykey "Hello"
-    SET myotherkey "World"
-    RENAMENX mykey myotherkey
-    GET myotherkey
-
+```cli
+SET mykey "Hello"
+SET myotherkey "World"
+RENAMENX mykey myotherkey
+GET myotherkey
+```

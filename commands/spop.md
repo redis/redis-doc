@@ -1,7 +1,7 @@
 Removes and returns a random element from the set value stored at `key`.
 
-This operation is similar to `SRANDMEMBER`, that returns a random
-element from a set but does not remove it.
+This operation is similar to `SRANDMEMBER`, that returns a random element from a
+set but does not remove it.
 
 @return
 
@@ -9,10 +9,10 @@ element from a set but does not remove it.
 
 @examples
 
-    @cli
-    SADD myset "one"
-    SADD myset "two"
-    SADD myset "three"
-    SPOP myset
-    SMEMBERS myset
-
+```cli
+SADD myset "one"
+SADD myset "two"
+SADD myset "three"
+SPOP myset
+SMEMBERS myset
+```

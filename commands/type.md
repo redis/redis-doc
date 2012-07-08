@@ -8,11 +8,11 @@ and `hash`.
 
 @examples
 
-    @cli
-    SET key1 "value"
-    LPUSH key2 "value"
-    SADD key3 "value"
-    TYPE key1
-    TYPE key2
-    TYPE key3
-
+```cli
+SET key1 "value"
+LPUSH key2 "value"
+SADD key3 "value"
+TYPE key1
+TYPE key2
+TYPE key3
+```

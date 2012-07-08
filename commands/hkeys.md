@@ -7,8 +7,8 @@ not exist.
 
 @examples
 
-    @cli
-    HSET myhash field1 "Hello"
-    HSET myhash field2 "World"
-    HKEYS myhash
-
+```cli
+HSET myhash field1 "Hello"
+HSET myhash field2 "World"
+HKEYS myhash
+```
