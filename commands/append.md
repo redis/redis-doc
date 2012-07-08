@@ -18,7 +18,7 @@ GET mykey
 
 ## Pattern: Time series
 
-the `APPEND` command can be used to create a very compact representation of a
+The `APPEND` command can be used to create a very compact representation of a
 list of fixed-size samples, usually referred as _time series_.
 Every time a new sample arrives we can store it using the command
 
@@ -30,12 +30,12 @@ Accessing individual elements in the time series is not hard:
 
 * `STRLEN` can be used in order to obtain the number of samples.
 * `GETRANGE` allows for random access of elements.
-  If our time series have an associated time information we can easily implement
+  If our time series have associated time information we can easily implement
   a binary search to get range combining `GETRANGE` with the Lua scripting
   engine available in Redis 2.6.
-* `SETRANGE` can be used to overwrite an existing time serie.
+* `SETRANGE` can be used to overwrite an existing time series.
 
-The limitations of this pattern is that we are forced into an append-only mode
+The limitation of this pattern is that we are forced into an append-only mode
 of operation, there is no way to cut the time series to a given size easily
 because Redis currently lacks a command able to trim string objects.
 However the space efficiency of time series stored in this way is remarkable.
