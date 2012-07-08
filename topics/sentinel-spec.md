@@ -1,4 +1,4 @@
-Redis Sentinel design draft 1.1
+Redis Sentinel design draft 1.3
 ===
 
 Changelog:
