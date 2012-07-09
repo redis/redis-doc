@@ -95,7 +95,7 @@ class ReMarkdown
       end
     end
 
-    sentences = result.gsub(/\s*\r?\n\s*/, " ").split(/(?<=[^.]\.)\s+/)
+    sentences = result.gsub(/\s*\r?\n\s*/, " ").split(/(?<=(?:[^.]\.)|[?!])\s+/)
     sentences = sentences.map do |e|
       par(e).chomp
     end
