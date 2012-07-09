@@ -131,6 +131,19 @@ class ReMarkdown
         @links << [id, href]
 
         "[%s][%s]" % [format_inline_nodes(node.children).chomp, id]
+      when "img"
+        src = node["src"]
+
+        id = src.
+          gsub(/[^\w]/, " ").
+          split(/\s+/).
+          map { |e| e.to_s[0] }.
+          join.
+          downcase
+
+        @links << [id, src]
+
+        "![%s][%s]" % [node["alt"].chomp, id]
       else
         raise "don't know what to do for inline node #{node.name}"
       end
