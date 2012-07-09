@@ -14,7 +14,7 @@ class ReMarkdown
       :fenced_code_blocks => true,
       :superscript => true
 
-    @xml = Nokogiri::XML::Document.parse("<doc>#{markdown.render(input)}</doc>")
+    @xml = Nokogiri::HTML::Document.parse("<doc>#{markdown.render(input)}</doc>")
 
     @links = []
     @indent = 0
@@ -26,7 +26,7 @@ class ReMarkdown
   def to_s
     parts = []
 
-    @xml.at("/doc").children.each do |node|
+    @xml.at("//doc").children.each do |node|
       parts << format_block_node(node)
       parts << flush_links
     end
