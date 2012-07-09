@@ -8,7 +8,7 @@ Like for the `GETRANGE` command start and end can contain negative values in
 order to index bytes starting from the end of the string, where -1 is the last
 byte, -2 is the penultimate, and so forth.
 
-Non existing keys are treated as empty strings, so the command will return zero.
+Non-existent keys are treated as empty strings, so the command will return zero.
 
 @return
 
@@ -25,13 +25,13 @@ BITCOUNT mykey 0 0
 BITCOUNT mykey 1 1
 ```
 
-## Pattern: real time metrics using bitmaps
+## Pattern: real-time metrics using bitmaps
 
-Bitmaps are a very space efficient representation of certain kinds of
+Bitmaps are a very space-efficient representation of certain kinds of
 information.
-One example is a web application that needs the history of user visits, so that
+One example is a Web application that needs the history of user visits, so that
 for instance it is possible to determine what users are good targets of beta
-features, or for any other purpose.
+features.
 
 Using the `SETBIT` command this is trivial to accomplish, identifying every day
 with a small progressive integer.
