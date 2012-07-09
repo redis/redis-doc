@@ -16,7 +16,7 @@ Specifically:
   In this case the `BGREWRITEAOF` will still return an OK code, but with an
   appropriate message.
   You can check if an AOF rewrite is scheduled looking at the `INFO` command
-  starting from Redis 2.6.
+  as of Redis 2.6.
 * If an AOF rewrite is already in progress the command returns an error and no
   AOF rewrite will be scheduled for a later time.
 
