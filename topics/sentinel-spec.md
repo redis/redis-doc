@@ -58,7 +58,7 @@ Python program) in an user setup specific way.
 In what form it will be shipped
 ===
 
-Redis Sentinel is just be a special mode of the redis-server executable.
+Redis Sentinel is just a special mode of the redis-server executable.
 
 If the redis-server is called with "redis-sentinel" as `argv[0]` (for instance
 using a symbolic link or copying the file), or if --sentinel option is passed,
@@ -74,6 +74,7 @@ Sentinels networking
 ===
 
 All the sentinels take persistent connections with:
+
 * The monitored masters.
 * All its slaves, that are discovered using the master's INFO output.
 * All the other Sentinels connected to this master, discovered via Pub/Sub.
@@ -84,7 +85,7 @@ external clients.
 Redis Sentinels export a SENTINEL command. Subcommands of the SENTINEL
 command are used in order to perform different actions.
 
-For instnace the `SENTINEL masters` command enumerates all the monitored
+For instance the `SENTINEL masters` command enumerates all the monitored
 masters and their states. However Sentinels can also reply to the PING command
 as a normal Redis instance, so that it is possible to monitor a Sentinel
 considering it a normal Redis instance.
@@ -172,7 +173,7 @@ Sentinel can reach independently this state.
 The SENTINEL is-master-down-by-addr command
 ===
 
-Sentinels ask other Sentinels the state of a master from their local point
+Sentinels ask other Sentinels for the state of a master from their local point
 of view using the `SENTINEL is-master-down-by-addr` command. This command
 replies with a boolean value (in the form of a 0 or 1 integer reply, as
 a first element of a multi bulk reply).
@@ -199,7 +200,7 @@ and runid, if we can't find a perfect match (same runid and address) inside
 the Sentinels table for that master, we remove any other Sentinel with the same
 runid OR the same address. And later add the new Sentinel.
 
-For instance if a Sentienl instance is restarted, the Run ID will be different,
+For instance if a Sentinel instance is restarted, the Run ID will be different,
 and the old Sentinel with the same IP address and port pair will be removed.
 
 Starting the failover: Leaders and Observers
@@ -245,7 +246,7 @@ and the subjective leaders of all the other Sentinels with a frequency of
 10 HZ, and will flag itself as the Leader if the following conditions happen:
 
 * It is the Subjective Leader of itself.
-* At least N-1 other Sentinels that see the master as down, and are reachable, also thing that it is the Leader. With N being the quorum configured for this master.
+* At least N-1 other Sentinels that see the master as down, and are reachable, also think that it is the Leader. With N being the quorum configured for this master.
 * At least 50% + 1 of all the Sentinels involved in the voting process (that are reachable and that also see the master as failing) should agree on the Leader.
 
 So for instance if there are a total of three sentinels, the master is failing,
@@ -279,7 +280,7 @@ time) is given by the random delay used to start the fail over, and the
 continuous monitor of the slave instances to detect if another Sentinel
 (or an human) started the failover process.
 
-Morehover the slave to promote is selected using a deterministic process to
+Moreover the slave to promote is selected using a deterministic process to
 minimize the chance that two different Sentinels with full vision of the
 working slaves may pick two different slaves to promote.
 

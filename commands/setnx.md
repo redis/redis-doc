@@ -39,8 +39,9 @@ retrying to hold the lock until we succeed or some kind of timeout expires.
 ### Handling deadlocks
 
 In the above locking algorithm there is a problem: what happens if a client
-fails, crashes, or is otherwise not able to release the lock? It's possible to
-detect this condition because the lock key contains a UNIX timestamp.
+fails, crashes, or is otherwise not able to release the lock?
+It's possible to detect this condition because the lock key contains a UNIX
+timestamp.
 If such a timestamp is equal to the current Unix time the lock is no longer
 valid.
 
