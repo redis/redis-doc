@@ -333,6 +333,8 @@ If there is no Slave to select because all the salves are failing the failover
 is not started at all. Instead if there is no Slave to select because the
 master *never* used to have slaves in the monitoring session, then the
 failover is performed nonetheless just calling the user scripts.
+However for this to happen a special configuration option must be set for
+that master (force-failover-without-slaves).
 
 This is useful because there are configurations where a new Instance can be
 provisioned at IP protocol level by the script, but there are no attached
