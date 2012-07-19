@@ -67,10 +67,10 @@
   },
 
   {
-    "name": "Tideland RDC",
+    "name": "Tideland CGL Redis",
     "language": "Go",
-    "repository": "http://code.google.com/p/tideland-rdc/",
-    "description": "",
+    "repository": "http://code.google.com/p/tcgl/",
+    "description": "Powerful Go client supporting all commands, multi-commands and pub/sub. Result is returned as result set with type conversion methods.",
     "authors": ["themue"]
   },
 
