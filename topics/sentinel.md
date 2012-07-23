@@ -382,7 +382,7 @@ When in TILT mode the Sentinel will continue to monitor everything, but:
 If everything appears to be normal for 30 second, the TILT mode is exited.
 
 Handling of -BUSY state
-===
+---
 
 (Warning: Yet not implemented)
 
@@ -392,12 +392,12 @@ Redis Sentinel will try to send a "SCRIPT KILL" command, that will only
 succeed if the script was read-only.
 
 Notifications via user script
-===
+---
 
 Work in progress.
 
 Suggested setup
-===
+---
 
 Work in progress.
 
@@ -427,7 +427,7 @@ For instance if a Sentinel instance is restarted, the Run ID will be different,
 and the old Sentinel with the same IP address and port pair will be removed.
 
 Selection of the Slave to promote
-===
+---
 
 If a master has multiple slaves, the slave to promote to master is selected
 checking the slave priority (a new configuration option of Redis instances
