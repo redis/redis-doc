@@ -116,7 +116,7 @@ enough Sentinels (at least the number configured as the `quorum` parameter
 of the monitored master) have an SDOWN condition, and get feedbacks from
 other Sentinels using the `SENTINEL is-master-down-by-addr` command.
 
-From the point of view of a Sentienl an SDOWN condition is reached if we
+From the point of view of a Sentinel an SDOWN condition is reached if we
 don't receive a valid reply to PING requests for the number of seconds
 specified in the configuration as `is-master-down-after-milliseconds`
 parameter.
@@ -175,7 +175,7 @@ Sentinel commands
 The following is a list of accepted commands:
 * **PING** this command simply returns PONG.
 * **SENTINEL masters** show a list of monitored masters and their state.
-* **SENTIENL slaves `<master name>`** show a list of slaves for this master, and their state.
+* **SENTINEL slaves `<master name>`** show a list of slaves for this master, and their state.
 * **SENTINEL is-master-down-by-addr `<ip> <port>`** return a two elements multi bulk reply where the first is 0 or 1 (0 if the master with that address is known and is in `SDOWN` state, 1 otherwise). The second element of the reply is the
 *subjective leader* for this master, that is, the `runid` of the Redis
 Sentinel instance that should perform the failover accordingly to the queried
@@ -459,7 +459,7 @@ To create the three configurations just create three files where you put somethi
     sentinel can-failover mymaster yes
     sentinel parallel-syncs mymaster 1
 
-Note: where you see `port 26379`, use 26380 for the second Sentinel, and 26381 for the third Sentinel (any other differnet non colliding port will do of course). Also note that the `down-after-milliseconds` configuration option is set to just five seconds, that is a good value to play with Sentienl, but not good for production environments.
+Note: where you see `port 26379`, use 26380 for the second Sentinel, and 26381 for the third Sentinel (any other differnet non colliding port will do of course). Also note that the `down-after-milliseconds` configuration option is set to just five seconds, that is a good value to play with Sentinel, but not good for production environments.
 
 At this point you should see something like the following in every Sentinel you are running:
 
