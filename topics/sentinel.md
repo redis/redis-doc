@@ -440,7 +440,7 @@ Note: because currently slave priority is not implemented, the selection is
 performed only discarding unreachable slaves and picking the one with the
 lower Run ID.
 
-APPENDIX A - Get started with Sentinel in five minutes
+APPENDIX B - Get started with Sentinel in five minutes
 ===
 
 If you want to try Redis Sentinel, please follow this steps:
