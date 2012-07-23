@@ -1,3 +1,5 @@
+**WARNING:** this document is no longer in sync with the implementation of Redis Sentinel and will be removed in the next weeks.
+
 Redis Sentinel design draft 1.3
 ===
 
