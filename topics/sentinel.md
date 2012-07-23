@@ -401,12 +401,7 @@ Suggested setup
 
 Work in progress.
 
-APPENDIX A - Get started with Sentinel in five minutes
-===
-
-Work in progress.
-
-APPENDIX B - Implementation and algorithms
+APPENDIX A - Implementation and algorithms
 ===
 
 Duplicate Sentinels removal
@@ -444,3 +439,58 @@ smaller Run ID is selected.
 Note: because currently slave priority is not implemented, the selection is
 performed only discarding unreachable slaves and picking the one with the
 lower Run ID.
+
+APPENDIX A - Get started with Sentinel in five minutes
+===
+
+If you want to try Redis Sentinel, please follow this steps:
+
+* Clone the *unstable* branch of the Redis repository at github (it is the default branch).
+* Compile it with "make".
+* Start a few normal Redis instances, using the `redis-server` compiled in the *unstable* branch. One master and one slave is enough.
+* Use the `redis-sentinel` executable to start three instances of Sentinel, with `redis-sentinel /path/to/config`. To create the three configurations just create three files where you put something like that:
+
+    port 26379
+    sentinel monitor mymaster 127.0.0.1 6379 2
+    sentinel down-after-milliseconds mymaster 5000
+    sentinel failover-timeout mymaster 900000
+    sentinel can-failover mymaster yes
+    sentinel parallel-syncs mymaster 1
+
+Note: where you see `port 26379`, use 26380 for the second Sentinel, and 26381 for the third Sentinel (any other differnet non colliding port will do of course). Also note that the `down-after-milliseconds` configuration option is set to just five seconds, that is a good value to play with Sentienl, but not good for production environments.
+
+At this point you should see something like the following in every Sentinel you are running:
+
+    [4747] 23 Jul 14:49:15.883 * +slave slave 127.0.0.1:6380 127.0.0.1 6380 @ mymaster 127.0.0.1 6379
+    [4747] 23 Jul 14:49:19.645 * +sentinel sentinel 127.0.0.1:26379 127.0.0.1 26379 @ mymaster 127.0.0.1 6379
+    [4747] 23 Jul 14:49:21.659 * +sentinel sentinel 127.0.0.1:26381 127.0.0.1 26381 @ mymaster 127.0.0.1 6379
+
+    redis-cli -p 26379 sentinel masters                                        
+    1)  1) "name"
+        2) "mymaster"
+        3) "ip"
+        4) "127.0.0.1"
+        5) "port"
+        6) "6379"
+        7) "runid"
+        8) "66215809eede5c0fdd20680cfb3dbd3bdf70a6f8"
+        9) "flags"
+       10) "master"
+       11) "pending-commands"
+       12) "0"
+       13) "last-ok-ping-reply"
+       14) "515"
+       15) "last-ping-reply"
+       16) "515"
+       17) "info-refresh"
+       18) "5116"
+       19) "num-slaves"
+       20) "1"
+       21) "num-other-sentinels"
+       22) "2"
+       23) "quorum"
+       24) "2"
+
+To see how the failover works, just put down your slave (for instance sending `DEUBG SEGFAULT` to crash it) and see what happens.
+
+This HOWTO is a work in progress, more information will be added in the near future.
