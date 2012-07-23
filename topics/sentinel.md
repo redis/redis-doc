@@ -450,6 +450,7 @@ If you want to try Redis Sentinel, please follow this steps:
 * Start a few normal Redis instances, using the `redis-server` compiled in the *unstable* branch. One master and one slave is enough.
 * Use the `redis-sentinel` executable to start three instances of Sentinel, with `redis-sentinel /path/to/config`. To create the three configurations just create three files where you put something like that:
 
+
     port 26379
     sentinel monitor mymaster 127.0.0.1 6379 2
     sentinel down-after-milliseconds mymaster 5000
