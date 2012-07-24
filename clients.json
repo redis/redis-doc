@@ -35,6 +35,14 @@
   },
 
   {
+    "name": "Tiny Redis",
+    "language": "D Programming Language",
+    "repository": "https://github.com/adilbaig/Tiny-Redis",
+    "description": "",
+    "authors": ["aidezigns"]
+  },
+
+  {
     "name": "Erldis",
     "language": "Erlang",
     "repository": "https://github.com/japerk/erldis",
