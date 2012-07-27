@@ -99,7 +99,7 @@ The following Ruby function generates valid protocol:
         proto = ""
         proto << "*"+cmd.length.to_s+"\r\n"
         cmd.each{|arg|
-            proto << "$"+arg.length.to_s+"\r\n"
+            proto << "$"+arg.to_s.bytesize.to_s+"\r\n"
             proto << arg.to_s+"\r\n"
         }
         proto
