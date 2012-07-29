@@ -133,6 +133,24 @@
     "since": "2.2.0",
     "group": "list"
   },
+  "CLIENT KILL": {
+    "summary": "Kill the connection of a client",
+    "complexity": "O(N) where N is the number of client connections",
+    "arguments": [
+      {
+        "name": "ip:port",
+        "type": "string"
+      }
+    ],
+    "since": "2.4.0",
+    "group": "server"
+  },
+  "CLIENT LIST": {
+    "summary": "Get the list of client connections",
+    "complexity": "O(N) where N is the number of client connections",
+    "since": "2.4.0",
+    "group": "server"
+  },
   "CONFIG GET": {
     "summary": "Get the value of a configuration parameter",
     "arguments": [
