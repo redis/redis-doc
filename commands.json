@@ -1746,6 +1746,7 @@
   },
   "TIME": {
     "summary": "Return the current server time",
+    "complexity": "O(1)",
     "since": "2.6.0",
     "group": "server"
   },
