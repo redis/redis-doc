@@ -9,23 +9,27 @@ The following options are supported:
 
     Usage: redis-benchmark [-h <host>] [-p <port>] [-c <clients>] [-n <requests]> [-k <boolean>]
 
-     -h <hostname>      Server hostname (default 127.0.0.1)
-     -p <port>          Server port (default 6379)
-     -s <socket>        Server socket (overrides host and port)
-     -c <clients>       Number of parallel connections (default 50)
-     -n <requests>      Total number of requests (default 10000)
-     -d <size>          Data size of SET/GET value in bytes (default 2)
-     -k <boolean>       1=keep alive 0=reconnect (default 1)
-     -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
+    -h <hostname>      Server hostname (default 127.0.0.1)
+    -p <port>          Server port (default 6379)
+    -s <socket>        Server socket (overrides host and port)
+    -c <clients>       Number of parallel connections (default 50)
+    -n <requests>      Total number of requests (default 10000)
+    -d <size>          Data size of SET/GET value in bytes (default 2)
+    -k <boolean>       1=keep alive 0=reconnect (default 1)
+    -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
       Using this option the benchmark will get/set keys
-      in the form mykey_rand000000012456 instead of constant
+      in the form mykey_rand:000000012456 instead of constant
       keys, the <keyspacelen> argument determines the max
       number of values for the random number. For instance
-      if set to 10 only rand000000000000 - rand000000000009
+      if set to 10 only rand:000000000000 - rand:000000000009
       range will be allowed.
-     -q                 Quiet. Just show query/sec values
-     -l                 Loop. Run the tests forever
-     -I                 Idle mode. Just open N idle connections and wait.
+    -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
+    -q                 Quiet. Just show query/sec values
+    --csv              Output in CSV format
+    -l                 Loop. Run the tests forever
+    -t <tests>         Only run the comma separated list of tests. The test
+                        names are the same as the ones produced as output.
+    -I                 Idle mode. Just open N idle connections and wait.
 
 You need to have a running Redis instance before launching the benchmark.
 A typical example would be:
@@ -65,11 +69,6 @@ multiple CPU cores. People are supposed to launch several Redis instances to
 scale out on several cores if needed. It is not really fair to compare one
 single Redis instance to a multi-threaded data store.
 
-Then the benchmark should do the same operations, and work in the same way with
-the multiple data stores you want to compare. It is absolutely pointless to
-compare the result of redis-benchmark to the result of another benchmark
-program and extrapolate.
-
 A common misconception is that redis-benchmark is designed to make Redis
 performances look stellar, the throughput achieved by redis-benchmark being
 somewhat artificial, and not achievable by a real application. This is
@@ -77,13 +76,23 @@ actually plain wrong.
 
 The redis-benchmark program is a quick and useful way to get some figures and
 evaluate the performance of a Redis instance on a given hardware. However,
-it does not represent the maximum throughput a Redis instance can sustain.
-Actually, by using pipelining and a fast client (hiredis), it is fairly easy
-to write a program generating more throughput than redis-benchmark. The current
-version of redis-benchmark achieves throughput by exploiting concurrency only
-(i.e. it creates several connections to the server). It does not use pipelining
-or any parallelism at all (one pending query per connection at most, and
-no multi-threading).
+by default, it does not represent the maximum throughput a Redis instance can
+sustain. Actually, by using pipelining and a fast client (hiredis), it is fairly
+easy to write a program generating more throughput than redis-benchmark. The
+default behavior of redis-benchmark is to achieve throughput by exploiting
+concurrency only (i.e. it creates several connections to the server).
+It does not use pipelining or any parallelism at all (one pending query per
+connection at most, and no multi-threading).
+
+To run a benchmark using pipelining mode (and achieve higher throughputs),
+you need to explicitly use the -P option. Please note that it is still a
+realistic behavior since a lot of Redis based applications actively use
+pipelining to improve performance.
+
+Finally, the benchmark should apply the same operations, and work in the same way
+with the multiple data stores you want to compare. It is absolutely pointless to
+compare the result of redis-benchmark to the result of another benchmark
+program and extrapolate.
 
 For instance, Redis and memcached in single-threaded mode can be compared on
 GET/SET operations. Both are in-memory data stores, working mostly in the same
@@ -153,6 +162,16 @@ the TCP/IP loopback and unix domain sockets can be used. It depends on the
 platform, but unix domain sockets can achieve around 50% more throughput than
 the TCP/IP loopback (on Linux for instance). The default behavior of
 redis-benchmark is to use the TCP/IP loopback.
++ The performance benefit of unix domain sockets compared to TCP/IP loopback
+tends to decrease when pipelining is heavily used (i.e. long pipelines).
++ When an ethernet network is used to access Redis, aggregating commands using
+pipelining is especially efficient when the size of the data is kept under
+the ethernet packet size (about 1500 bytes). Actually, processing 10 bytes,
+100 bytes, or 1000 bytes queries almost result in the same throughput.
+See the graph below.
+
+![Data size impact](https://github.com/dspezia/redis-doc/raw/6374a07f93e867353e5e946c1e39a573dfc83f6c/topics/Data_size.png.gif)
+
 + On multi CPU sockets servers, Redis performance becomes dependant on the
 NUMA configuration and process location. The most visible effect is that
 redis-benchmark results seem non deterministic because client and server
