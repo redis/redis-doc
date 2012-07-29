@@ -170,7 +170,7 @@ the ethernet packet size (about 1500 bytes). Actually, processing 10 bytes,
 100 bytes, or 1000 bytes queries almost result in the same throughput.
 See the graph below.
 
-![Data size impact](https://github.com/dspezia/redis-doc/raw/6374a07f93e867353e5e946c1e39a573dfc83f6c/topics/Data_size.png.gif)
+![Data size impact](https://github.com/dspezia/redis-doc/raw/client_command/topics/Data_size.png)
 
 + On multi CPU sockets servers, Redis performance becomes dependant on the
 NUMA configuration and process location. The most visible effect is that
