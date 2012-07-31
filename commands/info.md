@@ -75,84 +75,112 @@ Here is the meaning of all fields in the **clients** section:
 Here is the meaning of all fields in the **memory** section:
 
 *   `used_memory`:  total number of bytes allocated by Redis using its
-     allocator (either standard `libc` `jemalloc`, or an alternative allocator such
-     as [`tcmalloc`][hcgcpgp]
+     allocator (either standard **libc**, **jemalloc**, or an alternative allocator such
+     as [**tcmalloc**][hcgcpgp]
 *   `used_memory_human`: Human readable representation of previous value
 *   `used_memory_rss`: Number of bytes that Redis allocated as seen by the
      operating system (a.k.a resident set size). This is the number reported by tools
-     such as `top` and `ps`.
+     such as **top** and **ps**.
 *   `used_memory_peak`: Peak memory consumed by Redis (in bytes)
 *   `used_memory_peak_human`: Human readable representation of previous value
 *   `used_memory_lua`: Number of bytes used by the Lua engine
 *   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`
 *   `mem_allocator`: Memory allocator, chosen at compile time.
 
-Ideally, the resident set size (rss) value should be close to `used_memory`.
-A large difference between these numbers means there is memory fragmentation
-(internal or external), represented by `mem_fragmentation_ratio`.
+Ideally, the `used_memory_rss` value should be only slightly higher than `used_memory`.
+When rss >> used, a large difference means there is memory fragmentation
+(internal or external), which can be evaluated by checking `mem_fragmentation_ratio`.
+When used >> rss, it means part of Redis memory has been swapped off by the operating
+system: expect some significant latencies.
 
 Because Redis does not have control over how its allocations are mapped to
 memory pages, high `used_memory_rss` is often the result of a spike in memory
 usage.
 
-Here is the meaning of all fields in the **perstence** section:
+When Redis frees memory, the memory is given back to the allocator, and the
+allocator may or may not give the memory back to the system. There may be
+a discrepancy between the `used_memory` value and memory consumption as
+reported by the operating system. It may be due to the fact memory has been
+used and released by Redis, but not given back to the system. The `used_memory_peak`
+value is generally useful to check this point.
 
-*   `loading:0
-*   `rdb_changes_since_last_save:0
-*   `rdb_bgsave_in_progress:0
-*   `rdb_last_save_time:1343589517
-*   `rdb_last_bgsave_status:ok
-*   `rdb_last_bgsave_time_sec:-1
-*   `rdb_current_bgsave_time_sec:-1
-*   `aof_enabled:0
-*   `aof_rewrite_in_progress:0
-*   `aof_rewrite_scheduled:0
-*   `aof_last_rewrite_time_sec:-1
-*   `aof_current_rewrite_time_sec:-1
-*   `aof_last_bgrewrite_status:ok
+Here is the meaning of all fields in the **persistence** section:
+
+*   `loading`: Flag indicating if the load of a dump file is on-going
+*   `rdb_changes_since_last_save`: Number of changes since the last dump
+*   `rdb_bgsave_in_progress`: Flag indicating a RDB save is on-going
+*   `rdb_last_save_time`: Epoch-based timestamp of last successful RDB save
+*   `rdb_last_bgsave_status`: Status of the last RDB save operation
+*   `rdb_last_bgsave_time_sec`: Duration of the last RDB save operation in seconds
+*   `rdb_current_bgsave_time_sec`: Duration of the on-going RDB save operation if any
+*   `aof_enabled`: Flag indicating AOF logging is activated
+*   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is on-going
+*   `aof_rewrite_scheduled`: Flag indicating an AOF rewrite operation
+     will be scheduled once the on-going RDB save is complete.
+*   `aof_last_rewrite_time_sec`: Duration of the last AOF rewrite operation in seconds
+*   `aof_current_rewrite_time_sec`: Duration of the on-going AOF rewrite operation if any
+*   `aof_last_bgrewrite_status`: Status of the last AOF rewrite operation
+
+`changes_since_last_save` refers to the number of operations that produced
+some kind of changes in the dataset since the last time either `SAVE` or
+`BGSAVE` was called.
+
+If AOF is activated, these additional fields will be added:
+
+*   `aof_current_size`: AOF current file size
+*   `aof_base_size`: AOF file size on latest startup or rewrite
+*   `aof_pending_rewrite`: Flag indicating an AOF rewrite operation
+     will be scheduled once the on-going RDB save is complete.
+*   `aof_buffer_length`: Size of the AOF buffer
+*   `aof_rewrite_buffer_length`: Size of the AOF rewrite buffer
+*   `aof_pending_bio_fsync`: Number of fsync pending jobs in background I/O queue
+*   `aof_delayed_fsync`: Delayed fsync counter
+
+If a load operation is on-going, these additional fields will be added:
+
+*   `loading_start_time`: Epoch-based timestamp of the start of the load operation
+*   `loading_total_bytes`: Total file size
+*   `loading_loaded_bytes`: Number of bytes already loaded
+*   `loading_loaded_perc`: Same value expressed as a percentage
+*   `loading_eta_seconds`: ETA in seconds for the load to be complete
 
 Here is the meaning of all fields in the **stats** section:
 
-*   `total_connections_received:1
-*   `total_commands_processed:0
-*   `instantaneous_ops_per_sec:0
-*   `rejected_connections:0
-*   `expired_keys:0
-*   `evicted_keys:0
-*   `keyspace_hits:0
-*   `keyspace_misses:0
-*   `pubsub_channels:0
-*   `pubsub_patterns:0
-*   `latest_fork_usec:0
+*   `total_connections_received`: Total number of connections accepted by the server
+*   `total_commands_processed`: Total number of commands processed by the server
+*   `instantaneous_ops_per_sec`: Number of commands processed per second
+*   `rejected_connections`: Number of connections rejected because of maxclients limit
+*   `expired_keys`: Total number of key expiration events
+*   `evicted_keys`: Number of evicted keys due to maxmemory limit
+*   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
+*   `keyspace_misses`: Number of failed lookup of keys in the main dictionary
+*   `pubsub_channels`: Global number of pub/sub channels with client subscriptions
+*   `pubsub_patterns`: Global number of pub/sub pattern with client subscriptions
+*   `latest_fork_usec`: Duration of the latest fork operation in microseconds
 
 Here is the meaning of all fields in the **replication** section:
 
 *   `role:master
-*   `connected_slaves:0
+*   `connected_slaves:
 
 Here is the meaning of all fields in the **cpu** section:
 
-*   `used_cpu_sys:0.06
-*   `used_cpu_user:0.08
-*   `used_cpu_sys_children:0.00
-*   `used_cpu_user_children:0.00
+*   `used_cpu_sys`:
+*   `used_cpu_user`:
+*   `used_cpu_sys_children`:
+*   `used_cpu_user_children`:
 
 Here is the meaning of all fields in the **commandstats** section:
 
 
 Here is the meaning of all fields in the **cluster** section:
 
-*   `cluster_enabled:0
+*   `cluster_enabled`:
 
 Here is the meaning of all fields in the **keyspace** section:
 
 db0:keys=3,expires=0
 
-
-
-*   `changes_since_last_save` refers to the number of operations that produced
-    some kind of change in the dataset since the last time either `SAVE` or
-    `BGSAVE` was called.
 
 *   `allocation_stats` holds a histogram containing the number of allocations of
     a certain size (up to 256).
