@@ -62,11 +62,11 @@ you'll probably notice there is something wrong.
 The INFO command will report the amount of memory Redis is using so you can
 write scripts that monitor your Redis servers checking for critical conditions.
 
-You can also use the "maxmemory" option in the config file to put a limit to
-the memory Redis can use. If this limit is reached Redis will start to reply
+Alternatively can use the "maxmemory" option in the config file to put a limit
+to the memory Redis can use. If this limit is reached Redis will start to reply
 with an error to write commands (but will continue to accept read-only
 commands), or you can configure it to evict keys when the max memory limit
-is reached.
+is reached in the case you are using Redis for caching.
 
 ## Background saving is failing with a fork() error under Linux even if I've a lot of free RAM!
 
@@ -97,7 +97,7 @@ from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
 
 [redhatvm]: http://www.redhat.com/magazine/001nov04/features/vm/
 
-## Are Redis on disk snapshots atomic?
+## Are Redis on-disk-snapshots atomic?
 
 Yes, redis background saving process is always fork(2)ed when the server is
 outside of the execution of a command, so every command reported to be atomic
@@ -105,25 +105,27 @@ in RAM is also atomic from the point of view of the disk snapshot.
 
 ## Redis is single threaded, how can I exploit multiple CPU / cores?
 
-Simply start multiple instances of Redis in the same box and
-treat them as different servers. At some point a single box may not be
-enough anyway, so if you want to use multiple CPUs you can start thinking
-at some way to shard earlier. However note that using pipelining Redis running
+It's very unlikely that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound. For instance using pipelining Redis running
 on an average Linux system can deliver even 500k requests per second, so
 if your application mainly uses O(N) or O(log(N)) commands it is hardly
 going to use too much CPU.
+
+However to maximize CPU usage you can start multiple instances of Redis in
+the same box and treat them as different servers. At some point a single
+box may not be enough anyway, so if you want to use multiple CPUs you can
+start thinking at some way to shard earlier.
 
 In Redis there are client libraries such Redis-rb (the Ruby client) and
 Predis (one of the most used PHP clients) that are able to handle multiple
 servers automatically using _consistent hashing_.
 
-## What is the maximum number of keys a single Redis instance can hold? and what the max number of elements in a List, Set, Ordered Set?
+## What is the maximum number of keys a single Redis instance can hold? and what the max number of elements in a List, Set, Sorted Set?
 
 In theory Redis can handle up to 2^32 keys, and was tested in practice to
 handle at least 250 million of keys per instance. We are working in order to
 experiment with larger values.
 
-Every list, set, and ordered set, can hold 2^32 elements.
+Every list, set, and sorted set, can hold 2^32 elements.
 
 In other words your limit is likely the available memory in your system.
 
