@@ -361,7 +361,7 @@ RandomPushScript = <<EOF
 EOF
 
 r.del(:mylist)
-puts r.eval(RandomPushScript,1,:mylist,10)
+puts r.eval(RandomPushScript,[:mylist],[10,rand(2**32)])
 ```
 
 Every time this script executed the resulting list will have exactly the
