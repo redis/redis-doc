@@ -327,7 +327,7 @@ and **so**, that counts the amount of memory swapped from/to the swap file. If
 you see non zero counts in those two columns then there is swapping activity
 in your system.
 
-Finally, the **iostat** command be be used to check the global I/O activity of
+Finally, the **iostat** command can be used to check the global I/O activity of
 the system.
 
     $ iostat -xk 1
