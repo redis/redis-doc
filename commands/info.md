@@ -153,8 +153,7 @@ Here is the meaning of all fields in the **stats** section:
 
 Here is the meaning of all fields in the **replication** section:
 
-*   `role`: The role is slave if the instance is slave to another instance.
-    Otherwise it is master.
+*   `role`: Value is "master" if the instance is slave of no one, or "slave" if the instance is enslaved to a master.
     Note that a slave can be master of another slave (daisy chaining).
 
 If the instance is a slave, these additional fields are provided:
@@ -170,7 +169,7 @@ If a SYNC operation is on-going, these additional fields are provided:
 *   `master_sync_left_bytes`: Number of bytes left before SYNCing is complete
 *   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O during a SYNC operation
 
-IF the link between master and slave is down, an additional field is provided:
+If the link between master and slave is down, an additional field is provided:
 
 *   `master_link_down_since_seconds`: Number of seconds since the link is down
 
