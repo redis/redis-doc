@@ -534,7 +534,7 @@ At this point you should see something like the following in every Sentinel you 
     [4747] 23 Jul 14:49:19.645 * +sentinel sentinel 127.0.0.1:26379 127.0.0.1 26379 @ mymaster 127.0.0.1 6379
     [4747] 23 Jul 14:49:21.659 * +sentinel sentinel 127.0.0.1:26381 127.0.0.1 26381 @ mymaster 127.0.0.1 6379
 
-    redis-cli -p 26379 sentinel masters                                        
+    redis-cli -p 26379 sentinel masters
     1)  1) "name"
         2) "mymaster"
         3) "ip"
