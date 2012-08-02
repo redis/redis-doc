@@ -526,7 +526,7 @@ To create the three configurations just create three files where you put somethi
     sentinel can-failover mymaster yes
     sentinel parallel-syncs mymaster 1
 
-Note: where you see `port 26379`, use 26380 for the second Sentinel, and 26381 for the third Sentinel (any other differnet non colliding port will do of course). Also note that the `down-after-milliseconds` configuration option is set to just five seconds, that is a good value to play with Sentinel, but not good for production environments.
+Note: where you see `port 26379`, use 26380 for the second Sentinel, and 26381 for the third Sentinel (any other different non colliding port will do of course). Also note that the `down-after-milliseconds` configuration option is set to just five seconds, that is a good value to play with Sentinel, but not good for production environments.
 
 At this point you should see something like the following in every Sentinel you are running:
 
@@ -534,7 +534,7 @@ At this point you should see something like the following in every Sentinel you 
     [4747] 23 Jul 14:49:19.645 * +sentinel sentinel 127.0.0.1:26379 127.0.0.1 26379 @ mymaster 127.0.0.1 6379
     [4747] 23 Jul 14:49:21.659 * +sentinel sentinel 127.0.0.1:26381 127.0.0.1 26381 @ mymaster 127.0.0.1 6379
 
-    redis-cli -p 26379 sentinel masters                                        
+    redis-cli -p 26379 sentinel masters
     1)  1) "name"
         2) "mymaster"
         3) "ip"
@@ -560,6 +560,6 @@ At this point you should see something like the following in every Sentinel you 
        23) "quorum"
        24) "2"
 
-To see how the failover works, just put down your slave (for instance sending `DEUBG SEGFAULT` to crash it) and see what happens.
+To see how the failover works, just put down your slave (for instance sending `DEBUG SEGFAULT` to crash it) and see what happens.
 
 This HOWTO is a work in progress, more information will be added in the near future.
