@@ -23,31 +23,24 @@ When no parameter is provided, the `default` option is assumed.
 
 @return
 
-@bulk-reply: in the following format (compacted for brevity):
+@bulk-reply: as a collection of text lines.
 
-```
-redis_version:2.2.2
-uptime_in_seconds:148
-used_cpu_sys:0.01
-used_cpu_user:0.03
-used_memory:768384
-used_memory_rss:1536000
-mem_fragmentation_ratio:2.00
-changes_since_last_save:118
-keyspace_hits:174
-keyspace_misses:37
-allocation_stats:4=56,8=312,16=1498,...
-db0:keys=1240,expires=0
-```
+Lines can contain a section name (starting with a # character) or a property.
+All the properties are in the form of `field:value` terminated by `\r\n`.
 
-All the fields are in the form of `field:value` terminated by `\r\n`.
+```cli
+INFO
+```
 
 ## Notes
 
 Please note depending on the version of Redis some of the fields have been
 added or removed. A robust client application should therefore parse the
-result of this command by skipping unknown property, and gracefully handle
+result of this command by skipping unknown properties, and gracefully handle
 missing fields.
+
+Here is the description of fields for Redis >= 2.4.
+
 
 Here is the meaning of all fields in the **server** section:
 
@@ -160,31 +153,59 @@ Here is the meaning of all fields in the **stats** section:
 
 Here is the meaning of all fields in the **replication** section:
 
-*   `role:master
-*   `connected_slaves:
+*   `role`: The role is slave if the instance is slave to another instance.
+    Otherwise it is master.
+    Note that a slave can be master of another slave (daisy chaining).
+
+If the instance is a slave, these additional fields are provided:
+
+*   `master_host`: Host or IP address of the master
+*   `master_port`: Master listening TCP port
+*   `master_link_status`: Status of the link (up/down)
+*   `master_last_io_seconds_ago`: Number of seconds since the last interaction with master
+*   `master_sync_in_progress`: Indicate the master is SYNCing to the slave
+
+If a SYNC operation is on-going, these additional fields are provided:
+
+*   `master_sync_left_bytes`: Number of bytes left before SYNCing is complete
+*   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O during a SYNC operation
+
+IF the link between master and slave is down, an additional field is provided:
+
+*   `master_link_down_since_seconds`: Number of seconds since the link is down
+
+The following field is always provided:
+
+*   `connected_slaves`: Number of connected slaves
+
+For each slave, the following line is added:
+
+*   `slaveXXX`: id, ip address, port, state
 
 Here is the meaning of all fields in the **cpu** section:
 
-*   `used_cpu_sys`:
-*   `used_cpu_user`:
-*   `used_cpu_sys_children`:
-*   `used_cpu_user_children`:
+*   `used_cpu_sys`: System CPU consumed by the Redis server
+*   `used_cpu_user`:User CPU consumed by the Redis server
+*   `used_cpu_sys_children`: System CPU consumed by the background processes
+*   `used_cpu_user_children`: User CPU consumed by the background processes
 
-Here is the meaning of all fields in the **commandstats** section:
+The **commandstats** section provides statistics based on the command type,
+including the number of calls, the total CPU time consumed by these commands,
+and the average CPU consumed per command execution.
 
+For each command type, the following line is added:
 
-Here is the meaning of all fields in the **cluster** section:
+*   `cmdstat_XXX`:calls=XXX,usec=XXX,usec_per_call=XXX
 
-*   `cluster_enabled`:
+The **cluster** section currently only contains a unique field:
 
-Here is the meaning of all fields in the **keyspace** section:
+*   `cluster_enabled`: Indicate Redis cluster is enabled
 
-db0:keys=3,expires=0
+The **keyspace** section provides statistics on the main dictionary of each database.
+The statistics are the number of keys, and the number of keys with an expiration.
 
+For each database, the following line is added:
 
-*   `allocation_stats` holds a histogram containing the number of allocations of
-    a certain size (up to 256).
-    This provides a means of introspection for the type of allocations performed
-    by Redis at run time.
+*   `dbXXX`:keys=XXX,expires=XXX
 
 [hcgcpgp]: http://code.google.com/p/google-perftools/
