@@ -46,7 +46,7 @@ with the following command line:
 Otherwise you can use directly the `redis-server` executable starting it in
 Sentinel mode:
 
-    redis-server /path/to/sentine.conf --sentinel
+    redis-server /path/to/sentinel.conf --sentinel
 
 Both ways work the same.
 
