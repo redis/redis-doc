@@ -149,7 +149,7 @@ sections.
 
 **Sentinel Rule #2**: An instance is Subjectively Down (**SDOWN**) if the latest valid reply to **PING** was received more than `down-after-milliseconds` milliseconds ago. Acceptable PING replies are: +PONG, -LOADING, -MASTERDOWN.
 
-**Sentinel Rule #3**: Every Sentinel is able to reply to the command **SENTINEL is-master-down-by-addr `<ip> <port>`**. This command replies true if the specified address is the one of a master instance, and the master is not in **SDOWN** state.
+**Sentinel Rule #3**: Every Sentinel is able to reply to the command **SENTINEL is-master-down-by-addr `<ip> <port>`**. This command replies true if the specified address is the one of a master instance, and the master is in **SDOWN** state.
 
 **Sentinel Rule #4**: If a master is in **SDOWN** condition, every other Sentinel also monitoring this master, is queried for confirmation of this state, every second, using the **SENTINEL is-master-down-by-addr** command.
 
