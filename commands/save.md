@@ -2,7 +2,7 @@ The `SAVE` commands performs a **synchronous** save of the dataset producing a
 _point in time_ snapshot of all the data inside the Redis instance, in the form
 of an RDB file.
 
-You almost never what to call `SAVE` in production environments where it will
+You almost never want to call `SAVE` in production environments where it will
 block all the other clients.
 Instead usually `BGSAVE` is used.
 However in case of issues preventing Redis to create the background saving child
