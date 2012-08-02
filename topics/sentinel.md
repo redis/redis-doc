@@ -526,7 +526,7 @@ To create the three configurations just create three files where you put somethi
     sentinel can-failover mymaster yes
     sentinel parallel-syncs mymaster 1
 
-Note: where you see `port 26379`, use 26380 for the second Sentinel, and 26381 for the third Sentinel (any other differnet non colliding port will do of course). Also note that the `down-after-milliseconds` configuration option is set to just five seconds, that is a good value to play with Sentinel, but not good for production environments.
+Note: where you see `port 26379`, use 26380 for the second Sentinel, and 26381 for the third Sentinel (any other different non colliding port will do of course). Also note that the `down-after-milliseconds` configuration option is set to just five seconds, that is a good value to play with Sentinel, but not good for production environments.
 
 At this point you should see something like the following in every Sentinel you are running:
 
@@ -560,6 +560,6 @@ At this point you should see something like the following in every Sentinel you 
        23) "quorum"
        24) "2"
 
-To see how the failover works, just put down your slave (for instance sending `DEUBG SEGFAULT` to crash it) and see what happens.
+To see how the failover works, just put down your slave (for instance sending `DEBUG SEGFAULT` to crash it) and see what happens.
 
 This HOWTO is a work in progress, more information will be added in the near future.
