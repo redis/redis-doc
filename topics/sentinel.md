@@ -19,8 +19,8 @@ can be also invoked using the `--sentinel` option of the normal `redis-sever`
 executable.
 
 **WARNING:** Redis Sentinel is currently a work in progress. This document
-describes how to use what we already have and may change as the Sentinel
-implementation changes.
+describes how to use what we is already implemented, and may change as the
+Sentinel implementation evolves.
 
 Redis Sentinel is compatible with Redis 2.4.16 or greater, and redis 2.6.0-rc6 or greater.
 
@@ -53,8 +53,8 @@ Both ways work the same.
 Configuring Sentinel
 ---
 
-In the root of the Redis source distribution you will find a `sentinel.conf`
-file that is a self-documented example configuration file you can use to
+The Redis source distribution contains a file called `sentinel.conf`
+that is a self-documented example configuration file you can use to
 configure Sentinel, however a typical minimal configuration file looks like the
 following:
 
@@ -138,6 +138,27 @@ The ODOWN condition **only applies to masters**. For other kind of instances
 Sentinel don't require any agreement, so the ODOWN state is never reached
 for slaves and other sentinels.
 
+The behavior of Redis Sentinel can be described by a set of rules that every
+Sentinel follows. The complete behavior of Sentinel as a distributed system
+composed of multiple Sentinels only results from this rules followed by
+every single Sentinel instance. The following is the first set of rules.
+In the course of this document more rules will be added in the appropriate
+sections.
+
+**Sentinel Rule #1**: Every Sentinel sends a **PING** request to every known master, slave, and sentinel instance, every second.
+
+**Sentinel Rule #2**: An instance is Subjectively Down (**SDOWN**) if the latest valid reply to **PING** was received more than `down-after-milliseconds` milliseconds ago. Acceptable PING replies are: +PONG, -LOADING, -MASTERDOWN.
+
+**Sentinel Rule #3**: Every Sentinel is able to reply to the command **SENTINEL is-master-down-by-addr `<ip> <port>`**. This command replies true if the specified address is the one of a master instance, and the master is not in **SDOWN** state.
+
+**Sentinel Rule #4**: If a master is in **SDOWN** condition, every other Sentinel also monitoring this master, is queried for confirmation of this state, every second, using the **SENTINEL is-master-down-by-addr** command.
+
+**Sentinel Rule #5**: If a master is in **SDOWN** condition, and enough other Sentinels (to reach the configured quorum) agree about the condition, with a reply to **SENTINEL is-master-down-by-addr** that is no older than five seconds, then the master is marked as Objectively Down (**ODOWN**).
+
+**Sentinel Rule #6**: Every Sentinel sends an **INFO** request to every known master and slave instance, one time every 10 seconds. If a master is in **ODOWN** condition, its slaves are asked for **INFO** every second instead of being asked every 10 seconds.
+
+**Sentinel Rule #7**: If the **first** INFO reply a Sentinel receives about a master shows that it is actually a slave, Sentinel will update the configuration to actually monitor the master reported by the INFO output instead. So it is safe to start Sentinel against slaves.
+
 Sentinels and Slaves auto discovery
 ---
 
@@ -152,6 +173,12 @@ This is obtained by sending *Hello Messages* into the channel named
 
 Similarly you don't need to configure what is the list of the slaves attached
 to a master, as Sentinel will auto discover this list querying Redis.
+
+**Sentinel Rule #8**: Every Sentinel publishes a message to every monitored master Pub/Sub channel `__sentinel__:hello`, every five seconds, announcing its presence with ip, port, runid, and ability to failover (accordingly to `can-failover` configuration directive in `sentinel.conf`).
+
+**Sentinel Rule #9**: Every Sentinel is subscribed to the Pub/Sub channel `__sentinel__:hello` of every master, looking for unknown sentinels. When new sentinels are detected, we add them as sentinels of this master.
+
+**Sentinel Rule #10**: Before adding a new sentinel to a master a Sentinel always checks if there is already a sentinel with the same runid or the same address (ip and port pair). In that case all the matching sentinels are removed, and the new added.
 
 Sentinel API
 ===
@@ -234,11 +261,6 @@ and is only specified if the instance is not a master itself.
 * **+tilt** -- Tilt mode entered.
 * **-tilt** -- Tilt mode exited.
 
-The Redis CLIENT SENTINELS command
----
-
-* Work in progress, not yet implemented in Redis instances.
-
 Sentinel failover
 ===
 
@@ -269,6 +291,33 @@ For a Sentinel to sense to be the **Objective Leader**, that is, the Sentinel th
 
 Once a Sentinel things it is the Leader, the failover starts, but there is always a delay of five seconds plus an additional random delay. This is an additional layer of protection because if during this period we see another instance turning a slave into a master, we detect it as another instance staring the failover and turn ourselves into an observer instead.
 
+**Sentinel Rule #11**: A **Good Slave** is a slave with the following requirements:
+* It is not in SDOWN nor in ODOWN condition.
+* We have a valid connection to it currently (not in DISCONNECTED state).
+* Latest PING reply we received from it is not older than five seconds.
+* Latest INFO reply we received from it is not older than five seconds.
+* The latest INFO reply reported that the link with the master is down for no more than the time elapsed since we saw the master entering SDOWN state, plus ten times the configured `down_after_milliseconds` parameter. So for instance if a Sentinel is configured to sense the SDOWN condition after 10 seconds, and the master is down since 50 seconds, we accept a slave as a Good Slave only if the replication link was disconnected less than `50+(10*10)` seconds (two minutes and half more or less).
+
+**Sentinel Rule #12**: A **Subjective Leader** from the point of view of a Sentinel, is the Sentinel (including itself) with the lower runid monitoring a given master, that also replied to PING less than 5 seconds ago, reported to be able to do the failover via Pub/Sub hello channel, and is not in DISCONNECTED state.
+
+**Sentinel Rule #12**: If a master is down we ask `SENTINEL is-master-down-by-addr` to every other connected Sentinel as explained in Sentinel Rule #4. This command will also reply with the runid of the **Subjective Leader** from the point of view of the asked Sentinel. A given Sentinel believes to be the **Objective Leader** of a master if it is reported to be the subjective leader by N Sentinels (including itself), where:
+* N must be equal or greater to the configured quorum for this master.
+* N mast be equal or greater to the majority of the voters (`num_votres/2+1`), considering only the Sentinels that also reported the master to be down.
+
+**Sentinel Rule #13**: A Sentinel starts the failover as a **Leader** (that is, the Sentinel actually sending the commands to reconfigure the Redis servers) if the following conditions are true at the same time:
+* The master is in ODOWN condition.
+* The Sentinel is configured to perform the failover with `can-failover` set to yes.
+* There is at least a Good Slave from the point of view of the Sentinel.
+* The Sentinel believes to be the Objective Leader.
+* There is no failover in progress already detected for this master.
+
+**Sentinel Rule #14**: A Sentinel detects a failover as an **Observer** (that is, the Sentinel just follows the failover generating the appropriate events in the log file and Pub/Sub interface, but without actively reconfiguring instances) if the following conditions are true at the same time:
+* There is no failover already in progress.
+* A slave instance of the monitored master turned into a master.
+However the failover **will NOT be sensed as started if the slave instance turns into a master and at the same time the runid has changed** from the previous one. This means the instance turned into a master because of a restart, and is not a valid condition to consider it a slave election.
+
+**Sentinel Rule #15**: A Sentinel starting a failover as leader does not immediately starts it. It enters a state called **wait-start**, that lasts a random amount of time between 5 seconds and 15 seconds. During this time **Sentinel Rule #14** still applies: if a valid slave promotion is detected the failover as leader is aborted and the failover as observer is detected.
+
 End of failover
 ---
 
@@ -295,6 +344,11 @@ Note that when a leader terminates a failover for timeout, it sends a
 configured, in the hope that they'll receive the command and replicate
 with the new master eventually.
 
+**Sentinel Rule #16** A failover is considered complete if for a leader or observer if:
+* One slave was promoted to master (and the Sentinel can detect that this actually happened via INFO output), and all the additional slaves are all configured to replicate with the new slave (again, the sentinel needs to sense it using the INFO output).
+* There is already a correctly promoted slave, but the configured `failover-timeout` time has already elapsed without any progress in the reconfiguration of the additional slaves. In this case a leader sends a best effort `SLAVEOF` command is sent to all the not yet configured slaves.
+In both the two above conditions the promoted slave **must be reachable** (not in SDOWN state), otherwise a failover is never considered to be complete.
+
 Leader failing during failover
 ---
 
@@ -316,6 +370,13 @@ with duplicated SLAVEOF commands do not create any race condition, but at the
 same time we want to be sure that all the slaves are reconfigured in the
 case the original leader is no longer working.
 
+**Sentinel Rule #17** A Sentinel that is an observer for a failover in progress
+will turn itself into a failover leader, continuing the configuration of the
+additional slaves, if all the following conditions are true:
+* A failover is in progress, and this Sentinel is an observer.
+* It detects to be an objective leader (so likely the previous leader is no longer reachable by other sentinels).
+* At least 25% of the configured `failover-timeout` has elapsed without any progress in the observed failover process.
+
 Promoted slave failing during failover
 ---
 
@@ -333,6 +394,10 @@ configured to replicate from the (now failing) promoted slave, so when the
 leader sentinel aborts a failover it sends a `SLAVEOF` command to all the
 slaves already reconfigured or in the process of being reconfigured to switch
 the configuration back to the original master.
+
+**Sentinel Rule #18** A Sentinel will consider the failover process aborted, both when acting as leader and when acting as an observer, in the following conditions are true:
+* A failover is in progress and a slave to promote was already selected (or in the case of the observer was already detected as master).
+* The promoted slave is in **Extended SDOWN** condition (continually in SDOWN condition for at least ten times the configured `down-after-milliseconds`).
 
 Manual interactions
 ---
@@ -439,6 +504,8 @@ smaller Run ID is selected.
 Note: because currently slave priority is not implemented, the selection is
 performed only discarding unreachable slaves and picking the one with the
 lower Run ID.
+
+**Sentinel Rule #19**: A Sentinel performing the failover as leader will select the slave to promote, among the existing **Good Slaves** (See rule #11), taking the one with the lower slave priority. When priority is the same the slave with lexicographically lower runid is preferred.
 
 APPENDIX B - Get started with Sentinel in five minutes
 ===
