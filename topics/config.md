@@ -23,11 +23,11 @@ quotes, as in the following example:
     requirepass "hello world"
 
 The list of configuration directives, and their meaning and intended usage
-is available in the self-commented example redis.conf shipped into the
+is available in the self documented example redis.conf shipped into the
 Redis distribution.
 
-* The self commented [redis.conf for Redis 2.6](https://raw.github.com/antirez/redis/2.6/redis.conf).
-* The self commented [redis.conf for Redis 2.4](https://raw.github.com/antirez/redis/2.4/redis.conf).
+* The self documented [redis.conf for Redis 2.6](https://raw.github.com/antirez/redis/2.6/redis.conf).
+* The self documented [redis.conf for Redis 2.4](https://raw.github.com/antirez/redis/2.4/redis.conf).
 
 Passing arguments via command line
 ---
