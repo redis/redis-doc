@@ -52,10 +52,12 @@ Changing Redis configuration while the server is running
 
 It is possible to reconfigure Redis on the fly without stopping and restarting
 the service, or querying the current configuration programmatically using the
-special commands `CONFIG SET` and `CONFIG GET`.
+special commands [CONFIG SET](/commands/config-set) and
+[CONFIG GET](/commands/config-get)
 
 Not all the configuration directives are supported in this way, but most
-are supported as expected. Please refer to the `CONFIG SET` and `CONFIG GET`
+are supported as expected. Please refer to the
+[CONFIG SET](/commands/config-set) and [CONFIG GET](/commands/config-get)
 pages for more information.
 
 Note that modifying the configuration on the fly **has no effects on the
@@ -63,7 +65,8 @@ redis.conf file** so at the next restart of Redis the old configuration will
 be used instead.
 
 Make sure to also modify the `redis.conf` file accordingly to the configuration
-you set using `CONFIG SET`. There are plans to provide a `CONFIG REWRITE`
+you set using [CONFIG SET](/commands/config-set).
+There are plans to provide a `CONFIG REWRITE`
 command that will be able to run the `redis.conf` file rewriting the
 configuration accordingly to the current server configuration, without modifying
 the comments and the structure of the current file.
