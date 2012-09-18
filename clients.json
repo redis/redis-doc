@@ -47,7 +47,8 @@
     "language": "Erlang",
     "repository": "https://github.com/wooga/eredis",
     "description": "Redis client with a focus on performance",
-    "authors": ["wooga"]
+    "authors": ["wooga"],
+    "recommended": true
   },
 
   {
