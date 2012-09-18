@@ -1,0 +1,262 @@
+[
+  {
+    "name": "Resque",
+    "language": "Ruby",
+    "repository": "https://github.com/defunkt/resque",
+    "description": "Resque is a Redis-backed Ruby library for creating background jobs, placing them on multiple queues, and processing them later.",
+    "authors": ["defunkt"]
+  },
+  {
+    "name": "Rq",
+    "language": "Python",
+    "repository": "https://github.com/nvie/rq",
+    "description": "Minimalistic Python task queue. Supports only Redis.",
+    "authors": ["nvie"]
+  },
+  {
+    "name": "Celery",
+    "language": "Python",
+    "repository": "https://github.com/ask/celery",
+    "description": "Python task queue. Supports multiple backends.",
+    "authors": ["asksolem"]
+  },
+  {
+    "name": "Fnordmetric",
+    "language": "Ruby",
+    "repository": "https://github.com/paulasmuth/fnordmetric",
+    "description": "Redis/ruby-based realtime Event-Tracking app.",
+    "authors": ["paulasmuth"]
+  },
+  {
+    "name": "Ohm",
+    "language": "Ruby",
+    "repository": "https://github.com/soveran/ohm",
+    "description": "Object-hash mapping library for Redis.",
+    "authors": ["soveran"]
+  },
+  {
+    "name": "Kombu",
+    "language": "Python",
+    "repository": "https://github.com/ask/kombu",
+    "description": "Python AMQP Framework with redis suppport",
+    "authors": []
+  },
+  {
+    "name": "Sider",
+    "language": "Python",
+    "repository": "https://bitbucket.org/dahlia/sider",
+    "description": "Python persistent object library based on Redis.",
+    "authors": ["hongminhee"]
+  },
+  {
+    "name": "Redis-objects",
+    "language": "Ruby",
+    "repository": "https://github.com/nateware/redis-objects",
+    "description": "Map Redis types directly to Ruby objects.",
+    "authors": ["nateware"]
+  },
+  {
+    "name": "Redisco",
+    "language": "Python",
+    "repository": "https://github.com/iamteem/redisco",
+    "description": "Loose implementation of Ohm in Python (see above for Ohm project) - Warning: Not actively maintained at the moment.",
+    "authors": ["iamteem"]
+  },
+  {
+    "name": "Redis-rdb-tools",
+    "language": "Python",
+    "repository": "https://github.com/sripathikrishnan/redis-rdb-tools",
+    "description": "Parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON.",
+    "authors": ["srithedabbler"]
+  },
+  {
+    "name": "Rdb-parser",
+    "language": "Javascript",
+    "repository": "https://github.com/pconstr/rdb-parser",
+    "description": "node.js asynchronous streaming parser for redis RDB database dumps.",
+    "authors": ["pconstr"]
+  },
+  {
+    "name": "Redis-sync",
+    "language": "Javascript",
+    "repository": "https://github.com/pconstr/redis-sync",
+    "description": "A node.js redis replication slave toolkit",
+    "authors": ["pconstr"]
+  },
+  {
+    "name": "Ost",
+    "language": "Ruby",
+    "repository": "https://github.com/soveran/ost",
+    "description": "Redis based queues and workers.",
+    "authors": ["soveran"]
+  },
+  {
+    "name": "Meerkat",
+    "language": "Ruby",
+    "repository": "http://carlhoerberg.github.com/meerkat/",
+    "description": "Rack middleware for Server Sent Events with multiple backends.",
+    "authors": ["carlhoerberg"]
+  },
+  {
+    "name": "Redis-sampler",
+    "language": "Ruby",
+    "repository": "https://github.com/antirez/redis-sampler",
+    "description": "Sample a Redis DB to understand dataset composition.",
+    "authors": ["antirez"]
+  },
+  {
+    "name": "Recommendify",
+    "language": "Ruby",
+    "repository": "https://github.com/paulasmuth/recommendify",
+    "description": "Ruby/Redis based recommendation engine (collaborative filtering).",
+    "authors": ["paulasmuth"]
+  },
+  {
+    "name": "Redis-store",
+    "language": "Ruby",
+    "repository": "https://github.com/jodosha/redis-store",
+    "description": "Namespaced Rack::Session, Rack::Cache, I18n and cache Redis stores for Ruby web frameworks.",
+    "authors": ["jodosha"]
+  },
+  {
+    "name": "Redmon",
+    "language": "Ruby",
+    "repository": "https://github.com/steelThread/redmon",
+    "description": "A web interface for managing redis: cli, admin, and live monitoring.",
+    "authors": ["steel_thread"]
+  },
+  {
+    "name": "Rollout",
+    "language": "Ruby",
+    "repository": "https://github.com/jamesgolick/rollout",
+    "description": "Conditionally roll out features with redis.",
+    "authors": ["jamesgolick"]
+  },
+  {
+    "name": "Webdis",
+    "language": "C",
+    "url": "http://webd.is/",
+    "repository": "https://github.com/nicolasff/webdis",
+    "description": "A Redis HTTP interface with JSON output.",
+    "authors": ["yowgi"]
+  },
+  {
+    "name": "Soulmate",
+    "language": "Ruby",
+    "repository": "https://github.com/seatgeek/soulmate",
+    "description": "Redis-backed service for fast autocompleting.",
+    "authors": ["seatgeek"]
+  },
+  {
+    "name": "Redis_failover",
+    "language": "Ruby",
+    "repository": "https://github.com/ryanlecompte/redis_failover",
+    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
+    "authors": ["ryanlecompte"]
+  },
+  {
+    "name": "Redis-dump",
+    "language": "Ruby",
+    "repository": "https://github.com/delano/redis-dump",
+    "description": "Backup and restore your Redis data to and from JSON. Warning: alpha code.",
+    "authors": ["solutious"]
+  },
+  {
+    "name": "Sidekiq",
+    "language": "Ruby",
+    "repository": "http://mperham.github.com/sidekiq/",
+    "description": "Simple, efficient message processing for your Rails 3 application.",
+    "authors": ["mperham"]
+  },
+  {
+    "name": "Omhiredis",
+    "language": "C",
+    "repository": "http://www.rsyslog.com/doc/build_from_repo.html",
+    "description": "redis output plugin for rsyslog (rsyslog dev, and rsyslog head).",
+    "authors": ["taotetek"]
+  },
+  {
+    "name": "Mod_redis",
+    "language": "C",
+    "repository": "https://github.com/sneakybeaky/mod_redis",
+    "description": "An Apache HTTPD module for speaking to redis via HTTP",
+    "authors": []
+  },
+  {
+    "name": "leaderboard",
+    "language": "Ruby",
+    "repository": "https://github.com/agoragames/leaderboard",
+    "description": "Leaderboards backed by Redis.",
+    "authors": ["czarneckid"]
+  },
+  {
+    "name": "Redis-rdb",
+    "language": "Ruby",
+    "repository": "https://github.com/nrk/redis-rdb",
+    "description": "A set of utilities to handle Redis .rdb files with Ruby.",
+    "authors": ["JoL1hAHN"]
+  },
+  {
+    "name": "Lua-ohm",
+    "language": "Lua",
+    "repository": "https://github.com/slact/lua-ohm",
+    "description": "Lua Redis Object-hash-mapping and more",
+    "authors": []
+  },
+  {
+    "name": "PHP-Resque",
+    "language": "PHP",
+    "repository": "https://github.com/chrisboulton/php-resque",
+    "description": "Port of Resque to PHP.",
+    "authors": ["surfichris"]
+  },
+  {
+    "name": "phpRedisAdmin",
+    "language": "PHP",
+    "repository": "https://github.com/ErikDubbelboer/phpRedisAdmin",
+    "description": "phpRedisAdmin is a simple web interface to manage Redis databases.",
+    "authors": []
+  },
+  {
+    "name": "HighcoTimelineBundle",
+    "language": "PHP",
+    "repository": "https://github.com/stephpy/TimelineBundle",
+    "description": "TimelineBundle is a Bundle which works with Symfony 2.* which provides a timeline for a subject as Facebook can do.",
+    "authors": ["stephpy"]
+  },
+  {
+    "name": "Stdnet",
+    "language": "Python",
+    "repository": "https://github.com/lsbardel/python-stdnet",
+    "description": "Redis data manager with advanced query and search API.",
+    "authors": ["lsbardel"]
+  },
+  {
+    "name": "Retools",
+    "language": "Python",
+    "repository": "https://github.com/bbangert/retools",
+    "description": "Caching and locking helper library.",
+    "authors": ["benbangert"]
+  },
+  {
+    "name": "Redback",
+    "language": "Javascript",
+    "repository": "http://github.com/chriso/redback",
+    "description": "Higher-level Redis constructs - social graph, full text search, rate limiting, key pairs.",
+    "authors": ["chris6F"]
+  },
+  {
+    "name": "Recurrent",
+    "language": "Javascript",
+    "repository": "https://github.com/pconstr/recurrent",
+    "description": "A redis-backed manager of recurrent jobs, for node.js",
+    "authors": ["pconstr"]
+  },
+  {
+    "name": "Amico",
+    "language": "Ruby",
+    "repository": "https://github.com/agoragames/amico",
+    "description": "Relationships (e.g. friendships) backed by Redis.",
+    "authors": ["czarneckid"]
+  }
+]
