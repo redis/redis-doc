@@ -475,6 +475,6 @@
     "language": "PHP",
     "repository": "httpshttps://github.com/lessthan/redtrine",
     "description": "Redis-based advanced PHP data structures.",
-    "authors": [ronnylt]
+    "authors": ["ronnylt"]
   }
 ]
