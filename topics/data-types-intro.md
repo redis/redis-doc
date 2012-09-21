@@ -427,13 +427,12 @@ populate a sorted set in order to generate the home page. A sorted set can
 contain all the news that are not older than a few days (we remove old entries
 from time to time using ZREMRANGEBYSCORE). A background job gets all the
 elements from this sorted set, get the user votes and the time of the news, and
-compute the score to populate the *reddit.home.page* sorted set with the news
+computes the score to populate the *reddit.home.page* sorted set with the news
 IDs and associated scores. To show the home page we just have to perform a
 blazingly fast call to ZRANGE.
 
-From time to time we'll remove too old news from the *reddit.home.page* sorted
-set as well in order for our system to work always against a limited set of
-news.
+From time to time we'll remove very old news from the *reddit.home.page* sorted
+set to keep our system working with fresh news only.
 
 Updating the scores of a sorted set
 ---
