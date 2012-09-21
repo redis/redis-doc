@@ -442,7 +442,8 @@ updated at any time. Just calling again ZADD against an element already
 included in the sorted set will update its score (and position) in O(log(N)),
 so sorted sets are suitable even when there are tons of updates.
 
-This tutorial is in no way complete, this is just the basics to get started
-with Redis, read the [command reference](/commands) to discover a lot more.
+This tutorial is in no way complete and has covered just the basics. 
+Read the [command reference](/commands) to discover a lot more.
 
-Thanks for reading. Salvatore.
+Thanks for reading,
+Salvatore.
