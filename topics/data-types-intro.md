@@ -378,9 +378,8 @@ all, it's already all sorted:
 
 Didn't know that Linus was younger than Yukihiro btw ;)
 
-Anyway I want to order these elements the other way around, using
-[ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange) this
-time:
+What if I want to order them the opposite way, youngest to oldest?
+Use [ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange):
 
     $ redis-cli zrevrange hackers 0 -1
     1. Linus Torvalds
@@ -399,8 +398,8 @@ the same time.
 Operating on ranges
 ---
 
-Sorted sets are more powerful than this. They can operate on ranges. For
-instance let's try to get all the individuals that were born up to the 1950. We
+Sorted sets are more powerful than this. They can operate on ranges.
+Let's get all the individuals that were born up to the 1950 inclusive. We
 use the [ZRANGEBYSCORE](/commands/zrangebyscore) command to do it:
 
     $ redis-cli zrangebyscore hackers -inf 1950
@@ -411,7 +410,7 @@ use the [ZRANGEBYSCORE](/commands/zrangebyscore) command to do it:
 We asked Redis to return all the elements with a score between negative
 infinity and 1950 (both extremes are included).
 
-It's also possible to remove ranges of elements. For instance let's remove all
+It's also possible to remove ranges of elements. Let's remove all
 the hackers born between 1940 and 1960 from the sorted set:
 
     $ redis-cli zremrangebyscore hackers 1940 1960
