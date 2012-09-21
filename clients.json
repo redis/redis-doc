@@ -68,6 +68,15 @@
   },
 
   {
+    "name": "Redigo",
+    "language": "Go",
+    "repository": "https://github.com/garyburd/redigo",
+    "description": "Redigo is a Go client for the Redis database with support for Print-alike API, Pipelining (including transactions), Pub/Sub, Connection pooling, scripting.",
+    "authors": ["gburd"],
+    "recommended": true
+  },
+
+  {
     "name": "Tideland RDC",
     "language": "Go",
     "repository": "http://code.google.com/p/tideland-rdc/",
