@@ -17,7 +17,7 @@ supported as values:
   score, but where elements are always taken in order without requiring a
   sorting operation.
 
-It's not always trivial to grasp how this data types work and what to use in
+It's not always trivial to grasp how these data types work and what to use in
 order to solve a given problem from the [command reference](/commands), so this
 document is a crash course to Redis data types and their most used patterns.
 
@@ -59,14 +59,14 @@ Let's play a bit with the string type:
     my binary safe value
 
 As you can see using the [SET command](/commands/set) and the [GET
-command](/commands/get) is trivial to set values to strings and have this
+command](/commands/get) is trivial to set values to strings and have the
 strings returned back.
 
 Values can be strings (including binary data) of every kind, for instance you
 can store a jpeg image inside a key. A value can't be bigger than 512 MB.
 
 Even if strings are the basic values of Redis, there are interesting operations
-you can perform against them. For instance one is atomic increment:
+you can perform against them. For instance, one is atomic increment:
 
     $ redis-cli set counter 100
     OK
