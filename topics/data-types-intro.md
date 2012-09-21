@@ -80,23 +80,23 @@ you can perform against them. For instance, one is atomic increment:
 The [INCR](/commands/incr) command parses the string value as an integer,
 increments it by one, and finally sets the obtained value as the new string
 value. There are other similar commands like [INCRBY](/commands/incrby),
-[DECR](commands/decr) and [DECRBY](/commands/decrby). Actually internally it's
+[DECR](commands/decr) and [DECRBY](/commands/decrby).  Internally it's
 always the same command, acting in a slightly different way.
 
-What means that INCR is atomic? That even multiple clients issuing INCR against
+What does it mean that INCR is atomic? That even multiple clients issuing INCR against
 the same key will never incur into a race condition. For instance it can never
 happen that client 1 read "10", client 2 read "10" at the same time, both
-increment to 11, and set the new value of 11. The final value will always be of
+increment to 11, and set the new value of 11. The final value will always be 
 12 and the read-increment-set operation is performed while all the other
 clients are not executing a command at the same time.
 
 Another interesting operation on string is the [GETSET](/commands/getset)
 command, that does just what its name suggests: Set a key to a new value,
-returning the old value, as result. Why this is useful? Example: you have a
+returning the old value as result. Why this is useful? Example: you have a
 system that increments a Redis key using the [INCR](/commands/incr) command
 every time your web site receives a new visit. You want to collect this
 information one time every hour, without losing a single key. You can GETSET
-the key assigning it the new value of "0" and reading the old value back.
+the key, assigning it the new value of "0" and reading the old value back.
 
 The List type
 ---
@@ -151,7 +151,7 @@ element of the range to return. Both the indexes can be negative to tell Redis
 to start to count from the end, so -1 is the last element, -2 is the
 penultimate element of the list, and so forth.
 
-As you can guess from the example above, lists can be used, for instance, in
+As you can guess from the example above, lists could be used in
 order to implement a chat system. Another use is as queues in order to route
 messages between different processes. But the key point is that *you can use
 Redis lists every time you require to access data in the same order they are
