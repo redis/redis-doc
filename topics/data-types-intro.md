@@ -174,7 +174,7 @@ can be referenced in multiple times: in a list to preserve their chronological
 order, in a Set to remember they are about a specific category, in another list
 but only if this object matches some kind of requisite, and so forth.
 
-Let's return back to the reddit.com example. A more credible pattern for adding
+Let's return back to the reddit.com example. A better pattern for adding
 submitted links (news) to the list is the following:
 
     $ redis-cli incr next.news.id
@@ -230,12 +230,12 @@ Now let's check if a given element exists:
 expressing relations between objects. For instance we can easily use Redis Sets
 in order to implement tags.
 
-A simple way to model this is to have, for every object you want to tag, a Set
-with all the IDs of the tags associated with the object, and for every tag that
-exists, a Set of of all the objects tagged with this tag.
+A simple way to model this is to have a Set for every object containing its associated
+tag IDs, and a Set for every tag containing the object IDs that have that tag. 
 
 For instance if our news ID 1000 is tagged with tag 1,2,5 and 77, we can
-specify the following two Sets:
+specify the following five Sets - one Set for the object's tags, and four Sets
+for the four tags:
 
     $ redis-cli sadd news:1000:tags 1
     (integer) 1
