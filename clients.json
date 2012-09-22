@@ -6,7 +6,8 @@
     "repository": "https://github.com/redis/redis-rb",
     "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
     "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -18,11 +19,13 @@
   },
 
   {
-    "name": "redis-clojure",
+    "name": "carmine",
     "language": "Clojure",
-    "repository": "https://github.com/tavisrudd/redis-clojure",
-    "description": "",
-    "authors": ["tavisrudd"]
+    "repository": "https://github.com/ptaoussanis/carmine",
+    "description": "Simple, high-performance Redis (2.0+) client for Clojure.",
+    "authors": ["ptaoussanis"],
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -31,14 +34,15 @@
     "url": "http://www.cliki.net/cl-redis",
     "repository": "https://github.com/vseloved/cl-redis",
     "description": "",
-    "authors": ["BigThingist"]
+    "authors": ["BigThingist"],
+    "active": true
   },
 
   {
     "name": "Erldis",
     "language": "Erlang",
     "repository": "https://github.com/japerk/erldis",
-    "description": "",
+    "description": "A Redis erlang client library.",
     "authors": ["dialtone_","japerk"]
   },
 
@@ -48,7 +52,8 @@
     "repository": "https://github.com/wooga/eredis",
     "description": "Redis client with a focus on performance",
     "authors": ["wooga"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -56,15 +61,17 @@
     "language": "Fancy",
     "repository": "https://github.com/bakkdoor/redis.fy",
     "description": "A Fancy Redis client library",
-    "authors": ["bakkdoor"]
+    "authors": ["bakkdoor"],
+    "active": true
   },
 
   {
     "name": "Go-Redis",
     "language": "Go",
     "repository": "https://github.com/alphazero/Go-Redis",
-    "description": "",
-    "authors": ["SunOf27"]
+    "description": "Google Go Client and Connectors for Redis.",
+    "authors": ["SunOf27"],
+    "active": true
   },
 
   {
@@ -73,7 +80,8 @@
     "repository": "https://github.com/garyburd/redigo",
     "description": "Redigo is a Go client for the Redis database with support for Print-alike API, Pipelining (including transactions), Pub/Sub, Connection pooling, scripting.",
     "authors": ["gburd"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -81,15 +89,17 @@
     "language": "Go",
     "repository": "http://code.google.com/p/tcgl/",
     "description": "A flexible Go Redis client able to handle all commands",
-    "authors": ["themue"]
+    "authors": ["themue"],
+    "active": true
   },
 
   {
     "name": "godis",
     "language": "Go",
     "repository": "https://github.com/simonz05/godis",
-    "description": "",
-    "authors": ["simonz05"]
+    "description": "A Redis client for Go.",
+    "authors": ["simonz05"],
+    "active": true
   },
 
   {
@@ -98,15 +108,17 @@
     "url": "http://hackage.haskell.org/package/hedis",
     "repository": "https://github.com/informatikr/hedis",
     "description": "Supports the complete command set. Commands are automatically pipelined for high performance.",
-    "authors": []
+    "authors": [],
+    "active": true
   },
 
   {
-    "name": "redis",
+    "name": "redis package",
     "language": "Haskell",
     "url": "http://hackage.haskell.org/package/redis",
-    "description": "",
-    "authors": []
+    "description": "This library is a Haskell driver for Redis. It's tested with current git version and with v2.4.6 of redis server.",
+    "authors": [],
+    "active": true
   },
 
   {
@@ -124,7 +136,8 @@
     "repository": "https://github.com/xetorthio/jedis",
     "description": "",
     "authors": ["xetorthio"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -133,7 +146,8 @@
     "url": "http://code.google.com/p/jredis",
     "repository": "https://github.com/alphazero/jredis",
     "description": "",
-    "authors": ["SunOf27"]
+    "authors": ["SunOf27"],
+    "active": true
   },
 
   {
@@ -159,7 +173,8 @@
     "repository": "https://github.com/nrk/redis-lua",
     "description": "",
     "authors": ["JoL1hAHN"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -167,7 +182,8 @@
     "language": "Lua",
     "repository": "https://github.com/agladysh/lua-hiredis",
     "description": "Lua bindings for the hiredis library",
-    "authors": ["agladysh"]
+    "authors": ["agladysh"],
+    "active": true
   },
 
   {
@@ -177,7 +193,8 @@
     "repository": "https://github.com/melo/perl-redis",
     "description": "Perl binding for Redis database",
     "authors": ["pedromelo"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -185,7 +202,8 @@
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis-hiredis/",
     "description": "Perl binding for the hiredis C client",
-    "authors": ["neophenix"]
+    "authors": ["neophenix"],
+    "active": true
   },
 
   {
@@ -203,7 +221,8 @@
     "url": "http://search.cpan.org/dist/MojoX-Redis",
     "repository": "https://github.com/und3f/mojox-redis",
     "description": "asynchronous Redis client for Mojolicious",
-    "authors": ["und3f"]
+    "authors": ["und3f"],
+    "active": true
   },
 
   {
@@ -220,7 +239,8 @@
     "repository": "https://github.com/nrk/predis",
     "description": "Mature and supported",
     "authors": ["JoL1hAHN"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -229,7 +249,8 @@
     "repository": "https://github.com/nicolasff/phpredis",
     "description": "This is a client written in C as a PHP module.",
     "authors": ["yowgi"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -238,7 +259,8 @@
     "url": "http://rediska.geometria-lab.net",
     "repository": "https://github.com/Shumkov/Rediska",
     "description": "",
-    "authors": ["shumkov"]
+    "authors": ["shumkov"],
+    "active": true
   },
 
   {
@@ -254,7 +276,8 @@
     "language": "PHP",
     "repository": "https://github.com/jdp/redisent",
     "description": "",
-    "authors": ["justinpoliey"]
+    "authors": ["justinpoliey"],
+    "active": true
   },
 
   {
@@ -263,7 +286,8 @@
     "repository": "https://github.com/andymccurdy/redis-py",
     "description": "Mature and supported. Currently the way to go for Python.",
     "authors": ["andymccurdy"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -279,7 +303,8 @@
     "language": "Python",
     "repository": "https://github.com/aallamaa/desir",
     "description": "",
-    "authors": ["aallamaa"]
+    "authors": ["aallamaa"],
+    "active": true
   },
 
   {
@@ -296,7 +321,8 @@
     "repository": "https://github.com/debasishg/scala-redis",
     "description": "Apparently a fork of the original client from @alejandrocrosa",
     "authors": ["debasishg"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -318,7 +344,7 @@
     "name": "Tcl Client",
     "language": "Tcl",
     "repository": "https://github.com/antirez/redis/blob/unstable/tests/support/redis.tcl",
-    "description": "The client used in the Redis test suite.",
+    "description": "The client used in the Redis test suite. Not really full featured nor designed to be used in the real world.",
     "authors": ["antirez"]
   },
 
@@ -328,7 +354,8 @@
     "url": "https://github.com/ServiceStack/ServiceStack.Redis",
     "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
     "authors": ["demisbellot"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -337,7 +364,8 @@
     "url": "http://code.google.com/p/booksleeve/",
     "description": "This client was developed by Stack Exchange for very high performance needs.",
     "authors": ["marcgravell"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -354,7 +382,8 @@
     "url": "https://github.com/mythz/DartRedisClient",
     "description": "A high-performance async/non-blocking Redis client for Dart",
     "authors": ["demisbellot"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -370,7 +399,7 @@
     "name": "em-redis",
     "language": "Ruby",
     "repository": "https://github.com/madsimian/em-redis",
-    "description": "",
+    "description": "An eventmachine-based implementation of the Redis protocol. No longer actively maintained.",
     "authors": ["madsimian"]
   },
 
@@ -380,7 +409,8 @@
     "repository": "https://github.com/antirez/hiredis",
     "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
     "authors": ["antirez","pnoordhuis"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
@@ -388,7 +418,8 @@
     "language": "C",
     "repository": "http://code.google.com/p/credis/source/browse",
     "description": "",
-    "authors": [""]
+    "authors": [""],
+    "active": true
   },
 
   {
@@ -397,7 +428,8 @@
     "repository": "https://github.com/mranney/node_redis",
     "description": "Recommended client for node.",
     "authors": ["mranney"],
-    "recommended": true
+    "recommended": true,
+    "active": true
   },
 
   {
