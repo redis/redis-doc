@@ -168,6 +168,14 @@
   },
 
   {
+    "name": "redis-protocol",
+    "language": "Java",
+    "repository": "https://github.com/spullara/redis-protocol",
+    "description": "Up to 2.6 compatible high-performance Java, Java w/Netty & Scala (finagle) client",
+    "authors": ["spullara"]
+  },
+
+  {
     "name": "redis-lua",
     "language": "Lua",
     "repository": "https://github.com/nrk/redis-lua",
