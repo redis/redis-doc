@@ -1656,12 +1656,17 @@
     "group": "set"
   },
   "SRANDMEMBER": {
-    "summary": "Get a random member from a set",
-    "complexity": "O(1)",
+    "summary": "Get one or multiple random members from a set",
+    "complexity": "Without the count argument O(1), otherwise O(N) where N is the absolute value of the passed count.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
