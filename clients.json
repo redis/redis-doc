@@ -442,6 +442,15 @@
   },
 
   {
+    "name": "node-redjs",
+    "language": "Node.js",
+    "repository": "https://github.com/skenqbx/node-redjs",
+    "description": "An alternative client for node.",
+    "authors": ["skenqbx"],
+    "active": true
+  },
+
+  {
     "name": "redis-node-client",
     "language": "Node.js",
     "repository": "https://github.com/fictorial/redis-node-client",
