@@ -17,7 +17,7 @@ supported as values:
   score, but where elements are always taken in order without requiring a
   sorting operation.
 
-It's not always trivial to grasp how this data types work and what to use in
+It's not always trivial to grasp how these data types work and what to use in
 order to solve a given problem from the [command reference](/commands), so this
 document is a crash course to Redis data types and their most used patterns.
 
@@ -59,14 +59,14 @@ Let's play a bit with the string type:
     my binary safe value
 
 As you can see using the [SET command](/commands/set) and the [GET
-command](/commands/get) is trivial to set values to strings and have this
+command](/commands/get) is trivial to set values to strings and have the
 strings returned back.
 
 Values can be strings (including binary data) of every kind, for instance you
 can store a jpeg image inside a key. A value can't be bigger than 512 MB.
 
 Even if strings are the basic values of Redis, there are interesting operations
-you can perform against them. For instance one is atomic increment:
+you can perform against them. For instance, one is atomic increment:
 
     $ redis-cli set counter 100
     OK
@@ -80,23 +80,23 @@ you can perform against them. For instance one is atomic increment:
 The [INCR](/commands/incr) command parses the string value as an integer,
 increments it by one, and finally sets the obtained value as the new string
 value. There are other similar commands like [INCRBY](/commands/incrby),
-[DECR](commands/decr) and [DECRBY](/commands/decrby). Actually internally it's
+[DECR](commands/decr) and [DECRBY](/commands/decrby).  Internally it's
 always the same command, acting in a slightly different way.
 
-What means that INCR is atomic? That even multiple clients issuing INCR against
+What does it mean that INCR is atomic? That even multiple clients issuing INCR against
 the same key will never incur into a race condition. For instance it can never
 happen that client 1 read "10", client 2 read "10" at the same time, both
-increment to 11, and set the new value of 11. The final value will always be of
+increment to 11, and set the new value of 11. The final value will always be 
 12 and the read-increment-set operation is performed while all the other
 clients are not executing a command at the same time.
 
 Another interesting operation on string is the [GETSET](/commands/getset)
 command, that does just what its name suggests: Set a key to a new value,
-returning the old value, as result. Why this is useful? Example: you have a
+returning the old value as result. Why this is useful? Example: you have a
 system that increments a Redis key using the [INCR](/commands/incr) command
 every time your web site receives a new visit. You want to collect this
 information one time every hour, without losing a single key. You can GETSET
-the key assigning it the new value of "0" and reading the old value back.
+the key, assigning it the new value of "0" and reading the old value back.
 
 The List type
 ---
@@ -151,7 +151,7 @@ element of the range to return. Both the indexes can be negative to tell Redis
 to start to count from the end, so -1 is the last element, -2 is the
 penultimate element of the list, and so forth.
 
-As you can guess from the example above, lists can be used, for instance, in
+As you can guess from the example above, lists could be used in
 order to implement a chat system. Another use is as queues in order to route
 messages between different processes. But the key point is that *you can use
 Redis lists every time you require to access data in the same order they are
@@ -174,7 +174,7 @@ can be referenced in multiple times: in a list to preserve their chronological
 order, in a Set to remember they are about a specific category, in another list
 but only if this object matches some kind of requisite, and so forth.
 
-Let's return back to the reddit.com example. A more credible pattern for adding
+Let's return back to the reddit.com example. A better pattern for adding
 submitted links (news) to the list is the following:
 
     $ redis-cli incr next.news.id
@@ -230,12 +230,12 @@ Now let's check if a given element exists:
 expressing relations between objects. For instance we can easily use Redis Sets
 in order to implement tags.
 
-A simple way to model this is to have, for every object you want to tag, a Set
-with all the IDs of the tags associated with the object, and for every tag that
-exists, a Set of of all the objects tagged with this tag.
+A simple way to model this is to have a Set for every object containing its associated
+tag IDs, and a Set for every tag containing the object IDs that have that tag. 
 
 For instance if our news ID 1000 is tagged with tag 1,2,5 and 77, we can
-specify the following two Sets:
+specify the following five Sets - one Set for the object's tags, and four Sets
+for the four tags:
 
     $ redis-cli sadd news:1000:tags 1
     (integer) 1
@@ -378,9 +378,8 @@ all, it's already all sorted:
 
 Didn't know that Linus was younger than Yukihiro btw ;)
 
-Anyway I want to order these elements the other way around, using
-[ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange) this
-time:
+What if I want to order them the opposite way, youngest to oldest?
+Use [ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange):
 
     $ redis-cli zrevrange hackers 0 -1
     1. Linus Torvalds
@@ -399,8 +398,8 @@ the same time.
 Operating on ranges
 ---
 
-Sorted sets are more powerful than this. They can operate on ranges. For
-instance let's try to get all the individuals that were born up to the 1950. We
+Sorted sets are more powerful than this. They can operate on ranges.
+Let's get all the individuals that were born up to the 1950 inclusive. We
 use the [ZRANGEBYSCORE](/commands/zrangebyscore) command to do it:
 
     $ redis-cli zrangebyscore hackers -inf 1950
@@ -411,7 +410,7 @@ use the [ZRANGEBYSCORE](/commands/zrangebyscore) command to do it:
 We asked Redis to return all the elements with a score between negative
 infinity and 1950 (both extremes are included).
 
-It's also possible to remove ranges of elements. For instance let's remove all
+It's also possible to remove ranges of elements. Let's remove all
 the hackers born between 1940 and 1960 from the sorted set:
 
     $ redis-cli zremrangebyscore hackers 1940 1960
@@ -428,13 +427,12 @@ populate a sorted set in order to generate the home page. A sorted set can
 contain all the news that are not older than a few days (we remove old entries
 from time to time using ZREMRANGEBYSCORE). A background job gets all the
 elements from this sorted set, get the user votes and the time of the news, and
-compute the score to populate the *reddit.home.page* sorted set with the news
+computes the score to populate the *reddit.home.page* sorted set with the news
 IDs and associated scores. To show the home page we just have to perform a
 blazingly fast call to ZRANGE.
 
-From time to time we'll remove too old news from the *reddit.home.page* sorted
-set as well in order for our system to work always against a limited set of
-news.
+From time to time we'll remove very old news from the *reddit.home.page* sorted
+set to keep our system working with fresh news only.
 
 Updating the scores of a sorted set
 ---
@@ -444,7 +442,8 @@ updated at any time. Just calling again ZADD against an element already
 included in the sorted set will update its score (and position) in O(log(N)),
 so sorted sets are suitable even when there are tons of updates.
 
-This tutorial is in no way complete, this is just the basics to get started
-with Redis, read the [command reference](/commands) to discover a lot more.
+This tutorial is in no way complete and has covered just the basics. 
+Read the [command reference](/commands) to discover a lot more.
 
-Thanks for reading. Salvatore.
+Thanks for reading,
+Salvatore.
