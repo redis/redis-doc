@@ -207,6 +207,16 @@
   },
 
   {
+    "name": "RedisDB",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/RedisDB",
+    "repository": "https://github.com/trinitum/RedisDB",
+    "description": "Perl binding for Redis database with fast XS-based protocolparser",
+    "authors": ["trinitum"],
+    "active": true
+  },
+
+  {
     "name": "Redis::hiredis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis-hiredis/",
