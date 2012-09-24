@@ -53,7 +53,7 @@ can be used by an external attacker to delete the whole data set.
 Authentication feature
 ---
 
-While Redis does not tries to implement Access Control, it provides
+While Redis does not try to implement Access Control, it provides
 a tiny layer of authentication that is optionally turned on editing the
 **redis.conf** file.
 
