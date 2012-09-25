@@ -518,6 +518,14 @@
     "repository": "https://github.com/toymachine/libredis",
     "description": "Support for executing commands on multiple servers in parallel via poll(2), ketama hashing. Includes PHP bindings.",
     "authors": []
+  },
+
+  {
+    "name": "eredis",
+    "language": "emacs lisp",
+    "repository": "http://code.google.com/p/eredis",
+    "description": "Full Redis API plus ways to pull Redis data into an org-mode table and push it back when edited",
+    "authors": ["justinhj"]
   }
 
 ]
