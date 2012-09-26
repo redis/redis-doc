@@ -39,26 +39,11 @@ specified keys.
 The timeout argument is interpreted as an integer value.
 A timeout of zero can be used to block indefinitely.
 
-## Multiple clients blocking for the same keys
+## What key is served first? What client? What element? Priority ordering details.
 
-Multiple clients can block for the same key.
-They are put into a queue, so the first to be served will be the one that
-started to wait earlier, in a first- `!BLPOP` first-served fashion.
-
-## `!BLPOP` inside a `!MULTI` / `!EXEC` transaction
-
-`BLPOP` can be used with pipelining (sending multiple commands and
-reading the replies in batch), however this setup makes sense almost solely
-when it is the last command of the pipeline.
-
-Using `BLPOP` inside a `MULTI` / `EXEC` block does not make a lot of sense
-as it would require blocking the entire server in order to execute the block
-atomically, which in turn does not allow other clients to perform a push
-operation. For this reason the behavior of `BLPOP` inside `MULTI` / `EXEC` when the list is empty is to return a `nil` multi-bulk reply, which is the same
-thing that happens when the timeout is reached.
-
-If you like science fiction, think of time flowing at infinite speed inside a
-`MULTI` / `EXEC` block...
+* If the client tries to blocks for multiple keys, but at least one key contains elements, the returned key / element pair is the first key from left to right that has one or more elements. In this case the client is not blocked. So for instance `BLPOP key1 key2 key3 key4 0`, assuming that both `key2` and `key4` are non-empty, will always return an element from `key2`.
+* If multiple clients are blocked for the same key, the first client to be served is the one that was waiting for more time (the first that blocked for the key). Once a client is unblocked it does not retain any priority, when it blocks again with the next call to `BLPOP` it will be served accordingly to the number of clients already blocked for the same key, that will all be served before it (from the first to the last that blocked).
+* When a client is blocking for multiple keys at the same time, and elements are available at the same time in multiple keys (because of a transaction or a Lua script added elements to multiple lists), the client will be unblocked using the first key that received a push operation (assuming it has enough elements to serve our client, as there may be other clients as well waiting for this key). Basically after the execution of every command Redis will run a list of all the keys that received data AND that have at least a client blocked. The list is ordered by new element arrival time, from the first key that received data to the last. For every key processed, Redis will serve all the clients waiting for that key in a FIFO fashion, as long as there are elements in this key. When the key is empty or there are no longer clients waiting for this key, the next key that received new data in the previous command / transaction / script is processed, and so forth.
 
 ## Behavior of `!BLPOP` when multiple elements are pushed inside a list.
 
@@ -77,11 +62,26 @@ For Redis 2.6 what happens is that the command performing multiple pushes is exe
 
 If the above condition happens using a Redis 2.6 server or greater, Client **A** will be served with the `c` element, because after the `LPUSH` command the list contains `c,b,a`, so taking an element from the left means to return `c`.
 
-Instead Redis 2.4 works in a different way: clients are served *in the context* of the push operation, so as long as `LPUSH foo a b c` starts pushing the first element to the list, it will be delivered to the Client **B**, that will receive `a` (the first element pushed).
+Instead Redis 2.4 works in a different way: clients are served *in the context* of the push operation, so as long as `LPUSH foo a b c` starts pushing the first element to the list, it will be delivered to the Client **A**, that will receive `a` (the first element pushed).
 
 The behavior of Redis 2.4 creates a lot of problems when replicating or persisting data into the AOF file, so the much more generic and semantically simpler behaviour was introduced into Redis 2.6 to prevent problems.
 
 Note that for the same reason a Lua script or a `MULTI/EXEC` block may push elements into a list and afterward **delete the list**. In this case the blocked clients will not be served at all and will continue to be blocked as long as no data is present on the list after the execution of a single command, transaction, or script.
+
+## `!BLPOP` inside a `!MULTI` / `!EXEC` transaction
+
+`BLPOP` can be used with pipelining (sending multiple commands and
+reading the replies in batch), however this setup makes sense almost solely
+when it is the last command of the pipeline.
+
+Using `BLPOP` inside a `MULTI` / `EXEC` block does not make a lot of sense
+as it would require blocking the entire server in order to execute the block
+atomically, which in turn does not allow other clients to perform a push
+operation. For this reason the behavior of `BLPOP` inside `MULTI` / `EXEC` when the list is empty is to return a `nil` multi-bulk reply, which is the same
+thing that happens when the timeout is reached.
+
+If you like science fiction, think of time flowing at infinite speed inside a
+`MULTI` / `EXEC` block...
 
 @return
 
