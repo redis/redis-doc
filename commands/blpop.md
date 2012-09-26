@@ -36,8 +36,7 @@ the client will unblock returning a `nil` multi-bulk value when the specified
 timeout has expired without a push operation against at least one of the
 specified keys.
 
-The timeout argument is interpreted as an integer value.
-A timeout of zero can be used to block indefinitely.
+**The timeout argument is interpreted as an integer value specifying the maximum number of seconds to block**. A timeout of zero can be used to block indefinitely.
 
 ## What key is served first? What client? What element? Priority ordering details.
 
