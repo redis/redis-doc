@@ -115,7 +115,7 @@ Redis to Lua conversion rule:
 
 Also there are two important rules to note:
 
-* Lua has a single numerical type, Lua numbers. There is no distinction between integers and floats. So we always convert Lua numbers into integer replies, removing the decimal part of the number if any. If you want to return a float from Lua you should return it as a string, exactly like Redis itself does (see for instance the `ZSCORE` command).
+* Lua has a single numerical type, Lua numbers. There is no distinction between integers and floats. So we always convert Lua numbers into integer replies, removing the decimal part of the number if any. **If you want to return a float from Lua you should return it as a string**, exactly like Redis itself does (see for instance the `ZSCORE` command).
 * There is [no simple way to have nils inside Lua arrays](http://www.lua.org/pil/19.1.html), this is a result of Lua table semantics, so when Redis converts a Lua array into Redis protocol the conversion is stopped if a nil is encountered.
 
 Here are a few conversion examples:
@@ -148,6 +148,18 @@ In the following example we can see how floats and arrays with nils are handled:
 ```
 
 As you can see 3.333 is converted into 3, and the *bar* string is never returned as there is a nil before.
+
+## Helper functions to return Redis types
+
+There are two helper functions to return Redis types from Lua.
+
+* `redis.error_reply(error_string)` returns an error reply. This function simply returns the single field table with the `err` field set to the specified string for you.
+* `redis.status_reply(status_string)` returns a status reply. This function simply returns the single field table with the `ok` field set to the specified string for you.
+
+There is no difference between using the helper functions or directly returning the table with the specified format, so the following two forms are equivalent:
+
+    return {err="My Error"}
+    return redis.error_reply("My Error")
 
 ## Atomicity of scripts
 
