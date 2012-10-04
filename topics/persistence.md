@@ -55,7 +55,7 @@ There are many users using AOF alone, but we discourage it since to have an
 RDB snapshot from time to time is a great idea for doing database backups,
 for faster restarts, and in the event of bugs in the AOF engine.
 
-Note: for all this reasons we'll likely end unifying AOF and RDB into a single persistence model in the future (long term plan).
+Note: for all these reasons we'll likely end up unifying AOF and RDB into a single persistence model in the future (long term plan).
 
 The following sections will illustrate a few more details about the two persistence models.
 
