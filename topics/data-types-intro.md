@@ -263,8 +263,8 @@ To get all the tags for a given object is trivial:
     4. 2
 
 But there are other non trivial operations that are still easy to implement
-using the right Redis commands. For instance we may want the list of all the
-objects having as tags 1, 2, 10, and 27 at the same time. We can do this using
+using the right Redis commands. For instance we may want a list of all the
+objects with the tags 1, 2, 10, and 27 together. We can do this using
 the [SINTER](/commands/sinter) that performs the intersection between different
 sets. So in order to reach our goal we can just use:
 
@@ -305,7 +305,7 @@ to get a unique ID for the tag "redis":
   tag:b840fc02d524045429941cc15f59e41cb7be6c52:id 123456* and return the new ID
   to the caller.
 
-Nice. Or better.. broken! What about if two clients perform these commands at
+Nice. Or rather.. broken! What about if two clients perform these commands at
 the same time trying to get the unique ID for the tag "redis"? If the timing is
 right they'll both get *nil* from the GET operation, will both increment the
 *next.tag.id* key and will set two times the key. One of the two clients will
