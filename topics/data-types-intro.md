@@ -3,7 +3,7 @@
 
 As you already probably know Redis is not a plain key-value store, actually it
 is a *data structures server*, supporting different kind of values. That is,
-you can't just set strings as values of keys. All the following data types are
+you can set more than just strings as values of keys. All the following data types are
 supported as values:
 
 * Binary-safe strings.
