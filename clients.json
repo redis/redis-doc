@@ -415,7 +415,7 @@
   {
     "name": "hiredis",
     "language": "C",
-    "repository": "https://github.com/antirez/hiredis",
+    "repository": "https://github.com/redis/hiredis",
     "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
     "authors": ["antirez","pnoordhuis"],
     "recommended": true,
