@@ -350,6 +350,15 @@
   },
 
   {
+    "name": "scala-redis-client",
+    "language": "Scala",
+    "repository": "https://github.com/top10/scala-redis-client",
+    "description": "An idiomatic Scala client that keeps Jedis / Java hidden. Used in production at http://top10.com.",
+    "authors": ["thesmith", "heychinaski"],
+    "active": true
+  },
+
+  {
     "name": "Tcl Client",
     "language": "Tcl",
     "repository": "https://github.com/antirez/redis/blob/unstable/tests/support/redis.tcl",
