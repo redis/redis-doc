@@ -9,9 +9,10 @@ in a single step, with two important guarantees:
 sequentially. It can never happen that a request issued by another
 client is served **in the middle** of the execution of a Redis
 transaction. This guarantees that the commands are executed as a single
-atomic operation.
+isolated operation.
 
-* Either all of the commands or none are processed. The `EXEC` command
+* Either all of the commands or none are processed, so a Redis
+transaction is also atomic. The `EXEC` command
 triggers the execution of all the commands in the transaction, so
 if a client loses the connection to the server in the context of a
 transaction before calling the `MULTI` command none of the operations
@@ -25,9 +26,10 @@ are registered. Redis will detect this condition at restart, and will exit with 
 append only file that will remove the partial transaction so that the
 server can start again.
 
-Redis 2.2 allows for an extra guarantee to the above two, in the form
-of optimistic locking in a way very similar to a check-and-set (CAS)
-operation. This is documented [later](#cas) on this page.
+Starting with version 2.2, Redis allows for an extra guarantee to the
+above two, in the form of optimistic locking in a way very similar to a
+check-and-set (CAS) operation.
+This is documented [later](#cas) on this page.
 
 ## Usage
 
@@ -56,9 +58,24 @@ array of replies, where every element is the reply of a single command
 in the transaction, in the same order the commands were issued.
 
 When a Redis connection is in the context of a `MULTI` request,
-all commands will reply with the string `QUEUED` unless they are
-syntactically incorrect. Some commands are still allowed to fail during
-execution time.
+all commands will reply with the string `QUEUED` (sent as a Status Reply
+from the point of view of the Redis protocol). A queued command is
+simply scheduled for execution when `EXEC` is called.
+
+## Errors inside a transaction
+
+During a transaction it is possible to encounter two kind of command errors:
+
+* A command may fail to be queued, so there may be an error before `EXEC` is called. For instance the command may be syntactically wrong (wrong number of arguments, wrong command name, ...), or there may be some critical condition like an out of memory condition (if the server is configured to have a memory limit using the `maxmemory` directive).
+* A command may fail *after* `EXEC` is called, for instance since we performed an operation against a key with the wrong value (like calling a list operation against a string value).
+
+Clients used to sense the first kind of errors, happening before the `EXEC` call, by checking the return value of the queued command: if the command replies with QUEUED it was queued correctly, otherwise Redis returns an error. If there is an error while queueing a command, most clients will abort the transaction discarding it.
+
+However starting with Redis 2.6.5, the server will remember that there was an error during the accumulation of commands, and will refuse to execute the transaction returning also an error during `EXEC`, and discarding the transcation automatically.
+
+Before Redis 2.6.5 the behavior was to execute the transaction with just the subset of commands queued successfully in case the client called `EXEC` regardless of previous errors. The new behavior makes it much more simple to mix transactions with pipelining, so that the whole transaction can be sent at once, reading all the replies later at once.
+
+Errors happening *after* `EXEC` instead are not handled in a special way: all the other commands will be executed even if some command fails during the transaction.
 
 This is more clear on the protocol level. In the following example one
 command will fail when executed even if the syntax is right:
@@ -78,7 +95,7 @@ command will fail when executed even if the syntax is right:
     +OK
     -ERR Operation against a key holding the wrong kind of value
 
-`MULTI` returned two-element @bulk-reply where one is an `OK` code and
+`EXEC` returned two-element @bulk-reply where one is an `OK` code and
 the other an `-ERR` reply. It's up to the client library to find a
 sensible way to provide the error to the user.
 
@@ -97,7 +114,7 @@ syntax errors are reported ASAP instead:
 This time due to the syntax error the bad `INCR` command is not queued
 at all.
 
-## Errors inside a transaction
+## Why Redis does not support roll backs?
 
 If you have a relational databases background, the fact that Redis commands
 can fail during a transaction, but still Redis will execute the rest of the
@@ -105,7 +122,7 @@ transaction instead of rolling back, may look odd to you.
 
 However there are good opinions for this behavior:
 
-* Redis commands can fail only if called with a wrong syntax, or against keys holding the wrong data type: this means that in practical terms a failing command is the result of a programming errors, and a kind of error that is very likely to be detected during development, and not in production.
+* Redis commands can fail only if called with a wrong syntax (and the problem is not detectable during the command queueing), or against keys holding the wrong data type: this means that in practical terms a failing command is the result of a programming errors, and a kind of error that is very likely to be detected during development, and not in production.
 * Redis is internally simplified and faster because it does not need the ability to roll back.
 
 An argument against Redis point of view is that bugs happen, however it should be noted that in general the roll back does not save you from programming errors. For instance if a query increments a key by 2 instead of 1, or increments the wrong key, there is no way for a rollback mechanism to help. Given that no one can save the programmer from his errors, and that the kind of errors required for a Redis command to fail are unlikely to enter in production, we selected the simpler and faster approach of not supporting roll backs on errors.
