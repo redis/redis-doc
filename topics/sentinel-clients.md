@@ -33,6 +33,9 @@ The client should iterate the list of Sentinel addresses. For every address it s
 
 If all the Sentinel addresses were tried without success, an error should be returned to the client.
 
+Step 2: ask for master address
+---
+
 Once a connection with a Sentinel is established, the client should retry to execute the following command on the Sentinel:
 
     SENTINEL get-master-addr-by-name master-name
@@ -46,6 +49,9 @@ The result from this call can be one of the following three replies:
 * An `-IDONTKNOW` error.
 
 If an ip:port pair is received, this address should be used to connect to the Redis master. Otherwise if a null reply or `-IDONTKNOW` reply is received, the client should try the next Sentinel in the list.
+
+Step 3: give priority to the replying Sentinel
+---
 
 When a correct ip:port pair is received, the replying Sentinel address should be put at the top of the list of Sentinel addresses, so that the next time we'll try the responding Sentinel before any other.
 
