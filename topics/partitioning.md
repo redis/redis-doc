@@ -21,6 +21,7 @@ One of the simplest way to perform partitioning is called **range partitioning**
 This systems works and is actually used in practice, however it has the disadvantage that there is to take a table mapping ranges to instances. This table needs to be managed and we need a table for every kind of object we have. Usually with Redis it is not a good idea.
 
 An alternative to to range partitioning is **hash partitioning**. This scheme works with any key, no need for a key in the form `object_name:<id>` as is as simple as this:
+
 * Take the key name and use an hash function to turn it into a number. For instance I could use the `crc32` hash function. So if the key is `foobar` I do `crc32(foobar)` that will output something like 93024922.
 * I use a modulo operation with this number in order to turn it into a number between 0 and 3, so that I can map this number to one of the four Redis instances I've. So `93024922 modulo 4` equals 2, so I know my key `foobar` should be stored into the **R2** instance. *Note: the modulo operation is just the rest of the division, usually it is implemented by the `%` operator in many programming languages.*
 
