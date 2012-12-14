@@ -83,7 +83,7 @@
     "recommended": true,
     "active": true
   },
-  
+
   {
     "name": "Redigo",
     "language": "Go",
@@ -251,6 +251,16 @@
     "repository": "https://github.com/iph0/AnyEvent-Redis-RipeRedis",
     "description": "Flexible non-blocking Redis client with reconnect feature",
     "authors": ["iph"],
+    "active": true
+  },
+
+  {
+    "name": "AnyEvent::Hiredis",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/AnyEvent-Hiredis",
+    "repository": "https://github.com/wjackson/AnyEvent-Hiredis",
+    "description": "Non-blocking client using the hiredis C library",
+    "authors": [],
     "active": true
   },
 
