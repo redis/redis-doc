@@ -98,6 +98,7 @@ And many others:
 * [Topics.io](http://topics.io)
 * [AngiesList.com](https://github.com/angieslist/al-redis)
 * [GraphBug](http://graphbug.com/)
+* [SwarmIQ](http://www.swarmiq.com/) uses Redis as a caching / indexing layer for rapid lookups of chronological and ranked messages.
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [send a pull request](https://github.com/antirez/redis-doc).
