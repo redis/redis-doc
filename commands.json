@@ -1821,22 +1821,9 @@
         "type": "key"
       },
       {
-        "name": "score",
-        "type": "double"
-      },
-      {
-        "name": "member",
-        "type": "string"
-      },
-      {
-        "name": "score",
-        "type": "double",
-        "optional": true
-      },
-      {
-        "name": "member",
-        "type": "string",
-        "optional": true
+        "name": ["score", "member"],
+        "type": ["double", "string"],
+        "multiple": true
       }
     ],
     "since": "1.2.0",
