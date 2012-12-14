@@ -119,15 +119,7 @@
     "repository": "https://github.com/informatikr/hedis",
     "description": "Supports the complete command set. Commands are automatically pipelined for high performance.",
     "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "redis package",
-    "language": "Haskell",
-    "url": "http://hackage.haskell.org/package/redis",
-    "description": "This library is a Haskell driver for Redis. It's tested with current git version and with v2.4.6 of redis server.",
-    "authors": [],
+    "recommended": true,
     "active": true
   },
 
