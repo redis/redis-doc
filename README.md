@@ -27,8 +27,13 @@ For example:
 
   # An array of Twitter usernames for the authors
   # and maintainers of the library.
-  "authors": ["shumkov"]
+  "authors": ["shumkov"],
 
+  # Set to true if this is the recommended driver for your language
+  "recommended": true,
+
+  # Set to true if this project is in active development
+  "active": true
 }
 ```
 
