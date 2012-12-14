@@ -88,6 +88,16 @@ And many others:
 * [Forrst](http://forrst.com)
 * [Surfingbird](http://surfingbird.com)
 * [mig33](http://www.mig33.com)
+* [SeatGeek](http://seatgeek.com/)
+* [Wikipedia Game](http://thewikigame.com) - [Redis architecture description](http://www.clemesha.org/blog/really-using-redis-to-build-fast-real-time-web-apps/)
+* [Mogu](http://gomogu.org)
+* [Ancestry.com](http://www.ancestry.com/)
+* [SocialReviver](http://www.socialreviver.net/) by VittGam, for its Settings Cloud
+* [Telefónica Digital](http://www.telefonica.com/es/digital/html/home/)
+* [Pond](http://web.pond.pt/)
+* [Topics.io](http://topics.io)
+* [AngiesList.com](https://github.com/angieslist/al-redis)
+* [GraphBug](http://graphbug.com/)
 
 This list is incomplete. If you're using Redis and would like to be
 listed, [send a pull request](https://github.com/antirez/redis-doc).
