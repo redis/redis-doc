@@ -584,5 +584,14 @@
     "repository": "https://github.com/adilbaig/Tiny-Redis",
     "description": "",
     "authors": ["adilbaig"]
+  },
+
+  {
+    "name": "redis-client",
+    "language": "Scheme",
+    "url": "http://wiki.call-cc.org/eggref/4/redis-client",
+    "repository": "https://github.com/carld/redis-client.egg",
+    "description": "A Redis client for Chicken Scheme 4.7",
+    "authors": ["carld"]
   }
 ]
