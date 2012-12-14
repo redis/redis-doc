@@ -338,6 +338,14 @@
   },
 
   {
+    "name": "Redis Cli",
+    "language": "PHP",
+    "repository": "https://github.com/lixianlin/redis-cli",
+    "description": "A web redis command-line interface like redis-cli!",
+    "authors": ["lixianlin"]
+  },
+
+  {
     "name": "redis-py",
     "language": "Python",
     "repository": "https://github.com/andymccurdy/redis-py",
