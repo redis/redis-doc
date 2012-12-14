@@ -258,5 +258,13 @@
     "repository": "https://github.com/agoragames/amico",
     "description": "Relationships (e.g. friendships) backed by Redis.",
     "authors": ["czarneckid"]
+  },
+  {
+    "name": "Redis Qi4j EntityStore",
+    "language": "Java",
+    "url": "http://qi4j.org/extension-es-redis.html",
+    "repository": "http://github.com/qi4j/qi4j-sdk",
+    "description": "Qi4j EntityStore backed by Redis",
+    "authors": ["eskatos"]
   }
 ]
