@@ -119,6 +119,7 @@
     "repository": "https://github.com/informatikr/hedis",
     "description": "Supports the complete command set. Commands are automatically pipelined for high performance.",
     "authors": [],
+    "recommended": true,
     "active": true
   },
 
