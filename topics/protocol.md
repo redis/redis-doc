@@ -95,6 +95,10 @@ client when an Error Reply is received.
 
 <a name="integer-reply"></a>
 
+The redis server usually precedes error messages with "ERR". Some client libraries 
+assume this, so you may wish to add "ERR" after the minus sign if you are 
+writing a server implementation.
+
 Integer reply
 -------------
 
@@ -169,6 +173,10 @@ always `*`. Example:
 
 As you can see the multi bulk reply is exactly the same format used in order
 to send commands to the Redis server using the unified protocol.
+
+To send integers in a multibulk reply, just send a colon following by the 
+integer like you would for a regular integer reply. Do not send the size
+before sending the integer.
 
 The first line the server sent is `*4\r\n` in order to specify that four bulk
 replies will follow. Then every bulk write is transmitted.
