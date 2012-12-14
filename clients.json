@@ -590,10 +590,8 @@
     "language": "D Programming Language",
     "url": "http://adilbaig.github.com/Tiny-Redis/",
     "repository": "https://github.com/adilbaig/Tiny-Redis",
-    "description": "Simple, high performance Redis driver for D2",
-    "authors": ["aidezigns"],
-    "recommended": true,
-    "active": true
+    "description": "Redis driver for D2",
+    "authors": ["aidezigns"]
   },
 
   {
