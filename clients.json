@@ -75,6 +75,16 @@
   },
 
   {
+    "name": "Radix",
+    "language": "Go",
+    "repository": "https://github.com/fzzbt/radix",
+    "description": "MIT licensed Redis client.",
+    "authors": ["fzzbt"],
+    "recommended": true,
+    "active": true
+  },
+  
+  {
     "name": "Redigo",
     "language": "Go",
     "repository": "https://github.com/garyburd/redigo",
