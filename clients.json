@@ -601,5 +601,13 @@
     "repository": "https://github.com/carld/redis-client.egg",
     "description": "A Redis client for Chicken Scheme 4.7",
     "authors": ["carld"]
+  },
+
+  {
+    "name": "lettuce",
+    "language": "Java",
+    "repository": "https://github.com/wg/lettuce",
+    "description": "Thread-safe client supporting async usage and key/value codecs",
+    "authors": ["ar3te"]
   }
 ]
