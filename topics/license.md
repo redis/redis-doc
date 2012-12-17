@@ -34,9 +34,9 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Redis uses source code from third parties. All this code contians a BSD or BSD-compatible license. The following is a list of third party files and information about their copyright.
 
-* Redis uses the [LHF compression library](http://oldhome.schmorp.de/marc/liblzf.html). LibLZF is copyright (c) 2000-2007 Marc Alexander Lehmann and is released under the terms of the **two clause BSD license**.
+* Redis uses the [LHF compression library](http://oldhome.schmorp.de/marc/liblzf.html). LibLZF is copyright Marc Alexander Lehmann and is released under the terms of the **two clause BSD license**.
 
-* Redis uses the `sha1.c` file that is copyright by Steve Reid and released under the public domain. This file is extremely popular and used among open source and proprietary code.
+* Redis uses the `sha1.c` file that is copyright by Steve Reid and released under the **public domain**. This file is extremely popular and used among open source and proprietary code.
 
 * When compiled on Linux Redis usees the [Jemalloc allocator](http://www.canonware.com/jemalloc/), that is copyright by Jason Evans, Mozilla Foundation and Facebook, Inc and is released under the **two clause BSD license**.
 
