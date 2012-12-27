@@ -200,6 +200,7 @@ Sentinel commands
 ---
 
 The following is a list of accepted commands:
+
 * **PING** this command simply returns PONG.
 * **SENTINEL masters** show a list of monitored masters and their state.
 * **SENTINEL slaves `<master name>`** show a list of slaves for this master, and their state.
