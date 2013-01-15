@@ -151,6 +151,24 @@
     "since": "2.4.0",
     "group": "server"
   },
+  "CLIENT GETNAME": {
+    "summary": "Get the current connection name",
+    "complexity": "O(1)",
+    "since": "2.6.9",
+    "group": "server"
+  },
+  "CLIENT SETNAME": {
+    "summary": "Set the current connection name",
+    "complexity": "O(1)",
+    "since": "2.6.9",
+    "arguments": [
+      {
+        "name": "connection-name",
+        "type": "string"
+      }
+    ],
+    "group": "server"
+  },
   "CONFIG GET": {
     "summary": "Get the value of a configuration parameter",
     "arguments": [
