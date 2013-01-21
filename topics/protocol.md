@@ -297,3 +297,46 @@ The following is another example of an inline command returning an integer:
 Basically you simply write space-separated arguments in a telnet session.
 Since no command starts with `*` that is instead used in the unified request
 protocol, Redis is able to detect this condition and parse your command.
+
+High performance parser for the Redis protocol
+----------------------------------------------
+
+While the Redis protocol is very human readable and easy to implement it can
+be implemented with similar performances of a binary protocol.
+
+The Redis protocol uses prefixed lengths to transfer bulk data, so there is
+never need to scan the payload for special characters like it happens for
+instance with JSON, nor to quote the payload that needs to be sent to the
+server.
+
+The Bulk and Multi Bulk lengths can be be processed with code that performs
+a single operation per character while at the same time scanning for the
+CR character, like the following C code:
+
+```
+#include <stdio.h>
+
+int main(void) {
+    unsigned char *p = "$123\r\n";
+    int len = 0;
+
+    p++;
+    while(*p != '\r') {
+        len = (len*10)+(*p - '0');
+        p++;
+    }
+
+    /* Now p points at '\r', and the len is in bulk_len. */
+    printf("%d\n", len);
+    return 0;
+}
+```
+
+After the first CR is idenitifed, it can be skipped along with the following
+LF without any processing. Then the bulk data can be read using a single
+read operation that does not inspect the payload in any way. Finally
+the remaining the CR and LF chacaters are discareded without any processing.
+
+While comparable in performance to a binary protocol the Redis protocol is
+significantly simpler to implement in most very high level languages,
+reducing the number of bugs in client software.
