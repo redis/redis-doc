@@ -205,8 +205,8 @@ followed by CR LF.
 CR LF newline).
 
 As you can see the multi bulk reply is exactly the same format used in order
-to send commands to the Redis server using the unified protocol. THe sole
-differene is that while for the unified protocol only Bulk Replies are sent
+to send commands to the Redis server using the unified protocol. The sole
+difference is that while for the unified protocol only Bulk Replies are sent
 as elements, with Multi Bulk Replies sent by the server as response to a
 command every kind of reply type is valid as element of the Multi Bulk Reply.
 
@@ -258,7 +258,7 @@ missing. Example of a multi bulk reply containing a null element:
     S: $3
     S: bar
 
-The second element is nul. The client library should return something like this:
+The second element is null. The client library should return something like this:
 
     ["foo",nil,"bar"]
 
