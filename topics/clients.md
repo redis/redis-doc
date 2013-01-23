@@ -65,7 +65,7 @@ is logged at startup as in the following example:
 
 ```
 $ ./redis-server --maxclients 100000
-[41422] 23 Jan 11:28:33.179 # Unable to set the max number of files limit to 10000032 (Invalid argument), setting the max clients configuration to 10112.
+[41422] 23 Jan 11:28:33.179 # Unable to set the max number of files limit to 100032 (Invalid argument), setting the max clients configuration to 10112.
 ```
 
 When Redis is configured in order to handle a specific number of clients it
