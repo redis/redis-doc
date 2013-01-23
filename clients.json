@@ -338,6 +338,14 @@
   },
 
   {
+    "name": "Yampee Redis",
+    "language": "PHP",
+    "repository": "https://github.com/yampee/Redis",
+    "description": "A full-featured Redis client for PHP 5.2. Easy to use and to extend.",
+    "authors": ["tgalopin"]
+  },
+
+  {
     "name": "redis-py",
     "language": "Python",
     "repository": "https://github.com/andymccurdy/redis-py",
