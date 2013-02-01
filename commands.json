@@ -723,6 +723,13 @@
   },
   "INFO": {
     "summary": "Get information and statistics about the server",
+    "arguments": [
+      {
+        "name": "section",
+        "type": "string",
+        "optional": true
+      }
+    ],
     "since": "1.0.0",
     "group": "server"
   },
