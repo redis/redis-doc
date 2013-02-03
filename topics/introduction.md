@@ -38,3 +38,14 @@ Redis is written in **ANSI C** and works in most POSIX systems like Linux,
 is no official support for Windows builds, although you may
 have [some](http://code.google.com/p/redis/issues/detail?id=34)
 [options](https://github.com/dmajkic/redis).
+
+Why Redis?
+==========
+
+Redis is worth your time because it allows for incredibly fast storage since it is held **in memory**. This means that 
+data that is held inside Redis is kept in your RAM (which is blazing fast) and kept off the hard drive (which is not as
+fast), unless you decide to dump the dataset to disk (this would be done if you were, for example, running out of 
+memory). 
+
+This means that for some things, Redis will be much, much faster than putting the same data in a traditional database
+such as MySQL. 
