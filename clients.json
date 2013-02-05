@@ -65,6 +65,15 @@
   },
 
   {
+    "name": "sharded_eredis",
+    "language": "Erlang",
+    "repository": "https://github.com/jeremyong/sharded_eredis",
+    "description": "Wrapper around eredis providing process pools and consistent hashing.",
+    "authors": ["jeremyong", "hiroeorz"]
+    "active": true
+  },
+
+  {
     "name": "redis.fy",
     "language": "Fancy",
     "repository": "https://github.com/bakkdoor/redis.fy",
