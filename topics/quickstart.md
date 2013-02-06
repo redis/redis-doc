@@ -138,27 +138,27 @@ We assume you already copied **redis-server** and **redis-cli** executables unde
 
 * Create a directory where to store your Redis config files and your data:
 
-    sudo mkdir /etc/redis
-    sudo mkdir /var/redis
+        sudo mkdir /etc/redis
+        sudo mkdir /var/redis
 
 * Copy the init script that you'll find in the Redis distribution under the **utils** directory into /etc/init.d. We suggest calling it with the name of the port where you are running this instance of Redis. For example:
 
-    sudo cp utils/redis_init_script /etc/init.d/redis_6379
+        sudo cp utils/redis_init_script /etc/init.d/redis_6379
 
 * Edit the init script.
 
-    sudo vi /etc/init.d/redis_6379
+        sudo vi /etc/init.d/redis_6379
 
 Make sure to modify **REDIS_PORT** accordingly to the port you are using.
 Both the pid file path and the configuration file name depend on the port number.
 
 * Copy the template configuration file you'll find in the root directory of the Redis distribution into /etc/redis/ using the port number as name, for instance:
 
-    sudo cp redis.conf /etc/redis/6379.conf
+        sudo cp redis.conf /etc/redis/6379.conf
 
 * Create a directory inside /var/redis that will work as data and working directory for this Redis instance:
 
-    sudo mkdir /var/redis/6379
+        sudo mkdir /var/redis/6379
 
 * Edit the configuration file, making sure to perform the following changes:
     * Set **daemonize** to yes (by default it is set to no).
@@ -167,9 +167,9 @@ Both the pid file path and the configuration file name depend on the port number
     * Set your preferred **loglevel**.
     * Set the **logfile** to /var/log/redis_6379.log
     * Set the **dir** to /var/redis/6379 (very important step!)
-    * Finally add the new Redis init script to all the default runlevels using the following command:
+* Finally add the new Redis init script to all the default runlevels using the following command:
 
-    sudo update-rc.d redis_6379 defaults
+        sudo update-rc.d redis_6379 defaults
 
 You are done! Now you can try running your instance with:
 
