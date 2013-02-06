@@ -14,7 +14,7 @@ of this article targets PHP, but Ruby programmers can also check the other
 source code, it conceptually very similar.
 
 **Note:** [Retwis-J](http://retwisj.cloudfoundry.com/) is a port of Retwis to
-Java, using the Spring Data Framework, written by Costin Leau. The source code
+Java, using the Spring Data Framework, written by [Costin Leau](http://twitter.com/costinl). The source code
 can be found on
 [GitHub](https://github.com/SpringSource/spring-data-keyvalue-examples) and
 there is comprehensive documentation available at
