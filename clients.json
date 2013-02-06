@@ -69,7 +69,7 @@
     "language": "Erlang",
     "repository": "https://github.com/jeremyong/sharded_eredis",
     "description": "Wrapper around eredis providing process pools and consistent hashing.",
-    "authors": ["jeremyong", "hiroeorz"]
+    "authors": ["jeremyong", "hiroeorz"],
     "active": true
   },
 
