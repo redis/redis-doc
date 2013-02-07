@@ -27,7 +27,14 @@
     "recommended": true,
     "active": true
   },
-  
+  {
+    "name": "aleph",
+    "language": "Clojure",
+    "repository": "https://github.com/ztellman/aleph.git",
+    "description": "Redis client build on top of lamina",
+    "authors":["Zach Tellman"],
+    "active": true
+  },  
   {
     "name": "CL-Redis",
     "language": "Common Lisp",
