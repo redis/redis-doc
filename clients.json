@@ -29,14 +29,6 @@
   },
   
   {
-    "name": "Carmine",
-    "language": "Clojure",
-    "repository": "https://github.com/ptaoussanis/carmine",
-    "description": "Deliberately simple, high-performance Redis (2.0+) client for Clojure.",
-    "authors": ["ptaoussanis"]
-  },
-
-  {
     "name": "CL-Redis",
     "language": "Common Lisp",
     "url": "http://www.cliki.net/cl-redis",
