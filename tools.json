@@ -267,4 +267,12 @@
     "description": "Qi4j EntityStore backed by Redis",
     "authors": ["eskatos"]
   }
+  {
+    "name": "Spring Data Redis",
+    "language": "Java",
+    "url": "http://www.springsource.org/spring-data/redis",
+    "repository": "http://github.com/SpringSource/spring-data-redis",
+    "description": "Spring integration for Redis promoting POJO programming, portability and productivity",
+    "authors": ["costinl"]
+  }
 ]
