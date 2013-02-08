@@ -266,7 +266,7 @@
     "repository": "http://github.com/qi4j/qi4j-sdk",
     "description": "Qi4j EntityStore backed by Redis",
     "authors": ["eskatos"]
-  }
+  },
   {
     "name": "Spring Data Redis",
     "language": "Java",
