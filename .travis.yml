@@ -5,3 +5,6 @@ rvm:
 
 gemfile:
   - .travis/Gemfile
+
+before_install:
+ - sudo apt-get install -y aspell aspell-en
