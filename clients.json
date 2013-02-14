@@ -27,15 +27,14 @@
     "recommended": true,
     "active": true
   },
-  
   {
-    "name": "Carmine",
+    "name": "aleph",
     "language": "Clojure",
-    "repository": "https://github.com/ptaoussanis/carmine",
-    "description": "Deliberately simple, high-performance Redis (2.0+) client for Clojure.",
-    "authors": ["ptaoussanis"]
-  },
-
+    "repository": "https://github.com/ztellman/aleph.git",
+    "description": "Redis client build on top of lamina",
+    "authors":["Zach Tellman"],
+    "active": true
+  },  
   {
     "name": "CL-Redis",
     "language": "Common Lisp",
@@ -61,6 +60,15 @@
     "description": "Redis client with a focus on performance",
     "authors": ["wooga"],
     "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "sharded_eredis",
+    "language": "Erlang",
+    "repository": "https://github.com/jeremyong/sharded_eredis",
+    "description": "Wrapper around eredis providing process pools and consistent hashing.",
+    "authors": ["jeremyong", "hiroeorz"],
     "active": true
   },
 

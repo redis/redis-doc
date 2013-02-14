@@ -42,9 +42,9 @@ end
 
 namespace :format do
 
-  require "./remarkdown"
-
   def format(file)
+    require "./remarkdown"
+
     return unless File.exist?(file)
 
     STDOUT.print "formatting #{file}..."
