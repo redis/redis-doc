@@ -2,7 +2,7 @@ Redis Mass Insertion
 ===
 
 Sometimes Redis instances needs to be loaded with big amount of preexisting
-or user generated data in a short amount of time, so that million of keys
+or user generated data in a short amount of time, so that millions of keys
 will be created as fast as possible.
 
 This is called a *mass insertion*, and the goal of this document is to
@@ -13,7 +13,7 @@ Use the protocol, Luke
 
 Using a normal Redis client to perform mass insertion is not a good idea
 for a few reasons: the naive approach of sending one command after the other
-is slow because there is to pay the round trip time for every command.
+is slow because you have to pay for the round trip time for every command.
 It is possible to use pipelining, but for mass insertion of many records
 you need to write new commands while you read replies at the same time to
 make sure you are inserting as fast as possible.
