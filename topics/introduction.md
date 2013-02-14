@@ -1,7 +1,7 @@
 Introduction to Redis
 ===
 
-Redis is an open source (BSD licensed), advanced **key-value store**.  It
+Redis is an open source, BSD licensed, advanced **key-value store**.  It
 is often referred to as a **data structure server** since
 keys can contain [strings](/topics/data-types#strings),
 [hashes](/topics/data-types#hashes), [lists](/topics/data-types#lists),
