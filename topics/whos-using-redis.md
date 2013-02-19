@@ -70,7 +70,7 @@ And many others:
 * [OKNOtizie](http://oknotizie.virgilio.it)
 * [Moodstocks](http://www.moodstocks.com/2010/11/26/the-tech-behind-moodstocks-notes) uses Redis as its main database by means of [Ohm](http://ohm.keyvalue.org).
 * [Favstar](http://favstar.fm)
-* [Heywatch](http://heywatch.com)
+* [HeyWatch](http://www.heywatchencoding.com)
 * [Sharpcloud](http://www.sharpcloud.com)
 * [Wooga](http://www.wooga.com/games/) for the games _"Happy Hospital"_ and _"Monster World"_.
 * [Sina Weibo](http://t.sina.com.cn/)
