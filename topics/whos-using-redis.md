@@ -5,6 +5,18 @@ Logos are linked to the relevant story when available.
 
 <ul>
   <li>
+    <a href="http://www.infoq.com/presentations/Real-Time-Delivery-Twitter">
+    <img src="https://twitter.com/images/resources/twitter-bird-white-on-blue.png" alt="Twitter">
+    </a>
+  </li>
+
+  <li>
+    <a href="http://highscalability.com/blog/2012/4/9/the-instagram-architecture-facebook-bought-for-a-cool-billio.html">
+    <img style="background-color:rgb(68,114,152); padding:5px;" src="http://d36xtkk24g8jdx.cloudfront.net/bluebar/1053f34/images/homepage/brand-header.png" alt="Instagram">
+    </a>
+  </li>
+
+  <li>
     <img src="http://www.engineyard.com/images/logo.png" alt="EngineYard">
   </li>
 
@@ -29,7 +41,7 @@ Logos are linked to the relevant story when available.
   </li>
 
   <li>
-    <img src="http://developers.diggstatic.com/sites/all/themes/about/img/footer_logo.jpg" alt="Digg">
+    <a href="http://nosql.mypopescu.com/post/3342598062/redis-at-digg-story-view-counts"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAbCAMAAADbEiYlAAAABlBMVEX///8LCwpatgxKAAAAaklEQVQ4EeWTSwrAIAwF4/0vXZq8FEckxU1raRbKSwY0P7OwdpqZLjmLa1O++DFDa4k63dVHui9CIpOQyppEFDnVI/zVWH+tVPdEDkmQv+Q96W/OA9eASr2Uk4pkKBJU4D2kY9wGgBLv8QfIQgLkrFnG6wAAAABJRU5ErkJggg==" alt="Digg"></a>
   </li>
 
   <li>
@@ -58,49 +70,4 @@ Logos are linked to the relevant story when available.
   </li>
 </ul>
 
-And many others:
-
-* [Superfeedr](http://blog.superfeedr.com/redis/mysql/memcache/datastore/performance/redis-at-superfeedr)
-* [Vidiowiki](http://vidiowiki.com)
-* [Wish Internet Consulting](http://wish.hu)
-* [Ruby Minds](http://rubyminds.com)
-* [Boxcar](http://www.boxcar.io)
-* [Zoombu](http://www.zoombu.co.uk)
-* [Dark Curse](http://www.darkcurse.com)
-* [OKNOtizie](http://oknotizie.virgilio.it)
-* [Moodstocks](http://www.moodstocks.com/2010/11/26/the-tech-behind-moodstocks-notes) uses Redis as its main database by means of [Ohm](http://ohm.keyvalue.org).
-* [Favstar](http://favstar.fm)
-* [Heywatch](http://heywatch.com)
-* [Sharpcloud](http://www.sharpcloud.com)
-* [Wooga](http://www.wooga.com/games/) for the games _"Happy Hospital"_ and _"Monster World"_.
-* [Sina Weibo](http://t.sina.com.cn/)
-* [Engage](http://engage.calibreapps.com/)
-* [PoraOra](http://www.poraora.com/)
-* [Leatherbound](http://leatherbound.me/)
-* [AuthorityLabs](http://authoritylabs.com/)
-* [Fotolog](http://www.fotolog.com/)
-* [TheMatchFixer](http://www.thematchfixer.com/)
-* [Check-Host](http://check-host.net/) describes their architecture [here](http://showmetheco.de/articles/2011/1/using-perl-mojolicious-and-redis-in-a-real-world-asynchronous-application.html).
-* [ShopSquad](http://shopsquad.com/)
-* [localshow.tv](http://localshow.tv/)
-* [PennyAce](http://pennyace.com/)
-* [Nasza Klasa](http://nk.pl/)
-* [Forrst](http://forrst.com)
-* [Surfingbird](http://surfingbird.com)
-* [mig33](http://www.mig33.com)
-* [SeatGeek](http://seatgeek.com/)
-* [Wikipedia Game](http://thewikigame.com) - [Redis architecture description](http://www.clemesha.org/blog/really-using-redis-to-build-fast-real-time-web-apps/)
-* [Mogu](http://gomogu.org)
-* [Ancestry.com](http://www.ancestry.com/)
-* [SocialReviver](http://www.socialreviver.net/) by VittGam, for its Settings Cloud
-* [Telefónica Digital](http://www.telefonica.com/es/digital/html/home/)
-* [Pond](http://web.pond.pt/)
-* [Topics.io](http://topics.io)
-* [AngiesList.com](https://github.com/angieslist/al-redis)
-* [GraphBug](http://graphbug.com/)
-* [SwarmIQ](http://www.swarmiq.com/) uses Redis as a caching / indexing layer for rapid lookups of chronological and ranked messages.
-
-This list is incomplete. If you're using Redis and would like to be
-listed, [send a pull request](https://github.com/antirez/redis-doc).
-
-**Note:** we'll use a logo for very big and recognized companies / sites, and a mention in the text-only list for all the other companies.
+And <b>many others...</b> <i>link policy: we only link major sites, we used to also link to small companies and services but this rapidly became impossible to maintain.</i>
