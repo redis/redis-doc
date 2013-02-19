@@ -70,4 +70,4 @@ Logos are linked to the relevant story when available.
   </li>
 </ul>
 
-And <b>many others...</b> <i>link policy: we only link major sites, we used to also link to small companies and services but this rapidly became impossible to maintain.</i>
+And <strong>many others!</strong> <i style="color:#999; font-size:12px;">link policy: we only link major sites, we used to also link to small companies and services but this rapidly became impossible to maintain.</i>
