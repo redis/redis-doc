@@ -127,6 +127,15 @@
     "authors": ["simonz05"],
     "active": true
   },
+  
+  {
+    "name": "gosexy/redis",
+    "language": "Go",
+    "repository": "https://github.com/gosexy/redis",
+    "description": "Go bindings for the official C redis client (hiredis), supports the whole command set of redis 2.6.10 and subscriptions with go channels.",
+    "authors": ["xiam"],
+    "active": true
+  },
 
   {
     "name": "hedis",
