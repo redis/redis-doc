@@ -27,7 +27,7 @@ replication](/topics/replication), with very fast non-blocking first
 synchronization, auto-reconnection on net split and so forth.
 
 Other features include [Transactions](/topics/transactions),
-[Pub/Bub](/topics/pubsub),
+[Pub/Sub](/topics/pubsub),
 [Lua scripting](/commands/eval),
 [Keys with a limited time-to-live](/commands/expire),
 and configuration settings to make Redis behave like a cache.
