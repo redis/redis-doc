@@ -26,8 +26,8 @@ subset of the features available in the Redis stand alone server.
 In Redis cluster there are no central or proxy nodes, and one of the
 major design goals is linear scalability.
 
-Redis cluster sacrifices fault tolerance for consistence, so the system
-try to be as consistent as possible while guaranteeing limited resistance
+Redis cluster sacrifices fault tolerance for consistency, so the system
+tries to be as consistent as possible while guaranteeing limited resistance
 to net splits and node failures (we consider node failures as
 special cases of net splits).
 
@@ -46,10 +46,10 @@ operations like Set type unions or intersections are not implemented, and in
 general all the operations where in theory keys are not available in the
 same node are not implemented.
 
-In the future there is the possibility to add a new kind of node called a
-Computation Node to perform multi-key read only operations in the cluster,
-but it is not likely that the Redis cluster itself will be able
-to perform complex multi key operations implementing some kind of
+In the future it is possible that using the MIGRATE COPY command users will
+be able to use *Computation Nodes* to perform multi-key read only operations
+in the cluster, but it is not likely that the Redis Cluster itself will be
+able to perform complex multi key operations implementing some kind of
 transparent way to move keys around.
 
 Redis Cluster does not support multiple databases like the stand alone version
@@ -82,11 +82,11 @@ keys and nodes can improve the performance in a sensible way.
 Keys distribution model
 ---
 
-The key space is split into 4096 slots, effectively setting an upper limit
-for the cluster size of 4096 nodes (however the suggested max size of
-nodes is in the order of a few hundreds).
+The key space is split into 16384 slots, effectively setting an upper limit
+for the cluster size of 16384 nodes (however the suggested max size of
+nodes is in the order of ~ 1000 nodes).
 
-All the master nodes will handle a percentage of the 4096 hash slots.
+All the master nodes will handle a percentage of the 16384 hash slots.
 When the cluster is **stable**, that means that there is no a cluster
 reconfiguration in progress (where hash slots are moved from one node
 to another) a single hash slot will be served exactly by a single node
@@ -95,7 +95,7 @@ it in the case of net splits or failures).
 
 The algorithm used to map keys to hash slots is the following:
 
-    HASH_SLOT = CRC16(key) mod 4096
+    HASH_SLOT = CRC16(key) mod 16384
 
 * Name: XMODEM (also known as ZMODEM or CRC-16/ACORN)
 * Width: 16 bit
@@ -109,9 +109,9 @@ The algorithm used to map keys to hash slots is the following:
 A reference implementation of the CRC16 algorithm used is available in the
 Appendix A of this document.
 
-12 out of 16 bit of the output of CRC16 are used.
+14 out of 16 bit of the output of CRC16 are used.
 In our tests CRC16 behaved remarkably well in distributing different kind of
-keys evenly across the 4096 slots.
+keys evenly across the 16384 slots.
 
 Cluster nodes attributes
 ---
@@ -320,7 +320,7 @@ only ask the next query to the specified node.
 
 This is needed because the next query about hash slot 8 can be about the
 key that is still in A, so we always want that the client will try A and
-then B if needed. Since this happens only for one hash slot out of 4096
+then B if needed. Since this happens only for one hash slot out of 16384
 available the performance hit on the cluster is acceptable.
 
 However we need to force that client behavior, so in order to make sure
@@ -380,11 +380,11 @@ a node that is now in a failure state).
 
 Once the configuration is processed the node enters one of the following states:
 
-* FAIL: the cluster can't work. When the node is in this state it will not serve queries at all and will return an error for every query. This state is entered when the node detects that the current nodes are not able to serve all the 4096 slots.
-* OK: the cluster can work as all the 4096 slots are served by nodes that are not flagged as FAIL.
+* FAIL: the cluster can't work. When the node is in this state it will not serve queries at all and will return an error for every query. This state is entered when the node detects that the current nodes are not able to serve all the 16384 slots.
+* OK: the cluster can work as all the 16384 slots are served by nodes that are not flagged as FAIL.
 
 This means that the Redis Cluster is designed to stop accepting queries once even a subset of the hash slots are not available. However there is a portion of time in which an hash slot can't be accessed correctly since the associated node is experiencing problems, but the node is still not marked as failing.
-In this range of time the cluster will only accept queries about a subset of the 4096 hash slots.
+In this range of time the cluster will only accept queries about a subset of the 16384 hash slots.
 
 Since Redis cluster does not support MULTI/EXEC transactions the application
 developer should make sure the application can recover from only a subset of queries being accepted by the cluster.
