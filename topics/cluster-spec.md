@@ -137,10 +137,11 @@ know:
 * A set of hash slots served by the node.
 * Last time we sent a PING packet using the cluster bus.
 * Last time we received a PONG packet in reply.
+* The time at which we flagged the node as failing.
 * The number of slaves of this node.
 * The master node ID, if this node is a slave (or 0000000... if it is a master).
 
-All this information is available using the `CLUSTER NODES` command that
+Soem of this information is available using the `CLUSTER NODES` command that
 can be sent to all the nodes in the cluster, both master and slave nodes.
 
 The following is an example of output of CLUSTER NODES sent to a master
@@ -360,18 +361,16 @@ Node failure detection
 Failure detection is implemented in the following way:
 
 * A node marks another node setting the PFAIL flag (possible failure) if the node is not responding to our PING requests for a given time.
-* Nodes broadcast information about other nodes (three random nodes taken at random) when pinging other nodes. The gossip section contains information about other nodes flags.
-* If we have a node marked as PFAIL, and we receive a gossip message where another nodes also think the same node is PFAIL, we mark it as FAIL (failure).
-* Once a node marks another node as FAIL as result of a PFAIL confirmed by another node, a message is send to all the other nodes to force all the reachable nodes in the cluster to set the specified not as FAIL.
+* Nodes broadcast information about other nodes (three random nodes per packet) when pinging other nodes. The gossip section contains information about other nodes flags.
+* Nodes remember if other nodes advertised some node as failing. This is called a failure report.
+* Once a node receives a new failure report, such as that the majority of master nodes agree about the failure of a given node, the node is marked as FAIL.
+* When a node is marked as FAIL, a message is broadcasted to the cluster in order to force all the reachable nodes to set the specified node as FAIL.
 
-So basically a node is not able to mark another node as failing without external acknowledge.
+So basically a node is not able to mark another node as failing without external acknowledge, and the majority of the master nodes are required to agree.
 
-(still to implement:)
-Once a node is marked as failing, any other node receiving a PING or
-connection attempt from this node will send back a "MARK AS FAIL" message
-in reply that will force the receiving node to set itself as failing.
+Old failure reports are removed, so the majority of master nodes need to have a recent entry in the failure report table of a given node for it to mark another node as FAIL.
 
-Cluster state detection (only partially implemented)
+Cluster state detection
 ---
 
 Every cluster node scan the list of nodes every time a configuration change
@@ -385,9 +384,6 @@ Once the configuration is processed the node enters one of the following states:
 
 This means that the Redis Cluster is designed to stop accepting queries once even a subset of the hash slots are not available. However there is a portion of time in which an hash slot can't be accessed correctly since the associated node is experiencing problems, but the node is still not marked as failing.
 In this range of time the cluster will only accept queries about a subset of the 16384 hash slots.
-
-Since Redis cluster does not support MULTI/EXEC transactions the application
-developer should make sure the application can recover from only a subset of queries being accepted by the cluster.
 
 Slave election (not implemented)
 ---
