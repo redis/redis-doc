@@ -370,7 +370,7 @@ So basically a node is not able to mark another node as failing without external
 
 Old failure reports are removed, so the majority of master nodes need to have a recent entry in the failure report table of a given node for it to mark another node as FAIL.
 
-Cluster state detection
+Cluster state detection (partilly implemented)
 ---
 
 Every cluster node scan the list of nodes every time a configuration change
@@ -379,56 +379,32 @@ a node that is now in a failure state).
 
 Once the configuration is processed the node enters one of the following states:
 
-* FAIL: the cluster can't work. When the node is in this state it will not serve queries at all and will return an error for every query. This state is entered when the node detects that the current nodes are not able to serve all the 16384 slots.
+* FAIL: the cluster can't work. When the node is in this state it will not serve queries at all and will return an error for every query.
 * OK: the cluster can work as all the 16384 slots are served by nodes that are not flagged as FAIL.
 
-This means that the Redis Cluster is designed to stop accepting queries once even a subset of the hash slots are not available. However there is a portion of time in which an hash slot can't be accessed correctly since the associated node is experiencing problems, but the node is still not marked as failing.
-In this range of time the cluster will only accept queries about a subset of the 16384 hash slots.
+This means that the Redis Cluster is designed to stop accepting queries once even a subset of the hash slots are not available for some time.
+
+However there is a portion of time in which an hash slot can't be accessed correctly since the associated node is experiencing problems, but the node is still not marked as failing.  In this range of time the cluster will only accept queries about a subset of the 16384 hash slots.
+
+The FAIL state for the cluster happens in two cases.
+
+* 1) If at least one hash slot is not served as the node serving it currently is in FAIL state.
+* 2) If we are not able to reach the majority of masters (that is, if the majorify of masters are simply in PFAIL state, it is enough for the node to enter FAIL mode).
+
+The second check is required because in order to mark a node from PFAIL to FAIL state, the majority of masters are required. However when we are not connected with the majority of masters it is impossible from our side of the net split to mark nodes as FAIL. However since we detect this condition we set the Cluster state in FAIL mode to stop serving queries.
 
 Slave election (not implemented)
 ---
 
-Every master can have any number of slaves (including zero).
-Slaves are responsible of electing themselves to masters when a given
-master fails. For instance we may have node A1, A2, A3, where A1 is the
-master an A2 and A3 are two slaves.
+The design of slave election is a work in progress right now.
 
-If A1 is failing in some way and no longer replies to pings, other nodes
-will end marking it as failing using the gossip protocol. When this happens
-its **first slave** will try to perform the election.
+The idea is to use the concept of first slave, that is, out of all the
+slaves for a given node, the first slave is the one with the lower
+Node ID (comparing node IDs lexicographically).
 
-The concept of first slave is very simple. Of all the slaves of a master
-the first slave is the one that has the smallest node ID, sorting node IDs
-lexicographically. If the first slave is also marked as failing, the next
-slave is in charge of performing the election and so forth.
-
-So after a configuration update every slave checks if it is the first slave
-of the failing master. In the case it is it changes its state to master
-and broadcasts a message to all the other nodes to update the configuration.
-
-Protection mode (not implemented)
----
-
-After a net split resulting into a few isolated nodes, this nodes will
-end thinking all the other nodes are failing. In the process they may try
-to start a slave election or some other action to modify the cluster
-configuration. In order to avoid this problem, nodes seeing a majority of
-other nodes in PFAIL or FAIL state for a long enough time should enter
-a protection mode that will prevent them from taking actions.
-
-The protection mode is cleared once the cluster state is OK again.
-
-Majority of masters rule (not implemented)
----
-
-As a result of a net split it is possible that two or more partitions are
-independently able to serve all the hash slots.
-Since Redis Cluster try to be consistent this is not what we want, and
-a net split should always produce zero or one single partition able to
-operate.
-
-In order to enforce this rule nodes into a partition should only try to
-serve queries if they have the **majority of the original master nodes**.
+However it is likely that the same system used for failure reports will be
+used in order to require the majority of masters to authorize the slave
+election.
 
 Publish/Subscribe (implemented, but to refine)
 ===
