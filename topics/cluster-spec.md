@@ -360,15 +360,22 @@ Node failure detection
 
 Failure detection is implemented in the following way:
 
-* A node marks another node setting the PFAIL flag (possible failure) if the node is not responding to our PING requests for a given time.
-* Nodes broadcast information about other nodes (three random nodes per packet) when pinging other nodes. The gossip section contains information about other nodes flags.
+* A node marks another node setting the PFAIL flag (possible failure) if the node is not responding to our PING requests for a given time. This time is called the node timeout, and is a node-wise setting.
+* Nodes broadcast information about other nodes (three random nodes per packet) when pinging other nodes. The gossip section contains information about other nodes flags, including the PFAIL and FAIL flags.
 * Nodes remember if other nodes advertised some node as failing. This is called a failure report.
-* Once a node receives a new failure report, such as that the majority of master nodes agree about the failure of a given node, the node is marked as FAIL.
+* Once a node (already considering a given other node in PFAIL state) receives enough failure reports, so that the majority of master nodes agree about the failure of a given node, the node is marked as FAIL.
 * When a node is marked as FAIL, a message is broadcasted to the cluster in order to force all the reachable nodes to set the specified node as FAIL.
 
 So basically a node is not able to mark another node as failing without external acknowledge, and the majority of the master nodes are required to agree.
 
 Old failure reports are removed, so the majority of master nodes need to have a recent entry in the failure report table of a given node for it to mark another node as FAIL.
+
+The FAIL state is reversible in two cases:
+
+* If the FAIL state is set for a slave node, the FAIL state can be reversed if the slave is already reachable. There is no point in retaning the FAIL state for a slave node as it does not serve slots, and we want to make sure we have the chance to promote it to master if needed.
+* If the FAIL state is set for a master node, and after four times the node timeout, plus 10 seconds, the slots are were still not failed over, and the node is reachable again, the FAIL state is reverted.
+
+The rationale for the second case is that if the failover did not worked we want the cluster to continue to work if the master is back online, without any kind of user intervetion.
 
 Cluster state detection (partilly implemented)
 ---
