@@ -34,7 +34,7 @@
     "description": "Redis client build on top of lamina",
     "authors":["Zach Tellman"],
     "active": true
-  },  
+  },
   {
     "name": "CL-Redis",
     "language": "Common Lisp",
@@ -127,7 +127,7 @@
     "authors": ["simonz05"],
     "active": true
   },
-  
+
   {
     "name": "gosexy/redis",
     "language": "Go",
@@ -512,6 +512,15 @@
     "description": "Recommended client for node.",
     "authors": ["mranney"],
     "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "then-redis",
+    "language": "Node.js",
+    "repository": "https://github.com/mjijackson/then-redis",
+    "description": "A small, promise-based Redis client for node",
+    "authors": ["mjackson"],
     "active": true
   },
 
