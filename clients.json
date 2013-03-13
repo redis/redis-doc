@@ -93,7 +93,7 @@
   {
     "name": "Radix",
     "language": "Go",
-    "repository": "https://github.com/fzzbt/radix",
+    "repository": "https://github.com/fzzy/radix",
     "description": "MIT licensed Redis client.",
     "authors": ["fzzbt"],
     "recommended": true,
