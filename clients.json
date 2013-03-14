@@ -464,7 +464,7 @@
     "name": "NBoosters.RedisBoost",
     "language": "C#",
     "repository": "https://github.com/NBooster/RedisBoost",
-    "description": "Asynchronous client. Supports v2.6 command set",
+    "description": "Asynchronous Redis client",
     "authors": []
   },
   
