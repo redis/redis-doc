@@ -91,16 +91,6 @@
   },
 
   {
-    "name": "Radix",
-    "language": "Go",
-    "repository": "https://github.com/fzzy/radix",
-    "description": "MIT licensed Redis client.",
-    "authors": ["fzzbt"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
     "name": "Redigo",
     "language": "Go",
     "repository": "https://github.com/garyburd/redigo",
@@ -370,6 +360,15 @@
     "url": "http://pypi.python.org/pypi/txredis/0.1.1",
     "description": "",
     "authors": ["dio_rian"]
+  },
+
+  {
+    "name": "txredisapi",
+    "language": "Python",
+    "url": "https://github.com/fiorix/txredisapi",
+    "description": "Full featured, non-blocking client for Twisted.",
+    "authors": ["fiorix"],
+    "active": true
   },
 
   {
