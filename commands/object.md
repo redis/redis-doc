@@ -37,14 +37,14 @@ Objects can be encoded in different ways:
   sets of any size.
 
 All the specially encoded types are automatically converted to the general type
-once you perform an operation that makes it no possible for Redis to retain the
+once you perform an operation that makes it impossible for Redis to retain the
 space saving encoding.
 
 @return
 
 Different return values are used for different subcommands.
 
-* Subcommands `refcount` and `idletime` returns integers.
+* Subcommands `refcount` and `idletime` return integers.
 * Subcommand `encoding` returns a bulk reply.
 
 If the object you try to inspect is missing, a null bulk reply is returned.
