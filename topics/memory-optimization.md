@@ -182,6 +182,43 @@ But the Redis Way is that the user must understand how things work so that
 he is able to pick the best compromise, and to understand how the system will
 behave exactly.
 
+Memory allocation
+-----------------
+
+Redis allocates at most as much memory as the `maxmemory` setting enables.
+It can be set in the configuration file or set later via `CONFIG SET`
+(see the Configuration Guide). Please note, however, that
+
+* Redis will not free up (return) memory to the OS. Once it allocated a
+certain amount the only way to make it use less is to *restart* it.  (If
+`maxmemory` is `CONFIG SET` less than the actually allocated amount Redis
+will keep using that amount.)
+* Redis will internally reuse memory that once belonged to keys and values
+(including list/set/ordered set items) that got `DEL`'d.  (This includes
+expired items as they are internally automatically deleted at expiry.)
+* Redis's memory allocation strategy is tuned for performance and not to
+keep its memory-footprint low. Thus you can see it allocate memory from
+the OS rather than reuse what is already allocated.
+
+If `maxmemory` is not set Redis will keep allocating memory as it finds
+fit and thus it can (gradually) eat up all your free memory.
+Therefore it is generally adviseable to configure some limit. You may also
+want to set `maxmemory-policy` to `noeviction` (which is *not* the default
+value).
+It make Redis return a memory allocation error if and when it reaches the
+limit - which in turn may result in errors in the application but will not
+render the whole machine die of memory stravation.
+
+Please, also note that any `maxmemory-policy` other than `noeviction` will
+result in *non-deleted (and non-expired)* keys getting removed when Redis
+needs memory and has reached the set `maxmemory` limit.
+This may well be fit to your needs (e.g. when using Redis as a cache) but
+may not be what you want.
+This is especially not trivial with the default `volatile-lru` algorithm:
+it will *evict keys with positive TTL* (as the expired items get DEL'd and
+thus not even considered for eviction.
+
+
 Work in progress
 ----------------
 
