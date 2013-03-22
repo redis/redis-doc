@@ -355,6 +355,16 @@
   },
 
   {
+    "name": "RedisStore",
+    "language": "Python",
+    "repository": "https://github.com/timothycrosley/RedisStore",
+    "description": "Enables interacting with Redis keys as if they are native python objects, uses redis-py as backend."
+    "authors": ["timothycrosley"],
+    "recommended": true,
+    "active": true
+  },
+  
+  {
     "name": "redis-py",
     "language": "Python",
     "repository": "https://github.com/andymccurdy/redis-py",
