@@ -281,5 +281,12 @@
     "repository": "https://github.com/sasanrose/phpredmin",
     "description": "Yet another web interface for Redis",
     "authors": ["sasanrose"]
+  },
+  {
+    "name": "redis-tcl",
+    "language": "Tcl",
+    "repository" : "http://github.com/bradvoth/redis-tcl",
+    "description" : "Tcl library largely copied from the redis test tree, modified for minor bug fixes and expanded pub/sub capabilities",
+    "authors" : ["bradvoth","antirez"]
   }
 ]
