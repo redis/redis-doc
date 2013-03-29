@@ -1410,6 +1410,24 @@
       {
         "name": "value",
         "type": "string"
+      },
+      {
+        "command": "EX",
+        "name": "seconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "PX",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": ["NX", "XX"],
+        "optional": true
       }
     ],
     "since": "1.0.0",
