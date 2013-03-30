@@ -28,7 +28,6 @@ For example:
   # An array of Twitter usernames for the authors
   # and maintainers of the library.
   "authors": ["shumkov"]
-
 }
 ```
 
