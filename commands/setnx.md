@@ -20,6 +20,10 @@ GET mykey
 
 ## Design pattern: Locking with `!SETNX`
 
+**NOTE:** Starting with Redis 2.6.12 it is possible to create a much simpler locking primitive using the `SET` command to acquire the lock, and a simple Lua script to release the lock. The pattern is documented in the `SET` command page.
+
+The old `SETNX` based pattern is documented below for historical reasons.
+
 `SETNX` can be used as a locking primitive.
 For example, to acquire the lock of the key `foo`, the client could try the
 following:
