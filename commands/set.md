@@ -36,7 +36,18 @@ The lock will be auto-released after the expire time is reached.
 
 It is possible to make this system more robust modifying the unlock schema as follows:
 
-* Instead of setting a random string, set a non-guessable large random string.
+* Instead of setting a fixed string, set a non-guessable large random string, called token.
 * Instead of releasing the lock with `DEL`, send a script that only removes the key if the value matches.
 
 This avoids that a client will try to release the lock after the expire time deleting the key created by another client that acquired the lock later.
+
+An example of unlock script would be similar to the following:
+
+    if redis.call("get",KEYS[1]) == ARGV[1]
+    then
+        return redis.call("del",KEYS[1])
+    else
+        return 0
+    end
+
+The script should be called with `EVAL ...script... 1 resource-name token-value`
