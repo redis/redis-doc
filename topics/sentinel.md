@@ -27,9 +27,9 @@ Redis Sentinel is compatible with Redis 2.4.16 or greater, and redis 2.6.0-rc6 o
 Obtaining Sentinel
 ---
 
-Currently Sentinel is part of the Redis *unstable* branch at github.
-To compile it you need to clone the *unstable* branch and compile Redis.
-You'll see a `redis-sentinel` executable in your `src` directory.
+Sentinel has been shipped in stable releases as of redis 2.6. However it is
+not installed by default. You'll see a `redis-sentinel` executable in your
+`src` directory.
 
 Alternatively you can use directly the `redis-server` executable itself,
 starting it in Sentinel mode as specified in the next paragraph.
