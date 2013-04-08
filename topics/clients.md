@@ -34,7 +34,7 @@ of the error.
 In what order clients are served
 ---
 
-The order is determined by a combination of the client scoket file descriptor
+The order is determined by a combination of the client socket file descriptor
 number and order in which the kernel reports events, so the order is to be
 considered as unspecified.
 
