@@ -642,8 +642,8 @@
     "language": "D",
     "url": "http://adilbaig.github.com/Tiny-Redis/",
     "repository": "https://github.com/adilbaig/Tiny-Redis",
-    "description": "",
-    "authors": ["adilbaig"]
+    "description": "A Redis client for D2. Supports pipelining, transactions and Lua scripting",
+    "authors": ["aidezigns"]
   },
 
   {
