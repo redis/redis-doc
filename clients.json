@@ -73,6 +73,15 @@
   },
 
   {
+    "name": "Tideland Erlang/OTP Redis Client",
+    "language": "Erlang",
+    "repository": "git://git.tideland.biz/errc",
+    "description": "A comfortable Redis client for Erlang/OTP support pooling, pub/sub and transactions.",
+    "authors": ["themue"],
+    "active": true
+  },
+
+  {
     "name": "redis.fy",
     "language": "Fancy",
     "repository": "https://github.com/bakkdoor/redis.fy",
