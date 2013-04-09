@@ -488,6 +488,14 @@
   },
 
   {
+    "name": "em-hiredis",
+    "language": "Ruby",
+    "repository": "https://github.com/mloughran/em-hiredis",
+    "description": "An EventMachine Redis client (uses hiredis).",
+    "authors": ["mloughran"]
+  },
+
+  {
     "name": "em-redis",
     "language": "Ruby",
     "repository": "https://github.com/madsimian/em-redis",
