@@ -1,7 +1,7 @@
 # Redis Design Draft 1 -- Redis Design Drafts
 
-Author: Salvatore Sanfilippo `antirez@gmail.com`
-Github issue: none
+* Author: Salvatore Sanfilippo `antirez@gmail.com`
+* Github issue: none
 
 ## History of revisions
 
