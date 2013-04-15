@@ -165,7 +165,7 @@ If the requested value does not exist the bulk reply will use the special
 value -1 as data length, example:
 
     C: GET nonexistingkey
-    S: $-1
+    S: $-1\r\n
 
 This is called a **NULL Bulk Reply**.
 
