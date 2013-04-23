@@ -288,9 +288,9 @@ it the **Subjective Leader**, and is selected using the following rule:
 For a Sentinel to sense to be the **Objective Leader**, that is, the Sentinel that should start the failove process, the following conditions are needed.
 
 * It thinks it is the subjective leader itself.
-* It receives acknowledges from other Sentinels about the fact it is the leader: at least 50% plus one of all the Sentinels that were able to reply to the `SENTINEL is-master-down-by-addr` request shoudl agree it is the leader, and additionally we need a total level of agreement at least equal to the configured quorum of the master instance that we are going to failover.
+* It receives acknowledges from other Sentinels about the fact it is the leader: at least 50% plus one of all the Sentinels that were able to reply to the `SENTINEL is-master-down-by-addr` request should agree it is the leader, and additionally we need a total level of agreement at least equal to the configured quorum of the master instance that we are going to failover.
 
-Once a Sentinel things it is the Leader, the failover starts, but there is always a delay of five seconds plus an additional random delay. This is an additional layer of protection because if during this period we see another instance turning a slave into a master, we detect it as another instance staring the failover and turn ourselves into an observer instead.
+Once a Sentinel things it is the Leader, the failover starts, but there is always a delay of five seconds plus an additional random delay. This is an additional layer of protection because if during this period we see another instance turning a slave into a master, we detect it as another instance staring the failover and turn ourselves into an observer instead. This is just a redundancy layer and should in theory never happen.
 
 **Sentinel Rule #11**: A **Good Slave** is a slave with the following requirements:
 * It is not in SDOWN nor in ODOWN condition.
@@ -298,6 +298,7 @@ Once a Sentinel things it is the Leader, the failover starts, but there is alway
 * Latest PING reply we received from it is not older than five seconds.
 * Latest INFO reply we received from it is not older than five seconds.
 * The latest INFO reply reported that the link with the master is down for no more than the time elapsed since we saw the master entering SDOWN state, plus ten times the configured `down_after_milliseconds` parameter. So for instance if a Sentinel is configured to sense the SDOWN condition after 10 seconds, and the master is down since 50 seconds, we accept a slave as a Good Slave only if the replication link was disconnected less than `50+(10*10)` seconds (two minutes and half more or less).
+* It is not flagged as DEMOTE (see the section about resurrecting masters).
 
 **Sentinel Rule #12**: A **Subjective Leader** from the point of view of a Sentinel, is the Sentinel (including itself) with the lower runid monitoring a given master, that also replied to PING less than 5 seconds ago, reported to be able to do the failover via Pub/Sub hello channel, and is not in DISCONNECTED state.
 
@@ -399,6 +400,26 @@ the configuration back to the original master.
 **Sentinel Rule #18** A Sentinel will consider the failover process aborted, both when acting as leader and when acting as an observer, in the following conditions are true:
 * A failover is in progress and a slave to promote was already selected (or in the case of the observer was already detected as master).
 * The promoted slave is in **Extended SDOWN** condition (continually in SDOWN condition for at least ten times the configured `down-after-milliseconds`).
+
+Resurrecting master
+---
+
+After the failover, at some point the old master may return back online. Starting with Redis 2.6.13 Sentinel is able to handle this condition by automatically reconfiguring the old master as a slave of the new master.
+
+This happens in the following way:
+
+* After the failover has started from the point of view of a Sentinel, either as a leader, or as an observer that detected the promotion of a slave, the old master is put in the list of slaves of the new master, but with a special `DEMOTE` flag (the flag can be seen in the `SENTINEL SLAVES` command output).
+* Once the master is back online and it is possible to contact it again, if it still claims to be a master (from INFO output) Sentinels will send a `SLAVEOF` command trying to reconfigure it. Once the instance claims to be a slave, the `DEMOTE` flag is cleared.
+
+There is no single Sentinel in charge of turning the old master into a slave, so the process is resistant against failing sentinels. At the same time instances with the `DEMOTE` flag set are never selected as promotable slaves.
+
+In this specific case the `+slave` event is only generated only when the old master will report to be actually a slave again in its `INFO` output.
+
+**Sentinel Rule #19**: Once the failover starts (either as observer or leader), the old master is added as a slave of the new master, flagged as `DEMOTE`.
+
+**Sentinel Rule #20**: A slave instance claiming to be a master, and flagged as `DEMOTE`, is reconfigured via `SLAVEOF` every time a Sentinel receives an `INFO` output where the wrong role is detected.
+
+**Sentinel Rule #21**: The `DEMOTE` flag is cleared as soon as an `INFO` output shows the instance to report itself as a slave.
 
 Manual interactions
 ---
@@ -506,7 +527,7 @@ Note: because currently slave priority is not implemented, the selection is
 performed only discarding unreachable slaves and picking the one with the
 lower Run ID.
 
-**Sentinel Rule #19**: A Sentinel performing the failover as leader will select the slave to promote, among the existing **Good Slaves** (See rule #11), taking the one with the lower slave priority. When priority is the same the slave with lexicographically lower runid is preferred.
+**Sentinel Rule #22**: A Sentinel performing the failover as leader will select the slave to promote, among the existing **Good Slaves** (See rule #11), taking the one with the lower slave priority. When priority is the same the slave with lexicographically lower runid is preferred.
 
 APPENDIX B - Get started with Sentinel in five minutes
 ===
