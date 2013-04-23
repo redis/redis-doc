@@ -213,6 +213,14 @@
   },
 
   {
+    "name": "mod-redis-io",
+    "language": "Java",
+    "repository": "https://github.com/pmlopes/mod-redis-io",
+    "description": "Asynchronous redis.io bus module for Vert.x",
+    "authors": ["pmlopes"],
+  },
+
+{
     "name": "redis-lua",
     "language": "Lua",
     "repository": "https://github.com/nrk/redis-lua",
