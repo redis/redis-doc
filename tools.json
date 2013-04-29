@@ -288,5 +288,12 @@
     "repository" : "http://github.com/bradvoth/redis-tcl",
     "description" : "Tcl library largely copied from the redis test tree, modified for minor bug fixes and expanded pub/sub capabilities",
     "authors" : ["bradvoth","antirez"]
+  },
+  {
+    "name": "redis-stat",
+    "language": "Ruby",
+    "repository" : "https://github.com/junegunn/redis-stat",
+    "description" : "A simple Redis monitoring tool written in Ruby",
+    "authors" : ["junegunn"]
   }
 ]
