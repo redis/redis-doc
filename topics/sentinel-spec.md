@@ -55,7 +55,7 @@ configured quorum, select the desired behavior among many possibilities.
 
 Redis Sentinel does not use any proxy: clients reconfiguration is performed
 running user-provided executables (for instance a shell script or a
-Python program) in an user setup specific way.
+Python program) in a user setup specific way.
 
 In what form it will be shipped
 ===
@@ -271,7 +271,7 @@ Guarantees of the Leader election process
 ===
 
 As you can see for a Sentinel to become a leader the majority is not strictly
-required. An user can force the majority to be needed just setting the master
+required. A user can force the majority to be needed just setting the master
 quorum to, for instance, the value of 5 if there are a total of 9 sentinels.
 
 However it is also possible to set the quorum to the value of 2 with 9
@@ -350,7 +350,7 @@ The fail over process consists of the following steps:
 
 * 1) Turn the selected slave into a master using the SLAVEOF NO ONE command.
 * 2) Turn all the remaining slaves, if any, to slaves of the new master. This is done incrementally, one slave after the other, waiting for the previous slave to complete the synchronization process before starting with the next one.
-* 3) Call an user script to inform the clients that the configuration changed.
+* 3) Call a user script to inform the clients that the configuration changed.
 * 4) Completely remove the old failing master from the table, and add the new master with the same name.
 
 If Steps "1" fails, the fail over is aborted.
@@ -471,7 +471,7 @@ TODO
 ===
 
 * More detailed specification of user script error handling, including what return codes may mean, like 0: try again. 1: fatal error. 2: try again, and so forth.
-* More detailed specification of what happens when an user script does not return in a given amount of time.
+* More detailed specification of what happens when a user script does not return in a given amount of time.
 * Add a "push" notification system for configuration changes.
 * Document that for every master monitored the configuration specifies a name for the master that is reported by all the SENTINEL commands.
 * Make clear that we handle a single Sentinel monitoring multiple masters.

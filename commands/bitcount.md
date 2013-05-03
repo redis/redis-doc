@@ -38,7 +38,7 @@ with a small progressive integer.
 For instance day 0 is the first day the application was put online, day 1 the
 next day, and so forth.
 
-Every time an user performs a page view, the application can register that in
+Every time a user performs a page view, the application can register that in
 the current day the user visited the web site using the `SETBIT` command setting
 the bit corresponding to the current day.
 

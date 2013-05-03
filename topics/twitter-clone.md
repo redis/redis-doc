@@ -117,14 +117,14 @@ Data layout
 
 Working with a relational database this is the stage were the database layout should be produced in form of tables, indexes, and so on. We don't have tables, so what should be designed? We need to identify what keys are needed to represent our objects and what kind of values this keys need to hold.
 
-Let's start from Users. We need to represent this users of course, with the username, userid, password, followers and following users, and so on. The first question is, what should identify an user inside our system? The username can be a good idea since it is unique, but it is also too big, and we want to stay low on memory. So like if our DB was a relational one we can associate an unique ID to every user. Every other reference to this user will be done by id. That's very simple to do, because we have our atomic INCR operation! When we create a new user we can do something like this, assuming the user is called "antirez":
+Let's start from Users. We need to represent this users of course, with the username, userid, password, followers and following users, and so on. The first question is, what should identify a user inside our system? The username can be a good idea since it is unique, but it is also too big, and we want to stay low on memory. So like if our DB was a relational one we can associate an unique ID to every user. Every other reference to this user will be done by id. That's very simple to do, because we have our atomic INCR operation! When we create a new user we can do something like this, assuming the user is called "antirez":
 
     INCR global:nextUserId => 1000
     SET uid:1000:username antirez
     SET uid:1000:password p1pp0
 
 We use the _global:nextUserId_ key in order to always get an unique ID for every new user. Then we use this unique ID to populate all the other keys holding our user data. *This is a Design Pattern* with key-values stores! Keep it in mind.
-Besides the fields already defined, we need some more stuff in order to fully define an User. For example sometimes it can be useful to be able to get the user ID from the username, so we set this key too:
+Besides the fields already defined, we need some more stuff in order to fully define a User. For example sometimes it can be useful to be able to get the user ID from the username, so we set this key too:
 
     SET username:antirez:uid 1000
 
@@ -150,7 +150,7 @@ OK, we have more or less everything about the user, but authentication. We'll ha
     SET uid:1000:auth fea5e81ac8ca77622bed1c2132a021f9
     SET auth:fea5e81ac8ca77622bed1c2132a021f9 1000
 
-In order to authenticate an user we'll do this simple work (`login.php`):
+In order to authenticate a user we'll do this simple work (`login.php`):
  * Get the username and password via the login form
  * Check if the username:`<username>`:uid key actually exists
  * If it exists we have the user id, (i.e. 1000)
