@@ -99,5 +99,5 @@ instances, one as a cache, configured in this way, and one as a store,
 configured accordingly to your persistence needs and only holding keys
 that are not about cached data.
 
-*Note:* The user is adviced to read the example redis.conf to check how the
-other maxmemory policies available work.
+*Note:* The user is advised to read the example `redis.conf` to check how the
+other `maxmemory` policies available work.
