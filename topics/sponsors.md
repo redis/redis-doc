@@ -1,7 +1,9 @@
 Redis Sponsors
 ===
 
-All the work [Salvatore Sanfilippo](http://twitter.com/antirez) and [Pieter Noordhuis](http://twitter.com/pnoordhuis) are doing in order to develop Redis is sponsored by [VMware](http://vmware.com). The Redis project no longer accepts money donations.
+Starting from May 2013, all the work [Salvatore Sanfilippo](http://twitter.com/antirez) is doing in order to develop Redis is sponsored by [Pivotal](http://gopivotal.com). The Redis project no longer accepts money donations.
+
+Before May 2013 the project was sponsored by VMware with the work of [Salvatore Sanfilippo](http://twitter.com/antirez) and [Pieter Noordhuis](http://twitter.com/pnoordhuis).
 
 In the past Redis accepted donations from the following companies:
 
@@ -17,6 +19,6 @@ Also thanks to the following people or organizations that donated to the Project
 * [Brad Jasper](http://bradjasper.com/)
 * [Mrkris](http://www.mrkris.com/)
 
-We are grateful to [VMware](http://vmware.com) and to the companies and people that donated to the Redis project. Thank you.
+We are grateful to [Pivotal](http://gopivotal.com), [VMware](http://vmware.com) and to the other companies and people that donated to the Redis project. Thank you.
 
 The Redis.io domain is kindly donated to the project by [I Want My Name](http://iwantmyname.com).
