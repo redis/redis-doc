@@ -400,6 +400,14 @@
   },
 
   {
+    "name": "prot-redis",
+    "language": "Rebol",
+    "repository": "https://github.com/rebolek/prot-redis",
+    "description": "Redis network scheme for Rebol 3",
+    "authors": ["rebolek"]
+  },
+  
+  {
     "name": "scala-redis",
     "language": "Scala",
     "repository": "https://github.com/acrosa/scala-redis",
