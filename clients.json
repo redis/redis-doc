@@ -669,5 +669,14 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
+  },
+  
+  {
+    "name": "redisboost",
+    "language": "C#",
+    "url": "http://andrew-bn.github.io/RedisBoost/",
+    "repository": "https://github.com/andrew-bn/RedisBoost",
+    "description": "Thread-safe async Redis client. Offers high performance and simple api",
+    "authors": ["bn_andrew"]
   }
 ]
