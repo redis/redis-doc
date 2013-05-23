@@ -908,5 +908,14 @@
     "repository": "https://github.com/markuman/redis-octave",
     "description": "A Redis client in pure Octave ",
     "authors": ["markuman"]
+  },
+
+  {
+    "name": "redisboost",
+    "language": "C#",
+    "url": "http://andrew-bn.github.io/RedisBoost/",
+    "repository": "https://github.com/andrew-bn/RedisBoost",
+    "description": "Thread-safe async Redis client. Offers high performance and simple api",
+    "authors": ["bn_andrew"]
   }
 ]
