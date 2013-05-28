@@ -669,5 +669,14 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
-  }
+  },
+
+  {
+    "name": "redis-octave",
+    "language": "Matlab",
+    "repository": "https://github.com/markuman/redis-octave",
+    "description": "A Redis client in pure Octave ",
+    "authors": ["markuman"]
+  },
+
 ]
