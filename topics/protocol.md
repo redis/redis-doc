@@ -116,7 +116,7 @@ A client implementation may return different kind of exceptions for different
 errors, or may provide a generic way to trap errors by directly providing
 the error name to the caller as a string.
 
-However such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error conditon, such as `false`.
+However such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error condition, such as `false`.
 
 Integer reply
 -------------
@@ -165,7 +165,7 @@ If the requested value does not exist the bulk reply will use the special
 value -1 as data length, example:
 
     C: GET nonexistingkey
-    S: $-1
+    S: $-1\r\n
 
 This is called a **NULL Bulk Reply**.
 
