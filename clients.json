@@ -669,5 +669,13 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
+  },
+
+  {
+    "name": "Brando",
+    "language": "Scala",
+    "repository": "https://github.com/chrisdinn/brando",
+    "description": "A Redis client written with the Akka IO package introduced in Akka 2.2.",
+    "authors": ["chrisdinn"]
   }
 ]
