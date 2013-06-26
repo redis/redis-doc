@@ -1121,6 +1121,24 @@
     "since": "2.0.0",
     "group": "pubsub"
   },
+  "PUBSUB": {
+    "summary": "Inspect the state of the Pub/Sub subsystem",
+    "complexity": "O(N) for the CHANNELS subcommand, where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns). O(N) for the NUMSUB subcommand, where N is the number of requested channels. O(1) for the NUMPAT subcommand.",
+    "arguments": [
+      {
+        "name": "subcommand",
+        "type": "string"
+      },
+      {
+        "name": "argument",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "pubsub"
+  },
   "PTTL": {
     "summary": "Get the time to live for a key in milliseconds",
     "complexity": "O(1)",
