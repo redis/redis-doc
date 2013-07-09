@@ -669,5 +669,13 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
+  },
+
+  {
+    "name": "finagle-redis",
+    "language": "Scala",
+    "repository": "https://github.com/twitter/finagle",
+    "description": "Redis client based on Finagle",
+    "authors": [""]
   }
 ]
