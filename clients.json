@@ -990,5 +990,13 @@
     "description": "A lightweight wrapper around the C client hiredis.",
     "authors": ["matt_howlett"],
     "active": true
+  },
+
+  {
+    "name": "finagle-redis",
+    "language": "Scala",
+    "repository": "https://github.com/twitter/finagle",
+    "description": "Redis client based on Finagle",
+    "authors": [""]
   }
 ]
