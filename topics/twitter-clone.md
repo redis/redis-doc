@@ -138,7 +138,7 @@ There is another central need in our system. Every user has followers users and 
     uid:1000:followers => Set of uids of all the followers users
     uid:1000:following => Set of uids of all the following users
 
-Another important thing we need is a place were we can add the updates to display in the user home page. We'll need to access this data in chronological order later, from the most recent update to the older ones, so the perfect kind of Value for this work is a List. Basically every new update will be LPUSHed in the user updates key, and thanks to LRANGE we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
+Another important thing we need is a place where we can add the updates to display in the user home page. We'll need to access this data in chronological order later, from the most recent update to the older ones, so the perfect kind of Value for this work is a List. Basically every new update will be LPUSHed in the user updates key, and thanks to LRANGE we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
 
     uid:1000:posts => a List of post ids, every new post is LPUSHed here.
 
