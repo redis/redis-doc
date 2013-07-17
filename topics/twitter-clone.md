@@ -115,7 +115,7 @@ Another thing you probably want is a working Redis server. Just get the source, 
 Data layout
 ---
 
-Working with a relational database this is the stage were the database layout should be produced in form of tables, indexes, and so on. We don't have tables, so what should be designed? We need to identify what keys are needed to represent our objects and what kind of values this keys need to hold.
+Working with a relational database this is the stage where the database layout should be produced in form of tables, indexes, and so on. We don't have tables, so what should be designed? We need to identify what keys are needed to represent our objects and what kind of values this keys need to hold.
 
 Let's start from Users. We need to represent this users of course, with the username, userid, password, followers and following users, and so on. The first question is, what should identify a user inside our system? The username can be a good idea since it is unique, but it is also too big, and we want to stay low on memory. So like if our DB was a relational one we can associate an unique ID to every user. Every other reference to this user will be done by id. That's very simple to do, because we have our atomic INCR operation! When we create a new user we can do something like this, assuming the user is called "antirez":
 
