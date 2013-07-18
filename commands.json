@@ -964,6 +964,18 @@
       {
         "name": "timeout",
         "type": "integer"
+      },
+      {
+        "name": "copy",
+        "type": "enum",
+        "enum": ["COPY"],
+        "optional": true
+      },
+      {
+        "name": "replace",
+        "type": "enum",
+        "enum": ["REPLACE"],
+        "optional": true
       }
     ],
     "since": "2.6.0",
