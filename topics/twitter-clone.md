@@ -284,7 +284,7 @@ Note that we also maintain a timeline with all the posts. In order to do so what
 Paginating updates
 ---
 
-Now it should be pretty clear how we can user LRANGE in order to get ranges of posts, and render this posts on the screen. The code is simple:
+Now it should be pretty clear how we can use LRANGE in order to get ranges of posts, and render this posts on the screen. The code is simple:
 
     function showPost($id) {
         $r = redisLink();
