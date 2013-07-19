@@ -1,35 +1,35 @@
 # How fast is Redis?
 
-Redis includes the `redis-benchmark` utility that simulates SETs/GETs done by N
-clients at the same time sending M total queries (it is similar to the Apache's
-`ab` utility). Below you'll find the full output of a benchmark executed
+Redis includes the `redis-benchmark` utility that simulates running commands done
+by N clients at the same time sending M total queries (it is similar to the
+Apache's `ab` utility). Below you'll find the full output of a benchmark executed
 against a Linux box.
 
 The following options are supported:
 
     Usage: redis-benchmark [-h <host>] [-p <port>] [-c <clients>] [-n <requests]> [-k <boolean>]
 
-    -h <hostname>      Server hostname (default 127.0.0.1)
-    -p <port>          Server port (default 6379)
-    -s <socket>        Server socket (overrides host and port)
-    -c <clients>       Number of parallel connections (default 50)
-    -n <requests>      Total number of requests (default 10000)
-    -d <size>          Data size of SET/GET value in bytes (default 2)
-    -k <boolean>       1=keep alive 0=reconnect (default 1)
-    -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
+     -h <hostname>      Server hostname (default 127.0.0.1)
+     -p <port>          Server port (default 6379)
+     -s <socket>        Server socket (overrides host and port)
+     -c <clients>       Number of parallel connections (default 50)
+     -n <requests>      Total number of requests (default 10000)
+     -d <size>          Data size of SET/GET value in bytes (default 2)
+     -k <boolean>       1=keep alive 0=reconnect (default 1)
+     -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
       Using this option the benchmark will get/set keys
       in the form mykey_rand:000000012456 instead of constant
       keys, the <keyspacelen> argument determines the max
       number of values for the random number. For instance
       if set to 10 only rand:000000000000 - rand:000000000009
       range will be allowed.
-    -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
-    -q                 Quiet. Just show query/sec values
-    --csv              Output in CSV format
-    -l                 Loop. Run the tests forever
-    -t <tests>         Only run the comma separated list of tests. The test
+     -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
+     -q                 Quiet. Just show query/sec values
+     --csv              Output in CSV format
+     -l                 Loop. Run the tests forever
+     -t <tests>         Only run the comma separated list of tests. The test
                         names are the same as the ones produced as output.
-    -I                 Idle mode. Just open N idle connections and wait.
+     -I                 Idle mode. Just open N idle connections and wait.
 
 You need to have a running Redis instance before launching the benchmark.
 A typical example would be:
@@ -38,6 +38,79 @@ A typical example would be:
 
 Using this tool is quite easy, and you can also write your own benchmark,
 but as with any benchmarking activity, there are some pitfalls to avoid.
+
+Running only a subset of the tests
+---
+
+You don't need to run all the default tests every time you execute redis-benchmark.
+The simplest thing to select only a subset of tests is to use the `-t` option
+like in the following example:
+
+    $ redis-benchmark -t set,lpush -n 100000 -q
+    SET: 74239.05 requests per second
+    LPUSH: 79239.30 requests per second
+
+In the above example we asked to just run test the SET and LPUSH commands,
+in quite mode (see the `-q` switch).
+
+It is also possible to specify the command to benchmark directly like in the
+following example:
+
+    $ redis-benchmark -n 100000 -q script load "redis.call('set','foo','bar')"
+    script load redis.call('set','foo','bar'): 69881.20 requests per second
+
+Selecting the size of the key space
+---
+
+By default the benchmark runs against a single key. In Redis the difference
+between such a synthetic benchmark and a real one is not huge since it is an
+in memory system, however it is possible to stress cache misses and in general
+to simulate a more real-world work load by using a large key space.
+
+This is obtained by using the `-r` switch. For instance if I want to run
+one million of SET operations, using a random key for every operation out of
+100k possible keys, I'll use the following command line:
+
+    $ redis-cli flushall
+    OK
+
+    $ redis-benchmark -t set -r 100000 -n 1000000
+    ====== SET ======
+      1000000 requests completed in 13.86 seconds
+      50 parallel clients
+      3 bytes payload
+      keep alive: 1
+
+    99.76% `<=` 1 milliseconds
+    99.98% `<=` 2 milliseconds
+    100.00% `<=` 3 milliseconds
+    100.00% `<=` 3 milliseconds
+    72144.87 requests per second
+
+    $ redis-cli dbsize
+    (integer) 99993
+
+Using pipelining
+---
+
+By default every client (the benchmark simulates 50 clients if not otherwise
+specified with `-c`) sends the next command only when the reply of the previous
+command is received, this means that the server will likely need a read call
+in order to read each command from every client. Also RTT is payed as well.
+
+Redis supports [/topics/pipelining](pipelining), so it is possible to send
+multiple commands at once, a feature often exploited by real world applications.
+Redis pipelining is able to dramatically improve the number of operations per
+second a server is able do deliver.
+
+This is an example of running the benchmark in a Macbook air 11" using a
+pipeling of 16 commands:
+
+    $ redis-benchmark -n 1000000 -t set,get -P 16 -q
+    SET: 403063.28 requests per second
+    GET: 508388.41 requests per second
+
+Using pipelining resulted into a sensible amount of more commands processed.
 
 Pitfalls and misconceptions
 ---------------------------
@@ -239,16 +312,47 @@ the generated log file on a remote filesystem.
 instance using INFO at regular interval to gather statistics is probably fine,
 but MONITOR will impact the measured performance significantly.
 
-# Example of benchmark result
+# Benchmark results on different virtualized and bare metal servers.
 
-* The test was done with 50 simultaneous clients performing 100000 requests.
-* The value SET and GET is a 256 bytes string.
-* The Linux box is running *Linux 2.6*, it's *Xeon X3320 2.5 GHz*.
-* Text executed using the loopback interface (127.0.0.1).
+* The test was done with 50 simultaneous clients performing 2 million requests.
+* Redis 2.6.14 is used for all the tests.
+* Test executed using the loopback interface.
+* Test executed using a key space of 1 million keys.
+* Test executed with and without pipelining (16 commands pipeline).
 
-Results: *about 110000 SETs per second, about 81000 GETs per second.*
+**Intel(R) Xeon(R) CPU E5520  @ 2.27GHz (with pipelining)**
 
-## Latency percentiles
+    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -P 16 -q
+    SET: 552028.75 requests per second
+    GET: 707463.75 requests per second
+    LPUSH: 767459.75 requests per second
+    LPOP: 770119.38 requests per second
+
+**Intel(R) Xeon(R) CPU E5520  @ 2.27GHz (without pipelining)**
+
+    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q
+    SET: 122556.53 requests per second
+    GET: 123601.76 requests per second
+    LPUSH: 136752.14 requests per second
+    LPOP: 132424.03 requests per second
+
+**Linode 2048 instance (with pipelining)**
+
+    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q -P 16
+    SET: 195503.42 requests per second
+    GET: 250187.64 requests per second
+    LPUSH: 230547.55 requests per second
+    LPOP: 250815.16 requests per second
+
+**Linode 2048 instance (without pipelining)**
+
+    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q
+    SET: 35001.75 requests per second
+    GET: 37481.26 requests per second
+    LPUSH: 36968.58 requests per second
+    LPOP: 35186.49 requests per second
+
+## More detailed tests without pipelining
 
     $ redis-benchmark -n 100000
 
