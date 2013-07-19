@@ -37,6 +37,11 @@ same name was also _already_ present on the target instance).
 
 On success OK is returned.
 
+## Options
+
+* `COPY` -- Do not remove the key from the local instance.
+* `REPLACE` -- Replace existing key on the remote instance.
+
 @return
 
 @status-reply: The command returns OK on success.
