@@ -180,6 +180,11 @@
     "since": "2.0.0",
     "group": "server"
   },
+  "CONFIG REWRITE": {
+    "summary": "Rewrite the configuration file with the in memory configuration",
+    "since": "2.8.0",
+    "group": "server"
+  },
   "CONFIG SET": {
     "summary": "Set a configuration parameter to the given value",
     "arguments": [
