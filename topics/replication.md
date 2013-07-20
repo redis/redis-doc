@@ -77,7 +77,7 @@ master run id is still the same, and that the offset specified is available
 in the replication backlog.
 
 If the conditions are met, the master just sends the part of the replication
-stream the master missed, and the replication continues.
+stream the slave missed, and the replication continues.
 Otherwise a full resynchronization is performed as in the past versions of
 Redis.
 
