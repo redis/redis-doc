@@ -77,7 +77,7 @@ master run id is still the same, and that the offset specified is available
 in the replication backlog.
 
 If the conditions are met, the master just sends the part of the replication
-stream the master missed, and the replication continues.
+stream the slave missed, and the replication continues.
 Otherwise a full resynchronization is performed as in the past versions of
 Redis.
 
@@ -134,7 +134,7 @@ accept write queries only if at least N slaves are currently connected to the
 master, in order to improve data safety.
 
 However because Redis uses asynchronous replication it is not possible to ensure
-the write actually received a given write, so there is always a window for data
+the slave actually received a given write, so there is always a window for data
 loss.
 
 This is how the feature works:
