@@ -134,7 +134,7 @@ accept write queries only if at least N slaves are currently connected to the
 master, in order to improve data safety.
 
 However because Redis uses asynchronous replication it is not possible to ensure
-the write actually received a given write, so there is always a window for data
+the slave actually received a given write, so there is always a window for data
 loss.
 
 This is how the feature works:
