@@ -1,5 +1,12 @@
 [
   {
+    "name": "Sedona",
+    "language": "Python",
+    "repository": "https://github.com/urbanski/sedona",
+    "description": "An application firewall for Redis, providing authentication, authorization and encryption.",
+    "authors": ["urbanski"]
+  },
+  {
     "name": "Resque",
     "language": "Ruby",
     "repository": "https://github.com/defunkt/resque",
