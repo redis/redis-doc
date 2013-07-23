@@ -291,6 +291,16 @@
   },
 
   {
+    "name": "Mojo::Redis",
+    "language": "Perl",
+    "url": "https://metacpan.org/module/Mojo::Redis",
+    "repository": "https://github.com/marcusramberg/mojo-redis",
+    "description": "Async Redis driver for Mojo::IOLoop (Mojolicious)",
+    "authors": ["marcusramberg", "jhthorsen"],
+    "active": true
+  },
+
+  {
     "name": "MojoX::Redis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/MojoX-Redis",
