@@ -234,7 +234,7 @@
   {
     "name": "Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/Redis",
+    "url": "https://metacpan.org/release/Redis",
     "repository": "https://github.com/melo/perl-redis",
     "description": "Perl binding for Redis database",
     "authors": ["pedromelo"],
@@ -245,7 +245,7 @@
   {
     "name": "RedisDB",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/RedisDB",
+    "url": "https://metacpan.org/release/RedisDB",
     "repository": "https://github.com/trinitum/RedisDB",
     "description": "Perl binding for Redis database with fast XS-based protocolparser",
     "authors": ["trinitum"],
@@ -255,7 +255,7 @@
   {
     "name": "Redis::hiredis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/Redis-hiredis/",
+    "url": "https://metacpan.org/release/Redis-hiredis/",
     "description": "Perl binding for the hiredis C client",
     "authors": ["neophenix"],
     "active": true
@@ -264,7 +264,7 @@
   {
     "name": "AnyEvent::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Redis",
+    "url": "https://metacpan.org/release/AnyEvent-Redis",
     "repository": "https://github.com/miyagawa/AnyEvent-Redis",
     "description": "Non-blocking Redis client",
     "authors": ["miyagawa"]
@@ -273,7 +273,7 @@
   {
     "name": "AnyEvent::Redis::RipeRedis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Redis-RipeRedis",
+    "url": "https://metacpan.org/release/AnyEvent-Redis-RipeRedis",
     "repository": "https://github.com/iph0/AnyEvent-Redis-RipeRedis",
     "description": "Flexible non-blocking Redis client with reconnect feature",
     "authors": ["iph"],
@@ -283,7 +283,7 @@
   {
     "name": "AnyEvent::Hiredis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Hiredis",
+    "url": "https://metacpan.org/release/AnyEvent-Hiredis",
     "repository": "https://github.com/wjackson/AnyEvent-Hiredis",
     "description": "Non-blocking client using the hiredis C library",
     "authors": [],
@@ -293,7 +293,7 @@
   {
     "name": "Mojo::Redis",
     "language": "Perl",
-    "url": "https://metacpan.org/module/Mojo::Redis",
+    "url": "https://metacpan.org/release/Mojo-Redis",
     "repository": "https://github.com/marcusramberg/mojo-redis",
     "description": "Async Redis driver for Mojo::IOLoop (Mojolicious)",
     "authors": ["marcusramberg", "jhthorsen"],
@@ -303,7 +303,7 @@
   {
     "name": "MojoX::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/MojoX-Redis",
+    "url": "https://metacpan.org/release/MojoX-Redis",
     "repository": "https://github.com/und3f/mojox-redis",
     "description": "asynchronous Redis client for Mojolicious",
     "authors": ["und3f"],
@@ -313,7 +313,7 @@
   {
     "name": "Danga::Socket::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/Danga-Socket-Redis",
+    "url": "https://metacpan.org/release/Danga-Socket-Redis",
     "description": "An asynchronous redis client using the Danga::Socket async library",
     "authors": ["martinredmond"]
   },
