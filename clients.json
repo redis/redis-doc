@@ -48,7 +48,7 @@
   {
     "name": "hierdis",
     "language": "Erlang",
-    "repository": "https://github.com/nathanaschbacher/hierdis",
+    "repository": "https://github.com/basho-labs/hierdis",
     "description": "High-performance Erlang NIF-based client for the Redis key-value store.",
     "authors": ["nathanaschbacher"],
     "active": true
