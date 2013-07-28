@@ -216,7 +216,7 @@
     "name": "aredis",
     "language": "Java",
     "repository": "http://aredis.sourceforge.net/",
-    "description": "Asynchronous, pipelined client based on Java 7 NIO Channel API",
+    "description": "Asynchronous, pipelined client based on the Java 7 NIO Channel API",
     "authors": ["msuresh"]
   },
 
