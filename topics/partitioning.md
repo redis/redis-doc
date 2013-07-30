@@ -18,34 +18,34 @@ There are different partitioning criteria. Imagine we have four Redis instances 
 
 One of the simplest way to perform partitioning is called **range partitioning**, and is accomplished by mapping ranges of objects into specific Redis instances. For example I could say, users from ID 0 to ID 10000 will go into instance **R0**, while users form ID 10001 to ID 20000 will go into instance **R1** and so forth.
 
-This systems works and is actually used in practice, however it has the disadvantage that there is to take a table mapping ranges to instances. This table needs to be managed and we need a table for every kind of object we have. Usually with Redis it is not a good idea.
+This systems works and is actually used in practice, however it has the disadvantage that there is a table mapping ranges to instances. This table needs to be managed and we need a table for every kind of object we have. Usually with Redis it is not a good idea.
 
-An alternative to to range partitioning is **hash partitioning**. This scheme works with any key, no need for a key in the form `object_name:<id>` as is as simple as this:
+An alternative to to range partitioning is **hash partitioning**. This scheme works with any key so there is no need for a key in the form of `object_name:<id>`.  It is as simple as this:
 
-* Take the key name and use an hash function to turn it into a number. For instance I could use the `crc32` hash function. So if the key is `foobar` I do `crc32(foobar)` that will output something like 93024922.
-* I use a modulo operation with this number in order to turn it into a number between 0 and 3, so that I can map this number to one of the four Redis instances I've. So `93024922 modulo 4` equals 2, so I know my key `foobar` should be stored into the **R2** instance. *Note: the modulo operation is just the rest of the division, usually it is implemented by the `%` operator in many programming languages.*
+* Take the key name and use a hash function to turn it into a number. For instance I could use the `crc32` hash function. So if the key is `"foobar"` I do `crc32("foobar")` that will output something like 93024922.
+* I use a modulo operation with this number in order to turn it into a number between 0 and 3, so that I can map this number to one of the four Redis instances I've got. `93024922 modulo 4` equals 2, so I know my key `foobar` should be stored into the **R2** instance. *Note: the modulo operation is just the rest of the division, it is implemented by the `%` operator in many programming languages.*
 
-There are many other ways to perform partitioning, but with this two examples you should get the idea. One advanced form of hash partitioning is called **consistent hashing** and is implemented by a few Redis clients and proxies.
+There are many other ways to perform partitioning, but with these two examples you should get the idea. One advanced form of hash partitioning is called **consistent hashing** and is implemented by a few Redis clients and proxies.
 
 Different implementations of partitioning
 ---
 
-Partitioning can be responsibility of different parts of a software stack.
+Partitioning can be the responsibility of different parts of a software stack.
 
-* **Client side partitioning** means that the clients directly select the right node where to write or read a given key. Many Redis clients implement client side partitioning.
+* **Client side partitioning** means that the clients directly selects the right node to read or write for a given key. Many Redis clients implement client side partitioning.
 * **Proxy assisted partitioning** means that our clients send requests to a proxy that is able to speak the Redis protocol, instead of sending requests directly to the right Redis instance. The proxy will make sure to forward our request to the right Redis instance accordingly to the configured partitioning schema, and will send the replies back to the client. The Redis and Memcached proxy [Twemproxy](https://github.com/twitter/twemproxy) implements proxy assisted partitioning.
-* **Query routing** means that you can send your query to a random instance, and the instance will make sure to forward your query to the right node. Redis Cluster implements an hybrid form of query routing, with the help of the client (the request is not directly forwarded from a Redis instance to another, but the client gets *redirected* to the right node).
+* **Query routing** means that you can send your query to a random instance, and the instance will make sure to forward your query to the right node. Redis Cluster implements a hybrid form of query routing, with the help of the client (the request is not directly forwarded from a Redis instance to another, but the client gets *redirected* to the right node).
 
 Disadvantages of partitioning
 ---
 
 Some features of Redis don't play very well with partitioning:
 
-* Operations involving multiple keys are usually not supported. For instance you can't perform the intersection between two sets if they are stored in keys that are mapped to different Redis instances (actually there are ways to do this, but not directly).
+* Operations involving multiple keys are usually not supported. For instance, you can't perform the intersection between two sets if they are stored in keys that are mapped to different Redis instances (actually there are ways to do this, but not directly).
 * Redis transactions involving multiple keys can not be used.
 * The partitioning granuliary is the key, so it is not possible to shard a dataset with a single huge key like a very big sorted set.
 * When partitioning is used, data handling is more complex, for instance you have to handle multiple RDB / AOF files, and to make a backup of your data you need to aggregate the persistence files from multiple instances and hosts.
-* Adding and removing capacity can be complex. For instance Redis Cluster plans to support mostly transparent rebalancing of data with the ability to add and remove nodes at runtime, but other systems like client side partitioning and proxies don't support this feature. However a technique called *Presharding* helps in this regard.
+* Adding and removing capacity can be complex. For instance, Redis Cluster plans to support mostly transparent rebalancing of data with the ability to add and remove nodes at runtime, but other systems like client side partitioning and proxies don't support this feature. However a technique called *Presharding* helps in this regard.
 
 Data store or cache?
 ---
@@ -62,13 +62,13 @@ The main concept here is the following:
 Presharding
 ---
 
-We learned that a problem with partitioning is that, unless we are using Redis as a cache, to add and remove nodes can be tricky, and it is much simpler to use a fixed keys-instances map.
+We learned that a problem with partitioning is that unless we are using Redis as a cache, adding and removing nodes can be tricky, and it is much simpler to use a fixed keys-instances map.
 
 However the data storage needs may vary over the time. Today I can live with 10 Redis nodes (instances), but tomorrow I may need 50 nodes.
 
-Since Redis is extremely small footprint and lightweight (a spare instance uses 1 MB of memory), a simple approach to this problem is to start with a lot of instances since the start. Even if you start with just one server, you can decide to live in a distributed world since your first day, and run multiple Redis instances in your single server, using partitioning.
+Since Redis is extremely small footprint and lightweight (a spare instance uses 1 MB of memory), a simple approach to this problem is to start with a lot of instances from the start. Even if you start with just one server, you can decide to live in a distributed world since your first day, and run multiple Redis instances in your single server, using partitioning.
 
-And you can select this number of instances to be quite big since the start. For example, 32 or 64 instances could do the trick for most users, and will provide enough room for growth.
+You can select this number of instances to be quite big from the start. For example, 32 or 64 instances could do the trick for most users, and will provide enough room for growth.
 
 In this way as your data storage needs increase and you need more Redis servers, what to do is to simply move instances from one server to another. Once you add the first additional server, you will need to move half of the Redis instances from the first server to the second, and so forth.
 
