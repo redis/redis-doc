@@ -403,7 +403,7 @@ The second check is required because in order to mark a node from PFAIL to FAIL 
 Slave election
 ---
 
-Once a master node is in FAIL state, if one or more slaves exist for this master one should be elected as a master and all the other slaves reconfigured to replicate with the new master.
+Once a master node is in FAIL state, if one or more slaves exist for this master one should be promoted as a master and all the other slaves reconfigured to replicate with the new master.
 
 The election of a slave is a task that is handled directly by the slaves of the failing master. The trigger is the following set of conditions:
 
