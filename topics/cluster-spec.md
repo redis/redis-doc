@@ -400,18 +400,40 @@ The FAIL state for the cluster happens in two cases.
 
 The second check is required because in order to mark a node from PFAIL to FAIL state, the majority of masters are required. However when we are not connected with the majority of masters it is impossible from our side of the net split to mark nodes as FAIL. However since we detect this condition we set the Cluster state in FAIL mode to stop serving queries.
 
-Slave election (not implemented)
+Slave election
 ---
 
-The design of slave election is a work in progress right now.
+Once a master node is in FAIL state, if one or more slaves exist for this master one should be elected as a master and all the other slaves reconfigured to replicate with the new master.
 
-The idea is to use the concept of first slave, that is, out of all the
-slaves for a given node, the first slave is the one with the lower
-Node ID (comparing node IDs lexicographically).
+The election of a slave is a task that is handled directly by the slaves of the failing master. The trigger is the following set of conditions:
 
-However it is likely that the same system used for failure reports will be
-used in order to require the majority of masters to authorize the slave
-election.
+* A node is a slave of a master in FAIL state.
+* The master was serving a non-zero number of slots.
+* The slave's data is considered reliable, that is, from the point of view of the replication layer, the replication link has not been down for more than the configured node timeout multiplied for a given multiplication factor (see the `REDIS_CLUSTER_SLAVE_VALIDITY_MULT` define).
+
+If all the above conditions are true, the slave starts requesting the
+authorization to be promoted to master to all the reachable masters.
+
+A master will reply with a positive message `FAILOVER_AUTH_GRANTED` if the sender of the message has the following properties:
+
+* Is a slave, and the master is indeed in FAIL state.
+* Ordering all the slaves for this master, it has the lowest Node ID.
+* It appears to be up and running (no FAIL or PFAIL state).
+
+Once the slave receives the authorization from the majority of the masters within a certain amount of time, it starts the failover process performing the following tasks:
+
+* It starts advertising itself as a master (via PONG packets).
+* It also advertises it is a promoted slave (via PONG packets).
+* It also starts claiming all the nodes that were served by the old master.
+* A PONG packet is broadcasted to all the nodes to speedup the proccess.
+
+All the other nodes will update the configuration accordingly. Specifically:
+
+* All the slots claimed by the new master will be updated, since they are currently claimed by a master in FAIL state.
+* All the other slaves of the old master will detect the PROMOTED flag and will switch the replication to the new master.
+* If the old master will return back again, will detect the PROMOTED flag and will configure itself as a slave of the new master.
+
+The PROMOTED flag will be lost by a node when it is turned again into a slave for some reason during the life of the cluster.
 
 Publish/Subscribe (implemented, but to refine)
 ===
