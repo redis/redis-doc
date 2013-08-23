@@ -252,8 +252,12 @@ more optimistic allocation fashion, and this is indeed what you want for Redis.
 A good source to understand how Linux Virtual Memory work and other
 alternatives for `overcommit_memory` and `overcommit_ratio` is this classic
 from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
+Beware, this article had 1 and 2 configurtation value for `overcommit_memory`
+reversed: reffer to the ["proc(5)"][proc5] man page for the right meaning of the
+available values.
 
 [redhatvm]: http://www.redhat.com/magazine/001nov04/features/vm/
+[proc5]: http://man7.org/linux/man-pages/man5/proc.5.html
 
 ## Are Redis on disk snapshots atomic?
 
