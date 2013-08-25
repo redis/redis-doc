@@ -1006,4 +1006,15 @@
     "repository": "https://github.com/twitter/finagle/tree/develop/finagle-redis",
     "description": "Redis client based on Finagle"
   }
+
+  {
+    "name": "rredis",
+    "language": "R",
+    "repository": "https://github.com/bwlewis/rredis",
+    "url": "http://cran.r-project.org/package=rredis",
+    "description": "Redis client for R",
+    "authors": ["bwlewis"]
+    "active": true
+  }
+
 ]
