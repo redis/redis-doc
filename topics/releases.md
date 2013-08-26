@@ -62,7 +62,7 @@ Stable releases follow the usual `major.minor.patch` versioning schema, with the
 
 * The minor is even in stable versions of Redis.
 * The minor is odd in unstable, development, frozen, release candidates. For instance the unstable version of 2.8.x will have a version number in the form 2.7.x. In general the unstable version of x.y.z will have a version x.(y-1).z.
-* As an unstable version of Redis progresses, the patchlevel is incremented from time to time, so at a given time you may have 2.7.2, and later 2.7.3 and so forth. However when the release candidate state is reached, the patchlevel starts tfrom 101. So for instance 2.7.101 is the first release candidate for 2.8, 2.7.105 is Release Candidate 5, and so forth.
+* As an unstable version of Redis progresses, the patchlevel is incremented from time to time, so at a given time you may have 2.7.2, and later 2.7.3 and so forth. However when the release candidate state is reached, the patchlevel starts from 101. So for instance 2.7.101 is the first release candidate for 2.8, 2.7.105 is Release Candidate 5, and so forth.
 
 Support
 ---
