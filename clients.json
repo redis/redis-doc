@@ -669,5 +669,13 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
+  },
+  
+  {
+    "name": "rredis",
+    "language": "R",
+    "repository": "https://github.com/bwlewis/rredis",
+    "description": "R client for Redis",
+    "authors": ["bwlewis"]
   }
 ]
