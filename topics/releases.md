@@ -26,8 +26,9 @@ This is the source tree where most of the new features are developed and
 is not considered to be production ready: it may contain critical bugs,
 not entirely ready features, and may be unstable.
 
-However we try hard to make sure that even the unstable branch of most of the
-times usable in a development environment without major issues.
+However, we try hard to make sure that even the unstable branch is
+usable most of the time in a development environment without major
+issues.
 
 Forked, Frozen, Release candidate tree
 ===
@@ -36,12 +37,13 @@ When a new version of Redis starts to be planned, the unstable branch
 (or sometimes the currently stable branch) is forked into a new
 branch that has the name of the target release.
 
-For instance when Redis 2.6 was released a stable, the `unstable` branch
-was forked into a `2.8` branch.
+For instance, when Redis 2.6 was released as stable, the `unstable` branch
+was forked into the `2.8` branch.
 
-This new branch can be at three different levels of stability: development, frozen, release canddiate.
+This new branch can be at three different levels of stability:
+development, frozen, and release candidate.
 
-* Development: new features and bug fixes are commited into the branch, but not everything goign into `unstable` is merged here. Only the features that can become stable in a reasonable timeframe are merged.
+* Development: new features and bug fixes are commited into the branch, but not everything going into `unstable` is merged here. Only the features that can become stable in a reasonable timeframe are merged.
 * Frozen: no new feature is added, unless it is almost guaranteed to have zero stability impacts on the source code, and at the same time for some reason it is a very important feature that must be shipped ASAP. Big code changes are only allowed when they are needed in order to fix bugs.
 * Release Candidate: only fixes are committed against this release.
 
@@ -50,10 +52,10 @@ Stable tree
 
 At some point, when a given Redis release is in the Release Candidate state
 for enough time, we observe that the frequency at which critical bugs are
-signaled start to decrease, at the point that for a few weeks we don't have
-any report of serious bugs.
+signaled starts to decrease, to the point that for a few weeks we don't have
+any serious bugs reported.
 
-When this happens the release is marked as stable.
+When this happens, the release is marked as stable.
 
 Version numbers
 ---
@@ -67,8 +69,13 @@ Stable releases follow the usual `major.minor.patch` versioning schema, with the
 Support
 ---
 
-Old versions are not supported as we try hard to take the Redis mostly API compatible with the past, so upgrading to newer versions is usually trivial.
+Older versions are not supported as we try very hard to make the
+Redis API mostly backward compatible. Upgrading to newer versions
+is usually trivial.
 
-So for instance if currently stable release is 2.6.x we accept bug reports and provide support for the previous stable release (2.4.x), but not for older releases such as 2.2.x.
+For example, if the current stable release is 2.6.x, we accept bug
+reports and provide support for the previous stable release
+(2.4.x), but not for older ones such as 2.2.x.
 
-When 2.8 will be released as a stable release 2.6.x will be the oldest supported release, and so forth.
+When 2.8 becomes the current stable release, the 2.6.x will be the
+oldest supported release.
