@@ -422,10 +422,10 @@ A master will reply with a positive message `FAILOVER_AUTH_GRANTED` if the sende
 
 Once the slave receives the authorization from the majority of the masters within a certain amount of time, it starts the failover process performing the following tasks:
 
-* It starts advertising itself as a master (via PONG packets).
-* It also advertises it is a promoted slave (via PONG packets).
-* It also starts claiming all the nodes that were served by the old master.
-* A PONG packet is broadcasted to all the nodes to speedup the proccess.
+* Starts advertising itself as a master (via PONG packets).
+* Starts advertising it is a promoted slave (via PONG packets).
+* Starts claiming all the slots that were served by the old master.
+* A PONG packet is broadcasted to all the nodes to speedup the proccess, without waiting for the usual PING/PONG period.
 
 All the other nodes will update the configuration accordingly. Specifically:
 
