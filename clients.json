@@ -674,7 +674,7 @@
   {
 	"name": "delphi-redis",
 	"language": "Delphi",
-	"repository": "https://Gloegg@bitbucket.org/Gloegg/delphi-redis.git",
+	"repository": "https://bitbucket.org/Gloegg/delphi-redis.git",
 	"description": "A lightweight Redis client written in Delphi",
 	"authors": ["Gloegg"]
 	
