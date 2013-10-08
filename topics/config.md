@@ -2,7 +2,7 @@ Redis configuration
 ===
 
 Redis is able to start without a configuration file using a built-in default
-configuration, however this setup is only recommanded for testing and
+configuration, however this setup is only recommended for testing and
 development purposes.
 
 The proper way to configure Redis is by providing a Redis configuration file,
@@ -29,7 +29,7 @@ Redis distribution.
 * The self documented [redis.conf for Redis 2.6](https://raw.github.com/antirez/redis/2.6/redis.conf).
 * The self documented [redis.conf for Redis 2.4](https://raw.github.com/antirez/redis/2.4/redis.conf).
 
-Passing arguments via command line
+Passing arguments via the command line
 ---
 
 Since Redis 2.6 it is possible to also pass Redis configuration parameters
