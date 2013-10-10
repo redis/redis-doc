@@ -669,5 +669,13 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
+  },
+  
+  {
+    "name": "scredis",
+    "language": "Scala",
+    "repository": "https://github.com/Livestream/scredis",
+    "description": "Advanced async (and sync) client entirely written in Scala. Extensively used in production at http://www.livestream.com",
+    "authors": ["Livestream"]
   }
 ]
