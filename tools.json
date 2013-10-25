@@ -292,7 +292,7 @@
   {
     "name": "Redis Desktop Manager",
     "language": "C++",
-    "url": "http://www.springsource.org/spring-data/redis",
+    "url": "http://redisdesktop.com",
     "repository": "https://github.com/uglide/RedisDesktopManager",
     "description": "Cross-platform desktop GUI management tool for Redis",
     "authors": ["u_glide"]
