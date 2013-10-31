@@ -141,7 +141,7 @@ As you can see most of the calls returned zero elements, but the last call where
 
 ## Multiple parallel iterations
 
-It is possible to an infinite number of clients to iterate the same collection at the same time, as the full state of the iterator is in the cursor, that is obtained and returned to the client at every call. So server side no state is taken.
+It is possible for an infinite number of clients to iterate the same collection at the same time, as the full state of the iterator is in the cursor, that is obtained and returned to the client at every call. Server side no state is taken at all.
 
 ## Terminating iterations in the middle
 
