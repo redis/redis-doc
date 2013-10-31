@@ -152,6 +152,7 @@ Since there is no state server side, but the full state is captured by the curso
 Calling `SCAN` with a broken, negative, out of range, or otherwise invalid cursor, will result into undefined behavior but never into a crash. What will be undefined is that the guarantees about the returned elements can no longer be ensured by the `SCAN` implementation.
 
 The only valid cursors to use are:
+
 * The cursor value of 0 when starting an iteration.
 * The cursor returned by the previous call to SCAN in order to continue the iteration.
 
