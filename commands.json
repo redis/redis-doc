@@ -2249,5 +2249,113 @@
     ],
     "since": "2.0.0",
     "group": "sorted_set"
+  },
+  "SCAN": {
+    "summary": "Incrementally iterate the keys space",
+    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+    "arguments": [
+      {
+        "name": "cursor",
+        "type": "integer"
+      },
+      {
+        "command": "MATCH",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "generic"
+  },
+  "SSCAN": {
+    "summary": "Incrementally iterate Set elements",
+    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "cursor",
+        "type": "integer"
+      },
+      {
+        "command": "MATCH",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "set"
+  },
+  "HSCAN": {
+    "summary": "Incrementally iterate hash fields and associated values",
+    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "cursor",
+        "type": "integer"
+      },
+      {
+        "command": "MATCH",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "hash"
+  },
+  "ZSCAN": {
+    "summary": "Incrementally iterate sorted sets elements and associated scores",
+    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "cursor",
+        "type": "integer"
+      },
+      {
+        "command": "MATCH",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "sorted_set"
   }
 }
