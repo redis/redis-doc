@@ -13,7 +13,7 @@ Note that `SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` all work very similarly, so this 
 
 ## SCAN basic usage
 
-SCAN is a cursor based iteration. This means that at every call of the command, the server returns an updated cursor that the user needs to use as the cursor argument in the next call.
+SCAN is a cursor based iterator. This means that at every call of the command, the server returns an updated cursor that the user needs to use as the cursor argument in the next call.
 
 An iteration starts when the cursor is set to 0, and terminates when the cursor returned by the server is 0. The following is an example of SCAN iteration:
 
