@@ -7,7 +7,7 @@ The `SCAN` command and the closely related commands `SSCAN`, `HSCAN` and `ZSCAN`
 
 Since these commands allow for incremental iteration, returning only a small number of elements t every call, they can be used in production without the downside of commands like `KEYS` or `SMEMBERS` that may block the server for a long time (even several seconds) when called against big collections of keys or elements.
 
-However while blocking commands like [SMEMBERS] are able to provide all the elements that are part of a Set in a given moment, The SCAN family of commands only offer limited guarantees about the returned elements since the collection that we incrementally iterate can change during the iteration process.
+However while blocking commands like `SMEMBERS` are able to provide all the elements that are part of a Set in a given moment, The SCAN family of commands only offer limited guarantees about the returned elements since the collection that we incrementally iterate can change during the iteration process.
 
 Note that `SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` all work very similarly, so this documentation covers all the four commands. However an obvious difference is that in the case of `SSCAN`, `HSCAN` and `ZSCAN` the first argument is the name of the key holding the Set, Hash or Sorted Set value. The `SCAN` command does not need any key name argument as it iterates keys in the current database, so the iterated object is the database itself.
 
@@ -82,7 +82,7 @@ Important: **there is no need to use the same COUNT value** for every iteration.
 
 ## The MATCH option
 
-It is possible to only iterate elements matching a given glob-style pattern, similarly to the behavior of the [KEYS] command that takes a pattern as only argument.
+It is possible to only iterate elements matching a given glob-style pattern, similarly to the behavior of the `KEYS` command that takes a pattern as only argument.
 
 To do so, just append the `MATCH <pattern>` arguments at the end of the `SCAN` command (it works with all the SCAN family commands).
 
