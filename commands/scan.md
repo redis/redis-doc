@@ -5,7 +5,7 @@ The `SCAN` command and the closely related commands `SSCAN`, `HSCAN` and `ZSCAN`
 * `HSCAN` iterates fields of Hash types and their associated values.
 * `ZSCAN` iterates elements of Sorted Set types and their associated scores.
 
-Since these commands allow for incremental iteration, that means that only a small number of elements are returned at every call, they can be used in production and are very fast commands, without the downside of commands like [KEYS] or [SMEMBERS] that may block the server for a long time (even several seconds) when called against big collections of keys or elements.
+Since these commands allow for incremental iteration, returning only a small number of elements t every call, they can be used in production without the downside of commands like `KEYS` or `SMEMBERS` that may block the server for a long time (even several seconds) when called against big collections of keys or elements.
 
 However while blocking commands like [SMEMBERS] are able to provide all the elements that are part of a Set in a given moment, The SCAN family of commands only offer limited guarantees about the returned elements since the collection that we incrementally iterate can change during the iteration process.
 
