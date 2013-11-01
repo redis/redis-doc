@@ -288,5 +288,12 @@
     "repository" : "http://github.com/bradvoth/redis-tcl",
     "description" : "Tcl library largely copied from the redis test tree, modified for minor bug fixes and expanded pub/sub capabilities",
     "authors" : ["bradvoth","antirez"]
-  }
+  },
+  {
+    "name": "HOT Redis",
+    "language": "Python/Lua",
+    "repository" : "http://github.com/stephenmcd/hot-redis",
+    "description" : "Implements Python built-in and standard lib types such as lists, sets, multisets and many queue types, all backed by Redis",
+    "authors" : ["stephenmcd"]
+  }  
 ]
