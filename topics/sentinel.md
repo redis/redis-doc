@@ -274,6 +274,8 @@ The failover process consists on the following steps:
 * All the other slaves attached to the original master are configured with the **SLAVEOF** command in order to start the replication process with the new master.
 * The leader terminates the failover process when all the slaves are reconfigured.
 
+**Note:** every time a Redis instance is reconfigured, either by turning it into a master, a slave, or reconfiguring it as a slave of a different instance, the `CONFIG REWRITE` command is sent to the instance in order to make sure the configuration is persisted on disk.
+
 The Sentinel to elect as master is chosen in the following way:
 
 * We remove all the slaves in SDOWN, disconnected, or with the last ping reply received older than 5 seconds (PING is sent every second).
@@ -357,3 +359,8 @@ The -BUSY error is returned when a script is running for more time than the
 configured script time limit. When this happens before triggering a fail over
 Redis Sentinel will try to send a "SCRIPT KILL" command, that will only
 succeed if the script was read-only.
+
+Sentinel clients implementation
+---
+
+Sentinel requires explicit client support, unless the system is configured to execute a script that performs a transparent redirection of all the requests to the new master instance (virtual IP or other similar systems). The topic of client libraries implementation is covered in the document [Sentinel clients guidelines](/topics/sentinel-clients).
