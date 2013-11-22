@@ -1,7 +1,7 @@
 Redis Sentinel Documentation
 ===
 
-**Note:** this page documents the *new* Sentinel implementation that entered the Github repository 21th of November. The old Sentinel implementation is [documented here](http://redis.io/topics/sentinel-old), however using the old implementation is discouraged.
+**Note:** this page documents the *new* Sentinel implementation that entered the Github repository 21th of November, 2013. The old Sentinel implementation is [documented here](http://redis.io/topics/sentinel-old), however using the old implementation is discouraged.
 
 Redis Sentinel is a system designed to help managing Redis instances.
 It performs the following three tasks:
