@@ -97,7 +97,7 @@ the client connection is closed and the event logged in the Redis log file.
 
 There are two kind of limits Redis uses:
 
-* The **hard limit** is a fixed limit that when reached will make Redis closing the client connection as soon as possible.
+* The **hard limit** is a fixed limit that when reached will make Redis close the client connection as soon as possible.
 * The **soft limit** instead is a limit that depends on the time, for instance a soft limit of 32 megabytes per 10 seconds means that if the client has an output buffer bigger than 32 megabytes for, continuously, 10 seconds, the connection gets closed.
 
 Different kind of clients have different default limits:
