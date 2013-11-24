@@ -49,7 +49,7 @@ The general indication is that you should use both persistence methods if
 you want a degree of data safety comparable to what PostgreSQL can provide you.
 
 If you care a lot about your data, but still can live with a few minutes of
-data lose in case of disasters, you can simply use RDB alone.
+data loss in case of disasters, you can simply use RDB alone.
 
 There are many users using AOF alone, but we discourage it since to have an
 RDB snapshot from time to time is a great idea for doing database backups,
