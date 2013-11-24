@@ -87,7 +87,7 @@ client.
 
 However it is possible that a client sends more commands producing more output
 to serve at a faster rate than Redis can send the output to the
-client. This is especially true with Pub/Sub clients in case a client is not
+client. This is especially true with Pub/Sub clients when a client is not
 able to process new messages fast enough.
 
 Both the conditions will cause the client output buffer to grow and consume
