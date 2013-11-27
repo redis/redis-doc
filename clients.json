@@ -120,9 +120,9 @@
   },
 
   {
-    "name": "Tideland CGL Redis",
+    "name": "Tideland Go Redis Client",
     "language": "Go",
-    "repository": "http://code.google.com/p/tcgl/",
+    "repository": "http://git.tideland.biz/godm/redis",
     "description": "A flexible Go Redis client able to handle all commands",
     "authors": ["themue"],
     "active": true
