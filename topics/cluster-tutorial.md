@@ -425,7 +425,7 @@ To start a resharding just type:
 You only need to specify a single node, redis-trib will find the other nodes
 automatically.
 
-For now redis-trib is only able to reshard with the administrator support,
+Currently redis-trib is only able to reshard with the administrator support,
 you can't just say move 5% of slots from this node to the other one (but
 this is pretty trivial to implement). So it starts with questions. The first
 is how much a big resharding do you want to do:
