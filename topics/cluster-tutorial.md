@@ -203,16 +203,16 @@ cd 7000
 ../redis-server ./redis.conf
 ```
 
-As you can see from the logs of every instance, since no `nodes.conf` file was
-existing, every node assigns itself a new ID.
+As you can see from the logs of every instance, since no `nodes.conf` file
+existed, every node assigns itself a new ID.
 
     [82462] 26 Nov 11:56:55.329 * No cluster configuration found, I'm 97a3a64667477371c4479320d683e4c8db5858b1
 
 This ID will be used forever by this specific instance in order for the instance
-to have an unique name in the context of the cluster. All the other nodes
-remember the other nodes by this specific ID, and not by IP or port, these can
-change, but the unique node identifier will never change for all the life
-of the node. We call this identifier simply **Node ID**.
+to have an unique name in the context of the cluster. Every node
+remembers every other node using this IDs, and not by IP or port.
+IP addresses and ports may change, but the unique node identifier will never
+change for all the life of the node. We call this identifier simply **Node ID**.
 
 Creating the cluster
 ---
@@ -221,9 +221,9 @@ Now that we have a number of instances running, we need to create our
 cluster writing some meaningful configuration to the nodes.
 
 This is very easy to accomplish as we are helped by the Redis Cluster
-command line interface utility called `redis-trib`, that is a Ruby program
-calling CLUSTER commands in the instances in order to create new clusters,
-check or reshard an existing cluster.
+command line utility called `redis-trib`, that is a Ruby program
+executing special commands in the instances in order to create new clusters,
+check or reshard an existing cluster, and so forth.
 
 The `redis-trib` utility is in the `src` directory of the Redis source code
 distribution. To create your cluster simply type:
