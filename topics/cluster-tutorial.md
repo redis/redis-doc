@@ -42,7 +42,7 @@ Redis Cluster does not use consistency hashing, but a different form of sharding
 where every key is conceptually part of what we call an **hash slot**.
 
 There are 16384 hash slots in Redis Cluster, and to compute what is the hash
-slot of a given key, we simply take the CRC16 of the hash slot modulo
+slot of a given key, we simply take the CRC16 of the key modulo
 16384.
 
 Every node in a Redis Cluster is responsible of a subset of the hash slots,
