@@ -6,7 +6,7 @@ complex to understand distributed systems concepts. It provides instructions
 about how to setup a cluster, test, and operate it, without
 going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
-how the system behaves from the point of view of the cluster.
+how the system behaves from the point of view of the user.
 
 Note that if you plan to run a serious Redis Cluster deployment, the
 more formal specification is an highly suggested reading.
