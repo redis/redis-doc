@@ -436,7 +436,8 @@ We can try to reshard 1000 hash slots, that should already contain a non
 trivial amount of keys if the example is still running without the sleep
 call.
 
-Then redis-trib needs to know what is the target of the resharding.
+Then redis-trib needs to know what is the target of the resharding, that is,
+the node that will receive the hash slots.
 I'll use the first master node, that is, 127.0.0.1:7000, but I need
 to specify the Node ID of the instance. This was already printed in a
 list by redis-trib, but I can always find the ID of a node with the following
