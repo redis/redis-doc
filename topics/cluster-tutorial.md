@@ -228,7 +228,8 @@ check or reshard an existing cluster.
 The `redis-trib` utility is in the `src` directory of the Redis source code
 distribution. To create your cluster simply type:
 
-    ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
+    ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
+    127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
 
 The command used here is **create**, since we want to create a new cluster.
 The option `--replicas 1` means that we want a slave for every master created.
