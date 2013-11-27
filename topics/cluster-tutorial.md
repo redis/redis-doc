@@ -100,7 +100,7 @@ happens:
 * The master B replies OK to your client.
 * The master B propagates the write to its slaves B1, B2 and B3.
 
-As you can see B does not write for an acknowledge from B1, B2, B3 before
+As you can see B does not wait for an acknowledge from B1, B2, B3 before
 replying to the client, since this would be a prohibitive latency penalty
 for Redis, so if your client writes something, B acknowledges the write,
 but crashes before being able to send the write to its slaves, one of the
