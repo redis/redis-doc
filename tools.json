@@ -288,5 +288,13 @@
     "repository" : "http://github.com/bradvoth/redis-tcl",
     "description" : "Tcl library largely copied from the redis test tree, modified for minor bug fixes and expanded pub/sub capabilities",
     "authors" : ["bradvoth","antirez"]
+  },
+  {
+    "name": "Redis Desktop Manager",
+    "language": "C++",
+    "url": "http://redisdesktop.com",
+    "repository": "https://github.com/uglide/RedisDesktopManager",
+    "description": "Cross-platform desktop GUI management tool for Redis",
+    "authors": ["u_glide"]
   }
 ]
