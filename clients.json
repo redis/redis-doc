@@ -569,7 +569,7 @@
   {
     "name": "redis.go",
     "language": "Go",
-    "repository": "https://github.com/hoisie/redis.go",
+    "repository": "https://github.com/hoisie/redis",
     "description": "",
     "authors": ["hoisie"]
   },
