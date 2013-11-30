@@ -1,9 +1,7 @@
 Redis Keyspace Notifications
 ===
 
-**IMPORTANT** Keyspace notifications is a feature only available in development
-versions of Redis. This documentation and the implementation of the feature are
-likely to change in the next weeks.
+**IMPORTANT** Keyspace notifications is a feature available since 2.8.0
 
 Feature overview
 ---
