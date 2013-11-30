@@ -46,7 +46,7 @@ slot of a given key, we simply take the CRC16 of the key modulo
 16384.
 
 Every node in a Redis Cluster is responsible of a subset of the hash slots,
-so for example you may have a cluster wit 3 nodes, where:
+so for example you may have a cluster with 3 nodes, where:
 
 * Node A contains hash slots from 0 to 5500.
 * Node B contains hash slots from 5501 to 11000.
