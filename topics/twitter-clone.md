@@ -115,7 +115,7 @@ Another thing you probably want is a working Redis server. Just get the source, 
 Data layout
 ---
 
-Working with a relational database this is the stage were the database layout should be produced in form of tables, indexes, and so on. We don't have tables, so what should be designed? We need to identify what keys are needed to represent our objects and what kind of values this keys need to hold.
+Working with a relational database this is the stage where the database layout should be produced in form of tables, indexes, and so on. We don't have tables, so what should be designed? We need to identify what keys are needed to represent our objects and what kind of values this keys need to hold.
 
 Let's start from Users. We need to represent this users of course, with the username, userid, password, followers and following users, and so on. The first question is, what should identify a user inside our system? The username can be a good idea since it is unique, but it is also too big, and we want to stay low on memory. So like if our DB was a relational one we can associate an unique ID to every user. Every other reference to this user will be done by id. That's very simple to do, because we have our atomic INCR operation! When we create a new user we can do something like this, assuming the user is called "antirez":
 
@@ -138,7 +138,7 @@ There is another central need in our system. Every user has followers users and 
     uid:1000:followers => Set of uids of all the followers users
     uid:1000:following => Set of uids of all the following users
 
-Another important thing we need is a place were we can add the updates to display in the user home page. We'll need to access this data in chronological order later, from the most recent update to the older ones, so the perfect kind of Value for this work is a List. Basically every new update will be LPUSHed in the user updates key, and thanks to LRANGE we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
+Another important thing we need is a place where we can add the updates to display in the user home page. We'll need to access this data in chronological order later, from the most recent update to the older ones, so the perfect kind of Value for this work is a List. Basically every new update will be LPUSHed in the user updates key, and thanks to LRANGE we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
 
     uid:1000:posts => a List of post ids, every new post is LPUSHed here.
 
@@ -284,7 +284,7 @@ Note that we also maintain a timeline with all the posts. In order to do so what
 Paginating updates
 ---
 
-Now it should be pretty clear how we can user LRANGE in order to get ranges of posts, and render this posts on the screen. The code is simple:
+Now it should be pretty clear how we can use LRANGE in order to get ranges of posts, and render this posts on the screen. The code is simple:
 
     function showPost($id) {
         $r = redisLink();
