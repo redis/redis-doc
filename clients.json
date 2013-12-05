@@ -678,5 +678,14 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
+  },
+  
+  {
+	"name": "delphi-redis",
+	"language": "Delphi",
+	"repository": "https://bitbucket.org/Gloegg/delphi-redis.git",
+	"description": "A lightweight Redis client written in Delphi",
+	"authors": ["Gloegg"]
+	
   }
 ]
