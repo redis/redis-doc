@@ -296,5 +296,13 @@
     "repository": "https://github.com/uglide/RedisDesktopManager",
     "description": "Cross-platform desktop GUI management tool for Redis",
     "authors": ["u_glide"]
+  },
+  {
+    "name": Nydus",
+    "language": "Python",
+    "url": "https://pypi.python.org/pypi/nydus",
+    "repository": "https://pypi.python.org/pypi/nydus",
+    "description": "Connection clustering and routing for Redis and Python.",
+    "authors": ["@zeeg"]
   }
 ]
