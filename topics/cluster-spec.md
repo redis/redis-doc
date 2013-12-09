@@ -612,6 +612,31 @@ For this reason there is a second rule that is used in order to rebind an hash s
 
 Because of the second rule eventually all the nodes in the cluster will agree that the owner of a slot is the one with the greatest `configEpoch` among the nodes advertising it.
 
+UPDATE messages
+===
+
+The described system for the propagation of hash slots configurations
+only uses the normal ping and pong messages exchanged by nodes.
+
+It also requires that there is a node that is either a slave or a master
+for a given hash slot and has the updated configuration, because nodes
+send their own configuration in pong and pong packets headers.
+
+However sometimes a node may recover after a partition in a setup where
+it is the only node serving a given hash slot, but with an old configuration.
+
+Example: a given hash slot is served by node A and B. A is the master, and at some point fails, so B is promoted as master. Later B fails as well, and the cluster has no way to recover since there are no more replicas for this hash slot.
+
+However A may recover some time later, and rejoin the cluster with an old configuration in which it was writable as a master. There is no replica that can update its configuration. This is the goal of UPDATE messages: when a node detects that another node is advertising its hash slots with an old configuration, it sends the node an UPDATE message with the ID of the new node serving the slots and the set of hash slots (send as a bitmap) that it is serving.
+
+NOTE: while currently configuration updates via ping / pong and UPDATE share the
+same code path, there is a functional overlap between the two in the way they
+update a configuration of a node with stale informations. However the two
+mechanisms are both useful because ping / pong messages after some time are
+able to populate the hash slots routing table of a new node, while UPDATE
+messages are only sent when an old configuration is detected, and only
+cover the information needed to fix the wrong configuration.
+
 Publish/Subscribe
 ===
 
