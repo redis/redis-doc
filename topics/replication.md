@@ -24,7 +24,7 @@ the data set, assuming you configured Redis to do so in redis.conf.
 Otherwise you can configure Redis slaves to send clients an error if the
 link with the master is down. However there is a moment where the old dataset must be deleted and the new one must be loaded by the slave where it will block incoming connections.
 
-* Replications can be used both for scalability, in order to have
+* Replicas can be used both for scalability, in order to have
 multiple slaves for read-only queries (for example, heavy `SORT`
 operations can be offloaded to slaves, or simply for data redundancy.
 

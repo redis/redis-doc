@@ -86,8 +86,8 @@ a command can produce a big amount of data that needs to be transfered to the
 client.
 
 However it is possible that a client sends more commands producing more output
-to serve at a faster rate at which Redis can send the existing output to the
-client. This is especially true with Pub/Sub clients in case a client is not
+to serve at a faster rate than Redis can send the output to the
+client. This is especially true with Pub/Sub clients when a client is not
 able to process new messages fast enough.
 
 Both the conditions will cause the client output buffer to grow and consume
@@ -97,7 +97,7 @@ the client connection is closed and the event logged in the Redis log file.
 
 There are two kind of limits Redis uses:
 
-* The **hard limit** is a fixed limit that when reached will make Redis closing the client connection as soon as possible.
+* The **hard limit** is a fixed limit that when reached will make Redis close the client connection as soon as possible.
 * The **soft limit** instead is a limit that depends on the time, for instance a soft limit of 32 megabytes per 10 seconds means that if the client has an output buffer bigger than 32 megabytes for, continuously, 10 seconds, the connection gets closed.
 
 Different kind of clients have different default limits:
