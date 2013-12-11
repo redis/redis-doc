@@ -304,5 +304,13 @@
     "repository": "https://pypi.python.org/pypi/nydus",
     "description": "Connection clustering and routing for Redis and Python.",
     "authors": ["zeeg"]
+  },
+  {
+    "name": "PHP Redis implementation / wrapper",
+    "language": "PHP",
+    "url": "https://github.com/ziogas/PHP-Redis-implementation",
+    "repository": "https://github.com/ziogas/PHP-Redis-implementation",
+    "description": "Simple and lightweight redis implementation. Basically wrapper for raw redis commands.",
+    "authors": ["arminas"]
   }
 ]
