@@ -279,7 +279,7 @@
     "name": "PHPRedMin",
     "language": "PHP",
     "repository": "https://github.com/sasanrose/phpredmin",
-    "description": "Yet another web interface for Redis",
+    "description": "Yet another web interface for Redis with multi-server support",
     "authors": ["sasanrose"]
   },
   {
