@@ -145,6 +145,15 @@
     "authors": ["xiam"],
     "active": true
   },
+  
+  {
+    "name": "goredis",
+    "language": "Go",
+    "repository": "https://github.com/xuyu/goredis",
+    "description": "A redis client for golang with full features",
+    "authors": ["xuyu"],
+    "active": true
+  },
 
   {
     "name": "hedis",
