@@ -186,6 +186,16 @@
   },
 
   {
+    "name": "Redisson",
+    "language": "Java",
+    "repository": "https://github.com/mrniko/redisson",
+    "description": "distributed and scalable Java data structures on top of Redis server",
+    "authors": ["mrniko"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
     "name": "JRedis",
     "language": "Java",
     "url": "http://code.google.com/p/jredis",
