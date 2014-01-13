@@ -1,8 +1,6 @@
 Redis Sentinel Documentation
 ===
 
-**Note:** this page documents the *new* Sentinel implementation that entered the Github repository 21th of November. The old Sentinel implementation is [documented here](http://redis.io/topics/sentinel-old), however using the old implementation is discouraged.
-
 Redis Sentinel is a system designed to help managing Redis instances.
 It performs the following three tasks:
 
@@ -25,19 +23,14 @@ executable.
 describes how to use what we is already implemented, and may change as the
 Sentinel implementation evolves.
 
-Redis Sentinel is compatible with Redis 2.4.16 or greater, and Redis 2.6.0 or greater, however it works better if used against Redis instances version 2.8.0 or greater.
+Redis Sentinel is compatible with Redis 2.4.16 or greater, and Redis 2.6.0 or greater, however it works better if used with Redis instances version 2.8.0 or greater.
 
 Obtaining Sentinel
 ---
 
-Currently Sentinel is part of the Redis *unstable* branch at github.
-To compile it you need to clone the *unstable* branch and compile Redis.
-You'll see a `redis-sentinel` executable in your `src` directory.
+Sentinel is currently developed in the *unstable* branch of the Redis source code at Github. However an update copy of Sentinel is provided with every patch release of Redis 2.8.
 
-Alternatively you can use directly the `redis-server` executable itself,
-starting it in Sentinel mode as specified in the next paragraph.
-
-An updated version of Sentinel is also available as part of the Redis 2.8.0 release.
+The simplest way to use Sentinel is to download the latest verison of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
 
 Running Sentinel
 ---
@@ -80,7 +73,7 @@ that is at address 127.0.0.1 and port 6379, with a level of agreement needed
 to detect this master as failing of 2 sentinels (if the agreement is not reached
 the automatic failover does not start).
 
-However note that whatever the agreement you specify to detect an instance as not working, a Sentinel requires **the vote from the majority** of the known Sentinels in the system in order to start a failover and reserve a given *configuration Epoch* (that is a version to attach to a new master configuration).
+However note that whatever the agreement you specify to detect an instance as not working, a Sentinel requires **the vote from the majority** of the known Sentinels in the system in order to start a failover and obtain a new *configuration Epoch* to assign to the new configuraiton afte the failiver.
 
 In other words **Sentinel is not able to perform the failover if only a minority of the Sentinel processes are working**.
 
@@ -111,6 +104,8 @@ slave at a time is not reachable by setting this option to the value of 1.
 The other options are described in the rest of this document and
 documented in the example sentinel.conf file shipped with the Redis
 distribution.
+
+All the configuration parameters can be modified at runtime using the `SENTINEL` command. See the **Reconfiguring Sentinel at runtime** section for more information.
 
 SDOWN and ODOWN
 ---
@@ -204,12 +199,30 @@ Sentinel commands
 
 The following is a list of accepted commands:
 
-* **PING** this command simply returns PONG.
-* **SENTINEL masters** show a list of monitored masters and their state.
-* **SENTINEL slaves `<master name>`** show a list of slaves for this master, and their state.
-* **SENTINEL get-master-addr-by-name `<master name>`** return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted slave.
-* **SENTINEL reset `<pattern>`** this command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every slave and sentinel already discovered and associated with the master.
-* **SENTINEL failover `<master name>`** force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
+* **PING** This command simply returns PONG.
+* **SENTINEL masters** Show a list of monitored masters and their state.
+* **SENTINEL master `<master name>`** Show the state and info of the specified master.
+* **SENTINEL slaves `<master name>`** Show a list of slaves for this master, and their state.
+* **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted slave.
+* **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every slave and sentinel already discovered and associated with the master.
+* **SENTINEL failover `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
+
+Reconfiguring Sentinel at Runtime
+---
+
+Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagates the changes to the other Sentinels in the network.
+
+The following is a list of `SENTINEL` sub commands used in order to update the configuration of a Sentinel instance.
+
+* **SENTINEL MONITOR `<name>` `<ip>` `<port>` `<quorum>`** This command tells the Sentinel to start monitoring a new master with the specified name, ip, port, and quorum. It is identical to the `sentinel monitor` configuration directive in `sentinel.conf` configuration file, with the difference that you can't use an hostname in as `ip`, but you need to provide an IPv4 or IPv6 address.
+* **SENTINEL REMOVE `<name>`** is used in order to remove the specified master: the master will no longer be monitored, and will totally be removed from the internal state of the Sentinel, so it will no longer listed by `SENTINEL masters` and so forth.
+* **SENTINEL SET `<name>` `<option>` `<value>`** The SET command is very similar to the `CONFIG SET` command of Redis, and is used in order to change configuration parameters of a specific master. Multiple option / value pairs can be specified (or none at all). All the configuration parameters that can be configured via `sentinel.conf` are also configurable using the SET command.
+
+The following is an example of `SENTINEL SET` command in order to modify the `down-after-milliseconds` configuration of a master called `objects-cache`:
+
+    SENTINEL SET objects-cache down-after-milliseconds 1000
+
+Note that there is no equivalent GET command since `SENTINEL MASTER` provides all the configuration parameters in a simple to parse format (as a field/value pairs array).
 
 Pub/Sub Messages
 ---
