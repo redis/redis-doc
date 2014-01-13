@@ -145,6 +145,15 @@
     "authors": ["xiam"],
     "active": true
   },
+  
+  {
+    "name": "goredis",
+    "language": "Go",
+    "repository": "https://github.com/xuyu/goredis",
+    "description": "A redis client for golang with full features",
+    "authors": ["xuyu"],
+    "active": true
+  },
 
   {
     "name": "hedis",
@@ -172,6 +181,16 @@
     "repository": "https://github.com/xetorthio/jedis",
     "description": "",
     "authors": ["xetorthio"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "Redisson",
+    "language": "Java",
+    "repository": "https://github.com/mrniko/redisson",
+    "description": "distributed and scalable Java data structures on top of Redis server",
+    "authors": ["mrniko"],
     "recommended": true,
     "active": true
   },
@@ -678,5 +697,22 @@
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
+  },
+
+  {
+    "name": "Brando",
+    "language": "Scala",
+    "repository": "https://github.com/chrisdinn/brando",
+    "description": "A Redis client written with the Akka IO package introduced in Akka 2.2.",
+    "authors": ["chrisdinn"]
+  },
+  
+  {
+    "name": "rust-redis",
+    "language": "Rust",
+    "repository": "https://github.com/mneumann/rust-redis",
+    "description": "A Rust client library for Redis.",
+    "authors": ["mneumann"],
+    "active": true
   }
 ]
