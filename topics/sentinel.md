@@ -220,7 +220,11 @@ The following is a list of `SENTINEL` sub commands used in order to update the c
 
 The following is an example of `SENTINEL SET` command in order to modify the `down-after-milliseconds` configuration of a master called `objects-cache`:
 
-    SENTINEL SET objects-cache down-after-milliseconds 1000
+    SENTINEL SET objects-cache-master down-after-milliseconds 1000
+
+As already stated, `SENTINEL SET` can be used to set all the configuration parameters that are settable in the startup configuration file. Moreover it is possible to change just the master quorum configuration without removing and re-adding the master with `SENTINEL REMOVE` followed by `SENTINEL MONITOR`, but simply using:
+
+    SENTINEL SET objects-cache-master quorum 5
 
 Note that there is no equivalent GET command since `SENTINEL MASTER` provides all the configuration parameters in a simple to parse format (as a field/value pairs array).
 
