@@ -94,4 +94,4 @@ It is not needed for a client to be able to make the list persistent updating it
 Additional information
 ===
 
-For additional information or to discuss specific aspects of this guidelines, please drop a message to the [Redis Google Group](groups.google.com/group/redis-db).
+For additional information or to discuss specific aspects of this guidelines, please drop a message to the [Redis Google Group](https://groups.google.com/group/redis-db).
