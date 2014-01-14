@@ -714,5 +714,14 @@
     "description": "A Rust client library for Redis.",
     "authors": ["mneumann"],
     "active": true
+  },
+
+  {
+    "name": "redic",
+    "language": "Ruby",
+    "repository": "https://github.com/amakawa/redic",
+    "description": "Lightweight Redis Client",
+    "authors": ["soveran", "cyx"],
+    "active": true
   }
 ]
