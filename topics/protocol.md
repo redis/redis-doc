@@ -70,7 +70,7 @@ possible to detect the kind of reply from the first byte sent by the server:
 * In an Error Reply the first byte of the reply is "-"
 * In an Integer Reply the first byte of the reply is ":"
 * In a Bulk Reply the first byte of the reply is "$"
-* In a Multi Bulk Reply the first byte of the reply s "`*`"
+* In a Multi Bulk Reply the first byte of the reply is "`*`"
 
 <a name="status-reply"></a>
 
