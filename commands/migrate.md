@@ -42,6 +42,8 @@ On success OK is returned.
 * `COPY` -- Do not remove the key from the local instance.
 * `REPLACE` -- Replace existing key on the remote instance.
 
+`COPY` and `REPLACE` are added in 2.8 and not available in 2.6
+
 @return
 
 @status-reply: The command returns OK on success.
