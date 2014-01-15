@@ -109,7 +109,13 @@ This behavior is controlled by the `slave-read-only` option in the redis.conf fi
 
 Read-only slaves will reject all write commands, so that it is not possible to write to a slave because of a mistake. This does not mean that the feature is intended to expose a slave instance to the internet or more generally to a network where untrusted clients exist, because administrative commands like `DEBUG` or `CONFIG` are still enabled. However, security of read-only instances can be improved by disabling commands in redis.conf using the `rename-command` directive.
 
-You may wonder why it is possible to revert the read-only setting and have slave instances that can be target of write operations. The reason is that these writes will be discarded if the slave and the master resynchronize, or if the slave is restarted. Often there is ephemeral data that is unimportant that can be stored on read-only slaves. For instance, clients may take information about master reachability to coordinate a failover strategy.
+You may wonder why it is possible to revert the read-only setting
+and have slave instances that can be target of write operations.
+While those writes will be discarded if the slave and the master
+resynchronize or if the slave is restarted, there's a legitimate
+use case for storing ephemeral data in writable slaves. For
+instance, clients may take information about master reachability
+to coordinate a failover strategy.
 
 Setting a slave to authenticate to a master
 ---
