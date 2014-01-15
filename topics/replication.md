@@ -6,8 +6,9 @@ replication that allows slave Redis servers to be exact copies of
 master servers. The following are some very important facts about Redis
 replication:
 
-* Redis uses asynchronous replication. Starting with Redis 2.8, however, slaves
-will periodically acknowledge the replication stream.
+* Redis uses asynchronous replication. Starting with Redis 2.8,
+however, slaves will periodically acknowledge the amount of data
+processed from the replication stream.
 
 * A master can have multiple slaves.
 
