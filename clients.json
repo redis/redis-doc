@@ -732,5 +732,14 @@
     "description": "Lightweight Redis Client",
     "authors": ["soveran", "cyx"],
     "active": true
+  },
+
+  {
+    "name": "gnuprolog-redisclient",
+    "language": "GNU Prolog",
+    "repository": "https://github.com/emacstheviking/gnuprolog-redisclient",
+    "description": "Simple Redis client for GNU Prolog in native Prolog, no FFI, libraries etc.",
+    "authors": ["seancharles"],
+    "active": true
   }
 ]
