@@ -42,7 +42,7 @@ On success OK is returned.
 * `COPY` -- Do not remove the key from the local instance.
 * `REPLACE` -- Replace existing key on the remote instance.
 
-`COPY` and `REPLACE` are added in 2.8 and not available in 2.6
+`COPY` and `REPLACE` will be available in 3.0 and are not available in 2.6 or 2.8 
 
 @return
 
