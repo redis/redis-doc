@@ -20,7 +20,7 @@ can be also invoked using the `--sentinel` option of the normal `redis-sever`
 executable.
 
 **WARNING:** Redis Sentinel is currently a work in progress. This document
-describes how to use what we is already implemented, and may change as the
+describes how to use what is already implemented, and may change as the
 Sentinel implementation evolves.
 
 Redis Sentinel is compatible with Redis 2.4.16 or greater, and Redis 2.6.0 or greater, however it works better if used with Redis instances version 2.8.0 or greater.
