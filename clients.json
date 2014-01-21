@@ -726,6 +726,15 @@
   },
 
   {
+    "name": "redis-rs",
+    "language": "Rust",
+    "repository": "https://github.com/mitsuhiko/redis-rs",
+    "description": "A fairly high level client library for Redis.",
+    "authors": ["mitsuhiko"],
+    "active": true
+  },
+
+  {
     "name": "redic",
     "language": "Ruby",
     "repository": "https://github.com/amakawa/redic",
