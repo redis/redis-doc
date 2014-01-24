@@ -65,9 +65,9 @@ In RESP different parts of the protocol are always terminated with "\r\n" (CRLF)
 RESP Simple Strings
 ---
 
-Simple Strings are encoded in the following way: a plus character, followed by a stirng that cannot contain a CR or LF character (no newlines are allowed), terminated by CRLF (that is "\r\n").
+Simple Strings are encoded in the following way: a plus character, followed by a string that cannot contain a CR or LF character (no newlines are allowed), terminated by CRLF (that is "\r\n").
 
-Simple Strings are used to trasmit non binary safe strings with minimal overhead. For example many Redis commands reply with just "OK" on success, that as a RESP Simple String is encoded with the following 5 bytes:
+Simple Strings are used to transmit non binary safe strings with minimal overhead. For example many Redis commands reply with just "OK" on success, that as a RESP Simple String is encoded with the following 5 bytes:
 
     "+OK\r\n"
 
@@ -80,7 +80,7 @@ up to the end of the string, excluding the final CRLF bytes.
 RESP Errors
 ---
 
-RESP has a specific data type for errors. Actually errors are excatly like
+RESP has a specific data type for errors. Actually errors are exactly like
 RESP Simple Strings, but the first character is a minus '-' character instead
 of a plus. The real difference between Simple Strings and Errors in RESP is that
 errors are treated by clients as exceptions, and the string that composes
@@ -116,7 +116,7 @@ A client implementation may return different kind of exceptions for different
 errors, or may provide a generic way to trap errors by directly providing
 the error name to the caller as a string.
 
-However such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error conditon, such as `false`.
+However such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error condition, such as `false`.
 
 RESP Integers
 -------------
@@ -373,10 +373,10 @@ int main(void) {
 }
 ```
 
-After the first CR is idenitifed, it can be skipped along with the following
+After the first CR is identified, it can be skipped along with the following
 LF without any processing. Then the bulk data can be read using a single
 read operation that does not inspect the payload in any way. Finally
-the remaining the CR and LF chacaters are discareded without any processing.
+the remaining the CR and LF character are discarded without any processing.
 
 While comparable in performance to a binary protocol the Redis protocol is
 significantly simpler to implement in most very high level languages,
