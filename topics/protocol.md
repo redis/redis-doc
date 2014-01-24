@@ -110,7 +110,7 @@ For example `ERR` is the generic error, while `WRONGTYPE` is a more specific
 error that implies that the client tried to perform an operation against the
 wrong data type. This is called an **Error Prefix** and is a way to allow
 the client to understand the kind of error returned by the server without
-to reply on the exact message given, that may change over the time.
+to rely on the exact message given, that may change over the time.
 
 A client implementation may return different kind of exceptions for different
 errors, or may provide a generic way to trap errors by directly providing
