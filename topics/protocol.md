@@ -47,7 +47,7 @@ data types: Simple Strings, Errors, Integers, Bulk Strings and Arrays.
 The way RESP is used in Redis as a request-response protocol is the
 following:
 
-* Clients send commands to a Redis server as a RESP Array of Strings.
+* Clients send commands to a Redis server as a RESP Array of Bulk Strings.
 * The server reply with one of the RESP types according to the command implementation.
 
 In RESP the type of some data depends on the first byte:
