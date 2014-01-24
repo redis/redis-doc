@@ -12,7 +12,7 @@ RESP can serialize different data types like integers, strings, arrays. There is
 
 RESP is binary-safe and does not require processing of bulk data transferred from one process to another, because it uses prefixed-length to transfer bulk data.
 
-Ntoe: the protocol outlined here is only used for client-server communication. Redis Cluster uses a different binary protocol in order to exchange messages between nodes.
+Note: the protocol outlined here is only used for client-server communication. Redis Cluster uses a different binary protocol in order to exchange messages between nodes.
 
 Networking layer
 ----------------
