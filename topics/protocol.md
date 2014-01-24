@@ -1,6 +1,6 @@
 # Redis Protocol specification
 
-Redis clients communicate with the Redis server using a protocol called **RESP** (REdis Serialization Protocol). While the protocol was designed specifically for Redis, it can be used for other client-server software proejcts.
+Redis clients communicate with the Redis server using a protocol called **RESP** (REdis Serialization Protocol). While the protocol was designed specifically for Redis, it can be used for other client-server software projects.
 
 RESP is a compromise between the following things:
 
