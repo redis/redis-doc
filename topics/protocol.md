@@ -1,100 +1,94 @@
-# Protocol specification
+# Redis Protocol specification
 
-The Redis protocol is a compromise between the following things:
+Redis clients communicate with the Redis server using a protocol called **RESP** (REdis Serialization Protocol). While the protocol was designed specifically for Redis, it can be used for other client-server software proejcts.
 
-* Simple to implement
-* Fast to parse by a computer
-* Easy enough to parse by a human
+RESP is a compromise between the following things:
+
+* Simple to implement.
+* Fast to parse.
+* Human readable.
+
+RESP can serialize different data types like integers, strings, arrays. There is also a specific type for errors. Requests are sent from the client to the Redis server as arrays of strings representing the arguments of the command to execute. Redis replies with a command-specific data type.
+
+RESP is binary-safe and does not require processing of bulk data transferred from one process to another, because it uses prefixed-length to transfer bulk data.
+
+Ntoe: the protocol outlined here is only used for client-server communication. Redis Cluster uses a different binary protocol in order to exchange messages between nodes.
 
 Networking layer
 ----------------
 
 A client connects to a Redis server creating a TCP connection to the port 6379.
-Every Redis command or data transmitted by the client and the server is
-terminated by `\r\n` (CRLF).
 
-Requests
---------
+While RESP is technically non-TCP specific, in the context of Redis the protocol is only used with TCP connections (or equivalent stream oriented connections like Unix sockets).
+
+Request-Response model
+----------------------
 
 Redis accepts commands composed of different arguments.
 Once a command is received, it is processed and a reply is sent back to the client.
 
-The new unified request protocol
---------------------------------
+This is the simplest model possible, however there are two exceptions:
 
-The new unified protocol was introduced in Redis 1.2, but it became the
+* Redis supports pipelining (covered later in this document). So it is possible for clients to send multiple commands at once, and wait for replies later.
+* When a Redis client subscribes to a Pub/Sub channel, the protocol changes semantics and becomes a *push* protocol, that is, the client no longer requires to send commands, because the server will automatically send to the client new messages (for the channels the client is subscribed to) as soon as they are received.
+
+Excluding the above two exceptions, the Redis protocol is a simple request-response protocol.
+
+RESP protocol description
+-------------------------
+
+The RESP protocol was introduced in Redis 1.2, but it became the
 standard way for talking with the Redis server in Redis 2.0.
 This is the protocol you should implement in your Redis client.
 
-In the unified protocol all the arguments sent to the Redis server are binary
-safe. This is the general form:
+RESP is actually a serialization protocol that supports the following
+data types: Simple Strings, Errors, Integers, Bulk Strings and Arrays.
 
-    *<number of arguments> CR LF
-    $<number of bytes of argument 1> CR LF
-    <argument data> CR LF
-    ...
-    $<number of bytes of argument N> CR LF
-    <argument data> CR LF
+The way RESP is used in Redis as a request-response protocol is the
+following:
 
-See the following example:
+* Clients send commands to a Redis server as a RESP Array of Strings.
+* The server reply with one of the RESP types according to the command implementation.
 
-    *3
-    $3
-    SET
-    $5
-    mykey
-    $7
-    myvalue
+In RESP the type of some data depends on the first byte:
 
-This is how the above command looks as a quoted string, so that it is possible
-to see the exact value of every byte in the query, including newlines.
+* For **Simple Strings** the first byte of the reply is "+"
+* For **Errors** the first byte of the reply is "-"
+* For **Integers** the first byte of the reply is ":"
+* For **Bulk Strings** the first byte of the reply is "$"
+* For **Arrays** the first byte of the reply is "`*`"
 
-    "*3\r\n$3\r\nSET\r\n$5\r\nmykey\r\n$7\r\nmyvalue\r\n"
+Additionally RESP is able to represent a Null value using a special variation of Bulk Strings or Array as specified later.
 
-As you will see in a moment this format is also used in Redis replies. The
-format used for the single argument `$6\r\nmydata\r\n` is called a **Bulk Reply**.
+In RESP different parts of the protocol are always terminated with "\r\n" (CRLF).
 
-The unified request protocol is what Redis already uses in replies in order
-to send list of items to clients, and is called a **Multi Bulk Reply**.
-It is just the sum of `N` different Bulk Replies prefixed by a `*<argc>\r\n`
-string where `<argc>` is the number of arguments (Bulk Replies) that
-will follow.
+RESP Simple Strings
+---
 
-Replies
--------
+Simple Strings are encoded in the following way: a plus character, followed by a stirng that cannot contain a CR or LF character (no newlines are allowed), terminated by CRLF (that is "\r\n").
 
-Redis will reply to commands with different kinds of replies. It is always
-possible to detect the kind of reply from the first byte sent by the server:
+Simple Strings are used to trasmit non binary safe strings with minimal overhead. For example many Redis commands reply with just "OK" on success, that as a RESP Simple String is encoded with the following 5 bytes:
 
-* In a Status Reply the first byte of the reply is "+"
-* In an Error Reply the first byte of the reply is "-"
-* In an Integer Reply the first byte of the reply is ":"
-* In a Bulk Reply the first byte of the reply is "$"
-* In a Multi Bulk Reply the first byte of the reply s "`*`"
+    "+OK\r\n"
 
-<a name="status-reply"></a>
+In order to send binary-safe strings, RESP Bulk Strings are used instead.
 
-Status reply
------------------
+When Redis replies with a Simple String, a client library should return
+to the caller a string composed of the first character after the '+'
+up to the end of the string, excluding the final CRLF bytes.
 
-A Status Reply (or: single line reply) is in the form of a single line string
-starting with "+" terminated by "\r\n". For example:
+RESP Errors
+---
 
-    +OK
+RESP has a specific data type for errors. Actually errors are excatly like
+RESP Simple Strings, but the first character is a minus '-' character instead
+of a plus. The real difference between Simple Strings and Errors in RESP is that
+errors are treated by clients as exceptions, and the string that composes
+the Error type is the error message itself.
 
-The client library should return everything after the "+", that is, the string
-"OK" in this example.
+The basic format is:
 
-Status replies are not binary safe and can't include newlines, and are usually
-returned by commands that don't need to return data, but just some kind of
-status. Status replies have very little overhead of three bytes (the initial
-"+" and the final CRLF).
-
-Error reply
------------
-
-Error Replies are very similar to Status Replies. The only difference is that
-the first byte is "-" instead of "+".
+    "-Error message\r\n"
 
 Error replies are only sent when something wrong happened, for instance if
 you try to perform an operation against the wrong data type, or if the command
@@ -109,23 +103,31 @@ A few examples of an error replies are the following:
     -WRONGTYPE Operation against a key holding the wrong kind of value
 
 The first word after the "-", up to the first space or newline, represents
-the kind of error returned.
+the kind of error returned. This is just a convention used by Redis and is not
+part of the RESP Error format.
 
-`ERR` is the generic error, while `WRONGTYPE` is a more specific error.
+For example `ERR` is the generic error, while `WRONGTYPE` is a more specific
+error that implies that the client tried to perform an operation against the
+wrong data type. This is called an **Error Prefix** and is a way to allow
+the client to understand the kind of error returned by the server without
+to reply on the exact message given, that may change over the time.
+
 A client implementation may return different kind of exceptions for different
 errors, or may provide a generic way to trap errors by directly providing
 the error name to the caller as a string.
 
 However such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error conditon, such as `false`.
 
-Integer reply
+RESP Integers
 -------------
 
-This type of reply is just a CRLF terminated string representing an integer,
+This type of is just a CRLF terminated string representing an integer,
 prefixed by a ":" byte. For example ":0\r\n", or ":1000\r\n" are integer
 replies.
 
-Examples of commands returning an integer are `INCR` and `LASTSAVE`.
+Many Redis commands return RESP Integers are reply, like
+`INCR`, `LLEN` and `LASTSAVE`.
+
 There is no special meaning for the returned integer, it is just an
 incremental number for `INCR`, a UNIX time for `LASTSAVE` and so forth, however
 the returned integer is guaranteed to be in the range of a signed 64 bit
@@ -145,73 +147,72 @@ The following commands will reply with an integer reply: `SETNX`, `DEL`,
 <a name="nil-reply"></a>
 <a name="bulk-reply"></a>
 
-Bulk replies
-------------
+RESP Bulk Strings
+-----------------
 
-Bulk replies are used by the server in order to return a single binary safe
+Bulk Strings are used in order to represent a single binary safe
 string up to 512 MB in length.
 
-    C: GET mykey
-    S: $6\r\nfoobar\r\n
+Bulk Strings are encoded in the following way:
 
-The server sends as the first line a "$" byte followed by the number of bytes
-of the actual reply, followed by CRLF, then the actual data bytes are sent,
-followed by additional two bytes for the final CRLF.  The exact sequence sent
-by the server is:
+* A "$" byte followed by the number of bytes composing the string (a prefixed length), terminated by CRLF.
+* The actual string data.
+* A final CRLF.
+
+So the string "foobar" is encoded as follows:
 
     "$6\r\nfoobar\r\n"
 
-If the requested value does not exist the bulk reply will use the special
-value -1 as data length, example:
+When an empty string is just:
 
-    C: GET nonexistingkey
-    S: $-1
+    "$0\r\n\r\n"
 
-This is called a **NULL Bulk Reply**.
+RESP Bulk Strings can also be used in order to signal non-existence of a value
+using a special format that is used to represent a Null value. In this special
+format the length is -1, and there is no data, so a Null is represented as:
+
+    "$-1\r\n"
+
+This is called a **Null Bulk String**.
 
 The client library API should not return an empty string, but a nil object,
-when the requested object does not exist.  For example a Ruby library should
-return 'nil' while a C library should return NULL (or set a special flag in the
-reply object), and so forth.
+when the server replies with a Null Bulk String.
+For example a Ruby library should return 'nil' while a C library should
+return NULL (or set a special flag in the reply object), and so forth.
 
 <a name="multi-bulk-reply"></a>
 
-Multi-bulk replies
-------------------
+RESP Arrays
+-----------
 
-Commands like `LRANGE` need to return multiple values (every element of a list
-is a value, and `LRANGE` needs to return more than a single element). This is
-accomplished using Multiple Bulk Replies.
+Clients send commands to the Redis server using RESP Arrays. Similarly
+certain Redis commands returning collections of elements to the client
+use RESP Arrays are reply type. An example is the `LRANGE` command that
+returns elements of a list.
 
-A Multi bulk reply is used to return an array of other replies. Every element
-of a Multi Bulk Reply can be of any kind, including a nested Multi Bulk Reply.
+RESP Arrays are sent using the following format:
 
-Multi Bulk Replies are sent using `*` as the first byte, followed by a string
-representing the number of replies (elements of the array) that will follow,
-followed by CR LF.
+* A `*` character as the first byte, followed by the number of elements in the array as a decimal number, followed by CRLF.
+* An additional RESP type for every element of the Array.
 
-    C: LRANGE mylist 0 3
-    S: *4
-    S: $3
-    S: foo
-    S: $3
-    S: bar
-    S: $5
-    S: Hello
-    S: $5
-    S: World
+So an empty Array is just the following:
 
-(Note: in the above example every string sent by the server has a trailing
-CR LF newline).
+    "*0\r\n"
 
-As you can see the multi bulk reply is exactly the same format used in order
-to send commands to the Redis server using the unified protocol. The sole
-difference is that while for the unified protocol only Bulk Replies are sent
-as elements, with Multi Bulk Replies sent by the server as response to a
-command every kind of reply type is valid as element of the Multi Bulk Reply.
+While an array of two RESP Bulk Strings "foo" and "bar" is encoded as:
 
-For instance a list of four integers and a binary safe string can be sent as
-a Multi Bulk Reply in the following format:
+    "*2\r\n$3\r\nfoo\r\n$3\r\nbar\r\n"
+
+As you can see after the `*<count>CRLF` part prefixing the array, the other
+data types composing the array are just concatenated one after the other.
+For example an Array of three integers is encoded as follows:
+
+    "*3\r\n:1\r\n:2\r\n:3\r\n"
+
+Arrays can contain mixed types as single elements, there is no need to use
+just elements of a given type. For example a list of four integers and a
+bulk string can be sent as the following array (we use newlines to split the
+reply into multiple lines to make it more clear):
 
     *5\r\n
     :1\r\n
@@ -225,45 +226,83 @@ The first line the server sent is `*5\r\n` in order to specify that five
 replies will follow. Then every reply constituting the items of the
 Multi Bulk reply is transmitted.
 
-Empty Multi Bulk Reply are allowed, as in the following example:
+The concept of Null Array exists as well, and is an alternative way to
+specify a Null value (usually the Null Bulk String is used, but for historical
+reasons we have two formats).
 
-    C: LRANGE nokey 0 1
-    S: *0\r\n
+For instance when the `BLPOP` command times out, it returns a Null Array
+that has a count of `-1` as in the following example:
 
-Also the concept of Null Multi Bulk Reply exists.
-
-For instance when the `BLPOP` command times out, it returns a Null Multi Bulk
-Reply, that has a count of `-1` as in the following example:
-
-    C: BLPOP key 1
-    S: *-1\r\n
+    "*-1\r\n"
 
 A client library API should return a null object and not an empty Array when
-Redis replies with a Null Multi Bulk Reply. This is necessary to distinguish
+Redis replies with a Null Array. This is necessary to distinguish
 between an empty list and a different condition (for instance the timeout
 condition of the `BLPOP` command).
 
-Null elements in Multi-Bulk replies
-----------------------------------
+Arrays of arrays are possible in REST. For example an array of two arrays
+is encoded as follows:
 
-Single elements of a multi bulk reply may have -1 length, in order to signal
-that this elements are missing and not empty strings. This can happen with the
-SORT command when used with the GET _pattern_ option when the specified key is
-missing. Example of a multi bulk reply containing a null element:
+    *2\r\n
+    *3\r\n
+    :1\r\n
+    :2\r\n
+    :3\r\n
+    *2\r\n
+    +Foo\r\n
+    -Bar\r\n
 
-    S: *3
-    S: $3
-    S: foo
-    S: $-1
-    S: $3
-    S: bar
+(The format was split into multiple lines to make it easier to read).
 
-The second element is null. The client library should return something like this:
+The above RESP data type encodes a two elements Array consisting of an Array that contains three Integers 1, 2, 3 and an array of a Simple String and an Error.
+
+Null elements in Arrays
+-----------------------
+
+Single elements of an Array may be Null. This is used in Redis replies  in
+order to signal that this elements are missing and not empty strings. This
+can happen with the SORT command when used with the GET _pattern_ option
+when the specified key is missing. Example of an Array reply containing a
+Null element:
+
+    *3\r\n
+    $3\r\n
+    foo\r\n
+    $-1\r\n
+    $3\r\n
+    bar\r\n
+
+The second element is a Null. The client library should return something
+like this:
 
     ["foo",nil,"bar"]
 
 Note that this is not an exception to what said in the previous sections, but
 just an example to further specify the protocol.
+
+Sending commands to a Redis Server
+----------------------------------
+
+Now that you are familiar with the RESP serialization format, writing an
+implementation of a Redis client library will be easy. We can further specify
+how the interaction between the client and the server works:
+
+* A client sends to the Redis server a RESP Array consisting of just Bulk Strings.
+* A Redis server replies to clients sending any valid RESP data type as reply.
+
+So for example a typical interaction could be the following.
+
+The client sends the command **LLEN mylist** in order to get the length of the list stored at key *mylist*, and the server replies with an Integer reply as in the following example (C: is the client, S: the server).
+
+    C: *2\r\n
+    C: $4\r\n
+    C: LLEN\r\n
+    C: $6\r\n
+    C: mylist\r\n
+
+    S: :48293\r\n
+
+As usually we separate different parts of the protocol with newlines for simplicity, but the actual interaction is the client sending `*2\r\n$4\r\nLLEN\r\n$6\r\nmylist\r\n` as a whole.
 
 Multiple commands and pipelining
 --------------------------------
@@ -273,6 +312,8 @@ Pipelining is supported so multiple commands can be sent with a single
 write operation by the client, without the need to to read the server reply
 of the previous command before issuing the next command.
 All the replies can be read at the end.
+
+For more information please check our [page about Pipelining](/topics/pipelining).
 
 Inline Commands
 ---------------
@@ -304,7 +345,7 @@ High performance parser for the Redis protocol
 While the Redis protocol is very human readable and easy to implement it can
 be implemented with similar performances of a binary protocol.
 
-The Redis protocol uses prefixed lengths to transfer bulk data, so there is
+RESP uses prefixed lengths to transfer bulk data, so there is
 never need to scan the payload for special characters like it happens for
 instance with JSON, nor to quote the payload that needs to be sent to the
 server.
