@@ -12,7 +12,7 @@ RESP can serialize different data types like integers, strings, arrays. There is
 
 RESP is binary-safe and does not require processing of bulk data transferred from one process to another, because it uses prefixed-length to transfer bulk data.
 
-Ntoe: the protocol outlined here is only used for client-server communication. Redis Cluster uses a different binary protocol in order to exchange messages between nodes.
+Note: the protocol outlined here is only used for client-server communication. Redis Cluster uses a different binary protocol in order to exchange messages between nodes.
 
 Networking layer
 ----------------
@@ -48,9 +48,9 @@ The way RESP is used in Redis as a request-response protocol is the
 following:
 
 * Clients send commands to a Redis server as a RESP Array of Bulk Strings.
-* The server reply with one of the RESP types according to the command implementation.
+* The server replies with one of the RESP types according to the command implementation.
 
-In RESP the type of some data depends on the first byte:
+In RESP, the type of some data depends on the first byte:
 
 * For **Simple Strings** the first byte of the reply is "+"
 * For **Errors** the first byte of the reply is "-"
@@ -90,14 +90,14 @@ The basic format is:
 
     "-Error message\r\n"
 
-Error replies are only sent when something wrong happened, for instance if
+Error replies are only sent when something wrong happens, for instance if
 you try to perform an operation against the wrong data type, or if the command
-does not exist and so forth. So an exception should be raised by the library
+does not exist and so forth. An exception should be raised by the library
 client when an Error Reply is received.
 
 <a name="integer-reply"></a>
 
-A few examples of an error replies are the following:
+The following are examples of error replies:
 
     -ERR unknown command 'foobar'
     -WRONGTYPE Operation against a key holding the wrong kind of value
@@ -106,7 +106,7 @@ The first word after the "-", up to the first space or newline, represents
 the kind of error returned. This is just a convention used by Redis and is not
 part of the RESP Error format.
 
-For example `ERR` is the generic error, while `WRONGTYPE` is a more specific
+For example, `ERR` is the generic error, while `WRONGTYPE` is a more specific
 error that implies that the client tried to perform an operation against the
 wrong data type. This is called an **Error Prefix** and is a way to allow
 the client to understand the kind of error returned by the server without
@@ -116,7 +116,7 @@ A client implementation may return different kind of exceptions for different
 errors, or may provide a generic way to trap errors by directly providing
 the error name to the caller as a string.
 
-However such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error condition, such as `false`.
+However, such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error condition, such as `false`.
 
 RESP Integers
 -------------
@@ -125,11 +125,10 @@ This type of is just a CRLF terminated string representing an integer,
 prefixed by a ":" byte. For example ":0\r\n", or ":1000\r\n" are integer
 replies.
 
-Many Redis commands return RESP Integers are reply, like
-`INCR`, `LLEN` and `LASTSAVE`.
+Many Redis commands return RESP Integers, like `INCR`, `LLEN` and `LASTSAVE`.
 
 There is no special meaning for the returned integer, it is just an
-incremental number for `INCR`, a UNIX time for `LASTSAVE` and so forth, however
+incremental number for `INCR`, a UNIX time for `LASTSAVE` and so forth. However,
 the returned integer is guaranteed to be in the range of a signed 64 bit
 integer.
 
@@ -209,10 +208,9 @@ For example an Array of three integers is encoded as follows:
 
     "*3\r\n:1\r\n:2\r\n:3\r\n"
 
-Arrays can contain mixed types as single elements, there is no need to use
-just elements of a given type. For example a list of four integers and a
-bulk string can be sent as the following array (we use newlines to split the
-reply into multiple lines to make it more clear):
+Arrays can contain mixed types, it's not necessary for the
+elements to be of the same type. For instance, a list of four
+integers and a bulk string can be encoded as the follows:
 
     *5\r\n
     :1\r\n
@@ -222,9 +220,11 @@ reply into multiple lines to make it more clear):
     $6\r\n
     foobar\r\n
 
+(The reply was split into multiple lines for clarity).
+
 The first line the server sent is `*5\r\n` in order to specify that five
 replies will follow. Then every reply constituting the items of the
-Multi Bulk reply is transmitted.
+Multi Bulk reply are transmitted.
 
 The concept of Null Array exists as well, and is an alternative way to
 specify a Null value (usually the Null Bulk String is used, but for historical
@@ -309,8 +309,8 @@ Multiple commands and pipelining
 
 A client can use the same connection in order to issue multiple commands.
 Pipelining is supported so multiple commands can be sent with a single
-write operation by the client, without the need to to read the server reply
-of the previous command before issuing the next command.
+write operation by the client, without the need to read the server reply
+of the previous command before issuing the next one.
 All the replies can be read at the end.
 
 For more information please check our [page about Pipelining](/topics/pipelining).
@@ -343,7 +343,7 @@ High performance parser for the Redis protocol
 ----------------------------------------------
 
 While the Redis protocol is very human readable and easy to implement it can
-be implemented with similar performances of a binary protocol.
+be implemented with a performance similar to that of a binary protocol.
 
 RESP uses prefixed lengths to transfer bulk data, so there is
 never need to scan the payload for special characters like it happens for
