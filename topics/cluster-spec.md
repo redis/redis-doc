@@ -9,7 +9,7 @@ Redis Cluster is a distributed implementation of Redis with the following goals,
 * High performance and linear scalability up to 1000 nodes.
 * No merge operations in order to play well with the large values typical of the Redis data model.
 * Write safety: the system tries to retain all the writes originating from clients connected with the majority of the nodes. However there are small windows where acknowledged writes can be lost.
-* Availability: Redis Cluster is able to survive to partitions where the majority of the master nodes are reachable and there is at least a reachable salve for every master node that is no longer reachable.
+* Availability: Redis Cluster is able to survive to partitions where the majority of the master nodes are reachable and there is at least a reachable slave for every master node that is no longer reachable.
 
 What is described in this document is implemented in the `unstable` branch of the Github Redis repository.
 
