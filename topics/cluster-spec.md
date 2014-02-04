@@ -663,7 +663,7 @@ memory, and so forth.
 
 An alternative is to create an asymmetry in the cluster, and let the cluster
 layout automatically change over time. For example the cluster may have three
-slaves A, B, C. A and B have a single slave each, A1 and B1. However the master
+masters A, B, C. A and B have a single slave each, A1 and B1. However the master
 C is different and has two slaves: C1 and C2.
 
 Replica migration is the process of automatic reconfiguration of a slave
