@@ -637,6 +637,91 @@ able to populate the hash slots routing table of a new node, while UPDATE
 messages are only sent when an old configuration is detected, and only
 cover the information needed to fix the wrong configuration.
 
+Replica migration
+---
+
+Redis Cluster implements a concept called *replica migraiton* in order to
+improve the availability of the system. The idea is that in a cluster with
+a master-slave setup, if the map between slaves and masters is fixed there
+is limited availability over time if multiple indepedent failures of single
+nodes happen.
+
+For example in a cluster where every master has a single slave, the cluster
+can continue the operations as long the master or the slave fail, but not
+if both fail the same time. However there is a class of failures, that are
+the independent failures of single nodes caused by hardware or software issues
+that can accumulate over time. For example:
+
+* Master A has a single slave A1.
+* Master A fails. A1 is promoted as new slave.
+* Three hours later A1 fails in an independent manner (not related to the failure of A). No other slave is available for promotion since also node A is still down. The cluster cannot continue normal operations.
+
+If the map between masters and slaves is fixed, the only way to make the cluster
+more resistant to the above scenario is to add slaves to every master, however
+this is costly as it requires more instances of Redis to be executed, more
+memory, and so forth.
+
+An alternative is to create an asymmetry in the cluster, and let the cluster
+layout automatically change over time. For example the cluster may have three
+slaves A, B, C. A and B have a single slave each, A1 and B1. However the master
+C is different and has two slaves: C1 and C2.
+
+Replica migration is the process of automatic reconfiguration of a slave
+in order to *migrate* to a master that has no longer coverage (no working
+slaves). With replica migration the scenario mentioned above turns into the
+following:
+
+* Master A fails. A1 is promoted.
+* C2 migrates as slave of A1, that is otherwise not backed by any slave.
+* Three hours later A1 fails as well.
+* C2 is promoted as new master to replace A1.
+* The cluster can continue the operations.
+
+Replica migration algorithm
+---
+
+The migration algorithm does not use any form of agreement, since the slaves
+layout in a Redis Cluster is not part of the cluster configuration that requires
+to be consistent and/or versioned with config epochs. Instead it uses an
+algorithm to avoid mass-migration of slaves when a master is not backed.
+The algorithm guarantees that eventually, once the cluster configuration is
+stable, every master will be backed by at least one slave.
+
+This is how the algorithm works. To start we need to define what is a
+*good slave* in this context: a good slave is a slave not in FAIL state
+from the point of view of a given node.
+
+The execution of the algorithm is triggered in every slave that detects that
+there is at least a single master without good slaves. However among all the
+slaves detecting this condition, only a subset should act. This subset is
+actually often a single slave unless different slaves have in a given moment
+a slightly different vision of the failure state of other nodes.
+
+The *acting slave* is the slave among the masters having the maximum number
+of attached slaves, that is not in FAIL state and has the smallest node ID.
+
+So for example if there are 10 masters with 1 slave each, and 2 masters with
+5 slaves each, the slave that will try to migrate is, among the 2 masters
+having 5 slaves, the one with the lowest node ID. Given that no agreement
+is used, it is possible that when the cluster configuration is not stable,
+a race condition occurs where multiple slaves think to be the non-failing
+slave with the lower node ID (but it is an hard to trigger condition in
+practice). If this happens, the result is multiple slaves migrating to the
+same master, which is harmless. If the race happens in a way that will left
+the ceding master without slaves, as soon as the cluster is stable again
+the algorithm will be re-executed again and will migrate the slave back to
+the original master.
+
+Eventually every master will be backed by at least one slave, however
+normally the behavior is that a single slave migrates from a master with
+multiple slaves to an orphaned master.
+
+The algorithm is controlled by an user-configurable parameter called
+`cluster-migration-barrier`, that is the number of good slaves a master
+will be left with for a slave to migrate. So for example if this parameter
+is set to 2, a slave will try to migrate only if its master remains with
+two working slaves.
+
 Publish/Subscribe
 ===
 
