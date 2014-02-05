@@ -62,6 +62,8 @@ Additionally RESP is able to represent a Null value using a special variation of
 
 In RESP different parts of the protocol are always terminated with "\r\n" (CRLF).
 
+<a name="status-reply"></a>
+
 RESP Simple Strings
 ---
 
@@ -95,8 +97,6 @@ you try to perform an operation against the wrong data type, or if the command
 does not exist and so forth. An exception should be raised by the library
 client when an Error Reply is received.
 
-<a name="integer-reply"></a>
-
 The following are examples of error replies:
 
     -ERR unknown command 'foobar'
@@ -117,6 +117,8 @@ errors, or may provide a generic way to trap errors by directly providing
 the error name to the caller as a string.
 
 However, such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error condition, such as `false`.
+
+<a name="integer-reply"></a>
 
 RESP Integers
 -------------
