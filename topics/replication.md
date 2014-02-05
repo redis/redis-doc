@@ -32,7 +32,7 @@ connections during this brief window.
 multiple slaves for read-only queries (for example, heavy `SORT`
 operations can be offloaded to slaves), or simply for data redundancy.
 
-* It is possible to use replication to avoid the cost of writing the master
+* It is possible to use replication to avoid the cost of the master
 write the full dataset to disk: just configure your master redis.conf to avoid
 saving (just comment all the "save" directives), then connect a slave
 configured to save from time to time.
