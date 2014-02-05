@@ -68,7 +68,7 @@ with an error to write commands (but will continue to accept read-only
 commands), or you can configure it to evict keys when the max memory limit
 is reached in the case you are using Redis for caching.
 
-## Background saving is failing with a fork() error under Linux even if I've a lot of free RAM!
+## Background saving is failing with a fork() error under Linux even if I've a lot of free RAM! ## {#BackgroundSaving}
 
 Short answer: `echo 1 > /proc/sys/vm/overcommit_memory` :)
 
@@ -90,6 +90,9 @@ memory it will fail.
 
 Setting `overcommit_memory` to 1 says Linux to relax and perform the fork in a
 more optimistic allocation fashion, and this is indeed what you want for Redis.
+
+Please note that it is naïve to change `overcommit_memory` without verifying a
+sane setting for `overcommit_ratio`.
 
 A good source to understand how Linux Virtual Memory work and other
 alternatives for `overcommit_memory` and `overcommit_ratio` is this classic
