@@ -14,5 +14,5 @@ See `INCR` for extra information on increment/decrement operations.
 
 ```cli
 SET mykey "10"
-DECRBY mykey 5
+DECRBY mykey 3
 ```
