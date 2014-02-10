@@ -741,3 +741,54 @@ Removing a node
 ---
 
 Work in progress.
+
+Replicas migration
+---
+
+In Redis Cluster it is possible to reconfigure a slave to replicate with a
+different master at any time just using the following command:
+
+    CLUSTER REPLICATE <master-node-id>
+
+However there is a special scenario where you want replicas to move from one
+master to another one automatically, without the help of the system administrator.
+The automatic reconfiguration of replicas is called *replicas migration* and is
+able to improve the reliability of a Redis Cluster.
+
+Note: you can read the details of replicas migration in the (Redis Cluster Specification)[/topics/cluster-spec], here we'll only provide some information about the
+general idea and what you should do in order to benefit from it.
+
+The reason why you may want to let your cluster replicas to move from one master
+to another under certain condition, is that usually the Redis Cluster is as
+resistant to failures as the number of replicas attached to a given slave.
+
+For example a cluster where every master has a single replica can't continue
+operations if the master and its replica fail at the same time, simply because
+there is no other instance to have a copy of the hash slots the master was
+serving. However while netsplits are likely to isolate a number of nodes
+at the same time, many other kind of failures, like hardware or software failures
+local to a single node, are a very notable class of failures that are unlikely
+to happen at the same time, so it is possible that in your cluster where
+every master has a slave, the slave is killed at 4am, and the master is killed
+at 6am. This still will result in a cluster that can no longer operate.
+
+To improve reliability of the system we have the option to add additional
+replicas to every master, but this is expensive. Replica migration allows to
+add more slaves to just a few masters. So you have 10 masters with 1 slave
+each, for a total of 20 instances. However you add, for example, 3 instances
+more as slaves of some of your masters, so certain masters will have more
+than a single slave.
+
+With replicas migration what happens is that if a master is left without
+slaves, a replica from a master that has multiple slaves will migrate to
+the *orphaned* master. So after your slave goes down at 4am as in the example
+we made above, another slave will take its place, and when the master
+will fail as well at 5am, there is still a slave that can be elected so that
+the cluster can continue to operate.
+
+So what you should know about replicas migration in short?
+
+* The cluster will try to migrate a replica from the master that has the greatest number of replicas in a given moment.
+* To benefit from replica migration you have just to add a few more replicas to a single master in your cluster, it does not matter what master.
+* There is a configuration parameter that controls the replica migration feature that is called `replica-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
+
