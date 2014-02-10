@@ -119,9 +119,11 @@ to another) a single hash slot will be served exactly by a single node
 (however the serving node can have one or more slaves that will replace
 it in the case of net splits or failures).
 
-The algorithm used to map keys to hash slots is the following:
+The base algorithm used to map keys to hash slots is the following:
 
     HASH_SLOT = CRC16(key) mod 16384
+
+The CRC16 is specified as follows:
 
 * Name: XMODEM (also known as ZMODEM or CRC-16/ACORN)
 * Width: 16 bit
@@ -132,12 +134,78 @@ The algorithm used to map keys to hash slots is the following:
 * Xor constant to output CRC: 0000
 * Output for "123456789": 31C3
 
-A reference implementation of the CRC16 algorithm used is available in the
-Appendix A of this document.
+**Note**: A reference implementation of the CRC16 algorithm used is available in the Appendix A of this document.
 
-14 out of 16 bit of the output of CRC16 are used.
+14 out of 16 bit of the output of CRC16 are used (this is why there is
+a modulo 16384 operation in the formula above).
+
 In our tests CRC16 behaved remarkably well in distributing different kind of
 keys evenly across the 16384 slots.
+
+There is an exception for the computation of the hash slot that is used in order
+to implemenent **hash tags**. Hash tags are a way to ensure that two keys
+are allocated in the same hash slot. In the future this may be used, for example,
+in order to allow certain multi-keys operations while the cluster is *stable*
+(no resharding is in progress).
+
+In order to implement hash tags, the hash slot is computed in a different
+way. Basically if the key contains a "{...}" pattern only the substring between
+`{` and `}` is hashed in order to obtain the hash slot. However since it is
+possible that there are multiple occurrences of `{` or `}` the algorithm is
+well specified by the following rules:
+
+* If the key contains a `{` character.
+* There is a `}` character on the right of `{`
+* There are one or more characters between the first occurrence of `{` and the first occurrence of `}` after the first occurrence of `{`.
+
+Then instead of hashing the key, only what is between the first occurrence of `{` and the first occurrence of `}` on its right are hashed.
+
+Examples:
+
+* The two keys `{user1000}.following` and `{user1000}.followers` will hash to the same hash slot since only the substirng `user1000` will be hashed in order to compute the hash slot.
+* For the key `foo{}{bar}` the whole key will be hashed as usually since the first occurrence of `{` is followed by `}` on the right without characters in the middle.
+* For the key `foo{{bar}}zap` the substring `{bar` will be hashed, because it is the substring between the first occurrence of `{` and the first occurrence of `}` on its right.
+* For the key `foo{bar}{zap}` the substring `bar` will be hashed, since the algorithm stops at the first valid or invalid (without bytes inside) match of `{` and `}`.
+* What follows from the algorithm is that if the key starts with `{}`, it is guaranteed to be hashes as a whole. This is useful when using binary data as key names.
+
+Adding the hash tags exception, the following is an implementation of the `HASH_SLOT` function in Ruby and C language.
+
+Ruby example code:
+
+    def HASH_SLOT(key)
+        s = key.index "{"
+        if s
+            e = key.index "}",s+1
+            if e && e != s+1
+                key = key[s+1..e-1]
+            end
+        end
+        crc16(key) % 16384
+    end
+
+C example code:
+
+    unsigned int HASH_SLOT(char *key, int keylen) {
+        int s, e; /* start-end indexes of { and } */
+
+        /* Search the first occurrence of '{'. */
+        for (s = 0; s < keylen; s++)
+            if (key[s] == '{') break;
+
+        /* No '{' ? Hash the whole key. This is the base case. */
+        if (s == keylen) return crc16(key,keylen) & 16383;
+
+        /* '{' found? Check if we have the corresponding '}'. */
+        for (e = s+1; e < keylen; e++)
+            if (key[e] == '}') break;
+
+        /* No '}' or nothing betweeen {} ? Hash the whole key. */
+        if (e == keylen || e == s+1) return crc16(key,keylen) & 16383;
+
+        /* If we are here there is both a { and a } on its right. Hash
+         * what is in the middle between { and }. */
+        return crc16(key+s+1,e-s-1) & 16383;
+    }
 
 Cluster nodes attributes
 ---
