@@ -119,7 +119,8 @@ to another) a single hash slot will be served exactly by a single node
 (however the serving node can have one or more slaves that will replace
 it in the case of net splits or failures).
 
-The base algorithm used to map keys to hash slots is the following:
+The base algorithm used to map keys to hash slots is the following
+(read the next paragraph for the hash tag exception to this rule):
 
     HASH_SLOT = CRC16(key) mod 16384
 
@@ -134,13 +135,16 @@ The CRC16 is specified as follows:
 * Xor constant to output CRC: 0000
 * Output for "123456789": 31C3
 
-**Note**: A reference implementation of the CRC16 algorithm used is available in the Appendix A of this document.
-
 14 out of 16 bit of the output of CRC16 are used (this is why there is
 a modulo 16384 operation in the formula above).
 
 In our tests CRC16 behaved remarkably well in distributing different kind of
 keys evenly across the 16384 slots.
+
+**Note**: A reference implementation of the CRC16 algorithm used is available in the Appendix A of this document.
+
+Keys hash tags
+---
 
 There is an exception for the computation of the hash slot that is used in order
 to implemenent **hash tags**. Hash tags are a way to ensure that two keys
