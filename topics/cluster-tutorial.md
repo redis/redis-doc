@@ -259,12 +259,12 @@ I'm aware of the following implementations:
 
 * [redis-rb-cluster](http://github.com/antirez/redis-rb-cluster) is a Ruby implementation written by me (@antirez) as a reference for other languages. It is a simple wrapper around the original redis-rb, implementing the minimal semantics to talk with the cluster efficiently.
 * [redis-py-cluster](https://github.com/Grokzen/redis-py-cluster) appears to be a port of redis-rb-cluster to Python. Not recently updated (last commit 6 months ago) however it may be a starting point.
-* The popular [Predis](https://github.com/nrk/predis) used to have some Redis Cluster support at the very early stages of Redis Cluster, however I'm currently not sure about the completeness of the support, nor if the support is designed to work with recent versions of Redis Cluster (at some point we changed the number of hash slots from 4k to 16k).
+* The popular [Predis](https://github.com/nrk/predis) has support for Redis Cluster, the support was recently updated and is in active development.
+* The most used Java client, [Jedis](https://github.com/xetorthio/jedis) recently added support for Redis Cluster, see the *Jedis Cluster* section in the project README.
 * The `redis-cli` utility in the unstable branch of the Redis repository at Github implements a very basic cluster support when started with the `-c` switch.
 
-Long story short an easy way to test Redis Cluster is either to try the
-[redis-rb-cluster](http://github.com/antirez/redis-rb-cluster) Ruby client or
-simply the `redis-cli` command line utility. The following is an example
+An easy way to test Redis Cluster is either to try and of the above clients
+or simply the `redis-cli` command line utility. The following is an example
 of interaction using the latter:
 
 ```
@@ -618,6 +618,40 @@ The output of the `CLUSTER NODES` command may look intimidating, but it is actua
 * Configuration epoch for this node (see the Cluster specification).
 * Status of the link to this node.
 * Slots served...
+
+Manual failover
+---
+
+Sometimes it is useful to force a failover without actually causing any problem
+on a master. For example in order to upgrade the Redis process of one of the
+master nodes it is a good idea to failover it in order to turn it into a slave
+with minimal impact on availability.
+
+Manual failovers are supported by Redis Cluster using the `CLUSTER FAILOVER`
+command, that must be executed in one of the **slaves** of the master you want
+to failover.
+
+Manual failovers are special and are safer compared to failovers resulting from
+actual master failures, since they occur in a way that avoid data loss in the
+process, by switching clients from the original master to the new master only
+when the system is sure that the new master processed all the replication stream
+from the old one.
+
+This is what you see in the slave log when you perform a manual failover:
+
+    # Manual failover user request accepted.
+    # Received replication offset for paused master manual failover: 347540
+    # All master replication stream processed, manual failover can start.
+    # Start of election delayed for 0 milliseconds (rank #0, offset 347540).
+    # Starting a failover election for epoch 7545.
+    # Failover election won: I'm the new master.
+
+Basically clients connected to the master we are failing over are stopped.
+At the same time the master sends its replication offset to the slave, that
+waits to reach the offset on its side. When the replication offset is reached,
+the failover starts, and the old master is informed about the configuration
+switch. When the clients are unblocked on the old master, they are redirected
+to the new master.
 
 Adding a new node
 ---
