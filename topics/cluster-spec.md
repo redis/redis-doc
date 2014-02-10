@@ -94,7 +94,7 @@ Performance
 In Redis Cluster nodes don't proxy commands to the right node in charge for a given key, but instead they redirect clients to the right nodes serving a given range of the key space.
 Eventually clients obtain an up to date representation of the cluster and which node serves which subset of keys, so during normal operations clients directly contact the right nodes in order to send a given command.
 
-Because of the use of asynchronous replication, nodes does not wait for other nodes acknowledgement of writes (optional synchronous replication is a work in progress and will be likely added in future releases).
+Because of the use of asynchronous replication, nodes does not wait for other nodes acknowledgment of writes (optional synchronous replication is a work in progress and will be likely added in future releases).
 
 Also, because of the restriction to the subset of commands that don't perform operations on multiple keys, data is never moved between nodes if not in case of resharding.
 
@@ -147,7 +147,7 @@ Keys hash tags
 ---
 
 There is an exception for the computation of the hash slot that is used in order
-to implemenent **hash tags**. Hash tags are a way to ensure that two keys
+to implement **hash tags**. Hash tags are a way to ensure that two keys
 are allocated in the same hash slot. In the future this may be used, for example,
 in order to allow certain multi-keys operations while the cluster is *stable*
 (no resharding is in progress).
@@ -166,7 +166,7 @@ Then instead of hashing the key, only what is between the first occurrence of `{
 
 Examples:
 
-* The two keys `{user1000}.following` and `{user1000}.followers` will hash to the same hash slot since only the substirng `user1000` will be hashed in order to compute the hash slot.
+* The two keys `{user1000}.following` and `{user1000}.followers` will hash to the same hash slot since only the substring `user1000` will be hashed in order to compute the hash slot.
 * For the key `foo{}{bar}` the whole key will be hashed as usually since the first occurrence of `{` is followed by `}` on the right without characters in the middle.
 * For the key `foo{{bar}}zap` the substring `{bar` will be hashed, because it is the substring between the first occurrence of `{` and the first occurrence of `}` on its right.
 * For the key `foo{bar}{zap}` the substring `bar` will be hashed, since the algorithm stops at the first valid or invalid (without bytes inside) match of `{` and `}`.
@@ -203,7 +203,7 @@ C example code:
         for (e = s+1; e < keylen; e++)
             if (key[e] == '}') break;
 
-        /* No '}' or nothing betweeen {} ? Hash the whole key. */
+        /* No '}' or nothing between {} ? Hash the whole key. */
         if (e == keylen || e == s+1) return crc16(key,keylen) & 16383;
 
         /* If we are here there is both a { and a } on its right. Hash
@@ -482,7 +482,7 @@ The common header has the following information:
 * State: the state of the cluster from the point of view of the sender (down or ok).
 * The master node ID, if this is a slave.
 
-Ping and pong packets contain a gossip section. This section offers to the receiver a view about what the sender node thinks about other nodes in the cluster. The gossip section only contains informations about a few random nodes among the known nodes set of the sender.
+Ping and pong packets contain a gossip section. This section offers to the receiver a view about what the sender node thinks about other nodes in the cluster. The gossip section only contains information about a few random nodes among the known nodes set of the sender.
 
 For every node added in the gossip section the following fields are reported:
 
@@ -514,7 +514,7 @@ As outlined in the node heartbeats section of this document, every node sends go
 This mechanism is used in order to escalate a `PFAIL` condition to a `FAIL` condition, when the following set of conditions are met:
 
 * Some node, that we'll call A, has another node B flagged as `PFAIL`.
-* Node A collected, via gossip sections, informations about the state of B from the point of view of the majority of masters in the cluster.
+* Node A collected, via gossip sections, information about the state of B from the point of view of the majority of masters in the cluster.
 * The majority of masters signaled the `PFAIL` or `PFAIL` condition within `NODE_TIMEOUT * FAIL_REPORT_VALIDITY_MULT` time.
 
 If all the above conditions are true, Node A will:
@@ -541,12 +541,12 @@ However the Redis Cluster failure detection has a requirement: eventually all th
 
 **Case 2**: When only a minority of masters flagged a node as `FAIL`, the slave promotion will not happen (as it uses a more formal algorithm that makes sure everybody will know about the promotion eventually) and every node will clear the `FAIL` state for the `FAIL` state clearing rules above (no promotion after some time > of N times the `NODE_TIMEOUT`).
 
-**Basically the `FAIL` flag is only used as a trigger to run the safe part of the algorithm**  for the slave promotion. In theory a slave may act independently and start a slave promotion when its master is not reachable, and wait for the masters to refuse the provide acknowledgement if the master is actually reachable by the majority. However the added complexity of the `PFAIL -> FAIL` state, the weak agreement, and the `FAIL` message to force the propagation of the state in the shortest amount of time in the reachable part of the cluster, have practical advantages. Because of this mechanisms usually all the nodes will stop accepting writes about at the same time if the cluster is in an error condition, that is a desirable feature from the point of view of applications using Redis Cluster. Also not necessary elections, initiated by slaves that can't reach its master that is otherwise reachable by the majority of the other master nodes, are avoided.
+**Basically the `FAIL` flag is only used as a trigger to run the safe part of the algorithm**  for the slave promotion. In theory a slave may act independently and start a slave promotion when its master is not reachable, and wait for the masters to refuse the provide acknowledgment if the master is actually reachable by the majority. However the added complexity of the `PFAIL -> FAIL` state, the weak agreement, and the `FAIL` message to force the propagation of the state in the shortest amount of time in the reachable part of the cluster, have practical advantages. Because of this mechanisms usually all the nodes will stop accepting writes about at the same time if the cluster is in an error condition, that is a desirable feature from the point of view of applications using Redis Cluster. Also not necessary elections, initiated by slaves that can't reach its master that is otherwise reachable by the majority of the other master nodes, are avoided.
 
 Cluster epoch
 ---
 
-Redis Cluster uses a concept similar to the Raft algorithm "term". In Redis Cluster the term is called epoch instead, and it is used in order to give an incremental version to events, so that when multiple nodes provide conflicting informaiton, it is possible for another node to understand which state is the most up to date.
+Redis Cluster uses a concept similar to the Raft algorithm "term". In Redis Cluster the term is called epoch instead, and it is used in order to give an incremental version to events, so that when multiple nodes provide conflicting information, it is possible for another node to understand which state is the most up to date.
 
 The `currentEpoch` is a 64 bit unsigned number.
 
@@ -666,9 +666,9 @@ Rules for server slots information propagation
 
 An important part of Redis Cluster is the mechanism used to propagate the information about which cluster node is serving a given set of hash slots. This is vital to both the startup of a fresh cluster and the ability to upgrade the configuration after a slave was promoted to serve the slots of its failing master.
 
-Ping and Pong packets that instances continuously exchange contain an header that is used by the sender in oder to advertise the hash slots it claims to be responsible for. This is the main mechanism used in order to propagate change, with the exception of a manual reconfiguration operated by the cluster administrator (for example a manual resharding via redis-trib in order to move hash slots among masters).
+Ping and Pong packets that instances continuously exchange contain an header that is used by the sender in order to advertise the hash slots it claims to be responsible for. This is the main mechanism used in order to propagate change, with the exception of a manual reconfiguration operated by the cluster administrator (for example a manual resharding via redis-trib in order to move hash slots among masters).
 
-When a new Redis Cluster node is created, its local slot table, that maps a given hash slot with a given node ID, is initialized so that every hash slot is assigned to nill, that is, the hash slot is unassigned.
+When a new Redis Cluster node is created, its local slot table, that maps a given hash slot with a given node ID, is initialized so that every hash slot is assigned to nil, that is, the hash slot is unassigned.
 
 The first rule followed by a node in order to update its hash slot table is the following:
 
@@ -703,7 +703,7 @@ However A may recover some time later, and rejoin the cluster with an old config
 
 NOTE: while currently configuration updates via ping / pong and UPDATE share the
 same code path, there is a functional overlap between the two in the way they
-update a configuration of a node with stale informations. However the two
+update a configuration of a node with stale information. However the two
 mechanisms are both useful because ping / pong messages after some time are
 able to populate the hash slots routing table of a new node, while UPDATE
 messages are only sent when an old configuration is detected, and only
@@ -712,10 +712,10 @@ cover the information needed to fix the wrong configuration.
 Replica migration
 ---
 
-Redis Cluster implements a concept called *replica migraiton* in order to
+Redis Cluster implements a concept called *replica migration* in order to
 improve the availability of the system. The idea is that in a cluster with
 a master-slave setup, if the map between slaves and masters is fixed there
-is limited availability over time if multiple indepedent failures of single
+is limited availability over time if multiple independent failures of single
 nodes happen.
 
 For example in a cluster where every master has a single slave, the cluster
@@ -836,7 +836,7 @@ Appendix A: CRC16 reference implementation in ANSI C
      * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      */
 
-    /* CRC16 implementation acording to CCITT standards.
+    /* CRC16 implementation according to CCITT standards.
      *
      * Note by @antirez: this is actually the XMODEM CRC 16 algorithm, using the
      * following parameters:
