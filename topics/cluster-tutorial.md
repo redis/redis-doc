@@ -680,7 +680,7 @@ At this point the server should be running.
 Now we can use **redis-trib** as usually in order to add the node to
 the existing cluster.
 
-    ./redis-trib.rb addnode 127.0.0.1:7006 127.0.0.1:7000
+    ./redis-trib.rb add-node 127.0.0.1:7006 127.0.0.1:7000
 
 As you can see I used the **addnode** command specifying the address of the
 new node as first argument, and the address of a random existing node in the
@@ -689,9 +689,8 @@ cluster as second argument.
 In practical terms redis-trib here did very little to help us, it just
 sent a `CLUSTER MEET` message to the node, something that is also possible
 to accomplish manually. However redis-trib also checks the state of the
-cluster before to operate, that is an advantage, and will be improved more
-and more in the future in order to also be able to rollback changes when
-needed or to help the user to fix a messed up cluster when there are issues.
+cluster before to operate, so it is a good idea to perform cluster operations
+always via redis-trib even when you know how the internals work.
 
 Now we can connect to the new node to see if it really joined the cluster:
 
@@ -715,13 +714,38 @@ the cluster. However it has two peculiarities compared to the other masters:
 
 Now it is possible to assign hash slots to this node using the resharding
 feature of `redis-trib`. It is basically useless to show this as we already
-did in a previous section, so instead I want to cover the case where we want
-to turn this instance into a replica (a slave) of some other master.
+did in a previous section, there is no difference, it is just a resharding
+having as a target the empty node.
+
+Adding a new node as a replica
+---
+
+Adding a new Replica can be performed in two ways. The obivous one is to
+use redis-trib again, but with the --slave option, like this:
+
+    ./redis-trib.rb add-node --slave 127.0.0.1:7006 127.0.0.1:7000
+
+Note that the command line here is exactly like the one we used to add
+a new master, so we are not specifiying to which master we want to add
+the replica. In this case what happens is that redis-trib will add the new
+node as replica of a random master among the masters with less replicas.
+
+However you can specifiy exactly what master you want to target with your
+new replica with the following command line:
+
+    ./redis-trib.rb add-node --slave --master-id 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 127.0.0.1:7006 127.0.0.1:7000
+
+This way we assign the new replica to a specific master.
+
+A more manual way to add a replica to a specific master is to add the new
+node as an empty master, and then turn it into a replica using the
+`CLUSTER REPLICATE` command. This also works if the node was added as a slave
+but you want to move it as a replica of a different master.
 
 For example in order to add a replica for the node 127.0.0.1:7005 that is
 currently serving hash slots in the range 11423-16383, that has a Node ID
 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e, all I need to do is to connect
-with the new node that we just added and send a simple command:
+with the new node (already added as empty master) and send the command:
 
     redis 127.0.0.1:7006> cluster replicate 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e
 
@@ -740,7 +764,21 @@ The node 3c3a0c... now has two slaves, running on ports 7002 (the existing one) 
 Removing a node
 ---
 
-Work in progress.
+To remove a slave node just use the `del-node` command of redis-trib:
+
+    ./redis-trib del-node 127.0.0.1:7000 `<node-id>`
+
+The first argument is just a random node in the cluster, the second argument
+is the ID of the node you want to remove.
+
+You can remove a master node in the same way as well, **however in order to
+remove a master node it must be empty**. If the master is not empty you need
+to reshard data away from it to all the other master nodes before.
+
+An alternative to remove a master node is to perform a manual failover of it
+over one of its slaves and remove the node after it turned into a slave of the
+new master. Obviously this does not help when you want to reduce the actual
+number of masters in your cluster, in that case, a resharding is needed.
 
 Replicas migration
 ---
