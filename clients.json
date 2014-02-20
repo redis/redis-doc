@@ -369,9 +369,9 @@
   {
     "name": "RedisServer",
     "language": "PHP",
-    "repository": "https://github.com/jamm/Memory/blob/master/RedisServer.php",
+    "repository": "https://github.com/jamm/Memory/blob/master/lib/Jamm/Memory/RedisServer.php",
     "description": "Standalone and full-featured class for Redis in PHP",
-    "authors": ["OZ"]
+    "authors": ["eugeniyoz"]
   },
 
   {
