@@ -157,6 +157,18 @@
     "since": "2.6.9",
     "group": "server"
   },
+  "CLIENT PAUSE": {
+    "summary": "Stop processing commands from clients for some time",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "2.9.50",
+    "group": "server"
+  },
   "CLIENT SETNAME": {
     "summary": "Set the current connection name",
     "complexity": "O(1)",
