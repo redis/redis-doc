@@ -33,7 +33,7 @@ list.
 
 @return
 
-@status-reply
+@simple-string-reply
 
 @examples
 

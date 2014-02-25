@@ -62,6 +62,8 @@ Additionally RESP is able to represent a Null value using a special variation of
 
 In RESP different parts of the protocol are always terminated with "\r\n" (CRLF).
 
+<a name="simple-string-reply"></a>
+
 RESP Simple Strings
 ---
 
@@ -76,6 +78,8 @@ In order to send binary-safe strings, RESP Bulk Strings are used instead.
 When Redis replies with a Simple String, a client library should return
 to the caller a string composed of the first character after the '+'
 up to the end of the string, excluding the final CRLF bytes.
+
+<a name="error-reply"></a>
 
 RESP Errors
 ---
@@ -94,8 +98,6 @@ Error replies are only sent when something wrong happens, for instance if
 you try to perform an operation against the wrong data type, or if the command
 does not exist and so forth. An exception should be raised by the library
 client when an Error Reply is received.
-
-<a name="integer-reply"></a>
 
 The following are examples of error replies:
 
@@ -117,6 +119,8 @@ errors, or may provide a generic way to trap errors by directly providing
 the error name to the caller as a string.
 
 However, such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error condition, such as `false`.
+
+<a name="integer-reply"></a>
 
 RESP Integers
 -------------
@@ -144,7 +148,7 @@ The following commands will reply with an integer reply: `SETNX`, `DEL`,
 `RENAMENX`, `MOVE`, `LLEN`, `SADD`, `SREM`, `SISMEMBER`, `SCARD`.
 
 <a name="nil-reply"></a>
-<a name="bulk-reply"></a>
+<a name="bulk-string-reply"></a>
 
 RESP Bulk Strings
 -----------------
@@ -179,7 +183,7 @@ when the server replies with a Null Bulk String.
 For example a Ruby library should return 'nil' while a C library should
 return NULL (or set a special flag in the reply object), and so forth.
 
-<a name="multi-bulk-reply"></a>
+<a name="array-reply"></a>
 
 RESP Arrays
 -----------

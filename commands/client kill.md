@@ -12,4 +12,4 @@ next command is sent (and results in network error).
 
 @return
 
-@status-reply: `OK` if the connection exists and has been closed
+@simple-string-reply: `OK` if the connection exists and has been closed

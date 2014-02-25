@@ -26,7 +26,7 @@ Use `\` to escape special characters if you want to match them verbatim.
 
 @return
 
-@multi-bulk-reply: list of keys matching `pattern`.
+@array-reply: list of keys matching `pattern`.
 
 @examples
 

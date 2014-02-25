@@ -12,7 +12,7 @@ the actual length of the string.
 
 @return
 
-@bulk-reply
+@bulk-string-reply
 
 @examples
 

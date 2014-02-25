@@ -5,7 +5,7 @@ call.
 
 @return
 
-@multi-bulk-reply, specifically:
+@array-reply, specifically:
 
 A multi bulk reply containing two elements:
 

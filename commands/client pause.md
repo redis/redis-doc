@@ -17,4 +17,4 @@ It is possible to send `CLIENT PAUSE` in a MULTI/EXEC block together with the `I
 
 @return
 
-@status-reply: The command returns OK or an error if the timeout is invalid.
+@simple-string-reply: The command returns OK or an error if the timeout is invalid.

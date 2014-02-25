@@ -2,7 +2,7 @@ Returns `message`.
 
 @return
 
-@bulk-reply
+@bulk-string-reply
 
 @examples
 

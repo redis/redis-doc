@@ -5,4 +5,4 @@ Marks the given keys to be watched for conditional execution of a
 
 @return
 
-@status-reply: always `OK`.
+@simple-string-reply: always `OK`.

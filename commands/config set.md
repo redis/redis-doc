@@ -52,5 +52,5 @@ options are not mutually exclusive.
 
 @return
 
-@status-reply: `OK` when the configuration was set properly.
+@simple-string-reply: `OK` when the configuration was set properly.
 Otherwise an error is returned.

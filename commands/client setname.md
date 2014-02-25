@@ -16,4 +16,4 @@ Tip: setting names to connections is a good way to debug connection leaks due to
 
 @return
 
-@status-reply: `OK` if the connection name was successfully set.
+@simple-string-reply: `OK` if the connection name was successfully set.

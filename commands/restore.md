@@ -9,7 +9,7 @@ If they don't match an error is returned.
 
 @return
 
-@status-reply: The command returns OK on success.
+@simple-string-reply: The command returns OK on success.
 
 @examples
 

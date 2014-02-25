@@ -15,4 +15,4 @@ Please refer to the [persistence documentation][tp] for detailed information.
 
 @return
 
-@status-reply: The commands returns OK on success.
+@simple-string-reply: The commands returns OK on success.

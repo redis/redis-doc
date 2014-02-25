@@ -46,4 +46,4 @@ On success OK is returned.
 
 @return
 
-@status-reply: The command returns OK on success.
+@simple-string-reply: The command returns OK on success.

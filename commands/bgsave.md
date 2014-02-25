@@ -11,4 +11,4 @@ Please refer to the [persistence documentation][tp] for detailed information.
 
 @return
 
-@status-reply
+@simple-string-reply

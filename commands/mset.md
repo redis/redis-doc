@@ -8,7 +8,7 @@ others are unchanged.
 
 @return
 
-@status-reply: always `OK` since `MSET` can't fail.
+@simple-string-reply: always `OK` since `MSET` can't fail.
 
 @examples
 

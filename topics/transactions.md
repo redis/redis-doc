@@ -95,7 +95,7 @@ command will fail when executed even if the syntax is right:
     +OK
     -ERR Operation against a key holding the wrong kind of value
 
-`EXEC` returned two-element @bulk-reply where one is an `OK` code and
+`EXEC` returned two-element @bulk-string-reply where one is an `OK` code and
 the other an `-ERR` reply. It's up to the client library to find a
 sensible way to provide the error to the user.
 

@@ -5,7 +5,7 @@ An error is returned for out of range indexes.
 
 @return
 
-@status-reply
+@simple-string-reply
 
 @examples
 

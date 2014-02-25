@@ -26,7 +26,7 @@ array with (value, score) arrays/tuples).
 
 @return
 
-@multi-bulk-reply: list of elements in the specified range (optionally with
+@array-reply: list of elements in the specified range (optionally with
 their scores).
 
 @examples

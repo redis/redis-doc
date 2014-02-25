@@ -50,4 +50,4 @@ reported by `CONFIG GET` as "900 1 300 10".
 
 @return
 
-The return type of the command is a @bulk-reply.
+The return type of the command is a @bulk-string-reply.

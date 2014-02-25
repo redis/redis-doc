@@ -6,7 +6,7 @@ Apart from the reversed ordering, `ZREVRANGE` is similar to `ZRANGE`.
 
 @return
 
-@multi-bulk-reply: list of elements in the specified range (optionally with
+@array-reply: list of elements in the specified range (optionally with
 their scores).
 
 @examples

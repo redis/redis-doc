@@ -23,7 +23,7 @@ If `key` does not exist a nil bulk reply is returned.
 
 @return
 
-@bulk-reply: the serialized value.
+@bulk-string-reply: the serialized value.
 
 @examples
 

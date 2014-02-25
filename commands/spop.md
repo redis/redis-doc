@@ -5,7 +5,7 @@ set but does not remove it.
 
 @return
 
-@bulk-reply: the removed element, or `nil` when `key` does not exist.
+@bulk-string-reply: the removed element, or `nil` when `key` does not exist.
 
 @examples
 

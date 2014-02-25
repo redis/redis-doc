@@ -4,4 +4,4 @@ This command never fails.
 
 @return
 
-@status-reply
+@simple-string-reply

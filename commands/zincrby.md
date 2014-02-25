@@ -13,7 +13,7 @@ It is possible to provide a negative value to decrement the score.
 
 @return
 
-@bulk-reply: the new score of `member` (a double precision floating point
+@bulk-string-reply: the new score of `member` (a double precision floating point
 number), represented as string.
 
 @examples

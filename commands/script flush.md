@@ -5,4 +5,4 @@ Lua scripting.
 
 @return
 
-@status-reply
+@simple-string-reply

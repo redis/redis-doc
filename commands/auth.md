@@ -13,4 +13,4 @@ strong and very long password so that this attack is infeasible.
 
 @return
 
-@status-reply
+@simple-string-reply

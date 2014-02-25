@@ -5,7 +5,7 @@ If `newkey` already exists it is overwritten, when this happens `RENAME` execute
 
 @return
 
-@status-reply
+@simple-string-reply
 
 @examples
 

@@ -29,7 +29,7 @@ of messages where the first element indicates the type of message.
 
 ## Format of pushed messages
 
-A message is a @multi-bulk-reply with three elements.
+A message is a @array-reply with three elements.
 
 The first element is the kind of message:
 
