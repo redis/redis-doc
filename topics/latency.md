@@ -34,7 +34,13 @@ or setup.
 
 We call this kind of latency **intrinsic latency**, and `redis-cli` starting
 from Redis version 2.8.7 is able to measure it. This is an example run
-under Linux 3.11.0 running on an entry level server:
+under Linux 3.11.0 running on an entry level server.
+
+Note: the argument `100` is the number of seconds the test will be executed.
+The more time we run the test, the more likely we'll be able to spot
+latency spikes. 100 seconds is usually appropriate, however you may want
+to perform a few runs at different times. Please note that the test is CPU
+intensive and will likely saturate a single core in your system.
 
     $ ./redis-cli --intrinsic-latency 100
     Max latency so far: 1 microseconds.
