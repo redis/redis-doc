@@ -636,7 +636,7 @@ Master `currentEpoch` is 5, lastVoteEpoch is 1 (this may happen after a few fail
 
 * Slave `currentEpoch` is 3
 * Slave tries to be elected with epoch 4 (3+1), master replies with an ok with `currentEpoch` 5, however the reply is delayed.
-* Slave tries to be elected again, with epoch 5 (4+1), the delayed reply reaches the master with `currentEpoch` 5, and is accepted as valid.
+* Slave tries to be elected again, with epoch 5 (4+1), the delayed reply reaches to slave with `currentEpoch` 5, and is accepted as valid.
 
 * 4) Masters don't vote a slave of the same master before `NODE_TIMEOUT * 2` has elapsed since a slave of that master was already voted. This is not strictly required as it is not possible that two slaves win the election in the same epoch, but in practical terms it ensures that normally when a slave is elected it has plenty of time to inform the other slaves avoiding that another slave will try a new election.
 * 5) Masters don't try to select the best slave in any way, simply if the slave's master is in `FAIL` state and the master did not voted in the current term, the positive vote is granted.
