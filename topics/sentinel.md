@@ -73,7 +73,7 @@ that is at address 127.0.0.1 and port 6379, with a level of agreement needed
 to detect this master as failing of 2 sentinels (if the agreement is not reached
 the automatic failover does not start).
 
-However note that whatever the agreement you specify to detect an instance as not working, a Sentinel requires **the vote from the majority** of the known Sentinels in the system in order to start a failover and obtain a new *configuration Epoch* to assign to the new configuraiton afte the failiver.
+However note that whatever the agreement you specify to detect an instance as not working, a Sentinel requires **the vote from the majority** of the known Sentinels in the system in order to start a failover and obtain a new *configuration Epoch* to assign to the new configuration after the failover.
 
 In other words **Sentinel is not able to perform the failover if only a minority of the Sentinel processes are working**.
 
