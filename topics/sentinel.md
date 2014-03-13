@@ -7,23 +7,25 @@ It performs the following three tasks:
 * **Monitoring**. Sentinel constantly check if your master and slave instances are working as expected.
 * **Notification**. Sentinel can notify the system administrator, or another computer program, via an API, that something is wrong with one of the monitored Redis instances.
 * **Automatic failover**. If a master is not working as expected, Sentinel can start a failover process where a slave is promoted to master, the other additional slaves are reconfigured to use the new master, and the applications using the Redis server informed about the new address to use when connecting.
+* **Configuration provider**. Sentinel acts as a source of authority for clients service discovery: clients connect to Sentinels in order to ask for the address of the current Redis master responsible for a given service. If a failover occurs, Sentinels will report the new address.
+
+Distributed nature of Sentinel
+===
 
 Redis Sentinel is a distributed system, this means that usually you want to run
 multiple Sentinel processes across your infrastructure, and this processes
 will use gossip protocols in order to understand if a master is down and
-agreement protocols in order to perform the failover and assign a version to
-the new configuration.
+agreement protocols in order to get authorized to perform the failover and assign
+a version to the new configuration.
 
-Redis Sentinel is shipped as a stand-alone executable called `redis-sentinel`
-but actually it is a special execution mode of the Redis server itself, and
-can be also invoked using the `--sentinel` option of the normal `redis-sever`
-executable.
+Distributed systems have given *safety* and *liveness* properties, in order to
+use Redis Sentinel well you are supposed to understand, at least at higher level,
+how Sentinel works as a distributed system. This makes Sentinel more complex but
+also better compared to a system using a single process, for example:
 
-**WARNING:** Redis Sentinel is currently a work in progress. This document
-describes how to use what we is already implemented, and may change as the
-Sentinel implementation evolves.
-
-Redis Sentinel is compatible with Redis 2.4.16 or greater, and Redis 2.6.0 or greater, however it works better if used with Redis instances version 2.8.0 or greater.
+* A cluster of Sentinels can failover a master even if some Sentinels are failing.
+* A single Sentinel can't failover without authorization from other Sentinels.
+* Clients can connect to any random Sentinel to fetch the configuration of a master.
 
 Obtaining Sentinel
 ---
@@ -31,6 +33,8 @@ Obtaining Sentinel
 Sentinel is currently developed in the *unstable* branch of the Redis source code at Github. However an update copy of Sentinel is provided with every patch release of Redis 2.8.
 
 The simplest way to use Sentinel is to download the latest verison of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
+
+IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**.
 
 Running Sentinel
 ---
@@ -69,13 +73,14 @@ following:
     sentinel parallel-syncs resque 5
 
 The first line is used to tell Redis to monitor a master called *mymaster*,
-that is at address 127.0.0.1 and port 6379, with a level of agreement needed
-to detect this master as failing of 2 sentinels (if the agreement is not reached
-the automatic failover does not start).
+that is localted at address 127.0.0.1 and port 6379.
+The last number is called the **quorum**, and is the number of instances required
+in order to detect that a master is failing.
 
-However note that whatever the agreement you specify to detect an instance as not working, a Sentinel requires **the vote from the majority** of the known Sentinels in the system in order to start a failover and obtain a new *configuration Epoch* to assign to the new configuraiton afte the failiver.
-
-In other words **Sentinel is not able to perform the failover if only a minority of the Sentinel processes are working**.
+In the example the quorum is set to to 2, so it takes 2 sentinels that agree that
+a given master is not reachable or in an error condition for a failover to
+be triggered (however as you'll see in the next section to trigger a failover is
+not enough to start a successful failover, authorization is required).
 
 The other options are almost always in the form:
 
@@ -102,12 +107,98 @@ the bulk data from the master during a resync. You may make sure only one
 slave at a time is not reachable by setting this option to the value of 1.
 
 The other options are described in the rest of this document and
-documented in the example sentinel.conf file shipped with the Redis
+documented in the example `sentinel.conf` file shipped with the Redis
 distribution.
 
-All the configuration parameters can be modified at runtime using the `SENTINEL` command. See the **Reconfiguring Sentinel at runtime** section for more information.
+All the configuration parameters can be modified at runtime using the `SENTINEL SET` command. See the **Reconfiguring Sentinel at runtime** section for more information.
 
-SDOWN and ODOWN
+Level of agreement
+---
+
+The previous section showed that every master monitored by Sentinel is associated to
+a configured **quorum**. It specifies the number of Sentinel processes
+that need to agree about the unreachability or error condition of the master in
+order to trigger a failover.
+
+However, after the failover is triggered, in order for the failover to actually be
+performed, **at least a majority of Sentinels must authorized the Sentinel to
+failover**.
+
+Let's try to make things a bit more clear:
+
+* Quorum: the number of Sentinel processes that need to detect an error condition in order for a master to be flagged as **ODOWN**.
+* The failover is triggered by the **ODOWN** state.
+* Once the failover is triggered, the Sentinel trying to failover is required to ask for authorization to a majority of Sentinels (or more than the majority if the quorum is set to a number greater than the majority).
+
+The difference may seem subtle but is actually quite simple to understand and use.
+For example if you have 5 Sentinel instances, and the quorum is set to 2, a failover
+will be triggered as soon as 2 Sentinels believe that the master is not reachable,
+however one of the two Sentienls will be able to failover only if it gets authorization
+at least from 3 Sentinels.
+
+If instead the quorum is configured to 5, all the Sentinels must agree about the master
+error condition, and the authorization from all Sentinels is required in order to
+failover.
+
+Cofiguration epochs
+---
+
+Sentinels require to get authorizations from a majority in order to start a
+failover for a few important reasons:
+
+When a Sentinel is authorized, it gets an unique **configuration epoch** for the master it is failing over. This is a number that will be used to version the new configuration after the failover is completed. Because a majority agreed that a given version was assigned to a given Sentinel, no other Sentinel will be able to use it. This means that every configuration of every failover is versioned with an unique version. We'll see why this is so important.
+
+Moreover Sentinels have a rule: if a Sentinel voted another Sentinel for the failover of a given master, it will wait some time to try to failover the same master again. This delay is the `failover-timeout` you can configure in `sentinel.conf`. This means that Sentinels will not try to failover the same master at the same time, the first to ask to be authorized will try, if it fails another will try after some time, and so forth.
+
+Redis Sentinel guarantees the *liveness* propery that if a majority of Sentinels are able to talk, eventually one will be authorized to failover if the master is down.
+
+Redis Sentinel also guarantees the *safety* property that every Sentinel will failover the same master using a different *configuration epoch*.
+
+Configuration propagation
+---
+
+Once a Sentinel is able to failover a master successfully, it will start to broadcast
+the new configuration so that the other Sentinels will update their information
+about a given master.
+
+For a failover to be considered successful, it requires that the Sentinel was able
+to send the `SLAVEOF NO ONE` command to the selected slave, and that the switch to
+master was later observed in the `INFO` output of the master.
+
+At this point, even if the reconfiguration of the slaves is in progress, the failover
+is considered to be successful, and all the Sentinels are required to start reporting
+the new configuration.
+
+The way a new configuration is propagated is the reason why we need that every
+Sentinel failover is authorized with a different version number (configuration epoch).
+
+Every Sentinel continuously broadcast its version of the configuration of a master
+using Redis Pub/Sub messages, both in the master and all the slaves.
+At the same time all the Sentinels wait for messages to see what is the configuration
+advertised by the other Sentinels.
+
+Configurations are broadcasted in the `__sentinel__:hello` Pub/Sub channel.
+
+Because every configuration has a different version number, the greater version
+always wins over smaller versions.
+
+So for example the configuration for the master `mymaster` start with all the
+Sentinels believing the master is at 192.168.1.50:6379. This configuration
+has version 1. After some time a Sentinel is authorized to failover with version 2.
+If the failover is successful, it will start to broadcast a new configuration, let's
+say 192.168.50:9000, with version 2. All the other instances will see this configuration
+and will update their configuration accordingly, since the new configuration has
+a greater version.
+
+This means that Sentinel guarantees a second liveness property: a set of
+Sentinels that are able to communicate will all converge to the same configuration
+with the higher version number.
+
+Basically if the net is partitioned, every partition will converge to the higher
+local configuratiion. In the special case fo no partitions, there is a single
+partition and every Sentinel will agree about the configuration.
+
+More details about SDOWN and ODOWN
 ---
 
 As already briefly mentioned in this document Redis Sentinel has two different
@@ -136,27 +227,18 @@ interval configured, so for instance if the interval is 30000 milliseconds
 (30 seconds) and we receive an acceptable ping reply every 29 seconds, the
 instance is considered to be working.
 
-To switch from SDOWN to ODOWN no strong quorum algorithm is used, but
-just a form of gossip: if a given Sentinel gets acknowledge that the master
+To switch from SDOWN to ODOWN no strong consensus algorithm is used, but
+just a form of gossip: if a given Sentinel gets reports that the master
 is not working from enough Sentinels in a given time range, the SDOWN is
 promoted to ODOWN. If this acknowledge is later missing, the flag is cleared.
+
+As already explained, a more strict authorization is required in order
+to really start the failover, but no failover can be triggered without
+reaching the ODOWN state.
 
 The ODOWN condition **only applies to masters**. For other kind of instances
 Sentinel don't require any agreement, so the ODOWN state is never reached
 for slaves and other sentinels.
-
-However once a Sentinel sees a master in ODOWN state, it can try to be
-elected by the other Sentinels to perform the failover.
-
-Tasks every Sentinel accomplish periodically
----
-
-* Every Sentinel sends a **PING** request to every known master, slave, and sentinel instance, every second.
-* An instance is Subjectively Down (**SDOWN**) if the latest valid reply to **PING** was received more than `down-after-milliseconds` milliseconds ago. Acceptable PING replies are: +PONG, -LOADING, -MASTERDOWN.
-* If a master is in **SDOWN** condition, every other Sentinel also monitoring this master, is queried for confirmation of this state, every second.
-* If a master is in **SDOWN** condition, and enough other Sentinels (to reach the configured quorum) agree about the condition in a given time range, the master is marked as Objectively Down (**ODOWN**).
-* Every Sentinel sends an **INFO** request to every known master and slave instance, one time every 10 seconds. If a master is in **ODOWN** condition, its slaves are asked for **INFO** every second instead of being asked every 10 seconds.
-* The **ODOWN** condition is cleared if there is no longer acknowledgement about enough other Sentinels about the fact that the master is unreachable. The **SDOWN** condition is cleared as soon as the master starts to reply again to pings.
 
 Sentinels and Slaves auto discovery
 ---
@@ -277,46 +359,64 @@ and is only specified if the instance is not a master itself.
 * **+tilt** -- Tilt mode entered.
 * **-tilt** -- Tilt mode exited.
 
-Sentinel failover
-===
-
-The failover process consists on the following steps:
-
-* Recognize that the master is in ODOWN state.
-* Increment our current epoch (see Raft leader election), and try to be elected for the current epoch.
-* If the election failed, retry to be elected again after two times the configured failover timeout and stop for now. Otherwise continue with the following steps.
-* Select a slave to promote as master.
-* The promoted slave is turned into a master with the command **SLAVEOF NO ONE**.
-* The Hello messages broadcasted via Pub/Sub contain the updated configuration starting from now, so that all the other Sentinels will update their config.
-* All the other slaves attached to the original master are configured with the **SLAVEOF** command in order to start the replication process with the new master.
-* The leader terminates the failover process when all the slaves are reconfigured.
-
-**Note:** every time a Redis instance is reconfigured, either by turning it into a master, a slave, or reconfiguring it as a slave of a different instance, the `CONFIG REWRITE` command is sent to the instance in order to make sure the configuration is persisted on disk.
-
-The Sentinel to elect as master is chosen in the following way:
-
-* We remove all the slaves in SDOWN, disconnected, or with the last ping reply received older than 5 seconds (PING is sent every second).
-* We remove all the slaves disconnected from the master for more than 10 times the configured `down-after` time.
-* Of all the remaining instances, we get the one with the greatest replication offset if available, or the one with the lowest `runid`, lexicographically, if the replication offset is not available or the same.
-
-Consistency qualities of Sentinel failover
+Consistency under partitions
 ---
 
-The Sentinel failover uses the leader election from the Raft algorithm in order
-to guarantee that only a given leader is elected in a given epoch.
+Redis Sentinel configurations are eventually consistent, so every partition will
+converge to the higher configuration available.
+However in a real-world system using Sentinel there are three different players:
 
-This means that there are no two Sentinels that will try to perform the
-election in the same epoch. Also Sentinels will never vote another leader for
-a given epoch more than one time.
+* Redis instances.
+* Sentinel instances.
+* Clients.
 
-Higher configuration epochs always win over older epochs, so every Sentinel will
-actively replace its configuration with a new one.
+In order to define the behavior of the system we have to consider all three.
 
-Basically it is possible to think to Sentinel configurations as a state with an associated version. The state is **eventually propagated** to all the other Sentinels in a last-write-wins fashion (that is, last configuration wins).
+The following is a simple network where there are there nodes, each running
+a Redis instance, and a Sentinel instance:
 
-For example during network partitions, a given Sentinel can claim an older configuration, that will be updated as soon as the Sentinel is already able to receive an update.
+                +-------------+
+                | Sentinel 1  | <--- Client A
+                | Redis 1 (M) |
+                +-------------+
+                        |
+                        |
+    +-------------+     |                     +------------+
+    | Sentinel 2  |-----+-- / partition / ----| Sentinel 3 | <--- Client B
+    | Redis 2 (S) |                           | Redis 3 (M)|
+    +-------------+                           +------------+
 
-In environments where consistency is important during network partitions, it is suggested to use the Redis option that stops accepting writes if not connected to at least a given number of slaves instances, and at the same time to run a Redis Sentinel process in every physical or virtual machine where a Redis master or slave is running.
+In this system the original state was that Redis 3 was the master, while
+Redis 1 and 2 were slaves. A partition occurred isolting the old master.
+Sentinels 1 and 2 started a failover promoting Sentinel 1 as the new master.
+
+The Sentinel properties guarantee that Sentinel 1 and 2 now have the new
+configuration for the master. However Sentinel 3 has still the old configuration
+since it lives in a different partition.
+
+When know that Sentinel 3 will get its configuration updated when the network
+partition will heal, however what happens during the partition if there
+are clients partitioned with the old master?
+
+Clients will be still able to write to Redis 3, the old master. When the
+partition will rejoin, Redis 3 will be turned into a slave of Redis 1, and
+all the data written during the partition will be lost.
+
+Depending on your configuration you may want or not that this scenario happens:
+
+* If you are using Redis as a cache, it could be handy that Client B is still able to write to the old master, even if its data will be lost.
+* If you are using Redis as a store, this is not good and you need to configure the system in order to partially prevent this problem.
+
+Since Redis is asynchronously replicated, there is no way to totally prevent data loss in this scenario, however you can bound the divergence between Redis 3 and Redis 1
+using the following Redis configuration option:
+
+    min-slaves-to-write 1
+    min-slaves-max-lag 10
+
+With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 slave. Since replication is asynchronous *not being able to write* actually means that the slave is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
+
+Using this configuration the Redis 3 in the above example will become unavailable after 10 seconds. When the partition heals, the Sentinel 3 configuration will converge to
+the new one, and Client B will be able to fetch a valid configuration and continue.
 
 Sentinel persistent state
 ---
@@ -335,7 +435,15 @@ current configuration on monitored instances. Specifically:
 * Slaves (according to the current configuration) that claim to be masters, will be configured as slaves to replicate with the current master.
 * Slaves connected to a wrong master, will be reconfigured to replicate with the right master.
 
-However when this conditions are encountered Sentinel waits enough time to be sure to catch a configuration update in via Pub/Sub Hello messages before to reconfigure the instances, in order to avoid that Sentinels with a stale configuration will try to change the slaves configuration without a good reason.
+For Sentinels to reconfigure slaves, the wrong configuration must be observed for some time, that is greater than the period used to broadcast new configurations.
+
+This prevents that Sentinels with a stale configuration (for example because they just rejoined from a partition) will try to change the slaves configuration before receiving an update.
+
+Also note how the semantics of always trying to impose the current configuration makes
+the failover more resistant to partitions:
+
+* Masters failed over are reconfigured as slaves when they return available.
+* Slaves partitioned away during a partition are reconfigured once reachable.
 
 TILT mode
 ---
