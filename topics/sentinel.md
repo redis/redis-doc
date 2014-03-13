@@ -114,7 +114,7 @@ distribution.
 
 All the configuration parameters can be modified at runtime using the `SENTINEL SET` command. See the **Reconfiguring Sentinel at runtime** section for more information.
 
-Level of agreement
+Quorum
 ---
 
 The previous section showed that every master monitored by Sentinel is associated to
