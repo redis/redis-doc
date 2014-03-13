@@ -10,7 +10,7 @@ It performs the following three tasks:
 * **Configuration provider**. Sentinel acts as a source of authority for clients service discovery: clients connect to Sentinels in order to ask for the address of the current Redis master responsible for a given service. If a failover occurs, Sentinels will report the new address.
 
 Distributed nature of Sentinel
-===
+---
 
 Redis Sentinel is a distributed system, this means that usually you want to run
 multiple Sentinel processes across your infrastructure, and this processes
