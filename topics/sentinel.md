@@ -262,6 +262,92 @@ to a master, as Sentinel will auto discover this list querying Redis.
 * Hello messages also include the full current configuration of the master. If another Sentinel has a configuration for a given master that is older than the one received, it updates to the new configuration immediately.
 * Before adding a new sentinel to a master a Sentinel always checks if there is already a sentinel with the same runid or the same address (ip and port pair). In that case all the matching sentinels are removed, and the new added.
 
+Consistency under partitions
+---
+
+Redis Sentinel configurations are eventually consistent, so every partition will
+converge to the higher configuration available.
+However in a real-world system using Sentinel there are three different players:
+
+* Redis instances.
+* Sentinel instances.
+* Clients.
+
+In order to define the behavior of the system we have to consider all three.
+
+The following is a simple network where there are there nodes, each running
+a Redis instance, and a Sentinel instance:
+
+                +-------------+
+                | Sentinel 1  | <--- Client A
+                | Redis 1 (M) |
+                +-------------+
+                        |
+                        |
+    +-------------+     |                     +------------+
+    | Sentinel 2  |-----+-- / partition / ----| Sentinel 3 | <--- Client B
+    | Redis 2 (S) |                           | Redis 3 (M)|
+    +-------------+                           +------------+
+
+In this system the original state was that Redis 3 was the master, while
+Redis 1 and 2 were slaves. A partition occurred isolting the old master.
+Sentinels 1 and 2 started a failover promoting Sentinel 1 as the new master.
+
+The Sentinel properties guarantee that Sentinel 1 and 2 now have the new
+configuration for the master. However Sentinel 3 has still the old configuration
+since it lives in a different partition.
+
+When know that Sentinel 3 will get its configuration updated when the network
+partition will heal, however what happens during the partition if there
+are clients partitioned with the old master?
+
+Clients will be still able to write to Redis 3, the old master. When the
+partition will rejoin, Redis 3 will be turned into a slave of Redis 1, and
+all the data written during the partition will be lost.
+
+Depending on your configuration you may want or not that this scenario happens:
+
+* If you are using Redis as a cache, it could be handy that Client B is still able to write to the old master, even if its data will be lost.
+* If you are using Redis as a store, this is not good and you need to configure the system in order to partially prevent this problem.
+
+Since Redis is asynchronously replicated, there is no way to totally prevent data loss in this scenario, however you can bound the divergence between Redis 3 and Redis 1
+using the following Redis configuration option:
+
+    min-slaves-to-write 1
+    min-slaves-max-lag 10
+
+With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 slave. Since replication is asynchronous *not being able to write* actually means that the slave is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
+
+Using this configuration the Redis 3 in the above example will become unavailable after 10 seconds. When the partition heals, the Sentinel 3 configuration will converge to
+the new one, and Client B will be able to fetch a valid configuration and continue.
+
+Sentinel persistent state
+---
+
+Sentinel state is persisted in the sentinel configuration file. For example
+every time a new configuration is received, or created (leader Sentinels), for
+a master, the configuration is persisted on disk together with the configuration
+epoch. This means that it is safe to stop and restart Sentinel processes.
+
+Sentinel reconfiguration of instances outside the failover procedure.
+---
+
+Even when no failover is in progress, Sentinels will always try to set the
+current configuration on monitored instances. Specifically:
+
+* Slaves (according to the current configuration) that claim to be masters, will be configured as slaves to replicate with the current master.
+* Slaves connected to a wrong master, will be reconfigured to replicate with the right master.
+
+For Sentinels to reconfigure slaves, the wrong configuration must be observed for some time, that is greater than the period used to broadcast new configurations.
+
+This prevents that Sentinels with a stale configuration (for example because they just rejoined from a partition) will try to change the slaves configuration before receiving an update.
+
+Also note how the semantics of always trying to impose the current configuration makes
+the failover more resistant to partitions:
+
+* Masters failed over are reconfigured as slaves when they return available.
+* Slaves partitioned away during a partition are reconfigured once reachable.
+
 Sentinel API
 ===
 
@@ -360,92 +446,6 @@ and is only specified if the instance is not a master itself.
 * **switch-master** `<master name> <oldip> <oldport> <newip> <newport>` -- The master new IP and address is the specified one after a configuration change. This is **the message most external users are interested in**.
 * **+tilt** -- Tilt mode entered.
 * **-tilt** -- Tilt mode exited.
-
-Consistency under partitions
----
-
-Redis Sentinel configurations are eventually consistent, so every partition will
-converge to the higher configuration available.
-However in a real-world system using Sentinel there are three different players:
-
-* Redis instances.
-* Sentinel instances.
-* Clients.
-
-In order to define the behavior of the system we have to consider all three.
-
-The following is a simple network where there are there nodes, each running
-a Redis instance, and a Sentinel instance:
-
-                +-------------+
-                | Sentinel 1  | <--- Client A
-                | Redis 1 (M) |
-                +-------------+
-                        |
-                        |
-    +-------------+     |                     +------------+
-    | Sentinel 2  |-----+-- / partition / ----| Sentinel 3 | <--- Client B
-    | Redis 2 (S) |                           | Redis 3 (M)|
-    +-------------+                           +------------+
-
-In this system the original state was that Redis 3 was the master, while
-Redis 1 and 2 were slaves. A partition occurred isolting the old master.
-Sentinels 1 and 2 started a failover promoting Sentinel 1 as the new master.
-
-The Sentinel properties guarantee that Sentinel 1 and 2 now have the new
-configuration for the master. However Sentinel 3 has still the old configuration
-since it lives in a different partition.
-
-When know that Sentinel 3 will get its configuration updated when the network
-partition will heal, however what happens during the partition if there
-are clients partitioned with the old master?
-
-Clients will be still able to write to Redis 3, the old master. When the
-partition will rejoin, Redis 3 will be turned into a slave of Redis 1, and
-all the data written during the partition will be lost.
-
-Depending on your configuration you may want or not that this scenario happens:
-
-* If you are using Redis as a cache, it could be handy that Client B is still able to write to the old master, even if its data will be lost.
-* If you are using Redis as a store, this is not good and you need to configure the system in order to partially prevent this problem.
-
-Since Redis is asynchronously replicated, there is no way to totally prevent data loss in this scenario, however you can bound the divergence between Redis 3 and Redis 1
-using the following Redis configuration option:
-
-    min-slaves-to-write 1
-    min-slaves-max-lag 10
-
-With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 slave. Since replication is asynchronous *not being able to write* actually means that the slave is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
-
-Using this configuration the Redis 3 in the above example will become unavailable after 10 seconds. When the partition heals, the Sentinel 3 configuration will converge to
-the new one, and Client B will be able to fetch a valid configuration and continue.
-
-Sentinel persistent state
----
-
-Sentinel state is persisted in the sentinel configuration file. For example
-every time a new configuration is received, or created (leader Sentinels), for
-a master, the configuration is persisted on disk together with the configuration
-epoch. This means that it is safe to stop and restart Sentinel processes.
-
-Sentinel reconfiguration of instances outside the failover procedure.
----
-
-Even when no failover is in progress, Sentinels will always try to set the
-current configuration on monitored instances. Specifically:
-
-* Slaves (according to the current configuration) that claim to be masters, will be configured as slaves to replicate with the current master.
-* Slaves connected to a wrong master, will be reconfigured to replicate with the right master.
-
-For Sentinels to reconfigure slaves, the wrong configuration must be observed for some time, that is greater than the period used to broadcast new configurations.
-
-This prevents that Sentinels with a stale configuration (for example because they just rejoined from a partition) will try to change the slaves configuration before receiving an update.
-
-Also note how the semantics of always trying to impose the current configuration makes
-the failover more resistant to partitions:
-
-* Masters failed over are reconfigured as slaves when they return available.
-* Slaves partitioned away during a partition are reconfigured once reachable.
 
 TILT mode
 ---
