@@ -73,9 +73,11 @@ following:
     sentinel parallel-syncs resque 5
 
 The first line is used to tell Redis to monitor a master called *mymaster*,
-that is localted at address 127.0.0.1 and port 6379.
-The last number is called the **quorum**, and is the number of instances required
-in order to detect that a master is failing.
+that is at address 127.0.0.1 and port 6379, with a level of agreement needed
+to detect this master as failing of 2 sentinels (if the agreement is not reached
+the automatic failover does not start).
+
+However note that whatever the agreement you specify to detect an instance as not working, a Sentinel requires **the vote from the majority** of the known Sentinels in the system in order to start a failover and obtain a new *configuration Epoch* to assign to the new configuration after the failover.
 
 In the example the quorum is set to to 2, so it takes 2 sentinels that agree that
 a given master is not reachable or in an error condition for a failover to

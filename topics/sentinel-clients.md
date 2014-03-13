@@ -84,7 +84,7 @@ The client should correctly return the information to the user in case of errors
 Sentinels list automatic refresh
 ===
 
-Optionally once a successful reply to `get-master-add-by-name` is received, a client may update its internal list of Sentinel nodes following this procedure:
+Optionally once a successful reply to `get-master-addr-by-name` is received, a client may update its internal list of Sentinel nodes following this procedure:
 
 * Obtain a list of other Sentinels for this master using the command `SENTINEL sentinels <master-name>`.
 * Add every ip:port pair not already existing in our list at the end of the list.
