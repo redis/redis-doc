@@ -152,7 +152,7 @@ When a Sentinel is authorized, it gets an unique **configuration epoch** for the
 
 Moreover Sentinels have a rule: if a Sentinel voted another Sentinel for the failover of a given master, it will wait some time to try to failover the same master again. This delay is the `failover-timeout` you can configure in `sentinel.conf`. This means that Sentinels will not try to failover the same master at the same time, the first to ask to be authorized will try, if it fails another will try after some time, and so forth.
 
-Redis Sentinel guarantees the *liveness* propery that if a majority of Sentinels are able to talk, eventually one will be authorized to failover if the master is down.
+Redis Sentinel guarantees the *liveness* property that if a majority of Sentinels are able to talk, eventually one will be authorized to failover if the master is down.
 
 Redis Sentinel also guarantees the *safety* property that every Sentinel will failover the same master using a different *configuration epoch*.
 
