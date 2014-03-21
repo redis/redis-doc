@@ -6,9 +6,9 @@ evict old data as you add new one. This behavior is very well known in the
 community of developers, since it is the default behavior of the popular
 *memcached* system.
 
-LRU is actaully only one of the supported eviction methods. This page covers
-the more genereal topic of the Redis `maxmemory` directive that is used in
-order to limit the memory usage to a fixed amoung, and it also convers in
+LRU is actually only one of the supported eviction methods. This page covers
+the more general topic of the Redis `maxmemory` directive that is used in
+order to limit the memory usage to a fixed amount, and it also covers in
 depth the LRU algorithm used by Redis, that is actually an approximation of
 the exact LRU.
 
@@ -20,7 +20,7 @@ to use a specified amount of memory for the data set. It is possible to
 set the configuration directive using the `redis.conf` file, or later using
 the `CONFIG SET` command at runtime.
 
-For example in order to configure a memory limit of 100 megabyte, the
+For example in order to configure a memory limit of 100 megabytes, the
 following directive can be used inside the `redis.conf` file.
 
     maxmemory 100mb
@@ -52,9 +52,9 @@ The following policies are available:
 
 The policies **volatile-lru**, **volatile-random** and **volatile-ttl** behave like **noeviction** if there are no keys to evict matching the prerequisites.
 
-To pick the right eviction policy is important depending on the access pattern
-of your application, however you can reconfigure the policy at runtime while
-the application is running, and monitor the number of cache misses and hits
+To pick the right eviction policy is important depending on the access pattern 
+of your application, however you can reconfigure the policy at runtime while 
+the application is running, and monitor the number of cache misses and hits 
 using the Redis `INFO` output in order to tune your setup.
 
 In general as a rule of thumb:
