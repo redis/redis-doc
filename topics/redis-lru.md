@@ -7,8 +7,8 @@ community of developers, since it is the default behavior of the popular
 *memcached* system.
 
 LRU is actaully only one of the supported eviction methods. This page covers
-the more genereal topic of the Redis `maxmemory` directive that is used in
-order to limit the memory usage to a fixed amoung, and it also convers in
+the more general topic of the Redis `maxmemory` directive that is used in
+order to limit the memory usage to a fixed amoung, and it also covers in
 depth the LRU algorithm used by Redis, that is actually an approximation of
 the exact LRU.
 
