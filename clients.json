@@ -497,10 +497,10 @@
   },
 
   {
-    "name": "Booksleeve",
+    "name": "StackExchange.Redis",
     "language": "C#",
-    "url": "http://code.google.com/p/booksleeve/",
-    "description": "This client was developed by Stack Exchange for very high performance needs.",
+    "url": "https://github.com/StackExchange/StackExchange.Redis",
+    "description": "This .NET client was developed by Stack Exchange for very high performance needs (replacement to the earlier BookSleeve).",
     "authors": ["marcgravell"],
     "recommended": true,
     "active": true
