@@ -4,7 +4,7 @@ Guidelines for Redis clients with support for Redis Sentinel
 ===
 
 Redis Sentinel is a monitoring solution for Redis instances that handles different aspects of monitoring, including notification of events, automatic failover. 
-Sentinel can also play the role of configuration source for Redis clients. This document is targetted at Redis clients developers that want to support Sentinel in their clients implementation with the following goals:
+Sentinel can also play the role of configuration source for Redis clients. This document is targeted at Redis clients developers that want to support Sentinel in their clients implementation with the following goals:
 
 * Automatic configuration of clients via Sentinel.
 * Improved reliability of Redis Sentinel automatic fail over, because of Sentinel-aware clients that will automatically reconnect to the new master.

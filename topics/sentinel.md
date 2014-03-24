@@ -32,7 +32,7 @@ Obtaining Sentinel
 
 Sentinel is currently developed in the *unstable* branch of the Redis source code at Github. However an update copy of Sentinel is provided with every patch release of Redis 2.8.
 
-The simplest way to use Sentinel is to download the latest verison of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
+The simplest way to use Sentinel is to download the latest version of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
 
 IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**.
 

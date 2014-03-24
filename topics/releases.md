@@ -43,7 +43,7 @@ was forked into the `2.8` branch.
 This new branch can be at three different levels of stability:
 development, frozen, and release candidate.
 
-* Development: new features and bug fixes are commited into the branch, but not everything going into `unstable` is merged here. Only the features that can become stable in a reasonable timeframe are merged.
+* Development: new features and bug fixes are committed into the branch, but not everything going into `unstable` is merged here. Only the features that can become stable in a reasonable timeframe are merged.
 * Frozen: no new feature is added, unless it is almost guaranteed to have zero stability impacts on the source code, and at the same time for some reason it is a very important feature that must be shipped ASAP. Big code changes are only allowed when they are needed in order to fix bugs.
 * Release Candidate: only fixes are committed against this release.
 

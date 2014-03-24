@@ -124,7 +124,7 @@ serves all the client requests, using a technique called **multiplexing**.
 This means that Redis can serve a single request in every given moment, so
 all the requests are served sequentially. This is very similar to how Node.js
 works as well. However, both products are often not perceived as being slow.
-This is caused in part by the small about of time to complete a single request,
+This is caused in part by the small amount of time to complete a single request,
 but primarily because these products are designed to not block on system calls,
 such as reading data from or writing data to a socket.
 
@@ -192,7 +192,7 @@ Fork time in different systems
 
 Modern hardware is pretty fast to copy the page table, but Xen is not.
 The problem with Xen is not virtualization-specific, but Xen-specific. For instance
-using VMware or Virutal Box does not result into slow fork time.
+using VMware or Virtual Box does not result into slow fork time.
 The following is a table that compares fork time for different Redis instance
 size. Data is obtained performing a BGSAVE and looking at the `latest_fork_usec` filed in the `INFO` command output.
 
@@ -511,7 +511,7 @@ designed to track those latency problems that for one reason or the other
 esacped an analysis using normal tools.
 
 The software watchdog is an experimental feature. While it is designed to
-be used in production enviroments care should be taken to backup the database
+be used in production environments care should be taken to backup the database
 before proceeding as it could possibly have unexpected interactions with the
 normal execution of the Redis server.
 
