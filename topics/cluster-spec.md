@@ -7,26 +7,24 @@ Redis Cluster goals
 Redis Cluster is a distributed implementation of Redis with the following goals, in order of importance in the design:
 
 * High performance and linear scalability up to 1000 nodes.
-* No merge operations in order to play well with the large values typical of the Redis data model.
+* No merge operations in order to play well with values size and semantics typical of the Redis data model.
 * Write safety: the system tries to retain all the writes originating from clients connected with the majority of the nodes. However there are small windows where acknowledged writes can be lost.
 * Availability: Redis Cluster is able to survive to partitions where the majority of the master nodes are reachable and there is at least a reachable slave for every master node that is no longer reachable.
 
-What is described in this document is implemented in the `unstable` branch of the Github Redis repository.
+What is described in this document is implemented in the `unstable` branch of the Github Redis repository. Redis Cluster has now entered the beta stage, so new betas are released every month and can be found in the [download page](http://redis.io/download) of the Redis web site.
 
 Implemented subset
 ---
 
 Redis Cluster implements all the single keys commands available in the
 non distributed version of Redis. Commands performing complex multi key
-operations like Set type unions or intersections are not implemented, and in
-general all the operations where keys are not available in the node processing
-the command are not implemented.
+operations like Set type unions or intersections are implemented as well
+as long as the keys all belong to the same node.
 
-In the future it is possible that using the `MIGRATE COPY` command users will
-be able to use *Computation Nodes* to perform multi-key read only operations
-in the cluster, but it is not likely that the Redis Cluster itself will be
-able to perform complex multi key operations implementing some kind of
-transparent way to move keys around.
+Redis Cluster implements a concept called **hash tags** that can be used
+in order to force certain keys to be stored in the same node. However during
+manual reshardings multi-key operations may become unavailable for some time
+while single keys operations are always available.
 
 Redis Cluster does not support multiple databases like the stand alone version
 of Redis, there is just database 0, and `SELECT` is not allowed.
@@ -71,11 +69,11 @@ Redis Cluster tries hard to retain all the writes that are performed by clients 
 * After some time it may be reachable again.
 * A client with a not updated routing table may write to it before the master is converted to a slave (of the new master) by the cluster.
 
-Practically this is very unlikely to happen because nodes not able to reach the majority of other masters for enough time to be failed over, no longer accept writes, and when the partition is fixed writes are still refused for a small amount of time to allow other nodes to inform about configuration changes. All the nodes in general try to reach a node that joins the cluster again as fast as possible, using a non-blocking connection attempt and sending a ping packet (that is enough to upgrade the node configuration) as soon as there is a new link with the node. This makes unlikely that a node is not informed about configuration changes before it returns writable again.
+Practically this is very unlikely to happen because nodes not able to reach the majority of other masters for enough time to be failed over, no longer accept writes, and when the partition is fixed writes are still refused for a small amount of time to allow other nodes to inform about configuration changes.
 
 Redis Cluster loses a non trivial amount of writes on partitions where there is a minority of masters and at least one or more clients, since all the writes sent to the masters may potentially get lost if the masters are failed over in the majority side.
 
-For a master to be failed over, it must be not reachable by the majority of masters for at least `NODE_TIMEOUT`, so if the partition is fixed before that time, no write is lost. When the partition lasts for more than `NODE_TIMEOUT`, the minority side of the cluster will start refusing writes as soon as `NODE_TIMEOUT` time has elapsed, so there is a maximum window after which the minority becomes no longer available, hence no write is accepted and lost after that time.
+Specifically, for a master to be failed over, it must be not reachable by the majority of masters for at least `NODE_TIMEOUT`, so if the partition is fixed before that time, no write is lost. When the partition lasts for more than `NODE_TIMEOUT`, the minority side of the cluster will start refusing writes as soon as `NODE_TIMEOUT` time has elapsed, so there is a maximum window after which the minority becomes no longer available, hence no write is accepted and lost after that time.
 
 Availability
 ---
@@ -88,10 +86,15 @@ In the example of a cluster composed of N master nodes where every node has a si
 
 For example in a cluster with 5 nodes and a single slave per node, there is a `1/(5*2-1) = 0.1111` probabilities that after two nodes are partitioned away from the majority, the cluster will no longer be available, that is about 11% of probabilities.
 
+Thanks to a Redis Cluster feature called **replicas migration** the Cluster
+availability is improved in many real world scenarios by the fact that
+replicas migrate to orphaned masters (masters no longer having replicas).
+
 Performance
 ---
 
-In Redis Cluster nodes don't proxy commands to the right node in charge for a given key, but instead they redirect clients to the right nodes serving a given range of the key space.
+In Redis Cluster nodes don't proxy commands to the right node in charge for a given key, but instead they redirect clients to the right nodes serving a given portion of the key space.
+
 Eventually clients obtain an up to date representation of the cluster and which node serves which subset of keys, so during normal operations clients directly contact the right nodes in order to send a given command.
 
 Because of the use of asynchronous replication, nodes does not wait for other nodes acknowledgment of writes (optional synchronous replication is a work in progress and will be likely added in future releases).
@@ -100,10 +103,14 @@ Also, because of the restriction to the subset of commands that don't perform op
 
 So normal operations are handled exactly as in the case of a single Redis instance. This means that in a Redis Cluster with N master nodes you can expect the same performance as a single Redis instance multiplied by N as the design allows to scale linearly. At the same time the query is usually performed in a single round trip, since clients usually retain persistent connections with the nodes, so latency figures are also the same as the single stand alone Redis node case.
 
+Very high performances and scalability while preserving weak (non CAP) but
+reasonable forms of consistency and availability is the main goal of
+Redis Cluster.
+
 Why merge operations are avoided
 ---
 
-Redis Cluster design avoids conflicting versions of the same key-value pair in multiple nodes since in the case of the Redis data model this is not always desirable: values in Redis are often very large, it is common to see lists or sorted sets with millions of elements. Also data types are semantically complex. Transferring and merging these kind of values can be a major bottleneck.
+Redis Cluster design avoids conflicting versions of the same key-value pair in multiple nodes since in the case of the Redis data model this is not always desirable: values in Redis are often very large, it is common to see lists or sorted sets with millions of elements. Also data types are semantically complex. Transferring and merging these kind of values can be a major bottleneck and/or may require a non trivial involvement of application-side logic.
 
 Keys distribution model
 ---
@@ -148,9 +155,8 @@ Keys hash tags
 
 There is an exception for the computation of the hash slot that is used in order
 to implement **hash tags**. Hash tags are a way to ensure that two keys
-are allocated in the same hash slot. In the future this may be used, for example,
-in order to allow certain multi-keys operations while the cluster is *stable*
-(no resharding is in progress).
+are allocated in the same hash slot. This is used in order to implement
+multi-key operations in Redis Cluster.
 
 In order to implement hash tags, the hash slot is computed in a different
 way. Basically if the key contains a "{...}" pattern only the substring between
@@ -448,6 +454,26 @@ the client may permanently map hash slot 8 to the new ip:port pair.
 Note that however if a buggy client will perform the map earlier this is not
 a problem since it will not send the ASKING command before the query and B
 will redirect the client to A using a MOVED redirection error.
+
+Multiple keys operations
+---
+
+Using hash tags clients are free to use multiple-keys operations.
+For example the following operation is valid:
+
+    MSET {user:1000}.name Angela {user:1000}.surname White
+
+However multi-key operations become unavailable when a resharding of the
+hash slot the keys are hashing to is being moved form a node to another
+(because of a manual resharding).
+
+More specifically, even during a resharding, the multi-key operations
+targeting keys that all exist and are still all in the same node (either
+the source or destination node) are still available.
+
+Operations about keys that don't exist or are, during the resharding, split
+between the source and destination node, will generate a `-TRYAGAIN` error.
+The client can try the operation after some time, or report back the error.
 
 Fault Tolerance
 ===
