@@ -829,6 +829,56 @@ will be left with for a slave to migrate. So for example if this parameter
 is set to 2, a slave will try to migrate only if its master remains with
 two working slaves.
 
+configEpoch conflicts resolution algorithm
+---
+
+When new `configEpoch` values are created via slave promotions during
+failovers, they are guaranteed to be unique.
+
+However during manual reshardings, when an hash slot is migrated from
+a node A to a node B, the resharding program will force B to upgrade
+its configuration to an epoch which is the greatest found in the cluster,
+plus 1 (unless the node is already the one with the greatest configuration
+epoch), without to require for an agreement from other nodes.
+This is needed so that the new slot configuration will win over the old one.
+
+This process happens when the system administator performs a manual
+resharding, however it is possible that when the slot is closed after
+a resharding and the node assigns itself a new configuration epoch,
+at the same time a failure happens, just before the new `configEpoch` is
+propagated to the cluster. A slave may start a failover and obtain
+the authorization.
+
+This scenario may lead to two nodes having the same `configEpoch`. There
+are other scenarios as well ending with two nodes having the same `configEpoch`:
+
+* New cluster creation: all nodes start with the same `configEpoch` of 0.
+* Possible software bugs.
+* Manual editing of the configurations, filesystem corruptions.
+
+When masters serving different hash slots have the same `configEpoch`, there
+are no issues, and we are more interested in making sure slaves
+failing over a master have a different and unique configuration epoch.
+
+However manual interventions or more reshardings may change the cluster
+configuration in different ways. The Redis Cluster main liveness property
+is that the slot configuration always converges, so we really want under every
+condition that all the master nodes have a different `configEpoch`.
+
+In order to enforce this, a conflicts resolution is used in the event
+that two nodes end with the same `configEpoch`.
+
+* IF a master node detects another master node is advertising itself with
+the same `configEpoch`.
+* AND IF the node has a lexicographically smaller Node ID compared to the other node claiming the same `configEpoch`.
+* THEN it increments its `currentEpoch` by 1, and uses it as the new `configEpoch`.
+
+If there are any set of nodes with the same `configEpoch`, all the nodes but the one with the greatest Node ID will move forward, guaranteeing that every node
+will pick an unique configEpoch regardless of what happened.
+
+This mechanism also guarantees that after a fresh cluster is created all
+nodes start with a different `configEpoch`.
+
 Publish/Subscribe
 ===
 
