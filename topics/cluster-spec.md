@@ -623,23 +623,28 @@ A slave starts an election when the following conditions are met:
 
 In order to be elected the first step for a slave is to increment its `currentEpoch` counter, and request votes from master instances.
 
-Votes are requested by the slave by broadcasting a `FAILOVER_AUTH_REQUEST` packet to every master node of the cluster.
-Then it waits for replies to arrive for a maximum time of `NODE_TIMEOUT`.
-Once a master voted for a given slave, replying positively with a `FAILOVER_AUTH_ACK`, it can no longer vote for another slave of the same master for a period of `NODE_TIMEOUT * 2`. In this period it will not be able to reply to other authorization requests at all.
+Votes are requested by the slave by broadcasting a `FAILOVER_AUTH_REQUEST` packet to every master node of the cluster. Then it waits for replies to arrive for a maximum time of two times the `NODE_TIMEOUT`, but always for at least for 2 seconds.
 
-The slave will discard all the ACKs that are received having an epoch that is less than the `currentEpoch`, in order to never count as valid votes that are about a previous election.
+Once a master voted for a given slave, replying positively with a `FAILOVER_AUTH_ACK`, it can no longer vote for another slave of the same master for a period of `NODE_TIMEOUT * 2`. In this period it will not be able to reply to other authorization requests for the same master. This is not needed to guarantee safety, but useful to avoid multiple slaves to get elected (even if with a different `configEpoch`) about at the same time.
+
+A slave discards all the `AUTH_ACK` replies that are received having an epoch that is less than the `currentEpoch` at the time the vote request was sent, in order to never count as valid votes that are about a previous election.
 
 Once the slave receives ACKs from the majority of masters, it wins the election.
-Otherwise if the majority is not reached within the period of the `NODE_TIMEOUT`, the election is aborted and a new one will be tried again after `NODE_TIMEOUT * 4`.
+Otherwise if the majority is not reached within the period of two times `NODE_TIMEOUT` (but always at least 2 seconds), the election is aborted and a new one will be tried again after `NODE_TIMEOUT * 4` (and always at least 4 seconds).
 
 A slave does not try to get elected as soon as the master is in `FAIL` state, but there is a little delay, that is computed as:
 
-    DELAY = fixed_delay + (data_age - NODE_TIMEOUT) / 10 + random delay between 0 and 2000 milliseconds.
+    DELAY = 500 milliseconds + random delay between 0 and 500 milliseconds +
+            SLAVE_RANK * 1000 milliseconds.
 
-The fixed delay ensures that we wait for the `FAIL` state to propagate across the cluster, otherwise the slave may try to get elected when the masters are still not away of the `FAIL` state, refusing to grant their vote.
+The fixed delay ensures that we wait for the `FAIL` state to propagate across the cluster, otherwise the slave may try to get elected when the masters are still not aware of the `FAIL` state, refusing to grant their vote.
 
-The `data_age / 10` figure is used in order to give an advantage to slaves with fresher data (disconnected from the master for a smaller period of time).
-The random delay is used in order to add some non-determinism that makes less likely that multiple slaves start the election at the same time, a situation that may result into no slave winning the election, requiring another election that makes the cluster not available in the meantime.
+The random delay is used to desynchronize slaves so they'll likely start an election in different moments.
+
+The `SLAVE_RANK` is the rank of this slave regarding the amount of replication
+stream it processed from the master. Slaves exchange messages when the master
+is failing in order to establish a rank: the slave with the most updated
+replication offset is at rank 0, the second must updated at rank 1, and so forth. In this way the most updated slaves try to get elected before others.
 
 Once a slave wins the election, it starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` set to the `currentEpoch` at which the election was started.
 
@@ -664,12 +669,12 @@ Example of the issue caused by not using this rule:
 
 Master `currentEpoch` is 5, lastVoteEpoch is 1 (this may happen after a few failed elections)
 
-* Slave `currentEpoch` is 3
+* Slave `currentEpoch` is 3.
 * Slave tries to be elected with epoch 4 (3+1), master replies with an ok with `currentEpoch` 5, however the reply is delayed.
 * Slave tries to be elected again, with epoch 5 (4+1), the delayed reply reaches to slave with `currentEpoch` 5, and is accepted as valid.
 
-* 4) Masters don't vote a slave of the same master before `NODE_TIMEOUT * 2` has elapsed since a slave of that master was already voted. This is not strictly required as it is not possible that two slaves win the election in the same epoch, but in practical terms it ensures that normally when a slave is elected it has plenty of time to inform the other slaves avoiding that another slave will try a new election.
-* 5) Masters don't try to select the best slave in any way, simply if the slave's master is in `FAIL` state and the master did not voted in the current term, the positive vote is granted.
+* 4) Masters don't vote a slave of the same master before `NODE_TIMEOUT * 2` has elapsed since a slave of that master was already voted. This is not strictly required as it is not possible that two slaves win the election in the same epoch, but in practical terms it ensures that normally when a slave is elected it has plenty of time to inform the other slaves avoiding that another slave will win a new election.
+* 5) Masters don't try to select the best slave in any way, simply if the slave's master is in `FAIL` state and the master did not voted in the current term, the positive vote is granted. However the best slave is the most likely to start the election and win it before the other slaves.
 * 6) When a master refuses to vote for a given slave there is no negative response, the request is simply ignored.
 * 7) Masters don't grant the vote to slaves sending a `configEpoch` that is less than any `configEpoch` in the master table for the slots claimed by the slave. Remember that the slave sends the `configEpoch` of its master, and the bitmap of the slots served by its master. What this means is basically that the slave requesting the vote must have a configuration, for the slots it wants to failover, that is newer or equal the one of the master granting the vote.
 
@@ -715,7 +720,7 @@ For this reason there is a second rule that is used in order to rebind an hash s
 Because of the second rule eventually all the nodes in the cluster will agree that the owner of a slot is the one with the greatest `configEpoch` among the nodes advertising it.
 
 UPDATE messages
-===
+---
 
 The described system for the propagation of hash slots configurations
 only uses the normal ping and pong messages exchanged by nodes.
