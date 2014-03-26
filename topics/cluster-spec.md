@@ -594,15 +594,18 @@ Every master always advertises its `configEpoch` in ping and pong packets along 
 
 The `configEpoch` is set to zero in masters when a new node is created.
 
-Slaves that are promoted to master because of a failover event instead have a `configEpoch` that is set to the value of the `currentEpoch` at the time the slave won the election in order to replace its failing master.
+A new `configEpoch` is created during slave election. Slaves trying to replace
+failing masters increment their epoch and try to get the authorization from
+a majority of masters. When a slave is authorized, a new unique `configEpoch`
+is created, the slave turns into a master using the new `configEpoch`.
 
-As explained in the next sections the `configEpoch` helps to resolve conflicts due to different nodes claiming diverging configurations (a condition that may happen after partitions).
+As explained in the next sections the `configEpoch` helps to resolve conflicts due to different nodes claiming diverging configurations (a condition that may happen because of network partitions and node failures).
 
 Slave nodes also advertise the `configEpoch` field in ping and pong packets, but in case of slaves the field represents the `configEpoch` of its master the last time they exchanged packets. This allows other instances to detect when a slave has an old configuration that needs to be updated (Master nodes will not grant votes to slaves with an old configuration).
 
 Every time the `configEpoch` changes for some known node, it is permanently stored in the nodes.conf file.
 
-When a node is restarted its `currentEpoch` is set to the greatest `configEpoch` of the known nodes.
+Currently when a node is restarted its `currentEpoch` is set to the greatest `configEpoch` of the known nodes. This is not safe in a crash-recovery system model, and the system will be modified in order to store the currentEpoch in the persistent configuration as well.
 
 Slave election and promotion
 ---
