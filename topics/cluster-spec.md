@@ -553,6 +553,7 @@ The `FAIL` message will force every receiving node to mark the node in `FAIL` st
 Note that *the FAIL flag is mostly one way*, that is, a node can go from `PFAIL` to `FAIL`, but for the `FAIL` flag to be cleared there are only two possibilities:
 
 * The node is already reachable, and it is a slave. In this case the `FAIL` flag can be cleared as slaves are not failed over.
+* The node is already reachable, and it is a master not serving any slot. In this case the `FAIL` flag can be cleared as masters without slots do not really participate to the cluster, and are waiting to be configured in order to join the cluster.
 * The node is already reachable, is a master, but a long time (N times the `NODE_TIMEOUT`) has elapsed without any detectable slave promotion.
 
 **While the `PFAIL` -> `FAIL` transition uses a form of agreement, the agreement used is weak:**
@@ -561,13 +562,13 @@ Note that *the FAIL flag is mostly one way*, that is, a node can go from `PFAIL`
 
 2) While every node detecting the `FAIL` condition will force that condition on other nodes in the cluster using the `FAIL` message, there is no way to ensure the message will reach all the nodes. For instance a node may detect the `FAIL` condition and because of a partition will not be able to reach any other node.
 
-However the Redis Cluster failure detection has a requirement: eventually all the nodes should agree about the state of a given node even in case of partitions. There are two cases that can originate from split brain conditions, either some minority of nodes believe the node is in `FAIL` state, or a minority of nodes believe the node is not in `FAIL` state. In both the cases eventually the cluster will have a single view of the state of a given node:
+However the Redis Cluster failure detection has liveness requirement: eventually all the nodes should agree about the state of a given node even in case of partitions, once the partitions heal. There are two cases that can originate from split brain conditions, either some minority of nodes believe the node is in `FAIL` state, or a minority of nodes believe the node is not in `FAIL` state. In both the cases eventually the cluster will have a single view of the state of a given node:
 
 **Case 1**: If an actual majority of masters flagged a node as `FAIL`, for the chain effect every other node will flag the master as `FAIL` eventually.
 
 **Case 2**: When only a minority of masters flagged a node as `FAIL`, the slave promotion will not happen (as it uses a more formal algorithm that makes sure everybody will know about the promotion eventually) and every node will clear the `FAIL` state for the `FAIL` state clearing rules above (no promotion after some time > of N times the `NODE_TIMEOUT`).
 
-**Basically the `FAIL` flag is only used as a trigger to run the safe part of the algorithm**  for the slave promotion. In theory a slave may act independently and start a slave promotion when its master is not reachable, and wait for the masters to refuse the provide acknowledgment if the master is actually reachable by the majority. However the added complexity of the `PFAIL -> FAIL` state, the weak agreement, and the `FAIL` message to force the propagation of the state in the shortest amount of time in the reachable part of the cluster, have practical advantages. Because of this mechanisms usually all the nodes will stop accepting writes about at the same time if the cluster is in an error condition, that is a desirable feature from the point of view of applications using Redis Cluster. Also not necessary elections, initiated by slaves that can't reach its master that is otherwise reachable by the majority of the other master nodes, are avoided.
+**Basically the `FAIL` flag is only used as a trigger to run the safe part of the algorithm**  for the slave promotion. In theory a slave may act independently and start a slave promotion when its master is not reachable, and wait for the masters to refuse the provide acknowledgment if the master is actually reachable by the majority. However the added complexity of the `PFAIL -> FAIL` state, the weak agreement, and the `FAIL` message to force the propagation of the state in the shortest amount of time in the reachable part of the cluster, have practical advantages. Because of this mechanisms usually all the nodes will stop accepting writes about at the same time if the cluster is in an error condition, that is a desirable feature from the point of view of applications using Redis Cluster. Also not needed election attempts, initiated by slaves that can't reach its master for local problems (that is otherwise reachable by the majority of the other master nodes), are avoided.
 
 Cluster epoch
 ---
