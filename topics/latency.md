@@ -497,7 +497,7 @@ Given that `REDIS_EXPIRELOOKUPS_PER_CRON` is set to 10 by default, and the proce
 
 However the algorithm is adaptive and will loop if it founds more than 25% of keys already expired in the set of sampled keys. But given that we run the algorithm ten times per second, this means that the unlucky event of more than 25% of the keys in our random sample are expiring at least *in the same second*.
 
-Basically this means that **if the database contains has many many keys expiring in the same second, and this keys are at least 25% of the current population of keys with an expire set**, Redis can block in order to reach back a percentage of keys already expired that is less than 25%.
+Basically this means that **if the database has many many keys expiring in the same second, and these make up at least 25% of the current population of keys with an expire set**, Redis can block in order to get the percentage of keys already expired below 25%.
 
 This approach is needed in order to avoid using too much memory for keys that area already expired, and usually is absolutely harmless since it's strange that a big number of keys are going to expire in the same exact second, but it is not impossible that the user used `EXPIREAT` extensively with the same Unix time.
 
