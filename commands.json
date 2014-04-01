@@ -1138,6 +1138,52 @@
     "since": "2.6.0",
     "group": "generic"
   },
+  "PFADD": {
+    "summary": "Adds the specified elements to the specified HyperLogLog.",
+    "complexity": "O(1) to add every element.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "element",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "hyperloglog"
+  },
+  "PFCOUNT": {
+    "summary": "Return the approximated cardinality of the set observed by the HyperLogLog at key.",
+    "complexity": "O(1).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "2.8.9",
+    "group": "hyperloglog"
+  },
+  "PFMERGE": {
+    "summary": "Merge N different HyperLogLogs into a single one.",
+    "complexity": "O(N) to merge N HyperLogLogs, but with high constant times.",
+    "arguments": [
+      {
+        "name": "destkey",
+        "type": "key"
+      },
+      {
+        "name": "sourcekey",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "hyperloglog"
+  },
   "PING": {
     "summary": "Ping the server",
     "since": "1.0.0",
