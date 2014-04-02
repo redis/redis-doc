@@ -652,6 +652,14 @@
   },
 
   {
+    "name": "redis3m",
+    "language": "C++",
+    "repository": "https://github.com/luca3m/redis3m",
+    "description": "A C++ wrapper of hiredis, with also connection pooling, high availability and ready-to-use patterns",
+    "authors": [ "luca3m" ]
+  },
+
+  {
     "name": "C++ Client",
     "language": "C++",
     "repository": "https://github.com/mrpi/redis-cplusplus-client",
