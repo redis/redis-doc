@@ -78,7 +78,8 @@ reconnect and ask the master to continue the replication. Assuming the
 master run id is still the same, and that the offset specified is available
 in the replication backlog, replication will resume from the point where it left off.
 If either of these conditions are unmet, a full resynchronization is performed
-(which is the normal pre-2.8 behavior).
+(which is the normal pre-2.8 behavior). As the run id of the connected master is not
+persisted to disk, a full resynchronization is needed when the slave restarts.
 
 The new partial resynchronization feature uses the `PSYNC` command internally,
 while the old implementation uses the `SYNC` command. Note that a Redis 2.8
