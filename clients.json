@@ -750,5 +750,16 @@
     "description": "Simple Redis client for GNU Prolog in native Prolog, no FFI, libraries etc.",
     "authors": ["seancharles"],
     "active": true
-  }
+  },
+  
+  {
+    "name": "redis-in-labview",
+    "language": "LabVIEW",
+    "repository": "https://decibel.ni.com/content/docs/DOC-36322",
+    "description": "LabVIEW toolkit for Redis",
+    "authors": ["iwac"],
+    "active": true
+  },
+  
+  
 ]
