@@ -750,5 +750,14 @@
     "description": "Simple Redis client for GNU Prolog in native Prolog, no FFI, libraries etc.",
     "authors": ["seancharles"],
     "active": true
+  },
+  
+  {
+    "name": "SimpleRedisClient",
+    "language": "C++",
+    "repository": "https://github.com/Levhav/SimpleRedisClient",
+    "description": "Simple Redis client for C++",
+    "authors": ["Levhav"],
+    "active": true
   }
 ]
