@@ -250,30 +250,44 @@ by Redis.
 
 ## Script cache semantics
 
-Executed scripts are guaranteed to be in the script cache **forever**.
-This means that if an `EVAL` is performed against a Redis instance all the
-subsequent `EVALSHA` calls will succeed.
-
-The only way to flush the script cache is by explicitly calling the SCRIPT
-FLUSH command, which will _completely flush_ the scripts cache removing all the
-scripts executed so far.
-This is usually needed only when the instance is going to be instantiated for
-another customer or application in a cloud environment.
+Executed scripts are guaranteed to be in the script cache of a given execution
+of a Redis instance forever. This means that if an `EVAL` is performed against a Redis instance all the subsequent `EVALSHA` calls will succeed.
 
 The reason why scripts can be cached for long time is that it is unlikely for
 a well written application to have enough different scripts to cause memory
-problems.
-Every script is conceptually like the implementation of a new command, and even
-a large application will likely have just a few hundred of them.
+problems. Every script is conceptually like the implementation of a new command, and even a large application will likely have just a few hundred of them.
 Even if the application is modified many times and scripts will change, the
 memory used is negligible.
 
-The fact that the user can count on Redis not removing scripts is semantically a
-very good thing.
+The only way to flush the script cache is by explicitly calling the `SCRIPT FLUSH` command, which will _completely flush_ the scripts cache removing all the
+scripts executed so far.
+
+This is usually needed only when the instance is going to be instantiated for
+another customer or application in a cloud environment.
+
+Also, as already mentioned, restarting a Redis instance flushes the
+scirpt cache, which is not persistent. However from the point of view of the
+client there are only two ways to make sure a Redis istance was not restarted
+between two differnet commands.
+
+* The connection we have with the server is persistent and was never closed so far.
+* The client explicitly checks the `runid` field in the `INFO` command in order to make sure the server was not restarted and is still the same process.
+
+Practically speaking, for the client it is much better to simply assume that in the context of a given connection, cached scripts are guaranteed to be there
+unless an administrator explicitly called the `SCRIPT FLUSH` command.
+
+The fact that the user can count on Redis not removing scripts is semantically
+useful in the context of pipelining.
+
 For instance an application with a persistent connection to Redis can be sure
 that if a script was sent once it is still in memory, so EVALSHA can be used
 against those scripts in a pipeline without the chance of an error being
 generated due to an unknown script (we'll see this problem in detail later).
+
+A common patter is to call `SCRIPT LOAD` to load all the scripts that will
+appear in a pipeline, then use `EVALSHA` directly inside the pipeline without
+any need to check for errors resulting from the script hash not being
+recognized.
 
 ## The SCRIPT command
 
