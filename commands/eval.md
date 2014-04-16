@@ -268,7 +268,7 @@ another customer or application in a cloud environment.
 Also, as already mentioned, restarting a Redis instance flushes the
 script cache, which is not persistent. However from the point of view of the
 client there are only two ways to make sure a Redis instance was not restarted
-between two differnet commands.
+between two different commands.
 
 * The connection we have with the server is persistent and was never closed so far.
 * The client explicitly checks the `runid` field in the `INFO` command in order to make sure the server was not restarted and is still the same process.
