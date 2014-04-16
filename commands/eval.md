@@ -266,7 +266,7 @@ This is usually needed only when the instance is going to be instantiated for
 another customer or application in a cloud environment.
 
 Also, as already mentioned, restarting a Redis instance flushes the
-scirpt cache, which is not persistent. However from the point of view of the
+script cache, which is not persistent. However from the point of view of the
 client there are only two ways to make sure a Redis istance was not restarted
 between two differnet commands.
 
