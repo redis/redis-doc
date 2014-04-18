@@ -2105,6 +2105,32 @@
     "since": "1.2.0",
     "group": "sorted_set"
   },
+  "ZRANGEBYLEX": {
+    "summary": "Return a range of members in a sorted set, by lexicographical range",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "command": "LIMIT",
+        "name": ["offset", "count"],
+        "type": ["integer", "integer"],
+        "optional": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "sorted_set"
+  },
   "ZRANGEBYSCORE": {
     "summary": "Return a range of members in a sorted set, by score",
     "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
