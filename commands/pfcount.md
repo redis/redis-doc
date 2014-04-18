@@ -1,4 +1,6 @@
-Returns the approximated cardinality computed by the HyperLogLog data structure stored at the specified variable, which is 0 if the variable does not exist.
+When called with a single key, returns the approximated cardinality computed by the HyperLogLog data structure stored at the specified variable, which is 0 if the variable does not exist.
+
+When called with multiple keys, returns the approximated cardinality of the union of the HyperLogLogs passed, by internally merging the HyperLogLogs stored at the provided keys into a temporary hyperLogLog.
 
 The HyperLogLog data structure can be used in order to count **unique** elements in a set using just a small constant amount of memory, specifically 12k bytes for every HyperLogLog (plus a few bytes for the key itself).
 
@@ -22,7 +24,26 @@ PFADD hll foo bar zap
 PFADD hll zap zap zap
 PFADD hll foo bar
 PFCOUNT hll
+PFADD some-other-hll 1 2 3
+PFCOUNT hll some-other-hll
 ```
+
+Performances
+---
+
+When `PFCOUNT` is called with a single key, performances as excellent even if
+in theory constant times to process a dense HyperLogLog are high. This is
+possible because the `PFCOUNT` uses caching in order to remember the cardinality
+previously computed, that rarely changes because most `PFADD` operations will
+not update any register. Hundreds of operations per second are possible.
+
+When `PFCOUNT` is called with multiple keys, an on-the-fly merge of the
+HyperLogLogs is performed, which is slow, moreover the cardinality of the union
+can't be cached, so when used with multiple keys `PFCOUNT` may take a time in
+the order of magnitude of the millisecond, and should be not abused.
+
+The user should take in mind that single-key and multiple-keys executions of
+this command are semantically different and have different performances.
 
 HyperLogLog representation
 ---

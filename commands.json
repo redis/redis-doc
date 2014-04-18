@@ -1156,12 +1156,13 @@
     "group": "hyperloglog"
   },
   "PFCOUNT": {
-    "summary": "Return the approximated cardinality of the set observed by the HyperLogLog at key.",
-    "complexity": "O(1).",
+    "summary": "Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).",
+    "complexity": "O(1) with every small average constant times when called with a single key. O(N) with N being the number of keys, and much bigger constant times, when called with multiple keys.",
     "arguments": [
       {
         "name": "key",
-        "type": "key"
+        "type": "key",
+        "multiple": true
       }
     ],
     "since": "2.8.9",
