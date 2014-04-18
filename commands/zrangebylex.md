@@ -38,7 +38,7 @@ following way:
 
 Because of the first *normalized* part in every element (before the colon character), we are forcing a given comparison, however after the range is queries using `ZRANGEBYLEX` the application can display to the user the second part of the string, after the colon.
 
-The binary nature of the comparison allows to use sorted sets are a general
+The binary nature of the comparison allows to use sorted sets as a general
 purpose index, for example the first part of the element can be a 64 bit
 big endian number: since big endian numbers have the most significant bytes
 in the initial positions, the binary comparison will match the numerical
