@@ -2080,7 +2080,7 @@
     "group": "sorted_set"
   },
   "ZLEXCOUNT": {
-    "summary": "Count the number of members in a sorted set between a given lexicographic range",
+    "summary": "Count the number of members in a sorted set between a given lexicographical range",
     "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
     "arguments": [
       {
@@ -2214,6 +2214,26 @@
       }
     ],
     "since": "1.2.0",
+    "group": "sorted_set"
+  },
+  "ZREMRANGEBYLEX": {
+    "summary": "Remove all members in a sorted set between the given lexicographical range",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.9",
     "group": "sorted_set"
   },
   "ZREMRANGEBYRANK": {
