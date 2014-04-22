@@ -656,7 +656,8 @@
     "language": "C++",
     "repository": "https://github.com/luca3m/redis3m",
     "description": "A C++ wrapper of hiredis, with also connection pooling, high availability and ready-to-use patterns",
-    "authors": [ "luca3m" ]
+    "authors": [ "luca3m" ],
+    "active": true
   },
 
   {
