@@ -284,7 +284,7 @@ that if a script was sent once it is still in memory, so EVALSHA can be used
 against those scripts in a pipeline without the chance of an error being
 generated due to an unknown script (we'll see this problem in detail later).
 
-A common patter is to call `SCRIPT LOAD` to load all the scripts that will
+A common pattern is to call `SCRIPT LOAD` to load all the scripts that will
 appear in a pipeline, then use `EVALSHA` directly inside the pipeline without
 any need to check for errors resulting from the script hash not being
 recognized.
