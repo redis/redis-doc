@@ -45,7 +45,7 @@ Some features of Redis don't play very well with partitioning:
 * Redis transactions involving multiple keys can not be used.
 * The partitioning granuliary is the key, so it is not possible to shard a dataset with a single huge key like a very big sorted set.
 * When partitioning is used, data handling is more complex, for instance you have to handle multiple RDB / AOF files, and to make a backup of your data you need to aggregate the persistence files from multiple instances and hosts.
-* Adding and removing capacity can be complex. For instance Redis Cluster plans to support mostly transparent rebalancing of data with the ability to add and remove nodes at runtime, but other systems like client side partitioning and proxies don't support this feature. However a technique called *Presharding* helps in this regard.
+* Adding and removing capacity can be complex. For instance Redis Cluster supports mostly transparent rebalancing of data with the ability to add and remove nodes at runtime, but other systems like client side partitioning and proxies don't support this feature. However a technique called *Presharding* helps in this regard.
 
 Data store or cache?
 ---
@@ -57,7 +57,7 @@ Consistent hashing implementations are often able to switch to other nodes if th
 The main concept here is the following:
 
 * If Redis is used as a cache **scaling up and down** using consistent hashing is easy.
-* If Redis is used as a store, **we need to take the map between keys and nodes fixed, and a fixed number of nodes**. Otherwise we need a system that is able to rebalance keys between nodes when we add or remove nodes, and currently only Redis Cluster is able to do this, but Redis Cluster is not production ready.
+* If Redis is used as a store, **we need to take the map between keys and nodes fixed, and a fixed number of nodes**. Otherwise we need a system that is able to rebalance keys between nodes when we add or remove nodes, and currently only Redis Cluster is able to do this, but Redis Cluster is currently in beta, and not yet considered production ready.
 
 Presharding
 ---
@@ -90,7 +90,7 @@ So far we covered Redis partitioning in theory, but what about practice? What sy
 Redis Cluster
 ---
 
-Unfortunately Redis Cluster is currently not production ready, however you can get more information about it [reading the specification](/topics/cluster-spec) or checking the partial implementation in the `unstable` branch of the Redis GitHub repositoriy.
+Redis Cluster is the preferred way to get automatic sharding and high availability. It is currently not production ready, but finally entered beta stage, so we recommend you to start experimenting with it. You can get more information about Redis Cluster in the [Cluster tutorial](/topics/cluster-tutorial).
 
 Once Redis Cluster will be available, and if a Redis Cluster complaint client is available for your language, Redis Cluster will be the de facto standard for Redis partitioning.
 
