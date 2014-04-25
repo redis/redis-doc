@@ -32,7 +32,7 @@ Obtaining Sentinel
 
 Sentinel is currently developed in the *unstable* branch of the Redis source code at Github. However an update copy of Sentinel is provided with every patch release of Redis 2.8.
 
-The simplest way to use Sentinel is to download the latest verison of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
+The simplest way to use Sentinel is to download the latest version of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
 
 IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**.
 
@@ -135,14 +135,14 @@ Let's try to make things a bit more clear:
 The difference may seem subtle but is actually quite simple to understand and use.
 For example if you have 5 Sentinel instances, and the quorum is set to 2, a failover
 will be triggered as soon as 2 Sentinels believe that the master is not reachable,
-however one of the two Sentienls will be able to failover only if it gets authorization
+however one of the two Sentinels will be able to failover only if it gets authorization
 at least from 3 Sentinels.
 
 If instead the quorum is configured to 5, all the Sentinels must agree about the master
 error condition, and the authorization from all Sentinels is required in order to
 failover.
 
-Cofiguration epochs
+Configuration epochs
 ---
 
 Sentinels require to get authorizations from a majority in order to start a
@@ -197,7 +197,7 @@ Sentinels that are able to communicate will all converge to the same configurati
 with the higher version number.
 
 Basically if the net is partitioned, every partition will converge to the higher
-local configuratiion. In the special case fo no partitions, there is a single
+local configuration. In the special case of no partitions, there is a single
 partition and every Sentinel will agree about the configuration.
 
 More details about SDOWN and ODOWN
