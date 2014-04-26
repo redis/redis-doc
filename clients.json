@@ -424,7 +424,6 @@
     "repository": "https://github.com/evilkost/brukva",
     "description": "Asynchronous Redis client that works within Tornado IO loop",
     "authors": ["evilkost"],
-    "active": true
   },
 
   {
