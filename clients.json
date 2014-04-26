@@ -759,5 +759,13 @@
     "description": "Simple Redis client for C++",
     "authors": ["Levhav"],
     "active": true
+  },
+  
+  {
+    "name": "Pypredis",
+    "language": "Python",
+    "repository": "https://github.com/pepijndevos/pypredis",
+    "description": "A client focused on arbitrary sharding and parallel pipelining.",
+    "authors": ["pepijndevos"]
   }
 ]
