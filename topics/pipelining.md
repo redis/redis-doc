@@ -36,7 +36,7 @@ This is called pipelining, and is a technique widely in use since many decades. 
 
 Redis supports pipelining since the very early days, so whatever version you are running, you can use pipelining with Redis. This is an example using the raw netcat utility:
 
-    $ (echo -en "PING\r\nPING\r\nPING\r\n"; sleep 1) | nc localhost 6379
+    $ (printf "PING\r\nPING\r\nPING\r\n"; sleep 1) | nc localhost 6379
     +PONG
     +PONG
     +PONG
