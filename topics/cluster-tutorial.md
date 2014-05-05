@@ -294,7 +294,7 @@ changed the cluster layout by adding or removing nodes.
 Writing an example app with redis-rb-cluster
 ---
 
-Before goign forward showing how to operate the Redis Cluster, doing things
+Before going forward showing how to operate the Redis Cluster, doing things
 like a failover, or a resharding, we need to create some example application
 or at least to be able to understand the semantics of a simple Redis Cluster
 client interaction.
