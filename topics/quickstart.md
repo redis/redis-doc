@@ -37,8 +37,8 @@ At this point you can try if your build works correctly typing **make test**, bu
 
 It is a good idea to copy both the Redis server than the command line interface in proper places using the following commands:
 
-* sudo cp redis-server /usr/local/bin/
-* sudo cp redis-cli /usr/local/bin/
+* sudo cp src/redis-server /usr/local/bin/
+* sudo cp src/redis-cli /usr/local/bin/
 
 In the following documentation I assume that /usr/local/bin is in your PATH environment variable so you can execute both the binaries without specifying the full path.
 
