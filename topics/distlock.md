@@ -190,6 +190,11 @@ lock by sending a Lua script to all the instances that extends the TTL of the ke
 if the key exists and its value is still the random value the client assigned
 when the lock was acquired.
 
+The client should only consider the lock re-acquired if it was albe to extend
+the lock into the majority of instances, and within the validity time
+(basically the algorithm to use is very similar to the one used when acquiring
+the lock).
+
 However this does not technically change the algorithm, so anyway the max number
 of locks reacquiring attempts should be limited, otherwise one of the liveness
 properties is violated.
