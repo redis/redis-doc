@@ -45,10 +45,10 @@ where values can just be just strings, that is not just more memory efficient
 than Redis plain keys but also much more memory efficient than memcached.
 
 Let's start with some fact: a few keys use a lot more memory than a single key
-containing an hash with a few fields. How is this possible? We use a trick.
+containing a hash with a few fields. How is this possible? We use a trick.
 In theory in order to guarantee that we perform lookups in constant time
 (also known as O(1) in big O notation) there is the need to use a data structure
-with a constant time complexity in the average case, like an hash table.
+with a constant time complexity in the average case, like a hash table.
 
 But many times hashes contain just a few fields. When hashes are small we can
 instead just encode them in an O(N) data structure, like a linear
@@ -60,7 +60,7 @@ it contains will grow too much (you can configure the limit in redis.conf).
 This does not work well just from the point of view of time complexity, but
 also from the point of view of constant times, since a linear array of key
 value pairs happens to play very well with the CPU cache (it has a better
-cache locality than an hash table).
+cache locality than a hash table).
 
 However since hash fields and values are not (always) represented as full
 featured Redis objects, hash fields can't have an associated time to live
@@ -168,7 +168,7 @@ of your keys and values:
 
     hash-max-zipmap-value 1024
 
-Every time an hash will exceed the number of elements or element size specified
+Every time a hash will exceed the number of elements or element size specified
 it will be converted into a real hash table, and the memory saving will be lost.
 
 You may ask, why don't you do this implicitly in the normal key space so that
