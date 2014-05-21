@@ -49,6 +49,16 @@ issued by another client. The second element is the name of the
 originating channel, and the third argument is the actual message
 payload.
 
+## Database & Scoping
+
+Pub/Sub has no relation to the key space.  It was made to not interfere with
+it on any level, including database numbers.
+
+Publishing on db 10, will be heard on by a subscriber on db 1.
+
+If you need scoping of some kind, prefix the channels with the name of the
+environment (test, staging, production, ...).
+
 ## Wire protocol example
 
     SUBSCRIBE first second
