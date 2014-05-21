@@ -45,14 +45,9 @@
         "type": "key"
       },
       {
-        "name": "start",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "end",
-        "type": "integer",
-        "optional": true
+        "name": ["start", "end"],
+        "type": ["integer", "integer"],
+        "multiple": true
       }
     ],
     "since": "2.6.0",
