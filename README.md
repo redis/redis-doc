@@ -111,6 +111,12 @@ You can do this by running Rake inside your working directory.
 $ rake parse
 ```
 
+Note that `parse` depends on the following gems:
+
+* `json`
+* `batch`
+* `rdiscount`
+
 Additionally, if you have [Aspell][han] installed, you can spell check the
 documentation:
 
