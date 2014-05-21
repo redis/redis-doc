@@ -28,19 +28,19 @@ In order to compile Redis follow this simple steps:
     cd redis-stable
     make
 
-At this point you can try if your build works correctly typing **make test**, but this is an optional step. After the compilation the **src** directory inside the Redis distribution is populated with the different executables that are part of Redis:
+At this point you can try if your build works correctly by typing **make test**, but this is an optional step. After the compilation the **src** directory inside the Redis distribution is populated with the different executables that are part of Redis:
 
 * **redis-server** is the Redis Server itself.
 * **redis-cli** is the command line interface utility to talk with Redis.
 * **redis-benchmark** is used to check Redis performances.
 * **redis-check-aof** and **redis-check-dump** are useful in the rare event of corrupted data files.
 
-It is a good idea to copy both the Redis server than the command line interface in proper places using the following commands:
+It is a good idea to copy both the Redis server and the command line interface in proper places using the following commands:
 
 * sudo cp redis-server /usr/local/bin/
 * sudo cp redis-cli /usr/local/bin/
 
-In the following documentation I assume that /usr/local/bin is in your PATH environment variable so you can execute both the binaries without specifying the full path.
+In the following documentation I assume that /usr/local/bin is in your PATH environment variable so that you can execute both the binaries without specifying the full path.
 
 Starting Redis
 ===
@@ -114,7 +114,7 @@ commands calling methods. A short interactive example using Ruby:
 Redis persistence
 =================
 
-You can learn [how Redis persisence works in this page](http://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
+You can learn [how Redis persisence works on this page](http://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
 
     $ redis-cli shutdown
 
@@ -182,5 +182,5 @@ Make sure that everything is working as expected:
 * Check that your Redis instance is correctly logging in the log file.
 * If it's a new machine where you can try it without problems make sure that after a reboot everything is still working.
 
-Note: in the above instructions we skipped many Redis configurations parameters that you would like to change, for instance in order to use AOF persistence instead of RDB persistence, or to setup replication, and so forth.
+Note: In the above instructions we skipped many Redis configuration parameters that you would like to change, for instance in order to use AOF persistence instead of RDB persistence, or to setup replication, and so forth.
 Make sure to read the redis.conf file (that is heavily commented) and the other documentation you can find in this web site for more information.
