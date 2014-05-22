@@ -323,9 +323,9 @@ fortunately, and this is the sane version:
   returned 123456).
 * Finally associate this new ID to our tag with *SETNX
   tag:b840fc02d524045429941cc15f59e41cb7be6c52:id 123456*. By using SETNX if a
-  different client was faster than this one the key will not be setted. Not
-  only, SETNX returns 1 if the key is set, 0 otherwise. So... let's add a final
-  step to our computation.
+  different client was faster than this one the key will not be set. Not
+  only that, but also SETNX returns 1 if the key is set, 0 otherwise. So...
+  let's add a final step to our computation.
 * If SETNX returned 1 (We set the key) return 123456 to the caller, it's our
   tag ID, otherwise perform *GET
   tag:b840fc02d524045429941cc15f59e41cb7be6c52:id* and return the value to the
