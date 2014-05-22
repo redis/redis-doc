@@ -2,7 +2,7 @@ Redis Sentinel Documentation
 ===
 
 Redis Sentinel is a system designed to help managing Redis instances.
-It performs the following three tasks:
+It performs the following four tasks:
 
 * **Monitoring**. Sentinel constantly checks if your master and slave instances are working as expected.
 * **Notification**. Sentinel can notify the system administrator, or another computer program, via an API, that something is wrong with one of the monitored Redis instances.
