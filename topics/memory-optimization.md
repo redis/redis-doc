@@ -185,39 +185,42 @@ behave exactly.
 Memory allocation
 -----------------
 
-Redis allocates at most as much memory as the `maxmemory` setting enables.
-It can be set in the configuration file or set later via `CONFIG SET`
-(see the Configuration Guide). Please note, however, that
+To store user keys, Redis allocates at most as much memory as the `maxmemory`
+setting enables (however there are small extra allocations possible).
 
-* Redis will not free up (return) memory to the OS. Once it allocated a
-certain amount the only way to make it use less is to *restart* it.  (If
-`maxmemory` is `CONFIG SET` less than the actually allocated amount Redis
-will keep using that amount.)
-* Redis will internally reuse memory that once belonged to keys and values
-(including list/set/ordered set items) that got `DEL`'d.  (This includes
-expired items as they are internally automatically deleted at expiry.)
-* Redis's memory allocation strategy is tuned for performance and not to
-keep its memory-footprint low. Thus you can see it allocate memory from
-the OS rather than reuse what is already allocated.
+The exact value can be set in the configuration file or set later via
+`CONFIG SET` (see [Using memory as an LRU cache for more info](http://redis.io/topics/lru-cache)). There are a few things that should be noted about how
+Redis manages memory:
+
+* Redis will not always free up (return) memory to the OS when keys are removed.
+This is not something special about Redis, but it is how most malloc() implementations work. For example if you fill an instance with 5GB worth of data, and then
+remove the equivalent of 2GB of data, the Resident Set Size (also known as
+the RSS, which is the number of memory pages consumed by the process)
+will probably still be around 5GB, even if Redis will claim that the user
+memory is around 3GB.  This happens because the underlying allocator can't easily release the memory. For example often most of the removed keys were allocated in the same pages as the other keys that still exist.
+* The previous point means that you need to provision memory based on your
+**peak memory usage**. If your workload from time to time requires 10GB, even if
+most of the times 5GB could do, you need to provision for 10GB.
+* However allocators are smart and are able to reuse free chunks of memory,
+so after you freed 2GB of your 5GB data set, when you start adding more keys
+again, you'll see the RSS (Resident Set Size) to stay steady and don't grow
+more, as you add up to 2GB of additional keys. The allocator is basically
+trying to reuse the 2GB of memory previously (logically) freed.
+* Because of all this, the fragmentation ratio is not reliable when you
+had a memory usage that at peak is much larger than the currently used memory.
+The fragmentation is calculated as the amount of memory currently in use
+(as the sum of all the allocations performed by Redis) divided by the physical
+memory actually used (the RSS value). Because the RSS reflects the peak memory,
+when the (virtually) used memory is low since a lot of keys / values were
+freed, but the RSS is high, the ration `mem_used / RSS` will be very high.
 
 If `maxmemory` is not set Redis will keep allocating memory as it finds
 fit and thus it can (gradually) eat up all your free memory.
-Therefore it is generally adviseable to configure some limit. You may also
+Therefore it is generally advisable to configure some limit. You may also
 want to set `maxmemory-policy` to `noeviction` (which is *not* the default
-value).
-It make Redis return a memory allocation error if and when it reaches the
-limit - which in turn may result in errors in the application but will not
-render the whole machine die of memory stravation.
+value in some older versions of Redis).
 
-Please, also note that any `maxmemory-policy` other than `noeviction` will
-result in *non-deleted (and non-expired)* keys getting removed when Redis
-needs memory and has reached the set `maxmemory` limit.
-This may well be fit to your needs (e.g. when using Redis as a cache) but
-may not be what you want.
-This is especially not trivial with the default `volatile-lru` algorithm:
-it will *evict keys with positive TTL* (as the expired items get DEL'd and
-thus not even considered for eviction.
-
+It makes Redis return an out of memory error for write commands if and when it reaches the limit - which in turn may result in errors in the application but will not render the whole machine dead because of memory starvation.
 
 Work in progress
 ----------------
