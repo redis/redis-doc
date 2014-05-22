@@ -244,7 +244,7 @@ Redis replies with a Null Array. This is necessary to distinguish
 between an empty list and a different condition (for instance the timeout
 condition of the `BLPOP` command).
 
-Arrays of arrays are possible in REST. For example an array of two arrays
+Arrays of arrays are possible in RESP. For example an array of two arrays
 is encoded as follows:
 
     *2\r\n
