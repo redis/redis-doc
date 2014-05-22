@@ -501,7 +501,8 @@ The Redis Lua interpreter loads the following Lua libraries:
 Every Redis instance is _guaranteed_ to have all the above libraries so you can
 be sure that the environment for your Redis scripts is always the same.
 
-The CJSON library provides extremely fast JSON maniplation within Lua.
+The CJSON library provides extremely fast JSON manipulation within Lua.
+The cmsgpack library provides provides fast MessagePack manipulation within Lua.
 All the other libraries are standard Lua libraries.
 
 ## Emitting Redis logs from scripts
