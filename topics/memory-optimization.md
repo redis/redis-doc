@@ -87,7 +87,7 @@ Now let's assume the objects we want to cache are numbered, like:
 This is what we can do. Every time there is to perform a
 SET operation to set a new value, we actually split the key into two parts,
 one used as a key, and used as field name for the hash. For instance the
-object named *object:1234" is actually split into:
+object named "object:1234" is actually split into:
 
 * a Key named object:12
 * a Field named 34
