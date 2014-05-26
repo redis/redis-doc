@@ -78,6 +78,20 @@ following:
     sentinel failover-timeout resque 180000
     sentinel parallel-syncs resque 5
 
+You only need to specify the masters to monitor, giving to each separated
+master (that may have any number of slaves) a different name. There is no
+need to specify slaves, which are auto-discovered. Sentinel will update the
+configuration automatically with additional informations about slaves (in
+order to retain the information in case of restart). The configuration is
+also rewritten every time a slave is promoted to master during a failover.
+
+The example configuration above, basically monitor two sets of Redis
+instances, each composed of a master and an undefined number of slaves.
+One set of instances is called `mymaster`, and the other `resque`.
+
+For the sake of clarity, let's check line by line what the configuration
+options mean:
+
 The first line is used to tell Redis to monitor a master called *mymaster*,
 that is at address 127.0.0.1 and port 6379, with a level of agreement needed
 to detect this master as failing of 2 sentinels (if the agreement is not reached
@@ -114,7 +128,7 @@ is mostly non blocking for a slave, there is a moment when it stops to load
 the bulk data from the master during a resync. You may make sure only one
 slave at a time is not reachable by setting this option to the value of 1.
 
-The other options are described in the rest of this document and
+Additional options are described in the rest of this document and
 documented in the example `sentinel.conf` file shipped with the Redis
 distribution.
 
