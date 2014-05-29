@@ -3,7 +3,7 @@ Tutorial: Design and implementation of a simple Twitter clone using PHP and the 
 
 This article describes the design and implementation of a [very simple Twitter clone](https://github.com/antirez/retwis) written using PHP with Redis as the only database. The programming community has traditionally considered key-value stores as a special purpose database that couldn't be used as a drop in replacement for a relational database for the development of web applications. This article will try to show that Redis data structures on top of a key-value layer are an effective data model to implement many kinds of applications.
 
-Before to continue, you may want to play a few seconds with [the Retwis online demo](http://retwis.antirez.com/home.php), to check what we are going to actually
+Before to continue, you may want to play a few seconds with [the Retwis online demo](http://retwis.redis.io), to check what we are going to actually
 model. Long story short: it is a toy, but complex enough to be a foundation
 in order to learn how to create more complex applications.
 
