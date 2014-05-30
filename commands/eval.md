@@ -536,7 +536,6 @@ Example:
 ```
 127.0.0.1:6379> eval 'return struct.pack("HH", 1, 2)' 0
 "\x01\x00\x02\x00"
-3) (integer) 5
 127.0.0.1:6379> eval 'return {struct.unpack("HH", ARGV[1])}' 0 "\x01\x00\x02\x00"
 1) (integer) 1
 2) (integer) 2
