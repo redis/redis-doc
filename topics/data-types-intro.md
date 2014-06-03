@@ -838,7 +838,9 @@ The main commands to operate with lexicographical ranges are `ZRANGEBYLEX`,
 For example, let's add again our list of famous hackers. But this time,
 use a score of zero for all the elements:
 
-    > zadd hackers 0 "Alan Kay" 0 "Sophie Wilson" 0 "Richard Stallman" 0 "Anita Borg" 0 "Yukihiro Matsumoto" 0 "Hedy Lamarr" 0 "Claude Shannon" 0 "Linus Torvalds" 0 "Alan Turing"
+    > zadd hackers 0 "Alan Kay" 0 "Sophie Wilson" 0 "Richard Stallman" 0
+      "Anita Borg" 0 "Yukihiro Matsumoto" 0 "Hedy Lamarr" 0 "Claude Shannon"
+      0 "Linus Torvalds" 0 "Alan Turing"
 
 Because of the sorted sets ordering rules, they are already sorted
 lexicographically:
