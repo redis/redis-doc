@@ -705,9 +705,15 @@ sorted set elements, with their year of birth as "score".
 
     > zadd hackers 1940 "Alan Kay"
     (integer) 1
+    > zadd hackers 1957 "Sophie Wilson"
+    (integer 1)
     > zadd hackers 1953 "Richard Stallman"
     (integer) 1
+    > zadd hackers 1949 "Anita Borg"
+    (integer) 1
     > zadd hackers 1965 "Yukihiro Matsumoto"
+    (integer) 1
+    > zadd hackers 1914 "Hedy Lamarr"
     (integer) 1
     > zadd hackers 1916 "Claude Shannon"
     (integer) 1
@@ -715,6 +721,7 @@ sorted set elements, with their year of birth as "score".
     (integer) 1
     > zadd hackers 1912 "Alan Turing"
     (integer) 1
+
 
 As you can see `ZADD` is similar to `SADD`, but takes one argument more
 (placed before the element to add itself), which is the score.
@@ -731,12 +738,15 @@ good, but when we ask for sorted elements Redis does not have to do any work at
 all, it's already all sorted:
 
     > zrange hackers 0 -1
-    1) Alan Turing
-    2) Claude Shannon
-    3) Alan Kay
-    4) Richard Stallman
-    5) Yukihiro Matsumoto
-    6) Linus Torvalds
+    1) "Alan Turing"
+    2) "Hedy Lamarr"
+    3) "Claude Shannon"
+    4) "Alan Kay"
+    5) "Anita Borg"
+    6) "Richard Stallman"
+    7) "Sophie Wilson"
+    8) "Yukihiro Matsumoto"
+    9) "Linus Torvalds"
 
 Note: 0 and -1 means from element index 0 to the last element (-1 works
 like in the case of the `LRANGE` command).
@@ -745,28 +755,37 @@ What if I want to order them the opposite way, youngest to oldest?
 Use [ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange):
 
     > zrevrange hackers 0 -1
-    1) Linus Torvalds
-    2) Yukihiro Matsumoto
-    3) Richard Stallman
-    4) Alan Kay
-    5) Claude Shannon
-    6) Alan Turing
+    1) "Linus Torvalds"
+    2) "Yukihiro Matsumoto"
+    3) "Sophie Wilson"
+    4) "Richard Stallman"
+    5) "Anita Borg"
+    6) "Alan Kay"
+    7) "Claude Shannon"
+    8) "Hedy Lamarr"
+    9) "Alan Turing"
 
 It is possible to return scores as well, using the `WITHSCORES` argument:
 
     > zrange hackers 0 -1 withscores
     1) "Alan Turing"
     2) "1912"
-    3) "Claude Shannon"
-    4) "1916"
-    5) "Alan Kay"
-    6) "1940"
-    7) "Richard Stallman"
-    8) "1953"
-    9) "Yukihiro Matsumoto"
-    10) "1965"
-    11) "Linus Torvalds"
-    12) "1969"
+    3) "Hedy Lamarr"
+    4) "1914"
+    5) "Claude Shannon"
+    6) "1916"
+    7) "Alan Kay"
+    8) "1940"
+    9) "Anita Borg"
+    10) "1949"
+    11) "Richard Stallman"
+    12) "1953"
+    13) "Sophie Wilson"
+    14) "1957"
+    15) "Yukihiro Matsumoto"
+    16) "1965"
+    17) "Linus Torvalds"
+    18) "1969"
 
 Operating on ranges
 ---
@@ -776,9 +795,11 @@ Let's get all the individuals that were born up to the 1950 inclusive. We
 use the `ZRANGEBYSCORE` command to do it:
 
     > zrangebyscore hackers -inf 1950
-    1) Alan Turing
-    2) Claude Shannon
-    3) Alan Kay
+    1) "Alan Turing"
+    2) "Hedy Lamarr"
+    3) "Claude Shannon"
+    4) "Alan Kay"
+    5) "Anita Borg"
 
 We asked Redis to return all the elements with a score between negative
 infinity and 1950 (both extremes are included).
@@ -787,7 +808,7 @@ It's also possible to remove ranges of elements. Let's remove all
 the hackers born between 1940 and 1960 from the sorted set:
 
     > zremrangebyscore hackers 1940 1960
-    (integer) 2
+    (integer) 4
 
 `ZREMRANGEBYSCORE` is perhaps not the best command name,
 but it can be very useful, and returns the number of removed elements.
@@ -796,8 +817,8 @@ Another extremely useful operation defined for sorted set elements
 is the get-rank operation. It is basically possible to ask what is the
 position of an element in the set of the order elements.
 
-    > zrank hackers "Linus Torvalds"
-    (integer) 5
+    > zrank hackers "Anita Borg"
+    (integer) 4
 
 The `ZREVRANK` command is also available in order to get the rank considering
 the elements sorted a descending way.
@@ -817,9 +838,7 @@ The main commands to operate with lexicographical ranges are `ZRANGEBYLEX`,
 For example, let's add again our list of famous hackers. But this time,
 use a score of zero for all the elements:
 
-    > zadd hackers 0 "Alan Kay" 0 "Richard Stallman" 0 "Yukihiro Matsumoto"
-      0 "Claude Shannon" 0 "Linus Torvalds" 0 "Alan Turing"
-    (integer) 6
+    > zadd hackers 0 "Alan Kay" 0 "Sophie Wilson" 0 "Richard Stallman" 0 "Anita Borg" 0 "Yukihiro Matsumoto" 0 "Hedy Lamarr" 0 "Claude Shannon" 0 "Linus Torvalds" 0 "Alan Turing"
 
 Because of the sorted sets ordering rules, they are already sorted
 lexicographically:
@@ -827,16 +846,20 @@ lexicographically:
     > zrange hackers 0 -1
     1) "Alan Kay"
     2) "Alan Turing"
-    3) "Claude Shannon"
-    4) "Linus Torvalds"
-    5) "Richard Stallman"
-    6) "Yukihiro Matsumoto"
+    3) "Anita Borg"
+    4) "Claude Shannon"
+    5) "Hedy Lamarr"
+    6) "Linus Torvalds"
+    7) "Richard Stallman"
+    8) "Sophie Wilson"
+    9) "Yukihiro Matsumoto"
 
 Using `ZRANGEBYLEX` we can ask for lexicographical ranges:
 
     > zrangebylex hackers [B [P
     1) "Claude Shannon"
-    2) "Linus Torvalds"
+    2) "Hedy Lamarr"
+    3) "Linus Torvalds"
 
 Ranges can be inclusive or exclusive (depending on the first character),
 also string infinite and minus infinite are specified respectively with
