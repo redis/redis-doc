@@ -178,6 +178,53 @@ of value stored at the specified key:
     > type mykey
     none
 
+Redis expires: keys with limited time to live
+---
+
+Before to continue with more complex data structures, we need to expose
+another feature which works regardless of the value type, and is
+called **Redis expires**. Basically you can set a timeout to a key, which
+is, a limited time to live. When the time to live elapsed, the key is
+automatically destroyed, exactly like if the user called the `DEL` command
+with the key.
+
+A few quick info about Redis expires:
+
+* They can be set both using seconds or milliseconds precision.
+* However the expire time resolution is always 1 millisecond.
+* Information about expires are replicated and persisted on disk, the time virtually passes when your Redis server remains stopped (this means that Redis saves the date at which a key will expire).
+
+Setting an expire is trivial:
+
+    > set key some-value
+    OK
+    > expire key 5
+    (integer) 1
+    > get key (immediately)
+    "some-value"
+    > get key (after some time)
+    (nil)
+
+The key vanished between the two `GET` calls, since the second call was
+delayed more than 5 seconds. In the example above we used `EXPIRE` in
+order to set the expire (it can also be used in order to set a different
+expire to a key already having one, like `PERSIST` can be used in order
+to remove the expire and make the key persistent forever). However we
+can also create keys with expires using other Redis commands. For example
+using `SET` options:
+
+    > set key 100 ex 10
+    OK
+    > ttl key
+    (integer) 9
+
+The example above sets a key with the string value `100`, having an expire
+of ten seconds. Later the `TTL` command is called in order to check the
+remaining time to live for the key.
+
+In order to set and check expires in milliseconds, check the `PEXPIRE`
+the `PTTL` commands, and the full list of `SET` options.
+
 Redis Lists
 ---
 
@@ -634,81 +681,104 @@ When you need to just get random elements without removing them from the
 set, there is the `SRANDMEMBER` command suitable for the task. It also features
 the ability to return both repeating and non-repeating elements.
 
-Sorted sets
+Redis Sorted sets
 ---
 
-Sets are a very handy data type, but... they are a bit too unsorted in order to
-fit well for a number of problems ;) This is why Redis 1.2 introduced Sorted
-Sets. They are very similar to Sets, collections of binary-safe strings, but
-this time with an associated score, and an operation similar to the List LRANGE
-operation to return items in order, but working against Sorted Sets, that is,
-the [ZRANGE](/commands/zrange) command.
+Sorted sets are a data type which is similar to a mix between asSet and
+an hash. Like sets, sorted sets are composed of unique, non-repeating
+string elements, so in some sense a sorted set is a set as well.
 
-Basically Sorted Sets are in some way the Redis equivalent of Indexes in the
-SQL world. For instance in our reddit.com example above there was no mention
-about how to generate the actual home page with news raked by user votes and
-time. We'll see how sorted sets can fix this problem, but it's better to start
-with something simpler, illustrating the basic working of this advanced data
-type. Let's add a few selected hackers with their year of birth as "score".
+However while elements inside sets are not ordered, every element in
+a sorted set is associated with a floating point value, called *the score*
+(this is why the type is also similar to an hash, since every element
+is mapped to a value).
 
-    $ redis-cli zadd hackers 1940 "Alan Kay"
+Moreover, elements in a sorted sets are *taken in order* (so they are not
+ordered on request, order is a peculiarity of the data structure used to
+represent sorted sets). They are ordered according to the following rule:
+
+* If A and B are two elements with a different score, then A > B if A.score is > B.score.
+* If A and B have exactly the same score, than A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
+
+Let's start with a simple example, adding a few selected hackers names as
+sorted set elements, with their year of birth as "score".
+
+    > zadd hackers 1940 "Alan Kay"
     (integer) 1
-    $ redis-cli zadd hackers 1953 "Richard Stallman"
+    > zadd hackers 1953 "Richard Stallman"
     (integer) 1
-    $ redis-cli zadd hackers 1965 "Yukihiro Matsumoto"
+    > zadd hackers 1965 "Yukihiro Matsumoto"
     (integer) 1
-    $ redis-cli zadd hackers 1916 "Claude Shannon"
+    > zadd hackers 1916 "Claude Shannon"
     (integer) 1
-    $ redis-cli zadd hackers 1969 "Linus Torvalds"
+    > zadd hackers 1969 "Linus Torvalds"
     (integer) 1
-    $ redis-cli zadd hackers 1912 "Alan Turing"
+    > zadd hackers 1912 "Alan Turing"
     (integer) 1
 
-For sorted sets it's a joke to return these hackers sorted by their birth year
-because actually *they are already sorted*. Sorted sets are implemented via a
+As you can see `ZADD` is similar to `SADD`, but takes one argument more
+(placed before the element to add itself), which is the score.
+`ZADD` is also variadic, so you are free to specify multiple score-value
+pairs, even if this is not used in the example above.
+
+With sorted sets it is trivial to return a list of hackers sorted by their
+birth year because actually *they are already sorted*.
+
+Implementation note: Sorted sets are implemented via a
 dual-ported data structure containing both a skip list and a hash table, so
 every time we add an element Redis performs an O(log(N)) operation. That's
 good, but when we ask for sorted elements Redis does not have to do any work at
 all, it's already all sorted:
 
-    $ redis-cli zrange hackers 0 -1
-    1. Alan Turing
-    2. Claude Shannon
-    3. Alan Kay
-    4. Richard Stallman
-    5. Yukihiro Matsumoto
-    6. Linus Torvalds
+    > zrange hackers 0 -1
+    1) Alan Turing
+    2) Claude Shannon
+    3) Alan Kay
+    4) Richard Stallman
+    5) Yukihiro Matsumoto
+    6) Linus Torvalds
 
-Didn't know that Linus was younger than Yukihiro btw ;)
+Note: 0 and -1 means from element index 0 to the last element (-1 works
+like in the case of the `LRANGE` command).
 
 What if I want to order them the opposite way, youngest to oldest?
 Use [ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange):
 
-    $ redis-cli zrevrange hackers 0 -1
-    1. Linus Torvalds
-    2. Yukihiro Matsumoto
-    3. Richard Stallman
-    4. Alan Kay
-    5. Claude Shannon
-    6. Alan Turing
+    > zrevrange hackers 0 -1
+    1) Linus Torvalds
+    2) Yukihiro Matsumoto
+    3) Richard Stallman
+    4) Alan Kay
+    5) Claude Shannon
+    6) Alan Turing
 
-A very important note, ZSets have just a "default" ordering but you are still
-free to call the [SORT](/commands/sort) command against sorted sets to get a
-different ordering (but this time the server will waste CPU). An alternative
-for having multiple orders is to add every element in multiple sorted sets at
-the same time.
+It is possible to return scores as well, using the `WITHSCORES` argument:
+
+    > zrange hackers 0 -1 withscores
+    1) "Alan Turing"
+    2) "1912"
+    3) "Claude Shannon"
+    4) "1916"
+    5) "Alan Kay"
+    6) "1940"
+    7) "Richard Stallman"
+    8) "1953"
+    9) "Yukihiro Matsumoto"
+    10) "1965"
+    11) "Linus Torvalds"
+    12) "1969"
 
 Operating on ranges
 ---
 
 Sorted sets are more powerful than this. They can operate on ranges.
 Let's get all the individuals that were born up to the 1950 inclusive. We
-use the [ZRANGEBYSCORE](/commands/zrangebyscore) command to do it:
+use the `ZRANGEBYSCORE` command to do it:
 
-    $ redis-cli zrangebyscore hackers -inf 1950
-    1. Alan Turing
-    2. Claude Shannon
-    3. Alan Kay
+    > zrangebyscore hackers -inf 1950
+    1) Alan Turing
+    2) Claude Shannon
+    3) Alan Kay
 
 We asked Redis to return all the elements with a score between negative
 infinity and 1950 (both extremes are included).
@@ -716,60 +786,146 @@ infinity and 1950 (both extremes are included).
 It's also possible to remove ranges of elements. Let's remove all
 the hackers born between 1940 and 1960 from the sorted set:
 
-    $ redis-cli zremrangebyscore hackers 1940 1960
+    > zremrangebyscore hackers 1940 1960
     (integer) 2
 
-[ZREMRANGEBYSCORE](/commands/zremrangebyscore) is not the best command name,
+`ZREMRANGEBYSCORE` is perhaps not the best command name,
 but it can be very useful, and returns the number of removed elements.
 
-Back to the Reddit example
+Another extremely useful operation defined for sorted set elements
+is the get-rank operation. It is basically possible to ask what is the
+position of an element in the set of the order elements.
+
+    > zrank hackers "Linus Torvalds"
+    (integer) 5
+
+The `ZREVRANK` command is also available in order to get the rank considering
+the elements sorted a descending way.
+
+Lexicographical scores
 ---
 
-For the last time, back to the Reddit example. Now we have a decent plan to
-populate a sorted set in order to generate the home page. A sorted set can
-contain all the news that are not older than a few days (we remove old entries
-from time to time using ZREMRANGEBYSCORE). A background job gets all the
-elements from this sorted set, get the user votes and the time of the news, and
-computes the score to populate the *reddit.home.page* sorted set with the news
-IDs and associated scores. To show the home page we just have to perform a
-blazingly fast call to ZRANGE.
+With recent versions of Redis 2.8, a new feature was introduced that allows,
+assuming elements in a sorted set are all inserted with the same identical
+score, to get ranges lexicographically (elements are compared with the C
+`memcmp` function, so it is guaranteed that there is no collation, and every
+Redis instance will reply with the same output).
 
-From time to time we'll remove very old news from the *reddit.home.page* sorted
-set to keep our system working with fresh news only.
+The main commands to operate with lexicographical ranges are `ZRANGEBYLEX`,
+`ZREVRANGEBYLEX`, `ZREMRANGEBYLEX` and `ZLEXCOUNT`.
 
-Updating the scores of a sorted set
+For example, let's add again our list of famous hackers. But this time,
+use a score of zero for all the elements:
+
+    > zadd hackers 0 "Alan Kay" 0 "Richard Stallman" 0 "Yukihiro Matsumoto"
+      0 "Claude Shannon" 0 "Linus Torvalds" 0 "Alan Turing"
+    (integer) 6
+
+Because of the sorted sets ordering rules, they are already sorted
+lexicographically:
+
+    > zrange hackers 0 -1
+    1) "Alan Kay"
+    2) "Alan Turing"
+    3) "Claude Shannon"
+    4) "Linus Torvalds"
+    5) "Richard Stallman"
+    6) "Yukihiro Matsumoto"
+
+Using `ZRANGEBYLEX` we can ask for lexicographical ranges:
+
+    > zrangebylex hackers [B [P
+    1) "Claude Shannon"
+    2) "Linus Torvalds"
+
+Ranges can be inclusive or exclusive (depending on the first character),
+also string infinite and minus infinite are specified respectively with
+the `+` and `-` strings. See the documentation for more information.
+
+This feature is important because allows to use sorted sets as a generic
+index. For example, if you want to index elements by a 128-bit unsigned
+integer argument, all you need to do is to add elements into a sorted
+set with the same score (for example 0) but with an 8 bytes prefix
+consisting of **the 128 bit number in big endian**. Since numbers in big
+endian, when ordered lexicographically (in raw bytes order) are actually
+ordered numerically as well, you can ask for ranges in the 128 bit space,
+and get the elements value discarding the prefix.
+
+If you want to see the feature in the context of a more serious demo,
+check the [Redis autocomplete demo](http://autocomplete.redis.io).
+
+Updating the score: leader boards
 ---
 
-Just a final note before wrapping up this tutorial. Sorted sets scores can be
-updated at any time. Just calling again ZADD against an element already
-included in the sorted set will update its score (and position) in O(log(N)),
-so sorted sets are suitable even when there are tons of updates.
+Just a final note about sorted sets before switching to the next topic.
+Sorted sets scores can be updated at any time. Just calling again ZADD against
+an element already included in the sorted set will update its score
+(and position) with O(log(N)) time complexity, so sorted sets are suitable
+when there are tons of updates.
 
-This tutorial is in no way complete and has covered just the basics. 
-Read the [command reference](/commands) to discover a lot more.
-
-Lexicographical ranges
----
+Because of this characteristic a common use case is leader boards.
+The typical application is a Facebook game where you combine the ability to
+take users sorted by their high score, plus the get-rank operation, in order
+to show the top-N users, and the user rank in the leader board (you are
+the #4932 best score here).
 
 HyperLogLogs
 ---
 
-Counting unique searches with HLLs
+An HyperLogLog is a probabilistic data structure used in order to count
+unique things (technically this is referred to estimating the cardinality
+of a set). Usually counting unique items require to use an amount of memory
+proportional to the number of items you want to count, because you need
+to remember the elements you already seen in the past, in order to avoid
+to count them multiple times. However there is a set of algorithms that trade
+memory for precision: you end with an estimated measure, with a standard error,
+in the case of the Redis implementation, which is less than 1%, but the
+magic of this algorithms is that you no longer need to use an amount of memory
+proportional to the number of things counted, you just need to use a
+constant amount of memory! 12k bytes in the worst case, or a lot less if you
+HyperLogLog (We'll just call them HLL from now) has seen very few elements.
+
+HLLs in Redis, while technically a different data structure, is encoded
+as a Redis string, so you can call `GET` to serialize an HLL, and `SET`
+to un-serialize it back to the server.
+
+Conceptually the HLL API is like using Sets to do the same task. You would
+`SADD` every observed element into a set, and would use `SCARD` to check the
+number of elements inside the set, which are unique since `SCARD` will not
+re-add an already added element.
+
+While you don't really *add items* into an HLL, because the data structure
+only contains a state that does not include actual elements, the API is the
+same:
+
+* Every time you see a new element, you add it to the count with `PFADD`.
+* Every time you want to retrieve the current approximation of the unique elements *added* with `PFADD` so far, you use the `PFCOUNT`.
+
+    > pfadd hll a b c d
+    (integer) 1
+    > pfcount hll
+    (integer) 4
+
+An example of use case for this data structure is counting unique queries
+performed by users in a search form every day.
+
+Redis is also able to perform the union of HLLs, please check the
+[full documentation](/commands#hyperloglog) for more information.
+
+Other notable features
 ---
 
-Iterating the key space
+There are other important things in the Redis API that can't be explored
+in the context of this document, but are worth your attention:
+
+* It is possible to [iterate the key space or a large collection incrementally](/commands/scan).
+* It is possible to run [Lua scripts server side](/commands/eval) to win latency and bandwidth.
+* Redis is also a [Pub-Sub server](/topics/pubsub).
+
+Learn more
 ---
 
-Iterating big collections of elements
----
-
-Redis expires: keys with limited time to live
----
-
-Extending Redis with Lua scripting
----
-
-Publish Subscribe with Redis
----
+This tutorial is in no way complete and has covered just the basics of the API.
+Read the [command reference](/commands) to discover a lot more.
 
 Thanks for reading, and have a good hacking with Redis!
