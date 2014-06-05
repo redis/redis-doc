@@ -207,6 +207,15 @@
   },
 
   {
+    "name": "ezredis",
+    "language": "Java",
+    "repository": "https://github.com/zhmt/ezredis",
+    "description": "",
+    "authors": ["zhmt"],
+    "active": true
+  },
+
+  {
     "name": "JDBC-Redis",
     "language": "Java",
     "url": "http://code.google.com/p/jdbc-redis",
