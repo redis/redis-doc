@@ -34,6 +34,6 @@
     * i. Combination Marks. Do not use our logos or trademarks in combination with any other marks or logos (for example Foobar Redis, or the name of your company or product typeset to look like the Redis logo).
     * j. Web Tags. Do not use the Redis trademark in a title or metatag of a web page to influence search engine rankings or result listings, rather than for discussion or advocacy of the Redis project.
 
-6. PROPER NOTICE AND ATTRIBUTION. The appropriate trademark symbol (i.e.,  ®) should appear at least with the first use of the Redis trademarks and all occurrences of the Redis logo. When you use a Redis trademark or logo you should include a statement attributing the trademark to Salvatore Sanfilippo. For example, "Redis, and the Redis logo are the trademarks of Salvatore Sanfilippo in the U.S. and other countries."
+6. **PROPER NOTICE AND ATTRIBUTION**. The appropriate trademark symbol (i.e.,  ®) should appear at least with the first use of the Redis trademarks and all occurrences of the Redis logo. When you use a Redis trademark or logo you should include a statement attributing the trademark to Salvatore Sanfilippo. For example, "Redis, and the Redis logo are the trademarks of Salvatore Sanfilippo in the U.S. and other countries."
 
-7. MORE QUESTIONS? If you have questions about this policy, please contact us at antirez@gmail.com.
+7. **MORE QUESTIONS?** If you have questions about this policy, please contact us at **antirez@gmail.com**.
