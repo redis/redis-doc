@@ -25,7 +25,7 @@ This time is called RTT (Round Trip Time). It is very easy to see how this can a
 
 If the interface used is a loopback interface, the RTT is much shorter (for instance my host reports 0,044 milliseconds pinging 127.0.0.1), but it is still a lot if you need to perform many writes in a row.
 
-Fortunately there is a way to improve this use cases.
+Fortunately there is a way to improve this use case.
 
 Redis Pipelining
 ---
