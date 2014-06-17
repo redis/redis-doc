@@ -30,11 +30,20 @@ also better compared to a system using a single process, for example:
 Obtaining Sentinel
 ---
 
-Sentinel is currently developed in the *unstable* branch of the Redis source code at Github. However an update copy of Sentinel is provided with every patch release of Redis 2.8.
+The current version of Sentinel is called **Sentinel 2**. It is a rewrite of
+the initial Sentinel implementation using stronger and simpler to predict
+algorithms (that are explained in this documentation).
 
-The simplest way to use Sentinel is to download the latest version of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
+A stable release of Redis Sentinel is shipped with Redis 2.8, which is the
+latest stable release of Redis.
 
-IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**.
+New developments are performed in the *unstable* branch, and new features are
+backported into the 2.8 branch as soon as they are considered to be stable.
+
+IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**. Redis Sentinel shipped with Redis 2.6, that is, "Sentinel 1",
+is deprecated and has many bugs. In general you should migrate all your
+Redis and Sentinel instances to Redis 2.8 ASAP to get a better overall
+experience.
 
 Running Sentinel
 ---
