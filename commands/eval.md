@@ -486,6 +486,20 @@ replication is not guaranteed: don't do it.
 Note for Lua newbies: in order to avoid using global variables in your scripts
 simply declare every variable you are going to use using the _local_ keyword.
 
+## Using SELECT inside scripts
+
+It is possible to call `SELECT` inside Lua scripts like with normal clients,
+However one subtle aspect of the behavior changes between Redis 2.8.11 and
+Redis 2.8.12. Before the 2.8.12 release the database selected by the Lua
+script was *transferred* to the calling script as current database.
+Starting from Redis 2.8.12 the database selected by the Lua script only
+affects the execution of the script itself, but does not modify the database
+selected by the client calling the script.
+
+The semantical change between patch level releases was needed since the old
+behavior was inherently incompatible with the Redis replication layer and
+was the cause of bugs.
+
 ## Available libraries
 
 The Redis Lua interpreter loads the following Lua libraries:
