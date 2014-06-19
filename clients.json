@@ -710,6 +710,15 @@
   },
 
   {
+    "name": "lettuce",
+    "language": "Java",
+    "url": "https://github.com/mp911de/lettuce/wiki",
+    "repository": "https://github.com/mp911de/lettuce",
+    "description": "Maintained fork of lettuce, Thread-safe client supporting async usage and key/value codecs",
+    "authors": ["ar3te", "mp911de"]
+  },
+
+  {
     "name": "csredis",
     "language": "C#",
     "repository": "https://github.com/ctstone/csredis",
