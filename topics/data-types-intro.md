@@ -684,8 +684,8 @@ the ability to return both repeating and non-repeating elements.
 Redis Sorted sets
 ---
 
-Sorted sets are a data type which is similar to a mix between asSet and
-an hash. Like sets, sorted sets are composed of unique, non-repeating
+Sorted sets are a data type which is similar to a mix between a Set and
+a hash. Like sets, sorted sets are composed of unique, non-repeating
 string elements, so in some sense a sorted set is a set as well.
 
 However while elements inside sets are not ordered, every element in
