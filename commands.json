@@ -1341,6 +1341,11 @@
     "since": "2.6.0",
     "group": "generic"
   },
+  "ROLE": {
+    "summary": "Return the role of the instance in the context of replication",
+    "since": "2.8.12",
+    "group": "server"
+  },
   "RPOP": {
     "summary": "Remove and get the last element in a list",
     "complexity": "O(1)",
