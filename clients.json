@@ -584,7 +584,7 @@
     "repository": "https://github.com/rootslab/spade",
     "description": "♠ Spade, a full-featured modular client for node.",
     "authors": ["rootslab"],
-    "recommended": true,
+    "recommended": false,
     "active": true
   },
 
