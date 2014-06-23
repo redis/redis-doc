@@ -50,7 +50,7 @@ Some features of Redis don't play very well with partitioning:
 Data store or cache?
 ---
 
-Partitioning when using Redis ad a data store or cache is conceptually the same, however there is a huge difference. While when Redis is used as a data store you need to be sure that a given key always maps to the same instance, when Redis is used as a cache if a given node is unavailable it is not a big problem if we start using a different node, altering the key-instance map as we wish to improve the *availability* of the system (that is, the ability of the system to reply to our queries).
+Partitioning when using Redis as a data store or cache is conceptually the same, however there is a huge difference. While when Redis is used as a data store you need to be sure that a given key always maps to the same instance, when Redis is used as a cache if a given node is unavailable it is not a big problem if we start using a different node, altering the key-instance map as we wish to improve the *availability* of the system (that is, the ability of the system to reply to our queries).
 
 Consistent hashing implementations are often able to switch to other nodes if the preferred node for a given key is not available. Similarly if you add a new node, part of the new keys will start to be stored on the new node.
 

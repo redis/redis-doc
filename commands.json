@@ -45,14 +45,9 @@
         "type": "key"
       },
       {
-        "name": "start",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "end",
-        "type": "integer",
-        "optional": true
+        "name": ["start", "end"],
+        "type": ["integer", "integer"],
+        "multiple": true
       }
     ],
     "since": "2.6.0",
@@ -165,7 +160,32 @@
     "arguments": [
       {
         "name": "ip:port",
-        "type": "string"
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "ID",
+        "name": "client-id",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TYPE",
+        "type": "enum",
+        "enum": ["normal", "slave", "pubsub"],
+        "optional": true
+      },
+      {
+        "command": "ADDR",
+        "name": "ip:port",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "SKIPME",
+        "name": "yes/no",
+        "type": "string",
+        "optional": true
       }
     ],
     "since": "2.4.0",
@@ -1345,6 +1365,11 @@
     ],
     "since": "2.6.0",
     "group": "generic"
+  },
+  "ROLE": {
+    "summary": "Return the role of the instance in the context of replication",
+    "since": "2.8.12",
+    "group": "server"
   },
   "RPOP": {
     "summary": "Remove and get the last element in a list",

@@ -28,19 +28,22 @@ In order to compile Redis follow this simple steps:
     cd redis-stable
     make
 
-At this point you can try if your build works correctly typing **make test**, but this is an optional step. After the compilation the **src** directory inside the Redis distribution is populated with the different executables that are part of Redis:
+At this point you can try if your build works correctly by typing **make test**, but this is an optional step. After the compilation the **src** directory inside the Redis distribution is populated with the different executables that are part of Redis:
 
 * **redis-server** is the Redis Server itself.
+* **redis-sentinel** is the Redis Sentinel executable (monitoring and failover).
 * **redis-cli** is the command line interface utility to talk with Redis.
 * **redis-benchmark** is used to check Redis performances.
 * **redis-check-aof** and **redis-check-dump** are useful in the rare event of corrupted data files.
 
-It is a good idea to copy both the Redis server than the command line interface in proper places using the following commands:
+It is a good idea to copy both the Redis server and the command line interface in proper places, either manually using the following commands:
 
 * sudo cp redis-server /usr/local/bin/
 * sudo cp redis-cli /usr/local/bin/
 
-In the following documentation I assume that /usr/local/bin is in your PATH environment variable so you can execute both the binaries without specifying the full path.
+Or just using `make install`.
+
+In the following documentation we assume that /usr/local/bin is in your PATH environment variable so that you can execute both the binaries without specifying the full path.
 
 Starting Redis
 ===
@@ -51,12 +54,12 @@ The simplest way to start the Redis server is just executing the **redis-server*
     [28550] 01 Aug 19:29:28 # Warning: no config file specified, using the default config. In order to specify a config file use 'redis-server /path/to/redis.conf'
     [28550] 01 Aug 19:29:28 * Server started, Redis version 2.2.12
     [28550] 01 Aug 19:29:28 * The server is now ready to accept connections on port 6379
-    ... and so forth ...
+    ... more logs ...
 
 In the above example Redis was started without any explicit configuration file, so all the parameters will use the internal default.
 This is perfectly fine if you are starting Redis just to play a bit with it or for development, but for production environments you should use a configuration file.
 
-To start Redis with a configuration file just give the full path of the configuration file to use as the only Redis argument, for instance: **redis-server /etc/redis.conf**. You can use the redis.conf file included in the root directory of the Redis source code distribution as a template to write your configuration file.
+In order to start Redis with a configuration file use the full path of the configuration file as first argument, like in the following example: **redis-server /etc/redis.conf**. You should use the `redis.conf` file included in the root directory of the Redis source code distribution as a template to write your configuration file.
 
 Check if Redis is working
 =========================
@@ -70,7 +73,7 @@ The first thing to do in order to check if Redis is working properly is sending 
 
 Running **redis-cli** followed by a command name and its arguments will send this command to the Redis instance running on localhost at port 6379. You can change the host and port used by redis-cli, just try the --help option to check the usage information.
 
-Another interesting way to run redis-cli is without arguments: the program will start into an interactive mode where you can type different commands:
+Another interesting way to run redis-cli is without arguments: the program will start in interactive mode, you can type different commands and see their replies.
 
     $ redis-cli                                                                
     redis 127.0.0.1:6379> ping
@@ -80,7 +83,7 @@ Another interesting way to run redis-cli is without arguments: the program will 
     redis 127.0.0.1:6379> get mykey
     "somevalue"
 
-At this point you can talk with Redis. It is the right time to pause a bit with this tutorial and start the [fifteen minutes introduction to Redis data types](http://redis.io/topics/data-types-intro) in order to learn a few Redis commands. Otherwise if you already know a few basic Redis commands you can keep reading.
+At this point you are able to talk with Redis. It is the right time to pause a bit with this tutorial and start the [fifteen minutes introduction to Redis data types](http://redis.io/topics/data-types-intro) in order to learn a few Redis commands. Otherwise if you already know a few basic Redis commands you can keep reading.
 
 Using Redis from your application
 ===
@@ -114,7 +117,7 @@ commands calling methods. A short interactive example using Ruby:
 Redis persistence
 =================
 
-You can learn [how Redis persisence works in this page](http://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
+You can learn [how Redis persisence works on this page](http://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
 
     $ redis-cli shutdown
 
@@ -162,10 +165,10 @@ Both the pid file path and the configuration file name depend on the port number
 
 * Edit the configuration file, making sure to perform the following changes:
     * Set **daemonize** to yes (by default it is set to no).
-    * Set the **pidfile** to /var/run/redis_6379.pid (modify the port if needed).
+    * Set the **pidfile** to `/var/run/redis_6379.pid` (modify the port if needed).
     * Change the **port** accordingly. In our example it is not needed as the default port is already 6379.
     * Set your preferred **loglevel**.
-    * Set the **logfile** to /var/log/redis_6379.log
+    * Set the **logfile** to `/var/log/redis_6379.log`
     * Set the **dir** to /var/redis/6379 (very important step!)
 * Finally add the new Redis init script to all the default runlevels using the following command:
 
@@ -182,5 +185,5 @@ Make sure that everything is working as expected:
 * Check that your Redis instance is correctly logging in the log file.
 * If it's a new machine where you can try it without problems make sure that after a reboot everything is still working.
 
-Note: in the above instructions we skipped many Redis configurations parameters that you would like to change, for instance in order to use AOF persistence instead of RDB persistence, or to setup replication, and so forth.
-Make sure to read the redis.conf file (that is heavily commented) and the other documentation you can find in this web site for more information.
+Note: In the above instructions we skipped many Redis configuration parameters that you would like to change, for instance in order to use AOF persistence instead of RDB persistence, or to setup replication, and so forth.
+Make sure to read the example `redis.conf` file (that is heavily commented) and the other documentation you can find in this web site for more information.

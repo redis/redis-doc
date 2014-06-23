@@ -11,6 +11,7 @@ connections server in a mostly human readable format.
 
 Here is the meaning of the fields:
 
+*   id: an unique 64-bit client ID (introduced in Redis 2.8.12).
 *   addr: address/port of the client
 *   fd: file descriptor corresponding to the socket
 *   age: total duration of the connection in seconds

@@ -1,4 +1,7 @@
-﻿Virtual Memory technical specification
+UPDATE: Virtual Memory is deprecated since Redis 2.6, so this documentation
+is here only for historical reasons.
+
+Virtual Memory technical specification
 ===
 
 This document details the internals of the Redis Virtual Memory subsystem. The intended audience is not the final user but programmers willing to understand or modify the Virtual Memory implementation.

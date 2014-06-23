@@ -2,9 +2,9 @@ Redis Sentinel Documentation
 ===
 
 Redis Sentinel is a system designed to help managing Redis instances.
-It performs the following three tasks:
+It performs the following four tasks:
 
-* **Monitoring**. Sentinel constantly check if your master and slave instances are working as expected.
+* **Monitoring**. Sentinel constantly checks if your master and slave instances are working as expected.
 * **Notification**. Sentinel can notify the system administrator, or another computer program, via an API, that something is wrong with one of the monitored Redis instances.
 * **Automatic failover**. If a master is not working as expected, Sentinel can start a failover process where a slave is promoted to master, the other additional slaves are reconfigured to use the new master, and the applications using the Redis server informed about the new address to use when connecting.
 * **Configuration provider**. Sentinel acts as a source of authority for clients service discovery: clients connect to Sentinels in order to ask for the address of the current Redis master responsible for a given service. If a failover occurs, Sentinels will report the new address.
@@ -16,7 +16,7 @@ Redis Sentinel is a distributed system, this means that usually you want to run
 multiple Sentinel processes across your infrastructure, and this processes
 will use gossip protocols in order to understand if a master is down and
 agreement protocols in order to get authorized to perform the failover and assign
-a version to the new configuration.
+a new version to the new configuration.
 
 Distributed systems have given *safety* and *liveness* properties, in order to
 use Redis Sentinel well you are supposed to understand, at least at higher level,
@@ -24,17 +24,26 @@ how Sentinel works as a distributed system. This makes Sentinel more complex but
 also better compared to a system using a single process, for example:
 
 * A cluster of Sentinels can failover a master even if some Sentinels are failing.
-* A single Sentinel can't failover without authorization from other Sentinels.
+* A single Sentinel not working well, or not well connected, can't failover a master without authorization from other Sentinels.
 * Clients can connect to any random Sentinel to fetch the configuration of a master.
 
 Obtaining Sentinel
 ---
 
-Sentinel is currently developed in the *unstable* branch of the Redis source code at Github. However an update copy of Sentinel is provided with every patch release of Redis 2.8.
+The current version of Sentinel is called **Sentinel 2**. It is a rewrite of
+the initial Sentinel implementation using stronger and simpler to predict
+algorithms (that are explained in this documentation).
 
-The simplest way to use Sentinel is to download the latest version of Redis 2.8 or to compile Redis latest commit in the *unstable* branch at Github.
+A stable release of Redis Sentinel is shipped with Redis 2.8, which is the
+latest stable release of Redis.
 
-IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**.
+New developments are performed in the *unstable* branch, and new features are
+backported into the 2.8 branch as soon as they are considered to be stable.
+
+IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**. Redis Sentinel shipped with Redis 2.6, that is, "Sentinel 1",
+is deprecated and has many bugs. In general you should migrate all your
+Redis and Sentinel instances to Redis 2.8 ASAP to get a better overall
+experience.
 
 Running Sentinel
 ---
@@ -54,6 +63,12 @@ Both ways work the same.
 
 However **it is mandatory** to use a configuration file when running Sentinel, as this file will be used by the system in order to save the current state that will be reloaded in case of restarts. Sentinel will simply refuse to start if no configuration file is given or if the configuration file path is not writable.
 
+Sentinels by default run **listening for connections to TCP port 26379**, so
+for Sentinels to work, port 26379 of your servers **must be open** to receive
+connections from the IP addresses of the other Sentinel instances.
+Otherwise Sentinels can't talk and can't agree about what to do, so failover
+will never be performed.
+
 Configuring Sentinel
 ---
 
@@ -71,6 +86,20 @@ following:
     sentinel down-after-milliseconds resque 10000
     sentinel failover-timeout resque 180000
     sentinel parallel-syncs resque 5
+
+You only need to specify the masters to monitor, giving to each separated
+master (that may have any number of slaves) a different name. There is no
+need to specify slaves, which are auto-discovered. Sentinel will update the
+configuration automatically with additional informations about slaves (in
+order to retain the information in case of restart). The configuration is
+also rewritten every time a slave is promoted to master during a failover.
+
+The example configuration above, basically monitor two sets of Redis
+instances, each composed of a master and an undefined number of slaves.
+One set of instances is called `mymaster`, and the other `resque`.
+
+For the sake of clarity, let's check line by line what the configuration
+options mean:
 
 The first line is used to tell Redis to monitor a master called *mymaster*,
 that is at address 127.0.0.1 and port 6379, with a level of agreement needed
@@ -108,7 +137,7 @@ is mostly non blocking for a slave, there is a moment when it stops to load
 the bulk data from the master during a resync. You may make sure only one
 slave at a time is not reachable by setting this option to the value of 1.
 
-The other options are described in the rest of this document and
+Additional options are described in the rest of this document and
 documented in the example `sentinel.conf` file shipped with the Redis
 distribution.
 

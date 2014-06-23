@@ -111,6 +111,15 @@ You can do this by running Rake inside your working directory.
 $ rake parse
 ```
 
+The parse task has the following dependencies:
+
+* batch
+* rdiscount
+
+```
+gem install batch rdiscount
+```
+
 Additionally, if you have [Aspell][han] installed, you can spell check the
 documentation:
 

@@ -125,7 +125,7 @@ However, such a feature should not be considered vital as it is rarely useful, a
 RESP Integers
 -------------
 
-This type of is just a CRLF terminated string representing an integer,
+This type is just a CRLF terminated string representing an integer,
 prefixed by a ":" byte. For example ":0\r\n", or ":1000\r\n" are integer
 replies.
 
@@ -244,7 +244,7 @@ Redis replies with a Null Array. This is necessary to distinguish
 between an empty list and a different condition (for instance the timeout
 condition of the `BLPOP` command).
 
-Arrays of arrays are possible in REST. For example an array of two arrays
+Arrays of arrays are possible in RESP. For example an array of two arrays
 is encoded as follows:
 
     *2\r\n
