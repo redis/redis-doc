@@ -84,12 +84,17 @@ In the above cases and any other case where the client lost the connection with 
 Sentinel failover disconnection
 ===
 
-When Redis Sentinel changes the configuration of an instance, for example
-promoting a slave to a master, demoting a master to replicate to the new
-master after a failover, or simply changing the master address of a stale slave instance, it sends a `CLIENT KILL type normal` command to the instance in order
-to make sure all the clients are disconnected from the reconfigured instance. This will force clients to resolve the master address again.
+Starting with Redis 2.8.12, when Redis Sentinel changes the configuration of
+an instance, for example promoting a slave to a master, demoting a master to
+replicate to the new master after a failover, or simply changing the master
+address of a stale slave instance, it sends a `CLIENT KILL type normal`
+command to the instance in order to make sure all the clients are disconnected
+from the reconfigured instance. This will force clients to resolve the master
+address again.
 
-If the client will not contact a Sentinel with updated information, the later verification of the Redis instance role via the `ROLE` command will allow the client to detect that the contacted Sentinel provided stale information, and will try again.
+If the client will contact a Sentinel with yet not updated information, the verification of the Redis instance role via the `ROLE` command will fail, allowing the client to detect that the contacted Sentinel provided stale information, and will try again.
+
+Note: it is possible that a stale master returns online at the same time a client contacts a stale Sentinel instance, so the client may connect with a stale master, and yet the ROLE output will match. However when the master is back again Sentinel will try to demote it to slave, triggering a new disconnection. The same reasoning applies to connecting to stale slaves that will get reconfigured to replicate with a differnt master.
 
 Connecting to slaves
 ===
