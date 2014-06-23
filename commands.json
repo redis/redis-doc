@@ -160,7 +160,32 @@
     "arguments": [
       {
         "name": "ip:port",
-        "type": "string"
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "ID",
+        "name": "client-id",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TYPE",
+        "type": "enum",
+        "enum": ["normal", "slave", "pubsub"],
+        "optional": true
+      },
+      {
+        "command": "ADDR",
+        "name": "ip:port",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "SKIPME",
+        "name": "yes/no",
+        "type": "string",
+        "optional": true
       }
     ],
     "since": "2.4.0",
