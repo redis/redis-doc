@@ -13,9 +13,9 @@ by Redis, which will be covered separately in this tutorial:
 * Sorted sets, similar to Sets but where every string element is associated to a
   floating number value, called *score*. The elements are always taken sorted
   by their score, so unlike Sets it is possible to retrieve range of elements
-  (for example you may aks: give me the top 10, or the bottom 10).
+  (for example you may ask: give me the top 10, or the bottom 10).
 * Hashes, which are maps composed of fields associated with values. Both the
-  field and the value are strings. This are very similary to Ruby or Python
+  field and the value are strings. This are very similar to Ruby or Python
   hashes.
 * Bit arrays (or simply bitmaps): it is possible, using special commands, to
   handle String values like array of bits: you can set and clear individual
@@ -151,7 +151,7 @@ in order to interact with the space of keys, and thus, can be used with
 keys of any type.
 
 For example the `EXISTS` command returns 1 or 0 to signal if a given key
-exists or not in the data base, while the `DEL` command deletes a key
+exists or not in the database, while the `DEL` command deletes a key
 and associated value, whatever the value is.
 
     > set mykey hello
@@ -376,7 +376,7 @@ An example will make it more clear:
 
 The above `LTRIM` command tells Redis to take just list elements from index
 0 to 2, everything else will be discarded. This makes you able to mount
-a very simple but useful patter, consisting in doing a List push operation
+a very simple but useful pattern, consisting of doing a List push operation
 + a List trim operation together in order to add a new element and discard
 exceeding elements:
 
@@ -459,7 +459,7 @@ Hashes.
 
 Basically we can summarize the behavior with three rules:
 
-1. When we add an element to an aggregate data type, if the target key does not exist, an empty aggregate data type is crated before adding the element.
+1. When we add an element to an aggregate data type, if the target key does not exist, an empty aggregate data type is created before adding the element.
 2. When we remove elements from an aggregate data type, if the value remains empty, the key is automatically destroyed.
 3. Calling a read-only command such as `LLEN` (which returns the length of the list), or a write command removing elements, with an empty key, always produces the same result as if the key is holding an empty aggregate type of the type the command expects to find.
 
@@ -651,7 +651,7 @@ ideal. So to start, we can make a copy of the set stored in the `deck` key,
 into the `game:1:deck` key.
 
 This is accomplished using `SUNIONSTORE`, which normally performs the
-intersection between multiple sets, and stores the result into anther set.
+intersection between multiple sets, and stores the result into another set.
 However the intersection of a single set, is itself, so I can copy my deck
 with:
 
@@ -1039,4 +1039,4 @@ Learn more
 This tutorial is in no way complete and has covered just the basics of the API.
 Read the [command reference](/commands) to discover a lot more.
 
-Thanks for reading, and have a good hacking with Redis!
+Thanks for reading, and have a good time hacking with Redis!
