@@ -228,7 +228,7 @@ this is preferred. However this does not mean that Redis is slow in
 virtualized environments, the delivered performances are still very good
 and most of the serious performance issues you may incur in virtualized
 environments are due to over-provisioning, non-local disks with high latency,
-or old hypervisor software that have slow `fork` syscall implementations.
+or old hypervisor software that have slow `fork` syscall implementation.
 + When the server and client benchmark programs run on the same box, both
 the TCP/IP loopback and unix domain sockets can be used. Depending on the
 platform, unix domain sockets can achieve around 50% more throughput than
