@@ -100,10 +100,9 @@ Here are some guidelines:
 + Prefer to use aggregated commands (MSET/MGET), or commands with variadic
   parameters (if possible) over pipelining.
 + Prefer to use pipelining (if possible) over sequence of roundtrips.
-+ Future version of Redis will support Lua server-side scripting
-  (experimental branches are already available) to cover cases that are not
-  suitable for raw pipelining (for instance when the result of a command is
-  an input for the following commands).
++ Redis supports Lua server-side scripting to cover cases that are not suitable
+  for raw pipelining (for instance when the result of a command is an input for
+  the following commands).
 
 On Linux, some people can achieve better latencies by playing with process
 placement (taskset), cgroups, real-time priorities (chrt), NUMA
