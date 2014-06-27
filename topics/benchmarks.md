@@ -222,14 +222,13 @@ the limiting factor with redis-benchmark.
 especially for small objects. For large objects (>10 KB), it may become
 noticeable though. Usually, it is not really cost-effective to buy expensive
 fast memory modules to optimize Redis.
-+ Redis runs slower on a VM. The virtualization toll is quite high because
-for many common operations, Redis does not add much overhead on top of the
-required system calls and network interruptions. Prefer to run Redis on a
-physical box, especially if you favor deterministic latencies. On a
-state-of-the-art hypervisor (VMWare), result of redis-benchmark on a VM
-through the physical network is almost cut in half compared to the
-physical machine, with some significant CPU time spent in system and
-interruptions.
++ Redis runs slower on a VM compared to running without virtualization using
+the same hardware. If you have the chance to run Redis on a physical machine
+this is preferred. However this does not mean that Redis is slow in
+virtualized environments, the delivered performances are still very good
+and most of the serious performance issues you may incur in virtualized
+environments are due to over-provisioning, non-local disks with high latency,
+or old hypervisor software that have slow `fork` syscall implementations.
 + When the server and client benchmark programs run on the same box, both
 the TCP/IP loopback and unix domain sockets can be used. Depending on the
 platform, unix domain sockets can achieve around 50% more throughput than
