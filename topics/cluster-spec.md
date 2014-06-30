@@ -455,6 +455,82 @@ Note that however if a buggy client will perform the map earlier this is not
 a problem since it will not send the ASKING command before the query and B
 will redirect the client to A using a MOVED redirection error.
 
+Clients first connection and handling of redirections.
+---
+
+While it is possible to have a Redis Cluster client implementation that does not
+takes the slots configuration (the map between slot numbers and addresses of
+nodes serving it) in memory, and only works contacting random nodes waiting to
+be redirected, such a client would be very inefficient.
+
+Redis Cluster clients should try to be smart enough to memorize the slots
+configuration. However this configuration does not *require* to be updated,
+since contacting the wrong node will simply result in a redirection.
+
+Clients usually need to fetch a complete list of slots and mapped node
+addresses in two different moments:
+
+* A startup in order to populate the initial slots configuration.
+* When a `MOVED` redirection is received.
+
+Note that a client may handle the `MOVED` redirection updating just the moved
+slot in its table, however this is usually not efficient since often the
+configuration of multiple slots is modified at once (for example if a slave
+is promoted to master, all the slots served by the old master will be remapped).
+It is much simpler to react to a `MOVED` redirection fetching the full map
+of slots - nodes from scratch.
+
+In order to retrieve the slots configuration Redis Cluster offers (starting
+with 3.0.0 beta-7) an alternative to `CLUSTER NODES` that does not require
+parsing and only provides informations strictly needed to clients.
+
+The new command is called `CLUSTER SLOTS` and provides an array of slots
+ranges, and the associated master and slave nodes serving the specified range.
+
+The following is an example of output of `CLUSTER SLOTS`:
+
+```
+127.0.0.1:7000> cluster slots
+1) 1) (integer) 5461
+   2) (integer) 10922
+   3) 1) "127.0.0.1"
+      2) (integer) 7001
+   4) 1) "127.0.0.1"
+      2) (integer) 7004
+2) 1) (integer) 0
+   2) (integer) 5460
+   3) 1) "127.0.0.1"
+      2) (integer) 7000
+   4) 1) "127.0.0.1"
+      2) (integer) 7003
+3) 1) (integer) 10923
+   2) (integer) 16383
+   3) 1) "127.0.0.1"
+      2) (integer) 7002
+   4) 1) "127.0.0.1"
+      2) (integer) 7005
+```
+
+The first two sub-elements of every element of the returned array are the
+start-end slots of the range, the additional elements represent address-port
+pairs. The first address-port pair is the master serving the slot, and the
+additional address-port pairs are all the slaves that are not currently
+in an error condition (the FAIL flag is not set).
+
+For example the first try of the output says that slots from 5461 to 10922
+(start and end included) are served by 127.0.0.1:7001, and it is possible
+to scale read-only load contacting the slave at 127.0.0.1:7004.
+
+`CLUSTER SLOTS` does not guarantee to return ranges that will cover all the
+16k slots if the cluster is misconfigured, so clients should initialize the
+slots configuration map filling the target nodes with NULL objects, and
+report an error if the client user will try to execute commands about keys
+that belong to misconfigured slots.
+
+However before to return an error to the caller, the client that found
+the slot to be mapped to NULL should try to fetch the slots configuration
+again to check if the cluster is now configured properly.
+
 Multiple keys operations
 ---
 
