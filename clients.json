@@ -778,6 +778,15 @@
     "description": "Simple Redis client for C++",
     "authors": ["Levhav"],
     "active": true
+  },
+
+  {
+    "name": "IRedis",
+    "language": "Dart",
+    "repository": "https://github.com/himulawang/i_redis",
+    "description": "A redis client for Dart",
+    "authors": ["ila"],
+    "active": true
   }
   
   {
