@@ -19,6 +19,20 @@ latency of a Redis server in milliseconds, just try:
 
     redis-cli --latency -h `host` -p `port`
 
+Using the internal Redis latency monitoring subsystem
+---
+
+Since Redis 2.8.13, Redis provides latency monitoring capabilities that
+are able to sample differnet execution paths to understand where the
+server is blocking. This makes debugging of the problems illustarated in
+this documentation much simpler, so we suggest to enable latency monitoring
+ASAP. Please refer to the [Latency monitor documentation](/topics/latency-monitor).
+
+While the latency monitoring sampling and reporting capabilities will make
+simpler to understand the soruce of latency in your Redis system, it is still
+advised that you read this documentation extensively to better understand
+the topic of Redis and latency spikes.
+
 Latency baseline
 ----------------
 
