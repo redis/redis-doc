@@ -26,6 +26,7 @@ already available, that can be used as a reference.
 * [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation).
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [Redsync.go](https://github.com/hjr265/redsync.go) (Go implementation).
+* [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 
 Safety and Liveness guarantees
 ---
