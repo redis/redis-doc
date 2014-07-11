@@ -7,7 +7,7 @@ time, there are very strict latency requirements both for the average response
 time and for the worst case latency.
 
 While Redis is an in memory system, it deals with the operating system in
-different, for example ways because Redis implements persistence.
+different ways, for example, in the context of persisting to disk.
 Moreover Redis implements a rich set of commands. Certain commands
 are fast and run in constant or logarithmic time, other commands are slower
 O(N) commands, that can cause latency spikes.
