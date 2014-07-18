@@ -787,5 +787,15 @@
     "description": "redis client GUI tool",
     "authors": ["Cao XinYu"],
     "active": true
+  },
+  
+  {
+    "name": "redis",
+    "language": "Nimrod",
+    "repository": "https://github.com/Araq/Nimrod",
+    "url": "http://nimrod-lang.org/redis.html",
+    "description": "Redis client for Nimrod",
+    "authors": [],
+    "active": true
   }
 ]
