@@ -551,6 +551,28 @@ Operations about keys that don't exist or are, during the resharding, split
 between the source and destination node, will generate a `-TRYAGAIN` error.
 The client can try the operation after some time, or report back the error.
 
+Scaling reads using slave nodes
+---
+
+Normally slave nodes will redirect clients to the authoritative master for
+the hash slot involved in a given command, however clients can use slaves
+in order to scale reads using the `READONLY` command.
+
+`READONLY` tells a Redis cluster slave node that the client is ok reading
+possibly stale data and is not interested in running write queries.
+
+When the connection is in *readonly* mode, the cluster will send a redirection
+to the client only in the context of an operation involving keys not served
+by the slave's master node. This may happen because:
+
+1. The client sent a command about hash slots never served by the master of this slave.
+2. The cluster was reconfigured (for example resharded) and the slave is no longer able to serve commands for a given hash slot.
+
+When this happens the client should update its hashslot map as explained in
+the previous sections.
+
+The *readonly* state of the connection can be undoed using the `READWRITE` command.
+
 Fault Tolerance
 ===
 
