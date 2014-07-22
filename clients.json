@@ -392,6 +392,15 @@
   },
 
   {
+    "name": "PHP Sentinel Client",
+    "language": "PHP",
+    "repository": "https://github.com/Sparkcentral/php-redis-sentinel",
+    "description": "A PHP sentinel client acting as an extension to your regular redis client",
+    "authors": ["jamescauwelier"],
+    "active": true
+  },
+
+  {
     "name": "redis-py",
     "language": "Python",
     "repository": "https://github.com/andymccurdy/redis-py",
