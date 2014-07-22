@@ -392,6 +392,15 @@
   },
 
   {
+    "name": "PHP Sentinel Client",
+    "language": "PHP",
+    "repository": "https://github.com/Sparkcentral/php-redis-sentinel",
+    "description": "A PHP sentinel client acting as an extension to your regular redis client",
+    "authors": ["jamescauwelier"],
+    "active": true
+  },
+
+  {
     "name": "redis-py",
     "language": "Python",
     "repository": "https://github.com/andymccurdy/redis-py",
@@ -786,6 +795,16 @@
     "repository": "https://github.com/caoxinyu/RedisClient",
     "description": "redis client GUI tool",
     "authors": ["Cao XinYu"],
+    "active": true
+  },
+  
+  {
+    "name": "redis",
+    "language": "Nimrod",
+    "repository": "https://github.com/Araq/Nimrod",
+    "url": "http://nimrod-lang.org/redis.html",
+    "description": "Redis client for Nimrod",
+    "authors": [],
     "active": true
   }
 ]
