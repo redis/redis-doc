@@ -257,6 +257,25 @@ node in a small cluster of three nodes.
 
 In the above listing the different fields are in order: node id, address:port, flags, last ping sent, last pong received, link state, slots.
 
+The Cluster bus
+---
+
+Every Redis Cluster node has an additional TCP port in order to receive
+incoming connections from other Redis Cluster nodes. This port is at a fixed
+offset compared to the normal TCP port used to receive incoming connections
+from clients. To obtain the Redis Cluster port, 10000 should be added to
+the normal commands port, so for example if a Redis node is listening for
+client connections to port 6379, the Cluster bus port 16379 will also be
+opened.
+
+Node to Node communication happens exclusively using the Cluster bus and
+the Cluster bus protocol, which is a binary protocol composed of frames
+of different types and sizes. The Cluster bus binary protocol is not
+publicly documented since it is not indented for external software devices
+to talk with Redis Cluster nodes using this protocol. However you can
+obtain more details about the Cluster bus protocol by reading the
+`cluster.h` and `cluster.c` files in the Redis Cluster source code.
+
 Cluster topology
 ---
 
@@ -265,6 +284,12 @@ Redis cluster is a full mesh where every node is connected with every other node
 In a cluster of N nodes, every node has N-1 outgoing TCP connections, and N-1 incoming connections.
 
 These TCP connections are kept alive all the time and are not created on demand.
+When a node expects an pong reply in response to a ping in the cluster bus, before to wait for enough time to mark the node as unreachable, it will try to
+refresh the connection with the node by reconnecting from scratch.
+
+While Redis Cluster nodes form a full mesh, nodes use a gossip protocol and
+a configuration update mechanism in order to avoid exchanging too many
+packets between nodes during normal conditions.
 
 Nodes handshake
 ---
