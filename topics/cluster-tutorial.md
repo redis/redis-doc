@@ -35,6 +35,23 @@ So in practical terms, what you get with Redis Cluster?
 * The ability to automatically split your dataset among multiple nodes.
 * The ability to continue operations when a subset of the nodes are experiencing failures or are unable to communicate with the rest of the cluster.
 
+Redis Cluster TCP ports
+---
+
+Every Redis Cluster node requires two TCP connections open. The normal Redis
+TCP port used to serve clients, for example 6379, plus the port obtained by
+adding 10000 to the data port, so 16379 in the example.
+
+This second *high* port is used for the Cluster bus, that is a node-to-node
+communication channel using a binary protocol. The Cluster bus is used by
+nodes for failure detection, configuration update, failover authorization
+and so forth. Clients should never try to communicate with the cluster bus
+port, but always with the normal Redis command port, however make sure you
+open both ports in your firewall, otherwise Redis cluster nodes will be
+not able to communicate.
+
+The command port and cluster bus port offset is fixed and is always 10000.
+
 Redis Cluster data sharding
 ---
 
