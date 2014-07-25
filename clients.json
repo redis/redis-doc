@@ -486,6 +486,15 @@
     "authors": ["livestream"],
     "active": true
   },
+  
+  {
+    "name": "rediscala",
+    "language": "Scala",
+    "repository": "https://github.com/etaty/rediscala",
+    "description": "A Redis client for Scala (2.10+) and (AKKA 2.2+) with non-blocking and asynchronous I/O operations.",
+    "authors": ["etaty"],
+    "active": true
+  },
 
   {
     "name": "Tcl Client",
