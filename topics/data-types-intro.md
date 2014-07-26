@@ -17,7 +17,7 @@ by Redis, which will be covered separately in this tutorial:
 * Hashes, which are maps composed of fields associated with values. Both the
   field and the value are strings. This are very similary to Ruby or Python
   hashes.
-* Bit arrays: it is possible, usign special commands, to handle String values
+* Bit arrays: it is possible, using special commands, to handle String values
   like array of bits: you can set and clear individual bits, count all the bits
   set to 1, find the first set or unset bit, and so forth.
 * HyperLogLogs: this is a probabilistic data structure which is used in order
