@@ -86,18 +86,5 @@ time to live for keys using the `EXPIRE` command (or equivalent) since
 all the keys will be evicted using an approximated LRU algorithm as long
 as we hit the 2 megabyte memory limit.
 
-This is more memory effective as setting expires on keys uses additional
-memory. Also an LRU behavior is usually to prefer compared to a fixed expire
-for every key, so that the *working set* of your data (the keys that are
-used more frequently) will likely last more.
-
 Basically in this configuration Redis acts in a similar way to memcached.
-
-When Redis is used as a cache in this way, if the application also requires
-the use Redis as a store, it is strongly suggested to create two Redis
-instances, one as a cache, configured in this way, and one as a store,
-configured accordingly to your persistence needs and only holding keys
-that are not about cached data.
-
-*Note:* The user is adviced to read the example redis.conf to check how the
-other maxmemory policies available work.
+We have more extensive documentation about [using Redis as an LRU cache](/topics/lru-cache).

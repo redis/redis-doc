@@ -13,4 +13,4 @@ These are the counters that are reset:
 
 @return
 
-@status-reply: always `OK`.
+@simple-string-reply: always `OK`.

@@ -45,10 +45,10 @@ where values can just be just strings, that is not just more memory efficient
 than Redis plain keys but also much more memory efficient than memcached.
 
 Let's start with some fact: a few keys use a lot more memory than a single key
-containing an hash with a few fields. How is this possible? We use a trick.
+containing a hash with a few fields. How is this possible? We use a trick.
 In theory in order to guarantee that we perform lookups in constant time
 (also known as O(1) in big O notation) there is the need to use a data structure
-with a constant time complexity in the average case, like an hash table.
+with a constant time complexity in the average case, like a hash table.
 
 But many times hashes contain just a few fields. When hashes are small we can
 instead just encode them in an O(N) data structure, like a linear
@@ -60,7 +60,7 @@ it contains will grow too much (you can configure the limit in redis.conf).
 This does not work well just from the point of view of time complexity, but
 also from the point of view of constant times, since a linear array of key
 value pairs happens to play very well with the CPU cache (it has a better
-cache locality than an hash table).
+cache locality than a hash table).
 
 However since hash fields and values are not (always) represented as full
 featured Redis objects, hash fields can't have an associated time to live
@@ -87,7 +87,7 @@ Now let's assume the objects we want to cache are numbered, like:
 This is what we can do. Every time there is to perform a
 SET operation to set a new value, we actually split the key into two parts,
 one used as a key, and used as field name for the hash. For instance the
-object named *object:1234" is actually split into:
+object named "object:1234" is actually split into:
 
 * a Key named object:12
 * a Field named 34
@@ -168,7 +168,7 @@ of your keys and values:
 
     hash-max-zipmap-value 1024
 
-Every time an hash will exceed the number of elements or element size specified
+Every time a hash will exceed the number of elements or element size specified
 it will be converted into a real hash table, and the memory saving will be lost.
 
 You may ask, why don't you do this implicitly in the normal key space so that
@@ -181,6 +181,46 @@ forth so it is not practical to do this in a general way.
 But the Redis Way is that the user must understand how things work so that
 he is able to pick the best compromise, and to understand how the system will
 behave exactly.
+
+Memory allocation
+-----------------
+
+To store user keys, Redis allocates at most as much memory as the `maxmemory`
+setting enables (however there are small extra allocations possible).
+
+The exact value can be set in the configuration file or set later via
+`CONFIG SET` (see [Using memory as an LRU cache for more info](http://redis.io/topics/lru-cache)). There are a few things that should be noted about how
+Redis manages memory:
+
+* Redis will not always free up (return) memory to the OS when keys are removed.
+This is not something special about Redis, but it is how most malloc() implementations work. For example if you fill an instance with 5GB worth of data, and then
+remove the equivalent of 2GB of data, the Resident Set Size (also known as
+the RSS, which is the number of memory pages consumed by the process)
+will probably still be around 5GB, even if Redis will claim that the user
+memory is around 3GB.  This happens because the underlying allocator can't easily release the memory. For example often most of the removed keys were allocated in the same pages as the other keys that still exist.
+* The previous point means that you need to provision memory based on your
+**peak memory usage**. If your workload from time to time requires 10GB, even if
+most of the times 5GB could do, you need to provision for 10GB.
+* However allocators are smart and are able to reuse free chunks of memory,
+so after you freed 2GB of your 5GB data set, when you start adding more keys
+again, you'll see the RSS (Resident Set Size) to stay steady and don't grow
+more, as you add up to 2GB of additional keys. The allocator is basically
+trying to reuse the 2GB of memory previously (logically) freed.
+* Because of all this, the fragmentation ratio is not reliable when you
+had a memory usage that at peak is much larger than the currently used memory.
+The fragmentation is calculated as the amount of memory currently in use
+(as the sum of all the allocations performed by Redis) divided by the physical
+memory actually used (the RSS value). Because the RSS reflects the peak memory,
+when the (virtually) used memory is low since a lot of keys / values were
+freed, but the RSS is high, the ration `mem_used / RSS` will be very high.
+
+If `maxmemory` is not set Redis will keep allocating memory as it finds
+fit and thus it can (gradually) eat up all your free memory.
+Therefore it is generally advisable to configure some limit. You may also
+want to set `maxmemory-policy` to `noeviction` (which is *not* the default
+value in some older versions of Redis).
+
+It makes Redis return an out of memory error for write commands if and when it reaches the limit - which in turn may result in errors in the application but will not render the whole machine dead because of memory starvation.
 
 Work in progress
 ----------------

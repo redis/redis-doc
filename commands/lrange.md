@@ -25,7 +25,7 @@ the last element of the list.
 
 @return
 
-@multi-bulk-reply: list of elements in the specified range.
+@array-reply: list of elements in the specified range.
 
 @examples
 

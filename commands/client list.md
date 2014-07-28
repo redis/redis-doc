@@ -3,7 +3,7 @@ connections server in a mostly human readable format.
 
 @return
 
-@bulk-reply: a unique string, formatted as follows:
+@bulk-string-reply: a unique string, formatted as follows:
 
 *   One client connection per line (separated by LF)
 *   Each line is composed of a succession of property=value fields separated
@@ -11,6 +11,7 @@ connections server in a mostly human readable format.
 
 Here is the meaning of the fields:
 
+*   id: an unique 64-bit client ID (introduced in Redis 2.8.12).
 *   addr: address/port of the client
 *   fd: file descriptor corresponding to the socket
 *   age: total duration of the connection in seconds

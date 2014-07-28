@@ -2,7 +2,7 @@ Removes and returns the last element of the list stored at `key`.
 
 @return
 
-@bulk-reply: the value of the last element, or `nil` when `key` does not exist.
+@bulk-string-reply: the value of the last element, or `nil` when `key` does not exist.
 
 @examples
 

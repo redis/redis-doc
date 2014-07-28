@@ -16,5 +16,5 @@ In order to make sure the redis.conf file is always consistent, that is, on erro
 
 @return
 
-@status-reply: `OK` when the configuration was rewritten properly.
+@simple-string-reply: `OK` when the configuration was rewritten properly.
 Otherwise an error is returned.

@@ -14,5 +14,5 @@ Lua scripting.
 
 @return
 
-@bulk-reply This command returns the SHA1 digest of the script added into the
+@bulk-string-reply This command returns the SHA1 digest of the script added into the
 script cache.

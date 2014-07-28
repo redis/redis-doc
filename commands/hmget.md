@@ -7,7 +7,7 @@ a non-existing `key` will return a list of `nil` values.
 
 @return
 
-@multi-bulk-reply: list of values associated with the given fields, in the same
+@array-reply: list of values associated with the given fields, in the same
 order as they are requested.
 
 ```cli

@@ -14,7 +14,7 @@ Keys that do not exist are considered to be empty sets.
 
 @return
 
-@multi-bulk-reply: list with members of the resulting set.
+@array-reply: list with members of the resulting set.
 
 @examples
 

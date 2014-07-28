@@ -6,4 +6,4 @@ If you call `EXEC` or `DISCARD`, there's no need to manually call `UNWATCH`.
 
 @return
 
-@status-reply: always `OK`.
+@simple-string-reply: always `OK`.

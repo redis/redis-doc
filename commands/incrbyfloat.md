@@ -23,7 +23,7 @@ regardless of the actual internal precision of the computation.
 
 @return
 
-@bulk-reply: the value of `key` after the increment.
+@bulk-string-reply: the value of `key` after the increment.
 
 @examples
 

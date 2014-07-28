@@ -5,7 +5,7 @@ Because of this, the operation never fails.
 
 @return
 
-@multi-bulk-reply: list of values at the specified keys.
+@array-reply: list of values at the specified keys.
 
 @examples
 

@@ -3,19 +3,28 @@
 Guidelines for Redis clients with support for Redis Sentinel
 ===
 
-Redis Sentinel is a monitoring solution for Redis instances that handles different aspects of monitoring, including notification of events, automatic failover. 
-Sentinel can also play the role of configuration source for Redis clients. This document is targetted at Redis clients developers that want to support Sentinel in their clients implementation with the following goals:
+Redis Sentinel is a monitoring solution for Redis instances that handles
+automatic failover of Redis masters and service discovery (who is the current
+master for a given group of instances?). Since Sentinel is both responsible
+to reconfigure instances during failovers, and to provide configurations to
+clients connecting to Redis masters or slaves, clients require to have
+explicit support for Redis Sentinel.
+
+This document is targeted at Redis clients developers that want to support Sentinel in their clients implementation with the following goals:
 
 * Automatic configuration of clients via Sentinel.
-* Improved reliability of Redis Sentinel automatic fail over, because of Sentinel-aware clients that will automatically reconnect to the new master.
+* Improved safety of Redis Sentinel automatic failover.
 
-For details about how Redis Sentinel works, please check the [Redis Documentation](/topics/sentinel) itself, as this document only contains informations needed for Redis client developers.
+For details about how Redis Sentinel works, please check the [Redis Documentation](/topics/sentinel), as this document only contains informations needed for Redis client developers, and it is expected that readers are familiar with the way Redis Sentinel works.
 
 Redis service discovery via Sentinel
 ===
 
 Redis Sentinel identify every master with a name like "stats" or "cache".
-However the address of the Redis master that is used for a specific purpose inside a network may change after events like an automatic failover, a manually triggered failover (for instance in order to upgrade a Redis instance), and other reasons.
+Every name actually identifies a *group of intances*, composed of a master
+and a variable number of slaves.
+
+The address of the Redis master that is used for a specific purpose inside a network may change after events like an automatic failover, a manually triggered failover (for instance in order to upgrade a Redis instance), and other reasons.
 
 Normally Redis clients have some kind of hard-coded configuraiton that specifies the address of a Redis master instance within a network as IP address and port number. However if the master address changes, manual intervention in every client is needed.
 
@@ -29,9 +38,11 @@ This is the procedure a client should follow in order to obtain the master addre
 Step 1: connecting to the first Sentinel
 ---
 
-The client should iterate the list of Sentinel addresses. For every address it should try to connect to the Sentinel, using a short timeout. On errors or timeouts the next Sentinel address should be tried.
+The client should iterate the list of Sentinel addresses. For every address it should try to connect to the Sentinel, using a short timeout (in the order of a few hundreds of milliseconds). On errors or timeouts the next Sentinel address should be tried.
 
 If all the Sentinel addresses were tried without success, an error should be returned to the client.
+
+The first Sentinel replying to the client request should be put at the start of the list, so that at the next reconnection, we'll try first the Sentinel that was reachable in the previous connection attempt, minimizing latency.
 
 Step 2: ask for master address
 ---
@@ -42,30 +53,65 @@ Once a connection with a Sentinel is established, the client should retry to exe
 
 Where *master-name* should be replaced with the actual service name specified by the user.
 
-The result from this call can be one of the following three replies:
+The result from this call can be one of the following two replies:
 
 * An ip:port pair.
-* A null reply.
-* An `-IDONTKNOW` error.
+* A null reply. This means Sentinel does not know this master.
 
-If an ip:port pair is received, this address should be used to connect to the Redis master. Otherwise if a null reply or `-IDONTKNOW` reply is received, the client should try the next Sentinel in the list.
+If an ip:port pair is received, this address should be used to connect to the Redis master. Otherwise if a null reply is received, the client should try the next Sentinel in the list.
 
-Step 3: give priority to the replying Sentinel
+Step 3: call the ROLE command in the target instance
 ---
 
-When a correct ip:port pair is received, the replying Sentinel address should be put at the top of the list of Sentinel addresses, so that the next time we'll try the responding Sentinel before any other.
+Once the client discovered the address of the master instance, it should
+attempt a connection with the master, and call the `ROLE` command in order
+to verify the role of the instance is actually a master.
 
-IMPORTANT: The result of this procedure should not be cached by the Redis client. Every time a new connection should be performed to a master the full resolving procedure should be used instead.
+If the `ROLE` commands is not available (it was introduced in Redis 2.8.12), a client may resort to the `INFO replication` command parsing the `role:` field of the output.
+
+If the instance is not a master as expected, the client should wait a short amount of time (a few hundreds of milliseconds) and should try again starting from Step 1.
 
 Handling reconnections
 ===
 
-Once the service name is resoled into the master address and a connection is established with the Redis master instance, every time a reconnection is needed, the client should resolve again the address using Sentinels. For instance:
+Once the service name is resoled into the master address and a connection is established with the Redis master instance, every time a reconnection is needed, the client should resolve again the address using Sentinels restarting from Step 1. For instance Sentinel should contacted again the following cases:
 
 * If the client reconnects after a timeout or socket error.
-* If the client reconnects because it was explicitly closed or reconnected in any way by the user.
+* If the client reconnects because it was explicitly closed or reconnected by the user.
 
-In the above cases and any other the client should resolve the master address again.
+In the above cases and any other case where the client lost the connection with the Redis server, the client should resolve the master address again.
+
+Sentinel failover disconnection
+===
+
+Starting with Redis 2.8.12, when Redis Sentinel changes the configuration of
+an instance, for example promoting a slave to a master, demoting a master to
+replicate to the new master after a failover, or simply changing the master
+address of a stale slave instance, it sends a `CLIENT KILL type normal`
+command to the instance in order to make sure all the clients are disconnected
+from the reconfigured instance. This will force clients to resolve the master
+address again.
+
+If the client will contact a Sentinel with yet not updated information, the verification of the Redis instance role via the `ROLE` command will fail, allowing the client to detect that the contacted Sentinel provided stale information, and will try again.
+
+Note: it is possible that a stale master returns online at the same time a client contacts a stale Sentinel instance, so the client may connect with a stale master, and yet the ROLE output will match. However when the master is back again Sentinel will try to demote it to slave, triggering a new disconnection. The same reasoning applies to connecting to stale slaves that will get reconfigured to replicate with a differnt master.
+
+Connecting to slaves
+===
+
+Sometimes clients are interested to connect to slaves, for example in order to scale read requests. This protocol supports connecting to slaves by modifying step 2 slightly. Instead of calling the following command:
+
+    SENTINEL get-master-addr-by-name master-name
+
+The clients should call instead:
+
+    SENTINEL slaves master-name
+
+In order to retrieve a list of slave instances.
+
+Symmetrically the client should verify with the `ROLE` command that the
+instance is actually a slave, in order to avoid scaling read queries with
+the master.
 
 Connection pools
 ===
@@ -79,19 +125,34 @@ The client should correctly return the information to the user in case of errors
 
 * If no Sentinel can be contacted (so that the client was never able to get the reply to `SENTINEL get-master-addr-by-name`), an error that clearly states that Redis Sentinel is unreachable should be returned.
 * If all the Sentinels in the pool replied with a null reply, the user should be informed with an error that Sentinels don't know this master name.
-* If at least one Sentinel replies with `-IDONTKNOW` the client should return an error like: "Redis Sentinel don't know the specified master address." so that the user is informed that the service name is configured in at least a Sentinel instance, but apparently the master was never reached by the Sentinel.
 
 Sentinels list automatic refresh
 ===
 
-Optionally once a successful reply to `get-master-add-by-name` is received, a client may update its internal list of Sentinel nodes following this procedure:
+Optionally once a successful reply to `get-master-addr-by-name` is received, a client may update its internal list of Sentinel nodes following this procedure:
 
 * Obtain a list of other Sentinels for this master using the command `SENTINEL sentinels <master-name>`.
 * Add every ip:port pair not already existing in our list at the end of the list.
 
 It is not needed for a client to be able to make the list persistent updating its own configuration. The ability to upgrade the in-memory representation of the list of Sentinels can be already useful to improve reliability.
 
+Subscribe to Sentinel events to improve responsiveness
+===
+
+The [Sentinel documentation](/topics/sentinel) shows how clients can connect to
+Sentinel instances using Pub/Sub in order to subscribe to changes in the
+Redis instances configurations.
+
+This mechanism can be used in order to speedup the reconfiguration of clients,
+that is, clients may listent to Pub/Sub in order to know when a configuration
+change happened in order to run the three steps protocol explained in this
+document in order to resolve the new Redis master (or slave) address.
+
+However update messages received via Pub/Sub should not substitute the
+above procedure, since there is no guarantee that a client is able to
+receive all the update messages.
+
 Additional information
 ===
 
-For additional information or to discuss specific aspects of this guidelines, please drop a message to the [Redis Google Group](groups.google.com/group/redis-db).
+For additional information or to discuss specific aspects of this guidelines, please drop a message to the [Redis Google Group](https://groups.google.com/group/redis-db).

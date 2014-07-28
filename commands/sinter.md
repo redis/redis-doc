@@ -16,7 +16,7 @@ set intersection with an empty set always results in an empty set).
 
 @return
 
-@multi-bulk-reply: list with members of the resulting set.
+@array-reply: list with members of the resulting set.
 
 @examples
 

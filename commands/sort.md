@@ -137,4 +137,4 @@ key is accessed to retrieve the specified hash field.
 
 @return
 
-@multi-bulk-reply: list of sorted elements.
+@array-reply: list of sorted elements.
