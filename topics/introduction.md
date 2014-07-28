@@ -22,6 +22,7 @@ disabled, if you just need a feature-rich, networked, in-memory cache.
 Redis also supports trivial-to-setup [master-slave asynchronous replication](/topics/replication), with very fast non-blocking first synchronization, auto-reconnection with partial resynchronization on net split.
 
 Other features include:
+
 * [Transactions](/topics/transactions)
 * [Pub/Sub](/topics/pubsub)
 * [Lua scripting](/commands/eval)
