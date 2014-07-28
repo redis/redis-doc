@@ -482,7 +482,7 @@
     "name": "scredis",
     "language": "Scala",
     "repository": "https://github.com/Livestream/scredis",
-    "description": "Scredis is an advanced Redis client entirely written in Scala. Used in production at http://Livestream.com.",
+    "description": "Non-blocking, ultra-fast Scala Redis client built on top of Akka IO, used in production at Livestream",
     "authors": ["livestream"],
     "active": true
   },
