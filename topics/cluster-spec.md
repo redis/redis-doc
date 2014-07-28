@@ -1006,7 +1006,7 @@ Nodes reset
 
 Nodes can be software reset (without restarting them) in order to be reused
 in a different role or in a different cluster. This is useful in normal
-operations, in testing, and in clould environments where a given node can
+operations, in testing, and in cloud environments where a given node can
 be reprovisioned to join a different set of nodes to enlarge or create a new
 cluster.
 
@@ -1021,20 +1021,20 @@ type if no explicit type is provided is to perform a soft reset.
 
 The following is a list of operations performed by reset:
 
-1. Soft and hard reset: If the node is a slave, it is turned into a master, and its dataset is discareded. If the node is a master and contains keys the reset operation is aborted.
+1. Soft and hard reset: If the node is a slave, it is turned into a master, and its dataset is discarded. If the node is a master and contains keys the reset operation is aborted.
 2. Soft and hard reset: All the slots are released, and the manual failover state is reset.
 3. Soft and hard reset: All the other nodes in the nodes table are removed, so the node no longer knows any other node.
 4. Hard reset only: `currentEpoch`, `configEpoch`, and `lastVoteEpoch` are set to 0.
 5. Hard reset only: the Node ID is changed to a new random ID.
 
-Master nodes with non empty data sets can't be reset (since normally you want to reshard data to the other nodes), however in special conditions when this is appropriate, like when a cluster is totally destroyed in order to create a new one, `FLUSHALL` must be executed before to proceed with the reset.
+Master nodes with non-empty data sets can't be reset (since normally you want to reshard data to the other nodes), however in special conditions when this is appropriate, like when a cluster is totally destroyed in order to create a new one, `FLUSHALL` must be executed before to proceed with the reset.
 
 Removing nodes from a cluster
 ---
 
 It is possible to practically remove a node from an existing cluster by
 resharding all its data to other nodes (if it is a master node) and finally
-by shutting down it, however the other nodes will still remember its node
+by shutting it down, however the other nodes will still remember its node
 ID and address, and will attempt to connect with it.
 
 For this reason when a node is removed, we want to also remove its entry
