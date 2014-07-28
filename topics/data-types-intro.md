@@ -17,9 +17,10 @@ by Redis, which will be covered separately in this tutorial:
 * Hashes, which are maps composed of fields associated with values. Both the
   field and the value are strings. This are very similary to Ruby or Python
   hashes.
-* Bit arrays: it is possible, usign special commands, to handle String values
-  like array of bits: you can set and clear individual bits, count all the bits
-  set to 1, find the first set or unset bit, and so forth.
+* Bit arrays (or simply bitmaps): it is possible, usign special commands, to
+  handle String values like array of bits: you can set and clear individual
+  bits, count all the bits set to 1, find the first set or unset bit, and so
+  forth.
 * HyperLogLogs: this is a probabilistic data structure which is used in order
   to estimate the cardinality of a set. Don't be scared, it is simpler than
   it seems... See later in the HyperLogLog section of this tutorial.
@@ -57,6 +58,7 @@ A few other rules about keys:
   fields, like in "comment:1234:reply.to" or "comment:1234:reply-to".
 * The maximum allowed key size is 512 MB.
 
+<a name="strings"></a>
 Redis Strings
 ---
 
@@ -225,6 +227,7 @@ remaining time to live for the key.
 In order to set and check expires in milliseconds, check the `PEXPIRE`
 the `PTTL` commands, and the full list of `SET` options.
 
+<a name="lists"></a>
 Redis Lists
 ---
 
@@ -502,6 +505,7 @@ Example of rule 3:
     > lpop mylist
     (nil)
 
+<a name="hashes"></a>
 Redis Hashes
 ---
 
@@ -547,6 +551,7 @@ You can find the [full list of hash commands in the documentation](http://redis.
 It is worth to note that small hashes (a few elements, not too big values) are
 encoded in special way in memory that make them very memory efficient.
 
+<a name="sets"></a>
 Redis Sets
 ---
 
@@ -681,6 +686,7 @@ When you need to just get random elements without removing them from the
 set, there is the `SRANDMEMBER` command suitable for the task. It also features
 the ability to return both repeating and non-repeating elements.
 
+<a name="sorted-sets"></a>
 Redis Sorted sets
 ---
 
@@ -883,7 +889,7 @@ Updating the score: leader boards
 ---
 
 Just a final note about sorted sets before switching to the next topic.
-Sorted sets scores can be updated at any time. Just calling again ZADD against
+Sorted sets scores can be updated at any time. Just calling again `ZADD` against
 an element already included in the sorted set will update its score
 (and position) with O(log(N)) time complexity, so sorted sets are suitable
 when there are tons of updates.
@@ -894,6 +900,86 @@ take users sorted by their high score, plus the get-rank operation, in order
 to show the top-N users, and the user rank in the leader board (you are
 the #4932 best score here).
 
+<a name="bitmaps"></a>
+Bitmaps
+---
+
+Bitmaps are not an actual data type, but a set of bit-oriented operations
+defined on the String type. Since strings are binary safe blobs and their
+maximum length is 512 MB, they are suitable to set up to 2^32 different
+bits.
+
+Bit operations are divided into two groups: constant-time single bit
+operations, like setting a bit to 1 or 0, or getting its value, and
+operations in group of bits, for example counting the number of set
+bits in a given range of bits (population counting).
+
+One of the biggest advantages of bitmaps is that they are sometimes an
+extremely space saving way to store informations. For example in a system
+where different users are represented by incremental user IDs, it is possible
+to remember a single bit information (for example if they want to receive
+or no the newsletter) of 4 million of users using just 512 MB of memory.
+
+Bits are set and retrieved using the `SETBIT` and `GETBIT` commands:
+
+    > setbit key 10 1
+    (integer) 1
+    > getbit key 10
+    (integer) 1
+    > getbit key 11
+    (integer) 0
+
+The `SETBIT` command takes as first argument the bit number, and as second
+argument the value to set the bit to, which is 1 or 0. The command
+automatically enlarges the string if the addressed bit is outside the
+current string length.
+
+`GETBIT` just returns the value of the bit at the specified index.
+Out of range bits (addressing a bit that is outside the length of the string
+stored into the target key) are always considered to be zero.
+
+There are three commands operating on group of bits:
+
+1. `BITOP` performs bit-wise operations between different strings. The provided operations are AND, OR, XOR and NOT.
+2. `BITCOUNT` performs population counting, reporting the number of bits set to 1.
+3. `BITPOS` finds the first bit having the specified value of 0 or 1.
+
+Both `BITOPS` and `BITCOUNT` are able to operate with byte ranges of the
+string, instead of running for the whole length of the string. The following
+is a trivial example of `BITCOUNT` call:
+
+    > setbit key 0 1
+    (integer) 0
+    > setbit key 100 1
+    (integer) 0
+    > bitcount key
+    (integer) 2
+
+Common user cases for bitmaps are:
+
+* Real time analytics of all kinds.
+* Storing space efficient but high performance boolean informations associated with object IDs.
+
+For example imagine you want to know the longest streak of daily visits of
+your web site users. You start counting days starting from zero, that is the
+day you made your web site public, and set a bit with `SETBIT` every time
+the user visits the web site. As a bit index you simply take the current unix
+time, subtract the initial offset, and divide by 3600\*24.
+
+This way for each user you have a small string containing the visit
+information for each day. With `BITCOUNT` it is possible to easily get
+the number of days a given user visited the web site, while with
+a few `BITPOS` calls, or simply fetching and analyzing the bitmap client-side,
+it is possible to easily compute the longest streak.
+
+Bitmaps are trivial to split into multiple keys, for example for
+the sake of sharding the data set and because in general it is better to
+avoid working with huge keys. To split a bitmap across different keys
+instead of setting all the bits into a key, a trivial strategy is just
+to store M bits per key and obtain the key name with `bit-number/M` and
+the Nth bit to address inside the key with `bit-number MOD M`.
+
+<a name="hyperloglogs"></a>
 HyperLogLogs
 ---
 
