@@ -847,3 +847,20 @@ So what you should know about replicas migration in short?
 * To benefit from replica migration you have just to add a few more replicas to a single master in your cluster, it does not matter what master.
 * There is a configuration parameter that controls the replica migration feature that is called `replica-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
 
+Upgrading nodes in a Redis Cluster
+---
+
+Upgrading slave nodes is easy since you just need to stop the node and restart
+it with an updated version of Redis. If there are clients scaling reads using
+slave nodes, they should be able to reconnect to a different slave if a given
+one is not avaialble.
+
+Upgrading masters is a bit more complex, and the suggested procedure is:
+
+1. Use CLUSTER FAILOVER to trigger a manual failover of the master to one of its slaves (see the "Manual failover" section of this documentation).
+2. Wait for the master to turn into a slave.
+3. Finally upgrade the node as you do for slaves.
+4. If you want the master to be the node you just upgraded, trigger a new manual failover in order to turn back the upgraded node into a master.
+
+Following this procedure you should upgrade one node after the other until
+all the nodes are upgraded.
