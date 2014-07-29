@@ -950,7 +950,7 @@
   },
   "LRANGE": {
     "summary": "Get a range of elements from a list",
-    "complexity": "O(S+N) where S is the start offset and N is the number of elements in the specified range.",
+    "complexity": "O(S+N) where S is the distance of start offset from HEAD for small lists, from nearest end (HEAD or TAIL) for large lists; and N is the number of elements in the specified range.",
     "arguments": [
       {
         "name": "key",
