@@ -47,7 +47,7 @@
       {
         "name": ["start", "end"],
         "type": ["integer", "integer"],
-        "multiple": true
+        "optional": true
       }
     ],
     "since": "2.6.0",
