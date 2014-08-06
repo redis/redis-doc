@@ -7,7 +7,7 @@ documented separately. The general form is:
 # PUBSUB CHANNELS [pattern]
 
 Lists the currently *active channels*. An active channel is a Pub/Sub channel
-with one ore more subscribers (not including clients subscribed to patterns).
+with one or more subscribers (not including clients subscribed to patterns).
 
 If no `pattern` is specified, all the channels are listed, otherwise if pattern
 is specified only channels matching the specified glob-style pattern are
