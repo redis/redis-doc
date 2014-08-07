@@ -74,7 +74,7 @@ If the instance is not a master as expected, the client should wait a short amou
 Handling reconnections
 ===
 
-Once the service name is resoled into the master address and a connection is established with the Redis master instance, every time a reconnection is needed, the client should resolve again the address using Sentinels restarting from Step 1. For instance Sentinel should contacted again the following cases:
+Once the service name is resolved into the master address and a connection is established with the Redis master instance, every time a reconnection is needed, the client should resolve again the address using Sentinels restarting from Step 1. For instance Sentinel should contacted again the following cases:
 
 * If the client reconnects after a timeout or socket error.
 * If the client reconnects because it was explicitly closed or reconnected by the user.
