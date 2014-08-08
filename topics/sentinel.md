@@ -40,10 +40,10 @@ latest stable release of Redis.
 New developments are performed in the *unstable* branch, and new features are
 backported into the 2.8 branch as soon as they are considered to be stable.
 
-IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**. Redis Sentinel shipped with Redis 2.6, that is, "Sentinel 1",
-is deprecated and has many bugs. In general you should migrate all your
-Redis and Sentinel instances to Redis 2.8 ASAP to get a better overall
-experience.
+IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped
+with Redis 2.8**. Redis Sentinel shipped with Redis 2.6, that is, "Sentinel 1",
+is deprecated and has many bugs. In general you should migrate all your Redis
+and Sentinel instances to Redis 2.8 ASAP to get a better overall experience.
 
 Running Sentinel
 ---
@@ -61,7 +61,10 @@ Sentinel mode:
 
 Both ways work the same.
 
-However **it is mandatory** to use a configuration file when running Sentinel, as this file will be used by the system in order to save the current state that will be reloaded in case of restarts. Sentinel will simply refuse to start if no configuration file is given or if the configuration file path is not writable.
+However **it is mandatory** to use a configuration file when running Sentinel,
+as this file will be used by the system in order to save the current state that
+will be reloaded in case of restarts. Sentinel will simply refuse to start if no
+configuration file is given or if the configuration file path is not writable.
 
 Sentinels by default run **listening for connections to TCP port 26379**, so
 for Sentinels to work, port 26379 of your servers **must be open** to receive
@@ -151,8 +154,8 @@ a configured **quorum**. It specifies the number of Sentinel processes
 that need to agree about the unreachability or error condition of the master in
 order to trigger a failover.
 
-However, after the failover is triggered, in order for the failover to actually be
-performed, **at least a majority of Sentinels must authorized the Sentinel to
+However, after the failover is triggered, in order for the failover to actually
+be performed, **at least a majority of Sentinels must authorized the Sentinel to
 failover**.
 
 Let's try to make things a bit more clear:
@@ -402,6 +405,7 @@ The following is a list of accepted commands:
 * **SENTINEL masters** Show a list of monitored masters and their state.
 * **SENTINEL master `<master name>`** Show the state and info of the specified master.
 * **SENTINEL slaves `<master name>`** Show a list of slaves for this master, and their state.
+* **SENTINEL sentinels `<master name>`** Show a list of sentinels for this master, and their state.
 * **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted slave.
 * **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every slave and sentinel already discovered and associated with the master.
 * **SENTINEL failover `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
@@ -409,7 +413,7 @@ The following is a list of accepted commands:
 Reconfiguring Sentinel at Runtime
 ---
 
-Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagates the changes to the other Sentinels in the network.
+Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagate the changes to the other Sentinels in the network.
 
 The following is a list of `SENTINEL` sub commands used in order to update the configuration of a Sentinel instance.
 
@@ -426,6 +430,12 @@ As already stated, `SENTINEL SET` can be used to set all the configuration param
     SENTINEL SET objects-cache-master quorum 5
 
 Note that there is no equivalent GET command since `SENTINEL MASTER` provides all the configuration parameters in a simple to parse format (as a field/value pairs array).
+
+The following is an example of completely using the API to add a master to the
+sentinel, inlcuding the setting of the master's password.
+
+	SENTINEL MONITOR objects-cache-master 192.168.1.101 2
+    SENTINEL SET objects-cache-master masterauth mysecretauthstring
 
 Pub/Sub Messages
 ---
