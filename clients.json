@@ -799,6 +799,15 @@
   },
   
   {
+    "name": "libredis",
+    "language": "Go",
+    "repository": "https://github.com/therealbill/libredis",
+    "description": "Interacting with Redis beyond just connection",
+    "authors": ["Bill Anderson"],
+    "active": true
+  },
+
+  {
     "name": "redis",
     "language": "Nimrod",
     "repository": "https://github.com/Araq/Nimrod",
