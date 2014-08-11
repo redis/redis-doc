@@ -915,7 +915,7 @@ operations in group of bits, for example counting the number of set
 bits in a given range of bits (population counting).
 
 One of the biggest advantages of bitmaps is that they are sometimes an
-extremely space saving way to store informations. For example in a system
+extremely space saving way to store information. For example in a system
 where different users are represented by incremental user IDs, it is possible
 to remember a single bit information (for example if they want to receive
 or no the newsletter) of 4 billion of users using just 512 MB of memory.
@@ -958,7 +958,7 @@ is a trivial example of `BITCOUNT` call:
 Common user cases for bitmaps are:
 
 * Real time analytics of all kinds.
-* Storing space efficient but high performance boolean informations associated with object IDs.
+* Storing space efficient but high performance boolean information associated with object IDs.
 
 For example imagine you want to know the longest streak of daily visits of
 your web site users. You start counting days starting from zero, that is the
