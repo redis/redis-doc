@@ -38,7 +38,7 @@ SET mykey "\xff\xf0\x00"
 BITPOS mykey 0
 SET mykey "\x00\xff\xf0"
 BITPOS mykey 1 0
-BITPOS mykey 1 1
+BITPOS mykey 1 2
 set mykey "\x00\x00\x00"
 BITPOS mykey 1
 ```
