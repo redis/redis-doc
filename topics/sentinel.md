@@ -217,7 +217,7 @@ So for example the configuration for the master `mymaster` start with all the
 Sentinels believing the master is at 192.168.1.50:6379. This configuration
 has version 1. After some time a Sentinel is authorized to failover with version 2.
 If the failover is successful, it will start to broadcast a new configuration, let's
-say 192.168.50:9000, with version 2. All the other instances will see this configuration
+say 192.168.1.50:9000, with version 2. All the other instances will see this configuration
 and will update their configuration accordingly, since the new configuration has
 a greater version.
 
