@@ -304,5 +304,13 @@
     "repository": "https://pypi.python.org/pypi/nydus",
     "description": "Connection clustering and routing for Redis and Python.",
     "authors": ["zeeg"]
+  },
+  {
+    "name": "redis-mount",
+    "language": "Go",
+    "url": "https://github.com/poying/redis-mount",
+    "repository": "https://github.com/poying/redis-mount",
+    "description": "redis-mount lets you use Redis as a filesystem.",
+    "authors": ["poying"]
   }
 ]
