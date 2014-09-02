@@ -141,7 +141,7 @@ the `MSET` and `MGET` commands:
     2) "20"
     3) "30"
 
-When `MSET` is used, Redis returns an array of values.
+When `MGET` is used, Redis returns an array of values.
 
 Altering and querying the key space
 ---
