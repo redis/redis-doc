@@ -340,7 +340,7 @@ are the following:
 * Communication between processes, using a consumer-producer pattern where the producer pushes items into a list, and a consumer (usually a *worker*) consumes those items and executed actions. Redis has special list commands to make this use case both more reliable and efficient.
 
 For example both the popular Ruby libraries [resque](https://github.com/resque/resque) and
-[sidekiq](https://github.com/mperham/sidekiq) use Redis lists under the hoods in order to
+[sidekiq](https://github.com/mperham/sidekiq) use Redis lists under the hood in order to
 implement background jobs.
 
 The popular Twitter social network [takes the latest tweets](http://www.infoq.com/presentations/Real-Time-Delivery-Twitter)
@@ -455,7 +455,7 @@ an empty list if the key does not exist and we are trying to add elements
 to it, for example, with `LPUSH`.
 
 This is not specific to lists, it applies to all the Redis data types
-composed of multiple elements--Sets, Sorted Sets and Hashes.
+composed of multiple elements -- Sets, Sorted Sets and Hashes.
 
 Basically we can summarize the behavior with three rules:
 
@@ -568,7 +568,7 @@ multiple sets, and so forth.
     3. 2
 
 Here I've added three elements to my set and told Redis to return all the
-elements. As you can see they are not sorted--Redis is free to return the
+elements. As you can see they are not sorted -- Redis is free to return the
 elements in any order at every call, since there is no contract with the
 user about element ordering.
 
