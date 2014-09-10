@@ -40,10 +40,10 @@ latest stable release of Redis.
 New developments are performed in the *unstable* branch, and new features are
 backported into the 2.8 branch as soon as they are considered to be stable.
 
-IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped with Redis 2.8**. Redis Sentinel shipped with Redis 2.6, that is, "Sentinel 1",
-is deprecated and has many bugs. In general you should migrate all your
-Redis and Sentinel instances to Redis 2.8 ASAP to get a better overall
-experience.
+IMPORTANT: **Even if you are using Redis 2.6, you should use Sentinel shipped
+with Redis 2.8**. Redis Sentinel shipped with Redis 2.6, that is, "Sentinel 1",
+is deprecated and has many bugs. In general you should migrate all your Redis
+and Sentinel instances to Redis 2.8 ASAP to get a better overall experience.
 
 Running Sentinel
 ---
@@ -61,7 +61,10 @@ Sentinel mode:
 
 Both ways work the same.
 
-However **it is mandatory** to use a configuration file when running Sentinel, as this file will be used by the system in order to save the current state that will be reloaded in case of restarts. Sentinel will simply refuse to start if no configuration file is given or if the configuration file path is not writable.
+However **it is mandatory** to use a configuration file when running Sentinel,
+as this file will be used by the system in order to save the current state that
+will be reloaded in case of restarts. Sentinel will simply refuse to start if no
+configuration file is given or if the configuration file path is not writable.
 
 Sentinels by default run **listening for connections to TCP port 26379**, so
 for Sentinels to work, port 26379 of your servers **must be open** to receive
@@ -90,7 +93,7 @@ following:
 You only need to specify the masters to monitor, giving to each separated
 master (that may have any number of slaves) a different name. There is no
 need to specify slaves, which are auto-discovered. Sentinel will update the
-configuration automatically with additional informations about slaves (in
+configuration automatically with additional information about slaves (in
 order to retain the information in case of restart). The configuration is
 also rewritten every time a slave is promoted to master during a failover.
 
@@ -132,16 +135,16 @@ master.
 the new master after a failover at the same time. The lower the number, the
 more time it will take for the failover process to complete, however if the
 slaves are configured to serve old data, you may not want all the slaves to
-resync at the same time with the new master, as while the replication process
+re-sync at the same time with the new master, as while the replication process
 is mostly non blocking for a slave, there is a moment when it stops to load
-the bulk data from the master during a resync. You may make sure only one
+the bulk data from the master during a re-sync. You may make sure only one
 slave at a time is not reachable by setting this option to the value of 1.
 
 Additional options are described in the rest of this document and
 documented in the example `sentinel.conf` file shipped with the Redis
 distribution.
 
-All the configuration parameters can be modified at runtime using the `SENTINEL SET` command. See the **Reconfiguring Sentinel at runtime** section for more information.
+All the configuration parameters can be modified at run time using the `SENTINEL SET` command. See the **Reconfiguring Sentinel at run time** section for more information.
 
 Quorum
 ---
@@ -151,8 +154,8 @@ a configured **quorum**. It specifies the number of Sentinel processes
 that need to agree about the unreachability or error condition of the master in
 order to trigger a failover.
 
-However, after the failover is triggered, in order for the failover to actually be
-performed, **at least a majority of Sentinels must authorized the Sentinel to
+However, after the failover is triggered, in order for the failover to actually
+be performed, **at least a majority of Sentinels must authorized the Sentinel to
 failover**.
 
 Let's try to make things a bit more clear:
@@ -208,7 +211,7 @@ using Redis Pub/Sub messages, both in the master and all the slaves.
 At the same time all the Sentinels wait for messages to see what is the configuration
 advertised by the other Sentinels.
 
-Configurations are broadcasted in the `__sentinel__:hello` Pub/Sub channel.
+Configurations are broadcast in the `__sentinel__:hello` Pub/Sub channel.
 
 Because every configuration has a different version number, the greater version
 always wins over smaller versions.
@@ -217,7 +220,7 @@ So for example the configuration for the master `mymaster` start with all the
 Sentinels believing the master is at 192.168.1.50:6379. This configuration
 has version 1. After some time a Sentinel is authorized to failover with version 2.
 If the failover is successful, it will start to broadcast a new configuration, let's
-say 192.168.1.50:9000, with version 2. All the other instances will see this configuration
+say 192.168.50:9000, with version 2. All the other instances will see this configuration
 and will update their configuration accordingly, since the new configuration has
 a greater version.
 
@@ -237,7 +240,7 @@ concepts of *being down*, one is called a *Subjectively Down* condition
 (SDOWN) and is a down condition that is local to a given Sentinel instance.
 Another is called *Objectively Down* condition (ODOWN) and is reached when
 enough Sentinels (at least the number configured as the `quorum` parameter
-of the monitored master) have an SDOWN condition, and get feedbacks from
+of the monitored master) have an SDOWN condition, and get feedback from
 other Sentinels using the `SENTINEL is-master-down-by-addr` command.
 
 From the point of view of a Sentinel an SDOWN condition is reached if we
@@ -286,10 +289,10 @@ This is obtained by sending *Hello Messages* into the channel named
 Similarly you don't need to configure what is the list of the slaves attached
 to a master, as Sentinel will auto discover this list querying Redis.
 
-* Every Sentinel publishes a message to every monitored master and slave Pub/Sub channel `__sentinel__:hello`, every two seconds, announcing its presence with ip, port, runid.
+* Every Sentinel publishes a message to every monitored master and slave Pub/Sub channel `__sentinel__:hello`, every two seconds, announcing its presence with IP, port, runid.
 * Every Sentinel is subscribed to the Pub/Sub channel `__sentinel__:hello` of every master and slave, looking for unknown sentinels. When new sentinels are detected, they are added as sentinels of this master.
 * Hello messages also include the full current configuration of the master. If another Sentinel has a configuration for a given master that is older than the one received, it updates to the new configuration immediately.
-* Before adding a new sentinel to a master a Sentinel always checks if there is already a sentinel with the same runid or the same address (ip and port pair). In that case all the matching sentinels are removed, and the new added.
+* Before adding a new sentinel to a master a Sentinel always checks if there is already a sentinel with the same runid or the same address (IP and port pair). In that case all the matching sentinels are removed, and the new added.
 
 Consistency under partitions
 ---
@@ -402,30 +405,65 @@ The following is a list of accepted commands:
 * **SENTINEL masters** Show a list of monitored masters and their state.
 * **SENTINEL master `<master name>`** Show the state and info of the specified master.
 * **SENTINEL slaves `<master name>`** Show a list of slaves for this master, and their state.
-* **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted slave.
+* **SENTINEL sentinels `<master name>`** Show a list of sentinels for this master, and their state.
+* **SENTINEL get-master-addr-by-name `<master name>`** Return the IP and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted slave.
 * **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every slave and sentinel already discovered and associated with the master.
 * **SENTINEL failover `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
 
-Reconfiguring Sentinel at Runtime
+Reconfiguring Sentinel at Run-time
 ---
 
-Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagates the changes to the other Sentinels in the network.
+Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagate the changes to the other Sentinels in the network.
 
 The following is a list of `SENTINEL` sub commands used in order to update the configuration of a Sentinel instance.
 
-* **SENTINEL MONITOR `<name>` `<ip>` `<port>` `<quorum>`** This command tells the Sentinel to start monitoring a new master with the specified name, ip, port, and quorum. It is identical to the `sentinel monitor` configuration directive in `sentinel.conf` configuration file, with the difference that you can't use an hostname in as `ip`, but you need to provide an IPv4 or IPv6 address.
-* **SENTINEL REMOVE `<name>`** is used in order to remove the specified master: the master will no longer be monitored, and will totally be removed from the internal state of the Sentinel, so it will no longer listed by `SENTINEL masters` and so forth.
+* **SENTINEL MONITOR `<name>` `<IP>` `<port>` `<quorum>`** This command tells the Sentinel to start monitoring a new master with the specified name, IP, port, and quorum. It is identical to the `sentinel monitor` configuration directive in `sentinel.conf` configuration file, with the difference that you can't use a hostname in as `IP`, but you need to provide an IPv4 or IPv6 address.
+* **SENTINEL REMOVE `<name>`** is used in order to remove the specified master: the master will no longer be monitored, and will totally be removed from the internal state of the Sentinel, so it will no longer listed by `SENTINEL masters` and so forth. Note that currently, this event is not propagated to the other Sentinels managing the master, thus their info other sentinels will be stale.
 * **SENTINEL SET `<name>` `<option>` `<value>`** The SET command is very similar to the `CONFIG SET` command of Redis, and is used in order to change configuration parameters of a specific master. Multiple option / value pairs can be specified (or none at all). All the configuration parameters that can be configured via `sentinel.conf` are also configurable using the SET command.
 
 The following is an example of `SENTINEL SET` command in order to modify the `down-after-milliseconds` configuration of a master called `objects-cache`:
 
     SENTINEL SET objects-cache-master down-after-milliseconds 1000
 
-As already stated, `SENTINEL SET` can be used to set all the configuration parameters that are settable in the startup configuration file. Moreover it is possible to change just the master quorum configuration without removing and re-adding the master with `SENTINEL REMOVE` followed by `SENTINEL MONITOR`, but simply using:
+As already stated, `SENTINEL SET` can be used to set all the configuration parameters that are settable in the start-up configuration file. Moreover it is possible to change just the master quorum configuration without removing and re-adding the master with `SENTINEL REMOVE` followed by `SENTINEL MONITOR`, but simply using:
 
     SENTINEL SET objects-cache-master quorum 5
 
 Note that there is no equivalent GET command since `SENTINEL MASTER` provides all the configuration parameters in a simple to parse format (as a field/value pairs array).
+
+The following is an example of completely using the API to add a master to the
+sentinel, including the setting of the master's password.
+
+	SENTINEL MONITOR objects-cache-master 192.168.1.101 2
+    SENTINEL SET objects-cache-master auth-pass mysecretauthstring
+
+Handling Slave Removal
+---
+
+As Sentinel is designed to manage all replication configuration of every
+Redis instance it is informed of, either directly by adding a master or
+indirectly by an instance being a slave of a managed master, you can run
+into issues when you want a slave to no longer be part of a manages
+master pod. A key to understanding how this works is to know Sentinel
+really only knows what instances to manage by their `IP,PORT` address
+pair. Once Sentinel learns of an address pair it will forever try to
+manage it.
+
+Thus if you were to decide `C` now needs to be it's own master (ie. you
+are re-using instances) Sentinel will "correct" `C` after your `slaveof
+no one` command because it was told `C` is a slave to `A`.
+
+There are two ways to handle this. You can remove `A` from all sentinels
+managing it and re-add it, or you can "reset" the information for `A`.
+For remove-and-re-add you would of course use  `SENTINEL REMOVE A` on
+each sentinel and then repeat the `SENTINEL MONITOR` command to add it.
+However, during this time no events on `A` will be caught.
+
+The alternative is to issue `SENTINEL RESET A` on each master and let
+Sentinel re-discover the current slaves. This approach will leave `A` in
+a state where it will not fail over until it has a promotable slave, but
+the events should still be logged and caught - just not acted upon.
+
 
 Pub/Sub Messages
 ---
@@ -445,7 +483,7 @@ this API. The first word is the channel / event name, the rest is the format of 
 
 Note: where *instance details* is specified it means that the following arguments are provided to identify the target instance:
 
-    <instance-type> <name> <ip> <port> @ <master-name> <master-ip> <master-port>
+    <instance-type> <name> <IP> <port> @ <master-name> <master-IP> <master-port>
 
 The part identifying the master (from the @ argument to the end) is optional
 and is only specified if the instance is not a master itself.
@@ -455,7 +493,7 @@ and is only specified if the instance is not a master itself.
 * **+failover-state-reconf-slaves** `<instance details>` -- Failover state changed to `reconf-slaves` state.
 * **+failover-detected** `<instance details>` -- A failover started by another Sentinel or any other external entity was detected (An attached slave turned into a master).
 * **+slave-reconf-sent** `<instance details>` -- The leader sentinel sent the `SLAVEOF` command to this instance in order to reconfigure it for the new slave.
-* **+slave-reconf-inprog** `<instance details>` -- The slave being reconfigured showed to be a slave of the new master ip:port pair, but the synchronization process is not yet complete.
+* **+slave-reconf-inprog** `<instance details>` -- The slave being reconfigured showed to be a slave of the new master IP:port pair, but the synchronization process is not yet complete.
 * **+slave-reconf-done** `<instance details>` -- The slave is now synchronized with the new master.
 * **-dup-sentinel** `<instance details>` -- One or more sentinels for the specified master were removed as duplicated (this happens for instance when a Sentinel instance is restarted).
 * **+sentinel** `<instance details>` -- A new sentinel for this master was detected and attached.
@@ -469,7 +507,7 @@ and is only specified if the instance is not a master itself.
 * **+failover-state-select-slave** `<instance details>` -- New failover state is `select-slave`: we are trying to find a suitable slave for promotion.
 * **no-good-slave** `<instance details>` -- There is no good slave to promote. Currently we'll try after some time, but probably this will change and the state machine will abort the failover at all in this case.
 * **selected-slave** `<instance details>` -- We found the specified good slave to promote.
-* **failover-state-send-slaveof-noone** `<instance details>` -- We are trynig to reconfigure the promoted slave as master, waiting for it to switch.
+* **failover-state-send-slaveof-noone** `<instance details>` -- We are trying to reconfigure the promoted slave as master, waiting for it to switch.
 * **failover-end-for-timeout** `<instance details>` -- The failover terminated for timeout, slaves will eventually be configured to replicate with the new master anyway.
 * **failover-end** `<instance details>` -- The failover terminated with success. All the slaves appears to be reconfigured to replicate with the new master.
 * **switch-master** `<master name> <oldip> <oldport> <newip> <newport>` -- The master new IP and address is the specified one after a configuration change. This is **the message most external users are interested in**.
