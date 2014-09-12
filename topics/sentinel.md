@@ -427,6 +427,58 @@ As already stated, `SENTINEL SET` can be used to set all the configuration param
 
 Note that there is no equivalent GET command since `SENTINEL MASTER` provides all the configuration parameters in a simple to parse format (as a field/value pairs array).
 
+Adding or removing Sentinels
+---
+
+Adding a new Sentinel to your deployment is a simple process because of the
+auto-discover mechanism implemented by Sentinel. All you need to do is to
+start the new Sentinel configured to monitor the currently active master.
+Within 10 seconds the Sentinel will acquire the list of other Sentinels and
+the set of slaves attached to the master.
+
+If you need to add multiple Sentinels at once, it is suggested to add it
+one after the other, waiting for all the other Sentinels to already know
+about the first one before adding the next. This is useful in order to still
+guarantee that majority can be achieved only in one side of a partition,
+in the chance failures should happen in the process of adding new Sentinels.
+
+This can be easily achieved by adding every new Sentinel with a 30 seconds delay,
+and during absence of network partitions.
+
+At the end of the process it is possible to use the command
+`SENTINEL MASTER mastername` in order to check if all the Sentinels agree about
+the total number of Sentinels monitoring the master.
+
+Removing a Sentinel is a bit more complex: Sentinels never forget already seen
+Sentinels, even if they are not reachable for a long time, since we don't
+want to dynamically change the majority needed to authorize a failover and
+the creation of a new configuration number. So in order to remove a Sentinel
+the following steps should be performed in absence of network partitions:
+
+1. Stop the Sentinel process of the Sentinel you want to remove.
+2. Send a `SENTINEL RESET *` command to all the other Sentinel instances (instead of `*` you can use the exact master name if you want to reset just a single master). One after the other, waiting at least 30 seconds between instances.
+3. Check that all the Sentinels agree about the number of Sentinels currently active, by inspecting the output of `SENTINEL MASTER mastername` of every Sentinel.
+
+Removing the old master or unreachable slaves.
+---
+
+Sentinels never forget about slaves of a given master, even when they are
+unreachable for a long time. This is useful, because Sentinels should be able
+to correctly reconfigure a returning slave after a network partition or a
+failure event.
+
+Moreover, after a failover, the failed over master is virtually added as a
+slave of the new master, this way it will be reconfigured to replicate with
+the new master as soon as it will be available again.
+
+However sometimes you want to remove a slave (that may be the old master)
+forever from the list of slaves monitored by Sentinels.
+
+In order to do this, you need to send a `SENTINEL RESET mastername` command
+to all the Sentinels: they'll refresh the list of slaves within the next
+10 seconds, only adding the ones listed as correctly replicating from the
+current master `INFO` output.
+
 Pub/Sub Messages
 ---
 
