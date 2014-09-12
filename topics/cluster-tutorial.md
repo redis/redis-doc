@@ -52,6 +52,13 @@ not able to communicate.
 
 The command port and cluster bus port offset is fixed and is always 10000.
 
+Note that for a Redis Cluster to work properly you need, for each node:
+
+1. The normal client communication port (usually 6379) used to communicate with clients to be open to all the clients that need to reach the cluster, plus all the other cluster nodes (that use the client port for keys migrations).
+2. The cluster bus port (the client port + 10000) must be reachable from all the other cluster nodes.
+
+If you don't open both TCP ports, your cluster will not work as expected.
+
 Redis Cluster data sharding
 ---
 
