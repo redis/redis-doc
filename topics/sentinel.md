@@ -377,6 +377,34 @@ the failover more resistant to partitions:
 * Masters failed over are reconfigured as slaves when they return available.
 * Slaves partitioned away during a partition are reconfigured once reachable.
 
+Sentinel and Redis authentication
+---
+
+When the master is configured to require a password from clients,
+as a security measure, slaves need to also be aware of this password in
+order to authenticate with the master and create the master-slave connection
+used for the asynchronous replication protocol.
+
+This is achieved using the following configuration directives:
+
+* `requirepass` in the master, in order to set the authentication password, and to make sure the instance will not process requests for non authenticated clients.
+* `masterauth` in the slaves in order for the slaves to authenticate with the master in order to correctly replicate data from it.
+
+When Sentinel is used, there is not a single master, since after a failover
+slaves may play the role of masters, and old masters can be reconfigured in
+order to act as slaves, so what you want to do is to set the above directives
+in all your instances, both masters and slaves.
+
+This is also usually a logically sane setup since you don't want to protect
+data only in the master, having the same data accessible in the slaves.
+
+However, in the uncommon case where you need a slave that is accessible
+without authentication, you can still do it by setting up a slave priority
+of zero (that will not allow the salve to be promoted to master), and
+configuring only the `masterauth` directive for this slave, without
+the `requirepass` directive, so that data will be readable by unauthenticated
+clients.
+
 Sentinel API
 ===
 
