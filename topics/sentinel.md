@@ -377,6 +377,53 @@ the failover more resistant to partitions:
 * Masters failed over are reconfigured as slaves when they return available.
 * Slaves partitioned away during a partition are reconfigured once reachable.
 
+Slave selection and priority
+---
+
+When a Sentinel instance is ready to perform a failover, since the master
+is in `ODOWN` state and the Sentinel received the authorization to failover
+from the majority of the Sentinel instances known, a suitable slave needs
+to be selected.
+
+The slave selection process evaluates the following informations about slaves:
+
+1. Disconnection time from the master.
+2. Slave priority.
+3. Replication offset processed.
+4. Run ID.
+
+A slave that is found to be disconnected from the master for more than ten
+times the configured masster timeout (down-after-milliseconds option), plus
+the time the master is also not available from the point of view of the
+Sentinel doing the failover, is considered to be not suitable for the failover
+and is skipped.
+
+In more rigorous terms, a slave whose the `INFO` output suggests to be
+disconnected form the master for more than:
+
+    (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
+
+Is considered to be not reliable and is discareded at all.
+
+The slave selection only consider the slaves that passed the above test,
+and sorts it based on the above criteria, in the following order.
+
+1. The slaves are sorted by `slave-priority` as confiugred in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
+2. If the priority is the same, the replication offset processed by the slave is checked, and the slave that received more data from the master is selected.
+3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more determiistic, instead of resorting to select a random slave.
+
+Redis masters (that may be turned into slaves after a failover), and slaves, all
+must be configured with a `slave-priority` if there are machines to be strongly
+preferred. Otherwise all the instances can run with the default run ID (which
+is the suggested setup, since it is far more interesting to select the slave
+by replication offset).
+
+A Redis instance can be configured with a special `slave-priority` of zero
+in order to be **never selected** by Sentinels as the new master.
+However a slave configured in this way will still be reconfigured by
+Sentinels in order to replicate with the new master after a failover, the
+only difference is that it will never become a master itself.
+
 Sentinel and Redis authentication
 ---
 
