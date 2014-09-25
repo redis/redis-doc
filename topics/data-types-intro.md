@@ -131,7 +131,7 @@ You can `GETSET` the key, assigning it the new value of "0" and reading the
 old value back.
 
 The ability to set or retrieve the value of multiple keys in a single
-command is also useful for reduce latency. For this reason there are
+command is also useful to reduce latency. For this reason there are
 the `MSET` and `MGET` commands:
 
     > mset a 10 b 20 c 30
