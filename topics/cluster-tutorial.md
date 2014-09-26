@@ -885,7 +885,7 @@ what is the most important detail is if multiple-keys operations are used
 by the application, and how. There are three different cases:
 
 1. Multiple keys operations, or transactions, or Lua scripts involving muliple keys, are not used. Keys are accessed independently (even if accessed via transactions or Lua scripts grouping multiple commands, about the same key, together).
-2. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used by only with keys having the same **hash tag**, which means that the keys used together all have a `{...}` sub-string that happens to be identical. For example the following multiple keys operation is defined in the context of the same hash tag: `SUNION {user:1000}.foo {user:1000}.bar`.
+2. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used but only with keys having the same **hash tag**, which means that the keys used together all have a `{...}` sub-string that happens to be identical. For example the following multiple keys operation is defined in the context of the same hash tag: `SUNION {user:1000}.foo {user:1000}.bar`.
 3. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
 
 The third case is not handled by Redis Cluster: the application requires to
