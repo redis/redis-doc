@@ -224,7 +224,7 @@ The example above sets a key with the string value `100`, having an expire
 of ten seconds. Later the `TTL` command is called in order to check the
 remaining time to live for the key.
 
-In order to set and check expires in milliseconds, check the `PEXPIRE`
+In order to set and check expires in milliseconds, check the `PEXPIRE` and
 the `PTTL` commands, and the full list of `SET` options.
 
 <a name="lists"></a>
