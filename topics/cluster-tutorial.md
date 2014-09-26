@@ -871,3 +871,51 @@ Upgrading masters is a bit more complex, and the suggested procedure is:
 
 Following this procedure you should upgrade one node after the other until
 all the nodes are upgraded.
+
+Migrating to Redis Cluster
+---
+
+Users willing to migrate to Redis Cluster may have just a single master, or
+may already using a preexisting sharding setup, where keys
+are split among N nodes, using some in-house algorithm or a sharding algorithm
+implemented by their client library or Redis proxy.
+
+In both cases it is possible to migrate to Redis Cluster easily, however
+what is the most important detail is if multiple-keys operations are used
+by the application, and how. There are three different cases:
+
+1. Multiple keys operations, or transactions, or Lua scripts involving muliple keys, are not used. Keys are accessed independently (even if accessed via transactions or Lua scripts grouping multiple commands together).
+2. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used by only with keys having the same **hash tag**, which means that the keys used together all have a `{...}` sub-string that happens to be identical. For example the following multiple keys operation is defined in the context of the same hash tag: `SUNION {user:1000}.foo {user:1000}.bar`.
+3. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
+
+The third case is not handled by Redis Cluster: the application requires to
+be modified in order to don't use multi keys operations or only use them in
+the context of the same hash tag.
+
+Case 1 and 2 are covered, so we'll focus on those two cases, that are handled
+in the same way, so no distinction will be made in the documentation.
+
+Assuming you have your preexisting data set split into N masters, where
+N=1 if you have no preexisting sharding, the following steps are needed
+in order to migrate your data set to Redis Cluster:
+
+1. Stop your clients. No automatic live-migration to Redis Cluster is currently possible. You may be able to do it orchestrating a live migration in the context of your application / enviroment.
+2. Generate an append only file for all of your N masters using the BGREWRITEAOF command, and waiting for the AOF file to be completely generated.
+3. Save your AOF files from aof-1 to aof-N somewhere. At this point you can stop your old instances if you wish (this is useful since in non-virtualized deployments you often need to reuse the same computers).
+4. Create a Redis Cluster composed of N masters and zero slaves. You'll add slaves later. Make sure all your nodes are using the append only file for persistence.
+5. Stop all the cluster nodes, substitute their append only file with your pre-eisitng append only files, aof-1 for the first node, aof-2 for the secod node, up to aof-N.
+6. Restart your Redis Cluster nodes with the new AOF files. They'll complain that there are keys that should not be there according to their configuration.
+7. Use `redis-trib fix` command in order to fix the cluster so that keys will be migrated according to the hash slots each node is authoritative or not.
+8. Use `redis-trib check` at the end to make sure your cluster is ok.
+9. Restart your clients modified to use a Redis Cluster aware client library.w
+
+There is an alternative way to import data from external instances to a Redis
+Cluster, which is to use the `redis-trib import` command.
+
+The command moves all the keys of a running instance (deleting the keys from
+the source instance) to the specified pre-existing Redis Cluster. However
+note that if you use a Redis 2.8 instance as source instance the operation
+may be slow since 2.8 does not implement migrate connection caching, so you
+may want to restart your source instance with a Redis 3.x version before
+to perform such operation.
+
