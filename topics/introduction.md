@@ -27,7 +27,7 @@ Other features include:
 * [Pub/Sub](/topics/pubsub)
 * [Lua scripting](/commands/eval)
 * [Keys with a limited time-to-live](/commands/expire)
-* [LRU eviction fo keys](/topics/lru-cache)
+* [LRU eviction of keys](/topics/lru-cache)
 * [Automatic failover](/topics/sentinel)
 
 You can use Redis from [most programming languages](/clients) out there. 
