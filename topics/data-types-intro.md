@@ -918,7 +918,7 @@ One of the biggest advantages of bitmaps is that they are sometimes an
 extremely space saving way to store informations. For example in a system
 where different users are represented by incremental user IDs, it is possible
 to remember a single bit information (for example if they want to receive
-or no the newsletter) of 4 million of users using just 512 MB of memory.
+or no the newsletter) of 4 million of users using just 500 kB of memory.
 
 Bits are set and retrieved using the `SETBIT` and `GETBIT` commands:
 
