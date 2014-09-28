@@ -6,7 +6,7 @@ different processes require to operate with shared resources in a mutually
 exclusive way.
 
 There are a number of libraries and blog posts describing how to implement
-a DLM (Distributed Lock Manager) with Redis, but every library use a different
+a DLM (Distributed Lock Manager) with Redis, but every library uses a different
 approach, and many use a simple approach with lower guarantees compared to
 what can be achieved with slightly more complex designs.
 
@@ -86,7 +86,7 @@ A simpler solution is to use a combination of unix time with microseconds resolu
 
 The time we use as the key time to live, is called the “lock validity time”. It is both the auto release time, and the time the client has in order to perform the operation required before another client may be able to acquire the lock again, without technically violating the mutual exclusion guarantee, which is only limited to a given window of time from the moment the lock is acquired.
 
-So now we have a good way to acquire and release the lock. The system, reasoning about a non-distrubited system which is composed of a single instance, always available, is safe. Let’s extend the concept to a distributed system where we don’t have such guarantees.
+So now we have a good way to acquire and release the lock. The system, reasoning about a non-distributed system which is composed of a single instance, always available, is safe. Let’s extend the concept to a distributed system where we don’t have such guarantees.
 
 The Redlock algorithm
 ---
@@ -106,7 +106,7 @@ Is the algorithm asynchronous?
 
 The algorithm relies on the assumption that while there is no synchronized clock across the processes, still the local time in every process flows approximately at the same rate, with an error which is small compared to the auto-release time of the lock. This assumption closely resembles a real-world computer: every computer has a local clock and we can usually rely on different computers to have a clock drift which is small.
 
-At this point we need to better specifiy our mutual exclusion rule: it is guaranteed only as long as the client holding the lock will terminate its work within the lock validity time (as obtained in step 3), minus some time (just a few milliseconds in order to compensate for clock drift between processes).
+At this point we need to better specify our mutual exclusion rule: it is guaranteed only as long as the client holding the lock will terminate its work within the lock validity time (as obtained in step 3), minus some time (just a few milliseconds in order to compensate for clock drift between processes).
 
 For more information about similar systems requiring a bound *clock drift*, this paper is an interesting reference: [Leases: an efficient fault-tolerant mechanism for distributed file cache consistency](http://dl.acm.org/citation.cfm?id=74870).
 
@@ -133,7 +133,7 @@ During the time the majority of keys are set, another client will not be able to
 
 However we want to also make sure that multiple clients trying to acquire the lock at the same time can’t simultaneously succeed.
 
-If a client locked the majority of instances using a time near, or greater, than the lock maximum validity time (the TTL we use for SET basically), it will consider the lock invalid and will unlock the instances, so we only need to consider the case where a client was able to lock the majority of instances in a time which is less than the validity time. In this case for the argument already expressed above, for `MIN_VALIDITY` no client should be able to re-acquire the lock. So multiple clients will be albe to lock N/2+1 instances at the same time (with “time" being the end of Step 2) only when the time to lock the majority was greater than the TTL time, making the lock invalid.
+If a client locked the majority of instances using a time near, or greater, than the lock maximum validity time (the TTL we use for SET basically), it will consider the lock invalid and will unlock the instances, so we only need to consider the case where a client was able to lock the majority of instances in a time which is less than the validity time. In this case for the argument already expressed above, for `MIN_VALIDITY` no client should be able to re-acquire the lock. So multiple clients will be able to lock N/2+1 instances at the same time (with “time" being the end of Step 2) only when the time to lock the majority was greater than the TTL time, making the lock invalid.
 
 Are you able to provide a formal proof of safety, point out to existing algorithms that are similar enough, or to find a bug? That would be very appreciated.
 
@@ -177,7 +177,7 @@ become invalid and be automatically released.
 Using *delayed restarts* it is basically possible to achieve safety even
 without any kind of Redis persistence available, however note that this may
 translate into an availability penalty. For example if a majority of instances
-crash, the system will become gobally unavailable for `TTL` (here globally means
+crash, the system will become globally unavailable for `TTL` (here globally means
 that no resource at all will be lockable during this time).
 
 Making the algorithm more reliable: Extending the lock
@@ -191,7 +191,7 @@ lock by sending a Lua script to all the instances that extends the TTL of the ke
 if the key exists and its value is still the random value the client assigned
 when the lock was acquired.
 
-The client should only consider the lock re-acquired if it was albe to extend
+The client should only consider the lock re-acquired if it was able to extend
 the lock into the majority of instances, and within the validity time
 (basically the algorithm to use is very similar to the one used when acquiring
 the lock).
