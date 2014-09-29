@@ -41,7 +41,7 @@ The following follow signals are handled as a Redis crash:
 * SIGFPE
 * SIGILL
 
-One one of these signals is trapped, Redis aborts any current operation and performs the following actions:
+Once one of these signals is trapped, Redis aborts any current operation and performs the following actions:
 
 * A bug report is produced on the log file. This includes a stack trace, dump of registers, and information about the state of clients.
 * Since Redis 2.8 (currently a development version) a fast memory test is performed as a first check of the reliability of the crashing system.
