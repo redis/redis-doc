@@ -31,7 +31,7 @@ PFCOUNT hll some-other-hll
 Performances
 ---
 
-When `PFCOUNT` is called with a single key, performances as excellent even if
+When `PFCOUNT` is called with a single key, performances are excellent even if
 in theory constant times to process a dense HyperLogLog are high. This is
 possible because the `PFCOUNT` uses caching in order to remember the cardinality
 previously computed, that rarely changes because most `PFADD` operations will
