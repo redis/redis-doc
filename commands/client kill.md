@@ -17,7 +17,7 @@ instead of killing just by address. The following filters are available:
 * `CLIENT KILL TYPE type`, where *type* is one of `normal`, `slave`, `pubsub`. This closes the connections of **all the clients** in the specified class. Note that clients blocked into the `MONITOR` command are considered to belong to the `normal` class.
 * `CLIENT KILL SKIPME yes/no`. By default this option is set to `yes`, that is, the client calling the command will not get killed, however setting this option to `no` will have the effect of also killing the client calling the command.
 
-It is possible to provide multiple filters at the same time. The command will ahdnle multiple filters via logical AND. For example:
+It is possible to provide multiple filters at the same time. The command will handle multiple filters via logical AND. For example:
 
     CLIENT KILL addr 127.0.0.1:6379 type slave
 
