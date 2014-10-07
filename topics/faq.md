@@ -145,6 +145,6 @@ It means REmote DIctionary Server.
 
 ## Why did you started the Redis project?
 
-Originally Redis was started in order to scale [LLOOGG][lloogg]. But after I got the basic server working I liked the idea to share the work with other guys, and Redis was turned into an open source project.
+Originally Redis was started in order to scale [LLOOGG][lloogg]. But after I got the basic server working I liked the idea to share the work with other people, and Redis was turned into an open source project.
 
 [lloogg]: http://lloogg.com
