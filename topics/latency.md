@@ -532,7 +532,7 @@ It is important to use it only as *last resort* when there is no way to track th
 
 This is how this feature works:
 
-* The user enables the softare watchdog using te `CONFIG SET` command.
+* The user enables the softare watchdog using the `CONFIG SET` command.
 * Redis starts monitoring itself constantly.
 * If Redis detects that the server is blocked into some operation that is not returning fast enough, and that may be the source of the latency issue, a low level report about where the server is blocked is dumped on the log file.
 * The user contacts the developers writing a message in the Redis Google Group, including the watchdog report in the message.
