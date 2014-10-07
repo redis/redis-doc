@@ -285,6 +285,7 @@ I'm aware of the following implementations:
 * [redis-py-cluster](https://github.com/Grokzen/redis-py-cluster) appears to be a port of redis-rb-cluster to Python. Not recently updated (last commit 6 months ago) however it may be a starting point.
 * The popular [Predis](https://github.com/nrk/predis) has support for Redis Cluster, the support was recently updated and is in active development.
 * The most used Java client, [Jedis](https://github.com/xetorthio/jedis) recently added support for Redis Cluster, see the *Jedis Cluster* section in the project README.
+* [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis) offers support for C# (and should work fine with most .NET languages; VB, F#, etc)
 * The `redis-cli` utility in the unstable branch of the Redis repository at Github implements a very basic cluster support when started with the `-c` switch.
 
 An easy way to test Redis Cluster is either to try and of the above clients
