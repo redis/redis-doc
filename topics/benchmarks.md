@@ -96,7 +96,7 @@ Using pipelining
 By default every client (the benchmark simulates 50 clients if not otherwise
 specified with `-c`) sends the next command only when the reply of the previous
 command is received, this means that the server will likely need a read call
-in order to read each command from every client. Also RTT is payed as well.
+in order to read each command from every client. Also RTT is paid as well.
 
 Redis supports [/topics/pipelining](pipelining), so it is possible to send
 multiple commands at once, a feature often exploited by real world applications.
@@ -244,7 +244,7 @@ See the graph below.
 
 ![Data size impact](https://github.com/dspezia/redis-doc/raw/client_command/topics/Data_size.png)
 
-+ On multi CPU sockets servers, Redis performance becomes dependant on the
++ On multi CPU sockets servers, Redis performance becomes dependent on the
 NUMA configuration and process location. The most visible effect is that
 redis-benchmark results seem non-deterministic because client and server
 processes are distributed randomly on the cores. To get deterministic results,

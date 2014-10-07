@@ -82,7 +82,7 @@ Output buffers limits
 ---
 
 Redis needs to handle a variable-length output buffer for every client, since
-a command can produce a big amount of data that needs to be transfered to the
+a command can produce a big amount of data that needs to be transferred to the
 client.
 
 However it is possible that a client sends more commands producing more output
