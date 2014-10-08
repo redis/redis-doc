@@ -444,7 +444,7 @@ suggest you to read the following pages:
 * It is possible to build safer queues or rotating queues using `RPOPLPUSH`.
 * There is also a blocking variant of the command, called `BRPOPLPUSH`.
 
-Automatically creation and removal of keys
+Automatic creation and removal of keys
 ---
 
 So far in our examples we never had to create empty lists before pushing
@@ -918,7 +918,7 @@ One of the biggest advantages of bitmaps is that they are sometimes an
 extremely space saving way to store informations. For example in a system
 where different users are represented by incremental user IDs, it is possible
 to remember a single bit information (for example if they want to receive
-or no the newsletter) of 4 million of users using just 512 MB of memory.
+or no the newsletter) of 4 billion of users using just 512 MB of memory.
 
 Bits are set and retrieved using the `SETBIT` and `GETBIT` commands:
 
@@ -1002,7 +1002,7 @@ to un-serialize it back to the server.
 
 Conceptually the HLL API is like using Sets to do the same task. You would
 `SADD` every observed element into a set, and would use `SCARD` to check the
-number of elements inside the set, which are unique since `SCARD` will not
+number of elements inside the set, which are unique since `SADD` will not
 re-add an already added element.
 
 While you don't really *add items* into an HLL, because the data structure
@@ -1011,6 +1011,7 @@ same:
 
 * Every time you see a new element, you add it to the count with `PFADD`.
 * Every time you want to retrieve the current approximation of the unique elements *added* with `PFADD` so far, you use the `PFCOUNT`.
+
 
     > pfadd hll a b c d
     (integer) 1
