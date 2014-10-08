@@ -122,8 +122,8 @@
   {
     "name": "Tideland Go Redis Client",
     "language": "Go",
-    "repository": "http://git.tideland.biz/godm/redis",
-    "description": "A flexible Go Redis client able to handle all commands",
+    "repository": "https://github.com/tideland/godm",
+    "description": "A flexible and convenient Go Redis client able to handle all commands, pipelining, and pub/sub. Does connection pooling and contains many helpers.",
     "authors": ["themue"],
     "active": true
   },
