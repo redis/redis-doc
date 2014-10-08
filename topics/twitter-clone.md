@@ -241,6 +241,7 @@ authentication secrets to user IDs.
     HSET auths fea5e81ac8ca77622bed1c2132a021f9 1000
 
 In order to authenticate a user we'll do these simple steps ( see the `login.php` file in the Retwis source code):
+
  * Get the username and password via the login form
  * Check if the `username` field actually exists in the `users` Hash.
  * If it exists we have the user id, (i.e. 1000)

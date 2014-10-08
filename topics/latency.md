@@ -137,7 +137,7 @@ serves all the client requests, using a technique called **multiplexing**.
 This means that Redis can serve a single request in every given moment, so
 all the requests are served sequentially. This is very similar to how Node.js
 works as well. However, both products are often not perceived as being slow.
-This is caused in part by the small about of time to complete a single request,
+This is caused in part by the small amount of time to complete a single request,
 but primarily because these products are designed to not block on system calls,
 such as reading data from or writing data to a socket.
 
@@ -510,7 +510,7 @@ Given that `REDIS_EXPIRELOOKUPS_PER_CRON` is set to 10 by default, and the proce
 
 However the algorithm is adaptive and will loop if it founds more than 25% of keys already expired in the set of sampled keys. But given that we run the algorithm ten times per second, this means that the unlucky event of more than 25% of the keys in our random sample are expiring at least *in the same second*.
 
-Basically this means that **if the database contains has many many keys expiring in the same second, and this keys are at least 25% of the current population of keys with an expire set**, Redis can block in order to reach back a percentage of keys already expired that is less than 25%.
+Basically this means that **if the database has many many keys expiring in the same second, and these make up at least 25% of the current population of keys with an expire set**, Redis can block in order to get the percentage of keys already expired below 25%.
 
 This approach is needed in order to avoid using too much memory for keys that area already expired, and usually is absolutely harmless since it's strange that a big number of keys are going to expire in the same exact second, but it is not impossible that the user used `EXPIREAT` extensively with the same Unix time.
 
@@ -524,7 +524,7 @@ designed to track those latency problems that for one reason or the other
 esacped an analysis using normal tools.
 
 The software watchdog is an experimental feature. While it is designed to
-be used in production enviroments care should be taken to backup the database
+be used in production environments care should be taken to backup the database
 before proceeding as it could possibly have unexpected interactions with the
 normal execution of the Redis server.
 
@@ -532,7 +532,7 @@ It is important to use it only as *last resort* when there is no way to track th
 
 This is how this feature works:
 
-* The user enables the softare watchdog using te `CONFIG SET` command.
+* The user enables the softare watchdog using the `CONFIG SET` command.
 * Redis starts monitoring itself constantly.
 * If Redis detects that the server is blocked into some operation that is not returning fast enough, and that may be the source of the latency issue, a low level report about where the server is blocked is dumped on the log file.
 * The user contacts the developers writing a message in the Redis Google Group, including the watchdog report in the message.

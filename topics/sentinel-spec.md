@@ -20,7 +20,7 @@ a way to perform automatic fail over when a master instance is not functioning
 correctly.
 
 The plan is to provide an usable beta implementaiton of Redis Sentinel in a
-short time, preferrably in mid July 2012.
+short time, preferably in mid July 2012.
 
 In short this is what Redis Sentinel will be able to do:
 
@@ -215,7 +215,7 @@ decided.
 Also Sentinels can be configured in two ways: only as monitors that can't
 perform the fail over, or as Sentinels that can start the failover.
 
-What is desireable is that only a Sentinel will start the failover process,
+What is desirable is that only a Sentinel will start the failover process,
 and this Sentinel should be selected among the Sentinels that are allowed
 to perform the failover.
 

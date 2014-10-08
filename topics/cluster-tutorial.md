@@ -285,6 +285,7 @@ I'm aware of the following implementations:
 * [redis-py-cluster](https://github.com/Grokzen/redis-py-cluster) appears to be a port of redis-rb-cluster to Python. Not recently updated (last commit 6 months ago) however it may be a starting point.
 * The popular [Predis](https://github.com/nrk/predis) has support for Redis Cluster, the support was recently updated and is in active development.
 * The most used Java client, [Jedis](https://github.com/xetorthio/jedis) recently added support for Redis Cluster, see the *Jedis Cluster* section in the project README.
+* [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis) offers support for C# (and should work fine with most .NET languages; VB, F#, etc)
 * The `redis-cli` utility in the unstable branch of the Redis repository at Github implements a very basic cluster support when started with the `-c` switch.
 
 An easy way to test Redis Cluster is either to try and of the above clients
@@ -318,7 +319,7 @@ changed the cluster layout by adding or removing nodes.
 Writing an example app with redis-rb-cluster
 ---
 
-Before goign forward showing how to operate the Redis Cluster, doing things
+Before going forward showing how to operate the Redis Cluster, doing things
 like a failover, or a resharding, we need to create some example application
 or at least to be able to understand the semantics of a simple Redis Cluster
 client interaction.
@@ -750,7 +751,7 @@ use redis-trib again, but with the --slave option, like this:
     ./redis-trib.rb add-node --slave 127.0.0.1:7006 127.0.0.1:7000
 
 Note that the command line here is exactly like the one we used to add
-a new master, so we are not specifiying to which master we want to add
+a new master, so we are not specifying to which master we want to add
 the replica. In this case what happens is that redis-trib will add the new
 node as replica of a random master among the masters with less replicas.
 

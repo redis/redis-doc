@@ -53,7 +53,7 @@ The following example increments keys `foo` and `bar` atomically.
     1) (integer) 1
     2) (integer) 1
 
-As it is possible to see from the session above, `MULTI` returns an
+As it is possible to see from the session above, `EXEC` returns an
 array of replies, where every element is the reply of a single command
 in the transaction, in the same order the commands were issued.
 
