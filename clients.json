@@ -806,5 +806,14 @@
     "description": "Redis client for Nimrod",
     "authors": [],
     "active": true
+  },
+  
+  {
+    "name": "gawkRedis",
+    "language": "gawk",
+    "repository": "http://sourceforge.net/u/paulinohuerta/gawkextlib/ci/master/tree",
+    "description": "Gawk extension, using the hiredis C library. Supports pipelining and pub/sub",
+    "authors": ["paulinohuerta"],
+    "active": true
   }
 ]
