@@ -428,6 +428,15 @@
   },
 
   {
+    "name": "txredisapi",
+    "language": "Python",
+    "url": "https://github.com/fiorix/txredisapi",
+    "description": "Full featured, non-blocking client for Twisted.",
+    "authors": ["fiorix"],
+    "active": true
+  },
+
+  {
     "name": "desir",
     "language": "Python",
     "repository": "https://github.com/aallamaa/desir",
