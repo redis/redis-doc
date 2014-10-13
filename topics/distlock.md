@@ -28,6 +28,7 @@ already available, that can be used as a reference.
 * [Redsync.go](https://github.com/hjr265/redsync.go) (Go implementation).
 * [Redisson](https://github.com/mrniko/redisson) (Java implementation).
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
+* [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (Cpp implementation).
 
 Safety and Liveness guarantees
 ---
