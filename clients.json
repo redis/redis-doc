@@ -157,6 +157,15 @@
   },
 
   {
+    "name": "gore",
+    "language": "Go",
+    "repository": "https://github.com/keimoon/gore",
+    "description": "A full feature redis Client for Go. Supports Pipeline, Transaction, LUA scripting, Pubsub, Connection Pool, Sentinel and client sharding",
+    "authors": ["keimoon"],
+    "active": true
+  },
+
+  {
     "name": "hedis",
     "language": "Haskell",
     "url": "http://hackage.haskell.org/package/hedis",
