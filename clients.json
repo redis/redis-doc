@@ -250,7 +250,7 @@
   },
 
   {
-    "name": "mod-redis-io",
+    "name": "mod-redis",
     "language": "Java",
     "repository": "https://github.com/vert-x/mod-redis",
     "description": "Official asynchronous redis.io bus module for Vert.x",
