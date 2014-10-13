@@ -496,6 +496,14 @@
   },
 
   {
+    "name": "Retcl",
+    "language": "Tcl",
+    "repository": "https://github.com/gahr/retcl",
+    "description": "Retcl is an asynchronous, event-driven Redis client library implemented as a single-file Tcl module."
+    "authors": ["gahrgahr"]
+  },
+
+  {
     "name": "ServiceStack.Redis",
     "language": "C#",
     "url": "https://github.com/ServiceStack/ServiceStack.Redis",
