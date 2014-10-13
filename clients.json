@@ -517,7 +517,7 @@
     "name": "Retcl",
     "language": "Tcl",
     "repository": "https://github.com/gahr/retcl",
-    "description": "Retcl is an asynchronous, event-driven Redis client library implemented as a single-file Tcl module."
+    "description": "Retcl is an asynchronous, event-driven Redis client library implemented as a single-file Tcl module.",
     "authors": ["gahrgahr"]
   },
 
