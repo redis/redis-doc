@@ -850,5 +850,14 @@
     "description": "Varnish Cache module using the synchronous hiredis library API to access Redis servers from VCL.",
     "authors": ["carlosabalde"],
     "active": true
+  },
+  
+  {
+    "name": "Redis Studio",
+    "language": "c++",
+    "repository": "https://github.com/cinience/RedisStudio",
+    "description": "Redis GUI tool for windows platform.",
+    "authors": ["cinience"],
+    "active": true
   }
 ]
