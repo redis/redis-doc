@@ -854,7 +854,7 @@
   
   {
     "name": "Redis Studio",
-    "language": "c++",
+    "language": "C++",
     "repository": "https://github.com/cinience/RedisStudio",
     "description": "Redis GUI tool for windows platform.",
     "authors": ["cinience"],
