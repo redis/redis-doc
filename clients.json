@@ -146,7 +146,7 @@
     "authors": ["xiam"],
     "active": true
   },
-  
+
   {
     "name": "goredis",
     "language": "Go",
@@ -504,7 +504,7 @@
     "authors": ["livestream"],
     "active": true
   },
-  
+
   {
     "name": "rediscala",
     "language": "Scala",
@@ -778,7 +778,7 @@
     "description": "A Redis client written with the Akka IO package introduced in Akka 2.2.",
     "authors": ["chrisdinn"]
   },
-  
+
   {
     "name": "rust-redis",
     "language": "Rust",
@@ -814,7 +814,7 @@
     "authors": ["seancharles"],
     "active": true
   },
-  
+
   {
     "name": "SimpleRedisClient",
     "language": "C++",
@@ -823,7 +823,7 @@
     "authors": ["Levhav"],
     "active": true
   },
-  
+
   {
     "name": "RedisClient",
     "language": "Java",
@@ -832,7 +832,7 @@
     "authors": ["Cao XinYu"],
     "active": true
   },
-  
+
   {
     "name": "redis",
     "language": "Nimrod",
@@ -842,13 +842,23 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "libvmod-redis",
     "language": "VCL",
     "repository": "https://github.com/carlosabalde/libvmod-redis",
     "description": "Varnish Cache module using the synchronous hiredis library API to access Redis servers from VCL.",
     "authors": ["carlosabalde"],
+    "active": true
+  },
+
+  {
+    "name": "redis-io",
+    "language": "Haskell",
+    "url": "http://hackage.haskell.org/package/redis-io",
+    "repository": "https://github.com/twittner/redis-io",
+    "description": "Another Haskell redis client with pipelining support.",
+    "authors": ["Toralf Wittner"],
     "active": true
   }
 ]
