@@ -98,7 +98,7 @@ Eventually clients obtain an up to date representation of the cluster and which 
 
 Because of the use of asynchronous replication, nodes does not wait for other nodes acknowledgment of writes (optional synchronous replication is a work in progress and will be likely added in future releases).
 
-Also, because muliple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
+Also, because multiple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
 
 So normal operations are handled exactly as in the case of a single Redis instance. This means that in a Redis Cluster with N master nodes you can expect the same performance as a single Redis instance multiplied by N as the design allows to scale linearly. At the same time the query is usually performed in a single round trip, since clients usually retain persistent connections with the nodes, so latency figures are also the same as the single stand alone Redis node case.
 
@@ -595,7 +595,7 @@ by the slave's master node. This may happen because:
 When this happens the client should update its hashslot map as explained in
 the previous sections.
 
-The *readonly* state of the connection can be undoed using the `READWRITE` command.
+The *readonly* state of the connection can be undone using the `READWRITE` command.
 
 Fault Tolerance
 ===
@@ -964,7 +964,7 @@ plus 1 (unless the node is already the one with the greatest configuration
 epoch), without to require for an agreement from other nodes.
 This is needed so that the new slot configuration will win over the old one.
 
-This process happens when the system administator performs a manual
+This process happens when the system administrator performs a manual
 resharding, however it is possible that when the slot is closed after
 a resharding and the node assigns itself a new configuration epoch,
 at the same time a failure happens, just before the new `configEpoch` is

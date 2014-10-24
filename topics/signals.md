@@ -2,7 +2,7 @@ Redis Signals Handling
 ===
 
 This document provides information about how Redis reacts to the reception
-of differe POSIX signals such as `SIGTERM`, `SIGSEGV` and so forth.
+of different POSIX signals such as `SIGTERM`, `SIGSEGV` and so forth.
 
 The information contained in this document is **only applicable to Redis version 2.6 or greater**.
 

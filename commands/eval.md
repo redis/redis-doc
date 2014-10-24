@@ -496,7 +496,7 @@ Starting from Redis 2.8.12 the database selected by the Lua script only
 affects the execution of the script itself, but does not modify the database
 selected by the client calling the script.
 
-The semantical change between patch level releases was needed since the old
+The semantic change between patch level releases was needed since the old
 behavior was inherently incompatible with the Redis replication layer and
 was the cause of bugs.
 

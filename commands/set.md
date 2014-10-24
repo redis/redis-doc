@@ -17,7 +17,7 @@ Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it
 @return
 
 @simple-string-reply: `OK` if `SET` was executed correctly.
-@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed becase the user specified the `NX` or `XX` option but the condition was not met.
+@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met.
 
 @examples
 
