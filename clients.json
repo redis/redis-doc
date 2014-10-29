@@ -122,7 +122,7 @@
   {
     "name": "Tideland Go Redis Client",
     "language": "Go",
-    "repository": "http://git.tideland.biz/godm/redis",
+    "repository": "https://github.com/tideland/godm",
     "description": "A flexible Go Redis client able to handle all commands",
     "authors": ["themue"],
     "active": true
@@ -153,6 +153,15 @@
     "repository": "https://github.com/xuyu/goredis",
     "description": "A redis client for golang with full features",
     "authors": ["xuyu"],
+    "active": true
+  },
+
+  {
+    "name": "gore",
+    "language": "Go",
+    "repository": "https://github.com/keimoon/gore",
+    "description": "A full feature redis Client for Go. Supports Pipeline, Transaction, LUA scripting, Pubsub, Connection Pool, Sentinel and client sharding",
+    "authors": ["keimoon"],
     "active": true
   },
 
@@ -419,6 +428,15 @@
   },
 
   {
+    "name": "txredisapi",
+    "language": "Python",
+    "url": "https://github.com/fiorix/txredisapi",
+    "description": "Full featured, non-blocking client for Twisted.",
+    "authors": ["fiorix"],
+    "active": true
+  },
+
+  {
     "name": "desir",
     "language": "Python",
     "repository": "https://github.com/aallamaa/desir",
@@ -486,6 +504,15 @@
     "authors": ["livestream"],
     "active": true
   },
+  
+  {
+    "name": "rediscala",
+    "language": "Scala",
+    "repository": "https://github.com/etaty/rediscala",
+    "description": "A Redis client for Scala (2.10+) and (AKKA 2.2+) with non-blocking and asynchronous I/O operations.",
+    "authors": ["etaty"],
+    "active": true
+  },
 
   {
     "name": "Tcl Client",
@@ -493,6 +520,14 @@
     "repository": "https://github.com/antirez/redis/blob/unstable/tests/support/redis.tcl",
     "description": "The client used in the Redis test suite. Not really full featured nor designed to be used in the real world.",
     "authors": ["antirez"]
+  },
+
+  {
+    "name": "Retcl",
+    "language": "Tcl",
+    "repository": "https://github.com/gahr/retcl",
+    "description": "Retcl is an asynchronous, event-driven Redis client library implemented as a single-file Tcl module.",
+    "authors": ["gahrgahr"]
   },
 
   {
@@ -805,6 +840,15 @@
     "url": "http://nimrod-lang.org/redis.html",
     "description": "Redis client for Nimrod",
     "authors": [],
+    "active": true
+  },
+  
+  {
+    "name": "libvmod-redis",
+    "language": "VCL",
+    "repository": "https://github.com/carlosabalde/libvmod-redis",
+    "description": "Varnish Cache module using the synchronous hiredis library API to access Redis servers from VCL.",
+    "authors": ["carlosabalde"],
     "active": true
   }
 ]

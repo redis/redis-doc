@@ -26,15 +26,16 @@ The list of configuration directives, and their meaning and intended usage
 is available in the self documented example redis.conf shipped into the
 Redis distribution.
 
-* The self documented [redis.conf for Redis 2.6](https://raw.github.com/antirez/redis/2.6/redis.conf).
-* The self documented [redis.conf for Redis 2.4](https://raw.github.com/antirez/redis/2.4/redis.conf).
+* The self documented [redis.conf for Redis 2.8](https://raw.githubusercontent.com/antirez/redis/2.8/redis.conf)
+* The self documented [redis.conf for Redis 2.6](https://raw.githubusercontent.com/antirez/redis/2.6/redis.conf).
+* The self documented [redis.conf for Redis 2.4](https://raw.githubusercontent.com/antirez/redis/2.4/redis.conf).
 
 Passing arguments via the command line
 ---
 
 Since Redis 2.6 it is possible to also pass Redis configuration parameters
 using the command line directly. This is very useful for testing purposes.
-The following is an example that stats a new Redis instance using port 6380
+The following is an example that starts a new Redis instance using port 6380
 as a slave of the instance running at 127.0.0.1 port 6379.
 
     ./redis-server --port 6380 --slaveof 127.0.0.1 6379
