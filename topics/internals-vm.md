@@ -42,7 +42,7 @@ This is how the Redis Object structure _robj_ looks like:
         int refcount;
         /* VM fields, this are only allocated if VM is active, otherwise the
          * object allocation function will just allocate
-         * sizeof(redisObjct) minus sizeof(redisObjectVM), so using
+         * sizeof(redisObject) minus sizeof(redisObjectVM), so using
          * Redis without VM active will not have any overhead. */
         struct redisObjectVM vm;
     } robj;

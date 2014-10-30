@@ -14,7 +14,7 @@ This page is an attempt to provide a more canonical algorithm to implement
 distributed locks with Redis. We propose an algorithm, called **Redlock**,
 which implements a DLM which we believe to be safer than the vanilla single
 instance approach. We hope that the community will analyze it, provide
-feedbacks, and use it as a starting point for the implementations or more
+feedback, and use it as a starting point for the implementations or more
 complex or alternative designs.
 
 Implementations

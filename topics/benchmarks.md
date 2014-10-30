@@ -104,7 +104,7 @@ Redis pipelining is able to dramatically improve the number of operations per
 second a server is able do deliver.
 
 This is an example of running the benchmark in a Macbook air 11" using a
-pipeling of 16 commands:
+pipelining of 16 commands:
 
     $ redis-benchmark -n 1000000 -t set,get -P 16 -q
     SET: 403063.28 requests per second
@@ -122,7 +122,7 @@ different options. If you plan to compare Redis to something else, then it is
 important to evaluate the functional and technical differences, and take them
 in account.
 
-+ Redis is a server: all commands involve network or IPC roundtrips. It is
++ Redis is a server: all commands involve network or IPC round trips. It is
 meaningless to compare it to embedded data stores such as SQLite, Berkeley DB,
 Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is 
 primarily in network/protocol management.
@@ -134,7 +134,7 @@ mildly useful.
 itself, but rather measure your network (or IPC) latency. To really test Redis,
 you need multiple connections (like redis-benchmark) and/or to use pipelining
 to aggregate several commands and/or multiple threads or processes.
-+ Redis is an in-memory data store with some optional persistency options. If
++ Redis is an in-memory data store with some optional persistence options. If
 you plan to compare it to transactional servers (MySQL, PostgreSQL, etc ...),
 then you should consider activating AOF and decide on a suitable fsync policy.
 + Redis is a single-threaded server. It is not designed to benefit from
@@ -157,7 +157,7 @@ concurrency only (i.e. it creates several connections to the server).
 It does not use pipelining or any parallelism at all (one pending query per
 connection at most, and no multi-threading).
 
-To run a benchmark using pipelining mode (and achieve higher throughputs),
+To run a benchmark using pipelining mode (and achieve higher throughput),
 you need to explicitly use the -P option. Please note that it is still a
 realistic behavior since a lot of Redis based applications actively use
 pipelining to improve performance.

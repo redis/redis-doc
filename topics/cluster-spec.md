@@ -10,7 +10,7 @@ Redis Cluster is a distributed implementation of Redis with the following goals,
 * Acceptable degree of write safety: the system tries (in a best-effort way) to retain all the writes originating from clients connected with the majority of the master nodes. Usually there are small windows where acknowledged writes can be lost. Windows to lose acknowledged writes are larger when clients are in a minority partition.
 * Availability: Redis Cluster is able to survive to partitions where the majority of the master nodes are reachable and there is at least a reachable slave for every master node that is no longer reachable.
 
-What is described in this document is implemented in the `unstable` branch of the Github Redis repository. Redis Cluster has now entered the beta stage, so new betas are released every month and can be found in the [download page](http://redis.io/download) of the Redis web site.
+What is described in this document is implemented in the `unstable` branch of the GitHub Redis repository. Redis Cluster has now entered the beta stage, so new betas are released every month and can be found in the [download page](http://redis.io/download) of the Redis web site.
 
 Implemented subset
 ---
@@ -22,7 +22,7 @@ as long as the keys all belong to the same node.
 
 Redis Cluster implements a concept called **hash tags** that can be used
 in order to force certain keys to be stored in the same node. However during
-manual reshardings multi-key operations may become unavailable for some time
+manual reshardings, multi-key operations may become unavailable for some time
 while single keys operations are always available.
 
 Redis Cluster does not support multiple databases like the stand alone version
@@ -46,7 +46,7 @@ signal specific conditions. The cluster bus is also used in order to
 propagate Pub/Sub messages across the cluster.
 
 Since cluster nodes are not able to proxy requests clients may be redirected
-to other nodes using redirections errors `-MOVED` and `-ASK`.
+to other nodes using redirection errors `-MOVED` and `-ASK`.
 The client is in theory free to send requests to all the nodes in the cluster,
 getting redirected if needed, so the client is not required to take the
 state of the cluster. However clients that are able to cache the map between
@@ -98,7 +98,7 @@ Eventually clients obtain an up to date representation of the cluster and which 
 
 Because of the use of asynchronous replication, nodes does not wait for other nodes acknowledgment of writes (optional synchronous replication is a work in progress and will be likely added in future releases).
 
-Also, because muliple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
+Also, because multiple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
 
 So normal operations are handled exactly as in the case of a single Redis instance. This means that in a Redis Cluster with N master nodes you can expect the same performance as a single Redis instance multiplied by N as the design allows to scale linearly. At the same time the query is usually performed in a single round trip, since clients usually retain persistent connections with the nodes, so latency figures are also the same as the single stand alone Redis node case.
 
@@ -595,7 +595,7 @@ by the slave's master node. This may happen because:
 When this happens the client should update its hashslot map as explained in
 the previous sections.
 
-The *readonly* state of the connection can be undoed using the `READWRITE` command.
+The *readonly* state of the connection can be undone using the `READWRITE` command.
 
 Fault Tolerance
 ===
@@ -770,7 +770,7 @@ replication offset is at rank 0, the second must updated at rank 1, and so forth
 
 Once a slave wins the election, it starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` set to the `currentEpoch` at which the election was started.
 
-In order to speedup the reconfiguration of other nodes, a pong packet is broadcasted to all the nodes of the cluster (however nodes not currently reachable will eventually receive a ping or pong packet and will be reconfigured).
+In order to speedup the reconfiguration of other nodes, a pong packet is broadcast to all the nodes of the cluster (however nodes not currently reachable will eventually receive a ping or pong packet and will be reconfigured).
 
 The other nodes will detect that there is a new master serving the same slots served by the old master but with a greater `configEpoch`, and will upgrade the configuration. Slaves of the old master, or the failed over master that rejoins the cluster, will not just upgrade the configuration but will also configure to replicate from the new master.
 
@@ -964,7 +964,7 @@ plus 1 (unless the node is already the one with the greatest configuration
 epoch), without to require for an agreement from other nodes.
 This is needed so that the new slot configuration will win over the old one.
 
-This process happens when the system administator performs a manual
+This process happens when the system administrator performs a manual
 resharding, however it is possible that when the slot is closed after
 a resharding and the node assigns itself a new configuration epoch,
 at the same time a failure happens, just before the new `configEpoch` is

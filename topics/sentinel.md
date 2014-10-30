@@ -208,7 +208,7 @@ using Redis Pub/Sub messages, both in the master and all the slaves.
 At the same time all the Sentinels wait for messages to see what is the configuration
 advertised by the other Sentinels.
 
-Configurations are broadcasted in the `__sentinel__:hello` Pub/Sub channel.
+Configurations are broadcast in the `__sentinel__:hello` Pub/Sub channel.
 
 Because every configuration has a different version number, the greater version
 always wins over smaller versions.
@@ -237,7 +237,7 @@ concepts of *being down*, one is called a *Subjectively Down* condition
 (SDOWN) and is a down condition that is local to a given Sentinel instance.
 Another is called *Objectively Down* condition (ODOWN) and is reached when
 enough Sentinels (at least the number configured as the `quorum` parameter
-of the monitored master) have an SDOWN condition, and get feedbacks from
+of the monitored master) have an SDOWN condition, and get feedback from
 other Sentinels using the `SENTINEL is-master-down-by-addr` command.
 
 From the point of view of a Sentinel an SDOWN condition is reached if we
@@ -393,7 +393,7 @@ The slave selection process evaluates the following informations about slaves:
 4. Run ID.
 
 A slave that is found to be disconnected from the master for more than ten
-times the configured masster timeout (down-after-milliseconds option), plus
+times the configured master timeout (down-after-milliseconds option), plus
 the time the master is also not available from the point of view of the
 Sentinel doing the failover, is considered to be not suitable for the failover
 and is skipped.
@@ -403,14 +403,14 @@ disconnected form the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
 
-Is considered to be not reliable and is discareded at all.
+Is considered to be not reliable and is discarded at all.
 
 The slave selection only consider the slaves that passed the above test,
 and sorts it based on the above criteria, in the following order.
 
-1. The slaves are sorted by `slave-priority` as confiugred in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
+1. The slaves are sorted by `slave-priority` as configured in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
 2. If the priority is the same, the replication offset processed by the slave is checked, and the slave that received more data from the master is selected.
-3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more determiistic, instead of resorting to select a random slave.
+3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more deterministic, instead of resorting to select a random slave.
 
 Redis masters (that may be turned into slaves after a failover), and slaves, all
 must be configured with a `slave-priority` if there are machines to be strongly

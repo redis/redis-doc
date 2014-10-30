@@ -37,7 +37,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 # Third party files and licenses
 
-Redis uses source code from third parties. All this code contians a BSD or BSD-compatible license. The following is a list of third party files and information about their copyright.
+Redis uses source code from third parties. All this code contains a BSD or BSD-compatible license. The following is a list of third party files and information about their copyright.
 
 * Redis uses the [LHF compression library](http://oldhome.schmorp.de/marc/liblzf.html). LibLZF is copyright Marc Alexander Lehmann and is released under the terms of the **two clause BSD license**.
 

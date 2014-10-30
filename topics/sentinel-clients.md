@@ -21,12 +21,12 @@ Redis service discovery via Sentinel
 ===
 
 Redis Sentinel identify every master with a name like "stats" or "cache".
-Every name actually identifies a *group of intances*, composed of a master
+Every name actually identifies a *group of instances*, composed of a master
 and a variable number of slaves.
 
 The address of the Redis master that is used for a specific purpose inside a network may change after events like an automatic failover, a manually triggered failover (for instance in order to upgrade a Redis instance), and other reasons.
 
-Normally Redis clients have some kind of hard-coded configuraiton that specifies the address of a Redis master instance within a network as IP address and port number. However if the master address changes, manual intervention in every client is needed.
+Normally Redis clients have some kind of hard-coded configuration that specifies the address of a Redis master instance within a network as IP address and port number. However if the master address changes, manual intervention in every client is needed.
 
 A Redis client supporting Sentinel can automatically discover the address of a Redis master from the master name using Redis Sentinel. So instead of an hard coded IP address and port, a client supporting Sentinel should optionally be able to take as input:
 
@@ -94,7 +94,7 @@ address again.
 
 If the client will contact a Sentinel with yet not updated information, the verification of the Redis instance role via the `ROLE` command will fail, allowing the client to detect that the contacted Sentinel provided stale information, and will try again.
 
-Note: it is possible that a stale master returns online at the same time a client contacts a stale Sentinel instance, so the client may connect with a stale master, and yet the ROLE output will match. However when the master is back again Sentinel will try to demote it to slave, triggering a new disconnection. The same reasoning applies to connecting to stale slaves that will get reconfigured to replicate with a differnt master.
+Note: it is possible that a stale master returns online at the same time a client contacts a stale Sentinel instance, so the client may connect with a stale master, and yet the ROLE output will match. However when the master is back again Sentinel will try to demote it to slave, triggering a new disconnection. The same reasoning applies to connecting to stale slaves that will get reconfigured to replicate with a different master.
 
 Connecting to slaves
 ===
@@ -144,7 +144,7 @@ Sentinel instances using Pub/Sub in order to subscribe to changes in the
 Redis instances configurations.
 
 This mechanism can be used in order to speedup the reconfiguration of clients,
-that is, clients may listent to Pub/Sub in order to know when a configuration
+that is, clients may listen to Pub/Sub in order to know when a configuration
 change happened in order to run the three steps protocol explained in this
 document in order to resolve the new Redis master (or slave) address.
 
