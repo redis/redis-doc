@@ -304,7 +304,7 @@ However in a real-world system using Sentinel there are three different players:
 
 In order to define the behavior of the system we have to consider all three.
 
-The following is a simple network where there are there nodes, each running
+The following is a simple network where there are three nodes, each running
 a Redis instance, and a Sentinel instance:
 
                 +-------------+
