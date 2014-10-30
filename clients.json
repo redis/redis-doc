@@ -455,6 +455,15 @@
   },
 
   {
+    "name": "redisca",
+    "language": "Python",
+    "repository": "https://github.com/khamin/redisca",
+    "description": "Lightweight ORM for Redis",
+    "authors": ["vitaliykhamin"],
+    "active": true
+  },
+
+  {
     "name": "scala-redis",
     "language": "Scala",
     "repository": "https://github.com/acrosa/scala-redis",
