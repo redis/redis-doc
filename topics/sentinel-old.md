@@ -113,7 +113,7 @@ concepts of *being down*, one is called a *Subjectively Down* condition
 (SDOWN) and is a down condition that is local to a given Sentinel instance.
 Another is called *Objectively Down* condition (ODOWN) and is reached when
 enough Sentinels (at least the number configured as the `quorum` parameter
-of the monitored master) have an SDOWN condition, and get feedbacks from
+of the monitored master) have an SDOWN condition, and get feedback from
 other Sentinels using the `SENTINEL is-master-down-by-addr` command.
 
 From the point of view of a Sentinel an SDOWN condition is reached if we

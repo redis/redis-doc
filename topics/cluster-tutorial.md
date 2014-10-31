@@ -12,7 +12,7 @@ Note that if you plan to run a serious Redis Cluster deployment, the
 more formal specification is an highly suggested reading.
 
 **Redis cluster is currently alpha quality code**, please get in touch in the
-Redis mailing list or open an issue in the Redis Github repository if you
+Redis mailing list or open an issue in the Redis GitHub repository if you
 find any issue.
 
 Redis Cluster 101
@@ -218,7 +218,7 @@ As a template for your configuration file just use the small example above,
 but make sure to replace the port number `7000` with the right port number
 according to the directory name.
 
-Now copy your redis-server executable, **compiled from the latest sources in the unstable branch at Github**, into the `cluster-test` directory, and finally open 6 terminal tabs in your favorite terminal application.
+Now copy your redis-server executable, **compiled from the latest sources in the unstable branch at GitHub**, into the `cluster-test` directory, and finally open 6 terminal tabs in your favorite terminal application.
 
 Start every instance like that, one every tab:
 
@@ -286,7 +286,7 @@ I'm aware of the following implementations:
 * The popular [Predis](https://github.com/nrk/predis) has support for Redis Cluster, the support was recently updated and is in active development.
 * The most used Java client, [Jedis](https://github.com/xetorthio/jedis) recently added support for Redis Cluster, see the *Jedis Cluster* section in the project README.
 * [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis) offers support for C# (and should work fine with most .NET languages; VB, F#, etc)
-* The `redis-cli` utility in the unstable branch of the Redis repository at Github implements a very basic cluster support when started with the `-c` switch.
+* The `redis-cli` utility in the unstable branch of the Redis repository at GitHub implements a very basic cluster support when started with the `-c` switch.
 
 An easy way to test Redis Cluster is either to try and of the above clients
 or simply the `redis-cli` command line utility. The following is an example
@@ -499,7 +499,7 @@ A more interesting example application
 ---
 
 So far so good, but the example application we used is not very good.
-It writes acritically to the cluster without ever checking if what was
+It writes simply to the cluster without ever checking if what was
 written is the right thing.
 
 From our point of view the cluster receiving the writes could just always
@@ -518,7 +518,7 @@ However instead of just writing, the application does two additional things:
 
 What this means is that this application is a simple **consistency checker**,
 and is able to tell you if the cluster lost some write, or if it accepted
-a write that we did not received acknowledgement for. In the first case we'll
+a write that we did not received acknowledgment for. In the first case we'll
 see a counter having a value that is smaller than the one we remember, while
 in the second case the value will be greater.
 
@@ -745,7 +745,7 @@ having as a target the empty node.
 Adding a new node as a replica
 ---
 
-Adding a new Replica can be performed in two ways. The obivous one is to
+Adding a new Replica can be performed in two ways. The obvious one is to
 use redis-trib again, but with the --slave option, like this:
 
     ./redis-trib.rb add-node --slave 127.0.0.1:7006 127.0.0.1:7000
@@ -755,7 +755,7 @@ a new master, so we are not specifying to which master we want to add
 the replica. In this case what happens is that redis-trib will add the new
 node as replica of a random master among the masters with less replicas.
 
-However you can specifiy exactly what master you want to target with your
+However you can specify exactly what master you want to target with your
 new replica with the following command line:
 
     ./redis-trib.rb add-node --slave --master-id 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 127.0.0.1:7006 127.0.0.1:7000
@@ -861,7 +861,7 @@ Upgrading nodes in a Redis Cluster
 Upgrading slave nodes is easy since you just need to stop the node and restart
 it with an updated version of Redis. If there are clients scaling reads using
 slave nodes, they should be able to reconnect to a different slave if a given
-one is not avaialble.
+one is not available.
 
 Upgrading masters is a bit more complex, and the suggested procedure is:
 
@@ -885,7 +885,7 @@ In both cases it is possible to migrate to Redis Cluster easily, however
 what is the most important detail is if multiple-keys operations are used
 by the application, and how. There are three different cases:
 
-1. Multiple keys operations, or transactions, or Lua scripts involving muliple keys, are not used. Keys are accessed independently (even if accessed via transactions or Lua scripts grouping multiple commands, about the same key, together).
+1. Multiple keys operations, or transactions, or Lua scripts involving multiple keys, are not used. Keys are accessed independently (even if accessed via transactions or Lua scripts grouping multiple commands, about the same key, together).
 2. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used but only with keys having the same **hash tag**, which means that the keys used together all have a `{...}` sub-string that happens to be identical. For example the following multiple keys operation is defined in the context of the same hash tag: `SUNION {user:1000}.foo {user:1000}.bar`.
 3. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
 
@@ -900,11 +900,11 @@ Assuming you have your preexisting data set split into N masters, where
 N=1 if you have no preexisting sharding, the following steps are needed
 in order to migrate your data set to Redis Cluster:
 
-1. Stop your clients. No automatic live-migration to Redis Cluster is currently possible. You may be able to do it orchestrating a live migration in the context of your application / enviroment.
+1. Stop your clients. No automatic live-migration to Redis Cluster is currently possible. You may be able to do it orchestrating a live migration in the context of your application / environment.
 2. Generate an append only file for all of your N masters using the BGREWRITEAOF command, and waiting for the AOF file to be completely generated.
 3. Save your AOF files from aof-1 to aof-N somewhere. At this point you can stop your old instances if you wish (this is useful since in non-virtualized deployments you often need to reuse the same computers).
 4. Create a Redis Cluster composed of N masters and zero slaves. You'll add slaves later. Make sure all your nodes are using the append only file for persistence.
-5. Stop all the cluster nodes, substitute their append only file with your pre-eisitng append only files, aof-1 for the first node, aof-2 for the secod node, up to aof-N.
+5. Stop all the cluster nodes, substitute their append only file with your pre-existing append only files, aof-1 for the first node, aof-2 for the second node, up to aof-N.
 6. Restart your Redis Cluster nodes with the new AOF files. They'll complain that there are keys that should not be there according to their configuration.
 7. Use `redis-trib fix` command in order to fix the cluster so that keys will be migrated according to the hash slots each node is authoritative or not.
 8. Use `redis-trib check` at the end to make sure your cluster is ok.

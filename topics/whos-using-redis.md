@@ -9,7 +9,7 @@ A list of well known companies using Redis:
   </li>
 
   <li>
-    <a href="https://github.com/blog/530-how-we-made-github-fast">Github</a>
+    <a href="https://github.com/blog/530-how-we-made-github-fast">GitHub</a>
   </li>
 
   <li>

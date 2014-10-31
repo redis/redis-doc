@@ -23,13 +23,13 @@ Using the internal Redis latency monitoring subsystem
 ---
 
 Since Redis 2.8.13, Redis provides latency monitoring capabilities that
-are able to sample differnet execution paths to understand where the
-server is blocking. This makes debugging of the problems illustarated in
+are able to sample different execution paths to understand where the
+server is blocking. This makes debugging of the problems illustrated in
 this documentation much simpler, so we suggest to enable latency monitoring
 ASAP. Please refer to the [Latency monitor documentation](/topics/latency-monitor).
 
 While the latency monitoring sampling and reporting capabilities will make
-simpler to understand the soruce of latency in your Redis system, it is still
+simpler to understand the source of latency in your Redis system, it is still
 advised that you read this documentation extensively to better understand
 the topic of Redis and latency spikes.
 
@@ -521,7 +521,7 @@ Redis software watchdog
 
 Redis 2.6 introduces the *Redis Software Watchdog* that is a debugging tool
 designed to track those latency problems that for one reason or the other
-esacped an analysis using normal tools.
+escaped an analysis using normal tools.
 
 The software watchdog is an experimental feature. While it is designed to
 be used in production environments care should be taken to backup the database
@@ -574,7 +574,7 @@ If you happen to collect multiple watchdog stack traces you are encouraged to se
 APPENDIX A: Experimenting with huge pages
 -----------------------------------------
 
-Latency introduced by fork can be mitigated using huge pages at the cost of a bigger memory usage during persistence. The following appeindex describe in details this feature as implemented in the Linux kernel.
+Latency introduced by fork can be mitigated using huge pages at the cost of a bigger memory usage during persistence. The following appendix describe in details this feature as implemented in the Linux kernel.
 
 Some CPUs can use different page size though. AMD and Intel CPUs can support
 2 MB page size if needed. These pages are nicknamed *huge pages*. Some

@@ -22,7 +22,7 @@ Also with minimal changes it will be possible to add RDB version 7 support to
 Redis 2.6 without actually supporting the additional fields but just skipping
 them when loading an RDB file.
 
-RDB info fields may have semantical meaning if needed, so that the presence
+RDB info fields may have semantic meaning if needed, so that the presence
 of the field may add information about the data set specified in the RDB
 file format, however when an info field is required to be correctly decoded
 in order to understand and load the data set content of the RDB file, the
