@@ -850,5 +850,14 @@
     "description": "Varnish Cache module using the synchronous hiredis library API to access Redis servers from VCL.",
     "authors": ["carlosabalde"],
     "active": true
+  },
+  
+  {
+    "name": "Nhiredis",
+    "language": "C#",
+    "repository": "https://github.com/mhowlett/Nhiredis",
+    "description": "A lightweight wrapper around the C client hiredis.",
+    "authors": ["matt_howlett"],
+    "active": true
   }
 ]
