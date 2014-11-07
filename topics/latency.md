@@ -9,6 +9,30 @@ issues a command and the time the reply to the command is received by the
 client. Usually Redis processing time is extremely low, in the sub microsecond
 range, but there are certain conditions leading to higher latency figures.
 
+I've little time, give me the checklist
+---
+
+The following documentation is very important in order to run Redis in
+a low latency fashion. However I understand that we are busy people, so
+let's start with a quick checklist. If you fail following this steps, please
+return here to read the full documentation.
+
+1. Make sure you are not running slow commands that are blocking the server. Use the Redis [Slow Log feature](/commands/slowlog) to check this.
+2. For EC2 users, make sure you use HVM based modern EC2 instances, like m3.medium. Otherwise fork() is too slow.
+3. Transparent huge pages must be disabled from your kernel. Use `echo never > sys/kernel/mm/transparent_hugepage/enabled` to disable them, and restart your Redis process.
+4. If you are using a virtual machine, it is possible that you have an intrinsic latency that has nothing to do with Redis. Check the minimum latency you can expect from your runtime environment using `./redis-cli --intrinsic-latency 100`.
+5. Enable and use the [Latency monitor](/topics/latency-monitor) feature of Redis in order to get a human readable description of the latency events and causes in your Redis instance.
+
+In general, use the following table for durability VS latency/performance tradeoffs, ordered from stronger safety to better latency.
+
+1. AOF + fsync always: this is very slow, you should use it only if you know what you are doing.
+2. AOF + fsync every second: this is a good compromise.
+3. AOF + fsync every second + no-appendfsync-on-rewrite option set to yes: this is as the above, but avoids to fsync during rewrites to lower the disk pressure.
+4. AOF + fsync never. Fsyncing is up to the kernel in this setup, even less disk pressure and risk of latency spikes.
+5. RDB. Here you have a vast spectrum of tradeoffs depending on the save triggers you configure.
+
+And now for people with 15 minutes to spend, the details...
+
 Measuring latency
 -----------------
 
@@ -204,19 +228,38 @@ Fork time in different systems
 ------------------------------
 
 Modern hardware is pretty fast to copy the page table, but Xen is not.
-The problem with Xen is not virtualization-specific, but Xen-specific. For instance
-using VMware or Virtual Box does not result into slow fork time.
+The problem with Xen is not virtualization-specific, but Xen-specific. For instance using VMware or Virtual Box does not result into slow fork time.
 The following is a table that compares fork time for different Redis instance
 size. Data is obtained performing a BGSAVE and looking at the `latest_fork_usec` filed in the `INFO` command output.
+
+However the good news is that **new types of EC2 HVM based instances are much
+better with fork times**, almost on pair with physical servers, so for example
+using m3.medium (or better) instances will provide good results.
 
 * **Linux beefy VM on VMware** 6.0GB RSS forked in 77 milliseconds (12.8 milliseconds per GB).
 * **Linux running on physical machine (Unknown HW)** 6.1GB RSS forked in 80 milliseconds (13.1 milliseconds per GB)
 * **Linux running on physical machine (Xeon @ 2.27Ghz)** 6.9GB RSS forked into 62 milliseconds (9 milliseconds per GB).
 * **Linux VM on 6sync (KVM)** 360 MB RSS forked in 8.2 milliseconds (23.3 millisecond per GB).
-* **Linux VM on EC2 (Xen)** 6.1GB RSS forked in 1460 milliseconds (239.3 milliseconds per GB).
+* **Linux VM on EC2, old instance types (Xen)** 6.1GB RSS forked in 1460 milliseconds (239.3 milliseconds per GB).
+* **Linux VM on EC2, new instance types (Xen)** 1GB RSS forked in 10 milliseconds (10 milliseconds per GB).
 * **Linux VM on Linode (Xen)** 0.9GBRSS forked into 382 millisecodns (424 milliseconds per GB).
 
-As you can see a VM running on Xen has a performance hit that is between one order to two orders of magnitude. We believe this is a severe problem with Xen and we hope it will be addressed ASAP.
+As you can see certanin VM running on Xen have a performance hit that is between one order to two orders of magnitude. For EC2 users the suggestion is simple: use modern HVM based instances.
+
+Latency induced by transparent huge pages
+-----------------------------------------
+
+Unfortunately when a Linux kernel has transparent huge pages enabled, Redis
+incurs to a big latency penality after the `fork` call is used in order to
+persist on disk. Huge pages are the cause of the follwing issue:
+
+1. Fork is called, two processes with shared huge pages are crated.
+2. In a busy instance, a few event loops runs will cause commands to target a few thousand of pages, causing the copy on write of almost the whole process memory.
+3. This will result in big latency and big memory usage.
+
+Make sure to **disable transparent huge pages** using the following command:
+
+    echo never > sys/kernel/mm/transparent_hugepage/enabled
 
 Latency induced by swapping (operating system paging)
 -----------------------------------------------------
