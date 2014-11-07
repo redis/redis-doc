@@ -259,7 +259,7 @@ persist on disk. Huge pages are the cause of the follwing issue:
 
 Make sure to **disable transparent huge pages** using the following command:
 
-    echo never > sys/kernel/mm/transparent_hugepage/enabled
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
 Latency induced by swapping (operating system paging)
 -----------------------------------------------------
