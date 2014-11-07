@@ -14,7 +14,7 @@ I've little time, give me the checklist
 
 The following documentation is very important in order to run Redis in
 a low latency fashion. However I understand that we are busy people, so
-let's start with a quick checklist. If you fail following this steps, please
+let's start with a quick checklist. If you fail following these steps, please
 return here to read the full documentation.
 
 1. Make sure you are not running slow commands that are blocking the server. Use the Redis [Slow Log feature](/commands/slowlog) to check this.
