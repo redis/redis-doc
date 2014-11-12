@@ -16,6 +16,6 @@ SADD key1 "c"
 SADD key2 "c"
 SADD key2 "d"
 SADD key2 "e"
-SINTERSTORE key key1 key2
+SUNIONSTORE key key1 key2
 SMEMBERS key
 ```
