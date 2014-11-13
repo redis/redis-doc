@@ -850,5 +850,15 @@
     "description": "Varnish Cache module using the synchronous hiredis library API to access Redis servers from VCL.",
     "authors": ["carlosabalde"],
     "active": true
-  }
+  },
+  
+  {
+    "name": "redisclient",
+    "language": "C++",
+    "repository": "https://github.com/nekipelov/redisclient",
+    "description": "A C++ asynchronous client based on boost::asio",
+    "authors": [ "nekipelov" ],
+    "active": true
+  }  
+  
 ]
