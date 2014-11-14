@@ -512,6 +512,7 @@ The Redis Lua interpreter loads the following Lua libraries:
 * struct lib.
 * cjson lib.
 * cmsgpack lib.
+* bitop lib
 * redis.sha1hex function.
 
 Every Redis instance is _guaranteed_ to have all the above libraries so you can
@@ -585,6 +586,27 @@ Example:
 2) "bar"
 3) "baz"
 ```
+
+### bitop
+
+The Lua Bit Operations Module adds bitwise operations on numbers.
+It is available for scripting in Redis since version 2.8.18.
+
+Example:
+
+```
+127.0.0.1:6379> eval 'return bit.tobit(1)' 0
+(integer) 1
+127.0.0.1:6379> eval 'return bit.bor(1,2,4,8,16,32,64,128)' 0
+(integer) 255
+127.0.0.1:6379> eval 'return bit.tohex(422342)' 0
+"000671c6"
+```
+
+It supports several other functions:
+`bit.tobit`, `bit.tohex`, `bit.bnot`, `bit.band`, `bit.bor`, `bit.bxor`,
+`bit.lshift`, `bit.rshift`, `bit.arshift`, `bit.rol`, `bit.ror`, `bit.bswap`.
+All available functions are documented in the [Lua BitOp documentation](http://bitop.luajit.org/api.html)
 
 ### redis.sha1hex
 
