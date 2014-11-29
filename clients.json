@@ -859,6 +859,15 @@
     "description": "A C++ asynchronous client based on boost::asio",
     "authors": [ "nekipelov" ],
     "active": true
-  }  
+  },  
+  
+  {
+    "name": "redis",
+    "language": "Dart",
+    "url": "https://github.com/ra1u/redis-dart",
+    "description": "Simple and fast client",
+    "authors": ["Luka Rahne"],
+    "active": true
+  }
   
 ]
