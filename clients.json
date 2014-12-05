@@ -455,6 +455,15 @@
   },
 
   {
+    "name": "asyncio_redis",
+    "language": "Python",
+    "repository": "http://asyncio-redis.readthedocs.org/",
+    "description": "Asynchronous Redis client that works with the asyncio event loop",
+    "authors": ["Jonathan Slenders"],
+    "active": true
+  },
+
+  {
     "name": "scala-redis",
     "language": "Scala",
     "repository": "https://github.com/acrosa/scala-redis",
