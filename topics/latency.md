@@ -20,7 +20,7 @@ return here to read the full documentation.
 1. Make sure you are not running slow commands that are blocking the server. Use the Redis [Slow Log feature](/commands/slowlog) to check this.
 2. For EC2 users, make sure you use HVM based modern EC2 instances, like m3.medium. Otherwise fork() is too slow.
 3. Transparent huge pages must be disabled from your kernel. Use `echo never > /sys/kernel/mm/transparent_hugepage/enabled` to disable them, and restart your Redis process.
-4. If you are using a virtual machine, it is possible that you have an intrinsic latency that has nothing to do with Redis. Check the minimum latency you can expect from your runtime environment using `./redis-cli --intrinsic-latency 100`.
+4. If you are using a virtual machine, it is possible that you have an intrinsic latency that has nothing to do with Redis. Check the minimum latency you can expect from your runtime environment using `./redis-cli --intrinsic-latency 100`. Note: you need to run this command in *the server* not in the client.
 5. Enable and use the [Latency monitor](/topics/latency-monitor) feature of Redis in order to get a human readable description of the latency events and causes in your Redis instance.
 
 In general, use the following table for durability VS latency/performance tradeoffs, ordered from stronger safety to better latency.
@@ -88,9 +88,12 @@ intensive and will likely saturate a single core in your system.
     Max latency so far: 83 microseconds.
     Max latency so far: 115 microseconds.
 
-The intrinsic latency of this system is just 0.115 milliseconds (or 115
-microseconds), which is a good news, however keep in mind that the intrinsic
-latency may change over time depending on the load of the system.
+Note: redis-cli in this special case needs to **run in the server** where you run or plan to run Redis, not in the client. In this special mode redis-cli does no connect to a Redis server at all: it will just try to measure the largest time the kernel does not provide CPU time to run to the redis-cli process itself.
+
+In the above example, the intrinsic latency of the system is just 0.115
+milliseconds (or 115 microseconds), which is a good news, however keep in mind
+that the intrinsic latency may change over time depending on the load of the
+system.
 
 Virtualized environments will not show so good numbers, especially with high
 load or if there are noisy neighbors. The following is a run on a Linode 4096
