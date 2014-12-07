@@ -152,7 +152,7 @@ that need to agree about the unreachability or error condition of the master in
 order to trigger a failover.
 
 However, after the failover is triggered, in order for the failover to actually be
-performed, **at least a majority of Sentinels must authorized the Sentinel to
+performed, **at least a majority of Sentinels must authorize the Sentinel to
 failover**.
 
 Let's try to make things a bit more clear:
