@@ -549,10 +549,10 @@ Redis evict expired keys in two ways:
 
 The active expiring is designed to be adaptive. An expire cycle is started every 100 milliseconds (10 times per second), and will do the following:
 
-+ Sample `REDIS_EXPIRELOOKUPS_PER_CRON` keys, evicting all the keys already expired.
++ Sample `ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP` keys, evicting all the keys already expired.
 + If the more than 25% of the keys were found expired, repeat.
 
-Given that `REDIS_EXPIRELOOKUPS_PER_CRON` is set to 10 by default, and the process is performed ten times per second, usually just 100 keys per second are actively expired. This is enough to clean the DB fast enough even when already expired keys are not accessed for a long time, so that the *lazy* algorithm does not help. At the same time expiring just 100 keys per second has no effects in the latency a Redis instance.
+Given that `ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP` is set to 20 by default, and the process is performed ten times per second, usually just 200 keys per second are actively expired. This is enough to clean the DB fast enough even when already expired keys are not accessed for a long time, so that the *lazy* algorithm does not help. At the same time expiring just 200 keys per second has no effects in the latency a Redis instance.
 
 However the algorithm is adaptive and will loop if it founds more than 25% of keys already expired in the set of sampled keys. But given that we run the algorithm ten times per second, this means that the unlucky event of more than 25% of the keys in our random sample are expiring at least *in the same second*.
 
