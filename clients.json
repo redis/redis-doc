@@ -859,6 +859,15 @@
     "description": "A C++ asynchronous client based on boost::asio",
     "authors": [ "nekipelov" ],
     "active": true
+  },
+  
+  {
+    "name": "phpRedExpert",
+    "language": "PHP",
+    "repository": "https://github.com/eugef/phpRedExpert",
+    "description": "phpRedExpert ia simple and powerful web UI for Redis databases and servers management, written in PHP and JavaScript.",
+    "authors": [ "EugeneFidelin" ],
+    "active": true
   }  
   
 ]
