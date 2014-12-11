@@ -892,6 +892,13 @@
     "description": "A C++ asynchronous client based on boost::asio",
     "authors": [ "nekipelov" ],
     "active": true
-  }  
-  
+  },
+
+  {
+    "name": "redis-octave",
+    "language": "Matlab",
+    "repository": "https://github.com/markuman/redis-octave",
+    "description": "A Redis client in pure Octave ",
+    "authors": ["markuman"]
+  }
 ]
