@@ -393,13 +393,13 @@ The slave selection process evaluates the following informations about slaves:
 4. Run ID.
 
 A slave that is found to be disconnected from the master for more than ten
-times the configured masster timeout (down-after-milliseconds option), plus
+times the configured master timeout (down-after-milliseconds option), plus
 the time the master is also not available from the point of view of the
 Sentinel doing the failover, is considered to be not suitable for the failover
 and is skipped.
 
 In more rigorous terms, a slave whose the `INFO` output suggests to be
-disconnected form the master for more than:
+disconnected from the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
 
