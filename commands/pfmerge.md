@@ -3,7 +3,7 @@ the cardinality of the union of the observed Sets of the source HyperLogLog
 structures.
 
 The computed merged HyperLogLog is set to the destination variable, which is
-created if does not exist (defauling to an empty HyperLogLog).
+created if does not exist (defaulting to an empty HyperLogLog).
 
 @return
 

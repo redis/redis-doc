@@ -10,7 +10,7 @@ in order to learn how to create more complex applications.
 Note: the original version of this article was written in 2009 when Redis was
 released. It was not exactly clear at the time that the Redis data model was
 suitable to write entire applications. Now after 5 years there are many cases of
-applications using Redis as their main store, so the gaol of the article today
+applications using Redis as their main store, so the goal of the article today
 is to be a tutorial for Redis newcomers. You'll learn how to design a simple
 data layout using Redis, and how to apply different data structures.
 
@@ -18,7 +18,7 @@ Our Twitter clone, called [Retwis](http://retwis.antirez.com), is structurally s
 
 I use PHP for the example since it can be read by everybody. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
 A few clones exist (however not all the clones use the same data layout as the
-current version of this toturial, so please, stick with the official PHP
+current version of this tutorial, so please, stick with the official PHP
 implementation for the sake of following the article better).
 
 * [Retwis-RB](http://retwisrb.danlucraft.com/) is a port of Retwis to Ruby and Sinatra written by Daniel Lucraft! Full source code is included of course, and a link to its Git repository appears in the footer of this article. The rest of this article targets PHP, but Ruby programmers can also check the Retwis-RB source code since it's conceptually very similar.
@@ -133,7 +133,7 @@ of Sorted Sets usage:
     ZADD zset 12.55 c
     ZRANGE zset 0 -1 => b,a,c
 
-In the above example we added a few elements with `ZADD`, and later retrivied
+In the above example we added a few elements with `ZADD`, and later retrieved
 the elements with `ZRANGE`. As you can see the elements are returned in order
 according to their score. In order to check if a given element exists, and
 also to retrieve its score if it exists, we use the `ZSCORE` command:
@@ -142,7 +142,7 @@ also to retrieve its score if it exists, we use the `ZSCORE` command:
     ZSCORE zset non_existing_element => NULL
 
 Sorted Sets are a very powerful data structure, you can query elements by
-score range, lexocographically, in reverse order, and so forth.
+score range, lexicographically, in reverse order, and so forth.
 To know more [please check the Sorted Set sections in the official Redis commands documentation](http://redis.io/commands/#sorted_set).
 
 The Hash data type
@@ -156,7 +156,7 @@ collection of fields associated with values:
     HMSET myuser name Salvatore surname Sanfilippo country Italy
     HGET myuser surname => Sanfilippo
 
-`HMSET` can be used to set fields in the hash, that can be retrivied with
+`HMSET` can be used to set fields in the hash, that can be retrieved with
 `HGET` later. It is possible to check if a field exists with `HEXISTS`, or
 to increment an hash field with `HINCRBY` and so forth.
 
@@ -186,7 +186,7 @@ Let's start with Users. We need to represent users, of course, with their userna
 *Note: you should use an hashed password in a real application, for simplicity
 we store the password in clear text.*
 
-We use the `next_user_id` key in order to always get an unique ID for every new user. Then we use this unique ID to name the key holdign an Hash with user's data. *This is a common design pattern* with key-values stores! Keep it in mind.
+We use the `next_user_id` key in order to always get an unique ID for every new user. Then we use this unique ID to name the key holding an Hash with user's data. *This is a common design pattern* with key-values stores! Keep it in mind.
 Besides the fields already defined, we need some more stuff in order to fully define a User. For example, sometimes it can be useful to be able to get the user ID from the username, so every time we add an user, we also populate the `users` key, which is an Hash, with the username as field, and its ID as value.
 
     HSET users antirez 1000

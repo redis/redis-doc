@@ -90,7 +90,7 @@ following:
 You only need to specify the masters to monitor, giving to each separated
 master (that may have any number of slaves) a different name. There is no
 need to specify slaves, which are auto-discovered. Sentinel will update the
-configuration automatically with additional informations about slaves (in
+configuration automatically with additional information about slaves (in
 order to retain the information in case of restart). The configuration is
 also rewritten every time a slave is promoted to master during a failover.
 
@@ -385,7 +385,7 @@ is in `ODOWN` state and the Sentinel received the authorization to failover
 from the majority of the Sentinel instances known, a suitable slave needs
 to be selected.
 
-The slave selection process evaluates the following informations about slaves:
+The slave selection process evaluates the following information about slaves:
 
 1. Disconnection time from the master.
 2. Slave priority.
@@ -393,7 +393,7 @@ The slave selection process evaluates the following informations about slaves:
 4. Run ID.
 
 A slave that is found to be disconnected from the master for more than ten
-times the configured masster timeout (down-after-milliseconds option), plus
+times the configured master timeout (down-after-milliseconds option), plus
 the time the master is also not available from the point of view of the
 Sentinel doing the failover, is considered to be not suitable for the failover
 and is skipped.
@@ -403,14 +403,14 @@ disconnected form the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
 
-Is considered to be not reliable and is discareded at all.
+Is considered to be not reliable and is discarded at all.
 
 The slave selection only consider the slaves that passed the above test,
 and sorts it based on the above criteria, in the following order.
 
-1. The slaves are sorted by `slave-priority` as confiugred in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
+1. The slaves are sorted by `slave-priority` as configured in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
 2. If the priority is the same, the replication offset processed by the slave is checked, and the slave that received more data from the master is selected.
-3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more determiistic, instead of resorting to select a random slave.
+3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more deterministic, instead of resorting to select a random slave.
 
 Redis masters (that may be turned into slaves after a failover), and slaves, all
 must be configured with a `slave-priority` if there are machines to be strongly
@@ -596,7 +596,7 @@ and is only specified if the instance is not a master itself.
 * **+failover-state-select-slave** `<instance details>` -- New failover state is `select-slave`: we are trying to find a suitable slave for promotion.
 * **no-good-slave** `<instance details>` -- There is no good slave to promote. Currently we'll try after some time, but probably this will change and the state machine will abort the failover at all in this case.
 * **selected-slave** `<instance details>` -- We found the specified good slave to promote.
-* **failover-state-send-slaveof-noone** `<instance details>` -- We are trynig to reconfigure the promoted slave as master, waiting for it to switch.
+* **failover-state-send-slaveof-noone** `<instance details>` -- We are trying to reconfigure the promoted slave as master, waiting for it to switch.
 * **failover-end-for-timeout** `<instance details>` -- The failover terminated for timeout, slaves will eventually be configured to replicate with the new master anyway.
 * **failover-end** `<instance details>` -- The failover terminated with success. All the slaves appears to be reconfigured to replicate with the new master.
 * **switch-master** `<master name> <oldip> <oldport> <newip> <newport>` -- The master new IP and address is the specified one after a configuration change. This is **the message most external users are interested in**.

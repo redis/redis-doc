@@ -19,7 +19,7 @@ is intended to be used by people that don't need Redis Cluster, but simply
 a way to perform automatic fail over when a master instance is not functioning
 correctly.
 
-The plan is to provide an usable beta implementaiton of Redis Sentinel in a
+The plan is to provide an usable beta implementation of Redis Sentinel in a
 short time, preferably in mid July 2012.
 
 In short this is what Redis Sentinel will be able to do:
