@@ -98,7 +98,7 @@ Eventually clients obtain an up to date representation of the cluster and which 
 
 Because of the use of asynchronous replication, nodes does not wait for other nodes acknowledgment of writes (optional synchronous replication is a work in progress and will be likely added in future releases).
 
-Also, because muliple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
+Also, because multiple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
 
 So normal operations are handled exactly as in the case of a single Redis instance. This means that in a Redis Cluster with N master nodes you can expect the same performance as a single Redis instance multiplied by N as the design allows to scale linearly. At the same time the query is usually performed in a single round trip, since clients usually retain persistent connections with the nodes, so latency figures are also the same as the single stand alone Redis node case.
 
@@ -219,7 +219,7 @@ C example code:
 Cluster nodes attributes
 ---
 
-Every node has an unique name in the cluster. The node name is the
+Every node has a unique name in the cluster. The node name is the
 hex representation of a 160 bit random number, obtained the first time a
 node is started (usually using /dev/urandom).
 The node will save its ID in the node configuration file, and will use the
@@ -284,7 +284,7 @@ Redis cluster is a full mesh where every node is connected with every other node
 In a cluster of N nodes, every node has N-1 outgoing TCP connections, and N-1 incoming connections.
 
 These TCP connections are kept alive all the time and are not created on demand.
-When a node expects an pong reply in response to a ping in the cluster bus, before to wait for enough time to mark the node as unreachable, it will try to
+When a node expects a pong reply in response to a ping in the cluster bus, before to wait for enough time to mark the node as unreachable, it will try to
 refresh the connection with the node by reconnecting from scratch.
 
 While Redis Cluster nodes form a full mesh, nodes use a gossip protocol and
@@ -361,13 +361,13 @@ Cluster live reconfiguration
 
 Redis cluster supports the ability to add and remove nodes while the cluster
 is running. Actually adding or removing a node is abstracted into the same
-operation, that is, moving an hash slot from a node to another.
+operation, that is, moving a hash slot from a node to another.
 
 * To add a new node to the cluster an empty node is added to the cluster and some hash slot is moved from existing nodes to the new node.
 * To remove a node from the cluster the hash slots assigned to that node are moved to other existing nodes.
 
 So the core of the implementation is the ability to move slots around.
-Actually from a practical point of view an hash slot is just a set of keys, so
+Actually from a practical point of view a hash slot is just a set of keys, so
 what Redis cluster really does during *resharding* is to move keys from
 an instance to another instance.
 
@@ -595,7 +595,7 @@ by the slave's master node. This may happen because:
 When this happens the client should update its hashslot map as explained in
 the previous sections.
 
-The *readonly* state of the connection can be undoed using the `READWRITE` command.
+The *readonly* state of the connection can be undone using the `READWRITE` command.
 
 Fault Tolerance
 ===
@@ -618,7 +618,7 @@ There are ways to use the gossip information already exchanged by Redis Cluster 
 Ping and Pong packets content
 ---
 
-Ping and Pong packets contain an header that is common to all the kind of packets (for instance packets to request a vote), and a special Gossip Section that is specific of Ping and Pong packets.
+Ping and Pong packets contain a header that is common to all the kind of packets (for instance packets to request a vote), and a special Gossip Section that is specific of Ping and Pong packets.
 
 The common header has the following information:
 
@@ -783,7 +783,7 @@ Masters receive requests for votes in form of `FAILOVER_AUTH_REQUEST` requests f
 
 For a vote to be granted the following conditions need to be met:
 
-* 1) A master only votes a single time for a given epoch, and refuses to vote for older epochs: every master has a lastVoteEpoch field and will refuse to vote again as long as the `currentEpoch` in the auth request packet is not greater than the lastVoteEpoch. When a master replies positively to an vote request, the lastVoteEpoch is updated accordingly.
+* 1) A master only votes a single time for a given epoch, and refuses to vote for older epochs: every master has a lastVoteEpoch field and will refuse to vote again as long as the `currentEpoch` in the auth request packet is not greater than the lastVoteEpoch. When a master replies positively to a vote request, the lastVoteEpoch is updated accordingly.
 * 2) A master votes for a slave only if the slave's master is flagged as `FAIL`.
 * 3) Auth requests with a `currentEpoch` that is less than the master `currentEpoch` are ignored. Because of this the Master reply will always have the same `currentEpoch` as the auth request. If the same slave asks again to be voted, incrementing the `currentEpoch`, it is guaranteed that an old delayed reply from the master can not be accepted for the new vote.
 
@@ -823,21 +823,21 @@ Rules for server slots information propagation
 
 An important part of Redis Cluster is the mechanism used to propagate the information about which cluster node is serving a given set of hash slots. This is vital to both the startup of a fresh cluster and the ability to upgrade the configuration after a slave was promoted to serve the slots of its failing master.
 
-Ping and Pong packets that instances continuously exchange contain an header that is used by the sender in order to advertise the hash slots it claims to be responsible for. This is the main mechanism used in order to propagate change, with the exception of a manual reconfiguration operated by the cluster administrator (for example a manual resharding via redis-trib in order to move hash slots among masters).
+Ping and Pong packets that instances continuously exchange contain a header that is used by the sender in order to advertise the hash slots it claims to be responsible for. This is the main mechanism used in order to propagate change, with the exception of a manual reconfiguration operated by the cluster administrator (for example a manual resharding via redis-trib in order to move hash slots among masters).
 
 When a new Redis Cluster node is created, its local slot table, that maps a given hash slot with a given node ID, is initialized so that every hash slot is assigned to nil, that is, the hash slot is unassigned.
 
 The first rule followed by a node in order to update its hash slot table is the following:
 
-**Rule 1: If an hash slot is unassigned, and a known node claims it, I'll modify my hash slot table to associate the hash slot to this node.**
+**Rule 1: If a hash slot is unassigned, and a known node claims it, I'll modify my hash slot table to associate the hash slot to this node.**
 
 Because of this rule, when a new cluster is created, it is only needed to manually assign (using the `CLUSTER` command, usually via the redis-trib command line tool) the slots served by each master node to the node itself, and the information will rapidly propagate across the cluster.
 
 However this rule is not enough when a configuration update happens because of a slave gets promoted to master after a master failure. The new master instance will advertise the slots previously served by the old slave, but those slots are not unassigned from the point of view of the other nodes, that will not upgrade the configuration if they just follow the first rule.
 
-For this reason there is a second rule that is used in order to rebind an hash slot already assigned to a previous node to a new node claiming it. The rule is the following:
+For this reason there is a second rule that is used in order to rebind a hash slot already assigned to a previous node to a new node claiming it. The rule is the following:
 
-**Rule 2: If an hash slot is already assigned, and a known node is advertising it using a `configEpoch` that is greater than the `configEpoch` advertised by the current owner of the slot, I'll rebind the hash slot to the new node.**
+**Rule 2: If a hash slot is already assigned, and a known node is advertising it using a `configEpoch` that is greater than the `configEpoch` advertised by the current owner of the slot, I'll rebind the hash slot to the new node.**
 
 Because of the second rule eventually all the nodes in the cluster will agree that the owner of a slot is the one with the greatest `configEpoch` among the nodes advertising it.
 
@@ -934,7 +934,7 @@ So for example if there are 10 masters with 1 slave each, and 2 masters with
 having 5 slaves, the one with the lowest node ID. Given that no agreement
 is used, it is possible that when the cluster configuration is not stable,
 a race condition occurs where multiple slaves think to be the non-failing
-slave with the lower node ID (but it is an hard to trigger condition in
+slave with the lower node ID (but it is a hard to trigger condition in
 practice). If this happens, the result is multiple slaves migrating to the
 same master, which is harmless. If the race happens in a way that will left
 the ceding master without slaves, as soon as the cluster is stable again
@@ -945,7 +945,7 @@ Eventually every master will be backed by at least one slave, however
 normally the behavior is that a single slave migrates from a master with
 multiple slaves to an orphaned master.
 
-The algorithm is controlled by an user-configurable parameter called
+The algorithm is controlled by a user-configurable parameter called
 `cluster-migration-barrier`, that is the number of good slaves a master
 will be left with for a slave to migrate. So for example if this parameter
 is set to 2, a slave will try to migrate only if its master remains with
@@ -957,14 +957,14 @@ configEpoch conflicts resolution algorithm
 When new `configEpoch` values are created via slave promotions during
 failovers, they are guaranteed to be unique.
 
-However during manual reshardings, when an hash slot is migrated from
+However during manual reshardings, when a hash slot is migrated from
 a node A to a node B, the resharding program will force B to upgrade
 its configuration to an epoch which is the greatest found in the cluster,
 plus 1 (unless the node is already the one with the greatest configuration
 epoch), without to require for an agreement from other nodes.
 This is needed so that the new slot configuration will win over the old one.
 
-This process happens when the system administator performs a manual
+This process happens when the system administrator performs a manual
 resharding, however it is possible that when the slot is closed after
 a resharding and the node assigns itself a new configuration epoch,
 at the same time a failure happens, just before the new `configEpoch` is
@@ -996,7 +996,7 @@ the same `configEpoch`.
 * THEN it increments its `currentEpoch` by 1, and uses it as the new `configEpoch`.
 
 If there are any set of nodes with the same `configEpoch`, all the nodes but the one with the greatest Node ID will move forward, guaranteeing that every node
-will pick an unique configEpoch regardless of what happened.
+will pick a unique configEpoch regardless of what happened.
 
 This mechanism also guarantees that after a fresh cluster is created all
 nodes start with a different `configEpoch`.
