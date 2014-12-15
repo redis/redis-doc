@@ -177,7 +177,7 @@ Configuration epochs
 Sentinels require to get authorizations from a majority in order to start a
 failover for a few important reasons:
 
-When a Sentinel is authorized, it gets an unique **configuration epoch** for the master it is failing over. This is a number that will be used to version the new configuration after the failover is completed. Because a majority agreed that a given version was assigned to a given Sentinel, no other Sentinel will be able to use it. This means that every configuration of every failover is versioned with an unique version. We'll see why this is so important.
+When a Sentinel is authorized, it gets a unique **configuration epoch** for the master it is failing over. This is a number that will be used to version the new configuration after the failover is completed. Because a majority agreed that a given version was assigned to a given Sentinel, no other Sentinel will be able to use it. This means that every configuration of every failover is versioned with a unique version. We'll see why this is so important.
 
 Moreover Sentinels have a rule: if a Sentinel voted another Sentinel for the failover of a given master, it will wait some time to try to failover the same master again. This delay is the `failover-timeout` you can configure in `sentinel.conf`. This means that Sentinels will not try to failover the same master at the same time, the first to ask to be authorized will try, if it fails another will try after some time, and so forth.
 
@@ -410,7 +410,7 @@ and sorts it based on the above criteria, in the following order.
 
 1. The slaves are sorted by `slave-priority` as confiugred in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
 2. If the priority is the same, the replication offset processed by the slave is checked, and the slave that received more data from the master is selected.
-3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more determiistic, instead of resorting to select a random slave.
+3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more deterministic, instead of resorting to select a random slave.
 
 Redis masters (that may be turned into slaves after a failover), and slaves, all
 must be configured with a `slave-priority` if there are machines to be strongly
