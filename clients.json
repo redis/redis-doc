@@ -345,12 +345,12 @@
   },
 
   {
-    "name": "MojoX::Redis",
+    "name": "Mojo::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/MojoX-Redis",
-    "repository": "https://github.com/und3f/mojox-redis",
+    "url": "http://search.cpan.org/dist/Mojo-Redis",
+    "repository": "https://github.com/marcusramberg/mojo-redis",
     "description": "asynchronous Redis client for Mojolicious",
-    "authors": ["und3f"],
+    "authors": ["und3f", "marcusramberg", "jhthorsen"],
     "active": true
   },
 
