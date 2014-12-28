@@ -983,6 +983,7 @@
     "description": "Thread-safe async Redis client. Offers high performance and simple api",
     "authors": ["bn_andrew"]
   },
+
   {
     "name": "redis",
     "language": "Dart",
@@ -1023,6 +1024,14 @@
     "description": "Redis client for R",
     "authors": ["bwlewis"],
     "active": true
+  },
+
+  {
+    "name": "Redis-AS3",
+    "language": "ActionScript",
+    "repository": "https://github.com/mikeheier/Redis-AS3",
+    "description": "An as3 client library for redis.",
+    "authors": ["mikeheier"]
   }
 
 ]
