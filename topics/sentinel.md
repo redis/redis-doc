@@ -12,10 +12,10 @@ It performs the following four tasks:
 Distributed nature of Sentinel
 ---
 
-Redis Sentinel is a distributed system, this means that usually you want to run
-multiple Sentinel processes across your infrastructure, and this processes
+Redis Sentinel is a distributed system.  This means that usually you want to run
+multiple Sentinel processes across your infrastructure.  These processes
 will use gossip protocols in order to understand if a master is down and
-agreement protocols in order to get authorized to perform the failover and assign
+agreement protocols in order to become authorized to perform the failover and assign
 a new version to the new configuration.
 
 Distributed systems have given *safety* and *liveness* properties, in order to
