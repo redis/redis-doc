@@ -312,5 +312,12 @@
     "repository": "https://github.com/poying/redis-mount",
     "description": "redis-mount lets you use Redis as a filesystem.",
     "authors": ["poying"]
+  },
+  {
+    "name": "Keylord",
+    "language": "Java",
+    "url": "http://protonail.com/products/keylord",
+    "description": "Cross-platform administration and development tool for key-value databases like Redis, LevelDB, etc.",
+    "authors": ["protonail"]
   }
 ]
