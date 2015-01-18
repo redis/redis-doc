@@ -650,8 +650,8 @@ ideal. So to start, we can make a copy of the set stored in the `deck` key
 into the `game:1:deck` key.
 
 This is accomplished using `SUNIONSTORE`, which normally performs the
-intersection between multiple sets, and stores the result into another set.
-However, since the intersection of a single set is itself, I can copy my deck
+union between multiple sets, and stores the result into another set.
+However, since the union of a single set is itself, I can copy my deck
 with:
 
     > sunionstore game:1:deck deck
