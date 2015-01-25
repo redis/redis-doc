@@ -403,12 +403,12 @@ disconnected form the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
 
-Is considered to be not reliable and is discareded at all.
+Is considered to be not reliable and is disregarded at all.
 
-The slave selection only consider the slaves that passed the above test,
+The slave selection only considers the slaves that passed the above test,
 and sorts it based on the above criteria, in the following order.
 
-1. The slaves are sorted by `slave-priority` as confiugred in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
+1. The slaves are sorted by `slave-priority` as configured in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
 2. If the priority is the same, the replication offset processed by the slave is checked, and the slave that received more data from the master is selected.
 3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more deterministic, instead of resorting to select a random slave.
 
@@ -447,7 +447,7 @@ data only in the master, having the same data accessible in the slaves.
 
 However, in the uncommon case where you need a slave that is accessible
 without authentication, you can still do it by setting up a slave priority
-of zero (that will not allow the salve to be promoted to master), and
+of zero (that will not allow the slave to be promoted to master), and
 configuring only the `masterauth` directive for this slave, without
 the `requirepass` directive, so that data will be readable by unauthenticated
 clients.
