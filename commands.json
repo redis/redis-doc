@@ -1398,7 +1398,14 @@
       {
         "name": "serialized-value",
         "type": "string"
+      },
+      {
+        "name": "replace",
+        "type": "enum",
+        "enum": ["REPLACE"],
+        "optional": true
       }
+
     ],
     "since": "2.6.0",
     "group": "generic"
