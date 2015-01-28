@@ -747,6 +747,15 @@
   },
 
   {
+    "name": "redox",
+    "language": "C++",
+    "repository": "https://github.com/hmartiro/redox",
+    "description": "Modern, asynchronous, and fast C++11 client for Redis",
+    "authors": ["hmartiros"],
+    "active": true
+  },
+  
+  {
     "name": "redis3m",
     "language": "C++",
     "repository": "https://github.com/luca3m/redis3m",
