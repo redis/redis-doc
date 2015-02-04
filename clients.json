@@ -164,6 +164,15 @@
     "authors": ["keimoon"],
     "active": true
   },
+  
+  {
+    "name": "shipwire/redis",
+    "language": "Go",
+    "repository": "https://github.com/shipwire/redis",
+    "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
+    "authors": ["stephensearles"],
+    "active": true
+  },
 
   {
     "name": "hedis",
@@ -250,6 +259,14 @@
   },
 
   {
+    "name": "mod-redis",
+    "language": "Java",
+    "repository": "https://github.com/vert-x/mod-redis",
+    "description": "Official asynchronous redis.io bus module for Vert.x",
+    "authors": ["pmlopes"]
+  },
+
+  {
     "name": "redis-lua",
     "language": "Lua",
     "repository": "https://github.com/nrk/redis-lua",
@@ -328,12 +345,12 @@
   },
 
   {
-    "name": "MojoX::Redis",
+    "name": "Mojo::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/MojoX-Redis",
-    "repository": "https://github.com/und3f/mojox-redis",
+    "url": "http://search.cpan.org/dist/Mojo-Redis",
+    "repository": "https://github.com/marcusramberg/mojo-redis",
     "description": "asynchronous Redis client for Mojolicious",
-    "authors": ["und3f"],
+    "authors": ["und3f", "marcusramberg", "jhthorsen"],
     "active": true
   },
 
@@ -399,7 +416,15 @@
     "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
     "authors": ["colinmollenhour"]
   },
-
+  
+  {
+    "name": "phpish/redis",
+    "language": "PHP",
+    "repository": "https://github.com/phpish/redis",
+    "description": "Simple Redis client in PHP",
+    "authors": ["sandeepshetty"]
+  },
+  
   {
     "name": "PHP Sentinel Client",
     "language": "PHP",
@@ -407,6 +432,14 @@
     "description": "A PHP sentinel client acting as an extension to your regular redis client",
     "authors": ["jamescauwelier"],
     "active": true
+  },
+
+  {
+    "name": "Yampee Redis",
+    "language": "PHP",
+    "repository": "https://github.com/yampee/Redis",
+    "description": "A full-featured Redis client for PHP 5.2. Easy to use and to extend.",
+    "authors": ["tgalopin"]
   },
 
   {
@@ -454,6 +487,14 @@
     "active": true
   },
 
+  {
+    "name": "prot-redis",
+    "language": "Rebol",
+    "repository": "https://github.com/rebolek/prot-redis",
+    "description": "Redis network scheme for Rebol 3",
+    "authors": ["rebolek"]
+  },
+  
   {
     "name": "scala-redis",
     "language": "Scala",
@@ -860,7 +901,7 @@
     "authors": [ "nekipelov" ],
     "active": true
   },
-  
+
   {
     "name": "phpRedExpert",
     "language": "PHP",
@@ -868,6 +909,22 @@
     "description": "phpRedExpert ia simple and powerful web UI for Redis databases and servers management, written in PHP and JavaScript.",
     "authors": [ "EugeneFidelin" ],
     "active": true
-  }  
-  
+  },
+
+  {
+    "name": "redis-octave",
+    "language": "Matlab",
+    "repository": "https://github.com/markuman/redis-octave",
+    "description": "A Redis client in pure Octave ",
+    "authors": ["markuman"]
+  },
+
+  {
+    "name": "redisboost",
+    "language": "C#",
+    "url": "http://andrew-bn.github.io/RedisBoost/",
+    "repository": "https://github.com/andrew-bn/RedisBoost",
+    "description": "Thread-safe async Redis client. Offers high performance and simple api",
+    "authors": ["bn_andrew"]
+  }
 ]
