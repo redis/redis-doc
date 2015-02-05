@@ -573,7 +573,7 @@
         "name": "milliseconds",
         "type": "integer",
         "optional": true
-      },
+      }
     ],
     "since": "1.0.0",
     "group": "string"
