@@ -561,7 +561,19 @@
       {
         "name": "value",
         "type": "string"
-      }
+      },
+      {
+        "command": "EX",
+        "name": "seconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "PX",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      },
     ],
     "since": "1.0.0",
     "group": "string"
