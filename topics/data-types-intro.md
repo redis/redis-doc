@@ -703,7 +703,7 @@ ordered on request, order is a peculiarity of the data structure used to
 represent sorted sets). They are ordered according to the following rule:
 
 * If A and B are two elements with a different score, then A > B if A.score is > B.score.
-* If A and B have exactly the same score, than A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
+* If A and B have exactly the same score, then A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
 
 Let's start with a simple example, adding a few selected hackers names as
 sorted set elements, with their year of birth as "score".
