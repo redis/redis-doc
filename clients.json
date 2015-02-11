@@ -799,9 +799,9 @@
   {
     "name": "lettuce",
     "language": "Java",
-    "repository": "https://github.com/wg/lettuce",
+    "repository": "https://github.com/mp911de/lettuce",
     "description": "Thread-safe client supporting async usage and key/value codecs",
-    "authors": ["ar3te"]
+    "authors": ["ar3te", "mp911de"]
   },
 
   {
