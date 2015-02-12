@@ -16,10 +16,12 @@ following important differences:
 
 [hgcarr22rc]: http://github.com/antirez/redis/raw/2.8/redis.conf
 
-* Where bytes or other quantities are specified, it is not possible to use
-  the `redis.conf` abbreviated form (10k 2gb ... and so forth), everything
-  should be specified as a well-formed 64-bit integer, in the base unit of the
-  configuration directive.
+* In most options where bytes or other quantities are specified, it is not
+  possible to use the `redis.conf` abbreviated form (10k 2gb ... and so forth),
+  everything should be specified as a well-formed 64-bit integer, in the base
+  unit of the configuration directive. However since Redis version equal or
+  greater to 3.2 (currently in alpha stage) it will be possible to use
+  `CONFIG SET maxmemory` with units like in `redis.conf`.
 * The save parameter is a single string of space-separated integers.
   Every pair of integers represent a seconds/modifications threshold.
 
