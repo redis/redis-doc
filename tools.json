@@ -298,6 +298,14 @@
     "authors": ["u_glide"]
   },
   {
+    "name": "FastoRedis",
+    "language": "C++",
+	"url": "http://fastoredis.com",
+    "repository": "https://github.com/fasto/fastoredis",
+    "description": "Cross-platform Redis, Memcached management tool.",
+    "authors": [ "atopilski" ],
+  },
+  {
     "name": "Nydus",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/nydus",
