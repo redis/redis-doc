@@ -303,7 +303,7 @@
 	"url": "http://fastoredis.com",
     "repository": "https://github.com/fasto/fastoredis",
     "description": "Cross-platform Redis, Memcached management tool.",
-    "authors": [ "atopilski" ],
+    "authors": [ "topilski" ],
   },
   {
     "name": "Nydus",
