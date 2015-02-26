@@ -951,5 +951,13 @@
     "repository": "https://github.com/0xffea/ocaml-redis",
     "description": "Synchronous and asynchronous (via Lwt) Redis client library in OCaml. Provides implementation of cache and mutex helpers.",
     "active": true
+  },
+  {
+    "name": "Nhiredis",
+    "language": "C#",
+    "repository": "https://github.com/mhowlett/Nhiredis",
+    "description": "A lightweight wrapper around the C client hiredis.",
+    "authors": ["matt_howlett"],
+    "active": true
   }
 ]
