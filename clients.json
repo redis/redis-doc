@@ -384,9 +384,9 @@
   {
     "name": "phpredis",
     "language": "PHP",
-    "repository": "https://github.com/nicolasff/phpredis",
+    "repository": "https://github.com/phpredis/phpredis.git",
     "description": "This is a client written in C as a PHP module.",
-    "authors": ["yowgi"],
+    "authors": ["grumi78", "yowgi"],
     "recommended": true,
     "active": true
   },
