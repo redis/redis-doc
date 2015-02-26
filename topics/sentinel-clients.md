@@ -15,7 +15,7 @@ This document is targeted at Redis clients developers that want to support Senti
 * Automatic configuration of clients via Sentinel.
 * Improved safety of Redis Sentinel automatic failover.
 
-For details about how Redis Sentinel works, please check the [Redis Documentation](/topics/sentinel), as this document only contains informations needed for Redis client developers, and it is expected that readers are familiar with the way Redis Sentinel works.
+For details about how Redis Sentinel works, please check the [Redis Documentation](/topics/sentinel), as this document only contains information needed for Redis client developers, and it is expected that readers are familiar with the way Redis Sentinel works.
 
 Redis service discovery via Sentinel
 ===

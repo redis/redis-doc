@@ -14,7 +14,7 @@ without causing a backward compatibility issue even if the added meta data
 is not required in order to load data from the RDB file.
 
 For example thanks to the info fields specified in this document it will
-be possible to add to RDB informations like file creation time, Redis version
+be possible to add to RDB information like file creation time, Redis version
 generating the file, and any other useful information, in a way that not
 every field is required for an RDB version 7 file to be correctly processed.
 
@@ -30,7 +30,7 @@ RDB file format must be increased so that previous versions of Redis will not
 attempt to load it.
 
 However currently the info fields are designed to only hold additional
-informations that are not useful to load the dataset, but can better specify
+information that are not useful to load the dataset, but can better specify
 how the RDB file was created.
 
 ## Info fields representation

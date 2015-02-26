@@ -41,7 +41,7 @@ the delivering of two messages, exactly equivalent to the following two
     PUBLISH __keyevent@0__:del mykey
 
 It is easy to see how one channel allows to listen to all the events targeting
-the key `mykey` and the other channel allows to obtain informations about
+the key `mykey` and the other channel allows to obtain information about
 all the keys that are target of a `del` operation.
 
 The first kind of event, with `keyspace` prefix in the channel is called
@@ -120,13 +120,13 @@ Different commands generate different kind of events according to the following 
 * `SREM` generates a single `srem` event, and an additional `del` event if the resulting set is empty and the key is removed.
 * `SMOVE` generates an `srem` event for the source key, and an `sadd` event for the destination key.
 * `SPOP` generates an `spop` event, and an additional `del` event if the resulting set is empty and the key is removed.
-* `SINTERSTORE`, `SUNIONSTORE`, `SDIFFSTORE` generate `sinterstore`, `sunionostore`, `sdiffstore` events respectively. In the speical case the resulting set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
+* `SINTERSTORE`, `SUNIONSTORE`, `SDIFFSTORE` generate `sinterstore`, `sunionostore`, `sdiffstore` events respectively. In the special case the resulting set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * `ZINCR` generates a `zincr` event.
 * `ZADD` generates a single `zadd` event even when multiple elements are added.
 * `ZREM` generates a single `zrem` event even when multiple elements are deleted. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZREMBYSCORE` generates a single `zrembyscore` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZREMBYRANK` generates a single `zrembyrank` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
-* `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the speical case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
+* `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the special case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
 
