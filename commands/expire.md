@@ -135,7 +135,7 @@ All the keys that are already expired are deleted from the keyspace.
 
 Specifically this is what Redis does 10 times per second:
 
-1. Test 100 random keys from the set of keys with an associated expire.
+1. Test 20 random keys from the set of keys with an associated expire.
 2. Delete all the keys found expired.
 3. If more than 25 keys were expired, start again from step 1.
 
