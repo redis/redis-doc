@@ -943,5 +943,13 @@
     "description": "Simple and fast client",
     "authors": ["Luka Rahne"],
     "active": true
+  },
+
+  {
+    "name": "ocaml-redis",
+    "language": "OCaml",
+    "repository": "https://github.com/0xffea/ocaml-redis",
+    "description": "Synchronous and asynchronous (via Lwt) Redis client library in OCaml. Provides implementation of cache and mutex helpers.",
+    "active": true
   }
 ]
