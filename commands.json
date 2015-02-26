@@ -1428,7 +1428,7 @@
     "group": "list"
   },
   "RPOPLPUSH": {
-    "summary": "Remove the last element in a list, append it to another list and return it",
+    "summary": "Remove the last element in a list, prepend it to another list and return it",
     "complexity": "O(1)",
     "arguments": [
       {
