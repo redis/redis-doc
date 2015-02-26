@@ -82,6 +82,15 @@
   },
 
   {
+    "name": "exredis",
+    "language": "Elixir",
+    "repository": "https://github.com/artemeff/exredis",
+    "description": "Redis client for Elixir.",
+    "authors": ["artemeff"],
+    "active": true
+  },
+
+  {
     "name": "redis.fy",
     "language": "Fancy",
     "repository": "https://github.com/bakkdoor/redis.fy",
