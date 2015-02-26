@@ -47,13 +47,13 @@ Using the internal Redis latency monitoring subsystem
 ---
 
 Since Redis 2.8.13, Redis provides latency monitoring capabilities that
-are able to sample differnet execution paths to understand where the
-server is blocking. This makes debugging of the problems illustarated in
+are able to sample different execution paths to understand where the
+server is blocking. This makes debugging of the problems illustrated in
 this documentation much simpler, so we suggest to enable latency monitoring
 ASAP. Please refer to the [Latency monitor documentation](/topics/latency-monitor).
 
 While the latency monitoring sampling and reporting capabilities will make
-simpler to understand the soruce of latency in your Redis system, it is still
+simpler to understand the source of latency in your Redis system, it is still
 advised that you read this documentation extensively to better understand
 the topic of Redis and latency spikes.
 
@@ -253,10 +253,10 @@ Latency induced by transparent huge pages
 -----------------------------------------
 
 Unfortunately when a Linux kernel has transparent huge pages enabled, Redis
-incurs to a big latency penality after the `fork` call is used in order to
-persist on disk. Huge pages are the cause of the follwing issue:
+incurs to a big latency penalty after the `fork` call is used in order to
+persist on disk. Huge pages are the cause of the following issue:
 
-1. Fork is called, two processes with shared huge pages are crated.
+1. Fork is called, two processes with shared huge pages are created.
 2. In a busy instance, a few event loops runs will cause commands to target a few thousand of pages, causing the copy on write of almost the whole process memory.
 3. This will result in big latency and big memory usage.
 
@@ -436,7 +436,7 @@ Redis instance you can further verify it using the **vmstat** command:
      0  0   3980 697048 147180 1406640    0    0     0     0 18613 15987  6  6 88  0
      2  0   3980 696924 147180 1406656    0    0     0     0 18744 16299  6  5 88  0
      0  0   3980 697048 147180 1406688    0    0     0     4 18520 15974  6  6 88  0
-^C
+    ^C
 
 The interesting part of the output for our needs are the two columns **si**
 and **so**, that counts the amount of memory swapped from/to the swap file. If
@@ -567,7 +567,7 @@ Redis software watchdog
 
 Redis 2.6 introduces the *Redis Software Watchdog* that is a debugging tool
 designed to track those latency problems that for one reason or the other
-esacped an analysis using normal tools.
+escaped an analysis using normal tools.
 
 The software watchdog is an experimental feature. While it is designed to
 be used in production environments care should be taken to backup the database
