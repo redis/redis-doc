@@ -40,7 +40,7 @@ to split your data set into multiple Redis instances, please read the
 
 Yes, a common design pattern involves taking very write-heavy small data
 in Redis (and data you need the Redis data structures to model your problem
-in an efficinet way), and big *blobs* of data into an SQL or eventually
+in an efficient way), and big *blobs* of data into an SQL or eventually
 consistent on-disk database.
 
 ## Is there something I can do to lower the Redis memory usage?

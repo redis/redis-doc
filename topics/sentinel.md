@@ -12,10 +12,10 @@ It performs the following four tasks:
 Distributed nature of Sentinel
 ---
 
-Redis Sentinel is a distributed system, this means that usually you want to run
-multiple Sentinel processes across your infrastructure, and this processes
+Redis Sentinel is a distributed system.  This means that usually you want to run
+multiple Sentinel processes across your infrastructure.  These processes
 will use gossip protocols in order to understand if a master is down and
-agreement protocols in order to get authorized to perform the failover and assign
+agreement protocols in order to become authorized to perform the failover and assign
 a new version to the new configuration.
 
 Distributed systems have given *safety* and *liveness* properties, in order to
@@ -152,7 +152,7 @@ that need to agree about the unreachability or error condition of the master in
 order to trigger a failover.
 
 However, after the failover is triggered, in order for the failover to actually be
-performed, **at least a majority of Sentinels must authorized the Sentinel to
+performed, **at least a majority of Sentinels must authorize the Sentinel to
 failover**.
 
 Let's try to make things a bit more clear:
@@ -393,13 +393,13 @@ The slave selection process evaluates the following informations about slaves:
 4. Run ID.
 
 A slave that is found to be disconnected from the master for more than ten
-times the configured masster timeout (down-after-milliseconds option), plus
+times the configured master timeout (down-after-milliseconds option), plus
 the time the master is also not available from the point of view of the
 Sentinel doing the failover, is considered to be not suitable for the failover
 and is skipped.
 
 In more rigorous terms, a slave whose the `INFO` output suggests to be
-disconnected form the master for more than:
+disconnected from the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
 
