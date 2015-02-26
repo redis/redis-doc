@@ -129,7 +129,7 @@ key is found to be timed out.
 
 Of course this is not enough as there are expired keys that will never be
 accessed again.
-This keys should be expired anyway, so periodically Redis test a few keys at
+These keys should be expired anyway, so periodically Redis tests a few keys at
 random among keys with an expire set.
 All the keys that are already expired are deleted from the keyspace.
 
