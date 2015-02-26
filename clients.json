@@ -30,7 +30,7 @@
   {
     "name": "aleph",
     "language": "Clojure",
-    "repository": "https://github.com/ztellman/aleph.git",
+    "repository": "https://github.com/ztellman/aleph",
     "description": "Redis client build on top of lamina",
     "authors":["Zach Tellman"],
     "active": true
@@ -384,7 +384,7 @@
   {
     "name": "phpredis",
     "language": "PHP",
-    "repository": "https://github.com/phpredis/phpredis.git",
+    "repository": "https://github.com/phpredis/phpredis",
     "description": "This is a client written in C as a PHP module.",
     "authors": ["grumi78", "yowgi"],
     "recommended": true,
