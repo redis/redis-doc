@@ -935,5 +935,13 @@
     "repository": "https://github.com/andrew-bn/RedisBoost",
     "description": "Thread-safe async Redis client. Offers high performance and simple api",
     "authors": ["bn_andrew"]
+  },
+  {
+    "name": "redis",
+    "language": "Dart",
+    "url": "https://github.com/ra1u/redis-dart",
+    "description": "Simple and fast client",
+    "authors": ["Luka Rahne"],
+    "active": true
   }
 ]
