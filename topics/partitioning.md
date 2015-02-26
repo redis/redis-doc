@@ -43,9 +43,9 @@ Some features of Redis don't play very well with partitioning:
 
 * Operations involving multiple keys are usually not supported. For instance you can't perform the intersection between two sets if they are stored in keys that are mapped to different Redis instances (actually there are ways to do this, but not directly).
 * Redis transactions involving multiple keys can not be used.
-* The partitioning granuliary is the key, so it is not possible to shard a dataset with a single huge key like a very big sorted set.
+* The partitioning granularity is the key, so it is not possible to shard a dataset with a single huge key like a very big sorted set.
 * When partitioning is used, data handling is more complex, for instance you have to handle multiple RDB / AOF files, and to make a backup of your data you need to aggregate the persistence files from multiple instances and hosts.
-* Adding and removing capacity can be complex. For instance Redis Cluster supports mostly transparent rebalancing of data with the ability to add and remove nodes at runtime, but other systems like client side partitioning and proxies don't support this feature. However a technique called *Presharding* helps in this regard.
+* Adding and removing capacity can be complex. For instance Redis Cluster supports mostly transparent rebalancing of data with the ability to add and remove nodes at runtime, but other systems like client side partitioning and proxies don't support this feature. However a technique called *Pre-sharding* helps in this regard.
 
 Data store or cache?
 ---

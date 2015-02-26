@@ -617,3 +617,74 @@ Note: in the example the **DEBUG SLEEP** command was used in order to block the 
 
 If you happen to collect multiple watchdog stack traces you are encouraged to send everything to the Redis Google Group: the more traces we obtain, the simpler it will be to understand what the problem with your instance is.
 
+APPENDIX A: Experimenting with huge pages
+-----------------------------------------
+
+Latency introduced by fork can be mitigated using huge pages at the cost of a bigger memory usage during persistence. The following appendix describe in details this feature as implemented in the Linux kernel.
+
+Some CPUs can use different page size though. AMD and Intel CPUs can support
+2 MB page size if needed. These pages are nicknamed *huge pages*. Some
+operating systems can optimize page size in real time, transparently
+aggregating small pages into huge pages on the fly.
+
+On Linux, explicit huge pages management has been introduced in 2.6.16, and
+implicit transparent huge pages are available starting in 2.6.38. If you
+run recent Linux distributions (for example RH 6 or derivatives), transparent
+huge pages can be activated, and you can use a vanilla Redis version with them.
+
+This is the preferred way to experiment/use with huge pages on Linux.
+
+Now, if you run older distributions (RH 5, SLES 10-11, or derivatives), and
+not afraid of a few hacks, Redis requires to be patched in order to support
+huge pages.
+
+The first step would be to read [Mel Gorman's primer on huge pages](http://lwn.net/Articles/374424/)
+
+There are currently two ways to patch Redis to support huge pages.
+
++ For Redis 2.4, the embedded jemalloc allocator must be patched.
+[patch](https://gist.github.com/1171054) by Pieter Noordhuis.
+Note this patch relies on the anonymous mmap huge page support,
+only available starting 2.6.32, so this method cannot be used for older
+distributions (RH 5, SLES 10, and derivatives).
+
++ For Redis 2.2, or 2.4 with the libc allocator, Redis makefile
+must be altered to link Redis with
+[the libhugetlbfs library](http://libhugetlbfs.sourceforge.net/).
+It is a straightforward [change](https://gist.github.com/1240452)
+
+Then, the system must be configured to support huge pages.
+
+The following command allocates and makes N huge pages available:
+
+    $ sudo sysctl -w vm.nr_hugepages=<N>
+
+The following command mounts the huge page filesystem:
+
+    $ sudo mount -t hugetlbfs none /mnt/hugetlbfs
+
+In all cases, once Redis is running with huge pages (transparent or
+not), the following benefits are expected:
+
++ The latency due to the fork operations is dramatically reduced.
+  This is mostly useful for very large instances, and especially
+  on a VM.
++ Redis is faster due to the fact the translation look-aside buffer
+  (TLB) of the CPU is more efficient to cache page table entries
+  (i.e. the hit ratio is better). Do not expect miracle, it is only
+  a few percent gain at most.
++ Redis memory cannot be swapped out anymore, which is interesting
+  to avoid outstanding latencies due to virtual memory.
+
+Unfortunately, and on top of the extra operational complexity,
+there is also a significant drawback of running Redis with
+huge pages. The COW mechanism granularity is the page. With
+2 MB pages, the probability a page is modified during a background
+save operation is 512 times higher than with 4 KB pages. The actual
+memory required for a background save therefore increases a lot,
+especially if the write traffic is truly random, with poor locality.
+With huge pages, using twice the memory while saving is not anymore
+a theoretical incident. It really happens.
+
+The result of a complete benchmark can be found
+[here](https://gist.github.com/1272254).

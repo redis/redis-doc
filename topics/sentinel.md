@@ -208,7 +208,7 @@ using Redis Pub/Sub messages, both in the master and all the slaves.
 At the same time all the Sentinels wait for messages to see what is the configuration
 advertised by the other Sentinels.
 
-Configurations are broadcasted in the `__sentinel__:hello` Pub/Sub channel.
+Configurations are broadcast in the `__sentinel__:hello` Pub/Sub channel.
 
 Because every configuration has a different version number, the greater version
 always wins over smaller versions.
@@ -237,7 +237,7 @@ concepts of *being down*, one is called a *Subjectively Down* condition
 (SDOWN) and is a down condition that is local to a given Sentinel instance.
 Another is called *Objectively Down* condition (ODOWN) and is reached when
 enough Sentinels (at least the number configured as the `quorum` parameter
-of the monitored master) have an SDOWN condition, and get feedbacks from
+of the monitored master) have an SDOWN condition, and get feedback from
 other Sentinels using the `SENTINEL is-master-down-by-addr` command.
 
 From the point of view of a Sentinel an SDOWN condition is reached if we
