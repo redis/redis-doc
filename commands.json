@@ -1876,12 +1876,17 @@
     "group": "generic"
   },
   "SPOP": {
-    "summary": "Remove and return a random member from a set",
+    "summary": "Remove and return one or multiple random members from a set",
     "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
