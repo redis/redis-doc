@@ -30,6 +30,7 @@ already available, that can be used as a reference.
 * [Redisson](https://github.com/mrniko/redisson) (Java implementation).
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (Cpp implementation).
+* [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
 
 Safety and Liveness guarantees
 ---
