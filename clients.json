@@ -678,7 +678,6 @@
     "repository": "https://github.com/thunks/thunk-redis",
     "description": "A redis client with pipelining, rely on thunks, support promise.",
     "authors": ["zensh"],
-    "recommended": true,
     "active": true
   },
 
