@@ -151,7 +151,7 @@
     "language": "Go",
     "repository": "https://github.com/gosexy/redis",
     "url": "https://menteslibres.net/gosexy/redis",
-    "description": "A Go client for redis built on top of the hiredis C client. Supports non-blocking connections and channel-based subscriptions.",
+    "description": "Redis client library for Go that maps the full redis command list into equivalent Go functions.",
     "authors": ["xiam"],
     "active": true
   },
