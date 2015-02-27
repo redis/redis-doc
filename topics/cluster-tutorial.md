@@ -8,6 +8,8 @@ going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
 how the system behaves from the point of view of the user.
 
+Note this tutorial requires Redis version 3.0 or higher.
+
 Note that if you plan to run a serious Redis Cluster deployment, the
 more formal specification is a highly suggested reading.
 
