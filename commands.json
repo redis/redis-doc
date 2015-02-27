@@ -247,7 +247,7 @@
   },
   "COMMAND GETKEYS": {
     "summary": "Extract keys given a full Redis command",
-    "complexity": "O(N) where N is the number of arugments to the command",
+    "complexity": "O(N) where N is the number of arguments to the command",
     "since": "2.8.13",
     "group": "server"
   },
@@ -1414,7 +1414,14 @@
       {
         "name": "serialized-value",
         "type": "string"
+      },
+      {
+        "name": "replace",
+        "type": "enum",
+        "enum": ["REPLACE"],
+        "optional": true
       }
+
     ],
     "since": "2.6.0",
     "group": "generic"
@@ -1437,7 +1444,7 @@
     "group": "list"
   },
   "RPOPLPUSH": {
-    "summary": "Remove the last element in a list, append it to another list and return it",
+    "summary": "Remove the last element in a list, prepend it to another list and return it",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -1885,12 +1892,17 @@
     "group": "generic"
   },
   "SPOP": {
-    "summary": "Remove and return a random member from a set",
+    "summary": "Remove and return one or multiple random members from a set",
     "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -2252,7 +2264,7 @@
         "optional": true
       }
     ],
-    "since": "2.9.9",
+    "since": "2.8.9",
     "group": "sorted_set"
   },
   "ZRANGEBYSCORE": {

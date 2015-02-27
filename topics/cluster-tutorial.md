@@ -8,11 +8,13 @@ going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
 how the system behaves from the point of view of the user.
 
+Note this tutorial requires Redis version 3.0 or higher.
+
 Note that if you plan to run a serious Redis Cluster deployment, the
 more formal specification is a highly suggested reading.
 
 **Redis cluster is currently alpha quality code**, please get in touch in the
-Redis mailing list or open an issue in the Redis Github repository if you
+Redis mailing list or open an issue in the Redis GitHub repository if you
 find any issue.
 
 Redis Cluster 101
@@ -218,7 +220,7 @@ As a template for your configuration file just use the small example above,
 but make sure to replace the port number `7000` with the right port number
 according to the directory name.
 
-Now copy your redis-server executable, **compiled from the latest sources in the unstable branch at Github**, into the `cluster-test` directory, and finally open 6 terminal tabs in your favorite terminal application.
+Now copy your redis-server executable, **compiled from the latest sources in the unstable branch at GitHub**, into the `cluster-test` directory, and finally open 6 terminal tabs in your favorite terminal application.
 
 Start every instance like that, one every tab:
 
@@ -282,11 +284,11 @@ client libraries implementations.
 I'm aware of the following implementations:
 
 * [redis-rb-cluster](http://github.com/antirez/redis-rb-cluster) is a Ruby implementation written by me (@antirez) as a reference for other languages. It is a simple wrapper around the original redis-rb, implementing the minimal semantics to talk with the cluster efficiently.
-* [redis-py-cluster](https://github.com/Grokzen/redis-py-cluster) appears to be a port of redis-rb-cluster to Python. Not recently updated (last commit 6 months ago) however it may be a starting point.
+* [redis-py-cluster](https://github.com/Grokzen/redis-py-cluster) A port of redis-rb-cluster to Python. Supports majority of *redis-py* functionality. Is in active development.
 * The popular [Predis](https://github.com/nrk/predis) has support for Redis Cluster, the support was recently updated and is in active development.
 * The most used Java client, [Jedis](https://github.com/xetorthio/jedis) recently added support for Redis Cluster, see the *Jedis Cluster* section in the project README.
 * [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis) offers support for C# (and should work fine with most .NET languages; VB, F#, etc)
-* The `redis-cli` utility in the unstable branch of the Redis repository at Github implements a very basic cluster support when started with the `-c` switch.
+* The `redis-cli` utility in the unstable branch of the Redis repository at GitHub implements a very basic cluster support when started with the `-c` switch.
 
 An easy way to test Redis Cluster is either to try and of the above clients
 or simply the `redis-cli` command line utility. The following is an example
@@ -499,7 +501,7 @@ A more interesting example application
 ---
 
 So far so good, but the example application we used is not very good.
-It writes acritically to the cluster without ever checking if what was
+It writes simply to the cluster without ever checking if what was
 written is the right thing.
 
 From our point of view the cluster receiving the writes could just always
@@ -518,7 +520,7 @@ However instead of just writing, the application does two additional things:
 
 What this means is that this application is a simple **consistency checker**,
 and is able to tell you if the cluster lost some write, or if it accepted
-a write that we did not received acknowledgement for. In the first case we'll
+a write that we did not received acknowledgment for. In the first case we'll
 see a counter having a value that is smaller than the one we remember, while
 in the second case the value will be greater.
 

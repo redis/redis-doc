@@ -40,7 +40,7 @@ to split your data set into multiple Redis instances, please read the
 
 Yes, a common design pattern involves taking very write-heavy small data
 in Redis (and data you need the Redis data structures to model your problem
-in an efficinet way), and big *blobs* of data into an SQL or eventually
+in an efficient way), and big *blobs* of data into an SQL or eventually
 consistent on-disk database.
 
 ## Is there something I can do to lower the Redis memory usage?
@@ -123,12 +123,12 @@ start thinking at some way to shard earlier.
 
 You can find more information about using multiple Redis instances in the [Partitioning page](/topics/partitioning).
 
-## What is the maximum number of keys a single Redis instance can hold? and what the max number of elements in a List, Set, Sorted Set?
+## What is the maximum number of keys a single Redis instance can hold? and what the max number of elements in a Hash, List, Set, Sorted Set?
 
 Redis can handle up to 2^32 keys, and was tested in practice to
 handle at least 250 million of keys per instance.
 
-Every list, set, and sorted set, can hold 2^32 elements.
+Every hash, list, set, and sorted set, can hold 2^32 elements.
 
 In other words your limit is likely the available memory in your system.
 

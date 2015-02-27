@@ -30,7 +30,7 @@
   {
     "name": "aleph",
     "language": "Clojure",
-    "repository": "https://github.com/ztellman/aleph.git",
+    "repository": "https://github.com/ztellman/aleph",
     "description": "Redis client build on top of lamina",
     "authors":["Zach Tellman"],
     "active": true
@@ -78,6 +78,15 @@
     "repository": "git://git.tideland.biz/errc",
     "description": "A comfortable Redis client for Erlang/OTP support pooling, pub/sub and transactions.",
     "authors": ["themue"],
+    "active": true
+  },
+
+  {
+    "name": "exredis",
+    "language": "Elixir",
+    "repository": "https://github.com/artemeff/exredis",
+    "description": "Redis client for Elixir.",
+    "authors": ["artemeff"],
     "active": true
   },
 
@@ -142,7 +151,7 @@
     "language": "Go",
     "repository": "https://github.com/gosexy/redis",
     "url": "https://menteslibres.net/gosexy/redis",
-    "description": "A Go client for redis built on top of the hiredis C client. Supports non-blocking connections and channel-based subscriptions.",
+    "description": "Redis client library for Go that maps the full redis command list into equivalent Go functions.",
     "authors": ["xiam"],
     "active": true
   },
@@ -375,9 +384,9 @@
   {
     "name": "phpredis",
     "language": "PHP",
-    "repository": "https://github.com/nicolasff/phpredis",
+    "repository": "https://github.com/phpredis/phpredis",
     "description": "This is a client written in C as a PHP module.",
-    "authors": ["yowgi"],
+    "authors": ["grumi78", "yowgi"],
     "recommended": true,
     "active": true
   },
@@ -664,6 +673,15 @@
   },
 
   {
+    "name": "thunk-redis",
+    "language": "Node.js",
+    "repository": "https://github.com/thunks/thunk-redis",
+    "description": "A redis client with pipelining, rely on thunks, support promise.",
+    "authors": ["zensh"],
+    "active": true
+  },
+
+  {
     "name": "spade",
     "language": "Node.js",
     "repository": "https://github.com/rootslab/spade",
@@ -747,6 +765,15 @@
   },
 
   {
+    "name": "redox",
+    "language": "C++",
+    "repository": "https://github.com/hmartiro/redox",
+    "description": "Modern, asynchronous, and fast C++11 client for Redis",
+    "authors": ["hmartiros"],
+    "active": true
+  },
+  
+  {
     "name": "redis3m",
     "language": "C++",
     "repository": "https://github.com/luca3m/redis3m",
@@ -799,9 +826,9 @@
   {
     "name": "lettuce",
     "language": "Java",
-    "repository": "https://github.com/wg/lettuce",
+    "repository": "https://github.com/mp911de/lettuce",
     "description": "Thread-safe client supporting async usage and key/value codecs",
-    "authors": ["ar3te"]
+    "authors": ["ar3te", "mp911de"]
   },
 
   {
@@ -819,6 +846,16 @@
     "description": "A Redis client written with the Akka IO package introduced in Akka 2.2.",
     "authors": ["chrisdinn"]
   },
+
+  {
+    "name": "redis-rs",
+    "language": "Rust",
+    "repository": "https://github.com/mitsuhiko/redis-rs",
+    "description": "A high and low level client library for Redis tracking Rust nightly.",
+    "authors": ["mitsuhiko"],
+    "active": true,
+    "recommended": true
+  },
   
   {
     "name": "rust-redis",
@@ -826,15 +863,6 @@
     "repository": "https://github.com/mneumann/rust-redis",
     "description": "A Rust client library for Redis.",
     "authors": ["mneumann"],
-    "active": true
-  },
-
-  {
-    "name": "redis-rs",
-    "language": "Rust",
-    "repository": "https://github.com/mitsuhiko/redis-rs",
-    "description": "A fairly high level client library for Redis.",
-    "authors": ["mitsuhiko"],
     "active": true
   },
 
@@ -917,5 +945,29 @@
     "repository": "https://github.com/andrew-bn/RedisBoost",
     "description": "Thread-safe async Redis client. Offers high performance and simple api",
     "authors": ["bn_andrew"]
+  },
+  {
+    "name": "redis",
+    "language": "Dart",
+    "url": "https://github.com/ra1u/redis-dart",
+    "description": "Simple and fast client",
+    "authors": ["Luka Rahne"],
+    "active": true
+  },
+
+  {
+    "name": "ocaml-redis",
+    "language": "OCaml",
+    "repository": "https://github.com/0xffea/ocaml-redis",
+    "description": "Synchronous and asynchronous (via Lwt) Redis client library in OCaml. Provides implementation of cache and mutex helpers.",
+    "active": true
+  },
+  {
+    "name": "Nhiredis",
+    "language": "C#",
+    "repository": "https://github.com/mhowlett/Nhiredis",
+    "description": "A lightweight wrapper around the C client hiredis.",
+    "authors": ["matt_howlett"],
+    "active": true
   }
 ]

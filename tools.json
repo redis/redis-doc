@@ -2,7 +2,7 @@
   {
     "name": "Resque",
     "language": "Ruby",
-    "repository": "https://github.com/defunkt/resque",
+    "repository": "https://github.com/resque/resque",
     "description": "Resque is a Redis-backed Ruby library for creating background jobs, placing them on multiple queues, and processing them later.",
     "authors": ["defunkt"]
   },
@@ -37,14 +37,14 @@
   {
     "name": "Kombu",
     "language": "Python",
-    "repository": "https://github.com/ask/kombu",
+    "repository": "https://github.com/celery/kombu",
     "description": "Python AMQP Framework with redis suppport",
     "authors": []
   },
   {
     "name": "Sider",
     "language": "Python",
-    "repository": "https://bitbucket.org/dahlia/sider",
+    "repository": "https://github.com/dahlia/sider",
     "description": "Python persistent object library based on Redis.",
     "authors": ["hongminhee"]
   },
@@ -262,7 +262,7 @@
   {
     "name": "Redis Qi4j EntityStore",
     "language": "Java",
-    "url": "http://qi4j.org/extension-es-redis.html",
+    "url": "http://qi4j.org/latest/extension-es-redis.html",
     "repository": "http://github.com/qi4j/qi4j-sdk",
     "description": "Qi4j EntityStore backed by Redis",
     "authors": ["eskatos"]
@@ -298,6 +298,14 @@
     "authors": ["u_glide"]
   },
   {
+    "name": "FastoRedis",
+    "language": "C++",
+    "url": "http://fastoredis.com",
+    "repository": "https://github.com/fasto/fastoredis",
+    "description": "Cross-platform Redis, Memcached management tool.",
+    "authors": ["topilski"]
+  },
+  {
     "name": "Nydus",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/nydus",
@@ -312,5 +320,21 @@
     "repository": "https://github.com/poying/redis-mount",
     "description": "redis-mount lets you use Redis as a filesystem.",
     "authors": ["poying"]
+  },
+  {
+    "name": "RPQueue",
+    "language": "Python",
+    "url": "https://pypi.python.org/pypi/rpqueue",
+    "repository": "https://github.com/josiahcrlson/rpqueue",
+    "description": "RPQueue offers a prioritized, periodic, and scheduled task system for Python using Redis",
+    "authors": ["josiahcarlson"]
+  },
+  {
+    "name": "rom",
+    "language": "Python",
+    "url": "https://pypi.python.org/pypi/rom",
+    "repository": "https://github.com/josiahcarlson/rom",
+    "description": "Redis object mapper for Python using declarative models, with search over numeric, full text, prefix, and suffix indexes",
+    "authors": ["josiahcarlson"]
   }
 ]

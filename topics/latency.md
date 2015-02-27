@@ -47,13 +47,13 @@ Using the internal Redis latency monitoring subsystem
 ---
 
 Since Redis 2.8.13, Redis provides latency monitoring capabilities that
-are able to sample differnet execution paths to understand where the
-server is blocking. This makes debugging of the problems illustarated in
+are able to sample different execution paths to understand where the
+server is blocking. This makes debugging of the problems illustrated in
 this documentation much simpler, so we suggest to enable latency monitoring
 ASAP. Please refer to the [Latency monitor documentation](/topics/latency-monitor).
 
 While the latency monitoring sampling and reporting capabilities will make
-simpler to understand the soruce of latency in your Redis system, it is still
+simpler to understand the source of latency in your Redis system, it is still
 advised that you read this documentation extensively to better understand
 the topic of Redis and latency spikes.
 
@@ -253,10 +253,10 @@ Latency induced by transparent huge pages
 -----------------------------------------
 
 Unfortunately when a Linux kernel has transparent huge pages enabled, Redis
-incurs to a big latency penality after the `fork` call is used in order to
-persist on disk. Huge pages are the cause of the follwing issue:
+incurs to a big latency penalty after the `fork` call is used in order to
+persist on disk. Huge pages are the cause of the following issue:
 
-1. Fork is called, two processes with shared huge pages are crated.
+1. Fork is called, two processes with shared huge pages are created.
 2. In a busy instance, a few event loops runs will cause commands to target a few thousand of pages, causing the copy on write of almost the whole process memory.
 3. This will result in big latency and big memory usage.
 
@@ -436,7 +436,7 @@ Redis instance you can further verify it using the **vmstat** command:
      0  0   3980 697048 147180 1406640    0    0     0     0 18613 15987  6  6 88  0
      2  0   3980 696924 147180 1406656    0    0     0     0 18744 16299  6  5 88  0
      0  0   3980 697048 147180 1406688    0    0     0     4 18520 15974  6  6 88  0
-^C
+    ^C
 
 The interesting part of the output for our needs are the two columns **si**
 and **so**, that counts the amount of memory swapped from/to the swap file. If
@@ -549,10 +549,10 @@ Redis evict expired keys in two ways:
 
 The active expiring is designed to be adaptive. An expire cycle is started every 100 milliseconds (10 times per second), and will do the following:
 
-+ Sample `REDIS_EXPIRELOOKUPS_PER_CRON` keys, evicting all the keys already expired.
++ Sample `ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP` keys, evicting all the keys already expired.
 + If the more than 25% of the keys were found expired, repeat.
 
-Given that `REDIS_EXPIRELOOKUPS_PER_CRON` is set to 10 by default, and the process is performed ten times per second, usually just 100 keys per second are actively expired. This is enough to clean the DB fast enough even when already expired keys are not accessed for a long time, so that the *lazy* algorithm does not help. At the same time expiring just 100 keys per second has no effects in the latency a Redis instance.
+Given that `ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP` is set to 20 by default, and the process is performed ten times per second, usually just 200 keys per second are actively expired. This is enough to clean the DB fast enough even when already expired keys are not accessed for a long time, so that the *lazy* algorithm does not help. At the same time expiring just 200 keys per second has no effects in the latency a Redis instance.
 
 However the algorithm is adaptive and will loop if it founds more than 25% of keys already expired in the set of sampled keys. But given that we run the algorithm ten times per second, this means that the unlucky event of more than 25% of the keys in our random sample are expiring at least *in the same second*.
 
@@ -567,7 +567,7 @@ Redis software watchdog
 
 Redis 2.6 introduces the *Redis Software Watchdog* that is a debugging tool
 designed to track those latency problems that for one reason or the other
-esacped an analysis using normal tools.
+escaped an analysis using normal tools.
 
 The software watchdog is an experimental feature. While it is designed to
 be used in production environments care should be taken to backup the database
@@ -617,3 +617,74 @@ Note: in the example the **DEBUG SLEEP** command was used in order to block the 
 
 If you happen to collect multiple watchdog stack traces you are encouraged to send everything to the Redis Google Group: the more traces we obtain, the simpler it will be to understand what the problem with your instance is.
 
+APPENDIX A: Experimenting with huge pages
+-----------------------------------------
+
+Latency introduced by fork can be mitigated using huge pages at the cost of a bigger memory usage during persistence. The following appendix describe in details this feature as implemented in the Linux kernel.
+
+Some CPUs can use different page size though. AMD and Intel CPUs can support
+2 MB page size if needed. These pages are nicknamed *huge pages*. Some
+operating systems can optimize page size in real time, transparently
+aggregating small pages into huge pages on the fly.
+
+On Linux, explicit huge pages management has been introduced in 2.6.16, and
+implicit transparent huge pages are available starting in 2.6.38. If you
+run recent Linux distributions (for example RH 6 or derivatives), transparent
+huge pages can be activated, and you can use a vanilla Redis version with them.
+
+This is the preferred way to experiment/use with huge pages on Linux.
+
+Now, if you run older distributions (RH 5, SLES 10-11, or derivatives), and
+not afraid of a few hacks, Redis requires to be patched in order to support
+huge pages.
+
+The first step would be to read [Mel Gorman's primer on huge pages](http://lwn.net/Articles/374424/)
+
+There are currently two ways to patch Redis to support huge pages.
+
++ For Redis 2.4, the embedded jemalloc allocator must be patched.
+[patch](https://gist.github.com/1171054) by Pieter Noordhuis.
+Note this patch relies on the anonymous mmap huge page support,
+only available starting 2.6.32, so this method cannot be used for older
+distributions (RH 5, SLES 10, and derivatives).
+
++ For Redis 2.2, or 2.4 with the libc allocator, Redis makefile
+must be altered to link Redis with
+[the libhugetlbfs library](http://libhugetlbfs.sourceforge.net/).
+It is a straightforward [change](https://gist.github.com/1240452)
+
+Then, the system must be configured to support huge pages.
+
+The following command allocates and makes N huge pages available:
+
+    $ sudo sysctl -w vm.nr_hugepages=<N>
+
+The following command mounts the huge page filesystem:
+
+    $ sudo mount -t hugetlbfs none /mnt/hugetlbfs
+
+In all cases, once Redis is running with huge pages (transparent or
+not), the following benefits are expected:
+
++ The latency due to the fork operations is dramatically reduced.
+  This is mostly useful for very large instances, and especially
+  on a VM.
++ Redis is faster due to the fact the translation look-aside buffer
+  (TLB) of the CPU is more efficient to cache page table entries
+  (i.e. the hit ratio is better). Do not expect miracle, it is only
+  a few percent gain at most.
++ Redis memory cannot be swapped out anymore, which is interesting
+  to avoid outstanding latencies due to virtual memory.
+
+Unfortunately, and on top of the extra operational complexity,
+there is also a significant drawback of running Redis with
+huge pages. The COW mechanism granularity is the page. With
+2 MB pages, the probability a page is modified during a background
+save operation is 512 times higher than with 4 KB pages. The actual
+memory required for a background save therefore increases a lot,
+especially if the write traffic is truly random, with poor locality.
+With huge pages, using twice the memory while saving is not anymore
+a theoretical incident. It really happens.
+
+The result of a complete benchmark can be found
+[here](https://gist.github.com/1272254).

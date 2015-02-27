@@ -6,7 +6,7 @@ view of Redis: the access control provided by Redis, code security concerns,
 attacks that can be triggered from the outside by selecting malicious inputs and
 other similar topics are covered.
 
-For security related contacts please open an issue on Github, or when you feel it
+For security related contacts please open an issue on GitHub, or when you feel it
 is really important that the security of the communication is preserved, use the
 GPG key at the end of this document.
 

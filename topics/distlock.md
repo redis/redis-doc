@@ -14,7 +14,7 @@ This page is an attempt to provide a more canonical algorithm to implement
 distributed locks with Redis. We propose an algorithm, called **Redlock**,
 which implements a DLM which we believe to be safer than the vanilla single
 instance approach. We hope that the community will analyze it, provide
-feedbacks, and use it as a starting point for the implementations or more
+feedback, and use it as a starting point for the implementations or more
 complex or alternative designs.
 
 Implementations
@@ -24,11 +24,13 @@ Before to describe the algorithm, here there are a few links at implementations
 already available, that can be used as a reference.
 
 * [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation).
+* [Redlock-py](https://github.com/SPSCommerce/redlock-py) (Python implementation).
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [Redsync.go](https://github.com/hjr265/redsync.go) (Go implementation).
 * [Redisson](https://github.com/mrniko/redisson) (Java implementation).
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (Cpp implementation).
+* [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
 
 Safety and Liveness guarantees
 ---

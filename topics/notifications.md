@@ -41,7 +41,7 @@ the delivering of two messages, exactly equivalent to the following two
     PUBLISH __keyevent@0__:del mykey
 
 It is easy to see how one channel allows to listen to all the events targeting
-the key `mykey` and the other channel allows to obtain informations about
+the key `mykey` and the other channel allows to obtain information about
 all the keys that are target of a `del` operation.
 
 The first kind of event, with `keyspace` prefix in the channel is called
@@ -96,7 +96,7 @@ Different commands generate different kind of events according to the following 
 
 * `DEL` generates a `del` event for every deleted key.
 * `RENAME` generates two events, a `rename_from` event for the source key, and a `rename_to` event for the destination key.
-* `EXPIRE` generates an `expire` event when an expire is set to the key, or a `del` event every time setting an expire results into the key being deleted (see `EXPIRE` documentation for more info).
+* `EXPIRE` generates an `expire` event when an expire is set to the key, or a `expired` event every time setting an expire results into the key being deleted (see `EXPIRE` documentation for more info).
 * `SORT` generates a `sortstore` event when `STORE` is used to set a new key. If the resulting list is empty, and the `STORE` option is used, and there was already an existing key with that name, the result is that the key is deleted, so a `del` event is generated in this condition.
 * `SET` and all its variants (`SETEX`, `SETNX`,`GETSET`) generate `set` events. However `SETEX` will also generate an `expire` events.
 * `MSET` generates a separated `set` event for every key.
@@ -120,13 +120,13 @@ Different commands generate different kind of events according to the following 
 * `SREM` generates a single `srem` event, and an additional `del` event if the resulting set is empty and the key is removed.
 * `SMOVE` generates an `srem` event for the source key, and an `sadd` event for the destination key.
 * `SPOP` generates an `spop` event, and an additional `del` event if the resulting set is empty and the key is removed.
-* `SINTERSTORE`, `SUNIONSTORE`, `SDIFFSTORE` generate `sinterstore`, `sunionostore`, `sdiffstore` events respectively. In the speical case the resulting set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
+* `SINTERSTORE`, `SUNIONSTORE`, `SDIFFSTORE` generate `sinterstore`, `sunionostore`, `sdiffstore` events respectively. In the special case the resulting set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * `ZINCR` generates a `zincr` event.
 * `ZADD` generates a single `zadd` event even when multiple elements are added.
 * `ZREM` generates a single `zrem` event even when multiple elements are deleted. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZREMBYSCORE` generates a single `zrembyscore` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZREMBYRANK` generates a single `zrembyrank` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
-* `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the speical case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
+* `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the special case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
 
@@ -159,4 +159,4 @@ The `expired` events are generated when a key is accessed and is found to be exp
 
 If no command targets the key constantly, and there are many keys with a TTL associated, there can be a significant delay between the time the key time to live drops to zero, and the time the `expired` event is generated.
 
-Basically `expired` events **are generated when the Redis server deletes the key** and not when the time to live theorically reaches the value of zero.
+Basically `expired` events **are generated when the Redis server deletes the key** and not when the time to live theoretically reaches the value of zero.

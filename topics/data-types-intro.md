@@ -650,8 +650,8 @@ ideal. So to start, we can make a copy of the set stored in the `deck` key
 into the `game:1:deck` key.
 
 This is accomplished using `SUNIONSTORE`, which normally performs the
-intersection between multiple sets, and stores the result into another set.
-However, since the intersection of a single set is itself, I can copy my deck
+union between multiple sets, and stores the result into another set.
+However, since the union of a single set is itself, I can copy my deck
 with:
 
     > sunionstore game:1:deck deck
@@ -703,7 +703,7 @@ ordered on request, order is a peculiarity of the data structure used to
 represent sorted sets). They are ordered according to the following rule:
 
 * If A and B are two elements with a different score, then A > B if A.score is > B.score.
-* If A and B have exactly the same score, than A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
+* If A and B have exactly the same score, then A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
 
 Let's start with a simple example, adding a few selected hackers names as
 sorted set elements, with their year of birth as "score".

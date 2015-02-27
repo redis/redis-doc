@@ -12,10 +12,10 @@ It performs the following four tasks:
 Distributed nature of Sentinel
 ---
 
-Redis Sentinel is a distributed system, this means that usually you want to run
-multiple Sentinel processes across your infrastructure, and this processes
+Redis Sentinel is a distributed system.  This means that usually you want to run
+multiple Sentinel processes across your infrastructure.  These processes
 will use gossip protocols in order to understand if a master is down and
-agreement protocols in order to get authorized to perform the failover and assign
+agreement protocols in order to become authorized to perform the failover and assign
 a new version to the new configuration.
 
 Distributed systems have given *safety* and *liveness* properties, in order to
@@ -90,7 +90,7 @@ following:
 You only need to specify the masters to monitor, giving to each separated
 master (that may have any number of slaves) a different name. There is no
 need to specify slaves, which are auto-discovered. Sentinel will update the
-configuration automatically with additional informations about slaves (in
+configuration automatically with additional information about slaves (in
 order to retain the information in case of restart). The configuration is
 also rewritten every time a slave is promoted to master during a failover.
 
@@ -152,7 +152,7 @@ that need to agree about the unreachability or error condition of the master in
 order to trigger a failover.
 
 However, after the failover is triggered, in order for the failover to actually be
-performed, **at least a majority of Sentinels must authorized the Sentinel to
+performed, **at least a majority of Sentinels must authorize the Sentinel to
 failover**.
 
 Let's try to make things a bit more clear:
@@ -208,7 +208,7 @@ using Redis Pub/Sub messages, both in the master and all the slaves.
 At the same time all the Sentinels wait for messages to see what is the configuration
 advertised by the other Sentinels.
 
-Configurations are broadcasted in the `__sentinel__:hello` Pub/Sub channel.
+Configurations are broadcast in the `__sentinel__:hello` Pub/Sub channel.
 
 Because every configuration has a different version number, the greater version
 always wins over smaller versions.
@@ -237,7 +237,7 @@ concepts of *being down*, one is called a *Subjectively Down* condition
 (SDOWN) and is a down condition that is local to a given Sentinel instance.
 Another is called *Objectively Down* condition (ODOWN) and is reached when
 enough Sentinels (at least the number configured as the `quorum` parameter
-of the monitored master) have an SDOWN condition, and get feedbacks from
+of the monitored master) have an SDOWN condition, and get feedback from
 other Sentinels using the `SENTINEL is-master-down-by-addr` command.
 
 From the point of view of a Sentinel an SDOWN condition is reached if we
@@ -304,7 +304,7 @@ However in a real-world system using Sentinel there are three different players:
 
 In order to define the behavior of the system we have to consider all three.
 
-The following is a simple network where there are there nodes, each running
+The following is a simple network where there are 3 nodes, each running
 a Redis instance, and a Sentinel instance:
 
                 +-------------+
@@ -385,7 +385,7 @@ is in `ODOWN` state and the Sentinel received the authorization to failover
 from the majority of the Sentinel instances known, a suitable slave needs
 to be selected.
 
-The slave selection process evaluates the following informations about slaves:
+The slave selection process evaluates the following information about slaves:
 
 1. Disconnection time from the master.
 2. Slave priority.
@@ -393,22 +393,22 @@ The slave selection process evaluates the following informations about slaves:
 4. Run ID.
 
 A slave that is found to be disconnected from the master for more than ten
-times the configured masster timeout (down-after-milliseconds option), plus
+times the configured master timeout (down-after-milliseconds option), plus
 the time the master is also not available from the point of view of the
 Sentinel doing the failover, is considered to be not suitable for the failover
 and is skipped.
 
 In more rigorous terms, a slave whose the `INFO` output suggests to be
-disconnected form the master for more than:
+disconnected from the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
 
-Is considered to be not reliable and is discareded at all.
+Is considered to be unreliable and is disregarded entirely.
 
-The slave selection only consider the slaves that passed the above test,
+The slave selection only considers the slaves that passed the above test,
 and sorts it based on the above criteria, in the following order.
 
-1. The slaves are sorted by `slave-priority` as confiugred in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
+1. The slaves are sorted by `slave-priority` as configured in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
 2. If the priority is the same, the replication offset processed by the slave is checked, and the slave that received more data from the master is selected.
 3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more deterministic, instead of resorting to select a random slave.
 
@@ -447,7 +447,7 @@ data only in the master, having the same data accessible in the slaves.
 
 However, in the uncommon case where you need a slave that is accessible
 without authentication, you can still do it by setting up a slave priority
-of zero (that will not allow the salve to be promoted to master), and
+of zero (that will not allow the slave to be promoted to master), and
 configuring only the `masterauth` directive for this slave, without
 the `requirepass` directive, so that data will be readable by unauthenticated
 clients.
@@ -596,7 +596,7 @@ and is only specified if the instance is not a master itself.
 * **+failover-state-select-slave** `<instance details>` -- New failover state is `select-slave`: we are trying to find a suitable slave for promotion.
 * **no-good-slave** `<instance details>` -- There is no good slave to promote. Currently we'll try after some time, but probably this will change and the state machine will abort the failover at all in this case.
 * **selected-slave** `<instance details>` -- We found the specified good slave to promote.
-* **failover-state-send-slaveof-noone** `<instance details>` -- We are trynig to reconfigure the promoted slave as master, waiting for it to switch.
+* **failover-state-send-slaveof-noone** `<instance details>` -- We are trying to reconfigure the promoted slave as master, waiting for it to switch.
 * **failover-end-for-timeout** `<instance details>` -- The failover terminated for timeout, slaves will eventually be configured to replicate with the new master anyway.
 * **failover-end** `<instance details>` -- The failover terminated with success. All the slaves appears to be reconfigured to replicate with the new master.
 * **switch-master** `<master name> <oldip> <oldport> <newip> <newport>` -- The master new IP and address is the specified one after a configuration change. This is **the message most external users are interested in**.
