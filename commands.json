@@ -765,6 +765,22 @@
     "since": "2.0.0",
     "group": "hash"
   },
+  "HSTRLEN": {
+    "summary": "Get the length of the value of a hash field",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "field",
+        "type": "string"
+      }
+    ],
+    "since": "3.2.0",
+    "group": "hash"
+  },
   "HVALS": {
     "summary": "Get all the values in a hash",
     "complexity": "O(N) where N is the size of the hash.",
