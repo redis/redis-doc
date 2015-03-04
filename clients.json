@@ -829,7 +829,6 @@
     "repository": "https://github.com/mp911de/lettuce",
     "description": "Thread-safe client supporting async usage and key/value codecs",
     "authors": ["ar3te", "mp911de"],
-    "recommended": true,
     "active": true
   },
 
