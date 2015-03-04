@@ -2,6 +2,8 @@ Removes and returns one or more random elements from the set value store at `key
 
 This operation is similar to `SRANDMEMBER`, that returns one or more random elements from a set but does not remove it.
 
+The `count` arugment will be available in 3.0 and is not available in 2.6 or 2.8
+
 @return
 
 @bulk-string-reply: the removed element, or `nil` when `key` does not exist.
