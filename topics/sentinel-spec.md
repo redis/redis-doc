@@ -431,7 +431,7 @@ Setup examples
 Imaginary setup:
 
     computer A runs the Redis master.
-    computer B runs the Reids slave and the client software.
+    computer B runs the Redis slave and the client software.
 
 In this naive configuration it is possible to place a single sentinel, with
 "minimal agreement" set to the value of one (no acknowledge from other
