@@ -247,7 +247,7 @@ using m3.medium (or better) instances will provide good results.
 * **Linux VM on EC2, new instance types (Xen)** 1GB RSS forked in 10 milliseconds (10 milliseconds per GB).
 * **Linux VM on Linode (Xen)** 0.9GBRSS forked into 382 milliseconds (424 milliseconds per GB).
 
-As you can see certanin VM running on Xen have a performance hit that is between one order to two orders of magnitude. For EC2 users the suggestion is simple: use modern HVM based instances.
+As you can see certain VM running on Xen have a performance hit that is between one order to two orders of magnitude. For EC2 users the suggestion is simple: use modern HVM based instances.
 
 Latency induced by transparent huge pages
 -----------------------------------------
