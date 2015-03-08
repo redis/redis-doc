@@ -23,7 +23,7 @@ Running Redis on EC2
 + Use HVM based instances, not PV based instances.
 + Don't use old instances families, for example: use m3.medium with HVM instead of m1.medium with PV.
 + The use of Redis persistence with **EC2 EBS volumes** needs to be handled with care since sometimes EBS volumes have high latency characteristics.
-+ You may want to try the new **diskless replication** (currently experimetnal) if you have issues when slaves are synchronizing with the master.
++ You may want to try the new **diskless replication** (currently experimental) if you have issues when slaves are synchronizing with the master.
 
 Upgrading or restarting a Redis instance without downtime
 -------------------------------------------------------
