@@ -84,7 +84,7 @@ If you like science fiction, think of time flowing at infinite speed inside a
 
 @return
 
-@multi-bulk-reply: specifically:
+@array-reply: specifically:
 
 * A `nil` multi-bulk when no element could be popped and the timeout expired.
 * A two-element multi-bulk with the first element being the name of the key
@@ -107,7 +107,7 @@ redis> BLPOP list1 list2 0
 
 When `BLPOP` returns an element to the client, it also removes the element from the list. This means that the element only exists in the context of the client: if the client crashes while processing the returned element, it is lost forever.
 
-This can be a problem with some application where we want a more reliable messaging system. When this is the case, please check the `BRPOPLPUSH` command, that is a variant of `BLPOP` that adds the returned element to a traget list before returing it to the client.
+This can be a problem with some application where we want a more reliable messaging system. When this is the case, please check the `BRPOPLPUSH` command, that is a variant of `BLPOP` that adds the returned element to a target list before returning it to the client.
 
 ## Pattern: Event notification
 

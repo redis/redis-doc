@@ -29,7 +29,7 @@ of messages where the first element indicates the type of message.
 
 ## Format of pushed messages
 
-A message is a @multi-bulk-reply with three elements.
+A message is a @array-reply with three elements.
 
 The first element is the kind of message:
 
@@ -48,6 +48,16 @@ Pub/Sub state.
 issued by another client. The second element is the name of the
 originating channel, and the third argument is the actual message
 payload.
+
+## Database & Scoping
+
+Pub/Sub has no relation to the key space.  It was made to not interfere with
+it on any level, including database numbers.
+
+Publishing on db 10, will be heard by a subscriber on db 1.
+
+If you need scoping of some kind, prefix the channels with the name of the
+environment (test, staging, production, ...).
 
 ## Wire protocol example
 

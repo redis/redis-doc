@@ -5,7 +5,7 @@ returned.
 
 @return
 
-@bulk-reply: the score of `member` (a double precision floating point number),
+@bulk-string-reply: the score of `member` (a double precision floating point number),
 represented as string.
 
 @examples

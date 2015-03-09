@@ -4,12 +4,15 @@ provided serialized value (obtained via `DUMP`).
 If `ttl` is 0 the key is created without any expire, otherwise the specified
 expire time (in milliseconds) is set.
 
+`RESTORE` will return a "Target key name is busy" error when `key` already
+exists unless you use the `REPLACE` modifier.
+
 `RESTORE` checks the RDB version and data checksum.
 If they don't match an error is returned.
 
 @return
 
-@status-reply: The command returns OK on success.
+@simple-string-reply: The command returns OK on success.
 
 @examples
 

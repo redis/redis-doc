@@ -28,7 +28,7 @@ All the supported parameters have the same meaning of the equivalent
 configuration parameter used in the [redis.conf][hgcarr22rc] file, with the
 following important differences:
 
-[hgcarr22rc]: http://github.com/antirez/redis/raw/2.2/redis.conf
+[hgcarr22rc]: http://github.com/antirez/redis/raw/2.8/redis.conf
 
 * Where bytes or other quantities are specified, it is not possible to use
   the `redis.conf` abbreviated form (10k 2gb ... and so forth), everything
@@ -50,4 +50,4 @@ reported by `CONFIG GET` as "900 1 300 10".
 
 @return
 
-The return type of the command is a @bulk-reply.
+The return type of the command is a @array-reply.

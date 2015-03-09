@@ -19,8 +19,8 @@ is intended to be used by people that don't need Redis Cluster, but simply
 a way to perform automatic fail over when a master instance is not functioning
 correctly.
 
-The plan is to provide an usable beta implementaiton of Redis Sentinel in a
-short time, preferrably in mid July 2012.
+The plan is to provide a usable beta implementation of Redis Sentinel in a
+short time, preferably in mid July 2012.
 
 In short this is what Redis Sentinel will be able to do:
 
@@ -215,7 +215,7 @@ decided.
 Also Sentinels can be configured in two ways: only as monitors that can't
 perform the fail over, or as Sentinels that can start the failover.
 
-What is desireable is that only a Sentinel will start the failover process,
+What is desirable is that only a Sentinel will start the failover process,
 and this Sentinel should be selected among the Sentinels that are allowed
 to perform the failover.
 
@@ -280,7 +280,7 @@ or other error conditions. In such a case the protection against race
 conditions (multiple Sentinels starting to perform the fail over at the same
 time) is given by the random delay used to start the fail over, and the
 continuous monitor of the slave instances to detect if another Sentinel
-(or an human) started the failover process.
+(or a human) started the failover process.
 
 Moreover the slave to promote is selected using a deterministic process to
 minimize the chance that two different Sentinels with full vision of the
@@ -431,7 +431,7 @@ Setup examples
 Imaginary setup:
 
     computer A runs the Redis master.
-    computer B runs the Reids slave and the client software.
+    computer B runs the Redis slave and the client software.
 
 In this naive configuration it is possible to place a single sentinel, with
 "minimal agreement" set to the value of one (no acknowledge from other

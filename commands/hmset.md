@@ -5,7 +5,7 @@ If `key` does not exist, a new key holding a hash is created.
 
 @return
 
-@status-reply
+@simple-string-reply
 
 @examples
 

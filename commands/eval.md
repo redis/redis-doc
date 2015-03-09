@@ -250,30 +250,44 @@ by Redis.
 
 ## Script cache semantics
 
-Executed scripts are guaranteed to be in the script cache **forever**.
-This means that if an `EVAL` is performed against a Redis instance all the
-subsequent `EVALSHA` calls will succeed.
-
-The only way to flush the script cache is by explicitly calling the SCRIPT
-FLUSH command, which will _completely flush_ the scripts cache removing all the
-scripts executed so far.
-This is usually needed only when the instance is going to be instantiated for
-another customer or application in a cloud environment.
+Executed scripts are guaranteed to be in the script cache of a given execution
+of a Redis instance forever. This means that if an `EVAL` is performed against a Redis instance all the subsequent `EVALSHA` calls will succeed.
 
 The reason why scripts can be cached for long time is that it is unlikely for
 a well written application to have enough different scripts to cause memory
-problems.
-Every script is conceptually like the implementation of a new command, and even
-a large application will likely have just a few hundred of them.
+problems. Every script is conceptually like the implementation of a new command, and even a large application will likely have just a few hundred of them.
 Even if the application is modified many times and scripts will change, the
 memory used is negligible.
 
-The fact that the user can count on Redis not removing scripts is semantically a
-very good thing.
+The only way to flush the script cache is by explicitly calling the `SCRIPT FLUSH` command, which will _completely flush_ the scripts cache removing all the
+scripts executed so far.
+
+This is usually needed only when the instance is going to be instantiated for
+another customer or application in a cloud environment.
+
+Also, as already mentioned, restarting a Redis instance flushes the
+script cache, which is not persistent. However from the point of view of the
+client there are only two ways to make sure a Redis instance was not restarted
+between two different commands.
+
+* The connection we have with the server is persistent and was never closed so far.
+* The client explicitly checks the `runid` field in the `INFO` command in order to make sure the server was not restarted and is still the same process.
+
+Practically speaking, for the client it is much better to simply assume that in the context of a given connection, cached scripts are guaranteed to be there
+unless an administrator explicitly called the `SCRIPT FLUSH` command.
+
+The fact that the user can count on Redis not removing scripts is semantically
+useful in the context of pipelining.
+
 For instance an application with a persistent connection to Redis can be sure
 that if a script was sent once it is still in memory, so EVALSHA can be used
 against those scripts in a pipeline without the chance of an error being
 generated due to an unknown script (we'll see this problem in detail later).
+
+A common pattern is to call `SCRIPT LOAD` to load all the scripts that will
+appear in a pipeline, then use `EVALSHA` directly inside the pipeline without
+any need to check for errors resulting from the script hash not being
+recognized.
 
 ## The SCRIPT command
 
@@ -472,6 +486,20 @@ replication is not guaranteed: don't do it.
 Note for Lua newbies: in order to avoid using global variables in your scripts
 simply declare every variable you are going to use using the _local_ keyword.
 
+## Using SELECT inside scripts
+
+It is possible to call `SELECT` inside Lua scripts like with normal clients,
+However one subtle aspect of the behavior changes between Redis 2.8.11 and
+Redis 2.8.12. Before the 2.8.12 release the database selected by the Lua
+script was *transferred* to the calling script as current database.
+Starting from Redis 2.8.12 the database selected by the Lua script only
+affects the execution of the script itself, but does not modify the database
+selected by the client calling the script.
+
+The semantic change between patch level releases was needed since the old
+behavior was inherently incompatible with the Redis replication layer and
+was the cause of bugs.
+
 ## Available libraries
 
 The Redis Lua interpreter loads the following Lua libraries:
@@ -481,14 +509,115 @@ The Redis Lua interpreter loads the following Lua libraries:
 * string lib.
 * math lib.
 * debug lib.
+* struct lib.
 * cjson lib.
 * cmsgpack lib.
+* bitop lib
+* redis.sha1hex function.
 
 Every Redis instance is _guaranteed_ to have all the above libraries so you can
 be sure that the environment for your Redis scripts is always the same.
 
-The CJSON library provides extremely fast JSON maniplation within Lua.
-All the other libraries are standard Lua libraries.
+struct, CJSON and cmsgpack are external libraries, all the other libraries are standard
+Lua libraries.
+
+### struct
+
+struct is a library for packing/unpacking structures within Lua.
+
+```
+Valid formats:
+> - big endian
+< - little endian
+![num] - alignment
+x - pading
+b/B - signed/unsigned byte
+h/H - signed/unsigned short
+l/L - signed/unsigned long
+T   - size_t
+i/In - signed/unsigned integer with size `n' (default is size of int)
+cn - sequence of `n' chars (from/to a string); when packing, n==0 means
+     the whole string; when unpacking, n==0 means use the previous
+     read number as the string length
+s - zero-terminated string
+f - float
+d - double
+' ' - ignored
+```
+
+
+Example:
+
+```
+127.0.0.1:6379> eval 'return struct.pack("HH", 1, 2)' 0
+"\x01\x00\x02\x00"
+127.0.0.1:6379> eval 'return {struct.unpack("HH", ARGV[1])}' 0 "\x01\x00\x02\x00"
+1) (integer) 1
+2) (integer) 2
+3) (integer) 5
+127.0.0.1:6379> eval 'return struct.size("HH")' 0
+(integer) 4
+```
+
+### CJSON
+
+The CJSON library provides extremely fast JSON manipulation within Lua.
+
+Example:
+
+```
+redis 127.0.0.1:6379> eval 'return cjson.encode({["foo"]= "bar"})' 0
+"{\"foo\":\"bar\"}"
+redis 127.0.0.1:6379> eval 'return cjson.decode(ARGV[1])["foo"]' 0 "{\"foo\":\"bar\"}"
+"bar"
+```
+
+### cmsgpack
+
+The cmsgpack library provides simple and fast MessagePack manipulation within Lua.
+
+Example:
+
+```
+127.0.0.1:6379> eval 'return cmsgpack.pack({"foo", "bar", "baz"})' 0
+"\x93\xa3foo\xa3bar\xa3baz"
+127.0.0.1:6379> eval 'return cmsgpack.unpack(ARGV[1])' 0 "\x93\xa3foo\xa3bar\xa3baz
+1) "foo"
+2) "bar"
+3) "baz"
+```
+
+### bitop
+
+The Lua Bit Operations Module adds bitwise operations on numbers.
+It is available for scripting in Redis since version 2.8.18.
+
+Example:
+
+```
+127.0.0.1:6379> eval 'return bit.tobit(1)' 0
+(integer) 1
+127.0.0.1:6379> eval 'return bit.bor(1,2,4,8,16,32,64,128)' 0
+(integer) 255
+127.0.0.1:6379> eval 'return bit.tohex(422342)' 0
+"000671c6"
+```
+
+It supports several other functions:
+`bit.tobit`, `bit.tohex`, `bit.bnot`, `bit.band`, `bit.bor`, `bit.bxor`,
+`bit.lshift`, `bit.rshift`, `bit.arshift`, `bit.rol`, `bit.ror`, `bit.bswap`.
+All available functions are documented in the [Lua BitOp documentation](http://bitop.luajit.org/api.html)
+
+### redis.sha1hex
+
+Perform the SHA1 of the input string.
+
+Example:
+
+```
+127.0.0.1:6379> eval 'return redis.sha1hex(ARGV[1])' 0 "foo"
+"0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
+```
 
 ## Emitting Redis logs from scripts
 

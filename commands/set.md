@@ -16,8 +16,8 @@ Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it
 
 @return
 
-@status-reply: `OK` if `SET` was executed correctly.
-@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed becase the user specified the `NX` or `XX` option but the condition was not met.
+@simple-string-reply: `OK` if `SET` was executed correctly.
+@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met.
 
 @examples
 
@@ -27,6 +27,8 @@ GET mykey
 ```
 
 ## Patterns
+
+**Note:** The following pattern is discouraged in favor of [the Redlock algorithm](http://redis.io/topics/distlock) which is only a bit more complex to implement, but offers better guarantees and is fault tolerant.
 
 The command `SET resource-name anystring NX EX max-lock-time` is a simple way to implement a locking system with Redis.
 

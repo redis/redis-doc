@@ -4,7 +4,7 @@ and `hash`.
 
 @return
 
-@status-reply: type of `key`, or `none` when `key` does not exist.
+@simple-string-reply: type of `key`, or `none` when `key` does not exist.
 
 @examples
 

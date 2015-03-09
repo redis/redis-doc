@@ -5,7 +5,7 @@ only handles string values.
 
 @return
 
-@bulk-reply: the value of `key`, or `nil` when `key` does not exist.
+@bulk-string-reply: the value of `key`, or `nil` when `key` does not exist.
 
 @examples
 

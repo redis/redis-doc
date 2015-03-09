@@ -45,13 +45,8 @@
         "type": "key"
       },
       {
-        "name": "start",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "end",
-        "type": "integer",
+        "name": ["start", "end"],
+        "type": ["integer", "integer"],
         "optional": true
       }
     ],
@@ -77,6 +72,32 @@
       }
     ],
     "since": "2.6.0",
+    "group": "string"
+  },
+  "BITPOS": {
+    "summary": "Find first bit set or clear in a string",
+    "complexity": "O(N)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "bit",
+        "type": "integer"
+      },
+      {
+        "name": "start",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "end",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.8.7",
     "group": "string"
   },
   "BLPOP": {
@@ -139,7 +160,32 @@
     "arguments": [
       {
         "name": "ip:port",
-        "type": "string"
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "ID",
+        "name": "client-id",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TYPE",
+        "type": "enum",
+        "enum": ["normal", "slave", "pubsub"],
+        "optional": true
+      },
+      {
+        "command": "ADDR",
+        "name": "ip:port",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "SKIPME",
+        "name": "yes/no",
+        "type": "string",
+        "optional": true
       }
     ],
     "since": "2.4.0",
@@ -157,6 +203,18 @@
     "since": "2.6.9",
     "group": "server"
   },
+  "CLIENT PAUSE": {
+    "summary": "Stop processing commands from clients for some time",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "2.9.50",
+    "group": "server"
+  },
   "CLIENT SETNAME": {
     "summary": "Set the current connection name",
     "complexity": "O(1)",
@@ -165,6 +223,43 @@
       {
         "name": "connection-name",
         "type": "string"
+      }
+    ],
+    "group": "server"
+  },
+  "CLUSTER SLOTS": {
+    "summary": "Get array of Cluster slot to node mappings",
+    "complexity": "O(N) where N is the total number of Cluster nodes",
+    "since": "3.0.0",
+    "group": "server"
+  },
+  "COMMAND": {
+    "summary": "Get array of Redis command details",
+    "complexity": "O(N) where N is the total number of Redis commands",
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "COMMAND COUNT": {
+    "summary": "Get total number of Redis commands",
+    "complexity": "O(1)",
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "COMMAND GETKEYS": {
+    "summary": "Extract keys given a full Redis command",
+    "complexity": "O(N) where N is the number of arguments to the command",
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "COMMAND INFO": {
+    "summary": "Get array of specific Redis command details",
+    "complexity": "O(N) when N is number of commands to look up",
+    "since": "2.8.13",
+    "arguments": [
+      {
+        "name": "command-name",
+        "type": "string",
+        "multiple": true
       }
     ],
     "group": "server"
@@ -670,6 +765,22 @@
     "since": "2.0.0",
     "group": "hash"
   },
+  "HSTRLEN": {
+    "summary": "Get the length of the value of a hash field",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "field",
+        "type": "string"
+      }
+    ],
+    "since": "3.2.0",
+    "group": "hash"
+  },
   "HVALS": {
     "summary": "Get all the values in a hash",
     "complexity": "O(N) where N is the size of the hash.",
@@ -855,7 +966,7 @@
   },
   "LRANGE": {
     "summary": "Get a range of elements from a list",
-    "complexity": "O(S+N) where S is the start offset and N is the number of elements in the specified range.",
+    "complexity": "O(S+N) where S is the distance of start offset from HEAD for small lists, from nearest end (HEAD or TAIL) for large lists; and N is the number of elements in the specified range.",
     "arguments": [
       {
         "name": "key",
@@ -1100,6 +1211,53 @@
     "since": "2.6.0",
     "group": "generic"
   },
+  "PFADD": {
+    "summary": "Adds the specified elements to the specified HyperLogLog.",
+    "complexity": "O(1) to add every element.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "element",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "hyperloglog"
+  },
+  "PFCOUNT": {
+    "summary": "Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).",
+    "complexity": "O(1) with every small average constant times when called with a single key. O(N) with N being the number of keys, and much bigger constant times, when called with multiple keys.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "hyperloglog"
+  },
+  "PFMERGE": {
+    "summary": "Merge N different HyperLogLogs into a single one.",
+    "complexity": "O(N) to merge N HyperLogLogs, but with high constant times.",
+    "arguments": [
+      {
+        "name": "destkey",
+        "type": "key"
+      },
+      {
+        "name": "sourcekey",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "hyperloglog"
+  },
   "PING": {
     "summary": "Ping the server",
     "since": "1.0.0",
@@ -1256,10 +1414,22 @@
       {
         "name": "serialized-value",
         "type": "string"
+      },
+      {
+        "name": "replace",
+        "type": "enum",
+        "enum": ["REPLACE"],
+        "optional": true
       }
+
     ],
     "since": "2.6.0",
     "group": "generic"
+  },
+  "ROLE": {
+    "summary": "Return the role of the instance in the context of replication",
+    "since": "2.8.12",
+    "group": "server"
   },
   "RPOP": {
     "summary": "Remove and get the last element in a list",
@@ -1274,7 +1444,7 @@
     "group": "list"
   },
   "RPOPLPUSH": {
-    "summary": "Remove the last element in a list, append it to another list and return it",
+    "summary": "Remove the last element in a list, prepend it to another list and return it",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -1722,12 +1892,17 @@
     "group": "generic"
   },
   "SPOP": {
-    "summary": "Remove and return a random member from a set",
+    "summary": "Remove and return one or multiple random members from a set",
     "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -1921,7 +2096,7 @@
   },
   "ZCOUNT": {
     "summary": "Count the members in a sorted set with scores within the given values",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M being the number of elements between min and max.",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
     "arguments": [
       {
         "name": "key",
@@ -1994,6 +2169,26 @@
     "since": "2.0.0",
     "group": "sorted_set"
   },
+  "ZLEXCOUNT": {
+    "summary": "Count the number of members in a sorted set between a given lexicographical range",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.9",
+    "group": "sorted_set"
+  },
   "ZRANGE": {
     "summary": "Return a range of members in a sorted set, by index",
     "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
@@ -2018,6 +2213,58 @@
       }
     ],
     "since": "1.2.0",
+    "group": "sorted_set"
+  },
+  "ZRANGEBYLEX": {
+    "summary": "Return a range of members in a sorted set, by lexicographical range",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "command": "LIMIT",
+        "name": ["offset", "count"],
+        "type": ["integer", "integer"],
+        "optional": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "sorted_set"
+  },
+  "ZREVRANGEBYLEX": {
+    "summary": "Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "command": "LIMIT",
+        "name": ["offset", "count"],
+        "type": ["integer", "integer"],
+        "optional": true
+      }
+    ],
+    "since": "2.8.9",
     "group": "sorted_set"
   },
   "ZRANGEBYSCORE": {
@@ -2083,6 +2330,26 @@
       }
     ],
     "since": "1.2.0",
+    "group": "sorted_set"
+  },
+  "ZREMRANGEBYLEX": {
+    "summary": "Remove all members in a sorted set between the given lexicographical range",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.9",
     "group": "sorted_set"
   },
   "ZREMRANGEBYRANK": {

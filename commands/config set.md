@@ -14,12 +14,14 @@ All the supported parameters have the same meaning of the equivalent
 configuration parameter used in the [redis.conf][hgcarr22rc] file, with the
 following important differences:
 
-[hgcarr22rc]: http://github.com/antirez/redis/raw/2.2/redis.conf
+[hgcarr22rc]: http://github.com/antirez/redis/raw/2.8/redis.conf
 
-* Where bytes or other quantities are specified, it is not possible to use
-  the `redis.conf` abbreviated form (10k 2gb ... and so forth), everything
-  should be specified as a well-formed 64-bit integer, in the base unit of the
-  configuration directive.
+* In options where bytes or other quantities are specified, it is not
+  possible to use the `redis.conf` abbreviated form (10k 2gb ... and so forth),
+  everything should be specified as a well-formed 64-bit integer, in the base
+  unit of the configuration directive. However since Redis version 3.0 or
+  greater, it is possible to use `CONFIG SET` with memory units for
+  `maxmemory`, client output buffers, and replication backlog size.
 * The save parameter is a single string of space-separated integers.
   Every pair of integers represent a seconds/modifications threshold.
 
@@ -52,5 +54,5 @@ options are not mutually exclusive.
 
 @return
 
-@status-reply: `OK` when the configuration was set properly.
+@simple-string-reply: `OK` when the configuration was set properly.
 Otherwise an error is returned.

@@ -17,7 +17,7 @@ You can do a number of interesting things using strings in Redis, for instance y
 * Use Strings as a random access vectors with [GETRANGE](/commands/getrange) and [SETRANGE](/commands/setrange).
 * Encode a lot of data in little space, or create a Redis backed Bloom Filter using [GETBIT](/commands/getbit) and [SETBIT](/commands/setbit).
 
-Check all the [available string commands](/commands/#string) for more information.
+Check all the [available string commands](/commands/#string) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
 <a name="lists"></a>
 Lists
@@ -54,7 +54,9 @@ You can do many interesting things with Redis Lists, for instance you can:
 * Model a timeline in a social network, using [LPUSH](/commands/lpush) in order to add new elements in the user time line, and using [LRANGE](/commands/lrange) in order to retrieve a few of recently inserted items.
 * You can use [LPUSH](/commands/lpush) together with [LTRIM](/commands/ltrim) to create a list that never exceeds a given number of elements, but just remembers the latest N elements.
 * Lists can be used as a message passing primitive, See for instance the well known [Resque](https://github.com/defunkt/resque) Ruby library for creating background jobs.
-* You can do a lot more with lists, this data type supports a number of commands, including blocking commands like [BLPOP](/commands/blpop). Please check all the [available commands operating on lists](/commands#list) for more information.
+* You can do a lot more with lists, this data type supports a number of commands, including blocking commands like [BLPOP](/commands/blpop).
+
+Please check all the [available commands operating on lists](/commands#list) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
 <a name="sets"></a>
 Sets
@@ -77,7 +79,9 @@ You can do many interesting things using Redis Sets, for instance you can:
 * You can track unique things using Redis Sets. Want to know all the unique IP addresses visiting a given blog post? Simply use [SADD](/commands/sadd) every time you process a page view. You are sure repeated IPs will not be inserted.
 * Redis Sets are good to represent relations. You can create a tagging system with Redis using a Set to represent every tag. Then you can add all the IDs of all the objects having a given tag into a Set representing this particular tag, using the [SADD](/commands/sadd) command. Do you want all the IDs of all the Objects having a three different tags at the same time? Just use [SINTER](/commands/sinter).
 * You can use Sets to extract elements at random using the [SPOP](/commands/spop) or [SRANDMEMBER](/commands/srandmember) commands.
-* As usually check the [full list of Set commands](/commands#set) for more information.
+
+
+As usually check the [full list of Set commands](/commands#set) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
 <a name="hashes"></a>
 Hashes
@@ -99,7 +103,7 @@ While Hashes are used mainly to represent objects, they are capable of storing m
 
 Every hash can store up to 2^32 - 1 field-value pairs (more than 4 billion).
 
-Check the [full list of Hash commands](/commands#hash) for more information.
+Check the [full list of Hash commands](/commands#hash) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
 <a name="sorted-sets"></a>
 Sorted sets
@@ -133,6 +137,14 @@ Using ZRANK and ZRANGE together you can show users with a score similar to
 a given user. All very *quickly*.
 * Sorted Sets are often used in order to index data that is stored inside Redis.
 For instance if you have many hashes representing users, you can use a sorted set with elements having the age of the user as the score and the ID of the user as the value. So using [ZRANGEBYSCORE](/commands/zrangebyscore) it will be trivial and fast to retrieve all the users with a given interval of ages.
-* Sorted Sets are probably the most advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis!
 
 
+Sorted Sets are probably the most advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis! Also you may want to read the [introduction to Redis data types](/topics/data-types-intro).
+
+Bitmaps and HyperLogLogs
+---
+
+Redis also supports Bitmaps and HyperLogLogs which are actually data types
+based on the String base type, but having their own semantics.
+
+Please refer to the [introduction to Redis data types](/topics/data-types-intro) for information about those types.

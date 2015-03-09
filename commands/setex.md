@@ -16,7 +16,7 @@ An error is returned when `seconds` is invalid.
 
 @return
 
-@status-reply
+@simple-string-reply
 
 @examples
 

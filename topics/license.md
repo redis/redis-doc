@@ -1,6 +1,11 @@
-# Redis license information
+# Redis license and trademark information
 
 Redis is **open source software** released under the terms of the **three clause BSD license**. Most of the Redis source code was written and is copyrighted by Salvatore Sanfilippo and Pieter Noordhuis. A list of other contributors can be found in the git history.
+
+The Redis trademark and logo are owned by Salvatore Sanfilippo and can be
+used in accordance with the [Redis Trademark Guidelines](/topics/trademark).
+
+# Three clause BSD license
 
 Every file in the Redis distribution, with the exceptions of third party files specified in the list below, contain the following license:
 
@@ -32,7 +37,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 # Third party files and licenses
 
-Redis uses source code from third parties. All this code contians a BSD or BSD-compatible license. The following is a list of third party files and information about their copyright.
+Redis uses source code from third parties. All this code contains a BSD or BSD-compatible license. The following is a list of third party files and information about their copyright.
 
 * Redis uses the [LHF compression library](http://oldhome.schmorp.de/marc/liblzf.html). LibLZF is copyright Marc Alexander Lehmann and is released under the terms of the **two clause BSD license**.
 

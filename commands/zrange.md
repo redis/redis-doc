@@ -11,6 +11,9 @@ They can also be negative numbers indicating offsets from the end of the sorted
 set, with `-1` being the last element of the sorted set, `-2` the penultimate
 element and so on.
 
+`start` and `stop` are **inclusive ranges**, so for example `ZRANGE myzset 0 1``
+will return both the first and the second element of the sorted set.
+
 Out of range indexes will not produce an error.
 If `start` is larger than the largest index in the sorted set, or `start >
 stop`, an empty list is returned.
@@ -26,8 +29,8 @@ array with (value, score) arrays/tuples).
 
 @return
 
-@multi-bulk-reply: list of elements in the specified range (optionally with
-their scores).
+@array-reply: list of elements in the specified range (optionally with
+their scores, in case the `WITHSCORES` option is given).
 
 @examples
 
@@ -38,4 +41,10 @@ ZADD myzset 3 "three"
 ZRANGE myzset 0 -1
 ZRANGE myzset 2 3
 ZRANGE myzset -2 -1
+```
+
+The following example using `WITHSCORES` shows how the command returns always an array, but this time, populated with *element_1*, *score_1*, *element_2*, *score_2*, ..., *element_N*, *score_N*.
+
+```cli
+ZRANGE myzset 0 1 WITHSCORES
 ```

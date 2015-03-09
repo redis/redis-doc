@@ -2,4 +2,4 @@ The `CLIENT GETNAME` returns the name of the current connection as set by `CLIEN
 
 @return
 
-@bulk-reply: The connection name, or a null bulk reply if no name is set.
+@bulk-string-reply: The connection name, or a null bulk reply if no name is set.

@@ -4,7 +4,7 @@ The returned value can be synthesized back into a Redis key using the `RESTORE`
 command.
 
 The serialization format is opaque and non-standard, however it has a few
-semantical characteristics:
+semantic characteristics:
 
 * It contains a 64-bit checksum that is used to make sure errors will be
   detected.
@@ -23,7 +23,7 @@ If `key` does not exist a nil bulk reply is returned.
 
 @return
 
-@bulk-reply: the serialized value.
+@bulk-string-reply: the serialized value.
 
 @examples
 

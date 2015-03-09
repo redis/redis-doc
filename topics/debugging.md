@@ -11,7 +11,7 @@ sometimes looking at the crash report is not enough, nor it is possible for
 the Redis core team to reproduce the issue independently: in this scenario we
 need help from the user that is able to reproduce the issue.
 
-This little guide shows how to use GDB to provide all the informations the
+This little guide shows how to use GDB to provide all the information the
 Redis developers will need to track the bug more easily.
 
 What is GDB?
@@ -19,7 +19,7 @@ What is GDB?
 
 GDB is the Gnu Debugger: a program that is able to inspect the internal state
 of another program. Usually tracking and fixing a bug is an exercise in
-gathering more informations about the state of the program at the moment the
+gathering more information about the state of the program at the moment the
 bug happens, so GDB is an extremely useful tool.
 
 GDB can be used in two ways:
@@ -71,7 +71,7 @@ In order to attach GDB the first thing you need is the *process ID* of the runni
 In the above example the process ID is **58414**.
 
 + Login into your Redis server.
-+ (Optional but recommended) Start **screen** or **tmux** or any other program that will make sure that your GDB session will not be closed if your ssh connection will timeout. If you don't know what screen is do yourself a favour and [Read this article](http://www.linuxjournal.com/article/6340)
++ (Optional but recommended) Start **screen** or **tmux** or any other program that will make sure that your GDB session will not be closed if your ssh connection will timeout. If you don't know what screen is do yourself a favor and [Read this article](http://www.linuxjournal.com/article/6340)
 + Attach GDB to the running Redis server typing:
 
     gdb `<path-to-redis-executable>` `<pid>`
@@ -177,7 +177,7 @@ Finally you can send everything to the Redis core team:
 + The Redis executable you are using.
 + The stack trace produced by the **bt** command, and the registers dump.
 + The core file you generated with gdb.
-+ Informations about the operating system and GCC version, and Redis version you are using.
++ Information about the operating system and GCC version, and Redis version you are using.
 
 Thank you
 ---------

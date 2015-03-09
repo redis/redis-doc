@@ -15,7 +15,7 @@ list, so it can be considered as a list rotation command.
 
 @return
 
-@bulk-reply: the element being popped and pushed.
+@bulk-string-reply: the element being popped and pushed.
 
 @examples
 

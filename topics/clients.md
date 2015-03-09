@@ -2,7 +2,7 @@ Redis Clients Handling
 ===
 
 This document provides information about how Redis handles clients from the
-point of view of the networklayer: connections, timeouts, buffers, and
+point of view of the network layer: connections, timeouts, buffers, and
 other similar topics are covered here.
 
 The information contained in this document is **only applicable to Redis version 2.6 or greater**.
@@ -82,7 +82,7 @@ Output buffers limits
 ---
 
 Redis needs to handle a variable-length output buffer for every client, since
-a command can produce a big amount of data that needs to be transfered to the
+a command can produce a big amount of data that needs to be transferred to the
 client.
 
 However it is possible that a client sends more commands producing more output

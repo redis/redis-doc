@@ -26,15 +26,16 @@ The list of configuration directives, and their meaning and intended usage
 is available in the self documented example redis.conf shipped into the
 Redis distribution.
 
-* The self documented [redis.conf for Redis 2.6](https://raw.github.com/antirez/redis/2.6/redis.conf).
-* The self documented [redis.conf for Redis 2.4](https://raw.github.com/antirez/redis/2.4/redis.conf).
+* The self documented [redis.conf for Redis 2.8](https://raw.githubusercontent.com/antirez/redis/2.8/redis.conf)
+* The self documented [redis.conf for Redis 2.6](https://raw.githubusercontent.com/antirez/redis/2.6/redis.conf).
+* The self documented [redis.conf for Redis 2.4](https://raw.githubusercontent.com/antirez/redis/2.4/redis.conf).
 
 Passing arguments via the command line
 ---
 
 Since Redis 2.6 it is possible to also pass Redis configuration parameters
 using the command line directly. This is very useful for testing purposes.
-The following is an example that stats a new Redis instance using port 6380
+The following is an example that starts a new Redis instance using port 6380
 as a slave of the instance running at 127.0.0.1 port 6379.
 
     ./redis-server --port 6380 --slaveof 127.0.0.1 6379
@@ -86,18 +87,5 @@ time to live for keys using the `EXPIRE` command (or equivalent) since
 all the keys will be evicted using an approximated LRU algorithm as long
 as we hit the 2 megabyte memory limit.
 
-This is more memory effective as setting expires on keys uses additional
-memory. Also an LRU behavior is usually to prefer compared to a fixed expire
-for every key, so that the *working set* of your data (the keys that are
-used more frequently) will likely last more.
-
 Basically in this configuration Redis acts in a similar way to memcached.
-
-When Redis is used as a cache in this way, if the application also requires
-the use Redis as a store, it is strongly suggested to create two Redis
-instances, one as a cache, configured in this way, and one as a store,
-configured accordingly to your persistence needs and only holding keys
-that are not about cached data.
-
-*Note:* The user is adviced to read the example redis.conf to check how the
-other maxmemory policies available work.
+We have more extensive documentation about [using Redis as an LRU cache](/topics/lru-cache).

@@ -7,7 +7,7 @@ documented separately. The general form is:
 # PUBSUB CHANNELS [pattern]
 
 Lists the currently *active channels*. An active channel is a Pub/Sub channel
-with one ore more subscribers (not including clients subscribed to patterns).
+with one or more subscribers (not including clients subscribed to patterns).
 
 If no `pattern` is specified, all the channels are listed, otherwise if pattern
 is specified only channels matching the specified glob-style pattern are
@@ -15,7 +15,7 @@ listed.
 
 @return
 
-@multi-bulk-reply: a list of active channels, optionally matching the specified pattern.
+@array-reply: a list of active channels, optionally matching the specified pattern.
 
 # PUBSUB NUMSUB [channel-1 ... channel-N]
 
@@ -24,7 +24,7 @@ for the specified channels.
 
 @return
 
-@multi-bulk-reply: a list of channels and number of subscribers for every channel. The format is channel, count, channel, count, ..., so the list is flat.
+@array-reply: a list of channels and number of subscribers for every channel. The format is channel, count, channel, count, ..., so the list is flat.
 The order in which the channels are listed is the same as the order of the
 channels specified in the command call.
 

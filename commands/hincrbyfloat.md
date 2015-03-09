@@ -13,7 +13,7 @@ information.
 
 @return
 
-@bulk-reply: the value of `field` after the increment.
+@bulk-string-reply: the value of `field` after the increment.
 
 @examples
 

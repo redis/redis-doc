@@ -25,7 +25,7 @@ This time is called RTT (Round Trip Time). It is very easy to see how this can a
 
 If the interface used is a loopback interface, the RTT is much shorter (for instance my host reports 0,044 milliseconds pinging 127.0.0.1), but it is still a lot if you need to perform many writes in a row.
 
-Fortunately there is a way to improve this use cases.
+Fortunately there is a way to improve this use case.
 
 Redis Pipelining
 ---
@@ -36,7 +36,7 @@ This is called pipelining, and is a technique widely in use since many decades. 
 
 Redis supports pipelining since the very early days, so whatever version you are running, you can use pipelining with Redis. This is an example using the raw netcat utility:
 
-    $ (echo -en "PING\r\nPING\r\nPING\r\n"; sleep 1) | nc localhost 6379
+    $ (printf "PING\r\nPING\r\nPING\r\n"; sleep 1) | nc localhost 6379
     +PONG
     +PONG
     +PONG
@@ -54,7 +54,7 @@ To be very explicit, with pipelining the order of operations of our very first e
  * *Server:* 3
  * *Server:* 4
 
-**IMPORTANT NOTE**: while the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send many many commands with pipelining it's better to send this commands up to a given reasonable number, for instance 10k commands, read the replies, and send again other 10k commands and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for this 10k commands.
+**IMPORTANT NOTE**: While the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send a lot of commands with pipelining, it is better to send them as batches having a reasonable number, for instance 10k commands, read the replies, and then send another 10k commands again, and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for this 10k commands.
 
 Some benchmark
 ---
@@ -93,16 +93,16 @@ In the following benchmark we'll use the Redis Ruby client, supporting pipelinin
         with_pipelining
     }
 
-Running the above simple script will provide this figures in my Mac OS X system, running over the loopback interface, where pipelining will provide the smallest improvement as the RTT is already pretty low:
+Running the above simple script will provide the following figures in my Mac OS X system, running over the loopback interface, where pipelining will provide the smallest improvement as the RTT is already pretty low:
 
     without pipelining 1.185238 seconds
     with pipelining 0.250783 seconds
 
-As you can see using pipelining we improved the transfer by a factor of five.
+As you can see, using pipelining, we improved the transfer by a factor of five.
 
 Pipelining VS Scripting
 ---
 
-Using [Redis scripting](/commands/eval) (available in Redis version 2.6 or greater) a number of use cases for pipelining can be addressed more efficiently using scripts that perform a lot of the work needed server side. A big advantage of scripting is that it is able to both read and write data with minimal latency, making operations like *read, compute, write* very fast (pipelining can't help in this scenario since the client needs the reply of the read command before it can call the write command).
+Using [Redis scripting](/commands/eval) (available in Redis version 2.6 or greater) a number of use cases for pipelining can be addressed more efficiently using scripts that perform a lot of the work needed at the server side. A big advantage of scripting is that it is able to both read and write data with minimal latency, making operations like *read, compute, write* very fast (pipelining can't help in this scenario since the client needs the reply of the read command before it can call the write command).
 
 Sometimes the application may also want to send `EVAL` or `EVALSHA` commands in a pipeline. This is entirely possible and Redis explicitly supports it with the [SCRIPT LOAD](http://redis.io/commands/script-load) command (it guarantees that `EVALSHA` can be called without the risk of failing).

@@ -5,4 +5,4 @@ Subsequent commands will be queued for atomic execution using `EXEC`.
 
 @return
 
-@status-reply: always `OK`.
+@simple-string-reply: always `OK`.

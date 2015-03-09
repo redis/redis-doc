@@ -17,7 +17,7 @@ GET mycounter
 
 @return
 
-@bulk-reply: the old value stored at `key`, or `nil` when `key` did not exist.
+@bulk-string-reply: the old value stored at `key`, or `nil` when `key` did not exist.
 
 @examples
 

@@ -1,4 +1,7 @@
-﻿Virtual Memory technical specification
+UPDATE: Virtual Memory is deprecated since Redis 2.6, so this documentation
+is here only for historical reasons.
+
+Virtual Memory technical specification
 ===
 
 This document details the internals of the Redis Virtual Memory subsystem. The intended audience is not the final user but programmers willing to understand or modify the Virtual Memory implementation.
@@ -39,7 +42,7 @@ This is how the Redis Object structure _robj_ looks like:
         int refcount;
         /* VM fields, this are only allocated if VM is active, otherwise the
          * object allocation function will just allocate
-         * sizeof(redisObjct) minus sizeof(redisObjectVM), so using
+         * sizeof(redisObject) minus sizeof(redisObjectVM), so using
          * Redis without VM active will not have any overhead. */
         struct redisObjectVM vm;
     } robj;
@@ -188,8 +191,8 @@ Threaded VM
 ---
 
 There are basically three main ways to turn the blocking VM into a non blocking one.
-* 1: One way is obvious, and in my opionion, not a good idea at all, that is, turning Redis itself into a theaded server: if every request is served by a different thread automatically other clients don't need to wait for blocked ones. Redis is fast, exports atomic operations, has no locks, and is just 10k lines of code, *because* it is single threaded, so this was not an option for me.
-* 2: Using non-blocking I/O against the swap file. After all you can think Redis already event-loop based, why don't just handle disk I/O in a non-blocking fashion? I also discarded this possiblity because of two main reasons. One is that non blocking file operations, unlike sockets, are an incompatibility nightmare. It's not just like calling select, you need to use OS-specific things. The other problem is that the I/O is just one part of the time consumed to handle VM, another big part is the CPU used in order to encode/decode data to/from the swap file. This is I picked option three, that is...
+* 1: One way is obvious, and in my opinion, not a good idea at all, that is, turning Redis itself into a threaded server: if every request is served by a different thread automatically other clients don't need to wait for blocked ones. Redis is fast, exports atomic operations, has no locks, and is just 10k lines of code, *because* it is single threaded, so this was not an option for me.
+* 2: Using non-blocking I/O against the swap file. After all you can think Redis already event-loop based, why don't just handle disk I/O in a non-blocking fashion? I also discarded this possibility because of two main reasons. One is that non blocking file operations, unlike sockets, are an incompatibility nightmare. It's not just like calling select, you need to use OS-specific things. The other problem is that the I/O is just one part of the time consumed to handle VM, another big part is the CPU used in order to encode/decode data to/from the swap file. This is I picked option three, that is...
 * 3: Using I/O threads, that is, a pool of threads handling the swap I/O operations. This is what the Redis VM is using, so let's detail how this works.
 
 I/O Threads

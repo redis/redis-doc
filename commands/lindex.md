@@ -9,7 +9,7 @@ When the value at `key` is not a list, an error is returned.
 
 @return
 
-@bulk-reply: the requested element, or `nil` when `index` is out of range.
+@bulk-string-reply: the requested element, or `nil` when `index` is out of range.
 
 @examples
 

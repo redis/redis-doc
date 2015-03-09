@@ -129,13 +129,13 @@ key is found to be timed out.
 
 Of course this is not enough as there are expired keys that will never be
 accessed again.
-This keys should be expired anyway, so periodically Redis test a few keys at
+These keys should be expired anyway, so periodically Redis tests a few keys at
 random among keys with an expire set.
 All the keys that are already expired are deleted from the keyspace.
 
 Specifically this is what Redis does 10 times per second:
 
-1. Test 100 random keys from the set of keys with an associated expire.
+1. Test 20 random keys from the set of keys with an associated expire.
 2. Delete all the keys found expired.
 3. If more than 25 keys were expired, start again from step 1.
 

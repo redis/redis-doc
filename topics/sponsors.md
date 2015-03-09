@@ -21,4 +21,16 @@ Also thanks to the following people or organizations that donated to the Project
 
 We are grateful to [Pivotal](http://gopivotal.com), [VMware](http://vmware.com) and to the other companies and people that donated to the Redis project. Thank you.
 
-The Redis.io domain is kindly donated to the project by [I Want My Name](http://iwantmyname.com).
+## redis.io
+
+[Citrusbyte](https://citrusbyte.com) sponsored the creation of the official
+Redis logo (designed by [Carlos Prioglio](http://carlosprioglio.com)) and
+transferred its copyright to Salvatore Sanfilippo.
+
+They also sponsored the initial implementation of this site by
+[Damian Janowski](https://twitter.com/djanowski) and [Michel
+Martens](https://twitter.com/soveran). Damian and Michel remain the current
+maintainers.
+
+The `redis.io` domain is kindly donated to the project by [I Want My
+Name](https://iwantmyname.com).

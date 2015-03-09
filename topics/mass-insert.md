@@ -43,8 +43,7 @@ However this is not a very reliable way to perform mass import because netcat
 does not really know when all the data was transferred and can't check for
 errors. In the unstable branch of Redis at github the `redis-cli` utility
 supports a new mode called **pipe mode** that was designed in order to perform
-mass insertion. (This feature will be available in a few days in Redis 2.6-RC4
- and in Redis 2.4.14).
+mass insertion.
 
 Using the pipe mode the command to run looks like the following:
 

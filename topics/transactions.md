@@ -53,7 +53,7 @@ The following example increments keys `foo` and `bar` atomically.
     1) (integer) 1
     2) (integer) 1
 
-As it is possible to see from the session above, `MULTI` returns an
+As it is possible to see from the session above, `EXEC` returns an
 array of replies, where every element is the reply of a single command
 in the transaction, in the same order the commands were issued.
 
@@ -71,7 +71,7 @@ During a transaction it is possible to encounter two kind of command errors:
 
 Clients used to sense the first kind of errors, happening before the `EXEC` call, by checking the return value of the queued command: if the command replies with QUEUED it was queued correctly, otherwise Redis returns an error. If there is an error while queueing a command, most clients will abort the transaction discarding it.
 
-However starting with Redis 2.6.5, the server will remember that there was an error during the accumulation of commands, and will refuse to execute the transaction returning also an error during `EXEC`, and discarding the transcation automatically.
+However starting with Redis 2.6.5, the server will remember that there was an error during the accumulation of commands, and will refuse to execute the transaction returning also an error during `EXEC`, and discarding the transaction automatically.
 
 Before Redis 2.6.5 the behavior was to execute the transaction with just the subset of commands queued successfully in case the client called `EXEC` regardless of previous errors. The new behavior makes it much more simple to mix transactions with pipelining, so that the whole transaction can be sent at once, reading all the replies later at once.
 
@@ -95,7 +95,7 @@ command will fail when executed even if the syntax is right:
     +OK
     -ERR Operation against a key holding the wrong kind of value
 
-`EXEC` returned two-element @bulk-reply where one is an `OK` code and
+`EXEC` returned two-element @bulk-string-reply where one is an `OK` code and
 the other an `-ERR` reply. It's up to the client library to find a
 sensible way to provide the error to the user.
 

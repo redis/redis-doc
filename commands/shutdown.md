@@ -30,6 +30,6 @@ Specifically:
 
 @return
 
-@status-reply on error.
+@simple-string-reply on error.
 On success nothing is returned since the server quits and the connection is
 closed.
