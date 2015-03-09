@@ -43,7 +43,7 @@ ZRANGE myzset 2 3
 ZRANGE myzset -2 -1
 ```
 
-The following example using `WITHSCORES` shows how the command returns always an array, but this time, populated with *element_1*, *score_2*, *element_2*, *score_2*, ..., *element_N*, *score_N*.
+The following example using `WITHSCORES` shows how the command returns always an array, but this time, populated with *element_1*, *score_1*, *element_2*, *score_2*, ..., *element_N*, *score_N*.
 
 ```cli
 ZRANGE myzset 0 1 WITHSCORES
