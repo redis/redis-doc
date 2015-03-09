@@ -685,7 +685,7 @@
     "name": "thunk-redis",
     "language": "Node.js",
     "repository": "https://github.com/thunks/thunk-redis",
-    "description": "A redis client with pipelining, rely on thunks, support promise.",
+    "description": "A thunk/promise-based redis client with pipelining and cluster.",
     "authors": ["izensh"],
     "active": true
   },
