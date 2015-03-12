@@ -20,7 +20,6 @@ SPOP myset 3
 SMEMBERS myset
 ```
 
-
 ## Specification of the behavior when count is passed
 
 If count is bigger than the number of elements inside the Set, the command will only return the whole set without additional elements.
@@ -28,3 +27,7 @@ If count is bigger than the number of elements inside the Set, the command will 
 ## Distribution of returned elements
 
 Note that this command is not suitable when you need a guaranteed uniform distribution of the returned elements. For more information about the algorithms used for SPOP, look up both the Knuth sampling and Floyd sampling algorithms.
+
+## Count argument extension
+
+Redis 3.2 will be the first version where an optional `count` argument can be passed to `SPOP` in order to retrieve multiple elements in a single call. The implementation is already available in the `unstable` branch.
