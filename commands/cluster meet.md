@@ -9,7 +9,7 @@ addresses modifications.
 So in order for a given node to accept another one into the list of nodes
 composing a Redis Cluster, there are only two ways:
 
-1. The system administrator sends a `CLUSTER MEET` command to to force a node to meet another one.
+1. The system administrator sends a `CLUSTER MEET` command to force a node to meet another one.
 2. An already known node sends a list of nodes in the gossip section that we are not aware of. If the receiving node trusts the sending node as a known node, it will process the gossip section and send an handshake to the nodes that are still not known.
 
 Note that Redis Cluster forms a full mesh, but it is not needed to send as much as `CLUSTER MEET` commands as needed to form the full mesh, because thanks to gossiping the missing links will be created.
