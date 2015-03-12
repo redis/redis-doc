@@ -230,6 +230,16 @@
   "CLUSTER MEET": {
     "summary": "Force a node cluster to handshake with another node",
     "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "ip",
+        "type": "string"
+      },
+      {
+        "name": "port",
+        "type": "integer"
+      }
+    ],
     "since": "3.0.0",
     "group": "cluster"
   },
