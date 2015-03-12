@@ -442,6 +442,15 @@
     "authors": ["jamescauwelier"],
     "active": true
   },
+  
+  {
+    "name": "redis-async",
+    "language": "PHP",
+    "repository": "https://github.com/swoole/redis-async",
+    "description": "Asynchronous redis client library for PHP.",
+    "authors": ["matyhtf"],
+    "active": true
+  },
 
   {
     "name": "Yampee Redis",
@@ -677,7 +686,7 @@
     "language": "Node.js",
     "repository": "https://github.com/thunks/thunk-redis",
     "description": "A redis client with pipelining, rely on thunks, support promise.",
-    "authors": ["zensh"],
+    "authors": ["izensh"],
     "active": true
   },
 
@@ -762,6 +771,16 @@
     "repository": "https://github.com/lp/puredis",
     "description": "Pure Data Redis sync, async and subscriber client",
     "authors": ["loopole"]
+  },
+
+  {
+    "name": "redis-client for C++",
+    "language": "C++",
+    "url": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "repository": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
+    "description": "full redis client commands, one redis command one redis function, including STRING, HASH, LIST, SET, ZSET, HLL, PUBSUB, TRANSACTION, SCRIPT, CONNECTION, SERVER, CLUSTER",
+    "authors": [],
+    "active": true
   },
 
   {
