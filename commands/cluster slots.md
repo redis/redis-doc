@@ -1,7 +1,10 @@
-Returns @array-reply of current cluster state.
-
 `CLUSTER SLOTS` returns details about which cluster slots map to which
-Redis instances.
+Redis instances. The command is suitable to be used by Redis Cluster client
+libraries implementations in order to retrieve (or update when a redirection
+is received) the map associating cluster *hash slots* with actual nodes
+network coordinates (composed of an IP address and a TCP port), so that when
+a command is received, it can be sent to what is likely the right instance
+for the keys specified in the command.
 
 ## Nested Result Array
 Each nested result is:
@@ -24,6 +27,10 @@ of the master.
 If a cluster instance has non-contiguous slots (e.g. 1-400,900,1800-6000) then
 master and replica IP/Port results will be duplicated for each top-level
 slot range reply.
+
+@return
+
+@array-reply: nested list of slot ranges with IP/Port mappings.
 
 ### Sample Output
 ```
@@ -54,6 +61,4 @@ slot range reply.
       2) (integer) 7006
 ```
 
-@return
 
-@array-reply: nested list of slot ranges with IP/Port mappings.
