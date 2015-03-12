@@ -231,7 +231,7 @@
     "summary": "Get array of Cluster slot to node mappings",
     "complexity": "O(N) where N is the total number of Cluster nodes",
     "since": "3.0.0",
-    "group": "server"
+    "group": "cluster"
   },
   "COMMAND": {
     "summary": "Get array of Redis command details",
