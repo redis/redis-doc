@@ -45,14 +45,14 @@ The meaning of each filed is the following:
 
 Meaning of the flags (field number 3):
 
-* `myself` the node you are contacting.
-* `master` node is a master.
-* `slave` node is a slave.
-* `fail?` node is in PFAIL state. Not reachable for the node you are contacting, but still logically reachable (not in FAIL state).
-* `fail` node is in FAIL state. It was not reachable for multiple nodes that promoted the PFAIL state to FAIL.
-* `handshake` untrusted node, we are handshaking.
-* `noaddr` No address known for this node.
-* `noflags` No flags at all.
+* **myself** The node you are contacting.
+* **master** Node is a master.
+* **slave** Node is a slave.
+* **fail?** Node is in PFAIL state. Not reachable for the node you are contacting, but still logically reachable (not in FAIL state).
+* **fail** Node is in FAIL state. It was not reachable for multiple nodes that promoted the PFAIL state to FAIL.
+* **handshake** Untrusted node, we are handshaking.
+* **noaddr** No address known for this node.
+* **noflags** No flags at all.
 
 @return
 
