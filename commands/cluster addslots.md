@@ -6,7 +6,7 @@ configuration.
 
 However note that:
 
-1. The command only works if all the specified slots are, from the point of view of the node receiving the command, currently not assigned. A node will refuse to take ownership for slots that already belog to some other node (including itself).
+1. The command only works if all the specified slots are, from the point of view of the node receiving the command, currently not assigned. A node will refuse to take ownership for slots that already belong to some other node (including itself).
 2. The command fails if the same slot is specified multiple times.
 3. As a side effect of the command execution, if a slot among the ones specified as argument is set as `importing`, this state gets cleared once the node assigns the (previously unbound) slot to itself.
 
@@ -35,7 +35,7 @@ Redis Cluster operations:
 ## Information about slots propagation and warnings
 
 Note that once a node assigns a set of slots to itself, it will start
-propagating this information in hearthbeats packets headers. However the
+propagating this information in heartbeat packet headers. However the
 other nodes will accept the information only if they have the slot as
 not already bound with another node, or if the configuration epoch of the
 node advertising the new hash slot, is greater than the node currently listed
@@ -48,4 +48,4 @@ data loss.
 
 @return
 
-@simple-string-reply: `OK` if the command was successful. Otheriwse an error is returned.
+@simple-string-reply: `OK` if the command was successful. Otherwise an error is returned.

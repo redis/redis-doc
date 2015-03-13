@@ -253,7 +253,7 @@ and is only specified if the instance is not a master itself.
 * **+failover-state-select-slave** `<instance details>` -- New failover state is `select-slave`: we are trying to find a suitable slave for promotion.
 * **no-good-slave** `<instance details>` -- There is no good slave to promote. Currently we'll try after some time, but probably this will change and the state machine will abort the failover at all in this case.
 * **selected-slave** `<instance details>` -- We found the specified good slave to promote.
-* **failover-state-send-slaveof-noone** `<instance details>` -- We are trynig to reconfigure the promoted slave as master, waiting for it to switch.
+* **failover-state-send-slaveof-noone** `<instance details>` -- We are trying to reconfigure the promoted slave as master, waiting for it to switch.
 * **failover-end-for-timeout** `<instance details>` -- The failover terminated for timeout. If we are the failover leader, we sent a *best effort* `SLAVEOF` command to all the slaves yet to reconfigure.
 * **failover-end** `<instance details>` -- The failover terminated with success. All the slaves appears to be reconfigured to replicate with the new master.
 * **switch-master** `<master name> <oldip> <oldport> <newip> <newport>` -- We are starting to monitor the new master, using the same name of the old one. The old master will be completely removed from our tables.
