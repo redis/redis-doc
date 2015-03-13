@@ -318,7 +318,7 @@ commands:
 Reply to `yes` in step 2 when the `redis-trib` utility wants you to accept
 the cluster layout.
 
-You can now interact with the cluster, the first node will start at port 30000
+You can now interact with the cluster, the first node will start at port 30001
 by default. When you are done, stop the cluster with:
 
 3. `create-cluster stop`.
@@ -362,7 +362,7 @@ redis 127.0.0.1:7000> get hello
 ```
 
 **Note:** if you craeted the cluster using the script your nodes may listen
-to different ports, starting from 30000 by default.
+to different ports, starting from 30001 by default.
 
 The redis-cli cluster support is very basic so it always uses the fact that
 Redis Cluster nodes are able to redirect a client to the right node.
