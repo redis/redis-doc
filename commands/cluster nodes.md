@@ -54,6 +54,40 @@ Meaning of the flags (field number 3):
 * **noaddr** No address known for this node.
 * **noflags** No flags at all.
 
+## Special slot entries
+
+Normally hash slots associated to a given node are in one of the following formats,
+as already explained above:
+
+1. Single number: 3894
+2. Range: 3900-4000
+
+However node hash slots can be in a special state, used in order to communicate errors after a node restart (mismatch between the keys in the AOF/RDB file, and the node hash slots configuration), or when there is a resharding operation in progress. This two states are **importing** and **migrating**.
+
+The meaning of the two states is explained in the Redis Specification, howoever the gist of the two states is the following:
+
+* **Importing** slots are yet not part of the nodes hash slot, there is a migration in progress. The node will accept queries about these slots only if the `ASK` command is used.
+* **Migrating** slots are assigned to the node, but but are being migrated to some other node. The node will accept queries if all the keys in the command exist already, otherwise it will emit what is called an **ASK redirection**, to force new keys creation directly in the importing node.
+
+Importing and migrating slots are emitted in the `CLUSTER NODES` output as follows:
+
+* **Importing slot:** `[slot_number-<-importing_from_node_id]`
+* **Migarting slot:** `[slot_number->-migrating_to_node_id]`
+
+The following are a few examples of importing and migrating slots:
+
+* `[93-<-292f8b365bb7edb5e285caf0b7e6ddc7265d2f4f]`
+* `[1002-<-67ed2db8d677e59ec4a4cefb06858cf2a1a89fa1]`
+* `[77->-e7d1eecce10fd6bb5eb35b9f99a514335d9ba9ca]`
+* `[16311->-292f8b365bb7edb5e285caf0b7e6ddc7265d2f4f]`
+
+Note that the format does not have any space, so `CLUSTER NODES` output format is plain CSV with space as separator even when this special slots are emitted. However a complete parser for the format should be able to handle them.
+
+Note that:
+
+1. Migration and importing slots are only added to the node flagged as **myself**. This information is local to a node, for its own slots.
+2. Importing and migrating slots are provided as **additional info**. If the node has a given hash slot assigned, it will be also a plain number in the list of hash slots, so clients that don't have a clue about hash slots migrations can just skip this special fields.
+
 @return
 
 @bulk-string-reply: The serialized cluster configuration.
