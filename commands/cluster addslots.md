@@ -15,13 +15,13 @@ However note that:
 For example the following command assigns slots 1 2 3 to the node receiving
 the command:
 
-    > ADDSLOTS 1 2 3
+    > CLUSTER ADDSLOTS 1 2 3
     OK
 
 However trying to execute it again results into an error since the slots
 are already assigned:
 
-    > ADDSLOTS 1 2 3
+    > CLUSTER ADDSLOTS 1 2 3
     ERR Slot 1 is already busy
 
 ## Usage in Redis Cluster
