@@ -38,7 +38,7 @@
     "name": "Kombu",
     "language": "Python",
     "repository": "https://github.com/celery/kombu",
-    "description": "Python AMQP Framework with redis suppport",
+    "description": "Python AMQP Framework with redis support",
     "authors": []
   },
   {
