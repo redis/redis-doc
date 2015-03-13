@@ -243,6 +243,12 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER NODES": {
+    "summary": "Get Cluster config for the node",
+    "complexity": "O(N) where N is the total number of Cluster nodes",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER SLOTS": {
     "summary": "Get array of Cluster slot to node mappings",
     "complexity": "O(N) where N is the total number of Cluster nodes",
