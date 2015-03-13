@@ -35,7 +35,7 @@ Redis Cluster operations:
 ## Information about slots propagation and warnings
 
 Note that once a node assigns a set of slots to itself, it will start
-propagating this information in hearthbeats packets headers. However the
+propagating this information in heartbeat packet headers. However the
 other nodes will accept the information only if they have the slot as
 not already bound with another node, or if the configuration epoch of the
 node advertising the new hash slot, is greater than the node currently listed
