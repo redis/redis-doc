@@ -361,7 +361,7 @@ redis 127.0.0.1:7000> get hello
 "world"
 ```
 
-**Note:** if you craeted the cluster using the script your nodes may listen
+**Note:** if you created the cluster using the script your nodes may listen
 to different ports, starting from 30001 by default.
 
 The redis-cli cluster support is very basic so it always uses the fact that

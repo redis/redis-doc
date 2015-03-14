@@ -36,7 +36,7 @@ The meaning of each filed is the following:
 1. **id** The node ID, a 40 characters random string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
 2. **ip:port** The node address where clients should contact the node to run queries.
 3. **flags** A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `noflags`. Flags are explained in detail in the next section.
-4. **master** If the node is a slave, and the master is known, the master node ID, oterwise the "-" character.
+4. **master** If the node is a slave, and the master is known, the master node ID, otherwise the "-" character.
 5. **ping-sent** Milliseconds unix time at which the currently active ping was sent, or zero if there are no pending pings.
 6. **pong-recv** Milliseconds unix time the last pong was received.
 7. **config-epoch** The configuration epoch (or version) of the current node (or of the current master if the node is a slave). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with higher configuration epoc wins.
@@ -64,7 +64,7 @@ as already explained above:
 
 However node hash slots can be in a special state, used in order to communicate errors after a node restart (mismatch between the keys in the AOF/RDB file, and the node hash slots configuration), or when there is a resharding operation in progress. This two states are **importing** and **migrating**.
 
-The meaning of the two states is explained in the Redis Specification, howoever the gist of the two states is the following:
+The meaning of the two states is explained in the Redis Specification, however the gist of the two states is the following:
 
 * **Importing** slots are yet not part of the nodes hash slot, there is a migration in progress. The node will accept queries about these slots only if the `ASK` command is used.
 * **Migrating** slots are assigned to the node, but but are being migrated to some other node. The node will accept queries if all the keys in the command exist already, otherwise it will emit what is called an **ASK redirection**, to force new keys creation directly in the importing node.
@@ -72,7 +72,7 @@ The meaning of the two states is explained in the Redis Specification, howoever 
 Importing and migrating slots are emitted in the `CLUSTER NODES` output as follows:
 
 * **Importing slot:** `[slot_number-<-importing_from_node_id]`
-* **Migarting slot:** `[slot_number->-migrating_to_node_id]`
+* **Migrating slot:** `[slot_number->-migrating_to_node_id]`
 
 The following are a few examples of importing and migrating slots:
 
