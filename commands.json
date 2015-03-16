@@ -275,6 +275,28 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER SETSLOT": {
+    "summary": "Bind an hash slot to a specific node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer"
+      },
+      {
+        "name": "subcommand",
+        "type": "enum",
+        "enum": ["IMPORTING", "MIGRATING", "STABLE", "NODE"]
+      },
+      {
+        "name": "node-id",
+        "type": "string",
+        "optional": true
+      }
+    }
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER SLOTS": {
     "summary": "Get array of Cluster slot to node mappings",
     "complexity": "O(N) where N is the total number of Cluster nodes",
