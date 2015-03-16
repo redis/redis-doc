@@ -10,7 +10,7 @@ The command with its set of subcommands is useful in order to start and end clus
 Each subcommand is documented below. At the end you'll find a description of
 how live resharding is performed using this command and other related commands.
 
-# CLUSTER SETSLOT `<slot>` MIGRATING `<destination-node-id>`
+## CLUSTER SETSLOT `<slot>` MIGRATING `<destination-node-id>`
 
 This subcommand sets a slot in *migrating* state. In order to set a slot
 in this state, the node receiving teh command must be the hash slot owner,
@@ -23,7 +23,7 @@ following way:
 2. If a command is received about a key that does not exists, an `ASK` redirection is emitted by the node, asking the client to retry only that specific query into `destination-node`. In this case the client should not update its hash slot to node mapping.
 3. If the command contains multiple keys, in case non exist, the behavior is the same as point 1, if all exist, is the same as point 2, however if only a partial number of keys exist, the command emits a `TRYAGAIN` error in order for the keys interested to finish being migrated to the target node, so that the multi keys command can be executed.
 
-# CLUSTER SETSLOT `<slot>` IMPORTING `<source-node-id>`
+## CLUSTER SETSLOT `<slot>` IMPORTING `<source-node-id>`
 
 This subcommand is the reverse of `MIGRATING`, and prepares the destination
 node to import keys from the specified source node. The command only works if
@@ -39,14 +39,14 @@ In this way when a node in migrating state generates an `ASK` redirection, the c
 2. Commands abotu keys already migrated are correctly processed in the context of the node which is target of the migration, the new hash slot owner, in order to guarantee consistency.
 3. Without `ASKING` the behavior is the same as usually. This guarantees that clients with a broken hash slots mapping will not write for error in the target node, creating a new version of a key that has yet to be migrated.
 
-# CLUSTER SETSLOT `<slot>` STABLE
+## CLUSTER SETSLOT `<slot>` STABLE
 
 This subcommand just clear migrating / importing state from the slot. It is
 mainly used to fix a cluster stuck in a wrong state by `redis-trib fix`.
 Normally the two states are cleared automatically at the end of the migration
 using the `SETSLOT ... NODE ...` subcommand as explained in the next section.
 
-# CLUSTER SETSLOT `<slot>` NODE `<node-id>`
+## CLUSTER SETSLOT `<slot>` NODE `<node-id>`
 
 The `SETSLOT` subcommand is the one with the most complex semantics. It
 associates the hash slot with the specified node, however the command works
@@ -64,7 +64,7 @@ It is important to note that in step 3 is the only time when a Redis Cluster nod
 
 @simple-string-reply: All the subcommands return `OK` if the command was successful. Otherwise an error is returned.
 
-# Redis Cluster live resharding explained
+## Redis Cluster live resharding explained
 
 The `CLUSTER SETSLOT` command is an important piece used by Redis Cluster in order to migrate all the keys contained in one hash slot from one node to another. This is how the migration is orchestrated, with the help of other commands as well. We'll call the node that has the current ownership of the hash slot the `source` node, and the node were we want to migrate the `destination` node.
 
