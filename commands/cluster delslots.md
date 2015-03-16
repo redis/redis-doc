@@ -1,4 +1,4 @@
-This command asks a Redis Cluster node to set the hash slots specified as arguments as *not associated* in the node receiving the command. A node associated, or
+This command asks a Redis Cluster node to set the hash slots specified as arguments as *not associated* in the node receiving the command. A not associated, or
 *unbound* hash slot, means that the node has no idea who is the master currently
 serving the hash slot. Moreover hash slots which are not associated will be
 associated as soon as we receive an heartbeat packet from some node claiming to
@@ -14,8 +14,7 @@ However note that:
 
 ## Example
 
-For example the following command assigns slots 1 2 3 to the node receiving
-the command:
+For example the following command unassigns slots 5000 and 5001 from the node receiving the command:
 
     > CLUSTER DELSLOTS 5000 5001
     OK
