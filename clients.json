@@ -685,7 +685,7 @@
     "name": "thunk-redis",
     "language": "Node.js",
     "repository": "https://github.com/thunks/thunk-redis",
-    "description": "A redis client with pipelining, rely on thunks, support promise.",
+    "description": "A thunk/promise-based redis client with pipelining and cluster.",
     "authors": ["izensh"],
     "active": true
   },
@@ -847,7 +847,8 @@
     "language": "Java",
     "repository": "https://github.com/mp911de/lettuce",
     "description": "Thread-safe client supporting async usage and key/value codecs",
-    "authors": ["ar3te", "mp911de"]
+    "authors": ["ar3te", "mp911de"],
+    "active": true
   },
 
   {
