@@ -240,6 +240,19 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER DELSLOTS": {
+    "summary": "Set hash slots as unbound in receiving node",
+    "complexity": "O(N) where N is the total number of hash slot arguments",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer",
+        "multiple": true
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER MEET": {
     "summary": "Force a node cluster to handshake with another node",
     "complexity": "O(1)",
