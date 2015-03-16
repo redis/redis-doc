@@ -293,7 +293,7 @@
         "type": "string",
         "optional": true
       }
-    }
+    ],
     "since": "3.0.0",
     "group": "cluster"
   },
