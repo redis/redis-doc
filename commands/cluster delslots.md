@@ -28,4 +28,4 @@ exists for API completeness.
 
 @return
 
-@simple-string-reply: `OK` if the command was successful. Otheriwse an error is returned.
+@simple-string-reply: `OK` if the command was successful. Otherwise an error is returned.
