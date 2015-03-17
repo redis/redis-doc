@@ -240,6 +240,18 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER COUNTKEYSINSLOT": {
+    "summary": "Return the number of local keys in the specified hash slot",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER DELSLOTS": {
     "summary": "Set hash slots as unbound in receiving node",
     "complexity": "O(N) where N is the total number of hash slot arguments",
