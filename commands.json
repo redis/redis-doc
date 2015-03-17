@@ -253,6 +253,24 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER INFO": {
+    "summary": "Provides info about Redis Cluster node state",
+    "complexity": "O(1)",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER KEYSLOT": {
+    "summary": "Returns the hash slot of the specified key",
+    "complexity": "O(N) where N is the number of bytes in the key",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "string"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER MEET": {
     "summary": "Force a node cluster to handshake with another node",
     "complexity": "O(1)",
