@@ -1,31 +1,48 @@
-This command asks a Redis Cluster node to set the hash slots specified as arguments as *not associated* in the node receiving the command. A not associated, or
-*unbound* hash slot, means that the node has no idea who is the master currently
-serving the hash slot. Moreover hash slots which are not associated will be
-associated as soon as we receive an heartbeat packet from some node claiming to
-be the owner of the hash slot (moreover, the hash slot will be re-associated if
-the node will receive an heartbeat or update message with a configuration
-epoch greater than the one of the node currently bound to the hash slot).
+In Redis Cluster, each node keeps track of which master is serving
+a particular hash slot.
 
-However note that:
+The `DELSLOTS` command asks a particular Redis Cluster node to
+forget which master is serving the hash slots specified as arguments.
 
-1. The command only works if all the specified slots are already associated with some node.
+In the context of a node that has received a `DELSLOTS` command and
+has consequently removed the associations for the passed hash slots,
+we say those hash slots are *unbound*. Note that the existence of
+unbound hashs slots occurs naturally when a node has not been
+configured to handle them (something that can be done with the
+`ADDSLOTS` command) and if it has not received any information about
+who owns those hash slots (something that it can learn from heartbeat
+or update messages).
+
+If a node with unbound hash slots receives a heartbeat packet from
+another node that claims to be the owner of some of those hash
+slots, the association is established instantly. Moreover, if a
+heartbeat or update message is received with a configuration epoch
+greater than the node's own, the association is re-established.
+
+However, note that:
+
+1. The command only works if all the specified slots are already
+associated with some node.
 2. The command fails if the same slot is specified multiple times.
-3. As a side effect of the command execution, the node may go into *down* state because not all hash slots are covered.
+3. As a side effect of the command execution, the node may go into
+*down* state because not all hash slots are covered.
 
 ## Example
 
-For example the following command unassigns slots 5000 and 5001 from the node receiving the command:
+The following command removes the association for slots 5000 and
+5001 from the node receiving the command:
 
     > CLUSTER DELSLOTS 5000 5001
     OK
 
 ## Usage in Redis Cluster
 
-This command only works in cluster mode and may be useful for debugging
-and in order to manually orchestrate a cluster configuration when a new
-cluster is created. It is currently not used by `redis-trib`, and mainly
-exists for API completeness.
+This command only works in cluster mode and may be useful for
+debugging and in order to manually orchestrate a cluster configuration
+when a new cluster is created. It is currently not used by `redis-trib`,
+and mainly exists for API completeness.
 
 @return
 
-@simple-string-reply: `OK` if the command was successful. Otherwise an error is returned.
+@simple-string-reply: `OK` if the command was successful. Otherwise
+an error is returned.
