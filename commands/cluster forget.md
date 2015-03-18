@@ -20,7 +20,7 @@ end with just a three nodes cluster A, B, C we may follow these steps:
 5. A does no longer known node D (see step 3), so it starts an handshake with D.
 6. D ends re-added in the nodes table of A.
 
-As you can say in this way removing a node is fragile, we need to send
+As you can see in this way removing a node is fragile, we need to send
 `CLUSTER FORGET` commands to all the nodes ASAP hoping there are no
 gossip sections processing in the meantime. Because of this problem the
 command implements a ban-list with an expire time for each entry.
@@ -39,7 +39,7 @@ we want to remove a node.
 The command does not succeed and returns an error in the following cases:
 
 1. The specified node ID is not found in the nodes table.
-2. The node receiving the command is a salve, and the specified node ID identifies its current master.
+2. The node receiving the command is a slave, and the specified node ID identifies its current master.
 3. The node ID identifies the same node we are sending the command to.
 
 @return
