@@ -275,7 +275,7 @@ add it in the authorized_keys file of your small VPS. You are ready to transfer
 backups in an automated fashion. Get at least two VPS in two different providers
 for best results.
 
-It is important to understand that this systems can easily fail if not coded
+It is important to understand that this system can easily fail if not coded
 in the right way. At least make absolutely sure that after the transfer is
 completed you are able to verify the file size (that should match the one of
 the file you copied) and possibly the SHA1 digest if you are using a VPS.
