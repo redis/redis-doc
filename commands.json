@@ -357,6 +357,19 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER RESET": {
+    "summary": "Reset a Redis Cluster node",
+    "complexity": "O(N) where N is the number of known nodes. The command may execute a FLUSHALL as a side effect.",
+    "arguments": [
+      {
+        "name": "reset-type",
+        "type": "enum",
+        "enum": ["HARD", "SOFT"]
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER SAVECONFIG": {
     "summary": "Forces the node to save cluster state on disk",
     "complexity": "O(1)",
