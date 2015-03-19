@@ -5,7 +5,7 @@ This command sets a specific *config epoch* in a fresh node. It only works when:
 
 These prerequisites are needed since usually, manually altering the
 configuration epoch of a node is unsafe, we want to be sure that the node with
-the higher configuration epoch value (that is the last that failed over), wins
+the higher configuration epoch value (that is the last that failed over) wins
 over other nodes in claiming the hash slots ownership.
 
 However there is an exception to this rule, and it is when a new
