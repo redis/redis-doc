@@ -364,7 +364,8 @@
       {
         "name": "reset-type",
         "type": "enum",
-        "enum": ["HARD", "SOFT"]
+        "enum": ["HARD", "SOFT"],
+        "optional": true
       }
     ],
     "since": "3.0.0",
