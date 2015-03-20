@@ -277,6 +277,20 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER FAILOVER": {
+    "summary": "Forces a slave to perform a manual failover of its master.",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "options",
+        "type": "enum",
+        "enum": ["FORCE"],
+        "optional": true
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER FORGET": {
     "summary": "Remove a node from the nodes table",
     "complexity": "O(1)",
