@@ -54,6 +54,16 @@ Meaning of the flags (field number 3):
 * **noaddr** No address known for this node.
 * **noflags** No flags at all.
 
+## Notes on published config epochs
+
+Slaves broadcast their master's config epochs (in order to get an `UPDATE`
+message if they are found to be stale), so the real config epoch of the
+slave (which is meaningless more or less, since they don't serve hash slots)
+can be only obtained checking the node flagged as `myself`, which is the entry
+of the node we are asking to generate `CLUSTER NODES` output. The other slaves
+epochs reflect what they publish in heartbeat packets, which is, the
+configuration epoch of the masters they are currently replicating.
+
 ## Special slot entries
 
 Normally hash slots associated to a given node are in one of the following formats,
