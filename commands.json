@@ -284,7 +284,7 @@
       {
         "name": "options",
         "type": "enum",
-        "enum": ["FORCE"],
+        "enum": ["FORCE","TAKEOVER"],
         "optional": true
       }
     ],
