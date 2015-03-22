@@ -20,7 +20,12 @@ task :spellcheck do
   `mkdir -p tmp`
 
   IO.popen("aspell --lang=en create master ./tmp/dict", "w") do |io|
-    io.puts(JSON.parse(File.read("commands.json")).keys.map(&:split).flatten.join("\n"))
+    words = JSON.parse(File.read("commands.json")).
+              keys.
+              map { |str| str.split(/[ -]/) }.
+              flatten(1)
+
+    io.puts(words.join("\n"))
     io.puts(File.read("wordlist"))
   end
 

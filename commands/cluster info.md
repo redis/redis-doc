@@ -32,4 +32,4 @@ More information about the Current Epoch and Config Epoch variables are availabl
 
 @return
 
-@bulk-string-reply: A map between named fields and values in the form of `<field>:<value>` lines separated by newlines compoesd by the two bytes `CRLF`.
+@bulk-string-reply: A map between named fields and values in the form of `<field>:<value>` lines separated by newlines composed by the two bytes `CRLF`.

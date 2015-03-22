@@ -6,7 +6,7 @@ there are no actual failures, but we wish to swap the current master with one
 of its slaves (which is the node we send the command to), in a safe way,
 without any window for data loss. It works in the following way:
 
-1. The slave tells the master to stop porcessing queries from clients.
+1. The slave tells the master to stop processing queries from clients.
 2. The master replies to the slave with the current *replication offset*.
 3. The slave waits for the replication offset to match on its side, to make sure it processed all the data from the slave before to continue.
 4. The slave starts a failover, obtains a new configuration epoch from the majority of the masters, and broadcast the new configuration.
