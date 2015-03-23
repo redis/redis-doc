@@ -35,7 +35,7 @@ task :spellcheck do
     command = %q{
       ruby -pe 'gsub /^    .*$/, ""' |
       ruby -pe 'gsub /`[^`]+`/, ""' |
-      ruby -e 'puts $stdin.read.gsub /\[([^\]]+)\]\(([^\)]+)\)/m, "\\1"' |
+      ruby -e 'puts $stdin.read.gsub(/\[([^\]]+)\]\(([^\)]+)\)/m, "\\1").gsub(/^```.*```/m, "")' |
       aspell -H -a --extra-dicts=./tmp/dict 2>/dev/null
     }
 
