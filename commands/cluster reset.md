@@ -1,12 +1,12 @@
 Reset a Redis Cluster node, in a less or more drastic way depending on the
 reset type, that can be **hard** or **soft**. Note that this command
 **does not work for masters if they hold one or more keys**, in that case
-to completely reset a master node there is to call `FLUSHALL` first, and then
+to completely reset a master node you should call `FLUSHALL` first, and then
 `CLUSTER RESET`.
 
 Effects on the node:
 
-1. All the other nodes in the cluster are forget.
+1. All the other nodes in the cluster are forgotten.
 2. All the assigned / open slots are reset, so the hash slots to nodes map is totally cleared.
 3. If the node is a slave, is turned into an (empty) master. Its dataset is flushed, so at the end the node will be an empty master.
 4. **Hard reset only**: a new Node ID is generated.
