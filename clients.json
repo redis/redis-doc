@@ -809,9 +809,9 @@
   },
   
   {
-    "name": "gawkRedis",
+    "name": "gawk-redis",
     "language": "gawk",
-    "repository": "http://sourceforge.net/u/paulinohuerta/gawkextlib/ci/master/tree",
+    "repository": "http://sourceforge.net/p/gawkextlib/code/ci/master/tree/",
     "description": "Gawk extension, using the hiredis C library. Supports pipelining and pub/sub",
     "authors": ["paulinohuerta"],
     "active": true
