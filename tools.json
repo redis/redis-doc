@@ -336,5 +336,13 @@
     "repository": "https://github.com/josiahcarlson/rom",
     "description": "Redis object mapper for Python using declarative models, with search over numeric, full text, prefix, and suffix indexes",
     "authors": ["josiahcarlson"]
+  },
+  {
+    "name": "redispapa",
+    "language": "Python",
+    "url": "https://github.com/no13bus/redispapa",
+    "repository": "https://github.com/no13bus/redispapa",
+    "description": "RedisPAPA is a redis monitor which watch the redis-info by using flask, angular, socket.io",
+    "authors": ["no13bus"]
   }
 ]
