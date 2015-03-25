@@ -23,7 +23,7 @@ Implementations
 Before to describe the algorithm, here there are a few links at implementations
 already available, that can be used as a reference.
 
-* [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation).
+* [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation). There is also a [fork of Redlock-rb](https://github.com/leandromoreira/redlock-rb) that adds a gem for easy distribution and perhaps more.
 * [Redlock-py](https://github.com/SPSCommerce/redlock-py) (Python implementation).
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [Redsync.go](https://github.com/hjr265/redsync.go) (Go implementation).
