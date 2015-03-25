@@ -109,7 +109,7 @@ you can perform with them. For instance, one is atomic increment:
 The [INCR](/commands/incr) command parses the string value as an integer,
 increments it by one, and finally sets the obtained value as the new value.
 There are other similar commands like [INCRBY](/commands/incrby),
-[DECR](commands/decr) and [DECRBY](/commands/decrby).  Internally it's
+[DECR](/commands/decr) and [DECRBY](/commands/decrby). Internally it's
 always the same command, acting in a slightly different way.
 
 What does it mean that INCR is atomic?
@@ -492,7 +492,7 @@ Example of rule 2:
     > lpop mylist
     "1"
     > exists mylist
-    (integer) 0 
+    (integer) 0
 
 The key no longer exists after all the elements are popped.
 
