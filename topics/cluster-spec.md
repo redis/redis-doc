@@ -1,9 +1,12 @@
+Redis Cluster Specification
+===
+
 Welcome to the **Redis Cluster Specification**. Here you'll find information
 about algorithms and design rationales of Redis Cluster. This document is a work
 in progress as it is continuously synchronized with the actual implementation
 of Redis.
 
-Overview and rational of the design
+Main properties and rationales of the design
 ===
 
 Redis Cluster goals
