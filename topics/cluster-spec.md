@@ -671,8 +671,9 @@ Fault Tolerance
 Nodes heartbeat and gossip messages
 ---
 
-Nodes in the cluster exchange ping / pong packets, generally just called
-heartbeat packets.
+Redis Cluster nodes continuously exchange ping and pong packets. Those two kind of packets have the same structure, and both carry imporant configuration informations. The only actual difference is the message type field. We'll refer to the sum of ping and pong packets as *heartbeat packets*.
+
+Usually nodes send ping packets that will trigger the receivers to reply with a pong packets. However this is not necessarely true. It is possible for nodes to just send pong packets to send information to other nodes about their configuration, without triggering a reply. This is useful, for example, in order to broadcast a new configuration ASAP.
 
 Usually a node will ping a few random nodes every second so that the total number of ping packets send (and pong packets received) by each node is a constant amount regardless of the number of nodes in the cluster.
 
