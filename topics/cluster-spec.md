@@ -112,7 +112,7 @@ In Redis Cluster nodes don't proxy commands to the right node in charge for a gi
 
 Eventually clients obtain an up to date representation of the cluster and which node serves which subset of keys, so during normal operations clients directly contact the right nodes in order to send a given command.
 
-Because of the use of asynchronous replication, nodes does not wait for other nodes acknowledgment of writes (if not explicitly requested using the `WAIT` command).
+Because of the use of asynchronous replication, nodes do not wait for other nodes acknowledgment of writes (if not explicitly requested using the `WAIT` command).
 
 Also, because multiple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
 
@@ -125,7 +125,7 @@ Redis Cluster.
 Why merge operations are avoided
 ---
 
-Redis Cluster design avoids conflicting versions of the same key-value pair in multiple nodes since in the case of the Redis data model this is not always desirable: values in Redis are often very large, it is common to see lists or sorted sets with millions of elements. Also data types are semantically complex. Transferring and merging these kind of values can be a major bottleneck and/or may require a non trivial involvement of application-side logic, additional memory to store meta-data, and so forth.
+Redis Cluster design avoids conflicting versions of the same key-value pair in multiple nodes as in the case of the Redis data model this is not always desirable: values in Redis are often very large, it is common to see lists or sorted sets with millions of elements. Also data types are semantically complex. Transferring and merging these kind of values can be a major bottleneck and/or may require a non trivial involvement of application-side logic, additional memory to store meta-data, and so forth.
 
 There are no strict technological limits here, CRDTs or synchronously replicated
 state machines can model complex data types similar to Redis, however the
@@ -144,9 +144,9 @@ for the cluster size of 16384 master nodes (however the suggested max size of
 nodes is in the order of ~ 1000 nodes).
 
 Each master nodes in a cluster handles a subset of the 16384 hash slots.
-When the cluster is **stable**, that means that there is no a cluster
+When the cluster is **stable**, that means there is no cluster
 reconfiguration in progress (where hash slots are moved from one node
-to another) a single hash slot will be served exactly by a single node
+to another), a single hash slot will be served exactly by a single node
 (however the serving node can have one or more slaves that will replace
 it in the case of net splits or failures, and that can be used in order
 to scale read operations where reading stale data is acceptable).
@@ -202,7 +202,7 @@ Examples:
 * For the key `foo{}{bar}` the whole key will be hashed as usually since the first occurrence of `{` is followed by `}` on the right without characters in the middle.
 * For the key `foo{{bar}}zap` the substring `{bar` will be hashed, because it is the substring between the first occurrence of `{` and the first occurrence of `}` on its right.
 * For the key `foo{bar}{zap}` the substring `bar` will be hashed, since the algorithm stops at the first valid or invalid (without bytes inside) match of `{` and `}`.
-* What follows from the algorithm is that if the key starts with `{}`, it is guaranteed to be hashes as a whole. This is useful when using binary data as key names.
+* What follows from the algorithm is that if the key starts with `{}`, it is guaranteed to be hashed as a whole. This is useful when using binary data as key names.
 
 Adding the hash tags exception, the following is an implementation of the `HASH_SLOT` function in Ruby and C language.
 
@@ -251,7 +251,7 @@ hex representation of a 160 bit random number, obtained the first time a
 node is started (usually using /dev/urandom).
 The node will save its ID in the node configuration file, and will use the
 same ID forever, or at least as long as the node configuration file is not
-deleted by the system administrator, or an *hard reset* is requested
+deleted by the system administrator, or a *hard reset* is requested
 via the `CLUSTER RESET` command.
 
 The node ID is used to identify every node across the whole cluster.
@@ -276,8 +276,8 @@ and finally the set of hash slots served.
 
 A detailed [explanation of all the node fields](http://redis.io/commands/cluster-nodes) is described in the `CLUSTER NODES` documentation.
 
-The `CLUSTER NODES` command, that can be sent to each the nodes in the cluster, provides as output the state of the cluster and the informations for each node
-according to the local view the queries node has of the cluster.
+The `CLUSTER NODES` command, that can be sent to each of the nodes in the cluster, provides as output the state of the cluster and the information for each node
+according to the local view the queried node has of the cluster.
 
 The following is an example of output of `CLUSTER NODES` sent to a master
 node in a small cluster of three nodes.
@@ -316,7 +316,7 @@ Redis cluster is a full mesh where every node is connected with every other node
 In a cluster of N nodes, every node has N-1 outgoing TCP connections, and N-1 incoming connections.
 
 These TCP connections are kept alive all the time and are not created on demand.
-When a node expects a pong reply in response to a ping in the cluster bus, before to wait for enough time to mark the node as unreachable, it will try to
+When a node expects a pong reply in response to a ping in the cluster bus, before waiting long enough to mark the node as unreachable, it will try to
 refresh the connection with the node by reconnecting from scratch.
 
 While Redis Cluster nodes form a full mesh, **nodes use a gossip protocol and
@@ -386,7 +386,7 @@ An alternative is to just refresh the whole client-side cluster layout
 when a MOVED redirection is received, using the `CLUSTER NODES` or
 `CLUSTER SLOTS` commands, since when a redirection is encountered, likely
 multiple slots were reconfigured, not just one, so to update the configuration
-ASAP for the client is often the best strategy.
+as soon as possible for the client is often the best strategy.
 
 Note that when the Cluster is stable (no ongoing changes in the configuration),
 eventually all the clients will obtain a map of hash slots -> nodes, making
@@ -402,7 +402,7 @@ Cluster live reconfiguration
 Redis cluster supports the ability to add and remove nodes while the cluster
 is running. Actually adding or removing a node is abstracted into the same
 operation, that is, moving a hash slot from a node to another. This means
-that the same basic mechanism can use in order to rebalance the cluster, add
+that the same basic mechanism can be used in order to rebalance the cluster, add
 or remove nodes, and so forth.
 
 * To add a new node to the cluster an empty node is added to the cluster and some hash slot is moved from existing nodes to the new node.
@@ -428,12 +428,12 @@ The following subcommands are available (among others not useful in this case):
 
 The first two commands, `ADDSLOTS` and `DELSLOTS`, are simply used to assign
 (or remove) slots to a Redis node. Assigning a slot means to tell a given
-master node, that it will be in charge of storing and serving content for
+master node that it will be in charge of storing and serving content for
 the specified hash slot.
 
 After the hash slots are assigned they will propagate across all the cluster
 using the gossip protocol, as specified later in the
-*confiugration propagation* section.
+*configuration propagation* section.
 
 The `ADDSLOTS` command is usually used when a new cluster is created
 from scratch to assign each master node a subset of all the 16384 hash
@@ -508,8 +508,8 @@ propagation of the new configuration across the cluster.
 ASK redirection
 ---
 
-In the previous section we briefly talked about ASK redirection, why we
-can't simply use the MOVED redirection? Because while MOVED means that
+In the previous section we briefly talked about ASK redirection, why can't
+we simply use the MOVED redirection? Because while MOVED means that
 we think the hash slot is permanently served by a different node and the
 next queries should be tried against the specified node, ASK means to
 only ask the next query to the specified node.
@@ -524,7 +524,7 @@ that clients will only try node B after A was tried, node B will only
 accept queries of a slot that is set as IMPORTING if the client sends the
 ASKING command before sending the query.
 
-Basically the ASKING command set a one-time flag on the client that forces
+Basically the ASKING command sets a one-time flag on the client that forces
 a node to serve a query about an IMPORTING slot.
 
 So the full semantics of the ASK redirection is the following, from the
@@ -548,8 +548,8 @@ Clients first connection and handling of redirections.
 ---
 
 While it is possible to have a Redis Cluster client implementation that does not
-remembers the slots configuration (the map between slot numbers and addresses of
-nodes serving it) in memory, and only works contacting random nodes waiting to
+remember the slots configuration (the map between slot numbers and addresses of
+nodes serving it) in memory and only works contacting random nodes waiting to
 be redirected, such a client would be very inefficient.
 
 Redis Cluster clients should try to be smart enough to memorize the slots
@@ -617,7 +617,7 @@ slots configuration map filling the target nodes with NULL objects, and
 report an error if the user will try to execute commands about keys
 that belong to unassigned slots.
 
-However before to return an error to the caller, when a slot is found to be
+However before returning an error to the caller, when a slot is found to
 be unassigned, the client should try to fetch the slots configuration
 again to check if the cluster is now configured properly.
 
@@ -630,7 +630,7 @@ For example the following operation is valid:
     MSET {user:1000}.name Angela {user:1000}.surname White
 
 However multi-key operations may become unavailable when a resharding of the
-hash slot the keys belong in progress.
+hash slot the keys belong to is in progress.
 
 More specifically, even during a resharding, the multi-key operations
 targeting keys that all exist and are still all in the same node (either
@@ -640,7 +640,7 @@ Operations about keys that don't exist or are, during the resharding, split
 between the source and destination node, will generate a `-TRYAGAIN` error.
 The client can try the operation after some time, or report back the error.
 
-As soon the migration of the specified hash slot has terminated, all the
+As soon as the migration of the specified hash slot has terminated, all the
 multi key operations are available again for this hash slot.
 
 Scaling reads using slave nodes
@@ -674,7 +674,7 @@ Nodes heartbeat and gossip messages
 Nodes in the cluster exchange ping / pong packets, generally just called
 heartbeat packets.
 
-Usually a node will ping a few random nodes every second so that the total number of ping packets send (and pong packets received) by each node is a constant amount regardless of the number of nodes in the cluster.
+Usually a node will ping a few random nodes every second so that the total number of ping packets sent (and pong packets received) by each node is a constant amount regardless of the number of nodes in the cluster.
 
 However every node makes sure to ping every other node that we don't either sent a ping or received a pong for longer than half the `NODE_TIMEOUT` time. Before `NODE_TIMEOUT` has elapsed, nodes also try to reconnect the TCP link with another node to make sure nodes are not believed to be unreachable only because there is a problem in the current TCP connection.
 
@@ -696,7 +696,7 @@ Ping and pong packets contain a header that is common to all the kind of packets
 The common header has the following information:
 
 * Node ID, that is a 160 bit pseudorandom string that is assigned the first time a node is created and remains the same for all the life of a Redis Cluster node.
-* The `currentEpoch` and `configEpoch` field of the sending node, that are used in order to mount the distributed algorithms used by Redis Cluster (this is explained in details in the next sections). If the node is a slave the `configEpoch` is the last known `configEpoch` of its master.
+* The `currentEpoch` and `configEpoch` field of the sending node, that are used in order to mount the distributed algorithms used by Redis Cluster (this is explained in detail in the next sections). If the node is a slave the `configEpoch` is the last known `configEpoch` of its master.
 * The node flags, indicating if the node is a slave, a master, and other single-bit node information.
 * A bitmap of the hash slots served by the sending node, or if the node is a slave, a bitmap of the slots served by its master.
 * The sender TCP base port (that is, the port used by Redis to accept client commands, add 10000 to this to obtain the cluster port).
@@ -716,7 +716,7 @@ Gossip sections allow receiving nodes to get information about the state of othe
 Failure detection
 ---
 
-Redis Cluster failure detection is used to recognize when a master or slave node is no longer reachable by the majority of nodes, and as a result of this event, either promote a slave to the role of master, of when this is not possible, put the cluster in an error state to stop receiving queries from clients.
+Redis Cluster failure detection is used to recognize when a master or slave node is no longer reachable by the majority of nodes, and as a result of this event, either promote a slave to the role of master, or when this is not possible, put the cluster in an error state to stop receiving queries from clients.
 
 As already mentioned, every node takes a list of flags associated with other known nodes. There are two flags that are used for failure detection that are called `PFAIL` and `FAIL`. `PFAIL` means *Possible failure*, and is a non acknowledged failure type. `FAIL` means that a node is failing and that this condition was confirmed by a majority of masters within a fixed amount of time.
 
@@ -743,15 +743,15 @@ If all the above conditions are true, Node A will:
 * Mark the node as `FAIL`.
 * Send a `FAIL` message to all the reachable nodes.
 
-The `FAIL` message will force every receiving node to mark the node in `FAIL` state, whatever or not it already flagged the node in `PFAIL` state.
+The `FAIL` message will force every receiving node to mark the node in `FAIL` state, whether or not it already flagged the node in `PFAIL` state.
 
 Note that *the FAIL flag is mostly one way*, that is, a node can go from `PFAIL` to `FAIL`, but for the `FAIL` flag to be cleared there are only two possibilities:
 
-* The node is already reachable, and it is a slave. In this case the `FAIL` flag can be cleared as slaves are not failed over.
-* The node is already reachable, and it is a master not serving any slot. In this case the `FAIL` flag can be cleared as masters without slots do not really participate to the cluster, and are waiting to be configured in order to join the cluster.
+* The node is already reachable and it is a slave. In this case the `FAIL` flag can be cleared as slaves are not failed over.
+* The node is already reachable and it is a master not serving any slot. In this case the `FAIL` flag can be cleared as masters without slots do not really participate to the cluster, and are waiting to be configured in order to join the cluster.
 * The node is already reachable, is a master, but a long time (N times the `NODE_TIMEOUT`) has elapsed without any detectable slave promotion. Better for it to rejoin the cluster and continue in this case.
 
-In is useful to note that While the `PFAIL` -> `FAIL` transition uses a form of agreement, the agreement used is weak:
+It is useful to note that while the `PFAIL` -> `FAIL` transition uses a form of agreement, the agreement used is weak:
 
 1. Nodes collect views of other nodes during some time, so even if the majority of master nodes need to "agree", actually this is just state that we collected from different nodes at different times and we are not sure, nor we require, that at a given moment the majority of masters agreed. However we discard failure reports which are old, so the failure was signaled by the majority of masters within a window of time.
 2. While every node detecting the `FAIL` condition will force that condition on other nodes in the cluster using the `FAIL` message, there is no way to ensure the message will reach all the nodes. For instance a node may detect the `FAIL` condition and because of a partition will not be able to reach any other node.
@@ -776,11 +776,11 @@ The `currentEpoch` is a 64 bit unsigned number.
 
 At node creation every Redis Cluster node, both slaves and master nodes, set the `currentEpoch` to 0.
 
-Every time a packet is received from another node, if the epoch of the sender (part of the cluster bus messages header) is greater than the local node epoch, then `currentEpoch` is updated to the sender epoch.
+Every time a packet is received from another node, if the epoch of the sender (part of the cluster bus messages header) is greater than the local node epoch, the `currentEpoch` is updated to the sender epoch.
 
 Because of this semantics eventually all the nodes will agree to the greatest `configEpoch` in the cluster.
 
-The way this information is used is when the state of the cluster is changed and a node seeks agreement in order to perform some action.
+This information is used when the state of the cluster is changed and a node seeks agreement in order to perform some action.
 
 Currently this happens only during slave promotion, as described in the next section. Basically the epoch is a logical clock for the cluster and dictates whatever a given information wins over one with a smaller epoch.
 
@@ -850,9 +850,9 @@ updated replication offset is at rank 0, the second most updated at rank 1, and 
 However if a slave of higher rank fails to be elected, the others will try
 shortly, so the order is not enforced in a strict way.
 
-Once a slave wins the election, it obtains a new unique and incremental `configEpoch` which is higher than any other exisitng master. It starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` that will win over the past ones.
+Once a slave wins the election, it obtains a new unique and incremental `configEpoch` which is higher than any other existing master. It starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` that will win over the past ones.
 
-In order to speedup the reconfiguration of other nodes, a pong packet is broadcast to all the nodes of the cluster (however nodes not currently reachable will eventually receive a ping or pong packet and will be reconfigured, or will receive an `UPDATE` pakcet is found not upadted by any other node).
+In order to speedup the reconfiguration of other nodes, a pong packet is broadcasted to all the nodes of the cluster (however nodes not currently reachable will eventually receive a ping or pong packet and will be reconfigured, or will receive an `UPDATE` packet is found not updated by any other node).
 
 The other nodes will detect that there is a new master serving the same slots served by the old master but with a greater `configEpoch`, and will upgrade the configuration. Slaves of the old master, or the failed over master that rejoins the cluster, will not just upgrade the configuration but will also configure to replicate from the new master. How nodes rejoining the cluster are configured is explained in one of the next sections.
 
@@ -875,10 +875,10 @@ Master `currentEpoch` is 5, lastVoteEpoch is 1 (this may happen after a few fail
 
 * Slave `currentEpoch` is 3.
 * Slave tries to be elected with epoch 4 (3+1), master replies with an ok with `currentEpoch` 5, however the reply is delayed.
-* Slave wll try to be elected again, at a latter time, with epoch 5 (4+1), the delayed reply reaches to slave with `currentEpoch` 5, and is accepted as valid.
+* Slave will try to be elected again, at a later time, with epoch 5 (4+1), the delayed reply reaches the slave with `currentEpoch` 5, and is accepted as valid.
 
 4. Masters don't vote a slave of the same master before `NODE_TIMEOUT * 2` has elapsed since a slave of that master was already voted. This is not strictly required as it is not possible that two slaves win the election in the same epoch, but in practical terms it ensures that normally when a slave is elected it has plenty of time to inform the other slaves avoiding that another slave will win a new election, doing a new unwanted failover.
-5. Masters don't try to select the best slave in any way, simply if the slave's master is in `FAIL` state and the master did not voted in the current term, the positive vote is granted. However the best slave is the most likely to start the election and win it before the other slaves, since it usually will be able to start the voting process earlier, because if its *higher rank* as explained in the previous section.
+5. Masters don't try to select the best slave in any way, simply if the slave's master is in `FAIL` state and the master did not voted in the current term, the positive vote is granted. However the best slave is the most likely to start the election and win it before the other slaves, since it usually will be able to start the voting process earlier, because of its *higher rank* as explained in the previous section.
 6. When a master refuses to vote for a given slave there is no negative response, the request is simply ignored.
 7. Masters don't grant the vote to slaves sending a `configEpoch` that is less than any `configEpoch` in the master table for the slots claimed by the slave. Remember that the slave sends the `configEpoch` of its master, and the bitmap of the slots served by its master. What this means is basically that the slave requesting the vote must have a configuration, for the slots it wants to failover, that is newer or equal the one of the master granting the vote.
 
@@ -901,7 +901,7 @@ At this point B is down, and A is available again, having a role of master (actu
 3. So, all the nodes will upgrade their table to assign the hash slots to C, and the cluster will continue its operations.
 
 As you'll see in the next sections, actually a stale node rejoining a cluster
-will usually get notified ASAP about the configuration change, since as soon
+will usually get notified as soon as possible about the configuration change, since as soon
 as it pings any other node, the receiver will detect it has stale information
 and will send an `UPDATE` message.
 
@@ -913,10 +913,10 @@ An important part of Redis Cluster is the mechanism used to propagate the inform
 The same mechanism allows nodes partitioned away for an indefinite amount of
 time to rejoin the cluster in a sensible way.
 
-The way hash slots configurations are propagate are basically two:
+The way hash slots configurations are propagated are basically two:
 
 1. Heartbeat messages. The sender of a ping or pong packet always adds information about the set of hash slots it (or its master, if it is a slave) servers.
-2. `UPDATE` messages. Since in every heartbeat packet there are informations about the sender `configEpoch` and set of hash slots served, if a receiver of an heartbeat packet will find the sender information not updated, it will send a packet with the new information, forcing the stale node to update its info.
+2. `UPDATE` messages. Since in every heartbeat packet there are information about the sender `configEpoch` and set of hash slots served, if a receiver of an heartbeat packet will find the sender information not updated, it will send a packet with the new information, forcing the stale node to update its info.
 
 The receiver of an heartbeat or `UPDATE` message uses certain simple rules in
 order to update its table mapping hash slots to nodes. When a new Redis Cluster node is created, its local hash slot table is simple initialized to `NULL` entries, so that each hash slot is not bound, not linked to any node. Something like the following:
