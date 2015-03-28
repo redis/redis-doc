@@ -190,7 +190,7 @@ This amount of time is a very important configuration directive of Redis
 Cluster, and is called the **node timeout**.
 
 After node timeout has elapsed, a master node is considered to be failing,
-and can be replaced by one if its replicas.
+and can be replaced by one of its replicas.
 Similarly after node timeout has elapsed without a master node to be able
 to sense the majority of the other master nodes, it enters an error state
 and stops accepting writes.
