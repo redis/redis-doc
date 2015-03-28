@@ -190,7 +190,7 @@ This amount of time is a very important configuration directive of Redis
 Cluster, and is called the **node timeout**.
 
 After node timeout has elapsed, a master node is considered to be failing,
-and can be replaced by one if its replicas.
+and can be replaced by one of its replicas.
 Similarly after node timeout has elapsed without a master node to be able
 to sense the majority of the other master nodes, it enters an error state
 and stops accepting writes.
@@ -200,7 +200,7 @@ Creating and using a Redis Cluster
 
 Note: to deploy a Redis Cluster manually is **very important to learn** certain
 operation aspects of it. However if you want to get a cluster up and running
-ASAP skip this section and the next one and go directly to **Creating a Redis Cluster using the create-custer script**.
+ASAP skip this section and the next one and go directly to **Creating a Redis Cluster using the create-cluster script**.
 
 To create a cluster, the first thing we need is to have a few empty
 Redis instances running in **cluster mode**. This basically means that
@@ -268,7 +268,7 @@ Creating the cluster
 ---
 
 Now that we have a number of instances running, we need to create our
-cluster writing some meaningful configuration to the nodes.
+cluster by writing some meaningful configuration to the nodes.
 
 This is very easy to accomplish as we are helped by the Redis Cluster
 command line utility called `redis-trib`, that is a Ruby program
@@ -299,7 +299,7 @@ you'll see a message like that:
 This means that there is at least a master instance serving each of the
 16384 slots available.
 
-Creating a Redis Cluster using the create-custer script
+Creating a Redis Cluster using the create-cluster script
 ---
 
 If you don't want to create a Redis Cluster by configuring and executing
