@@ -276,7 +276,7 @@ and finally the set of hash slots served.
 
 A detailed [explanation of all the node fields](http://redis.io/commands/cluster-nodes) is described in the `CLUSTER NODES` documentation.
 
-The `CLUSTER NODES` command, that can be sent to each the nodes in the cluster, provides as output the state of the cluster and the informations for each node
+The `CLUSTER NODES` command, that can be sent to each the nodes in the cluster, provides as output the state of the cluster and the information for each node
 according to the local view the queries node has of the cluster.
 
 The following is an example of output of `CLUSTER NODES` sent to a master
@@ -433,7 +433,7 @@ the specified hash slot.
 
 After the hash slots are assigned they will propagate across all the cluster
 using the gossip protocol, as specified later in the
-*confiugration propagation* section.
+*configuration propagation* section.
 
 The `ADDSLOTS` command is usually used when a new cluster is created
 from scratch to assign each master node a subset of all the 16384 hash
@@ -671,9 +671,9 @@ Fault Tolerance
 Nodes heartbeat and gossip messages
 ---
 
-Redis Cluster nodes continuously exchange ping and pong packets. Those two kind of packets have the same structure, and both carry imporant configuration informations. The only actual difference is the message type field. We'll refer to the sum of ping and pong packets as *heartbeat packets*.
+Redis Cluster nodes continuously exchange ping and pong packets. Those two kind of packets have the same structure, and both carry important configuration information. The only actual difference is the message type field. We'll refer to the sum of ping and pong packets as *heartbeat packets*.
 
-Usually nodes send ping packets that will trigger the receivers to reply with a pong packets. However this is not necessarely true. It is possible for nodes to just send pong packets to send information to other nodes about their configuration, without triggering a reply. This is useful, for example, in order to broadcast a new configuration ASAP.
+Usually nodes send ping packets that will trigger the receivers to reply with a pong packets. However this is not necessarily true. It is possible for nodes to just send pong packets to send information to other nodes about their configuration, without triggering a reply. This is useful, for example, in order to broadcast a new configuration ASAP.
 
 Usually a node will ping a few random nodes every second so that the total number of ping packets send (and pong packets received) by each node is a constant amount regardless of the number of nodes in the cluster.
 
@@ -851,9 +851,9 @@ updated replication offset is at rank 0, the second most updated at rank 1, and 
 However if a slave of higher rank fails to be elected, the others will try
 shortly, so the order is not enforced in a strict way.
 
-Once a slave wins the election, it obtains a new unique and incremental `configEpoch` which is higher than any other exisitng master. It starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` that will win over the past ones.
+Once a slave wins the election, it obtains a new unique and incremental `configEpoch` which is higher than any other existing master. It starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` that will win over the past ones.
 
-In order to speedup the reconfiguration of other nodes, a pong packet is broadcast to all the nodes of the cluster (however nodes not currently reachable will eventually receive a ping or pong packet and will be reconfigured, or will receive an `UPDATE` pakcet is found not upadted by any other node).
+In order to speedup the reconfiguration of other nodes, a pong packet is broadcast to all the nodes of the cluster (however nodes not currently reachable will eventually receive a ping or pong packet and will be reconfigured, or will receive an `UPDATE` packet is found not updated by any other node).
 
 The other nodes will detect that there is a new master serving the same slots served by the old master but with a greater `configEpoch`, and will upgrade the configuration. Slaves of the old master, or the failed over master that rejoins the cluster, will not just upgrade the configuration but will also configure to replicate from the new master. How nodes rejoining the cluster are configured is explained in one of the next sections.
 
@@ -917,7 +917,7 @@ time to rejoin the cluster in a sensible way.
 The way hash slots configurations are propagate are basically two:
 
 1. Heartbeat messages. The sender of a ping or pong packet always adds information about the set of hash slots it (or its master, if it is a slave) servers.
-2. `UPDATE` messages. Since in every heartbeat packet there are informations about the sender `configEpoch` and set of hash slots served, if a receiver of an heartbeat packet will find the sender information not updated, it will send a packet with the new information, forcing the stale node to update its info.
+2. `UPDATE` messages. Since in every heartbeat packet there is information about the sender `configEpoch` and set of hash slots served, if a receiver of an heartbeat packet will find the sender information not updated, it will send a packet with the new information, forcing the stale node to update its info.
 
 The receiver of an heartbeat or `UPDATE` message uses certain simple rules in
 order to update its table mapping hash slots to nodes. When a new Redis Cluster node is created, its local hash slot table is simple initialized to `NULL` entries, so that each hash slot is not bound, not linked to any node. Something like the following:
