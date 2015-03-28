@@ -200,7 +200,7 @@ Creating and using a Redis Cluster
 
 Note: to deploy a Redis Cluster manually is **very important to learn** certain
 operation aspects of it. However if you want to get a cluster up and running
-ASAP skip this section and the next one and go directly to **Creating a Redis Cluster using the create-custer script**.
+ASAP skip this section and the next one and go directly to **Creating a Redis Cluster using the create-cluster script**.
 
 To create a cluster, the first thing we need is to have a few empty
 Redis instances running in **cluster mode**. This basically means that
@@ -299,7 +299,7 @@ you'll see a message like that:
 This means that there is at least a master instance serving each of the
 16384 slots available.
 
-Creating a Redis Cluster using the create-custer script
+Creating a Redis Cluster using the create-cluster script
 ---
 
 If you don't want to create a Redis Cluster by configuring and executing
