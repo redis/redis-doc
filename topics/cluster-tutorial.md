@@ -8,9 +8,9 @@ going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
 how the system behaves from the point of view of the user.
 
-However this tutorial tries to provide informations about the availability
+However this tutorial tries to provide information about the availability
 and consistency characteristics of Redis Cluster from the point of view
-of the final user, state in a simple to understand way.
+of the final user, stated in a simple to understand way.
 
 Note this tutorial requires Redis version 3.0 or higher.
 
