@@ -268,7 +268,7 @@ Creating the cluster
 ---
 
 Now that we have a number of instances running, we need to create our
-cluster writing some meaningful configuration to the nodes.
+cluster by writing some meaningful configuration to the nodes.
 
 This is very easy to accomplish as we are helped by the Redis Cluster
 command line utility called `redis-trib`, that is a Ruby program
