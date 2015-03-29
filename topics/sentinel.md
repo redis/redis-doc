@@ -326,7 +326,7 @@ The Sentinel properties guarantee that Sentinel 1 and 2 now have the new
 configuration for the master. However Sentinel 3 has still the old configuration
 since it lives in a different partition.
 
-When know that Sentinel 3 will get its configuration updated when the network
+We know that Sentinel 3 will get its configuration updated when the network
 partition will heal, however what happens during the partition if there
 are clients partitioned with the old master?
 
