@@ -92,7 +92,7 @@ Redis Cluster
 
 Redis Cluster is the preferred way to get automatic sharding and high availability. It is currently not production ready, but finally entered beta stage, so we recommend you to start experimenting with it. You can get more information about Redis Cluster in the [Cluster tutorial](/topics/cluster-tutorial).
 
-Once Redis Cluster will be available, and if a Redis Cluster complaint client is available for your language, Redis Cluster will be the de facto standard for Redis partitioning.
+Once Redis Cluster will be available, and if a Redis Cluster compliant client is available for your language, Redis Cluster will be the de facto standard for Redis partitioning.
 
 Redis Cluster is a mix between *query routing* and *client side partitioning*.
 
