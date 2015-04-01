@@ -913,7 +913,7 @@ An important part of Redis Cluster is the mechanism used to propagate the inform
 The same mechanism allows nodes partitioned away for an indefinite amount of
 time to rejoin the cluster in a sensible way.
 
-The way hash slots configurations are propagated are basically two:
+There are two ways hash slot configurations are propagated:
 
 1. Heartbeat messages. The sender of a ping or pong packet always adds information about the set of hash slots it (or its master, if it is a slave) servers.
 2. `UPDATE` messages. Since in every heartbeat packet there are information about the sender `configEpoch` and set of hash slots served, if a receiver of an heartbeat packet will find the sender information not updated, it will send a packet with the new information, forcing the stale node to update its info.
@@ -982,7 +982,7 @@ sure the information will be updated in the cluster.
 UPDATE messages, a closer look
 ---
 
-With the previous section in mind, it is easy know to check how update messages
+With the previous section in mind, it is easy now to check how update messages
 work. Node A may rejoin the cluster after some time. It will send heartbeat
 packets where it claims it serves hash slots 1 and 2 with configuration epoch
 of 3. All the receivers with an updated information will instead see that
@@ -1010,7 +1010,7 @@ So the actual *Redis Cluster node role switch rule* is: **A master node will cha
 So during the reconfiguration eventually the number of served hash slots will drop to zero, and the node will reconfigure accordingly. Note that in the base case this just means that the old master will be a slave of the slave that replaced it after a failover. However in the general form the rule covers all the possible cases.
 
 Slaves do exactly the same: they reconfigure to replicate to the node that
-stolen the last hash slot of its former master.
+stole the last hash slot of its former master.
 
 Replica migration
 ---
