@@ -637,7 +637,7 @@ targeting keys that all exist and are still all in the same node (either
 the source or destination node) are still available.
 
 Operations about keys that don't exist or are, during the resharding, split
-between the source and destination node, will generate a `-TRYAGAIN` error.
+between the source and destination nodes, will generate a `-TRYAGAIN` error.
 The client can try the operation after some time, or report back the error.
 
 As soon as the migration of the specified hash slot has terminated, all the
