@@ -553,7 +553,7 @@ nodes serving it) in memory and only works by contacting random nodes waiting to
 be redirected, such a client would be very inefficient.
 
 Redis Cluster clients should try to be smart enough to memorize the slots
-configuration. However this configuration does not *require* to be up to date,
+configuration. However this configuration is not *required* to be up to date,
 since contacting the wrong node will simply result in a redirection, that will
 trigger an update of the client view.
 
