@@ -558,7 +558,7 @@ since contacting the wrong node will simply result in a redirection, that will
 trigger an update of the client view.
 
 Clients usually need to fetch a complete list of slots and mapped node
-addresses in two different moments:
+addresses at two different moments:
 
 * At startup in order to populate the initial slots configuration.
 * When a `MOVED` redirection is received.
