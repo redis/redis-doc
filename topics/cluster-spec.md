@@ -697,7 +697,7 @@ Ping and pong packets contain a header that is common to all the kind of packets
 The common header has the following information:
 
 * Node ID, that is a 160 bit pseudorandom string that is assigned the first time a node is created and remains the same for all the life of a Redis Cluster node.
-* The `currentEpoch` and `configEpoch` field of the sending node, that are used in order to mount the distributed algorithms used by Redis Cluster (this is explained in detail in the next sections). If the node is a slave the `configEpoch` is the last known `configEpoch` of its master.
+* The `currentEpoch` and `configEpoch` fields of the sending node, that are used in order to mount the distributed algorithms used by Redis Cluster (this is explained in detail in the next sections). If the node is a slave the `configEpoch` is the last known `configEpoch` of its master.
 * The node flags, indicating if the node is a slave, a master, and other single-bit node information.
 * A bitmap of the hash slots served by the sending node, or if the node is a slave, a bitmap of the slots served by its master.
 * The sender TCP base port (that is, the port used by Redis to accept client commands, add 10000 to this to obtain the cluster port).
