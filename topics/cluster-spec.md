@@ -502,7 +502,7 @@ there are latency constraints in the application using the database.
 
 When finally the migration process is finished, the `SETSLOT <slot> NODE <node-id>` command is send to the two nodes involved in the migration in order to
 set the slots in normal state again. Moreover the same command is usually
-send to all the other instances in order to not wait for the natural
+send to all the other instances in order not to wait for the natural
 propagation of the new configuration across the cluster.
 
 ASK redirection
