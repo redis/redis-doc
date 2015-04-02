@@ -549,7 +549,7 @@ Clients first connection and handling of redirections.
 
 While it is possible to have a Redis Cluster client implementation that does not
 remember the slots configuration (the map between slot numbers and addresses of
-nodes serving it) in memory and only works contacting random nodes waiting to
+nodes serving it) in memory and only works by contacting random nodes waiting to
 be redirected, such a client would be very inefficient.
 
 Redis Cluster clients should try to be smart enough to memorize the slots
