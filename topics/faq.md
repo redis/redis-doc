@@ -68,7 +68,7 @@ with an error to write commands (but will continue to accept read-only
 commands), or you can configure it to evict keys when the max memory limit
 is reached in the case you are using Redis for caching.
 
-We have documentations you plan to use [Redis as an LRU cache](/topics/lru-cache).
+We have documentation if you plan to use [Redis as an LRU cache](/topics/lru-cache).
 
 ## Background saving is failing with a fork() error under Linux even if I've a lot of free RAM!
 
