@@ -502,7 +502,7 @@ there are latency constraints in the application using the database.
 
 When finally the migration process is finished, the `SETSLOT <slot> NODE <node-id>` command is send to the two nodes involved in the migration in order to
 set the slots in normal state again. Moreover the same command is usually
-send to all the other instances in order to don't want for the natural
+send to all the other instances in order not to wait for the natural
 propagation of the new configuration across the cluster.
 
 ASK redirection
@@ -549,16 +549,16 @@ Clients first connection and handling of redirections.
 
 While it is possible to have a Redis Cluster client implementation that does not
 remember the slots configuration (the map between slot numbers and addresses of
-nodes serving it) in memory and only works contacting random nodes waiting to
+nodes serving it) in memory and only works by contacting random nodes waiting to
 be redirected, such a client would be very inefficient.
 
 Redis Cluster clients should try to be smart enough to memorize the slots
-configuration. However this configuration does not *require* to be up to date,
+configuration. However this configuration is not *required* to be up to date,
 since contacting the wrong node will simply result in a redirection, that will
 trigger an update of the client view.
 
 Clients usually need to fetch a complete list of slots and mapped node
-addresses in two different moments:
+addresses at two different moments:
 
 * At startup in order to populate the initial slots configuration.
 * When a `MOVED` redirection is received.
@@ -637,7 +637,7 @@ targeting keys that all exist and are still all in the same node (either
 the source or destination node) are still available.
 
 Operations about keys that don't exist or are, during the resharding, split
-between the source and destination node, will generate a `-TRYAGAIN` error.
+between the source and destination nodes, will generate a `-TRYAGAIN` error.
 The client can try the operation after some time, or report back the error.
 
 As soon as the migration of the specified hash slot has terminated, all the
@@ -673,13 +673,13 @@ Nodes heartbeat and gossip messages
 
 Redis Cluster nodes continuously exchange ping and pong packets. Those two kind of packets have the same structure, and both carry important configuration information. The only actual difference is the message type field. We'll refer to the sum of ping and pong packets as *heartbeat packets*.
 
-Usually nodes send ping packets that will trigger the receivers to reply with a pong packets. However this is not necessarily true. It is possible for nodes to just send pong packets to send information to other nodes about their configuration, without triggering a reply. This is useful, for example, in order to broadcast a new configuration as soon as possible.
+Usually nodes send ping packets that will trigger the receivers to reply with pong packets. However this is not necessarily true. It is possible for nodes to just send pong packets to send information to other nodes about their configuration, without triggering a reply. This is useful, for example, in order to broadcast a new configuration as soon as possible.
 
 Usually a node will ping a few random nodes every second so that the total number of ping packets sent (and pong packets received) by each node is a constant amount regardless of the number of nodes in the cluster.
 
 However every node makes sure to ping every other node that we don't either sent a ping or received a pong for longer than half the `NODE_TIMEOUT` time. Before `NODE_TIMEOUT` has elapsed, nodes also try to reconnect the TCP link with another node to make sure nodes are not believed to be unreachable only because there is a problem in the current TCP connection.
 
-The amount of messages globally exchanged can be sensible if `NODE_TIMEOUT` is set to a small figure and the number of nodes (N) is very large, since every node will try to ping every other node for which we don't have fresh information for half the `NODE_TIMEOUT` time.
+The amount of messages globally exchanged can be sizable if `NODE_TIMEOUT` is set to a small figure and the number of nodes (N) is very large, since every node will try to ping every other node for which we don't have fresh information for half the `NODE_TIMEOUT` time.
 
 For example in a 100 nodes cluster with a node timeout set to 60 seconds, every node will try to send 99 pings every 30 seconds, with a total amount of pings of 3.3 per second, that multiplied for 100 nodes is 330 pings per second in the total cluster.
 
@@ -697,7 +697,7 @@ Ping and pong packets contain a header that is common to all the kind of packets
 The common header has the following information:
 
 * Node ID, that is a 160 bit pseudorandom string that is assigned the first time a node is created and remains the same for all the life of a Redis Cluster node.
-* The `currentEpoch` and `configEpoch` field of the sending node, that are used in order to mount the distributed algorithms used by Redis Cluster (this is explained in detail in the next sections). If the node is a slave the `configEpoch` is the last known `configEpoch` of its master.
+* The `currentEpoch` and `configEpoch` fields of the sending node, that are used in order to mount the distributed algorithms used by Redis Cluster (this is explained in detail in the next sections). If the node is a slave the `configEpoch` is the last known `configEpoch` of its master.
 * The node flags, indicating if the node is a slave, a master, and other single-bit node information.
 * A bitmap of the hash slots served by the sending node, or if the node is a slave, a bitmap of the slots served by its master.
 * The sender TCP base port (that is, the port used by Redis to accept client commands, add 10000 to this to obtain the cluster port).
