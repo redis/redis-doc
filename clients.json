@@ -989,5 +989,13 @@
     "description": "A lightweight wrapper around the C client hiredis.",
     "authors": ["matt_howlett"],
     "active": true
+  },
+  {
+    "name": "vRedis",
+    "language": "VB",
+    "repository": "https://github.com/hishamco/vRedis",
+    "description": "Redis client using VB.NET.",
+    "authors": ["hishamco"],
+    "active": true
   }
 ]
