@@ -11,14 +11,6 @@
   },
 
   {
-    "name": "as3redis",
-    "language": "ActionScript",
-    "repository": "https://github.com/claus/as3redis",
-    "description": "",
-    "authors": ["cwahlers"]
-  },
-
-  {
     "name": "carmine",
     "language": "Clojure",
     "repository": "https://github.com/ptaoussanis/carmine",
