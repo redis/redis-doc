@@ -57,7 +57,7 @@ Consistent hashing implementations are often able to switch to other nodes if th
 The main concept here is the following:
 
 * If Redis is used as a cache **scaling up and down** using consistent hashing is easy.
-* If Redis is used as a store, **a fixed keys-to-nodes map is used, so the number of nodes must be fixed and cannot vary**. Otherwise, a system is needed that is able to rebalance keys between nodes when nodes are added or removed, and currently only Redis Cluster is able to do this, but Redis Cluster is currently in beta, and not yet considered production-ready.
+* If Redis is used as a store, **a fixed keys-to-nodes map is used, so the number of nodes must be fixed and cannot vary**. Otherwise, a system is needed that is able to rebalance keys between nodes when nodes are added or removed, and currently only Redis Cluster is able to do this - Redis Cluster is generally available and production-ready as of [April 1st, 2015](https://groups.google.com/d/msg/redis-db/dO0bFyD_THQ/Uoo2GjIx6qgJ).
 
 Presharding
 ---
