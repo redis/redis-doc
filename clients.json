@@ -54,7 +54,16 @@
     "recommended": true,
     "active": true
   },
-
+  
+  { 
+    "name": "Redi.sh",
+    "language": "Bash",
+    "repository": "https://github.com/crypt1d/redi.sh",
+    "description": "Simple, Bash-based, Redis client to store your script's variables",
+    "authors": ["crypt1d"],
+    "active": true
+  },
+  
   {
     "name": "sharded_eredis",
     "language": "Erlang",
