@@ -2,7 +2,7 @@ Removes and returns one or more random elements from the set value store at `key
 
 This operation is similar to `SRANDMEMBER`, that returns one or more random elements from a set but does not remove it.
 
-The `count` argument will be available in 3.0 and is not available in 2.6 or 2.8
+The `count` argument will be available in a later version and is not available in 2.6, 2.8, 3.0
 
 @return
 
