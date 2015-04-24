@@ -710,6 +710,16 @@
   },
 
   {
+    "name": "ioredis",
+    "language": "Node.js",
+    "repository": "https://github.com/luin/ioredis",
+    "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
+    "authors": ["luin"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
     "name": "iodis",
     "language": "Io",
     "repository": "https://github.com/vangberg/iodis",
