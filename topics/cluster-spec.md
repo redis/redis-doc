@@ -16,22 +16,22 @@ Redis Cluster is a distributed implementation of Redis with the following goals,
 
 * High performance and linear scalability up to 1000 nodes. There are no proxies, asynchronous replication is used, and no merge operations are performed on values.
 * Acceptable degree of write safety: the system tries (in a best-effort way) to retain all the writes originating from clients connected with the majority of the master nodes. Usually there are small windows where acknowledged writes can be lost. Windows to lose acknowledged writes are larger when clients are in a minority partition.
-* Availability: Redis Cluster is able to survive to partitions where the majority of the master nodes are reachable and there is at least a reachable slave for every master node that is no longer reachable. Moreover using *replicas migration*, masters no longer replicated by any slave, will receive one from a master which is covered by multiple slaves.
+* Availability: Redis Cluster is able to survive to partitions where the majority of the master nodes are reachable and there is at least a reachable slave for every master node that is no longer reachable. Moreover using *replicas migration*, masters no longer replicated by any slave will receive one from a master which is covered by multiple slaves.
 
 What is described in this document is implemented in Redis 3.0 or greater.
 
 Implemented subset
 ---
 
-Redis Cluster implements all the single keys commands available in the
-non distributed version of Redis. Commands performing complex multi key
+Redis Cluster implements all the single key commands available in the
+non-distributed version of Redis. Commands performing complex multi-key
 operations like Set type unions or intersections are implemented as well
 as long as the keys all belong to the same node.
 
 Redis Cluster implements a concept called **hash tags** that can be used
 in order to force certain keys to be stored in the same node. However during
 manual reshardings, multi-key operations may become unavailable for some time
-while single keys operations are always available.
+while single key operations are always available.
 
 Redis Cluster does not support multiple databases like the stand alone version
 of Redis, there is just database 0, and the `SELECT` command is not allowed.
@@ -41,8 +41,8 @@ Clients and Servers roles in the Redis cluster protocol
 
 In Redis cluster nodes are responsible for holding the data,
 and taking the state of the cluster, including mapping keys to the right nodes.
-Cluster nodes are also able to auto-discover other nodes, detect non working
-nodes, and performing slave nodes promotion to master when needed, in order
+Cluster nodes are also able to auto-discover other nodes, detect non-working
+nodes, and promote slave nodes to master when needed in order
 to continue to operate when a failure occurs.
 
 To perform their tasks all the cluster nodes are connected using a
@@ -52,7 +52,7 @@ bus. Nodes use a gossip protocol to propagate information about the cluster
 in order to discover new nodes, to send ping packets to make sure all the
 other nodes are working properly, and to send cluster messages needed to
 signal specific conditions. The cluster bus is also used in order to
-propagate Pub/Sub messages across the cluster, and to orchestrate manual
+propagate Pub/Sub messages across the cluster and to orchestrate manual
 failovers when requested by users (manual failovers are failovers which
 are not initiated by the Redis Cluster failure detector, but by the
 system administrator directly).
@@ -67,43 +67,43 @@ keys and nodes can improve the performance in a sensible way.
 Write safety
 ---
 
-Redis Cluster uses asynchronous replication between nodes, and **last failover wins** implicit merge function. It means that the last elected master dataset eventually replaces all the other replicas. This means that there are always windows when it is possible to lose writes during partitions. However these windows are very different in the case of a client that is connected to the majority of masters, and a client that is connected to the minority of masters.
+Redis Cluster uses asynchronous replication between nodes, and **last failover wins** implicit merge function. This means that the last elected master dataset eventually replaces all the other replicas. There is always a window of time when it is possible to lose writes during partitions. However these windows are very different in the case of a client that is connected to the majority of masters, and a client that is connected to the minority of masters.
 
 Redis Cluster tries harder to retain writes that are performed by clients connected to the majority of masters, compared to writes performed into the minority
-side. The following are examples of scenarios that lead to lose of acknowledged
-writes received in the majority partitions, during failures:
+side. The following are examples of scenarios that lead to loss of acknowledged
+writes received in the majority partitions during failures:
 
-1. A write may reach a master, but while the master may be able to reply to the client, the write may not be propagated to slaves via the asynchronous replication used between master and slave nodes. If the master dies without the write reaching the slaves, the write is lost forever in case the master is unreachable for a long enough period that one of its slaves is promoted. This is usually hard to observe in case of total, sudden failure of a master node, since masters try to reply to clients (with the acknowledge of the write) and slaves (propagating the write) about at the same time. However it is a real world failure mode.
+1. A write may reach a master, but while the master may be able to reply to the client, the write may not be propagated to slaves via the asynchronous replication used between master and slave nodes. If the master dies without the write reaching the slaves, the write is lost forever if the master is unreachable for a long enough period that one of its slaves is promoted. This is usually hard to observe in the case of a total, sudden failure of a master node since masters try to reply to clients (with the acknowledge of the write) and slaves (propagating the write) at about the same time. However it is a real world failure mode.
 
 2. Another theoretically possible failure mode where writes are lost is the following:
 
 * A master is unreachable because of a partition.
 * It gets failed over by one of its slaves.
 * After some time it may be reachable again.
-* A client with a not updated routing table may write to the old master before it is converted into a slave (of the new master) by the cluster.
+* A client with an out-of-date routing table may write to the old master before it is converted into a slave (of the new master) by the cluster.
 
-The second failure mode is unlikely to happen because master nodes not able to communicate with the majority of the other masters for enough time to be failed over, no longer accept writes, and when the partition is fixed writes are still refused for a small amount of time to allow other nodes to inform about configuration changes. This failure mode also requires that the client has a yet not updated table.
+The second failure mode is unlikely to happen because master nodes unable to communicate with the majority of the other masters for enough time to be failed over will no longer accept writes, and when the partition is fixed writes are still refused for a small amount of time to allow other nodes to inform about configuration changes. This failure mode also requires that the client's routing table has not yet been updated.
 
-Writes targeting the minority side of a partition has fairly larger windows to get lost. For example Redis Cluster loses a non trivial amount of writes on partitions where there is a minority of masters and at least one or more clients, since all the writes sent to the masters may potentially get lost if the masters are failed over in the majority side.
+Writes targeting the minority side of a partition has a larger window in which to get lost. For example, Redis Cluster loses a non-trivial number of writes on partitions where there is a minority of masters and at least one or more clients, since all the writes sent to the masters may potentially get lost if the masters are failed over in the majority side.
 
-Specifically, for a master to be failed over, it must be not reachable by the majority of masters for at least `NODE_TIMEOUT`, so if the partition is fixed before that time, no write is lost. When the partition lasts for more than `NODE_TIMEOUT`, all the writes performed in the minority side up to that point may be lost. However the minority side of a Redis Cluster will start refusing writes as soon as `NODE_TIMEOUT` time has elapsed without contact with the majority, so there is a maximum window after which the minority becomes no longer available, hence no write is accepted and lost after that time.
+Specifically, for a master to be failed over it must be unreachable by the majority of masters for at least `NODE_TIMEOUT`, so if the partition is fixed before that time, no writes are lost. When the partition lasts for more than `NODE_TIMEOUT`, all the writes performed in the minority side up to that point may be lost. However the minority side of a Redis Cluster will start refusing writes as soon as `NODE_TIMEOUT` time has elapsed without contact with the majority, so there is a maximum window after which the minority becomes no longer available. Hence, no writes are accepted or lost after that time.
 
 Availability
 ---
 
-Redis Cluster is not available in the minority side of the partition. In the majority side of the partition assuming that there are at least the majority of masters and a slave for every unreachable master, the cluster returns available after `NODE_TIMEOUT` time, plus a few more seconds required for a slave to get elected and failover its master (failovers usually are executed in a matter of 1 or 2 seconds).
+Redis Cluster is not available in the minority side of the partition. In the majority side of the partition assuming that there are at least the majority of masters and a slave for every unreachable master, the cluster becomes available again after `NODE_TIMEOUT` time plus a few more seconds required for a slave to get elected and failover its master (failovers are usually executed in a matter of 1 or 2 seconds).
 
-This means that Redis Cluster is designed to survive to failures of a few nodes in the cluster, but is not a suitable solution for applications that require availability in the event of large net splits.
+This means that Redis Cluster is designed to survive failures of a few nodes in the cluster, but it is not a suitable solution for applications that require availability in the event of large net splits.
 
 In the example of a cluster composed of N master nodes where every node has a single slave, the majority side of the cluster will remain available as long as a single node is partitioned away, and will remain available with a probability of `1-(1/(N*2-1))` when two nodes are partitioned away (after the first node fails we are left with `N*2-1` nodes in total, and the probability of the only master without a replica to fail is `1/(N*2-1))`.
 
-For example in a cluster with 5 nodes and a single slave per node, there is a `1/(5*2-1) = 0.1111` probabilities that after two nodes are partitioned away from the majority, the cluster will no longer be available, that is about 11% of probabilities.
+For example, in a cluster with 5 nodes and a single slave per node, there is a `1/(5*2-1) = 11.11%` probability that after two nodes are partitioned away from the majority, the cluster will no longer be available.
 
 Thanks to a Redis Cluster feature called **replicas migration** the Cluster
 availability is improved in many real world scenarios by the fact that
 replicas migrate to orphaned masters (masters no longer having replicas).
 So at every successful failure event, the cluster may reconfigure the slaves
-layout in order to resist better to the next failure.
+layout in order to better resist the next failure.
 
 Performance
 ---
