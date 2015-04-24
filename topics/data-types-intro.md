@@ -943,7 +943,7 @@ There are three commands operating on group of bits:
 2. `BITCOUNT` performs population counting, reporting the number of bits set to 1.
 3. `BITPOS` finds the first bit having the specified value of 0 or 1.
 
-Both `BITOPS` and `BITCOUNT` are able to operate with byte ranges of the
+Both `BITPOS` and `BITCOUNT` are able to operate with byte ranges of the
 string, instead of running for the whole length of the string. The following
 is a trivial example of `BITCOUNT` call:
 
