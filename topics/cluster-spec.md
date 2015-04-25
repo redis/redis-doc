@@ -110,28 +110,28 @@ Performance
 
 In Redis Cluster nodes don't proxy commands to the right node in charge for a given key, but instead they redirect clients to the right nodes serving a given portion of the key space.
 
-Eventually clients obtain an up to date representation of the cluster and which node serves which subset of keys, so during normal operations clients directly contact the right nodes in order to send a given command.
+Eventually clients obtain an up-to-date representation of the cluster and which node serves which subset of keys, so during normal operations clients directly contact the right nodes in order to send a given command.
 
-Because of the use of asynchronous replication, nodes do not wait for other nodes acknowledgment of writes (if not explicitly requested using the `WAIT` command).
+Because of the use of asynchronous replication, nodes do not wait for other nodes' acknowledgment of writes (if not explicitly requested using the `WAIT` command).
 
-Also, because multiple keys commands are only limited to *near* keys, data is never moved between nodes if not in case of resharding.
+Also, because multiple key commands are only limited to *near* keys, data is never moved between nodes except when resharding.
 
-So normal operations are handled exactly as in the case of a single Redis instance. This means that in a Redis Cluster with N master nodes you can expect the same performance as a single Redis instance multiplied by N as the design allows to scale linearly. At the same time the query is usually performed in a single round trip, since clients usually retain persistent connections with the nodes, so latency figures are also the same as the single standalone Redis node case.
+Normal operations are handled exactly as in the case of a single Redis instance. This means that in a Redis Cluster with N master nodes you can expect the same performance as a single Redis instance multiplied by N as the design scales linearly. At the same time the query is usually performed in a single round trip, since clients usually retain persistent connections with the nodes, so latency figures are also the same as the single standalone Redis node case.
 
-Very high performances and scalability while preserving weak but
+Very high performance and scalability while preserving weak but
 reasonable forms of data safety and availability is the main goal of
 Redis Cluster.
 
 Why merge operations are avoided
 ---
 
-Redis Cluster design avoids conflicting versions of the same key-value pair in multiple nodes as in the case of the Redis data model this is not always desirable: values in Redis are often very large, it is common to see lists or sorted sets with millions of elements. Also data types are semantically complex. Transferring and merging these kind of values can be a major bottleneck and/or may require a non trivial involvement of application-side logic, additional memory to store meta-data, and so forth.
+Redis Cluster design avoids conflicting versions of the same key-value pair in multiple nodes as in the case of the Redis data model this is not always desirable. Values in Redis are often very large; it is common to see lists or sorted sets with millions of elements. Also data types are semantically complex. Transferring and merging these kind of values can be a major bottleneck and/or may require the non-trivial involvement of application-side logic, additional memory to store meta-data, and so forth.
 
-There are no strict technological limits here, CRDTs or synchronously replicated
-state machines can model complex data types similar to Redis, however the
+There are no strict technological limits here. CRDTs or synchronously replicated
+state machines can model complex data types similar to Redis. However, the
 actual run time behavior of such systems would not be similar to Redis Cluster.
 Redis Cluster was designed in order to cover the exact use cases of the
-non clustered Redis version.
+non-clustered Redis version.
 
 Overview of Redis Cluster main components
 ===
@@ -143,13 +143,14 @@ The key space is split into 16384 slots, effectively setting an upper limit
 for the cluster size of 16384 master nodes (however the suggested max size of
 nodes is in the order of ~ 1000 nodes).
 
-Each master nodes in a cluster handles a subset of the 16384 hash slots.
-When the cluster is **stable**, that means there is no cluster
-reconfiguration in progress (where hash slots are moved from one node
-to another), a single hash slot will be served exactly by a single node
-(however the serving node can have one or more slaves that will replace
-it in the case of net splits or failures, and that can be used in order
-to scale read operations where reading stale data is acceptable).
+Each master node in a cluster handles a subset of the 16384 hash slots.
+The cluster is **stable** when there is no cluster reconfiguration in 
+progress (where hash slots are being moved from one node
+to another). When the cluster is stable, a single hash slot will be
+served by a single node (however the serving node can have one or more
+slaves that will replace it in the case of net splits or failures, 
+and that can be used in order to scale read operations where
+reading stale data is acceptable).
 
 The base algorithm used to map keys to hash slots is the following
 (read the next paragraph for the hash tag exception to this rule):
@@ -167,10 +168,10 @@ The CRC16 is specified as follows:
 * Xor constant to output CRC: 0000
 * Output for "123456789": 31C3
 
-14 out of 16 bit of the output of CRC16 are used (this is why there is
+14 out of 16 CRC16 output bits are used (this is why there is
 a modulo 16384 operation in the formula above).
 
-In our tests CRC16 behaved remarkably well in distributing different kind of
+In our tests CRC16 behaved remarkably well in distributing different kinds of
 keys evenly across the 16384 slots.
 
 **Note**: A reference implementation of the CRC16 algorithm used is available in the Appendix A of this document.
@@ -185,13 +186,13 @@ multi-key operations in Redis Cluster.
 
 In order to implement hash tags, the hash slot for a key is computed in a
 slightly different way in certain conditions.
-Basically if the key contains a "{...}" pattern only the substring between
+If the key contains a "{...}" pattern only the substring between
 `{` and `}` is hashed in order to obtain the hash slot. However since it is
 possible that there are multiple occurrences of `{` or `}` the algorithm is
 well specified by the following rules:
 
 * IF the key contains a `{` character.
-* AND IF there is a `}` character on the right of `{`
+* AND IF there is a `}` character to the right of `{`
 * AND IF there are one or more characters between the first occurrence of `{` and the first occurrence of `}`.
 
 Then instead of hashing the key, only what is between the first occurrence of `{` and the following first occurrence of `}` is hashed.
