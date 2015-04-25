@@ -36,10 +36,10 @@ while single key operations are always available.
 Redis Cluster does not support multiple databases like the stand alone version
 of Redis, there is just database 0, and the `SELECT` command is not allowed.
 
-Clients and Servers roles in the Redis cluster protocol
+Clients and Servers roles in the Redis Cluster protocol
 ---
 
-In Redis cluster nodes are responsible for holding the data,
+In Redis Cluster nodes are responsible for holding the data,
 and taking the state of the cluster, including mapping keys to the right nodes.
 Cluster nodes are also able to auto-discover other nodes, detect non-working
 nodes, and promote slave nodes to master when needed in order
@@ -256,7 +256,7 @@ deleted by the system administrator, or a *hard reset* is requested
 via the `CLUSTER RESET` command.
 
 The node ID is used to identify every node across the whole cluster.
-It is possible for a given node to change IP and address without any need
+It is possible for a given node to change its IP address without any need
 to also change the node ID. The cluster is also able to detect the change
 in IP/port and reconfigure using the gossip protocol running over the cluster
 bus.
@@ -268,19 +268,18 @@ cluster configuration detail of this specific node, and is eventually
 consistent across the cluster. Some other information, like the last time
 a node was pinged, is instead local to each node.
 
-This is a list of information each node has associated in each other node
-that knows it: The node ID, IP and port of the node, a set of flags, what is
-the master of the node if it is flagged as `slave`, last time the node
-was pinged and the last time the pong was received, the current *configuration
-epoch* of the node (explained later in this specification), the link state
-and finally the set of hash slots served.
+Every node maintains the following information about other nodes that it is 
+aware of in the cluster: The node ID, IP and port of the node, a set of 
+flags, what is the master of the node if it is flagged as `slave`, last time 
+the node was pinged and the last time the pong was received, the current 
+*configuration epoch* of the node (explained later in this specification), 
+the link state and finally the set of hash slots served.
 
 A detailed [explanation of all the node fields](http://redis.io/commands/cluster-nodes) is described in the `CLUSTER NODES` documentation.
 
-The `CLUSTER NODES` command, that can be sent to each of the nodes in the cluster, provides as output the state of the cluster and the information for each node
-according to the local view the queried node has of the cluster.
+The `CLUSTER NODES` command can be sent to any node in the cluster and provides the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
 
-The following is an example of output of `CLUSTER NODES` sent to a master
+The following is sample output of the `CLUSTER NODES` command sent to a master
 node in a small cluster of three nodes.
 
     $ redis-cli cluster nodes
@@ -293,18 +292,18 @@ In the above listing the different fields are in order: node id, address:port, f
 The Cluster bus
 ---
 
-Every Redis Cluster node has an additional TCP port in order to receive
+Every Redis Cluster node has an additional TCP port for receiving
 incoming connections from other Redis Cluster nodes. This port is at a fixed
-offset compared to the normal TCP port used to receive incoming connections
+offset from the normal TCP port used to receive incoming connections
 from clients. To obtain the Redis Cluster port, 10000 should be added to
-the normal commands port, so for example if a Redis node is listening for
-client connections to port 6379, the Cluster bus port 16379 will also be
+the normal commands port. For example, if a Redis node is listening for
+client connections on port 6379, the Cluster bus port 16379 will also be
 opened.
 
-Node to Node communication happens exclusively using the Cluster bus and
-the Cluster bus protocol, which is a binary protocol composed of frames
+Node-to-node communication happens exclusively using the Cluster bus and
+the Cluster bus protocol: a binary protocol composed of frames
 of different types and sizes. The Cluster bus binary protocol is not
-publicly documented since it is not indented for external software devices
+publicly documented since it is not intended for external software devices
 to talk with Redis Cluster nodes using this protocol. However you can
 obtain more details about the Cluster bus protocol by reading the
 `cluster.h` and `cluster.c` files in the Redis Cluster source code.
@@ -312,7 +311,7 @@ obtain more details about the Cluster bus protocol by reading the
 Cluster topology
 ---
 
-Redis cluster is a full mesh where every node is connected with every other node using a TCP connection.
+Redis Cluster is a full mesh where every node is connected with every other node using a TCP connection.
 
 In a cluster of N nodes, every node has N-1 outgoing TCP connections, and N-1 incoming connections.
 
@@ -322,20 +321,20 @@ refresh the connection with the node by reconnecting from scratch.
 
 While Redis Cluster nodes form a full mesh, **nodes use a gossip protocol and
 a configuration update mechanism in order to avoid exchanging too many
-messages between nodes during normal conditions**, so the number of message
+messages between nodes during normal conditions**, so the number of messages
 exchanged is not exponential.
 
 Nodes handshake
 ---
 
-Nodes always accept connection in the cluster bus port, and even reply to
+Nodes always accept connections on the cluster bus port, and even reply to
 pings when received, even if the pinging node is not trusted.
-However all the other packets will be discarded by the receiving node if the
+However, all other packets will be discarded by the receiving node if the
 sending node is not considered part of the cluster.
 
 A node will accept another node as part of the cluster only in two ways:
 
-* If a node will present itself with a `MEET` message. A meet message is exactly
+* If a node presents itself with a `MEET` message. A meet message is exactly
 like a `PING` message, but forces the receiver to accept the node as part of
 the cluster. Nodes will send `MEET` messages to other nodes **only if** the system administrator requests this via the following command:
 
@@ -343,9 +342,9 @@ the cluster. Nodes will send `MEET` messages to other nodes **only if** the syst
 
 * A node will also register another node as part of the cluster if a node that is already trusted will gossip about this other node. So if A knows B, and B knows C, eventually B will send gossip messages to A about C. When this happens, A will register C as part of the network, and will try to connect with C.
 
-This means that as long as we join nodes in any connected graph, they'll eventually form a fully connected graph automatically. This means that basically the cluster is able to auto-discover other nodes, but only if there is a trusted relationship that was forced by the system administrator.
+This means that as long as we join nodes in any connected graph, they'll eventually form a fully connected graph automatically. This means that the cluster is able to auto-discover other nodes, but only if there is a trusted relationship that was forced by the system administrator.
 
-This mechanism makes the cluster more robust but prevents that different Redis clusters will accidentally mix after change of IP addresses or other network related events.
+This mechanism makes the cluster more robust but prevents different Redis clusters from accidentally mixing after change of IP addresses or other network related events.
 
 Redirection and resharding
 ===
@@ -367,32 +366,32 @@ to the client with a MOVED error, like in the following example:
     -MOVED 3999 127.0.0.1:6381
 
 The error includes the hash slot of the key (3999) and the ip:port of the
-instance that can serve the query. The client need to reissue the query
-to the specified node, specified by IP address and port.
+instance that can serve the query. The client needs to reissue the query
+to the specified node's IP address and port.
 Note that even if the client waits a long time before reissuing the query,
 and in the meantime the cluster configuration changed, the destination node
 will reply again with a MOVED error if the hash slot 3999 is now served by
 another node. The same happens if the contacted node had no updated information.
 
 So while from the point of view of the cluster nodes are identified by
-IDs we try to simply our interface with the client just exposing a map
+IDs we try to simplify our interface with the client just exposing a map
 between hash slots and Redis nodes identified by IP:port pairs.
 
 The client is not required to, but should try to memorize that hash slot
 3999 is served by 127.0.0.1:6381. This way once a new command needs to
-be issued it can compute the hash slot of the target key and pick the
-right node with higher chances.
+be issued it can compute the hash slot of the target key and have a 
+greater chance of choosing the right node.
 
 An alternative is to just refresh the whole client-side cluster layout
-when a MOVED redirection is received, using the `CLUSTER NODES` or
-`CLUSTER SLOTS` commands, since when a redirection is encountered, likely
-multiple slots were reconfigured, not just one, so to update the configuration
-as soon as possible for the client is often the best strategy.
+using the `CLUSTER NODES` or `CLUSTER SLOTS` commands
+when a MOVED redirection is received. When a redirection is encountered, it
+is likely multiple slots were reconfigured rather than just one, so updating
+the client configuration as soon as possible is often the best strategy.
 
 Note that when the Cluster is stable (no ongoing changes in the configuration),
 eventually all the clients will obtain a map of hash slots -> nodes, making
 the cluster efficient, with clients directly addressing the right nodes
-without redirections nor proxies or other single point of failure entities.
+without redirections, proxies or other single point of failure entities.
 
 A client **must be also able to handle -ASK redirections** that are described
 later in this document, otherwise it is not a complete Redis Cluster client.
@@ -400,24 +399,24 @@ later in this document, otherwise it is not a complete Redis Cluster client.
 Cluster live reconfiguration
 ---
 
-Redis cluster supports the ability to add and remove nodes while the cluster
-is running. Actually adding or removing a node is abstracted into the same
-operation, that is, moving a hash slot from a node to another. This means
+Redis Cluster supports the ability to add and remove nodes while the cluster
+is running. Adding or removing a node is abstracted into the same
+operation: moving a hash slot from one node to another. This means
 that the same basic mechanism can be used in order to rebalance the cluster, add
 or remove nodes, and so forth.
 
-* To add a new node to the cluster an empty node is added to the cluster and some hash slot is moved from existing nodes to the new node.
+* To add a new node to the cluster an empty node is added to the cluster and some set of hash slots are moved from existing nodes to the new node.
 * To remove a node from the cluster the hash slots assigned to that node are moved to other existing nodes.
 * To rebalance the cluster a given set of hash slots are moved between nodes.
 
-So the core of the implementation is the ability to move hash slots around.
-Actually from a practical point of view a hash slot is just a set of keys, so
-what Redis cluster really does during *resharding* is to move keys from
-an instance to another instance. Moving an hash slot means moving all the keys
+The core of the implementation is the ability to move hash slots around.
+From a practical point of view a hash slot is just a set of keys, so
+what Redis Cluster really does during *resharding* is to move keys from
+an instance to another instance. Moving a hash slot means moving all the keys
 that happen to hash into this hash slot.
 
 To understand how this works we need to show the `CLUSTER` subcommands
-that are used to manipulate the slots translation table in a Redis cluster node.
+that are used to manipulate the slots translation table in a Redis Cluster node.
 
 The following subcommands are available (among others not useful in this case):
 
@@ -432,7 +431,7 @@ The first two commands, `ADDSLOTS` and `DELSLOTS`, are simply used to assign
 master node that it will be in charge of storing and serving content for
 the specified hash slot.
 
-After the hash slots are assigned they will propagate across all the cluster
+After the hash slots are assigned they will propagate across the cluster
 using the gossip protocol, as specified later in the
 *configuration propagation* section.
 
@@ -446,19 +445,19 @@ or for debugging tasks: in practice it is rarely used.
 The `SETSLOT` subcommand is used to assign a slot to a specific node ID if
 the `SETSLOT <slot> NODE` form is used. Otherwise the slot can be set in the
 two special states `MIGRATING` and `IMPORTING`. Those two special states
-are used in order to migrate an hash slot from one node to another.
+are used in order to migrate a hash slot from one node to another.
 
-* When a slot is set as MIGRATING, the node will accept all the requests
-for queries that are about this hash slot, but only if the key in question
+* When a slot is set as MIGRATING, the node will accept all queries that
+are about this hash slot, but only if the key in question
 exists, otherwise the query is forwarded using a `-ASK` redirection to the
 node that is target of the migration.
-* When a slot is set as IMPORTING, the node will accept all the requests
-for queries that are about this hash slot, but only if the request is
-preceded by an `ASKING` command. Otherwise if not `ASKING` command was given
+* When a slot is set as IMPORTING, the node will accept all queries that
+are about this hash slot, but only if the request is
+preceded by an `ASKING` command. If the `ASKING` command was not given
 by the client, the query is redirected to the real hash slot owner via
-a `-MOVED` redirection error, like would happen normally.
+a `-MOVED` redirection error, as would happen normally.
 
-Let's make this more clear with an example of hash slot migration.
+Let's make this clearer with an example of hash slot migration.
 Assume that we have two Redis master nodes, called A and B.
 We want to move hash slot 8 from A to B, so we issue commands like this:
 
@@ -469,13 +468,13 @@ All the other nodes will continue to point clients to node "A" every time
 they are queried with a key that belongs to hash slot 8, so what happens
 is that:
 
-* All the queries about already existing keys are processed by "A".
-* All the queries about non existing keys in A are processed by "B", because "A" will redirect clients to "B".
+* All queries about existing keys are processed by "A".
+* All queries about non-existing keys in A are processed by "B", because "A" will redirect clients to "B".
 
 This way we no longer create new keys in "A".
-In the meantime, a special program used during reshardings, that is
-called `redis-trib`, and is the default Redis cluster configuration utility,
-will make sure to migrate existing keys in hash slot 8 from A to B.
+In the meantime, a special program called `redis-trib` used during reshardings
+and Redis Cluster configuration will migrate existing keys in
+hash slot 8 from A to B.
 This is performed using the following command:
 
     CLUSTER GETKEYSINSLOT slot count
@@ -490,20 +489,20 @@ there are no race conditions). This is how `MIGRATE` works:
 
 `MIGRATE` will connect to the target instance, send a serialized version of
 the key, and once an OK code is received will delete the old key from its own
-dataset. So from the point of view of an external client a key either exists
-in A or B in a given time.
+dataset. From the point of view of an external client a key exists either
+in A or B at any given time.
 
-In Redis cluster there is no need to specify a database other than 0, but
-`MIGRATE` can be used for other tasks as well not involving Redis cluster so
-it is a general enough command.
+In Redis Cluster there is no need to specify a database other than 0, but
+`MIGRATE` is a general command that can be used for other tasks not 
+involving Redis Cluster.
 `MIGRATE` is optimized to be as fast as possible even when moving complex
-keys such as long lists, but of course in Redis Cluster reconfiguring the
+keys such as long lists, but in Redis Cluster reconfiguring the
 cluster where big keys are present is not considered a wise procedure if
 there are latency constraints in the application using the database.
 
-When finally the migration process is finished, the `SETSLOT <slot> NODE <node-id>` command is send to the two nodes involved in the migration in order to
-set the slots in normal state again. Moreover the same command is usually
-send to all the other instances in order not to wait for the natural
+When the migration process is finally finished, the `SETSLOT <slot> NODE <node-id>` command is sent to the two nodes involved in the migration in order to
+set the slots to their normal state again. The same command is usually
+sent to all other nodes to avoid waiting for the natural
 propagation of the new configuration across the cluster.
 
 ASK redirection
@@ -651,7 +650,7 @@ Normally slave nodes will redirect clients to the authoritative master for
 the hash slot involved in a given command, however clients can use slaves
 in order to scale reads using the `READONLY` command.
 
-`READONLY` tells a Redis cluster slave node that the client is ok reading
+`READONLY` tells a Redis Cluster slave node that the client is ok reading
 possibly stale data and is not interested in running write queries.
 
 When the connection is in readonly mode, the cluster will send a redirection
