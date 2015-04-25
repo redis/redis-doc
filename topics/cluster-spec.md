@@ -1030,7 +1030,7 @@ the independent failures of single nodes caused by hardware or software issues
 that can accumulate over time. For example:
 
 * Master A has a single slave A1.
-* Master A fails. A1 is promoted as new slave.
+* Master A fails. A1 is promoted as new master.
 * Three hours later A1 fails in an independent manner (not related to the failure of A). No other slave is available for promotion since also node A is still down. The cluster cannot continue normal operations.
 
 If the map between masters and slaves is fixed, the only way to make the cluster
