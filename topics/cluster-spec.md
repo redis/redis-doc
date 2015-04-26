@@ -684,7 +684,7 @@ The number of messages globally exchanged can be sizable if `NODE_TIMEOUT` is se
 For example in a 100 node cluster with a node timeout set to 60 seconds, every node will try to send 99 pings every 30 seconds, with a total amount of pings of 3.3 per second. Multiplied by 100 nodes, this is 330 pings per second in the total cluster.
 
 There are ways to lower the number of messages, however there have been no
-reported issues currently with the bandwidth used by Redis Cluster failure 
+reported issues with the bandwidth currently used by Redis Cluster failure 
 detection, so for now the obvious and direct design is used. Note that even
 in the above example, the 330 packets per second exchanged are evenly
 divided among 100 different nodes, so the traffic each node receives 
@@ -772,7 +772,7 @@ Configuration handling, propagation, and failovers
 Cluster current epoch
 ---
 
-Redis Cluster uses a concept similar to the Raft algorithm "term". In Redis Cluster the term is called epoch instead, and it is used in order to give an incremental version to events, so that when multiple nodes provide conflicting information, it is possible for another node to understand which state is the most up to date.
+Redis Cluster uses a concept similar to the Raft algorithm "term". In Redis Cluster the term is called epoch instead, and it is used in order to give incremental versioning to events. When multiple nodes provide conflicting information, it becomes possible for another node to understand which state is the most up to date.
 
 The `currentEpoch` is a 64 bit unsigned number.
 
@@ -780,11 +780,11 @@ At node creation every Redis Cluster node, both slaves and master nodes, set the
 
 Every time a packet is received from another node, if the epoch of the sender (part of the cluster bus messages header) is greater than the local node epoch, the `currentEpoch` is updated to the sender epoch.
 
-Because of this semantics eventually all the nodes will agree to the greatest `configEpoch` in the cluster.
+Because of these semantics, eventually all the nodes will agree to the greatest `configEpoch` in the cluster.
 
 This information is used when the state of the cluster is changed and a node seeks agreement in order to perform some action.
 
-Currently this happens only during slave promotion, as described in the next section. Basically the epoch is a logical clock for the cluster and dictates whatever a given information wins over one with a smaller epoch.
+Currently this happens only during slave promotion, as described in the next section. Basically the epoch is a logical clock for the cluster and dictates that given information wins over one with a smaller epoch.
 
 Configuration epoch
 ---
@@ -794,18 +794,18 @@ Every master always advertises its `configEpoch` in ping and pong packets along 
 The `configEpoch` is set to zero in masters when a new node is created.
 
 A new `configEpoch` is created during slave election. Slaves trying to replace
-failing masters increment their epoch and try to get the authorization from
+failing masters increment their epoch and try to get authorization from
 a majority of masters. When a slave is authorized, a new unique `configEpoch`
-is created, the slave turns into a master using the new `configEpoch`.
+is created and the slave turns into a master using the new `configEpoch`.
 
-As explained in the next sections the `configEpoch` helps to resolve conflicts due to different nodes claiming diverging configurations (a condition that may happen because of network partitions and node failures).
+As explained in the next sections the `configEpoch` helps to resolve conflicts when different nodes claim divergent configurations (a condition that may happen because of network partitions and node failures).
 
-Slave nodes also advertise the `configEpoch` field in ping and pong packets, but in case of slaves the field represents the `configEpoch` of its master the last time they exchanged packets. This allows other instances to detect when a slave has an old configuration that needs to be updated (Master nodes will not grant votes to slaves with an old configuration).
+Slave nodes also advertise the `configEpoch` field in ping and pong packets, but in the case of slaves the field represents the `configEpoch` of its master as of the last time they exchanged packets. This allows other instances to detect when a slave has an old configuration that needs to be updated (master nodes will not grant votes to slaves with an old configuration).
 
-Every time the `configEpoch` changes for some known node, it is permanently stored in the nodes.conf file by all the nodes that received this information. The same also happens for the `currentEpoch` value. This two variables are guaranteed to be saved and `fsync-ed` to disk when updated before a node continues its operations.
+Every time the `configEpoch` changes for some known node, it is permanently stored in the nodes.conf file by all the nodes that receive this information. The same also happens for the `currentEpoch` value. These two variables are guaranteed to be saved and `fsync-ed` to disk when updated before a node continues its operations.
 
-New, incremental, and guaranteed to be unique `configEpoch` values are generated
-using a simple algorithm during failovers.
+The `configEpoch` values generated using a simple algorithm during failovers
+are guaranteed to be new, incremental, and unique.
 
 Slave election and promotion
 ---
@@ -813,21 +813,21 @@ Slave election and promotion
 Slave election and promotion is handled by slave nodes, with the help of master nodes that vote for the slave to promote.
 A slave election happens when a master is in `FAIL` state from the point of view of at least one of its slaves that has the prerequisites in order to become a master.
 
-In order for a slave to promote itself to master, it requires to start an election and win it. All the slaves for a given master can start an election if the master is in `FAIL` state, however only one slave will win the election and promote itself to master.
+In order for a slave to promote itself to master, it needs to start an election and win it. All the slaves for a given master can start an election if the master is in `FAIL` state, however only one slave will win the election and promote itself to master.
 
 A slave starts an election when the following conditions are met:
 
 * The slave's master is in `FAIL` state.
 * The master was serving a non-zero number of slots.
-* The slave replication link was disconnected from the master for no longer than a given amount of time, in order to ensure to promote a slave with a reasonable data freshness. This time is user configurable.
+* The slave replication link was disconnected from the master for no longer than a given amount of time, in order to ensure the promoted slave's data is reasonably fresh. This time is user configurable.
 
 In order to be elected, the first step for a slave is to increment its `currentEpoch` counter, and request votes from master instances.
 
-Votes are requested by the slave by broadcasting a `FAILOVER_AUTH_REQUEST` packet to every master node of the cluster. Then it waits for replies to arrive for a maximum time of two times the `NODE_TIMEOUT`, but always for at least 2 seconds.
+Votes are requested by the slave by broadcasting a `FAILOVER_AUTH_REQUEST` packet to every master node of the cluster. Then it waits for a maximum time of two times the `NODE_TIMEOUT` for replies to arrive (but always for at least 2 seconds).
 
-Once a master voted for a given slave, replying positively with a `FAILOVER_AUTH_ACK`, it can no longer vote for another slave of the same master for a period of `NODE_TIMEOUT * 2`. In this period it will not be able to reply to other authorization requests for the same master. This is not needed to guarantee safety, but useful to avoid multiple slaves to get elected (even if with a different `configEpoch`) about at the same time, which is usually not wanted.
+Once a master has voted for a given slave, replying positively with a `FAILOVER_AUTH_ACK`, it can no longer vote for another slave of the same master for a period of `NODE_TIMEOUT * 2`. In this period it will not be able to reply to other authorization requests for the same master. This is not needed to guarantee safety, but useful for preventing multiple slaves from getting elected (even if with a different `configEpoch`) at around the same time, which is usually not wanted.
 
-A slave discards all the `AUTH_ACK` replies that are received having an epoch that is less than the `currentEpoch` at the time the vote request was sent, in order to never count as valid votes that are about a previous election.
+A slave discards any `AUTH_ACK` replies with an epoch that is less than the `currentEpoch` at the time the vote request was sent. This ensures it doesn't count votes intended for a previous election.
 
 Once the slave receives ACKs from the majority of masters, it wins the election.
 Otherwise if the majority is not reached within the period of two times `NODE_TIMEOUT` (but always at least 2 seconds), the election is aborted and a new one will be tried again after `NODE_TIMEOUT * 4` (and always at least 4 seconds).
@@ -835,33 +835,33 @@ Otherwise if the majority is not reached within the period of two times `NODE_TI
 Slave rank
 ---
 
-A slave does not try to get elected as soon as the master is in `FAIL` state, but there is a little delay, that is computed as:
+As soon as a master is in `FAIL` state, a slave waits a short period of time before trying to get elected. That delay is computed as follows:
 
     DELAY = 500 milliseconds + random delay between 0 and 500 milliseconds +
             SLAVE_RANK * 1000 milliseconds.
 
-The fixed delay ensures that we wait for the `FAIL` state to propagate across the cluster, otherwise the slave may try to get elected when the masters are still not aware of the `FAIL` state, refusing to grant their vote.
+The fixed delay ensures that we wait for the `FAIL` state to propagate across the cluster, otherwise the slave may try to get elected while the masters are still unaware of the `FAIL` state, refusing to grant their vote.
 
-The random delay is used to desynchronize slaves so they'll likely start an election in different moments.
+The random delay is used to desynchronize slaves so they're unlikely to start an election at the same time.
 
-The `SLAVE_RANK` is the rank of this slave regarding the amount of replication
-stream it processed from the master. Slaves exchange messages when the master
-is failing in order to establish a (best effort) rank: the slave with the most
-updated replication offset is at rank 0, the second most updated at rank 1, and so forth. In this way the most updated slaves try to get elected before others.
+The `SLAVE_RANK` is the rank of this slave regarding the amount of data
+replication it has processed from the master. Slaves exchange messages when 
+the master is failing in order to establish a (best effort) rank: the slave 
+with the most updated replication offset is at rank 0, the second most updated at rank 1, and so forth. In this way the most updated slaves try to get elected before others.
 
-However if a slave of higher rank fails to be elected, the others will try
-shortly, so the order is not enforced in a strict way.
+Rank order is not strictly enforced; if a slave of higher rank fails to be 
+elected, the others will try shortly.
 
-Once a slave wins the election, it obtains a new unique and incremental `configEpoch` which is higher than any other existing master. It starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` that will win over the past ones.
+Once a slave wins the election, it obtains a new unique and incremental `configEpoch` which is higher than that of any other existing master. It starts advertising itself as master in ping and pong packets, providing the set of served slots with a `configEpoch` that will win over the past ones.
 
-In order to speedup the reconfiguration of other nodes, a pong packet is broadcasted to all the nodes of the cluster (however nodes not currently reachable will eventually receive a ping or pong packet and will be reconfigured, or will receive an `UPDATE` packet from another node, if the information it publishes via heartbeat packets are detected to be out of date).
+In order to speedup the reconfiguration of other nodes, a pong packet is broadcasted to all the nodes of the cluster. Currently unreachable nodes will eventually be reconfigured when they receive a ping or pong packet from another node or will receive an `UPDATE` packet from another node if the information it publishes via heartbeat packets are detected to be out of date.
 
-The other nodes will detect that there is a new master serving the same slots served by the old master but with a greater `configEpoch`, and will upgrade the configuration. Slaves of the old master, or the failed over master that rejoins the cluster, will not just upgrade the configuration but will also configure to replicate from the new master. How nodes rejoining the cluster are configured is explained in one of the next sections.
+The other nodes will detect that there is a new master serving the same slots served by the old master but with a greater `configEpoch`, and will upgrade their configuration. Slaves of the old master (or the failed over master if it rejoins the cluster) will not just upgrade the configuration but will also reconfigure to replicate from the new master. How nodes rejoining the cluster are configured is explained in the next sections.
 
 Masters reply to slave vote request
 ---
 
-In the previous section it was discussed how slaves try to get elected, this section explains what happens from the point of view of a master that is requested to vote for a given slave.
+In the previous section it was discussed how slaves try to get elected. This section explains what happens from the point of view of a master that is requested to vote for a given slave.
 
 Masters receive requests for votes in form of `FAILOVER_AUTH_REQUEST` requests from slaves.
 
@@ -869,7 +869,7 @@ For a vote to be granted the following conditions need to be met:
 
 1. A master only votes a single time for a given epoch, and refuses to vote for older epochs: every master has a lastVoteEpoch field and will refuse to vote again as long as the `currentEpoch` in the auth request packet is not greater than the lastVoteEpoch. When a master replies positively to a vote request, the lastVoteEpoch is updated accordingly, and safely stored on disk.
 2. A master votes for a slave only if the slave's master is flagged as `FAIL`.
-3. Auth requests with a `currentEpoch` that is less than the master `currentEpoch` are ignored. Because of this the Master reply will always have the same `currentEpoch` as the auth request. If the same slave asks again to be voted, incrementing the `currentEpoch`, it is guaranteed that an old delayed reply from the master can not be accepted for the new vote.
+3. Auth requests with a `currentEpoch` that is less than the master `currentEpoch` are ignored. Because of this the master reply will always have the same `currentEpoch` as the auth request. If the same slave asks again to be voted, incrementing the `currentEpoch`, it is guaranteed that an old delayed reply from the master can not be accepted for the new vote.
 
 Example of the issue caused by not using rule number 3:
 
@@ -879,15 +879,15 @@ Master `currentEpoch` is 5, lastVoteEpoch is 1 (this may happen after a few fail
 * Slave tries to be elected with epoch 4 (3+1), master replies with an ok with `currentEpoch` 5, however the reply is delayed.
 * Slave will try to be elected again, at a later time, with epoch 5 (4+1), the delayed reply reaches the slave with `currentEpoch` 5, and is accepted as valid.
 
-4. Masters don't vote a slave of the same master before `NODE_TIMEOUT * 2` has elapsed since a slave of that master was already voted. This is not strictly required as it is not possible that two slaves win the election in the same epoch, but in practical terms it ensures that normally when a slave is elected it has plenty of time to inform the other slaves avoiding that another slave will win a new election, doing a new unwanted failover.
-5. Masters don't try to select the best slave in any way, simply if the slave's master is in `FAIL` state and the master did not voted in the current term, the positive vote is granted. However the best slave is the most likely to start the election and win it before the other slaves, since it usually will be able to start the voting process earlier, because of its *higher rank* as explained in the previous section.
+4. Masters don't vote for a slave of the same master before `NODE_TIMEOUT * 2` has elapsed of a slave of that master was already voted for. This is not strictly required as it is not possible for two slaves to win the election in the same epoch. However, in practical terms it ensures that when a slave is elected it has plenty of time to inform the other slaves and avoid the possibility that another slave will win a new election, performing an unnecessary second failover.
+5. Masters make no effort to select the best slave in any way. If the slave's master is in `FAIL` state and the master did not vote in the current term, a positive vote is granted. The best slave is the most likely to start an election and win it before the other slaves, since it will usually be able to start the voting process earlier because of its *higher rank* as explained in the previous section.
 6. When a master refuses to vote for a given slave there is no negative response, the request is simply ignored.
-7. Masters don't grant the vote to slaves sending a `configEpoch` that is less than any `configEpoch` in the master table for the slots claimed by the slave. Remember that the slave sends the `configEpoch` of its master, and the bitmap of the slots served by its master. What this means is basically that the slave requesting the vote must have a configuration, for the slots it wants to failover, that is newer or equal the one of the master granting the vote.
+7. Masters don't vote for slaves sending a `configEpoch` that is less than any `configEpoch` in the master table for the slots claimed by the slave. Remember that the slave sends the `configEpoch` of its master, and the bitmap of the slots served by its master. This means that the slave requesting the vote must have a configuration for the slots it wants to failover that is newer or equal the one of the master granting the vote.
 
 Practical example of configuration epoch usefulness during partitions
 ---
 
-This section illustrates how the concept of epoch is used to make the slave promotion process more resistant to partitions.
+This section illustrates how the epoch concept is used to make the slave promotion process more resistant to partitions.
 
 * A master is no longer reachable indefinitely. The master has three slaves A, B, C.
 * Slave A wins the election and is promoted to master.
@@ -896,16 +896,16 @@ This section illustrates how the concept of epoch is used to make the slave prom
 * A partition makes B not available for the majority of the cluster.
 * The previous partition is fixed, and A is available again.
 
-At this point B is down, and A is available again, having a role of master (actually `UPDATE` messages would reconfigure it promptly, but here we assume all get lost). At the same time, slave C will try to get elected in order to fail over B. This is what happens:
+At this point B is down and A is available again with a role of master (actually `UPDATE` messages would reconfigure it promptly, but here we assume all `UPDATE` messages were lost). At the same time, slave C will try to get elected in order to fail over B. This is what happens:
 
 1. B will try to get elected and will succeed, since for the majority of masters its master is actually down. It will obtain a new incremental `configEpoch`.
-2. A will not be able to claim to be the master for its hash slots, because the other nodes already have the same hash slots associated with an higher configuration epoch (the one of B) compared to the one published by A.
+2. A will not be able to claim to be the master for its hash slots, because the other nodes already have the same hash slots associated with a higher configuration epoch (the one of B) compared to the one published by A.
 3. So, all the nodes will upgrade their table to assign the hash slots to C, and the cluster will continue its operations.
 
-As you'll see in the next sections, actually a stale node rejoining a cluster
-will usually get notified as soon as possible about the configuration change, since as soon
-as it pings any other node, the receiver will detect it has stale information
-and will send an `UPDATE` message.
+As you'll see in the next sections, a stale node rejoining a cluster
+will usually get notified as soon as possible about the configuration change
+because as soon as it pings any other node, the receiver will detect it
+has stale information and will send an `UPDATE` message.
 
 Hash slots configuration propagation
 ---
@@ -917,11 +917,11 @@ time to rejoin the cluster in a sensible way.
 
 There are two ways hash slot configurations are propagated:
 
-1. Heartbeat messages. The sender of a ping or pong packet always adds information about the set of hash slots it (or its master, if it is a slave) servers.
-2. `UPDATE` messages. Since in every heartbeat packet there is information about the sender `configEpoch` and set of hash slots served, if a receiver of an heartbeat packet will find the sender information not updated, it will send a packet with the new information, forcing the stale node to update its info.
+1. Heartbeat messages. The sender of a ping or pong packet always adds information about the set of hash slots it (or its master, if it is a slave) serves.
+2. `UPDATE` messages. Since in every heartbeat packet there is information about the sender `configEpoch` and set of hash slots served, if a receiver of a heartbeat packet finds the sender information is stale, it will send a packet with new information, forcing the stale node to update its info.
 
-The receiver of an heartbeat or `UPDATE` message uses certain simple rules in
-order to update its table mapping hash slots to nodes. When a new Redis Cluster node is created, its local hash slot table is simple initialized to `NULL` entries, so that each hash slot is not bound, not linked to any node. Something like the following:
+The receiver of a heartbeat or `UPDATE` message uses certain simple rules in
+order to update its table mapping hash slots to nodes. When a new Redis Cluster node is created, its local hash slot table is simply initialized to `NULL` entries so that each hash slot is not bound or linked to any node. This looks similar to the following:
 
 ```
 0 -> NULL
@@ -933,9 +933,9 @@ order to update its table mapping hash slots to nodes. When a new Redis Cluster 
 
 The first rule followed by a node in order to update its hash slot table is the following:
 
-**Rule 1**: If a hash slot is unassigned (set to `NULL`), and a known node claims it, I'll modify my hash slot table associating the claimed hash slots to it.
+**Rule 1**: If a hash slot is unassigned (set to `NULL`), and a known node claims it, I'll modify my hash slot table and associate the claimed hash slots to it.
 
-So if we receive an heartbeat from node A, claiming to serve hash slots 1 and 2 with a configuration epoch value of 3, the table will be modified into:
+So if we receive a heartbeat from node A claiming to serve hash slots 1 and 2 with a configuration epoch value of 3, the table will be modified to:
 
 ```
 0 -> NULL
@@ -945,25 +945,25 @@ So if we receive an heartbeat from node A, claiming to serve hash slots 1 and 2 
 16383 -> NULL
 ```
 
-Because of this rule, when a new cluster is created, it is only needed to manually assign (using the `CLUSTER ADDSLOTS` command, via the redis-trib command line tool, or by any other mean) the slots served by each master node to the node itself, and the information will rapidly propagate across the cluster.
+When a new cluster is created, a system administrator needs to manually assign (using the `CLUSTER ADDSLOTS` command, via the redis-trib command line tool, or by any other means) the slots served by each master node only to the node itself, and the information will rapidly propagate across the cluster.
 
 However this rule is not enough. We know that hash slot mapping can change
-because of two events:
+during two events:
 
 1. A slave replaces its master during a failover.
 2. A slot is resharded from a node to a different one.
 
-For now let's focus on failovers. When a slave failover its master, it obtains
+For now let's focus on failovers. When a slave fails over its master, it obtains
 a configuration epoch which is guaranteed to be greater than the one of its
 master (and more generally greater than any other configuration epoch
-generated before). For example node B, which is a slave of A, may failover
+generated previously). For example node B, which is a slave of A, may failover
 B with configuration epoch of 4. It will start to send heartbeat packets
-(the first time mass-broadcasting cluster-wide), because of the following
-second rule, receivers will update their tables:
+(the first time mass-broadcasting cluster-wide) and because of the following
+second rule, receivers will update their hash slot tables:
 
 **Rule 2**: If a hash slot is already assigned, and a known node is advertising it using a `configEpoch` that is greater than the `configEpoch` of the master currently associated with the slot, I'll rebind the hash slot to the new node.
 
-So after receiving messages from B that claims to serve hash slots 1 and 2 with configuration epoch of 4, the receivers will update their table in the following way:
+So after receiving messages from B that claim to serve hash slots 1 and 2 with configuration epoch of 4, the receivers will update their table in the following way:
 
 ```
 0 -> NULL
@@ -973,31 +973,31 @@ So after receiving messages from B that claims to serve hash slots 1 and 2 with 
 16383 -> NULL
 ```
 
-Liveness property: because of the second rule eventually all the nodes in the cluster will agree that the owner of a slot is the one with the greatest `configEpoch` among the nodes advertising it.
+Liveness property: because of the second rule, eventually all nodes in the cluster will agree that the owner of a slot is the one with the greatest `configEpoch` among the nodes advertising it.
 
 This mechanism in Redis Cluster is called **last failover wins**.
 
-The same happens during reshardings. When a node importing an hash slot
-ends the import operation, its configuration epoch is incremented to make
-sure the information will be updated in the cluster.
+The same happens during reshardings. When a node importing a hash slot
+completes the import operation, its configuration epoch is incremented to make
+sure the change will be propogated throughout the cluster.
 
 UPDATE messages, a closer look
 ---
 
-With the previous section in mind, it is easy now to check how update messages
+With the previous section in mind, it is easier to see how update messages
 work. Node A may rejoin the cluster after some time. It will send heartbeat
 packets where it claims it serves hash slots 1 and 2 with configuration epoch
-of 3. All the receivers with an updated information will instead see that
+of 3. All the receivers with updated information will instead see that
 the same hash slots are associated with node B having an higher configuration
-epoch. Because of this they'll send to A an `UPDATE` message with the new
+epoch. Because of this they'll send an `UPDATE` message to A with the new
 configuration for the slots. A will update its configuration because of the
 **rule 2** above.
 
 How nodes rejoin the cluster
 ---
 
-The same basic mechanism is also used in order for a node to rejoin a cluster
-in a proper way. Continuing with the example above, node A will be notified
+The same basic mechanism is used when a node rejoins a cluster.
+Continuing with the example above, node A will be notified
 that hash slots 1 and 2 are now served by B. Assuming that these two were
 the only hash slots served by A, the count of hash slots served by A will
 drop to 0! So A will **reconfigure to be a slave of the new master**.
@@ -1007,11 +1007,11 @@ happen that A rejoins after a lot of time, in the meantime it may happen that
 hash slots originally served by A are served by multiple nodes, for example
 hash slot 1 may be served by B, and hash slot 2 by C.
 
-So the actual *Redis Cluster node role switch rule* is: **A master node will change its configuration to replicate (be a slave of) the node that stolen its last hash slot**.
+So the actual *Redis Cluster node role switch rule* is: **A master node will change its configuration to replicate (be a slave of) the node that stole its last hash slot**.
 
-So during the reconfiguration eventually the number of served hash slots will drop to zero, and the node will reconfigure accordingly. Note that in the base case this just means that the old master will be a slave of the slave that replaced it after a failover. However in the general form the rule covers all the possible cases.
+During reconfiguration, eventually the number of served hash slots will drop to zero, and the node will reconfigure accordingly. Note that in the base case this just means that the old master will be a slave of the slave that replaced it after a failover. However in the general form the rule covers all possible cases.
 
-Slaves do exactly the same: they reconfigure to replicate to the node that
+Slaves do exactly the same: they reconfigure to replicate the node that
 stole the last hash slot of its former master.
 
 Replica migration
