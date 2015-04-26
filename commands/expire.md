@@ -137,7 +137,7 @@ Specifically this is what Redis does 10 times per second:
 
 1. Test 20 random keys from the set of keys with an associated expire.
 2. Delete all the keys found expired.
-3. If more than 25 keys were expired, start again from step 1.
+3. If more than 25% of keys were expired, start again from step 1.
 
 This is a trivial probabilistic algorithm, basically the assumption is that our
 sample is representative of the whole key space, and we continue to expire until
