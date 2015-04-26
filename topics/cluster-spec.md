@@ -1019,19 +1019,19 @@ Replica migration
 
 Redis Cluster implements a concept called *replica migration* in order to
 improve the availability of the system. The idea is that in a cluster with
-a master-slave setup, if the map between slaves and masters is fixed there
-is limited availability over time if multiple independent failures of single
+a master-slave setup, if the map between slaves and masters is fixed
+availability is limited over time if multiple independent failures of single
 nodes happen.
 
 For example in a cluster where every master has a single slave, the cluster
 can continue the operations as long the master or the slave fail, but not
-if both fail the same time. However there is a class of failures, that are
+if both fail the same time. However there is a class of failures that are
 the independent failures of single nodes caused by hardware or software issues
 that can accumulate over time. For example:
 
 * Master A has a single slave A1.
 * Master A fails. A1 is promoted as new master.
-* Three hours later A1 fails in an independent manner (not related to the failure of A). No other slave is available for promotion since also node A is still down. The cluster cannot continue normal operations.
+* Three hours later A1 fails in an independent manner (unrelated to the failure of A). No other slave is available for promotion since node A is still down. The cluster cannot continue normal operations.
 
 If the map between masters and slaves is fixed, the only way to make the cluster
 more resistant to the above scenario is to add slaves to every master, however
@@ -1057,57 +1057,57 @@ following:
 Replica migration algorithm
 ---
 
-The migration algorithm does not use any form of agreement, since the slaves
-layout in a Redis Cluster is not part of the cluster configuration that requires
+The migration algorithm does not use any form of agreement since the slave
+layout in a Redis Cluster is not part of the cluster configuration that needs
 to be consistent and/or versioned with config epochs. Instead it uses an
 algorithm to avoid mass-migration of slaves when a master is not backed.
-The algorithm guarantees that eventually, once the cluster configuration is
-stable, every master will be backed by at least one slave.
+The algorithm guarantees that eventually (once the cluster configuration is
+stable) every master will be backed by at least one slave.
 
 This is how the algorithm works. To start we need to define what is a
-*good slave* in this context: a good slave is a slave not in FAIL state
+*good slave* in this context: a good slave is a slave not in `FAIL` state
 from the point of view of a given node.
 
 The execution of the algorithm is triggered in every slave that detects that
 there is at least a single master without good slaves. However among all the
 slaves detecting this condition, only a subset should act. This subset is
 actually often a single slave unless different slaves have in a given moment
-a slightly different vision of the failure state of other nodes.
+a slightly different view of the failure state of other nodes.
 
-The *acting slave* is the slave among the masters having the maximum number
+The *acting slave* is the slave among the masters with the maximum number
 of attached slaves, that is not in FAIL state and has the smallest node ID.
 
 So for example if there are 10 masters with 1 slave each, and 2 masters with
-5 slaves each, the slave that will try to migrate is, among the 2 masters
-having 5 slaves, the one with the lowest node ID. Given that no agreement
+5 slaves each, the slave that will try to migrate is - among the 2 masters
+having 5 slaves - the one with the lowest node ID. Given that no agreement
 is used, it is possible that when the cluster configuration is not stable,
-a race condition occurs where multiple slaves think to be the non-failing
-slave with the lower node ID (but it is a hard to trigger condition in
-practice). If this happens, the result is multiple slaves migrating to the
-same master, which is harmless. If the race happens in a way that will left
+a race condition occurs where multiple slaves believe themselves to be 
+the non-failing slave with the lower node ID (it is unlikely for this to happen
+in practice). If this happens, the result is multiple slaves migrating to the
+same master, which is harmless. If the race happens in a way that will leave
 the ceding master without slaves, as soon as the cluster is stable again
-the algorithm will be re-executed again and will migrate the slave back to
+the algorithm will be re-executed again and will migrate a slave back to
 the original master.
 
-Eventually every master will be backed by at least one slave, however
-normally the behavior is that a single slave migrates from a master with
+Eventually every master will be backed by at least one slave. However,
+the normal behavior is that a single slave migrates from a master with
 multiple slaves to an orphaned master.
 
 The algorithm is controlled by a user-configurable parameter called
-`cluster-migration-barrier`, that is the number of good slaves a master
-will be left with for a slave to migrate. So for example if this parameter
-is set to 2, a slave will try to migrate only if its master remains with
-two working slaves.
+`cluster-migration-barrier`: the number of good slaves a master
+must be left with before a slave can migrate away. For example, if this 
+parameter is set to 2, a slave can try to migrate only if its master remains
+with two working slaves.
 
 configEpoch conflicts resolution algorithm
 ---
 
-When new `configEpoch` values are created via slave promotions during
+When new `configEpoch` values are created via slave promotion during
 failovers, they are guaranteed to be unique.
 
 However there are two distinct events where new configEpoch values are
 created in an unsafe way, just incrementing the local `currentEpoch` of
-the local node, hoping there are no conflicts at the same time.
+the local node and hoping there are no conflicts at the same time.
 Both the events are system-administrator triggered:
 
 1. `CLUSTER FAILOVER` command with `TAKEOVER` option is able to manually promote a slave node into a master *without the majority of masters being available*. This is useful, for example, in multi data center setups.
@@ -1117,35 +1117,35 @@ Specifically, during manual reshardings, when a hash slot is migrated from
 a node A to a node B, the resharding program will force B to upgrade
 its configuration to an epoch which is the greatest found in the cluster,
 plus 1 (unless the node is already the one with the greatest configuration
-epoch), without to require for an agreement from other nodes.
-Usually a real world resharding involves moving several hundred hash slots,
-especially in small clusters, so to require an agreement to generate new
+epoch), without requiring agreement from other nodes.
+Usually a real world resharding involves moving several hundred hash slots
+(especially in small clusters). Requiring an agreement to generate new
 configuration epochs during reshardings, for each hash slot moved, is
-inefficient. Moreover it requires an fsync every time in all the cluster nodes
-in order to store the new configuration. Because of the way it is performed
-instead, we need a new config epoch only when the first hash slot is moved
-usually, making it much more efficient in production environments.
+inefficient. Moreover it requires an fsync in each of the cluster nodes
+every time in order to store the new configuration. Because of the way it is
+performed instead, we only need a new config epoch when the first hash slot is moved, 
+making it much more efficient in production environments.
 
-However because of the two cases above, it is possible, while unlikely, to end
-with multiple nodes having the same configuration epoch (think for example
-a resharding operation performed by the system administrator, and a failover
-happening at the same time, plus a lot of bad luck so that the `currentEpoch`
-is not propagated fast enough to avoid a collision).
+However because of the two cases above, it is possible (though unlikely) to end
+with multiple nodes having the same configuration epoch. A resharding operation
+performed by the system administrator, and a failover happening at the same 
+time (plus a lot of bad luck) could cause the `currentEpoch` collisions if
+they are not propagated fast enough.
 
-Moreover software bugs and filesystem corruptions are other causes that may
-lead to multiple nodes to have the same configuration epoch.
+Moreover, software bugs and filesystem corruptions can also contribute
+to multiple nodes having the same configuration epoch.
 
 When masters serving different hash slots have the same `configEpoch`, there
-are no issues, and we are more interested in making sure slaves
-failing over a master have a different and unique configuration epoch.
+are no issues. It is more important that slaves failing over a master have
+unique configuration epochs.
 
-However manual interventions or more reshardings may change the cluster
+That said, manual interventions or reshardings may change the cluster
 configuration in different ways. The Redis Cluster main liveness property
-is that the slot configurations always converges, so we really want under every
-condition that all the master nodes have a different `configEpoch`.
+requires that slot configurations always converge, so under every circumstance
+we really want all the master nodes to have a different `configEpoch`.
 
-In order to enforce this, **a conflicts resolution algorithm** is used in the
-event that two nodes end with the same `configEpoch`.
+In order to enforce this, **a conflict resolution algorithm** is used in the
+event that two nodes end up with the same `configEpoch`.
 
 * IF a master node detects another master node is advertising itself with
 the same `configEpoch`.
@@ -1155,12 +1155,12 @@ the same `configEpoch`.
 If there are any set of nodes with the same `configEpoch`, all the nodes but the one with the greatest Node ID will move forward, guaranteeing that, eventually, every node will pick a unique configEpoch regardless of what happened.
 
 This mechanism also guarantees that after a fresh cluster is created, all
-nodes start with a different `configEpoch`, even if this is not actually
-used since `redis-trib` makes sure to use `CONFIG SET-CONFIG-EPOCH` at startup.
+nodes start with a different `configEpoch` (even if this is not actually
+used) since `redis-trib` makes sure to use `CONFIG SET-CONFIG-EPOCH` at startup.
 However if for some reason a node is left misconfigured, it will update
 its configuration to a different configuration epoch automatically.
 
-Nodes reset
+Node resets
 ---
 
 Nodes can be software reset (without restarting them) in order to be reused
@@ -1175,10 +1175,10 @@ command is provided in two variants:
 * `CLUSTER RESET SOFT`
 * `CLUSTER RESET HARD`
 
-The command must be sent directly to the node to reset, and the default reset
-type if no explicit type is provided is to perform a soft reset.
+The command must be sent directly to the node to reset. If no reset type is
+provided, a soft reset is performed.
 
-The following is a list of operations performed by reset:
+The following is a list of operations performed by a reset:
 
 1. Soft and hard reset: If the node is a slave, it is turned into a master, and its dataset is discarded. If the node is a master and contains keys the reset operation is aborted.
 2. Soft and hard reset: All the slots are released, and the manual failover state is reset.
@@ -1186,26 +1186,26 @@ The following is a list of operations performed by reset:
 4. Hard reset only: `currentEpoch`, `configEpoch`, and `lastVoteEpoch` are set to 0.
 5. Hard reset only: the Node ID is changed to a new random ID.
 
-Master nodes with non-empty data sets can't be reset (since normally you want to reshard data to the other nodes), however in special conditions when this is appropriate, like when a cluster is totally destroyed in order to create a new one, `FLUSHALL` must be executed before to proceed with the reset.
+Master nodes with non-empty data sets can't be reset (since normally you want to reshard data to the other nodes). However, under special conditions when this is appropriate (e.g. when a cluster is totally destroyed with the intent of creating a new one), `FLUSHALL` must be executed before proceeding with the reset.
 
 Removing nodes from a cluster
 ---
 
 It is possible to practically remove a node from an existing cluster by
-resharding all its data to other nodes (if it is a master node) and finally
-by shutting it down, however the other nodes will still remember its node
+resharding all its data to other nodes (if it is a master node) and
+shutting it down. However, the other nodes will still remember its node
 ID and address, and will attempt to connect with it.
 
-For this reason when a node is removed, we want to also remove its entry
+For this reason, when a node is removed we want to also remove its entry
 from all the other nodes tables. This is accomplished by using the
 `CLUSTER FORGET <node-id>` command.
 
 The command does two things:
 
 1. It removes the node with the specified node ID from the nodes table.
-2. It sets a 60 seconds ban to prevent a node with the same node ID to be re-added.
+2. It sets a 60 second ban which prevents a node with the same node ID from being re-added.
 
-The second operation is needed because Redis Cluster uses gossip in order to auto-discover nodes, so removing the node X from node A, could result into node B to gossip node X to A again. Because of the 60 seconds ban, the Redis Cluster administration tools have 60 seconds in order to remove the node from all the nodes, preventing the re-addition of the node because of auto discovery.
+The second operation is needed because Redis Cluster uses gossip in order to auto-discover nodes, so removing the node X from node A, could result in node B gossiping about node X to A again. Because of the 60 second ban, the Redis Cluster administration tools have 60 seconds in order to remove the node from all the nodes, preventing the re-addition of the node due to auto discovery.
 
 Further information is available in the `CLUSTER FORGET` documentation.
 
@@ -1213,12 +1213,12 @@ Publish/Subscribe
 ===
 
 In a Redis Cluster clients can subscribe to every node, and can also
-publish to every other node. The cluster will make sure that publish
+publish to every other node. The cluster will make sure that published
 messages are forwarded as needed.
 
-The current implementation will simply broadcast all the publish messages
-to all the other nodes, but at some point this will be optimized either
-using bloom filters or other algorithms.
+The current implementation will simply broadcast each published message
+to all other nodes, but at some point this will be optimized either
+using Bloom filters or other algorithms.
 
 Appendix
 ===
