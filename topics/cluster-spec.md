@@ -34,7 +34,7 @@ manual reshardings, multi-key operations may become unavailable for some time
 while single key operations are always available.
 
 Redis Cluster does not support multiple databases like the stand alone version
-of Redis, there is just database 0, and the `SELECT` command is not allowed.
+of Redis. There is just database 0 and the `SELECT` command is not allowed.
 
 Clients and Servers roles in the Redis Cluster protocol
 ---
@@ -84,7 +84,7 @@ writes received in the majority partitions during failures:
 
 The second failure mode is unlikely to happen because master nodes unable to communicate with the majority of the other masters for enough time to be failed over will no longer accept writes, and when the partition is fixed writes are still refused for a small amount of time to allow other nodes to inform about configuration changes. This failure mode also requires that the client's routing table has not yet been updated.
 
-Writes targeting the minority side of a partition has a larger window in which to get lost. For example, Redis Cluster loses a non-trivial number of writes on partitions where there is a minority of masters and at least one or more clients, since all the writes sent to the masters may potentially get lost if the masters are failed over in the majority side.
+Writes targeting the minority side of a partition have a larger window in which to get lost. For example, Redis Cluster loses a non-trivial number of writes on partitions where there is a minority of masters and at least one or more clients, since all the writes sent to the masters may potentially get lost if the masters are failed over in the majority side.
 
 Specifically, for a master to be failed over it must be unreachable by the majority of masters for at least `NODE_TIMEOUT`, so if the partition is fixed before that time, no writes are lost. When the partition lasts for more than `NODE_TIMEOUT`, all the writes performed in the minority side up to that point may be lost. However the minority side of a Redis Cluster will start refusing writes as soon as `NODE_TIMEOUT` time has elapsed without contact with the majority, so there is a maximum window after which the minority becomes no longer available. Hence, no writes are accepted or lost after that time.
 
@@ -114,7 +114,7 @@ Eventually clients obtain an up-to-date representation of the cluster and which 
 
 Because of the use of asynchronous replication, nodes do not wait for other nodes' acknowledgment of writes (if not explicitly requested using the `WAIT` command).
 
-Also, because multiple key commands are only limited to *near* keys, data is never moved between nodes except when resharding.
+Also, because multiple-key commands are only limited to *near* keys, data is never moved between nodes except when resharding.
 
 Normal operations are handled exactly as in the case of a single Redis instance. This means that in a Redis Cluster with N master nodes you can expect the same performance as a single Redis instance multiplied by N as the design scales linearly. At the same time the query is usually performed in a single round trip, since clients usually retain persistent connections with the nodes, so latency figures are also the same as the single standalone Redis node case.
 
@@ -145,7 +145,7 @@ nodes is in the order of ~ 1000 nodes).
 
 Each master node in a cluster handles a subset of the 16384 hash slots.
 The cluster is **stable** when there is no cluster reconfiguration in 
-progress (where hash slots are being moved from one node
+progress (i.e. where hash slots are being moved from one node
 to another). When the cluster is stable, a single hash slot will be
 served by a single node (however the serving node can have one or more
 slaves that will replace it in the case of net splits or failures, 
@@ -544,7 +544,7 @@ Slots migration is explained in similar terms but with different wording
 (for the sake of redundancy in the documentation) in the `CLUSTER SETSLOT`
 command documentation.
 
-Clients first connection and handling of redirections.
+Clients first connection and handling of redirections
 ---
 
 While it is possible to have a Redis Cluster client implementation that does not
@@ -734,7 +734,7 @@ The `PFAIL` flag alone is just local information every node has about other node
 
 As outlined in the node heartbeats section of this document, every node sends gossip messages to every other node including the state of a few random known nodes. Every node eventually receives a set of node flags for every other node. This way every node has a mechanism to signal other nodes about failure conditions they have detected.
 
-A `PFAIL` condition to escalated to a `FAIL` condition when the following set of conditions are met:
+A `PFAIL` condition is escalated to a `FAIL` condition when the following set of conditions are met:
 
 * Some node, that we'll call A, has another node B flagged as `PFAIL`.
 * Node A collected, via gossip sections, information about the state of B from the point of view of the majority of masters in the cluster.
@@ -879,7 +879,7 @@ Master `currentEpoch` is 5, lastVoteEpoch is 1 (this may happen after a few fail
 * Slave tries to be elected with epoch 4 (3+1), master replies with an ok with `currentEpoch` 5, however the reply is delayed.
 * Slave will try to be elected again, at a later time, with epoch 5 (4+1), the delayed reply reaches the slave with `currentEpoch` 5, and is accepted as valid.
 
-4. Masters don't vote for a slave of the same master before `NODE_TIMEOUT * 2` has elapsed of a slave of that master was already voted for. This is not strictly required as it is not possible for two slaves to win the election in the same epoch. However, in practical terms it ensures that when a slave is elected it has plenty of time to inform the other slaves and avoid the possibility that another slave will win a new election, performing an unnecessary second failover.
+4. Masters don't vote for a slave of the same master before `NODE_TIMEOUT * 2` has elapsed if a slave of that master was already voted for. This is not strictly required as it is not possible for two slaves to win the election in the same epoch. However, in practical terms it ensures that when a slave is elected it has plenty of time to inform the other slaves and avoid the possibility that another slave will win a new election, performing an unnecessary second failover.
 5. Masters make no effort to select the best slave in any way. If the slave's master is in `FAIL` state and the master did not vote in the current term, a positive vote is granted. The best slave is the most likely to start an election and win it before the other slaves, since it will usually be able to start the voting process earlier because of its *higher rank* as explained in the previous section.
 6. When a master refuses to vote for a given slave there is no negative response, the request is simply ignored.
 7. Masters don't vote for slaves sending a `configEpoch` that is less than any `configEpoch` in the master table for the slots claimed by the slave. Remember that the slave sends the `configEpoch` of its master, and the bitmap of the slots served by its master. This means that the slave requesting the vote must have a configuration for the slots it wants to failover that is newer or equal the one of the master granting the vote.
@@ -1024,7 +1024,7 @@ availability is limited over time if multiple independent failures of single
 nodes happen.
 
 For example in a cluster where every master has a single slave, the cluster
-can continue the operations as long the master or the slave fail, but not
+can continue operations as long as either the master or the slave fail, but not
 if both fail the same time. However there is a class of failures that are
 the independent failures of single nodes caused by hardware or software issues
 that can accumulate over time. For example:
@@ -1129,7 +1129,7 @@ making it much more efficient in production environments.
 However because of the two cases above, it is possible (though unlikely) to end
 with multiple nodes having the same configuration epoch. A resharding operation
 performed by the system administrator, and a failover happening at the same 
-time (plus a lot of bad luck) could cause the `currentEpoch` collisions if
+time (plus a lot of bad luck) could cause `currentEpoch` collisions if
 they are not propagated fast enough.
 
 Moreover, software bugs and filesystem corruptions can also contribute
