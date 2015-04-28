@@ -336,5 +336,19 @@
     "repository": "https://github.com/josiahcarlson/rom",
     "description": "Redis object mapper for Python using declarative models, with search over numeric, full text, prefix, and suffix indexes",
     "authors": ["josiahcarlson"]
+  },
+  {
+    "name": "huey",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/huey",
+    "description": "Simple multi-threaded Python task queue. Supports Redis.",
+    "authors": ["coleifer"]
+  },
+    {
+    "name": "walrus",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/walrus",
+    "description": "A collection of lightweight utilities for working with Redis in Python. Includes ORM, autocompletion, full-text search, cache, locks, and more.",
+    "authors": ["coleifer"]
   }
 ]
