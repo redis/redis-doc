@@ -90,7 +90,9 @@ So far we covered Redis partitioning in theory, but what about practice? What sy
 Redis Cluster
 ---
 
-Redis Cluster is the preferred way to get automatic sharding and high availability. It is currently not production ready, but finally entered beta stage, so we recommend you to start experimenting with it. You can get more information about Redis Cluster in the [Cluster tutorial](/topics/cluster-tutorial).
+Redis Cluster is the preferred way to get automatic sharding and high availability.
+It is generally available and production-ready as of [April 1st, 2015](https://groups.google.com/d/msg/redis-db/dO0bFyD_THQ/Uoo2GjIx6qgJ).
+You can get more information about Redis Cluster in the [Cluster tutorial](/topics/cluster-tutorial).
 
 Once Redis Cluster will be available, and if a Redis Cluster compliant client is available for your language, Redis Cluster will be the de facto standard for Redis partitioning.
 
