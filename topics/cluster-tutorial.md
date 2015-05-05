@@ -67,7 +67,7 @@ little bandwidth and processing time.
 Redis Cluster data sharding
 ---
 
-Redis Cluster does not use consistency hashing, but a different form of sharding
+Redis Cluster does not use consistent hashing, but a different form of sharding
 where every key is conceptually part of what we call an **hash slot**.
 
 There are 16384 hash slots in Redis Cluster, and to compute what is the hash
