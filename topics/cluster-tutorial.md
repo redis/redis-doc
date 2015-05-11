@@ -792,7 +792,7 @@ the existing cluster.
 
     ./redis-trib.rb add-node 127.0.0.1:7006 127.0.0.1:7000
 
-As you can see I used the **addnode** command specifying the address of the
+As you can see I used the **add-node** command specifying the address of the
 new node as first argument, and the address of a random existing node in the
 cluster as second argument.
 
