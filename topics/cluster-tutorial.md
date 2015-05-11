@@ -153,10 +153,10 @@ are already able to reason about because of past experiences with traditional
 database systems not involving distributed systems. Similarly you can
 improve consistency by forcing the database to flush data on disk before
 replying to the client, but this usually results into prohibitively low
-performances. That would be the equivalent of synchronous replication in
+performance. That would be the equivalent of synchronous replication in
 the case of Redis Cluster.
 
-Basically there is a trade-off to take between performances and consistency.
+Basically there is a trade-off to take between performance and consistency.
 
 Redis Cluster has support for synchronous writes when absolutely needed,
 implemented via the `WAIT` command, this makes losing writes a lot less
