@@ -993,7 +993,7 @@ in order to migrate your data set to Redis Cluster:
 6. Restart your Redis Cluster nodes with the new AOF files. They'll complain that there are keys that should not be there according to their configuration.
 7. Use `redis-trib fix` command in order to fix the cluster so that keys will be migrated according to the hash slots each node is authoritative or not.
 8. Use `redis-trib check` at the end to make sure your cluster is ok.
-9. Restart your clients modified to use a Redis Cluster aware client library.w
+9. Restart your clients modified to use a Redis Cluster aware client library.
 
 There is an alternative way to import data from external instances to a Redis
 Cluster, which is to use the `redis-trib import` command.
