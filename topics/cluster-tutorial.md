@@ -114,7 +114,7 @@ In our example cluster with nodes A, B, C, if node B fails the cluster is not
 able to continue, since we no longer have a way to serve hash slots in the
 range 5501-11000.
 
-However if when the cluster is created (or at a latter time) we add a slave
+However when the cluster is created (or at a latter time) we add a slave
 node to every master, so that the final cluster is composed of A, B, C
 that are masters nodes, and A1, B1, C1 that are slaves nodes, the system is
 able to continue if node B fails.
