@@ -500,7 +500,7 @@ ruby ./example.rb
 ```
 
 This is not a very interesting program and we'll use a better one in a moment
-but we can already try what happens during a resharding when the program
+but we can already see what happens during a resharding when the program
 is running.
 
 Resharding the cluster
