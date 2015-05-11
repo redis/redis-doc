@@ -903,7 +903,7 @@ master to another one automatically, without the help of the system administrato
 The automatic reconfiguration of replicas is called *replicas migration* and is
 able to improve the reliability of a Redis Cluster.
 
-Note: you can read the details of replicas migration in the (Redis Cluster Specification)[/topics/cluster-spec], here we'll only provide some information about the
+Note: you can read the details of replicas migration in the [Redis Cluster Specification](/topics/cluster-spec), here we'll only provide some information about the
 general idea and what you should do in order to benefit from it.
 
 The reason why you may want to let your cluster replicas to move from one master
