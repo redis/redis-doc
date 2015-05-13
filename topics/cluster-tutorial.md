@@ -691,7 +691,7 @@ Now we can look at the output of the consistency test to see what it reported.
 
 As you can see during the failover the system was not able to accept 578 reads and 577 writes, however no inconsistency was created in the database. This may
 sound unexpected as in the first part of this tutorial we stated that Redis
-Cluster can loose writes during the failover because it uses asynchronous
+Cluster can lose writes during the failover because it uses asynchronous
 replication. What we did not say is that this is not very likely to happen
 because Redis sends the reply to the client, and the commands to replicate
 to the slaves, about at the same time, so there is a very small window to
