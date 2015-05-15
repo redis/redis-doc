@@ -147,7 +147,7 @@
     "authors": ["xiam"],
     "active": true
   },
-  
+
   {
     "name": "goredis",
     "language": "Go",
@@ -165,7 +165,7 @@
     "authors": ["keimoon"],
     "active": true
   },
-  
+
   {
     "name": "shipwire/redis",
     "language": "Go",
@@ -417,7 +417,7 @@
     "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
     "authors": ["colinmollenhour"]
   },
-  
+
   {
     "name": "phpish/redis",
     "language": "PHP",
@@ -425,7 +425,7 @@
     "description": "Simple Redis client in PHP",
     "authors": ["sandeepshetty"]
   },
-  
+
   {
     "name": "PHP Sentinel Client",
     "language": "PHP",
@@ -434,7 +434,7 @@
     "authors": ["jamescauwelier"],
     "active": true
   },
-  
+
   {
     "name": "redis-async",
     "language": "PHP",
@@ -504,7 +504,7 @@
     "description": "Redis network scheme for Rebol 3",
     "authors": ["rebolek"]
   },
-  
+
   {
     "name": "scala-redis",
     "language": "Scala",
@@ -555,7 +555,7 @@
     "authors": ["livestream"],
     "active": true
   },
-  
+
   {
     "name": "rediscala",
     "language": "Scala",
@@ -793,7 +793,7 @@
     "authors": ["hmartiros"],
     "active": true
   },
-  
+
   {
     "name": "redis3m",
     "language": "C++",
@@ -878,7 +878,7 @@
     "active": true,
     "recommended": true
   },
-  
+
   {
     "name": "rust-redis",
     "language": "Rust",
@@ -905,7 +905,7 @@
     "authors": ["seancharles"],
     "active": true
   },
-  
+
   {
     "name": "SimpleRedisClient",
     "language": "C++",
@@ -914,7 +914,7 @@
     "authors": ["Levhav"],
     "active": true
   },
-  
+
   {
     "name": "RedisClient",
     "language": "Java",
@@ -923,7 +923,7 @@
     "authors": ["Cao XinYu"],
     "active": true
   },
-  
+
   {
     "name": "redis",
     "language": "Nimrod",
@@ -933,7 +933,7 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "libvmod-redis",
     "language": "VCL",
@@ -942,7 +942,7 @@
     "authors": ["carlosabalde"],
     "active": true
   },
-  
+
   {
     "name": "redisclient",
     "language": "C++",
@@ -990,6 +990,15 @@
     "repository": "https://github.com/mhowlett/Nhiredis",
     "description": "A lightweight wrapper around the C client hiredis.",
     "authors": ["matt_howlett"],
+    "active": true
+  },
+  {
+    "name": "crystal-redis",
+    "language": "Crystal",
+    "repository": "https://github.com/stefanwille/crystal-redis",
+    "description": "Full featured, high performance Redis client for Crystal",
+    "authors": ["stefanwille"],
+    "recommended": true,
     "active": true
   }
 ]
