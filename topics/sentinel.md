@@ -2,10 +2,10 @@ Redis Sentinel Documentation
 ===
 
 Redis Sentinel provides high availability for Redis. In practical terms this
-means that using Senitnel you can create a Redis deployment that resists
+means that using Sentinel you can create a Redis deployment that resists
 without human intervention to certian kind of failures.
 
-Redis Senitnel also provides other collateral tasks such as monitoring,
+Redis Sentinel also provides other collateral tasks such as monitoring,
 notifications and acts as a configuration provider for clients.
 
 This is the full list of Sentinel capabilities at a macroscopical level (i.e. the *big picture*):
