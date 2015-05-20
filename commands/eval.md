@@ -581,7 +581,7 @@ Example:
 ```
 127.0.0.1:6379> eval 'return cmsgpack.pack({"foo", "bar", "baz"})' 0
 "\x93\xa3foo\xa3bar\xa3baz"
-127.0.0.1:6379> eval 'return cmsgpack.unpack(ARGV[1])' 0 "\x93\xa3foo\xa3bar\xa3baz
+127.0.0.1:6379> eval 'return cmsgpack.unpack(ARGV[1])' 0 "\x93\xa3foo\xa3bar\xa3baz"
 1) "foo"
 2) "bar"
 3) "baz"

@@ -29,11 +29,13 @@ task :spellcheck do
     io.puts(File.read("wordlist"))
   end
 
+  errors = false
+
   Dir["**/*.md"].each do |file|
     command = %q{
       ruby -pe 'gsub /^    .*$/, ""' |
       ruby -pe 'gsub /`[^`]+`/, ""' |
-      ruby -e 'puts $stdin.read.gsub /\[([^\]]+)\]\(([^\)]+)\)/m, "\\1"' |
+      ruby -e 'puts $stdin.read.gsub(/\[([^\]]+)\]\(([^\)]+)\)/m, "\\1").gsub(/^```.*```/m, "")' |
       aspell -H -a --extra-dicts=./tmp/dict 2>/dev/null
     }
 
@@ -41,8 +43,13 @@ task :spellcheck do
       line[/^& ([^ ]+)/, 1]
     end.compact
 
-    puts "#{file}: #{words.uniq.sort.join(" ")}" if words.any?
+    if words.size > 0
+      errors = true
+      puts("#{file}: #{words.uniq.sort.join(" ")}")
+    end
   end
+
+  abort("Spelling errors found.") if errors
 end
 
 namespace :format do

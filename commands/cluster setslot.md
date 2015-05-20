@@ -69,9 +69,9 @@ It is important to note that step 3 is the only time when a Redis Cluster node w
 The `CLUSTER SETSLOT` command is an important piece used by Redis Cluster in order to migrate all the keys contained in one hash slot from one node to another. This is how the migration is orchestrated, with the help of other commands as well. We'll call the node that has the current ownership of the hash slot the `source` node, and the node where we want to migrate the `destination` node.
 
 1. Set the destination node slot to *importing* state using `CLUSTER SETSLOT <slot> IMPORTING <source-node-id>`.
-2. Set the source node slot to *migrating* state using `CLUSTER SETSLOT <slot> MIGRATING <source-node-id>`.
+2. Set the source node slot to *migrating* state using `CLUSTER SETSLOT <slot> MIGRATING <destination-node-id>`.
 3. Get keys from the source node with `CLUSTER GETKEYSINSLOT` command and move them into the destination node using the `MIGRATE` command.
-4. Use `CLUSTER SETSLOT <slot> STABLE` in the source, destination, and all the other nodes.
+4. Use `CLUSTER SETSLOT <slot> NODE <destination-node-id>` in the source or destination.
 
 Notes:
 
