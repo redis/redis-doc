@@ -938,7 +938,7 @@ So what you should know about replicas migration in short?
 
 * The cluster will try to migrate a replica from the master that has the greatest number of replicas in a given moment.
 * To benefit from replica migration you have just to add a few more replicas to a single master in your cluster, it does not matter what master.
-* There is a configuration parameter that controls the replica migration feature that is called `replica-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
+* There is a configuration parameter that controls the replica migration feature that is called `cluster-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
 
 Upgrading nodes in a Redis Cluster
 ---
