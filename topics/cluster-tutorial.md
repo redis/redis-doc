@@ -357,7 +357,7 @@ I'm aware of the following implementations:
 * [thunk-redis](https://github.com/thunks/thunk-redis) offers support for Node.js and io.js, it is a thunk/promise-based redis client with pipelining and cluster.
 * The `redis-cli` utility in the unstable branch of the Redis repository at GitHub implements a very basic cluster support when started with the `-c` switch.
 
-An easy way to test Redis Cluster is either to try and of the above clients
+An easy way to test Redis Cluster is either to try any of the above clients
 or simply the `redis-cli` command line utility. The following is an example
 of interaction using the latter:
 
