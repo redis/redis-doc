@@ -12,22 +12,23 @@ The following options are supported:
      -h <hostname>      Server hostname (default 127.0.0.1)
      -p <port>          Server port (default 6379)
      -s <socket>        Server socket (overrides host and port)
+     -a <password>      Password for Redis Auth
      -c <clients>       Number of parallel connections (default 50)
-     -n <requests>      Total number of requests (default 10000)
+     -n <requests>      Total number of requests (default 100000)
      -d <size>          Data size of SET/GET value in bytes (default 2)
+     -dbnum <db>        SELECT the specified db number (default 0)
      -k <boolean>       1=keep alive 0=reconnect (default 1)
      -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
-      Using this option the benchmark will get/set keys
-      in the form mykey_rand:000000012456 instead of constant
-      keys, the <keyspacelen> argument determines the max
-      number of values for the random number. For instance
-      if set to 10 only rand:000000000000 - rand:000000000009
-      range will be allowed.
+      Using this option the benchmark will expand the string __rand_int__
+      inside an argument with a 12 digits number in the specified range
+      from 0 to keyspacelen-1. The substitution changes every time a command
+      is executed. Default tests use this to hit random keys in the
+      specified range.
      -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
      -q                 Quiet. Just show query/sec values
      --csv              Output in CSV format
      -l                 Loop. Run the tests forever
-     -t <tests>         Only run the comma-separated list of tests. The test
+     -t <tests>         Only run the comma separated list of tests. The test
                         names are the same as the ones produced as output.
      -I                 Idle mode. Just open N idle connections and wait.
 
@@ -124,7 +125,7 @@ in account.
 
 + Redis is a server: all commands involve network or IPC round trips. It is
 meaningless to compare it to embedded data stores such as SQLite, Berkeley DB,
-Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is 
+Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is
 primarily in network/protocol management.
 + Redis commands return an acknowledgment for all usual commands. Some other
 data stores do not (for instance MongoDB does not implicitly acknowledge write
