@@ -8,7 +8,7 @@ without any window for data loss. It works in the following way:
 
 1. The slave tells the master to stop processing queries from clients.
 2. The master replies to the slave with the current *replication offset*.
-3. The slave waits for the replication offset to match on its side, to make sure it processed all the data from the slave before to continue.
+3. The slave waits for the replication offset to match on its side, to make sure it processed all the data from the master before it continues.
 4. The slave starts a failover, obtains a new configuration epoch from the majority of the masters, and broadcast the new configuration.
 5. The old master receives the configuration update: unblocks its clients and start replying with redirection messages so that they'll continue the chat with the new master.
 
