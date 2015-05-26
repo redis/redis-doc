@@ -37,7 +37,7 @@ for this is to mass promote slaves in a different data center to masters
 in order to perform a data center switch, while all the masters are down
 or partitioned away.
 
-For **TAKEOVER** option implies everything **FORCE** implies, but also does
+The **TAKEOVER** option implies everything **FORCE** implies, but also does
 not uses any cluster authorization in order to failover. A slave receiving
 `CLUSTER FAILOVER TAKEOVER` will instead:
 
