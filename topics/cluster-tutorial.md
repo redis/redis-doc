@@ -576,8 +576,8 @@ line like the following:
 
     ./redis-trib.rb reshard <host>:<port> --from <node-id> --to <node-id> --slots --yes
 
-This allows to build some automatism if you are likely to reshard often
-however currently, there is no way for `redis-trib` to automatically
+This allows to build some automatism if you are likely to reshard often,
+however currently there is no way for `redis-trib` to automatically
 rebalance the cluster checking the distribution of keys across the cluster
 nodes and intelligently moving slots as needed. This feature will be added
 in the future.
