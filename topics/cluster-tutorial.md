@@ -357,7 +357,7 @@ I'm aware of the following implementations:
 * [thunk-redis](https://github.com/thunks/thunk-redis) offers support for Node.js and io.js, it is a thunk/promise-based redis client with pipelining and cluster.
 * The `redis-cli` utility in the unstable branch of the Redis repository at GitHub implements a very basic cluster support when started with the `-c` switch.
 
-An easy way to test Redis Cluster is either to try and of the above clients
+An easy way to test Redis Cluster is either to try any of the above clients
 or simply the `redis-cli` command line utility. The following is an example
 of interaction using the latter:
 
@@ -576,8 +576,8 @@ line like the following:
 
     ./redis-trib.rb reshard <host>:<port> --from <node-id> --to <node-id> --slots --yes
 
-This allows to build some automatism if you are likely to reshard often
-however currently, there is no way for `redis-trib` to automatically
+This allows to build some automatism if you are likely to reshard often,
+however currently there is no way for `redis-trib` to automatically
 rebalance the cluster checking the distribution of keys across the cluster
 nodes and intelligently moving slots as needed. This feature will be added
 in the future.
@@ -903,7 +903,7 @@ master to another one automatically, without the help of the system administrato
 The automatic reconfiguration of replicas is called *replicas migration* and is
 able to improve the reliability of a Redis Cluster.
 
-Note: you can read the details of replicas migration in the (Redis Cluster Specification)[/topics/cluster-spec], here we'll only provide some information about the
+Note: you can read the details of replicas migration in the [Redis Cluster Specification](/topics/cluster-spec), here we'll only provide some information about the
 general idea and what you should do in order to benefit from it.
 
 The reason why you may want to let your cluster replicas to move from one master
@@ -938,7 +938,7 @@ So what you should know about replicas migration in short?
 
 * The cluster will try to migrate a replica from the master that has the greatest number of replicas in a given moment.
 * To benefit from replica migration you have just to add a few more replicas to a single master in your cluster, it does not matter what master.
-* There is a configuration parameter that controls the replica migration feature that is called `replica-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
+* There is a configuration parameter that controls the replica migration feature that is called `cluster-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
 
 Upgrading nodes in a Redis Cluster
 ---

@@ -8,7 +8,7 @@ without any window for data loss. It works in the following way:
 
 1. The slave tells the master to stop processing queries from clients.
 2. The master replies to the slave with the current *replication offset*.
-3. The slave waits for the replication offset to match on its side, to make sure it processed all the data from the slave before to continue.
+3. The slave waits for the replication offset to match on its side, to make sure it processed all the data from the master before it continues.
 4. The slave starts a failover, obtains a new configuration epoch from the majority of the masters, and broadcast the new configuration.
 5. The old master receives the configuration update: unblocks its clients and start replying with redirection messages so that they'll continue the chat with the new master.
 
@@ -37,7 +37,7 @@ for this is to mass promote slaves in a different data center to masters
 in order to perform a data center switch, while all the masters are down
 or partitioned away.
 
-For **TAKEOVER** option implies everything **FORCE** implies, but also does
+The **TAKEOVER** option implies everything **FORCE** implies, but also does
 not uses any cluster authorization in order to failover. A slave receiving
 `CLUSTER FAILOVER TAKEOVER` will instead:
 
