@@ -2262,6 +2262,22 @@
     "since": "2.2.0",
     "group": "transactions"
   },
+  "WAIT": {
+    "summary": "Wait for the synchronous replication of all the write commands sent in the context of the current connection",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "numslaves",
+        "type": "integer"
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "generic"
+  },
   "WATCH": {
     "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
     "complexity": "O(1) for every key.",
