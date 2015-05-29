@@ -10,6 +10,17 @@ members is created, like if the sorted set was empty. If the key exists but does
 
 The score values should be the string representation of a double precision floating point number. `+inf` and `-inf` values are valid values as well.
 
+ZADD options (Redis 3.0.2 or greater)
+---
+
+ZADD supports a list of options, specified after the name of the key and before
+the first score argument. Options are:
+
+* **XX**: Only update elements that already exist. Never add elements.
+* **NX**: Don't update already existing elements. Always add new elements.
+* **CH**: Modify the return value from the number of new elements added, to the total number of elements changed (CH is an abbreviation of *changed*). Changed elements are **new elements added** and elements already existing for which **the score was updated**. So elements specified in the command line having the same score as they had in the past are not counted. Note: normally the return value of `ZADD` only counts the number of new elements added.
+* **INCR**: When this option is specified `ZADD` acts like `ZINCRBY`. Only one score-element pair can be specified in this mode.
+
 Range of integer scores that can be expressed precisely
 ---
 

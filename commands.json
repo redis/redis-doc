@@ -2300,6 +2300,12 @@
         "type": "key"
       },
       {
+        "name": "options",
+        "type": "enum",
+        "enum": ["NX","XX","CH","INCR"],
+        "optional": true
+      },
+      {
         "name": ["score", "member"],
         "type": ["double", "string"],
         "multiple": true
