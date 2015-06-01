@@ -3,7 +3,7 @@ Redis Sentinel Documentation
 
 Redis Sentinel provides high availability for Redis. In practical terms this
 means that using Sentinel you can create a Redis deployment that resists
-without human intervention to certian kind of failures.
+without human intervention to certain kind of failures.
 
 Redis Sentinel also provides other collateral tasks such as monitoring,
 notifications and acts as a configuration provider for clients.
@@ -28,8 +28,8 @@ Sentinel itself is designed to run in a configuration where there are multiple S
 The sum of Sentinels, Redis instances (masters and slaves) and clients
 connecting to Sentinel and Redis, are also a larger distributed system with
 specific properties. In this document concepts will be introduced gradually
-starting from basic informations needed in order to understand the basic
-properties of Sentinel, to more complex informations (that are optional) in
+starting from basic information needed in order to understand the basic
+properties of Sentinel, to more complex information (that are optional) in
 order to understand how exactly Sentinel works.
 
 Quick Start
@@ -45,7 +45,7 @@ algorithms (that are explained in this documentation).
 A stable release of Redis Sentinel is shipped with Redis 2.8 and 3.0, which are
 the two latest stable releases of Redis.
 
-New developments are performed in the *unstable* branch, and new features 
+New developments are performed in the *unstable* branch, and new features
 sometimes are back ported into the 2.8 and 3.0 branch as soon as they are
 considered to be stable.
 
@@ -127,7 +127,7 @@ that is at address 127.0.0.1 and port 6379, with a quorum of 2. Everything
 is pretty obvious but the **quorum** argument:
 
 * The **quorum** is the number of Sentinels that need to agree about the fact the master is not reachable, in order for really mark the slave as failing, and eventually start a fail over procedure if possible.
-* However **the quorum is only used to detect the failure**. In order to actually perform a failover, one of the Sentinels need to be elected leader for the failover and be authorized to proceed. This only happens with the vote of the **majority of the Sentienl processes**.
+* However **the quorum is only used to detect the failure**. In order to actually perform a failover, one of the Sentinels need to be elected leader for the failover and be authorized to proceed. This only happens with the vote of the **majority of the Sentinel processes**.
 
 So for example if you have 5 Sentinel processes, and the quorum for a given
 master set to the value of 2, this is what happens:
@@ -135,7 +135,7 @@ master set to the value of 2, this is what happens:
 * If two Sentinels agree at the same time about the master being unreachable, one of the two will try to start a failover.
 * If there are at least a total of three Sentinels reachable, the failover will be authorized and will actually start.
 
-In practical terms this means during failures **Sentinel never starts a failover if the majority of Setinel processes are unable to talk** (aka no failover in the minority partition).
+In practical terms this means during failures **Sentinel never starts a failover if the majority of Sentinel processes are unable to talk** (aka no failover in the minority partition).
 
 Other Sentinel options
 ---
@@ -177,7 +177,7 @@ format, this is what the different symbols means:
     +--------------------+
     | This is a computer |
     | or VM that fails   |
-    | indepenedently. We |
+    | independently. We |
     | call it a "box"    |
     +--------------------+
 
@@ -236,7 +236,7 @@ In the above configuration we created two masters (assuming S2 could failover
 without authorization) in a perfectly symmetrical way. Clients may write
 indefinitely to both sides, and there is no way to understand when the
 partition heals what configuration is the right one, in order to prevent
-a *permanent split brian condition*.
+a *permanent split brain condition*.
 
 So please **deploy at least three Sentinels in three different boxes** always.
 
@@ -365,7 +365,7 @@ case we need to resort to a mixed setup like the following:
                           |
                    +------+-----+
                    |            |  
-                   |            | 
+                   |            |
                 +----+        +----+
                 | C1 |        | C2 |
                 | S3 |        | S4 |
@@ -516,7 +516,7 @@ two commands:
     SENTINEL slaves mymaster
     SENTINEL sentinels mymaster
 
-The first will provide similar informations about the slaves connected to the
+The first will provide similar information about the slaves connected to the
 master, and the second about the other Sentinels.
 
 Obtaining the address of the current master
@@ -594,7 +594,7 @@ order to modify the Sentinel configuration, which are covered later.
 * **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted slave.
 * **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every slave and sentinel already discovered and associated with the master.
 * **SENTINEL failover `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
-* **SENTINEL ckquorum `<master name>`** Check if the current Sentinel configuraiton is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
+* **SENTINEL ckquorum `<master name>`** Check if the current Sentinel configuration is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
 * **SENTINEL flushconfig** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
 
 Reconfiguring Sentinel at Runtime
@@ -739,7 +739,7 @@ and Sentinel uses it in order to pick a slave among the ones that can be
 used in order to failover a master:
 
 1. If the slave priority is set to 0, the slave is never promoted to master.
-2. Slaves with a *lower* priority number are prefredded by Sentinel.
+2. Slaves with a *lower* priority number are preferred by Sentinel.
 
 For example if there is a slave S1 in the same data center of the current
 master, and another slave S2 in another data center, it is possible to set
