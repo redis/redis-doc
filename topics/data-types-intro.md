@@ -1011,11 +1011,10 @@ same:
 * Every time you see a new element, you add it to the count with `PFADD`.
 * Every time you want to retrieve the current approximation of the unique elements *added* with `PFADD` so far, you use the `PFCOUNT`.
 
-
-    > pfadd hll a b c d
-    (integer) 1
-    > pfcount hll
-    (integer) 4
+        > pfadd hll a b c d
+        (integer) 1
+        > pfcount hll
+        (integer) 4
 
 An example of use case for this data structure is counting unique queries
 performed by users in a search form every day.
