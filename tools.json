@@ -336,5 +336,13 @@
     "repository": "https://github.com/josiahcarlson/rom",
     "description": "Redis object mapper for Python using declarative models, with search over numeric, full text, prefix, and suffix indexes",
     "authors": ["josiahcarlson"]
+  },
+  {
+    "name": "Hangfire",
+    "language": "C#",
+    "url": "http://hangfire.io",
+    "repository": "https://github.com/HangfireIO/Hangfire",
+    "description": "An easy way to perform fire-and-forget, delayed and recurring tasks inside ASP.NET apps",
+    "authors": ["odinserj"]
   }
 ]
