@@ -2,7 +2,6 @@
   {
     "name": "redis-rb",
     "language": "Ruby",
-    "url": "http://redis-rb.keyvalue.org",
     "repository": "https://github.com/redis/redis-rb",
     "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
     "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
@@ -24,7 +23,7 @@
     "language": "Clojure",
     "repository": "https://github.com/ztellman/aleph",
     "description": "Redis client build on top of lamina",
-    "authors":["Zach Tellman"],
+    "authors": ["ztellman"],
     "active": true
   },
   {
@@ -60,7 +59,7 @@
     "language": "Erlang",
     "repository": "https://github.com/jeremyong/sharded_eredis",
     "description": "Wrapper around eredis providing process pools and consistent hashing.",
-    "authors": ["jeremyong", "hiroeorz"],
+    "authors": ["jeremyong"],
     "active": true
   },
 
@@ -134,7 +133,7 @@
     "language": "Go",
     "repository": "https://github.com/simonz05/godis",
     "description": "A Redis client for Go.",
-    "authors": ["simonz05"],
+    "authors": [],
     "active": true
   },
 
@@ -147,7 +146,7 @@
     "authors": ["xiam"],
     "active": true
   },
-  
+
   {
     "name": "goredis",
     "language": "Go",
@@ -165,7 +164,7 @@
     "authors": ["keimoon"],
     "active": true
   },
-  
+
   {
     "name": "shipwire/redis",
     "language": "Go",
@@ -189,8 +188,8 @@
   {
     "name": "haskell-redis",
     "language": "Haskell",
-    "url": "http://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
-    "repository": "http://bitbucket.org/videlalvaro/redis-haskell/src",
+    "url": "https://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
+    "repository": "https://bitbucket.org/videlalvaro/redis-haskell/src",
     "description": "Not actively maintained, supports Redis <= 2.0.",
     "authors": ["old_sound"]
   },
@@ -218,7 +217,7 @@
   {
     "name": "JRedis",
     "language": "Java",
-    "url": "http://code.google.com/p/jredis",
+    "url": "https://code.google.com/p/jredis/",
     "repository": "https://github.com/alphazero/jredis",
     "description": "",
     "authors": ["SunOf27"],
@@ -228,8 +227,8 @@
   {
     "name": "JDBC-Redis",
     "language": "Java",
-    "url": "http://code.google.com/p/jdbc-redis",
-    "repository": "http://code.google.com/p/jdbc-redis/source/browse",
+    "url": "https://code.google.com/p/jdbc-redis/",
+    "repository": "https://code.google.com/p/jdbc-redis/source/browse",
     "description": "",
     "authors": ["mavcunha"]
   },
@@ -289,8 +288,8 @@
   {
     "name": "Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/Redis",
-    "repository": "https://github.com/melo/perl-redis",
+    "url": "http://search.cpan.org/dist/Redis/",
+    "repository": "https://github.com/PerlRedis/perl-redis",
     "description": "Perl binding for Redis database",
     "authors": ["pedromelo"],
     "recommended": true,
@@ -300,7 +299,7 @@
   {
     "name": "RedisDB",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/RedisDB",
+    "url": "http://search.cpan.org/dist/RedisDB/",
     "repository": "https://github.com/trinitum/RedisDB",
     "description": "Perl binding for Redis database with fast XS-based protocolparser",
     "authors": ["trinitum"],
@@ -319,7 +318,7 @@
   {
     "name": "AnyEvent::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Redis",
+    "url": "http://search.cpan.org/dist/AnyEvent-Redis/",
     "repository": "https://github.com/miyagawa/AnyEvent-Redis",
     "description": "Non-blocking Redis client",
     "authors": ["miyagawa"]
@@ -328,7 +327,7 @@
   {
     "name": "AnyEvent::Redis::RipeRedis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Redis-RipeRedis",
+    "url": "http://search.cpan.org/dist/AnyEvent-Redis-RipeRedis/",
     "repository": "https://github.com/iph0/AnyEvent-Redis-RipeRedis",
     "description": "Flexible non-blocking Redis client with reconnect feature",
     "authors": ["iph"],
@@ -338,7 +337,7 @@
   {
     "name": "AnyEvent::Hiredis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Hiredis",
+    "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
     "repository": "https://github.com/wjackson/AnyEvent-Hiredis",
     "description": "Non-blocking client using the hiredis C library",
     "authors": [],
@@ -348,7 +347,7 @@
   {
     "name": "Mojo::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/Mojo-Redis",
+    "url": "http://search.cpan.org/dist/Mojo-Redis/",
     "repository": "https://github.com/marcusramberg/mojo-redis",
     "description": "asynchronous Redis client for Mojolicious",
     "authors": ["und3f", "marcusramberg", "jhthorsen"],
@@ -358,7 +357,7 @@
   {
     "name": "Danga::Socket::Redis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/Danga-Socket-Redis",
+    "url": "http://search.cpan.org/dist/Danga-Socket-Redis/",
     "description": "An asynchronous redis client using the Danga::Socket async library",
     "authors": ["martinredmond"]
   },
@@ -417,7 +416,7 @@
     "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
     "authors": ["colinmollenhour"]
   },
-  
+
   {
     "name": "phpish/redis",
     "language": "PHP",
@@ -425,16 +424,16 @@
     "description": "Simple Redis client in PHP",
     "authors": ["sandeepshetty"]
   },
-  
+
   {
     "name": "PHP Sentinel Client",
     "language": "PHP",
-    "repository": "https://github.com/Sparkcentral/php-redis-sentinel",
+    "repository": "https://github.com/Sparkcentral/PSRedis",
     "description": "A PHP sentinel client acting as an extension to your regular redis client",
     "authors": ["jamescauwelier"],
     "active": true
   },
-  
+
   {
     "name": "redis-async",
     "language": "PHP",
@@ -465,7 +464,7 @@
   {
     "name": "txredis",
     "language": "Python",
-    "url": "http://pypi.python.org/pypi/txredis/0.1.1",
+    "url": "https://pypi.python.org/pypi/txredis",
     "description": "",
     "authors": ["dio_rian"]
   },
@@ -504,7 +503,7 @@
     "description": "Redis network scheme for Rebol 3",
     "authors": ["rebolek"]
   },
-  
+
   {
     "name": "scala-redis",
     "language": "Scala",
@@ -528,7 +527,7 @@
     "language": "Scala",
     "repository": "https://github.com/andreyk0/redis-client-scala-netty",
     "description": "",
-    "authors": [""]
+    "authors": []
   },
   {
     "name": "sedis",
@@ -555,7 +554,7 @@
     "authors": ["livestream"],
     "active": true
   },
-  
+
   {
     "name": "rediscala",
     "language": "Scala",
@@ -604,7 +603,7 @@
   {
     "name": "Sider",
     "language": "C#",
-    "url": "http://nuget.org/List/Packages/Sider",
+    "url": "http://www.nuget.org/packages/Sider",
     "description": "Minimalistic client for C#/.NET 4.0",
     "authors": ["chakrit"]
   },
@@ -622,8 +621,8 @@
   {
     "name": "hxneko-redis",
     "language": "haXe",
-    "url": "http://code.google.com/p/hxneko-redis",
-    "repository": "http://code.google.com/p/hxneko-redis/source/browse",
+    "url": "https://code.google.com/p/hxneko-redis/",
+    "repository": "https://code.google.com/p/hxneko-redis/source/browse",
     "description": "",
     "authors": []
   },
@@ -657,9 +656,9 @@
   {
     "name": "credis",
     "language": "C",
-    "repository": "http://code.google.com/p/credis/source/browse",
+    "repository": "https://code.google.com/p/credis/source/browse",
     "description": "",
-    "authors": [""],
+    "authors": [],
     "active": true
   },
 
@@ -695,7 +694,7 @@
   {
     "name": "then-redis",
     "language": "Node.js",
-    "repository": "https://github.com/mjijackson/then-redis",
+    "repository": "https://github.com/mjackson/then-redis",
     "description": "A small, promise-based Redis client for node",
     "authors": ["mjackson"],
     "active": true
@@ -706,7 +705,7 @@
     "language": "Node.js",
     "repository": "https://github.com/fictorial/redis-node-client",
     "description": "No longer maintained, does not work with node 0.3.",
-    "authors": ["fictorial"]
+    "authors": []
   },
 
   {
@@ -793,7 +792,7 @@
     "authors": ["hmartiros"],
     "active": true
   },
-  
+
   {
     "name": "redis3m",
     "language": "C++",
@@ -821,7 +820,7 @@
   {
     "name": "eredis",
     "language": "emacs lisp",
-    "repository": "http://code.google.com/p/eredis",
+    "repository": "https://code.google.com/p/eredis/",
     "description": "Full Redis API plus ways to pull Redis data into an org-mode table and push it back when edited",
     "authors": ["justinhj"]
   },
@@ -829,7 +828,7 @@
   {
     "name": "Tiny Redis",
     "language": "D",
-    "url": "http://adilbaig.github.com/Tiny-Redis/",
+    "url": "http://adilbaig.github.io/Tiny-Redis/",
     "repository": "https://github.com/adilbaig/Tiny-Redis",
     "description": "A Redis client for D2. Supports pipelining, transactions and Lua scripting",
     "authors": ["aidezigns"]
@@ -878,7 +877,7 @@
     "active": true,
     "recommended": true
   },
-  
+
   {
     "name": "rust-redis",
     "language": "Rust",
@@ -905,7 +904,7 @@
     "authors": ["seancharles"],
     "active": true
   },
-  
+
   {
     "name": "SimpleRedisClient",
     "language": "C++",
@@ -914,26 +913,26 @@
     "authors": ["Levhav"],
     "active": true
   },
-  
+
   {
     "name": "RedisClient",
     "language": "Java",
     "repository": "https://github.com/caoxinyu/RedisClient",
     "description": "redis client GUI tool",
-    "authors": ["Cao XinYu"],
-    "active": true
-  },
-  
-  {
-    "name": "redis",
-    "language": "Nimrod",
-    "repository": "https://github.com/Araq/Nimrod",
-    "url": "http://nimrod-lang.org/redis.html",
-    "description": "Redis client for Nimrod",
     "authors": [],
     "active": true
   },
-  
+
+  {
+    "name": "redis",
+    "language": "Nim",
+    "repository": "https://github.com/Araq/Nim",
+    "url": "http://nim-lang.org/docs/redis.html",
+    "description": "Redis client for Nim",
+    "authors": [],
+    "active": true
+  },
+
   {
     "name": "libvmod-redis",
     "language": "VCL",
@@ -942,7 +941,7 @@
     "authors": ["carlosabalde"],
     "active": true
   },
-  
+
   {
     "name": "redisclient",
     "language": "C++",
@@ -955,8 +954,8 @@
   {
     "name": "redis-octave",
     "language": "Matlab",
-    "repository": "https://github.com/markuman/redis-octave",
-    "description": "A Redis client in pure Octave ",
+    "repository": "https://github.com/markuman/go-redis",
+    "description": "A Redis client in pure Octave",
     "authors": ["markuman"]
   },
 
@@ -973,7 +972,7 @@
     "language": "Dart",
     "url": "https://github.com/ra1u/redis-dart",
     "description": "Simple and fast client",
-    "authors": ["Luka Rahne"],
+    "authors": [],
     "active": true
   },
 
