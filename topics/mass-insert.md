@@ -41,7 +41,7 @@ as fast as possible. In the past the way to do this was to use the
 
 However this is not a very reliable way to perform mass import because netcat
 does not really know when all the data was transferred and can't check for
-errors. At 3.0.0 or higher version of Redis the `redis-cli` utility
+errors. 2.6 or higher version of Redis the `redis-cli` utility
 supports a new mode called **pipe mode** that was designed in order to perform
 mass insertion.
 
