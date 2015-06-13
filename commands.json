@@ -2300,19 +2300,19 @@
         "type": "key"
       },
       {
-        "name": "options1",
+        "name": "condition",
         "type": "enum",
         "enum": ["NX","XX"],
         "optional": true
       },
       {
-        "name": "options2",
+        "name": "change",
         "type": "enum",
         "enum": ["CH"],
         "optional": true
       },
       {
-        "name": "options3",
+        "name": "increment",
         "type": "enum",
         "enum": ["INCR"],
         "optional": true
