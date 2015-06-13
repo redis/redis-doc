@@ -2300,9 +2300,21 @@
         "type": "key"
       },
       {
-        "name": "options",
+        "name": "options1",
         "type": "enum",
-        "enum": ["NX","XX","CH","INCR"],
+        "enum": ["NX","XX"],
+        "optional": true
+      },
+      {
+        "name": "options2",
+        "type": "enum",
+        "enum": ["CH"],
+        "optional": true
+      },
+      {
+        "name": "options3",
+        "type": "enum",
+        "enum": ["INCR"],
         "optional": true
       },
       {
