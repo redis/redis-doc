@@ -62,9 +62,7 @@ OK
 All Redis commands must be analyzed before execution to determine which
 keys the command will operate on.  In order for this to be true for `EVAL`, keys must be passed explicitly.
 This is useful in many ways, but especially to make sure Redis Cluster
-can forward your request to the appropriate cluster node (Redis Cluster
-is a work in progress, but the scripting feature was designed in order to play
-well with it).
+can forward your request to the appropriate cluster node.
 
 Note this rule is not enforced in order to provide the user with
 opportunities to abuse the Redis single instance configuration, at the cost of
