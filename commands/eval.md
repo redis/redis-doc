@@ -9,7 +9,7 @@ It is just a Lua program that will run in the context of the Redis server.
 
 The second argument of `EVAL` is the number of arguments that follows the script
 (starting from the third argument) that represent Redis key names.
-This arguments can be accessed by Lua using the !`KEYS` global variable in the
+This arguments can be accessed by Lua using the `!KEYS` global variable in the
 form of a one-based array (so `KEYS[1]`, `KEYS[2]`, ...).
 
 All the additional arguments should not represent key names and can be accessed
