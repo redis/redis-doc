@@ -52,7 +52,7 @@ OK
 
 The above script sets the key `foo` to the string `bar`.
 However it violates the `EVAL` command semantics as all the keys that the script
-uses should be passed using the !`KEYS` array:
+uses should be passed using the `!KEYS` array:
 
 ```
 > eval "return redis.call('set',KEYS[1],'bar')" 1 foo
