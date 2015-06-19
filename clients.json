@@ -462,6 +462,16 @@
   },
 
   {
+    "name": "pyredis",
+    "language": "Python",
+    "repository": "https://github.com/schlitzered/pyredis",
+    "description": "Python Client with support for Redis Cluster. Currently only Python 3 is supported.",
+    "authors": ["schlitzered"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
     "name": "txredis",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/txredis",
