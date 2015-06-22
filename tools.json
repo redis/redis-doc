@@ -336,5 +336,13 @@
     "repository": "https://github.com/josiahcarlson/rom",
     "description": "Redis object mapper for Python using declarative models, with search over numeric, full text, prefix, and suffix indexes",
     "authors": ["josiahcarlson"]
+  },
+  {
+    "name": "redis_builder",
+    "language": "C++",
+    "url": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
+    "repository": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
+    "description": "A C++ redis tool to create and manage a redis cluster, basing on acl redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "authors": ["zhengshuxin"]
   }
 ]
