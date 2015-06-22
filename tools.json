@@ -336,5 +336,13 @@
     "repository": "https://github.com/josiahcarlson/rom",
     "description": "Redis object mapper for Python using declarative models, with search over numeric, full text, prefix, and suffix indexes",
     "authors": ["josiahcarlson"]
+  },
+  {
+    "name": "RedisKeychain",
+    "language": "Javascript",
+    "url": "https://github.com/adriano-di-giovanni/node-redis-keychain",
+    "repository": "https://github.com/adriano-di-giovanni/node-redis-keychain",
+    "description": "A Node.js library for streamlining the configuration and maintenance of your Redis namespace",
+    "authors": ["codecreativity"]
   }
 ]
