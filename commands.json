@@ -2300,9 +2300,21 @@
         "type": "key"
       },
       {
-        "name": "options",
+        "name": "condition",
         "type": "enum",
-        "enum": ["NX","XX","CH","INCR"],
+        "enum": ["NX","XX"],
+        "optional": true
+      },
+      {
+        "name": "change",
+        "type": "enum",
+        "enum": ["CH"],
+        "optional": true
+      },
+      {
+        "name": "increment",
+        "type": "enum",
+        "enum": ["INCR"],
         "optional": true
       },
       {

@@ -3,7 +3,7 @@ selected one.
 This command never fails.
 
 The time-complexity for this operation is O(N), N being the number of
-keys in the database.
+keys in all existing databases.
 
 @return
 

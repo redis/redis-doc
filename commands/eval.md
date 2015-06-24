@@ -9,7 +9,7 @@ It is just a Lua program that will run in the context of the Redis server.
 
 The second argument of `EVAL` is the number of arguments that follows the script
 (starting from the third argument) that represent Redis key names.
-This arguments can be accessed by Lua using the `KEYS` global variable in the
+This arguments can be accessed by Lua using the `!KEYS` global variable in the
 form of a one-based array (so `KEYS[1]`, `KEYS[2]`, ...).
 
 All the additional arguments should not represent key names and can be accessed
@@ -52,7 +52,7 @@ OK
 
 The above script sets the key `foo` to the string `bar`.
 However it violates the `EVAL` command semantics as all the keys that the script
-uses should be passed using the KEYS array:
+uses should be passed using the `!KEYS` array:
 
 ```
 > eval "return redis.call('set',KEYS[1],'bar')" 1 foo
@@ -62,9 +62,7 @@ OK
 All Redis commands must be analyzed before execution to determine which
 keys the command will operate on.  In order for this to be true for `EVAL`, keys must be passed explicitly.
 This is useful in many ways, but especially to make sure Redis Cluster
-can forward your request to the appropriate cluster node (Redis Cluster
-is a work in progress, but the scripting feature was designed in order to play
-well with it).
+can forward your request to the appropriate cluster node.
 
 Note this rule is not enforced in order to provide the user with
 opportunities to abuse the Redis single instance configuration, at the cost of
