@@ -402,16 +402,18 @@ Since Sentinels auto detect slaves using masters `INFO` output information,
 the detected slaves will not be reachable, and Sentinel will never be able to
 failover the master, since there are no good slaves from the point of view of
 the system, so there is currently no way to monitor with Sentinel a set of
-master and slave instances deployed with Docker, unless you instruct Docker
-to map the port 1:1.
+master and slave instances deployed with Docker, **unless you instruct Docker
+to map the port 1:1**.
 
-For the first problem instead, in case you want to run a set of Sentinel
-instances using Docker, you can use the following two Sentinel configuration
-directives in order to force Sentinel to announce a specific set of IP
-and port:
+For the first problem, in case you want to run a set of Sentinel
+instances using Docker with forwarded ports (or any other NAT setup where ports
+are remapped), you can use the following two Sentinel configuration directives
+in order to force Sentinel to announce a specific set of IP and port:
 
     sentinel announce-ip <ip>
     sentinel announce-port <port>
+
+Note that Docker has the ability to run in *host networking mode* (check the `--net=host` option for more information). This should create no issues since ports are not remapped in this setup.
 
 A quick tutorial
 ===
