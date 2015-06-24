@@ -152,7 +152,7 @@ We assume you already copied **redis-server** and **redis-cli** executables unde
 
         sudo vi /etc/init.d/redis_6379
 
-Make sure to modify **REDIS_PORT** accordingly to the port you are using.
+Make sure to modify **REDISPORT** accordingly to the port you are using.
 Both the pid file path and the configuration file name depend on the port number.
 
 * Copy the template configuration file you'll find in the root directory of the Redis distribution into /etc/redis/ using the port number as name, for instance:
