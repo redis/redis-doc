@@ -990,5 +990,15 @@
     "description": "A lightweight wrapper around the C client hiredis.",
     "authors": ["matt_howlett"],
     "active": true
+  },
+  {
+    "name": "crystal-redis",
+    "language": "Crystal",
+    "url": "http://www.stefanwille.com/projects/crystal-redis",
+    "repository": "https://github.com/stefanwille/crystal-redis",
+    "description": "Full featured, high performance Redis client for Crystal",
+    "authors": ["stefanwille"],
+    "recommended": true,
+    "active": true
   }
 ]
