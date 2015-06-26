@@ -990,5 +990,15 @@
     "description": "A lightweight wrapper around the C client hiredis.",
     "authors": ["matt_howlett"],
     "active": true
+  },
+  {
+    "name": "Redis.jl",
+    "language": "Julia",
+    "repository": "https://github.com/jkaye2012/Redis.jl",
+    "description": "Redis Client for the Julia language. In development.",
+    "authors": ["jkaye2012"],
+    "recommended": true,
+    "active": true
   }
+  
 ]
