@@ -227,11 +227,221 @@
     ],
     "group": "server"
   },
+  "CLUSTER ADDSLOTS": {
+    "summary": "Assign new hash slots to receiving node",
+    "complexity": "O(N) where N is the total number of hash slot arguments",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer",
+        "multiple": true
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER COUNT-FAILURE-REPORTS": {
+    "summary": "Return the number of failure reports active for a given node",
+    "complexity": "O(N) where N is the number of failure reports",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER COUNTKEYSINSLOT": {
+    "summary": "Return the number of local keys in the specified hash slot",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER DELSLOTS": {
+    "summary": "Set hash slots as unbound in receiving node",
+    "complexity": "O(N) where N is the total number of hash slot arguments",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer",
+        "multiple": true
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER FAILOVER": {
+    "summary": "Forces a slave to perform a manual failover of its master.",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "options",
+        "type": "enum",
+        "enum": ["FORCE","TAKEOVER"],
+        "optional": true
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER FORGET": {
+    "summary": "Remove a node from the nodes table",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER GETKEYSINSLOT": {
+    "summary": "Return local key names in the specified hash slot",
+    "complexity": "O(log(N)) where N is the number of requested keys",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer"
+      },
+      {
+        "name": "count",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER INFO": {
+    "summary": "Provides info about Redis Cluster node state",
+    "complexity": "O(1)",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER KEYSLOT": {
+    "summary": "Returns the hash slot of the specified key",
+    "complexity": "O(N) where N is the number of bytes in the key",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "string"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER MEET": {
+    "summary": "Force a node cluster to handshake with another node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "ip",
+        "type": "string"
+      },
+      {
+        "name": "port",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER NODES": {
+    "summary": "Get Cluster config for the node",
+    "complexity": "O(N) where N is the total number of Cluster nodes",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER REPLICATE": {
+    "summary": "Reconfigure a node as a slave of the specified master node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER RESET": {
+    "summary": "Reset a Redis Cluster node",
+    "complexity": "O(N) where N is the number of known nodes. The command may execute a FLUSHALL as a side effect.",
+    "arguments": [
+      {
+        "name": "reset-type",
+        "type": "enum",
+        "enum": ["HARD", "SOFT"],
+        "optional": true
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER SAVECONFIG": {
+    "summary": "Forces the node to save cluster state on disk",
+    "complexity": "O(1)",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER SET-CONFIG-EPOCH": {
+    "summary": "Set the configuration epoch in a new node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "config-epoch",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER SETSLOT": {
+    "summary": "Bind an hash slot to a specific node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "slot",
+        "type": "integer"
+      },
+      {
+        "name": "subcommand",
+        "type": "enum",
+        "enum": ["IMPORTING", "MIGRATING", "STABLE", "NODE"]
+      },
+      {
+        "name": "node-id",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER SLAVES": {
+    "summary": "List slave nodes of the specified master node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER SLOTS": {
     "summary": "Get array of Cluster slot to node mappings",
     "complexity": "O(N) where N is the total number of Cluster nodes",
     "since": "3.0.0",
-    "group": "server"
+    "group": "cluster"
   },
   "COMMAND": {
     "summary": "Get array of Redis command details",
@@ -247,7 +457,7 @@
   },
   "COMMAND GETKEYS": {
     "summary": "Extract keys given a full Redis command",
-    "complexity": "O(N) where N is the number of arugments to the command",
+    "complexity": "O(N) where N is the number of arguments to the command",
     "since": "2.8.13",
     "group": "server"
   },
@@ -763,6 +973,22 @@
       }
     ],
     "since": "2.0.0",
+    "group": "hash"
+  },
+  "HSTRLEN": {
+    "summary": "Get the length of the value of a hash field",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "field",
+        "type": "string"
+      }
+    ],
+    "since": "3.2.0",
     "group": "hash"
   },
   "HVALS": {
@@ -1385,7 +1611,7 @@
   },
   "RESTORE": {
     "summary": "Create a key using the provided serialized value, previously obtained using DUMP.",
-    "complexity": "O(1) to create the new key and additional O(N*M) to recostruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
+    "complexity": "O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
     "arguments": [
       {
         "name": "key",
@@ -1398,7 +1624,14 @@
       {
         "name": "serialized-value",
         "type": "string"
+      },
+      {
+        "name": "replace",
+        "type": "enum",
+        "enum": ["REPLACE"],
+        "optional": true
       }
+
     ],
     "since": "2.6.0",
     "group": "generic"
@@ -1421,7 +1654,7 @@
     "group": "list"
   },
   "RPOPLPUSH": {
-    "summary": "Remove the last element in a list, append it to another list and return it",
+    "summary": "Remove the last element in a list, prepend it to another list and return it",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -1869,12 +2102,17 @@
     "group": "generic"
   },
   "SPOP": {
-    "summary": "Remove and return a random member from a set",
+    "summary": "Remove and return one or multiple random members from a set",
     "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -2024,6 +2262,22 @@
     "since": "2.2.0",
     "group": "transactions"
   },
+  "WAIT": {
+    "summary": "Wait for the synchronous replication of all the write commands sent in the context of the current connection",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "numslaves",
+        "type": "integer"
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "generic"
+  },
   "WATCH": {
     "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
     "complexity": "O(1) for every key.",
@@ -2044,6 +2298,24 @@
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": ["NX","XX"],
+        "optional": true
+      },
+      {
+        "name": "change",
+        "type": "enum",
+        "enum": ["CH"],
+        "optional": true
+      },
+      {
+        "name": "increment",
+        "type": "enum",
+        "enum": ["INCR"],
+        "optional": true
       },
       {
         "name": ["score", "member"],
@@ -2236,7 +2508,7 @@
         "optional": true
       }
     ],
-    "since": "2.9.9",
+    "since": "2.8.9",
     "group": "sorted_set"
   },
   "ZRANGEBYSCORE": {

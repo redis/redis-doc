@@ -168,7 +168,7 @@ minutes, hours or days ago the event happened. For example "15s" means that the
 first graphed event happened 15 seconds ago.
 
 The graph is normalized in the min-max scale so that the zero (the underscore
-in the lower row) is the minumum, and a # in the higher row is the maximum.
+in the lower row) is the minimum, and a # in the higher row is the maximum.
 
 The graph subcommand is useful in order to get a quick idea about the trend
 of a given latency event without using additional tooling, and without the
@@ -180,8 +180,8 @@ LATENCY DOCTOR
 The `LATENCY DOCTOR` command is the most powerful analysis tool in the latency
 monitoring, and is able to provide additional statistical data like the average
 period between latency spikes, the median deviation, and an human readable
-analysis of the event. For certain events, like `fork`, additional informations
-are provided, like the rate at which the system forks processes.
+analysis of the event. For certain events, like `fork`, additional information
+is provided, like the rate at which the system forks processes.
 
 This is the output you should post in the Redis mailing list if you are
 looking for help about Latency related issues.

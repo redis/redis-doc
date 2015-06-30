@@ -113,7 +113,7 @@ concepts of *being down*, one is called a *Subjectively Down* condition
 (SDOWN) and is a down condition that is local to a given Sentinel instance.
 Another is called *Objectively Down* condition (ODOWN) and is reached when
 enough Sentinels (at least the number configured as the `quorum` parameter
-of the monitored master) have an SDOWN condition, and get feedbacks from
+of the monitored master) have an SDOWN condition, and get feedback from
 other Sentinels using the `SENTINEL is-master-down-by-addr` command.
 
 From the point of view of a Sentinel an SDOWN condition is reached if we
@@ -253,11 +253,11 @@ and is only specified if the instance is not a master itself.
 * **+failover-state-select-slave** `<instance details>` -- New failover state is `select-slave`: we are trying to find a suitable slave for promotion.
 * **no-good-slave** `<instance details>` -- There is no good slave to promote. Currently we'll try after some time, but probably this will change and the state machine will abort the failover at all in this case.
 * **selected-slave** `<instance details>` -- We found the specified good slave to promote.
-* **failover-state-send-slaveof-noone** `<instance details>` -- We are trynig to reconfigure the promoted slave as master, waiting for it to switch.
+* **failover-state-send-slaveof-noone** `<instance details>` -- We are trying to reconfigure the promoted slave as master, waiting for it to switch.
 * **failover-end-for-timeout** `<instance details>` -- The failover terminated for timeout. If we are the failover leader, we sent a *best effort* `SLAVEOF` command to all the slaves yet to reconfigure.
 * **failover-end** `<instance details>` -- The failover terminated with success. All the slaves appears to be reconfigured to replicate with the new master.
 * **switch-master** `<master name> <oldip> <oldport> <newip> <newport>` -- We are starting to monitor the new master, using the same name of the old one. The old master will be completely removed from our tables.
-* **failover-abort-x-sdown** `<instance details>` -- The failover was undoed (aborted) because the promoted slave appears to be in extended SDOWN state.
+* **failover-abort-x-sdown** `<instance details>` -- The failover was undone (aborted) because the promoted slave appears to be in extended SDOWN state.
 * **-slave-reconf-undo** `<instance details>` -- The failover aborted so we sent a `SLAVEOF` command to the specified instance to reconfigure it back to the original master instance.
 * **+tilt** -- Tilt mode entered.
 * **-tilt** -- Tilt mode exited.
@@ -285,7 +285,7 @@ it the **Subjective Leader**, and is selected using the following rule:
 * We remove all the Sentinels in SDOWN, disconnected, or with the last ping reply received more than `SENTINEL_INFO_VALIDITY_TIME` milliseconds ago (currently defined as 5 seconds).
 * Of all the remaining instances, we get the one with the lowest `runid`, lexicographically (every Redis instance has a Run ID, that is an identifier of every single execution).
 
-For a Sentinel to sense to be the **Objective Leader**, that is, the Sentinel that should start the failove process, the following conditions are needed.
+For a Sentinel to sense to be the **Objective Leader**, that is, the Sentinel that should start the failover process, the following conditions are needed.
 
 * It thinks it is the subjective leader itself.
 * It receives acknowledges from other Sentinels about the fact it is the leader: at least 50% plus one of all the Sentinels that were able to reply to the `SENTINEL is-master-down-by-addr` request should agree it is the leader, and additionally we need a total level of agreement at least equal to the configured quorum of the master instance that we are going to failover.

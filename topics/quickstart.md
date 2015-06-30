@@ -117,7 +117,7 @@ commands calling methods. A short interactive example using Ruby:
 Redis persistence
 =================
 
-You can learn [how Redis persisence works on this page](http://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
+You can learn [how Redis persistence works on this page](http://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
 
     $ redis-cli shutdown
 
@@ -152,7 +152,7 @@ We assume you already copied **redis-server** and **redis-cli** executables unde
 
         sudo vi /etc/init.d/redis_6379
 
-Make sure to modify **REDIS_PORT** accordingly to the port you are using.
+Make sure to modify **REDISPORT** accordingly to the port you are using.
 Both the pid file path and the configuration file name depend on the port number.
 
 * Copy the template configuration file you'll find in the root directory of the Redis distribution into /etc/redis/ using the port number as name, for instance:

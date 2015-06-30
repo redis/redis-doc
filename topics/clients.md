@@ -2,7 +2,7 @@ Redis Clients Handling
 ===
 
 This document provides information about how Redis handles clients from the
-point of view of the networklayer: connections, timeouts, buffers, and
+point of view of the network layer: connections, timeouts, buffers, and
 other similar topics are covered here.
 
 The information contained in this document is **only applicable to Redis version 2.6 or greater**.

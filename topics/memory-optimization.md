@@ -102,7 +102,7 @@ As you can see every hash will end containing 100 fields, that
 is an optimal compromise between CPU and memory saved.
 
 There is another very important thing to note, with this schema
-every hash will have more or
+every hash will have more or 
 less 100 fields regardless of the number of objects we cached. This is since
 our objects will always end with a number, and not a random string. In some
 way the final number can be considered as a form of implicit pre-sharding.
@@ -212,7 +212,7 @@ The fragmentation is calculated as the amount of memory currently in use
 (as the sum of all the allocations performed by Redis) divided by the physical
 memory actually used (the RSS value). Because the RSS reflects the peak memory,
 when the (virtually) used memory is low since a lot of keys / values were
-freed, but the RSS is high, the ration `mem_used / RSS` will be very high.
+freed, but the RSS is high, the ratio `mem_used / RSS` will be very high.
 
 If `maxmemory` is not set Redis will keep allocating memory as it finds
 fit and thus it can (gradually) eat up all your free memory.

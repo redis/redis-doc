@@ -32,10 +32,28 @@ connections during this brief window.
 multiple slaves for read-only queries (for example, heavy `SORT`
 operations can be offloaded to slaves), or simply for data redundancy.
 
-* It is possible to use replication to avoid the cost of having the master
-write the full dataset to disk: just configure your master redis.conf to avoid
-saving (just comment all the "save" directives), then connect a slave
-configured to save from time to time.
+* It is possible to use replication to avoid the cost of having the master write the full dataset to disk: just configure your master `redis.conf` to avoid saving (just comment all the "save" directives), then connect a slave configured to save from time to time. However in this setup make sure masters don't restart automatically (please read the next section for more information).
+
+Safety of replication when master has persistence turned off
+---
+
+In setups where Redis replication is used, it is strongly advised to have
+persistence turned on in the master, or when this is not possible, for example
+because of latency concerns, instances should be configured to **avoid restarting
+automatically**.
+
+To better understand why masters with persistence turned off configured to
+auto restart are dangerous, check the following failure mode where data
+is wiped from the master and all its slaves:
+
+1. We have a setup with node A acting as master, with persistence turned down, and nodes B and C replicating from node A.
+2. A crashes, however it has some auto-restart system, that restarts the process. However since persistence is turned off, the node restarts with an empty data set.
+3. Nodes B and C will replicate from A, which is empty, so they'll effectively destroy their copy of the data.
+
+When Redis Sentinel is used for high availability, also turning off persistence
+on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to don't detect a failure, so that the failure mode described above happens.
+
+Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
 
 How Redis replication works
 ---
@@ -78,12 +96,26 @@ reconnect and ask the master to continue the replication. Assuming the
 master run id is still the same, and that the offset specified is available
 in the replication backlog, replication will resume from the point where it left off.
 If either of these conditions are unmet, a full resynchronization is performed
-(which is the normal pre-2.8 behavior).
+(which is the normal pre-2.8 behavior). As the run id of the connected master is not
+persisted to disk, a full resynchronization is needed when the slave restarts.
 
 The new partial resynchronization feature uses the `PSYNC` command internally,
 while the old implementation uses the `SYNC` command. Note that a Redis 2.8
 slave is able to detect if the server it is talking with does not support
 `PSYNC`, and will use `SYNC` instead.
+
+Diskless replication
+---
+
+Normally a full resynchronization requires to create an RDB file on disk,
+then reload the same RDB from disk in order to feed the slaves with the data.
+
+With slow disks this can be a very stressing operation for the master.
+Redis version 2.8.18 will be the first version to have experimental support
+for diskless replication. In this setup the child process directly sends the
+RDB over the wire to slaves, without using the disk as intermediate storage.
+
+The feature is currently considered experimental.
 
 Configuration
 ---
@@ -101,6 +133,12 @@ There are also a few parameters for tuning the replication backlog taken
 in memory by the master to perform the partial resynchronization. See the example
 `redis.conf` shipped with the Redis distribution for more information.
 
+Diskless replication can be enabled using the `repl-diskless-sync` configuration
+parameter. The delay to start the transfer in order to wait more slaves to
+arrive after the first one, is controlled by the `repl-diskless-sync-delay`
+parameter. Please refer to the example `redis.conf` file in the Redis distribution
+for more details.
+
 Read-only slave
 ---
 
@@ -112,10 +150,9 @@ Read-only slaves will reject all write commands, so that it is not possible to w
 You may wonder why it is possible to revert the read-only setting
 and have slave instances that can be target of write operations.
 While those writes will be discarded if the slave and the master
-resynchronize or if the slave is restarted, there's a legitimate
-use case for storing ephemeral data in writable slaves. For
-instance, clients may take information about master reachability
-to coordinate a failover strategy.
+resynchronize or if the slave is restarted, there are a few legitimate
+use case for storing ephemeral data in writable slaves. However in the future
+it is possible that this feature will be dropped.
 
 Setting a slave to authenticate to a master
 ---

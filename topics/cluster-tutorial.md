@@ -8,12 +8,16 @@ going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
 how the system behaves from the point of view of the user.
 
-Note that if you plan to run a serious Redis Cluster deployment, the
-more formal specification is an highly suggested reading.
+However this tutorial tries to provide information about the availability
+and consistency characteristics of Redis Cluster from the point of view
+of the final user, stated in a simple to understand way.
 
-**Redis cluster is currently alpha quality code**, please get in touch in the
-Redis mailing list or open an issue in the Redis Github repository if you
-find any issue.
+Note this tutorial requires Redis version 3.0 or higher.
+
+If you plan to run a serious Redis Cluster deployment, the
+more formal specification is a suggested reading, even if not
+strictly required. However it is a good idea to start from this document,
+play with Redis Cluster some time, and only later read the specification.
 
 Redis Cluster 101
 ---
@@ -21,19 +25,16 @@ Redis Cluster 101
 Redis Cluster provides a way to run a Redis installation where data is
 **automatically sharded across multiple Redis nodes**.
 
-Commands dealing with multiple keys are not supported by the cluster, because
-this would require moving data between Redis nodes, making Redis Cluster
-not able to provide Redis-alike performances and predictable behavior
-under load.
-
 Redis Cluster also provides **some degree of availability during partitions**,
 that is in practical terms the ability to continue the operations when
-some nodes fail or are not able to communicate.
+some nodes fail or are not able to communicate. However the cluster stops
+to operate in the event of larger failures (for example when the majority of
+masters are unavailable).
 
 So in practical terms, what you get with Redis Cluster?
 
-* The ability to automatically split your dataset among multiple nodes.
-* The ability to continue operations when a subset of the nodes are experiencing failures or are unable to communicate with the rest of the cluster.
+* The ability to **automatically split your dataset among multiple nodes**.
+* The ability to **continue operations when a subset of the nodes are experiencing failures** or are unable to communicate with the rest of the cluster.
 
 Redis Cluster TCP ports
 ---
@@ -59,10 +60,14 @@ Note that for a Redis Cluster to work properly you need, for each node:
 
 If you don't open both TCP ports, your cluster will not work as expected.
 
+The cluster bus uses a different, binary protocol, for node to node data
+exchange, which is more suited to exchange information between nodes using
+little bandwidth and processing time.
+
 Redis Cluster data sharding
 ---
 
-Redis Cluster does not use consistency hashing, but a different form of sharding
+Redis Cluster does not use consistent hashing, but a different form of sharding
 where every key is conceptually part of what we call an **hash slot**.
 
 There are 16384 hash slots in Redis Cluster, and to compute what is the hash
@@ -86,13 +91,24 @@ Because moving hash slots from a node to another does not require to stop
 operations, adding and removing nodes, or changing the percentage of hash
 slots hold by nodes, does not require any downtime.
 
+Redis Cluster supports multiple key operations as long as all the keys involved
+into a single command execution (or whole transaction, or Lua script
+execution) all belong to the same hash slot. The user can force multiple keys
+to be part of the same hash slot by using a concept called *hash tags*.
+
+Hash tags are documented in the Redis Cluster specification, but the gist is
+that if there is a substring between {} brackets in a key, only what is
+inside the string is hashed, so fo example `this{foo}key` and `another{foo}key`
+are guaranteed to be in the same hash slot, and can be used together in a
+command with multiple keys as arguments.
+
 Redis Cluster master-slave model
 ---
 
-In order to remain available when a subset of nodes are failing or are not able
-to communicate with the majority of nodes, Redis Cluster uses a master-slave
-model where every node has from 1 (the master itself) to N replicas (N-1
-additional slaves).
+In order to remain available when a subset of master nodes are failing or are
+not able to communicate with the majority of nodes, Redis Cluster uses a
+master-slave model where every hash slot has from 1 (the master itself) to N
+replicas (N-1 additional slaves nodes).
 
 In our example cluster with nodes A, B, C, if node B fails the cluster is not
 able to continue, since we no longer have a way to serve hash slots in the
@@ -100,11 +116,11 @@ range 5501-11000.
 
 However if when the cluster is created (or at a latter time) we add a slave
 node to every master, so that the final cluster is composed of A, B, C
-that are masters, and A1, B1, C1 that are slaves, the system is able to
-continue if node B fails.
+that are masters nodes, and A1, B1, C1 that are slaves nodes, the system is
+able to continue if node B fails.
 
-Node B1 replicates B, so the cluster will elect node B1 as the new master
-and will continue to operate correctly.
+Node B1 replicates B, and B fails, the cluster will promote node B1 as the new
+master and will continue to operate correctly.
 
 However note that if nodes B and B1 fail at the same time Redis Cluster is not
 able to continue to operate.
@@ -114,7 +130,7 @@ Redis Cluster consistency guarantees
 
 Redis Cluster is not able to guarantee **strong consistency**. In practical
 terms this means that under certain conditions it is possible that Redis
-Cluster will forget a write that was acknowledged by the system.
+Cluster will lose writes that were acknowledged by the system to the client.
 
 The first reason why Redis Cluster can lose writes is because it uses
 asynchronous replication. This means that during writes the following
@@ -128,7 +144,8 @@ As you can see B does not wait for an acknowledge from B1, B2, B3 before
 replying to the client, since this would be a prohibitive latency penalty
 for Redis, so if your client writes something, B acknowledges the write,
 but crashes before being able to send the write to its slaves, one of the
-slaves can be promoted to master losing the write forever.
+slaves (that did not received the write) can be promoted to master, losing
+the write forever.
 
 This is **very similar to what happens** with most databases that are
 configured to flush data to disk every second, so it is a scenario you
@@ -136,16 +153,21 @@ are already able to reason about because of past experiences with traditional
 database systems not involving distributed systems. Similarly you can
 improve consistency by forcing the database to flush data on disk before
 replying to the client, but this usually results into prohibitively low
-performances.
+performances. That would be the equivalent of synchronous replication in
+the case of Redis Cluster.
 
 Basically there is a trade-off to take between performances and consistency.
 
-Note: Redis Cluster in the future will allow users to perform synchronous
-writes when absolutely needed.
+Redis Cluster has support for synchronous writes when absolutely needed,
+implemented via the `WAIT` command, this makes losing writes a lot less
+likely, however note that Redis Cluster does not implement strong consistency
+even when synchronous replication is used: it is always possible under more
+complex failure scenarios that a slave that was not able to receive the write
+is elected as master.
 
-There is another scenario where Redis Cluster will lose writes, that happens
-during a network partition where a client is isolated with a minority of
-instances including at least a master.
+There is another notable scenario where Redis Cluster will lose writes, that
+happens during a network partition where a client is isolated with a minority
+of instances including at least a master.
 
 Take as an example our 6 nodes cluster composed of A, B, C, A1, B1, C1,
 with 3 masters and 3 slaves. There is also a client, that we will call Z1.
@@ -159,7 +181,7 @@ However if the partition lasts enough time for B1 to be promoted to master
 in the majority side of the partition, the writes that Z1 is sending to B
 will be lost.
 
-Note that there is a maximum window to the amount of writes Z1 will be able
+Note that there is a **maximum window** to the amount of writes Z1 will be able
 to send to B: if enough time has elapsed for the majority side of the
 partition to elect a slave as master, every master node in the minority
 side stops accepting writes.
@@ -168,13 +190,32 @@ This amount of time is a very important configuration directive of Redis
 Cluster, and is called the **node timeout**.
 
 After node timeout has elapsed, a master node is considered to be failing,
-and can be replaced by one if its replicas.
+and can be replaced by one of its replicas.
 Similarly after node timeout has elapsed without a master node to be able
 to sense the majority of the other master nodes, it enters an error state
 and stops accepting writes.
 
+Redis Cluster configuration parameters
+===
+
+We are about to create an example cluster deployment. Before to continue
+let's introduce the configuration parameters that Redis Cluster introduces
+in the `redis.conf` file. Some will be obvious, others will be more clear
+as you continue reading.
+
+* **cluster-enabled `<yes/no>`**: If yes enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a stand alone instance as usually.
+* **cluster-config-file `<filename>`**: Note that despite the name of this option, this is not an user editable configuration file, but the file where a Redis Cluster node automatically persists the cluster configuration (the state, basically) every time there is a change, in order to be able to re-read it at startup. The file lists things like the other nodes in the cluster, their state, persistent variables, and so forth. Often this file is rewritten and flushed on disk as a result of some message reception.
+* **cluster-node-timeout `<milliseconds>`**: The maximum amount of time a Redis Cluster node can be unavailable, without it being considered as failing. If a master node is not reachable for more than the specified amount of time, it will be failed over by its slaves. This parameter controls other important things in Redis Cluster. Notably, every node that can't reach the majority of master nodes for the specified amount of time, will stop accepting queries.
+* **cluster-slave-validity-factor `<factor>`**: If set to zero, a slave will always try to failover a master, regardless of the amount of time the link between the master and the slave remained disconnected. If the value is positive, a maximum disconnection time is calculated as the *node timeout* value multiplied by the factor provided with this option, and if the node is a slave, it will not try to start a failover if the master link was disconnected for more than the specified amount of time. For example if the node timeout is set to 5 seconds, and the validity factor is set to 10, a slave disconnected from the master for more than 50 seconds will not try to failover its master. Note that any value different than zero may result in Redis Cluster to be not available after a master failure if there is no slave able to failover it. In that case the cluster will return back available only when the original master rejoins the cluster.
+* **cluster-migration-barrier `<count>`**: Minimum number of slaves a master will remain connected with, for another slave to migrate to a master which is no longer covered by any slave. See the appropriate section about replica migration in this tutorial for more information.
+* **cluster-require-full-coverage `<yes/no>`**: If this is set to yes, as it is by default, the cluster stops accepting writes if some percentage of the key space is not covered by any node. If the option is set to no, the cluster will still serve queries even if only requests about a subset of keys can be processed.
+
 Creating and using a Redis Cluster
 ===
+
+Note: to deploy a Redis Cluster manually is **very important to learn** certain
+operation aspects of it. However if you want to get a cluster up and running
+ASAP skip this section and the next one and go directly to **Creating a Redis Cluster using the create-cluster script**.
 
 To create a cluster, the first thing we need is to have a few empty
 Redis instances running in **cluster mode**. This basically means that
@@ -218,7 +259,7 @@ As a template for your configuration file just use the small example above,
 but make sure to replace the port number `7000` with the right port number
 according to the directory name.
 
-Now copy your redis-server executable, **compiled from the latest sources in the unstable branch at Github**, into the `cluster-test` directory, and finally open 6 terminal tabs in your favorite terminal application.
+Now copy your redis-server executable, **compiled from the latest sources in the unstable branch at GitHub**, into the `cluster-test` directory, and finally open 6 terminal tabs in your favorite terminal application.
 
 Start every instance like that, one every tab:
 
@@ -233,7 +274,7 @@ existed, every node assigns itself a new ID.
     [82462] 26 Nov 11:56:55.329 * No cluster configuration found, I'm 97a3a64667477371c4479320d683e4c8db5858b1
 
 This ID will be used forever by this specific instance in order for the instance
-to have an unique name in the context of the cluster. Every node
+to have a unique name in the context of the cluster. Every node
 remembers every other node using this IDs, and not by IP or port.
 IP addresses and ports may change, but the unique node identifier will never
 change for all the life of the node. We call this identifier simply **Node ID**.
@@ -242,7 +283,7 @@ Creating the cluster
 ---
 
 Now that we have a number of instances running, we need to create our
-cluster writing some meaningful configuration to the nodes.
+cluster by writing some meaningful configuration to the nodes.
 
 This is very easy to accomplish as we are helped by the Redis Cluster
 command line utility called `redis-trib`, that is a Ruby program
@@ -273,6 +314,33 @@ you'll see a message like that:
 This means that there is at least a master instance serving each of the
 16384 slots available.
 
+Creating a Redis Cluster using the create-cluster script
+---
+
+If you don't want to create a Redis Cluster by configuring and executing
+individual instances manually as explained above, there is a much simpler
+system (but you'll not learn the same amount of operational details).
+
+Just check `utils/create-cluster` directory in the Redis distribution.
+There is a script called `create-cluster` inside (same name as the directory
+it is contained into), it's a simple bash script. In order to start
+a 6 nodes cluster with 3 masters and 3 slaves just type the following
+commands:
+
+1. `create-cluster start`
+2. `create-cluster create`
+
+Reply to `yes` in step 2 when the `redis-trib` utility wants you to accept
+the cluster layout.
+
+You can now interact with the cluster, the first node will start at port 30001
+by default. When you are done, stop the cluster with:
+
+3. `create-cluster stop`.
+
+Please read the `README` inside this directory for more information on how
+to run the script.
+
 Playing with the cluster
 ---
 
@@ -282,13 +350,14 @@ client libraries implementations.
 I'm aware of the following implementations:
 
 * [redis-rb-cluster](http://github.com/antirez/redis-rb-cluster) is a Ruby implementation written by me (@antirez) as a reference for other languages. It is a simple wrapper around the original redis-rb, implementing the minimal semantics to talk with the cluster efficiently.
-* [redis-py-cluster](https://github.com/Grokzen/redis-py-cluster) appears to be a port of redis-rb-cluster to Python. Not recently updated (last commit 6 months ago) however it may be a starting point.
+* [redis-py-cluster](https://github.com/Grokzen/redis-py-cluster) A port of redis-rb-cluster to Python. Supports majority of *redis-py* functionality. Is in active development.
 * The popular [Predis](https://github.com/nrk/predis) has support for Redis Cluster, the support was recently updated and is in active development.
 * The most used Java client, [Jedis](https://github.com/xetorthio/jedis) recently added support for Redis Cluster, see the *Jedis Cluster* section in the project README.
 * [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis) offers support for C# (and should work fine with most .NET languages; VB, F#, etc)
-* The `redis-cli` utility in the unstable branch of the Redis repository at Github implements a very basic cluster support when started with the `-c` switch.
+* [thunk-redis](https://github.com/thunks/thunk-redis) offers support for Node.js and io.js, it is a thunk/promise-based redis client with pipelining and cluster.
+* The `redis-cli` utility in the unstable branch of the Redis repository at GitHub implements a very basic cluster support when started with the `-c` switch.
 
-An easy way to test Redis Cluster is either to try and of the above clients
+An easy way to test Redis Cluster is either to try any of the above clients
 or simply the `redis-cli` command line utility. The following is an example
 of interaction using the latter:
 
@@ -307,6 +376,9 @@ redis 127.0.0.1:7000> get hello
 -> Redirected to slot [866] located at 127.0.0.1:7000
 "world"
 ```
+
+**Note:** if you created the cluster using the script your nodes may listen
+to different ports, starting from 30001 by default.
 
 The redis-cli cluster support is very basic so it always uses the fact that
 Redis Cluster nodes are able to redirect a client to the right node.
@@ -495,30 +567,43 @@ the following command:
 All the slots will be covered as usually, but this time the master at
 127.0.0.1:7000 will have more hash slots, something around 6461.
 
+Scripting a resharding operation
+---
+
+Reshardings can be performed automatically without the need to manually
+enter the parameters in an interactive way. This is possible using a command
+line like the following:
+
+    ./redis-trib.rb reshard <host>:<port> --from <node-id> --to <node-id> --slots --yes
+
+This allows to build some automatism if you are likely to reshard often,
+however currently there is no way for `redis-trib` to automatically
+rebalance the cluster checking the distribution of keys across the cluster
+nodes and intelligently moving slots as needed. This feature will be added
+in the future.
+
 A more interesting example application
 ---
 
-So far so good, but the example application we used is not very good.
-It writes acritically to the cluster without ever checking if what was
+The example application we wrote early is not very good.
+It writes to the cluster in a simple way without even checking if what was
 written is the right thing.
 
 From our point of view the cluster receiving the writes could just always
 write the key `foo` to `42` to every operation, and we would not notice at
 all.
 
-So in the reids-rb-cluster repository, there is a more interesting application
-that is called `consistency-test.rb`. It is a much more interesting application
-as it uses a set of counters, by default 1000, and sends `INCR` commands
-in order to increment the counters.
+So in the `redis-rb-cluster` repository, there is a more interesting application
+that is called `consistency-test.rb`. It uses a set of counters, by default 1000, and sends `INCR` commands in order to increment the counters.
 
 However instead of just writing, the application does two additional things:
 
 * When a counter is updated using `INCR`, the application remembers the write.
-* It also reads a random counter before every write, and check if the value is what it expected it to be, comparing it with the value it has in memory.
+* It also reads a random counter before every write, and check if the value is what we expected it to be, comparing it with the value it has in memory.
 
 What this means is that this application is a simple **consistency checker**,
 and is able to tell you if the cluster lost some write, or if it accepted
-a write that we did not received acknowledgement for. In the first case we'll
+a write that we did not received acknowledgment for. In the first case we'll
 see a counter having a value that is smaller than the one we remember, while
 in the second case the value will be greater.
 
@@ -745,7 +830,7 @@ having as a target the empty node.
 Adding a new node as a replica
 ---
 
-Adding a new Replica can be performed in two ways. The obivous one is to
+Adding a new Replica can be performed in two ways. The obvious one is to
 use redis-trib again, but with the --slave option, like this:
 
     ./redis-trib.rb add-node --slave 127.0.0.1:7006 127.0.0.1:7000
@@ -755,7 +840,7 @@ a new master, so we are not specifying to which master we want to add
 the replica. In this case what happens is that redis-trib will add the new
 node as replica of a random master among the masters with less replicas.
 
-However you can specifiy exactly what master you want to target with your
+However you can specify exactly what master you want to target with your
 new replica with the following command line:
 
     ./redis-trib.rb add-node --slave --master-id 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 127.0.0.1:7006 127.0.0.1:7000
@@ -818,7 +903,7 @@ master to another one automatically, without the help of the system administrato
 The automatic reconfiguration of replicas is called *replicas migration* and is
 able to improve the reliability of a Redis Cluster.
 
-Note: you can read the details of replicas migration in the (Redis Cluster Specification)[/topics/cluster-spec], here we'll only provide some information about the
+Note: you can read the details of replicas migration in the [Redis Cluster Specification](/topics/cluster-spec), here we'll only provide some information about the
 general idea and what you should do in order to benefit from it.
 
 The reason why you may want to let your cluster replicas to move from one master
@@ -853,7 +938,7 @@ So what you should know about replicas migration in short?
 
 * The cluster will try to migrate a replica from the master that has the greatest number of replicas in a given moment.
 * To benefit from replica migration you have just to add a few more replicas to a single master in your cluster, it does not matter what master.
-* There is a configuration parameter that controls the replica migration feature that is called `replica-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
+* There is a configuration parameter that controls the replica migration feature that is called `cluster-migration-barrier`: you can read more about it in the example `redis.conf` file provided with Redis Cluster.
 
 Upgrading nodes in a Redis Cluster
 ---
@@ -861,7 +946,7 @@ Upgrading nodes in a Redis Cluster
 Upgrading slave nodes is easy since you just need to stop the node and restart
 it with an updated version of Redis. If there are clients scaling reads using
 slave nodes, they should be able to reconnect to a different slave if a given
-one is not avaialble.
+one is not available.
 
 Upgrading masters is a bit more complex, and the suggested procedure is:
 
@@ -885,7 +970,7 @@ In both cases it is possible to migrate to Redis Cluster easily, however
 what is the most important detail is if multiple-keys operations are used
 by the application, and how. There are three different cases:
 
-1. Multiple keys operations, or transactions, or Lua scripts involving muliple keys, are not used. Keys are accessed independently (even if accessed via transactions or Lua scripts grouping multiple commands, about the same key, together).
+1. Multiple keys operations, or transactions, or Lua scripts involving multiple keys, are not used. Keys are accessed independently (even if accessed via transactions or Lua scripts grouping multiple commands, about the same key, together).
 2. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used but only with keys having the same **hash tag**, which means that the keys used together all have a `{...}` sub-string that happens to be identical. For example the following multiple keys operation is defined in the context of the same hash tag: `SUNION {user:1000}.foo {user:1000}.bar`.
 3. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
 
@@ -900,11 +985,11 @@ Assuming you have your preexisting data set split into N masters, where
 N=1 if you have no preexisting sharding, the following steps are needed
 in order to migrate your data set to Redis Cluster:
 
-1. Stop your clients. No automatic live-migration to Redis Cluster is currently possible. You may be able to do it orchestrating a live migration in the context of your application / enviroment.
+1. Stop your clients. No automatic live-migration to Redis Cluster is currently possible. You may be able to do it orchestrating a live migration in the context of your application / environment.
 2. Generate an append only file for all of your N masters using the BGREWRITEAOF command, and waiting for the AOF file to be completely generated.
 3. Save your AOF files from aof-1 to aof-N somewhere. At this point you can stop your old instances if you wish (this is useful since in non-virtualized deployments you often need to reuse the same computers).
 4. Create a Redis Cluster composed of N masters and zero slaves. You'll add slaves later. Make sure all your nodes are using the append only file for persistence.
-5. Stop all the cluster nodes, substitute their append only file with your pre-eisitng append only files, aof-1 for the first node, aof-2 for the secod node, up to aof-N.
+5. Stop all the cluster nodes, substitute their append only file with your pre-existing append only files, aof-1 for the first node, aof-2 for the second node, up to aof-N.
 6. Restart your Redis Cluster nodes with the new AOF files. They'll complain that there are keys that should not be there according to their configuration.
 7. Use `redis-trib fix` command in order to fix the cluster so that keys will be migrated according to the hash slots each node is authoritative or not.
 8. Use `redis-trib check` at the end to make sure your cluster is ok.

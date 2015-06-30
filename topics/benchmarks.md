@@ -12,22 +12,23 @@ The following options are supported:
      -h <hostname>      Server hostname (default 127.0.0.1)
      -p <port>          Server port (default 6379)
      -s <socket>        Server socket (overrides host and port)
+     -a <password>      Password for Redis Auth
      -c <clients>       Number of parallel connections (default 50)
-     -n <requests>      Total number of requests (default 10000)
+     -n <requests>      Total number of requests (default 100000)
      -d <size>          Data size of SET/GET value in bytes (default 2)
+     -dbnum <db>        SELECT the specified db number (default 0)
      -k <boolean>       1=keep alive 0=reconnect (default 1)
      -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
-      Using this option the benchmark will get/set keys
-      in the form mykey_rand:000000012456 instead of constant
-      keys, the <keyspacelen> argument determines the max
-      number of values for the random number. For instance
-      if set to 10 only rand:000000000000 - rand:000000000009
-      range will be allowed.
+      Using this option the benchmark will expand the string __rand_int__
+      inside an argument with a 12 digits number in the specified range
+      from 0 to keyspacelen-1. The substitution changes every time a command
+      is executed. Default tests use this to hit random keys in the
+      specified range.
      -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
      -q                 Quiet. Just show query/sec values
      --csv              Output in CSV format
      -l                 Loop. Run the tests forever
-     -t <tests>         Only run the comma-separated list of tests. The test
+     -t <tests>         Only run the comma separated list of tests. The test
                         names are the same as the ones produced as output.
      -I                 Idle mode. Just open N idle connections and wait.
 
@@ -104,7 +105,7 @@ Redis pipelining is able to dramatically improve the number of operations per
 second a server is able do deliver.
 
 This is an example of running the benchmark in a Macbook air 11" using a
-pipeling of 16 commands:
+pipelining of 16 commands:
 
     $ redis-benchmark -n 1000000 -t set,get -P 16 -q
     SET: 403063.28 requests per second
@@ -122,9 +123,9 @@ different options. If you plan to compare Redis to something else, then it is
 important to evaluate the functional and technical differences, and take them
 in account.
 
-+ Redis is a server: all commands involve network or IPC roundtrips. It is
++ Redis is a server: all commands involve network or IPC round trips. It is
 meaningless to compare it to embedded data stores such as SQLite, Berkeley DB,
-Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is 
+Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is
 primarily in network/protocol management.
 + Redis commands return an acknowledgment for all usual commands. Some other
 data stores do not (for instance MongoDB does not implicitly acknowledge write
@@ -134,7 +135,7 @@ mildly useful.
 itself, but rather measure your network (or IPC) latency. To really test Redis,
 you need multiple connections (like redis-benchmark) and/or to use pipelining
 to aggregate several commands and/or multiple threads or processes.
-+ Redis is an in-memory data store with some optional persistency options. If
++ Redis is an in-memory data store with some optional persistence options. If
 you plan to compare it to transactional servers (MySQL, PostgreSQL, etc ...),
 then you should consider activating AOF and decide on a suitable fsync policy.
 + Redis is a single-threaded server. It is not designed to benefit from
@@ -157,7 +158,7 @@ concurrency only (i.e. it creates several connections to the server).
 It does not use pipelining or any parallelism at all (one pending query per
 connection at most, and no multi-threading).
 
-To run a benchmark using pipelining mode (and achieve higher throughputs),
+To run a benchmark using pipelining mode (and achieve higher throughput),
 you need to explicitly use the -P option. Please note that it is still a
 realistic behavior since a lot of Redis based applications actively use
 pipelining to improve performance.

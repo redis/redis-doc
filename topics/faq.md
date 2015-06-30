@@ -40,7 +40,7 @@ to split your data set into multiple Redis instances, please read the
 
 Yes, a common design pattern involves taking very write-heavy small data
 in Redis (and data you need the Redis data structures to model your problem
-in an efficinet way), and big *blobs* of data into an SQL or eventually
+in an efficient way), and big *blobs* of data into an SQL or eventually
 consistent on-disk database.
 
 ## Is there something I can do to lower the Redis memory usage?
@@ -68,7 +68,7 @@ with an error to write commands (but will continue to accept read-only
 commands), or you can configure it to evict keys when the max memory limit
 is reached in the case you are using Redis for caching.
 
-We have documentations you plan to use [Redis as an LRU cache](/topics/lru-cache).
+We have documentation if you plan to use [Redis as an LRU cache](/topics/lru-cache).
 
 ## Background saving is failing with a fork() error under Linux even if I've a lot of free RAM!
 
@@ -96,8 +96,12 @@ more optimistic allocation fashion, and this is indeed what you want for Redis.
 A good source to understand how Linux Virtual Memory work and other
 alternatives for `overcommit_memory` and `overcommit_ratio` is this classic
 from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
+Beware, this article had `1` and `2` configuration values for `overcommit_memory`
+reversed: refer to the [proc(5)][proc5] man page for the right meaning of the
+available values.
 
 [redhatvm]: http://www.redhat.com/magazine/001nov04/features/vm/
+[proc5]: http://man7.org/linux/man-pages/man5/proc.5.html
 
 ## Are Redis on-disk-snapshots atomic?
 
@@ -119,12 +123,12 @@ start thinking at some way to shard earlier.
 
 You can find more information about using multiple Redis instances in the [Partitioning page](/topics/partitioning).
 
-## What is the maximum number of keys a single Redis instance can hold? and what the max number of elements in a List, Set, Sorted Set?
+## What is the maximum number of keys a single Redis instance can hold? and what the max number of elements in a Hash, List, Set, Sorted Set?
 
 Redis can handle up to 2^32 keys, and was tested in practice to
 handle at least 250 million of keys per instance.
 
-Every list, set, and sorted set, can hold 2^32 elements.
+Every hash, list, set, and sorted set, can hold 2^32 elements.
 
 In other words your limit is likely the available memory in your system.
 

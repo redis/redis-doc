@@ -109,7 +109,7 @@ you can perform with them. For instance, one is atomic increment:
 The [INCR](/commands/incr) command parses the string value as an integer,
 increments it by one, and finally sets the obtained value as the new value.
 There are other similar commands like [INCRBY](/commands/incrby),
-[DECR](commands/decr) and [DECRBY](/commands/decrby).  Internally it's
+[DECR](/commands/decr) and [DECRBY](/commands/decrby). Internally it's
 always the same command, acting in a slightly different way.
 
 What does it mean that INCR is atomic?
@@ -492,7 +492,7 @@ Example of rule 2:
     > lpop mylist
     "1"
     > exists mylist
-    (integer) 0 
+    (integer) 0
 
 The key no longer exists after all the elements are popped.
 
@@ -650,8 +650,8 @@ ideal. So to start, we can make a copy of the set stored in the `deck` key
 into the `game:1:deck` key.
 
 This is accomplished using `SUNIONSTORE`, which normally performs the
-intersection between multiple sets, and stores the result into another set.
-However, since the intersection of a single set is itself, I can copy my deck
+union between multiple sets, and stores the result into another set.
+However, since the union of a single set is itself, I can copy my deck
 with:
 
     > sunionstore game:1:deck deck
@@ -703,7 +703,7 @@ ordered on request, order is a peculiarity of the data structure used to
 represent sorted sets). They are ordered according to the following rule:
 
 * If A and B are two elements with a different score, then A > B if A.score is > B.score.
-* If A and B have exactly the same score, than A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
+* If A and B have exactly the same score, then A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
 
 Let's start with a simple example, adding a few selected hackers names as
 sorted set elements, with their year of birth as "score".
@@ -943,7 +943,7 @@ There are three commands operating on group of bits:
 2. `BITCOUNT` performs population counting, reporting the number of bits set to 1.
 3. `BITPOS` finds the first bit having the specified value of 0 or 1.
 
-Both `BITOPS` and `BITCOUNT` are able to operate with byte ranges of the
+Both `BITPOS` and `BITCOUNT` are able to operate with byte ranges of the
 string, instead of running for the whole length of the string. The following
 is a trivial example of `BITCOUNT` call:
 
@@ -1011,11 +1011,10 @@ same:
 * Every time you see a new element, you add it to the count with `PFADD`.
 * Every time you want to retrieve the current approximation of the unique elements *added* with `PFADD` so far, you use the `PFCOUNT`.
 
-
-    > pfadd hll a b c d
-    (integer) 1
-    > pfcount hll
-    (integer) 4
+        > pfadd hll a b c d
+        (integer) 1
+        > pfcount hll
+        (integer) 4
 
 An example of use case for this data structure is counting unique queries
 performed by users in a search form every day.

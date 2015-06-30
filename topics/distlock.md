@@ -14,21 +14,24 @@ This page is an attempt to provide a more canonical algorithm to implement
 distributed locks with Redis. We propose an algorithm, called **Redlock**,
 which implements a DLM which we believe to be safer than the vanilla single
 instance approach. We hope that the community will analyze it, provide
-feedbacks, and use it as a starting point for the implementations or more
+feedback, and use it as a starting point for the implementations or more
 complex or alternative designs.
 
 Implementations
 ---
 
-Before to describe the algorithm, here there are a few links at implementations
+Before describing the algorithm, here there are a few links at implementations
 already available, that can be used as a reference.
 
-* [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation).
+* [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation). There is also a [fork of Redlock-rb](https://github.com/leandromoreira/redlock-rb) that adds a gem for easy distribution and perhaps more.
+* [Redlock-py](https://github.com/SPSCommerce/redlock-py) (Python implementation).
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [Redsync.go](https://github.com/hjr265/redsync.go) (Go implementation).
 * [Redisson](https://github.com/mrniko/redisson) (Java implementation).
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (Cpp implementation).
+* [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
+* [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
 
 Safety and Liveness guarantees
 ---
@@ -62,7 +65,7 @@ If this is the case, you can use your replication based solution. Otherwise we s
 Correct implementation with a single instance
 ---
 
-Before to try to overcome the limitation of the single instance setup described above, let’s check how to do it correctly in this simple case, since this is actually a viable solution in applications where a race condition from time to time is acceptable, and because locking into a single instance is the foundation we’ll use for the distributed algorithm described here.
+Before trying to overcome the limitation of the single instance setup described above, let’s check how to do it correctly in this simple case, since this is actually a viable solution in applications where a race condition from time to time is acceptable, and because locking into a single instance is the foundation we’ll use for the distributed algorithm described here.
 
 To acquire the lock, the way to go is the following:
 

@@ -34,7 +34,7 @@ its configuration.
 
 ## Notes
 
-Due to the single-treaded nature of Redis, it is not possible to
+Due to the single-threaded nature of Redis, it is not possible to
 kill a client connection while it is executing a command. From
 the client point of view, the connection can never be closed
 in the middle of the execution of a command. However, the client

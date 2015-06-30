@@ -9,6 +9,30 @@ issues a command and the time the reply to the command is received by the
 client. Usually Redis processing time is extremely low, in the sub microsecond
 range, but there are certain conditions leading to higher latency figures.
 
+I've little time, give me the checklist
+---
+
+The following documentation is very important in order to run Redis in
+a low latency fashion. However I understand that we are busy people, so
+let's start with a quick checklist. If you fail following these steps, please
+return here to read the full documentation.
+
+1. Make sure you are not running slow commands that are blocking the server. Use the Redis [Slow Log feature](/commands/slowlog) to check this.
+2. For EC2 users, make sure you use HVM based modern EC2 instances, like m3.medium. Otherwise fork() is too slow.
+3. Transparent huge pages must be disabled from your kernel. Use `echo never > /sys/kernel/mm/transparent_hugepage/enabled` to disable them, and restart your Redis process.
+4. If you are using a virtual machine, it is possible that you have an intrinsic latency that has nothing to do with Redis. Check the minimum latency you can expect from your runtime environment using `./redis-cli --intrinsic-latency 100`. Note: you need to run this command in *the server* not in the client.
+5. Enable and use the [Latency monitor](/topics/latency-monitor) feature of Redis in order to get a human readable description of the latency events and causes in your Redis instance.
+
+In general, use the following table for durability VS latency/performance tradeoffs, ordered from stronger safety to better latency.
+
+1. AOF + fsync always: this is very slow, you should use it only if you know what you are doing.
+2. AOF + fsync every second: this is a good compromise.
+3. AOF + fsync every second + no-appendfsync-on-rewrite option set to yes: this is as the above, but avoids to fsync during rewrites to lower the disk pressure.
+4. AOF + fsync never. Fsyncing is up to the kernel in this setup, even less disk pressure and risk of latency spikes.
+5. RDB. Here you have a vast spectrum of tradeoffs depending on the save triggers you configure.
+
+And now for people with 15 minutes to spend, the details...
+
 Measuring latency
 -----------------
 
@@ -23,13 +47,13 @@ Using the internal Redis latency monitoring subsystem
 ---
 
 Since Redis 2.8.13, Redis provides latency monitoring capabilities that
-are able to sample differnet execution paths to understand where the
-server is blocking. This makes debugging of the problems illustarated in
+are able to sample different execution paths to understand where the
+server is blocking. This makes debugging of the problems illustrated in
 this documentation much simpler, so we suggest to enable latency monitoring
 ASAP. Please refer to the [Latency monitor documentation](/topics/latency-monitor).
 
 While the latency monitoring sampling and reporting capabilities will make
-simpler to understand the soruce of latency in your Redis system, it is still
+simpler to understand the source of latency in your Redis system, it is still
 advised that you read this documentation extensively to better understand
 the topic of Redis and latency spikes.
 
@@ -64,9 +88,12 @@ intensive and will likely saturate a single core in your system.
     Max latency so far: 83 microseconds.
     Max latency so far: 115 microseconds.
 
-The intrinsic latency of this system is just 0.115 milliseconds (or 115
-microseconds), which is a good news, however keep in mind that the intrinsic
-latency may change over time depending on the load of the system.
+Note: redis-cli in this special case needs to **run in the server** where you run or plan to run Redis, not in the client. In this special mode redis-cli does no connect to a Redis server at all: it will just try to measure the largest time the kernel does not provide CPU time to run to the redis-cli process itself.
+
+In the above example, the intrinsic latency of the system is just 0.115
+milliseconds (or 115 microseconds), which is a good news, however keep in mind
+that the intrinsic latency may change over time depending on the load of the
+system.
 
 Virtualized environments will not show so good numbers, especially with high
 load or if there are noisy neighbors. The following is a run on a Linode 4096
@@ -204,19 +231,38 @@ Fork time in different systems
 ------------------------------
 
 Modern hardware is pretty fast to copy the page table, but Xen is not.
-The problem with Xen is not virtualization-specific, but Xen-specific. For instance
-using VMware or Virtual Box does not result into slow fork time.
+The problem with Xen is not virtualization-specific, but Xen-specific. For instance using VMware or Virtual Box does not result into slow fork time.
 The following is a table that compares fork time for different Redis instance
 size. Data is obtained performing a BGSAVE and looking at the `latest_fork_usec` filed in the `INFO` command output.
+
+However the good news is that **new types of EC2 HVM based instances are much
+better with fork times**, almost on pair with physical servers, so for example
+using m3.medium (or better) instances will provide good results.
 
 * **Linux beefy VM on VMware** 6.0GB RSS forked in 77 milliseconds (12.8 milliseconds per GB).
 * **Linux running on physical machine (Unknown HW)** 6.1GB RSS forked in 80 milliseconds (13.1 milliseconds per GB)
 * **Linux running on physical machine (Xeon @ 2.27Ghz)** 6.9GB RSS forked into 62 milliseconds (9 milliseconds per GB).
-* **Linux VM on 6sync (KVM)** 360 MB RSS forked in 8.2 milliseconds (23.3 millisecond per GB).
-* **Linux VM on EC2 (Xen)** 6.1GB RSS forked in 1460 milliseconds (239.3 milliseconds per GB).
-* **Linux VM on Linode (Xen)** 0.9GBRSS forked into 382 millisecodns (424 milliseconds per GB).
+* **Linux VM on 6sync (KVM)** 360 MB RSS forked in 8.2 milliseconds (23.3 milliseconds per GB).
+* **Linux VM on EC2, old instance types (Xen)** 6.1GB RSS forked in 1460 milliseconds (239.3 milliseconds per GB).
+* **Linux VM on EC2, new instance types (Xen)** 1GB RSS forked in 10 milliseconds (10 milliseconds per GB).
+* **Linux VM on Linode (Xen)** 0.9GBRSS forked into 382 milliseconds (424 milliseconds per GB).
 
-As you can see a VM running on Xen has a performance hit that is between one order to two orders of magnitude. We believe this is a severe problem with Xen and we hope it will be addressed ASAP.
+As you can see certain VM running on Xen have a performance hit that is between one order to two orders of magnitude. For EC2 users the suggestion is simple: use modern HVM based instances.
+
+Latency induced by transparent huge pages
+-----------------------------------------
+
+Unfortunately when a Linux kernel has transparent huge pages enabled, Redis
+incurs to a big latency penalty after the `fork` call is used in order to
+persist on disk. Huge pages are the cause of the following issue:
+
+1. Fork is called, two processes with shared huge pages are created.
+2. In a busy instance, a few event loops runs will cause commands to target a few thousand of pages, causing the copy on write of almost the whole process memory.
+3. This will result in big latency and big memory usage.
+
+Make sure to **disable transparent huge pages** using the following command:
+
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
 Latency induced by swapping (operating system paging)
 -----------------------------------------------------
@@ -390,7 +436,7 @@ Redis instance you can further verify it using the **vmstat** command:
      0  0   3980 697048 147180 1406640    0    0     0     0 18613 15987  6  6 88  0
      2  0   3980 696924 147180 1406656    0    0     0     0 18744 16299  6  5 88  0
      0  0   3980 697048 147180 1406688    0    0     0     4 18520 15974  6  6 88  0
-^C
+    ^C
 
 The interesting part of the output for our needs are the two columns **si**
 and **so**, that counts the amount of memory swapped from/to the swap file. If
@@ -503,10 +549,10 @@ Redis evict expired keys in two ways:
 
 The active expiring is designed to be adaptive. An expire cycle is started every 100 milliseconds (10 times per second), and will do the following:
 
-+ Sample `REDIS_EXPIRELOOKUPS_PER_CRON` keys, evicting all the keys already expired.
++ Sample `ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP` keys, evicting all the keys already expired.
 + If the more than 25% of the keys were found expired, repeat.
 
-Given that `REDIS_EXPIRELOOKUPS_PER_CRON` is set to 10 by default, and the process is performed ten times per second, usually just 100 keys per second are actively expired. This is enough to clean the DB fast enough even when already expired keys are not accessed for a long time, so that the *lazy* algorithm does not help. At the same time expiring just 100 keys per second has no effects in the latency a Redis instance.
+Given that `ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP` is set to 20 by default, and the process is performed ten times per second, usually just 200 keys per second are actively expired. This is enough to clean the DB fast enough even when already expired keys are not accessed for a long time, so that the *lazy* algorithm does not help. At the same time expiring just 200 keys per second has no effects in the latency a Redis instance.
 
 However the algorithm is adaptive and will loop if it founds more than 25% of keys already expired in the set of sampled keys. But given that we run the algorithm ten times per second, this means that the unlucky event of more than 25% of the keys in our random sample are expiring at least *in the same second*.
 
@@ -521,7 +567,7 @@ Redis software watchdog
 
 Redis 2.6 introduces the *Redis Software Watchdog* that is a debugging tool
 designed to track those latency problems that for one reason or the other
-esacped an analysis using normal tools.
+escaped an analysis using normal tools.
 
 The software watchdog is an experimental feature. While it is designed to
 be used in production environments care should be taken to backup the database
@@ -532,7 +578,7 @@ It is important to use it only as *last resort* when there is no way to track th
 
 This is how this feature works:
 
-* The user enables the softare watchdog using the `CONFIG SET` command.
+* The user enables the software watchdog using the `CONFIG SET` command.
 * Redis starts monitoring itself constantly.
 * If Redis detects that the server is blocked into some operation that is not returning fast enough, and that may be the source of the latency issue, a low level report about where the server is blocked is dumped on the log file.
 * The user contacts the developers writing a message in the Redis Google Group, including the watchdog report in the message.
@@ -574,7 +620,7 @@ If you happen to collect multiple watchdog stack traces you are encouraged to se
 APPENDIX A: Experimenting with huge pages
 -----------------------------------------
 
-Latency introduced by fork can be mitigated using huge pages at the cost of a bigger memory usage during persistence. The following appeindex describe in details this feature as implemented in the Linux kernel.
+Latency introduced by fork can be mitigated using huge pages at the cost of a bigger memory usage during persistence. The following appendix describe in details this feature as implemented in the Linux kernel.
 
 Some CPUs can use different page size though. AMD and Intel CPUs can support
 2 MB page size if needed. These pages are nicknamed *huge pages*. Some
@@ -642,6 +688,3 @@ a theoretical incident. It really happens.
 
 The result of a complete benchmark can be found
 [here](https://gist.github.com/1272254).
-
-
-

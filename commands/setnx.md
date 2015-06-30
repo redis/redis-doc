@@ -20,12 +20,13 @@ GET mykey
 
 ## Design pattern: Locking with `!SETNX`
 
-**NOTE:** Starting with Redis 2.6.12 it is possible to create a much simpler locking primitive using the `SET` command to acquire the lock, and a simple Lua script to release the lock. The pattern is documented in the `SET` command page.
+**Please note that:**
 
-The old `SETNX` based pattern is documented below for historical reasons.
+1. The following pattern is discouraged in favor of [the Redlock algorithm](http://redis.io/topics/distlock) which is only a bit more complex to implement, but offers better guarantees and is fault tolerant.
+2. We document the old pattern anyway because certain existing implementations link to this page as a reference. Moreover it is an interesting example of how Redis commands can be used in order to mount programming primitives.
+3. Anyway even assuming a single-instance locking primitive, starting with 2.6.12 it is possible to create a much simpler locking primitive, equivalent to the one discussed here, using the `SET` command to acquire the lock, and a simple Lua script to release the lock. The pattern is documented in the `SET` command page.
 
-`SETNX` can be used as a locking primitive.
-For example, to acquire the lock of the key `foo`, the client could try the
+That said, `SETNX` can be used, and was historically used, as a locking primitive. For example, to acquire the lock of the key `foo`, the client could try the
 following:
 
 ```
@@ -90,7 +91,7 @@ Let's see how C4, our sane client, uses the good algorithm:
     Note that even if C4 set the key a bit a few seconds in the future this is
     not a problem.
 
-**Important note**: In order to make this locking algorithm more robust, a
+In order to make this locking algorithm more robust, a
 client holding a lock should always check the timeout didn't expire before
 unlocking the key with `DEL` because client failures can be complex, not just
 crashing but also blocking a lot of time against some operations and trying

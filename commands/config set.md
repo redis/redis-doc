@@ -16,10 +16,12 @@ following important differences:
 
 [hgcarr22rc]: http://github.com/antirez/redis/raw/2.8/redis.conf
 
-* Where bytes or other quantities are specified, it is not possible to use
-  the `redis.conf` abbreviated form (10k 2gb ... and so forth), everything
-  should be specified as a well-formed 64-bit integer, in the base unit of the
-  configuration directive.
+* In options where bytes or other quantities are specified, it is not
+  possible to use the `redis.conf` abbreviated form (10k 2gb ... and so forth),
+  everything should be specified as a well-formed 64-bit integer, in the base
+  unit of the configuration directive. However since Redis version 3.0 or
+  greater, it is possible to use `CONFIG SET` with memory units for
+  `maxmemory`, client output buffers, and replication backlog size.
 * The save parameter is a single string of space-separated integers.
   Every pair of integers represent a seconds/modifications threshold.
 
@@ -32,7 +34,7 @@ save 300 10
 
 that means, save after 900 seconds if there is at least 1 change to the dataset,
 and after 300 seconds if there are at least 10 changes to the datasets, should
-be set using `CONFIG SET` as "900 1 300 10".
+be set using `CONFIG SET SAVE "900 1 300 10"`.
 
 It is possible to switch persistence from RDB snapshotting to append-only file
 (and the other way around) using the `CONFIG SET` command.

@@ -27,6 +27,7 @@ boolean
 btw
 cardinality
 checksum
+config
 dataset
 datasets
 decrement
@@ -50,6 +51,7 @@ pipelining
 scalable
 semantical
 snapshotting
+startup
 subcommand
 subcommands
 substring
@@ -61,4 +63,4 @@ unordered
 unsubscribe
 unsubscribed
 unsubscribes
-unwatch/ES
+unwatch

@@ -10,6 +10,22 @@ members is created, like if the sorted set was empty. If the key exists but does
 
 The score values should be the string representation of a double precision floating point number. `+inf` and `-inf` values are valid values as well.
 
+ZADD options (Redis 3.0.2 or greater)
+---
+
+ZADD supports a list of options, specified after the name of the key and before
+the first score argument. Options are:
+
+* **XX**: Only update elements that already exist. Never add elements.
+* **NX**: Don't update already existing elements. Always add new elements.
+* **CH**: Modify the return value from the number of new elements added, to the total number of elements changed (CH is an abbreviation of *changed*). Changed elements are **new elements added** and elements already existing for which **the score was updated**. So elements specified in the command line having the same score as they had in the past are not counted. Note: normally the return value of `ZADD` only counts the number of new elements added.
+* **INCR**: When this option is specified `ZADD` acts like `ZINCRBY`. Only one score-element pair can be specified in this mode.
+
+Range of integer scores that can be expressed precisely
+---
+
+Redis sorted sets use a *double 64-bit floating point number* to represent the score. In all the architectures we support, this is represented as an **IEEE 754 floating point number**, that is able to represent precisely integer numbers between `-(2^53)` and `+(2^53)` included. In more practical terms, all the integers between -9007199254740992 and 9007199254740992 are perfectly representable. Larger integers, or fractions, are internally represented in exponential form, so it is possible that you get only an approximation of the decimal number, or of the very big integer, that you set as score.
+
 Sorted sets 101
 ---
 
