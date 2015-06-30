@@ -344,5 +344,13 @@
     "repository": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "description": "A Node.js library for streamlining the configuration and maintenance of your Redis namespace",
     "authors": ["codecreativity"]
-  }
+  },
+  {
+   "name": "RedisPlatform",
+   "language": "C/C++",
+   "url": "http://www.jacketzhong.com/?p=220",
+   "repository": "https://github.com/jacket-code/redisPlatform",
+   "description": "A rpc platform that base on redis, You can use it to do a lot of things, it can be a game server",   
+   "authors": ["jacketzhong"]
+   }
 ]
