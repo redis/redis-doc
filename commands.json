@@ -741,6 +741,33 @@
     "since": "3.2.0",
     "group": "geo"
   },
+  "GEOENCODE": {
+    "summary": "Encode a longitude and latitude pair into a 52 bit geohash integer",
+    "complexity": "O(1).",
+    "arguments": [
+      {
+        "name": "longitude",
+        "type": "double"
+      },
+      {
+        "name": "latitude",
+        "type": "double"
+      },
+      {
+        "name": "radius",
+        "type": "double",
+        "optional": true
+      },
+      {
+        "name": "unit",
+        "type": "enum",
+        "enum": ["m", "km", "ft", "mi"]
+        "optional": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo"
+  },
   "GEORADIUS": {
     "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
     "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
