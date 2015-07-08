@@ -712,6 +712,113 @@
     "since": "1.0.0",
     "group": "server"
   },
+  "GEOADD": {
+    "summary": "Add one or more geospatial items in the geospatial index represented using a sorted set",
+    "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": ["longitude", "latitude", "member"],
+        "type": ["double", "double", "string"],
+        "multiple": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo"
+  },
+  "GEORADIUS": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
+    "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "longitude",
+        "type": "double"
+      },
+      {
+        "name": "latitude",
+        "type": "double"
+      },
+      {
+        "name": "radius",
+        "type": "double"
+      },
+      {
+        "name": "unit",
+        "type": "enum",
+        "enum": ["m", "km", "ft", "mi"]
+      },
+      {
+        "name": "withcoord",
+        "type": "enum",
+        "enum": ["WITHCOORD"],
+        "optional": true
+      },
+      {
+        "name": "withdist",
+        "type": "enum",
+        "enum": ["WITHDIST"],
+        "optional": true
+      },
+      {
+        "name": "withhash",
+        "type": "enum",
+        "enum": ["WITHHASH"],
+        "optional": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo"
+  },
+  "GEORADIUSBYMEMBER": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point. The center coordinates are provided in terms of an existing member name",
+    "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string"
+      },
+      {
+        "name": "radius",
+        "type": "double"
+      },
+      {
+        "name": "unit",
+        "type": "enum",
+        "enum": ["m", "km", "ft", "mi"]
+      },
+      {
+        "name": "withcoord",
+        "type": "enum",
+        "enum": ["WITHCOORD"],
+        "optional": true
+      },
+      {
+        "name": "withdist",
+        "type": "enum",
+        "enum": ["WITHDIST"],
+        "optional": true
+      },
+      {
+        "name": "withhash",
+        "type": "enum",
+        "enum": ["WITHHASH"],
+        "optional": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo"
+  },
   "GET": {
     "summary": "Get the value of a key",
     "complexity": "O(1)",
@@ -2293,7 +2400,7 @@
   },
   "ZADD": {
     "summary": "Add one or more members to a sorted set, or update its score if it already exists",
-    "complexity": "O(log(N)) where N is the number of elements in the sorted set.",
+    "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
     "arguments": [
       {
         "name": "key",
