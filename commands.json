@@ -729,6 +729,18 @@
     "since": "3.2.0",
     "group": "geo"
   },
+  "GEODECODE": {
+    "summary": "Decode a 52 bit geohash integer into a longitude, latitude pair",
+    "complexity": "O(1).",
+    "arguments": [
+      {
+        "name": "integer",
+        "type": "integer"
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo"
+  },
   "GEORADIUS": {
     "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
     "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
@@ -777,7 +789,7 @@
     "group": "geo"
   },
   "GEORADIUSBYMEMBER": {
-    "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point. The center coordinates are provided in terms of an existing member name",
+    "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member",
     "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
     "arguments": [
       {
