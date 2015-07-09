@@ -761,7 +761,7 @@
       {
         "name": "unit",
         "type": "enum",
-        "enum": ["m", "km", "ft", "mi"]
+        "enum": ["m", "km", "ft", "mi"],
         "optional": true
       }
     ],
