@@ -161,7 +161,7 @@ message types, the last argument is the count of subscriptions still
 active. This number is actually the total number of channels and
 patterns the client is still subscribed to. So the client will exit
 the Pub/Sub state only when this count drops to zero as a result of
-unsubscription from all the channels and patterns.
+unsubscribing from all the channels and patterns.
 
 ## Programming example
 

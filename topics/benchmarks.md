@@ -104,7 +104,7 @@ multiple commands at once, a feature often exploited by real world applications.
 Redis pipelining is able to dramatically improve the number of operations per
 second a server is able do deliver.
 
-This is an example of running the benchmark in a Macbook air 11" using a
+This is an example of running the benchmark in a MacBook Air 11" using a
 pipelining of 16 commands:
 
     $ redis-benchmark -n 1000000 -t set,get -P 16 -q

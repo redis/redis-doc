@@ -170,7 +170,7 @@ The recommendation is to use Linux ext3 file system, or any other file system
 with good support for *sparse files*. What are sparse files?
 
 Sparse files are files where a lot of the content happens to be empty. Advanced
-file systems like ext2, ext3, ext4, RaiserFS, Raiser4, and many others, are
+file systems like ext2, ext3, ext4, ReiserFS, Reiser4, and many others, are
 able to encode these files in a more efficient way and will allocate more space
 for the file when needed, that is, when more actual blocks of the file will be
 used.

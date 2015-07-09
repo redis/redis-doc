@@ -7,9 +7,9 @@ Normally you don't need to use this command, unless you plan to implement low le
 1. The longitude and latitude of a point on the Earth surface.
 2. Optionally a radius represented by an integer and an unit.
 
-And returns a set of informations, including the representation of the position as a 52 bit integer, the min and max corners of the bounding box represented by the geo hash, the center point in the area covered by the geohash integer, and finally the two sorted set scores to query in order to retrieve all the elements included in the geohash area.
+And returns a set of information, including the representation of the position as a 52 bit integer, the min and max corners of the bounding box represented by the geo hash, the center point in the area covered by the geohash integer, and finally the two sorted set scores to query in order to retrieve all the elements included in the geohash area.
 
-The radius optionally provided to the command is used in order to compute the two scores returned by the command fo range query purposes. Moreover the returned geohash integer will only have the most significant bits set, according to the number of bits needed to approximate the specified radius.
+The radius optionally provided to the command is used in order to compute the two scores returned by the command for range query purposes. Moreover the returned geohash integer will only have the most significant bits set, according to the number of bits needed to approximate the specified radius.
 
 Use case
 ---
