@@ -728,43 +728,6 @@
     ],
     "group": "geo"
   },
-  "GEODECODE": {
-    "summary": "Decode a 52 bit geohash integer into a longitude, latitude pair",
-    "complexity": "O(1).",
-    "arguments": [
-      {
-        "name": "integer",
-        "type": "integer"
-      }
-    ],
-    "group": "geo"
-  },
-  "GEOENCODE": {
-    "summary": "Encode a longitude and latitude pair into a 52 bit geohash integer",
-    "complexity": "O(1).",
-    "arguments": [
-      {
-        "name": "longitude",
-        "type": "double"
-      },
-      {
-        "name": "latitude",
-        "type": "double"
-      },
-      {
-        "name": "radius",
-        "type": "double",
-        "optional": true
-      },
-      {
-        "name": "unit",
-        "type": "enum",
-        "enum": ["m", "km", "ft", "mi"],
-        "optional": true
-      }
-    ],
-    "group": "geo"
-  },
   "GEOHASH": {
     "summary": "Returns members of a geospatial index as standard geohash strings",
     "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
