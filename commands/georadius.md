@@ -1,6 +1,6 @@
 Return the members of a sorted set populated with geospatial information using `GEOADD`, which are within the borders of the area specified with the center location and the maximum distance from the center (the radius).
 
-The common use case for this command is to retrieve geospatial items near ot a specified point and no far than a given amount of meters (or other units). This allows, for example, to suggest mobile users of an applicaiton nearby places.
+The common use case for this command is to retrieve geospatial items near ot a specified point and no far than a given amount of meters (or other units). This allows, for example, to suggest mobile users of an application nearby places.
 
 The radius is specified in one of the following units:
 

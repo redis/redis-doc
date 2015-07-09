@@ -141,9 +141,7 @@ allkeys
 allocator
 antirez
 aof
-apache
 appendfsync
-applicaiton
 arity
 atomicity
 auth
