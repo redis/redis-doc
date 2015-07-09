@@ -767,7 +767,23 @@
   },
   "GEOHASH": {
     "summary": "Returns members of a geospatial index as standard geohash strings",
-    "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
+    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "group": "geo"
+  },
+  "GEOPOS": {
+    "summary": "Returns longitude and latitude of members of a geospatial index",
+    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
     "arguments": [
       {
         "name": "key",

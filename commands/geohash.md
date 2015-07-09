@@ -23,7 +23,7 @@ have the following properties:
 @array-reply, specifically:
 
 The command returns an array where each element is the Geohash corresponding to
-each member name passed as arguments to the command.
+each member name passed as argument to the command.
 
 @examples
 
