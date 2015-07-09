@@ -7,6 +7,7 @@ Before May 2013 the project was sponsored by VMware with the work of [Salvatore 
 
 In the past Redis accepted donations from the following companies:
 
+* [VMware](http://vmware.com) and later [Pivotal](http://pivotal.io) provided a 24 GB RAM workstation for me to run the [Redis CI test](http://ci.redis.io) and other long running tests. Later I (Salvatore) equipped the server with an SSD drive in order to test in the same hardware with rotating and flash drives.
 * [Linode](http://linode.com) 15 January 2010, provided Virtual Machines for Redis testing in a virtualized environment.
 * [Slicehost](http://slicehost.com) 14 January 2010, provided Virtual Machines for Redis testing in a virtualized environment.
 * [Citrusbyte](http://citrusbyte.com) 18 Dec 2009, part of Virtual Memory. Citrusbyte is also the company developing the Redis-rb bindings for Redis and this very web site.
