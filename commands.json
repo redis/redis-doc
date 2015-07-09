@@ -797,6 +797,30 @@
     ],
     "group": "geo"
   },
+  "GEODIST": {
+    "summary": "Returns the distance between two members of a geospatial index",
+    "complexity": "O(log(N))",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member1",
+        "type": "string"
+      },
+      {
+        "name": "member2",
+        "type": "string"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "group": "geo"
+  },
   "GEORADIUS": {
     "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
     "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
