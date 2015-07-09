@@ -1,18 +1,17 @@
 Adds the specified geospatial items (latitude, longitude, name) to the specified
-key. Data is stored into the key as a sorted set, in a way that makes it possible to later retrieve items using a query by radius with the `GEORADIUS` or
-`GEORADIUSBYMEMBER` commands.
+key. Data is stored into the key as a sorted set, in a way that makes it possible to later retrieve items using a query by radius with the `GEORADIUS` or `GEORADIUSBYMEMBER` commands.
 
 The command takes arguments in the standard format x,y so the longitude must
 be specified before the latitude. There are limits to the coordinates that
 can be indexed: areas very near to the poles are not indexable. The exact
 limits, as specified by EPSG:900913 / EPSG:3785 / OSGEO:41001 are the following:
 
-* Valid latitudes are from -180 to 180 degrees.
+* Valid longitudes are from -180 to 180 degrees.
 * Valid latitudes are from -85.05112878 to 85.05112878 degreees.
 
 The command will report an error when the user attempts to index coordinates outside the specified ranges.
 
-How it works?
+How does it work?
 ---
 
 The way the sorted set is populated is using a technique called
@@ -27,7 +26,7 @@ The areas are checked by calculating the range of the box covered removing
 enough bits from the less significant part of the sorted set score, and
 computing the score range to query in the sorted set for each area.
 
-What Earth model it uses?
+What Earth model does it use?
 ---
 
 It just assumes that the Earth is a sphere, since the used distance formula
@@ -39,7 +38,7 @@ and most other applications. However in th worst case the error may be up to
 
 @integer-reply, specifically:
 
-* The number of elements added to the sorted sets, not including elements
+* The number of elements added to the sorted set, not including elements
   already existing for which the score was updated.
 
 @examples
