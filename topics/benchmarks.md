@@ -205,14 +205,14 @@ untuned box usually provides good enough performance for most applications.
 It is a good practice to use the ping program to quickly check the latency
 between the client and server hosts is normal before launching the benchmark.
 Regarding the bandwidth, it is generally useful to estimate
-the throughput in Gbits/s and compare it to the theoretical bandwidth
+the throughput in Gbit/s and compare it to the theoretical bandwidth
 of the network. For instance a benchmark setting 4 KB strings
-in Redis at 100000 q/s, would actually consume 3.2 Gbits/s of bandwidth
-and probably fit within a 10 GBits/s link, but not a 1 Gbits/s one. In many real
+in Redis at 100000 q/s, would actually consume 3.2 Gbit/s of bandwidth
+and probably fit within a 10 Gbit/s link, but not a 1 Gbit/s one. In many real
 world scenarios, Redis throughput is limited by the network well before being
 limited by the CPU. To consolidate several high-throughput Redis instances
-on a single server, it worth considering putting a 10 Gbits/s NIC
-or multiple 1 Gbits/s NICs with TCP/IP bonding.
+on a single server, it worth considering putting a 10 Gbit/s NIC
+or multiple 1 Gbit/s NICs with TCP/IP bonding.
 + CPU is another very important factor. Being single-threaded, Redis favors
 fast CPUs with large caches and not many cores. At this game, Intel CPUs are
 currently the winners. It is not uncommon to get only half the performance on

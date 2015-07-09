@@ -1,7 +1,7 @@
 # Redis Design Draft 1 -- Redis Design Drafts
 
 * Author: Salvatore Sanfilippo `antirez@gmail.com`
-* Github issue: none
+* GitHub issue: none
 
 ## History of revisions
 
@@ -16,7 +16,7 @@ feedback before implementing a given feature.
 
 The way the community can provide feedback about a RDD is simply writing
 a message to the Redis mailing list, or commenting in the associated
-Github issue if any.
+GitHub issue if any.
 
 Drafts are published only for features already approved as potentially very
 interesting for the project by the current Redis project maintainer.

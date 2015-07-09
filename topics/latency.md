@@ -115,7 +115,7 @@ Latency induced by network and communication
 --------------------------------------------
 
 Clients connect to Redis using a TCP/IP connection or a Unix domain connection.
-The typical latency of a 1 GBits/s network is about 200 us, while the latency
+The typical latency of a 1 Gbit/s network is about 200 us, while the latency
 with a Unix domain socket can be as low as 30 us. It actually depends on your
 network and system hardware. On top of the communication itself, the system
 adds some more latency (due to thread scheduling, CPU caches, NUMA placement,
