@@ -24,16 +24,14 @@ Erlang
 EventMachine
 Facebook
 Fsyncing
-GBits
 GCC
 GDB
 GETs
 GHz
 GPG
-Gbits
+Gbit
 Geospatial
 GitHub
-Github
 Google
 HLL
 HLLs
@@ -136,6 +134,7 @@ Wikipedia
 Xen
 Xeon
 Yukihiro
+ZPOP
 addr
 afterwards
 allkeys
@@ -157,6 +156,7 @@ bgsave
 bitwise
 blazingly
 blog
+blpop
 boolean
 br
 bt
@@ -412,4 +412,3 @@ vtype
 wikifs
 wildcards
 xff
-ZPOP
