@@ -726,51 +726,11 @@
         "multiple": true
       }
     ],
-    "since": "3.2.0",
-    "group": "geo"
-  },
-  "GEODECODE": {
-    "summary": "Decode a 52 bit geohash integer into a longitude, latitude pair",
-    "complexity": "O(1).",
-    "arguments": [
-      {
-        "name": "integer",
-        "type": "integer"
-      }
-    ],
-    "since": "3.2.0",
-    "group": "geo"
-  },
-  "GEOENCODE": {
-    "summary": "Encode a longitude and latitude pair into a 52 bit geohash integer",
-    "complexity": "O(1).",
-    "arguments": [
-      {
-        "name": "longitude",
-        "type": "double"
-      },
-      {
-        "name": "latitude",
-        "type": "double"
-      },
-      {
-        "name": "radius",
-        "type": "double",
-        "optional": true
-      },
-      {
-        "name": "unit",
-        "type": "enum",
-        "enum": ["m", "km", "ft", "mi"],
-        "optional": true
-      }
-    ],
-    "since": "3.2.0",
     "group": "geo"
   },
   "GEOHASH": {
     "summary": "Returns members of a geospatial index as standard geohash strings",
-    "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
+    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
     "arguments": [
       {
         "name": "key",
@@ -782,7 +742,46 @@
         "multiple": true
       }
     ],
-    "since": "3.2.0",
+    "group": "geo"
+  },
+  "GEOPOS": {
+    "summary": "Returns longitude and latitude of members of a geospatial index",
+    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "group": "geo"
+  },
+  "GEODIST": {
+    "summary": "Returns the distance between two members of a geospatial index",
+    "complexity": "O(log(N))",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member1",
+        "type": "string"
+      },
+      {
+        "name": "member2",
+        "type": "string"
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "optional": true
+      }
+    ],
     "group": "geo"
   },
   "GEORADIUS": {
@@ -829,7 +828,6 @@
         "optional": true
       }
     ],
-    "since": "3.2.0",
     "group": "geo"
   },
   "GEORADIUSBYMEMBER": {
@@ -872,7 +870,6 @@
         "optional": true
       }
     ],
-    "since": "3.2.0",
     "group": "geo"
   },
   "GET": {
