@@ -1,6 +1,6 @@
 Return the members of a sorted set populated with geospatial information using `GEOADD`, which are within the borders of the area specified with the center location and the maximum distance from the center (the radius).
 
-The common use case for this command is to retrieve geospatial items near ot a specified point and no far than a given amount of meters (or other units). This allows, for example, to suggest mobile users of an applicaiton nearby places.
+The common use case for this command is to retrieve geospatial items near ot a specified point and no far than a given amount of meters (or other units). This allows, for example, to suggest mobile users of an application nearby places.
 
 The radius is specified in one of the following units:
 
@@ -29,7 +29,7 @@ By default all the matching items are returned. It is possible to limit the resu
 * Without any `WITH` option specified, the command just returns a linear array like ["New York","Milan","Paris"].
 * If `WITHCOORD`, `WITHDIST` or `WITHHASH` options are specified, the command returns an array of arrays, where each sub-array represents a single item.
 
-When additional information is returned as an array of arrays for each item, the first item in the sub-array is always the name of the returned item. The other informations are returned in the following order as successive elements of the sub-array.
+When additional information is returned as an array of arrays for each item, the first item in the sub-array is always the name of the returned item. The other information is returned in the following order as successive elements of the sub-array.
 
 1. The distance from the center as a floating point number, in the same unit specified in the radius.
 2. The geohash integer.

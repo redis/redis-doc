@@ -1,10 +1,13 @@
 language: ruby
+sudo: false
+addons:
+  apt:
+    packages:
+    - aspell
+    - aspell-en
 
 rvm:
    - 1.9.3
 
 gemfile:
   - .travis/Gemfile
-
-before_install:
- - sudo apt-get install -y aspell aspell-en

@@ -433,7 +433,7 @@ You can find the code that sets or removes a following / follower relation in th
 Making it horizontally scalable
 ---
 
-Gentle reader, if you reached this point you are already a hero. Thank you. Before talking about scaling horizontally it is worth checking performance on a single server. Retwis is *extremely fast*, without any kind of cache. On a very slow and loaded server, an apache benchmark with 100 parallel clients issuing 100000 requests measured the average pageview to take 5 milliseconds. This means you can serve millions of users every day with just a single Linux box, and this one was monkey ass slow... Imagine the results with more recent hardware.
+Gentle reader, if you reached this point you are already a hero. Thank you. Before talking about scaling horizontally it is worth checking performance on a single server. Retwis is *extremely fast*, without any kind of cache. On a very slow and loaded server, an Apache benchmark with 100 parallel clients issuing 100000 requests measured the average pageview to take 5 milliseconds. This means you can serve millions of users every day with just a single Linux box, and this one was monkey ass slow... Imagine the results with more recent hardware.
 
 However you can't go with a single server forever, how do you scale a key-value
 store?

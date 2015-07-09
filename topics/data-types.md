@@ -87,7 +87,7 @@ As usually check the [full list of Set commands](/commands#set) for more informa
 Hashes
 ---
 
-Redis Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (eg: A User with a number of fields like name, surname, age, and so forth):
+Redis Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (e.g. A User with a number of fields like name, surname, age, and so forth):
 
     @cli
     HMSET user:1000 username antirez password P1pp0 age 34

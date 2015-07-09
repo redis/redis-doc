@@ -1,4 +1,4 @@
-Adds the specified geospatial items (latitude, logitude, name) to the specified
+Adds the specified geospatial items (latitude, longitude, name) to the specified
 key. Data is stored into the key as a sorted set, in a way that makes it possible to later retrieve items using a query by radius with the `GEORADIUS` or
 `GEORADIUSBYMEMBER` commands.
 
@@ -22,7 +22,7 @@ that a sorted set double score can represent a 52 bit integer without losing
 precision.
 
 This format allows for radius querying by checking the 1+8 areas needed
-to cover the whole radius, and discarding elements outside the radious.
+to cover the whole radius, and discarding elements outside the radius.
 The areas are checked by calculating the range of the box covered removing
 enough bits from the less significant part of the sorted set score, and
 computing the score range to query in the sorted set for each area.
