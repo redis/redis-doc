@@ -1,6 +1,6 @@
 Adds the specified geospatial items (latitude, logitude, name) to the specified
 key. Data is stored into the key as a sorted set, in a way that makes it possible to later retrieve items using a query by radius with the `GEORADIUS` or
-`GEOREDIUSBYMEMBER` commands.
+`GEORADIUSBYMEMBER` commands.
 
 The command takes arguments in the standard format x,y so the longitude must
 be specified before the latitude. There are limits to the coordinates that
