@@ -36,7 +36,7 @@ task :spellcheck do
       ruby -pe 'gsub /^    .*$/, ""' |
       ruby -pe 'gsub /`[^`]+`/, ""' |
       ruby -e 'puts $stdin.read.gsub(/\[([^\]]+)\]\(([^\)]+)\)/m, "\\1").gsub(/^```.*```/m, "")' |
-      aspell --lang=en -H -a --extra-dicts=./tmp/dict 2>/dev/null
+      aspell --lang=en --ignore-case -H -a --extra-dicts=./tmp/dict 2>/dev/null
     }
 
     words = `cat '#{file}' | #{command}`.lines.map do |line|
