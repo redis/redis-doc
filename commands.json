@@ -768,6 +768,23 @@
     "since": "3.2.0",
     "group": "geo"
   },
+  "GEOHASH": {
+    "summary": "Returns members of a geospatial index as standard geohash strings",
+    "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo"
+  },
   "GEORADIUS": {
     "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
     "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
