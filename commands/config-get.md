@@ -31,7 +31,7 @@ following important differences:
 [hgcarr22rc]: http://github.com/antirez/redis/raw/2.8/redis.conf
 
 * Where bytes or other quantities are specified, it is not possible to use
-  the `redis.conf` abbreviated form (10k 2gb ... and so forth), everything
+  the `redis.conf` abbreviated form (`10k`, `2gb` ... and so forth), everything
   should be specified as a well-formed 64-bit integer, in the base unit of the
   configuration directive.
 * The save parameter is a single string of space-separated integers.

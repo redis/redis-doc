@@ -500,16 +500,16 @@ was the cause of bugs.
 
 The Redis Lua interpreter loads the following Lua libraries:
 
-* base lib.
-* table lib.
-* string lib.
-* math lib.
-* debug lib.
-* struct lib.
-* cjson lib.
-* cmsgpack lib.
-* bitop lib
-* redis.sha1hex function.
+* `base` lib.
+* `table` lib.
+* `string` lib.
+* `math` lib.
+* `debug` lib.
+* `struct` lib.
+* `cjson` lib.
+* `cmsgpack` lib.
+* `bitop` lib.
+* `redis.sha1hex` function.
 
 Every Redis instance is _guaranteed_ to have all the above libraries so you can
 be sure that the environment for your Redis scripts is always the same.
