@@ -7,7 +7,9 @@ addons:
     - aspell-en
 
 rvm:
-   - 1.9.3
+   - 2.2
+
+script: make
 
 gemfile:
   - .travis/Gemfile
