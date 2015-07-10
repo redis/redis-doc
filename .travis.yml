@@ -9,7 +9,7 @@ addons:
 rvm:
    - 2.2
 
-script: make
+install:
+  - gem install $(sed -e 's/ -v /:/' .gems)
 
-gemfile:
-  - .travis/Gemfile
+script: make
