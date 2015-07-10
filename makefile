@@ -5,7 +5,7 @@ SPELL_FILES:=$(patsubst %.txt,%.spell,$(TEXT_FILES))
 spell: tmp/commands tmp/topics $(SPELL_FILES)
 	find tmp -name '*.spell' | xargs cat > tmp/all.spell
 	cat tmp/all.spell
-	test -s tmp/all.spell && exit 1
+	test ! -s tmp/all.spell
 
 $(TEXT_FILES): tmp/%.txt: %.md
 	./bin/text $< > $@
