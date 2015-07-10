@@ -3,9 +3,9 @@ TEXT_FILES:=$(patsubst %.md,tmp/%.txt,$(MD_FILES))
 SPELL_FILES:=$(patsubst %.txt,%.spell,$(TEXT_FILES))
 
 spell: tmp/commands tmp/topics $(SPELL_FILES)
-	find tmp -name '*.spell' | xargs cat > tmp/all.spell
-	cat tmp/all.spell
-	test ! -s tmp/all.spell
+	find tmp -name '*.spell' | xargs cat > tmp/spelling-errors
+	cat tmp/spelling-errors
+	test ! -s tmp/spelling-errors
 
 $(TEXT_FILES): tmp/%.txt: %.md
 	./bin/text $< > $@
