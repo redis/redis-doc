@@ -3,7 +3,7 @@ GEM
   specs:
     batch (0.0.3)
     rake (0.9.2.2)
-    rdiscount (1.6.8)
+    redcarpet (3.3.2)
 
 PLATFORMS
   ruby
@@ -11,4 +11,7 @@ PLATFORMS
 DEPENDENCIES
   batch
   rake
-  rdiscount
+  redcarpet
+
+BUNDLED WITH
+   1.10.5
