@@ -12,4 +12,4 @@ rvm:
 install:
   - gem install $(sed -e 's/ -v /:/' .gems)
 
-script: make
+script: make -s
