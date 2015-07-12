@@ -620,7 +620,7 @@
 
   {
     "name": "hxneko-redis",
-    "language": "haXe",
+    "language": "Haxe",
     "url": "https://code.google.com/p/hxneko-redis/",
     "repository": "https://code.google.com/p/hxneko-redis/source/browse",
     "description": "",
