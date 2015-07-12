@@ -505,12 +505,11 @@
   },
 
   {
-    "name": "redisca",
+    "name": "redisca2",
     "language": "Python",
-    "repository": "https://github.com/khamin/redisca",
+    "repository": "https://github.com/khamin/redisca2",
     "description": "Lightweight ORM for Redis",
-    "authors": ["vitaliykhamin"],
-    "active": true
+    "authors": ["vitaliykhamin"]
   },
 
   {
