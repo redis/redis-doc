@@ -1031,7 +1031,7 @@
     "language": "ActionScript",
     "repository": "https://github.com/mikeheier/Redis-AS3",
     "description": "An as3 client library for redis.",
-    "authors": ["mikeheier"]
+    "authors": []
   }
 
 ]
