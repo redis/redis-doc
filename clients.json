@@ -416,12 +416,12 @@
     "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
     "authors": ["colinmollenhour"]
   },
+
   {
     "name": "Kdyby/Redis",
     "language": "PHP",
     "repository": "https://github.com/kdyby/redis",
-    "description": "Powerfull Redis storage for Nette Framework",",
-    "authors": ["hosiplan"]
+    "description": "Powerfull Redis storage for Nette Framework",
     "active": true
   },
 
