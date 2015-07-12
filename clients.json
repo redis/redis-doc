@@ -395,7 +395,7 @@
   {
     "name": "RedisServer",
     "language": "PHP",
-    "repository": "https://github.com/jamm/Memory/blob/master/lib/Jamm/Memory/RedisServer.php",
+    "repository": "https://github.com/e-oz/Memory/blob/master/lib/Jamm/Memory/RedisServer.php",
     "description": "Standalone and full-featured class for Redis in PHP",
     "authors": ["eugeniyoz"]
   },
@@ -665,7 +665,7 @@
   {
     "name": "node_redis",
     "language": "Node.js",
-    "repository": "https://github.com/mranney/node_redis",
+    "repository": "https://github.com/NodeRedis/node_redis",
     "description": "Recommended client for node.",
     "authors": ["mranney"],
     "recommended": true,
@@ -926,7 +926,7 @@
   {
     "name": "redis",
     "language": "Nim",
-    "repository": "https://github.com/Araq/Nim",
+    "repository": "https://github.com/nim-lang/Nim/blob/devel/lib/pure/redis.nim",
     "url": "http://nim-lang.org/docs/redis.html",
     "description": "Redis client for Nim",
     "authors": [],
