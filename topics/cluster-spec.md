@@ -976,7 +976,7 @@ This mechanism in Redis Cluster is called **last failover wins**.
 
 The same happens during reshardings. When a node importing a hash slot
 completes the import operation, its configuration epoch is incremented to make
-sure the change will be propogated throughout the cluster.
+sure the change will be propagated throughout the cluster.
 
 UPDATE messages, a closer look
 ---
