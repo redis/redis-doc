@@ -995,8 +995,7 @@
   {
     "name": "finagle-redis",
     "language": "Scala",
-    "repository": "https://github.com/twitter/finagle",
-    "description": "Redis client based on Finagle",
-    "authors": [""]
+    "repository": "https://github.com/twitter/finagle/tree/develop/finagle-redis",
+    "description": "Redis client based on Finagle"
   }
 ]
