@@ -98,7 +98,7 @@ to be part of the same hash slot by using a concept called *hash tags*.
 
 Hash tags are documented in the Redis Cluster specification, but the gist is
 that if there is a substring between {} brackets in a key, only what is
-inside the string is hashed, so fo example `this{foo}key` and `another{foo}key`
+inside the string is hashed, so for example `this{foo}key` and `another{foo}key`
 are guaranteed to be in the same hash slot, and can be used together in a
 command with multiple keys as arguments.
 

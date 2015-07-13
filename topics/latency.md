@@ -115,7 +115,7 @@ Latency induced by network and communication
 --------------------------------------------
 
 Clients connect to Redis using a TCP/IP connection or a Unix domain connection.
-The typical latency of a 1 GBits/s network is about 200 us, while the latency
+The typical latency of a 1 Gbit/s network is about 200 us, while the latency
 with a Unix domain socket can be as low as 30 us. It actually depends on your
 network and system hardware. On top of the communication itself, the system
 adds some more latency (due to thread scheduling, CPU caches, NUMA placement,
@@ -216,11 +216,11 @@ Forking is an expensive operation on most Unix-like systems, since it involves
 copying a good number of objects linked to the process. This is especially
 true for the page table associated to the virtual memory mechanism.
 
-For instance on a Linux/AMD64 system, the memory is divided in 4 KB pages.
+For instance on a Linux/AMD64 system, the memory is divided in 4 kB pages.
 To convert virtual addresses to physical addresses, each process stores
 a page table (actually represented as a tree) containing at least a pointer
 per page of the address space of the process. So a large 24 GB Redis instance
-requires a page table of 24 GB / 4 KB * 8 = 48 MB.
+requires a page table of 24 GB / 4 kB * 8 = 48 MB.
 
 When a background save is performed, this instance will have to be forked,
 which will involve allocating and copying 48 MB of memory. It takes time
@@ -349,7 +349,7 @@ to do is to grep for the Swap field across all the file:
     Swap:                  0 kB
     Swap:                  0 kB
 
-If everything is 0 kb, or if there are sporadic 4k entries, everything is
+If everything is 0 kB, or if there are sporadic 4k entries, everything is
 perfectly normal. Actually in our example instance (the one of a real web
 site running Redis and serving hundreds of users every second) there are a
 few entries that show more swapped pages. To investigate if this is a serious
@@ -419,7 +419,7 @@ memory map:
     Swap:                  0 kB
 
 As you can see from the output, there is a map of 720896 kB
-(with just 12 kB swapped) and 156 kb more swapped in another map:
+(with just 12 kB swapped) and 156 kB more swapped in another map:
 basically a very small amount of our memory is swapped so this is not
 going to create any problem at all.
 
@@ -680,7 +680,7 @@ Unfortunately, and on top of the extra operational complexity,
 there is also a significant drawback of running Redis with
 huge pages. The COW mechanism granularity is the page. With
 2 MB pages, the probability a page is modified during a background
-save operation is 512 times higher than with 4 KB pages. The actual
+save operation is 512 times higher than with 4 kB pages. The actual
 memory required for a background save therefore increases a lot,
 especially if the write traffic is truly random, with poor locality.
 With huge pages, using twice the memory while saving is not anymore
