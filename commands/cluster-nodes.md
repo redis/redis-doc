@@ -37,26 +37,26 @@ Each line is composed of the following fields:
 
 The meaning of each filed is the following:
 
-1. **id** The node ID, a 40 characters random string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
-2. **ip:port** The node address where clients should contact the node to run queries.
-3. **flags** A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `noflags`. Flags are explained in detail in the next section.
-4. **master** If the node is a slave, and the master is known, the master node ID, otherwise the "-" character.
-5. **ping-sent** Milliseconds unix time at which the currently active ping was sent, or zero if there are no pending pings.
-6. **pong-recv** Milliseconds unix time the last pong was received.
-7. **config-epoch** The configuration epoch (or version) of the current node (or of the current master if the node is a slave). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with higher configuration epoch wins.
-8. **link-state** The state of the link used for the node-to-node cluster bus. We use this link to communicate with the node. Can be `connected` or `disconnected`.
-9. **slot** An hash slot number or range. Starting from argument number 9, but there may be up to 16384 entries in total (limit never reached). This is the list of hash slots served by this node. If the entry is just a number, is parsed as such. If it is a range, it is in the form `start-end`, and means that the node is responsible for all the hash slots from `start` to `end` including the start and end values.
+1. `id`: The node ID, a 40 characters random string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
+2. `ip:port`: The node address where clients should contact the node to run queries.
+3. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `noflags`. Flags are explained in detail in the next section.
+4. `master`: If the node is a slave, and the master is known, the master node ID, otherwise the "-" character.
+5. `ping-sent`: Milliseconds unix time at which the currently active ping was sent, or zero if there are no pending pings.
+6. `pong-recv`: Milliseconds unix time the last pong was received.
+7. `config-epoch`: The configuration epoch (or version) of the current node (or of the current master if the node is a slave). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with higher configuration epoch wins.
+8. `link-state`: The state of the link used for the node-to-node cluster bus. We use this link to communicate with the node. Can be `connected` or `disconnected`.
+9. `slot`: An hash slot number or range. Starting from argument number 9, but there may be up to 16384 entries in total (limit never reached). This is the list of hash slots served by this node. If the entry is just a number, is parsed as such. If it is a range, it is in the form `start-end`, and means that the node is responsible for all the hash slots from `start` to `end` including the start and end values.
 
 Meaning of the flags (field number 3):
 
-* **myself** The node you are contacting.
-* **master** Node is a master.
-* **slave** Node is a slave.
-* **fail?** Node is in `PFAIL` state. Not reachable for the node you are contacting, but still logically reachable (not in `FAIL` state).
-* **fail** Node is in `FAIL` state. It was not reachable for multiple nodes that promoted the `PFAIL` state to `FAIL`.
-* **handshake** Untrusted node, we are handshaking.
-* **noaddr** No address known for this node.
-* **noflags** No flags at all.
+* `myself`: The node you are contacting.
+* `master`: Node is a master.
+* `slave`: Node is a slave.
+* `fail?`: Node is in `PFAIL` state. Not reachable for the node you are contacting, but still logically reachable (not in `FAIL` state).
+* `fail`: Node is in `FAIL` state. It was not reachable for multiple nodes that promoted the `PFAIL` state to `FAIL`.
+* `handshake`: Untrusted node, we are handshaking.
+* `noaddr`: No address known for this node.
+* `noflags`: No flags at all.
 
 ## Notes on published config epochs
 
@@ -99,7 +99,7 @@ Note that the format does not have any space, so `CLUSTER NODES` output format i
 
 Note that:
 
-1. Migration and importing slots are only added to the node flagged as **myself**. This information is local to a node, for its own slots.
+1. Migration and importing slots are only added to the node flagged as `myself`. This information is local to a node, for its own slots.
 2. Importing and migrating slots are provided as **additional info**. If the node has a given hash slot assigned, it will be also a plain number in the list of hash slots, so clients that don't have a clue about hash slots migrations can just skip this special fields.
 
 @return
