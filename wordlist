@@ -2,7 +2,9 @@ ACLs
 AMD
 AOF
 API
+BitOp
 CAS
+CJSON
 CJSON
 CLI
 CP
@@ -60,6 +62,7 @@ MX
 MacBook
 Maxmemory
 Memcached
+MessagePack
 MongoDB
 MySQL
 NAS
@@ -165,6 +168,7 @@ changelogs
 checksum
 chrt
 cli
+cmsgpack
 commandstats
 conf
 config
@@ -267,6 +271,7 @@ myzset
 netcat
 netsplits
 newjobs
+nils
 noeviction
 noscript
 numactl
@@ -325,6 +330,7 @@ smaps
 snapshotting
 startup
 strace
+struct
 subcommand
 subcommands
 suboptimal

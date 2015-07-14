@@ -291,27 +291,31 @@ Redis offers a SCRIPT command that can be used in order to control the scripting
 subsystem.
 SCRIPT currently accepts three different commands:
 
-*   SCRIPT FLUSH.
+*   `SCRIPT FLUSH`
+
     This command is the only way to force Redis to flush the scripts cache.
     It is most useful in a cloud environment where the same instance can be
     reassigned to a different user.
     It is also useful for testing client libraries' implementations of the
     scripting feature.
 
-*   SCRIPT EXISTS _sha1_ _sha2_... _shaN_.
+*   `SCRIPT EXISTS sha1 sha2 ... shaN`
+
     Given a list of SHA1 digests as arguments this command returns an array of
     1 or 0, where 1 means the specific SHA1 is recognized as a script already
     present in the scripting cache, while 0 means that a script with this SHA1
     was never seen before (or at least never seen after the latest SCRIPT FLUSH
     command).
 
-*   SCRIPT LOAD _script_.
+*   `SCRIPT LOAD script`
+
     This command registers the specified script in the Redis script cache.
     The command is useful in all the contexts where we want to make sure that
     `EVALSHA` will not fail (for instance during a pipeline or MULTI/EXEC
     operation), without the need to actually execute the script.
 
-*   SCRIPT KILL.
+*   `SCRIPT KILL`
+
     This command is the only way to interrupt a long-running script that reaches
     the configured maximum execution time for scripts.
     The SCRIPT KILL command can only be used with scripts that did not modify
