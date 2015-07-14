@@ -4,15 +4,16 @@ store the result in the destination key.
 The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR**
 and **NOT**, thus the valid forms to call the command are:
 
-* `BITOP AND _destkey srckey1 srckey2 srckey3 ... srckeyN_`
-* `BITOP OR _destkey srckey1 srckey2 srckey3 ... srckeyN_`
-* `BITOP XOR _destkey srckey1 srckey2 srckey3 ... srckeyN_`
-* `BITOP NOT _destkey srckey_`
+
+* `BITOP AND destkey srckey1 srckey2 srckey3 ... srckeyN`
+* `BITOP OR  destkey srckey1 srckey2 srckey3 ... srckeyN`
+* `BITOP XOR destkey srckey1 srckey2 srckey3 ... srckeyN`
+* `BITOP NOT destkey srckey`
 
 As you can see **NOT** is special as it only takes an input key, because it
 performs inversion of bits so it only makes sense as an unary operator.
 
-The result of the operation is always stored at _destkey_.
+The result of the operation is always stored at `destkey`.
 
 ## Handling of strings with different lengths
 
