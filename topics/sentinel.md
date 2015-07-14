@@ -1073,7 +1073,7 @@ replication and the discarding nature of the "virtual" merge function of the sys
 1. Use synchronous replication (and a proper consensus algorithm to run a replicated state machine).
 2. Use an eventually consistent system where different versions of the same object can be merged.
 
-Redis currently is not able to use any of the above systems, and is currently outside the development goals. However there are proxies implementing solution "2" on top of Redis stores such as SoundClound [Roshi](https://github.com/soundcloud/roshi), or Netflix [Dynomite](https://github.com/Netflix/dynomite).
+Redis currently is not able to use any of the above systems, and is currently outside the development goals. However there are proxies implementing solution "2" on top of Redis stores such as SoundCloud [Roshi](https://github.com/soundcloud/roshi), or Netflix [Dynomite](https://github.com/Netflix/dynomite).
 
 Sentinel persistent state
 ---

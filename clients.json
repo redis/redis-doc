@@ -395,7 +395,7 @@
   {
     "name": "RedisServer",
     "language": "PHP",
-    "repository": "https://github.com/jamm/Memory/blob/master/lib/Jamm/Memory/RedisServer.php",
+    "repository": "https://github.com/e-oz/Memory/blob/master/lib/Jamm/Memory/RedisServer.php",
     "description": "Standalone and full-featured class for Redis in PHP",
     "authors": ["eugeniyoz"]
   },
@@ -415,6 +415,14 @@
     "repository": "https://github.com/colinmollenhour/credis",
     "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
     "authors": ["colinmollenhour"]
+  },
+
+  {
+    "name": "Kdyby/Redis",
+    "language": "PHP",
+    "repository": "https://github.com/kdyby/redis",
+    "description": "Powerfull Redis storage for Nette Framework",
+    "active": true
   },
 
   {
@@ -502,6 +510,14 @@
     "repository": "https://github.com/rebolek/prot-redis",
     "description": "Redis network scheme for Rebol 3",
     "authors": ["rebolek"]
+  },
+
+  {
+    "name": "redisca2",
+    "language": "Python",
+    "repository": "https://github.com/khamin/redisca2",
+    "description": "Lightweight ORM for Redis",
+    "authors": ["vitaliykhamin"]
   },
 
   {
@@ -620,7 +636,7 @@
 
   {
     "name": "hxneko-redis",
-    "language": "haXe",
+    "language": "Haxe",
     "url": "https://code.google.com/p/hxneko-redis/",
     "repository": "https://code.google.com/p/hxneko-redis/source/browse",
     "description": "",
@@ -665,7 +681,7 @@
   {
     "name": "node_redis",
     "language": "Node.js",
-    "repository": "https://github.com/mranney/node_redis",
+    "repository": "https://github.com/NodeRedis/node_redis",
     "description": "Recommended client for node.",
     "authors": ["mranney"],
     "recommended": true,
@@ -926,7 +942,7 @@
   {
     "name": "redis",
     "language": "Nim",
-    "repository": "https://github.com/Araq/Nim",
+    "repository": "https://github.com/nim-lang/Nim/blob/devel/lib/pure/redis.nim",
     "url": "http://nim-lang.org/docs/redis.html",
     "description": "Redis client for Nim",
     "authors": [],
@@ -967,6 +983,7 @@
     "description": "Thread-safe async Redis client. Offers high performance and simple api",
     "authors": ["bn_andrew"]
   },
+
   {
     "name": "redis",
     "language": "Dart",
@@ -990,5 +1007,31 @@
     "description": "A lightweight wrapper around the C client hiredis.",
     "authors": ["matt_howlett"],
     "active": true
+  },
+
+  {
+    "name": "finagle-redis",
+    "language": "Scala",
+    "repository": "https://github.com/twitter/finagle/tree/develop/finagle-redis",
+    "description": "Redis client based on Finagle"
+  },
+
+  {
+    "name": "rredis",
+    "language": "R",
+    "repository": "https://github.com/bwlewis/rredis",
+    "url": "http://cran.r-project.org/package=rredis",
+    "description": "Redis client for R",
+    "authors": ["bwlewis"],
+    "active": true
+  },
+
+  {
+    "name": "Redis-AS3",
+    "language": "ActionScript",
+    "repository": "https://github.com/mikeheier/Redis-AS3",
+    "description": "An as3 client library for redis.",
+    "authors": []
   }
+
 ]

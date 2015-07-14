@@ -107,7 +107,7 @@ Twemproxy supports automatic partitioning among multiple Redis instances, with o
 
 It is *not* a single point of failure since you can start multiple proxies and instruct your clients to connect to the first that accepts the connection.
 
-Basically Twemproxy is an intermediate layer between clients and Redis instances, that will reliably handle partitioning for us with minimal additional complexities. Currently it is the **suggested way to handle partitioning with Redis**.
+Basically Twemproxy is an intermediate layer between clients and Redis instances, that will reliably handle partitioning for us with minimal additional complexities.
 
 You can read more about Twemproxy [in this antirez blog post](http://antirez.com/news/44).
 
