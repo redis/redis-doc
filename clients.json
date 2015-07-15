@@ -102,9 +102,9 @@
   {
     "name": "Radix",
     "language": "Go",
-    "repository": "https://github.com/fzzy/radix",
-    "description": "MIT licensed Redis client.",
-    "authors": ["fzzbt"],
+    "repository": "https://github.com/mediocregopher/radix.v2",
+    "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
+    "authors": ["fzzbt", "mediocre_gopher"],
     "recommended": true,
     "active": true
   },
