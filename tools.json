@@ -344,5 +344,13 @@
     "repository": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "description": "A Node.js library for streamlining the configuration and maintenance of your Redis namespace",
     "authors": ["codecreativity"]
+  },
+  {
+    "name": "phpRedExpert",
+    "language": "PHP",
+    "url": "https://github.com/eugef/phpRedExpert",
+    "repository": "https://github.com/eugef/phpRedExpert",
+    "description": "phpRedExpert ia simple and powerful web UI for Redis databases and servers management, written in PHP and JavaScript.",
+    "authors": ["EugeneFidelin"]
   }
 ]
