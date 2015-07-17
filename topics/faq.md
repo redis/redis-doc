@@ -24,10 +24,10 @@ To give you a few examples (all obtained using 64-bit instances):
 
 To test your use case is trivial using the `redis-benchmark` utility to generate random data sets and check with the `INFO memory` command the space used.
 
-64 bit systems will use considerably more memory than 32 bit systems to store the same keys, especially if the keys and values are small, this is because pointers takes 8 bytes in 64 bit systems. But of course the advantage is that you can
-have a lot of memory in 64 bit systems, so in order to run large Redis servers a 64 bit system is more or less required. The alternative is sharding.
+64-bit systems will use considerably more memory than 32-bit systems to store the same keys, especially if the keys and values are small. This is because pointers take 8 bytes in 64-bit systems. But of course the advantage is that you can
+have a lot of memory in 64-bit systems, so in order to run large Redis servers a 64-bit system is more or less required. The alternative is sharding.
 
-## I like Redis high level operations and features, but I don't like that it takes everything in memory and I can't have a dataset larger the memory. Plans to change this?
+## I like Redis's high level operations and features, but I don't like that it takes everything in memory and I can't have a dataset larger the memory. Plans to change this?
 
 In the past the Redis developers experimented with Virtual Memory and other systems in order to allow larger than RAM datasets, but after all we are very happy if we can do one thing well: data served from memory, disk used for storage. So for now there are no plans to create an on disk backend for Redis. Most of what
 Redis is, after all, is a direct result of its current design.
@@ -55,7 +55,7 @@ way. There is more info in the [Memory Optimization page](/topics/memory-optimiz
 Redis will either be killed by the Linux kernel OOM killer,
 crash with an error, or will start to slow down.
 With modern operating systems malloc() returning NULL is not common, usually
-the server will start swapping and Redis performances will degrade so
+the server will start swapping, and Redis performance will degrade, so
 you'll probably notice there is something wrong.
 
 The INFO command will report the amount of memory Redis is using so you can
@@ -109,17 +109,17 @@ Yes, redis background saving process is always forked when the server is
 outside of the execution of a command, so every command reported to be atomic
 in RAM is also atomic from the point of view of the disk snapshot.
 
-## Redis is single threaded, how can I exploit multiple CPU / cores?
+## Redis is single threaded. How can I exploit multiple CPU / cores?
 
-It's very unlikely that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound. For instance using pipelining Redis running
+It's very unlikely that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound. For instance, using pipelining Redis running
 on an average Linux system can deliver even 500k requests per second, so
-if your application mainly uses O(N) or O(log(N)) commands it is hardly
+if your application mainly uses O(N) or O(log(N)) commands, it is hardly
 going to use too much CPU.
 
-However to maximize CPU usage you can start multiple instances of Redis in
+However, to maximize CPU usage you can start multiple instances of Redis in
 the same box and treat them as different servers. At some point a single
 box may not be enough anyway, so if you want to use multiple CPUs you can
-start thinking at some way to shard earlier.
+start thinking of some way to shard earlier.
 
 You can find more information about using multiple Redis instances in the [Partitioning page](/topics/partitioning).
 
@@ -147,7 +147,7 @@ As a result of this, it is common for users with many keys with an expire set to
 
 It means REmote DIctionary Server.
 
-## Why did you started the Redis project?
+## Why did you start the Redis project?
 
 Originally Redis was started in order to scale [LLOOGG][lloogg]. But after I got the basic server working I liked the idea to share the work with other people, and Redis was turned into an open source project.
 
