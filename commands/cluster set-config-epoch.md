@@ -12,7 +12,7 @@ However there is an exception to this rule, and it is when a new
 cluster is created from scratch. Redis Cluster *config epoch collision
 resolution* algorithm can deal with new nodes all configured with the
 same configuration at startup, but this process is slow and should be
-the exception, only to make sure that whatever happens, two more more
+the exception, only to make sure that whatever happens, two more
 nodes eventually always move away from the state of having the same
 configuration epoch.
 

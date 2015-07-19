@@ -354,7 +354,7 @@ never need to scan the payload for special characters like it happens for
 instance with JSON, nor to quote the payload that needs to be sent to the
 server.
 
-The Bulk and Multi Bulk lengths can be be processed with code that performs
+The Bulk and Multi Bulk lengths can be processed with code that performs
 a single operation per character while at the same time scanning for the
 CR character, like the following C code:
 
