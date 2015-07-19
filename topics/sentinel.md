@@ -748,7 +748,7 @@ master, and another slave S2 in another data center, it is possible to set
 S1 with a priority of 10 and S2 with a priority of 100, so that if the master
 fails and both S1 and S2 are available, S1 will be preferred.
 
-For more information about the the way slaves are selected, please check the **slave selection and priority** section of this documentation.
+For more information about the way slaves are selected, please check the **slave selection and priority** section of this documentation.
 
 Sentinel and Redis authentication
 ---
@@ -838,7 +838,7 @@ The ODOWN condition **only applies to masters**. For other kind of instances
 Sentinel doesn't require to act, so the ODOWN state is never reached for slaves
 and other sentinels, but only SDOWN is.
 
-However SDOWN has also semantical implications. For example a slave in SDOWN
+However SDOWN has also semantic implications. For example a slave in SDOWN
 state is not selected to be promoted by a Sentinel performing a failover.
 
 Sentinels and Slaves auto discovery

@@ -1,4 +1,4 @@
-Geospatial Redis commands encode positions of objects in a single 52 bit integer, using a technique called geohash. The encoding is further explained in the `GEODECODE` and `GEOADD` documentation. The `GEOENCODE` command, documented in this page, is able to convert a longitude and latitude pair into such 52 bit integer, which is used as as the *score* for the sorted set members representing geopositional information.
+Geospatial Redis commands encode positions of objects in a single 52 bit integer, using a technique called geohash. The encoding is further explained in the `GEODECODE` and `GEOADD` documentation. The `GEOENCODE` command, documented in this page, is able to convert a longitude and latitude pair into such 52 bit integer, which is used as the *score* for the sorted set members representing geopositional information.
 
 Normally you don't need to use this command, unless you plan to implement low level code in the client side interacting with the Redis geo commands. This command may also be useful for debugging purposes.
 
