@@ -167,7 +167,7 @@ unsubscribing from all the channels and patterns.
 
 Pieter Noordhuis provided a great example using EventMachine
 and Redis to create [a multi user high performance web
-chat](https://gist.github.com/348262).
+chat](https://gist.github.com/pietern/348262).
 
 ## Client library implementation hints
 
