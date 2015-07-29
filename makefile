@@ -1,4 +1,4 @@
-MD_FILES:=$(shell find commands topics -name '*.md')
+MD_FILES:=$(shell find commands -name '*.md')
 TEXT_FILES:=$(patsubst %.md,tmp/%.txt,$(MD_FILES))
 SPELL_FILES:=$(patsubst %.txt,%.spell,$(TEXT_FILES))
 
