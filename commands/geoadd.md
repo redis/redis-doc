@@ -7,7 +7,7 @@ can be indexed: areas very near to the poles are not indexable. The exact
 limits, as specified by EPSG:900913 / EPSG:3785 / OSGEO:41001 are the following:
 
 * Valid longitudes are from -180 to 180 degrees.
-* Valid latitudes are from -85.05112878 to 85.05112878 degreees.
+* Valid latitudes are from -85.05112878 to 85.05112878 degrees.
 
 The command will report an error when the user attempts to index coordinates outside the specified ranges.
 

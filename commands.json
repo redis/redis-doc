@@ -664,7 +664,8 @@
     "arguments": [
       {
         "name": "key",
-        "type": "key"
+        "type": "key",
+        "multiple": true
       }
     ],
     "since": "1.0.0",

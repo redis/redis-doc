@@ -102,9 +102,9 @@
   {
     "name": "Radix",
     "language": "Go",
-    "repository": "https://github.com/fzzy/radix",
-    "description": "MIT licensed Redis client.",
-    "authors": ["fzzbt"],
+    "repository": "https://github.com/mediocregopher/radix.v2",
+    "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
+    "authors": ["fzzbt", "mediocre_gopher"],
     "recommended": true,
     "active": true
   },
@@ -436,7 +436,7 @@
   {
     "name": "PHP Sentinel Client",
     "language": "PHP",
-    "repository": "https://github.com/Sparkcentral/PSRedis",
+    "repository": "https://github.com/jamescauwelier/PSRedis",
     "description": "A PHP sentinel client acting as an extension to your regular redis client",
     "authors": ["jamescauwelier"],
     "active": true

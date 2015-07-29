@@ -81,7 +81,7 @@ However node hash slots can be in a special state, used in order to communicate 
 The meaning of the two states is explained in the Redis Specification, however the gist of the two states is the following:
 
 * **Importing** slots are yet not part of the nodes hash slot, there is a migration in progress. The node will accept queries about these slots only if the `ASK` command is used.
-* **Migrating** slots are assigned to the node, but but are being migrated to some other node. The node will accept queries if all the keys in the command exist already, otherwise it will emit what is called an **ASK redirection**, to force new keys creation directly in the importing node.
+* **Migrating** slots are assigned to the node, but are being migrated to some other node. The node will accept queries if all the keys in the command exist already, otherwise it will emit what is called an **ASK redirection**, to force new keys creation directly in the importing node.
 
 Importing and migrating slots are emitted in the `CLUSTER NODES` output as follows:
 
