@@ -66,11 +66,7 @@ redis.conf file** so at the next restart of Redis the old configuration will
 be used instead.
 
 Make sure to also modify the `redis.conf` file accordingly to the configuration
-you set using [CONFIG SET](/commands/config-set).
-There are plans to provide a `CONFIG REWRITE`
-command that will be able to run the `redis.conf` file rewriting the
-configuration accordingly to the current server configuration, without modifying
-the comments and the structure of the current file.
+you set using [CONFIG SET](/commands/config-set). You can do it manually, or starting with Redis 2.8, you can just use [CONFIG REWRITE](/commands/config-rewrite), which will automatically scan your `redis.conf` file and update the fields which don't match the current configuration value. Fields non existing but set to the default value are not added. Comments inside your configuration file are retained.
 
 Configuring Redis as a cache
 ---
