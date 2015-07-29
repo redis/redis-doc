@@ -114,7 +114,7 @@ In our example cluster with nodes A, B, C, if node B fails the cluster is not
 able to continue, since we no longer have a way to serve hash slots in the
 range 5501-11000.
 
-However if when the cluster is created (or at a latter time) we add a slave
+However when the cluster is created (or at a latter time) we add a slave
 node to every master, so that the final cluster is composed of A, B, C
 that are masters nodes, and A1, B1, C1 that are slaves nodes, the system is
 able to continue if node B fails.
@@ -153,10 +153,10 @@ are already able to reason about because of past experiences with traditional
 database systems not involving distributed systems. Similarly you can
 improve consistency by forcing the database to flush data on disk before
 replying to the client, but this usually results into prohibitively low
-performances. That would be the equivalent of synchronous replication in
+performance. That would be the equivalent of synchronous replication in
 the case of Redis Cluster.
 
-Basically there is a trade-off to take between performances and consistency.
+Basically there is a trade-off to take between performance and consistency.
 
 Redis Cluster has support for synchronous writes when absolutely needed,
 implemented via the `WAIT` command, this makes losing writes a lot less
@@ -500,7 +500,7 @@ ruby ./example.rb
 ```
 
 This is not a very interesting program and we'll use a better one in a moment
-but we can already try what happens during a resharding when the program
+but we can already see what happens during a resharding when the program
 is running.
 
 Resharding the cluster
@@ -691,8 +691,8 @@ Now we can look at the output of the consistency test to see what it reported.
 
 As you can see during the failover the system was not able to accept 578 reads and 577 writes, however no inconsistency was created in the database. This may
 sound unexpected as in the first part of this tutorial we stated that Redis
-Cluster can lost writes during the failover because it uses asynchronous
-replication. What we did not said is that this is not very likely to happen
+Cluster can lose writes during the failover because it uses asynchronous
+replication. What we did not say is that this is not very likely to happen
 because Redis sends the reply to the client, and the commands to replicate
 to the slaves, about at the same time, so there is a very small window to
 lose data. However the fact that it is hard to trigger does not mean that it
@@ -792,7 +792,7 @@ the existing cluster.
 
     ./redis-trib.rb add-node 127.0.0.1:7006 127.0.0.1:7000
 
-As you can see I used the **addnode** command specifying the address of the
+As you can see I used the **add-node** command specifying the address of the
 new node as first argument, and the address of a random existing node in the
 cluster as second argument.
 
@@ -993,7 +993,7 @@ in order to migrate your data set to Redis Cluster:
 6. Restart your Redis Cluster nodes with the new AOF files. They'll complain that there are keys that should not be there according to their configuration.
 7. Use `redis-trib fix` command in order to fix the cluster so that keys will be migrated according to the hash slots each node is authoritative or not.
 8. Use `redis-trib check` at the end to make sure your cluster is ok.
-9. Restart your clients modified to use a Redis Cluster aware client library.w
+9. Restart your clients modified to use a Redis Cluster aware client library.
 
 There is an alternative way to import data from external instances to a Redis
 Cluster, which is to use the `redis-trib import` command.
