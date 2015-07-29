@@ -229,6 +229,8 @@ infeasible
 init
 inline
 internet
+intset
+intsets
 iojob
 iostat
 ists
@@ -279,6 +281,7 @@ online
 overcommit
 pades
 pageview
+parsable
 pcall
 pid
 pipelined
@@ -315,6 +318,7 @@ resharding
 reshardings
 resync
 resynchronization
+resynchronizations
 resynchronize
 robj
 roundtrips
@@ -378,3 +382,5 @@ virtualized
 vmstat
 vtype
 wildcards
+ziplist
+ziplists

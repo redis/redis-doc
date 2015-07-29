@@ -73,12 +73,12 @@ Here is the meaning of all fields in the **memory** section:
 *   `used_memory_human`: Human readable representation of previous value
 *   `used_memory_rss`: Number of bytes that Redis allocated as seen by the
      operating system (a.k.a resident set size). This is the number reported by tools
-     such as **top** and **ps**.
+     such as `top(1)` and `ps(1)`
 *   `used_memory_peak`: Peak memory consumed by Redis (in bytes)
 *   `used_memory_peak_human`: Human readable representation of previous value
 *   `used_memory_lua`: Number of bytes used by the Lua engine
 *   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`
-*   `mem_allocator`: Memory allocator, chosen at compile time.
+*   `mem_allocator`: Memory allocator, chosen at compile time
 
 Ideally, the `used_memory_rss` value should be only slightly higher than `used_memory`.
 When rss >> used, a large difference means there is memory fragmentation
@@ -142,9 +142,9 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_connections_received`: Total number of connections accepted by the server
 *   `total_commands_processed`: Total number of commands processed by the server
 *   `instantaneous_ops_per_sec`: Number of commands processed per second
-*   `rejected_connections`: Number of connections rejected because of maxclients limit
+*   `rejected_connections`: Number of connections rejected because of `maxclients` limit
 *   `expired_keys`: Total number of key expiration events
-*   `evicted_keys`: Number of evicted keys due to maxmemory limit
+*   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
 *   `keyspace_misses`: Number of failed lookup of keys in the main dictionary
 *   `pubsub_channels`: Global number of pub/sub channels with client subscriptions
@@ -162,11 +162,11 @@ If the instance is a slave, these additional fields are provided:
 *   `master_port`: Master listening TCP port
 *   `master_link_status`: Status of the link (up/down)
 *   `master_last_io_seconds_ago`: Number of seconds since the last interaction with master
-*   `master_sync_in_progress`: Indicate the master is SYNCing to the slave
+*   `master_sync_in_progress`: Indicate the master is syncing to the slave
 
 If a SYNC operation is on-going, these additional fields are provided:
 
-*   `master_sync_left_bytes`: Number of bytes left before SYNCing is complete
+*   `master_sync_left_bytes`: Number of bytes left before syncing is complete
 *   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O during a SYNC operation
 
 If the link between master and slave is down, an additional field is provided:
@@ -179,7 +179,7 @@ The following field is always provided:
 
 For each slave, the following line is added:
 
-*   `slaveXXX`: id, ip address, port, state
+*   `slaveXXX`: id, IP address, port, state
 
 Here is the meaning of all fields in the **cpu** section:
 
@@ -194,7 +194,7 @@ and the average CPU consumed per command execution.
 
 For each command type, the following line is added:
 
-*   `cmdstat_XXX`:calls=XXX,usec=XXX,usec_per_call=XXX
+*   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX`
 
 The **cluster** section currently only contains a unique field:
 
@@ -205,6 +205,6 @@ The statistics are the number of keys, and the number of keys with an expiration
 
 For each database, the following line is added:
 
-*   `dbXXX`:keys=XXX,expires=XXX
+*   `dbXXX`: `keys=XXX,expires=XXX`
 
 [hcgcpgp]: http://code.google.com/p/google-perftools/

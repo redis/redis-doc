@@ -4,7 +4,7 @@ Normally Redis represents positions of elements using a variation of the Geohash
 technique where positions are encoded using 52 bit integers. The encoding is
 also different compared to the standard because the initial min and max
 coordinates used during the encoding and decoding process are different. This
-command however **returns a standd Geohash** in the form of a string as
+command however **returns a standard Geohash** in the form of a string as
 described in the [Wikipedia article](https://en.wikipedia.org/wiki/Geohash) and compatible with the [geohash.org](http://geohash.org) web site.
 
 Geohash string properties

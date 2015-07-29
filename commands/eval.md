@@ -608,7 +608,7 @@ It supports several other functions:
 `bit.lshift`, `bit.rshift`, `bit.arshift`, `bit.rol`, `bit.ror`, `bit.bswap`.
 All available functions are documented in the [Lua BitOp documentation](http://bitop.luajit.org/api.html)
 
-### redis.sha1hex
+### `redis.sha1hex`
 
 Perform the SHA1 of the input string.
 
