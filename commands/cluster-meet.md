@@ -18,9 +18,9 @@ So, if we link node A with node B via `CLUSTER MEET`, and B with C, A and C will
 
 Another example: if we imagine a cluster formed of the following four nodes called A, B, C and D, we may send just the following set of commands to A:
 
-1. CLUSTER MEET B-ip B-port
-2. CLUSTER MEET C-ip C-port
-3. CLUSTER MEET D-ip D-port
+1. `CLUSTER MEET B-ip B-port`
+2. `CLUSTER MEET C-ip C-port`
+3. `CLUSTER MEET D-ip D-port`
 
 As a side effect of `A` knowing and being known by all the other nodes, it will send gossip sections in the heartbeat packets that will allow each other node to create a link with each other one, forming a full mesh in a matter of seconds, even if the cluster is large.
 

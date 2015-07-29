@@ -103,30 +103,21 @@ sudo apt-get install par
 
 ## Checking your work
 
-Once you're done, the very least you should do is make sure that all files
-compile properly.
-You can do this by running Rake inside your working directory.
+You should check your changes using Make:
 
 ```
-$ rake parse
+$ make
 ```
 
-The parse task has the following dependencies:
+This will make sure that JSON and Markdown files compile and that all
+text files have no typos.
 
-* batch
-* rdiscount
-
-```
-gem install batch rdiscount
-```
-
-Additionally, if you have [Aspell][han] installed, you can spell check the
-documentation:
-
-[han]: http://aspell.net/
+You need to install a few Ruby gems and [Aspell][han] to run these checks.
+The gems are listed in the `.gems` file. Install them with the
+following command:
 
 ```
-$ rake spellcheck
+$ gem install $(sed -e 's/ -v /:/' .gems)
 ```
 
-Exceptions can be added to `./wordlist`.
+The spell checking exceptions should be added to `./wordlist`.

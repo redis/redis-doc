@@ -56,11 +56,13 @@ The slave output is composed of the following parts:
 
 An example of Sentinel output:
 
+```
 1) "sentinel"
 2) 1) "resque-master"
    2) "html-fragments-master"
    3) "stats-master"
    4) "metadata-master"
+```
 
 The sentinel output is composed of the following parts:
 
