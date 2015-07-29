@@ -2,7 +2,7 @@ The `CLIENT KILL` command closes a given client connection. Up to Redis 2.8.11 i
 
     CLIENT KILL addr:port
 
-The ip:port should match a line returned by the `CLIENT LIST` command (`addr` field).
+The `ip:port` should match a line returned by the `CLIENT LIST` command (`addr` field).
 
 However starting with Redis 2.8.12 or greater, the command accepts the following
 form:

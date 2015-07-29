@@ -7,7 +7,7 @@ can be indexed: areas very near to the poles are not indexable. The exact
 limits, as specified by EPSG:900913 / EPSG:3785 / OSGEO:41001 are the following:
 
 * Valid longitudes are from -180 to 180 degrees.
-* Valid latitudes are from -85.05112878 to 85.05112878 degreees.
+* Valid latitudes are from -85.05112878 to 85.05112878 degrees.
 
 The command will report an error when the user attempts to index coordinates outside the specified ranges.
 
@@ -31,7 +31,7 @@ What Earth model does it use?
 
 It just assumes that the Earth is a sphere, since the used distance formula
 is the Haversine formula. This formula is only an approximation when applied to the Earth, which is not a perfect sphere. The introduced errors are not an issue when used in the context of social network sites that need to query by radius
-and most other applications. However in th worst case the error may be up to
+and most other applications. However in the worst case the error may be up to
 0.5%, so you may want to consider other systems for error-critical applications.
 
 @return

@@ -436,7 +436,7 @@
   {
     "name": "PHP Sentinel Client",
     "language": "PHP",
-    "repository": "https://github.com/Sparkcentral/PSRedis",
+    "repository": "https://github.com/jamescauwelier/PSRedis",
     "description": "A PHP sentinel client acting as an extension to your regular redis client",
     "authors": ["jamescauwelier"],
     "active": true

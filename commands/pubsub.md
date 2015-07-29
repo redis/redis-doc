@@ -17,7 +17,7 @@ listed.
 
 @array-reply: a list of active channels, optionally matching the specified pattern.
 
-# PUBSUB NUMSUB [channel-1 ... channel-N]
+# `PUBSUB NUMSUB [channel-1 ... channel-N]`
 
 Returns the number of subscribers (not counting clients subscribed to patterns)
 for the specified channels.
@@ -31,7 +31,7 @@ channels specified in the command call.
 Note that it is valid to call this command without channels. In this case it
 will just return an empty list.
 
-# PUBSUB NUMPAT
+# `PUBSUB NUMPAT`
 
 Returns the number of subscriptions to patterns (that are performed using the
 `PSUBSCRIBE` command). Note that this is not just the count of clients subscribed

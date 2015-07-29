@@ -7,7 +7,9 @@ addons:
     - aspell-en
 
 rvm:
-   - 1.9.3
+   - 2.2
 
-gemfile:
-  - .travis/Gemfile
+install:
+  - gem install $(sed -e 's/ -v /:/' .gems)
+
+script: make -s
