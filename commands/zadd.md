@@ -61,6 +61,10 @@ If the user inserts all the elements in a sorted set with the same score (for ex
 * The number of elements added to the sorted sets, not including elements
   already existing for which the score was updated.
 
+If the `INCR` option is specified, the return value will be @bulk-string-reply:
+
+* the new score of `member` (a double precision floating point number), represented as string.
+
 @history
 
 * `>= 2.4`: Accepts multiple elements.
