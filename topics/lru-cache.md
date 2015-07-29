@@ -89,10 +89,9 @@ was accessed the most in the past. Instead it will try to run an approximation
 of the LRU algorithm, by sampling a small number of keys, and evicting the
 one that is the best (with the oldest access time) among the sampled keys.
 
-However since Redis 3.0 (that is currently in beta) the algorithm was improved
-to also take a pool of good candidates for eviction. This improved the
-performance of the algorithm, making it able to approximate more closely the
-behavior of a real LRU algorithm.
+However since Redis 3.0 the algorithm was improved to also take a pool of good
+candidates for eviction. This improved the performance of the algorithm, making
+it able to approximate more closely the behavior of a real LRU algorithm.
 
 What is important about the Redis LRU algorithm is that you **are able to tune** the precision of the algorithm by changing the number of samples to check for every eviction. This parameter is controlled by the following configuration directive:
 
