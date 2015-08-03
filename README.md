@@ -112,7 +112,7 @@ $ make
 This will make sure that JSON and Markdown files compile and that all
 text files have no typos.
 
-You need to install a few Ruby gems and [Aspell][han] to run these checks.
+You need to install a few Ruby gems and [Aspell][aspell] to run these checks.
 The gems are listed in the `.gems` file. Install them with the
 following command:
 
@@ -121,3 +121,5 @@ $ gem install $(sed -e 's/ -v /:/' .gems)
 ```
 
 The spell checking exceptions should be added to `./wordlist`.
+
+[aspell]: http://aspell.net/
