@@ -505,6 +505,16 @@
   },
 
   {
+    "name": "aioredis",
+    "language": "Python",
+    "repository": "https://github.com/aio-libs/aioredis",
+    "url": "http://aioredis.readthedocs.org/",
+    "description": "Asyncio (PEP 3156) Redis client",
+    "authors": [],
+    "active": true
+  },
+
+  {
     "name": "prot-redis",
     "language": "Rebol",
     "repository": "https://github.com/rebolek/prot-redis",
