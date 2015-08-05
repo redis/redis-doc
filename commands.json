@@ -827,6 +827,11 @@
         "type": "enum",
         "enum": ["WITHHASH"],
         "optional": true
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "group": "geo"
@@ -868,6 +873,11 @@
         "name": "withhash",
         "type": "enum",
         "enum": ["WITHHASH"],
+        "optional": true
+      },
+      {
+        "name": "count",
+        "type": "integer",
         "optional": true
       }
     ],
