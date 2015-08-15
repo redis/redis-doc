@@ -1042,6 +1042,15 @@
     "repository": "https://github.com/mikeheier/Redis-AS3",
     "description": "An as3 client library for redis.",
     "authors": []
-  }
+  }, 
+  {
+    "name": "Swidis",
+    "language": "Swift",
+    "repository": "https://github.com/Farhaddc/Swidis",
+    "description": "iOS Framework Allowing you to connect to Redis server with Swift programming language.",
+    "authors": ["Farhad","Saadatpei"],
+    "recommended": true,
+    "active": true
+  },
 
 ]
