@@ -13,7 +13,7 @@ The command optionally returns additional information using the following option
 
 * `WITHDIST`: Also return the distance of the returned items from the specified center. The distance is returned in the same unit as the unit specified as the radius argument of the command.
 * `WITHCOORD`: Also return the longitude,latitude coordinates of the matching items.
-* `WITHASH`: Also return the raw geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low level hacks or debugging and is otherwise of little interest for the general user.
+* `WITHHASH`: Also return the raw geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low level hacks or debugging and is otherwise of little interest for the general user.
 
 The command default is to return unsorted items. Two different sorting methods can be invoked using the following two options:
 
