@@ -4,8 +4,8 @@ Normally slave nodes will redirect clients to the authoritative master for
 the hash slot involved in a given command, however clients can use slaves
 in order to scale reads using the `READONLY` command.
 
-`READONLY` tells a Redis Cluster slave node that the client is ok reading
-possibly stale data and is not interested in running write queries.
+`READONLY` tells a Redis Cluster slave node that the client is willing to
+read possibly stale data and is not interested in running write queries.
 
 When the connection is in readonly mode, the cluster will send a redirection
 to the client only if the operation involves keys not served by the slave's
