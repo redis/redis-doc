@@ -1749,13 +1749,13 @@
     "group": "generic"
   },
   "READONLY": {
-    "summary:" "Enables read queries for a connection to a cluster slave node",
+    "summary": "Enables read queries for a connection to a cluster slave node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
   "READWRITE": {
-    "summary:" "Disables read queries for a connection to a cluster slave node",
+    "summary": "Disables read queries for a connection to a cluster slave node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
