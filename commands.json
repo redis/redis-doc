@@ -1748,6 +1748,18 @@
     "since": "1.0.0",
     "group": "generic"
   },
+  "READONLY": {
+    "summary:" "Enables read queries for a connection to a cluster slave node",
+    "complexity": "O(1)",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "READWRITE": {
+    "summary:" "Disables read queries for a connection to a cluster slave node",
+    "complexity": "O(1)",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "RENAME": {
     "summary": "Rename a key",
     "complexity": "O(1)",
