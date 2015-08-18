@@ -26,7 +26,7 @@ Redis compiled with 32 bit target uses a lot less memory per key, since pointers
 Bit and byte level operations
 -----------------------------
 
-Redis 2.2 introduced new bit and byte level operations: `GETRANGE`, `SETRANGE`, `GETBIT` and `SETBIT`. Using this commands you can treat the Redis string type as a random access array. For instance if you have an application where users are identified by an unique progressive integer number, you can use a bitmap in order to save information about sex of users, setting the bit for females and clearing it for males, or the other way around. With 100 millions of users this data will take just 12 megabyte of RAM in a Redis instance. You can do the same using `GETRANGE` and `SETRANGE` in order to store one byte of information for user. This is just an example but it is actually possible to model a number of problems in very little space with this new primitives.
+Redis 2.2 introduced new bit and byte level operations: `GETRANGE`, `SETRANGE`, `GETBIT` and `SETBIT`. Using these commands you can treat the Redis string type as a random access array. For instance if you have an application where users are identified by a unique progressive integer number, you can use a bitmap in order to save information about the sex of users, setting the bit for females and clearing it for males, or the other way around. With 100 million users this data will take just 12 megabytes of RAM in a Redis instance. You can do the same using `GETRANGE` and `SETRANGE` in order to store one byte of information for each user. This is just an example but it is actually possible to model a number of problems in very little space with these new primitives.
 
 Use hashes when possible
 ------------------------
