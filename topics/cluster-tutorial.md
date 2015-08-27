@@ -908,7 +908,7 @@ general idea and what you should do in order to benefit from it.
 
 The reason why you may want to let your cluster replicas to move from one master
 to another under certain condition, is that usually the Redis Cluster is as
-resistant to failures as the number of replicas attached to a given slave.
+resistant to failures as the number of replicas attached to a given master.
 
 For example a cluster where every master has a single replica can't continue
 operations if the master and its replica fail at the same time, simply because
