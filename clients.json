@@ -1042,6 +1042,15 @@
     "repository": "https://github.com/mikeheier/Redis-AS3",
     "description": "An as3 client library for redis.",
     "authors": []
+  },
+  
+  {
+    "name": "Rackdis",
+    "language": "Racket",
+    "repository": "https://github.com/eu90h/rackdis",
+    "description": "A Redis client for Racket",
+    "authors": ["eu90h"],
+    "active": true
   }
 
 ]
