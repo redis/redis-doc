@@ -872,10 +872,12 @@
   {
     "name": "lettuce",
     "language": "Java",
+    "url": "http://redis.paluch.biz",
     "repository": "https://github.com/mp911de/lettuce",
-    "description": "Thread-safe client supporting async usage and key/value codecs",
+    "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
     "authors": ["ar3te", "mp911de"],
-    "active": true
+    "active": true,
+    "recommended": true
   },
 
   {
