@@ -641,8 +641,8 @@ OK
 107046 R (0 err) | 107046 W (0 err) | 114 lost |
 ```
 
-When I set the counter to 0 the real value was 144, so the program reports
-144 lost writes (`INCR` commands that are not remembered by the cluster).
+When I set the counter to 0 the real value was 114, so the program reports
+114 lost writes (`INCR` commands that are not remembered by the cluster).
 
 This program is much more interesting as a test case, so we'll use it
 to test the Redis Cluster failover.
