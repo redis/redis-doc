@@ -352,5 +352,13 @@
     "repository": "https://github.com/eugef/phpRedExpert",
     "description": "phpRedExpert ia simple and powerful web UI for Redis databases and servers management, written in PHP and JavaScript.",
     "authors": ["EugeneFidelin"]
+  },
+  {
+    "name": "Hibernate OGM",
+    "language": "Java",
+    "url": "http://hibernate.org/ogm",
+    "repository": "https://github.com/hibernate/hibernate-ogm",
+    "description": "Hibernate OGM is the JPA integration for Redis",
+    "authors": ["mp911de", "gunnarmorling"]
   }
 ]
