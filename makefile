@@ -1,6 +1,12 @@
 MD_FILES:=$(shell find commands -name '*.md')
+JSON_FILES:=$(shell find commands -name '*.json')
 TEXT_FILES:=$(patsubst %.md,tmp/%.txt,$(MD_FILES))
 SPELL_FILES:=$(patsubst %.txt,%.spell,$(TEXT_FILES))
+
+default: parse spell
+
+parse: $(JSON_FILES)
+	rake parse
 
 spell: tmp/commands tmp/topics $(SPELL_FILES)
 	find tmp -name '*.spell' | xargs cat > tmp/spelling-errors
@@ -30,4 +36,4 @@ tmp/dict: wordlist tmp/commands.txt
 clean:
 	rm -rf tmp/*
 
-.PHONY: clean
+.PHONY: parse spell clean
