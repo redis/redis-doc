@@ -421,7 +421,7 @@
     "name": "Kdyby/Redis",
     "language": "PHP",
     "repository": "https://github.com/kdyby/redis",
-    "description": "Powerfull Redis storage for Nette Framework",
+    "description": "Powerful Redis storage for Nette Framework",
     "active": true
   },
 
