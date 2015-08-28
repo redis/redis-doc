@@ -1051,5 +1051,14 @@
     "description": "Superfast, pipelined, resilient Redis client written in pure Elixir.",
     "authors": ["whatyouhide"],
     "active": true
+  },
+  
+  {
+    "name": "crystal-redis",
+    "language": "Crystal",
+    "repository": "https://github.com/stefanwille/crystal-redis",
+    "description": "Full featured Redis client for Crystal.",
+    "authors": ["stefanwille"],
+    "active": true
   }
 ]
