@@ -1042,6 +1042,14 @@
     "repository": "https://github.com/mikeheier/Redis-AS3",
     "description": "An as3 client library for redis.",
     "authors": []
-  }
+  },
 
+  {
+    "name": "redix",
+    "language": "Elixir",
+    "repository": "https://github.com/whatyouhide/redix",
+    "description": "Superfast, pipelined, resilient Redis client written in pure Elixir.",
+    "authors": ["whatyouhide"],
+    "active": true
+  }
 ]
