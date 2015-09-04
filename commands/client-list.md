@@ -41,6 +41,8 @@ i: the client is waiting for a VM I/O (deprecated)
 d: a watched keys has been modified - EXEC will fail
 c: connection to be closed after writing entire reply
 u: the client is unblocked
+U: the client is connected via a Unix domain socket
+r: the client is in readonly mode against a cluster node
 A: connection to be closed ASAP
 N: no specific flag set
 ```

@@ -299,6 +299,7 @@ qsort
 queueing
 rdb
 readonly
+readwrite
 realtime
 rebalance
 rebalancing
@@ -314,6 +315,7 @@ reimplement
 representable
 reprovisioned
 reshard
+resharded
 resharding
 reshardings
 resync
