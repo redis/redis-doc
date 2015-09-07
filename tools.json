@@ -452,5 +452,12 @@
     "repository": "https://github.com/ryanlecompte/redis_failover",
     "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
     "authors": ["ryanlecompte"]
+  },
+  {
+    "name": "redis-in-labview",
+    "language": "LabVIEW",
+    "repository": "https://decibel.ni.com/content/docs/DOC-36322",
+    "description": "LabVIEW toolkit for Redis",
+    "authors": ["iwac"]
   }
 ]
