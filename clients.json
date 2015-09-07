@@ -1127,5 +1127,14 @@
     "description": "A client focused on arbitrary sharding and parallel pipelining.",
     "authors": ["pepijndevos"],
     "active": true
+  },
+
+  {
+    "name": "IRedis",
+    "language": "Dart",
+    "repository": "https://github.com/himulawang/i_redis",
+    "description": "A redis client for Dart",
+    "authors": ["ila"],
+    "active": true
   }
 ]
