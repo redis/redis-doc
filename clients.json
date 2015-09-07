@@ -1072,5 +1072,14 @@
     "description": "A Redis client for Racket.",
     "authors": ["s_chng"],
     "active": true
+  },
+
+  {
+    "name": "delphi-redis",
+    "language": "Delphi",
+    "url": "https://bitbucket.org/Gloegg/delphi-redis",
+    "repository": "https://bitbucket.org/Gloegg/delphi-redis.git",
+    "description": "A lightweight Redis client written in Delphi",
+    "authors": ["Gloegg"]
   }
 ]
