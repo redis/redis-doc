@@ -489,5 +489,13 @@
     "repository": "https://github.com/HangfireIO/Hangfire",
     "description": "An easy way to perform fire-and-forget, delayed and recurring tasks inside ASP.NET apps",
     "authors": ["odinserj"]
+  },
+  {
+    "name": "redis_builder",
+    "language": "C++",
+    "url": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
+    "repository": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
+    "description": "A C++ redis tool to create and manage a redis cluster, basing on acl redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "authors": ["zhengshuxin"]
   }
 ]
