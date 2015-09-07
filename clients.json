@@ -1100,5 +1100,15 @@
     "description": "Asynchronous Redis client that works with the asyncio event loop",
     "authors": ["Jonathan Slenders"],
     "active": true
+  },
+
+  {
+    "name": "Redis::Fast",
+    "language": "Perl",
+    "url": "https://metacpan.org/pod/Redis::Fast",
+    "repository": "https://github.com/shogo82148/Redis-Fast",
+    "description": "Perl binding for Redis database",
+    "authors": ["shogo82148"],
+    "active": true
   }
 ]
