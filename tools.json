@@ -466,5 +466,12 @@
     "repository": "https://github.com/cinience/RedisStudio",
     "description": "Redis GUI tool for windows platform.",
     "authors": ["cinience"]
+  },
+  {
+    "name": "Keylord",
+    "language": "Java",
+    "url": "http://protonail.com/products/keylord",
+    "description": "Cross-platform administration and development GUI application for key-value databases like Redis, LevelDB, etc.",
+    "authors": ["protonail"]
   }
 ]
