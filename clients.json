@@ -1062,5 +1062,15 @@
     "authors": ["stefanwille"],
     "recommended": true,
     "active": true
+  },
+
+  {
+    "name": "redis-racket",
+    "language": "Racket",
+    "url": "https://pkg.racket-lang.org/info/redis",
+    "repository": "https://github.com/stchang/redis",
+    "description": "A Redis client for Racket.",
+    "authors": ["s_chng"],
+    "active": true
   }
 ]
