@@ -1119,5 +1119,14 @@
     "description": "A no nonsense Redis Client using pure scala. Preserves elegant Redis style without any need to learn any special API",
     "authors": ["chiradip"],
     "active": true
+  },
+
+  {
+    "name": "Pypredis",
+    "language": "Python",
+    "repository": "https://github.com/pepijndevos/pypredis",
+    "description": "A client focused on arbitrary sharding and parallel pipelining.",
+    "authors": ["pepijndevos"],
+    "active": true
   }
 ]
