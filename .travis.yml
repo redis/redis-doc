@@ -5,11 +5,12 @@ addons:
     packages:
     - aspell
     - aspell-en
+    - par
 
 rvm:
    - 2.2
 
 install:
-  - gem install $(sed -e 's/ -v /:/' .gems)
+  - bundle install
 
 script: make -s
