@@ -1090,5 +1090,15 @@
     "repository": "https://github.com/ziogas/PHP-Redis-implementation",
     "description": "Simple and lightweight redis implementation. Basically wrapper for raw redis commands.",
     "authors": ["arminas"]
+  },
+
+  {
+    "name": "asyncio_redis",
+    "language": "Python",
+    "url": "http://asyncio-redis.readthedocs.org/",
+    "repository": "https://github.com/jonathanslenders/asyncio-redis",
+    "description": "Asynchronous Redis client that works with the asyncio event loop",
+    "authors": ["Jonathan Slenders"],
+    "active": true
   }
 ]
