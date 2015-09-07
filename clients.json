@@ -636,7 +636,7 @@
   {
     "name": "DartRedisClient",
     "language": "Dart",
-    "url": "https://github.com/mythz/DartRedisClient",
+    "url": "https://github.com/dartist/redis_client",
     "description": "A high-performance async/non-blocking Redis client for Dart",
     "authors": ["demisbellot"],
     "recommended": true,
