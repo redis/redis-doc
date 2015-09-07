@@ -1081,5 +1081,14 @@
     "repository": "https://bitbucket.org/Gloegg/delphi-redis.git",
     "description": "A lightweight Redis client written in Delphi",
     "authors": ["Gloegg"]
+  },
+
+  {
+    "name": "PHP Redis implementation / wrapper",
+    "language": "PHP",
+    "url": "https://github.com/ziogas/PHP-Redis-implementation",
+    "repository": "https://github.com/ziogas/PHP-Redis-implementation",
+    "description": "Simple and lightweight redis implementation. Basically wrapper for raw redis commands.",
+    "authors": ["arminas"]
   }
 ]
