@@ -1146,5 +1146,14 @@
     "description": "Gawk extension, using the hiredis C library. Supports pipelining and pub/sub",
     "authors": ["paulinohuerta"],
     "active": true
+  },
+
+  {
+    "name": "vRedis",
+    "language": "VB",
+    "repository": "https://github.com/hishamco/vRedis",
+    "description": "Redis client using VB.NET.",
+    "authors": ["hishamco"],
+    "active": true
   }
 ]
