@@ -459,5 +459,12 @@
     "repository": "https://decibel.ni.com/content/docs/DOC-36322",
     "description": "LabVIEW toolkit for Redis",
     "authors": ["iwac"]
+  },
+  {
+    "name": "RedisStudio",
+    "language": "C++",
+    "repository": "https://github.com/cinience/RedisStudio",
+    "description": "Redis GUI tool for windows platform.",
+    "authors": ["cinience"]
   }
 ]
