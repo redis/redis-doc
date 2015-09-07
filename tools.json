@@ -481,5 +481,13 @@
     "repository": "https://github.com/no13bus/redispapa",
     "description": "RedisPAPA is a redis monitor which watch the redis-info by using flask, angular, socket.io",
     "authors": ["no13bus"]
+  },
+  {
+    "name": "Hangfire",
+    "language": "C#",
+    "url": "http://hangfire.io",
+    "repository": "https://github.com/HangfireIO/Hangfire",
+    "description": "An easy way to perform fire-and-forget, delayed and recurring tasks inside ASP.NET apps",
+    "authors": ["odinserj"]
   }
 ]
