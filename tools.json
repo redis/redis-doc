@@ -360,5 +360,12 @@
     "repository": "https://github.com/hibernate/hibernate-ogm",
     "description": "Hibernate OGM is the JPA integration for Redis",
     "authors": ["mp911de", "gunnarmorling"]
+  },
+  {
+    "name": "pyres",
+    "language": "Python",
+    "repository" : "http://github.com/binarydud/pyres",
+    "description" : "Python library inspired by Resque for creating background jobs and workers",
+    "authors" : ["binarydud"]
   }
 ]
