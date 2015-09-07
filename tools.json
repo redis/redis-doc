@@ -367,5 +367,12 @@
     "repository" : "http://github.com/binarydud/pyres",
     "description" : "Python library inspired by Resque for creating background jobs and workers",
     "authors" : ["binarydud"]
+  },
+  {
+    "name": "Redis-RdbParser",
+    "language": "Perl",
+    "repository": "https://github.com/flygoast/Redis-RdbParser",
+    "description": "Redis-RdbParser is a streaming parser for redis RDB database dumps.",
+    "authors": ["flygoast"]
   }
 ]
