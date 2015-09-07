@@ -1110,5 +1110,14 @@
     "description": "Perl binding for Redis database",
     "authors": ["shogo82148"],
     "active": true
+  },
+
+  {
+    "name": "RedisClient",
+    "language": "Scala",
+    "repository": "https://github.com/chiradip/RedisClient",
+    "description": "A no nonsense Redis Client using pure scala. Preserves elegant Redis style without any need to learn any special API",
+    "authors": ["chiradip"],
+    "active": true
   }
 ]
