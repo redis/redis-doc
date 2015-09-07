@@ -391,7 +391,7 @@
     "authors": ["fgribreau"]
   },
   {
-    "name": "Hot-redis",
+    "name": "HOT Redis",
     "language": "Python",
     "repository": "https://github.com/stephenmcd/hot-redis",
     "description": "Higher Order Types for Redis in Python",
