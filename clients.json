@@ -1234,5 +1234,14 @@
     "description": "Redis Cluster client for Perl",
     "authors": ["smsonline"],
     "active": true
+  },
+
+  {
+    "name": "Swidis",
+    "language": "Swift",
+    "repository": "https://github.com/Farhaddc/Swidis",
+    "description": "iOS Framework Allowing you to connect to Redis server with Swift programming language.",
+    "authors": ["Farhaddc"],
+    "active": true
   }
 ]
