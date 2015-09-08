@@ -1243,5 +1243,14 @@
     "description": "iOS Framework Allowing you to connect to Redis server with Swift programming language.",
     "authors": ["Farhaddc"],
     "active": true
+  },
+
+  {
+    "name": "Rackdis",
+    "language": "Racket",
+    "repository": "https://github.com/eu90h/rackdis",
+    "description": "A Redis client for Racket",
+    "authors": ["eu90h"],
+    "active": true
   }
 ]
