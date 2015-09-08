@@ -519,5 +519,12 @@
     "repository": "https://github.com/jacket-code/redisPlatform",
     "description": "A rpc platform that base on redis, You can use it to do a lot of things, it can be a game server",
     "authors": ["jacketzhong"]
+  },
+  {
+    "name": "RedisPlugin for Phalcon",
+    "language": "PHP",
+    "repository": "https://github.com/ienaga/RedisPlugin",
+    "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
+    "authors": ["ienaga"]
   }
 ]
