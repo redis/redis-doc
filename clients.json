@@ -1076,7 +1076,7 @@
 
   {
     "name": "delphi-redis",
-    "language": "Delphi",
+    "language": "Pascal",
     "url": "https://bitbucket.org/Gloegg/delphi-redis",
     "repository": "https://bitbucket.org/Gloegg/delphi-redis.git",
     "description": "A lightweight Redis client written in Delphi",
@@ -1155,5 +1155,22 @@
     "description": "Redis client using VB.NET.",
     "authors": ["hishamco"],
     "active": true
+  },
+
+  {
+    "name": "delphiredisclient",
+    "language": "Pascal",
+    "repository": "https://github.com/danieleteti/delphiredisclient",
+    "description": "Redis client for Delphi",
+    "authors": ["danieleteti"],
+    "active": true
+  },
+
+  {
+    "name": "redis_client.fpc",
+    "language": "Pascal",
+    "repository": "https://github.com/ik5/redis_client.fpc",
+    "description": "Object Pascal client implementation for the redis protocol and commands",
+    "authors": ["ik5"]
   }
 ]
