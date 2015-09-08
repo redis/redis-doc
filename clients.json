@@ -805,7 +805,7 @@
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
     "repository": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
-    "description": "full redis client commands, one redis command one redis function, including STRING, HASH, LIST, SET, ZSET, HLL, PUBSUB, TRANSACTION, SCRIPT, CONNECTION, SERVER, CLUSTER",
+    "description": "full redis client commands, one redis command one redis function, including STRING, HASH, LIST, SET, ZSET, HLL, PUBSUB, TRANSACTION, SCRIPT, CONNECTION, SERVER, CLUSTER, GEO",
     "authors": [],
     "active": true
   },
