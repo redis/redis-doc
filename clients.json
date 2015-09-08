@@ -1252,5 +1252,13 @@
     "description": "A Redis client for Racket",
     "authors": ["eu90h"],
     "active": true
+  },
+
+  {
+    "name": "RedisKit",
+    "language": "Objective-C",
+    "repository": "https://github.com/dizzus/RedisKit",
+    "description": "RedisKit is a asynchronious client framework for Redis server, written in Objective-C",
+    "authors": ["dizzus"]
   }
 ]
