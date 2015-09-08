@@ -745,6 +745,15 @@
   },
 
   {
+    "name": "promise-redis",
+    "language": "Node.js",
+    "repository": "https://github.com/maxbrieiev/promise-redis",
+    "description": "Use any promise library with node_redis.",
+    "authors": ["maxbrieiev"],
+    "active": true
+  },
+
+  {
     "name": "iodis",
     "language": "Io",
     "repository": "https://github.com/vangberg/iodis",
