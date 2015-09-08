@@ -1181,5 +1181,14 @@
     "description": "Simple, Bash-based, Redis client to store your script's variables",
     "authors": ["crypt1d"],
     "active": true
+  },
+
+  {
+    "name": "amphp/redis",
+    "language": "PHP",
+    "repository": "https://github.com/amphp/redis",
+    "description": "An async redis client built on the amp concurrency framework.",
+    "authors": ["kelunik"],
+    "active": true
   }
 ]
