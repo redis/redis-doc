@@ -54,9 +54,13 @@ module Clients
       uri = URI(url)
 
       if uri.scheme == "http" || uri.scheme == "https"
-        res = Net::HTTP.get_response(uri)
+        begin
+          res = Net::HTTP.get_response(uri)
 
-        assert(res.code == "200" || res.code == "302", sprintf("URL broken: %s (%s)", url, res.code))
+          assert(res.code == "200" || res.code == "302", sprintf("URL broken: %s (%s)", url, res.code))
+        rescue OpenSSL::SSL::SSLError
+          assert(false, sprintf("SSL Error for URL: %s", url))
+        end
       end
     end
 
@@ -76,4 +80,17 @@ module Clients
       assertion || (@errors.push([@client, message]) && false)
     end
   end
+end
+
+if $0 == __FILE__
+  require 'json'
+  file = ARGV.shift
+  if file.nil?
+    puts "Usage: #{$0} [file]"
+    exit(1)
+  end
+
+  puts "Checking #{file}..."
+  clients = JSON.parse(File.read(file), :symbolize_names => true)
+  Clients.check(clients)
 end

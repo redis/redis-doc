@@ -8,6 +8,15 @@ default: parse spell
 parse: $(JSON_FILES)
 	rake parse
 
+check: clients tools
+
+clients:
+	ruby utils/clients.rb clients.json
+
+tools:
+	ruby utils/clients.rb tools.json
+
+
 spell: tmp/commands tmp/topics $(SPELL_FILES)
 	find tmp -name '*.spell' | xargs cat > tmp/spelling-errors
 	cat tmp/spelling-errors
@@ -36,4 +45,4 @@ tmp/dict: wordlist tmp/commands.txt
 clean:
 	rm -rf tmp/*
 
-.PHONY: parse spell clean
+.PHONY: parse spell clean check clients tools
