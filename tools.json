@@ -526,5 +526,12 @@
     "repository": "https://github.com/ienaga/RedisPlugin",
     "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
     "authors": ["ienaga"]
+  },
+  {
+    "name": "promise-redis",
+    "language": "Javascript",
+    "repository": "https://github.com/maxbrieiev/promise-redis",
+    "description": "Use any promise library with node_redis.",
+    "authors": ["maxbrieiev"]
   }
 ]
