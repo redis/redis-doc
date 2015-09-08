@@ -1172,5 +1172,14 @@
     "repository": "https://github.com/ik5/redis_client.fpc",
     "description": "Object Pascal client implementation for the redis protocol and commands",
     "authors": ["ik5"]
+  },
+
+  { 
+    "name": "Redi.sh",
+    "language": "Bash",
+    "repository": "https://github.com/crypt1d/redi.sh",
+    "description": "Simple, Bash-based, Redis client to store your script's variables",
+    "authors": ["crypt1d"],
+    "active": true
   }
 ]
