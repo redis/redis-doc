@@ -360,5 +360,178 @@
     "repository": "https://github.com/hibernate/hibernate-ogm",
     "description": "Hibernate OGM is the JPA integration for Redis",
     "authors": ["mp911de", "gunnarmorling"]
+  },
+  {
+    "name": "pyres",
+    "language": "Python",
+    "repository" : "http://github.com/binarydud/pyres",
+    "description" : "Python library inspired by Resque for creating background jobs and workers",
+    "authors" : ["binarydud"]
+  },
+  {
+    "name": "Redis-RdbParser",
+    "language": "Perl",
+    "repository": "https://github.com/flygoast/Redis-RdbParser",
+    "description": "Redis-RdbParser is a streaming parser for redis RDB database dumps.",
+    "authors": ["flygoast"]
+  },
+  {
+    "name": "Redset",
+    "language": "Python",
+    "repository": "https://github.com/percolate/redset",
+    "description": "Simple, generic sorted sets backed by Redis that can be used to coordinate distributed systems.",
+    "authors": ["percolate"]
+  },
+  {
+    "name": "Redsmin",
+    "language": "Web",
+    "repository": "https://github.com/Redsmin/redsmin",
+    "url":"https://redsmin.com/",
+    "description": "A fully featured Redis GUI for managing and monitoring redis.",
+    "authors": ["fgribreau"]
+  },
+  {
+    "name": "HOT Redis",
+    "language": "Python",
+    "repository": "https://github.com/stephenmcd/hot-redis",
+    "description": "Higher Order Types for Redis in Python",
+    "authors": ["stephenmcd"]
+  },
+  {
+    "name": "Redis Tree",
+    "language": "Javascript",
+    "repository": "https://github.com/FGRibreau/redistree",
+    "description": "Load and save Trees to Redis using sets.",
+    "authors": ["fgribreau"]
+  },
+  {
+    "name": "Redis-NaiveBayes",
+    "language": "Perl",
+    "repository": "https://github.com/caio/Redis-NaiveBayes",
+    "description": "A generic Redis-backed NaiveBayes implementation",
+    "authors": ["caio"]
+  },
+  {
+    "name": "Agentredrabbit",
+    "language": "Python",
+    "repository": "https://github.com/wingify/agentredrabbit",
+    "description": "Transport agent that moves data from Redis to RabbitMQ",
+    "authors": ["wingify"]
+  },
+  {
+    "name": "Redtrine",
+    "language": "PHP",
+    "repository": "https://github.com/redtrine/redtrine",
+    "description": "Redis-based advanced PHP data structures",
+    "authors": ["redtrine"]
+  },
+  {
+    "name": "Redis LUA Unit",
+    "language": "Lua",
+    "repository": "https://github.com/Redsmin/redis-lua-unit",
+    "description": "Framework agnostic unit-testing for Redis Lua scripts",
+    "authors": ["redsmin"]
+  },
+  {
+    "name": "Redis Info",
+    "language": "Javascript",
+    "repository": "https://github.com/FGRibreau/node-redis-info",
+    "description": "Redis info string parser for NodeJS",
+    "authors": ["fgribreau"]
+  },
+  {
+    "name": "Redis tool",
+    "language": "Javascript",
+    "repository": "https://github.com/FGRibreau/redis-tool",
+    "description": "Redis-tool - Little helpers for Redis (ztrim, del-all, rename)",
+    "authors": ["fgribreau"]
+  },
+  {
+    "name": "Redis_failover",
+    "language": "Ruby",
+    "repository": "https://github.com/ryanlecompte/redis_failover",
+    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
+    "authors": ["ryanlecompte"]
+  },
+  {
+    "name": "redis-in-labview",
+    "language": "LabVIEW",
+    "repository": "https://decibel.ni.com/content/docs/DOC-36322",
+    "description": "LabVIEW toolkit for Redis",
+    "authors": ["iwac"]
+  },
+  {
+    "name": "RedisStudio",
+    "language": "C++",
+    "repository": "https://github.com/cinience/RedisStudio",
+    "description": "Redis GUI tool for windows platform.",
+    "authors": ["cinience"]
+  },
+  {
+    "name": "Keylord",
+    "language": "Java",
+    "url": "http://protonail.com/products/keylord",
+    "description": "Cross-platform administration and development GUI application for key-value databases like Redis, LevelDB, etc.",
+    "authors": ["protonail"]
+  },
+  {
+    "name": "redispapa",
+    "language": "Python",
+    "url": "https://github.com/no13bus/redispapa",
+    "repository": "https://github.com/no13bus/redispapa",
+    "description": "RedisPAPA is a redis monitor which watch the redis-info by using flask, angular, socket.io",
+    "authors": ["no13bus"]
+  },
+  {
+    "name": "Hangfire",
+    "language": "C#",
+    "url": "http://hangfire.io",
+    "repository": "https://github.com/HangfireIO/Hangfire",
+    "description": "An easy way to perform fire-and-forget, delayed and recurring tasks inside ASP.NET apps",
+    "authors": ["odinserj"]
+  },
+  {
+    "name": "redis_builder",
+    "language": "C++",
+    "url": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
+    "repository": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
+    "description": "A C++ redis tool to create and manage a redis cluster, basing on acl redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "authors": ["zhengshuxin"]
+  },
+  {
+    "name": "huey",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/huey",
+    "description": "Simple multi-threaded Python task queue. Supports Redis.",
+    "authors": ["coleifer"]
+  },
+  {
+    "name": "walrus",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/walrus",
+    "description": "A collection of lightweight utilities for working with Redis in Python. Includes ORM, autocompletion, full-text search, cache, locks, and more.",
+    "authors": ["coleifer"]
+  },
+  {
+    "name": "RedisPlatform",
+    "language": "C",
+    "url": "http://www.jacketzhong.com/?p=220",
+    "repository": "https://github.com/jacket-code/redisPlatform",
+    "description": "A rpc platform that base on redis, You can use it to do a lot of things, it can be a game server",
+    "authors": ["jacketzhong"]
+  },
+  {
+    "name": "RedisPlugin for Phalcon",
+    "language": "PHP",
+    "repository": "https://github.com/ienaga/RedisPlugin",
+    "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
+    "authors": ["ienaga"]
+  },
+  {
+    "name": "promise-redis",
+    "language": "Javascript",
+    "repository": "https://github.com/maxbrieiev/promise-redis",
+    "description": "Use any promise library with node_redis.",
+    "authors": ["maxbrieiev"]
   }
 ]
