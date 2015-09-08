@@ -1030,7 +1030,7 @@
     "name": "rredis",
     "language": "R",
     "repository": "https://github.com/bwlewis/rredis",
-    "url": "http://cran.r-project.org/package=rredis",
+    "url": "https://cran.r-project.org/web/packages/rredis/index.html",
     "description": "Redis client for R",
     "authors": ["bwlewis"],
     "active": true
@@ -1056,7 +1056,7 @@
   {
     "name": "crystal-redis",
     "language": "Crystal",
-    "url": "http://www.stefanwille.com/projects/crystal-redis",
+    "url": "http://www.stefanwille.com/projects/crystal-redis/",
     "repository": "https://github.com/stefanwille/crystal-redis",
     "description": "Full featured, high performance Redis client for Crystal",
     "authors": ["stefanwille"],
@@ -1067,7 +1067,6 @@
   {
     "name": "redis-racket",
     "language": "Racket",
-    "url": "https://pkg.racket-lang.org/info/redis",
     "repository": "https://github.com/stchang/redis",
     "description": "A Redis client for Racket.",
     "authors": ["s_chng"],
@@ -1098,7 +1097,7 @@
     "url": "http://asyncio-redis.readthedocs.org/",
     "repository": "https://github.com/jonathanslenders/asyncio-redis",
     "description": "Asynchronous Redis client that works with the asyncio event loop",
-    "authors": ["Jonathan Slenders"],
+    "authors": ["jonathan_s"],
     "active": true
   },
 
@@ -1179,7 +1178,7 @@
     "language": "Bash",
     "repository": "https://github.com/crypt1d/redi.sh",
     "description": "Simple, Bash-based, Redis client to store your script's variables",
-    "authors": ["crypt1d"],
+    "authors": ["nkrzalic"],
     "active": true
   },
 
@@ -1197,7 +1196,7 @@
     "language": "Python",
     "repository": "https://github.com/schlitzered/pyredis",
     "description": "Python Client with support for Redis Cluster. Currently only Python 3 is supported.",
-    "authors": ["schlitzered"],
+    "authors": [],
     "active": true
   },
 
@@ -1215,7 +1214,7 @@
     "language": "Javascript",
     "repository": "https://github.com/h0x91b/redis-fast-driver",
     "description": "Driver based on hiredis async lib, can do PUBSUB and MONITOR, simple and really fast, written with NaN so works fine with node 0.8, 0.10 and 0.12",
-    "authors": ["h0x91B"]
+    "authors": []
   },
 
   {
@@ -1223,7 +1222,7 @@
     "language": "Javascript",
     "repository": "https://github.com/h0x91b/fast-redis-cluster",
     "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
-    "authors": ["h0x91B"]
+    "authors": []
   },
 
   {
