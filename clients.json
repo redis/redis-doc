@@ -1258,5 +1258,15 @@
     "repository": "https://github.com/dizzus/RedisKit",
     "description": "RedisKit is a asynchronious client framework for Redis server, written in Objective-C",
     "authors": ["dizzus"]
-  }
+  },
+  
+  {
+    "name": "qredisclient",
+    "language": "C++",
+    "repository": "https://github.com/uglide/qredisclient",
+    "description": "Asynchronous Qt-based Redis client with SSL and SSH tunnelling support.",
+    "authors": ["uglide"],
+    "active": true
+  },
+  
 ]
