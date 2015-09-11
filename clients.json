@@ -1265,7 +1265,7 @@
     "language": "C++",
     "repository": "https://github.com/uglide/qredisclient",
     "description": "Asynchronous Qt-based Redis client with SSL and SSH tunnelling support.",
-    "authors": ["uglide"],
+    "authors": ["u_glide"],
     "active": true
   }
 ]
