@@ -74,7 +74,7 @@ There are 16384 hash slots in Redis Cluster, and to compute what is the hash
 slot of a given key, we simply take the CRC16 of the key modulo
 16384.
 
-Every node in a Redis Cluster is responsible of a subset of the hash slots,
+Every node in a Redis Cluster is responsible for a subset of the hash slots,
 so for example you may have a cluster with 3 nodes, where:
 
 * Node A contains hash slots from 0 to 5500.
