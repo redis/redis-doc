@@ -1267,7 +1267,8 @@
     "description": "Asynchronous Qt-based Redis client with SSL and SSH tunnelling support.",
     "authors": ["u_glide"],
     "active": true
-  }
+  },
+  
   {
     "name": "xredis",
     "language": "C++",
