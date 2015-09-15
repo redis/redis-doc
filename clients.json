@@ -1267,5 +1267,14 @@
     "description": "Asynchronous Qt-based Redis client with SSL and SSH tunnelling support.",
     "authors": ["u_glide"],
     "active": true
+  },
+  
+  {
+    "name": "xredis",
+    "language": "C++",
+    "repository": "https://github.com/0xsky/xredis",
+    "description": "Redis C++ client with data slice storage and connection pool support, requires hiredis only",
+    "authors": ["0xsky"],
+    "active": true
   }
 ]
