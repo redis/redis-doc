@@ -1258,12 +1258,5 @@
     "repository": "https://github.com/dizzus/RedisKit",
     "description": "RedisKit is a asynchronious client framework for Redis server, written in Objective-C",
     "authors": ["dizzus"]
-  },
-  {
-    "name": "RedisPlugin for Phalcon",
-    "language": "PHP",
-    "repository": "https://github.com/ienaga/RedisPlugin",
-    "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
-    "authors": ["ienaga"]
   }
 ]
