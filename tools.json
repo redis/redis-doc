@@ -524,7 +524,7 @@
     "language": "PHP",
     "repository": "https://github.com/ienaga/RedisPlugin",
     "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
-    "authors": ["ienaga"]
+    "authors": ["ienagatoshiyuki"]
   },
   {
     "name": "promise-redis",
