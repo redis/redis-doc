@@ -20,7 +20,7 @@ cluster_stats_messages_received:1483968
 * `cluster_slots_assigned`: Number of slots which are associated to some node (not unbound). This number should be 16384 for the node to work properly, which means that each hash slot should be mapped to a node.
 * `cluster_slots_ok`: Number of hash slots mapping to a node not in `FAIL` or `PFAIL` state.
 * `cluster_slots_pfail`: Number of hash slots mapping to a node in `PFAIL` state. Note that those hash slots still work correctly, as long as the `PFAIL` state is not promoted to `FAIL` by the failure detection algorithm. `PFAIL` only means that we are currently not able to talk with the node, but may be just a transient error.
-* `cluster_slots_fail`: Number of hash slots in mapping to a node in `FAIL` state. If this number is not zero the node is not able to serve queries unless `cluster-require-full-coverage` is set to `no` in the configuration.
+* `cluster_slots_fail`: Number of hash slots mapping to a node in `FAIL` state. If this number is not zero the node is not able to serve queries unless `cluster-require-full-coverage` is set to `no` in the configuration.
 * `cluster_known_nodes`: The total number of known nodes in the cluster, including nodes in `HANDSHAKE` state that may not currently be proper members of the cluster.
 * `cluster_size`: The number of master nodes serving at least one hash slot in the cluster.
 * `cluster_current_epoch`: The local `Current Epoch` variable. This is used in order to create unique increasing version numbers during fail overs.
