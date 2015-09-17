@@ -1276,5 +1276,14 @@
     "description": "Redis C++ client with data slice storage and connection pool support, requires hiredis only",
     "authors": ["0xsky"],
     "active": true
+  },
+
+  {
+    "name": "cpp_redis",
+    "language": "C++",
+    "repository": "https://github.com/cylix/cpp_redis",
+    "description": "Modern C++11 Redis client based on boost::asio",
+    "authors": ["simon_ninon"],
+    "active": true
   }
 ]
