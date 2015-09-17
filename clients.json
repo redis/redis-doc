@@ -1151,7 +1151,7 @@
     "language": "VB",
     "repository": "https://github.com/hishamco/vRedis",
     "description": "Redis client using VB.NET.",
-    "authors": ["hishamco"],
+    "authors": ["hishambinateya"],
     "active": true
   },
 
