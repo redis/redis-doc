@@ -33,6 +33,7 @@ already available that can be used for reference.
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (C++ implementation).
 * [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
 * [RedLock.net](https://github.com/samcook/RedLock.net) (C#/.NET implementation). Includes async and lock extension support.
+* [ScarletLock](https://github.com/psibernetic/scarletlock) (C# .NET implementation with configurable datastore)
 * [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
 
 Safety and Liveness guarantees
