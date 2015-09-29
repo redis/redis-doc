@@ -32,6 +32,7 @@ already available that can be used for reference.
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (C++ implementation).
 * [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
+* [RedLock.net](https://github.com/samcook/RedLock.net) (C#/.NET implementation). Includes async and lock extension support.
 * [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
 
 Safety and Liveness guarantees
