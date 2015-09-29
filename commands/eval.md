@@ -508,7 +508,6 @@ The Redis Lua interpreter loads the following Lua libraries:
 * `table` lib.
 * `string` lib.
 * `math` lib.
-* `debug` lib.
 * `struct` lib.
 * `cjson` lib.
 * `cmsgpack` lib.
