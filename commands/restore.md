@@ -5,7 +5,7 @@ If `ttl` is 0 the key is created without any expire, otherwise the specified
 expire time (in milliseconds) is set.
 
 `RESTORE` will return a "Target key name is busy" error when `key` already
-exists unless you use the `REPLACE` modifier.
+exists unless you use the `REPLACE` modifier (Redis 3.0 or greater).
 
 `RESTORE` checks the RDB version and data checksum.
 If they don't match an error is returned.
