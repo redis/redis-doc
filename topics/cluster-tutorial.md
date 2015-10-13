@@ -574,7 +574,7 @@ Reshardings can be performed automatically without the need to manually
 enter the parameters in an interactive way. This is possible using a command
 line like the following:
 
-    ./redis-trib.rb reshard <host>:<port> --from <node-id> --to <node-id> --slots --yes
+    ./redis-trib.rb reshard --from <node-id> --to <node-id> --slots --yes <host>:<port>
 
 This allows to build some automatism if you are likely to reshard often,
 however currently there is no way for `redis-trib` to automatically
