@@ -461,23 +461,23 @@ The hexastore provides a representation for the relations between objects,
 formed by a *subject*, a *predicate* and an *object*.
 A simple relation between objects could be:
 
-    antirez is-friend-of mcollina
+    antirez is-friend-of matteocollina
 
 In order to represent this relation I can store the following element
 in my lexicographical index:
 
-    ZADD myindex 0 spo:antirez:is-friend-of:mcollina
+    ZADD myindex 0 spo:antirez:is-friend-of:matteocollina
 
 Note that I prefixed my item with the string **spo**. It means that
 the item represents a subject,predicate,object relation.
 
 In can add more 5 items for the same relation, but in a different order:
 
-    ZADD myindex 0 sop:antirez:mcollina:is-friend-of
-    ZADD myindex 0 ops:mcollina:is-friend-of:antirez
-    ZADD myindex 0 osp:mcollina:antirez:is-friend-of
-    ZADD myindex 0 pso:is-friend-of:antirez:mcollina
-    ZADD myindex 0 pos:is-friend-of:mcollina:antirez
+    ZADD myindex 0 sop:antirez:matteocollina:is-friend-of
+    ZADD myindex 0 ops:matteocollina:is-friend-of:antirez
+    ZADD myindex 0 osp:matteocollina:antirez:is-friend-of
+    ZADD myindex 0 pso:is-friend-of:antirez:matteocollina
+    ZADD myindex 0 pos:is-friend-of:matteocollina:antirez
 
 Now things start to be interesting, and I can query the graph for many
 interesting things. For example, what are all the people `antirez`
@@ -485,19 +485,19 @@ interesting things. For example, what are all the people `antirez`
 
     ZRANGEBYLEX myindex "[sop:antirez:" "[sop:antirez:\xff"
 
-Or, what are all the relationships `antirez` and` mcollina` have where
+Or, what are all the relationships `antirez` and` matteocollina` have where
 the first is the subject and the second is the object?
 
-    ZRANGEBYLEX myindex "[sop:antirez:mcollina:" "[sop:antirez:mcollina:\xff"
+    ZRANGEBYLEX myindex "[sop:antirez:matteocollina:" "[sop:antirez:matteocollina:\xff"
 
 By combining different queries, I can ask fancy questions. For example:
-*What are all my friends that, like beer, live in Barcellona, and mcollina consider friends as well?*
+*What are all my friends that, like beer, live in Barcellona, and matteocollina consider friends as well?*
 To get this information I start with an `spo` query to find all the people
 I'm friend with. Than for each result I get I perform an `spo` query
 to check if they like beer, removing the ones for which I can't find
 this relation. I do it again to filter by city. Finally I perform an `ops`
 query to find, of the list I obtained, who is considered friend by
-mcollina.
+matteocollina.
 
 Make sure to check [Matteo Collina's slides about Levelgraph](http://nodejsconfit.levelgraph.io/) in order to better understand these ideas.
 
