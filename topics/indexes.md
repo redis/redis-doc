@@ -1,7 +1,7 @@
 Secondary indexing with Redis
 ===
 
-Redis is not exactly a key-value store, since values can be complex data structures. However it has an extrenal key-value shell: at API level data is addressed by the key name. It is fair to say that, natively, Redis only offers *primary key access*. However since Redis is a data structures server, its capabilities can be used for indexing, in order to create secondary indexes of different kinds, including composite (multi-column) indexes.
+Redis is not exactly a key-value store, since values can be complex data structures. However it has an external key-value shell: at API level data is addressed by the key name. It is fair to say that, natively, Redis only offers *primary key access*. However since Redis is a data structures server, its capabilities can be used for indexing, in order to create secondary indexes of different kinds, including composite (multi-column) indexes.
 
 This document explains how it is possible to create indexes in Redis using the following data structures:
 
@@ -58,7 +58,7 @@ time regardless of the size of the range.
 Ranges can be inclusive or exclusive, please refer to the `ZRANGEBYSCORE`
 command documentation for more information.
 
-**Note**: Using the `ZREVRANGEBYSCORE` it is possible to query range in
+**Note**: Using the `ZREVRANGEBYSCORE` it is possible to query a range in
 reversed order, which is often useful when data is indexed in a given
 direction (ascending or descending) but we want to retrieve information
 the other way around.
@@ -98,7 +98,7 @@ exceptions.
 Updating simple sorted set indexes
 ---
 
-Often we index things which change over time. For example in the above
+Often we index things which change over time. In the above
 example, the age of the user changes every year. In such a case it would
 make sense to use the birth date as index instead of the age itself,
 but there are other cases where we simple want some field to change from
@@ -107,7 +107,7 @@ time to time, and the index to reflect this change.
 The `ZADD` command makes updating simple indexes a very trivial operation
 since re-adding back an element with a different score and the same value
 will simply update the score and move the element at the right position,
-so if the user *antirez* turned 39 years old, in order to update the
+so if the user `antirez` turned 39 years old, in order to update the
 data in the hash representing the user, and in the index as well, we need
 to execute the following two commands:
 
@@ -132,7 +132,7 @@ set to index places by latitude and longitude using a technique called
 [Geo hash](https://en.wikipedia.org/wiki/Geohash). The sorted set score
 represents alternating bits of longitude and latitude, so that we map the
 linear score of a sorted set to many small *squares* in the earth surface.
-By doing an 8+1 style center plus neighborhood search it is possible to
+By doing an 8+1 style center plus neighborhoods search it is possible to
 retrieve elements by radius.
 
 Limits of the score
@@ -145,7 +145,7 @@ However what is interesting for indexing purposes is that the score is
 always able to represent without any error numbers between -9007199254740992
 and 9007199254740992, which is `-/+ 2^53`.
 
-When representing much larger numbers, you need a different form if indexing
+When representing much larger numbers, you need a different form of indexing
 that is able to index numbers at any precision, called a lexicographical
 index.
 
@@ -434,13 +434,13 @@ command:
 The above is called a composed index. Its effectiveness depends on the
 order of the fields and the queries I want to run. For example the above
 index cannot be used efficiently in order to get all the products having
-a specific prince range regardless of the room number. However I can use
+a specific price range regardless of the room number. However I can use
 the primary key in order to run queries regardless of the prince, like
 *give me all the products in room 44*.
 
 Composite indexes are very powerful, and are used in traditional stores
 in order to optimize complex queries. In Redis they could be useful both
-to perform a very fast in-memory Redis index of something stored into
+to implement a very fast in-memory Redis index of something stored into
 a traditional data store, or in order to directly index Redis data.
 
 Updating lexicographical indexes
@@ -509,7 +509,7 @@ the first is the subject and the second is the object?
     ZRANGEBYLEX myindex "[sop:antirez:matteocollina:" "[sop:antirez:matteocollina:\xff"
     1) "sop:antirez:matteocollina:is-friend-of"
     2) "sop:antirez:matteocollina:was-at-conference-with"
-    2) "sop:antirez:matteocollina:talked-with"
+    3) "sop:antirez:matteocollina:talked-with"
 
 By combining different queries, I can ask fancy questions. For example:
 *What are all my friends that, like beer, live in Barcellona, and matteocollina consider friends as well?*
