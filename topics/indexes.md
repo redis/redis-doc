@@ -278,16 +278,16 @@ in order to complete the user request, we may see something like that:
 Apparently nobody searches for "banahhh", for example, but the query was
 performed a single time, so we end presenting it to the user.
 
-What we could do is, out of the returned items, we pick a random one, divide
-its score by two, and re-add it with half the score. However if the score
-was already "1", we simply remove the item from the list. You can use
-much more advanced systems, but the idea is that the index in the long run
-will contain top queries, and if top queries will change over the time
-it will adapt itself.
+What we could do is, out of the returned items, we pick a random one,
+decrement its score by one, and re-add it with the new score.
+However if the score reaches 0, we simply remove the item from the list.
+You can use much more advanced systems, but the idea is that the index in
+the long run will contain top queries, and if top queries will change over
+the time it will adapt itself.
 
 A refinement to this algorithm is to pick entries in the list according to
-their weight: the higher the score, the less likely it is picked
-in order to halve its score, or evict it.
+their weight: the higher the score, the less likely entries are picked
+in order to decrement its score, or evict them.
 
 Normalizing strings for case and accents
 ---
