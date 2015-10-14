@@ -1,7 +1,7 @@
 Secondary indexing with Redis
 ===
 
-While Redis not exactly a key-value store, since values can be complex data structures, it has an extrenal key-value shell, since at API level data is addressed by the key name. It is fair to say that, natively, Redis only offers primary key access. However since Redis is a data structures server, certain data structures can be used for indexing, in order to create secondary indexes of different kinds, including secondary indexes and composite (multi-column) indexes.
+While Redis is not exactly a key-value store, since values can be complex data structures, it has an extrenal key-value shell: at API level data is addressed by the key name. It is fair to say that, natively, Redis only offers primary key access. However since Redis is a data structures server, certain data structures can be used for indexing, in order to create secondary indexes of different kinds, including secondary indexes and composite (multi-column) indexes.
 
 This document explains how it is possible to create indexes in Redis using the following data structures:
 
