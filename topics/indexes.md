@@ -266,7 +266,7 @@ So the result will be that, every time an user searches for `banana` we'll
 get our entry updated.
 
 There is more: our goal is to just have items searched very frequently.
-So we need some form of purging. So, when we actually query the index
+So we need some form of purging. When we actually query the index
 in order to complete the user request, we may see something like that:
 
     ZRANGEBYLEX myindex "[banana:" + LIMIT 1 10
@@ -278,8 +278,8 @@ in order to complete the user request, we may see something like that:
 Apparently nobody searches for "banahhh", for example, but the query was
 performed a single time, so we end presenting it to the user.
 
-So what we do is, out of the returned items, we pick a random one, divide
-its score by two, and re-add it with half to score. However if the score
+What we could do is, out of the returned items, we pick a random one, divide
+its score by two, and re-add it with half the score. However if the score
 was already "1", we simply remove the item from the list. You can use
 much more advanced systems, but the idea is that the index in the long run
 will contain top queries, and if top queries will change over the time
