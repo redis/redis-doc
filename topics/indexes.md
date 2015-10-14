@@ -188,7 +188,7 @@ Now we can use `ZRANGEBYLEX` in order to perform range queries.
 
 Note that in the range queries I prefixed my min and max element with
 `[` and `(`. This prefixes are mandatory, and they specify if the element
-we specify for the range is inclusive or exclusive. So the range `[a (b` means give me all the elements lexicographically between `a` inclusive and `b` exclusive, which are all the elements starting with `a`.
+of the range is inclusive or exclusive. So the range `[a (b` means give me all the elements lexicographically between `a` inclusive and `b` exclusive, which are all the elements starting with `a`.
 
 There are also two more special characters indicating the infinitely negative
 string and the infinitely positive string, which are `-` and `+`.
