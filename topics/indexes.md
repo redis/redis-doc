@@ -74,9 +74,9 @@ with the indexed field, it is possible to store just the ID of the object.
 For example I may have Redis hashes representing users. Each user is
 represented by a single key, directly accessible by ID:
 
-    HMSET user:1 username id 1 antirez ctime 1444809424 age 38
-    HMSET user:2 username id 2 maria ctime 1444808132 age 42
-    HMSET user:3 username id 3 jballard ctime 1443246218 age 33
+    HMSET user:1 id 1 username antirez ctime 1444809424 age 38
+    HMSET user:2 id 2 username maria ctime 1444808132 age 42
+    HMSET user:3 id 3 username jballard ctime 1443246218 age 33
 
 If I want to create an index in order to query users by their age, I
 could do:
