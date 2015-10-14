@@ -1,7 +1,7 @@
 Secondary indexing with Redis
 ===
 
-While Redis not exactly a key-value store, since values can be complex data structures, it has an extrenal key-value shell, since at API level data is addressed by the key name. It is fair to say that, natively, Redis only offers primary key access. However since Redis is a data structures server, certain data structures can be used for indexing, in order to create secondary indexes of different kindes, including secondary indexes and composite (multi-column) indexes.
+While Redis not exactly a key-value store, since values can be complex data structures, it has an extrenal key-value shell, since at API level data is addressed by the key name. It is fair to say that, natively, Redis only offers primary key access. However since Redis is a data structures server, certain data structures can be used for indexing, in order to create secondary indexes of different kinds, including secondary indexes and composite (multi-column) indexes.
 
 This document explains how it is possible to create indexes in Redis using the following data structures:
 
@@ -29,7 +29,7 @@ vanilla sorted sets are limited to things were the indexing field is a number
 within a given specific range.
 
 The two commands to build those kinda of indexes are `ZADD` and
-`ZRANGEBYSCORE` to respectively add items and retrive items within a
+`ZRANGEBYSCORE` to respectively add items and retrieve items within a
 specified range.
 
 For instance, it is possible to index a set of names by their
@@ -480,7 +480,7 @@ In can add more 5 items for the same relation, but in a different order:
     ZADD myindex 0 pos:is-friend-of:mcollina:antirez
 
 Now things start to be interesting, and I can query the graph for many
-interesting things. For example, what are all the people antirez
+interesting things. For example, what are all the people `antirez`
 *is friend to*?
 
     ZRANGEBYLEX myindex "[sop:antirez:" "[sop:antirez:\xff"
@@ -524,7 +524,7 @@ Another popular index often used for Redis is a **capped list**, where items
 are added with `LPUSH` and trimmed `LTRIM`, in order to create a view
 with just the latest N items encountered.
 
-Index inconsistencies
+Index inconsistency
 ===
 
 Keeping the index updated may be challenging, in the course of months
