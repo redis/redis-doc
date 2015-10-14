@@ -218,7 +218,7 @@ complete the user query, we do a very simple query using `ZRANGEBYLEX`, like
 the following. Imagine the user is typing "bit", and we want to complete the
 query. We send a command like that:
 
-    ZLEXRANGE myindex "[bit" "[bit\xff"
+    ZRANGEBYLEX myindex "[bit" "[bit\xff"
 
 Basically we create a range using the string the user is typing right now
 as start, and the same sting plus a trailing byte set to 255, which is `\xff` in the example, as the end of the range. In this way we get all the strings that start for the string the user is typing.
