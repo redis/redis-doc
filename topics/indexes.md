@@ -485,7 +485,7 @@ interesting things. For example, what are all the people `antirez`
 
     ZRANGEBYLEX myindex "[sop:antirez:" "[sop:antirez:\xff"
 
-Or, what are all the relationships `antirez` and` matteocollina` have where
+Or, what are all the relationships `antirez` and `matteocollina` have where
 the first is the subject and the second is the object?
 
     ZRANGEBYLEX myindex "[sop:antirez:matteocollina:" "[sop:antirez:matteocollina:\xff"
