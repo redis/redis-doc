@@ -544,7 +544,7 @@ same order. Think at an RSS feed system that needs to refresh the local copy
 periodically.
 
 Another popular index often used with Redis is a **capped list**, where items
-are added with `LPUSH` and trimmed `LTRIM`, in order to create a view
+are added with `LPUSH` and trimmed with `LTRIM`, in order to create a view
 with just the latest N items encountered, in the same order they were
 seen.
 
@@ -558,5 +558,5 @@ bugs, network partitions or other events.
 Different strategies could be used. If the index data is outside Redis
 *read repair* can be a solution, where data is fixed in a lazy way when
 it is requested. When we index data which is stored in Redis itself
-the `SCAN` family of commands can be used in order to very, update or
+the `SCAN` family of commands can be used in order to verify, update or
 rebuild the index from scratch, incrementally.
