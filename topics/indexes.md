@@ -512,7 +512,7 @@ the first is the subject and the second is the object?
     3) "sop:antirez:matteocollina:talked-with"
 
 By combining different queries, I can ask fancy questions. For example:
-*What are all my friends that, like beer, live in Barcellona, and matteocollina consider friends as well?*
+*What are all my friends that, like beer, live in Barcelona, and matteocollina consider friends as well?*
 To get this information I start with an `spo` query to find all the people
 I'm friend with. Than for each result I get I perform an `spo` query
 to check if they like beer, removing the ones for which I can't find
