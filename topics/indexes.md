@@ -410,7 +410,7 @@ debugging, harder to parse and export. So it is definitely a trade off.
 Composite indexes
 ===
 
-So far we explored ways to index single fields. However we all now that
+So far we explored ways to index single fields. However we all know that
 SQL stores are able to create indexes using multiple fields. For example
 I may index products in a very large store by room number and price.
 
