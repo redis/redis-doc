@@ -144,7 +144,7 @@ As you can see B does not wait for an acknowledge from B1, B2, B3 before
 replying to the client, since this would be a prohibitive latency penalty
 for Redis, so if your client writes something, B acknowledges the write,
 but crashes before being able to send the write to its slaves, one of the
-slaves (that did not received the write) can be promoted to master, losing
+slaves (that did not receive the write) can be promoted to master, losing
 the write forever.
 
 This is **very similar to what happens** with most databases that are
@@ -603,7 +603,7 @@ However instead of just writing, the application does two additional things:
 
 What this means is that this application is a simple **consistency checker**,
 and is able to tell you if the cluster lost some write, or if it accepted
-a write that we did not received acknowledgment for. In the first case we'll
+a write that we did not receive acknowledgment for. In the first case we'll
 see a counter having a value that is smaller than the one we remember, while
 in the second case the value will be greater.
 
