@@ -615,7 +615,7 @@ Our numbers in binary form, assuming we need just 9 bits for each variable
     x = 75  -> 001001011
     y = 200 -> 011001000
 
-So by interleaving our representation in the index would be:
+So by interleaving digits, our representation in the index would be:
 
     0001110011001010:75:200
 
@@ -636,7 +636,8 @@ and check the nearest power of two to this number. Our search box
 was 50,100 to 100,300, so it has a width of 50 and an height of 200.
 We take the smaller of the two, 50, and check the nearest power of two
 which is 64. 64 is 2^6, so we would work with indexes obtained replacing
-the latest 12 bits from the interleaved representation.
+the latest 12 bits from the interleaved representation (so that we end
+replacing just 6 bits of each variable).
 
 However single squares may not cover all our search, so we may need more.
 What we do is to start with the left bottom corner of our search box,
@@ -647,7 +648,7 @@ With two trivial nested for loops where we increment only the significative
 bits, we can find all the squares between this two. For each square we
 convert the two numbers into our interleaved representation, and create
 the range using the converted representation as our start, and the same
-representation but with the latest 6 bits turned on as end range.
+representation but with the latest 12 bits turned on as end range.
 
 For each square found we perform our query and get the elements inside,
 removing the elements which are outside our search box.
@@ -686,18 +687,20 @@ Turning this into code is simple. Here is a Ruby example:
 
 While non immediately trivial this is a very useful indexing strategy that
 in the future may be implemented in Redis in a native way.
+For now, the good thing is that the complexity may be easily incapsualted
+inside a library that can be used in order to perform indexing and queries.
 
 Multi dimensional indexes with negative or floating point numbers
 ===
 
-The simplest way to represent negative value is just to work with unsigned
+The simplest way to represent negative values is just to work with unsigned
 integers and represent them using an offset, so that when you index, before
 translating numbers in the indexed representation, you add the absolute value
 of your smaller negative integer.
 
-For floating point numbers, the simplest thing is to convert them to integers
-by multiplying the integer for a power of ten proportional to the number of
-integers after the dot you want to retain.
+For floating point numbers, the simplest approach is probably to convert them
+to integers by multiplying the integer for a power of ten proportional to the
+number of digits after the dot you want to retain.
 
 Non range indexes
 ===
