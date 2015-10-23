@@ -522,6 +522,183 @@ matteocollina.
 
 Make sure to check [Matteo Collina's slides about Levelgraph](http://nodejsconfit.levelgraph.io/) in order to better understand these ideas.
 
+Multi dimensional indexes
+===
+
+A more complex type of index is an index that allows to perform queries
+where two or multiple variables are queried at the same time for specific
+ranges. For example I may have a data set representing persons age and
+salary, and I want to retrieve all the people between 50 and 55 years old
+having a salaty between 70000 and 85000.
+
+This query may be performed with a multi column index, but this requires
+us to select the first variable and then scan the second, which means we
+may do a lot more work than needed. It is possible to perform this kind of
+queries involving multiple variables using different data structures.
+For example, multi-dimensional trees such as *k-d trees* or *r-trees* are
+sometimes used. Here we'll describe a different way to index data into
+multiple dimensions, using a representation trick that allows us to perform
+the query in a very efficient way using Redis lexicographical ranges.
+
+Let's start by visualizing the problem. In this picture we have points
+in the space, which represent our data samples, where `x` and `y` are
+our coordinates. Both variables are is from 0 to 400.
+
+The blue box in the picture represents our query. We want all the points
+where `x` is between 50 and 100, and where `y` is between 100 and 300.
+
+![Points in the space](http://redis.io/images/redisdoc/2idx_0.png)
+
+In order to represent data that makes this kind of queries fast to perform,
+we start by padding our numbers with 0. So for example imagine we want to
+add the point 10,25 (x,y) to our index. Given that the maximum range in the
+example is 400 we can just pad to three digits, so we obtain:
+
+    x = 010
+    y = 025
+
+Now what we do is to interleave the digits, taking the leftmost digit
+in x, and the leftmost digit in y, and so forth, in order to create a single
+number:
+
+    001205
+
+This is our index, however in order to more easily reconstruct the original
+representation, if we want (at the cost of space), we may also add the
+original values as additional columns:
+
+    001205:10:25
+
+Now, let's reason about this representation and why it is useful in the
+context of range queries. For example let's take the center of our blue
+fox, which is at `x=75` and `y=200`. We can encode this number as we did
+earlier by interleaving the digits, obtaining:
+
+    027005
+
+What happens if we substitute the last two digits respectively with 00 and 99?
+We obtain a range which is lexicographically continue:
+
+    027000 to 027099
+
+What this maps to is to a square representing all values where the `x`
+variable is between 70 and 79, and the `y` variable is between 200 and 209.
+We can write random points in this interval, in order to identify this
+specific area:
+
+![Small area](http://redis.io/images/redisdoc/2idx_1.png)
+
+So the above lexicographic query allows us to easily query for points in
+a specific square in the picture. However the square may be too small for
+the box we are searching, so that too many queries are needed.
+So we can do the same but instead of replacing the last two digits with 00
+and 99, we can do it for the last four digits, obtaining the following
+range:
+
+    020000 029999
+
+This time the range represents all the points where `x` is between 0 and 99
+and `y` is between 200 and 299. Drawing random points in this interval
+shows us this larger area:
+
+![Large area](http://redis.io/images/redisdoc/2idx_2.png)
+
+Oops now our area is ways too big for our query, and still our search box is
+not completely included. We need more granularity, but we can easily obtain
+it by representing our numbers in binary form. This time, when we replace
+digits instead of getting squares which are ten times bigger, we get squares
+which are just two times bigger.
+
+Our numbers in binary form, assuming we need just 9 bits for each variable
+(in order to represent numbers up to 400 in value) would be:
+
+    x = 75  -> 001001011
+    y = 200 -> 011001000
+
+So by interleaving our representation in the index would be:
+
+    0001110011001010:75:200
+
+Let's see what are our ranges as we substitute the last 2, 4, 6, 8, ...
+bits with 0s ad 1s in the interleaved representation:
+
+    2 bits: x between 70 and 75, y between 200 and 201 (range=2)
+    4 bits: x between 72 and 75, y between 200 and 203 (range=4)
+    6 bits: x between 72 and 79, y between 200 and 207 (range=8)
+    8 bits: x between 64 and 79, y between 192 and 207 (range=16)
+
+And so forth. Now we have definitely better granularity!
+As you can see substituting N bits from the index gives us
+search boxes of side `2^(N/2)`.
+
+So what we do is to check the dimension where our search box is smaller,
+and check the nearest power of two to this number. Our search box
+was 50,100 to 100,300, so it has a width of 50 and an height of 200.
+We take the smaller of the two, 50, and check the nearest power of two
+which is 64. 64 is 2^6, so we would work with indexes obtained replacing
+the latest 12 bits from the interleaved representation.
+
+However single squares may not cover all our search, so we may need more.
+What we do is to start with the left bottom corner of our search box,
+which is 50,100, and find the first range by substituting the last 6 bits
+in each number with 0. Then we do the same with the right top corner.
+
+With two trivial nested for loops where we increment only the significative
+bits, we can find all the squares between this two. For each square we
+convert the two numbers into our interleaved representation, and create
+the range using the converted representation as our start, and the same
+representation but with the latest 6 bits turned on as end range.
+
+For each square found we perform our query and get the elements inside,
+removing the elements which are outside our search box.
+
+Turning this into code is simple. Here is a Ruby example:
+
+    def spacequery(x0,y0,x1,y1,exp)
+        bits=exp*2
+        x_start = x0/(2**exp)
+        x_end = x1/(2**exp)
+        y_start = y0/(2**exp)
+        y_end = y1/(2**exp)
+        (x_start..x_end).each{|x|
+            (y_start..y_end).each{|y|
+                x_range_start = x*(2**exp)
+                x_range_end = x_range_start | ((2**exp)-1)
+                y_range_start = y*(2**exp)
+                y_range_end = y_range_start | ((2**exp)-1)
+                puts "#{x},#{y} x from #{x_range_start} to #{x_range_end}, y from #{y_range_start} to #{y_range_end}"
+
+                # Turn it into interleaved form for ZRANGEBYLEX query.
+                # We assume we need 9 bits for each integer, so the final
+                # interleaved representation will be 18 bits.
+                xbin = x_range_start.to_s(2).rjust(9,'0')
+                ybin = x_range_start.to_s(2).rjust(9,'0')
+                s = xbin.split("").zip(ybin.split("")).flatten.compact.join("")
+                # Now that we have the start of the range, calculate the end
+                # by replacing the specified number of bits from 0 to 1.
+                e = s[0..-(bits+1)]+("1"*bits)
+                puts "ZRANGEBYLEX myindex [#{s} [#{e}"
+            }
+        }
+    end
+
+    spacequery(50,100,100,300,6)
+
+While non immediately trivial this is a very useful indexing strategy that
+in the future may be implemented in Redis in a native way.
+
+Multi dimensional indexes with negative or floating point numbers
+===
+
+The simplest way to represent negative value is just to work with unsigned
+integers and represent them using an offset, so that when you index, before
+translating numbers in the indexed representation, you add the absolute value
+of your smaller negative integer.
+
+For floating point numbers, the simplest thing is to convert them to integers
+by multiplying the integer for a power of ten proportional to the number of
+integers after the dot you want to retain.
+
 Non range indexes
 ===
 
