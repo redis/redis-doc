@@ -529,7 +529,7 @@ A more complex type of index is an index that allows to perform queries
 where two or multiple variables are queried at the same time for specific
 ranges. For example I may have a data set representing persons age and
 salary, and I want to retrieve all the people between 50 and 55 years old
-having a salaty between 70000 and 85000.
+having a salary between 70000 and 85000.
 
 This query may be performed with a multi column index, but this requires
 us to select the first variable and then scan the second, which means we
@@ -542,7 +542,7 @@ the query in a very efficient way using Redis lexicographical ranges.
 
 Let's start by visualizing the problem. In this picture we have points
 in the space, which represent our data samples, where `x` and `y` are
-our coordinates. Both variables are is from 0 to 400.
+our coordinates. Both variables max value is 400.
 
 The blue box in the picture represents our query. We want all the points
 where `x` is between 50 and 100, and where `y` is between 100 and 300.
@@ -571,7 +571,7 @@ original values as additional columns:
 
 Now, let's reason about this representation and why it is useful in the
 context of range queries. For example let's take the center of our blue
-fox, which is at `x=75` and `y=200`. We can encode this number as we did
+box, which is at `x=75` and `y=200`. We can encode this number as we did
 earlier by interleaving the digits, obtaining:
 
     027005
