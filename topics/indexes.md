@@ -236,7 +236,7 @@ like that:
     ZRANGEBYLEX myindex "[bit" "[bit\xff"
 
 Basically we create a range using the string the user is typing right now
-as start, and the same sting plus a trailing byte set to 255, which is `\xff` in the example, as the end of the range. This way we get all the strings that start for the string the user is typing.
+as start, and the same string plus a trailing byte set to 255, which is `\xff` in the example, as the end of the range. This way we get all the strings that start for the string the user is typing.
 
 Note that we don't want too many items returned, so we may use the **LIMIT** option in order to reduce the number of results.
 
@@ -410,7 +410,7 @@ debugging, harder to parse and export. So it is definitely a trade off.
 Composite indexes
 ===
 
-So far we explored ways to index single fields. However we all now that
+So far we explored ways to index single fields. However we all know that
 SQL stores are able to create indexes using multiple fields. For example
 I may index products in a very large store by room number and price.
 
@@ -435,7 +435,7 @@ The above is called a composed index. Its effectiveness depends on the
 order of the fields and the queries I want to run. For example the above
 index cannot be used efficiently in order to get all the products having
 a specific price range regardless of the room number. However I can use
-the primary key in order to run queries regardless of the prince, like
+the primary key in order to run queries regardless of the price, like
 *give me all the products in room 44*.
 
 Composite indexes are very powerful, and are used in traditional stores
