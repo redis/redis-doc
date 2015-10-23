@@ -673,7 +673,7 @@ Turning this into code is simple. Here is a Ruby example:
                 # We assume we need 9 bits for each integer, so the final
                 # interleaved representation will be 18 bits.
                 xbin = x_range_start.to_s(2).rjust(9,'0')
-                ybin = x_range_start.to_s(2).rjust(9,'0')
+                ybin = y_range_start.to_s(2).rjust(9,'0')
                 s = xbin.split("").zip(ybin.split("")).flatten.compact.join("")
                 # Now that we have the start of the range, calculate the end
                 # by replacing the specified number of bits from 0 to 1.
