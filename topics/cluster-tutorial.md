@@ -286,16 +286,18 @@ Now that we have a number of instances running, we need to create our
 cluster by writing some meaningful configuration to the nodes.
 
 This is very easy to accomplish as we are helped by the Redis Cluster
-command line utility called `redis-trib`, that is a Ruby program
-executing special commands in the instances in order to create new clusters,
+command line utility called `redis-trib`, a Ruby program
+executing special commands on instances in order to create new clusters,
 check or reshard an existing cluster, and so forth.
 
-You need to install 'redis' gem to be able to run 'redis-trib'.
+
+The `redis-trib` utility is in the `src` directory of the Redis source code
+distribution.
+You need to install `redis` gem to be able to run `redis-trib`.
 
     gem install redis
 
-The `redis-trib` utility is in the `src` directory of the Redis source code
-distribution. To create your cluster simply type:
+ To create your cluster simply type:
 
     ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
     127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
