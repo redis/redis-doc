@@ -290,6 +290,10 @@ command line utility called `redis-trib`, that is a Ruby program
 executing special commands in the instances in order to create new clusters,
 check or reshard an existing cluster, and so forth.
 
+You need to install 'redis' gem to be able to run 'redis-trib'.
+
+    gem install redis
+
 The `redis-trib` utility is in the `src` directory of the Redis source code
 distribution. To create your cluster simply type:
 
