@@ -689,6 +689,7 @@ While non immediately trivial this is a very useful indexing strategy that
 in the future may be implemented in Redis in a native way.
 For now, the good thing is that the complexity may be easily incapsualted
 inside a library that can be used in order to perform indexing and queries.
+One example of such library is [Redimension](https://github.com/antirez/redimension), a proof of concept Ruby library which indexes N-dimensional data inside Redis using the technique described here.
 
 Multi dimensional indexes with negative or floating point numbers
 ===
