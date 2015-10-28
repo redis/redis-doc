@@ -144,7 +144,7 @@ As you can see B does not wait for an acknowledge from B1, B2, B3 before
 replying to the client, since this would be a prohibitive latency penalty
 for Redis, so if your client writes something, B acknowledges the write,
 but crashes before being able to send the write to its slaves, one of the
-slaves (that did not received the write) can be promoted to master, losing
+slaves (that did not receive the write) can be promoted to master, losing
 the write forever.
 
 This is **very similar to what happens** with most databases that are
@@ -206,7 +206,7 @@ as you continue reading.
 * **cluster-enabled `<yes/no>`**: If yes enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a stand alone instance as usually.
 * **cluster-config-file `<filename>`**: Note that despite the name of this option, this is not an user editable configuration file, but the file where a Redis Cluster node automatically persists the cluster configuration (the state, basically) every time there is a change, in order to be able to re-read it at startup. The file lists things like the other nodes in the cluster, their state, persistent variables, and so forth. Often this file is rewritten and flushed on disk as a result of some message reception.
 * **cluster-node-timeout `<milliseconds>`**: The maximum amount of time a Redis Cluster node can be unavailable, without it being considered as failing. If a master node is not reachable for more than the specified amount of time, it will be failed over by its slaves. This parameter controls other important things in Redis Cluster. Notably, every node that can't reach the majority of master nodes for the specified amount of time, will stop accepting queries.
-* **cluster-slave-validity-factor `<factor>`**: If set to zero, a slave will always try to failover a master, regardless of the amount of time the link between the master and the slave remained disconnected. If the value is positive, a maximum disconnection time is calculated as the *node timeout* value multiplied by the factor provided with this option, and if the node is a slave, it will not try to start a failover if the master link was disconnected for more than the specified amount of time. For example if the node timeout is set to 5 seconds, and the validity factor is set to 10, a slave disconnected from the master for more than 50 seconds will not try to failover its master. Note that any value different than zero may result in Redis Cluster to be not available after a master failure if there is no slave able to failover it. In that case the cluster will return back available only when the original master rejoins the cluster.
+* **cluster-slave-validity-factor `<factor>`**: If set to zero, a slave will always try to failover a master, regardless of the amount of time the link between the master and the slave remained disconnected. If the value is positive, a maximum disconnection time is calculated as the *node timeout* value multiplied by the factor provided with this option, and if the node is a slave, it will not try to start a failover if the master link was disconnected for more than the specified amount of time. For example if the node timeout is set to 5 seconds, and the validity factor is set to 10, a slave disconnected from the master for more than 50 seconds will not try to failover its master. Note that any value different than zero may result in Redis Cluster to be unavailable after a master failure if there is no slave able to failover it. In that case the cluster will return back available only when the original master rejoins the cluster.
 * **cluster-migration-barrier `<count>`**: Minimum number of slaves a master will remain connected with, for another slave to migrate to a master which is no longer covered by any slave. See the appropriate section about replica migration in this tutorial for more information.
 * **cluster-require-full-coverage `<yes/no>`**: If this is set to yes, as it is by default, the cluster stops accepting writes if some percentage of the key space is not covered by any node. If the option is set to no, the cluster will still serve queries even if only requests about a subset of keys can be processed.
 
@@ -286,12 +286,18 @@ Now that we have a number of instances running, we need to create our
 cluster by writing some meaningful configuration to the nodes.
 
 This is very easy to accomplish as we are helped by the Redis Cluster
-command line utility called `redis-trib`, that is a Ruby program
-executing special commands in the instances in order to create new clusters,
+command line utility called `redis-trib`, a Ruby program
+executing special commands on instances in order to create new clusters,
 check or reshard an existing cluster, and so forth.
 
+
 The `redis-trib` utility is in the `src` directory of the Redis source code
-distribution. To create your cluster simply type:
+distribution.
+You need to install `redis` gem to be able to run `redis-trib`.
+
+    gem install redis
+
+ To create your cluster simply type:
 
     ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
     127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
@@ -603,7 +609,7 @@ However instead of just writing, the application does two additional things:
 
 What this means is that this application is a simple **consistency checker**,
 and is able to tell you if the cluster lost some write, or if it accepted
-a write that we did not received acknowledgment for. In the first case we'll
+a write that we did not receive acknowledgment for. In the first case we'll
 see a counter having a value that is smaller than the one we remember, while
 in the second case the value will be greater.
 
