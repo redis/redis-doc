@@ -172,7 +172,7 @@ is often used in order to implement indexes with traditional databases.
 As you can guess, because of this, it is possible to use this Redis data
 structure in order to implement pretty fancy indexes.
 
-Before to dive into using lexicographical indexes, let's check how
+Before we dive into using lexicographical indexes, let's check how
 sorted sets behave in this special mode of operation. Since we need to
 add elements with the same score, we'll always use the special score of
 zero.
@@ -277,7 +277,7 @@ above three commands should be send via a [Lua script](/commands/eval)
 instead, so that the Lua script will atomically get the old count and
 re-add the item with incremented score.
 
-So the result will be that, every time an user searches for `banana` we'll
+So the result will be that, every time a user searches for `banana` we'll
 get our entry updated.
 
 There is more: our goal is to just have items searched very frequently.
@@ -450,9 +450,9 @@ The value of the index in a lexicographical index can get pretty fancy
 and hard or slow to rebuild from what we store about the object. So one
 approach to simplify the handling of the index, at the cost of using more
 memory, is to also take alongside to the sorted set representing the index
-an hash mapping the object ID to the current index value.
+a hash mapping the object ID to the current index value.
 
-So for example, when we index we also add to an hash:
+So for example, when we index we also add to a hash:
 
     MULTI
     ZADD myindex 0 0056:0028.44:90
@@ -721,7 +721,7 @@ Similarly lists can be used in order to index items into a fixed order.
 I can add all my items into a Redis list and rotate the list with
 RPOPLPUSH using the same key name as source and destination. This is useful
 when I want to process a given set of items again and again forever in the
-same order. Think at an RSS feed system that needs to refresh the local copy
+same order. Think of an RSS feed system that needs to refresh the local copy
 periodically.
 
 Another popular index often used with Redis is a **capped list**, where items
