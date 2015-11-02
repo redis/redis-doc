@@ -485,7 +485,7 @@ or when reloading the AOF. In this case to replicate just the effect of the
 script is much better.
 * When script effects replication is enabled, the controls about non
 deterministic functions are disabled. You can, for example, use the `TIME`
-or `SRANDMEMBMER` commands inside your scripts freely at any place.
+or `SRANDMEMBER` commands inside your scripts freely at any place.
 * The Lua PRNG in this mode is seeded randomly at every call.
 
 In order to enable script effects replication, you need to issue the
