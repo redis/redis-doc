@@ -513,7 +513,7 @@ values.
 Think at a Lua script where we perform an intersection between two sets.
 Pick five random elements, and create a new set with this five random
 elements. Finally we delete the temporary key representing the intersection
-between the two original sets. What we want to replicate is only the creating
+between the two original sets. What we want to replicate is only the creation
 of the new set with the five elements. It's not useful to also replicate the
 commands creating the temporary key.
 
