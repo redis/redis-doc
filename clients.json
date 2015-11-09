@@ -1245,6 +1245,15 @@
     "active": true
   },
 
+ {
+    "name": "SwiftRedis",
+    "language": "Swift",
+    "repository": "https://github.com/ronp001/SwiftRedis",
+    "description": "Basic async client for Redis in Swift (iOS)",
+    "authors": ["ronp001"],
+    "active": true
+  },
+
   {
     "name": "Rackdis",
     "language": "Racket",
