@@ -532,5 +532,13 @@
     "repository": "https://github.com/maxbrieiev/promise-redis",
     "description": "Use any promise library with node_redis.",
     "authors": []
+  },
+  {
+    "name": "Hedis",
+    "language": "C",
+    "url": "http://hedis.io/",
+    "repository": "https://github.com/hedisdb/hedis",
+    "description": "Hedis can retrieve data from **ANY** database directly via Redis",
+    "authors": ["kewang"]
   }
 ]
