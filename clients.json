@@ -294,6 +294,15 @@
   },
 
   {
+    "name": "lredis",
+    "language": "Lua",
+    "repository": "https://github.com/daurnimator/lredis",
+    "description": "Redis library for Lua",
+    "authors": ["daurnimator"],
+    "active": true
+  },
+
+  {
     "name": "Redis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis/",
