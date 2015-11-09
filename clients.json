@@ -53,7 +53,14 @@
     "recommended": true,
     "active": true
   },
-
+  {
+    "name": "eredis_cluster",
+    "language": "Erlang",
+    "repository": "https://github.com/adrienmo/eredis_cluster",
+    "description": "Eredis wrapper providing cluster support and connection pooling",
+    "authors": ["adrienmo"],
+    "active": true
+  },
   {
     "name": "sharded_eredis",
     "language": "Erlang",
