@@ -87,7 +87,7 @@ Data encryption support
 Redis does not support encryption. In order to implement setups where
 trusted parties can access a Redis instance over the internet or other
 untrusted networks, an additional layer of protection should be implemented,
-such as an SSL proxy.
+such as an SSL proxy. We recommend [spiped](http://www.tarsnap.com/spiped.html).
 
 Disabling of specific commands
 ---
@@ -157,15 +157,12 @@ prevent buffer overflows, format bugs and other memory corruption issues.
 However, the ability to control the server configuration using the **CONFIG**
 command makes the client able to change the working dir of the program and
 the name of the dump file. This allows clients to write RDB Redis files
-at random paths, that is a security issue that may easily lead to the ability
-to run untrusted code as the same user as Redis is running.
+at random paths, that is [a security issue](http://antirez.com/news/96) that may easily lead to the ability to compromise the system and/or run untrusted code as the same user as Redis is running.
 
 Redis does not requires root privileges to run. It is recommended to
 run it as an unprivileged *redis* user that is only used for this purpose.
 The Redis authors are currently investigating the possibility of adding a new
-configuration parameter to prevent **CONFIG SET/GET dir** and other similar run-time
-configuration directives. This would prevent clients from forcing the server to
-write Redis dump files at arbitrary locations.
+configuration parameter to prevent **CONFIG SET/GET dir** and other similar run-time configuration directives. This would prevent clients from forcing the server to write Redis dump files at arbitrary locations.
 
 GPG key
 ---
