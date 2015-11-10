@@ -338,11 +338,11 @@ for the replication link or the Append Only File (and also too much CPU since
 dispatching a command received via network is a lot more work for Redis compared
 to dispatching a command invoked by Lua scripts).
 
-Normally replicationg scripts instead of the effects of the scripts makes sense,
+Normally replicating scripts instead of the effects of the scripts makes sense,
 however not in all the cases. So starting with Redis 3.2 (currently not stable),
 the scripting engine is able to, alternatively, replicate the sequence of write
 commands resulting from the script execution, instead of replication the
-script itself. See th next section for more information.
+script itself. See the next section for more information.
 In this section we'll assume that scripts are replicated by sending the whole
 script. Let's call this replication mode **whole scripts replication**.
 
