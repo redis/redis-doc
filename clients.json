@@ -1312,5 +1312,14 @@
     "description": "Modern C++11 Redis client based on boost::asio",
     "authors": ["simon_ninon"],
     "active": true
+  },
+
+  {
+    "name": "Pottery",
+    "language": "Python",
+    "repository": "https://github.com/brainix/pottery",
+    "description": "High level Pythonic dict, set, and list like containers around Redis data types (Python 3 only)",
+    "authors": ["brainix"],
+    "active": true
   }
 ]
