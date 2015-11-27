@@ -599,6 +599,7 @@ The Redis Lua interpreter loads the following Lua libraries:
 * `cmsgpack` lib.
 * `bitop` lib.
 * `redis.sha1hex` function.
+* `redis.breakpoint and redis.debug` function in the context of the [Redis Lua debugger](/topics/ldb).
 
 Every Redis instance is _guaranteed_ to have all the above libraries so you can
 be sure that the environment for your Redis scripts is always the same.
@@ -793,3 +794,11 @@ The client library implementation should take one of the following approaches:
     already defined.
     If not, add `SCRIPT LOAD` commands on top of the pipeline as required, and
     use `EVALSHA` for all the `EVAL` calls.
+
+## Debugging Lua scripts
+
+Starting with Redis 3.2 (currently in beta), Redis has support for native
+Lua debugging. The Redis Lua debugger is a remote debugger consisting of
+a server, which is Redis itself, and a client, which is by default `redis-cli`.
+
+The Lua debugger is described in the [Lua scripts debugging](/topics/ldb) section of the Redis documentation.
