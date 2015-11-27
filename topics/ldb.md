@@ -12,7 +12,7 @@ The Redis Lua debugger, codename LDB, has the following important features:
 * An alternative synchronous (non forked) debugging model is available on demand, so that changes to the dataset can be retained. In this mode the server blocks for the time the debugging session is active.
 * Support for step by step execution.
 * Support for static and dynamic breakpoints.
-* Support from logging to the debugged script into the debugger console.
+* Support from logging the debugged script into the debugger console.
 * Inspection of Lua variables.
 * Tracing of Redis commands executed by the script.
 * Pretty printing of Redis and Lua values.
@@ -35,7 +35,7 @@ To start a new debugging session using `redis-cli` do the following steps:
 
     ./redis-cli --ldb --eval /tmp/script.lua
 
-Note that with the `--eval` option if `redis-cli` you can pass key names and arguments to the script, separated by a comma, like in the following example:
+Note that with the `--eval` option of `redis-cli` you can pass key names and arguments to the script, separated by a comma, like in the following example:
 
     ./redis-cli --ldb --eval /tmp/script.lua mykey somekey , arg1 arg2
 
@@ -83,7 +83,7 @@ redis.breakpoint()   Stop execution like if there was a breakpoing.
                      in the next line of code.
 ```
 
-Note that when you start the debugger it will start in **steppign mode**. It will stop at the first line of the script that actually does something, and stops before executing this line.
+Note that when you start the debugger it will start in **stepping mode**. It will stop at the first line of the script that actually does something before executing it.
 
 From this point you usually call `step` in order to execute the line and go to the next line. While you step Redis will show all the commands executed by the server like in the following example:
 
@@ -103,7 +103,7 @@ Termination of the debugging session
 ---
 
 When the scripts terminates naturally, the debugging session ends and
-`redis-cli` returns in its normal non debugging mode. You can restart the
+`redis-cli` returns in its normal non-debugging mode. You can restart the
 session using the `restart` command as usually.
 
 Another way to stop a debugging session is just interrupting `redis-cli`
@@ -139,8 +139,8 @@ Dynamic breakpoints
 Using the `breakpoint` command it is possible to add breakpoints into specific
 lines. However sometimes we want to stop the execution of the program only
 when something special happens. In order to do so, you can use the
-`redis.breakpoint()` function. When called it simulates a breakpoint in the
-next line that will be executed.
+`redis.breakpoint()` function inside your Lua script. When called it simulates
+a breakpoint in the next line that will be executed.
 
     if counter > 10 then redis.breakpoint() end
 
@@ -159,11 +159,11 @@ to its original state.
 
 However for tracking certain bugs, you may want to retain the changes performed
 to the key space by each debugging session. When this is a good idea you
-should start the debugger using a special option in `redis-cli`.
+should start the debugger using a special option, `ldb-sync-mode`, in `redis-cli`.
 
-    ./redis-cli --ldb --ldb-sync-mode --eval /tmp/script.lua
+    ./redis-cli --ldb-sync-mode --eval /tmp/script.lua
 
-**Note that the Redis server remains not reachable during the debugging session in this mode**, so use with care.
+**Note that the Redis server will be unreachable during the debugging session in this mode**, so use with care.
 
 In this special mode, the `abort` command can stop the script half-way taking the changes operated to the dataset. Note that this is different compared to ending the debugging session normally. If you just interrupt `redis-cli` the script will be fully executed and then the session terminated. Instead with `abort` you can interrupt the script execution in the middle and start a new debugging session if needed.
 
@@ -198,13 +198,12 @@ The `print` command does just that, and performs lookup in the call frames
 starting from the current one back to the previous ones, up to top-level.
 This means that even if we are into a nested function inside a Lua script,
 we can still use `print foo` to look at the value of `foo` in the context
-of the calling function.
+of the calling function. When called without a variable name, `print` will
+print all variables and their respective values.
 
-The `eval` command executes small pieces of Lua scripts **but not in the context of the current call frame**, which is not possible with the current Lua internals. However you can use this command in order to test Lua functions.
+The `eval` command executes small pieces of Lua scripts **outside the context of the current call frame** (evaluating inside the context of the current call frame is not possible with the current Lua internals). However you can use this command in order to test Lua functions.
 
 ```
 lua debugger> e redis.sha1hex('foo')
 <retval> "0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
 ```
-
-
