@@ -23,9 +23,12 @@ to all the subscribed clients.
 
 A client subscribed to one or more channels should not issue commands,
 although it can subscribe and unsubscribe to and from other channels.
-The reply of the `SUBSCRIBE` and `UNSUBSCRIBE` operations are sent in
-the form of messages, so that the client can just read a coherent stream
-of messages where the first element indicates the type of message.
+The replies to subscription and unsubscription operations are sent in
+the form of messages, so that the client can just read a coherent
+stream of messages where the first element indicates the type of
+message. The commands that are allowed in the context of a subscribed
+client are `SUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`,
+`PING` and `QUIT`.
 
 ## Format of pushed messages
 
