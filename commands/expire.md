@@ -3,8 +3,9 @@ After the timeout has expired, the key will automatically be deleted.
 A key with an associated timeout is often said to be _volatile_ in Redis
 terminology.
 
-The timeout is cleared only when the key is removed using the `DEL` command or
-overwritten using the `SET` or `GETSET` commands.
+The timeout will only be cleared by commands that delete or overwrite the
+contents of the key, including `DEL`, `SET`, `GETSET` and all the `*STORE`
+commands.
 This means that all the operations that conceptually _alter_ the value stored at
 the key without replacing it with a new one will leave the timeout untouched.
 For instance, incrementing the value of a key with `INCR`, pushing a new value
