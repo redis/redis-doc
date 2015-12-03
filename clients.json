@@ -1312,5 +1312,14 @@
     "description": "Modern C++11 Redis client based on boost::asio",
     "authors": ["simon_ninon"],
     "active": true
+  },
+  
+  {
+    "name": "mruby-redis",
+    "language": "mruby",
+    "repository": "https://github.com/matsumoto-r/mruby-redis",
+    "description": "Redis class for mruby based on Hiredis",
+    "authors": [],
+    "active": true
   }
 ]
