@@ -64,6 +64,21 @@ The cluster bus uses a different, binary protocol, for node to node data
 exchange, which is more suited to exchange information between nodes using
 little bandwidth and processing time.
 
+Redis Cluster and Docker
+---
+
+Currently Redis Cluster does not support NATted environments and in general
+environments where IP addresses or TCP ports are remapped.
+
+Docker uses a technique called *port mapping*: programs running inside Docker
+containers may be exposed with a different port compared to the one the
+program believes to be using. This is useful in order to run multiple
+containers using the same ports, at the same time, in the same server.
+
+In order to make Docker compatible with Redis Cluster you need to use
+the **host networking mode** of Docker. Please check the `--net=host` option
+in the [Docker documentation](https://docs.docker.com/engine/userguide/networking/dockernetworks/) for more information.
+
 Redis Cluster data sharding
 ---
 
