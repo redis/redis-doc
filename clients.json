@@ -1319,7 +1319,7 @@
     "language": "mruby",
     "repository": "https://github.com/matsumoto-r/mruby-redis",
     "description": "Redis class for mruby based on Hiredis",
-    "authors": [],
+    "authors": ["matsumotory"],
     "active": true
   }
 ]
