@@ -79,8 +79,8 @@ Redis Lua debugger help:
 
 Debugger functions you can call from Lua scripts:
 redis.debug()        Produce logs in the debugger console.
-redis.breakpoint()   Stop execution like if there was a breakpoing.
-                     in the next line of code.
+redis.breakpoint()   Stop execution as if there was a breakpoint in the
+                     next line of code.
 ```
 
 Note that when you start the debugger it will start in **stepping mode**. It will stop at the first line of the script that actually does something before executing it.

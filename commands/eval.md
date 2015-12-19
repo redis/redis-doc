@@ -149,8 +149,8 @@ As you can see 3.333 is converted into 3, and the *bar* string is never returned
 
 There are two helper functions to return Redis types from Lua.
 
-* `redis.error_reply(error_string)` returns an error reply. This function simply returns the single field table with the `err` field set to the specified string for you.
-* `redis.status_reply(status_string)` returns a status reply. This function simply returns the single field table with the `ok` field set to the specified string for you.
+* `redis.error_reply(error_string)` returns an error reply. This function simply returns a single field table with the `err` field set to the specified string for you.
+* `redis.status_reply(status_string)` returns a status reply. This function simply returns a single field table with the `ok` field set to the specified string for you.
 
 There is no difference between using the helper functions or directly returning the table with the specified format, so the following two forms are equivalent:
 
