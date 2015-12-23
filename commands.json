@@ -215,6 +215,19 @@
     "since": "2.9.50",
     "group": "server"
   },
+  "CLIENT REPLY": {
+    "summary": "Instruct the server whether to reply to commands",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "reply-mode",
+        "type": "enum",
+        "enum": ["ON", "OFF", "SKIP"]
+      }
+    ],
+    "since": "3.2",
+    "group": "server"
+  },
   "CLIENT SETNAME": {
     "summary": "Set the current connection name",
     "complexity": "O(1)",
