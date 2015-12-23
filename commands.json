@@ -172,7 +172,7 @@
       {
         "command": "TYPE",
         "type": "enum",
-        "enum": ["normal", "slave", "pubsub"],
+        "enum": ["normal", "master", "slave", "pubsub"],
         "optional": true
       },
       {
