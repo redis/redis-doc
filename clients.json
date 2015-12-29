@@ -19,14 +19,6 @@
     "active": true
   },
   {
-    "name": "aleph",
-    "language": "Clojure",
-    "repository": "https://github.com/ztellman/aleph",
-    "description": "Redis client build on top of lamina",
-    "authors": ["ztellman"],
-    "active": true
-  },
-  {
     "name": "CL-Redis",
     "language": "Common Lisp",
     "url": "http://www.cliki.net/cl-redis",
