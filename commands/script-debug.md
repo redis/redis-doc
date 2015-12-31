@@ -3,11 +3,10 @@ complete Lua debugger, codename LDB, that can be used to make the task of
 writing complex scripts much simpler. In debug mode Redis acts as a remote
 debugging server and a client, such as `redis-cli`, can execute scripts step by
 step, set breakpoints, inspect variables and more - for additional information
-about the Redis Lua scripts debugger refer to [LDB's
-documentation](/topics/ldb).
+about LDB refer to the [Redis Lua debugger](/topics/ldb) page.
 
-**Important note: avoid debugging Lua scripts using your Redis production
-**server. Use a development server instead.
+**Important note:** avoid debugging Lua scripts using your Redis production
+server. Use a development server instead.
 
 LDB can be enabled in one of two modes: asynchronous or synchronous. In
 asynchronous mode the server creates a forked debugging session that does not
@@ -16,9 +15,9 @@ finishes, so debugging can be restarted using the same initial state. The
 alternative synchronous debug mode blocks the server while the debugging session
 is active and retains all changes to the data set once it ends.
 
-* `YES`. Enable asynchronous debugging of Lua scripts (non-blocking, changes are discarded).
-* `SYNC`. Enable synchronous debugging of Lua scripts (blocking and save changes).
-* `NO`. Disables Lua scripts debugging. This is the default for new connections. 
+* `YES`. Enable non-blocking asynchronous debugging of Lua scripts (changes are discarded).
+* `SYNC`. Enable blocking synchronous debugging of Lua scripts (saves changes to data).
+* `NO`. Disables scripts debug mode.
 
 @return
 
