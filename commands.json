@@ -172,7 +172,7 @@
       {
         "command": "TYPE",
         "type": "enum",
-        "enum": ["normal", "slave", "pubsub"],
+        "enum": ["normal", "master", "slave", "pubsub"],
         "optional": true
       },
       {
@@ -213,6 +213,19 @@
       }
     ],
     "since": "2.9.50",
+    "group": "server"
+  },
+  "CLIENT REPLY": {
+    "summary": "Instruct the server whether to reply to commands",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "reply-mode",
+        "type": "enum",
+        "enum": ["ON", "OFF", "SKIP"]
+      }
+    ],
+    "since": "3.2",
     "group": "server"
   },
   "CLIENT SETNAME": {
