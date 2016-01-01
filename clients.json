@@ -402,20 +402,11 @@
   },
 
   {
-    "name": "RedisServer",
-    "language": "PHP",
-    "repository": "https://github.com/e-oz/Memory/blob/master/lib/Jamm/Memory/RedisServer.php",
-    "description": "Standalone and full-featured class for Redis in PHP",
-    "authors": ["eugeniyoz"]
-  },
-
-  {
     "name": "Redisent",
     "language": "PHP",
     "repository": "https://github.com/jdp/redisent",
     "description": "",
-    "authors": ["justinpoliey"],
-    "active": true
+    "authors": ["justinpoliey"]
   },
 
   {
@@ -423,23 +414,8 @@
     "language": "PHP",
     "repository": "https://github.com/colinmollenhour/credis",
     "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
-    "authors": ["colinmollenhour"]
-  },
-
-  {
-    "name": "Kdyby/Redis",
-    "language": "PHP",
-    "repository": "https://github.com/kdyby/redis",
-    "description": "Powerful Redis storage for Nette Framework",
+    "authors": ["colinmollenhour"],
     "active": true
-  },
-
-  {
-    "name": "phpish/redis",
-    "language": "PHP",
-    "repository": "https://github.com/phpish/redis",
-    "description": "Simple Redis client in PHP",
-    "authors": ["sandeepshetty"]
   },
 
   {
