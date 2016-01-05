@@ -1467,7 +1467,8 @@
       },
       {
         "name": "key",
-        "type": "key"
+        "type": "enum",
+        "enum": ["key", "\"\""]
       },
       {
         "name": "destination-db",
@@ -1487,6 +1488,13 @@
         "name": "replace",
         "type": "enum",
         "enum": ["REPLACE"],
+        "optional": true
+      },
+      {
+        "name": "key",
+        "command": "KEYS",
+        "type": "key",
+        "variadic": true,
         "optional": true
       }
     ],
