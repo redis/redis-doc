@@ -290,7 +290,7 @@ discarding its data set.
 
 This problem can be mitigated using the following Redis replication
 feature, that allows to stop accepting writes if a master detects that
-is no longer to transfer its writes to the specified number of slaves.
+is no longer able to transfer its writes to the specified number of slaves.
 
     min-slaves-to-write 1
     min-slaves-max-lag 10

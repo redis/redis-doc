@@ -11,7 +11,7 @@ They can also be negative numbers indicating offsets from the end of the sorted
 set, with `-1` being the last element of the sorted set, `-2` the penultimate
 element and so on.
 
-`start` and `stop` are **inclusive ranges**, so for example `ZRANGE myzset 0 1``
+`start` and `stop` are **inclusive ranges**, so for example `ZRANGE myzset 0 1`
 will return both the first and the second element of the sorted set.
 
 Out of range indexes will not produce an error.

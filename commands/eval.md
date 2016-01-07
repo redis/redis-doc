@@ -149,8 +149,8 @@ As you can see 3.333 is converted into 3, and the *bar* string is never returned
 
 There are two helper functions to return Redis types from Lua.
 
-* `redis.error_reply(error_string)` returns an error reply. This function simply returns the single field table with the `err` field set to the specified string for you.
-* `redis.status_reply(status_string)` returns a status reply. This function simply returns the single field table with the `ok` field set to the specified string for you.
+* `redis.error_reply(error_string)` returns an error reply. This function simply returns a single field table with the `err` field set to the specified string for you.
+* `redis.status_reply(status_string)` returns a status reply. This function simply returns a single field table with the `ok` field set to the specified string for you.
 
 There is no difference between using the helper functions or directly returning the table with the specified format, so the following two forms are equivalent:
 
@@ -326,10 +326,11 @@ SCRIPT currently accepts three different commands:
 ## Scripts as pure functions
 
 A very important part of scripting is writing scripts that are pure functions.
-Scripts executed in a Redis instance are replicated on slaves by sending the
-script -- not the resulting commands.
-The same happens for the Append Only File.
-The reason is that sending a script to another Redis instance is much
+Scripts executed in a Redis instance are, by default, replicated on slaves
+and into the AOF file by sending the script itself -- not the resulting
+commands.
+
+The reason is that sending a script to another Redis instance is often much
 faster than sending the multiple commands the script generates, so if the
 client is sending many scripts to the master, converting the scripts into
 individual commands for the slave / AOF would result in too much bandwidth
@@ -337,11 +338,18 @@ for the replication link or the Append Only File (and also too much CPU since
 dispatching a command received via network is a lot more work for Redis compared
 to dispatching a command invoked by Lua scripts).
 
-The only drawback with this approach is that scripts are required to have the
-following property:
+Normally replicating scripts instead of the effects of the scripts makes sense,
+however not in all the cases. So starting with Redis 3.2 (currently not stable),
+the scripting engine is able to, alternatively, replicate the sequence of write
+commands resulting from the script execution, instead of replication the
+script itself. See the next section for more information.
+In this section we'll assume that scripts are replicated by sending the whole
+script. Let's call this replication mode **whole scripts replication**.
 
-* The script always evaluates the same Redis _write_ commands with the same
-  arguments given the same input data set.
+The main drawback with the *whole scripts replication* approach is that scripts are required to have the following property:
+
+* The script must always evaluates the same Redis _write_ commands with the
+  same arguments given the same input data set.
   Operations performed by the script cannot depend on any hidden (non-explicit)
   information or state that may change as script execution proceeds or between
   different executions of the script, nor can it depend on any external input
@@ -353,31 +361,28 @@ that will not always evaluate in the same way.
 
 In order to enforce this behavior in scripts Redis does the following:
 
-*   Lua does not export commands to access the system time or other external
-    state.
-
-*   Redis will block the script with an error if a script calls a Redis
-    command able to alter the data set **after** a Redis _random_ command like
-    `RANDOMKEY`, `SRANDMEMBER`, `TIME`.
-    This means that if a script is read-only and does not modify the data set it
-    is free to call those commands.
-    Note that a _random command_ does not necessarily mean a command that uses
-    random numbers: any non-deterministic command is considered a random command
-    (the best example in this regard is the `TIME` command).
-
-*   Redis commands that may return elements in random order, like `SMEMBERS`
-    (because Redis Sets are _unordered_) have a different behavior when called
-    from Lua, and undergo a silent lexicographical sorting filter before
-    returning data to Lua scripts.
-    So `redis.call("smembers",KEYS[1])` will always return the Set elements
-    in the same order, while the same command invoked from normal clients may
-    return different results even if the key contains exactly the same elements.
-
-*   Lua pseudo random number generation functions `math.random` and
-    `math.randomseed` are modified in order to always have the same seed every
-    time a new script is executed.
-    This means that calling `math.random` will always generate the same sequence
-    of numbers every time a script is executed if `math.randomseed` is not used.
+* Lua does not export commands to access the system time or other external
+  state.
+* Redis will block the script with an error if a script calls a Redis
+  command able to alter the data set **after** a Redis _random_ command like
+  `RANDOMKEY`, `SRANDMEMBER`, `TIME`.
+  This means that if a script is read-only and does not modify the data set it
+  is free to call those commands.
+  Note that a _random command_ does not necessarily mean a command that uses
+  random numbers: any non-deterministic command is considered a random command
+  (the best example in this regard is the `TIME` command).
+* Redis commands that may return elements in random order, like `SMEMBERS`
+  (because Redis Sets are _unordered_) have a different behavior when called
+  from Lua, and undergo a silent lexicographical sorting filter before
+  returning data to Lua scripts.
+  So `redis.call("smembers",KEYS[1])` will always return the Set elements
+  in the same order, while the same command invoked from normal clients may
+  return different results even if the key contains exactly the same elements.
+* Lua pseudo random number generation functions `math.random` and
+  `math.randomseed` are modified in order to always have the same seed every
+  time a new script is executed.
+  This means that calling `math.random` will always generate the same sequence
+  of numbers every time a script is executed if `math.randomseed` is not used.
 
 However the user is still able to write commands with random behavior using the
 following simple trick.
@@ -459,6 +464,87 @@ regardless of the architecture of the system running Redis.
 32-bit, 64-bit, big-endian and little-endian systems will all produce the same
 output.
 
+## Replicating commands instead of scripts
+
+Starting with Redis 3.2 (not yet stable) it is possible to select an
+alternative replication method. Instead of replication whole scripts, we
+can just replicate single write commands generated by the script.
+We call this **script effects replication**.
+
+In this replication mode, while Lua scripts are executed, Redis collects
+all the commands executed by the Lua scripting engine that actually modify
+the dataset. When the script execution finishes, the sequence of commands
+that the script generated are wrapped into a MULTI / EXEC transaction and
+are sent to slaves and AOF.
+
+This is useful in several ways depending on the use case:
+
+* When the script is slow to compute, but the effects can be summarized by
+a few write commands, it is a shame to re-compute the script on the slaves
+or when reloading the AOF. In this case to replicate just the effect of the
+script is much better.
+* When script effects replication is enabled, the controls about non
+deterministic functions are disabled. You can, for example, use the `TIME`
+or `SRANDMEMBER` commands inside your scripts freely at any place.
+* The Lua PRNG in this mode is seeded randomly at every call.
+
+In order to enable script effects replication, you need to issue the
+following Lua command before any write operated by the script:
+
+    redis.replicate_commands();
+
+The function returns true if the script effects replication was enabled,
+otherwise if the function was called after the script already called
+some write command, it returns false, and normal whole script replication
+is used.
+
+## Selective replication of commands
+
+When script effects replication is selected (see the previous section), it
+is possible to have more control in the way commands are replicated to slaves
+and AOF. This is a very advanced feature since **a misuse can do damage** by
+breaking the contract that the master, slaves, and AOF, all must contain the
+same logical content.
+
+However this is a useful feature since, sometimes, we need to execute certain
+commands only in the master in order to create, for example, intermediate
+values.
+
+Think at a Lua script where we perform an intersection between two sets.
+Pick five random elements, and create a new set with this five random
+elements. Finally we delete the temporary key representing the intersection
+between the two original sets. What we want to replicate is only the creation
+of the new set with the five elements. It's not useful to also replicate the
+commands creating the temporary key.
+
+For this reason, Redis 3.2 introduces a new command that only works when
+script effects replication is enabled, and is able to control the scripting
+replication engine. The command is called `redis.set_repl()` and fails raising
+an error if called when script effects replication is disabled.
+
+The command can be called with four different arguments:
+
+    redis.set_repl(redis.REPL_ALL); -- Replicte to AOF and slaves.
+    redis.set_repl(redis.REPL_AOF); -- Replicte only to AOF.
+    redis.set_repl(redis.REPL_SLAVE); -- Replicte only to slaves.
+    redis.set_repl(redis.REPL_NONE); -- Don't replicate at all.
+
+By default the scripting engine is always set to `REPL_ALL`. By calling
+this function the user can switch on/off AOF and or slaves replication, and
+turn them back later at her/his wish.
+
+A simple example follows:
+
+    redis.replicate_commands(); -- Enable effects replication.
+    redis.call('set','A','1');
+    redis.set_repl(redis.REPL_NONE);
+    redis.call('set','B','2');
+    redis.set_repl(redis.REPL_ALL);
+    redis.call('set','C','3');
+
+After running the above script, the result is that only keys A and C
+will be created on slaves and AOF.
+
 ## Global variables protection
 
 Redis scripts are not allowed to create global variables, in order to avoid
@@ -508,12 +594,12 @@ The Redis Lua interpreter loads the following Lua libraries:
 * `table` lib.
 * `string` lib.
 * `math` lib.
-* `debug` lib.
 * `struct` lib.
 * `cjson` lib.
 * `cmsgpack` lib.
 * `bitop` lib.
 * `redis.sha1hex` function.
+* `redis.breakpoint and redis.debug` function in the context of the [Redis Lua debugger](/topics/ldb).
 
 Every Redis instance is _guaranteed_ to have all the above libraries so you can
 be sure that the environment for your Redis scripts is always the same.
@@ -708,3 +794,11 @@ The client library implementation should take one of the following approaches:
     already defined.
     If not, add `SCRIPT LOAD` commands on top of the pipeline as required, and
     use `EVALSHA` for all the `EVAL` calls.
+
+## Debugging Lua scripts
+
+Starting with Redis 3.2 (currently in beta), Redis has support for native
+Lua debugging. The Redis Lua debugger is a remote debugger consisting of
+a server, which is Redis itself, and a client, which is by default `redis-cli`.
+
+The Lua debugger is described in the [Lua scripts debugging](/topics/ldb) section of the Redis documentation.

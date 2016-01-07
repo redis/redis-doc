@@ -1,6 +1,8 @@
 This command works exactly like `EXPIRE` but the time to live of the key is
 specified in milliseconds instead of seconds.
 
+@return
+
 @integer-reply, specifically:
 
 * `1` if the timeout was set.

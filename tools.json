@@ -49,6 +49,14 @@
     "authors": ["hongminhee"]
   },
   {
+    "name": "readis",
+    "language": "PHP",
+    "url": "https://readis.hollo.me",
+    "repository": "https://github.com/hollodotme/readis",
+    "description": "Lightweight web frontend in PHP for reading data, stats and config from multiple redis servers.",
+    "authors": ["hollodotme"]
+  },
+  {
     "name": "Redis-objects",
     "language": "Ruby",
     "repository": "https://github.com/nateware/redis-objects",
@@ -524,7 +532,7 @@
     "language": "PHP",
     "repository": "https://github.com/ienaga/RedisPlugin",
     "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
-    "authors": ["ienaga"]
+    "authors": ["ienagatoshiyuki"]
   },
   {
     "name": "promise-redis",
@@ -532,5 +540,13 @@
     "repository": "https://github.com/maxbrieiev/promise-redis",
     "description": "Use any promise library with node_redis.",
     "authors": []
+  },
+  {
+    "name": "Hedis",
+    "language": "C",
+    "url": "http://hedis.io/",
+    "repository": "https://github.com/hedisdb/hedis",
+    "description": "Hedis can retrieve data from **ANY** database directly via Redis",
+    "authors": ["kewang"]
   }
 ]

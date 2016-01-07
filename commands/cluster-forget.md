@@ -1,22 +1,32 @@
-The command is used in order to remove the node, specified via its node ID,
-from the set of nodes known by the Redis Cluster node receiving the command.
+The command is used in order to remove a node, specified via its node ID,
+from the set of *known nodes* of the Redis Cluster node receiving the command.
 In other words the specified node is removed from the *nodes table* of the
 node receiving the command.
 
-However the command cannot simply drop the node from its internal configuration,
-it also implements a ban-list, not allowing the same node to be added again
-as a side effect of processing the *gossip section* of the heartbeat packets
-received from other nodes.
+Because when a given node is part of the cluster, all the other nodes
+participating in the cluster knows about it, in order for a node to be
+completely removed from a cluster, the `CLUSTER FORGET` command must be
+sent to all the remaining nodes, regardless of the fact they are masters
+or slaves.
 
-## Details on the command behavior
+However the command cannot simply drop the node from the internal node
+table of the node receiving the command, it also implements a ban-list, not
+allowing the same node to be added again as a side effect of processing the
+*gossip section* of the heartbeat packets received from other nodes.
 
-For example, let's assume we have four nodes, A, B, C and D. In order to
+## Details on why the ban-list is needed
+
+In the following example we'll show why the command must not just remove
+a given node from the nodes table, but also prevent it for being re-inserted
+again for some time.
+
+Let's assume we have four nodes, A, B, C and D. In order to
 end with just a three nodes cluster A, B, C we may follow these steps:
 
 1. Reshard all the hash slots from D to nodes A, B, C.
 2. D is now empty, but still listed in the nodes table of A, B and C.
 3. We contact A, and send `CLUSTER FORGET D`.
-4. B sends A a heartbeat packet, where node D is listed.
+4. B sends node A a heartbeat packet, where node D is listed.
 5. A does no longer known node D (see step 3), so it starts an handshake with D.
 6. D ends re-added in the nodes table of A.
 

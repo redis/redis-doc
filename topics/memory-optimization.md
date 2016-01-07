@@ -8,8 +8,8 @@ Since Redis 2.2 many data types are optimized to use less space up to a certain 
 This is completely transparent from the point of view of the user and API.
 Since this is a CPU / memory trade off it is possible to tune the maximum number of elements and maximum element size for special encoded types using the following redis.conf directives.
 
-    hash-max-zipmap-entries 64 (hash-max-ziplist-entries for Redis >= 2.6)
-    hash-max-zipmap-value 512  (hash-max-ziplist-value for Redis >= 2.6)
+    hash-max-zipmap-entries 512 (hash-max-ziplist-entries for Redis >= 2.6)
+    hash-max-zipmap-value 64  (hash-max-ziplist-value for Redis >= 2.6)
     list-max-ziplist-entries 512
     list-max-ziplist-value 64
     zset-max-ziplist-entries 128

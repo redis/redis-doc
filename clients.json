@@ -19,14 +19,6 @@
     "active": true
   },
   {
-    "name": "aleph",
-    "language": "Clojure",
-    "repository": "https://github.com/ztellman/aleph",
-    "description": "Redis client build on top of lamina",
-    "authors": ["ztellman"],
-    "active": true
-  },
-  {
     "name": "CL-Redis",
     "language": "Common Lisp",
     "url": "http://www.cliki.net/cl-redis",
@@ -53,7 +45,14 @@
     "recommended": true,
     "active": true
   },
-
+  {
+    "name": "eredis_cluster",
+    "language": "Erlang",
+    "repository": "https://github.com/adrienmo/eredis_cluster",
+    "description": "Eredis wrapper providing cluster support and connection pooling",
+    "authors": ["adrienmo"],
+    "active": true
+  },
   {
     "name": "sharded_eredis",
     "language": "Erlang",
@@ -283,6 +282,15 @@
     "repository": "https://github.com/agladysh/lua-hiredis",
     "description": "Lua bindings for the hiredis library",
     "authors": ["agladysh"],
+    "active": true
+  },
+
+  {
+    "name": "lredis",
+    "language": "Lua",
+    "repository": "https://github.com/daurnimator/lredis",
+    "description": "Redis library for Lua",
+    "authors": ["daurnimator"],
     "active": true
   },
 
@@ -872,10 +880,12 @@
   {
     "name": "lettuce",
     "language": "Java",
+    "url": "http://redis.paluch.biz",
     "repository": "https://github.com/mp911de/lettuce",
-    "description": "Thread-safe client supporting async usage and key/value codecs",
+    "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
     "authors": ["ar3te", "mp911de"],
-    "active": true
+    "active": true,
+    "recommended": true
   },
 
   {
@@ -1151,7 +1161,7 @@
     "language": "VB",
     "repository": "https://github.com/hishamco/vRedis",
     "description": "Redis client using VB.NET.",
-    "authors": ["hishamco"],
+    "authors": ["hishambinateya"],
     "active": true
   },
 
@@ -1243,6 +1253,15 @@
     "active": true
   },
 
+ {
+    "name": "SwiftRedis",
+    "language": "Swift",
+    "repository": "https://github.com/ronp001/SwiftRedis",
+    "description": "Basic async client for Redis in Swift (iOS)",
+    "authors": ["ronp001"],
+    "active": true
+  },
+
   {
     "name": "Rackdis",
     "language": "Racket",
@@ -1275,6 +1294,24 @@
     "repository": "https://github.com/0xsky/xredis",
     "description": "Redis C++ client with data slice storage and connection pool support, requires hiredis only",
     "authors": ["0xsky"],
+    "active": true
+  },
+
+  {
+    "name": "cpp_redis",
+    "language": "C++",
+    "repository": "https://github.com/cylix/cpp_redis",
+    "description": "Modern C++11 Redis client based on boost::asio",
+    "authors": ["simon_ninon"],
+    "active": true
+  },
+  
+  {
+    "name": "mruby-redis",
+    "language": "mruby",
+    "repository": "https://github.com/matsumoto-r/mruby-redis",
+    "description": "Redis class for mruby based on Hiredis",
+    "authors": ["matsumotory"],
     "active": true
   }
 ]
