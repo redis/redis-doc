@@ -548,5 +548,12 @@
     "repository": "https://github.com/hedisdb/hedis",
     "description": "Hedis can retrieve data from **ANY** database directly via Redis",
     "authors": ["kewang"]
+  },
+  {
+    "name": "Redis plugin for ZeroBrane Studio Lua IDE",
+    "language": "Lua",
+    "repository": "https://github.com/pkulchenko/ZeroBranePackage",
+    "description": "Enables support for the Redis Lua API, provides remote script execution and debugging",
+    "authors": ["zerobrane"]
   }
 ]
