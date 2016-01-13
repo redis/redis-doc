@@ -1323,5 +1323,14 @@
     "description": "High level Pythonic dict, set, and list like containers around Redis data types (Python 3 only)",
     "authors": ["brainix"],
     "active": true
-  }
+  },
+  
+	{
+    "name": "delphiredisclient",
+    "language": "Delphi",
+    "repository": "https://github.com/danieleteti/delphiredisclient",
+    "description": "A Delphi Redis Client",
+    "authors": ["danieleteti"],
+    "active": true
+  }	
 ]
