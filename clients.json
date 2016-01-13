@@ -1172,7 +1172,7 @@
     "authors": ["ik5"]
   },
 
-  { 
+  {
     "name": "Redi.sh",
     "language": "Bash",
     "repository": "https://github.com/crypt1d/redi.sh",
@@ -1277,7 +1277,7 @@
     "description": "RedisKit is a asynchronious client framework for Redis server, written in Objective-C",
     "authors": ["dizzus"]
   },
-  
+
   {
     "name": "qredisclient",
     "language": "C++",
@@ -1286,7 +1286,7 @@
     "authors": ["u_glide"],
     "active": true
   },
-  
+
   {
     "name": "xredis",
     "language": "C++",
@@ -1305,7 +1305,7 @@
     "authors": ["simon_ninon"],
     "active": true
   },
-  
+
   {
     "name": "mruby-redis",
     "language": "mruby",
@@ -1332,7 +1332,7 @@
     "authors": ["cheprasov84"],
     "active": true
   },
-  
+
   {
     "name": "lasso-redis",
     "language": "Lasso",
@@ -1341,13 +1341,22 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "c+redis+client",
     "language": "C++",
     "repository": "https://github.com/shawn246/redis_client",
     "description": "A redis client based on hiredis, supports cluster/pipeline and is thread safe and includes two files only. The transaction is on the way:)",
     "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "delphiredisclient",
+    "language": "Delphi",
+    "repository": "https://github.com/danieleteti/delphiredisclient",
+    "description": "A Delphi Redis Client",
+    "authors": ["danieleteti"],
     "active": true
   }
 ]
