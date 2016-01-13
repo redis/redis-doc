@@ -37,9 +37,9 @@ When any other error is returned (starting with `ERR`) `MIGRATE` guarantees that
 the key is still only present in the originating instance (unless a key with the
 same name was also _already_ present on the target instance).
 
-If there are no keys to migrate in the source instance NOKEY is returned.
+If there are no keys to migrate in the source instance `NOKEY` is returned.
 Because missing keys are possible in normal conditions, from expiry for example,
-NOKEY isn't an error. 
+`NOKEY` isn't an error. 
 
 ## Options
 
@@ -50,5 +50,5 @@ NOKEY isn't an error.
 
 @return
 
-@simple-string-reply: The command returns OK on success, or NOKEY if no keys were
+@simple-string-reply: The command returns OK on success, or `NOKEY` if no keys were
 found in the source instance.  
