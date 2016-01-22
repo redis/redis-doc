@@ -11,6 +11,8 @@ limits, as specified by EPSG:900913 / EPSG:3785 / OSGEO:41001 are the following:
 
 The command will report an error when the user attempts to index coordinates outside the specified ranges.
 
+**Note:** this command has no a symmetric **GEODEL** command simply because you can use `ZREM` in order to remove elements from the sorted set, and the Geo index structure is just a sorted set.
+
 How does it work?
 ---
 
