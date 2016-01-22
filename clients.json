@@ -19,14 +19,6 @@
     "active": true
   },
   {
-    "name": "aleph",
-    "language": "Clojure",
-    "repository": "https://github.com/ztellman/aleph",
-    "description": "Redis client build on top of lamina",
-    "authors": ["ztellman"],
-    "active": true
-  },
-  {
     "name": "CL-Redis",
     "language": "Common Lisp",
     "url": "http://www.cliki.net/cl-redis",
@@ -1299,8 +1291,9 @@
   {
     "name": "xredis",
     "language": "C++",
+    "url": "http://xredis.0xsky.com/",
     "repository": "https://github.com/0xsky/xredis",
-    "description": "Redis C++ client with data slice storage and connection pool support, requires hiredis only",
+    "description": "Redis C++ client with data slice storage, connection pool, master slave connection, read/write separation; requires hiredis only",
     "authors": ["0xsky"],
     "active": true
   },
@@ -1311,6 +1304,24 @@
     "repository": "https://github.com/cylix/cpp_redis",
     "description": "Modern C++11 Redis client based on boost::asio",
     "authors": ["simon_ninon"],
+    "active": true
+  },
+  
+  {
+    "name": "mruby-redis",
+    "language": "mruby",
+    "repository": "https://github.com/matsumoto-r/mruby-redis",
+    "description": "Redis class for mruby based on Hiredis",
+    "authors": ["matsumotory"],
+    "active": true
+  },
+
+  {
+    "name": "Pottery",
+    "language": "Python",
+    "repository": "https://github.com/brainix/pottery",
+    "description": "High level Pythonic dict, set, and list like containers around Redis data types (Python 3 only)",
+    "authors": ["brainix"],
     "active": true
   }
 ]

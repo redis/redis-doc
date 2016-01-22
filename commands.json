@@ -172,7 +172,7 @@
       {
         "command": "TYPE",
         "type": "enum",
-        "enum": ["normal", "slave", "pubsub"],
+        "enum": ["normal", "master", "slave", "pubsub"],
         "optional": true
       },
       {
@@ -213,6 +213,19 @@
       }
     ],
     "since": "2.9.50",
+    "group": "server"
+  },
+  "CLIENT REPLY": {
+    "summary": "Instruct the server whether to reply to commands",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "reply-mode",
+        "type": "enum",
+        "enum": ["ON", "OFF", "SKIP"]
+      }
+    ],
+    "since": "3.2",
     "group": "server"
   },
   "CLIENT SETNAME": {
@@ -1454,7 +1467,8 @@
       },
       {
         "name": "key",
-        "type": "key"
+        "type": "enum",
+        "enum": ["key", "\"\""]
       },
       {
         "name": "destination-db",
@@ -1474,6 +1488,13 @@
         "name": "replace",
         "type": "enum",
         "enum": ["REPLACE"],
+        "optional": true
+      },
+      {
+        "name": "key",
+        "command": "KEYS",
+        "type": "key",
+        "variadic": true,
         "optional": true
       }
     ],
@@ -1920,6 +1941,19 @@
     ],
     "since": "1.0.0",
     "group": "set"
+  },
+  "SCRIPT DEBUG": {
+    "summary": "Set the debug mode for executed scripts.",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "mode",
+        "type": "enum",
+        "enum": ["ON", "SYNC", "OFF"]
+      }
+    ],
+    "since": "3.2.0",
+    "group": "scripting"
   },
   "SCRIPT EXISTS": {
     "summary": "Check existence of scripts in the script cache.",
