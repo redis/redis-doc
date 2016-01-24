@@ -1949,7 +1949,7 @@
       {
         "name": "mode",
         "type": "enum",
-        "enum": ["ON", "SYNC", "OFF"]
+        "enum": ["YES", "SYNC", "NO"]
       }
     ],
     "since": "3.2.0",
