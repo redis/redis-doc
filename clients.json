@@ -1323,5 +1323,14 @@
     "description": "High level Pythonic dict, set, and list like containers around Redis data types (Python 3 only)",
     "authors": ["brainix"],
     "active": true
+  },
+
+  {
+    "name": "cheprasov/php-redis-client",
+    "language": "PHP",
+    "repository": "https://github.com/cheprasov/php-redis-client",
+    "description": "Fast, fully-functional and user-friendly client, optimized for performance.",
+    "authors": ["cheprasov84"],
+    "active": true
   }
 ]
