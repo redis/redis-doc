@@ -924,6 +924,14 @@
   },
 
   {
+    "name": "redis-client",
+    "language": "Rust",
+    "repository": "https://github.com/AsoSunag/redis-client",
+    "description": "A Redis client library for Rust.",
+    "authors": ["gtanguy"]
+  },
+
+  {
     "name": "redic",
     "language": "Ruby",
     "repository": "https://github.com/amakawa/redic",
