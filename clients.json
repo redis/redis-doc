@@ -1339,5 +1339,15 @@
     "description": "Fast, fully-functional and user-friendly client, optimized for performance.",
     "authors": ["cheprasov84"],
     "active": true
+  },
+  
+  {
+    "name": "lasso-redis",
+    "language": "Lasso",
+    "repository": "https://github.com/Zeroloop/lasso-redis",
+    "description": "High performance Redis client for Lasso, supports pub/sub and piping.",
+    "authors": ["Ke-"],
+    "active": true
   }
+  
 ]
