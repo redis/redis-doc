@@ -711,7 +711,7 @@ sorted set elements, with their year of birth as "score".
     > zadd hackers 1940 "Alan Kay"
     (integer) 1
     > zadd hackers 1957 "Sophie Wilson"
-    (integer 1)
+    (integer) 1
     > zadd hackers 1953 "Richard Stallman"
     (integer) 1
     > zadd hackers 1949 "Anita Borg"
