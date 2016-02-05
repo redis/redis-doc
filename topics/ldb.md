@@ -207,3 +207,33 @@ The `eval` command executes small pieces of Lua scripts **outside the context of
 lua debugger> e redis.sha1hex('foo')
 <retval> "0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33"
 ```
+
+Debugging clients
+---
+
+LDB uses the client-server model where the Redis servers acts as a debugging server that communicates using [RESP](/topics/protocol). While `redis-cli` is the default debug client, any [client](/clients) can be used for debugging as long as it meets one of the following conditions:
+
+1. The client provides a native interface for setting the debug mode and controlling the debug session.
+2. The client provides an interface for sending arbitrary commands over RESP.
+3. The client allows sending raw messages to the Redis server.
+
+For example, the [Redis plugin](https://redislabs.com/blog/zerobrane-studio-plugin-for-redis-lua-scripts) for [ZeroBrane Studio](http://studio.zerobrane.com/) integrates with LDB using [redis-lua](https://github.com/nrk/redis-lua). The following Lua code is a simplified example of how the plugin achieves that:
+
+```Lua
+local redis = require 'redis'
+
+-- add LDB's Continue command
+redis.commands['ldbcontinue'] = redis.command('C')
+
+-- script to be debugged
+local script = [[
+  local x, y = tonumber(ARGV[1]), tonumber(ARGV[2])
+  local result = x * y
+  return result
+]]
+
+local client = redis.connect('127.0.0.1', 6379)
+client:script("DEBUG", "YES")
+print(unpack(client:eval(script, 0, 6, 9)))
+client:ldbcontinue()
+```
