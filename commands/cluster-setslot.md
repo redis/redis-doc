@@ -1,11 +1,11 @@
-`CLUSTER SETSLOT` is responsible of changing the state of an hash slot in the receiving node in different ways. It can, depending on the subcommand used:
+`CLUSTER SETSLOT` is responsible of changing the state of a hash slot in the receiving node in different ways. It can, depending on the subcommand used:
 
 1. `MIGRATING` subcommand: Set a hash slot in *migrating* state.
 2. `IMPORTING` subcommand: Set a hash slot in *importing* state.
 3. `STABLE` subcommand: Clear any importing / migrating state from hash slot.
 4. `NODE` subcommand: Bind the hash slot to a different node.
 
-The command with its set of subcommands is useful in order to start and end cluster live resharding operations, which are accomplished by setting an hash slot in migrating state in the source node, and importing state in the destination node.
+The command with its set of subcommands is useful in order to start and end cluster live resharding operations, which are accomplished by setting a hash slot in migrating state in the source node, and importing state in the destination node.
 
 Each subcommand is documented below. At the end you'll find a description of
 how live resharding is performed using this command and other related commands.
@@ -35,7 +35,7 @@ When a slot is set in importing state, the node changes behavior in the followin
 
 In this way when a node in migrating state generates an `ASK` redirection, the client contacts the target node, sends `ASKING`, and immediately after sends the command. This way commands about non-existing keys in the old node or keys already migrated to the target node are executed in the target node, so that:
 
-1. New keys are always created in the target node. During an hash slot migration we'll have to move only old keys, not new ones.
+1. New keys are always created in the target node. During a hash slot migration we'll have to move only old keys, not new ones.
 2. Commands about keys already migrated are correctly processed in the context of the node which is the target of the migration, the new hash slot owner, in order to guarantee consistency.
 3. Without `ASKING` the behavior is the same as usually. This guarantees that clients with a broken hash slots mapping will not write for error in the target node, creating a new version of a key that has yet to be migrated.
 
@@ -56,7 +56,7 @@ command:
 
 1. If the current hash slot owner is the node receiving the command, but for effect of the command the slot would be assigned to a different node, the command will return an error if there are still keys for that hash slot in the node receiving the command.
 2. If the slot is in *migrating* state, the state gets cleared when the slot is assigned to another node.
-3. If the slot was in *importing* state in the node receiving the command, and the command assigns the slot to this node (which happens in the target node at the end of the resharding of an hash slot from one node to another), the command has the following side effects: A) the *importing* state is cleared. B) If the node config epoch is not already the greatest of the cluster, it generates a new one and assigns the new config epoch to itself. This way its new hash slot ownership will win over any past configuration created by previous failovers or slot migrations.
+3. If the slot was in *importing* state in the node receiving the command, and the command assigns the slot to this node (which happens in the target node at the end of the resharding of a hash slot from one node to another), the command has the following side effects: A) the *importing* state is cleared. B) If the node config epoch is not already the greatest of the cluster, it generates a new one and assigns the new config epoch to itself. This way its new hash slot ownership will win over any past configuration created by previous failovers or slot migrations.
 
 It is important to note that step 3 is the only time when a Redis Cluster node will create a new config epoch without agreement from other nodes. This only happens when a manual configuration is operated. However it is impossible that this creates a non-transient setup where two nodes have the same config epoch, since Redis Cluster uses a config epoch collision resolution algorithm.
 

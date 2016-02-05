@@ -417,7 +417,7 @@
     "group": "cluster"
   },
   "CLUSTER SETSLOT": {
-    "summary": "Bind an hash slot to a specific node",
+    "summary": "Bind a hash slot to a specific node",
     "complexity": "O(1)",
     "arguments": [
       {
