@@ -81,7 +81,7 @@ You can do many interesting things using Redis Sets, for instance you can:
 * You can use Sets to extract elements at random using the [SPOP](/commands/spop) or [SRANDMEMBER](/commands/srandmember) commands.
 
 
-As usually check the [full list of Set commands](/commands#set) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
+As usual, check the [full list of Set commands](/commands#set) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
 <a name="hashes"></a>
 Hashes
