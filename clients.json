@@ -90,6 +90,15 @@
   },
 
   {
+    "name": "go-redis/redis",
+    "language": "Go",
+    "repository": "https://github.com/go-redis/redis"
+    "description": "Redis client for Golang.",
+    "authors": [],
+    "active": true
+  },
+
+  {
     "name": "Go-Redis",
     "language": "Go",
     "repository": "https://github.com/alphazero/Go-Redis",
