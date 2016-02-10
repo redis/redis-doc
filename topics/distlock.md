@@ -214,3 +214,8 @@ Want to help?
 If you are into distributed systems, it would be great to have your opinion / analysis. Also reference implementations in other languages could be great.
 
 Thanks in advance!
+
+Analysis of Redlock
+---
+
+1. Martin Kleppmann [analyzed Redlock here](http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html). I disagree with the analysis and posted [my reply to his analysis here](http://antirez.com/news/101).
