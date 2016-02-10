@@ -1,4 +1,4 @@
-Increment the specified `field` of an hash stored at `key`, and representing a
+Increment the specified `field` of a hash stored at `key`, and representing a
 floating point number, by the specified `increment`.
 If the field does not exist, it is set to `0` before performing the operation.
 An error is returned if one of the following conditions occur:

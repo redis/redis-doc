@@ -29,8 +29,8 @@ It's not always trivial to grasp how these data types work and what to use in
 order to solve a given problem from the [command reference](/commands), so this
 document is a crash course to Redis data types and their most common patterns.
 
-For all the examples we'll use the `redis-cli` utility, that's a simple but
-handy command line utility to issue commands against the Redis server.
+For all the examples we'll use the `redis-cli` utility, a simple but
+handy command-line utility, to issue commands against the Redis server.
 
 Redis keys
 ---
@@ -41,11 +41,11 @@ The empty string is also a valid key.
 
 A few other rules about keys:
 
-* Very long keys are not a good idea, for instance a key of 1024 bytes is a bad
+* Very long keys are not a good idea. For instance a key of 1024 bytes is a bad
   idea not only memory-wise, but also because the lookup of the key in the
   dataset may require several costly key-comparisons. Even when the task at hand
-  is to match the existence of a large value, to resort to hashing it (for example
-  with SHA1) is a better idea, especially from the point of view of memory
+  is to match the existence of a large value, hashing it (for example
+  with SHA1) is a better idea, especially from the perspective of memory
   and bandwidth.
 * Very short keys are often not a good idea. There is little point in writing
   "u1000flw" as a key if you can instead write "user:1000:followers".  The latter
@@ -572,7 +572,7 @@ elements. As you can see they are not sorted -- Redis is free to return the
 elements in any order at every call, since there is no contract with the
 user about element ordering.
 
-Redis has commands to test for membership. Does a given element exist?
+Redis has commands to test for membership. For example, checking if an element exists:
 
     > sismember myset 3
     (integer) 1
@@ -587,14 +587,14 @@ For instance we can easily use sets in order to implement tags.
 A simple way to model this problem is to have a set for every object we
 want to tag. The set contains the IDs of the tags associated with the object.
 
-Imagine we want to tag news.
-If our news ID 1000 is tagged with tags 1, 2, 5 and 77, we can have one set
-associating our tag IDs with the news item:
+One illustration is tagging news articles.
+If article ID 1000 is tagged with tags 1, 2, 5 and 77, a set
+can associate these tag IDs with the news item:
 
     > sadd news:1000:tags 1 2 5 77
     (integer) 4
 
-However sometimes I may want to have the inverse relation as well: the list
+We may also want to have the inverse relation as well: the list
 of all the news tagged with a given tag:
 
     > sadd tag:1:news 1000
@@ -626,7 +626,7 @@ sets. We can use:
     > sinter tag:1:news tag:2:news tag:10:news tag:27:news
     ... results here ...
 
-Intersection is not the only operation performed, you can also perform
+In addition to intersection you can also perform
 unions, difference, extract a random element, and so forth.
 
 The command to extract an element is called `SPOP`, and is handy to model
@@ -672,7 +672,7 @@ Now I'm ready to provide the first player with five cards:
 
 One pair of jacks, not great...
 
-Now it's a good time to introduce the set command that provides the number
+This is a good time to introduce the set command that provides the number
 of elements inside a set. This is often called the *cardinality of a set*
 in the context of set theory, so the Redis command is called `SCARD`.
 
@@ -711,7 +711,7 @@ sorted set elements, with their year of birth as "score".
     > zadd hackers 1940 "Alan Kay"
     (integer) 1
     > zadd hackers 1957 "Sophie Wilson"
-    (integer 1)
+    (integer) 1
     > zadd hackers 1953 "Richard Stallman"
     (integer) 1
     > zadd hackers 1949 "Anita Borg"

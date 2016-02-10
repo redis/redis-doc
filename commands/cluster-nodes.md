@@ -45,7 +45,7 @@ The meaning of each filed is the following:
 6. `pong-recv`: Milliseconds unix time the last pong was received.
 7. `config-epoch`: The configuration epoch (or version) of the current node (or of the current master if the node is a slave). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with higher configuration epoch wins.
 8. `link-state`: The state of the link used for the node-to-node cluster bus. We use this link to communicate with the node. Can be `connected` or `disconnected`.
-9. `slot`: An hash slot number or range. Starting from argument number 9, but there may be up to 16384 entries in total (limit never reached). This is the list of hash slots served by this node. If the entry is just a number, is parsed as such. If it is a range, it is in the form `start-end`, and means that the node is responsible for all the hash slots from `start` to `end` including the start and end values.
+9. `slot`: A hash slot number or range. Starting from argument number 9, but there may be up to 16384 entries in total (limit never reached). This is the list of hash slots served by this node. If the entry is just a number, is parsed as such. If it is a range, it is in the form `start-end`, and means that the node is responsible for all the hash slots from `start` to `end` including the start and end values.
 
 Meaning of the flags (field number 3):
 

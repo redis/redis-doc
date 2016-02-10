@@ -110,6 +110,7 @@ Different commands generate different kind of events according to the following 
 * `LPOP` generates an `lpop` event. Additionally a `del` event is generated if the key is removed because the last element from the list was popped.
 * `LINSERT` generates an `linsert` event.
 * `LSET` generates an `lset` event.
+* `LREM` generates an `lrem` event, and additionally a `del` event if the resulting list is empty and the key is removed.
 * `LTRIM` generates an `ltrim` event, and additionally a `del` event if the resulting list is empty and the key is removed.
 * `RPOPLPUSH` and `BRPOPLPUSH` generate an `rpop` event and an `lpush` event. In both cases the order is guaranteed (the `lpush` event will always be delivered after the `rpop` event). Additionally a `del` event will be generated if the resulting list is zero length and the key is removed.
 * `HSET`, `HSETNX` and `HMSET` all generate a single `hset` event.

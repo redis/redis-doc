@@ -75,7 +75,7 @@ However there is a way for the user to tune the order of magnitude of the number
 While `SCAN` does not provide guarantees about the number of elements returned at every iteration, it is possible to empirically adjust the behavior of `SCAN` using the **COUNT** option. Basically with COUNT the user specified the *amount of work that should be done at every call in order to retrieve elements from the collection*. This is **just an hint** for the implementation, however generally speaking this is what you could expect most of the times from the implementation.
 
 * The default COUNT value is 10.
-* When iterating the key space, or a Set, Hash or Sorted Set that is big enough to be represented by an hash table, assuming no **MATCH** option is used, the server will usually return *count* or a bit more than *count* elements per call.
+* When iterating the key space, or a Set, Hash or Sorted Set that is big enough to be represented by a hash table, assuming no **MATCH** option is used, the server will usually return *count* or a bit more than *count* elements per call.
 * When iterating Sets encoded as intsets (small sets composed of just integers), or Hashes and Sorted Sets encoded as ziplists (small hashes and sets composed of small individual values), usually all the elements are returned in the first `SCAN` call regardless of the COUNT value.
 
 Important: **there is no need to use the same COUNT value** for every iteration. The caller is free to change the count from one iteration to the other as required, as long as the cursor passed in the next call is the one obtained in the previous call to the command.
@@ -173,7 +173,7 @@ This is easy to see intuitively: if the collection grows there is more and more 
 
 ## Additional examples
 
-Iteration of an Hash value.
+Iteration of a Hash value.
 
 ```
 redis 127.0.0.1:6379> hmset hash name Jack age 33

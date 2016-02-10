@@ -177,7 +177,7 @@ format, this is what the different symbols means:
     +--------------------+
     | This is a computer |
     | or VM that fails   |
-    | independently. We |
+    | independently. We  |
     | call it a "box"    |
     +--------------------+
 

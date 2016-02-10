@@ -38,7 +38,7 @@
     "name": "Kombu",
     "language": "Python",
     "repository": "https://github.com/celery/kombu",
-    "description": "Python AMQP Framework with redis support",
+    "description": "Python AMQP Framework with Redis support",
     "authors": []
   },
   {
@@ -53,7 +53,7 @@
     "language": "PHP",
     "url": "https://readis.hollo.me",
     "repository": "https://github.com/hollodotme/readis",
-    "description": "Lightweight web frontend in PHP for reading data, stats and config from multiple redis servers.",
+    "description": "Lightweight web frontend in PHP for reading data, stats and config from multiple Redis servers.",
     "authors": ["hollodotme"]
   },
   {
@@ -81,14 +81,14 @@
     "name": "Rdb-parser",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/rdb-parser",
-    "description": "node.js asynchronous streaming parser for redis RDB database dumps.",
+    "description": "node.js asynchronous streaming parser for Redis RDB database dumps.",
     "authors": ["pconstr"]
   },
   {
     "name": "Redis-sync",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/redis-sync",
-    "description": "A node.js redis replication slave toolkit",
+    "description": "A node.js Redis replication slave toolkit",
     "authors": ["pconstr"]
   },
   {
@@ -130,14 +130,14 @@
     "name": "Redmon",
     "language": "Ruby",
     "repository": "https://github.com/steelThread/redmon",
-    "description": "A web interface for managing redis: cli, admin, and live monitoring.",
+    "description": "A web interface for managing Redis: cli, admin, and live monitoring.",
     "authors": ["steel_thread"]
   },
   {
     "name": "Rollout",
     "language": "Ruby",
     "repository": "https://github.com/FetLife/rollout",
-    "description": "Conditionally roll out features with redis.",
+    "description": "Conditionally roll out features with Redis.",
     "authors": ["jamesgolick"]
   },
   {
@@ -180,14 +180,14 @@
     "name": "Omhiredis",
     "language": "C",
     "repository": "http://www.rsyslog.com/doc/build_from_repo.html",
-    "description": "redis output plugin for rsyslog (rsyslog dev, and rsyslog head).",
+    "description": "Redis output plugin for rsyslog (rsyslog dev, and rsyslog head).",
     "authors": ["taotetek"]
   },
   {
     "name": "Mod_redis",
     "language": "C",
     "repository": "https://github.com/sneakybeaky/mod_redis",
-    "description": "An Apache HTTPD module for speaking to redis via HTTP",
+    "description": "An Apache HTTPD module for speaking to Redis via HTTP",
     "authors": []
   },
   {
@@ -257,7 +257,7 @@
     "name": "Recurrent",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/recurrent",
-    "description": "A redis-backed manager of recurrent jobs, for node.js",
+    "description": "A Redis-backed manager of recurrent jobs, for node.js",
     "authors": ["pconstr"]
   },
   {
@@ -293,7 +293,7 @@
     "name": "redis-tcl",
     "language": "Tcl",
     "repository" : "https://github.com/bradvoth/redis-tcl",
-    "description" : "Tcl library largely copied from the redis test tree, modified for minor bug fixes and expanded pub/sub capabilities",
+    "description" : "Tcl library largely copied from the Redis test tree, modified for minor bug fixes and expanded pub/sub capabilities",
     "authors" : ["bradvoth","antirez"]
   },
   {
@@ -379,7 +379,7 @@
     "name": "Redis-RdbParser",
     "language": "Perl",
     "repository": "https://github.com/flygoast/Redis-RdbParser",
-    "description": "Redis-RdbParser is a streaming parser for redis RDB database dumps.",
+    "description": "Redis-RdbParser is a streaming parser for Redis RDB database dumps.",
     "authors": []
   },
   {
@@ -394,7 +394,7 @@
     "language": "Web",
     "repository": "https://github.com/Redsmin/redsmin",
     "url":"https://redsmin.com/",
-    "description": "A fully featured Redis GUI for managing and monitoring redis.",
+    "description": "A fully featured Redis GUI for managing and monitoring Redis.",
     "authors": ["fgribreau"]
   },
   {
@@ -486,7 +486,7 @@
     "language": "Python",
     "url": "https://github.com/no13bus/redispapa",
     "repository": "https://github.com/no13bus/redispapa",
-    "description": "RedisPAPA is a redis monitor which watch the redis-info by using flask, angular, socket.io",
+    "description": "RedisPAPA is a Redis monitor which watches `INFO` by using flask, angular, socket.io",
     "authors": ["no13bus"]
   },
   {
@@ -502,7 +502,7 @@
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
     "repository": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
-    "description": "A C++ redis tool to create and manage a redis cluster, basing on acl redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "description": "A C++ Redis tool to create and manage a Redis cluster, basing on acl Redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
     "authors": ["zhengshuxin"]
   },
   {
@@ -524,7 +524,7 @@
     "language": "C",
     "url": "http://www.jacketzhong.com/?p=220",
     "repository": "https://github.com/jacket-code/redisPlatform",
-    "description": "A rpc platform that base on redis, You can use it to do a lot of things, it can be a game server",
+    "description": "A rpc platform that base on Redis, You can use it to do a lot of things, it can be a game server",
     "authors": ["jacketzhong"]
   },
   {
@@ -548,5 +548,12 @@
     "repository": "https://github.com/hedisdb/hedis",
     "description": "Hedis can retrieve data from **ANY** database directly via Redis",
     "authors": ["kewang"]
+  },
+  {
+    "name": "Redis plugin for ZeroBrane Studio Lua IDE",
+    "language": "Lua",
+    "repository": "https://github.com/pkulchenko/ZeroBranePackage",
+    "description": "Enables support for the Redis Lua API, provides remote script execution and debugging",
+    "authors": ["zerobrane"]
   }
 ]

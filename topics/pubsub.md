@@ -178,7 +178,7 @@ Because all the messages received contain the original subscription
 causing the message delivery (the channel in the case of message type,
 and the original pattern in the case of pmessage type) client libraries
 may bind the original subscription to callbacks (that can be anonymous
-functions, blocks, function pointers), using an hash table.
+functions, blocks, function pointers), using a hash table.
 
 When a message is received an O(1) lookup can be done in order to
 deliver the message to the registered callback.

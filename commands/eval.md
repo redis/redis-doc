@@ -491,7 +491,7 @@ or `SRANDMEMBER` commands inside your scripts freely at any place.
 In order to enable script effects replication, you need to issue the
 following Lua command before any write operated by the script:
 
-    redis.replicate_commands();
+    redis.replicate_commands()
 
 The function returns true if the script effects replication was enabled,
 otherwise if the function was called after the script already called
@@ -524,10 +524,10 @@ an error if called when script effects replication is disabled.
 
 The command can be called with four different arguments:
 
-    redis.set_repl(redis.REPL_ALL); -- Replicte to AOF and slaves.
-    redis.set_repl(redis.REPL_AOF); -- Replicte only to AOF.
-    redis.set_repl(redis.REPL_SLAVE); -- Replicte only to slaves.
-    redis.set_repl(redis.REPL_NONE); -- Don't replicate at all.
+    redis.set_repl(redis.REPL_ALL) -- Replicte to AOF and slaves.
+    redis.set_repl(redis.REPL_AOF) -- Replicte only to AOF.
+    redis.set_repl(redis.REPL_SLAVE) -- Replicte only to slaves.
+    redis.set_repl(redis.REPL_NONE) -- Don't replicate at all.
 
 By default the scripting engine is always set to `REPL_ALL`. By calling
 this function the user can switch on/off AOF and or slaves replication, and
@@ -535,12 +535,12 @@ turn them back later at her/his wish.
 
 A simple example follows:
 
-    redis.replicate_commands(); -- Enable effects replication.
-    redis.call('set','A','1');
-    redis.set_repl(redis.REPL_NONE);
-    redis.call('set','B','2');
-    redis.set_repl(redis.REPL_ALL);
-    redis.call('set','C','3');
+    redis.replicate_commands() -- Enable effects replication.
+    redis.call('set','A','1')
+    redis.set_repl(redis.REPL_NONE)
+    redis.call('set','B','2')
+    redis.set_repl(redis.REPL_ALL)
+    redis.call('set','C','3')
 
 After running the above script, the result is that only keys A and C
 will be created on slaves and AOF.

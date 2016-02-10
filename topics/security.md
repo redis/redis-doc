@@ -121,7 +121,7 @@ the ability to insert data into Redis that triggers pathological (worst case)
 algorithm complexity on data structures implemented inside Redis internals.
 
 For instance an attacker could supply, via a web form, a set of strings that
-is known to hash to the same bucket into an hash table in order to turn the
+is known to hash to the same bucket into a hash table in order to turn the
 O(1) expected time (the average time) to the O(N) worst case, consuming more
 CPU than expected, and ultimately causing a Denial of Service.
 
