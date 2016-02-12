@@ -29,8 +29,8 @@ Objects can be encoded in different ways:
 * Sets can be encoded as `intset` or `hashtable`.
   The `intset` is a special encoding used for small sets composed solely of
   integers.
-* Hashes can be encoded as `zipmap` or `hashtable`.
-  The `zipmap` is a special encoding used for small hashes.
+* Hashes can be encoded as `ziplist` or `hashtable`.
+  The `ziplist` is a special encoding used for small hashes.
 * Sorted Sets can be encoded as `ziplist` or `skiplist` format.
   As for the List type small sorted sets can be specially encoded using
   `ziplist`, while the `skiplist` encoding is the one that works with sorted
