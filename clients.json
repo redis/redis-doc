@@ -1270,6 +1270,15 @@
   },
 
   {
+    "name": "Redbird",
+    "language": "Swift",
+    "repository": "https://github.com/czechboy0/Redbird",
+    "description": "Pure-Swift implementation of a Redis client from the original protocol spec (OS X + Linux compatible)",
+    "authors": ["czechboy0"],
+    "active": true
+  },
+
+  {
     "name": "Rackdis",
     "language": "Racket",
     "repository": "https://github.com/eu90h/rackdis",
