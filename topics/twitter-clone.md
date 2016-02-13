@@ -369,7 +369,7 @@ After we create a post and we obtain the post ID, we need to LPUSH the ID in the
 
 The core of the function is the `foreach` loop. We use `ZRANGE` to get all the followers of the current user, then the loop will LPUSH the push the post in every follower timeline List.
 
-Note that we also maintain a global timeline for all the posts, so that in the Retwis home page we can show everybody's updates easily. This requires just doing an `LPUSH` to the `timeline` List. Let's face it, aren't you start thinking it was a bit strange to have to sort things added in chronological order using `ORDER BY` with SQL? I think so.
+Note that we also maintain a global timeline for all the posts, so that in the Retwis home page we can show everybody's updates easily. This requires just doing an `LPUSH` to the `timeline` List. Let's face it, aren't you starting to think it was a bit strange to have to sort things added in chronological order using `ORDER BY` with SQL? I think so.
 
 There is an interesting thing to notice in the code above: we use a new
 command called `LTRIM` after we perform the `LPUSH` operation in the global
