@@ -421,7 +421,7 @@ instead.*
 Following users
 ---
 
-It is not hard, but we did not yet checked how we create following / follower relationships. If user ID 1000 (antirez) wants to follow user ID 5000 (pippo), we need to create both a following and a follower relationship. We just need to `ZADD` calls:
+It is not hard, but we did not yet check how we create following / follower relationships. If user ID 1000 (antirez) wants to follow user ID 5000 (pippo), we need to create both a following and a follower relationship. We just need to `ZADD` calls:
 
         ZADD following:1000 5000
         ZADD followers:5000 1000
