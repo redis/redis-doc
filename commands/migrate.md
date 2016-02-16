@@ -41,12 +41,31 @@ If there are no keys to migrate in the source instance `NOKEY` is returned.
 Because missing keys are possible in normal conditions, from expiry for example,
 `NOKEY` isn't an error. 
 
+## Migrating multiple keys with a single command call
+
+Starting with Redis 3.0.6 `MIGRATE` supports a new bulk-migration mode that
+uses pipelining in order to migrate multiple keys between instances without
+incurring in the round trip time latency and other overheads that there are
+when moving each key with a single `MIGRATE` call.
+
+In order to enable this form, the `KEYS` option is used, and the normal *key*
+argument is set to an empty string. The actual key names will be provided
+after the `KEYS` argument itself, like in the following example:
+
+    MIGRATE 192.168.1.34 6379 "" 0 5000 KEYS key1 key2 key3
+
+When this form is used the `NOKEY` status code is only returned when none
+of the keys is preset in the instance, otherwise the command is executed, even if
+just a single key exists.
+
 ## Options
 
 * `COPY` -- Do not remove the key from the local instance.
 * `REPLACE` -- Replace existing key on the remote instance.
+* `KEYS` -- If the key argument is an empty string, the command will instead migrate all the keys that follow the `KEYS` option (see the above section for more info).
 
 `COPY` and `REPLACE` are available only in 3.0 and above.
+`KEYS` is available starting with Redis 3.0.6.
 
 @return
 
