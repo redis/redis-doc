@@ -1348,6 +1348,14 @@
     "description": "High performance Redis client for Lasso, supports pub/sub and piping.",
     "authors": [],
     "active": true
-  }
+  },
   
+  {
+    "name": "c+redis+client",
+    "language": "C++",
+    "repository": "https://github.com/shawn246/redis_client",
+    "description": "A redis client based on hiredis, supports cluster/pipeline and is thread safe and includes two files only. The transaction is on the way:)",
+    "authors": [],
+    "active": true
+  }
 ]
