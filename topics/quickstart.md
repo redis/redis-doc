@@ -192,9 +192,17 @@ Both the pid file path and the configuration file name depend on the port number
 
         sudo update-rc.d redis_6379 defaults
 
+    Or (Red Hat / CentOS)
+    
+        chkconfig redis_6379 on
+
 You are done! Now you can try running your instance with:
 
-    /etc/init.d/redis_6379 start
+        /etc/init.d/redis_6379 start
+
+    Or (Red Hat / CentOS)
+
+        service redis_6379 start
 
 Make sure that everything is working as expected:
 
