@@ -41,7 +41,7 @@ It is a good idea to copy both the Redis server and the command line interface i
 * sudo cp src/redis-server /usr/local/bin/
 * sudo cp src/redis-cli /usr/local/bin/
 
-Or just using `make install`.
+Or just using `sudo make install`.
 
 In the following documentation we assume that /usr/local/bin is in your PATH environment variable so that you can execute both the binaries without specifying the full path.
 
@@ -194,7 +194,7 @@ Both the pid file path and the configuration file name depend on the port number
 
 You are done! Now you can try running your instance with:
 
-    /etc/init.d/redis_6379 start
+    sudo /etc/init.d/redis_6379 start
 
 Make sure that everything is working as expected:
 
