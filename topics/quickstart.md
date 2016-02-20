@@ -194,7 +194,7 @@ Both the pid file path and the configuration file name depend on the port number
 
 You are done! Now you can try running your instance with:
 
-    /etc/init.d/redis_6379 start
+    sudo /etc/init.d/redis_6379 start
 
 Make sure that everything is working as expected:
 
