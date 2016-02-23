@@ -1269,6 +1269,15 @@
     "active": true
   },
 
+ {
+    "name": "Swift-Redis",
+    "language": "Swift",
+    "repository": "https://github.com/rabc/Swift-Redis",
+    "description": "Redis client for (pure) Swift",
+    "authors": ["rabc"],
+    "active": true
+  },
+
   {
     "name": "Rackdis",
     "language": "Racket",
