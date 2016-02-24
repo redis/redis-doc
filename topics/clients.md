@@ -50,7 +50,7 @@ In Redis 2.4 there was an hard-coded limit about the maximum number of clients
 that was possible to handle simultaneously.
 
 In Redis 2.6 this limit is dynamic: by default is set to 10000 clients, unless
-otherwise stated by the `maxmemory` directive in Redis.conf.
+otherwise stated by the `maxclients` directive in Redis.conf.
 
 However Redis checks with the kernel what is the maximum number of file
 descriptors that we are able to open (the *soft limit* is checked), if the
