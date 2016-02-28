@@ -2147,15 +2147,9 @@
     "summary": "Synchronously save the dataset to disk and then shut down the server",
     "arguments": [
       {
-        "name": "NOSAVE",
+        "name": "save-mode",
         "type": "enum",
-        "enum": ["NOSAVE"],
-        "optional": true
-      },
-      {
-        "name": "SAVE",
-        "type": "enum",
-        "enum": ["SAVE"],
+        "enum": ["NOSAVE", "SAVE"],
         "optional": true
       }
     ],
