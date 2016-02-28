@@ -58,8 +58,7 @@
     "language": "Erlang",
     "repository": "https://github.com/jeremyong/sharded_eredis",
     "description": "Wrapper around eredis providing process pools and consistent hashing.",
-    "authors": ["jeremyong"],
-    "active": true
+    "authors": ["jeremyong"]
   },
 
   {
@@ -67,8 +66,7 @@
     "language": "Erlang",
     "repository": "git://git.tideland.biz/errc",
     "description": "A comfortable Redis client for Erlang/OTP support pooling, pub/sub and transactions.",
-    "authors": ["themue"],
-    "active": true
+    "authors": ["themue"]
   },
 
   {
@@ -85,8 +83,7 @@
     "language": "Fancy",
     "repository": "https://github.com/bakkdoor/redis.fy",
     "description": "A Fancy Redis client library",
-    "authors": ["bakkdoor"],
-    "active": true
+    "authors": ["bakkdoor"]
   },
 
   {
@@ -94,8 +91,7 @@
     "language": "Go",
     "repository": "https://github.com/alphazero/Go-Redis",
     "description": "Google Go Client and Connectors for Redis.",
-    "authors": ["SunOf27"],
-    "active": true
+    "authors": ["SunOf27"]
   },
 
   {
@@ -133,8 +129,7 @@
     "language": "Go",
     "repository": "https://github.com/simonz05/godis",
     "description": "A Redis client for Go.",
-    "authors": [],
-    "active": true
+    "authors": []
   },
 
   {
@@ -152,8 +147,7 @@
     "language": "Go",
     "repository": "https://github.com/xuyu/goredis",
     "description": "A redis client for golang with full features",
-    "authors": ["xuyu"],
-    "active": true
+    "authors": ["xuyu"]
   },
 
   {
@@ -170,8 +164,7 @@
     "language": "Go",
     "repository": "https://github.com/shipwire/redis",
     "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
-    "authors": ["stephensearles"],
-    "active": true
+    "authors": ["stephensearles"]
   },
 
   {
@@ -246,8 +239,7 @@
     "language": "Java",
     "repository": "https://github.com/spullara/redis-protocol",
     "description": "Up to 2.6 compatible high-performance Java, Java w/Netty & Scala (finagle) client",
-    "authors": ["spullara"],
-    "active": true
+    "authors": ["spullara"]
   },
 
   {
@@ -272,8 +264,7 @@
     "repository": "https://github.com/nrk/redis-lua",
     "description": "",
     "authors": ["JoL1hAHN"],
-    "recommended": true,
-    "active": true
+    "recommended": true
   },
 
   {
@@ -281,8 +272,7 @@
     "language": "Lua",
     "repository": "https://github.com/agladysh/lua-hiredis",
     "description": "Lua bindings for the hiredis library",
-    "authors": ["agladysh"],
-    "active": true
+    "authors": ["agladysh"]
   },
 
   {
@@ -320,8 +310,7 @@
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis-hiredis/",
     "description": "Perl binding for the hiredis C client",
-    "authors": ["neophenix"],
-    "active": true
+    "authors": ["neophenix"]
   },
 
   {
@@ -349,8 +338,7 @@
     "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
     "repository": "https://github.com/wjackson/AnyEvent-Hiredis",
     "description": "Non-blocking client using the hiredis C library",
-    "authors": [],
-    "active": true
+    "authors": []
   },
 
   {
@@ -359,8 +347,7 @@
     "url": "http://search.cpan.org/dist/Mojo-Redis/",
     "repository": "https://github.com/marcusramberg/mojo-redis",
     "description": "asynchronous Redis client for Mojolicious",
-    "authors": ["und3f", "marcusramberg", "jhthorsen"],
-    "active": true
+    "authors": ["und3f", "marcusramberg", "jhthorsen"]
   },
 
   {
@@ -397,8 +384,7 @@
     "url": "http://rediska.geometria-lab.net",
     "repository": "https://github.com/Shumkov/Rediska",
     "description": "",
-    "authors": ["shumkov"],
-    "active": true
+    "authors": ["shumkov"]
   },
 
   {
@@ -414,8 +400,7 @@
     "language": "PHP",
     "repository": "https://github.com/jdp/redisent",
     "description": "",
-    "authors": ["justinpoliey"],
-    "active": true
+    "authors": ["justinpoliey"]
   },
 
   {
@@ -456,8 +441,7 @@
     "language": "PHP",
     "repository": "https://github.com/swoole/redis-async",
     "description": "Asynchronous redis client library for PHP.",
-    "authors": ["matyhtf"],
-    "active": true
+    "authors": ["matyhtf"]
   },
 
   {
@@ -500,8 +484,7 @@
     "language": "Python",
     "repository": "https://github.com/aallamaa/desir",
     "description": "",
-    "authors": ["aallamaa"],
-    "active": true
+    "authors": ["aallamaa"]
   },
 
   {
