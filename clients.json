@@ -92,8 +92,8 @@
   {
     "name": "go-redis/redis",
     "language": "Go",
-    "repository": "https://github.com/go-redis/redis"
-    "description": "Redis client for Golang.",
+      "repository": "https://github.com/go-redis/redis",
+    "description": "Redis client for Golang supporting Redis Sentinel and Redis Cluster out of the box.",
     "authors": [],
     "active": true
   },
