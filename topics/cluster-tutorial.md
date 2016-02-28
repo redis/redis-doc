@@ -94,7 +94,7 @@ so for example you may have a cluster with 3 nodes, where:
 
 * Node A contains hash slots from 0 to 5500.
 * Node B contains hash slots from 5501 to 11000.
-* Node C contains hash slots from 11001 to 16384.
+* Node C contains hash slots from 11001 to 16383.
 
 This allows to add and remove nodes in the cluster easily. For example if
 I want to add a new node D, I need to move some hash slot from nodes A, B, C
