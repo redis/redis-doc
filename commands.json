@@ -850,7 +850,8 @@
       {
         "name": "sort",
         "type": "enum",
-        "enum": ["ASC", "DESC"]
+        "enum": ["ASC", "DESC"],
+        "optional": true
       }
     ],
     "group": "geo"
@@ -903,7 +904,8 @@
       {
         "name": "sort",
         "type": "enum",
-        "enum": ["ASC", "DESC"]
+        "enum": ["ASC", "DESC"],
+        "optional": true
       }
     ],
     "group": "geo"
