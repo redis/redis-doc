@@ -846,6 +846,11 @@
         "name": "count",
         "type": "integer",
         "optional": true
+      },
+      {
+        "name": "sort",
+        "type": "enum",
+        "enum": ["ASC", "DESC"]
       }
     ],
     "group": "geo"
@@ -894,6 +899,11 @@
         "name": "count",
         "type": "integer",
         "optional": true
+      },
+      {
+        "name": "sort",
+        "type": "enum",
+        "enum": ["ASC", "DESC"]
       }
     ],
     "group": "geo"
