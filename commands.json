@@ -848,7 +848,7 @@
         "optional": true
       },
       {
-        "name": "sort",
+        "name": "order",
         "type": "enum",
         "enum": ["ASC", "DESC"],
         "optional": true
@@ -902,7 +902,7 @@
         "optional": true
       },
       {
-        "name": "sort",
+        "name": "order",
         "type": "enum",
         "enum": ["ASC", "DESC"],
         "optional": true
