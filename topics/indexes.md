@@ -87,7 +87,7 @@ could do:
 
 This time the value associated with the score in the sorted set is the
 ID of the object. So once I query the index with `ZRANGEBYSCORE` I'll
-also have to retrieve the informations I need with `HGETALL` or similar
+also have to retrieve the information I need with `HGETALL` or similar
 commands. The obvious advantage is that objects can change without touching
 the index, as long as we don't change the indexed field.
 
@@ -327,7 +327,7 @@ Basically we add another field that we'll extract and use only for
 visualization. Ranges will always be computed using the normalized strings
 instead. This is a common trick which has multiple applications.
 
-Adding auxiliary informations in the index
+Adding auxiliary information in the index
 ---
 
 When using a sorted set in a direct way, we have two different attributes
