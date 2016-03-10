@@ -20,7 +20,7 @@ thread must be able to perform certain tasks incrementally, like for
 example keys expiration, in a way that does not impact the other clients
 that are served.
 
-For all this reasons, Redis 2.8.13 introduced a new feature called
+For all these reasons, Redis 2.8.13 introduced a new feature called
 **Latency Monitoring**, that helps the user to check and troubleshoot possible
 latency problems. Latency monitoring is composed of the following conceptual
 parts:
