@@ -1362,5 +1362,13 @@
     "description": "Fast and light Redis C client library extending Hiredis: thread-safe, write replication, auto-reconnect, sync pool, async libev",
     "authors": ["EulerianTech"],
     "active": true
+  },
+
+  {
+    "name": "Hierdis",
+    "language": "Erlang",
+    "repository": "https://github.com/funbox/hierdis",
+    "description": "High-performance Erlang client for the Redis key-value store (NIF wrapping the hiredis C client).",
+    "authors": ["funbox_team"]
   }
 ]
