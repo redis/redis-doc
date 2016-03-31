@@ -55,7 +55,7 @@ after the `KEYS` argument itself, like in the following example:
     MIGRATE 192.168.1.34 6379 "" 0 5000 KEYS key1 key2 key3
 
 When this form is used the `NOKEY` status code is only returned when none
-of the keys is preset in the instance, otherwise the command is executed, even if
+of the keys is present in the instance, otherwise the command is executed, even if
 just a single key exists.
 
 ## Options
