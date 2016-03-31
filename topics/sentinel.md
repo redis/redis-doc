@@ -343,7 +343,7 @@ the network described above, but more likely possible with different
 layouts, or because of failures at the software layer), we have a similar
 issue as described in Example 2, with the difference that here we have
 no way to break the symmetry, since there is just a slave and master, so
-the master can't stop accepting queries when is disconnected by its master,
+the master can't stop accepting queries when it is disconnected from its slave,
 otherwise the master would never be available during slave failures.
 
 So this is a valid setup but the setup in the Example 2 has advantages
