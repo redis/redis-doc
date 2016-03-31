@@ -1360,7 +1360,7 @@
     "language": "C",
     "repository": "https://github.com/EulerianTechnologies/eredis",
     "description": "Fast and light Redis C client library extending Hiredis: thread-safe, write replication, auto-reconnect, sync pool, async libev",
-    "authors": ["EulerianTechnologies","guillaumef"],
+    "authors": ["EulerianTech"],
     "active": true
   }
 ]
