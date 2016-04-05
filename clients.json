@@ -1239,10 +1239,10 @@
   },
 
  {
-    "name": "ZRedis",
+    "name": "Redis",
     "language": "Swift",
-    "repository": "https://github.com/rabc/ZRedis",
-    "description": "Redis client for (pure) Swift",
+    "repository": "https://github.com/Zewo/Redis",
+    "description": "Redis client for Swift",
     "authors": ["rabc"],
     "active": true
   },
