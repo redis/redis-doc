@@ -562,5 +562,12 @@
     "repository": "https://github.com/jasonpunyon/rol",
     "description": "A library that makes storing and working with data in redis as easy as declaring an interface.",
     "authors": ["jasonpunyon"]
+  },
+  {
+    "name": "Redis Explorer",
+    "language": "C#",
+    "repository": "https://github.com/leegould/RedisExplorer",
+    "description": "Windows desktop GUI client",
+    "authors": ["leegould"]
   }
 ]
