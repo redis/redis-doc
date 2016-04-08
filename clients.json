@@ -1239,10 +1239,10 @@
   },
 
  {
-    "name": "ZRedis",
+    "name": "Redis",
     "language": "Swift",
-    "repository": "https://github.com/rabc/ZRedis",
-    "description": "Redis client for (pure) Swift",
+    "repository": "https://github.com/Zewo/Redis",
+    "description": "Redis client for Swift",
     "authors": ["rabc"],
     "active": true
   },
@@ -1370,5 +1370,14 @@
     "repository": "https://github.com/funbox/hierdis",
     "description": "High-performance Erlang client for the Redis key-value store (NIF wrapping the hiredis C client).",
     "authors": ["funbox_team"]
+  },
+  
+  {
+    "name": "yoredis",
+    "language": "Node.js",
+    "repository": "https://github.com/djanowski/yoredis",
+    "description": "A minimalistic Redis client using modern Node.js.",
+    "authors": ["djanowski"],
+    "active": true
   }
 ]
