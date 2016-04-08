@@ -577,7 +577,7 @@ events of a few millisecond or more.
 Sometimes it is useful to study how the maximum and average latencies
 evolve during time. The `--latency-history` option is used for that
 purpose: it works exactly like `--latency`, but every 15 seconds (by
-default) a new sampling session is started beginning with zero:
+default) a new sampling session is started from scratch:
 
     $ redis-cli --latency-history
     min: 0, max: 1, avg: 0.14 (1314 samples) -- 15.01 seconds range
