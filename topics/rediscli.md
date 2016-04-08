@@ -94,7 +94,7 @@ other than the default number zero by using the `-n <dbnum>` option:
 
 There are two ways you can use `redis-cli` in order to get the input from other
 commands (from the standard input, basically). One is to use as last argument
-as the payload we read from *stdin*. For example, in order to set a Redis key
+the payload we read from *stdin*. For example, in order to set a Redis key
 to the content of the file `/etc/services` if my computer, I can use the `-x`
 option:
 
@@ -231,7 +231,7 @@ In interactive mode the user types Redis commands at the prompt. The command
 is sent to the server, processed, and the reply is parsed back and rendered
 into a simpler form to read.
 
-Nothing special is needed for runung the CLI in interactive mode -
+Nothing special is needed for running the CLI in interactive mode -
 just lunch it without any arguments and you are in:
 
     $ redis-cli
@@ -449,7 +449,7 @@ key (of the same type) encountered is reported. The summary section
 provides general stats about the data inside the Redis instance.
 
 The program uses the `SCAN` command, so it can be executed against a busy
-server without impacting the operations, but the `-i` option can be
+server without impacting the operations, however the `-i` option can be
 used in order to throttle the scanning process of the specified fraction
 of second for each 100 keys requested. For example, `-i 0.1` will slow down
 the program execution a lot, but will also reduce the load on the server
@@ -511,7 +511,7 @@ kind of objects, by key name:
 The CLI is able to publish messages in Redis Pub/Sub channels just using
 the `PUBLISH` command. This is expected since the `PUBLISH` command is very
 similar to any other command. Subscribing to channels in order to receive
-is different messages - in this case there is to block and wait for
+messages is different - in this case we need to block and wait for
 messages, so this is implemented as a special mode in `redis-cli`. Unlike
 other special modes this mode is not enabled by using a special option,
 but simply by using the `SUBSCRIBE` or `PSUBSCRIBE` command, both in
@@ -703,7 +703,7 @@ with a mathematical formula. However, Redis can be configured with
 different LRU settings (number of samples) and LRU's implementation, which
 is approximated in Redis, changes a lot between different versions. Similarly
 the amount of memory per key may change between versions. That is why this
-tool was built: its main was motivation for testing the quality of Redis' LRU
+tool was built: its main motivation was for testing the quality of Redis' LRU
 implementation, but now is also useful in for testing how a given version 
 behaves with the settings you had in mind for your deployment.
 
