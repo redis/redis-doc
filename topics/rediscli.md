@@ -267,7 +267,7 @@ to connect to:
 
 As you can see the prompt changes accordingly. If the user attempts to connect
 to an instance that is unreachable, the `redis-cli` goes into disconnected
-more, and attempts to reconnect at each new command:
+mode and attempts to reconnect at each new command:
 
     127.0.0.1:6379> connect 127.0.0.1 9999
     Could not connect to Redis at 127.0.0.1:9999: Connection refused
