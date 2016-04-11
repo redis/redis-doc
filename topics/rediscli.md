@@ -1,20 +1,21 @@
-﻿redis-cli, the Redis command line interface
+redis-cli, the Redis command line interface
 ===
 
 `redis-cli` is the Redis command line interface, a simple program that allows
-to send commands to Redis, and read the replies sent by the server, directly from the terminal.
+to send commands to Redis, and read the replies sent by the server, directly
+from the terminal.
 
 It has two main modes: an interactive mode where there is a REPL (Read
-Eval Print Loop) where the user types commands and get replies. And another
+Eval Print Loop) where the user types commands and get replies; and another
 mode where the command is sent as arguments of `redis-cli`, executed, and
 printed on the standard output.
 
-In interactive mode `redis-cli` has basic line editing capabilities to provide
+In interactive mode, `redis-cli` has basic line editing capabilities to provide
 a good typing experience.
 
 However `redis-cli` is not just that. There are options you can use to launch
 the program in order to put it into special modes, so that `redis-cli` can
-do definitely more complex tasks, like simulate a slave and print the
+definitely do more complex tasks, like simulate a slave and print the
 replication stream it receives from the master, check the latency of a Redis
 server and show statistics or even an ASCII-art spectrogram of latency
 samples and frequencies, and many other things.
@@ -30,58 +31,55 @@ with Redis once you know all the tricks of its command line interface.
 Command line usage
 ===
 
-To just run a command and have its reply printed on the standard output,
-it is as simple as typing the command to execute as separated arguments
-of `redis-cli`:
+To just run a command and have its reply printed on the standard output is as
+simple as typing the command to execute as separated arguments of `redis-cli`:
 
     $ redis-cli incr mycounter
     (integer) 7
 
 The reply of the command is "7". Since Redis replies are typed (they can be
 strings, arrays, integers, NULL, errors and so forth), you see the type
-of the reply between brackets. However that would be not exactly idea when
-the output of `redis-cli` must be used as input of another command, or when
+of the reply between brackets. However that would be not exactly a great idea
+when the output of `redis-cli` must be used as input of another command, or when
 we want to redirect it into a file.
 
-Actually `redis-cli` only shows additional informations which improve human
-readability when it detects the standard output is a tty (a terminal basically).
-Otherwise it will auto-enable the *raw output mode*, like in the following
-example:
+Actually `redis-cli` only shows additional information which improves
+readability for humans when it detects the standard output is a tty (a terminal
+basically). Otherwise it will auto-enable the *raw output mode*, like in the
+following example:
 
     $ redis-cli incr mycounter > /tmp/output.txt
     $ cat /tmp/output.txt
     8
 
-This time `(integer)` was omitted from the output since the cli detected
+This time `(integer)` was omitted from the output since the CLI detected
 the output was no longer written to the terminal. You can force raw output
 even on the terminal with the `--raw` option:
 
     $ redis-cli --raw incr mycounter
     9
 
-Similarly you can force human readable output when writing to a file or in
+Similarly, you can force human readable output when writing to a file or in
 pipe to other commands by using `--no-raw`.
 
 ## Host, port, password and database
 
 By default `redis-cli` connects to the server at 127.0.0.1 port 6379.
 As you can guess, you can easily change this using command line options.
-To specify a different host name, or IP address, use `-h`. In order to
-set a different port, use `-p`.
+To specify a different host name or an IP address, use `-h`. In order
+to set a different port, use `-p`.
 
     $ redis-cli -h redis15.localnet.org -p 6390 ping
     PONG
 
-If your instance is password protected, the `-a <password>` option
-will authenticate for you without the need of typing an explicit
-`AUTH` command:
+If your instance is password protected, the `-a <password>` option will
+preform authentication saving the need of explicitly using the `AUTH` command:
 
     $ redis-cli -a myUnguessablePazzzzzword123 ping
     PONG
 
-Finally it's possible to send a command that operates on a different
-database number (the default is to use zero), using the `-n <dbnum>`
-option:
+Finally, it's possible to send a command that operates a on a database number
+other than the default number zero by using the `-n <dbnum>` option:
 
     $ redis-cli flushall
     OK
@@ -94,27 +92,27 @@ option:
 
 ## Getting input from other programs
 
-There are two ways you can use `redis-cli` in order to get the input
-from other commands (from the standard input, basically).
-One is to use as last argument the payload we read from *stdin*.
-For example in order to set a Redis key to the content of the
-file `/etc/services` if my computer, I can use the `-x` option:
+There are two ways you can use `redis-cli` in order to get the input from other
+commands (from the standard input, basically). One is to use as last argument
+the payload we read from *stdin*. For example, in order to set a Redis key
+to the content of the file `/etc/services` if my computer, I can use the `-x`
+option:
 
     $ redis-cli -x set foo < /etc/services
     OK
     $ redis-cli getrange foo 0 50
     "#\n# Network services, Internet style\n#\n# Note that "
 
-As you can see in the first line of the above session, the last argument
-of the `SET` command was not specified. The arguments are just `SET foo`
-without the actual value I want my key to be set.
+As you can see in the first line of the above session, the last argument of the
+`SET` command was not specified. The arguments are just `SET foo` without the
+actual value I want my key to be set to.
 
-Instead the `-x` option was specified, and a file was redirected to the
-cli standard input. So the input was read, and was used as the final
-argument for the command. This is useful for scripting.
+Instead, the `-x` option was specified and a file was redirected to the CLI's
+standard input. So the input was read, and was used as the final argument for
+the command. This is useful for scripting.
 
-A different approach is to feed `redis-cli` a sequence of commands
-written in a text file:
+A different approach is to feed `redis-cli` a sequence of commands written in a
+text file:
 
     $ cat /tmp/commands.txt
     set foo 100
@@ -127,9 +125,9 @@ written in a text file:
     (integer) 6
     "101xxx"
 
-All the commands into `commands.txt` are executed one after the other
-by redis-cli as if they were typed by the user interactive. Strings can
-be quoted inside the file needed, so that it's possible to have single
+All the commands in `commands.txt` are executed one after the other by
+`redis-cli` as if they were typed by the user interactive. Strings can be
+quoted inside the file if needed, so that it's possible to have single
 arguments with spaces or newlines or other special chars inside:
 
     $ cat /tmp/commands.txt
@@ -163,7 +161,7 @@ ASAP:
     (integer) 5
 
 To run the same command forever, use `-1` as count.
-So for example in order to monitor over time the RSS memory size it's possible
+So, in order to monitor over time the RSS memory size it's possible
 to use a command like the following:
 
     $ redis-cli -r -1 -i 1 INFO | grep rss_human
@@ -175,32 +173,32 @@ to use a command like the following:
 ## Mass insertion of data using `redis-cli`
 
 Mass insert using `redis-cli` is covered in a separated page since it's a
-worthwhile topic itself. Please refer to our [mass insertion guide](/topics/mass-insert).
+worthwhile topic itself. Please refer to our
+[mass insertion guide](/topics/mass-insert).
 
 ## CSV output
 
-Sometimes you may want to use `redis-cli` in order to quickly export data
-from Redis to an external program. This can be accomplished using the CSV
-output feature:
+Sometimes you may want to use `redis-cli` in order to quickly export data from
+Redis to an external program. This can be accomplished using the CSV (Comma
+Separated Values) output feature:
 
     $ redis-cli lpush mylist a b c d
     (integer) 4
     $ redis-cli --csv lrange mylist 0 -1
     "d","c","b","a"
 
-Currently it's not possible to export the whole DB like that, but only
-to run single commands with CSV output.
+Currently it's not possible to export the whole DB like that, but only to run
+single commands with CSV output.
 
 ## Running Lua scripts
 
-The `redis-cli` has extensive support for using the new Lua debugging
-facility of Lua scripting, available starting with Redis 3.2. However
-for this feature, please refer to the
-[Redis Lua debugger documentation](/topics/ldb).
+The `redis-cli` has extensive support for using the new Lua debugging facility
+of Lua scripting, available starting with Redis 3.2. For this feature, please
+refer to the [Redis Lua debugger documentation](/topics/ldb).
 
 However, even without using the debugger, you can use `redis-cli` to
 run scripts from a file in a way more comfortable compared to typing
-the script interactively into the shell or as an argument.
+the script interactively into the shell or as an argument:
 
     $ cat /tmp/script.lua
     return redis.call('set',KEYS[1],ARGV[1])
@@ -209,14 +207,14 @@ the script interactively into the shell or as an argument.
 
 The Redis `EVAL` command takes the list of keys the script uses, and the
 other non key arguments, as different arrays. When calling `EVAL` you
-provide the number of keys as a number. However with `redis-cli` by using
+provide the number of keys as a number. However with `redis-cli` and using
 the `--eval` option above, there is no need to specify the number of keys
 explicitly. Instead it uses the convention of separating keys and arguments
 with a comma. This is why in the above call you see `foo , bar` as arguments.
 
 So `foo` will populate the `KEYS` array, and `bar` the `ARGV` array.
 
-The `--eval` option ca be useful in order to write simple scripts. For more
+The `--eval` option is useful when writing simple scripts. For more
 complex work, using the Lua debugger is definitely more comfortable. It's
 possible to mix the two approaches, since the debugger also uses executing
 scripts from an external file.
@@ -229,12 +227,12 @@ This is very useful for scripts and certain types of testing, however most
 people will spend the majority of time in `redis-cli` using its interactive
 mode.
 
-In interactive mode the user types Redis commands into a prompt. The command
+In interactive mode the user types Redis commands at the prompt. The command
 is sent to the server, processed, and the reply is parsed back and rendered
-in a simpler to read form.
+into a simpler form to read.
 
-In order to run the CLI in interactive mode, there is nothing special to do:
-just lunch it without arguments and you are in:
+Nothing special is needed for running the CLI in interactive mode -
+just lunch it without any arguments and you are in:
 
     $ redis-cli
     127.0.0.1:6379> ping
@@ -243,7 +241,7 @@ just lunch it without arguments and you are in:
 The string `127.0.0.1:6379>` is the prompt. It reminds you that you are
 connected to a given Redis instance.
 
-The prompt changes as the server you are connected to, changes, or when you
+The prompt changes as the server you are connected to changes, or when you
 are operating on a database different than the database number zero:
 
     127.0.0.1:6379> select 2
@@ -257,7 +255,7 @@ are operating on a database different than the database number zero:
 
 ## Handling connections and reconnections
 
-Using the `connect` command in interactive mode it's possible to connect
+Using the `connect` command in interactive mode makes it possible to connect
 to a different instance, by specifying the *hostname* and *port* we want
 to connect to:
 
@@ -267,7 +265,7 @@ to connect to:
 
 As you can see the prompt changes accordingly. If the user attempts to connect
 to an instance that is unreachable, the `redis-cli` goes into disconnected
-more, and attempts to reconnect at each new command:
+mode and attempts to reconnect with each new command:
 
     127.0.0.1:6379> connect 127.0.0.1 9999
     Could not connect to Redis at 127.0.0.1:9999: Connection refused
@@ -276,7 +274,7 @@ more, and attempts to reconnect at each new command:
     not connected> ping
     Could not connect to Redis at 127.0.0.1:9999: Connection refused
 
-In general after a disconnection is detected, the CLI always attempts to
+Generally after a disconnection is detected, the CLI always attempts to
 reconnect transparently: if the attempt fails, it shows the error and
 enters the disconnected state. The following is an example of disconnection
 and reconnection:
@@ -288,8 +286,8 @@ and reconnection:
     127.0.0.1:6379> (now we are connected again)
 
 When a reconnection is performed, `redis-cli` automatically re-select the
-latest database number selected. However all the other state about the
-connection is lost, like for example, the state of a transaction if we
+last database number selected. However, all the other state about the
+connection is lost, such as the state of a transaction if we
 were in the middle of it:
 
     $ redis-cli
@@ -297,30 +295,32 @@ were in the middle of it:
     OK
     127.0.0.1:6379> ping
     QUEUED
-    
+
     ( here the server is manually restarted )
 
     127.0.0.1:6379> exec
     (error) ERR EXEC without MULTI
 
 This is usually not an issue when using the CLI in interactive mode for
-testing, but you want to make sure to know about this limitation.
+testing, but you should be aware of this limitation.
 
 ## Editing, history and completion
 
 Because `redis-cli` uses the
 [linenoise line editing library](http://github.com/antirez/linenoise), it
-always has line editing capabilities, without depending on `libreadline` or other
-optional libraries.
+always has line editing capabilities, without depending on `libreadline` or
+other optional libraries.
 
 You can access an history of commands executed, in order to avoid retyping
 them again and again, by pressing the arrow keys (up and down).
 The history is preserved between restarts of the CLI, in a file called
 `.rediscli_history` inside the user home directory, as specified
-by the `HOME` environment variable.
+by the `HOME` environment variable. It is possible to use a different
+history filename by setting the `REDISCLI_HISTFILE` environment variable,
+and disable it by setting it to `/dev/null`.
 
-The CLI is also able to perform command names completion by pressing the TAB key,
-like in the following example:
+The CLI is also able to perform command names completion by pressing the TAB
+key, like in the following example:
 
     127.0.0.1:6379> Z<TAB>
     127.0.0.1:6379> ZADD<TAB>
@@ -340,12 +340,15 @@ name by a number:
 
 ## Showing help about Redis commands
 
-Redis has a number of commands and sometimes, as you test things, you may
-not remember the exact order of arguments. `redis-cli` provides online help
-for most Redis commands, using the `help` command. The command can be used
+Redis has a number of [commands](/commands) and sometimes, as you test things,
+you may not remember the exact order of arguments. `redis-cli` provides online
+help for most Redis commands, using the `help` command. The command can be used
 in two forms:
 
-* `help @<category>` shows all the commands about a given category. Categories are `@generic`, `@list`, `@set`, `@sorted_set`, `@hash`, `@pubsub`, `@transactions`, `@connection`, `@server`, `@scripting`, `@hyperloglog`.
+* `help @<category>` shows all the commands about a given category. The
+categories are: `@generic`, `@list`, `@set`, `@sorted_set`, `@hash`,
+`@pubsub`, `@transactions`, `@connection`, `@server`, `@scripting`,
+`@hyperloglog`.
 * `help <commandname>` shows specific help for the command given as argument.
 
 For example in order to show help for the `PFADD` command, use:
@@ -364,7 +367,7 @@ Special modes of operation
 So far we saw two main modes of `redis-cli`.
 
 * Command line execution of Redis commands.
-* Interactive "REPL alike" usage.
+* Interactive "REPL-like" usage.
 
 However the CLI performs other auxiliary tasks related to Redis that
 are explained in the next sections:
@@ -374,16 +377,16 @@ are explained in the next sections:
 * Key space scanner with pattern matching.
 * Acting as a [Pub/Sub](/topics/pubsub) client to subscribe to channels.
 * Monitoring the commands executed into a Redis instance.
-* Checking the [latency](/topics/latency) of a Redis server, in different ways.
+* Checking the [latency](/topics/latency) of a Redis server in different ways.
 * Checking the scheduler latency of the local computer.
-* Transferring RDB backups from a remote Redis server to the local computer.
-* Acting as a slave to show what a slave would receive.
-* Simulating [LRU](/topics/lru-cache) workloads to show stats about keys hits.
-* Working a as a client for the Lua debugger.
+* Transferring RDB backups from a remote Redis server locally.
+* Acting as a Redis slave for showing what a slave receives.
+* Simulating [LRU](/topics/lru-cache) workloads for showing stats about keys hits.
+* A client for the Lua debugger.
 
 ## Continuous stats mode
 
-This is probably one of the less known features of `redis-cli`, and one
+This is probably one of the lesser known features of `redis-cli`, and one
 very useful in order to minor Redis instances in real time.
 To enable this mode, the `--stat` option is used.
 The output is very clear about the behavior of the CLI in this mode:
@@ -400,7 +403,7 @@ The output is very clear about the behavior of the CLI in this mode:
     508        3.40M    51      0       408642 (+86927)     257
     508        3.40M    51      0       497038 (+88396)     257
 
-In this mode a new line is printed every second with useful informations and
+In this mode a new line is printed every second with useful information and
 the difference between the old data point. You can easily understand what's
 happening with memory usage, clients connected, and so forth.
 
@@ -411,9 +414,9 @@ second.
 ## Scanning for big keys
 
 In this special mode, `redis-cli` works as a key space analyzer. It scans the
-dataset for big keys, but also provides informations about the data types
-the data set is composed of. This mode is enabled with the `--bigkeys` option,
-and produces a quite verbose output:
+dataset for big keys, but also provides information about the data types
+that the data set consists of. This mode is enabled with the `--bigkeys` option,
+and produces quite a verbose output:
 
     $ redis-cli --bigkeys
 
@@ -442,13 +445,13 @@ and produces a quite verbose output:
     0 zsets with 0 members (00.00% of keys, avg size 0.00)
 
 In the first part of the output, each new key larger than the previous larger
-key (of the same type) encountered is reported. The summary section instead
+key (of the same type) encountered is reported. The summary section
 provides general stats about the data inside the Redis instance.
 
 The program uses the `SCAN` command, so it can be executed against a busy
 server without impacting the operations, however the `-i` option can be
 used in order to throttle the scanning process of the specified fraction
-of second for each 100 keys requested. For example `-i 0.1` will slow down
+of second for each 100 keys requested. For example, `-i 0.1` will slow down
 the program execution a lot, but will also reduce the load on the server
 to a tiny amount.
 
@@ -459,12 +462,12 @@ ASAP if running against a very large data set.
 ## Getting a list of keys
 
 It is also possible to scan the key space, again in a way that does not
-block the Redis server (which happens if you use, instead, a command
-like `KEYS *`), and print all the key names, or filtering by specific
-patterns. This mode like the `--bigkeys` option uses the `SCAN` command,
+block the Redis server (which does happen when you use a command
+like `KEYS *`), and print all the key names, or filter them for specific
+patterns. This mode, like the `--bigkeys` option, uses the `SCAN` command,
 so keys may be reported multiple times if the dataset is changing, but no
-key should ever be missing, if the key was present since the start of the
-iteration. Because of the command it uses this option is called `--scan`.
+key would ever be missing, if that key was present since the start of the
+iteration. Because of the command that it uses this option is called `--scan`.
 
     $ redis-cli --scan | head -10
     key-419
@@ -478,11 +481,11 @@ iteration. Because of the command it uses this option is called `--scan`.
     key-446
     key-371
 
-Note that `head -10` is used in order to print just the first lines of the
+Note that `head -10` is used in order to print only the first lines of the
 output.
 
 Scanning is able to use the underlying pattern matching capability of
-the `SCAN` command in order to provide a `--pattern` option.
+the `SCAN` command with the `--pattern` option.
 
     $ redis-cli --scan --pattern '*-11*'
     key-114
@@ -497,7 +500,7 @@ the `SCAN` command in order to provide a `--pattern` option.
     key-110
     key-116
 
-Using it in pipe with the `wc` command can be used to count specific
+Piping the output through the `wc` command can be used to count specific
 kind of objects, by key name:
 
     $ redis-cli --scan --pattern 'user:*' | wc -l
@@ -507,12 +510,12 @@ kind of objects, by key name:
 
 The CLI is able to publish messages in Redis Pub/Sub channels just using
 the `PUBLISH` command. This is expected since the `PUBLISH` command is very
-similar to any other command. Different is the case of subscribing to channels
-in order to receive messages, in this case there is to block and wait for
-messages, so this is implemented as a special mode into `redis-cli`, however
-the mode is not enabled by using a special option, but simply by using the
-`SUBSCRIBE` or `PSUBSCRIBE` command, both in interactive or non interactive
-mode:
+similar to any other command. Subscribing to channels in order to receive
+messages is different - in this case we need to block and wait for
+messages, so this is implemented as a special mode in `redis-cli`. Unlike
+other special modes this mode is not enabled by using a special option,
+but simply by using the `SUBSCRIBE` or `PSUBSCRIBE` command, both in
+interactive or non interactive mode:
 
     $ redis-cli psubscribe '*'
     Reading messages... (press Ctrl-C to quit)
@@ -521,9 +524,9 @@ mode:
     3) (integer) 1
 
 The *reading messages* message shows that we entered Pub/Sub mode.
-Now if another client publishes some message in some channel, like you
+When another client publishes some message in some channel, like you
 can do using `redis-cli PUBLISH mychannel mymessage`, the CLI in Pub/Sub
-mode will show something like that:
+mode will show something such as:
 
     1) "pmessage"
     2) "*"
@@ -544,47 +547,49 @@ by a Redis instance:
     1460100081.165665 [0 127.0.0.1:51706] "set" "foo" "bar"
     1460100083.053365 [0 127.0.0.1:51707] "get" "foo"
 
+Note that it is possible to use to pipe the output, so you can monitor
+for specific patterns using tools such as `grep`.
+
 ## Monitoring the latency of Redis instances
 
 Redis is often used in contexts where latency is very critical. Latency
 involves multiple moving parts within the application, from the client library
 to the network stack, to the Redis instance itself.
 
-The CLI has multiple facilities in order to study the latency of a Redis
-instance, to understand what's the maximum and average latency, and the
-distribution of latencies in the spectrum.
+The CLI has multiple facilities for studying the latency of a Redis
+instance and understanding the latency's maximum, average and distribution.
 
 The basic latency checking tool is the `--latency` option. Using this
-option Redis runs a loop where the `PING` command is sent to the Redis
+option the CLI runs a loop where the `PING` command is sent to the Redis
 instance, and the time to get a reply is measured. This happens 100
 times per second, and stats are updated in a real time in the console:
 
     $ redis-cli --latency
     min: 0, max: 1, avg: 0.19 (427 samples)
 
-The stats are provided in milliseconds. Usually the average latency of
+The stats are provided in milliseconds. Usually, the average latency of
 a very fast instance tends to be overestimated a bit because of the
 latency due to the kernel scheduler of the system running `redis-cli`
 itself, so the average latency of 0.19 above may easily be 0.01 or less.
-However this is usually not a big problem, since we are interested to see
+However this is usually not a big problem, since we are interested in
 events of a few millisecond or more.
 
 Sometimes it is useful to study how the maximum and average latencies
-evolve during time. For this goal the `--latency-history` option is used:
-it works exactly like `--latency`, but each 15 second (by default) a new
-sampling session is started, starting from zero:
+evolve during time. The `--latency-history` option is used for that
+purpose: it works exactly like `--latency`, but every 15 seconds (by
+default) a new sampling session is started from scratch:
 
     $ redis-cli --latency-history
     min: 0, max: 1, avg: 0.14 (1314 samples) -- 15.01 seconds range
     min: 0, max: 1, avg: 0.18 (1299 samples) -- 15.00 seconds range
     min: 0, max: 1, avg: 0.20 (113 samples)^C
 
-You can change the sampling sessions length with the `-i <interval>` option.
+You can change the sampling sessions' length with the `-i <interval>` option.
 
-Finally the most advanced latency study tool, but also a bit harder to
+The most advanced latency study tool, but also a bit harder to
 interpret for non experienced users, is the ability to use color terminals
-to show a spectrum of latencies. You'll see a colored output to indicate the
-different percentages of samples, and different ASCII characters to indicate
+to show a spectrum of latencies. You'll see a colored output that indicate the
+different percentages of samples, and different ASCII characters that indicate
 different latency figures. This mode is enabled using the `--latency-dist`
 option:
 
@@ -593,21 +598,21 @@ option:
 
 There is another pretty unusual latency tool implemented inside `redis-cli`.
 It does not check the latency of a Redis instance, but the latency of the
-computer you are running `redis-cli` into. What latency you may ask?
+computer you are running `redis-cli` on. What latency you may ask?
 The latency that's intrinsic to the kernel scheduler, the hypervisor in case
 of virtualized instances, and so forth.
 
 We call it *intrinsic latency* because it's opaque to the programmer, mostly.
-If your Redis instance has a bad latency regardless of all the obvious things
+If your Redis instance has bad latency regardless of all the obvious things
 that may be the source cause, it's worth to check what's the best your system
-can do, by running `redis-cli` in this special mode directly in the system you
-are running Redis servers into.
+can do by running `redis-cli` in this special mode directly in the system you
+are running Redis servers on.
 
-By measuring the intrinsic latency, you know that this is the base line,
-and Redis cannot do better than your system. In order to run the CLI
-int this mode, use the `--intrinsic-latency <test-time>`. The test time
-is in seconds, and specify how many seconds `redis-cli` should check the
-latency of the system it's currently running into.
+By measuring the intrinsic latency, you know that this is the baseline,
+and Redis cannot outdo your system. In order to run the CLI
+in this mode, use the `--intrinsic-latency <test-time>`. The test's time
+is in seconds, and specifies how many seconds `redis-cli` should check the
+latency of the system it's currently running on.
 
     $ ./redis-cli --intrinsic-latency 5
     Max latency so far: 1 microseconds.
@@ -624,9 +629,9 @@ latency of the system it's currently running into.
     65433042 total runs (avg latency: 0.0764 microseconds / 764.14 nanoseconds per run).
     Worst run took 9671x longer than the average latency.
 
-IMPORTANT: this command must be executed in the computer you want to run Redis
-server into, not in another host. It does not even connect to a Redis instance,
-it performs a test in the local computer.
+IMPORTANT: this command must be executed on the computer you want to run Redis
+server on, not on a different host. It does not even connect to a Redis instance
+and performs the test only locally.
 
 In the above case, my system cannot do better than 739 microseconds of worst
 case latency, so I can expect certain queries to run in a bit less than 1
@@ -634,7 +639,7 @@ millisecond from time to time.
 
 ## Remote backups of RDB files
 
-During Redis replication first synchronization, the master and the slave
+During Redis replication's first synchronization, the master and the slave
 exchange the whole data set in form of an RDB file. This feature is exploited
 by `redis-cli` in order to provide a remote backup facility, that allows to
 transfer an RDB file from any Redis instance to the local computer running
@@ -647,7 +652,7 @@ option:
 
 This is a simple but effective way to make sure you have disaster recovery
 RDB backups of your Redis instance. However when using this options in
-scripts or cron jobs, make sure to check the return value of the command.
+scripts or `cron` jobs, make sure to check the return value of the command.
 If it is non zero, an error occurred like in the following example:
 
     $ redis-cli --rdb /tmp/dump.rdb
@@ -657,7 +662,7 @@ If it is non zero, an error occurred like in the following example:
 
 ## Slave mode
 
-The slave mode of the CLI is an advanced feature useful for 
+The slave mode of the CLI is an advanced feature useful for
 Redis developers and for debugging operations.
 It allows to inspect what a master sends to its slaves in the replication
 stream in order to propagate the writes to its replicas. The option
@@ -670,10 +675,10 @@ name is simply `--slave`. This is how it works:
     "SELECT","0"
     "set","foo","bar"
     "PING"
-    "incr","myconuter" 
+    "incr","myconuter"
 
-The command starts discarding the RDB file of the first synchronization, later
-it logs each command received as in CSV format.
+The command begins by discarding the RDB file of the first synchronization
+and then logs each command received as in CSV format.
 
 If you think some of the commands are not replicated correctly in your slaves
 this is a good way to check what's happening, and also useful information
@@ -684,27 +689,27 @@ in order to improve the bug report.
 Redis is often used as a cache with [LRU eviction](/topics/lru-cache).
 Depending on the number of keys and the amount of memory allocated for the
 cache (specified via the `maxmemory` directive), the amount of cache hits
-and misses will change. Sometimes to simulate the rate of hits is very
-useful in order to correctly provision your cache.
+and misses will change. Sometimes, simulating the rate of hits is very
+useful to correctly provision your cache.
 
 The CLI has a special mode where it performs a simulation of GET and SET
-operations, using an 80-20% power law distribution in the requests pattern,
-this means that 20% of keys will be requested 80% of times, which is a
+operations, using an 80-20% power law distribution in the requests pattern.
+This means that 20% of keys will be requested 80% of times, which is a
 common distribution in caching scenarios.
 
-Technically given the distribution of the requests and the Redis memory
-overhead, it could be possible to compute the hit rate analytically, just
-with a mathematical formula. However Redis can be configured with different
-LRU settings (number of samples), and implementations of LRU, which is
-approximated in Redis, changes a lot between different versions. Similarly
-the amount of memory per key may change between versions. This is why this
-tool was built: the main motivation was to test the Redis LRU implementation
-quality, but now is also useful in order to test how a given version behaves
-with the settings you had in mind for your deployment.
+Theoretically, given the distribution of the requests and the Redis memory
+overhead, it should be possible to compute the hit rate analytically with
+with a mathematical formula. However, Redis can be configured with
+different LRU settings (number of samples) and LRU's implementation, which
+is approximated in Redis, changes a lot between different versions. Similarly
+the amount of memory per key may change between versions. That is why this
+tool was built: its main motivation was for testing the quality of Redis' LRU
+implementation, but now is also useful in for testing how a given version 
+behaves with the settings you had in mind for your deployment.
 
-In order to test this mode, you need to specify the amount of keys to use
-in the test. You also need to configure a `maxmemory` setting that as a first
-guess you think makes sense as a first try.
+In order to use this mode, you need to specify the amount of keys
+in the test. You also need to configure a `maxmemory` setting that 
+makes sense as a first try.
 
 IMPORTANT NOTE: Configuring the `maxmemory` setting in the Redis configuration
 is crucial: if there is no cap to the maximum memory usage, the hit will
@@ -749,5 +754,3 @@ minutes we'll see the output to stabilize to the following figures:
 
 So we know that with 500MB we are going well enough for our number of
 keys (10 millions) and distribution (80-20 style).
-
-
