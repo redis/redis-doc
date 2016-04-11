@@ -1242,7 +1242,7 @@
     "name": "Redis",
     "language": "Swift",
     "repository": "https://github.com/Zewo/Redis",
-    "description": "Redis client for Swift",
+    "description": "Redis client for Swift. OpenSwift C7 Compliant, OS X and Linux compatible.",
     "authors": ["rabc"],
     "active": true
   },
