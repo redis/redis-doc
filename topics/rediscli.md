@@ -361,6 +361,10 @@ For example in order to show help for the `PFADD` command, use:
 
 Note that `help` supports TAB completion as well.
 
+## Clearing the terminal screen
+
+Using the `clear` command in interactive mode clears the terminal's screen.
+
 Special modes of operation
 ===
 
