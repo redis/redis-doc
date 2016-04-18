@@ -16,7 +16,7 @@ The following options are supported:
      -c <clients>       Number of parallel connections (default 50)
      -n <requests>      Total number of requests (default 100000)
      -d <size>          Data size of SET/GET value in bytes (default 2)
-     -dbnum <db>        SELECT the specified db number (default 0)
+     --dbnum <db>       SELECT the specified db number (default 0)
      -k <boolean>       1=keep alive 0=reconnect (default 1)
      -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
       Using this option the benchmark will expand the string __rand_int__
