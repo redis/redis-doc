@@ -299,7 +299,7 @@
     "url": "http://search.cpan.org/dist/Redis/",
     "repository": "https://github.com/PerlRedis/perl-redis",
     "description": "Perl binding for Redis database",
-    "authors": ["pedromelo"],
+    "authors": ["damsieboy"],
     "recommended": true,
     "active": true
   },
