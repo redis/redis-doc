@@ -16,7 +16,7 @@ Redis setup hints
 + Use `daemonize no` when run under daemontools.
 + Even if you have persistence disabled, Redis will need to perform RDB saves if you use replication, unless you use the new diskless replication feature, which is currently experimental.
 + If you are using replication, make sure that either your master has persistence enabled, or that it does not automatically restarts on crashes: slaves will try to be an exact copy of the master, so if a master restarts with an empty data set, slaves will be wiped as well.
-+ By default Redis does not require **any authentication and listens to all the network interfaces**. This is a big security issue if you leave Redis exposed on the internet or other places where attackers can reach it. See for example [this attack](http://antirez.com/news/96) to see how dangerous it can be. Please check our [security page](/topics/security) and the [quick start](/topic/quickstart) for information about how to secure Redis.
++ By default Redis does not require **any authentication and listens to all the network interfaces**. This is a big security issue if you leave Redis exposed on the internet or other places where attackers can reach it. See for example [this attack](http://antirez.com/news/96) to see how dangerous it can be. Please check our [security page](/topics/security) and the [quick start](/topics/quickstart) for information about how to secure Redis.
 
 Running Redis on EC2
 --------------------
