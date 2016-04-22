@@ -18,3 +18,7 @@ slave.
 @return
 
 @simple-string-reply
+
+**A note about slavery**: it's unfortunate that originally the master-slave terminology was picked for databases. When Redis was designed the existing terminology was used without much analysis of alternatives, however a **SLAVEOF NO ONE** command was added as a freedom message. Instead of changing the terminology, that would require breaking backward compatible in the API and `INFO` output, we want to use this page to remember you about slavery, **a crime against humanity now** but something that was perpetuated [throughout the whole human history](https://en.wikipedia.org/wiki/Slavery).
+
+*If slavery is not wrong, nothing is wrong.* -- Abraham Lincoln
