@@ -1676,6 +1676,13 @@
   },
   "PING": {
     "summary": "Ping the server",
+    "arguments": [
+      {
+        "name": "message",
+        "type": "string",
+        "optional": true
+      }
+    ],
     "since": "1.0.0",
     "group": "connection"
   },
