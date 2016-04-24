@@ -213,7 +213,7 @@ and stops accepting writes.
 Redis Cluster configuration parameters
 ===
 
-We are about to create an example cluster deployment. Before to continue
+We are about to create an example cluster deployment. Before we continue,
 let's introduce the configuration parameters that Redis Cluster introduces
 in the `redis.conf` file. Some will be obvious, others will be more clear
 as you continue reading.
@@ -228,13 +228,13 @@ as you continue reading.
 Creating and using a Redis Cluster
 ===
 
-Note: to deploy a Redis Cluster manually is **very important to learn** certain
-operation aspects of it. However if you want to get a cluster up and running
-ASAP skip this section and the next one and go directly to **Creating a Redis Cluster using the create-cluster script**.
+Note: to deploy a Redis Cluster manually it is **very important to learn** certain
+operational aspects of it. However if you want to get a cluster up and running
+ASAP (As Soon As Possible) skip this section and the next one and go directly to **Creating a Redis Cluster using the create-cluster script**.
 
 To create a cluster, the first thing we need is to have a few empty
 Redis instances running in **cluster mode**. This basically means that
-clusters are not created using normal Redis instances, but a special mode
+clusters are not created using normal Redis instances as a special mode
 needs to be configured so that the Redis instance will enable the Cluster
 specific features and commands.
 
@@ -250,8 +250,8 @@ appendonly yes
 
 As you can see what enables the cluster mode is simply the `cluster-enabled`
 directive. Every instance also contains the path of a file where the
-configuration for this node is stored, that by default is `nodes.conf`.
-This file is never touched by humans, it is simply generated at startup
+configuration for this node is stored, which by default is `nodes.conf`.
+This file is never touched by humans; it is simply generated at startup
 by the Redis Cluster instances, and updated every time it is needed.
 
 Note that the **minimal cluster** that works as expected requires to contain
@@ -325,9 +325,9 @@ to create the new cluster.
 Obviously the only setup with our requirements is to create a cluster with
 3 masters and 3 slaves.
 
-Redis-trib will propose you a configuration. Accept typing **yes**.
-The cluster will be configured and *joined*, that means, instances will be
-bootstrapped into talking with each other. Finally if everything went ok
+Redis-trib will propose you a configuration. Accept the proposed configuration by typing **yes**.
+The cluster will be configured and *joined*, which means, instances will be
+bootstrapped into talking with each other. Finally, if everything went well,
 you'll see a message like that:
 
     [OK] All 16384 slots covered
