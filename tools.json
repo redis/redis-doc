@@ -611,5 +611,12 @@
     "repository": "https://github.com/alicebob/miniredis",
     "description": "Pure Go Redis server for Go unittests",
     "authors": []
+  },
+  {
+    "name": "noncis",
+    "language": "Javascript",
+    "repository": "https://github.com/reidwmulkey/noncis",
+    "description": "Synchronizes nonces across node instances.",
+    "authors": []
   }
 ]
