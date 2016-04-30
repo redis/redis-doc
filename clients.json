@@ -210,8 +210,8 @@
     "name": "Jedipus",
     "language": "Java",
     "repository": "https://github.com/jamespedwards42/jedipus",
-    "description": "Redis cluster Jedis client executor.",
-    "authors": ["jamespedwards42"], 
+    "description": "Redis Cluster Jedis client executor.",
+    "authors": ["jamespedwards42"],
     "active": true
   },
 
