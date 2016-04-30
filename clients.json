@@ -207,6 +207,15 @@
   },
 
   {
+    "name": "Jedipus",
+    "language": "Java",
+    "repository": "https://github.com/jamespedwards42/jedipus",
+    "description": "Redis cluster Jedis client executor.",
+    "authors": ["jamespedwards42"], 
+    "active": true
+  },
+
+  {
     "name": "Redisson",
     "language": "Java",
     "repository": "https://github.com/mrniko/redisson",
@@ -1354,7 +1363,7 @@
     "authors": ["danieleteti"],
     "active": true
   },
-  
+
   {
     "name": "eredis",
     "language": "C",
@@ -1371,7 +1380,7 @@
     "description": "High-performance Erlang client for the Redis key-value store (NIF wrapping the hiredis C client).",
     "authors": ["funbox_team"]
   },
-  
+
   {
     "name": "yoredis",
     "language": "Node.js",
