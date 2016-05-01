@@ -1379,5 +1379,13 @@
     "description": "A minimalistic Redis client using modern Node.js.",
     "authors": ["djanowski"],
     "active": true
+  },
+  
+  {
+  "name":"Redis PHP Client",
+  "language": "PHP",
+  "repository": "https://github.com/Qti3e/Redis-PHP-Client",
+  "description": "Socket based client for redis written in PHP",
+  "authors": ["Qti3e"],
   }
 ]
