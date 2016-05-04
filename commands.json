@@ -53,6 +53,46 @@
     "since": "2.6.0",
     "group": "string"
   },
+  "BITFIELD": {
+    "summary": "Perform arbitrary bitfield integer operations on strings",
+    "complexity": "O(1) for each subcommand specified",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "GET",
+        "name": ["type", "offset"],
+        "type": ["type", "integer"],
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "command": "SET",
+        "name": ["type", "offset", "value"],
+        "type": ["type", "integer", "integer"],
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "command": "INCRBY",
+        "name": ["type", "offset", "increment"],
+        "type": ["type", "integer", "integer"],
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "command": "OVERFLOW",
+        "type": "enum",
+        "enum": ["WRAP", "SAT", "FAIL"],
+        "optional": true,
+        "multiple": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "string"
+  },
   "BITOP": {
     "summary": "Perform bitwise operations between strings",
     "complexity": "O(N)",
