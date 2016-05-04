@@ -65,29 +65,25 @@
         "command": "GET",
         "name": ["type", "offset"],
         "type": ["type", "integer"],
-        "optional": true,
-        "multiple": true
+        "optional": true
       },
       {
         "command": "SET",
         "name": ["type", "offset", "value"],
         "type": ["type", "integer", "integer"],
-        "optional": true,
-        "multiple": true
+        "optional": true
       },
       {
         "command": "INCRBY",
         "name": ["type", "offset", "increment"],
         "type": ["type", "integer", "integer"],
-        "optional": true,
-        "multiple": true
+        "optional": true
       },
       {
         "command": "OVERFLOW",
         "type": "enum",
         "enum": ["WRAP", "SAT", "FAIL"],
-        "optional": true,
-        "multiple": true
+        "optional": true
       }
     ],
     "since": "3.2.0",
