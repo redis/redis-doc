@@ -144,6 +144,7 @@ addr
 afterwards
 allkeys
 allocator
+analytics
 antirez
 aof
 appendfsync
@@ -156,6 +157,7 @@ backtrace
 benchmarked
 benchmarking
 bgsave
+bitfield
 bitop
 bitwise
 blazingly
@@ -171,6 +173,7 @@ checksum
 chrt
 cli
 cmsgpack
+codename
 commandstats
 conf
 config
@@ -360,6 +363,7 @@ tuple
 tuples
 unary
 unencrypted
+underflows
 unguessable
 unix
 unordered
