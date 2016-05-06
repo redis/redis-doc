@@ -34,6 +34,21 @@ unsigned integers. This limitation with unsigned integers is due to the fact
 that currently the Redis protocol is unable to return 64 bit unsigned integers
 as replies.
 
+## Bits and positional offsets
+
+There are two ways in order to specify offsets in the bitfield command.
+If a number without any prefix is specified, it is used just as a zero based
+bit offset inside the string.
+
+However if the offset is prefixed with a `#` character, the specified offset
+is multiplied by the integer type width, so for example:
+
+    BITFIELD mystring SET i8 #0 100 i8 #1 200
+
+Will set the first i8 integer at offset 0 and the second at offset 8.
+This way you don't have to do the math yourself inside your client if what
+you want is a plain array of integers of a given size.
+
 ## Overflow control
 
 Using the `OVERFLOW` command the user is able to fin-tune the behavior of
@@ -82,3 +97,18 @@ as a single large bitmap (or segmented over a few keys to avoid having huge keys
 ## Performance considerations
 
 Usually `BITFIELD` is a fast command, however note that addressing far bits of currently short strings will trigger an allocation that may be more costly than executing the command on bits already existing.
+
+## Orders of bits
+
+The representation used by `BITFIELD` considers the bitmap as having the
+bit number 0 to be the most significant bit of the first byte, and so forth, so
+for example setting a 5 bits unsigned integer to value 23 at offset 7 into a
+bitmap previously set to all zeroes, will produce the following representation:
+
+    +--------+--------+
+    |00000001|01110000|
+    +--------+--------+
+
+When offsets and integer sizes are aligned to bytes boundaries, this is the
+same as big endian, however when such alignment does not exist, its important
+to also understand how the bits inside a byte are ordered.
