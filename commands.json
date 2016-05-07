@@ -888,6 +888,18 @@
         "type": "enum",
         "enum": ["ASC", "DESC"],
         "optional": true
+      },
+      {
+        "command": "STORE",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "command": "STOREDIST",
+        "name": "key",
+        "type": "key",
+        "optional": true
       }
     ],
     "group": "geo"
@@ -941,6 +953,18 @@
         "name": "order",
         "type": "enum",
         "enum": ["ASC", "DESC"],
+        "optional": true
+      },
+      {
+        "command": "STORE",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "command": "STOREDIST",
+        "name": "key",
+        "type": "key",
         "optional": true
       }
     ],
