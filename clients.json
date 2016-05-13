@@ -1379,5 +1379,13 @@
     "description": "A minimalistic Redis client using modern Node.js.",
     "authors": ["djanowski"],
     "active": true
+  },
+  {
+    "name": "ccredis",
+    "language": "C",
+    "repository": "https://github.com/mjohh/ccredis.git",
+    "description": "support pipeline and cluster,minimalism:less than 1000 lines code,auto-reconnect",
+    "authors": ["mjohh"],
+    "active": true
   }
 ]
