@@ -1359,8 +1359,17 @@
     "name": "eredis",
     "language": "C",
     "repository": "https://github.com/EulerianTechnologies/eredis",
-    "description": "Fast and light Redis C client library extending Hiredis: thread-safe, write replication, auto-reconnect, sync pool, async libev",
+    "description": "support pipeline and cluster,minimalism:less than 1000 lines code,auto-reconnect",
     "authors": ["EulerianTech"],
+    "active": true
+  },
+  
+  {
+    "name": "ccredis",
+    "language": "C",
+    "repository": "https://github.com/mjohh/ccredis.git",
+    "description": "Fast and light Redis C client library extending Hiredis: thread-safe, write replication, auto-reconnect, sync pool, async libev",
+    "authors": ["mjohh"],
     "active": true
   },
 
@@ -1378,14 +1387,6 @@
     "repository": "https://github.com/djanowski/yoredis",
     "description": "A minimalistic Redis client using modern Node.js.",
     "authors": ["djanowski"],
-    "active": true
-  },
-  {
-    "name": "ccredis",
-    "language": "C",
-    "repository": "https://github.com/mjohh/ccredis.git",
-    "description": "support pipeline and cluster,minimalism:less than 1000 lines code,auto-reconnect",
-    "authors": ["mjohh"],
     "active": true
   }
 ]
