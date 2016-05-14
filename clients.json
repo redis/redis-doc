@@ -1369,7 +1369,7 @@
     "language": "C",
     "repository": "https://github.com/mjohh/ccredis.git",
     "description": "support pipeline and cluster,minimalism:less than 1000 lines code,auto-reconnect",
-    "authors": ["mjohh"],
+    "authors": [],
     "active": true
   },
 
