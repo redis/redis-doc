@@ -776,6 +776,7 @@
         "multiple": true
       }
     ],
+    "since": "3.2.0",
     "group": "geo"
   },
   "GEOHASH": {
@@ -792,6 +793,7 @@
         "multiple": true
       }
     ],
+    "since": "3.2.0",
     "group": "geo"
   },
   "GEOPOS": {
@@ -808,6 +810,7 @@
         "multiple": true
       }
     ],
+    "since": "3.2.0",
     "group": "geo"
   },
   "GEODIST": {
@@ -832,6 +835,7 @@
         "optional": true
       }
     ],
+    "since": "3.2.0",
     "group": "geo"
   },
   "GEORADIUS": {
@@ -902,6 +906,7 @@
         "optional": true
       }
     ],
+    "since": "3.2.0",
     "group": "geo"
   },
   "GEORADIUSBYMEMBER": {
@@ -968,6 +973,7 @@
         "optional": true
       }
     ],
+    "since": "3.2.0",
     "group": "geo"
   },
   "GET": {
