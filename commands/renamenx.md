@@ -1,5 +1,6 @@
 Renames `key` to `newkey` if `newkey` does not yet exist.
 It returns an error under the same conditions as `RENAME`.
+**Note:** Since Redis 3.2.0 no error is returned if source and destination names are the same.
 
 @return
 
