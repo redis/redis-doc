@@ -1379,5 +1379,15 @@
     "description": "A minimalistic Redis client using modern Node.js.",
     "authors": ["djanowski"],
     "active": true
+  },
+
+  {
+    "name": "spark-redis",
+    "language": "Scala",
+    "repository": "https://github.com/redislabs/spark-redis",
+    "description": "A connector between Apache Spark and Redis.",
+    "authors": ["redislabs", "sunheehnus", "dvirsky"],
+    "active": true
   }
+
 ]
