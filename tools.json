@@ -569,5 +569,12 @@
     "repository": "https://github.com/leegould/RedisExplorer",
     "description": "Windows desktop GUI client",
     "authors": ["leegould"]
+  },
+  {
+    "name": "rdb-parser",
+    "language": "Java",
+    "repository": "https://github.com/jwhitbeck/java-rdb-parser",
+    "description": "A simple Redis RDB file parser for Java",
+    "authors": ["jwhitbeck"]
   }
 ]
