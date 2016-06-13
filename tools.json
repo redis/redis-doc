@@ -569,5 +569,12 @@
     "repository": "https://github.com/leegould/RedisExplorer",
     "description": "Windows desktop GUI client",
     "authors": ["leegould"]
+  },
+  {
+    "name": "noncis",
+    "language": "Javascript",
+    "repository": "https://github.com/reidwmulkey/noncis",
+    "description": "Synchronizes nonces across node instances.",
+    "authors": []
   }
 ]
