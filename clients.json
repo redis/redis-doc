@@ -1388,7 +1388,7 @@
     "description": "A connector between Apache Spark and Redis.",
     "authors": ["redislabs", "sunheehnus", "dvirsky"],
     "active": true
-  }
+  },
 
   {
     "name": "r3c",
