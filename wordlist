@@ -156,6 +156,7 @@ backtrace
 benchmarked
 benchmarking
 bgsave
+bitfield
 bitop
 bitwise
 blazingly
@@ -359,6 +360,7 @@ trib
 tuple
 tuples
 unary
+underflows
 unencrypted
 unguessable
 unix
