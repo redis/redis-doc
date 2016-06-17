@@ -1395,7 +1395,7 @@
     "language": "C++",
     "repository": "https://github.com/eyjian/r3c",
     "description": "A Redis Cluster C++ Client, based on hiredis and support standalone, it's easy to make and use, not depends on C++11 or later.",
-    "authors": ["JianYi"],
+    "authors": [],
     "active": true
   }
 
