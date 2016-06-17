@@ -1388,6 +1388,14 @@
     "description": "A connector between Apache Spark and Redis.",
     "authors": ["redislabs", "sunheehnus", "dvirsky"],
     "active": true
-  }
+  },
 
+  {
+    "name": "r3c",
+    "language": "C++",
+    "repository": "https://github.com/eyjian/r3c",
+    "description": "Redis Cluster C++ Client, based on hiredis and support standalone.",
+    "authors": ["JianYi"],
+    "active": true
+  }
 ]
