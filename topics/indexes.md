@@ -617,7 +617,7 @@ Our numbers in binary form, assuming we need just 9 bits for each variable
 
 So by interleaving digits, our representation in the index would be:
 
-    000111001100001010:75:200
+    000111000011001010:75:200
 
 Let's see what are our ranges as we substitute the last 2, 4, 6, 8, ...
 bits with 0s ad 1s in the interleaved representation:
