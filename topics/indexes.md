@@ -574,7 +574,7 @@ context of range queries. For example let's take the center of our blue
 box, which is at `x=75` and `y=200`. We can encode this number as we did
 earlier by interleaving the digits, obtaining:
 
-    027005
+    027050
 
 What happens if we substitute the last two digits respectively with 00 and 99?
 We obtain a range which is lexicographically continue:
@@ -617,7 +617,7 @@ Our numbers in binary form, assuming we need just 9 bits for each variable
 
 So by interleaving digits, our representation in the index would be:
 
-    0001110011001010:75:200
+    000111000011001010:75:200
 
 Let's see what are our ranges as we substitute the last 2, 4, 6, 8, ...
 bits with 0s ad 1s in the interleaved representation:

@@ -1388,5 +1388,24 @@
     "description": "A minimalistic Redis client using modern Node.js.",
     "authors": ["djanowski"],
     "active": true
+  },
+
+  {
+    "name": "spark-redis",
+    "language": "Scala",
+    "repository": "https://github.com/redislabs/spark-redis",
+    "description": "A connector between Apache Spark and Redis.",
+    "authors": ["redislabs", "sunheehnus", "dvirsky"],
+    "active": true
+  },
+
+  {
+    "name": "r3c",
+    "language": "C++",
+    "repository": "https://github.com/eyjian/r3c",
+    "description": "A Redis Cluster C++ Client, based on hiredis and support standalone, it's easy to make and use, not depends on C++11 or later.",
+    "authors": ["eyjian"],
+    "active": true
   }
+
 ]

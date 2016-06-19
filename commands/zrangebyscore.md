@@ -55,3 +55,47 @@ ZRANGEBYSCORE myzset 1 2
 ZRANGEBYSCORE myzset (1 2
 ZRANGEBYSCORE myzset (1 (2
 ```
+
+## Pattern: weighted random selection of an element
+
+Normally `ZRANGEBYSCORE` is simply used in order to get range of items
+where the score is the indexed integer key, however it is possible to do less
+obvious things with the command.
+
+For example a common problem when implementing Markov chains and other algorithms
+is to select an element at random from a set, but different elements may have
+different weights that change how likely it is they are picked.
+
+This is how we use this command in order to mount such an algorithm:
+
+Imagine you have elements A, B and C with weights 1, 2 and 3.
+You compute the sum of the weights, which is 1+2+3 = 6
+
+At this point you add all the elements into a sorted set using this algorithm:
+
+```
+SUM = ELEMENTS.TOTAL_WEIGHT // 6 in this case.
+SCORE = 0
+FOREACH ELE in ELEMENTS
+    SCORE += ELE.weight / SUM
+    ZADD KEY SCORE ELE
+END
+```
+
+This means that you set:
+
+```
+A to score 0.16
+B to score .5
+C to score 1
+```
+
+Since this involves approximations, in order to avoid C is set to,
+like, 0.998 instead of 1, we just modify the above algorithm to make sure
+the last score is 1 (left as an exercise for the reader...).
+
+At this point, each time you want to get a weighted random element,
+just compute a random number between 0 and 1 (which is like calling
+`rand()` in most languages), so you can just do:
+
+    RANDOM_ELE = ZRANGEBYSCORE key RAND() +inf LIMIT 0 1
