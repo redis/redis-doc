@@ -720,6 +720,24 @@
     "recommended": true,
     "active": true
   },
+  
+  {
+    "name": "redis-fast-driver",
+    "language": "Node.js",
+    "repository": "https://github.com/h0x91b/redis-fast-driver",
+    "description": "Driver based on hiredis async lib, can do PUBSUB and MONITOR, simple and really fast, written with NaN so works fine with node >=0.8",
+    "authors": ["h0x91b"],
+    "active": true
+  },
+
+  {
+    "name": "fast-redis-cluster",
+    "language": "Node.js",
+    "repository": "https://github.com/h0x91b/fast-redis-cluster",
+    "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
+    "authors": ["h0x91b"],
+    "active": true
+  },
 
   {
     "name": "iodis",
@@ -1195,22 +1213,6 @@
   },
 
   {
-    "name": "redis-fast-driver",
-    "language": "Javascript",
-    "repository": "https://github.com/h0x91b/redis-fast-driver",
-    "description": "Driver based on hiredis async lib, can do PUBSUB and MONITOR, simple and really fast, written with NaN so works fine with node 0.8, 0.10 and 0.12",
-    "authors": []
-  },
-
-  {
-    "name": "fast-redis-cluster",
-    "language": "Javascript",
-    "repository": "https://github.com/h0x91b/fast-redis-cluster",
-    "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
-    "authors": []
-  },
-
-  {
     "name": "Redis::Cluster",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis-Cluster/",
@@ -1387,6 +1389,15 @@
     "repository": "https://github.com/redislabs/spark-redis",
     "description": "A connector between Apache Spark and Redis.",
     "authors": ["redislabs", "sunheehnus", "dvirsky"],
+    "active": true
+  },
+
+  {
+    "name": "r3c",
+    "language": "C++",
+    "repository": "https://github.com/eyjian/r3c",
+    "description": "A Redis Cluster C++ Client, based on hiredis and support standalone, it's easy to make and use, not depends on C++11 or later.",
+    "authors": ["eyjian"],
     "active": true
   }
 
