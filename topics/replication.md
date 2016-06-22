@@ -198,3 +198,23 @@ There are two configuration parameters for this feature:
 
 For more information, please check the example `redis.conf` file shipped with the
 Redis source distribution.
+
+How Redis replication deals with expires on keys
+---
+
+Redis expires allow keys to have a limited time to live. Such a feature depends
+on the ability of an instance to count the time, however Redis slaves correctly
+replicate keys with expires, even when such keys are altered using Lua
+scripts.
+
+To implement such a feature Redis cannot rely on the ability of the master and
+slave to have synchronized clocks, since this is a problem that cannot be solved
+and would result into race conditions and diverging data sets, so Redis
+uses three main techniques in order to make the replication of expired keys
+able to work:
+
+1. Slaves don't expire keys, instead they wait for masters to expire the keys. When a master expires a key (or evict it because of LRU), it synthesizes a `DEL` command which is transmitted to all the slaves.
+2. However because of master-driven expire, sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the slave uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way slaves avoid to report logically expired keys are still existing. In practical terms, an HTML fragments cache that uses slaves to scale will avoid returning items that are already older than the desired time to live.
+3. During Lua scripts executions no keys expires are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys to expire in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
+
+As it is expected, once a slave is turned into a master because of a fail over, it start to expire keys in an independent way without requiring help from its old master.
