@@ -574,6 +574,7 @@
     "name": "rdb-parser",
     "language": "Java",
     "repository": "https://github.com/jwhitbeck/java-rdb-parser",
-    "description": "A simple Redis RDB file parser for Java"
+    "description": "A simple Redis RDB file parser for Java",
+    "authors": []
   }
 ]
