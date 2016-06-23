@@ -1,5 +1,5 @@
 MD_FILES:=$(shell find commands -name '*.md')
-JSON_FILES:=$(shell find commands -name '*.json')
+JSON_FILES:=$(shell find . -name '*.json')
 TEXT_FILES:=$(patsubst %.md,tmp/%.txt,$(MD_FILES))
 SPELL_FILES:=$(patsubst %.txt,%.spell,$(TEXT_FILES))
 

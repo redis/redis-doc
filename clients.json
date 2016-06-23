@@ -720,7 +720,7 @@
     "recommended": true,
     "active": true
   },
-  
+
   {
     "name": "redis-fast-driver",
     "language": "Node.js",
@@ -914,7 +914,8 @@
     "name": "redis-client",
     "language": "Rust",
     "repository": "https://github.com/AsoSunag/redis-client",
-    "description": "A Redis client library for Rust."
+    "description": "A Redis client library for Rust.",
+    "authors": []
   },
 
   {
@@ -1012,6 +1013,7 @@
     "language": "OCaml",
     "repository": "https://github.com/0xffea/ocaml-redis",
     "description": "Synchronous and asynchronous (via Lwt) Redis client library in OCaml. Provides implementation of cache and mutex helpers.",
+    "authors": [],
     "active": true
   },
   {
@@ -1027,7 +1029,8 @@
     "name": "finagle-redis",
     "language": "Scala",
     "repository": "https://github.com/twitter/finagle/tree/develop/finagle-redis",
-    "description": "Redis client based on Finagle"
+    "description": "Redis client based on Finagle",
+    "authors": []
   },
 
   {
@@ -1356,7 +1359,7 @@
     "authors": ["danieleteti"],
     "active": true
   },
-  
+
   {
     "name": "eredis",
     "language": "C",
@@ -1373,7 +1376,7 @@
     "description": "High-performance Erlang client for the Redis key-value store (NIF wrapping the hiredis C client).",
     "authors": ["funbox_team"]
   },
-  
+
   {
     "name": "yoredis",
     "language": "Node.js",
