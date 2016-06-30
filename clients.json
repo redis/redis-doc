@@ -957,8 +957,7 @@
   {
     "name": "redis",
     "language": "Nim",
-    "repository": "https://github.com/nim-lang/Nim/blob/devel/lib/pure/redis.nim",
-    "url": "http://nim-lang.org/docs/redis.html",
+    "repository": "https://github.com/nim-lang/redis",
     "description": "Redis client for Nim",
     "authors": [],
     "active": true
