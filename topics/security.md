@@ -51,8 +51,25 @@ like the following to the **redis.conf** file:
     bind 127.0.0.1
 
 Failing to protect the Redis port from the outside can have a big security
-impact because of the nature of Redis. For instance, a single **FLUSHALL** command
-can be used by an external attacker to delete the whole data set.
+impact because of the nature of Redis. For instance, a single **FLUSHALL** command can be used by an external attacker to delete the whole data set.
+
+Protected mode
+---
+
+Unfortunately many users fail to protect Redis instances from being accessed
+from external networks. Many instances are simply left exposed on the
+internet with public IPs. For this reasons since version 3.2.0, when Redis is
+executed with the default configuration (binding all the interfaces) and
+without any password in order to access it, it enters a special mode called
+**proteced mode**. In this mode Redis only replies to queries from the
+loopback interfaces, and reply to other clients connecting from other
+addresses with an error, explaining what is happening and how to configure
+Redis properly.
+
+We expect protected mode to seriously decrease the security issues caused
+by unprotected Redis instances executed without proper administration, however
+the system administrator can still ignore the error given by Redis and
+just disable protected mode or manually bind all the interfaces.
 
 Authentication feature
 ---
@@ -106,9 +123,7 @@ inside the redis.conf configuration file. For example:
 
     rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52
 
-In the above example, the **CONFIG** command was renamed into an unguessable name.
-It is also possible to completely disable it (or any other command) by renaming it
-to the empty string, like in the following example:
+In the above example, the **CONFIG** command was renamed into an unguessable name.  It is also possible to completely disable it (or any other command) by renaming it to the empty string, like in the following example:
 
     rename-command CONFIG ""
 
@@ -142,8 +157,7 @@ The protocol uses prefixed-length strings and is completely binary safe.
 Lua scripts executed by the **EVAL** and **EVALSHA** commands follow the
 same rules, and thus those commands are also safe.
 
-While it would be a very strange use case, the application should avoid composing 
-the body of the Lua script using strings obtained from untrusted sources.
+While it would be a very strange use case, the application should avoid composing the body of the Lua script using strings obtained from untrusted sources.
 
 Code security
 ---
