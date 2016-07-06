@@ -45,8 +45,10 @@ module Clients
         check_url(@client[:repository])
       end
 
-      Array(@client[:authors]).each do |author|
-        check_author(author)
+      if assert(@client[:authors], "authors is null")
+        @client[:authors].each do |author|
+          check_author(author)
+        end
       end
     end
 
