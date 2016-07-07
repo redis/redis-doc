@@ -40,6 +40,11 @@ Connection closed by foreign host.
 Manually issue the `QUIT` command to stop a `MONITOR` stream running via
 `telnet`.
 
+## Commands not logged by MONITOR
+
+For security concerns, certain special administration commands like `CONFIG`
+are not logged into the `MONITOR` output.
+
 ## Cost of running `MONITOR`
 
 Because `MONITOR` streams back **all** commands, its use comes at a cost.
