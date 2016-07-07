@@ -1,5 +1,7 @@
 Increment the string representing a floating point number stored at `key` by the
-specified `increment`.
+specified `increment`. By using a negative `increment` value, the result is
+that the value stored at the key is decremented (by the obvious properties
+of addition).
 If the key does not exist, it is set to `0` before performing the operation.
 An error is returned if one of the following conditions occur:
 
@@ -30,6 +32,7 @@ regardless of the actual internal precision of the computation.
 ```cli
 SET mykey 10.50
 INCRBYFLOAT mykey 0.1
+INCRBYFLOAT mykey -5
 SET mykey 5.0e3
 INCRBYFLOAT mykey 2.0e2
 ```

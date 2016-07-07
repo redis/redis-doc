@@ -1,5 +1,6 @@
 Increment the specified `field` of a hash stored at `key`, and representing a
-floating point number, by the specified `increment`.
+floating point number, by the specified `increment`. If the increment value
+is negative, the result is to have the hash field value **decremented** instead of incremented.
 If the field does not exist, it is set to `0` before performing the operation.
 An error is returned if one of the following conditions occur:
 
@@ -20,6 +21,7 @@ information.
 ```cli
 HSET mykey field 10.50
 HINCRBYFLOAT mykey field 0.1
+HINCRBYFLOAT mykey field -5
 HSET mykey field 5.0e3
 HINCRBYFLOAT mykey field 2.0e2
 ```
