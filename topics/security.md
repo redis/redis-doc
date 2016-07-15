@@ -61,7 +61,7 @@ from external networks. Many instances are simply left exposed on the
 internet with public IPs. For this reasons since version 3.2.0, when Redis is
 executed with the default configuration (binding all the interfaces) and
 without any password in order to access it, it enters a special mode called
-**proteced mode**. In this mode Redis only replies to queries from the
+**protected mode**. In this mode Redis only replies to queries from the
 loopback interfaces, and reply to other clients connecting from other
 addresses with an error, explaining what is happening and how to configure
 Redis properly.
