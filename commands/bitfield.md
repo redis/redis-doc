@@ -4,7 +4,7 @@ The command treats a Redis string as a array of bits, and is capable of addressi
 
 For example the following command increments an 8 bit signed integer at bit offset 100, and gets the value of the 4 bit unsigned integer at bit offset 0:
 
-    > BITFIELD mykey INCRBY i5 100 1 GET u4 0
+    > BITFIELD mykey INCRBY i8 100 1 GET u4 0
     1) (integer) 1
     2) (integer) 0
 
