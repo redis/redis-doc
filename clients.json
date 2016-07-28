@@ -1300,7 +1300,7 @@
     "name": "cpp_redis",
     "language": "C++",
     "repository": "https://github.com/cylix/cpp_redis",
-    "description": "Modern C++11 Redis client based on boost::asio",
+    "description": "C++11 Redis client: async, thread-safe, no dependencies, pipelining.",
     "authors": ["simon_ninon"],
     "active": true
   },
