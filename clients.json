@@ -332,12 +332,13 @@
   },
 
   {
-    "name": "AnyEvent::Redis::RipeRedis",
+    "name": "AnyEvent::RipeRedis",
     "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Redis-RipeRedis/",
-    "repository": "https://github.com/iph0/AnyEvent-Redis-RipeRedis",
-    "description": "Flexible non-blocking Redis client with reconnect feature",
+    "url": "http://search.cpan.org/dist/AnyEvent-RipeRedis/",
+    "repository": "https://github.com/iph0/AnyEvent-RipeRedis",
+    "description": "Flexible non-blocking Redis client",
     "authors": ["iph"],
+    "recommended": true,
     "active": true
   },
 
