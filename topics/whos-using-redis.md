@@ -39,6 +39,10 @@ A list of well known companies using Redis:
   <li>
     <a href="http://code.flickr.com/blog/2011/10/11/talk-real-time-updates-on-the-cheap-for-fun-and-profit/">Flickr</a>
   </li>
+
+  <li>
+    <a href="http://www.tianya.cn/"><img src="http://open.tianya.cn/static/wiki/tylogo.png" alt="Tianya"></a>
+  </li>  
 </ul>
 
 And <strong>many others!</strong>, <a href="http://techstacks.io">techstacks.io</a> maintains a list of <a href="http://techstacks.io/tech/redis">popular sites using Redis</a>, the information may not be always updated since many companies change their tech stack during their lifetime, but is an interesting resource. <i style="color:#999; font-size:12px;">link policy: we only link major sites, we used to also link to small companies and services but this rapidly became impossible to maintain.</i>
