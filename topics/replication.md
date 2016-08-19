@@ -180,7 +180,9 @@ This is how the feature works:
 
 If there are at least N slaves, with a lag less than M seconds, then the write will be accepted.
 
-You may think at it as a relaxed version of the "C" in the CAP theorem, where consistency is not ensured for a given write, but at least the time window for data loss is restricted to a given number of seconds.
+You may think of it as a relaxed version of the "C" in the CAP theorem, where
+consistency is not ensured for a given write, but at least the time window for
+data loss is restricted to a given number of seconds.
 
 If the conditions are not met, the master will instead reply with an error and the write will not be accepted.
 

@@ -25,7 +25,7 @@ Specifically:
   configured.
 * **SHUTDOWN NOSAVE** will prevent a DB saving operation even if one or more
   save points are configured.
-  (You can think at this variant as an hypothetical **ABORT** command that just
+  (You can think of this variant as an hypothetical **ABORT** command that just
   stops the server).
 
 @return

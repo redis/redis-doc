@@ -242,7 +242,7 @@ This is what we do:
  * If we detect that at least a key in the requested command is swapped on disk, we block the client instead of really issuing the command. For every swapped value associated to a requested key, an I/O job is created, in order to bring the values back in memory. The main thread continues the execution of the event loop, without caring about the blocked client.
  * In the meanwhile, I/O threads are loading values in memory. Every time an I/O thread finished loading a value, it sends a byte to the main thread using an UNIX pipe. The pipe file descriptor has a readable event associated in the main thread event loop, that is the function `vmThreadedIOCompletedJob`. If this function detects that all the values needed for a blocked client were loaded, the client is restarted and the original command called.
 
-So you can think at this as a blocked VM that almost always happen to have the right keys in memory, since we pause clients that are going to issue commands about swapped out values until this values are loaded.
+So you can think of this as a blocked VM that almost always happen to have the right keys in memory, since we pause clients that are going to issue commands about swapped out values until this values are loaded.
 
 If the function checking what argument is a key fails in some way, there is no problem: the lookup function will see that a given key is associated to a swapped out value and will block loading it. So our non blocking VM reverts to a blocking one when it is not possible to anticipate what keys are touched.
 
