@@ -1408,7 +1408,6 @@
     "language": "Node.js",
     "repository": "https://github.com/CapacitorSet/rebridge",
     "description": "Rebridge is a transparent Javascript-Redis bridge. It creates JavaScript objects that are automatically synchronized to a Redis database. (Requires Node 6)",
-    "authors": ["CapacitorSet"],
     "active": true
   }
 
