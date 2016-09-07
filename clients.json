@@ -474,6 +474,15 @@
   },
 
   {
+    "name": "tornadis",
+    "language": "Python",
+    "repository": "https://github.com/thefab/tornadis",
+    "description": "Async minimal redis client for tornado ioloop designed for performances (use C hiredis parser)",
+    "authors": ["thefab"],
+    "active": true
+  },
+  
+  {
     "name": "brukva",
     "language": "Python",
     "repository": "https://github.com/evilkost/brukva",
