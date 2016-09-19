@@ -1401,6 +1401,14 @@
     "description": "A Redis Cluster C++ Client, based on hiredis and support standalone, it's easy to make and use, not depends on C++11 or later.",
     "authors": ["eyjian"],
     "active": true
+  },
+  
+  {
+    "name": "rebridge",
+    "language": "Node.js",
+    "repository": "https://github.com/CapacitorSet/rebridge",
+    "description": "Rebridge is a transparent Javascript-Redis bridge. It creates JavaScript objects that are automatically synchronized to a Redis database. (Requires Node 6)",
+    "active": true
   }
 
 ]

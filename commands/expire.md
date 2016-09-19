@@ -60,8 +60,8 @@ TTL mykey
 Imagine you have a web service and you are interested in the latest N pages
 _recently_ visited by your users, such that each adjacent page view was not
 performed more than 60 seconds after the previous.
-Conceptually you may think at this set of page views as a _Navigation session_
-if your user, that may contain interesting information about what kind of
+Conceptually you may consider this set of page views as a _Navigation session_
+of your user, that may contain interesting information about what kind of
 products he or she is looking for currently, so that you can recommend related
 products.
 

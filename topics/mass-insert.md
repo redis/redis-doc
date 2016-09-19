@@ -1,7 +1,7 @@
 Redis Mass Insertion
 ===
 
-Sometimes Redis instances needs to be loaded with big amount of preexisting
+Sometimes Redis instances need to be loaded with a big amount of preexisting
 or user generated data in a short amount of time, so that millions of keys
 will be created as fast as possible.
 
