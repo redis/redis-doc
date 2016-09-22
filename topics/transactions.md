@@ -196,8 +196,8 @@ there's no need to repeat the operation.
 So what is `WATCH` really about? It is a command that will
 make the `EXEC` conditional: we are asking Redis to perform
 the transaction only if none of the `WATCH`ed keys were modified. 
-(The only exception is that the same client may change these keys
-after `MULTI`. [More on this](https://github.com/antirez/redis-doc/issues/734).) 
+(But they might be changed by the same client inside the transaction
+without aborting it. [More on this](https://github.com/antirez/redis-doc/issues/734).) 
 Otherwise the transaction is not entered at
 all. (Note that if you `WATCH` a volatile key and Redis expires
 the key after you `WATCH`ed it, `EXEC` will still work. [More on
