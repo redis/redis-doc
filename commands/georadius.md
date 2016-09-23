@@ -17,8 +17,8 @@ The command optionally returns additional information using the following option
 
 The command default is to return unsorted items. Two different sorting methods can be invoked using the following two options:
 
-* `ASC`: Sort returned items from the nearest to the fairest, relative to the center.
-* `DESC`: Sort returned items from the fairest to the nearest, relative to the center.
+* `ASC`: Sort returned items from the nearest to the farthest, relative to the center.
+* `DESC`: Sort returned items from the farthest to the nearest, relative to the center.
 
 By default all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option. However note that internally the command needs to perform an effort proportional to the number of items matching the specified area, so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned. On the other hand `COUNT` can be a very effective way to reduce bandwidth usage if normally just the first results are used.
 
