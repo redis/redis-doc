@@ -343,6 +343,17 @@
   },
 
   {
+    "name": "AnyEvent::RipeRedis::Cluster",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/AnyEvent-RipeRedis-Cluster/",
+    "repository": "https://github.com/iph0/AnyEvent-RipeRedis-Cluster",
+    "description": "Non-blocking Redis Cluster client",
+    "authors": ["iph0"],
+    "recommended": false,
+    "active": true
+  },
+
+  {
     "name": "AnyEvent::Hiredis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
