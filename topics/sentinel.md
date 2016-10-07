@@ -75,7 +75,7 @@ connections from the IP addresses of the other Sentinel instances.
 Otherwise Sentinels can't talk and can't agree about what to do, so failover
 will never be performed.
 
-Fundamental things to know about Sentinel before to deploy
+Fundamental things to know about Sentinel before deploying
 ---
 
 1. You need at least three Sentinel instances for a robust deployment.
