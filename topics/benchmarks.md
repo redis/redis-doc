@@ -457,8 +457,16 @@ Another one using a 64-bit box, a Xeon L5420 clocked at 2.5 GHz:
     LPUSH: 104712.05 requests per second
     LPOP: 93722.59 requests per second
 
+# Other Redis benchmarking tools
 
-# Example of benchmark results with optimized high-end server hardware
+There are several third-party tools that can be used for benchmarking Redis. Refer to each tool's
+documentation for more information about its goals and capabilities.
+
+* [memtier_benchmark](https://github.com/redislabs/memtier_benchmark) from [Redis Labs](https://twitter.com/RedisLabs) is a NoSQL Redis and Memcache traffic generation and benchmarking tool.
+* [rpc-perf](https://github.com/twitter/rpc-perf) from [Twitter](https://twitter.com/twitter) is a tool for benchmarking RPC services that supports Redis and Memcache.
+* [YCSB](https://github.com/brianfrankcooper/YCSB) from [Yahoo @Yahoo](https://twitter.com/Yahoo) is a benchmarking framework with clients to many databases, including Redis.
+
+# Example of redis-benchmark results with optimized high-end server hardware
 
 * Redis version **2.4.2**
 * Default number of connections, payload size = 256
