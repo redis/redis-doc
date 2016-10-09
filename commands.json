@@ -2045,7 +2045,7 @@
     "complexity": "O(N) with N being the number of scripts to check (so checking a single script is an O(1) operation).",
     "arguments": [
       {
-        "name": "script",
+        "name": "sha1",
         "type": "string",
         "multiple": true
       }
