@@ -34,7 +34,7 @@ When using the **NOSAVE** option, the RDB file is not saved on disk.
 However if the Append Only File is enabled, things are more complex.
 Normally if there is an AOF child process performing an AOF rewrite, Redis
 will simply kill it and exit. However there are two conditions where it is
-unsafe to do so, ad the **SHUTDOWN NOSAVE** command will be refused with
+unsafe to do so, and the **SHUTDOWN NOSAVE** command will be refused with
 an error instead. This happens when:
 
 * The user just turned on AOF, and the server triggered the first AOF rewrite in order to create the initial AOF file. In this context, stopping will result in losing the dataset at all: once restarted, the server will potentially have AOF enabled without having any AOF file at all.
