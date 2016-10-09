@@ -661,7 +661,7 @@ This is what happens, for example, if I reset a counter manually while
 the program is running:
 
 ```
-$ redis 127.0.0.1:7000> set key_217 0
+$ redis-cli -h 127.0.0.1 -p 7000 set key_217 0
 OK
 
 (in the other tab I see...)
