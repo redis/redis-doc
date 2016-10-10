@@ -42,11 +42,10 @@ The current version of Sentinel is called **Sentinel 2**. It is a rewrite of
 the initial Sentinel implementation using stronger and simpler to predict
 algorithms (that are explained in this documentation).
 
-A stable release of Redis Sentinel is shipped with Redis 2.8 and 3.0, which are
-the two latest stable releases of Redis.
+A stable release of Redis Sentinel is shipped since Redis 2.8.
 
 New developments are performed in the *unstable* branch, and new features
-sometimes are back ported into the 2.8 and 3.0 branch as soon as they are
+sometimes are back ported into the latest stable branch as soon as they are
 considered to be stable.
 
 Redis Sentinel version 1, shipped with Redis 2.6, is deprecated and should not be used.
@@ -208,7 +207,7 @@ Also note that:
 * Clients are called C1, C2, C3, ..., Cn.
 * When an instance changes role because of Sentinel actions, we put it inside square brackets, so [M1] means an instance that is now a master because of Sentinel intervention.
 
-Note that will never show **setups where just two Sentinels are used**, since
+Note that we will never show **setups where just two Sentinels are used**, since
 Sentinels always need **to talk with the majority** in order to start a
 failover.
 
@@ -427,7 +426,7 @@ Here we assume that the instances are executed at port 5000, 5001, 5002.
 We also assume that you have a running Redis master at port 6379 with a
 slave running at port 6380. We will use the IPv4 loopback address 127.0.0.1
 everywhere during the tutorial, assuming you are running the simulation
-in your personal computer.
+on your personal computer.
 
 The three Sentinel configuration files should look like the following:
 
@@ -651,7 +650,7 @@ the following steps should be performed in absence of network partitions:
 2. Send a `SENTINEL RESET *` command to all the other Sentinel instances (instead of `*` you can use the exact master name if you want to reset just a single master). One after the other, waiting at least 30 seconds between instances.
 3. Check that all the Sentinels agree about the number of Sentinels currently active, by inspecting the output of `SENTINEL MASTER mastername` of every Sentinel.
 
-Removing the old master or unreachable slaves.
+Removing the old master or unreachable slaves
 ---
 
 Sentinels never forget about slaves of a given master, even when they are
@@ -862,7 +861,7 @@ to a master, as Sentinel will auto discover this list querying Redis.
 * Hello messages also include the full current configuration of the master. If the receiving Sentinel has a configuration for a given master which is older than the one received, it updates to the new configuration immediately.
 * Before adding a new sentinel to a master a Sentinel always checks if there is already a sentinel with the same runid or the same address (ip and port pair). In that case all the matching sentinels are removed, and the new added.
 
-Sentinel reconfiguration of instances outside the failover procedure.
+Sentinel reconfiguration of instances outside the failover procedure
 ---
 
 Even when no failover is in progress, Sentinels will always try to set the
