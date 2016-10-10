@@ -426,7 +426,7 @@ Here we assume that the instances are executed at port 5000, 5001, 5002.
 We also assume that you have a running Redis master at port 6379 with a
 slave running at port 6380. We will use the IPv4 loopback address 127.0.0.1
 everywhere during the tutorial, assuming you are running the simulation
-in your personal computer.
+on your personal computer.
 
 The three Sentinel configuration files should look like the following:
 
