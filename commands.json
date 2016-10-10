@@ -1712,7 +1712,7 @@
   },
   "PFCOUNT": {
     "summary": "Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).",
-    "complexity": "O(1) with every small average constant times when called with a single key. O(N) with N being the number of keys, and much bigger constant times, when called with multiple keys.",
+    "complexity": "O(1) with a very small average constant time when called with a single key. O(N) with N being the number of keys, and much bigger constant times, when called with multiple keys.",
     "arguments": [
       {
         "name": "key",
@@ -2045,7 +2045,7 @@
     "complexity": "O(N) with N being the number of scripts to check (so checking a single script is an O(1) operation).",
     "arguments": [
       {
-        "name": "script",
+        "name": "sha1",
         "type": "string",
         "multiple": true
       }
@@ -2515,6 +2515,19 @@
     "complexity": "O(1)",
     "since": "2.6.0",
     "group": "server"
+  },
+  "TOUCH": {
+    "summary": "Alters the last access time of a key(s). Returns the number of existing keys specified.",
+    "complexity": "O(N) where N is the number of keys that will be touched.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "3.2.1",
+    "group": "generic"
   },
   "TTL": {
     "summary": "Get the time to live for a key",

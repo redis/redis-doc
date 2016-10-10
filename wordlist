@@ -148,6 +148,7 @@ analytics
 antirez
 aof
 appendfsync
+appendonly
 arity
 atomicity
 auth

@@ -36,8 +36,8 @@ on disk.
 
 Normally if there is an AOF child process performing an AOF rewrite, Redis
 will simply kill it and exit. However there are two conditions where it is
-unsafe to do so, ad the **SHUTDOWN** command will be refused with
-an error instead. This happens when:
+unsafe to do so, and the **SHUTDOWN** command will be refused with an error
+instead. This happens when:
 
 * The user just turned on AOF, and the server triggered the first AOF rewrite in order to create the initial AOF file. In this context, stopping will result in losing the dataset at all: once restarted, the server will potentially have AOF enabled without having any AOF file at all.
 * A slave with AOF enabled, reconnected with its master, performed a full resynchronization, and restarted the AOF file, triggering the initial AOF creation process. In this case not completing the AOF rewrite is dangerous because the latest dataset received from the master would be lost. The new master can actually be even a different instance (if the **SLAVEOF** command was used in order to reconfigure the slave), so it is important to finish the AOF rewrite and start with the correct data set representing the data set in memory when the server was terminated.
