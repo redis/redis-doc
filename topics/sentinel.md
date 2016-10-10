@@ -42,11 +42,10 @@ The current version of Sentinel is called **Sentinel 2**. It is a rewrite of
 the initial Sentinel implementation using stronger and simpler to predict
 algorithms (that are explained in this documentation).
 
-A stable release of Redis Sentinel is shipped with Redis 2.8 and 3.0, which are
-the two latest stable releases of Redis.
+A stable release of Redis Sentinel is shipped since Redis 2.8.
 
 New developments are performed in the *unstable* branch, and new features
-sometimes are back ported into the 2.8 and 3.0 branch as soon as they are
+sometimes are back ported into the latest stable branch as soon as they are
 considered to be stable.
 
 Redis Sentinel version 1, shipped with Redis 2.6, is deprecated and should not be used.
