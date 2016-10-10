@@ -207,7 +207,7 @@ Also note that:
 * Clients are called C1, C2, C3, ..., Cn.
 * When an instance changes role because of Sentinel actions, we put it inside square brackets, so [M1] means an instance that is now a master because of Sentinel intervention.
 
-Note that will never show **setups where just two Sentinels are used**, since
+Note that we will never show **setups where just two Sentinels are used**, since
 Sentinels always need **to talk with the majority** in order to start a
 failover.
 
