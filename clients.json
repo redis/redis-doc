@@ -479,7 +479,6 @@
     "repository": "https://github.com/thefab/tornadis",
     "url": "http://tornadis.readthedocs.org",
     "description": "Async minimal redis client for tornado ioloop designed for performances (use C hiredis parser)",
-    "authors": ["thefab"],
     "active": true
   },
   
