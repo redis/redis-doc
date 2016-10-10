@@ -650,7 +650,7 @@ the following steps should be performed in absence of network partitions:
 2. Send a `SENTINEL RESET *` command to all the other Sentinel instances (instead of `*` you can use the exact master name if you want to reset just a single master). One after the other, waiting at least 30 seconds between instances.
 3. Check that all the Sentinels agree about the number of Sentinels currently active, by inspecting the output of `SENTINEL MASTER mastername` of every Sentinel.
 
-Removing the old master or unreachable slaves.
+Removing the old master or unreachable slaves
 ---
 
 Sentinels never forget about slaves of a given master, even when they are
@@ -861,7 +861,7 @@ to a master, as Sentinel will auto discover this list querying Redis.
 * Hello messages also include the full current configuration of the master. If the receiving Sentinel has a configuration for a given master which is older than the one received, it updates to the new configuration immediately.
 * Before adding a new sentinel to a master a Sentinel always checks if there is already a sentinel with the same runid or the same address (ip and port pair). In that case all the matching sentinels are removed, and the new added.
 
-Sentinel reconfiguration of instances outside the failover procedure.
+Sentinel reconfiguration of instances outside the failover procedure
 ---
 
 Even when no failover is in progress, Sentinels will always try to set the
