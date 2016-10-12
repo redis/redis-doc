@@ -797,7 +797,7 @@ The client library implementation should take one of the following approaches:
 
 ## Debugging Lua scripts
 
-Starting with Redis 3.2 (currently in beta), Redis has support for native
+Starting with Redis 3.2, Redis has support for native
 Lua debugging. The Redis Lua debugger is a remote debugger consisting of
 a server, which is Redis itself, and a client, which is by default `redis-cli`.
 
