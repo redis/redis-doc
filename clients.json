@@ -1434,7 +1434,7 @@
     "language": "C",
     "repository": "https://github.com/vipshop/hiredis-vip",
     "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
-    "authors": ["deep"],
+    "authors": ["deep011"],
     "recommended": true,
     "active": true
   }
