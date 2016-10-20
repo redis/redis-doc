@@ -1048,6 +1048,14 @@
     "description": "Redis client based on Finagle",
     "authors": []
   },
+  {
+      "name": "RedisCli",
+      "language": "R",
+      "repository": "https://bitbucket.org/cmbce/r-package-rediscli",
+      "description": "Basic client passing a (batch of) command(s) to redis-cli, getting back a (list of) character vector(s).",
+      "authors": ["CorentinBarbu"],
+      "active": true
+  },
 
   {
     "name": "rredis",
