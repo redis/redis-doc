@@ -339,7 +339,7 @@ dispatching a command received via network is a lot more work for Redis compared
 to dispatching a command invoked by Lua scripts).
 
 Normally replicating scripts instead of the effects of the scripts makes sense,
-however not in all the cases. So starting with Redis 3.2 (currently not stable),
+however not in all the cases. So starting with Redis 3.2,
 the scripting engine is able to, alternatively, replicate the sequence of write
 commands resulting from the script execution, instead of replication the
 script itself. See the next section for more information.
