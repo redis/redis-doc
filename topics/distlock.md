@@ -25,7 +25,7 @@ already available that can be used for reference.
 
 * [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation). There is also a [fork of Redlock-rb](https://github.com/leandromoreira/redlock-rb) that adds a gem for easy distribution and perhaps more.
 * [Redlock-py](https://github.com/SPSCommerce/redlock-py) (Python implementation).
-* [Pottery](https://github.com/brainix/pottery/blob/master/pottery/redlock.py) (Python implementation).
+* [Pottery](https://github.com/brainix/pottery/blob/master/pottery/redlock.py) (Python implementation). Includes async and support for lock extension.
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [PHPRedisMutex](https://github.com/malkusch/lock#phpredismutex) (further PHP implementation)
 * [cheprasov/php-redis-lock](https://github.com/cheprasov/php-redis-lock) (PHP library for locks)
@@ -34,7 +34,7 @@ already available that can be used for reference.
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (C++ implementation).
 * [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
-* [RedLock.net](https://github.com/samcook/RedLock.net) (C#/.NET implementation). Includes async and lock extension support.
+* [RedLock.net](https://github.com/samcook/RedLock.net) (C#/.NET implementation). Includes async and support for lock extension.
 * [ScarletLock](https://github.com/psibernetic/scarletlock) (C# .NET implementation with configurable datastore)
 * [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
 
