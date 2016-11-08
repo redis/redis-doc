@@ -1,4 +1,14 @@
 [
+  
+  {
+    "name": "Iedis",
+    "language": "Java",
+    "url": "https://plugins.jetbrains.com/plugin/9228?pr=idea",
+    "description": "Redis plugin for IntellJ IDEA, it's compatible with all IntelliJ's products except MPS",
+    "authors": ["LinYang"],
+    "recommended": true,
+    "active": true
+  },
   {
     "name": "redis-rb",
     "language": "Ruby",
