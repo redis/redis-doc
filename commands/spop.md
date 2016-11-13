@@ -2,7 +2,7 @@ Removes and returns one or more random elements from the set value store at `key
 
 This operation is similar to `SRANDMEMBER`, that returns one or more random elements from a set but does not remove it.
 
-The `count` argument will be available in a later version and is not available in 2.6, 2.8, 3.0
+The `count` argument is available since version 3.2.
 
 @return
 
@@ -32,4 +32,4 @@ Note that this command is not suitable when you need a guaranteed uniform distri
 
 ## Count argument extension
 
-Redis 3.2 will be the first version where an optional `count` argument can be passed to `SPOP` in order to retrieve multiple elements in a single call. The implementation is already available in the `unstable` branch.
+Redis 3.2 introduced an optional `count` argument that can be passed to `SPOP` in order to retrieve multiple elements in a single call.
