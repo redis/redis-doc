@@ -96,7 +96,7 @@ Different commands generate different kind of events according to the following 
 
 * `DEL` generates a `del` event for every deleted key.
 * `RENAME` generates two events, a `rename_from` event for the source key, and a `rename_to` event for the destination key.
-* `EXPIRE` generates an `expire` event when an expire is set to the key, or a `expired` event every time setting an expire results into the key being deleted (see `EXPIRE` documentation for more info).
+* `EXPIRE` generates an `expire` event when an expire is set to the key, or an `expired` event every time a positive timeout set on a key results into the key being deleted (see `EXPIRE` documentation for more info).
 * `SORT` generates a `sortstore` event when `STORE` is used to set a new key. If the resulting list is empty, and the `STORE` option is used, and there was already an existing key with that name, the result is that the key is deleted, so a `del` event is generated in this condition.
 * `SET` and all its variants (`SETEX`, `SETNX`,`GETSET`) generate `set` events. However `SETEX` will also generate an `expire` events.
 * `MSET` generates a separated `set` event for every key.

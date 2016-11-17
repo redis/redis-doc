@@ -23,6 +23,14 @@ that is overwritten by a call like `RENAME Key_B Key_A`, it does not matter if
 the original `Key_A` had a timeout associated or not, the new key `Key_A` will
 inherit all the characteristics of `Key_B`.
 
+Note that calling `EXPIRE`/`PEXPIRE` with a non-positive timeout or
+`EXPIREAT`/`PEXPIREAT` with a time in the past will result in the key being
+[deleted][del] rather than expired (accordingly, the emitted [key event][ntf]
+will be `del`, not `expired`).
+
+[del]: /commands/del
+[ntf]: /topics/notifications
+
 ## Refreshing expires
 
 It is possible to call `EXPIRE` using as argument a key that already has an
