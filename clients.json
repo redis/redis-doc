@@ -1012,8 +1012,7 @@
     "language": "C#",
     "url": "http://andrew-bn.github.io/RedisBoost/",
     "repository": "https://github.com/andrew-bn/RedisBoost",
-    "description": "Thread-safe async Redis client. Offers high performance and simple api",
-    "authors": ["bn_andrew"]
+    "description": "Thread-safe async Redis client. Offers high performance and simple api"
   },
 
   {
@@ -1318,7 +1317,7 @@
     "name": "cpp_redis",
     "language": "C++",
     "repository": "https://github.com/cylix/cpp_redis",
-    "description": "C++11 Redis client: async, thread-safe, no dependencies, pipelining.",
+    "description": "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform.",
     "authors": ["simon_ninon"],
     "active": true
   },
@@ -1427,6 +1426,15 @@
     "repository": "https://github.com/CapacitorSet/rebridge",
     "description": "Rebridge is a transparent Javascript-Redis bridge. It creates JavaScript objects that are automatically synchronized to a Redis database. (Requires Node 6)",
     "active": true
-  }
+  },
 
+  {
+    "name": "hiredis-vip",
+    "language": "C",
+    "repository": "https://github.com/vipshop/hiredis-vip",
+    "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
+    "authors": ["diguo58"],
+    "recommended": true,
+    "active": true
+  }
 ]
