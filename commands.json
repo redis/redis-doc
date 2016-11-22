@@ -1995,7 +1995,7 @@
   },
   "SADD": {
     "summary": "Add one or more members to a set",
-    "complexity": "O(N) where N is the number of members to be added.",
+    "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
     "arguments": [
       {
         "name": "key",
