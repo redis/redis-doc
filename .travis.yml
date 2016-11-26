@@ -16,6 +16,6 @@ script: make -s
 
 deploy:
   provider: script
-  script: curl https://redis.io/deploy?token=$DEPLOY_TOKEN
+  script: curl -G https://redis.io/deploy --data-urlencode token=$DEPLOY_TOKEN
   on:
     branch: master
