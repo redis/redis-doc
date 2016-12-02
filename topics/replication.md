@@ -144,8 +144,18 @@ You may wonder why it is possible to revert the read-only setting
 and have slave instances that can be target of write operations.
 While those writes will be discarded if the slave and the master
 resynchronize or if the slave is restarted, there are a few legitimate
-use case for storing ephemeral data in writable slaves. However in the future
-it is possible that this feature will be dropped.
+use case for storing ephemeral data in writable slaves.
+
+For example computing slow set or zset operations and storing them into local
+keys is an use case for writable slaves that was observed multiple times.
+
+However note that **writable slaves are uncapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. So in general mixing writable slaves and keys with TTL is going to create issues.
+
+Also note that since Redis 4.0 slave writes are only local, and are not propoagated to sub-slaves attached to the instance. Sub slaves instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate slaves. So for example in the following setup:
+
+    A ---> B ---> C
+
+Even if `B` is writable, C will not see `B` writes and will instead have identical dataset as the master instance `A`.
 
 Setting a slave to authenticate to a master
 ---
