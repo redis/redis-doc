@@ -2567,6 +2567,19 @@
     "since": "2.0.0",
     "group": "pubsub"
   },
+  "UNLINK": {
+    "summary": "Delete a key asynchronously in another thread. Otherwise it is just as DEL, but non blocking.",
+    "complexity": "O(1) for each key removed regardless of its size. Then the command does O(N) work in a different thread in order to reclaim memory, where N is the number of allocations the deleted objects where composed of.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "4.0.0",
+    "group": "generic"
+  },
   "UNWATCH": {
     "summary": "Forget about all watched keys",
     "complexity": "O(1)",
