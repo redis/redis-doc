@@ -149,7 +149,12 @@ use case for storing ephemeral data in writable slaves.
 For example computing slow set or zset operations and storing them into local
 keys is an use case for writable slaves that was observed multiple times.
 
-However note that **writable slaves are uncapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. So in general mixing writable slaves and keys with TTL is going to create issues.
+However note that **writable slaves before version 4.0 were uncapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. So in general mixing writable slaves (previous version 4.0) and keys with TTL is going to create issues.
+
+Redis 4.0 RC3 and greater totally resolve this problem and now writable
+slaves are able to evict keys with TTL as masters do, with the exceptions
+of keys written in DB numbers greater than 63 (but by default Redis instances
+only have 16 databases).
 
 Also note that since Redis 4.0 slave writes are only local, and are not propoagated to sub-slaves attached to the instance. Sub slaves instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate slaves. So for example in the following setup:
 
