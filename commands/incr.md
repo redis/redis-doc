@@ -161,3 +161,19 @@ false but the key may be created by another client before we create it inside
 the `MULTI` / `EXEC` block.
 However this race will just miss an API call under rare conditions, so the rate
 limiting will still work correctly.
+
+## Rate limiter in Lua script
+
+Client side implement pattern might broke on heavy traffic system/API or protected from attack, there are chances to penetrate the limiter in concurrency. For strictly use case, translate the client function to a Lua script to use. Here is the one for `Rate limiter 1`:
+
+```
+local current = tonumber(redis.call(\"get\", KEYS[1]))
+if (current ~= nil and current >= tonumber(ARGV[1])) then
+  error(\"too many requests\")
+end
+local result = redis.call(\"incr\", KEYS[1])
+redis.call(\"expire\", KEYS[1], tonumber(ARGV[2]))
+return result
+```
+
+More information please refer to [Rate limiter Lua script](https://atealxt.github.io/2016/12/11/redis-pattern-rate-limiter.html#lua-script).
