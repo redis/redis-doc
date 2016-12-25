@@ -754,11 +754,27 @@
   },
   "FLUSHALL": {
     "summary": "Remove all keys from all databases",
+    "arguments": [
+      {
+        "name": "async",
+        "type": "enum",
+        "enum": ["ASYNC"],
+        "optional": true
+      }
+    ],
     "since": "1.0.0",
     "group": "server"
   },
   "FLUSHDB": {
     "summary": "Remove all keys from the current database",
+    "arguments": [
+      {
+        "name": "async",
+        "type": "enum",
+        "enum": ["ASYNC"],
+        "optional": true
+      }
+    ],
     "since": "1.0.0",
     "group": "server"
   },
