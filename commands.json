@@ -2505,6 +2505,21 @@
     "since": "1.0.0",
     "group": "set"
   },
+  "SWAPDB": {
+    "summary": "Swaps two Redis databases",
+    "arguments": [
+      {
+        "name": "index",
+        "type": "integer"
+      },
+      {
+        "name": "index",
+        "type": "integer"
+      }
+    ],
+    "since": "4.0.0",
+    "group": "connection"
+  },
   "SYNC": {
     "summary": "Internal command used for replication",
     "since": "1.0.0",
