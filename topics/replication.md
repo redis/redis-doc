@@ -156,7 +156,7 @@ slaves are able to evict keys with TTL as masters do, with the exceptions
 of keys written in DB numbers greater than 63 (but by default Redis instances
 only have 16 databases).
 
-Also note that since Redis 4.0 slave writes are only local, and are not propoagated to sub-slaves attached to the instance. Sub slaves instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate slaves. So for example in the following setup:
+Also note that since Redis 4.0 slave writes are only local, and are not propagated to sub-slaves attached to the instance. Sub slaves instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate slaves. So for example in the following setup:
 
     A ---> B ---> C
 
