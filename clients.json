@@ -1479,5 +1479,14 @@
     "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
     "authors": ["SeyoungLee"],
     "active": true
+  },
+
+  {
+    "name": "aredis",
+    "language": "Python",
+    "repository": "https://github.com/NoneGG/aredis",
+    "description": "An efficient and user-friendly async redis client ported from redis-py.",
+    "authors": [],
+    "active": true
   }
 ]
