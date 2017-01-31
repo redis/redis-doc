@@ -570,7 +570,7 @@
   {
     "name": "scredis",
     "language": "Scala",
-    "repository": "https://github.com/Livestream/scredis",
+    "repository": "https://github.com/scredis/scredis",
     "description": "Non-blocking, ultra-fast Scala Redis client built on top of Akka IO, used in production at Livestream",
     "authors": ["livestream"],
     "active": true
