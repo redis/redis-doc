@@ -470,7 +470,7 @@ Examples of rule 1:
     > lpush mylist 1 2 3
     (integer) 3
 
-However we can't perform operations against the wrong type of the key exists:
+However we can't perform operations against the wrong type if the key exists:
 
     > set foo bar
     OK
