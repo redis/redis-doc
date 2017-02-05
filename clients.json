@@ -669,7 +669,7 @@
     "name": "node_redis",
     "language": "Node.js",
     "repository": "https://github.com/NodeRedis/node_redis",
-    "description": "Recommended client for node.",
+    "description": "Client for node.",
     "authors": ["mranney"],
     "active": true
   },
@@ -689,7 +689,6 @@
     "repository": "https://github.com/rootslab/spade",
     "description": "♠ Spade, a full-featured modular client for node.",
     "authors": ["rootslab"],
-    "recommended": false,
     "active": true
   },
 
