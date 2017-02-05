@@ -273,8 +273,7 @@
     "language": "Lua",
     "repository": "https://github.com/nrk/redis-lua",
     "description": "",
-    "authors": ["JoL1hAHN"],
-    "recommended": true
+    "authors": ["JoL1hAHN"]
   },
 
   {
@@ -870,8 +869,7 @@
     "repository": "https://github.com/mp911de/lettuce",
     "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
     "authors": ["ar3te", "mp911de"],
-    "active": true,
-    "recommended": true
+    "active": true
   },
 
   {
@@ -896,8 +894,7 @@
     "repository": "https://github.com/mitsuhiko/redis-rs",
     "description": "A high and low level client library for Redis tracking Rust nightly.",
     "authors": ["mitsuhiko"],
-    "active": true,
-    "recommended": true
+    "active": true
   },
 
   {
