@@ -112,8 +112,8 @@ download and install a Redis client library for your programming language.
 You'll find a [full list of clients for different languages in this page](http://redis.io/clients).
 
 For instance if you happen to use the Ruby programming language our best advice
-is to use the [Redis-rb](http://github.com/ezmobius/redis-rb) client.
-You can install it using the command **gem install redis** (also make sure to install the **SystemTimer** gem as well).
+is to use the [Redis-rb](https://github.com/redis/redis-rb) client.
+You can install it using the command **gem install redis**.
 
 These instructions are Ruby specific but actually many library clients for
 popular languages look quite similar: you create a Redis object and execute
