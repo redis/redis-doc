@@ -524,9 +524,9 @@ an error if called when script effects replication is disabled.
 
 The command can be called with four different arguments:
 
-    redis.set_repl(redis.REPL_ALL) -- Replicte to AOF and slaves.
-    redis.set_repl(redis.REPL_AOF) -- Replicte only to AOF.
-    redis.set_repl(redis.REPL_SLAVE) -- Replicte only to slaves.
+    redis.set_repl(redis.REPL_ALL) -- Replicate to AOF and slaves.
+    redis.set_repl(redis.REPL_AOF) -- Replicate only to AOF.
+    redis.set_repl(redis.REPL_SLAVE) -- Replicate only to slaves.
     redis.set_repl(redis.REPL_NONE) -- Don't replicate at all.
 
 By default the scripting engine is always set to `REPL_ALL`. By calling
