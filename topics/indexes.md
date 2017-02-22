@@ -24,7 +24,7 @@ elements ordered by a floating point number which is the *score* of
 each element. Elements are ordered from the smallest to the highest score.
 
 Since the score is a double precision float, indexes you can build with
-vanilla sorted sets are limited to things were the indexing field is a number
+vanilla sorted sets are limited to things where the indexing field is a number
 within a given range.
 
 The two commands to build these kind of indexes are `ZADD` and
