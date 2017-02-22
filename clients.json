@@ -1453,7 +1453,6 @@
     "repository": "https://github.com/SeYoungLee/oredis",
     "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
     "authors": ["SeyoungLee"],
-    "recommended": true,
     "active": true
   }
 ]
