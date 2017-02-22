@@ -1445,5 +1445,14 @@
     "description": "Straightforward Ruby client.",
     "authors": ["etehtsea"],
     "active": true
+  },
+  
+  {
+    "name": "oredis",
+    "language": "PL/SQL",
+    "repository": "https://github.com/SeYoungLee/oredis",
+    "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
+    "authors": ["SeyoungLee"],
+    "active": true
   }
 ]
