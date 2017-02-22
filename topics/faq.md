@@ -152,3 +152,7 @@ It means REmote DIctionary Server.
 Originally Redis was started in order to scale [LLOOGG][lloogg]. But after I got the basic server working I liked the idea to share the work with other people, and Redis was turned into an open source project.
 
 [lloogg]: http://lloogg.com
+
+## How is Redis pronounced?
+
+It's "red" like the color, then "iss".
