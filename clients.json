@@ -1447,7 +1447,7 @@
     "active": true
   },
   
-   {
+  {
     "name": "oredis",
     "language": "PL/SQL",
     "repository": "https://github.com/SeYoungLee/oredis",
