@@ -109,10 +109,11 @@ Redis to Lua conversion rule:
 
 * Lua boolean true -> Redis integer reply with value of 1.
 
-Also there are two important rules to note:
+Also there are three important rules to note:
 
 * Lua has a single numerical type, Lua numbers. There is no distinction between integers and floats. So we always convert Lua numbers into integer replies, removing the decimal part of the number if any. **If you want to return a float from Lua you should return it as a string**, exactly like Redis itself does (see for instance the `ZSCORE` command).
 * There is [no simple way to have nils inside Lua arrays](http://www.lua.org/pil/19.1.html), this is a result of Lua table semantics, so when Redis converts a Lua array into Redis protocol the conversion is stopped if a nil is encountered.
+* The conversion of Lua's associative arrays, i.e. tables that are not indexed arrays but key-value based, is similarly non-trivial, so when Redis converts an associative Lua array into Redis protocol the conversion is stopped when the first key in the array is encountered.
 
 Here are a few conversion examples:
 
