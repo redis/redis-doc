@@ -25,6 +25,7 @@ already available that can be used for reference.
 
 * [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation). There is also a [fork of Redlock-rb](https://github.com/leandromoreira/redlock-rb) that adds a gem for easy distribution and perhaps more.
 * [Redlock-py](https://github.com/SPSCommerce/redlock-py) (Python implementation).
+* [Aioredlock](https://github.com/joanvila/aioredlock) (Asyncio Python implementation).
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [PHPRedisMutex](https://github.com/malkusch/lock#phpredismutex) (further PHP implementation)
 * [cheprasov/php-redis-lock](https://github.com/cheprasov/php-redis-lock) (PHP library for locks)
