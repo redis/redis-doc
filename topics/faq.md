@@ -1,6 +1,6 @@
 # FAQ
 
-## Why Redis is different compared to other key-value stores?
+## Why is Redis different compared to other key-value stores?
 
 There are two main reasons.
 
@@ -70,7 +70,7 @@ is reached in the case you are using Redis for caching.
 
 We have documentation if you plan to use [Redis as an LRU cache](/topics/lru-cache).
 
-## Background saving is failing with a fork() error under Linux even if I've a lot of free RAM!
+## Background saving fails with a fork() error under Linux even if I have a lot of free RAM!
 
 Short answer: `echo 1 > /proc/sys/vm/overcommit_memory` :)
 
@@ -90,10 +90,10 @@ as much free RAM as required to really duplicate all the parent memory pages,
 with the result that if you have a Redis dataset of 3 GB and just 2 GB of free
 memory it will fail.
 
-Setting `overcommit_memory` to 1 says Linux to relax and perform the fork in a
+Setting `overcommit_memory` to 1 tells Linux to relax and perform the fork in a
 more optimistic allocation fashion, and this is indeed what you want for Redis.
 
-A good source to understand how Linux Virtual Memory work and other
+A good source to understand how Linux Virtual Memory works and other
 alternatives for `overcommit_memory` and `overcommit_ratio` is this classic
 from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
 Beware, this article had `1` and `2` configuration values for `overcommit_memory`
@@ -126,7 +126,7 @@ You can find more information about using multiple Redis instances in the [Parti
 ## What is the maximum number of keys a single Redis instance can hold? and what the max number of elements in a Hash, List, Set, Sorted Set?
 
 Redis can handle up to 2^32 keys, and was tested in practice to
-handle at least 250 million of keys per instance.
+handle at least 250 million keys per instance.
 
 Every hash, list, set, and sorted set, can hold 2^32 elements.
 
@@ -143,7 +143,7 @@ If you use keys with limited time to live (Redis expires) this is normal behavio
 
 As a result of this, it is common for users with many keys with an expire set to see less keys in the slaves, because of this artifact, but there is no actual logical difference in the instances content.
 
-## What Redis means actually?
+## What does Redis actually mean?
 
 It means REmote DIctionary Server.
 

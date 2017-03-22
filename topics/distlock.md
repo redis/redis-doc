@@ -42,7 +42,7 @@ Safety and Liveness guarantees
 We are going to model our design with just three properties that, from our point of view, are the minimum guarantees needed to use distributed locks in an effective way.
 
 1. Safety property: Mutual exclusion. At any given moment, only one client can hold a lock.
-2. Liveness property A: Deadlock free. Eventually it is always possible to acquire a lock, even if the client that locked a resource crashed or gets partitioned.
+2. Liveness property A: Deadlock free. Eventually it is always possible to acquire a lock, even if the client that locked a resource crashes or gets partitioned.
 3. Liveness property B: Fault tolerance. As long as the majority of Redis nodes are up, clients are able to acquire and release locks.
 
 Why failover-based implementations are not enough
