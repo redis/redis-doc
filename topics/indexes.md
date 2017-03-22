@@ -315,7 +315,7 @@ One simple way do deal with this issues is to actually normalize the
 string the user searches. Whatever the user searches for "Banana",
 "BANANA" or "Ba'nana" we may always turn it into "banana".
 
-However sometimes we could like to present the user with the original
+However sometimes we may like to present the user with the original
 item typed, even if we normalize the string for indexing. In order to
 do this, what we do is to change the format of the index so that instead
 of just storing `term:frequency` we store `normalized:frequency:original`
@@ -495,8 +495,8 @@ In can add 5 more entries for the same relation, but in a different order:
     ZADD myindex 0 pos:is-friend-of:matteocollina:antirez
 
 Now things start to be interesting, and I can query the graph in many
-different ways. For example, what are all the people `antirez`
-*is friend to*?
+different ways. For example, who are all the people `antirez`
+*is friend of*?
 
     ZRANGEBYLEX myindex "[spo:antirez:is-friend-of:" "[spo:antirez:is-friend-of:\xff"
     1) "spo:antirez:is-friend-of:matteocollina"
@@ -512,9 +512,9 @@ the first is the subject and the second is the object?
     3) "sop:antirez:matteocollina:talked-with"
 
 By combining different queries, I can ask fancy questions. For example:
-*What are all my friends that, like beer, live in Barcelona, and matteocollina consider friends as well?*
+*Who are all my friends that, like beer, live in Barcelona, and matteocollina consider friends as well?*
 To get this information I start with an `spo` query to find all the people
-I'm friend with. Than for each result I get I perform an `spo` query
+I'm friend with. Then for each result I get I perform an `spo` query
 to check if they like beer, removing the ones for which I can't find
 this relation. I do it again to filter by city. Finally I perform an `ops`
 query to find, of the list I obtained, who is considered friend by
@@ -525,15 +525,15 @@ Make sure to check [Matteo Collina's slides about Levelgraph](http://nodejsconfi
 Multi dimensional indexes
 ===
 
-A more complex type of index is an index that allows to perform queries
-where two or multiple variables are queried at the same time for specific
+A more complex type of index is an index that allows you to perform queries
+where two or more variables are queried at the same time for specific
 ranges. For example I may have a data set representing persons age and
 salary, and I want to retrieve all the people between 50 and 55 years old
 having a salary between 70000 and 85000.
 
 This query may be performed with a multi column index, but this requires
 us to select the first variable and then scan the second, which means we
-may do a lot more work than needed. It is possible to perform this kind of
+may do a lot more work than needed. It is possible to perform these kinds of
 queries involving multiple variables using different data structures.
 For example, multi-dimensional trees such as *k-d trees* or *r-trees* are
 sometimes used. Here we'll describe a different way to index data into
@@ -549,7 +549,7 @@ where `x` is between 50 and 100, and where `y` is between 100 and 300.
 
 ![Points in the space](http://redis.io/images/redisdoc/2idx_0.png)
 
-In order to represent data that makes this kind of queries fast to perform,
+In order to represent data that makes these kinds of queries fast to perform,
 we start by padding our numbers with 0. So for example imagine we want to
 add the point 10,25 (x,y) to our index. Given that the maximum range in the
 example is 400 we can just pad to three digits, so we obtain:
@@ -577,7 +577,7 @@ earlier by interleaving the digits, obtaining:
     027050
 
 What happens if we substitute the last two digits respectively with 00 and 99?
-We obtain a range which is lexicographically continue:
+We obtain a range which is lexicographically continuous:
 
     027000 to 027099
 
@@ -631,7 +631,7 @@ And so forth. Now we have definitely better granularity!
 As you can see substituting N bits from the index gives us
 search boxes of side `2^(N/2)`.
 
-So what we do is to check the dimension where our search box is smaller,
+So what we do is check the dimension where our search box is smaller,
 and check the nearest power of two to this number. Our search box
 was 50,100 to 100,300, so it has a width of 50 and an height of 200.
 We take the smaller of the two, 50, and check the nearest power of two
@@ -645,7 +645,7 @@ which is 50,100, and find the first range by substituting the last 6 bits
 in each number with 0. Then we do the same with the right top corner.
 
 With two trivial nested for loops where we increment only the significative
-bits, we can find all the squares between this two. For each square we
+bits, we can find all the squares between these two. For each square we
 convert the two numbers into our interleaved representation, and create
 the range using the converted representation as our start, and the same
 representation but with the latest 12 bits turned on as end range.
@@ -687,7 +687,7 @@ Turning this into code is simple. Here is a Ruby example:
 
 While non immediately trivial this is a very useful indexing strategy that
 in the future may be implemented in Redis in a native way.
-For now, the good thing is that the complexity may be easily incapsualted
+For now, the good thing is that the complexity may be easily encapsualted
 inside a library that can be used in order to perform indexing and queries.
 One example of such library is [Redimension](https://github.com/antirez/redimension), a proof of concept Ruby library which indexes N-dimensional data inside Redis using the technique described here.
 
