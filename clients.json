@@ -570,7 +570,7 @@
   {
     "name": "scredis",
     "language": "Scala",
-    "repository": "https://github.com/Livestream/scredis",
+    "repository": "https://github.com/scredis/scredis",
     "description": "Non-blocking, ultra-fast Scala Redis client built on top of Akka IO, used in production at Livestream",
     "authors": ["livestream"],
     "active": true
@@ -1435,6 +1435,24 @@
     "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
     "authors": ["diguo58"],
     "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "oxblood",
+    "language": "Ruby",
+    "repository": "https://github.com/etehtsea/oxblood",
+    "description": "Straightforward Ruby client.",
+    "authors": ["etehtsea"],
+    "active": true
+  },
+  
+  {
+    "name": "oredis",
+    "language": "PL/SQL",
+    "repository": "https://github.com/SeYoungLee/oredis",
+    "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
+    "authors": ["SeyoungLee"],
     "active": true
   }
 ]
