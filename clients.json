@@ -1247,7 +1247,7 @@
     "repository": "https://github.com/Farhaddc/Swidis",
     "description": "iOS Framework Allowing you to connect to Redis server with Swift programming language.",
     "authors": ["Farhaddc"],
-    "active": true
+    "active": false
   },
 
  {
@@ -1277,6 +1277,15 @@
     "active": true
   },
 
+  {
+    "name": "PSSRedisClient",
+    "language": "Swift",
+    "repository": "https://github.com/perrystreetsoftware/PSSRedisClient",
+    "description": "Swift redis client using the CocoaAsyncSocket library, installable via Cocoapods",
+    "authors": ["esilverberg"],
+    "active": true
+  },
+  
   {
     "name": "Rackdis",
     "language": "Racket",
