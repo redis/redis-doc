@@ -49,17 +49,17 @@ the device and not via the network.
 
 Raspberry Pi 3:
 
-* Test 1 : 5 millions writes with 1 million keys (even distribution among keys).  No persistence, no pipelining. 28000 ops/sec.
-* Test 2: Like test 1 but with pipelining using groups of 8 operations: 80000 ops/sec.
-* Test 3: Like test 1 but with AOF enabled, fsync 1 sec: 23000 ops/sec
-* Test 4: Like test 3, but with an AOF rewrite in progress: 21000 ops/sec
+* Test 1 : 5 millions writes with 1 million keys (even distribution among keys).  No persistence, no pipelining. 28,000 ops/sec.
+* Test 2: Like test 1 but with pipelining using groups of 8 operations: 80,000 ops/sec.
+* Test 3: Like test 1 but with AOF enabled, fsync 1 sec: 23,000 ops/sec
+* Test 4: Like test 3, but with an AOF rewrite in progress: 21,000 ops/sec
 
 Raspberry Pi 1 model B:
 
-* Test 1 : 5 millions writes with 1 million keys (even distribution among keys).  No persistence, no pipelining.  2200 ops/sec.
-* Test 2: Like test 1 but with pipelining using groups of 8 operations: 8500 ops/sec.
-* Test 3: Like test 1 but with AOF enabled, fsync 1 sec: 1820 ops/sec
-* Test 4: Like test 3, but with an AOF rewrite in progress: 1000 ops/sec
+* Test 1 : 5 millions writes with 1 million keys (even distribution among keys).  No persistence, no pipelining.  2,200 ops/sec.
+* Test 2: Like test 1 but with pipelining using groups of 8 operations: 8,500 ops/sec.
+* Test 3: Like test 1 but with AOF enabled, fsync 1 sec: 1,820 ops/sec
+* Test 4: Like test 3, but with an AOF rewrite in progress: 1,000 ops/sec
 
 The benchmarks above are referring to simple SET/GET operations. The performance is similar for all the Redis fast operations (not running in linear time). However sorted sets may show slightly slow numbers.
 
