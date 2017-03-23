@@ -3,8 +3,6 @@
 Starting with version 3.2 Redis includes a complete Lua debugger, that can be
 used in order to make the task of writing complex Redis scripts much simpler.
 
-Because Redis 3.2 is still in beta, please download the `unstable` branch of Redis from Github and compile it in order to test the debugger. You can use Redis unstable in order to debug your scripts that you'll later run in a stable version of Redis, so the debugger is already usable in practical terms.
-
 The Redis Lua debugger, codename LDB, has the following important features:
 
 * It uses a server-client model, so it's a remote debugger. The Redis server acts as the debugging server, while the default client is `redis-cli`. However other clients can be developed by following the simple protocol implemented by the server.
