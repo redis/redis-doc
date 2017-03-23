@@ -44,7 +44,7 @@ The following follow signals are handled as a Redis crash:
 Once one of these signals is trapped, Redis aborts any current operation and performs the following actions:
 
 * A bug report is produced on the log file. This includes a stack trace, dump of registers, and information about the state of clients.
-* Since Redis 2.8 (currently a development version) a fast memory test is performed as a first check of the reliability of the crashing system.
+* Since Redis 2.8 a fast memory test is performed as a first check of the reliability of the crashing system.
 * If the server was daemonized, the pid file is removed.
 * Finally the server unregisters its own signal handler for the received signal, and sends the same signal again to itself, in order to make sure that the default action is performed, for instance dumping the core on the file system.
 

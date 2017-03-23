@@ -124,7 +124,7 @@ if the client is idle for more than the specified number of seconds, the client 
 
 You can configure this limit via `redis.conf` or simply using `CONFIG SET timeout <value>`.
 
-Note that the timeout only applies to number clients and it **does not apply to Pub/Sub clients**, since a Pub/Sub connection is a *push style* connection so a client that is idle is the norm.
+Note that the timeout only applies to normal clients and it **does not apply to Pub/Sub clients**, since a Pub/Sub connection is a *push style* connection so a client that is idle is the norm.
 
 Even if by default connections are not subject to timeout, there are two conditions when it makes sense to set a timeout:
 

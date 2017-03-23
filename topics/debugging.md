@@ -28,11 +28,11 @@ GDB can be used in two ways:
 + It can inspect the state of a program that already terminated using what is called a *core file*, that is, the image of the memory at the time the program was running.
 
 From the point of view of investigating Redis bugs we need to use both of these
-GDB modes: the user able to reproduce the bug attaches GDB to his running Redis
-instance, and when the crash happens, he creates the `core` file that the in
+GDB modes: the user able to reproduce the bug attaches GDB to their running Redis
+instance, and when the crash happens, they create the `core` file that in
 turn the developer will use to inspect the Redis internals at the time of the crash.
 
-This way the developer can perform all the inspections in his computer without the help of the user, and the user is free to restart Redis in the production environment.
+This way the developer can perform all the inspections in his or her computer without the help of the user, and the user is free to restart Redis in the production environment.
 
 Compiling Redis without optimizations
 -------------------------------------

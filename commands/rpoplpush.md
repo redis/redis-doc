@@ -58,9 +58,11 @@ all the elements of an N-elements list, one after the other, in O(N) without
 transferring the full list from the server to the client using a single `LRANGE`
 operation.
 
-The above pattern works even if the following two conditions: * There are
-multiple clients rotating the list: they'll fetch different elements, until all
-the elements of the list are visited, and the process restarts.
+The above pattern works even if the following two conditions:
+
+* There are multiple clients rotating the list: they'll fetch different 
+  elements, until all the elements of the list are visited, and the process 
+  restarts.
 * Even if other clients are actively pushing new items at the end of the list.
 
 The above makes it very simple to implement a system where a set of items must

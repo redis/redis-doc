@@ -207,6 +207,15 @@
   },
 
   {
+    "name": "Jedipus",
+    "language": "Java",
+    "repository": "https://github.com/jamespedwards42/jedipus",
+    "description": "Redis Client & Command Executor.",
+    "authors": ["jamespedwards"],
+    "active": true
+  },
+
+  {
     "name": "Redisson",
     "language": "Java",
     "repository": "https://github.com/mrniko/redisson",
@@ -474,6 +483,15 @@
   },
 
   {
+    "name": "tornadis",
+    "language": "Python",
+    "repository": "https://github.com/thefab/tornadis",
+    "url": "http://tornadis.readthedocs.org",
+    "description": "Async minimal redis client for tornado ioloop designed for performances (use C hiredis parser)",
+    "active": true
+  },
+  
+  {
     "name": "brukva",
     "language": "Python",
     "repository": "https://github.com/evilkost/brukva",
@@ -552,7 +570,7 @@
   {
     "name": "scredis",
     "language": "Scala",
-    "repository": "https://github.com/Livestream/scredis",
+    "repository": "https://github.com/scredis/scredis",
     "description": "Non-blocking, ultra-fast Scala Redis client built on top of Akka IO, used in production at Livestream",
     "authors": ["livestream"],
     "active": true
@@ -994,8 +1012,7 @@
     "language": "C#",
     "url": "http://andrew-bn.github.io/RedisBoost/",
     "repository": "https://github.com/andrew-bn/RedisBoost",
-    "description": "Thread-safe async Redis client. Offers high performance and simple api",
-    "authors": ["bn_andrew"]
+    "description": "Thread-safe async Redis client. Offers high performance and simple api"
   },
 
   {
@@ -1300,7 +1317,7 @@
     "name": "cpp_redis",
     "language": "C++",
     "repository": "https://github.com/cylix/cpp_redis",
-    "description": "C++11 Redis client: async, thread-safe, no dependencies, pipelining.",
+    "description": "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform.",
     "authors": ["simon_ninon"],
     "active": true
   },
@@ -1409,6 +1426,33 @@
     "repository": "https://github.com/CapacitorSet/rebridge",
     "description": "Rebridge is a transparent Javascript-Redis bridge. It creates JavaScript objects that are automatically synchronized to a Redis database. (Requires Node 6)",
     "active": true
-  }
+  },
 
+  {
+    "name": "hiredis-vip",
+    "language": "C",
+    "repository": "https://github.com/vipshop/hiredis-vip",
+    "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
+    "authors": ["diguo58"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "oxblood",
+    "language": "Ruby",
+    "repository": "https://github.com/etehtsea/oxblood",
+    "description": "Straightforward Ruby client.",
+    "authors": ["etehtsea"],
+    "active": true
+  },
+  
+  {
+    "name": "oredis",
+    "language": "PL/SQL",
+    "repository": "https://github.com/SeYoungLee/oredis",
+    "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
+    "authors": ["SeyoungLee"],
+    "active": true
+  }
 ]

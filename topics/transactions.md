@@ -125,7 +125,7 @@ However there are good opinions for this behavior:
 * Redis commands can fail only if called with a wrong syntax (and the problem is not detectable during the command queueing), or against keys holding the wrong data type: this means that in practical terms a failing command is the result of a programming errors, and a kind of error that is very likely to be detected during development, and not in production.
 * Redis is internally simplified and faster because it does not need the ability to roll back.
 
-An argument against Redis point of view is that bugs happen, however it should be noted that in general the roll back does not save you from programming errors. For instance if a query increments a key by 2 instead of 1, or increments the wrong key, there is no way for a rollback mechanism to help. Given that no one can save the programmer from his errors, and that the kind of errors required for a Redis command to fail are unlikely to enter in production, we selected the simpler and faster approach of not supporting roll backs on errors.
+An argument against Redis point of view is that bugs happen, however it should be noted that in general the roll back does not save you from programming errors. For instance if a query increments a key by 2 instead of 1, or increments the wrong key, there is no way for a rollback mechanism to help. Given that no one can save the programmer from his or her errors, and that the kind of errors required for a Redis command to fail are unlikely to enter in production, we selected the simpler and faster approach of not supporting roll backs on errors.
 
 ## Discarding the command queue
 
@@ -195,9 +195,9 @@ there's no need to repeat the operation.
 
 So what is `WATCH` really about? It is a command that will
 make the `EXEC` conditional: we are asking Redis to perform
-the transaction only if none of the `WATCH`ed keys were modified. 
+the transaction only if none of the `WATCH`ed keys were modified.
 (But they might be changed by the same client inside the transaction
-without aborting it. [More on this](https://github.com/antirez/redis-doc/issues/734).) 
+without aborting it. [More on this](https://github.com/antirez/redis-doc/issues/734).)
 Otherwise the transaction is not entered at
 all. (Note that if you `WATCH` a volatile key and Redis expires
 the key after you `WATCH`ed it, `EXEC` will still work. [More on

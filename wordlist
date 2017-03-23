@@ -1,3 +1,4 @@
+ASYNC
 ACLs
 AMD
 AOF
@@ -367,6 +368,7 @@ underflows
 unencrypted
 unguessable
 unix
+unlinks
 unordered
 unreachability
 unsubscribe

@@ -13,3 +13,9 @@ install:
   - gem install $(sed -e 's/ -v /:/' .gems)
 
 script: make -s
+
+deploy:
+  provider: script
+  script: curl -G https://redis.io/deploy --data-urlencode token=$DEPLOY_TOKEN
+  on:
+    branch: master

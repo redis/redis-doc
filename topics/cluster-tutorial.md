@@ -213,7 +213,7 @@ and stops accepting writes.
 Redis Cluster configuration parameters
 ===
 
-We are about to create an example cluster deployment. Before to continue
+We are about to create an example cluster deployment. Before we continue,
 let's introduce the configuration parameters that Redis Cluster introduces
 in the `redis.conf` file. Some will be obvious, others will be more clear
 as you continue reading.
@@ -228,13 +228,13 @@ as you continue reading.
 Creating and using a Redis Cluster
 ===
 
-Note: to deploy a Redis Cluster manually is **very important to learn** certain
-operation aspects of it. However if you want to get a cluster up and running
-ASAP skip this section and the next one and go directly to **Creating a Redis Cluster using the create-cluster script**.
+Note: to deploy a Redis Cluster manually it is **very important to learn** certain
+operational aspects of it. However if you want to get a cluster up and running
+ASAP (As Soon As Possible) skip this section and the next one and go directly to **Creating a Redis Cluster using the create-cluster script**.
 
 To create a cluster, the first thing we need is to have a few empty
 Redis instances running in **cluster mode**. This basically means that
-clusters are not created using normal Redis instances, but a special mode
+clusters are not created using normal Redis instances as a special mode
 needs to be configured so that the Redis instance will enable the Cluster
 specific features and commands.
 
@@ -250,8 +250,8 @@ appendonly yes
 
 As you can see what enables the cluster mode is simply the `cluster-enabled`
 directive. Every instance also contains the path of a file where the
-configuration for this node is stored, that by default is `nodes.conf`.
-This file is never touched by humans, it is simply generated at startup
+configuration for this node is stored, which by default is `nodes.conf`.
+This file is never touched by humans; it is simply generated at startup
 by the Redis Cluster instances, and updated every time it is needed.
 
 Note that the **minimal cluster** that works as expected requires to contain
@@ -325,9 +325,9 @@ to create the new cluster.
 Obviously the only setup with our requirements is to create a cluster with
 3 masters and 3 slaves.
 
-Redis-trib will propose you a configuration. Accept typing **yes**.
-The cluster will be configured and *joined*, that means, instances will be
-bootstrapped into talking with each other. Finally if everything went ok
+Redis-trib will propose you a configuration. Accept the proposed configuration by typing **yes**.
+The cluster will be configured and *joined*, which means, instances will be
+bootstrapped into talking with each other. Finally, if everything went well,
 you'll see a message like that:
 
     [OK] All 16384 slots covered
@@ -423,41 +423,50 @@ failing, or start a resharding, to see how Redis Cluster behaves under real
 world conditions. It is not very helpful to see what happens while nobody
 is writing to the cluster.
 
-This section explains some basic usage of redis-rb-cluster showing two
-examples. The first is the following, and is the `example.rb` file inside
-the redis-rb-cluster distribution:
+This section explains some basic usage of
+[redis-rb-cluster](https://github.com/antirez/redis-rb-cluster) showing two
+examples. The first is the following, and is the
+[`example.rb`](https://github.com/antirez/redis-rb-cluster/blob/master/example.rb)
+file inside the redis-rb-cluster distribution:
 
 ```
-     1  require './cluster'
-     2
-     3  startup_nodes = [
-     4      {:host => "127.0.0.1", :port => 7000},
-     5      {:host => "127.0.0.1", :port => 7001}
-     6  ]
-     7  rc = RedisCluster.new(startup_nodes,32,:timeout => 0.1)
-     8
-     9  last = false
-    10
-    11  while not last
-    12      begin
-    13          last = rc.get("__last__")
-    14          last = 0 if !last
-    15      rescue => e
-    16          puts "error #{e.to_s}"
-    17          sleep 1
-    18      end
-    19  end
-    20
-    21  ((last.to_i+1)..1000000000).each{|x|
-    22      begin
-    23          rc.set("foo#{x}",x)
-    24          puts rc.get("foo#{x}")
-    25          rc.set("__last__",x)
-    26      rescue => e
-    27          puts "error #{e.to_s}"
-    28      end
-    29      sleep 0.1
-    30  }
+   1  require './cluster'
+   2
+   3  if ARGV.length != 2
+   4      startup_nodes = [
+   5          {:host => "127.0.0.1", :port => 7000},
+   6          {:host => "127.0.0.1", :port => 7001}
+   7      ]
+   8  else
+   9      startup_nodes = [
+  10          {:host => ARGV[0], :port => ARGV[1].to_i}
+  11      ]
+  12  end
+  13
+  14  rc = RedisCluster.new(startup_nodes,32,:timeout => 0.1)
+  15
+  16  last = false
+  17
+  18  while not last
+  19      begin
+  20          last = rc.get("__last__")
+  21          last = 0 if !last
+  22      rescue => e
+  23          puts "error #{e.to_s}"
+  24          sleep 1
+  25      end
+  26  end
+  27
+  28  ((last.to_i+1)..1000000000).each{|x|
+  29      begin
+  30          rc.set("foo#{x}",x)
+  31          puts rc.get("foo#{x}")
+  32          rc.set("__last__",x)
+  33      rescue => e
+  34          puts "error #{e.to_s}"
+  35      end
+  36      sleep 0.1
+  37  }
 ```
 
 The application does a very simple thing, it sets keys in the form `foo<number>` to `number`, one after the other. So if you run the program the result is the
@@ -472,7 +481,7 @@ The program looks more complex than it should usually as it is designed to
 show errors on the screen instead of exiting with an exception, so every
 operation performed with the cluster is wrapped by `begin` `rescue` blocks.
 
-The **line 7** is the first interesting line in the program. It creates the
+The **line 14** is the first interesting line in the program. It creates the
 Redis Cluster object, using as argument a list of *startup nodes*, the maximum
 number of connections this object is allowed to take against different nodes,
 and finally the timeout after a given operation is considered to be failed.
@@ -485,7 +494,7 @@ first node. You should expect such a behavior with any other serious client.
 Now that we have the Redis Cluster object instance stored in the **rc** variable
 we are ready to use the object like if it was a normal Redis object instance.
 
-This is exactly what happens in **line 11 to 19**: when we restart the example
+This is exactly what happens in **line 18 to 26**: when we restart the example
 we don't want to start again with `foo0`, so we store the counter inside
 Redis itself. The code above is designed to read this counter, or if the
 counter does not exist, to assign it the value of zero.
@@ -494,7 +503,7 @@ However note how it is a while loop, as we want to try again and again even
 if the cluster is down and is returning errors. Normal applications don't need
 to be so careful.
 
-**Lines between 21 and 30** start the main loop where the keys are set or
+**Lines between 28 and 37** start the main loop where the keys are set or
 an error is displayed.
 
 Note the `sleep` call at the end of the loop. In your tests you can remove
@@ -652,7 +661,7 @@ This is what happens, for example, if I reset a counter manually while
 the program is running:
 
 ```
-$ redis 127.0.0.1:7000> set key_217 0
+$ redis-cli -h 127.0.0.1 -p 7000 set key_217 0
 OK
 
 (in the other tab I see...)
