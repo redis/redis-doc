@@ -1339,6 +1339,15 @@
     "authors": ["matsumotory"],
     "active": true
   },
+  
+    {
+    "name": "mruby-hiredis",
+    "language": "mruby",
+    "repository": "https://github.com/Asmod4n/mruby-hiredis",
+    "description": "Redis Client for mruby with Async support, pipelines and transactions",
+    "authors": ["Asmod4n"],
+    "active": true
+  },
 
   {
     "name": "Pottery",
