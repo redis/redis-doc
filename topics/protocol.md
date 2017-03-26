@@ -30,7 +30,7 @@ Once a command is received, it is processed and a reply is sent back to the clie
 This is the simplest model possible, however there are two exceptions:
 
 * Redis supports pipelining (covered later in this document). So it is possible for clients to send multiple commands at once, and wait for replies later.
-* When a Redis client subscribes to a Pub/Sub channel, the protocol changes semantics and becomes a *push* protocol, that is, the client no longer requires to send commands, because the server will automatically send to the client new messages (for the channels the client is subscribed to) as soon as they are received.
+* When a Redis client subscribes to a Pub/Sub channel, the protocol changes semantics and becomes a *push* protocol, that is, the client no longer requires sending commands, because the server will automatically send to the client new messages (for the channels the client is subscribed to) as soon as they are received.
 
 Excluding the above two exceptions, the Redis protocol is a simple request-response protocol.
 
