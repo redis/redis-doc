@@ -203,7 +203,7 @@ of Lua scripting, available starting with Redis 3.2. For this feature, please
 refer to the [Redis Lua debugger documentation](/topics/ldb).
 
 However, even without using the debugger, you can use `redis-cli` to
-run scripts from a file in a way more comfortable compared to typing
+run scripts from a file in a way more comfortable way compared to typing
 the script interactively into the shell or as an argument:
 
     $ cat /tmp/script.lua
@@ -714,11 +714,11 @@ different LRU settings (number of samples) and LRU's implementation, which
 is approximated in Redis, changes a lot between different versions. Similarly
 the amount of memory per key may change between versions. That is why this
 tool was built: its main motivation was for testing the quality of Redis' LRU
-implementation, but now is also useful in for testing how a given version 
+implementation, but now is also useful in for testing how a given version
 behaves with the settings you had in mind for your deployment.
 
 In order to use this mode, you need to specify the amount of keys
-in the test. You also need to configure a `maxmemory` setting that 
+in the test. You also need to configure a `maxmemory` setting that
 makes sense as a first try.
 
 IMPORTANT NOTE: Configuring the `maxmemory` setting in the Redis configuration
