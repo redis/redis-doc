@@ -777,6 +777,12 @@ configuring in this slave only the `masterauth` directive, without
 using the `requirepass` directive, so that data will be readable by
 unauthenticated clients.
 
+In order for sentinels to connect to Redis server instances when they are
+configured with `requirepass`, the Sentinel configuration must include the
+`sentinel auth-pass` directive, in the format:
+
+    sentinel auth-pass <master-group-name> <pass>
+
 Sentinel clients implementation
 ---
 
