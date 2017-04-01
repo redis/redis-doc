@@ -317,7 +317,7 @@ Because `redis-cli` uses the
 always has line editing capabilities, without depending on `libreadline` or
 other optional libraries.
 
-You can access an history of commands executed, in order to avoid retyping
+You can access a history of commands executed, in order to avoid retyping
 them again and again, by pressing the arrow keys (up and down).
 The history is preserved between restarts of the CLI, in a file called
 `.rediscli_history` inside the user home directory, as specified
@@ -598,7 +598,7 @@ You can change the sampling sessions' length with the `-i <interval>` option.
 
 The most advanced latency study tool, but also a bit harder to
 interpret for non experienced users, is the ability to use color terminals
-to show a spectrum of latencies. You'll see a colored output that indicate the
+to show a spectrum of latencies. You'll see a colored output that indicates the
 different percentages of samples, and different ASCII characters that indicate
 different latency figures. This mode is enabled using the `--latency-dist`
 option:
@@ -754,8 +754,8 @@ the actual figure we can expect in the long time:
     124250 Gets/sec | Hits: 50147 (40.36%) | Misses: 74103 (59.64%)
 
 A miss rage of 59% may not be acceptable for our use case. So we know that
-100MB of memory are no enough. Let's try with half gigabyte. After a few
-minutes we'll see the output to stabilize to the following figures:
+100MB of memory is not enough. Let's try with half gigabyte. After a few
+minutes we'll see the output stabilize to the following figures:
 
     140000 Gets/sec | Hits: 135376 (96.70%) | Misses: 4624 (3.30%)
     141250 Gets/sec | Hits: 136523 (96.65%) | Misses: 4727 (3.35%)
