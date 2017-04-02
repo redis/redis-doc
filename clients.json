@@ -1456,6 +1456,14 @@
   },
 
   {
+    "name": "hiredispool",
+    "language": "C",
+    "repository": "https://github.com/aclisp/hiredispool",
+    "description": "Provides connection pooling and auto-reconnect for hiredis. It is also minimalistic and easy to do customization.",
+    "active": true
+  },
+
+  {
     "name": "oxblood",
     "language": "Ruby",
     "repository": "https://github.com/etehtsea/oxblood",
