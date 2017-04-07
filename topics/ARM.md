@@ -21,7 +21,7 @@ reasons:
 ## Redis /proc/cpu/alignment requirements
 
 Linux on ARM allows to trap unaligned accesses and fix them inside the kernel
-in order to continue the exeuction of the offending program instead of
+in order to continue the execution of the offending program instead of
 generating a SIGBUS. Redis 4.0 and greater are fixed in order to avoid any kind
 of unaligned access, so there is no need to have a specific value for this
 kernel configuration. Even when kernel alignment fixing is disabled Redis should
