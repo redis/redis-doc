@@ -1,7 +1,7 @@
 An introduction to Redis data types and abstractions
 ===
 
-Redis is not a *plain* key-value store, actually it is a *data structures server*, supporting different kind of values. What this means is that, while in
+Redis is not a *plain* key-value store, it is actually a *data structures server*, supporting different kinds of values. What this means is that, while in
 traditional key-value stores you associated string keys to string values, in
 Redis the value is not limited to a simple string, but can also hold more complex
 data structures. The following is the list of all the data structures supported
@@ -989,13 +989,13 @@ proportional to the number of items you want to count, because you need
 to remember the elements you have already seen in the past in order to avoid
 counting them multiple times. However there is a set of algorithms that trade
 memory for precision: you end with an estimated measure with a standard error,
-in the case of the Redis implementation, which is less than 1%.  The
+which in the case of the Redis implementation is less than 1%.  The
 magic of this algorithm is that you no longer need to use an amount of memory
 proportional to the number of items counted, and instead can use a
 constant amount of memory! 12k bytes in the worst case, or a lot less if your
 HyperLogLog (We'll just call them HLL from now) has seen very few elements.
 
-HLLs in Redis, while technically a different data structure, is encoded
+HLLs in Redis, while technically a different data structure, are encoded
 as a Redis string, so you can call `GET` to serialize a HLL, and `SET`
 to deserialize it back to the server.
 
@@ -1029,7 +1029,7 @@ There are other important things in the Redis API that can't be explored
 in the context of this document, but are worth your attention:
 
 * It is possible to [iterate the key space of a large collection incrementally](/commands/scan).
-* It is possible to run [Lua scripts server side](/commands/eval) to win latency and bandwidth.
+* It is possible to run [Lua scripts server side](/commands/eval) to improve latency and bandwidth.
 * Redis is also a [Pub-Sub server](/topics/pubsub).
 
 Learn more

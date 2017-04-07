@@ -1247,7 +1247,7 @@
     "repository": "https://github.com/Farhaddc/Swidis",
     "description": "iOS Framework Allowing you to connect to Redis server with Swift programming language.",
     "authors": ["Farhaddc"],
-    "active": true
+    "active": false
   },
 
  {
@@ -1277,6 +1277,15 @@
     "active": true
   },
 
+  {
+    "name": "PSSRedisClient",
+    "language": "Swift",
+    "repository": "https://github.com/perrystreetsoftware/PSSRedisClient",
+    "description": "Swift redis client using the CocoaAsyncSocket library, installable via Cocoapods",
+    "authors": ["esilverberg"],
+    "active": true
+  },
+  
   {
     "name": "Rackdis",
     "language": "Racket",
@@ -1328,6 +1337,15 @@
     "repository": "https://github.com/matsumoto-r/mruby-redis",
     "description": "Redis class for mruby based on Hiredis",
     "authors": ["matsumotory"],
+    "active": true
+  },
+  
+    {
+    "name": "mruby-hiredis",
+    "language": "mruby",
+    "repository": "https://github.com/Asmod4n/mruby-hiredis",
+    "description": "Redis Client for mruby with Async support, pipelines and transactions",
+    "authors": ["Asmod4n"],
     "active": true
   },
 

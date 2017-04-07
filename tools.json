@@ -305,6 +305,13 @@
     "authors": ["u_glide"]
   },
   {
+    "name": "QRedis",
+    "language": "Python",
+    "repository": "https://github.com/tiagocoutinho/qredis",
+    "description": "Python, Qt based redis GUI",
+    "authors": ["tiagocoutinho"]
+  },
+  {
     "name": "FastoRedis",
     "language": "C++",
     "url": "http://fastoredis.com",
