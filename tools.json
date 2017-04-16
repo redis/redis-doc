@@ -604,5 +604,12 @@
     "url": "https://www.harfangapps.com/regis/",
     "description": "Full-featured Redis client for the Mac, available on the Mac App Store.",
     "authors": ["harfangapps"]
+  },
+  {
+    "name": "miniredis",
+    "language": "Go",
+    "repository": "https://github.com/alicebob/miniredis",
+    "description": "Pure Go Redis server for Go unittests",
+    "authors": []
   }
 ]
