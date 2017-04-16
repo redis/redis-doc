@@ -597,5 +597,12 @@
     "repository": "https://github.com/vipshop/redis-migrate-tool",
     "description": "A convenient and useful tool for migrating data between redis groups.",
     "authors": ["diguo58"]
+  },
+  {
+    "name": "miniredis",
+    "language": "Go",
+    "repository": "https://github.com/alicebob/miniredis",
+    "description": "Pure Go Redis server for Go unittests",
+    "authors": []
   }
 ]
