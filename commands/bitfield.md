@@ -94,7 +94,7 @@ The following is an example of `OVERFLOW FAIL` returning NULL.
 The motivation for this command is that the ability to store many small integers
 as a single large bitmap (or segmented over a few keys to avoid having huge keys) is extremely memory efficient, and opens new use cases for Redis to be applied, especially in the field of real time analytics. This use cases are supported by the ability to specify the overflow in a controlled way.
 
-Trivia: the Reddit 1st April fool project [r/place](https://reddit.com/r/place) was [built using the Redis BITFIELD command](https://redditblog.com/2017/04/13/how-we-built-rplace/) in order to take an in memory representation of the collaborative canvas.
+Fun fact: Reddit's 2017 April fools' project [r/place](https://reddit.com/r/place) was [built using the Redis BITFIELD command](https://redditblog.com/2017/04/13/how-we-built-rplace/) in order to take an in-memory representation of the collaborative canvas.
 
 ## Performance considerations
 
