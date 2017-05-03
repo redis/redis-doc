@@ -391,7 +391,7 @@ are explained in the next sections:
 ## Continuous stats mode
 
 This is probably one of the lesser known features of `redis-cli`, and one
-very useful in order to minor Redis instances in real time.
+very useful in order to monitor Redis instances in real time.
 To enable this mode, the `--stat` option is used.
 The output is very clear about the behavior of the CLI in this mode:
 
