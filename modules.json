@@ -9,6 +9,33 @@
   },
 
   {
+    "name": "redis-cell",
+    "license" : "MIT",
+    "repository": "https://github.com/brandur/redis-cell",
+    "description": "A Redis module that provides rate limiting in Redis as a single command.",
+    "authors": ["brandur"],
+    "stars": 164
+  },
+
+  {
+    "name": "Redis Graph",
+    "license" : "AGPL",
+    "repository": "https://github.com/swilly22/redis-module-graph",
+    "description": "A graph database with a Cypher-based querying language",
+    "authors": ["swilly22"],
+    "stars": 120
+  },
+
+  {
+    "name": "redis-tdigest",
+    "license" : "MIT",
+    "repository": "https://github.com/usmanm/redis-tdigest",
+    "description": "t-digest data structure wich can be used for accurate online accumulation of rank-based statistics such as quantiles and cumulative distribution at a point.",
+    "authors": ["usmanm"],
+    "stars": 29
+  },
+
+  {
     "name": "ReJSON",
     "license" : "AGPL",
     "repository": "https://github.com/RedisLabsModules/ReJSON",
@@ -33,6 +60,33 @@
     "description": "Full-Text search over Redis",
     "authors": ["dvirsky", "RedisLabs"],
     "stars": 247
+  },
+
+  {
+    "name": "topk",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/topk",
+    "description": "An almost deterministic top k elements counter",
+    "authors": ["itamarhaber", "RedisLabs"],
+    "stars": 15
+  },
+
+  {
+    "name": "countminsketch",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/countminsketch",
+    "description": "An apporximate frequency counter",
+    "authors": ["itamarhaber", "RedisLabs"],
+    "stars": 15
+  },
+
+  {
+    "name": "redablooms",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/redablooms",
+    "description": "Scalable, counting Bloom filters",
+    "authors": ["itamarhaber", "RedisLabs"],
+    "stars": 15
   },
 
   {
