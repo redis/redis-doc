@@ -1,0 +1,19 @@
+[
+  {
+    "name": "redis-roaring",
+    "license" : "MIT",
+    "repository": "https://github.com/aviggiano/redis-roaring",
+    "description": "Uses the CRoaring library to implement roaring bitmap commands for Redis.",
+    "authors": ["aviggiano"],
+    "stars": 9
+  },
+
+  {
+    "name": "neural-redis",
+    "license" : "BSD",
+    "repository": "https://github.com/antirez/neural-redis",
+    "description": "Online trainable neural networks as Redis data types.",
+    "authors": ["antirez"],
+    "stars": 1854
+  }
+]
