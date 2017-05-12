@@ -9,6 +9,33 @@
   },
 
   {
+    "name": "ReJSON",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/ReJSON",
+    "description": "A JSON data type for Redis",
+    "authors": ["itamarhaber", "RedisLabs"],
+    "stars": 271
+  },
+
+  {
+    "name": "Redis-ML",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/redis-ml",
+    "description": "Machine Learning Model Server",
+    "authors": ["shaynativ", "RedisLabs"],
+    "stars": 49
+  },
+
+  {
+    "name": "RediSearch",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/RediSearch",
+    "description": "Full-Text search over Redis",
+    "authors": ["dvirsky", "RedisLabs"],
+    "stars": 247
+  },
+
+  {
     "name": "neural-redis",
     "license" : "BSD",
     "repository": "https://github.com/antirez/neural-redis",
