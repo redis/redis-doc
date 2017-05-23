@@ -874,6 +874,15 @@
   },
 
   {
+    "name": "Vibe.d",
+    "language": "D",
+    "url": "http://vibed.org",
+    "repository": "https://github.com/rejectedsoftware/vibe.d",
+    "description": "The Vibe.d framework includes an asynchronous Redis client which also supports high-level ORM primitives",
+    "authors": ["rejectedsoftware"]
+  },
+
+  {
     "name": "redis-client",
     "language": "Scheme",
     "url": "http://wiki.call-cc.org/eggref/4/redis-client",
