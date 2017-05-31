@@ -397,6 +397,15 @@
   },
 
   {
+    "name": "readis",
+    "language": "PHP",
+    "repository": "https://github.com/hollodotme/readis",
+    "description": " Lightweight web frontend in PHP for reading data, stats and config from multiple redis servers.",
+    "authors": ["hollodotme"],
+    "active": true
+  },
+
+  {
     "name": "Rediska",
     "language": "PHP",
     "url": "http://rediska.geometria-lab.net",
