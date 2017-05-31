@@ -598,4 +598,12 @@
     "description": "A convenient and useful tool for migrating data between redis groups.",
     "authors": ["diguo58"]
   }
+  {
+    "name": "RedisPlatform",
+    "language": "C/C++",
+    "url": "http://www.jacketzhong.com/?p=220",
+    "repository": "https://github.com/jacket-code/redisPlatform",
+    "description": "A rpc platform base on redis 3.0.2 stable version, you can do many things with it, as a game server",
+    "authors": ["jacketzhong"]
+  }
 ]
