@@ -508,6 +508,15 @@
     "authors": [],
     "active": true
   },
+  
+  {
+    "name": "Pypredis",
+    "language": "Python",
+    "repository": "https://github.com/pepijndevos/pypredis",
+    "description": "A client focused on arbitrary sharding and parallel pipelining.",
+    "authors": ["pepijndevos"],
+    "active": true
+  },
 
   {
     "name": "prot-redis",
