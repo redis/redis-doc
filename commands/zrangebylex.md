@@ -15,7 +15,7 @@ O(N) time complexity.
 Valid *start* and *stop* must start with `(` or `[`, in order to specify
 if the range item is respectively exclusive or inclusive.
 The special values of `+` or `-` for *start* and *stop* have the special
-meaning or positively infinite and negatively infinite strings, so for
+meaning of positively infinite and negatively infinite strings, so for
 instance the command **ZRANGEBYLEX myzset - +** is guaranteed to return
 all the elements in the sorted set, if all the elements have the same
 score.
