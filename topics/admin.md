@@ -45,3 +45,21 @@ The following steps provide a very commonly used way in order to avoid any downt
 * Allow writes to the slave using **CONFIG SET slave-read-only no**
 * Configure all your clients in order to use the new instance (that is, the slave).
 * Once you are sure that the master is no longer receiving any query (you can check this with the [MONITOR command](/commands/monitor)), elect the slave to master using the **SLAVEOF NO ONE** command, and shut down your master.
+
+Redis Monitoring using Nagios
+-----------------------------
+
+Redis monitoring is supported in Nagios using the Advanced Nagios Plugins Collection:
+
+https://github.com/harisekhon/nagios-plugins
+
+This contains many plugins to support monitoring various aspects of Redis including:
+
++ Redis API write unique key => read => verify contents => delete generated key with millisecond timings
++ Redis specific key read => check against regex and value range thresholds
++ Replication I/O, role (master vs slave), link to master is up, if master sync is in progress
++ Replicated Writes (write to Master => validate read from Slave => delete from Master)
++ Publish => Subscribe, send and collect a message through a dynamic unique topic
++ Number of connected clients and unique client hosts, regex of valid client host addresses, list of client hosts, thresholds on connected clients (consumes file descriptors)
++ Redis stats, alert on any single stat in each call
++ Redis config validation, ensure /etc/redis.conf matches running server, or check a compliance baseline config against a running Redis server
