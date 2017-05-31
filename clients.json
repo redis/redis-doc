@@ -377,6 +377,16 @@
   },
 
   {
+    "name": "Redis::Client",
+    "language": "Perl",
+    "url": "http://search.cpan.org/~friedo/Redis-Client-0.015/",
+    "repository": "https://github.com/friedo/perl-redis-client",
+    "description": "Mature Perl-native client for Redis 2.4 whichs uses the binary-safe Unified Request Protocol.",
+    "authors": ["friedo"],
+    "active": true
+  },
+
+  {
     "name": "Predis",
     "language": "PHP",
     "repository": "https://github.com/nrk/predis",
