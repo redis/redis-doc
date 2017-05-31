@@ -1000,6 +1000,15 @@
   },
 
   {
+    "name": "phpRedExpert",
+    "language": "PHP",
+    "repository": "https://github.com/eugef/phpRedExpert",
+    "description": "phpRedExpert ia simple and powerful web UI for Redis databases and servers management, written in PHP and JavaScript.",
+    "authors": [ "EugeneFidelin" ],
+    "active": true
+  },
+
+  {
     "name": "redis-octave",
     "language": "Matlab",
     "repository": "https://github.com/markuman/go-redis",
