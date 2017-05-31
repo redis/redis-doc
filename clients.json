@@ -620,7 +620,16 @@
     "recommended": true,
     "active": true
   },
-
+  
+  {
+    "name": "NBoosters.RedisBoost",
+    "language": "C#",
+    "repository": "https://github.com/andrew-bn/RedisBoost",
+    "description": ".NET 4.0 asynchronous Redis client",
+    "authors": [],
+    "active": true
+  },
+  
   {
     "name": "Sider",
     "language": "C#",
