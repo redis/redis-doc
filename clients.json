@@ -1364,6 +1364,7 @@
     "repository": "https://github.com/cheprasov/php-redis-client",
     "description": "Fast, fully-functional and user-friendly client, optimized for performance.",
     "authors": ["cheprasov84"],
+    "recommended": true,
     "active": true
   },
 
