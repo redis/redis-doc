@@ -1,5 +1,12 @@
 [
   {
+    "name": "Redis-RdbParser",
+    "language": "Perl",
+    "repository": "https://github.com/flygoast/Redis-RdbParser",
+    "description": "Redis-RdbParser is a streaming parser for redis RDB database dumps.",
+    "authors": ["flygoast"]
+  },
+  {
     "name": "Resque",
     "language": "Ruby",
     "repository": "https://github.com/resque/resque",
