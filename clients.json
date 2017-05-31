@@ -684,6 +684,16 @@
   },
 
   {
+    "name": "noncis",
+    "language": "Node.js",
+    "repository": "https://github.com/reidwmulkey/noncis",
+    "description": "Synchronizes nonces across node instances.",
+    "authors": ["reidwmulkey"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
     "name": "node_redis",
     "language": "Node.js",
     "repository": "https://github.com/NodeRedis/node_redis",
