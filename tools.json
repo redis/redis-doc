@@ -127,6 +127,78 @@
     "authors": ["jodosha"]
   },
   {
+    "name": "Redset",
+    "language": "Python",
+    "repository": "https://github.com/percolate/redset",
+    "description": "Simple, generic sorted sets backed by Redis that can be used to coordinate distributed systems.",
+    "authors": ["percolate"]
+  },
+  {
+    "name": "Redsmin",
+    "language": "Web",
+    "repository": "https://github.com/Redsmin/redsmin",
+    "url":"https://redsmin.com/"
+    "description": "A fully featured Redis GUI for managing and monitoring redis.",
+    "authors": ["fgribreau"]
+  },
+  {
+    "name": "Hot-redis",
+    "language": "Python",
+    "repository": "https://github.com/stephenmcd/hot-redis",
+    "description": "Higher Order Types for Redis in Python",
+    "authors": ["stephenmcd"]
+  },
+ 
+  {
+    "name": "Redis Tree",
+    "language": "Javascript",
+    "repository": "https://github.com/FGRibreau/redistree",
+    "description": "Load and save Trees to Redis using sets.",
+    "authors": ["fgribreau"]
+  },
+  {
+    "name": "Redis-NaiveBayes",
+    "language": "Perl",
+    "repository": "https://github.com/caio/Redis-NaiveBayes",
+    "description": "A generic Redis-backed NaiveBayes implementation",
+    "authors": ["caio"]
+  },
+  {
+    "name": "Agentredrabbit",
+    "language": "Python",
+    "repository": "https://github.com/wingify/agentredrabbit",
+    "description": "Transport agent that moves data from Redis to RabbitMQ",
+    "authors": ["wingify"]
+  },
+  {
+    "name": "Redtrine",
+    "language": "PHP",
+    "repository": "https://github.com/redtrine/redtrine",
+    "description": "Redis-based advanced PHP data structures",
+    "authors": ["redtrine"]
+  },
+  {
+    "name": "Redis LUA Unit",
+    "language": "Lua",
+    "repository": "https://github.com/Redsmin/redis-lua-unit",
+    "description": "Framework agnostic unit-testing for Redis Lua scripts",
+    "authors": ["redsmin"]
+  },
+  {
+    "name": "Redis Info",
+    "language": "Javascript",
+    "repository": "https://github.com/FGRibreau/node-redis-info",
+    "description": "Redis info string parser for NodeJS",
+    "authors": ["fgribreau"]
+  },
+  {
+    "name": "Redis tool",
+    "language": "Javascript",
+    "repository": "https://github.com/FGRibreau/redis-tool",
+    "description": "Redis-tool - Little helpers for Redis (ztrim, del-all, rename)",
+    "authors": ["fgribreau"]
+  },
+  {
     "name": "Redmon",
     "language": "Ruby",
     "repository": "https://github.com/steelThread/redmon",
@@ -161,6 +233,13 @@
     "repository": "https://github.com/ryanlecompte/redis_failover",
     "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
     "authors": ["ryanlecompte"]
+  },
+  {
+    "name": "Redis_failover",
+    "language": "Javascript",
+    "repository": "https://github.com/numbcoder/node-redis-failover",
+    "description": "A redis failover solution based on ZooKeeper for Node.js",
+    "authors": ["numbcoder"]
   },
   {
     "name": "Redis-dump",
