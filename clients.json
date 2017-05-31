@@ -1402,6 +1402,15 @@
     "authors": ["EulerianTech"],
     "active": true
   },
+  
+  {
+    "name": "ccredis",
+    "language": "C",
+    "repository": "https://github.com/mjohh/ccredis.git",
+    "description": "support pipeline and cluster,minimalism:less than 1000 lines code,auto-reconnect",
+    "authors": [],
+    "active": true
+  },
 
   {
     "name": "Hierdis",
