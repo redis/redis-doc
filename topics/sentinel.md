@@ -93,14 +93,14 @@ configure Sentinel, however a typical minimal configuration file looks like the
 following:
 
     sentinel monitor mymaster 127.0.0.1 6379 2
-    sentinel down-after-milliseconds mymaster 60000
-    sentinel failover-timeout mymaster 180000
-    sentinel parallel-syncs mymaster 1
+    sentinel set mymaster down-after-milliseconds 60000
+    sentinel set mymaster failover-timeout 180000
+    sentinel set mymaster parallel-syncs 1
 
     sentinel monitor resque 192.168.1.3 6380 4
-    sentinel down-after-milliseconds resque 10000
-    sentinel failover-timeout resque 180000
-    sentinel parallel-syncs resque 5
+    sentinel set resque down-after-milliseconds 10000
+    sentinel set resque failover-timeout 180000
+    sentinel set resque parallel-syncs 5
 
 You only need to specify the masters to monitor, giving to each separated
 master (that may have any number of slaves) a different name. There is no
@@ -141,7 +141,7 @@ Other Sentinel options
 
 The other options are almost always in the form:
 
-    sentinel <option_name> <master_name> <option_value>
+    sentinel set <master_name> <option_name> <option_value>
 
 And are used for the following purposes:
 
