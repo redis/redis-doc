@@ -448,6 +448,14 @@
   },
 
   {
+    "name": "RedisPlugin for Phalcon",
+    "language": "PHP",
+    "repository": "https://github.com/ienaga/RedisPlugin",
+    "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
+    "authors": ["ienaga"]
+  },
+
+  {
     "name": "redis-py",
     "language": "Python",
     "repository": "https://github.com/andymccurdy/redis-py",
