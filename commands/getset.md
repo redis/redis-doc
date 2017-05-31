@@ -1,6 +1,15 @@
 Atomically sets `key` to `value` and returns the old value stored at `key`.
 Returns an error when `key` exists but does not hold a string value.
 
+## Options
+
+Starting with Redis 3.0.0 `GETSET` supports a set of options that modify
+its
+behavior:
+
+* `EX` *seconds* -- Set the specified expire time, in seconds.
+* `PX` *milliseconds* -- Set the specified expire time, in milliseconds.
+
 ## Design pattern
 
 `GETSET` can be used together with `INCR` for counting with atomic reset.
