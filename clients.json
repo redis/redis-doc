@@ -542,6 +542,16 @@
     "recommended": true,
     "active": true
   },
+  
+  {
+    "name": "scala-redis",
+    "language": "Scala",
+    "repository": "https://github.com/alextairbekov/scala-redis",
+    "description": "Fork of debasishg's scala-redis client with SCAN, SSCAN, HSCAN, ZSCAN implemented"
+    "authors": ["alextairbekov"],
+    "recommended": true,
+    "active": true
+  },
 
   {
     "name": "redis-client-scala-netty",
