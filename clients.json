@@ -314,6 +314,16 @@
   },
 
   {
+    "name": "Redis::Fast",
+    "language": "Perl",
+    "url": "https://metacpan.org/pod/Redis::Fast",
+    "repository": "https://github.com/shogo82148/Redis-Fast",
+    "description": "Perl binding for Redis database",
+    "authors": ["shogo82148"],
+    "active": true
+  },
+
+  {
     "name": "RedisDB",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/RedisDB/",
