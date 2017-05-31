@@ -177,6 +177,14 @@
   },
 
   {
+    "name": "redigo",
+    "language": "Go",
+    "repository": "https://github.com/garyburd/redigo",
+    "description": "",
+    "authors": ["gburd"]
+  },
+
+  {
     "name": "hedis",
     "language": "Haskell",
     "url": "http://hackage.haskell.org/package/hedis",
