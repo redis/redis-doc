@@ -297,6 +297,13 @@
     "authors" : ["bradvoth","antirez"]
   },
   {
+    "name": "HOT Redis",
+    "language": "Python/Lua",
+    "repository" : "http://github.com/stephenmcd/hot-redis",
+    "description" : "Implements Python built-in and standard lib types such as lists, sets, multisets and many queue types, all backed by Redis",
+    "authors" : ["stephen_mcd"]
+  },
+  {
     "name": "Redis Desktop Manager",
     "language": "C++",
     "url": "http://redisdesktop.com",
