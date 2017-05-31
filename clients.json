@@ -29,6 +29,14 @@
   },
 
   {
+    "name": "Tiny Redis",
+    "language": "D Programming Language",
+    "repository": "http://adilbaig.github.com/Tiny-Redis/",
+    "description": "Fast, Simple, Unit-Tested Redis driver for D2.",
+    "authors": ["adilbaig"]
+  },
+
+  {
     "name": "Erldis",
     "language": "Erlang",
     "repository": "https://github.com/japerk/erldis",
