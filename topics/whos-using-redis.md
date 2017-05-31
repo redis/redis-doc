@@ -41,4 +41,10 @@ A list of well known companies using Redis:
   </li>
 </ul>
 
+  <li>
+    <a href="http://www.yandss.com/yanfilofyev/2013/08/airbnb-technology-stack/">Airbnb</a>
+  </li>
+</ul>
+
+
 And <strong>many others!</strong>, <a href="http://techstacks.io">techstacks.io</a> maintains a list of <a href="http://techstacks.io/tech/redis">popular sites using Redis</a>, the information may not be always updated since many companies change their tech stack during their lifetime, but is an interesting resource. <i style="color:#999; font-size:12px;">link policy: we only link major sites, we used to also link to small companies and services but this rapidly became impossible to maintain.</i>
