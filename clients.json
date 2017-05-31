@@ -1205,6 +1205,15 @@
   },
 
   {
+    "name": "redis-bash",
+    "language": "Bash",
+    "repository": "https://github.com/caquino/redis-bash",
+    "description": "Pure bash redis client implementation",
+    "authors": ["caquino"],
+    "active": true
+  },
+
+  {
     "name": "amphp/redis",
     "language": "PHP",
     "repository": "https://github.com/amphp/redis",
