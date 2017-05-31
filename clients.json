@@ -314,6 +314,16 @@
   },
 
   {
+    "name": "Redis::Cluster",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/Redis-Cluster/",
+    "repository": "https://github.com/smsonline/redis-cluster-perl",
+    "description": "Redis Cluster client for Perl",
+    "authors": ["smsonline"],
+    "active": true
+  },
+
+  {
     "name": "RedisDB",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/RedisDB/",
