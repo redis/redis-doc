@@ -814,6 +814,16 @@
   },
 
   {
+    "name": "async-redis",
+    "language": "C++",
+    "url": "https://github.com/hamidr/async-redis",
+    "repository": "https://github.com/hamidr/async-redis",
+    "description": "An async redis library for C++ based on libevpp/boost-asio",
+    "authors": ["hamidr"],
+    "active": true
+  },
+
+  {
     "name": "redis-client for C++",
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
