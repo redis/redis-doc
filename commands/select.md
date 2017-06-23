@@ -1,5 +1,5 @@
-Select the DB with having the specified zero-based numeric index.
-New connections always use DB 0.
+Select the Redis logical database having the specified zero-based numeric index.
+New connections always use the database 0.
 
 Redis different selectable databases are a form of namespacing: all the databases are anyway persisted togeter in the same RDB / AOF file. However different DBs can have keys having the same name, and there are commands available like `FLUSHDB`, `SWAPDB` or `RANDOMKEY` that work on specific databases.
 
