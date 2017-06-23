@@ -1,7 +1,7 @@
 Select the Redis logical database having the specified zero-based numeric index.
 New connections always use the database 0.
 
-Redis different selectable databases are a form of namespacing: all the databases are anyway persisted togeter in the same RDB / AOF file. However different DBs can have keys having the same name, and there are commands available like `FLUSHDB`, `SWAPDB` or `RANDOMKEY` that work on specific databases.
+Redis different selectable databases are a form of namespacing: all the databases are anyway persisted together in the same RDB / AOF file. However different databases can have keys having the same name, and there are commands available like `FLUSHDB`, `SWAPDB` or `RANDOMKEY` that work on specific databases.
 
 When using Redis Cluster, the `SELECT` command cannot be used, since Redis Cluster only supports database zero. In the case of Redis Cluster, having multiple databases would be useless, and a worthless source of complexity, because anyway commands operating atomically on a single database would not be possible with the Redis Cluster design and goals.
 
