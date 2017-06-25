@@ -597,5 +597,13 @@
     "repository": "https://github.com/vipshop/redis-migrate-tool",
     "description": "A convenient and useful tool for migrating data between redis groups.",
     "authors": ["diguo58"]
+  },
+  {
+    "name": "facil.io",
+    "language": "C",
+    "url": "http://facil.io/",
+    "repository": "https://github.com/boazsegev/facil.io",
+    "description": "facil.io includes an asynchronous Redis client as well as a RESP parser/formatter that can be used independently. It's MIT licensed and doesn't use hiredis.",
+    "authors": ["boazsegev"]
   }
 ]
