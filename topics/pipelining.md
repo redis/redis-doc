@@ -56,7 +56,28 @@ To be very explicit, with pipelining the order of operations of our very first e
 
 **IMPORTANT NOTE**: While the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send a lot of commands with pipelining, it is better to send them as batches having a reasonable number, for instance 10k commands, read the replies, and then send another 10k commands again, and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for this 10k commands.
 
-Some benchmark
+It's not just a matter of RTT
+---
+
+Pipelining is not just a way in order to reduce the latency cost due to the
+round trip time, it actually improves by a huge amount the total operations
+you can perform per second in a given Redis server. This is the result of the
+fact that, without using pipelining, serving each command is very cheap from
+the point of view of accessing the data structures and producing the reply,
+but it is very costly from the point of view of doing the socket I/O. This
+involes calling the `read()` and `write()` syscall, that means going from user
+land to kernel land. The context switch is a huge speed penalty.
+
+When pipelining is used, many commands are usually read with a single `read()`
+system call, and multiple replies are delivered with a single `write()` system
+call. Because of this, the number of total queries performed per second
+initially increases almost linearly with longer pipelines, and eventually
+reaches 10 times the baseline obtained not using pipelining, as you can
+see from the following graph:
+
+![Pipeline size and IOPs](http://redis.io/images/redisdoc/pipeline_iops.png)
+
+Some real world code example
 ---
 
 In the following benchmark we'll use the Redis Ruby client, supporting pipelining, to test the speed improvement due to pipelining:
