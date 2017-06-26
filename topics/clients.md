@@ -161,4 +161,11 @@ See the [CLIENT LIST](http://redis.io/commands/client-list) documentation for th
 
 Once you have the list of clients, you can easily close the connection with a client using the `CLIENT KILL` command specifying the client address as argument.
 
-The commands `CLIENT SETNAME` and `CLIENT GETNAME` can be used to set and get the connection name.
+The commands `CLIENT SETNAME` and `CLIENT GETNAME` can be used to set and get the connection name. Starting with Redis 4.0, the client name is shown in the
+`SLOWLOG` output, so that it gets simpler to identify clients that are creating
+latency issues.
+
+TCP keepalive
+---
+
+Recent versions of Redis (3.2 or greater) have TCP keepalive (`SO_KEEPALIVE` socket option) enabled by default and set to about 300 seconds. This option is useful in order to detect dead peers (clients that cannot be reached even if they look connected). Moreover, if there is network equipment between clients and servers that need to see some traffic in order to take the connection open, the option will prevent unexpected connection closed events.
