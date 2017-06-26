@@ -1,8 +1,8 @@
 # Redis on ARM
 
 Since the Redis 4.0 version (currently in release candidate state) Redis
-supports the ARM processor, and the Raspberry Pi, as a main
-platform, exactly like it happens for Linux/x86. It means that every new
+supports the ARM processor in general, and the Raspberry Pi specifically, as a
+main platform, exactly like it happens for Linux/x86. It means that every new
 release of Redis is tested on the Pi environment, and that we take
 this documentation page updated with information about supported devices
 and information. While Redis already runs on Android, in the future we look
