@@ -83,7 +83,7 @@ already stored into the key, in the case that the key already exists, even if
 the key is associated with a non-string value. So `SET` performs an assignment.
 
 Values can be strings (including binary data) of every kind, for instance you
-can store a jpeg image inside a key. A value can't be bigger than 512 MB.
+can store a jpeg image inside a value. A value can't be bigger than 512 MB.
 
 The `SET` command has interesting options, that are provided as additional
 arguments. For example, I may ask `SET` to fail if the key already exists,
