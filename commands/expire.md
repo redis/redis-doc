@@ -46,12 +46,14 @@ command altering its value had the effect of removing the key entirely.
 This semantics was needed because of limitations in the replication layer that
 are now fixed.
 
+`EXPIRE` would return 0 and not alter the timeout for a key with a timeout set.
+
 @return
 
 @integer-reply, specifically:
 
 * `1` if the timeout was set.
-* `0` if `key` does not exist or the timeout could not be set.
+* `0` if `key` does not exist.
 
 @examples
 
