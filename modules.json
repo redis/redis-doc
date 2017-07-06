@@ -81,12 +81,12 @@
   },
 
   {
-    "name": "redablooms",
+    "name": "rebloom",
     "license" : "AGPL",
-    "repository": "https://github.com/RedisLabsModules/redablooms",
-    "description": "Scalable, counting Bloom filters",
-    "authors": ["itamarhaber", "RedisLabs"],
-    "stars": 15
+    "repository": "https://github.com/RedisLabsModules/rebloom",
+    "description": "Scalable Bloom filters",
+    "authors": ["mnunberg", "RedisLabs"],
+    "stars": 6
   },
 
   {
