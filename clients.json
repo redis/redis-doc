@@ -490,7 +490,7 @@
     "description": "Async minimal redis client for tornado ioloop designed for performances (use C hiredis parser)",
     "active": true
   },
-  
+
   {
     "name": "brukva",
     "language": "Python",
@@ -1276,7 +1276,7 @@
     "authors": ["esilverberg"],
     "active": true
   },
-  
+
   {
     "name": "Rackdis",
     "language": "Racket",
@@ -1329,7 +1329,7 @@
     "description": "Boost::ASIO low-level redis client",
     "active": true
   },
-  
+
   {
     "name": "mruby-redis",
     "language": "mruby",
@@ -1338,7 +1338,7 @@
     "authors": ["matsumotory"],
     "active": true
   },
-  
+
     {
     "name": "mruby-hiredis",
     "language": "mruby",
@@ -1436,7 +1436,7 @@
     "authors": ["eyjian"],
     "active": true
   },
-  
+
   {
     "name": "rebridge",
     "language": "Node.js",
@@ -1471,7 +1471,7 @@
     "authors": ["etehtsea"],
     "active": true
   },
-  
+
   {
     "name": "oredis",
     "language": "PL/SQL",
