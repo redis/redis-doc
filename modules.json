@@ -96,5 +96,14 @@
     "description": "Online trainable neural networks as Redis data types.",
     "authors": ["antirez"],
     "stars": 1854
+  },
+
+  {
+    "name": "redis-timerseries",
+    "license" : "AGPL",
+    "repository": "https://github.com/danni-m/redis-timeseries",
+    "description": "Time-series data structure for redis",
+    "authors": ["danni-m"],
+    "stars": 48
   }
 ]
