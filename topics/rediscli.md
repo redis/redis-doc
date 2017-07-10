@@ -679,7 +679,7 @@ name is simply `--slave`. This is how it works:
     "SELECT","0"
     "set","foo","bar"
     "PING"
-    "incr","myconuter"
+    "incr","mycounter"
 
 The command begins by discarding the RDB file of the first synchronization
 and then logs each command received as in CSV format.
