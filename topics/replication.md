@@ -271,7 +271,7 @@ slaves and so forth.
 Partial resynchronizations after restarts and failovers
 ---
 
-Since Redis 4.0, when an instance instance is promoted to master after a failover,
+Since Redis 4.0, when an instance is promoted to master after a failover,
 it will be still able to perform a partial resynchronization with the slaves
 of the old master. To do so, the slave remembers the old replication ID and
 offset of its former master, so can provide part of the backlog to the connecting
