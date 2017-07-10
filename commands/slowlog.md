@@ -56,12 +56,21 @@ redis 127.0.0.1:6379> slowlog get 2
       3) "100"
 ```
 
-Every entry is composed of four fields:
+There are also optional fields emitted only by Redis 4.0 or greater:
+
+```
+5) "127.0.0.1:58217"
+6) "worker-123"
+```
+
+Every entry is composed of four (or six starting with Redis 4.0) fields:
 
 * A unique progressive identifier for every slow log entry.
 * The unix timestamp at which the logged command was processed.
 * The amount of time needed for its execution, in microseconds.
 * The array composing the arguments of the command.
+* Client IP address and port (4.0 only).
+* Client name if set via the `CLIENT SETNAME` command (4.0 only).
 
 The entry's unique ID can be used in order to avoid processing slow log entries
 multiple times (for instance you may have a script sending you an email alert

@@ -1,4 +1,4 @@
-This command, that can only be send to a Redis Cluster slave node, forces
+This command, that can only be sent to a Redis Cluster slave node, forces
 the slave to start a manual failover of its master instance.
 
 A manual failover is a special kind of failover that is usually executed when
@@ -9,12 +9,12 @@ without any window for data loss. It works in the following way:
 1. The slave tells the master to stop processing queries from clients.
 2. The master replies to the slave with the current *replication offset*.
 3. The slave waits for the replication offset to match on its side, to make sure it processed all the data from the master before it continues.
-4. The slave starts a failover, obtains a new configuration epoch from the majority of the masters, and broadcast the new configuration.
-5. The old master receives the configuration update: unblocks its clients and start replying with redirection messages so that they'll continue the chat with the new master.
+4. The slave starts a failover, obtains a new configuration epoch from the majority of the masters, and broadcasts the new configuration.
+5. The old master receives the configuration update: unblocks its clients and starts replying with redirection messages so that they'll continue the chat with the new master.
 
 This way clients are moved away from the old master to the new master
-atomically and only when the slave that is turning in the new master
-processed all the replication stream from the old master.
+atomically and only when the slave that is turning into the new master
+has processed all of the replication stream from the old master.
 
 ## FORCE option: manual failover when the master is down
 

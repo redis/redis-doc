@@ -486,9 +486,9 @@ there are no race conditions). This is how `MIGRATE` works:
     MIGRATE target_host target_port key target_database id timeout
 
 `MIGRATE` will connect to the target instance, send a serialized version of
-the key, and once an OK code is received will delete the old key from its own
-dataset. From the point of view of an external client a key exists either
-in A or B at any given time.
+the key, and once an OK code is received, the old key from its own dataset
+will be deleted. From the point of view of an external client a key exists
+either in A or B at any given time.
 
 In Redis Cluster there is no need to specify a database other than 0, but
 `MIGRATE` is a general command that can be used for other tasks not

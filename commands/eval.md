@@ -74,10 +74,10 @@ protocol using a set of conversion rules.
 ## Conversion between Lua and Redis data types
 
 Redis return values are converted into Lua data types when Lua calls a Redis
-command using call() or pcall().
-Similarly Lua data types are converted into the Redis protocol when a Lua script
-returns a value, so that scripts can control what `EVAL` will return to the
-client.
+command using `call()` or `pcall()`.
+Similarly, Lua data types are converted into the Redis protocol when calling
+a Redis command and when a Lua script returns a value, so that scripts can
+control what `EVAL` will return to the client.
 
 This conversion between data types is designed in a way that if a Redis type is
 converted into a Lua type, and then the result is converted back into a Redis
@@ -524,9 +524,9 @@ an error if called when script effects replication is disabled.
 
 The command can be called with four different arguments:
 
-    redis.set_repl(redis.REPL_ALL) -- Replicte to AOF and slaves.
-    redis.set_repl(redis.REPL_AOF) -- Replicte only to AOF.
-    redis.set_repl(redis.REPL_SLAVE) -- Replicte only to slaves.
+    redis.set_repl(redis.REPL_ALL) -- Replicate to AOF and slaves.
+    redis.set_repl(redis.REPL_AOF) -- Replicate only to AOF.
+    redis.set_repl(redis.REPL_SLAVE) -- Replicate only to slaves.
     redis.set_repl(redis.REPL_NONE) -- Don't replicate at all.
 
 By default the scripting engine is always set to `REPL_ALL`. By calling

@@ -305,6 +305,13 @@
     "authors": ["u_glide"]
   },
   {
+    "name": "QRedis",
+    "language": "Python",
+    "repository": "https://github.com/tiagocoutinho/qredis",
+    "description": "Python, Qt based redis GUI",
+    "authors": ["tiagocoutinho"]
+  },
+  {
     "name": "FastoRedis",
     "language": "C++",
     "url": "http://fastoredis.com",
@@ -590,5 +597,19 @@
     "repository": "https://github.com/vipshop/redis-migrate-tool",
     "description": "A convenient and useful tool for migrating data between redis groups.",
     "authors": ["diguo58"]
+  },
+  {
+    "name": "Regis",
+    "language": "Swift",
+    "url": "https://www.harfangapps.com/regis/",
+    "description": "Full-featured Redis client for the Mac, available on the Mac App Store.",
+    "authors": ["harfangapps"]
+  },
+  {
+    "name": "miniredis",
+    "language": "Go",
+    "repository": "https://github.com/alicebob/miniredis",
+    "description": "Pure Go Redis server for Go unittests",
+    "authors": []
   }
 ]

@@ -137,4 +137,5 @@ key is accessed to retrieve the specified hash field.
 
 @return
 
-@array-reply: list of sorted elements.
+@array-reply: without passing the `store` option the command returns a list of sorted elements.
+@integer-reply: when the `store` option is specified the command returns the number of sorted elements in the destination list.
