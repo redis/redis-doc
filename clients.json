@@ -1471,6 +1471,26 @@
     "authors": ["etehtsea"],
     "active": true
   },
+  
+  {
+    "name": "RcppRedis",
+    "language": "R",
+    "url": "https://cran.rstudio.com/web/packages/RcppRedis/index.html",
+    "repository": "https://github.com/eddelbuettel/rcppredis",
+    "description": "R interface to Redis using the hiredis library.",
+    "authors": ["eddelbuettel"],
+    "active": true
+  },
+    
+  {
+    "name": "Redux",
+    "language": "R",
+    "url": "http://richfitz.github.io/redux/",
+    "repository": "https://github.com/richfitz/redux",
+    "description": "Provides a low-level interface to Redis, allowing execution of arbitrary Redis commands with almost no interface.",
+    "authors": ["rgfitzjohn"],
+    "active": true
+  },
 
   {
     "name": "oredis",
