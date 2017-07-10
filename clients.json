@@ -1,5 +1,14 @@
 [
   {
+    "name": "Iedis",
+    "language": "Java",
+    "repository": "https://plugins.jetbrains.com/plugin/9228?pr=idea",
+    "description": "Iedis is a beautiful, easy-to-use Redis management plugin, working with millions keys without blocking the Redis server.",
+    "authors": ["linyang"],
+    "recommended": true,
+    "active": true
+  },
+  {
     "name": "redis-rb",
     "language": "Ruby",
     "repository": "https://github.com/redis/redis-rb",
