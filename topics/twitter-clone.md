@@ -265,7 +265,7 @@ This is the actual code:
         goback("Wrong username or password");
     $realpassword = $r->hget("user:$userid","password");
     if ($realpassword != $password)
-        goback("Wrong useranme or password");
+        goback("Wrong username or password");
 
     # Username / password OK, set the cookie and redirect to index.php
     $authsecret = $r->hget("user:$userid","auth");
