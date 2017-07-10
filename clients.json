@@ -805,12 +805,12 @@
   },
 
   {
-    "name": "redis-client for C++",
+    "name": "acl-redis",
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
     "repository": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
-    "description": "Full Redis client commands, one redis command, one redis function",
-    "authors": [],
+    "description": "Stantard C++ redis client with high performance and stl-like interface, supporting redis cluster with multi-threads-safely",
+    "authors": ["zhengshuxin"],
     "active": true
   },
 
