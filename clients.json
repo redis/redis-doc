@@ -1323,6 +1323,14 @@
   },
 
   {
+    "name": "bredis",
+    "language": "C++",
+    "repository": "https://github.com/basiliscos/cpp-bredis",
+    "description": "Boost::ASIO low-level redis client",
+    "active": true
+  },
+  
+  {
     "name": "mruby-redis",
     "language": "mruby",
     "repository": "https://github.com/matsumoto-r/mruby-redis",
