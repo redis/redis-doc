@@ -47,11 +47,11 @@ configured using the `maxmemory-policy` configuration directive.
 The following policies are available:
 
 * **noeviction**: return errors when the memory limit was reached and the client is trying to execute commands that could result in more memory to be used (most write commands, but `DEL` and a few more exceptions).
-* **allkeys-lru**: evict keys trying to remove the less recently used (LRU) keys first, in order to make space for the new data added.
-* **volatile-lru**: evict keys trying to remove the less recently used (LRU) keys first, but only among keys that have an **expire set**, in order to make space for the new data added.
-* **allkeys-random**: evict random keys in order to make space for the new data added.
-* **volatile-random**: evict random keys in order to make space for the new data added, but only evict keys with an **expire set**.
-* **volatile-ttl**: In order to make space for the new data, evict only keys with an **expire set**, and try to evict keys with a shorter time to live (TTL) first.
+* **allkeys-lru**: evict keys by trying to remove the less recently used (LRU) keys first, in order to make space for the new data added.
+* **volatile-lru**: evict keys by trying to remove the less recently used (LRU) keys first, but only among keys that have an **expire set**, in order to make space for the new data added.
+* **allkeys-random**: evict keys randomly in order to make space for the new data added.
+* **volatile-random**: evict keys randomly in order to make space for the new data added, but only evict keys with an **expire set**.
+* **volatile-ttl**: evict keys with an **expire set**, and try to evict keys with a shorter time to live (TTL) first, in order to make space for the new data added.
 
 The policies **volatile-lru**, **volatile-random** and **volatile-ttl** behave like **noeviction** if there are no keys to evict matching the prerequisites.
 
