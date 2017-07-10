@@ -96,5 +96,24 @@
     "description": "Online trainable neural networks as Redis data types.",
     "authors": ["antirez"],
     "stars": 1854
+  },
+  
+  {
+    "name": "ReDe",
+    "license" : "MIT",
+    "repository": "https://github.com/TamarLabs/ReDe",
+    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+    "authors": ["daTokenizer"],
+    "stars": 6
+  },
+  
+  {
+    "name": "commentDis",
+    "license" : "MIT",
+    "repository": "https://github.com/picotera/commentDis",
+    "description": "Add comment syntax to your redis-cli scripts.",
+    "authors": ["daTokenizer"],
+    "stars": 1
   }
+  
 ]
