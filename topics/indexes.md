@@ -644,7 +644,7 @@ What we do is to start with the left bottom corner of our search box,
 which is 50,100, and find the first range by substituting the last 6 bits
 in each number with 0. Then we do the same with the right top corner.
 
-With two trivial nested for loops where we increment only the significative
+With two trivial nested for loops where we increment only the significant
 bits, we can find all the squares between these two. For each square we
 convert the two numbers into our interleaved representation, and create
 the range using the converted representation as our start, and the same
@@ -687,7 +687,7 @@ Turning this into code is simple. Here is a Ruby example:
 
 While non immediately trivial this is a very useful indexing strategy that
 in the future may be implemented in Redis in a native way.
-For now, the good thing is that the complexity may be easily encapsualted
+For now, the good thing is that the complexity may be easily encapsulated
 inside a library that can be used in order to perform indexing and queries.
 One example of such library is [Redimension](https://github.com/antirez/redimension), a proof of concept Ruby library which indexes N-dimensional data inside Redis using the technique described here.
 

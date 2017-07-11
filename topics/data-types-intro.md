@@ -83,7 +83,7 @@ already stored into the key, in the case that the key already exists, even if
 the key is associated with a non-string value. So `SET` performs an assignment.
 
 Values can be strings (including binary data) of every kind, for instance you
-can store a jpeg image inside a key. A value can't be bigger than 512 MB.
+can store a jpeg image inside a value. A value can't be bigger than 512 MB.
 
 The `SET` command has interesting options, that are provided as additional
 arguments. For example, I may ask `SET` to fail if the key already exists,
@@ -875,7 +875,7 @@ the `+` and `-` strings. See the documentation for more information.
 This feature is important because it allows us to use sorted sets as a generic
 index. For example, if you want to index elements by a 128-bit unsigned
 integer argument, all you need to do is to add elements into a sorted
-set with the same score (for example 0) but with an 8 byte prefix
+set with the same score (for example 0) but with an 16 byte prefix
 consisting of **the 128 bit number in big endian**. Since numbers in big
 endian, when ordered lexicographically (in raw bytes order) are actually
 ordered numerically as well, you can ask for ranges in the 128 bit space,

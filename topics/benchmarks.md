@@ -123,32 +123,18 @@ different options. If you plan to compare Redis to something else, then it is
 important to evaluate the functional and technical differences, and take them
 in account.
 
-+ Redis is a server: all commands involve network or IPC round trips. It is
-meaningless to compare it to embedded data stores such as SQLite, Berkeley DB,
-Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is
-primarily in network/protocol management.
-+ Redis commands return an acknowledgment for all usual commands. Some other
-data stores do not (for instance MongoDB does not implicitly acknowledge write
-operations). Comparing Redis to stores involving one-way queries is only
-mildly useful.
-+ Naively iterating on synchronous Redis commands does not benchmark Redis
-itself, but rather measure your network (or IPC) latency. To really test Redis,
-you need multiple connections (like redis-benchmark) and/or to use pipelining
-to aggregate several commands and/or multiple threads or processes.
-+ Redis is an in-memory data store with some optional persistence options. If
-you plan to compare it to transactional servers (MySQL, PostgreSQL, etc ...),
-then you should consider activating AOF and decide on a suitable fsync policy.
-+ Redis is a single-threaded server. It is not designed to benefit from
-multiple CPU cores. People are supposed to launch several Redis instances to
-scale out on several cores if needed. It is not really fair to compare one
-single Redis instance to a multi-threaded data store.
++ Redis is a server: all commands involve network or IPC round trips. It is meaningless to compare it to embedded data stores such as SQLite, Berkeley DB, Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is primarily in network/protocol management.
++ Redis commands return an acknowledgment for all usual commands. Some other data stores do not. Comparing Redis to stores involving one-way queries is only mildly useful.
++ Naively iterating on synchronous Redis commands does not benchmark Redis itself, but rather measure your network (or IPC) latency and the client library intrinsic latency. To really test Redis, you need multiple connections (like redis-benchmark) and/or to use pipelining to aggregate several commands and/or multiple threads or processes.
++ Redis is an in-memory data store with some optional persistence options. If you plan to compare it to transactional servers (MySQL, PostgreSQL, etc ...), then you should consider activating AOF and decide on a suitable fsync policy.
++ Redis is, mostly, a single-threaded server from the POV of commands execution (actually modern versions of Redis use threads for different things). It is not designed to benefit from multiple CPU cores. People are supposed to launch several Redis instances to scale out on several cores if needed. It is not really fair to compare one single Redis instance to a multi-threaded data store.
 
 A common misconception is that redis-benchmark is designed to make Redis
 performances look stellar, the throughput achieved by redis-benchmark being
 somewhat artificial, and not achievable by a real application. This is
-actually plain wrong.
+actually not true.
 
-The redis-benchmark program is a quick and useful way to get some figures and
+The `redis-benchmark` program is a quick and useful way to get some figures and
 evaluate the performance of a Redis instance on a given hardware. However,
 by default, it does not represent the maximum throughput a Redis instance can
 sustain. Actually, by using pipelining and a fast client (hiredis), it is fairly
@@ -156,12 +142,17 @@ easy to write a program generating more throughput than redis-benchmark. The
 default behavior of redis-benchmark is to achieve throughput by exploiting
 concurrency only (i.e. it creates several connections to the server).
 It does not use pipelining or any parallelism at all (one pending query per
-connection at most, and no multi-threading).
+connection at most, and no multi-threading), if not explicitly enabled via
+the `-P` parameter. So in some way using `redis-benchmark` and, triggering, for
+example, a `BGSAVE` operation in the background at the same time, will provide
+the user with numbers more near to the *worst case* than to the best case.
 
 To run a benchmark using pipelining mode (and achieve higher throughput),
 you need to explicitly use the -P option. Please note that it is still a
 realistic behavior since a lot of Redis based applications actively use
-pipelining to improve performance.
+pipelining to improve performance. However you should use a pipeline size that
+is more or less the average pipeline length you'll be able to use in your
+application in order to get realistic numbers.
 
 Finally, the benchmark should apply the same operations, and work in the same way
 with the multiple data stores you want to compare. It is absolutely pointless to
@@ -279,7 +270,7 @@ Jumbo frames may also provide a performance boost when large objects are used.
 allocators (libc malloc, jemalloc, tcmalloc), which may have different behaviors
 in term of raw speed, internal and external fragmentation.
 If you did not compile Redis yourself, you can use the INFO command to check
-the mem_allocator field. Please note most benchmarks do not run long enough to
+the `mem_allocator` field. Please note most benchmarks do not run long enough to
 generate significant external fragmentation (contrary to production Redis
 instances).
 
@@ -300,7 +291,7 @@ reproducible results, it is better to set the highest possible fixed frequency
 for all the CPU cores involved in the benchmark.
 + An important point is to size the system accordingly to the benchmark.
 The system must have enough RAM and must not swap. On Linux, do not forget
-to set the overcommit_memory parameter correctly. Please note 32 and 64 bit
+to set the `overcommit_memory` parameter correctly. Please note 32 and 64 bit
 Redis instances do not have the same memory footprint.
 + If you plan to use RDB or AOF for your benchmark, please check there is no other
 I/O activity in the system. Avoid putting RDB or AOF files on NAS or NFS shares,
@@ -313,6 +304,8 @@ instance using INFO at regular interval to gather statistics is probably fine,
 but MONITOR will impact the measured performance significantly.
 
 # Benchmark results on different virtualized and bare-metal servers.
+
+WARNING: Note that most of the following benchmarks are a few years old and are obtained using old hardware compared to today's standards. This page should be updated, but in many cases you can expect twice the numbers you are seeing here using state of hard hardware. Moreover Redis 4.0 is faster than 2.6 in many workloads.
 
 * The test was done with 50 simultaneous clients performing 2 million requests.
 * Redis 2.6.14 is used for all the tests.

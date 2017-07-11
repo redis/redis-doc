@@ -81,12 +81,12 @@
   },
 
   {
-    "name": "redablooms",
+    "name": "rebloom",
     "license" : "AGPL",
-    "repository": "https://github.com/RedisLabsModules/redablooms",
-    "description": "Scalable, counting Bloom filters",
-    "authors": ["itamarhaber", "RedisLabs"],
-    "stars": 15
+    "repository": "https://github.com/RedisLabsModules/rebloom",
+    "description": "Scalable Bloom filters",
+    "authors": ["mnunberg", "RedisLabs"],
+    "stars": 6
   },
 
   {
@@ -96,5 +96,33 @@
     "description": "Online trainable neural networks as Redis data types.",
     "authors": ["antirez"],
     "stars": 1854
+  },
+
+  {
+    "name": "redis-timerseries",
+    "license" : "AGPL",
+    "repository": "https://github.com/danni-m/redis-timeseries",
+    "description": "Time-series data structure for redis",
+    "authors": ["danni-m"],
+    "stars": 48
+  },
+
+  {
+    "name": "ReDe",
+    "license" : "MIT",
+    "repository": "https://github.com/TamarLabs/ReDe",
+    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+    "authors": ["daTokenizer"],
+    "stars": 6
+  },
+
+  {
+    "name": "commentDis",
+    "license" : "MIT",
+    "repository": "https://github.com/picotera/commentDis",
+    "description": "Add comment syntax to your redis-cli scripts.",
+    "authors": ["daTokenizer"],
+    "stars": 1
   }
+
 ]

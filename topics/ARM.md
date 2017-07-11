@@ -1,8 +1,8 @@
 # Redis on ARM
 
 Since the Redis 4.0 version (currently in release candidate state) Redis
-supports the ARM processor, and the Raspberry Pi, as a main
-platform, exactly like it happens for Linux/x86. It means that every new
+supports the ARM processor in general, and the Raspberry Pi specifically, as a
+main platform, exactly like it happens for Linux/x86. It means that every new
 release of Redis is tested on the Pi environment, and that we take
 this documentation page updated with information about supported devices
 and information. While Redis already runs on Android, in the future we look
@@ -35,13 +35,13 @@ run as expected.
 There is nothing special in the process. The only difference is that by
 default, Redis uses the libc allocator instead of defaulting to Jemalloc
 as it does in other Linux based environments. This is because we believe
-that for the small use cases inside embeddeed devices, memory fragmentation
+that for the small use cases inside embedded devices, memory fragmentation
 is unlikely to be a problem. Moreover Jemalloc on ARM may not be as tested
 as the libc allocator.
 
 ## Performance
 
-Performance testing of Redis was performend in the Raspberry Pi 3 and in the
+Performance testing of Redis was performed in the Raspberry Pi 3 and in the
 original model B Pi. The difference between the two Pis in terms of
 delivered performance is quite big. The benchmarks were performed via the
 loopback interface, since most use cases will probably use Redis from within
