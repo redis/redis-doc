@@ -155,7 +155,7 @@ use case for storing ephemeral data in writable slaves.
 
 For example computing slow Set or Sorted set operations and storing them into local keys is an use case for writable slaves that was observed multiple times.
 
-However note that **writable slaves before version 4.0 were uncapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. So in general mixing writable slaves (previous version 4.0) and keys with TTL is going to create issues.
+However note that **writable slaves before version 4.0 were incapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. So in general mixing writable slaves (previous version 4.0) and keys with TTL is going to create issues.
 
 Redis 4.0 RC3 and greater versions totally solve this problem and now writable
 slaves are able to evict keys with TTL as masters do, with the exceptions
@@ -231,7 +231,7 @@ able to work:
 2. However because of master-driven expire, sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the slave uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way slaves avoid to report logically expired keys are still existing. In practical terms, an HTML fragments cache that uses slaves to scale will avoid returning items that are already older than the desired time to live.
 3. During Lua scripts executions no keys expires are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys to expire in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
 
-As it is expected, once a slave is turned into a master because of a fail over, it start to expire keys in an independent way without requiring help from its old master.
+Once a slave is promoted to a master it will start to expire keys independently, and will not require any help from its old master.
 
 Configuring replication in Docker and NAT
 ---
@@ -271,7 +271,7 @@ slaves and so forth.
 Partial resynchronizations after restarts and failovers
 ---
 
-Since Redis 4.0, when an instance instance is promoted to master after a failover,
+Since Redis 4.0, when an instance is promoted to master after a failover,
 it will be still able to perform a partial resynchronization with the slaves
 of the old master. To do so, the slave remembers the old replication ID and
 offset of its former master, so can provide part of the backlog to the connecting

@@ -597,5 +597,41 @@
     "repository": "https://github.com/vipshop/redis-migrate-tool",
     "description": "A convenient and useful tool for migrating data between redis groups.",
     "authors": ["diguo58"]
+  },
+  {
+    "name": "facil.io",
+    "language": "C",
+    "url": "http://facil.io/",
+    "repository": "https://github.com/boazsegev/facil.io",
+    "description": "facil.io includes an asynchronous Redis client as well as a RESP parser/formatter that can be used independently. It's MIT licensed and doesn't use hiredis.",
+    "authors": ["bowildmusic"]
+  },
+  {
+    "name": "iodine",
+    "language": "Ruby",
+    "repository": "https://github.com/boazsegev/iodine",
+    "description": "Iodine is an HTTP / Websocket server with native pub/sub support. Iodine includes an integrated Redis client that provides Pub/Sub scaling beyond machine boundaries.",
+    "authors": ["bowildmusic"]
+  },
+  {
+    "name": "Regis",
+    "language": "Swift",
+    "url": "https://www.harfangapps.com/regis/",
+    "description": "Full-featured Redis client for the Mac, available on the Mac App Store.",
+    "authors": ["harfangapps"]
+  },
+  {
+    "name": "miniredis",
+    "language": "Go",
+    "repository": "https://github.com/alicebob/miniredis",
+    "description": "Pure Go Redis server for Go unittests",
+    "authors": []
+  },
+  {
+    "name": "noncis",
+    "language": "Javascript",
+    "repository": "https://github.com/reidwmulkey/noncis",
+    "description": "Synchronizes nonces across node instances.",
+    "authors": []
   }
 ]

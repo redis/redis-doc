@@ -1,14 +1,14 @@
 Tutorial: Design and implementation of a simple Twitter clone using PHP and the Redis key-value store
 ===
 
-This article describes the design and implementation of a [very simple Twitter clone](https://github.com/antirez/retwis) written using PHP with Redis as the only database. The programming community has traditionally considered key-value stores as a special purpose database that couldn't be used as a drop in replacement for a relational database for the development of web applications. This article will try to show that Redis data structures on top of a key-value layer are an effective data model to implement many kinds of applications.
+This article describes the design and implementation of a [very simple Twitter clone](https://github.com/antirez/retwis) written using PHP with Redis as the only database. The programming community has traditionally considered key-value stores as a special purpose database that couldn't be used as a drop-in replacement for a relational database for the development of web applications. This article will try to show that Redis data structures on top of a key-value layer are an effective data model to implement many kinds of applications.
 
-Before to continue, you may want to play a few seconds with [the Retwis online demo](http://retwis.redis.io), to check what we are going to actually
+Before continuing, you may want to spend a few seconds playing with [the Retwis online demo](http://retwis.redis.io), to check what we are going to actually
 model. Long story short: it is a toy, but complex enough to be a foundation
 in order to learn how to create more complex applications.
 
 Note: the original version of this article was written in 2009 when Redis was
-released. It was not exactly clear at the time that the Redis data model was
+released. It was not exactly clear at that time that the Redis data model was
 suitable to write entire applications. Now after 5 years there are many cases of
 applications using Redis as their main store, so the goal of the article today
 is to be a tutorial for Redis newcomers. You'll learn how to design a simple
@@ -16,7 +16,7 @@ data layout using Redis, and how to apply different data structures.
 
 Our Twitter clone, called [Retwis](http://retwis.antirez.com), is structurally simple, has very good performance, and can be distributed among any number of web and Redis servers with little efforts. You can find the source code [here](http://code.google.com/p/redis/downloads/list).
 
-I use PHP for the example since it can be read by everybody. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
+I used PHP for the example since it can be read by everybody. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
 A few clones exist (however not all the clones use the same data layout as the
 current version of this tutorial, so please, stick with the official PHP
 implementation for the sake of following the article better).
@@ -24,9 +24,9 @@ implementation for the sake of following the article better).
 * [Retwis-RB](http://retwisrb.danlucraft.com/) is a port of Retwis to Ruby and Sinatra written by Daniel Lucraft! Full source code is included of course, and a link to its Git repository appears in the footer of this article. The rest of this article targets PHP, but Ruby programmers can also check the Retwis-RB source code since it's conceptually very similar.
 * [Retwis-J](http://retwisj.cloudfoundry.com/) is a port of Retwis to Java, using the Spring Data Framework, written by [Costin Leau](http://twitter.com/costinl). Its source code can be found on [GitHub](https://github.com/SpringSource/spring-data-keyvalue-examples), and there is comprehensive documentation available at [springsource.org](http://j.mp/eo6z6I).
 
-What is a Key-value store?
+What is a key-value store?
 ---
-The essence of a key-value store is the ability to store some data, called a _value_, inside a key. The value can be retrieved later only if we know the specific key it was stored in. There is no direct way to search for a key by value. In a sense, it is like a very large hash/dictionary, but it is persistent, i.e. when your application ends, the data doesn't go away. So, for example, I can use the command `SET` to store the value *bar* in the key *foo*:
+The essence of a key-value store is the ability to store some data, called a _value_, inside a key. The value can be retrieved later only if we know the specific key it was stored in. There is no direct way to search for a key by value. In some sense, it is like a very large hash/dictionary, but it is persistent, i.e. when your application ends, the data doesn't go away. So, for example, I can use the command `SET` to store the value *bar* in the key *foo*:
 
     SET foo bar
 
@@ -44,7 +44,7 @@ Other common operations provided by key-value stores are `DEL`, to delete a give
 Atomic operations
 ---
 
-There is something special about `INCR`. Think about why Redis provides such an operation if we can do it ourselves with a bit of code? After all, it is as simple as:
+There is something special about `INCR`. You may wonder why Redis provides such an operation if we can do it ourselves with a bit of code? After all, it is as simple as:
 
     x = GET foo
     x = x + 1
@@ -92,7 +92,7 @@ Sorted Sets, which are kind of a more capable version of Sets, it is better
 to start introducing Sets first (which are a very useful data structure
 per se), and later Sorted Sets.
 
-There are more data types than just Lists. Redis also supports Sets, which are unsorted collections of elements. It is possible to add, remove, and test for existence of members, and perform the intersection between different Sets. Of course it is possible to get the elements of a set. Some examples will make it more clear. Keep in mind that `SADD` is the _add to set_ operation, `SREM` is the _remove from set_ operation, _sismember_ is the _test if member_ operation, and `SINTER` is the _perform intersection_ operation. Other operations are `SCARD` to get the cardinality (the number of elements) of a Set, and `SMEMBERS` to return all the members of a Set.
+There are more data types than just Lists. Redis also supports Sets, which are unsorted collections of elements. It is possible to add, remove, and test for existence of members, and perform the intersection between different Sets. Of course it is possible to get the elements of a Set. Some examples will make it more clear. Keep in mind that `SADD` is the _add to set_ operation, `SREM` is the _remove from set_ operation, _sismember_ is the _test if member_ operation, and `SINTER` is the _perform intersection_ operation. Other operations are `SCARD` to get the cardinality (the number of elements) of a Set, and `SMEMBERS` to return all the members of a Set.
 
     SADD myset a
     SADD myset b
@@ -108,7 +108,7 @@ Note that `SMEMBERS` does not return the elements in the same order we added the
     SADD mynewset hello
     SINTER myset mynewset => foo,b
 
-`SINTER` can return the intersection between Sets but it is not limited to two sets. You may ask for the intersection of 4,5, or 10000 Sets. Finally let's check how SISMEMBER works:
+`SINTER` can return the intersection between Sets but it is not limited to two Sets. You may ask for the intersection of 4,5, or 10000 Sets. Finally let's check how SISMEMBER works:
 
     SISMEMBER myset foo => 1
     SISMEMBER myset notamember => 0
@@ -118,7 +118,7 @@ The Sorted Set data type
 
 Sorted Sets are similar to Sets: collection of elements. However in Sorted
 Sets each element is associated with a floating point value, called the
-*element score*. Because of the score, elements inside a sorted set are
+*element score*. Because of the score, elements inside a Sorted Set are
 ordered, since we can always compare two elements by score (and if the score
 happens to be the same, we compare the two elements as strings).
 
@@ -171,7 +171,7 @@ Prerequisites
 
 If you haven't downloaded the [Retwis source code](https://github.com/antirez/retwis) already please grab it now. It contains a few PHP files, and also a copy of [Predis](https://github.com/nrk/predis), the PHP client library we use in this example.
 
-Another thing you probably want is a working Redis server. Just get the source, build with make, run with ./redis-server, and you're ready to go. No configuration is required at all in order to play with or run Retwis on your computer.
+Another thing you probably want is a working Redis server. Just get the source, build with `make`, run with `./redis-server`, and you're ready to go. No configuration is required at all in order to play with or run Retwis on your computer.
 
 Data layout
 ---
@@ -186,8 +186,8 @@ Let's start with Users. We need to represent users, of course, with their userna
 *Note: you should use a hashed password in a real application, for simplicity
 we store the password in clear text.*
 
-We use the `next_user_id` key in order to always get an unique ID for every new user. Then we use this unique ID to name the key holding a Hash with user's data. *This is a common design pattern* with key-values stores! Keep it in mind.
-Besides the fields already defined, we need some more stuff in order to fully define a User. For example, sometimes it can be useful to be able to get the user ID from the username, so every time we add an user, we also populate the `users` key, which is a Hash, with the username as field, and its ID as value.
+We use the `next_user_id` key in order to always get a unique ID for every new user. Then we use this unique ID to name the key holding a Hash with user's data. *This is a common design pattern* with key-values stores! Keep it in mind.
+Besides the fields already defined, we need some more stuff in order to fully define a User. For example, sometimes it can be useful to be able to get the user ID from the username, so every time we add a user, we also populate the `users` key, which is a Hash, with the username as field, and its ID as value.
 
     HSET users antirez 1000
 
@@ -220,12 +220,12 @@ Another important thing we need is a place were we can add the updates to displa
 
 This list is basically the User timeline. We'll push the IDs of her/his own
 posts, and, the IDs of all the posts of created by the following users.
-Basically we implement a write fanout.
+Basically, we'll implement a write fanout.
 
 Authentication
 ---
 
-OK, we have more or less everything about the user except for authentication. We'll handle authentication in a simple but robust way: we don't want to use PHP sessions, our system must be ready to be distributed among different web servers easily, so we'll keep the whole state in our Redis database. All we need is a random **unguessable** string to set as the cookie of an authenticated user, and a key that will contain the user ID of the client holding the string.
+OK, we have more or less everything about the user except for authentication. We'll handle authentication in a simple but robust way: we don't want to use PHP sessions, as our system must be ready to be distributed among different web servers easily, so we'll keep the whole state in our Redis database. All we need is a random **unguessable** string to set as the cookie of an authenticated user, and a key that will contain the user ID of the client holding the string.
 
 We need two things in order to make this thing work in a robust way.
 First: the current authentication *secret* (the random unguessable string)
@@ -240,12 +240,12 @@ authentication secrets to user IDs.
 
     HSET auths fea5e81ac8ca77622bed1c2132a021f9 1000
 
-In order to authenticate a user we'll do these simple steps ( see the `login.php` file in the Retwis source code):
+In order to authenticate a user we'll do these simple steps (see the `login.php` file in the Retwis source code):
 
- * Get the username and password via the login form
+ * Get the username and password via the login form.
  * Check if the `username` field actually exists in the `users` Hash.
- * If it exists we have the user id, (i.e. 1000)
- * Check if user:1000 password matches, if not, return an error message
+ * If it exists we have the user id, (i.e. 1000).
+ * Check if user:1000 password matches, if not, return an error message.
  * Ok authenticated! Set "fea5e81ac8ca77622bed1c2132a021f9" (the value of user:1000 `auth` field) as the "auth" cookie.
 
 This is the actual code:
@@ -265,7 +265,7 @@ This is the actual code:
         goback("Wrong username or password");
     $realpassword = $r->hget("user:$userid","password");
     if ($realpassword != $password)
-        goback("Wrong useranme or password");
+        goback("Wrong username or password");
 
     # Username / password OK, set the cookie and redirect to index.php
     $authsecret = $r->hget("user:$userid","auth");
@@ -274,7 +274,7 @@ This is the actual code:
 
 This happens every time a user logs in, but we also need a function `isLoggedIn` in order to check if a given user is already authenticated or not. These are the logical steps preformed by the `isLoggedIn` function:
 
- * Get the "auth" cookie from the user. If there is no cookie, the user is not logged in, of course. Let's call the value of the cookie `<authcookie>`
+ * Get the "auth" cookie from the user. If there is no cookie, the user is not logged in, of course. Let's call the value of the cookie `<authcookie>`.
  * Check if `<authcookie>` field in the `auths` Hash exists, and what the value (the user ID) is (1000 in the example).
  * In order for the system to be more robust, also verify that user:1000 auth field also matches.
  * OK the user is authenticated, and we loaded a bit of information in the $User global variable.
@@ -307,9 +307,9 @@ The code is simpler than the description, possibly:
         return true;
     }
 
-Having `loadUserInfo` as a separate function is overkill for our application, but it's a good approach in a complex application. The only thing that's missing from all the authentication is the logout. What do we do on logout? That's simple, we'll just change the random string in user:1000 `auth` field, remove the old authentication secret from the `auths` Hash., and add the new one.
+Having `loadUserInfo` as a separate function is overkill for our application, but it's a good approach in a complex application. The only thing that's missing from all the authentication is the logout. What do we do on logout? That's simple, we'll just change the random string in user:1000 `auth` field, remove the old authentication secret from the `auths` Hash, and add the new one.
 
-*Important:* the logout procedure explains why we don't just authenticate the user after looking up the authentication secret in the `auths` Hash, but double check it against user:1000 `auth` field. The true authentication string is the latter, while the `auths` Hash is just an authentication field that may even be volatile, or, if there are bugs in the program or a script gets interrupted, we may even end with multiple entries in the `auths` key pointing to the same user ID. The logout code is the following (logout.php):
+*Important:* the logout procedure explains why we don't just authenticate the user after looking up the authentication secret in the `auths` Hash, but double check it against user:1000 `auth` field. The true authentication string is the latter, while the `auths` Hash is just an authentication field that may even be volatile, or, if there are bugs in the program or a script gets interrupted, we may even end with multiple entries in the `auths` key pointing to the same user ID. The logout code is the following (`logout.php`):
 
     include("retwis.php");
 
@@ -339,7 +339,7 @@ Updates, also known as posts, are even simpler. In order to create a new post in
     INCR next_post_id => 10343
     HMSET post:10343 user_id $owner_id time $time body "I'm having fun with Retwis"
 
-As you can see each post is just represented by a Hash with three fields. The ID of the user owning the post, the time at which the post was published, and finally the body of the post, which is, the actual status message.
+As you can see each post is just represented by a Hash with three fields. The ID of the user owning the post, the time at which the post was published, and finally, the body of the post, which is, the actual status message.
 
 After we create a post and we obtain the post ID, we need to LPUSH the ID in the timeline of every user that is following the author of the post, and of course in the list of posts of the author itself (everybody is virtually following herself/himself). This is the file `post.php` that shows how this is performed:
 
@@ -371,7 +371,7 @@ The core of the function is the `foreach` loop. We use `ZRANGE` to get all the f
 
 Note that we also maintain a global timeline for all the posts, so that in the Retwis home page we can show everybody's updates easily. This requires just doing an `LPUSH` to the `timeline` List. Let's face it, aren't you starting to think it was a bit strange to have to sort things added in chronological order using `ORDER BY` with SQL? I think so.
 
-There is an interesting thing to notice in the code above: we use a new
+There is an interesting thing to notice in the code above: we used a new
 command called `LTRIM` after we perform the `LPUSH` operation in the global
 timeline. This is used in order to trim the list to just 1000 elements. The
 global timeline is actually only used in order to show a few posts in the
@@ -426,14 +426,14 @@ It is not hard, but we did not yet check how we create following / follower rela
         ZADD following:1000 5000
         ZADD followers:5000 1000
 
-Note the same pattern again and again. In theory with a relational database the list of following and followers would be contained in a single table with fields like `following_id` and `follower_id`. You can extract the followers or following of every user using an SQL query. With a key-value DB things are a bit different since we need to set both the `1000 is following 5000` and `5000 is followed by 1000` relations. This is the price to pay, but on the other hand accessing the data is simpler and extremely fast. Having these things as separate sets allows us to do interesting stuff. For example, using `ZINTERSTORE` we can have the intersection of 'following' of two different users, so we may add a feature to our Twitter clone so that it is able to tell you very quickly when you visit somebody else's profile, "you and Alice have 34 followers in common", and things like that.
+Note the same pattern again and again. In theory with a relational database, the list of following and followers would be contained in a single table with fields like `following_id` and `follower_id`. You can extract the followers or following of every user using an SQL query. With a key-value DB things are a bit different since we need to set both the `1000 is following 5000` and `5000 is followed by 1000` relations. This is the price to pay, but on the other hand accessing the data is simpler and extremely fast. Having these things as separate sets allows us to do interesting stuff. For example, using `ZINTERSTORE` we can have the intersection of 'following' of two different users, so we may add a feature to our Twitter clone so that it is able to tell you very quickly when you visit somebody else's profile, "you and Alice have 34 followers in common", and things like that.
 
 You can find the code that sets or removes a following / follower relation in the `follow.php` file.
 
 Making it horizontally scalable
 ---
 
-Gentle reader, if you reached this point you are already a hero. Thank you. Before talking about scaling horizontally it is worth checking performance on a single server. Retwis is *extremely fast*, without any kind of cache. On a very slow and loaded server, an Apache benchmark with 100 parallel clients issuing 100000 requests measured the average pageview to take 5 milliseconds. This means you can serve millions of users every day with just a single Linux box, and this one was monkey ass slow... Imagine the results with more recent hardware.
+Gentle reader, if you read till this point you are already a hero. Thank you. Before talking about scaling horizontally it is worth checking performance on a single server. Retwis is *extremely fast*, without any kind of cache. On a very slow and loaded server, an Apache benchmark with 100 parallel clients issuing 100000 requests measured the average pageview to take 5 milliseconds. This means you can serve millions of users every day with just a single Linux box, and this one was monkey ass slow... Imagine the results with more recent hardware.
 
 However you can't go with a single server forever, how do you scale a key-value
 store?
@@ -443,7 +443,7 @@ simple: you may use client-side sharding, or something like a sharding proxy
 like Twemproxy, or the upcoming Redis Cluster.
 
 To know more about those topics please read
-[our documentation about sharding](/topics/partitioning). However here the point
+[our documentation about sharding](/topics/partitioning). However, the point here
 to stress is that in a key-value store, if you design with care, the data set
 is split among **many independent small keys**. To distribute those keys
 to multiple nodes is more straightforward and predictable compared to using

@@ -99,7 +99,7 @@ Command flags is @array-reply containing one or more status replies:
 
 Some Redis commands have no predetermined key locations.  For those commands,
 flag `movablekeys` is added to the command flags @array-reply.  Your Redis
-Cluster client needs to parse commands marked `movabkeleys` to locate all relevant key positions.
+Cluster client needs to parse commands marked `movablekeys` to locate all relevant key positions.
 
 Complete list of commands currently requiring key location parsing:
 
