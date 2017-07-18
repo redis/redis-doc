@@ -468,6 +468,15 @@
   },
 
   {
+    "name": "gxredis",
+    "language": "Python",
+    "repository": "https://github.com/groove-x/gxredis",
+    "description": "Simple redis-py wrapper library",
+    "authors": ["loose_agilist"],
+    "active": true
+  },
+
+  {
     "name": "txredis",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/txredis",
@@ -823,7 +832,7 @@
     "authors": ["hamidr_"],
     "active": true
   },
-  
+
   {
     "name": "acl-redis",
     "language": "C++",
@@ -1499,7 +1508,7 @@
     "authors": ["etehtsea"],
     "active": true
   },
-  
+
   {
     "name": "RcppRedis",
     "language": "R",
@@ -1509,7 +1518,7 @@
     "authors": ["eddelbuettel"],
     "active": true
   },
-    
+
   {
     "name": "Redux",
     "language": "R",
