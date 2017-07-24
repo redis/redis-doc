@@ -19,7 +19,7 @@ Events are delivered using the normal Pub/Sub layer of Redis, so clients
 implementing Pub/Sub are able to use this feature without modifications.
 
 Because Redis Pub/Sub is *fire and forget* currently there is no way to use this
-feature if you application demands **reliable notification** of events, that is,
+feature if your application demands **reliable notification** of events, that is,
 if your Pub/Sub client disconnects, and reconnects later, all the events
 delivered during the time the client was disconnected are lost.
 
