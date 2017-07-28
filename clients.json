@@ -1545,5 +1545,14 @@
     "description": "An efficient and user-friendly async redis client ported from redis-py.",
     "authors": [],
     "active": true
+  },
+
+  {
+    "name": "redisio",
+    "language": "Python",
+    "repository": "https://github.com/cf020031308/redisio",
+    "description": "A tiny and fast redis client for script boys.",
+    "authors": ["Roy"],
+    "active": true
   }
 ]
