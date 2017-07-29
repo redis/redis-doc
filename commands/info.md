@@ -47,44 +47,73 @@ Here is the meaning of all fields in the **server** section:
 *   `redis_version`: Version of the Redis server
 *   `redis_git_sha1`:  Git SHA1
 *   `redis_git_dirty`: Git dirty flag
+*   `redis_build_id`: The build id
+*   `redis_mode`: The server's mode ("standalone", "sentinel" or "cluster")
 *   `os`: Operating system hosting the Redis server
 *   `arch_bits`: Architecture (32 or 64 bits)
-*   `multiplexing_api`: event loop mechanism used by Redis
+*   `multiplexing_api`: Event loop mechanism used by Redis
+*   `atomicvar_api`: Atomicvar API used by Redis
 *   `gcc_version`: Version of the GCC compiler used to compile the Redis server
 *   `process_id`: PID of the server process
-*   `run_id`: Random value identifying the Redis server (to be used by Sentinel and Cluster)
+*   `run_id`: Random value identifying the Redis server (to be used by Sentinel
+     and Cluster)
 *   `tcp_port`: TCP/IP listen port
 *   `uptime_in_seconds`: Number of seconds since Redis server start
 *   `uptime_in_days`: Same value expressed in days
+*   `hz`: The server's frequency setting
 *   `lru_clock`: Clock incrementing every minute, for LRU management
+*   `executable`: The path to the server's executable
+*   `config_file`: The path to the config file
 
 Here is the meaning of all fields in the **clients** section:
 
-*   `connected_clients`: Number of client connections (excluding connections from slaves)
-*   `client_longest_output_list`: longest output list among current client connections
-*   `client_biggest_input_buf`: biggest input buffer among current client connections
-*   `blocked_clients`: Number of clients pending on a blocking call (BLPOP, BRPOP, BRPOPLPUSH)
+*   `connected_clients`: Number of client connections (excluding connections
+     from slaves)
+*   `client_longest_output_list`: longest output list among current client
+     connections
+*   `client_biggest_input_buf`: biggest input buffer among current client
+     connections
+*   `blocked_clients`: Number of clients pending on a blocking call (BLPOP, 
+     BRPOP, BRPOPLPUSH)
 
 Here is the meaning of all fields in the **memory** section:
 
-*   `used_memory`:  total number of bytes allocated by Redis using its
-     allocator (either standard **libc**, **jemalloc**, or an alternative allocator such
-     as [**tcmalloc**][hcgcpgp]
+*   `used_memory`: Total number of bytes allocated by Redis using its
+     allocator (either standard **libc**, **jemalloc**, or an alternative
+     allocator such as [**tcmalloc**][hcgcpgp])
 *   `used_memory_human`: Human readable representation of previous value
 *   `used_memory_rss`: Number of bytes that Redis allocated as seen by the
-     operating system (a.k.a resident set size). This is the number reported by tools
-     such as `top(1)` and `ps(1)`
+     operating system (a.k.a resident set size). This is the number reported by
+     tools such as `top(1)` and `ps(1)`
+*   `used_memory_rss_human`: Human readable representation of previous value
 *   `used_memory_peak`: Peak memory consumed by Redis (in bytes)
 *   `used_memory_peak_human`: Human readable representation of previous value
+*   `used_memory_peak_perc`: TBD
+*   `used_memory_overhead`: TBD
+*   `used_memory_startup`: TBD
+*   `used_memory_dataset`: TBD
+*   `used_memory_dataset_perc`: TBD
+*   `total_system_memory`: TBD
+*   `total_system_memory_human`: Human readable representation of previous value
 *   `used_memory_lua`: Number of bytes used by the Lua engine
+*   `used_memory_lua_human`: Human readable representation of previous value
+*   `used_memory_lua:`: TBD
+*   `used_memory_lua_human`: Human readable representation of previous value
+*   `maxmemory`: TBD
+*   `maxmemory_human`: Human readable representation of previous value
+*   `maxmemory_policy`: TBD
 *   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`
 *   `mem_allocator`: Memory allocator, chosen at compile time
+*   `active_defrag_running`: TBD
+*   `lazyfree_pending_objects`: TBD
 
-Ideally, the `used_memory_rss` value should be only slightly higher than `used_memory`.
+Ideally, the `used_memory_rss` value should be only slightly higher than
+`used_memory`.
 When rss >> used, a large difference means there is memory fragmentation
-(internal or external), which can be evaluated by checking `mem_fragmentation_ratio`.
-When used >> rss, it means part of Redis memory has been swapped off by the operating
-system: expect some significant latencies.
+(internal or external), which can be evaluated by checking
+`mem_fragmentation_ratio`.
+When used >> rss, it means part of Redis memory has been swapped off by the
+operating system: expect some significant latencies.
 
 Because Redis does not have control over how its allocations are mapped to
 memory pages, high `used_memory_rss` is often the result of a spike in memory
@@ -94,8 +123,8 @@ When Redis frees memory, the memory is given back to the allocator, and the
 allocator may or may not give the memory back to the system. There may be
 a discrepancy between the `used_memory` value and memory consumption as
 reported by the operating system. It may be due to the fact memory has been
-used and released by Redis, but not given back to the system. The `used_memory_peak`
-value is generally useful to check this point.
+used and released by Redis, but not given back to the system. The 
+`used_memory_peak` value is generally useful to check this point.
 
 Here is the meaning of all fields in the **persistence** section:
 
@@ -104,15 +133,23 @@ Here is the meaning of all fields in the **persistence** section:
 *   `rdb_bgsave_in_progress`: Flag indicating a RDB save is on-going
 *   `rdb_last_save_time`: Epoch-based timestamp of last successful RDB save
 *   `rdb_last_bgsave_status`: Status of the last RDB save operation
-*   `rdb_last_bgsave_time_sec`: Duration of the last RDB save operation in seconds
-*   `rdb_current_bgsave_time_sec`: Duration of the on-going RDB save operation if any
+*   `rdb_last_bgsave_time_sec`: Duration of the last RDB save operation in
+     seconds
+*   `rdb_current_bgsave_time_sec`: Duration of the on-going RDB save operation
+     if any
+*   `rdb_last_cow_size`: TBD
 *   `aof_enabled`: Flag indicating AOF logging is activated
-*   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is on-going
+*   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is
+     on-going
 *   `aof_rewrite_scheduled`: Flag indicating an AOF rewrite operation
      will be scheduled once the on-going RDB save is complete.
-*   `aof_last_rewrite_time_sec`: Duration of the last AOF rewrite operation in seconds
-*   `aof_current_rewrite_time_sec`: Duration of the on-going AOF rewrite operation if any
+*   `aof_last_rewrite_time_sec`: Duration of the last AOF rewrite operation in
+     seconds
+*   `aof_current_rewrite_time_sec`: Duration of the on-going AOF rewrite
+     operation if any
 *   `aof_last_bgrewrite_status`: Status of the last AOF rewrite operation
+*   `aof_last_write_status`: TBD
+*   `aof_last_cow_size`: TBD
 
 `changes_since_last_save` refers to the number of operations that produced
 some kind of changes in the dataset since the last time either `SAVE` or
@@ -126,12 +163,14 @@ If AOF is activated, these additional fields will be added:
      will be scheduled once the on-going RDB save is complete.
 *   `aof_buffer_length`: Size of the AOF buffer
 *   `aof_rewrite_buffer_length`: Size of the AOF rewrite buffer
-*   `aof_pending_bio_fsync`: Number of fsync pending jobs in background I/O queue
+*   `aof_pending_bio_fsync`: Number of fsync pending jobs in background I/O
+     queue
 *   `aof_delayed_fsync`: Delayed fsync counter
 
 If a load operation is on-going, these additional fields will be added:
 
-*   `loading_start_time`: Epoch-based timestamp of the start of the load operation
+*   `loading_start_time`: Epoch-based timestamp of the start of the load
+     operation
 *   `loading_total_bytes`: Total file size
 *   `loading_loaded_bytes`: Number of bytes already loaded
 *   `loading_loaded_perc`: Same value expressed as a percentage
@@ -139,35 +178,66 @@ If a load operation is on-going, these additional fields will be added:
 
 Here is the meaning of all fields in the **stats** section:
 
-*   `total_connections_received`: Total number of connections accepted by the server
+*   `total_connections_received`: Total number of connections accepted by the
+     server
 *   `total_commands_processed`: Total number of commands processed by the server
 *   `instantaneous_ops_per_sec`: Number of commands processed per second
-*   `rejected_connections`: Number of connections rejected because of `maxclients` limit
+*   `total_net_input_bytes`: TBD
+*   `total_net_output_bytes`: TBD
+*   `instantaneous_input_kbps`: TBD
+*   `instantaneous_output_kbps`: TBD
+*   `rejected_connections`: Number of connections rejected because of
+     `maxclients` limit
+*   `sync_full`: TBD
+*   `sync_partial_ok`: TBD
+*   `sync_partial_err`: TBD
 *   `expired_keys`: Total number of key expiration events
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
 *   `keyspace_misses`: Number of failed lookup of keys in the main dictionary
-*   `pubsub_channels`: Global number of pub/sub channels with client subscriptions
-*   `pubsub_patterns`: Global number of pub/sub pattern with client subscriptions
+*   `pubsub_channels`: Global number of pub/sub channels with client
+     subscriptions
+*   `pubsub_patterns`: Global number of pub/sub pattern with client
+     subscriptions
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
+*   `migrate_cached_sockets`: TBD
+*   `slave_expires_tracked_keys`: TBD
+*   `active_defrag_hits`: TBD
+*   `active_defrag_misses`: TBD
+*   `active_defrag_key_hits`: TBD
+*   `active_defrag_key_misses`: TBD
 
 Here is the meaning of all fields in the **replication** section:
 
-*   `role`: Value is "master" if the instance is slave of no one, or "slave" if the instance is enslaved to a master.
-    Note that a slave can be master of another slave (daisy chaining).
+*   `role`: Value is "master" if the instance is slave of no one, or "slave" if
+     the instance is enslaved to master.
+     Note that a slave can be master of another slave (daisy chaining).
+*   `master_replid`: TBD
+*   `master_replid2`: TBD
+*   `master_repl_offset`: TBD
+*   `second_repl_offset`: TBD
+*   `repl_backlog_active`: TBD
+*   `repl_backlog_size`: Size in bytes of the replication backlog
+*   `repl_backlog_first_byte_offset`: TBD
+*   `repl_backlog_histlen`: TBD
 
 If the instance is a slave, these additional fields are provided:
 
 *   `master_host`: Host or IP address of the master
 *   `master_port`: Master listening TCP port
 *   `master_link_status`: Status of the link (up/down)
-*   `master_last_io_seconds_ago`: Number of seconds since the last interaction with master
+*   `master_last_io_seconds_ago`: Number of seconds since the last interaction
+     with master
 *   `master_sync_in_progress`: Indicate the master is syncing to the slave
+*   `slave_repl_offset`: TBD
+*   `slave_priority`: TBD
+*   `slave_read_only`: TBD
 
 If a SYNC operation is on-going, these additional fields are provided:
 
 *   `master_sync_left_bytes`: Number of bytes left before syncing is complete
-*   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O during a SYNC operation
+*   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O
+     during a SYNC operation
 
 If the link between master and slave is down, an additional field is provided:
 
@@ -177,9 +247,14 @@ The following field is always provided:
 
 *   `connected_slaves`: Number of connected slaves
 
+If the server is configured with the `min-slaves-to-write` directive, an
+additional field is provided:
+
+*   `min_slaves_good_slaves`: Number of slaves currently considered good 
+
 For each slave, the following line is added:
 
-*   `slaveXXX`: id, IP address, port, state
+*   `slaveXXX`: id, IP address, port, state, offset, lag
 
 Here is the meaning of all fields in the **cpu** section:
 
@@ -200,7 +275,8 @@ The **cluster** section currently only contains a unique field:
 
 *   `cluster_enabled`: Indicate Redis cluster is enabled
 
-The **keyspace** section provides statistics on the main dictionary of each database.
+The **keyspace** section provides statistics on the main dictionary of each
+database.
 The statistics are the number of keys, and the number of keys with an expiration.
 
 For each database, the following line is added:
