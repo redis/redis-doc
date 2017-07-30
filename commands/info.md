@@ -88,24 +88,30 @@ Here is the meaning of all fields in the **memory** section:
 *   `used_memory_rss_human`: Human readable representation of previous value
 *   `used_memory_peak`: Peak memory consumed by Redis (in bytes)
 *   `used_memory_peak_human`: Human readable representation of previous value
-*   `used_memory_peak_perc`: TBD
-*   `used_memory_overhead`: TBD
-*   `used_memory_startup`: TBD
-*   `used_memory_dataset`: TBD
-*   `used_memory_dataset_perc`: TBD
-*   `total_system_memory`: TBD
+*   `used_memory_peak_perc`: The percentage of `used_memory_peak` out of
+     `used_memory`
+*   `used_memory_overhead`: The sum in bytes of all overheads that the server
+     allocated for managing its internal data structures
+*   `used_memory_startup`: Initial amount of memory consumed by Redis at startup
+     in bytes
+*   `used_memory_dataset`: The size in bytes of the dataset
+     (`used_memory_overhead` subtracted from `used_memory`)
+*   `used_memory_dataset_perc`: The percentage of `used_memory_dataset` out of
+     the net memory usage (`used_memory` minus `used_memory_startup`)
+*   `total_system_memory`: The total amount of memory that the Redis host has
 *   `total_system_memory_human`: Human readable representation of previous value
 *   `used_memory_lua`: Number of bytes used by the Lua engine
 *   `used_memory_lua_human`: Human readable representation of previous value
-*   `used_memory_lua:`: TBD
-*   `used_memory_lua_human`: Human readable representation of previous value
-*   `maxmemory`: TBD
+*   `maxmemory`: The value of the `maxmemory` configuration directive
 *   `maxmemory_human`: Human readable representation of previous value
-*   `maxmemory_policy`: TBD
+*   `maxmemory_policy`: The value of the `maxmemory-policy` configuration
+     directive
 *   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`
 *   `mem_allocator`: Memory allocator, chosen at compile time
-*   `active_defrag_running`: TBD
-*   `lazyfree_pending_objects`: TBD
+*   `active_defrag_running`: Flag indicating if active defragmentation is active
+*   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
+     result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
+     option)
 
 Ideally, the `used_memory_rss` value should be only slightly higher than
 `used_memory`.
@@ -126,6 +132,9 @@ reported by the operating system. It may be due to the fact memory has been
 used and released by Redis, but not given back to the system. The 
 `used_memory_peak` value is generally useful to check this point.
 
+Additional introspective information about the server's memory can be obtained
+by referring to the `MEMORY STATS` command and the `MEMORY DOCTOR`.
+
 Here is the meaning of all fields in the **persistence** section:
 
 *   `loading`: Flag indicating if the load of a dump file is on-going
@@ -137,7 +146,8 @@ Here is the meaning of all fields in the **persistence** section:
      seconds
 *   `rdb_current_bgsave_time_sec`: Duration of the on-going RDB save operation
      if any
-*   `rdb_last_cow_size`: TBD
+*   `rdb_last_cow_size`: The size in bytes of copy-on-write allocations during
+     the last RBD save operation
 *   `aof_enabled`: Flag indicating AOF logging is activated
 *   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is
      on-going
@@ -148,8 +158,9 @@ Here is the meaning of all fields in the **persistence** section:
 *   `aof_current_rewrite_time_sec`: Duration of the on-going AOF rewrite
      operation if any
 *   `aof_last_bgrewrite_status`: Status of the last AOF rewrite operation
-*   `aof_last_write_status`: TBD
-*   `aof_last_cow_size`: TBD
+*   `aof_last_write_status`: Status of the last write operation to the AOF
+*   `aof_last_cow_size`: The size in bytes of copy-on-write allocations during
+     the last AOF rewrite operation
 
 `changes_since_last_save` refers to the number of operations that produced
 some kind of changes in the dataset since the last time either `SAVE` or
@@ -182,15 +193,15 @@ Here is the meaning of all fields in the **stats** section:
      server
 *   `total_commands_processed`: Total number of commands processed by the server
 *   `instantaneous_ops_per_sec`: Number of commands processed per second
-*   `total_net_input_bytes`: TBD
-*   `total_net_output_bytes`: TBD
-*   `instantaneous_input_kbps`: TBD
-*   `instantaneous_output_kbps`: TBD
+*   `total_net_input_bytes`: The total number of bytes read from the network
+*   `total_net_output_bytes`: The total number of bytes written to the network
+*   `instantaneous_input_kbps`: The network's read rate per second in KB/sec
+*   `instantaneous_output_kbps`: The network's write rate per second in KB/sec
 *   `rejected_connections`: Number of connections rejected because of
      `maxclients` limit
-*   `sync_full`: TBD
-*   `sync_partial_ok`: TBD
-*   `sync_partial_err`: TBD
+*   `sync_full`: The number of full resyncs with slaves
+*   `sync_partial_ok`: The number of accpepted partial resync requests
+*   `sync_partial_err`: The number of denied partial resync requests
 *   `expired_keys`: Total number of key expiration events
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
@@ -200,26 +211,33 @@ Here is the meaning of all fields in the **stats** section:
 *   `pubsub_patterns`: Global number of pub/sub pattern with client
      subscriptions
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
-*   `migrate_cached_sockets`: TBD
-*   `slave_expires_tracked_keys`: TBD
-*   `active_defrag_hits`: TBD
-*   `active_defrag_misses`: TBD
-*   `active_defrag_key_hits`: TBD
-*   `active_defrag_key_misses`: TBD
+*   `migrate_cached_sockets`: The number of sockets open for `MIGRATE` purposes
+*   `slave_expires_tracked_keys`: The number of keys tracked for expiry purposes
+     (applicable only to writable slaves)
+*   `active_defrag_hits`: Number of value reallocations performed by active the
+     defragmentation process
+*   `active_defrag_misses`: Number of aborted value reallocations started by the
+     active defragmentation process
+*   `active_defrag_key_hits`: Number of keys that were actively defragmented
+*   `active_defrag_key_misses`: Number of keys that were skipped by the active
+     defragmentation process
 
 Here is the meaning of all fields in the **replication** section:
 
 *   `role`: Value is "master" if the instance is slave of no one, or "slave" if
      the instance is enslaved to master.
      Note that a slave can be master of another slave (daisy chaining).
-*   `master_replid`: TBD
-*   `master_replid2`: TBD
-*   `master_repl_offset`: TBD
-*   `second_repl_offset`: TBD
-*   `repl_backlog_active`: TBD
-*   `repl_backlog_size`: Size in bytes of the replication backlog
-*   `repl_backlog_first_byte_offset`: TBD
-*   `repl_backlog_histlen`: TBD
+*   `master_replid`: The replication ID of the Redis server, if it is a master
+*   `master_replid2`: The repliation ID of the Redis server's master, if it is
+     enslaved
+*   `master_repl_offset`: The server's current replication offset
+*   `second_repl_offset`: The offset up to which replication IDs are accepted
+*   `repl_backlog_active`: Flag indicating replication backlog is active
+*   `repl_backlog_size`: Total size in bytes of the replication backlog buffer
+*   `repl_backlog_first_byte_offset`: The master offset of the replication
+     backlog buffer
+*   `repl_backlog_histlen`: Size in bytes of the data in the replication backlog
+     buffer
 
 If the instance is a slave, these additional fields are provided:
 
@@ -229,9 +247,9 @@ If the instance is a slave, these additional fields are provided:
 *   `master_last_io_seconds_ago`: Number of seconds since the last interaction
      with master
 *   `master_sync_in_progress`: Indicate the master is syncing to the slave
-*   `slave_repl_offset`: TBD
-*   `slave_priority`: TBD
-*   `slave_read_only`: TBD
+*   `slave_repl_offset`: The replication offset of the slave instance
+*   `slave_priority`: The priority of the instance as a candidate for failover
+*   `slave_read_only`: Flag indicating if the slave is read-only
 
 If a SYNC operation is on-going, these additional fields are provided:
 

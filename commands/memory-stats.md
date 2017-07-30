@@ -9,7 +9,7 @@ values. The following metrics are reported:
 *   `total.allocated`: Total number of bytes allocated by Redis using its
      allocator (see `INFO`'s `used_memory`)
 *   `startup.allocated`: Initial amount of memory consumed by Redis at startup
-     in bytes
+     in bytes (see `INFO`'s `used_memory_startup`)
 *   `replication.backlog`: Size in bytes of the replication backlog (see
      `INFO`'s `repl_backlog_size`)
 *   `clients.slaves`: The total size in bytes of all slaves overheads (output
@@ -25,13 +25,13 @@ values. The following metrics are reported:
 *   `overhead.total`: The sum of all overheads, i.e. `startup.allocated`,
      `replication.backlog`, `clients.slaves`, `clients.normal`, `aof.buffer` and
      those of the internal data structures that are used in managing the
-     Redis keyspace
+     Redis keyspace (see `INFO`'s `used_memory_overhead`)
 *   `keys.count`: The total number of keys stored across all databases in the
      server
 *   `keys.bytes-per-key`: The ratio between **net memory usage** (`total.allocated`
      minus `startup.allocated`) and `keys.count` 
-*   `dataset.bytes`: The size in bytes of the dataset (`overhead.total`
-     subtracted from `total.allocated`)
+*   `dataset.bytes`: The size in bytes of the dataset, i.e. `overhead.total`
+     subtracted from `total.allocated` (see `INFO`'s `used_memory_dataset`)
 *   `dataset.percentage`: The percentage of `dataset.bytes` out of the net
      memory usage
 *   `peak.percentage`: The percentage of `peak.allocated` out of
