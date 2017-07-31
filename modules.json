@@ -196,5 +196,14 @@
       "RedBeardLab"
     ],
     "stars": 613
+  },
+
+  {
+    "name": "redis-rating",
+    "license" : "MIT",
+    "repository": "https://github.com/poga/redis-rating",
+    "description": "Estimate actual rating from postive/negative ratings",
+    "authors": ["devpoga"],
+    "stars": 14
   }
 ]
