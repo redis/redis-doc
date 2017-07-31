@@ -633,5 +633,12 @@
     "repository": "https://github.com/reidwmulkey/noncis",
     "description": "Synchronizes nonces across node instances.",
     "authors": []
+  },
+  {
+    "name": "predixy",
+    "language": "C++",
+    "repository": "https://github.com/joyieldInc/predixy",
+    "description": "A high performance and full features proxy for redis, supports redis sentinel and redis cluster.",
+    "authors": []
   }
 ]
