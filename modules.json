@@ -123,6 +123,15 @@
     "description": "Add comment syntax to your redis-cli scripts.",
     "authors": ["daTokenizer"],
     "stars": 1
+  },
+
+  {
+    "name": "redis-cuckoofilter",
+    "license" : "MIT",
+    "repository": "https://github.com/kristoff-it/redis-cuckoofilter",
+    "description": "Hashing-function agnostic Cuckoo filters.",
+    "authors": ["kristoff-it"],
+    "stars": 37
   }
 
 ]
