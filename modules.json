@@ -5,7 +5,7 @@
     "repository": "https://github.com/aviggiano/redis-roaring",
     "description": "Uses the CRoaring library to implement roaring bitmap commands for Redis.",
     "authors": ["aviggiano"],
-    "stars": 9
+    "stars": 32
   },
 
   {
@@ -14,7 +14,7 @@
     "repository": "https://github.com/brandur/redis-cell",
     "description": "A Redis module that provides rate limiting in Redis as a single command.",
     "authors": ["brandur"],
-    "stars": 164
+    "stars": 196
   },
 
   {
@@ -23,7 +23,7 @@
     "repository": "https://github.com/swilly22/redis-module-graph",
     "description": "A graph database with a Cypher-based querying language",
     "authors": ["swilly22"],
-    "stars": 120
+    "stars": 170
   },
 
   {
@@ -32,7 +32,7 @@
     "repository": "https://github.com/usmanm/redis-tdigest",
     "description": "t-digest data structure wich can be used for accurate online accumulation of rank-based statistics such as quantiles and cumulative distribution at a point.",
     "authors": ["usmanm"],
-    "stars": 29
+    "stars": 36
   },
 
   {
@@ -41,7 +41,7 @@
     "repository": "https://github.com/RedisLabsModules/ReJSON",
     "description": "A JSON data type for Redis",
     "authors": ["itamarhaber", "RedisLabs"],
-    "stars": 271
+    "stars": 366
   },
 
   {
@@ -50,7 +50,7 @@
     "repository": "https://github.com/RedisLabsModules/redis-ml",
     "description": "Machine Learning Model Server",
     "authors": ["shaynativ", "RedisLabs"],
-    "stars": 49
+    "stars": 99
   },
 
   {
@@ -59,7 +59,7 @@
     "repository": "https://github.com/RedisLabsModules/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": ["dvirsky", "RedisLabs"],
-    "stars": 247
+    "stars": 583
   },
 
   {
@@ -68,7 +68,7 @@
     "repository": "https://github.com/RedisLabsModules/topk",
     "description": "An almost deterministic top k elements counter",
     "authors": ["itamarhaber", "RedisLabs"],
-    "stars": 15
+    "stars": 16
   },
 
   {
@@ -77,7 +77,7 @@
     "repository": "https://github.com/RedisLabsModules/countminsketch",
     "description": "An apporximate frequency counter",
     "authors": ["itamarhaber", "RedisLabs"],
-    "stars": 15
+    "stars": 23
   },
 
   {
@@ -86,7 +86,7 @@
     "repository": "https://github.com/RedisLabsModules/rebloom",
     "description": "Scalable Bloom filters",
     "authors": ["mnunberg", "RedisLabs"],
-    "stars": 6
+    "stars": 24
   },
 
   {
@@ -95,7 +95,7 @@
     "repository": "https://github.com/antirez/neural-redis",
     "description": "Online trainable neural networks as Redis data types.",
     "authors": ["antirez"],
-    "stars": 1854
+    "stars": 1912
   },
 
   {
@@ -104,7 +104,7 @@
     "repository": "https://github.com/danni-m/redis-timeseries",
     "description": "Time-series data structure for redis",
     "authors": ["danni-m"],
-    "stars": 48
+    "stars": 58
   },
 
   {
@@ -113,7 +113,7 @@
     "repository": "https://github.com/TamarLabs/ReDe",
     "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
     "authors": ["daTokenizer"],
-    "stars": 6
+    "stars": 9
   },
 
   {
@@ -122,7 +122,7 @@
     "repository": "https://github.com/picotera/commentDis",
     "description": "Add comment syntax to your redis-cli scripts.",
     "authors": ["daTokenizer"],
-    "stars": 1
+    "stars": 2
   },
 
   {
