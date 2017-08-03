@@ -132,6 +132,14 @@
     "description": "Hashing-function agnostic Cuckoo filters.",
     "authors": ["kristoff-it"],
     "stars": 37
-  }
+  },
 
+  {
+    "name": "cthulhu",
+    "license" : "BSD",
+    "repository": "https://github.com/sklivvz/cthulhu",
+    "description": "Extend Redis with JavaScript modules",
+    "authors": ["sklivvz"],
+    "stars": 67
+  }
 ]
