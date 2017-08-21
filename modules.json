@@ -141,5 +141,14 @@
     "description": "Extend Redis with JavaScript modules",
     "authors": ["sklivvz"],
     "stars": 67
+  },
+  
+  {
+    "name": "Session Gate",
+    "license": "MIT",
+    "repository": "https://github.com/f0rmiga/sessiongate",
+    "description": "Session management with multiple payloads using cryptographically signed tokens.",
+    "authors": ["f0rmiga"],
+    "stars": 16
   }
 ]
