@@ -23,6 +23,9 @@ If `start` is larger than the end of the list, an empty list is returned.
 If `stop` is larger than the actual end of the list, Redis will treat it like
 the last element of the list.
 
+We can fetch the entire list by passing a range of 0 for the start index and -1
+for the last index.
+
 @return
 
 @array-reply: list of elements in the specified range.
