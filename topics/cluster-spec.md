@@ -486,9 +486,9 @@ there are no race conditions). This is how `MIGRATE` works:
     MIGRATE target_host target_port key target_database id timeout
 
 `MIGRATE` will connect to the target instance, send a serialized version of
-the key, and once an OK code is received will delete the old key from its own
-dataset. From the point of view of an external client a key exists either
-in A or B at any given time.
+the key, and once an OK code is received, the old key from its own dataset
+will be deleted. From the point of view of an external client a key exists
+either in A or B at any given time.
 
 In Redis Cluster there is no need to specify a database other than 0, but
 `MIGRATE` is a general command that can be used for other tasks not
@@ -735,7 +735,7 @@ A `PFAIL` condition is escalated to a `FAIL` condition when the following set of
 
 * Some node, that we'll call A, has another node B flagged as `PFAIL`.
 * Node A collected, via gossip sections, information about the state of B from the point of view of the majority of masters in the cluster.
-* The majority of masters signaled the `PFAIL` or `PFAIL` condition within `NODE_TIMEOUT * FAIL_REPORT_VALIDITY_MULT` time. (The validity factor is set to 2 in the current implementation, so this is just two times the `NODE_TIMEOUT` time).
+* The majority of masters signaled the `PFAIL` or `FAIL` condition within `NODE_TIMEOUT * FAIL_REPORT_VALIDITY_MULT` time. (The validity factor is set to 2 in the current implementation, so this is just two times the `NODE_TIMEOUT` time).
 
 If all the above conditions are true, Node A will:
 
@@ -895,7 +895,7 @@ This section illustrates how the epoch concept is used to make the slave promoti
 
 At this point B is down and A is available again with a role of master (actually `UPDATE` messages would reconfigure it promptly, but here we assume all `UPDATE` messages were lost). At the same time, slave C will try to get elected in order to fail over B. This is what happens:
 
-1. B will try to get elected and will succeed, since for the majority of masters its master is actually down. It will obtain a new incremental `configEpoch`.
+1. C will try to get elected and will succeed, since for the majority of masters its master is actually down. It will obtain a new incremental `configEpoch`.
 2. A will not be able to claim to be the master for its hash slots, because the other nodes already have the same hash slots associated with a higher configuration epoch (the one of B) compared to the one published by A.
 3. So, all the nodes will upgrade their table to assign the hash slots to C, and the cluster will continue its operations.
 

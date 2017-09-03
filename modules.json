@@ -1,0 +1,154 @@
+[
+  {
+    "name": "redis-roaring",
+    "license" : "MIT",
+    "repository": "https://github.com/aviggiano/redis-roaring",
+    "description": "Uses the CRoaring library to implement roaring bitmap commands for Redis.",
+    "authors": ["aviggiano"],
+    "stars": 32
+  },
+
+  {
+    "name": "redis-cell",
+    "license" : "MIT",
+    "repository": "https://github.com/brandur/redis-cell",
+    "description": "A Redis module that provides rate limiting in Redis as a single command.",
+    "authors": ["brandur"],
+    "stars": 196
+  },
+
+  {
+    "name": "Redis Graph",
+    "license" : "AGPL",
+    "repository": "https://github.com/swilly22/redis-module-graph",
+    "description": "A graph database with a Cypher-based querying language",
+    "authors": ["swilly22"],
+    "stars": 170
+  },
+
+  {
+    "name": "redis-tdigest",
+    "license" : "MIT",
+    "repository": "https://github.com/usmanm/redis-tdigest",
+    "description": "t-digest data structure wich can be used for accurate online accumulation of rank-based statistics such as quantiles and cumulative distribution at a point.",
+    "authors": ["usmanm"],
+    "stars": 36
+  },
+
+  {
+    "name": "ReJSON",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/ReJSON",
+    "description": "A JSON data type for Redis",
+    "authors": ["itamarhaber", "RedisLabs"],
+    "stars": 366
+  },
+
+  {
+    "name": "Redis-ML",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/redis-ml",
+    "description": "Machine Learning Model Server",
+    "authors": ["shaynativ", "RedisLabs"],
+    "stars": 99
+  },
+
+  {
+    "name": "RediSearch",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/RediSearch",
+    "description": "Full-Text search over Redis",
+    "authors": ["dvirsky", "RedisLabs"],
+    "stars": 583
+  },
+
+  {
+    "name": "topk",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/topk",
+    "description": "An almost deterministic top k elements counter",
+    "authors": ["itamarhaber", "RedisLabs"],
+    "stars": 16
+  },
+
+  {
+    "name": "countminsketch",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/countminsketch",
+    "description": "An apporximate frequency counter",
+    "authors": ["itamarhaber", "RedisLabs"],
+    "stars": 23
+  },
+
+  {
+    "name": "rebloom",
+    "license" : "AGPL",
+    "repository": "https://github.com/RedisLabsModules/rebloom",
+    "description": "Scalable Bloom filters",
+    "authors": ["mnunberg", "RedisLabs"],
+    "stars": 24
+  },
+
+  {
+    "name": "neural-redis",
+    "license" : "BSD",
+    "repository": "https://github.com/antirez/neural-redis",
+    "description": "Online trainable neural networks as Redis data types.",
+    "authors": ["antirez"],
+    "stars": 1912
+  },
+
+  {
+    "name": "redis-timerseries",
+    "license" : "AGPL",
+    "repository": "https://github.com/danni-m/redis-timeseries",
+    "description": "Time-series data structure for redis",
+    "authors": ["danni-m"],
+    "stars": 58
+  },
+
+  {
+    "name": "ReDe",
+    "license" : "MIT",
+    "repository": "https://github.com/TamarLabs/ReDe",
+    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+    "authors": ["daTokenizer"],
+    "stars": 9
+  },
+
+  {
+    "name": "commentDis",
+    "license" : "MIT",
+    "repository": "https://github.com/picotera/commentDis",
+    "description": "Add comment syntax to your redis-cli scripts.",
+    "authors": ["daTokenizer"],
+    "stars": 2
+  },
+
+  {
+    "name": "redis-cuckoofilter",
+    "license" : "MIT",
+    "repository": "https://github.com/kristoff-it/redis-cuckoofilter",
+    "description": "Hashing-function agnostic Cuckoo filters.",
+    "authors": ["kristoff-it"],
+    "stars": 37
+  },
+
+  {
+    "name": "cthulhu",
+    "license" : "BSD",
+    "repository": "https://github.com/sklivvz/cthulhu",
+    "description": "Extend Redis with JavaScript modules",
+    "authors": ["sklivvz"],
+    "stars": 67
+  },
+  
+  {
+    "name": "Session Gate",
+    "license": "MIT",
+    "repository": "https://github.com/f0rmiga/sessiongate",
+    "description": "Session management with multiple payloads using cryptographically signed tokens.",
+    "authors": ["f0rmiga"],
+    "stars": 16
+  }
+]

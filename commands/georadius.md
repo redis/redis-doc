@@ -1,5 +1,7 @@
 Return the members of a sorted set populated with geospatial information using `GEOADD`, which are within the borders of the area specified with the center location and the maximum distance from the center (the radius).
 
+This manual page also covers the `GEORADIUS_RO` and `GEORADIUSBYRANGE_RO` variants (see the section below for more information).
+
 The common use case for this command is to retrieve geospatial items near a specified point and no far than a given amount of meters (or other units). This allows, for example, to suggest mobile users of an application nearby places.
 
 The radius is specified in one of the following units:
@@ -38,6 +40,14 @@ When additional information is returned as an array of arrays for each item, the
 So for example the command `GEORADIUS Sicily 15 37 200 km WITHCOORD WITHDIST` will return each item in the following way:
 
     ["Palermo","190.4424",["13.361389338970184","38.115556395496299"]]
+
+## Read only variants
+
+Since `GEORADIUS` and `GEORADIUSBYMEMBER` have a `STORE` and `STOREDIST` option they are technically flagged as writing commands in the Redis command table. For this reason read-only slaves will flag them, and Redis Cluster slaves will redirect them to the master instance even if the connection is in read only mode (See the `READONLY` command of Redis Cluster).
+
+Breaking the compatibility with the past was considered but rejected, at least for Redis 4.0, so instead two read only variants of the commands were added. They are exactly like the original commands but refuse the `STORE` and `STOREDIST` options. The two variants are called `GEORADIUS_RO` and `GEORADIUSBYMEMBER_RO`, and can safely be used in slaves.
+
+Both commands were introduced in Redis 3.2.10 and Redis 4.0.0 respectively.
 
 @examples
 

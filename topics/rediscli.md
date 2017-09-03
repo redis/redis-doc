@@ -391,7 +391,7 @@ are explained in the next sections:
 ## Continuous stats mode
 
 This is probably one of the lesser known features of `redis-cli`, and one
-very useful in order to minor Redis instances in real time.
+very useful in order to monitor Redis instances in real time.
 To enable this mode, the `--stat` option is used.
 The output is very clear about the behavior of the CLI in this mode:
 
@@ -679,7 +679,7 @@ name is simply `--slave`. This is how it works:
     "SELECT","0"
     "set","foo","bar"
     "PING"
-    "incr","myconuter"
+    "incr","mycounter"
 
 The command begins by discarding the RDB file of the first synchronization
 and then logs each command received as in CSV format.

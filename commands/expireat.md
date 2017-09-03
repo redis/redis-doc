@@ -20,7 +20,7 @@ a given time in the future.
 @integer-reply, specifically:
 
 * `1` if the timeout was set.
-* `0` if `key` does not exist or the timeout could not be set (see: `EXPIRE`).
+* `0` if `key` does not exist.
 
 @examples
 

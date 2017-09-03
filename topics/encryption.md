@@ -3,7 +3,7 @@ Redis Encryption
 
 The idea of adding SSL support to Redis was proposed many times, however
 currently we believe that given the small percentage of users requiring
-SSL support, and the fact that each scenario tends to be different, to use
+SSL support, and the fact that each scenario tends to be different, using
 a different "tunneling" strategy can be better. We may change the idea in the
 future, but currently a good solution that may be suitable for many use cases
 is to use the following project:
