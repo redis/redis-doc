@@ -836,9 +836,9 @@
   {
     "name": "acl-redis",
     "language": "C++",
-    "url": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
-    "repository": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
-    "description": "Standard C++ Redis Client with high performance and stl-like interface, supporting Redis Cluster, thread-safe",
+    "url": "https://github.com/acl-dev/acl/tree/master/lib_acl_cpp/samples/redis",
+    "repository": "https://github.com/acl-dev/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
+    "description": "Standard C++ Redis Client with high performance and stl-like interface, supporting Redis Cluster, thread safety",
     "authors": ["zhengshuxin"],
     "active": true
   },
