@@ -269,10 +269,10 @@
   },
 
   {
-    "name": "mod-redis",
+    "name": "vertx-redis-client",
     "language": "Java",
-    "repository": "https://github.com/vert-x/mod-redis",
-    "description": "Official asynchronous redis.io bus module for Vert.x",
+    "repository": "https://github.com/vert-x3/vertx-redis-client",
+    "description": "The Vert.x Redis client provides an asynchronous API to interact with a Redis data-structure server.",
     "authors": ["pmlopes"]
   },
 
