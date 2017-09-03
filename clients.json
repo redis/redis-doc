@@ -824,8 +824,6 @@
   },
 
   {
-<<<<<<< HEAD
-=======
     "name": "async-redis",
     "language": "C++",
     "url": "https://github.com/hamidr/async-redis",
@@ -836,16 +834,11 @@
   },
 
   {
->>>>>>> a714bd261aa26e3930a4a53384f2fe7bda1c8f2b
     "name": "acl-redis",
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
     "repository": "https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
-<<<<<<< HEAD
-    "description": "Stantard C++ redis client with high performance and stl-like interface, supporting redis cluster with multi-threads-safely",
-=======
     "description": "Standard C++ Redis Client with high performance and stl-like interface, supporting Redis Cluster, thread-safe",
->>>>>>> a714bd261aa26e3930a4a53384f2fe7bda1c8f2b
     "authors": ["zhengshuxin"],
     "active": true
   },
