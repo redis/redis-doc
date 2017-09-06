@@ -1545,5 +1545,14 @@
     "description": "An efficient and user-friendly async redis client ported from redis-py.",
     "authors": [],
     "active": true
+  },
+  
+  {
+    "name": "Noderis",
+    "language": "Node.js",
+    "repository": "https://github.com/wallneradam/noderis",
+    "description": "A fast, standalone Redis client without external dependencies. It can be used with callbacks, Promises and async-await as well at the same time. Clean, well designed and documented source code. Because of this supports code completion (WebStorm/PHPStorm).",
+    "authors": ["Adam Wallner"],
+    "active": true
   }
 ]
