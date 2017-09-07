@@ -1545,5 +1545,14 @@
     "description": "An efficient and user-friendly async redis client ported from redis-py.",
     "authors": [],
     "active": true
+  },
+  
+  {
+    "name": "RedisGo-Async",
+    "language": "Go",
+    "repository": "https://github.com/gistao/RedisGo-Async",
+    "description": "RedisGo-Async is a Go client for Redis, both asynchronous and synchronous modes are supported,,its API is fully compatible with redigo.",
+    "authors": ["gistao"],
+    "active": true
   }
 ]
