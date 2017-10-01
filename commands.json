@@ -1595,6 +1595,33 @@
     "since": "2.6.0",
     "group": "generic"
   },
+  "MODULE LIST": {
+    "summary": "Report on all loaded module names and version numbers.",
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MODULE LOAD": {
+    "summary": "Insert the specified module into the running server.",
+    "arguments": [
+      {
+        "name": "path",
+        "type": "string"
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MODULE UNLOAD": {
+    "summary": "Remove the named module from the running server.",
+    "arguments": [
+      {
+        "name": "module",
+        "type": "string"
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server"
+  },
   "MONITOR": {
     "summary": "Listen for all requests received by the server in real time",
     "since": "1.0.0",
