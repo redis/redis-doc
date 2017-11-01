@@ -156,7 +156,7 @@
     "name": "rediSQL",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedBeardLab/rediSQL",
-    "description": "A redis module that provide full SQL capabilities embeding SQLite",
+    "description": "A redis module that provide full SQL capabilities embedding SQLite",
     "authors": ["siscia", "RedBeardLab"],
     "stars": 409
   }
