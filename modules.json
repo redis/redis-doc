@@ -150,5 +150,14 @@
     "description": "Session management with multiple payloads using cryptographically signed tokens.",
     "authors": ["f0rmiga"],
     "stars": 16
+  },
+
+  {
+    "name": "rediSQL",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/RedBeardLab/rediSQL",
+    "description": "A redis module that provide full SQL capabilities embeding SQLite",
+    "authors": ["siscia", "RedBeardLab"],
+    "stars": 409
   }
 ]
