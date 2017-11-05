@@ -68,7 +68,7 @@ you can perform per second in a given Redis server. This is the result of the
 fact that, without using pipelining, serving each command is very cheap from
 the point of view of accessing the data structures and producing the reply,
 but it is very costly from the point of view of doing the socket I/O. This
-involes calling the `read()` and `write()` syscall, that means going from user
+involves calling the `read()` and `write()` syscall, that means going from user
 land to kernel land. The context switch is a huge speed penalty.
 
 When pipelining is used, many commands are usually read with a single `read()`
