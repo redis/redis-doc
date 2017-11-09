@@ -30,6 +30,9 @@ message. The commands that are allowed in the context of a subscribed
 client are `SUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`,
 `PING` and `QUIT`.
 
+Please not that `redis-cli` will not accept any commands once in
+subscribed mode and can only quit the mode with `Ctrl-C`.
+
 ## Format of pushed messages
 
 A message is a @array-reply with three elements.
