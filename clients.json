@@ -717,7 +717,7 @@
     "language": "Node.js",
     "repository": "https://github.com/rootslab/spade",
     "description": "♠ Spade, a full-featured modular client for node.",
-    "authors": ["rootslab"],
+    "authors": ["44gtti"],
     "recommended": false,
     "active": true
   },
