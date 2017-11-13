@@ -1545,5 +1545,122 @@
     "description": "An efficient and user-friendly async redis client ported from redis-py.",
     "authors": [],
     "active": true
+  },
+  
+  {
+    "name": "CData ADO.NET Provider for Redis",
+    "language": "C#",
+    "url": "https://www.cdata.com/drivers/redis/ado",
+    "description": "Standards-based ADO.NET Provider for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ADO.NET Provider for Redis",
+    "language": "VB",
+    "url": "https://www.cdata.com/drivers/redis/ado",
+    "description": "Standards-based ADO.NET Provider for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData JDBC Driver for Redis",
+    "language": "Java",
+    "url": "https://www.cdata.com/drivers/redis/jdbc",
+    "description": "Standards-based JDBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "C",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "C++",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "C#",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "Delphi",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "PHP",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "Python",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "R",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "Ruby",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData ODBC Driver for Redis",
+    "language": "VB",
+    "url": "https://www.cdata.com/drivers/redis/odbc",
+    "description": "Standards-based ODBC Driver for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
+  },
+
+  {
+    "name": "CData Xamarin Provider for Redis",
+    "language": "Xamarin",
+    "url": "https://www.cdata.com/drivers/redis/mobile",
+    "description": "Standards-based Xamarin Provider for Redis and Redis Enterprise",
+    "authors": ["cdatasoftware"],
+    "active": true
   }
 ]
