@@ -149,7 +149,7 @@ Running Redis from the command line is fine just to hack a bit with it or for
 development. However at some point you'll have some actual application to run
 on a real server. For this kind of usage you have two different choices:
 
-* Run Redis using screen.
+* Run Redis using [`screen`](https://www.gnu.org/software/screen/), [`tmux`](https://github.com/tmux/tmux/wiki), or any other terminal multiplexer.
 * Install Redis in your Linux box in a proper way using an init script, so that after a restart everything will start again properly.
 
 A proper install using an init script is strongly suggested.
