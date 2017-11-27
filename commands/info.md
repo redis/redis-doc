@@ -200,7 +200,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `rejected_connections`: Number of connections rejected because of
      `maxclients` limit
 *   `sync_full`: The number of full resyncs with slaves
-*   `sync_partial_ok`: The number of accpepted partial resync requests
+*   `sync_partial_ok`: The number of accepted partial resync requests
 *   `sync_partial_err`: The number of denied partial resync requests
 *   `expired_keys`: Total number of key expiration events
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
