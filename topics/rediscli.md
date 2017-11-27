@@ -90,6 +90,12 @@ other than the default number zero by using the `-n <dbnum>` option:
     $ redis-cli -n 2 incr a
     (integer) 1
 
+Some or all of this information can also be provided by using the `-u <uri>`
+option and a valid URI:
+
+    $ redis-cli -u redis://p%40ssw0rd@redis-16379.hosted.com:16379/0 ping
+    PONG
+
 ## Getting input from other programs
 
 There are two ways you can use `redis-cli` in order to get the input from other
