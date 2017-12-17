@@ -954,7 +954,7 @@ is a trivial example of `BITCOUNT` call:
     > bitcount key
     (integer) 2
 
-Common user cases for bitmaps are:
+Common use cases for bitmaps are:
 
 * Real time analytics of all kinds.
 * Storing space efficient but high performance boolean information associated with object IDs.
