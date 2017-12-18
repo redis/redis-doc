@@ -327,7 +327,7 @@ pop. If we try to pop yet another element, this is the result we get:
     > rpop mylist
     (nil)
 
-Redis returned a NULL value to signal that there are no elements into the
+Redis returned a NULL value to signal that there are no elements in the
 list.
 
 Common use cases for lists
