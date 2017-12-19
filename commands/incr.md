@@ -91,9 +91,8 @@ increment and set the expire at every API call.
 
 ## Pattern: Rate limiter 2
 
-An alternative implementation uses a single counter, but is a bit more complex
-to get it right without race conditions.
-We'll examine different variants.
+An alternative implementation uses a single counter. We'll examine different
+variants.
 
 ```
 FUNCTION LIMIT_API_CALL(ip):
@@ -101,40 +100,25 @@ current = GET(ip)
 IF current != NULL AND current > 10 THEN
     ERROR "too many requests per second"
 ELSE
-    value = INCR(ip)
-    IF value == 1 THEN
-        EXPIRE(ip,1)
-    END
+    MULTI
+        SET(ip,0,EX 1,NX)
+        INCR(ip)
+    EXEC
     PERFORM_API_CALL()
 END
 ```
 
-The counter is created in a way that it only will survive one second, starting
-from the first request performed in the current second.
+The counter is created only if it does not exist and will only survive one second.
 If there are more than 10 requests in the same second the counter will reach a
-value greater than 10, otherwise it will expire and start again from 0.
+value greater than 10. `INCR` is guaranteed to operate on an existing key. Either
+the key has been created in the same `MULTI` or the key has not expired yet.
 
-**In the above code there is a race condition**.
-If for some reason the client performs the `INCR` command but does not perform
-the `EXPIRE` the key will be leaked until we'll see the same IP address again.
+## Pattern: Rate limiter 3
 
-This can be fixed easily turning the `INCR` with optional `EXPIRE` into a Lua
-script that is send using the `EVAL` command (only available since Redis version
-2.6).
-
-```
-local current
-current = redis.call("incr",KEYS[1])
-if tonumber(current) == 1 then
-    redis.call("expire",KEYS[1],1)
-end
-```
-
-There is a different way to fix this issue without using scripting, but using
-Redis lists instead of counters.
-The implementation is more complex and uses more advanced features but has the
-advantage of remembering the IP addresses of the clients currently performing an
-API call, that may be useful or not depending on the application.
+There is a different way to implement rate limiting using Redis lists instead
+of counters. The implementation is more complex and uses more advanced features
+but has the advantage of remembering the IP addresses of the clients currently
+performing an API call, that may be useful or not depending on the application.
 
 ```
 FUNCTION LIMIT_API_CALL(ip)
