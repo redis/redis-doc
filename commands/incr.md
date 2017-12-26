@@ -96,6 +96,7 @@ variants.
 
 ```
 FUNCTION LIMIT_API_CALL(ip):
+WATCH(ip)
 current = GET(ip)
 IF current != NULL AND current > 10 THEN
     ERROR "too many requests per second"
@@ -103,8 +104,12 @@ ELSE
     MULTI
         SET(ip,0,EX 1,NX)
         INCR(ip)
-    EXEC
-    PERFORM_API_CALL()
+    reply = EXEC
+    IF reply != NULL
+        PERFORM_API_CALL()
+    ELSE
+        DELAY_API_CALL()
+    END
 END
 ```
 
