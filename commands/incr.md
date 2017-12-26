@@ -109,7 +109,7 @@ ELSE
     IF reply != NULL
         PERFORM_API_CALL()
     ELSE
-        DELAY_API_CALL()
+        RETRY_API_CALL(ip)
     END
 END
 ```
