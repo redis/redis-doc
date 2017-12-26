@@ -99,7 +99,7 @@ FUNCTION LIMIT_API_CALL(ip):
 WATCH(ip)
 current = GET(ip)
 IF current != NULL AND current > 10 THEN
-    UNWATCH(ip)
+    UNWATCH()
     ERROR "too many requests per second"
 ELSE
     MULTI
