@@ -71,7 +71,6 @@ ts = CURRENT_UNIX_TIME()
 keyname = ip+":"+ts
 current = GET(keyname)
 IF current != NULL AND current > 10 THEN
-    UNWATCH(ip)
     ERROR "too many requests per second"
 ELSE
     MULTI
@@ -100,6 +99,7 @@ FUNCTION LIMIT_API_CALL(ip):
 WATCH(ip)
 current = GET(ip)
 IF current != NULL AND current > 10 THEN
+    UNWATCH(ip)
     ERROR "too many requests per second"
 ELSE
     MULTI
