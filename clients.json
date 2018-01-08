@@ -200,7 +200,7 @@
     "name": "Jedis",
     "language": "Java",
     "repository": "https://github.com/xetorthio/jedis",
-    "description": "",
+    "description": "A blazingly small and sane redis java client",
     "authors": ["xetorthio"],
     "recommended": true,
     "active": true
