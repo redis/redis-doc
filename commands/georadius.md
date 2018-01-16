@@ -2,7 +2,7 @@ Return the members of a sorted set populated with geospatial information using `
 
 This manual page also covers the `GEORADIUS_RO` and `GEORADIUSBYRANGE_RO` variants (see the section below for more information).
 
-The common use case for this command is to retrieve geospatial items near a specified point and no far than a given amount of meters (or other units). This allows, for example, to suggest mobile users of an application nearby places.
+The common use case for this command is to retrieve geospatial items near a specified point not farther than a given amount of meters (or other units). This allows, for example, to suggest mobile users of an application nearby places.
 
 The radius is specified in one of the following units:
 
