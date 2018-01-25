@@ -282,7 +282,7 @@ The kernel relocates Redis memory pages on disk mainly because of three reasons:
 
 * The system is under memory pressure since the running processes are demanding
 more physical memory than the amount that is available. The simplest instance of
-this problem is simply Redis using more memory than the one available.
+this problem is Redis using more memory than the one available.
 * The Redis instance data set, or part of the data set, is mostly completely idle
 (never accessed by clients), so the kernel could swap idle memory pages on disk.
 This problem is very rare since even a moderately slow instance will touch all
@@ -489,7 +489,7 @@ modified at runtime using the **CONFIG SET** command).
 
 * When appendfsync is set to the value of **no** Redis performs no fsync.
 In this configuration the only source of latency can be write(2).
-When this happens usually there is no solution since simply the disk can't
+When this happens usually there is no solution since the disk can't
 cope with the speed at which Redis is receiving data, however this is
 uncommon if the disk is not seriously slowed down by other processes doing
 I/O.

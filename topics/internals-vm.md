@@ -133,7 +133,7 @@ vmSwapOneObject acts performing the following steps:
  * The key storage field is set to REDIS_VM_SWAPPED, while the _vm_ fields of the object are set to the right values (the page index where the object was swapped, and the number of pages used to swap it).
  * Finally the value object is freed and the value entry of the hash table is set to NULL.
 
-The function is called again and again until one of the following happens: there is no way to swap more objects because either the swap file is full or nearly all the objects are already transferred on disk, or simply the memory usage is already under the vm-max-memory parameter.
+The function is called again and again until one of the following happens: there is no way to swap more objects because either the swap file is full or nearly all the objects are already transferred on disk, or the memory usage is already under the vm-max-memory parameter.
 
 What values to swap when we are out of memory?
 ---

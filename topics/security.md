@@ -57,7 +57,7 @@ Protected mode
 ---
 
 Unfortunately many users fail to protect Redis instances from being accessed
-from external networks. Many instances are simply left exposed on the
+from external networks. Many instances are left exposed on the
 internet with public IPs. For this reasons since version 3.2.0, when Redis is
 executed with the default configuration (binding all the interfaces) and
 without any password in order to access it, it enters a special mode called

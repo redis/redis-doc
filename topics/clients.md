@@ -122,7 +122,7 @@ if the client is idle for many seconds: the connection will remain open forever.
 However if you don't like this behavior, you can configure a timeout, so that
 if the client is idle for more than the specified number of seconds, the client connection will be closed.
 
-You can configure this limit via `redis.conf` or simply using `CONFIG SET timeout <value>`.
+You can configure this limit via `redis.conf` or using `CONFIG SET timeout <value>`.
 
 Note that the timeout only applies to normal clients and it **does not apply to Pub/Sub clients**, since a Pub/Sub connection is a *push style* connection so a client that is idle is the norm.
 

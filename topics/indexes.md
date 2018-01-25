@@ -106,7 +106,7 @@ time to time, and the index to reflect this change.
 
 The `ZADD` command makes updating simple indexes a very trivial operation
 since re-adding back an element with a different score and the same value
-will simply update the score and move the element at the right position,
+will update the score and move the element at the right position,
 so if the user `antirez` turned 39 years old, in order to update the
 data in the hash representing the user, and in the index as well, we need
 to execute the following two commands:
@@ -295,7 +295,7 @@ performed a single time, so we end presenting it to the user.
 
 This is what we can do. Out of the returned items, we pick a random one,
 decrement its score by one, and re-add it with the new score.
-However if the score reaches 0, we simply remove the item from the list.
+However if the score reaches 0, we remove the item from the list.
 You can use much more advanced systems, but the idea is that the index in
 the long run will contain top searches, and if top searches will change over
 the time it will adapt automatically.

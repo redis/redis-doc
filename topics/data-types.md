@@ -23,7 +23,7 @@ Check all the [available string commands](/commands/#string) for more informatio
 Lists
 ---
 
-Redis Lists are simply lists of strings, sorted by insertion order.
+Redis Lists are lists of strings, sorted by insertion order.
 It is possible to add elements to a Redis List pushing new elements on the head  (on the left) or on the tail (on the right) of the list.
 
 The [LPUSH](/commands/lpush) command inserts a new element on the head, while
@@ -76,7 +76,7 @@ The max number of members in a set is 2^32 - 1 (4294967295, more than 4 billion 
 
 You can do many interesting things using Redis Sets, for instance you can:
 
-* You can track unique things using Redis Sets. Want to know all the unique IP addresses visiting a given blog post? Simply use [SADD](/commands/sadd) every time you process a page view. You are sure repeated IPs will not be inserted.
+* You can track unique things using Redis Sets. Want to know all the unique IP addresses visiting a given blog post? Use [SADD](/commands/sadd) every time you process a page view. You are sure repeated IPs will not be inserted.
 * Redis Sets are good to represent relations. You can create a tagging system with Redis using a Set to represent every tag. Then you can add all the IDs of all the objects having a given tag into a Set representing this particular tag, using the [SADD](/commands/sadd) command. Do you want all the IDs of all the Objects having three different tags at the same time? Just use [SINTER](/commands/sinter).
 * You can use Sets to extract elements at random using the [SPOP](/commands/spop) or [SRANDMEMBER](/commands/srandmember) commands.
 
