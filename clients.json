@@ -1552,7 +1552,7 @@
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
-    "authors": ["ktekinay"],
+    "authors": ["kemtekinay"],
     "active": true
   }
   
