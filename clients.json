@@ -1545,5 +1545,15 @@
     "description": "An efficient and user-friendly async redis client ported from redis-py.",
     "authors": [],
     "active": true
+  },
+  
+    {
+    "name": "Redis_MTC",
+    "language": "Xojo",
+    "repository": "https://github.com/ktekinay/XOJO-Redis/",
+    "description": "A Xojo library to connect to a Redis server.",
+    "authors": ["ktekinay"],
+    "active": true
   }
+  
 ]
