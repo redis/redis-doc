@@ -43,7 +43,7 @@ the current day the user visited the web site using the `SETBIT` command setting
 the bit corresponding to the current day.
 
 Later it will be trivial to know the number of single days the user visited the
-web site calling the `BITCOUNT` command against the bitmap.
+web site simply calling the `BITCOUNT` command against the bitmap.
 
 A similar pattern where user IDs are used instead of days is described
 in the article called "[Fast easy realtime metrics using Redis

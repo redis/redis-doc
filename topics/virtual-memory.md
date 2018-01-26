@@ -1,4 +1,4 @@
-**IMPORTANT NOTE:** Redis VM is now deprecated. Redis 2.4 will be the latest Redis version featuring Virtual Memory (but it also warns you that Virtual Memory usage is discouraged). We found that using VM has several disadvantages and problems. In the future of Redis we want to provide the best in-memory database (but persistent on disk as usual) ever, without considering at least for now the support for databases bigger than RAM. Our future efforts are focused into providing scripting, cluster, and better persistence.
+**IMPORTANT NOTE:** Redis VM is now deprecated. Redis 2.4 will be the latest Redis version featuring Virtual Memory (but it also warns you that Virtual Memory usage is discouraged). We found that using VM has several disadvantages and problems. In the future of Redis we want to simply provide the best in-memory database (but persistent on disk as usual) ever, without considering at least for now the support for databases bigger than RAM. Our future efforts are focused into providing scripting, cluster, and better persistence.
 
 Virtual Memory
 ===
@@ -36,7 +36,7 @@ is not possible:
 * Data access is very biased. Only a small percentage of keys (for instance
   related to active users in your web site) gets the vast majority of accesses.
   At the same time there is too much data per key to take everything in memory.
-* There is not enough memory available to hold all the data in memory,
+* There is simply not enough memory available to hold all the data in memory,
   regardless of the data access pattern, and values are large. In this
   configuration Redis can be used as an on-disk DB where keys are in memory, so
   the key lookup is fast, but the access to the actual values require accessing

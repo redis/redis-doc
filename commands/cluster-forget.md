@@ -9,7 +9,7 @@ completely removed from a cluster, the `CLUSTER FORGET` command must be
 sent to all the remaining nodes, regardless of the fact they are masters
 or slaves.
 
-However the command cannot drop the node from the internal node
+However the command cannot simply drop the node from the internal node
 table of the node receiving the command, it also implements a ban-list, not
 allowing the same node to be added again as a side effect of processing the
 *gossip section* of the heartbeat packets received from other nodes.

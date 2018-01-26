@@ -203,7 +203,7 @@ all. (Note that if you `WATCH` a volatile key and Redis expires
 the key after you `WATCH`ed it, `EXEC` will still work. [More on
 this](http://code.google.com/p/redis/issues/detail?id=270).)
 
-`WATCH` can be called multiple times. All the `WATCH` calls will
+`WATCH` can be called multiple times. Simply all the `WATCH` calls will
 have the effects to watch for changes starting from the call, up to
 the moment `EXEC` is called. You can also send any number of keys to a
 single `WATCH` call.

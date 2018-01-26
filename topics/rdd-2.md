@@ -69,7 +69,7 @@ the remaining of the RDB file contains the key-value pairs.
 
 ## Handling of info fields
 
-A program can skip every info field it does not understand, as long
+A program can simply skip every info field it does not understand, as long
 as the RDB version matches the one that it is capable to load.
 
 ## Specification of info fields IDs and content.

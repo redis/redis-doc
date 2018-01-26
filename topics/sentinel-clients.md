@@ -86,7 +86,7 @@ Sentinel failover disconnection
 
 Starting with Redis 2.8.12, when Redis Sentinel changes the configuration of
 an instance, for example promoting a slave to a master, demoting a master to
-replicate to the new master after a failover, or changing the master
+replicate to the new master after a failover, or simply changing the master
 address of a stale slave instance, it sends a `CLIENT KILL type normal`
 command to the instance in order to make sure all the clients are disconnected
 from the reconfigured instance. This will force clients to resolve the master

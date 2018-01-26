@@ -7,7 +7,7 @@ The command behavior is the following:
 
 If persistence is enabled this commands makes sure that Redis is switched off
 without the lost of any data.
-This is not guaranteed if the client uses `SAVE` and then `QUIT` because
+This is not guaranteed if the client uses simply `SAVE` and then `QUIT` because
 other clients may alter the DB data between the two commands.
 
 Note: A Redis instance that is configured for not persisting on disk (no AOF
@@ -35,7 +35,7 @@ system is in a state that does not allow to safely immediately persist
 on disk.
 
 Normally if there is an AOF child process performing an AOF rewrite, Redis
-will kill it and exit. However there are two conditions where it is
+will simply kill it and exit. However there are two conditions where it is
 unsafe to do so, and the **SHUTDOWN** command will be refused with an error
 instead. This happens when:
 

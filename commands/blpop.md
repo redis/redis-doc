@@ -130,7 +130,7 @@ LOOP forever
 END
 ```
 
-While in the producer side we'll use:
+While in the producer side we'll use simply:
 
 ```
 MULTI

@@ -48,7 +48,7 @@ connections during this brief window (that can be as long as many seconds for ve
 
 * Replication can be used both for scalability, in order to have
 multiple slaves for read-only queries (for example, slow O(N)
-operations can be offloaded to slaves), or for data safety.
+operations can be offloaded to slaves), or simply for data safety.
 
 * It is possible to use replication to avoid the cost of having the master write the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a slave configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the slave tries to synchronized with it, the slave will be emptied as well.
 
