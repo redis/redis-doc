@@ -14,7 +14,7 @@ in order to modify or evolve Redis. Every new Redis Design Draft is published
 in the Redis mailing list and announced on Twitter, in the hope to receive
 feedback before implementing a given feature.
 
-The way the community can provide feedback about a RDD is writing
+The way the community can provide feedback about a RDD is simply writing
 a message to the Redis mailing list, or commenting in the associated
 GitHub issue if any.
 

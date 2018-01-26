@@ -87,7 +87,7 @@ Let's see how C4, our sane client, uses the good algorithm:
 *   If another client, for instance C5, was faster than C4 and acquired the lock
     with the `GETSET` operation, the C4 `GETSET` operation will return a non
     expired timestamp.
-    C4 will restart from the first step.
+    C4 will simply restart from the first step.
     Note that even if C4 set the key a bit a few seconds in the future this is
     not a problem.
 

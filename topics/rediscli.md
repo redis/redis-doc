@@ -524,7 +524,7 @@ similar to any other command. Subscribing to channels in order to receive
 messages is different - in this case we need to block and wait for
 messages, so this is implemented as a special mode in `redis-cli`. Unlike
 other special modes this mode is not enabled by using a special option,
-but by using the `SUBSCRIBE` or `PSUBSCRIBE` command, both in
+but simply by using the `SUBSCRIBE` or `PSUBSCRIBE` command, both in
 interactive or non interactive mode:
 
     $ redis-cli psubscribe '*'
@@ -676,7 +676,7 @@ The slave mode of the CLI is an advanced feature useful for
 Redis developers and for debugging operations.
 It allows to inspect what a master sends to its slaves in the replication
 stream in order to propagate the writes to its replicas. The option
-name is `--slave`. This is how it works:
+name is simply `--slave`. This is how it works:
 
     $ redis-cli --slave
     SYNC with master, discarding 13256 bytes of bulk transfer...

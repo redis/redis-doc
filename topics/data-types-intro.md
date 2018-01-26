@@ -17,7 +17,7 @@ by Redis, which will be covered separately in this tutorial:
 * Hashes, which are maps composed of fields associated with values. Both the
   field and the value are strings. This is very similar to Ruby or Python
   hashes.
-* Bit arrays (or bitmaps): it is possible, using special commands, to
+* Bit arrays (or simply bitmaps): it is possible, using special commands, to
   handle String values like an array of bits: you can set and clear individual
   bits, count all the bits set to 1, find the first set or unset bit, and so
   forth.
@@ -962,13 +962,13 @@ Common use cases for bitmaps are:
 For example imagine you want to know the longest streak of daily visits of
 your web site users. You start counting days starting from zero, that is the
 day you made your web site public, and set a bit with `SETBIT` every time
-the user visits the web site. As a bit index you take the current unix
+the user visits the web site. As a bit index you simply take the current unix
 time, subtract the initial offset, and divide by 3600\*24.
 
 This way for each user you have a small string containing the visit
 information for each day. With `BITCOUNT` it is possible to easily get
 the number of days a given user visited the web site, while with
-a few `BITPOS` calls, or fetching and analyzing the bitmap client-side,
+a few `BITPOS` calls, or simply fetching and analyzing the bitmap client-side,
 it is possible to easily compute the longest streak.
 
 Bitmaps are trivial to split into multiple keys, for example for

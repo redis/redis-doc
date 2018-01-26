@@ -86,7 +86,7 @@ Redis Cluster does not use consistent hashing, but a different form of sharding
 where every key is conceptually part of what we call an **hash slot**.
 
 There are 16384 hash slots in Redis Cluster, and to compute what is the hash
-slot of a given key, we take the CRC16 of the key modulo
+slot of a given key, we simply take the CRC16 of the key modulo
 16384.
 
 Every node in a Redis Cluster is responsible for a subset of the hash slots,
@@ -248,10 +248,10 @@ cluster-node-timeout 5000
 appendonly yes
 ```
 
-As you can see what enables the cluster mode is the `cluster-enabled`
+As you can see what enables the cluster mode is simply the `cluster-enabled`
 directive. Every instance also contains the path of a file where the
 configuration for this node is stored, which by default is `nodes.conf`.
-This file is never touched by humans; it is generated at startup
+This file is never touched by humans; it is simply generated at startup
 by the Redis Cluster instances, and updated every time it is needed.
 
 Note that the **minimal cluster** that works as expected requires to contain
@@ -292,7 +292,7 @@ This ID will be used forever by this specific instance in order for the instance
 to have a unique name in the context of the cluster. Every node
 remembers every other node using this IDs, and not by IP or port.
 IP addresses and ports may change, but the unique node identifier will never
-change for all the life of the node. We call this identifier **Node ID**.
+change for all the life of the node. We call this identifier simply **Node ID**.
 
 Creating the cluster
 ---
@@ -312,7 +312,7 @@ You need to install `redis` gem to be able to run `redis-trib`.
 
     gem install redis
 
- To create your cluster type:
+ To create your cluster simply type:
 
     ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
     127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
@@ -380,7 +380,7 @@ I'm aware of the following implementations:
 * The `redis-cli` utility in the unstable branch of the Redis repository at GitHub implements a very basic cluster support when started with the `-c` switch.
 
 An easy way to test Redis Cluster is either to try any of the above clients
-or the `redis-cli` command line utility. The following is an example
+or simply the `redis-cli` command line utility. The following is an example
 of interaction using the latter:
 
 ```
@@ -942,7 +942,7 @@ to another under certain condition, is that usually the Redis Cluster is as
 resistant to failures as the number of replicas attached to a given master.
 
 For example a cluster where every master has a single replica can't continue
-operations if the master and its replica fail at the same time, because
+operations if the master and its replica fail at the same time, simply because
 there is no other instance to have a copy of the hash slots the master was
 serving. However while netsplits are likely to isolate a number of nodes
 at the same time, many other kind of failures, like hardware or software failures

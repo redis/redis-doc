@@ -15,7 +15,7 @@ Introduction
 
 Redis Sentinel is the name of the Redis high availability solution that's
 currently under development. It has nothing to do with Redis Cluster and
-is intended to be used by people that don't need Redis Cluster, but
+is intended to be used by people that don't need Redis Cluster, but simply
 a way to perform automatic fail over when a master instance is not functioning
 correctly.
 
@@ -301,7 +301,7 @@ still sees a master in `O_DOWN` condition.
 
 The observer is still able to follow and update the internal state based on
 what is happening with the failover, but does not directly rely on the
-Leader to communicate with it to be informed by progresses. It observes
+Leader to communicate with it to be informed by progresses. It simply observes
 the state of the slaves to understand what is happening.
 
 Specifically the observers flags the master as `FAILOVER_IN_PROGRESS` if a slave

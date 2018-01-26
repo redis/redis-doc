@@ -51,7 +51,7 @@ The general indication is that you should use both persistence methods if
 you want a degree of data safety comparable to what PostgreSQL can provide you.
 
 If you care a lot about your data, but still can live with a few minutes of
-data loss in case of disasters, you can use RDB alone.
+data loss in case of disasters, you can simply use RDB alone.
 
 There are many users using AOF alone, but we discourage it since to have an
 RDB snapshot from time to time is a great idea for doing database backups,
@@ -269,7 +269,7 @@ Since many Redis users are in the startup scene and thus don't have plenty
 of money to spend we'll review the most interesting disaster recovery techniques
 that don't have too high costs.
 
-* Amazon S3 and other similar services are a good way for mounting your disaster recovery system. Transfer your daily or hourly RDB snapshot to S3 in an encrypted form. You can encrypt your data using `gpg -c` (in symmetric encryption mode). Make sure to store your password in many different safe places (for instance give a copy to the most important people of your organization). It is recommended to use multiple storage services for improved data safety.
+* Amazon S3 and other similar services are a good way for mounting your disaster recovery system. Simply transfer your daily or hourly RDB snapshot to S3 in an encrypted form. You can encrypt your data using `gpg -c` (in symmetric encryption mode). Make sure to store your password in many different safe places (for instance give a copy to the most important people of your organization). It is recommended to use multiple storage services for improved data safety.
 * Transfer your snapshots using SCP (part of SSH) to far servers. This is a fairly simple and safe route: get a small VPS in a place that is very far from you, install ssh there, and generate an ssh client key without passphrase, then add it in the authorized_keys file of your small VPS. You are ready to transfer
 backups in an automated fashion. Get at least two VPS in two different providers
 for best results.

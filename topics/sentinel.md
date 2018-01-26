@@ -66,7 +66,7 @@ Sentinel mode:
 
 Both ways work the same.
 
-However **it is mandatory** to use a configuration file when running Sentinel, as this file will be used by the system in order to save the current state that will be reloaded in case of restarts. Sentinel will refuse to start if no configuration file is given or if the configuration file path is not writable.
+However **it is mandatory** to use a configuration file when running Sentinel, as this file will be used by the system in order to save the current state that will be reloaded in case of restarts. Sentinel will simply refuse to start if no configuration file is given or if the configuration file path is not writable.
 
 Sentinels by default run **listening for connections to TCP port 26379**, so
 for Sentinels to work, port 26379 of your servers **must be open** to receive
@@ -587,7 +587,7 @@ Sentinel commands
 The following is a list of accepted commands, not covering commands used in
 order to modify the Sentinel configuration, which are covered later.
 
-* **PING** This command returns PONG.
+* **PING** This command simply returns PONG.
 * **SENTINEL masters** Show a list of monitored masters and their state.
 * **SENTINEL master `<master name>`** Show the state and info of the specified master.
 * **SENTINEL slaves `<master name>`** Show a list of slaves for this master, and their state.
@@ -613,7 +613,7 @@ The following is an example of `SENTINEL SET` command in order to modify the `do
 
     SENTINEL SET objects-cache-master down-after-milliseconds 1000
 
-As already stated, `SENTINEL SET` can be used to set all the configuration parameters that are settable in the startup configuration file. Moreover it is possible to change just the master quorum configuration without removing and re-adding the master with `SENTINEL REMOVE` followed by `SENTINEL MONITOR`, but using:
+As already stated, `SENTINEL SET` can be used to set all the configuration parameters that are settable in the startup configuration file. Moreover it is possible to change just the master quorum configuration without removing and re-adding the master with `SENTINEL REMOVE` followed by `SENTINEL MONITOR`, but simply using:
 
     SENTINEL SET objects-cache-master quorum 5
 
@@ -682,7 +682,7 @@ channel named `+sdown` will receive all the notifications related to instances
 entering an `SDOWN` (SDOWN means the instance is no longer reachable from
 the point of view of the Sentinel you are querying) condition.
 
-To get all the messages subscribe using `PSUBSCRIBE *`.
+To get all the messages simply subscribe using `PSUBSCRIBE *`.
 
 The following is a list of channels and message formats you can receive using
 this API. The first word is the channel / event name, the rest is the format of the data.
