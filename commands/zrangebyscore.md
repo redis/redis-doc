@@ -58,7 +58,7 @@ ZRANGEBYSCORE myzset (1 (2
 
 ## Pattern: weighted random selection of an element
 
-Normally `ZRANGEBYSCORE` is simply used in order to get range of items
+Normally `ZRANGEBYSCORE` is used in order to get range of items
 where the score is the indexed integer key, however it is possible to do less
 obvious things with the command.
 

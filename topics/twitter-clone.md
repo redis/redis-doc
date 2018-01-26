@@ -411,7 +411,7 @@ Now it should be pretty clear how we can use `LRANGE` in order to get ranges of 
         return count($posts) == $count+1;
     }
 
-`showPost` will simply convert and print a Post in HTML while `showUserPosts` gets a range of posts and then passes them to `showPosts`.
+`showPost` will convert and print a Post in HTML while `showUserPosts` gets a range of posts and then passes them to `showPosts`.
 
 *Note: `LRANGE` is not very efficient if the list of posts start to be very
 big, and we want to access elements which are in the middle of the list, since Redis Lists are backed by linked lists. If a system is designed for

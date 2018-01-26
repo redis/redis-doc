@@ -356,7 +356,7 @@ slave nodes. The node will analyze the query, and if it is acceptable
 mentioned are all to the same hash slot) it will lookup what
 node is responsible for the hash slot where the key or keys belong.
 
-If the hash slot is served by the node, the query is simply processed, otherwise
+If the hash slot is served by the node, the query is processed, otherwise
 the node will check its internal hash slot to node map, and will reply
 to the client with a MOVED error, like in the following example:
 
@@ -424,7 +424,7 @@ The following subcommands are available (among others not useful in this case):
 * `CLUSTER SETSLOT` slot MIGRATING node
 * `CLUSTER SETSLOT` slot IMPORTING node
 
-The first two commands, `ADDSLOTS` and `DELSLOTS`, are simply used to assign
+The first two commands, `ADDSLOTS` and `DELSLOTS`, are used to assign
 (or remove) slots to a Redis node. Assigning a slot means to tell a given
 master node that it will be in charge of storing and serving content for
 the specified hash slot.
@@ -507,7 +507,7 @@ ASK redirection
 ---
 
 In the previous section we briefly talked about ASK redirection. Why can't
-we simply use MOVED redirection? Because while MOVED means that
+we use MOVED redirection? Because while MOVED means that
 we think the hash slot is permanently served by a different node and the
 next queries should be tried against the specified node, ASK means to
 send only the next query to the specified node.
@@ -551,7 +551,7 @@ be redirected, such a client would be very inefficient.
 
 Redis Cluster clients should try to be smart enough to memorize the slots
 configuration. However this configuration is not *required* to be up to date.
-Since contacting the wrong node will simply result in a redirection, that
+Since contacting the wrong node will result in a redirection, that
 should trigger an update of the client view.
 
 Clients usually need to fetch a complete list of slots and mapped node
@@ -878,7 +878,7 @@ Master `currentEpoch` is 5, lastVoteEpoch is 1 (this may happen after a few fail
 
 4. Masters don't vote for a slave of the same master before `NODE_TIMEOUT * 2` has elapsed if a slave of that master was already voted for. This is not strictly required as it is not possible for two slaves to win the election in the same epoch. However, in practical terms it ensures that when a slave is elected it has plenty of time to inform the other slaves and avoid the possibility that another slave will win a new election, performing an unnecessary second failover.
 5. Masters make no effort to select the best slave in any way. If the slave's master is in `FAIL` state and the master did not vote in the current term, a positive vote is granted. The best slave is the most likely to start an election and win it before the other slaves, since it will usually be able to start the voting process earlier because of its *higher rank* as explained in the previous section.
-6. When a master refuses to vote for a given slave there is no negative response, the request is simply ignored.
+6. When a master refuses to vote for a given slave there is no negative response, the request is ignored.
 7. Masters don't vote for slaves sending a `configEpoch` that is less than any `configEpoch` in the master table for the slots claimed by the slave. Remember that the slave sends the `configEpoch` of its master, and the bitmap of the slots served by its master. This means that the slave requesting the vote must have a configuration for the slots it wants to failover that is newer or equal the one of the master granting the vote.
 
 Practical example of configuration epoch usefulness during partitions
@@ -918,7 +918,7 @@ There are two ways hash slot configurations are propagated:
 2. `UPDATE` messages. Since in every heartbeat packet there is information about the sender `configEpoch` and set of hash slots served, if a receiver of a heartbeat packet finds the sender information is stale, it will send a packet with new information, forcing the stale node to update its info.
 
 The receiver of a heartbeat or `UPDATE` message uses certain simple rules in
-order to update its table mapping hash slots to nodes. When a new Redis Cluster node is created, its local hash slot table is simply initialized to `NULL` entries so that each hash slot is not bound or linked to any node. This looks similar to the following:
+order to update its table mapping hash slots to nodes. When a new Redis Cluster node is created, its local hash slot table is initialized to `NULL` entries so that each hash slot is not bound or linked to any node. This looks similar to the following:
 
 ```
 0 -> NULL
@@ -1213,7 +1213,7 @@ In a Redis Cluster clients can subscribe to every node, and can also
 publish to every other node. The cluster will make sure that published
 messages are forwarded as needed.
 
-The current implementation will simply broadcast each published message
+The current implementation will broadcast each published message
 to all other nodes, but at some point this will be optimized either
 using Bloom filters or other algorithms.
 

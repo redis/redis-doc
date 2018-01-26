@@ -149,8 +149,8 @@ As you can see 3.333 is converted into 3, and the *bar* string is never returned
 
 There are two helper functions to return Redis types from Lua.
 
-* `redis.error_reply(error_string)` returns an error reply. This function simply returns a single field table with the `err` field set to the specified string for you.
-* `redis.status_reply(status_string)` returns a status reply. This function simply returns a single field table with the `ok` field set to the specified string for you.
+* `redis.error_reply(error_string)` returns an error reply. This function returns a single field table with the `err` field set to the specified string for you.
+* `redis.status_reply(status_string)` returns a status reply. This function returns a single field table with the `ok` field set to the specified string for you.
 
 There is no difference between using the helper functions or directly returning the table with the specified format, so the following two forms are equivalent:
 
@@ -269,7 +269,7 @@ between two different commands.
 * The connection we have with the server is persistent and was never closed so far.
 * The client explicitly checks the `runid` field in the `INFO` command in order to make sure the server was not restarted and is still the same process.
 
-Practically speaking, for the client it is much better to simply assume that in the context of a given connection, cached scripts are guaranteed to be there
+Practically speaking, for the client it is much better to assume that in the context of a given connection, cached scripts are guaranteed to be there
 unless an administrator explicitly called the `SCRIPT FLUSH` command.
 
 The fact that the user can count on Redis not removing scripts is semantically
@@ -429,7 +429,7 @@ following elements:
 ```
 
 In order to make it a pure function, but still be sure that every invocation
-of the script will result in different random elements, we can simply add an
+of the script will result in different random elements, we can add an
 additional argument to the script that will be used in order to seed the Lua
 pseudo-random number generator.
 The new script is as follows:
@@ -725,7 +725,7 @@ They correspond directly to the normal Redis log levels.
 Only logs emitted by scripting using a log level that is equal or greater than
 the currently configured Redis instance log level will be emitted.
 
-The `message` argument is simply a string.
+The `message` argument is a string.
 Example:
 
 ```

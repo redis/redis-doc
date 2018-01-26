@@ -70,7 +70,7 @@ Since Redis is extremely small footprint and lightweight (a spare instance uses 
 
 And you can select this number of instances to be quite big since the start. For example, 32 or 64 instances could do the trick for most users, and will provide enough room for growth.
 
-In this way as your data storage needs increase and you need more Redis servers, what to do is to simply move instances from one server to another. Once you add the first additional server, you will need to move half of the Redis instances from the first server to the second, and so forth.
+In this way as your data storage needs increase and you need more Redis servers, what to do is to move instances from one server to another. Once you add the first additional server, you will need to move half of the Redis instances from the first server to the second, and so forth.
 
 Using Redis replication you will likely be able to do the move with minimal or no downtime for your users:
 

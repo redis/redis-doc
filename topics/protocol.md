@@ -118,7 +118,7 @@ A client implementation may return different kind of exceptions for different
 errors, or may provide a generic way to trap errors by directly providing
 the error name to the caller as a string.
 
-However, such a feature should not be considered vital as it is rarely useful, and a limited client implementation may simply return a generic error condition, such as `false`.
+However, such a feature should not be considered vital as it is rarely useful, and a limited client implementation may return a generic error condition, such as `false`.
 
 <a name="integer-reply"></a>
 
@@ -339,7 +339,7 @@ The following is another example of an inline command returning an integer:
     C: EXISTS somekey
     S: :0
 
-Basically you simply write space-separated arguments in a telnet session.
+Basically you write space-separated arguments in a telnet session.
 Since no command starts with `*` that is instead used in the unified request
 protocol, Redis is able to detect this condition and parse your command.
 

@@ -97,7 +97,7 @@ using `RPUSH`.
 ## Keys with an expire
 
 Normally Redis keys are created without an associated time to live.
-The key will simply live forever, unless it is removed by the user in an
+The key will live forever, unless it is removed by the user in an
 explicit way, for instance using the `DEL` command.
 
 The `EXPIRE` family of commands is able to associate an expire to a given key,
@@ -135,7 +135,7 @@ lasting for 1000 seconds.
 
 Redis keys are expired in two ways: a passive way, and an active way.
 
-A key is passively expired simply when some client tries to access it, and the
+A key is passively expired when some client tries to access it, and the
 key is found to be timed out.
 
 Of course this is not enough as there are expired keys that will never be

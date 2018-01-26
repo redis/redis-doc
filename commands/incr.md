@@ -29,12 +29,12 @@ GET mykey
 
 The counter pattern is the most obvious thing you can do with Redis atomic
 increment operations.
-The idea is simply send an `INCR` command to Redis every time an operation
+The idea is send an `INCR` command to Redis every time an operation
 occurs.
 For instance in a web application we may want to know how many page views this
 user did every day of the year.
 
-To do so the web application may simply increment a key every time the user
+To do so the web application may increment a key every time the user
 performs a page view, creating the key name concatenating the User ID and a
 string representing the current date.
 

@@ -201,7 +201,7 @@ Sentinel commands
 
 The following is a list of accepted commands:
 
-* **PING** this command simply returns PONG.
+* **PING** this command returns PONG.
 * **SENTINEL masters** show a list of monitored masters and their state.
 * **SENTINEL slaves `<master name>`** show a list of slaves for this master, and their state.
 * **SENTINEL is-master-down-by-addr `<ip> <port>`** return a two elements multi bulk reply where the first is 0 or 1 (0 if the master with that address is known and is in `SDOWN` state, 1 otherwise). The second element of the reply is the
@@ -222,7 +222,7 @@ The channel name is the same as the name of the event. For instance the
 channel named `+sdown` will receive all the notifications related to instances
 entering an `SDOWN` condition.
 
-To get all the messages simply subscribe using `PSUBSCRIBE *`.
+To get all the messages subscribe using `PSUBSCRIBE *`.
 
 The following is a list of channels and message formats you can receive using
 this API. The first word is the channel / event name, the rest is the format of the data.
