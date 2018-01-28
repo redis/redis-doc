@@ -551,6 +551,13 @@
     "description": "",
     "authors": ["alejandrocrosa"]
   },
+  {
+    "name": "scala-redis",
+    "language": "Scala",
+    "repository": "https://github.com/yarosman/redis-client-scala-netty",
+    "description": "Non-blocking, netty 4.1.x based Scala Redis client",
+    "authors": ["yarosman", " sergkh"]
+  },
 
   {
     "name": "scala-redis",
