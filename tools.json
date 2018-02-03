@@ -633,5 +633,12 @@
     "repository": "https://github.com/reidwmulkey/noncis",
     "description": "Synchronizes nonces across node instances.",
     "authors": []
+  },
+  {
+    "name": "redis-browser",
+    "language": "javascript",
+    "repository": "https://github.com/anandtrex/redis-browser",
+    "description": "Cross platform GUI tool for redis that includes support for ReJSON",
+    "authors": ["anandtrex"]
   }
 ]
