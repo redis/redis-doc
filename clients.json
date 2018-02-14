@@ -1398,7 +1398,7 @@
     "name": "cheprasov/php-redis-client",
     "language": "PHP",
     "repository": "https://github.com/cheprasov/php-redis-client",
-    "description": "Fast, fully-functional and user-friendly client, optimized for performance.",
+    "description": "Supported PHP client for versions of Redis from 2.6 to 4.0",
     "authors": ["cheprasov84"],
     "active": true
   },
