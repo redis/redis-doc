@@ -131,7 +131,7 @@ Using [Redis scripting](/commands/eval) (available in Redis version 2.6 or great
 
 Sometimes the application may also want to send `EVAL` or `EVALSHA` commands in a pipeline. This is entirely possible and Redis explicitly supports it with the [SCRIPT LOAD](http://redis.io/commands/script-load) command (it guarantees that `EVALSHA` can be called without the risk of failing).
 
-Appendix: why a busy loops are slow even on the loopback interface?
+Appendix: Why are busy loops slow even on the loopback interface?
 ---
 
 Even with all the background covered in this page, you may still wonder why
