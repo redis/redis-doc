@@ -46,6 +46,6 @@ The following steps provide a very commonly used way in order to avoid any downt
 * Configure all your clients in order to use the new instance (that is, the slave).
 * Once you are sure that the master is no longer receiving any query (you can check this with the [MONITOR command](/commands/monitor)), elect the slave to master using the **SLAVEOF NO ONE** command, and shut down your master.
 
-If you are using [Redis Sentinel](/topics/) or [Redis Cluster](/topics//topics/cluster-tutorial), the simplest way in order to upgrade to newer versions, is to upgrade a slave after the other, then perform a manual fail-over in order to promote one of the upgraded slaves as master, and finally promote the last slave.
+If you are using [Redis Sentinel](/topics/sentinel) or [Redis Cluster](/topics/cluster-tutorial), the simplest way in order to upgrade to newer versions, is to upgrade a slave after the other, then perform a manual fail-over in order to promote one of the upgraded slaves as master, and finally promote the last slave.
 
 Note however that Redis Cluster 4.0 is not compatible with Redis Cluster 3.2 at cluster bus protocol level, so a mass restart is needed in this case.
