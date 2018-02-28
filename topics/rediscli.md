@@ -238,7 +238,7 @@ is sent to the server, processed, and the reply is parsed back and rendered
 into a simpler form to read.
 
 Nothing special is needed for running the CLI in interactive mode -
-just lunch it without any arguments and you are in:
+just launch it without any arguments and you are in:
 
     $ redis-cli
     127.0.0.1:6379> ping
