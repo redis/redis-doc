@@ -143,6 +143,9 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_commands_processed`: Total number of commands processed by the server
 *   `instantaneous_ops_per_sec`: Number of commands processed per second
 *   `rejected_connections`: Number of connections rejected because of `maxclients` limit
+*   `sync_full`: Number of full resyncs with slaves
+*   `sync_partial_ok`: Number of accepted PSYNC requests
+*   `sync_partial_err`: Number of unaccepted PSYNC requests
 *   `expired_keys`: Total number of key expiration events
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
