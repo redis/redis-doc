@@ -1534,6 +1534,50 @@
     "since": "1.0.0",
     "group": "list"
   },
+  "MEMORY DOCTOR": {
+    "summary": "Outputs memory problems report",
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MEMORY HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "since": "4.0.0",
+    "group": "server"
+
+  },
+  "MEMORY MALLOC-STATS": {
+    "summary": "Show allocator internal stats",
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MEMORY PURGE": {
+    "summary": "Ask the allocator to release memory",
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MEMORY STATS": {
+    "summary": "Show memory usage details",
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MEMORY USAGE": {
+    "summary": "Estimate the memory usage of a key",
+    "complexity": "O(N) where N is the number of samples.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "SAMPLES",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server"
+  },
   "MGET": {
     "summary": "Get the values of all the given keys",
     "complexity": "O(N) where N is the number of keys to retrieve.",
