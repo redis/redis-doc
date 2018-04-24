@@ -121,8 +121,8 @@ first mass import session.
     Last reply received from server.
     errors: 0, replies: 1000
 
-How the pipe mode works under the hoods
----------------------------------------
+How the pipe mode works under the hood
+--------------------------------------
 
 The magic needed inside the pipe mode of redis-cli is to be as fast as netcat
 and still be able to understand when the last reply was sent by the server
@@ -132,8 +132,8 @@ This is obtained in the following way:
 
 + redis-cli --pipe tries to send data as fast as possible to the server.
 + At the same time it reads data when available, trying to parse it.
-+ Once there is no more data to read from stdin, it sends a special **ECHO** command with a random 20 bytes string: we are sure this is the latest command sent, and we are sure we can match the reply checking if we receive the same 20 bytes as a bulk reply.
-+ Once this special final command is sent, the code receiving replies starts to match replies with this 20 bytes. When the matching reply is reached it can exit with success.
++ Once there is no more data to read from stdin, it sends a special **ECHO** command with a random 20 byte string: we are sure this is the latest command sent, and we are sure we can match the reply checking if we receive the same 20 bytes as a bulk reply.
++ Once this special final command is sent, the code receiving replies starts to match replies with these 20 bytes. When the matching reply is reached it can exit with success.
 
 Using this trick we don't need to parse the protocol we send to the server in order to understand how many commands we are sending, but just the replies.
 
