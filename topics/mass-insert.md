@@ -20,7 +20,7 @@ make sure you are inserting as fast as possible.
 
 Only a small percentage of clients support non-blocking I/O, and not all the
 clients are able to parse the replies in an efficient way in order to maximize
-throughput. For all this reasons the preferred way to mass import data into
+throughput. For all these reasons the preferred way to mass import data into
 Redis is to generate a text file containing the Redis protocol, in raw format,
 in order to call the commands needed to insert the required data.
 
