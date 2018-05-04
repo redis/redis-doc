@@ -327,7 +327,7 @@ pop. If we try to pop yet another element, this is the result we get:
     > rpop mylist
     (nil)
 
-Redis returned a NULL value to signal that there are no elements into the
+Redis returned a NULL value to signal that there are no elements in the
 list.
 
 Common use cases for lists
@@ -954,7 +954,7 @@ is a trivial example of `BITCOUNT` call:
     > bitcount key
     (integer) 2
 
-Common user cases for bitmaps are:
+Common use cases for bitmaps are:
 
 * Real time analytics of all kinds.
 * Storing space efficient but high performance boolean information associated with object IDs.
