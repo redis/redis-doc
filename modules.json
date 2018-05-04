@@ -22,12 +22,12 @@
   {
     "name": "Redis Graph",
     "license": "AGPL",
-    "repository": "https://github.com/swilly22/redis-module-graph",
+    "repository": "https://github.com/swilly22/redis-graph",
     "description": "A graph database with a Cypher-based querying language",
     "authors": [
       "swilly22"
     ],
-    "stars": 170
+    "stars": 372
   },
   {
     "name": "redis-tdigest",
@@ -48,7 +48,7 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 534
+    "stars": 535
   },
   {
     "name": "Redis-ML",
@@ -70,7 +70,7 @@
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 1089
+    "stars": 1093
   },
   {
     "name": "topk",
@@ -103,7 +103,7 @@
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 91
+    "stars": 95
   },
   {
     "name": "neural-redis",
@@ -123,7 +123,7 @@
     "authors": [
       "danni-m"
     ],
-    "stars": 139
+    "stars": 140
   },
   {
     "name": "ReDe",
@@ -133,7 +133,7 @@
     "authors": [
       "daTokenizer"
     ],
-    "stars": 16
+    "stars": 17
   },
   {
     "name": "commentDis",
@@ -180,7 +180,10 @@
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedBeardLab/rediSQL",
     "description": "A redis module that provide full SQL capabilities embedding SQLite",
-    "authors": ["siscia", "RedBeardLab"],
-    "stars": 409
+    "authors": [
+      "siscia",
+      "RedBeardLab"
+    ],
+    "stars": 563
   }
 ]
