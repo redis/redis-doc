@@ -190,6 +190,40 @@
     "since": "2.2.0",
     "group": "list"
   },
+  "BZPOPMIN": {
+    "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "BZPOPMAX": {
+    "summary": "Remove and return the member with the highest score from one or more sorted sets, or block until one is available",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set"
+  },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
     "complexity": "O(N) where N is the number of client connections",
@@ -2830,6 +2864,40 @@
       }
     ],
     "since": "2.8.9",
+    "group": "sorted_set"
+  },
+  "ZPOPMAX": {
+    "summary": "Remove and return members with the highest scores in a sorted set",
+    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "ZPOPMIN": {
+    "summary": "Remove and return members with the lowest scores in a sorted set",
+    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
     "group": "sorted_set"
   },
   "ZRANGE": {
