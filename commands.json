@@ -3335,5 +3335,26 @@
     ],
     "since": "2.8.0",
     "group": "sorted_set"
+  },
+  "XADD": {
+    "summary": "Appends a new entry to a stream",
+    "complexity": "O(log(N)) with N being the number of items already into the stream.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "ID",
+        "type": "string"
+      },
+      {
+        "name": ["field", "string"],
+        "type": ["value", "string"],
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
   }
 }
