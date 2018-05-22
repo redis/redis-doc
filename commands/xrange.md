@@ -165,7 +165,7 @@ For further information about Redis streams please check our
 
 @return
 
-@multi-bulk-reply, specifically:
+@array-reply, specifically:
 
 The command returns the entries with IDs matching the specified range.
 The returned entries are complete, that means that the ID and all the fields
