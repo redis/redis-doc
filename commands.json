@@ -3382,5 +3382,17 @@
     ],
     "since": "5.0.0",
     "group": "stream"
+  },
+  "XLEN": {
+    "summary": "Return the number of entires in a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
   }
 }
