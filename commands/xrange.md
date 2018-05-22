@@ -180,6 +180,6 @@ XADD writers * name Jane surname Austen
 XADD writers * name Toni surname Morris
 XADD writers * name Agatha surname Christie
 XADD writers * name Ngozi surname Adichie
-XLEN mystream
-XRANGE mystream - + COUNT 2
+XLEN writers
+XRANGE writers - + COUNT 2
 ```
