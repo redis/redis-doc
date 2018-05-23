@@ -3429,5 +3429,46 @@
     ],
     "since": "5.0.0",
     "group": "stream"
+  },
+  "XREADGROUP": {
+    "summary": "Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.",
+    "complexity": "For each stream mentioned: O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)). On the other side, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
+    "arguments": [
+      {
+        "command": "GROUP",
+        "name": ["group", "consumer"],
+        "type": ["string", "string"],
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "BLOCK",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "streams",
+        "type": "enum",
+        "enum": ["STREAMS"]
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
   }
 }
