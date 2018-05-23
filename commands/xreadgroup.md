@@ -12,7 +12,7 @@ so that following how this command works will be simpler.
 The difference between this command and the vanilla `XREAD` is that this
 one supports consumer groups.
 
-Without consumer groups, just using `XREAD`, all the clients are served with all the entries arriving in a stream. Instead using consumer groups with `XREADGROUP`, it is possible to create groups of clients that consume different parts of the messages arriving in a given stream. If, for instance, the stream gets the new entires A, B, and C and there are two consumers reading via a consumer group, one client will get, for instance, the message A and C, and the other the message B, and so forth.
+Without consumer groups, just using `XREAD`, all the clients are served with all the entries arriving in a stream. Instead using consumer groups with `XREADGROUP`, it is possible to create groups of clients that consume different parts of the messages arriving in a given stream. If, for instance, the stream gets the new entires A, B, and C and there are two consumers reading via a consumer group, one client will get, for instance, the messages A and C, and the other the message B, and so forth.
 
 Within a consumer group, a given consumer (that is, just a client consuming messages from the stream), has to identify with an unique *consumer name*. Which is just a string.
 
