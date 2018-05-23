@@ -3383,6 +3383,32 @@
     "since": "5.0.0",
     "group": "stream"
   },
+  "XREVRANGE": {
+    "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
+    "complexity": "O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "end",
+        "type": "string"
+      },
+      {
+        "name": "start",
+        "type": "string"
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
   "XLEN": {
     "summary": "Return the number of entires in a stream",
     "complexity": "O(1)",
