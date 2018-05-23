@@ -6,10 +6,10 @@ fashion to `BRPOP` or `BZPOPMIN` and others.
 Please note that before reading this page, if you are new to streams,
 we recommend to read [our introduction to Redis Streams](/topics/streams-intro).
 
-## Non blocking usage
+## Non-blocking usage
 
 If the **BLOCK** option is not used, the command is synchronous, and can
-be considered somewhat related to `XRANGE`: it will return range of items
+be considered somewhat related to `XRANGE`: it will return a range of items
 inside streams, however it has two fundamental differences compared to `XRANGE`
 even if we just consider the synchronous usage:
 
@@ -22,7 +22,7 @@ even if we just consider the synchronous usage:
   than any other entry we saw so far. So what we pass to `XREAD` is, for each
   stream, the ID of the last element that we received from that stream.
 
-For example if I've two streams `mystream` and `writers`, and I want to
+For example, if I have two streams `mystream` and `writers`, and I want to
 read data from both the streams starting from the first element they contain,
 I could call `XREAD` like in the following example.
 
@@ -59,16 +59,16 @@ the call will return at maximum two elements per stream.
             4) "Austen"
 ```
 
-The **STREAMS** option is mandatory and MUST be the final option, because
+The **STREAMS** option is mandatory and MUST be the final option because
 such option gets a variable length of argument in the following format:
 
     STREAMS key_1 key_2 key_3 ... key_N ID_1 ID_2 ID_3 ... ID_N
 
-So we start with a list of keys, and later continue with all the associted
+So we start with a list of keys, and later continue with all the associated
 IDs, representing *the last ID we received for that stream*, so that the
 call will serve us only greater IDs from the same stream.
 
-For instance in the above exmaple, the last items that we received
+For instance in the above example, the last items that we received
 for the stream `mystream` has ID `1526999352406-0`, while for the
 stream `writers` has the ID `1526985685298-0`.
 
@@ -97,7 +97,7 @@ To continue iterating the two streams I'll call:
             4) "Christie"
 ```
 
-And so forth. Eventually the call will not return any item, but just an
+And so forth. Eventually, the call will not return any item, but just an
 empty array, then we know that there is nothing more to fetch from our
 stream (and we would have to retry the operation, hence this command
 also supports a blocking mode).
@@ -120,8 +120,8 @@ is exactly equivalent to
 
 ## Blocking for data
 
-In its synchronous form the command can get new data as long as there
-are more items available. However at some point, we'll have to wait for
+In its synchronous form, the command can get new data as long as there
+are more items available. However, at some point, we'll have to wait for
 producers of data to use `XADD` to push new entries inside the streams
 we are consuming. In order to avoid polling at a fixed or adaptive interval
 the command is able to block if it could not return any data, according
@@ -129,7 +129,7 @@ to the specified streams and IDs, and automatically unblock once one of
 the requested keys accept data.
 
 It is important to understand that this command is *fans out* to all the
-clients that are waiting the same range of IDs, so every consumer will
+clients that are waiting for the same range of IDs, so every consumer will
 get a copy of the data, unlike to what happens when blocking list pop
 operations are used.
 
@@ -186,10 +186,10 @@ And so forth.
 ## How multiple clients blocked on a single stream are served
 
 Blocking list operations on lists or sorted sets have a *pop* behavior.
-Bascially the element is removed from the list or sorted set in order
+Bascially, the element is removed from the list or sorted set in order
 to be returned to the client. In this scenario you want the items
 to be consumed in a fair way, depending on the moment clients blocked
-on a given key arrived. Normally Reids uses the FIFO semantics in this
+on a given key arrived. Normally Redis uses the FIFO semantics in this
 use cases.
 
 However note that with streams this is not a problem: stream entries
@@ -202,10 +202,10 @@ data to the stream.
 @array-reply, specifically:
 
 The command returns an array of results: each element of the returned
-array is composed of a two elements array containing the key name and
+array is an array composed of a two element containing the key name and
 the entries reported for that key. The entries reported are full stream
-entires, having IDs and the list of all the fields and values. Field and
-values are guarnateed to be reported in the same order they were added
+entries, having IDs and the list of all the fields and values. Field and
+values are guaranteed to be reported in the same order they were added
 by `XADD`.
 
 When **BLOCK** is used, on timeout a null reply is returned.
