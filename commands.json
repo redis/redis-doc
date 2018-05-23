@@ -3437,8 +3437,7 @@
       {
         "command": "GROUP",
         "name": ["group", "consumer"],
-        "type": ["string", "string"],
-        "optional": true
+        "type": ["string", "string"]
       },
       {
         "command": "COUNT",
