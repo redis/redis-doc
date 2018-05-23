@@ -81,5 +81,5 @@ XADD writers * name Toni surname Morris
 XADD writers * name Agatha surname Christie
 XADD writers * name Ngozi surname Adichie
 XLEN writers
-XREVRANGE writers - + COUNT 1
+XREVRANGE writers + - COUNT 1
 ```
