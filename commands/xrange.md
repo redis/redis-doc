@@ -1,6 +1,6 @@
 The command returns the stream entries matching a given range of IDs.
 The range is specified by a minimum and maximum ID. All the entires having
-an ID between the two specified, or exactly one of the two IDs specified
+an ID between the two specified or exactly one of the two IDs specified
 (closed interval) are returned.
 
 The `XRANGE` command has a number of applications:
@@ -9,7 +9,7 @@ The `XRANGE` command has a number of applications:
   Stream IDs are [related to time](/topics/streams-intro).
 * Iteratating a stream incrementally, returning just
   a few items at every iteration. However it is semantically much more
-  robust than the SCAN family of functions.
+  robust than the `SCAN` family of functions.
 * Fetching a single entry from a stream, providing the ID of the entry
   to fetch two times: as start and end of the query interval.
 
@@ -47,7 +47,7 @@ they are nicer to type.
 
 ## Incomplete IDs
 
-Stream IDs are composed of two parts, an Unix millisecond time stamp and a
+Stream IDs are composed of two parts, a Unix millisecond time stamp and a
 sequence number for entries inserted in the same millisecond. It is possible
 to use `XRANGE` specifying just the first part of the ID, the millisecond time,
 like in the following example:
@@ -56,18 +56,18 @@ like in the following example:
 > XRANGE somestream 1526985054069 1526985055069
 ```
 
-In this case `XRANGE` will auto-complete the start interval with `-0`
+In this case, `XRANGE` will auto-complete the start interval with `-0`
 and end interval with `-18446744073709551615`, in order to return all the
-entires that were generated between a given millisecond and the end of
+entries that were generated between a given millisecond and the end of
 the other specified millisecond. This also means that repeating the same
-millisecond two times, we get all the entires within such millisecond,
+millisecond two times, we get all the entries within such millisecond,
 because the sequence number range will be from zero to the maximum.
 
 Used in this way `XRANGE` works as a range query command to obtain entries
 in a specified time. This is very handy in order to access the history
 of past events in a stream.
 
-## Returning a maxium number of entires
+## Returning a maximum number of entries
 
 Using the **COUNT** option it is possible to reduce the number of entries
 reported. This is a very important feature even if it may look marginal,
@@ -86,7 +86,7 @@ the entry greater or equal to the following*:
 ```
 
 In the above case the entry `1526985054069-0` exists, otherwise the server
-would send us the next one. Using `COUNT` is also the base in order to
+would have sent us the next one. Using `COUNT` is also the base in order to
 use `XRANGE` as an iterator.
 
 ## Iterating a stream
@@ -131,18 +131,18 @@ sequence to obtain `1526985685298-1`, and continue our iteration:
 ```
 
 And so forth. Eventually this will allow to visit all the entries in the
-stream. Obviously we can start the iteration from any ID, or even from
-a specific time, by providing a given incomplete start ID. Moreover we
+stream. Obviously, we can start the iteration from any ID, or even from
+a specific time, by providing a given incomplete start ID. Moreover, we
 can limit the iteration to a given ID or time, by providing an end
 ID or incomplete ID instead of `+`.
 
 The command `XREAD` is also able to iterate the stream.
-The command `XREVRANGE` can iterate the stream in the reverse way, from
-higher IDs (or times) to lower IDs (or times).
+The command `XREVRANGE` can iterate the stream reverse, from higher IDs
+(or times) to lower IDs (or times).
 
 ## Fetching single items
 
-If you look for an `XGET` command you'll be disappointed, because `XRANGE`
+If you look for an `XGET` command you'll be disappointed because `XRANGE`
 is effectively the way to go in order to fetch a single entry from a
 stream. All you have to do is to specify the ID two times in the arguments
 of XRANGE:
@@ -169,7 +169,7 @@ For further information about Redis streams please check our
 
 The command returns the entries with IDs matching the specified range.
 The returned entries are complete, that means that the ID and all the fields
-they are composed are returned. Moreover the entries are returned with
+they are composed are returned. Moreover, the entries are returned with
 their fields and values in the exact same order as `XADD` added them.
 
 @examples
