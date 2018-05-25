@@ -3495,5 +3495,31 @@
     ],
     "since": "5.0.0",
     "group": "stream"
+  },
+  "XPENDING": {
+    "summary": "Return information and entries from a stream conusmer group pending entries list, that are messages fetched but never acknowledged.",
+    "complexity": "O(log(N)+M) with N being the number of elements in the consumer group pending entries list, and M the number of elements being returned. When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": ["start", "end", "count"],
+        "type": ["string", "string", "integer"],
+        "optional": true
+      },
+      {
+        "name": "consumer",
+        "type": "string"
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
   }
 }
