@@ -2225,15 +2225,9 @@
         "type": "string"
       },
       {
-        "command": "EX",
-        "name": "seconds",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "command": "PX",
-        "name": "milliseconds",
-        "type": "integer",
+        "command": "expiration",
+        "type": "enum",
+        "enum": ["EX seconds", "PX milliseconds"],
         "optional": true
       },
       {
