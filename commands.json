@@ -3509,7 +3509,7 @@
       },
       {
         "name": "consumer",
-        "type": "string"
+        "type": "string",
         "optional": true
       }
     ],
