@@ -640,5 +640,13 @@
     "repository": "https://github.com/anandtrex/redis-browser",
     "description": "Cross platform GUI tool for redis that includes support for ReJSON",
     "authors": ["anandtrex"]
+  },
+  {
+    "name": "Redis Server",
+    "language": "Xojo",
+    "repository": "https://github.com/ktekinay/XOJO-Redis",
+    "description": "Cross platform GUI to spin up and control redis-server, included in the project",
+    "url":"https://github.com/ktekinay/XOJO-Redis/releases/",
+    "authors": ["KemTekinay"]
   }
 ]
