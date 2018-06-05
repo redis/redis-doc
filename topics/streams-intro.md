@@ -475,10 +475,10 @@ Messaging systems that lack observability are very hard to work with. Not knowin
 
 However we may want to do more than that, and the **XINFO** command is an observability interface that can be used with sub-commands in order to get information about streams or consumer groups.
 
-In its simpler form **XINFO** just takes a key, and reports information about the stream itself.
+This command uses subcommands in order to show different informations about the status of the stream and its consumer groups. For instance using **XINFO STREAM <key>** reports information about the stream itself.
 
 ```
-> XINFO mystream
+> XINFO STREAM mystream
  1) length
  2) (integer) 13
  3) radix-tree-keys
@@ -498,8 +498,6 @@ In its simpler form **XINFO** just takes a key, and reports information about th
     2) 1) "message"
        2) "banana"
 ```
-
-Note: *Using just **XINFO keyname** to obtain information about the stream itself, is a shorter form for the full command form, which is **XINFO STREAM keyname***.
 
 The output shows information about how the stream is encoded internally, and also shows the first and the last message in the stream. Another information available is the number of consumer groups associated with this stream value. We can dig further asking for more information about the consumer groups.
 
@@ -547,8 +545,7 @@ In case you do not remember the syntax of the command, just ask for help to the 
 2) CONSUMERS <key> <groupname>  -- Show consumer groups of group <groupname>.
 3) GROUPS <key>                 -- Show the stream consumer groups.
 4) STREAM <key>                 -- Show information about the stream.
-5) <key>                        -- Alias for STREAM <key>.
-6) HELP                         -- Print this help.
+5) HELP                         -- Print this help.
 ```
 
 ## Differences with Kafka (TM) partitions
