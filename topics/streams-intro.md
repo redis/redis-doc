@@ -443,7 +443,7 @@ Basically we say, for this specific key and group, I want that the message IDs s
 
 ```
 Client 1: XCLAIM mystream mygroup Alice 3600000 1526569498055-0
-Clinet 2: XCLAIM mystream mygroup Lora 3600000 1526569498055-0
+Client 2: XCLAIM mystream mygroup Lora 3600000 1526569498055-0
 ```
 
 However claiming a message, as a side effect will reset its idle time! And will increment its number of deliveries counter, so the second client will fail claiming it. In this way we avoid trivial re-processing of messages (even if in the general case you cannot obtain exactly once processing).
