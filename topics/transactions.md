@@ -223,7 +223,8 @@ transactions.
 ### Using `WATCH` to implement ZPOP
 
 A good example to illustrate how `WATCH` can be used to create new
-atomic operations otherwise not supported by Redis is to implement ZPOP,
+atomic operations otherwise not supported by Redis is to implement ZPOP
+(`ZPOPMIN`, `ZPOPMAX` and their blocking variants have been added in v5),
 that is a command that pops the element with the lower score from a
 sorted set in an atomic way. This is the simplest implementation:
 
