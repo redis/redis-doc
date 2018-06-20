@@ -2015,8 +2015,25 @@
         "type": "enum",
         "enum": ["REPLACE"],
         "optional": true
+      },
+      {
+        "name": "absttl",
+        "type": "enum",
+        "enum": ["ABSTTL"],
+        "optional": true
+      },
+      {
+        "command": "IDLETIME",
+        "name": "seconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "FREQ",
+        "name": "frequency",
+        "type": "integer",
+        "optional": true
       }
-
     ],
     "since": "2.6.0",
     "group": "generic"
