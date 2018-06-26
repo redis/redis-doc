@@ -1,56 +1,42 @@
 Replication
 ===
 
-At the base of Redis replication there is a very simple to use and configure
-master-slave replication that allows slave Redis servers to be exact copies of
-master servers. The slave will automatically reconnect to the master every
-time the link breaks, and will attempt to be an exact copy of it regardless
-of what happens to the master.
+At the base of Redis replication (excluding the high availability features provided as an additional layer by Redis Cluster or Redis Sentinel) there is a very simple to use and configure *leader follower* (master-slave) replication: it allows slave Redis instances to be exact copies of master instances. The slave will automatically reconnect to the master every time the link breaks, and will attempt to be an exact copy of it *regardless* of what happens to the master.
 
 This system works using three main mechanisms:
 
-1. When a master and a slave instance are well-connected, the master keeps the slave updated by sending a stream of commands in order to replicate the effects on the dataset happening in the master dataset: client writes, keys expiring or evicted, and so forth.
+1. When a master and a slave instances are well-connected, the master keeps the slave updated by sending a stream of commands to the slave, in order to replicate the effects on the dataset happening in the master side due to: client writes, keys expired or evicted, any other action changing the master dataset.
 2. When the link between the master and the slave breaks, for network issues or because a timeout is sensed in the master or the slave, the slave reconnects and attempts to proceed with a partial resynchronization: it means that it will try to just obtain the part of the stream of commands it missed during the disconnection.
 3. When a partial resynchronization is not possible, the slave will ask for a full resynchronization. This will involve a more complex process in which the master needs to create a snapshot of all its data, send it to the slave, and then continue sending the stream of commands as the dataset changes.
 
-Redis uses by default asynchronous replication, which being high latency and
+Redis uses by default asynchronous replication, which being low latency and
 high performance, is the natural replication mode for the vast majority of Redis
 use cases. However Redis slaves asynchronously acknowledge the amount of data
-the received periodically with the master.
+they received periodically with the master. So the master does not wait every time
+for a command to be processed by the slaves, however it knows, if needed, what
+slave already processed what command. This allows to have optional syncrhonous replication.
 
 Synchronous replication of certain data can be requested by the clients using
 the `WAIT` command. However `WAIT` is only able to ensure that there are the
-specified number of acknowledged copies in the other Redis instances: acknowledged
-writes can still be lost during a failover for different reasons during a
-failover or depending on the exact configuration of the Redis persistence.
+specified number of acknowledged copies in the other Redis instances, it does not
+turn a set of Redis instances into a CP system with strong consistency: acknowledged
+writes can still be lost during a failover, depending on the exact configuration
+of the Redis persistence. However with `WAIT` the probability of losign a write
+after a failure event is greatly reduced to certain hard to trigger failure
+modes.
+
 You could check the Sentinel or Redis Cluster documentation for more information
 about high availability and failover. The rest of this document mainly describe the basic characteristics of Redis basic replication.
 
 The following are some very important facts about Redis replication:
 
 * Redis uses asynchronous replication, with asynchronous slave-to-master acknowledges of the amount of data processed.
-
 * A master can have multiple slaves.
-
-* Slaves are able to accept connections from other slaves. Aside from
-connecting a number of slaves to the same master, slaves can also be
-connected to other slaves in a cascading-like structure. Since Redis 4.0, all the sub-slaves will receive exactly the same replication stream from the master.
-
-* Redis replication is non-blocking on the master side. This means that
-the master will continue to handle queries when one or more slaves perform
-the initial synchronization or a partial resynchronization.
-
-* Replication is also largely non-blocking on the slave side. While the slave is performing the initial synchronization, it can handle queries using the old version of the dataset, assuming you configured Redis to do so in redis.conf.
-Otherwise, you can configure Redis slaves to return an error to clients if the
-replication stream is down. However, after the initial sync, the old dataset
-must be deleted and the new one must be loaded. The slave will block incoming
-connections during this brief window (that can be as long as many seconds for very large datasets). Since Redis 4.0 it is possible to configure Redis so that the deletion of the old data set happens in a different thread, however loading the new initial dataset will still happen in the main thread and block the slave.
-
-* Replication can be used both for scalability, in order to have
-multiple slaves for read-only queries (for example, slow O(N)
-operations can be offloaded to slaves), or simply for data safety.
-
-* It is possible to use replication to avoid the cost of having the master write the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a slave configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the slave tries to synchronized with it, the slave will be emptied as well.
+* Slaves are able to accept connections from other slaves. Aside from connecting a number of slaves to the same master, slaves can also be connected to other slaves in a cascading-like structure. Since Redis 4.0, all the sub-slaves will receive exactly the same replication stream from the master.
+* Redis replication is non-blocking on the master side. This means that the master will continue to handle queries when one or more slaves perform the initial synchronization or a partial resynchronization.
+* Replication is also largely non-blocking on the slave side. While the slave is performing the initial synchronization, it can handle queries using the old version of the dataset, assuming you configured Redis to do so in redis.conf.  Otherwise, you can configure Redis slaves to return an error to clients if the replication stream is down. However, after the initial sync, the old dataset must be deleted and the new one must be loaded. The slave will block incoming connections during this brief window (that can be as long as many seconds for very large datasets). Since Redis 4.0 it is possible to configure Redis so that the deletion of the old data set happens in a different thread, however loading the new initial dataset will still happen in the main thread and block the slave.
+* Replication can be used both for scalability, in order to have multiple slaves for read-only queries (for example, slow O(N) operations can be offloaded to slaves), or simply for improving data safety and high availability.
+* It is possible to use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a slave configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the slave tries to synchronized with it, the slave will be emptied as well.
 
 Safety of replication when master has persistence turned off
 ---
@@ -87,7 +73,7 @@ is actually connected, so basically every given pair of:
 
 Identifies an exact version of the dataset of a master.
 
-When slaves connects to master, they use the `PSYNC` command in order to send
+When slaves connects to masters, they use the `PSYNC` command in order to send
 their old master replication ID and the offsets they processed so far. This way
 the master can send just the incremental part needed. However if there is not
 enough *backlog* in the master buffers, or if the slave is referring to an
@@ -106,6 +92,48 @@ newer Redis instances, but is still there for backward compatibility: it does
 not allow partial resynchronizations, so now `PSYNC` is used instead.
 
 As already said, slaves are able to automatically reconnect when the master-slave link goes down for some reason. If the master receives multiple concurrent slave synchronization requests, it performs a single background save in order to serve all of them.
+
+Replication ID explained
+---
+
+In the previous section we said that if two instances have the same replication
+ID and replication offset, they have exactly the same data. However it is useful
+to understand what exctly is the replication ID, and why instances have actually
+two replication IDs the main ID and the secondary ID.
+
+A replication ID basically marks a given *history* of the data set. Every time
+an instance restarts from scratch as a master, or a slave is promoted to master,
+a new replication ID is generated for this instance. The slaves connected to
+a master will inherit its replication ID after the handshake. So two instances
+with the same ID are related by the fact that they hold the same data, but
+potentially at a different time. It is the offset that works as a logical time
+to understand, for a given history (replication ID) who holds the most updated
+data set.
+
+For instance if two instances A and B have the same replication ID, but one
+with offset 1000 and one with offset 1023, it means that the first lacks certain
+commands applied to the data set. It also means that A, by applying just a few
+commands, may reach exactly the same state of B.
+
+The reason why Redis instances have two replication IDs is because of slaves
+that are promoted to masters. After a failover, the promoted slave requires
+to still remember what was its past replication ID, because such replication ID
+was the one of the former master. In this way, when other slaves will synchronize
+with the new master, they will try to perform a partial resynchronization using the
+old master replication ID. This will work as expected, becuase when the slave
+is promoted to master it sets its secondary ID to its main ID, remembering what
+was the offset when this ID switch happend. Later it will select a new random
+replication ID, because a new history begins. When handling the new slaves
+connecting, the master will match their IDs and offsets both with the current
+ID and the secondary ID (up to a given offset, for safety). In short this means
+that after a failover, slaves connecting to the new promoted master don't have
+to perform a full sync.
+
+In case you wonder why a slave promoted to master needs to change its
+replication ID after a failover: it is possible that the old master is still
+working as a master because of some network partition: retaining the same
+replication ID would violate the fact that the same ID and same offset of any
+two random instances mean they have the same data set.
 
 Diskless replication
 ---
@@ -287,3 +315,6 @@ Moreover slaves when powered off gently and restarted, are able to store in the
 `RDB` file the information needed in order to resynchronize with their master.
 This is useful in case of upgrades. When this is needed, it is better to use
 the `SHUTDOWN` command in order to perform a `save & quit` operation on the slave.
+
+It is not possilbe to partially resynchronize a slave that restarted via the AOF file. However the instance may be turned to RDB persistence before shutting down it, than can be restarted, and finally AOF can be enabled again.
+
