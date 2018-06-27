@@ -301,31 +301,25 @@ Now that we have a number of instances running, we need to create our
 cluster by writing some meaningful configuration to the nodes.
 
 This is very easy to accomplish as we are helped by the Redis Cluster
-command line utility called `redis-trib`, a Ruby program
-executing special commands on instances in order to create new clusters,
+command line utility embedded into `redis-cli`, that can be used to create new clusters,
 check or reshard an existing cluster, and so forth.
 
 
-The `redis-trib` utility is in the `src` directory of the Redis source code
-distribution.
-You need to install `redis` gem to be able to run `redis-trib`.
-
-    gem install redis
-
  To create your cluster simply type:
 
-    ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
-    127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
+    redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 \
+    127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 \
+    --cluster-replicas 1
 
 The command used here is **create**, since we want to create a new cluster.
-The option `--replicas 1` means that we want a slave for every master created.
+The option `--cluster-replicas 1` means that we want a slave for every master created.
 The other arguments are the list of addresses of the instances I want to use
 to create the new cluster.
 
 Obviously the only setup with our requirements is to create a cluster with
 3 masters and 3 slaves.
 
-Redis-trib will propose you a configuration. Accept the proposed configuration by typing **yes**.
+Redis-cli will propose you a configuration. Accept the proposed configuration by typing **yes**.
 The cluster will be configured and *joined*, which means, instances will be
 bootstrapped into talking with each other. Finally, if everything went well,
 you'll see a message like that:
@@ -351,7 +345,7 @@ commands:
 1. `create-cluster start`
 2. `create-cluster create`
 
-Reply to `yes` in step 2 when the `redis-trib` utility wants you to accept
+Reply to `yes` in step 2 when the `redis-cli` utility wants you to accept
 the cluster layout.
 
 You can now interact with the cluster, the first node will start at port 30001
@@ -544,16 +538,16 @@ call in order to have some more serious write load during resharding.
 
 Resharding basically means to move hash slots from a set of nodes to another
 set of nodes, and like cluster creation it is accomplished using the
-redis-trib utility.
+redis-cli utility.
 
 To start a resharding just type:
 
-    ./redis-trib.rb reshard 127.0.0.1:7000
+    redis-cli --cluster reshard 127.0.0.1:7000
 
-You only need to specify a single node, redis-trib will find the other nodes
+You only need to specify a single node, redis-cli will find the other nodes
 automatically.
 
-Currently redis-trib is only able to reshard with the administrator support,
+Currently redis-cli is only able to reshard with the administrator support,
 you can't just say move 5% of slots from this node to the other one (but
 this is pretty trivial to implement). So it starts with questions. The first
 is how much a big resharding do you want to do:
@@ -564,11 +558,11 @@ We can try to reshard 1000 hash slots, that should already contain a non
 trivial amount of keys if the example is still running without the sleep
 call.
 
-Then redis-trib needs to know what is the target of the resharding, that is,
+Then redis-cli needs to know what is the target of the resharding, that is,
 the node that will receive the hash slots.
 I'll use the first master node, that is, 127.0.0.1:7000, but I need
 to specify the Node ID of the instance. This was already printed in a
-list by redis-trib, but I can always find the ID of a node with the following
+list by redis-cli, but I can always find the ID of a node with the following
 command if I need:
 
 ```
@@ -583,7 +577,7 @@ I'll just type `all` in order to take a bit of hash slots from all the
 other master nodes.
 
 After the final confirmation you'll see a message for every slot that
-redis-trib is going to move from a node to another, and a dot will be printed
+redis-cli is going to move from a node to another, and a dot will be printed
 for every actual key moved from one side to the other.
 
 While the resharding is in progress you should be able to see your
@@ -593,7 +587,7 @@ during the resharding if you want.
 At the end of the resharding, you can test the health of the cluster with
 the following command:
 
-    ./redis-trib.rb check 127.0.0.1:7000
+    redis-cli --cluster check 127.0.0.1:7000
 
 All the slots will be covered as usually, but this time the master at
 127.0.0.1:7000 will have more hash slots, something around 6461.
@@ -605,10 +599,10 @@ Reshardings can be performed automatically without the need to manually
 enter the parameters in an interactive way. This is possible using a command
 line like the following:
 
-    ./redis-trib.rb reshard --from <node-id> --to <node-id> --slots <number of slots> --yes <host>:<port>
+    redis-cli reshard <host>:<port> --cluster-from <node-id> --cluster-to <node-id> --cluster-slots <number of slots> --cluster-yes
 
 This allows to build some automatism if you are likely to reshard often,
-however currently there is no way for `redis-trib` to automatically
+however currently there is no way for `redis-cli` to automatically
 rebalance the cluster checking the distribution of keys across the cluster
 nodes and intelligently moving slots as needed. This feature will be added
 in the future.
@@ -818,20 +812,20 @@ do in order to conform with the setup we used for the previous nodes:
 
 At this point the server should be running.
 
-Now we can use **redis-trib** as usually in order to add the node to
+Now we can use **redis-cli** as usually in order to add the node to
 the existing cluster.
 
-    ./redis-trib.rb add-node 127.0.0.1:7006 127.0.0.1:7000
+    redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000
 
 As you can see I used the **add-node** command specifying the address of the
 new node as first argument, and the address of a random existing node in the
 cluster as second argument.
 
-In practical terms redis-trib here did very little to help us, it just
+In practical terms redis-cli here did very little to help us, it just
 sent a `CLUSTER MEET` message to the node, something that is also possible
-to accomplish manually. However redis-trib also checks the state of the
+to accomplish manually. However redis-cli also checks the state of the
 cluster before to operate, so it is a good idea to perform cluster operations
-always via redis-trib even when you know how the internals work.
+always via redis-cli even when you know how the internals work.
 
 Now we can connect to the new node to see if it really joined the cluster:
 
@@ -854,7 +848,7 @@ the cluster. However it has two peculiarities compared to the other masters:
 * Because it is a master without assigned slots, it does not participate in the election process when a slave wants to become a master.
 
 Now it is possible to assign hash slots to this node using the resharding
-feature of `redis-trib`. It is basically useless to show this as we already
+feature of `redis-cli`. It is basically useless to show this as we already
 did in a previous section, there is no difference, it is just a resharding
 having as a target the empty node.
 
@@ -862,19 +856,19 @@ Adding a new node as a replica
 ---
 
 Adding a new Replica can be performed in two ways. The obvious one is to
-use redis-trib again, but with the --slave option, like this:
+use redis-cli again, but with the --cluster-slave option, like this:
 
-    ./redis-trib.rb add-node --slave 127.0.0.1:7006 127.0.0.1:7000
+    redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000 --cluster-slave
 
 Note that the command line here is exactly like the one we used to add
 a new master, so we are not specifying to which master we want to add
-the replica. In this case what happens is that redis-trib will add the new
+the replica. In this case what happens is that redis-cli will add the new
 node as replica of a random master among the masters with less replicas.
 
 However you can specify exactly what master you want to target with your
 new replica with the following command line:
 
-    ./redis-trib.rb add-node --slave --master-id 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 127.0.0.1:7006 127.0.0.1:7000
+    redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000 --cluster-slave --cluster-master-id 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e
 
 This way we assign the new replica to a specific master.
 
@@ -905,9 +899,9 @@ The node 3c3a0c... now has two slaves, running on ports 7002 (the existing one) 
 Removing a node
 ---
 
-To remove a slave node just use the `del-node` command of redis-trib:
+To remove a slave node just use the `del-node` command of redis-cli:
 
-    ./redis-trib del-node 127.0.0.1:7000 `<node-id>`
+    redis-cli --cluster del-node 127.0.0.1:7000 `<node-id>`
 
 The first argument is just a random node in the cluster, the second argument
 is the ID of the node you want to remove.
@@ -1022,12 +1016,12 @@ in order to migrate your data set to Redis Cluster:
 4. Create a Redis Cluster composed of N masters and zero slaves. You'll add slaves later. Make sure all your nodes are using the append only file for persistence.
 5. Stop all the cluster nodes, substitute their append only file with your pre-existing append only files, aof-1 for the first node, aof-2 for the second node, up to aof-N.
 6. Restart your Redis Cluster nodes with the new AOF files. They'll complain that there are keys that should not be there according to their configuration.
-7. Use `redis-trib fix` command in order to fix the cluster so that keys will be migrated according to the hash slots each node is authoritative or not.
-8. Use `redis-trib check` at the end to make sure your cluster is ok.
+7. Use `redis-cli --cluster fix` command in order to fix the cluster so that keys will be migrated according to the hash slots each node is authoritative or not.
+8. Use `redis-cli --cluster check` at the end to make sure your cluster is ok.
 9. Restart your clients modified to use a Redis Cluster aware client library.
 
 There is an alternative way to import data from external instances to a Redis
-Cluster, which is to use the `redis-trib import` command.
+Cluster, which is to use the `redis-cli --cluster import` command.
 
 The command moves all the keys of a running instance (deleting the keys from
 the source instance) to the specified pre-existing Redis Cluster. However
