@@ -1663,6 +1663,13 @@
         "optional": true
       },
       {
+        "name": "auth",
+        "command": "AUTH",
+        "type": "password",
+        "enum": ["REPLACE"],
+        "optional": true
+      },
+      {
         "name": "key",
         "command": "KEYS",
         "type": "key",
