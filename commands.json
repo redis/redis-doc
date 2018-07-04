@@ -1666,7 +1666,7 @@
         "name": "auth",
         "command": "AUTH",
         "type": "password",
-        "enum": ["REPLACE"],
+        "enum": ["AUTH password"],
         "optional": true
       },
       {
