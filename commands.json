@@ -1663,10 +1663,10 @@
         "optional": true
       },
       {
-        "name": "auth",
+        "name": "password",
         "command": "AUTH",
         "type": "password",
-        "enum": ["AUTH password"],
+        "enum": ["AUTH"],
         "optional": true
       },
       {
