@@ -1663,9 +1663,9 @@
         "optional": true
       },
       {
-        "name": "auth",
+        "name": "password",
         "command": "AUTH",
-        "type": "password",
+        "type": "string",
         "enum": ["REPLACE"],
         "optional": true
       },
