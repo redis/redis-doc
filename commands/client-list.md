@@ -1,6 +1,15 @@
 The `CLIENT LIST` command returns information and statistics about the client
 connections server in a mostly human readable format.
 
+However starting with Redis 5.0.0 or greater, the command accepts the following
+form:
+
+    CLIENT LIST type (normal|master|slave|pubsub)
+
+With the new form, Redis can return clients in the specified class.
+
+`CLIENT LIST` without subcommand `type` returns all clients.
+
 @return
 
 @bulk-string-reply: a unique string, formatted as follows:
@@ -35,6 +44,7 @@ The client flags can be a combination of:
 O: the client is a slave in MONITOR mode
 S: the client is a normal slave server
 M: the client is a master
+P: the client is in a PUB/SUB context
 x: the client is in a MULTI/EXEC context
 b: the client is waiting in a blocking operation
 i: the client is waiting for a VM I/O (deprecated)
