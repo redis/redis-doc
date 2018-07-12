@@ -1547,13 +1547,21 @@
     "active": true
   },
   
-    {
+  {
     "name": "Redis_MTC",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
-  }
+  },
   
+  {
+    "name": "Excel-RTD Redis",
+    "language": "Excel",
+    "repository": "https://github.com/mdvx/redis-rtd",
+    "description": "Excel RTD server sourcing data from Redis",
+    "authors": ["mdvx"],
+    "active": true
+  }
 ]
