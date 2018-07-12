@@ -1561,7 +1561,7 @@
     "language": "Excel",
     "repository": "https://github.com/mdvx/redis-rtd",
     "description": "Excel RTD server sourcing data from Redis",
-    "authors": ["Marc Deveaux"],
+    "authors": ["mdvx"],
     "active": true
   }
 ]
