@@ -21,13 +21,13 @@
   },
   {
     "name": "Redis Graph",
-    "license": "AGPL",
+    "license": "Apache 2.0 with Commons Clause",
     "repository": "https://github.com/swilly22/redis-graph",
     "description": "A graph database with a Cypher-based querying language",
     "authors": [
       "swilly22"
     ],
-    "stars": 372
+    "stars": 394
   },
   {
     "name": "redis-tdigest",
@@ -41,36 +41,36 @@
   },
   {
     "name": "ReJSON",
-    "license": "AGPL",
+    "license": "Apache 2.0 with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/ReJSON",
     "description": "A JSON data type for Redis",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 535
+    "stars": 586
   },
   {
     "name": "Redis-ML",
-    "license": "AGPL",
+    "license": "Apache 2.0 with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/redis-ml",
     "description": "Machine Learning Model Server",
     "authors": [
       "shaynativ",
       "RedisLabs"
     ],
-    "stars": 160
+    "stars": 188
   },
   {
     "name": "RediSearch",
-    "license": "AGPL",
+    "license": "Apache 2.0 with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": [
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 1093
+    "stars": 1236
   },
   {
     "name": "topk",
@@ -96,14 +96,14 @@
   },
   {
     "name": "rebloom",
-    "license": "AGPL",
+    "license": "Apache 2.0 with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/rebloom",
     "description": "Scalable Bloom filters",
     "authors": [
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 95
+    "stars": 106
   },
   {
     "name": "neural-redis",
@@ -113,11 +113,11 @@
     "authors": [
       "antirez"
     ],
-    "stars": 2021
+    "stars": 2053
   },
   {
     "name": "redis-timerseries",
-    "license": "AGPL",
+    "license": "Apache 2.0 with Commons Clause",
     "repository": "https://github.com/danni-m/redis-timeseries",
     "description": "Time-series data structure for redis",
     "authors": [
@@ -179,11 +179,21 @@
     "name": "rediSQL",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedBeardLab/rediSQL",
-    "description": "A redis module that provide full SQL capabilities embedding SQLite",
+    "description": "A redis module that provides a full SQL capabilities embedding SQLite",
     "authors": [
       "siscia",
       "RedBeardLab"
     ],
     "stars": 563
+  },
+  {
+    "name": "smartcache",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/fcerbell/redismodule-smartcache",
+    "description": "A redis module that provides a pass-through cache",
+    "authors": [
+      "fcerbell"
+    ],
+    "stars": 2
   }
 ]
