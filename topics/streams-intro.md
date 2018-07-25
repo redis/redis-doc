@@ -169,7 +169,7 @@ The blocking form of **XREAD** is also able to listen to multiple Streams, just 
 
 Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream is the first that will be unblocked as new items are available.
 
-**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attack consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
+**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
 
 ## Consumer groups
 
@@ -273,7 +273,7 @@ There is another very important detail in the command line above, after the mand
 This is almost always what you want, however it is also possible to specify a real ID, such as `0` or any other valid ID, in this case however what happens is that we request to **XREADGROUP** to just provide us with the **history of pending messages**, and in such case, will never see new messages in the group. So basically **XREADGROUP** has the following behavior based on the ID we specify:
 
 * If the ID is the special ID `>` then the command will return only new messages never delivered to other consumers so far, and as a side effect, will update the consumer group *last ID*.
-* If the ID is any other valid numerical ID, then the command will let us access our *history of pending messages*. That is, the set of messages that were delivered to this specified consumer (identified by the provided name), and never acknowledged so var with **XACK**.
+* If the ID is any other valid numerical ID, then the command will let us access our *history of pending messages*. That is, the set of messages that were delivered to this specified consumer (identified by the provided name), and never acknowledged so far with **XACK**.
 
 We can test this behavior immediately specifying an ID of 0, without any **COUNT** option: we'll just see the only pending message, that is, the one about apples:
 
@@ -443,7 +443,7 @@ Basically we say, for this specific key and group, I want that the message IDs s
 
 ```
 Client 1: XCLAIM mystream mygroup Alice 3600000 1526569498055-0
-Clinet 2: XCLAIM mystream mygroup Lora 3600000 1526569498055-0
+Client 2: XCLAIM mystream mygroup Lora 3600000 1526569498055-0
 ```
 
 However claiming a message, as a side effect will reset its idle time! And will increment its number of deliveries counter, so the second client will fail claiming it. In this way we avoid trivial re-processing of messages (even if in the general case you cannot obtain exactly once processing).
