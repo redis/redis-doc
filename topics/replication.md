@@ -10,18 +10,18 @@ This system works using three main mechanisms:
 3. When a partial resynchronization is not possible, the slave will ask for a full resynchronization. This will involve a more complex process in which the master needs to create a snapshot of all its data, send it to the slave, and then continue sending the stream of commands as the dataset changes.
 
 Redis uses by default asynchronous replication, which being low latency and
-high performance, is the natural replication mode for the vast majority of Redis
-use cases. However Redis slaves asynchronously acknowledge the amount of data
+high performance is the natural replication mode for the vast majority of Redis
+use cases. However, Redis slaves asynchronously acknowledge the amount of data
 they received periodically with the master. So the master does not wait every time
 for a command to be processed by the slaves, however it knows, if needed, what
-slave already processed what command. This allows to have optional syncrhonous replication.
+slave already processed what command. This allows having optional synchronous replication.
 
 Synchronous replication of certain data can be requested by the clients using
 the `WAIT` command. However `WAIT` is only able to ensure that there are the
 specified number of acknowledged copies in the other Redis instances, it does not
 turn a set of Redis instances into a CP system with strong consistency: acknowledged
 writes can still be lost during a failover, depending on the exact configuration
-of the Redis persistence. However with `WAIT` the probability of losign a write
+of the Redis persistence. However with `WAIT` the probability of losing a write
 after a failure event is greatly reduced to certain hard to trigger failure
 modes.
 
@@ -36,7 +36,7 @@ The following are some very important facts about Redis replication:
 * Redis replication is non-blocking on the master side. This means that the master will continue to handle queries when one or more slaves perform the initial synchronization or a partial resynchronization.
 * Replication is also largely non-blocking on the slave side. While the slave is performing the initial synchronization, it can handle queries using the old version of the dataset, assuming you configured Redis to do so in redis.conf.  Otherwise, you can configure Redis slaves to return an error to clients if the replication stream is down. However, after the initial sync, the old dataset must be deleted and the new one must be loaded. The slave will block incoming connections during this brief window (that can be as long as many seconds for very large datasets). Since Redis 4.0 it is possible to configure Redis so that the deletion of the old data set happens in a different thread, however loading the new initial dataset will still happen in the main thread and block the slave.
 * Replication can be used both for scalability, in order to have multiple slaves for read-only queries (for example, slow O(N) operations can be offloaded to slaves), or simply for improving data safety and high availability.
-* It is possible to use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a slave configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the slave tries to synchronized with it, the slave will be emptied as well.
+* It is possible to use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a slave configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the slave tries to synchronize with it, the slave will be emptied as well.
 
 Safety of replication when master has persistence turned off
 ---
@@ -73,11 +73,11 @@ is actually connected, so basically every given pair of:
 
 Identifies an exact version of the dataset of a master.
 
-When slaves connects to masters, they use the `PSYNC` command in order to send
+When slaves connect to masters, they use the `PSYNC` command in order to send
 their old master replication ID and the offsets they processed so far. This way
 the master can send just the incremental part needed. However if there is not
-enough *backlog* in the master buffers, or if the slave is referring to an
-history (replication ID) which is no longer known, than a full resynchronization
+enough *backlog* in the master buffers, or if the slave is referring to a
+history (replication ID) which is no longer known, then a full resynchronization
 happens: in this case the slave will get a full copy of the dataset, from scratch.
 
 This is how a full synchronization works in more details:
@@ -98,7 +98,7 @@ Replication ID explained
 
 In the previous section we said that if two instances have the same replication
 ID and replication offset, they have exactly the same data. However it is useful
-to understand what exctly is the replication ID, and why instances have actually
+to understand what exactly is the replication ID, and why instances have actually
 two replication IDs the main ID and the secondary ID.
 
 A replication ID basically marks a given *history* of the data set. Every time
@@ -110,7 +110,7 @@ potentially at a different time. It is the offset that works as a logical time
 to understand, for a given history (replication ID) who holds the most updated
 data set.
 
-For instance if two instances A and B have the same replication ID, but one
+For instance, if two instances A and B have the same replication ID, but one
 with offset 1000 and one with offset 1023, it means that the first lacks certain
 commands applied to the data set. It also means that A, by applying just a few
 commands, may reach exactly the same state of B.
@@ -120,13 +120,13 @@ that are promoted to masters. After a failover, the promoted slave requires
 to still remember what was its past replication ID, because such replication ID
 was the one of the former master. In this way, when other slaves will synchronize
 with the new master, they will try to perform a partial resynchronization using the
-old master replication ID. This will work as expected, becuase when the slave
+old master replication ID. This will work as expected, because when the slave
 is promoted to master it sets its secondary ID to its main ID, remembering what
-was the offset when this ID switch happend. Later it will select a new random
+was the offset when this ID switch happened. Later it will select a new random
 replication ID, because a new history begins. When handling the new slaves
 connecting, the master will match their IDs and offsets both with the current
 ID and the secondary ID (up to a given offset, for safety). In short this means
-that after a failover, slaves connecting to the new promoted master don't have
+that after a failover, slaves connecting to the newly promoted master don't have
 to perform a full sync.
 
 In case you wonder why a slave promoted to master needs to change its
@@ -194,7 +194,7 @@ Also note that since Redis 4.0 slave writes are only local, and are not propagat
 
     A ---> B ---> C
 
-Even if `B` is writable, C will not see `B` writes and will instead have identical dataset as the master instance `A`.
+Even if `B` is writable, C will not see `B` writes and will instead have an identical dataset to the master instance `A`.
 
 Setting a slave to authenticate to a master
 ---
@@ -244,14 +244,14 @@ Redis source distribution.
 How Redis replication deals with expires on keys
 ---
 
-Redis expires allow keys to have a limited time to live. Such a feature depends
+Redis expires allow keys to have a limited time to live (TTL). Such a feature depends
 on the ability of an instance to count the time, however Redis slaves correctly
 replicate keys with expires, even when such keys are altered using Lua
 scripts.
 
 To implement such a feature Redis cannot rely on the ability of the master and
 slave to have synchronized clocks, since this is a problem that cannot be solved
-and would result into race conditions and diverging data sets, so Redis
+and would result in race conditions and diverging data sets, so Redis
 uses three main techniques in order to make the replication of expired keys
 able to work:
 
@@ -264,7 +264,7 @@ Once a slave is promoted to a master it will start to expire keys independently,
 Configuring replication in Docker and NAT
 ---
 
-When Docker, or other types of containers using port forwarding, or Network Address Translation is used, Redis replication needs some extra care, especially when using Redis Sentinel or other systems where the master `INFO` or `ROLE` commands output are scanned in order to discover slaves addresses.
+When Docker, or other types of containers using port forwarding, or Network Address Translation is used, Redis replication needs some extra care, especially when using Redis Sentinel or other systems where the master `INFO` or `ROLE` commands output is scanned in order to discover slaves addresses.
 
 The problem is that the `ROLE` command, and the replication section of
 the `INFO` output, when issued into a master instance, will show slaves
@@ -273,7 +273,7 @@ environments using NAT may be different compared to the logical address of the
 slave instance (the one that clients should use to connect to slaves).
 
 Similarly the slaves will be listed with the listening port configured
-into `redis.conf`, that may be different than the forwarded port in case
+into `redis.conf`, that may be different from the forwarded port in case
 the port is remapped.
 
 In order to fix both issues, it is possible, since Redis 3.2.2, to force
@@ -316,5 +316,4 @@ Moreover slaves when powered off gently and restarted, are able to store in the
 This is useful in case of upgrades. When this is needed, it is better to use
 the `SHUTDOWN` command in order to perform a `save & quit` operation on the slave.
 
-It is not possilbe to partially resynchronize a slave that restarted via the AOF file. However the instance may be turned to RDB persistence before shutting down it, than can be restarted, and finally AOF can be enabled again.
-
+It is not possible to partially resynchronize a slave that restarted via the AOF file. However the instance may be turned to RDB persistence before shutting it down, than can be restarted, and finally AOF can be enabled again.
