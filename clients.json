@@ -1547,13 +1547,22 @@
     "active": true
   },
   
-    {
+  {
     "name": "Redis_MTC",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  },
+
+  {
+    "name": "guile-redis",
+    "language": "Scheme",
+    "repository": "https://github.com/aconchillo/guile-redis",
+    "description": "A Redis client for Guile",
+    "authors": ["aconchillo"],
+    "active": true
   }
-  
+
 ]
