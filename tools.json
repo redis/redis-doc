@@ -74,6 +74,7 @@
     "name": "Redis-rdb-tools",
     "language": "Python",
     "repository": "https://github.com/sripathikrishnan/redis-rdb-tools",
+    "url": "https://rdbtools.com/",
     "description": "Parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON.",
     "authors": ["srithedabbler"]
   },
