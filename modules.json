@@ -41,7 +41,7 @@
   },
   {
     "name": "ReJSON",
-    "license": "AGPL",
+    "license": "Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/ReJSON",
     "description": "A JSON data type for Redis",
     "authors": [
@@ -52,7 +52,7 @@
   },
   {
     "name": "Redis-ML",
-    "license": "AGPL",
+    "license": "Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/redis-ml",
     "description": "Machine Learning Model Server",
     "authors": [
@@ -63,7 +63,7 @@
   },
   {
     "name": "RediSearch",
-    "license": "AGPL",
+    "license": "Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": [
@@ -74,7 +74,7 @@
   },
   {
     "name": "topk",
-    "license": "AGPL",
+    "license": "Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/topk",
     "description": "An almost deterministic top k elements counter",
     "authors": [
@@ -85,7 +85,7 @@
   },
   {
     "name": "countminsketch",
-    "license": "AGPL",
+    "license": "Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/countminsketch",
     "description": "An apporximate frequency counter",
     "authors": [
@@ -96,7 +96,7 @@
   },
   {
     "name": "rebloom",
-    "license": "AGPL",
+    "license": "Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/rebloom",
     "description": "Scalable Bloom filters",
     "authors": [
