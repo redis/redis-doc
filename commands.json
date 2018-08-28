@@ -3567,9 +3567,7 @@
     "group": "stream"
   },
   "XACK": {
-    "summary": "Marks a pending message as correctly processed.
-
-Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
+    "summary": "Marks a pending message as correctly processed. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
     "complexity": "",
     "arguments": [
       {
