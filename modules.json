@@ -188,7 +188,7 @@
   },
   {
     "name": "redis-fpn",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "Apache 2.0",
     "repository": "https://github.com/infobip/redis-fpn",
     "description": "Redis module for Fixed Point Number data type",
     "authors": [
