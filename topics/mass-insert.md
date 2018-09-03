@@ -66,11 +66,13 @@ The Redis protocol is extremely simple to generate and parse, and is
 the goal of mass insertion you don't need to understand every detail of the
 protocol, but just that every command is represented in the following way:
 
-    *<args><cr><lf>
-    $<len><cr><lf>
+    *<argc><cr><lf>
+    $<len0><cr><lf>
     <arg0><cr><lf>
+    $<len1><cr><lf>
     <arg1><cr><lf>
     ...
+    $<lenN><cr><lf>
     <argN><cr><lf>
 
 Where `<cr>` means "\r" (or ASCII character 13) and `<lf>` means "\n" (or ASCII character 10).
