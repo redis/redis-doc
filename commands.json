@@ -3330,6 +3330,38 @@
     "since": "2.8.0",
     "group": "sorted_set"
   },
+  "XINFO": {
+    "summary": "Get information on streams and consumer groups",
+    "complexity": "",
+    "arguments": [
+      {
+        "command": "CONSUMERS",
+        "name": ["key", "groupname"],
+        "type": ["key", "string"],
+        "optional": true
+      },
+      {
+        "command": "GROUPS",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "command": "STREAM",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "name": "help",
+        "type": "enum",
+        "enum": ["HELP"],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
   "XADD": {
     "summary": "Appends a new entry to a stream",
     "complexity": "O(log(N)) with N being the number of items already into the stream.",
