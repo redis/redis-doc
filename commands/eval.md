@@ -325,6 +325,8 @@ SCRIPT currently accepts three different commands:
 
 ## Scripts as pure functions
 
+*Note: starting with Redis 5, scripts are always replicated as effects and not sending the script verbatim. So the following section is mostly applicable to Redis version 4 or older.*
+
 A very important part of scripting is writing scripts that are pure functions.
 Scripts executed in a Redis instance are, by default, replicated on slaves
 and into the AOF file by sending the script itself -- not the resulting
@@ -465,6 +467,8 @@ regardless of the architecture of the system running Redis.
 output.
 
 ## Replicating commands instead of scripts
+
+*Note: starting with Redis 5, the replication method described in this section (scripts effects replication) is the default and does not need to be explicitly enabled.*
 
 Starting with Redis 3.2, it is possible to select an
 alternative replication method. Instead of replication whole scripts, we
