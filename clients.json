@@ -1554,6 +1554,13 @@
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  },
+  {
+    "name": "dartis",
+    "language": "Dart",
+    "repository": "https://github.com/jcmellado/dartis",
+    "description": "A Redis client for Dart 2",
+    "authors": [],
+    "active": true
   }
-  
 ]
