@@ -88,7 +88,7 @@
     "name": "Redis-sync",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/redis-sync",
-    "description": "A node.js Redis replication slave toolkit",
+    "description": "A node.js Redis replication toolkit",
     "authors": ["pconstr"]
   },
   {
@@ -159,7 +159,7 @@
     "name": "Redis_failover",
     "language": "Ruby",
     "repository": "https://github.com/ryanlecompte/redis_failover",
-    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
+    "description": "Redis Failover is a ZooKeeper-based automatic master/replica failover solution for Ruby.",
     "authors": ["ryanlecompte"]
   },
   {
@@ -459,13 +459,6 @@
     "repository": "https://github.com/FGRibreau/redis-tool",
     "description": "Redis-tool - Little helpers for Redis (ztrim, del-all, rename)",
     "authors": ["fgribreau"]
-  },
-  {
-    "name": "Redis_failover",
-    "language": "Ruby",
-    "repository": "https://github.com/ryanlecompte/redis_failover",
-    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
-    "authors": ["ryanlecompte"]
   },
   {
     "name": "redis-in-labview",
