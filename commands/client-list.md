@@ -32,8 +32,8 @@ Here is the meaning of the fields:
 The client flags can be a combination of:
 
 ```
-O: the client is a slave in MONITOR mode
-S: the client is a normal slave server
+O: the client is a client in MONITOR mode
+S: the client is a replica node connection to this instance
 M: the client is a master
 x: the client is in a MULTI/EXEC context
 b: the client is waiting in a blocking operation
