@@ -361,7 +361,7 @@
     "group": "cluster"
   },
   "CLUSTER FAILOVER": {
-    "summary": "Forces a slave to perform a manual failover of its master.",
+    "summary": "Forces a replica to perform a manual failover of its master.",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -443,7 +443,7 @@
     "group": "cluster"
   },
   "CLUSTER REPLICATE": {
-    "summary": "Reconfigure a node as a slave of the specified master node",
+    "summary": "Reconfigure a node as a replica of the specified master node",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -509,7 +509,7 @@
     "group": "cluster"
   },
   "CLUSTER SLAVES": {
-    "summary": "List slave nodes of the specified master node",
+    "summary": "List replica nodes of the specified master node",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -518,6 +518,18 @@
       }
     ],
     "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER REPLICAS": {
+    "summary": "List replica nodes of the specified master node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
     "group": "cluster"
   },
   "CLUSTER SLOTS": {
@@ -1951,13 +1963,13 @@
     "group": "generic"
   },
   "READONLY": {
-    "summary": "Enables read queries for a connection to a cluster slave node",
+    "summary": "Enables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
   "READWRITE": {
-    "summary": "Disables read queries for a connection to a cluster slave node",
+    "summary": "Disables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
@@ -2376,7 +2388,7 @@
     "group": "set"
   },
   "SLAVEOF": {
-    "summary": "Make the server a slave of another instance, or promote it as master",
+    "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
     "arguments": [
       {
         "name": "host",
@@ -2388,6 +2400,21 @@
       }
     ],
     "since": "1.0.0",
+    "group": "server"
+  },
+  "REPLICAOF": {
+    "summary": "Make the server a replica of another instance, or promote it as master.",
+    "arguments": [
+      {
+        "name": "host",
+        "type": "string"
+      },
+      {
+        "name": "port",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
     "group": "server"
   },
   "SLOWLOG": {
@@ -2694,7 +2721,7 @@
     "complexity": "O(1)",
     "arguments": [
       {
-        "name": "numslaves",
+        "name": "numreplicas",
         "type": "integer"
       },
       {
