@@ -7,7 +7,7 @@ The `XRANGE` command has a number of applications:
 
 * Returning items in a specific time range. This is possible because
   Stream IDs are [related to time](/topics/streams-intro).
-* Iteratating a stream incrementally, returning just
+* Iterating a stream incrementally, returning just
   a few items at every iteration. However it is semantically much more
   robust than the `SCAN` family of functions.
 * Fetching a single entry from a stream, providing the ID of the entry

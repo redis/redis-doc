@@ -114,7 +114,7 @@ The command function type is the following:
 And is supposed to always return `REDISMODULE_OK`.
 
 The set of flags 'strflags' specify the behavior of the command, and should
-be passed as a C string compoesd of space separated words, like for
+be passed as a C string composed of space separated words, like for
 example "write deny-oom". The set of flags are:
 
 * **"write"**:     The command may modify the data set (it may also read
@@ -135,7 +135,7 @@ example "write deny-oom". The set of flags are:
 * **"allow-stale"**: The command is allowed to run on slaves that don't
                      serve stale data. Don't use if you don't know what
                      this means.
-* **"no-monitor"**: Don't propoagate the command on monitor. Use this if
+* **"no-monitor"**: Don't propagate the command on monitor. Use this if
                     the command has sensible data among the arguments.
 * **"fast"**:      The command time complexity is not greater
                    than O(log(N)) where N is the size of the collection or
@@ -289,9 +289,9 @@ binary blobs without any encoding care / collation attempt.
 
     int RedisModule_StringAppendBuffer(RedisModuleCtx *ctx, RedisModuleString *str, const char *buf, size_t len);
 
-Append the specified buffere to the string 'str'. The string must be a
+Append the specified buffer to the string 'str'. The string must be a
 string created by the user that is referenced only a single time, otherwise
-`REDISMODULE_ERR` is returend and the operation is not performed.
+`REDISMODULE_ERR` is returned and the operation is not performed.
 
 ## `RedisModule_WrongArity`
 
@@ -382,7 +382,7 @@ could write:
 
 Note that in the above example there is no reason to postpone the array
 length, since we produce a fixed number of elements, but in the practice
-the code may use an interator or other ways of creating the output so
+the code may use an iterator or other ways of creating the output so
 that is not easy to calculate in advance the number of elements.
 
 ## `RedisModule_ReplyWithStringBuffer`
@@ -517,7 +517,7 @@ Return an handle representing a Redis key, so that it is possible
 to call other APIs with the key handle as argument to perform
 operations on the key.
 
-The return value is the handle repesenting the key, that must be
+The return value is the handle representing the key, that must be
 closed with `RM_CloseKey()`.
 
 If the key does not exist and WRITE mode is requested, the handle
@@ -645,7 +645,7 @@ unless the new length value requested is zero.
 
     int RedisModule_ListPush(RedisModuleKey *key, int where, RedisModuleString *ele);
 
-Push an element into a list, on head or tail depending on 'where' argumnet.
+Push an element into a list, on head or tail depending on 'where' argument.
 If the key pointer is about an empty key opened for writing, the key
 is created. On error (key opened for read-only operations or of the wrong
 type) `REDISMODULE_ERR` is returned, otherwise `REDISMODULE_OK` is returned.
@@ -719,7 +719,7 @@ zero.
 The input and output flags, and the return value, have the same exact
 meaning, with the only difference that this function will return
 `REDISMODULE_ERR` even when 'score' is a valid double number, but adding it
-to the existing score resuts into a NaN (not a number) condition.
+to the existing score results into a NaN (not a number) condition.
 
 This function has an additional field 'newscore', if not NULL is filled
 with the new score of the element after the increment, if no error
@@ -925,7 +925,7 @@ passing flags different than `REDISMODULE_HASH_NONE`:
 
 `REDISMODULE_HASH_EXISTS`: instead of setting the value of the field
 expecting a RedisModuleString pointer to pointer, the function just
-reports if the field esists or not and expects an integer pointer
+reports if the field persists or not and expects an integer pointer
 as the second element of each pair.
 
 Example of `REDISMODULE_HASH_CFIELD`:

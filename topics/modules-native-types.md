@@ -182,7 +182,7 @@ and to test if a given key is already associated to a value of a specific data
 type.
 
 The API uses the normal modules `RedisModule_OpenKey()` low level key access
-interface in order to deal with this. This is an eaxmple of setting a
+interface in order to deal with this. This is an example of setting a
 native type private data structure to a Redis key:
 
     RedisModuleKey *key = RedisModule_OpenKey(ctx,keyname,REDISMODULE_WRITE);
@@ -354,7 +354,7 @@ in order to allocate, reallocate and release heap memory used to implement the n
 
 This is not just useful in order for Redis to be able to account for the memory used by the module, but there are also more advantages:
 
-* Redis uses the `jemalloc` allcator, that often prevents fragmentation problems that could be caused by using the libc allocator.
+* Redis uses the `jemalloc` allocator, that often prevents fragmentation problems that could be caused by using the libc allocator.
 * When loading strings from the RDB file, the native types API is able to return strings allocated directly with `RedisModule_Alloc()`, so that the module can directly link this memory into the data structure representation, avoiding an useless copy of the data.
 
 Even if you are using external libraries implementing your data structures, the

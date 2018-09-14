@@ -535,7 +535,7 @@ both modes. Currently a key opened for writing can also be accessed for reading
 but this is to be considered an implementation detail. The right mode should
 be used in sane modules.
 
-You can open non exisitng keys for writing, since the keys will be created
+You can open non existing keys for writing, since the keys will be created
 when an attempt to write to the key is performed. However when opening keys
 just for reading, `RedisModule_OpenKey` will return NULL if the key does not
 exist.
@@ -664,7 +664,7 @@ is used. Example:
     RedisModule_StringTruncate(mykey,1024);
 
 The function truncates, or enlarges the string as needed, padding it with
-zero bytes if the previos length is smaller than the new length we request.
+zero bytes if the previous length is smaller than the new length we request.
 If the string does not exist since `key` is associated to an open empty key,
 a string value is created and associated to the key.
 
@@ -684,7 +684,7 @@ or head, using the following macros:
     REDISMODULE_LIST_HEAD
     REDISMODULE_LIST_TAIL
 
-Elements returned by `RedisModule_ListPop()` are like strings craeted with
+Elements returned by `RedisModule_ListPop()` are like strings created with
 `RedisModule_CreateString()`, they must be released with
 `RedisModule_FreeString()` or by enabling automatic memory management.
 
@@ -820,7 +820,7 @@ They work exactly like their `libc` equivalent calls, however they use
 the same allocator Redis uses, and the memory allocated using these
 functions is reported by the `INFO` command in the memory section, is
 accounted when enforcing the `maxmemory` policy, and in general is
-a first citizen of the Redis executable. On the contrar, the method
+a first citizen of the Redis executable. On the contrary, the method
 allocated inside modules with libc `malloc()` is transparent to Redis.
 
 Another reason to use the modules functions in order to allocate memory

@@ -57,7 +57,7 @@ AOF file. The rewrite will be re-triggered again later.
 
 When the child performing an RDB save is killed Redis will handle the
 condition as a more severe error, because while the effect of a lack of
-AOF file rewrite is a the AOF file enlargement, the effect of failed RDB file
+AOF file rewrite is the AOF file enlargement, the effect of failed RDB file
 creation is lack of durability.
 
 As a result of the child producing the RDB file being killed by a signal,
