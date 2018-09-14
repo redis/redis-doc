@@ -1,7 +1,7 @@
 Replication
 ===
 
-At the base of Redis replication (excluding the high availability features provided as an additional layer by Redis Cluster or Redis Sentinel) there is a very simple to use and configure *leader follower* (master-slave) replication: it allows slave Redis instances to be exact copies of master instances. The slave will automatically reconnect to the master every time the link breaks, and will attempt to be an exact copy of it *regardless* of what happens to the master.
+At the base of Redis replication (excluding the high availability features provided as an additional layer by Redis Cluster or Redis Sentinel) there is a very simple way to use and configure *leader follower* (master-slave) replication: it allows slave Redis instances to be exact copies of master instances. The slave will automatically reconnect to the master every time the link breaks, and will attempt to be an exact copy of it *regardless* of what happens to the master.
 
 This system works using three main mechanisms:
 
@@ -21,7 +21,7 @@ the `WAIT` command. However `WAIT` is only able to ensure that there are the
 specified number of acknowledged copies in the other Redis instances, it does not
 turn a set of Redis instances into a CP system with strong consistency: acknowledged
 writes can still be lost during a failover, depending on the exact configuration
-of the Redis persistence. However with `WAIT` the probability of losign a write
+of the Redis persistence. However with `WAIT` the probability of losing a write
 after a failure event is greatly reduced to certain hard to trigger failure
 modes.
 
@@ -55,7 +55,7 @@ is wiped from the master and all its slaves:
 3. Nodes B and C will replicate from node A, which is empty, so they'll effectively destroy their copy of the data.
 
 When Redis Sentinel is used for high availability, also turning off persistence
-on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to don't detect a failure, so that the failure mode described above happens.
+on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to not detect a failure, so that the failure mode described above happens.
 
 Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
 
@@ -77,7 +77,7 @@ When slaves connects to masters, they use the `PSYNC` command in order to send
 their old master replication ID and the offsets they processed so far. This way
 the master can send just the incremental part needed. However if there is not
 enough *backlog* in the master buffers, or if the slave is referring to an
-history (replication ID) which is no longer known, than a full resynchronization
+history (replication ID) which is no longer known, then a full resynchronization
 happens: in this case the slave will get a full copy of the dataset, from scratch.
 
 This is how a full synchronization works in more details:
@@ -120,7 +120,7 @@ that are promoted to masters. After a failover, the promoted slave requires
 to still remember what was its past replication ID, because such replication ID
 was the one of the former master. In this way, when other slaves will synchronize
 with the new master, they will try to perform a partial resynchronization using the
-old master replication ID. This will work as expected, becuase when the slave
+old master replication ID. This will work as expected, because when the slave
 is promoted to master it sets its secondary ID to its main ID, remembering what
 was the offset when this ID switch happend. Later it will select a new random
 replication ID, because a new history begins. When handling the new slaves
