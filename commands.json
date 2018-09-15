@@ -224,6 +224,12 @@
     "since": "5.0.0",
     "group": "sorted_set"
   },
+  "CLIENT ID": {
+    "summary": "Get the id of a client",
+    "complexity": "O(1)",
+    "since": "5.0",
+    "group": "server"
+  },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
     "complexity": "O(N) where N is the number of client connections",
@@ -308,6 +314,24 @@
         "type": "string"
       }
     ],
+    "group": "server"
+  },
+  "CLIENT UNBLOCK": {
+    "summary": "Unblock a client",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "client-id",
+        "type": "integer"
+      },
+      {
+        "name": "reason",
+        "type": "enum",
+        "enum": ["TIMEOUT", "ERROR"],
+        "optional": true
+      }
+    ],
+    "since": "5.0",
     "group": "server"
   },
   "CLUSTER ADDSLOTS": {
