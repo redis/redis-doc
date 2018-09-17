@@ -857,7 +857,9 @@ hash value, in order to set the specified field.
 
 The function is variadic and the user must specify pairs of field
 names and values, both as RedisModuleString pointers (unless the
-CFIELD option is set, see later).
+CFIELD option is set, see later). At the end of the field/value-ptr pairs, 
+NULL must be specified as last argument to signal the end of the arguments 
+in the variadic function.
 
 Example to set the hash argv[1] to the value argv[2]:
 
