@@ -449,8 +449,8 @@ with a special argument to `RedisModule_ReplyWithArray()`:
     RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_ARRAY_LEN);
 
 The above call starts an array reply so we can use other `ReplyWith` calls
-in order to produce the array items. Finally in order to set the length
-se use the following call:
+in order to produce the array items. Finally in order to set the length, 
+use the following call:
 
     RedisModule_ReplySetArrayLength(ctx, number_of_items);
 
