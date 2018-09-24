@@ -115,7 +115,7 @@ Beware, this article had `1` and `2` configuration values for `overcommit_memory
 reversed: refer to the [proc(5)][proc5] man page for the right meaning of the
 available values.
 
-[redhatvm]: http://www.redhat.com/magazine/001nov04/features/vm/
+[redhatvm]: https://web.archive.org/web/20160317001548/https://www.redhat.com/magazine/001nov04/features/vm/
 [proc5]: http://man7.org/linux/man-pages/man5/proc.5.html
 
 ## Are Redis on-disk-snapshots atomic?
