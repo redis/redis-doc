@@ -3647,8 +3647,8 @@
     "group": "stream"
   },
   "XCLAIM": {
-    "summary": "",
-    "complexity": "",
+    "summary": "Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.",
+    "complexity": "O(log N) with N being the number of messages in the PEL of the consumer group.",
     "arguments": [
       {
         "name": "key",
