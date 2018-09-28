@@ -3626,8 +3626,8 @@
     "group": "stream"
   },
   "XACK": {
-    "summary": "Marks a pending message as correctly processed. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
-    "complexity": "",
+    "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
+    "complexity": "O(log N) for each message ID processed.",
     "arguments": [
       {
         "name": "key",
