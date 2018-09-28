@@ -3555,7 +3555,7 @@
   },
   "XGROUP": {
     "summary": "Create, destroy, and manage consumer groups.",
-    "complexity": "",
+    "complexity": "O(log N) for all the subcommands, with N being the number of consumer groups registered in the stream, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
     "arguments": [
       {
         "command": "CREATE",
