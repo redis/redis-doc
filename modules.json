@@ -185,5 +185,15 @@
       "RedBeardLab"
     ],
     "stars": 563
+  },
+  {
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "repository": "https://github.com/limithit/RedisPushIptables",
+    "description": "This module is used to call iptables through redis.",
+    "authors": [
+      "Gandalf",
+    ],
+    "stars": 0
   }
 ]
