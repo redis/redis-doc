@@ -165,7 +165,7 @@
     ],
     "stars": 112
   },
-  {
+  
     "name": "Session Gate",
     "license": "MIT",
     "repository": "https://github.com/f0rmiga/sessiongate",
@@ -174,8 +174,7 @@
       "f0rmiga"
     ],
     "stars": 29
-  },
-  {
+  
     "name": "rediSQL",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedBeardLab/rediSQL",
@@ -185,5 +184,15 @@
       "RedBeardLab"
     ],
     "stars": 563
+  },
+  {
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "repository": "https://github.com/limithit/RedisPushIptables",
+    "description": "This module is used to call iptables through redis.",
+    "authors": [
+      "Gandalf",
+    ],
+    "stars": 0
   }
 ]
