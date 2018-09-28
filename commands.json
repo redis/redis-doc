@@ -3412,7 +3412,7 @@
   },
   "XTRIM": {
     "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
-    "complexity": "O(log(N)) with N being the number of in the stream prior to trim.",
+    "complexity": "O(log(N)) + M, with N being the number of entries in the stream prior to trim, and M being the number of evicted entries. M constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
     "arguments": [
       {
         "name": "key",
