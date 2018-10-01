@@ -8,7 +8,7 @@ be the first, followed by the elements with greater scores.
 
 @return
 
-@array-reply: list of popped scores and elements.
+@array-reply: list of popped elements and scores.
 
 @examples
 
