@@ -768,6 +768,15 @@
   },
 
   {
+    "name": "redisNode",
+    "language": "Node.js",
+    "repository": "https://github.com/ylcnfrht/redisNode",
+    "description": "This repo contains examples for all redis commands for node js",
+    "authors": ["ylcnfrht"],
+    "active": true
+  },
+
+  {
     "name": "iodis",
     "language": "Io",
     "repository": "https://github.com/vangberg/iodis",
