@@ -310,6 +310,24 @@
     ],
     "group": "server"
   },
+  "CLIENT UNBLOCK": {
+    "summary": "Unblock a client blocked in a blocking command from a different connection",
+    "complexity": "O(log N) where N is the number of client connections",
+    "arguments": [
+      {
+        "name": "client-id",
+        "type": "string"
+      },
+      {
+        "name": "unblock-type",
+        "type": "enum",
+        "enum": ["TIMEOUT", "ERROR"],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "server"
+  },
   "CLUSTER ADDSLOTS": {
     "summary": "Assign new hash slots to receiving node",
     "complexity": "O(N) where N is the total number of hash slot arguments",
