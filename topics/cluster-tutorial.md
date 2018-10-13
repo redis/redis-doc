@@ -31,7 +31,7 @@ some nodes fail or are not able to communicate. However the cluster stops
 to operate in the event of larger failures (for example when the majority of
 masters are unavailable).
 
-So in practical terms, what you get with Redis Cluster?
+So in practical terms, what do you get with Redis Cluster?
 
 * The ability to **automatically split your dataset among multiple nodes**.
 * The ability to **continue operations when a subset of the nodes are experiencing failures** or are unable to communicate with the rest of the cluster.
