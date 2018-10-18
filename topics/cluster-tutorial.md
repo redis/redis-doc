@@ -12,7 +12,7 @@ However this tutorial tries to provide information about the availability
 and consistency characteristics of Redis Cluster from the point of view
 of the final user, stated in a simple to understand way.
 
-Note this tutorial requires Redis version 3.0 or higher.
+Note this tutorial requires Redis version 5.0 or higher.
 
 If you plan to run a serious Redis Cluster deployment, the
 more formal specification is a suggested reading, even if not
