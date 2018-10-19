@@ -71,7 +71,7 @@ simple module that implements a command that outputs a random number.
             == REDISMODULE_ERR) return REDISMODULE_ERR;
 
         if (RedisModule_CreateCommand(ctx,"helloworld.rand",
-            HelloworldRand_RedisCommand) == REDISMODULE_ERR)
+            HelloworldRand_RedisCommand,"readonly",0,0,0) == REDISMODULE_ERR)
             return REDISMODULE_ERR;
 
         return REDISMODULE_OK;
