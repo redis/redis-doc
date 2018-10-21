@@ -35,20 +35,20 @@ Here is the meaning of the fields:
 The client flags can be a combination of:
 
 ```
-O: the client is a client in MONITOR mode
-S: the client is a replica node connection to this instance
-M: the client is a master
-x: the client is in a MULTI/EXEC context
+A: connection to be closed ASAP
 b: the client is waiting in a blocking operation
-i: the client is waiting for a VM I/O (deprecated)
-d: a watched keys has been modified - EXEC will fail
 c: connection to be closed after writing entire reply
+d: a watched keys has been modified - EXEC will fail
+i: the client is waiting for a VM I/O (deprecated)
+M: the client is a master
+N: no specific flag set
+O: the client is a client in MONITOR mode
+P: the client is a Pub/Sub subscriber
+r: the client is in readonly mode against a cluster node
+S: the client is a replica node connection to this instance
 u: the client is unblocked
 U: the client is connected via a Unix domain socket
-r: the client is in readonly mode against a cluster node
-A: connection to be closed ASAP
-N: no specific flag set
-P: the client is a Pub/Sub subscriber
+x: the client is in a MULTI/EXEC context
 ```
 
 The file descriptor events can be:
