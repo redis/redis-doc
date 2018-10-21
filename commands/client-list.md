@@ -1,6 +1,8 @@
 The `CLIENT LIST` command returns information and statistics about the client
 connections server in a mostly human readable format.
 
+As of v5.0, the optional `TYPE type` subcommand can be used to filter the list by clients' type, where *type* is one of `normal`, `master`, `replica` and `pubsub`. Note that clients blocked into the `MONITOR` command are considered to belong to the `normal` class.
+
 @return
 
 @bulk-string-reply: a unique string, formatted as follows:
@@ -12,6 +14,7 @@ connections server in a mostly human readable format.
 Here is the meaning of the fields:
 
 * `id`: an unique 64-bit client ID (introduced in Redis 2.8.12).
+* `name`: the name set by the client with `CLIENT SETNAME`
 * `addr`: address/port of the client
 * `fd`: file descriptor corresponding to the socket
 * `age`: total duration of the connection in seconds
