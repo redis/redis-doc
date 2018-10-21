@@ -48,6 +48,7 @@ U: the client is connected via a Unix domain socket
 r: the client is in readonly mode against a cluster node
 A: connection to be closed ASAP
 N: no specific flag set
+P: the client is a Pub/Sub subscriber
 ```
 
 The file descriptor events can be:
