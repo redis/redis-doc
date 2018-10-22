@@ -1,6 +1,6 @@
 {
   "APPEND": {
-    "summary": "Append a value to a key",
+    "summary": "Append a value to a key",x
     "complexity": "O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.",
     "arguments": [
       {
@@ -3544,7 +3544,7 @@
   },
   "XREAD": {
     "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
-    "complexity": "For each stream mentioned: O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)). On the other side, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
+    "complexity": "For each stream mentioned: O(L+M) with L being the number of letters in start and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT) and since L length is constant you can consider it O(1). On the other side, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
     "arguments": [
       {
         "command": "COUNT",
