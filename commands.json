@@ -3589,8 +3589,8 @@
       },
       {
         "command": "SETID",
-        "name": ["key", "id-or-$"],
-        "type": ["key", "string"],
+        "name": ["key", "groupname", "id-or-$"],
+        "type": ["key", "string", "string"],
         "optional": true
       },
       {
