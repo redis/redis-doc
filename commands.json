@@ -270,6 +270,14 @@
   "CLIENT LIST": {
     "summary": "Get the list of client connections",
     "complexity": "O(N) where N is the number of client connections",
+    "arguments": [
+      {
+        "command": "TYPE",
+        "type": "enum",
+        "enum": ["normal", "master", "replica", "pubsub"],
+        "optional": true
+      }
+    ],
     "since": "2.4.0",
     "group": "server"
   },
@@ -3589,8 +3597,8 @@
       },
       {
         "command": "SETID",
-        "name": ["key", "id-or-$"],
-        "type": ["key", "string"],
+        "name": ["key", "groupname", "id-or-$"],
+        "type": ["key", "string", "string"],
         "optional": true
       },
       {
