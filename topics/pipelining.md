@@ -144,12 +144,12 @@ in the same physical machine:
     END
 
 After all if both the Redis process and the benchmark are running in the same
-box, isn't this just messages copied via memory from one place to another without
+box, isn't it just messages being copied via memory from one place to another without
 any actual latency and actual networking involved?
 
 The reason is that processes in a system are not always running, actually it is
-the kernel scheduler that let the process run, so what happens is that, for
-instance, the benchmark is allowed to run, reads the reply from the Redis server
+the kernel scheduler that let's the process run. So, for
+instance, when the benchmark is allowed to run, it reads the reply from the Redis server
 (related to the last command executed), and writes a new command. The command is
 now in the loopback interface buffer, but in order to be read by the server, the
 kernel should schedule the server process (currently blocked in a system call)
