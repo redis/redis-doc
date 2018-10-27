@@ -120,7 +120,7 @@ that are promoted to masters. After a failover, the promoted slave requires
 to still remember what was its past replication ID, because such replication ID
 was the one of the former master. In this way, when other slaves will synchronize
 with the new master, they will try to perform a partial resynchronization using the
-old master replication ID. This will work as expected, becuase when the slave
+old master replication ID. This will work as expected, because when the slave
 is promoted to master it sets its secondary ID to its main ID, remembering what
 was the offset when this ID switch happend. Later it will select a new random
 replication ID, because a new history begins. When handling the new slaves

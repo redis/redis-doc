@@ -270,6 +270,14 @@
   "CLIENT LIST": {
     "summary": "Get the list of client connections",
     "complexity": "O(N) where N is the number of client connections",
+    "arguments": [
+      {
+        "command": "TYPE",
+        "type": "enum",
+        "enum": ["normal", "master", "replica", "pubsub"],
+        "optional": true
+      }
+    ],
     "since": "2.4.0",
     "group": "server"
   },
@@ -3415,7 +3423,7 @@
   },
   "XADD": {
     "summary": "Appends a new entry to a stream",
-    "complexity": "O(log(N)) with N being the number of items already into the stream.",
+    "complexity": "O(1) but with non trivial constant times",
     "arguments": [
       {
         "name": "key",
@@ -3436,7 +3444,7 @@
   },
   "XTRIM": {
     "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
-    "complexity": "O(log(N)) + M, with N being the number of entries in the stream prior to trim, and M being the number of evicted entries. M constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
+    "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
     "arguments": [
       {
         "name": "key",
@@ -3463,7 +3471,7 @@
   },
   "XDEL": {
     "summary": "Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.",
-    "complexity": "O(log(N)) with N being the number of items in the stream.",
+    "complexity": "O(1) for each single item to delete in the stream, regardless of the stream size.",
     "arguments": [
       {
         "name": "key",
@@ -3480,7 +3488,7 @@
   },
   "XRANGE": {
     "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval",
-    "complexity": "O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)).",
+    "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
     "arguments": [
       {
         "name": "key",
@@ -3506,7 +3514,7 @@
   },
   "XREVRANGE": {
     "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
-    "complexity": "O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)).",
+    "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
     "arguments": [
       {
         "name": "key",
@@ -3544,7 +3552,7 @@
   },
   "XREAD": {
     "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
-    "complexity": "For each stream mentioned: O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)). On the other side, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
+    "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it menas that XREAD-ing with a fixed COUNT is O(1), even if with non-trivial constant times. Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
     "arguments": [
       {
         "command": "COUNT",
@@ -3579,7 +3587,7 @@
   },
   "XGROUP": {
     "summary": "Create, destroy, and manage consumer groups.",
-    "complexity": "O(log N) for all the subcommands, with N being the number of consumer groups registered in the stream, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
+    "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
     "arguments": [
       {
         "command": "CREATE",
@@ -3589,8 +3597,8 @@
       },
       {
         "command": "SETID",
-        "name": ["key", "id-or-$"],
-        "type": ["key", "string"],
+        "name": ["key", "groupname", "id-or-$"],
+        "type": ["key", "string", "string"],
         "optional": true
       },
       {
@@ -3611,7 +3619,7 @@
   },
   "XREADGROUP": {
     "summary": "Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.",
-    "complexity": "For each stream mentioned: O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)). On the other side, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
+    "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
     "arguments": [
       {
         "command": "GROUP",
@@ -3651,7 +3659,7 @@
   },
   "XACK": {
     "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
-    "complexity": "O(log N) for each message ID processed.",
+    "complexity": "O(1) for each message ID processed.",
     "arguments": [
       {
         "name": "key",
@@ -3729,7 +3737,7 @@
   },
   "XPENDING": {
     "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
-    "complexity": "O(log(N)+M) with N being the number of elements in the consumer group pending entries list, and M the number of elements being returned. When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
     "arguments": [
       {
         "name": "key",
