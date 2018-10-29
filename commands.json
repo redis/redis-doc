@@ -224,6 +224,12 @@
     "since": "5.0.0",
     "group": "sorted_set"
   },
+  "CLIENT ID": {
+    "summary": "Returns the client ID for the current connection",
+    "complexity": "O(1)",
+    "since": "5.0.0",
+    "group": "server"
+  },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
     "complexity": "O(N) where N is the number of client connections",
@@ -264,6 +270,14 @@
   "CLIENT LIST": {
     "summary": "Get the list of client connections",
     "complexity": "O(N) where N is the number of client connections",
+    "arguments": [
+      {
+        "command": "TYPE",
+        "type": "enum",
+        "enum": ["normal", "master", "replica", "pubsub"],
+        "optional": true
+      }
+    ],
     "since": "2.4.0",
     "group": "server"
   },
@@ -308,6 +322,24 @@
         "type": "string"
       }
     ],
+    "group": "server"
+  },
+  "CLIENT UNBLOCK": {
+    "summary": "Unblock a client blocked in a blocking command from a different connection",
+    "complexity": "O(log N) where N is the number of client connections",
+    "arguments": [
+      {
+        "name": "client-id",
+        "type": "string"
+      },
+      {
+        "name": "unblock-type",
+        "type": "enum",
+        "enum": ["TIMEOUT", "ERROR"],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
     "group": "server"
   },
   "CLUSTER ADDSLOTS": {
@@ -361,7 +393,7 @@
     "group": "cluster"
   },
   "CLUSTER FAILOVER": {
-    "summary": "Forces a slave to perform a manual failover of its master.",
+    "summary": "Forces a replica to perform a manual failover of its master.",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -443,7 +475,7 @@
     "group": "cluster"
   },
   "CLUSTER REPLICATE": {
-    "summary": "Reconfigure a node as a slave of the specified master node",
+    "summary": "Reconfigure a node as a replica of the specified master node",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -509,7 +541,7 @@
     "group": "cluster"
   },
   "CLUSTER SLAVES": {
-    "summary": "List slave nodes of the specified master node",
+    "summary": "List replica nodes of the specified master node",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -518,6 +550,18 @@
       }
     ],
     "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER REPLICAS": {
+    "summary": "List replica nodes of the specified master node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
     "group": "cluster"
   },
   "CLUSTER SLOTS": {
@@ -1951,13 +1995,13 @@
     "group": "generic"
   },
   "READONLY": {
-    "summary": "Enables read queries for a connection to a cluster slave node",
+    "summary": "Enables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
   "READWRITE": {
-    "summary": "Disables read queries for a connection to a cluster slave node",
+    "summary": "Disables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
@@ -2376,7 +2420,7 @@
     "group": "set"
   },
   "SLAVEOF": {
-    "summary": "Make the server a slave of another instance, or promote it as master",
+    "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
     "arguments": [
       {
         "name": "host",
@@ -2388,6 +2432,21 @@
       }
     ],
     "since": "1.0.0",
+    "group": "server"
+  },
+  "REPLICAOF": {
+    "summary": "Make the server a replica of another instance, or promote it as master.",
+    "arguments": [
+      {
+        "name": "host",
+        "type": "string"
+      },
+      {
+        "name": "port",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
     "group": "server"
   },
   "SLOWLOG": {
@@ -2694,7 +2753,7 @@
     "complexity": "O(1)",
     "arguments": [
       {
-        "name": "numslaves",
+        "name": "numreplicas",
         "type": "integer"
       },
       {
@@ -3330,9 +3389,41 @@
     "since": "2.8.0",
     "group": "sorted_set"
   },
+  "XINFO": {
+    "summary": "Get information on streams and consumer groups",
+    "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
+    "arguments": [
+      {
+        "command": "CONSUMERS",
+        "name": ["key", "groupname"],
+        "type": ["key", "string"],
+        "optional": true
+      },
+      {
+        "command": "GROUPS",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "command": "STREAM",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "name": "help",
+        "type": "enum",
+        "enum": ["HELP"],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
   "XADD": {
     "summary": "Appends a new entry to a stream",
-    "complexity": "O(log(N)) with N being the number of items already into the stream.",
+    "complexity": "O(1) but with non trivial constant times",
     "arguments": [
       {
         "name": "key",
@@ -3351,9 +3442,53 @@
     "since": "5.0.0",
     "group": "stream"
   },
+  "XTRIM": {
+    "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
+    "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "strategy",
+        "type": "enum",
+        "enum": ["MAXLEN"]
+      },
+      {
+        "name": "approx",
+        "type": "enum",
+        "enum": ["~"],
+        "optional": true
+      },
+      {
+        "name": "count",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XDEL": {
+    "summary": "Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.",
+    "complexity": "O(1) for each single item to delete in the stream, regardless of the stream size.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": "true"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
   "XRANGE": {
     "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval",
-    "complexity": "O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)).",
+    "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
     "arguments": [
       {
         "name": "key",
@@ -3379,7 +3514,7 @@
   },
   "XREVRANGE": {
     "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
-    "complexity": "O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)).",
+    "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
     "arguments": [
       {
         "name": "key",
@@ -3417,7 +3552,7 @@
   },
   "XREAD": {
     "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
-    "complexity": "For each stream mentioned: O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)). On the other side, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
+    "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it menas that XREAD-ing with a fixed COUNT is O(1), even if with non-trivial constant times. Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
     "arguments": [
       {
         "command": "COUNT",
@@ -3450,9 +3585,41 @@
     "since": "5.0.0",
     "group": "stream"
   },
+  "XGROUP": {
+    "summary": "Create, destroy, and manage consumer groups.",
+    "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
+    "arguments": [
+      {
+        "command": "CREATE",
+        "name": ["key", "groupname", "id-or-$"],
+        "type": ["key", "string", "string"],
+        "optional": true
+      },
+      {
+        "command": "SETID",
+        "name": ["key", "groupname", "id-or-$"],
+        "type": ["key", "string", "string"],
+        "optional": true
+      },
+      {
+        "command": "DESTROY",
+        "name": ["key", "groupname"],
+        "type": ["key", "string"],
+        "optional": true
+      },
+      {
+        "command": "DELCONSUMER",
+        "name": ["key", "groupname", "consumername"],
+        "type": ["key", "string", "string"],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
   "XREADGROUP": {
     "summary": "Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.",
-    "complexity": "For each stream mentioned: O(log(N)+M) with N being the number of elements in the stream and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(log(N)). On the other side, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
+    "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
     "arguments": [
       {
         "command": "GROUP",
@@ -3490,9 +3657,87 @@
     "since": "5.0.0",
     "group": "stream"
   },
+  "XACK": {
+    "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
+    "complexity": "O(1) for each message ID processed.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XCLAIM": {
+    "summary": "Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.",
+    "complexity": "O(log N) with N being the number of messages in the PEL of the consumer group.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": "consumer",
+        "type": "string"
+      },
+      {
+        "name": "min-idle-time",
+        "type": "string"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      },
+      {
+        "command": "IDLE",
+        "name": "ms",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TIME",
+        "name": "ms-unix-time",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "RETRYCOUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "force",
+        "enum": ["FORCE"],
+        "optional": true
+      },
+      {
+        "name": "justid",
+        "enum": ["JUSTID"],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
   "XPENDING": {
     "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
-    "complexity": "O(log(N)+M) with N being the number of elements in the consumer group pending entries list, and M the number of elements being returned. When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
     "arguments": [
       {
         "name": "key",

@@ -325,15 +325,17 @@ SCRIPT currently accepts three different commands:
 
 ## Scripts as pure functions
 
+*Note: starting with Redis 5, scripts are always replicated as effects and not sending the script verbatim. So the following section is mostly applicable to Redis version 4 or older.*
+
 A very important part of scripting is writing scripts that are pure functions.
-Scripts executed in a Redis instance are, by default, replicated on slaves
-and into the AOF file by sending the script itself -- not the resulting
+Scripts executed in a Redis instance are, by default, propagated to replicas
+and to the AOF file by sending the script itself -- not the resulting
 commands.
 
 The reason is that sending a script to another Redis instance is often much
 faster than sending the multiple commands the script generates, so if the
 client is sending many scripts to the master, converting the scripts into
-individual commands for the slave / AOF would result in too much bandwidth
+individual commands for the replica / AOF would result in too much bandwidth
 for the replication link or the Append Only File (and also too much CPU since
 dispatching a command received via network is a lot more work for Redis compared
 to dispatching a command invoked by Lua scripts).
@@ -456,7 +458,7 @@ changing one of the arguments in every invocation, generating the random seed
 client-side.
 The seed will be propagated as one of the arguments both in the replication
 link and in the Append Only File, guaranteeing that the same changes will be
-generated when the AOF is reloaded or when the slave processes the script.
+generated when the AOF is reloaded or when the replica processes the script.
 
 Note: an important part of this behavior is that the PRNG that Redis implements
 as `math.random` and `math.randomseed` is guaranteed to have the same output
@@ -465,6 +467,8 @@ regardless of the architecture of the system running Redis.
 output.
 
 ## Replicating commands instead of scripts
+
+*Note: starting with Redis 5, the replication method described in this section (scripts effects replication) is the default and does not need to be explicitly enabled.*
 
 Starting with Redis 3.2, it is possible to select an
 alternative replication method. Instead of replication whole scripts, we
@@ -475,12 +479,12 @@ In this replication mode, while Lua scripts are executed, Redis collects
 all the commands executed by the Lua scripting engine that actually modify
 the dataset. When the script execution finishes, the sequence of commands
 that the script generated are wrapped into a MULTI / EXEC transaction and
-are sent to slaves and AOF.
+are sent to replicas and AOF.
 
 This is useful in several ways depending on the use case:
 
 * When the script is slow to compute, but the effects can be summarized by
-a few write commands, it is a shame to re-compute the script on the slaves
+a few write commands, it is a shame to re-compute the script on the replicas 
 or when reloading the AOF. In this case to replicate just the effect of the
 script is much better.
 * When script effects replication is enabled, the controls about non
@@ -501,9 +505,9 @@ is used.
 ## Selective replication of commands
 
 When script effects replication is selected (see the previous section), it
-is possible to have more control in the way commands are replicated to slaves
+is possible to have more control in the way commands are replicated to replicas
 and AOF. This is a very advanced feature since **a misuse can do damage** by
-breaking the contract that the master, slaves, and AOF, all must contain the
+breaking the contract that the master, replicas, and AOF, all must contain the
 same logical content.
 
 However this is a useful feature since, sometimes, we need to execute certain
@@ -524,13 +528,14 @@ an error if called when script effects replication is disabled.
 
 The command can be called with four different arguments:
 
-    redis.set_repl(redis.REPL_ALL) -- Replicate to AOF and slaves.
+    redis.set_repl(redis.REPL_ALL) -- Replicate to AOF and replicas.
     redis.set_repl(redis.REPL_AOF) -- Replicate only to AOF.
-    redis.set_repl(redis.REPL_SLAVE) -- Replicate only to slaves.
+    redis.set_repl(redis.REPL_REPLICA) -- Replicate only to replicas (Redis >= 5)
+    redis.set_repl(redis.REPL_SLAVE) -- Used for backward compatibility, the same as REPL_REPLICA.
     redis.set_repl(redis.REPL_NONE) -- Don't replicate at all.
 
 By default the scripting engine is always set to `REPL_ALL`. By calling
-this function the user can switch on/off AOF and or slaves replication, and
+this function the user can switch on/off AOF and or replicas propagation, and
 turn them back later at her/his wish.
 
 A simple example follows:
@@ -543,7 +548,7 @@ A simple example follows:
     redis.call('set','C','3')
 
 After running the above script, the result is that only keys A and C
-will be created on slaves and AOF.
+will be created on replicas and AOF.
 
 ## Global variables protection
 

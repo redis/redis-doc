@@ -12,7 +12,7 @@ values. The following metrics are reported:
      in bytes (see `INFO`'s `used_memory_startup`)
 *   `replication.backlog`: Size in bytes of the replication backlog (see
      `INFO`'s `repl_backlog_size`)
-*   `clients.slaves`: The total size in bytes of all slaves overheads (output
+*   `clients.slaves`: The total size in bytes of all replicas overheads (output
      and query buffers, connection contexts)
 *   `clients.normal`: The total size in bytes of all clients overheads (output
      and query buffers, connection contexts)
@@ -41,3 +41,5 @@ values. The following metrics are reported:
 @return
 
 @array-reply: nested list of memory usage metrics and their values
+
+**A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.

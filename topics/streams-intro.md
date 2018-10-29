@@ -556,6 +556,15 @@ Similarly, if a given consumer is much faster at processing messages than the ot
 
 However, this also means that in Redis if you really want to partition messages about the same stream into multiple Redis instances, you have to use multiple keys and some sharding system such as Redis Cluster or some other application-specific sharding system. A single Redis stream is not automatically partitioned to multiple instances.
 
+We could say that schematically the following is true:
+
+* If you use 1 stream -> 1 consumer, you are processing messages in order.
+* If you use N stream with N consumers, so only a given consumer hits a subset of the N streams, you can scale the above model of 1 stream -> 1 consumer.
+* If you use 1 stream -> N consumers, you are load balancing to N consumers, however in that case, messages about the same logical item may be consumed out of order, because a given consumer may process message 3 faster than another consumer is processing message 4.
+
+So basically Kafka partitions are more similar to using N different Redis keys.
+While Redis consumer groups are a server-side load balancing system of messages from a given stream to N different consumers.
+
 ## Capped Streams
 
 Many applications do not want to collect data into a stream forever. Sometimes it is useful to have at maximum a given number of items inside a stream, other times once a given size is reached, it is useful to move data from Redis to a storage which is not in memory and not as fast but suited to take the history for potentially decades to come. Redis streams have some support for this. One the **MAXLEN** option of the **XADD** command. Such option is very simple to use:
