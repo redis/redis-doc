@@ -3639,6 +3639,12 @@
         "optional": true
       },
       {
+        "name": "noack",
+        "type": "enum",
+        "enum": ["NOACK"],
+        "optional": true
+      },
+      {
         "name": "streams",
         "type": "enum",
         "enum": ["STREAMS"]
