@@ -3423,7 +3423,7 @@
   },
   "XADD": {
     "summary": "Appends a new entry to a stream",
-    "complexity": "O(1) but with non trivial constant times",
+    "complexity": "O(1)",
     "arguments": [
       {
         "name": "key",
@@ -3552,7 +3552,7 @@
   },
   "XREAD": {
     "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
-    "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it menas that XREAD-ing with a fixed COUNT is O(1), even if with non-trivial constant times. Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
+    "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it menas that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
     "arguments": [
       {
         "command": "COUNT",
