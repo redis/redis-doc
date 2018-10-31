@@ -783,6 +783,27 @@ configured with `requirepass`, the Sentinel configuration must include the
 
     sentinel auth-pass <master-group-name> <pass>
 
+Configuring Sentinel instances with authentication
+---
+
+You can also configure the Sentinel instance itself in order to require
+client authentication via the `AUTH` command, however this feature is
+only available starting with Redis 5.0.1.
+
+In order to do so, just add the following configuration directive to
+all your Sentinel instances:
+
+    requirepass "your_password_here"
+
+When configured this way, Sentinels will do two things:
+
+1. A password will be required from clients in order to send commands to Sentinels. This is obvious since this is how such configuration directive works in Redis in general.
+2. Moreover the same password configured to access the local Sentinel, will be used by this Sentinel instance in order to authenticate to all the other Sentinel instances it connects to.
+
+This means that **you will have to configure the same `requirepass` password in all the Sentinel instances**. This way every Sentinel can talk with every other Sentinel without any need to configure for each Sentinel the password to access all the other Sentinels, that would be very impractical.
+
+Before using this configuration make sure your client library is able to send the `AUTH` command to Sentinel instances.
+
 Sentinel clients implementation
 ---
 
