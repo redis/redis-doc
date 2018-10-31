@@ -20,12 +20,13 @@
     "stars": 403
   },
   {
-    "name": "Redis Graph",
-    "license": "AGPL",
-    "repository": "https://github.com/swilly22/redis-graph",
-    "description": "A graph database with a Cypher-based querying language",
+    "name": "RedisGraph",
+    "license": "Apache 2.0 modified with Commons Clause",
+    "repository": "https://github.com/RedisLabsModules/redis-graph",
+    "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
     "authors": [
-      "swilly22"
+      "swilly22",
+      "RedisLabs"
     ],
     "stars": 401
   },
