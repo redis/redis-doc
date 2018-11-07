@@ -381,7 +381,7 @@ In order to enforce this behavior in scripts Redis does the following:
   command invoked from normal clients may return different results even if
   the key contains exactly the same elements. However starting with Redis 5
   there is no longer such ordering step, because Redis 5 replicates scripts
-  in a way that no longer need non-deterministic commands to be converted
+  in a way that no longer needs non-deterministic commands to be converted
   into deterministic ones. In general, even when developing for Redis 4, never
   assume that certain commands in Lua will be ordered, but instead rely on
   the documentation of the original command you call to see the properties
