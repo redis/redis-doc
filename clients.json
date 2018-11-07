@@ -1,1559 +1,3413 @@
 [
-  {
-    "name": "redis-rb",
-    "language": "Ruby",
-    "repository": "https://github.com/redis/redis-rb",
-    "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
-    "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "carmine",
-    "language": "Clojure",
-    "repository": "https://github.com/ptaoussanis/carmine",
-    "description": "Simple, high-performance Redis (2.0+) client for Clojure.",
-    "authors": ["ptaoussanis"],
-    "recommended": true,
-    "active": true
-  },
-  {
-    "name": "CL-Redis",
-    "language": "Common Lisp",
-    "url": "http://www.cliki.net/cl-redis",
-    "repository": "https://github.com/vseloved/cl-redis",
-    "description": "",
-    "authors": ["BigThingist"],
-    "active": true
-  },
-
-  {
-    "name": "Erldis",
-    "language": "Erlang",
-    "repository": "https://github.com/japerk/erldis",
-    "description": "A Redis erlang client library.",
-    "authors": ["dialtone_","japerk"]
-  },
-
-  {
-    "name": "Eredis",
-    "language": "Erlang",
-    "repository": "https://github.com/wooga/eredis",
-    "description": "Redis client with a focus on performance",
-    "authors": ["wooga"],
-    "recommended": true,
-    "active": true
-  },
-  {
-    "name": "eredis_cluster",
-    "language": "Erlang",
-    "repository": "https://github.com/adrienmo/eredis_cluster",
-    "description": "Eredis wrapper providing cluster support and connection pooling",
-    "authors": ["adrienmo"],
-    "active": true
-  },
-  {
-    "name": "sharded_eredis",
-    "language": "Erlang",
-    "repository": "https://github.com/jeremyong/sharded_eredis",
-    "description": "Wrapper around eredis providing process pools and consistent hashing.",
-    "authors": ["jeremyong"]
-  },
-
-  {
-    "name": "Tideland Erlang/OTP Redis Client",
-    "language": "Erlang",
-    "repository": "git://git.tideland.biz/errc",
-    "description": "A comfortable Redis client for Erlang/OTP support pooling, pub/sub and transactions.",
-    "authors": ["themue"]
-  },
-
-  {
-    "name": "exredis",
-    "language": "Elixir",
-    "repository": "https://github.com/artemeff/exredis",
-    "description": "Redis client for Elixir.",
-    "authors": ["artemeff"],
-    "active": true
-  },
-
-  {
-    "name": "redis.fy",
-    "language": "Fancy",
-    "repository": "https://github.com/bakkdoor/redis.fy",
-    "description": "A Fancy Redis client library",
-    "authors": ["bakkdoor"]
-  },
-
-  {
-    "name": "go-redis/redis",
-    "language": "Go",
-      "repository": "https://github.com/go-redis/redis",
-    "description": "Redis client for Golang supporting Redis Sentinel and Redis Cluster out of the box.",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "Go-Redis",
-    "language": "Go",
-    "repository": "https://github.com/alphazero/Go-Redis",
-    "description": "Google Go Client and Connectors for Redis.",
-    "authors": ["SunOf27"]
-  },
-
-  {
-    "name": "Radix",
-    "language": "Go",
-    "repository": "https://github.com/mediocregopher/radix.v2",
-    "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
-    "authors": ["fzzbt", "mediocre_gopher"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "Redigo",
-    "language": "Go",
-    "repository": "https://github.com/gomodule/redigo",
-    "description": "Redigo is a Go client for the Redis database with support for Print-alike API, Pipelining (including transactions), Pub/Sub, Connection pooling, scripting.",
-    "authors": ["gburd"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "Tideland Go Redis Client",
-    "language": "Go",
-    "url": "https://github.com/tideland/golib/tree/master/redis",
-    "repository": "https://github.com/tideland/golib",
-    "description": "A flexible Go Redis client able to handle all commands",
-    "authors": ["themue"],
-    "active": true
-  },
-
-  {
-    "name": "godis",
-    "language": "Go",
-    "repository": "https://github.com/simonz05/godis",
-    "description": "A Redis client for Go.",
-    "authors": []
-  },
-
-  {
-    "name": "gosexy/redis",
-    "language": "Go",
-    "repository": "https://github.com/gosexy/redis",
-    "url": "https://menteslibres.net/gosexy/redis",
-    "description": "Redis client library for Go that maps the full redis command list into equivalent Go functions.",
-    "authors": ["xiam"],
-    "active": true
-  },
-
-  {
-    "name": "goredis",
-    "language": "Go",
-    "repository": "https://github.com/xuyu/goredis",
-    "description": "A redis client for golang with full features",
-    "authors": ["xuyu"]
-  },
-
-  {
-    "name": "gore",
-    "language": "Go",
-    "repository": "https://github.com/keimoon/gore",
-    "description": "A full feature redis Client for Go. Supports Pipeline, Transaction, LUA scripting, Pubsub, Connection Pool, Sentinel and client sharding",
-    "authors": ["keimoon"],
-    "active": true
-  },
-
-  {
-    "name": "shipwire/redis",
-    "language": "Go",
-    "repository": "https://github.com/shipwire/redis",
-    "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
-    "authors": ["stephensearles"]
-  },
-
-  {
-    "name": "hedis",
-    "language": "Haskell",
-    "url": "http://hackage.haskell.org/package/hedis",
-    "repository": "https://github.com/informatikr/hedis",
-    "description": "Supports the complete command set. Commands are automatically pipelined for high performance.",
-    "authors": [],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "haskell-redis",
-    "language": "Haskell",
-    "url": "https://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
-    "repository": "https://bitbucket.org/videlalvaro/redis-haskell/src",
-    "description": "Not actively maintained, supports Redis <= 2.0.",
-    "authors": ["old_sound"]
-  },
-
-  {
-    "name": "Jedis",
-    "language": "Java",
-    "repository": "https://github.com/xetorthio/jedis",
-    "description": "A blazingly small and sane redis java client",
-    "authors": ["xetorthio"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "Jedipus",
-    "language": "Java",
-    "repository": "https://github.com/jamespedwards42/jedipus",
-    "description": "Redis Client & Command Executor.",
-    "authors": ["jamespedwards"],
-    "active": true
-  },
-
-  {
-    "name": "Redisson",
-    "language": "Java",
-    "repository": "https://github.com/mrniko/redisson",
-    "description": "distributed and scalable Java data structures on top of Redis server",
-    "authors": ["mrniko"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "JRedis",
-    "language": "Java",
-    "url": "https://code.google.com/p/jredis/",
-    "repository": "https://github.com/alphazero/jredis",
-    "description": "",
-    "authors": ["SunOf27"],
-    "active": true
-  },
-
-  {
-    "name": "JDBC-Redis",
-    "language": "Java",
-    "url": "https://code.google.com/p/jdbc-redis/",
-    "repository": "https://code.google.com/p/jdbc-redis/source/browse",
-    "description": "",
-    "authors": ["mavcunha"]
-  },
-
-  {
-    "name": "RJC",
-    "language": "Java",
-    "repository": "https://github.com/e-mzungu/rjc",
-    "description": "",
-    "authors": ["e_mzungu"]
-  },
-
-  {
-    "name": "redis-protocol",
-    "language": "Java",
-    "repository": "https://github.com/spullara/redis-protocol",
-    "description": "Up to 2.6 compatible high-performance Java, Java w/Netty & Scala (finagle) client",
-    "authors": ["spullara"]
-  },
-
-  {
-    "name": "aredis",
-    "language": "Java",
-    "repository": "http://aredis.sourceforge.net/",
-    "description": "Asynchronous, pipelined client based on the Java 7 NIO Channel API",
-    "authors": []
-  },
-
-  {
-    "name": "vertx-redis-client",
-    "language": "Java",
-    "repository": "https://github.com/vert-x3/vertx-redis-client",
-    "description": "The Vert.x Redis client provides an asynchronous API to interact with a Redis data-structure server.",
-    "authors": ["pmlopes"]
-  },
-
-  {
-    "name": "redis-lua",
-    "language": "Lua",
-    "repository": "https://github.com/nrk/redis-lua",
-    "description": "",
-    "authors": ["JoL1hAHN"],
-    "recommended": true
-  },
-
-  {
-    "name": "lua-hiredis",
-    "language": "Lua",
-    "repository": "https://github.com/agladysh/lua-hiredis",
-    "description": "Lua bindings for the hiredis library",
-    "authors": ["agladysh"]
-  },
-
-  {
-    "name": "lredis",
-    "language": "Lua",
-    "repository": "https://github.com/daurnimator/lredis",
-    "description": "Redis library for Lua",
-    "authors": ["daurnimator"],
-    "active": true
-  },
-
-  {
-    "name": "Redis",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/Redis/",
-    "repository": "https://github.com/PerlRedis/perl-redis",
-    "description": "Perl binding for Redis database",
-    "authors": ["damsieboy"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "RedisDB",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/RedisDB/",
-    "repository": "https://github.com/trinitum/RedisDB",
-    "description": "Perl binding for Redis database with fast XS-based protocolparser",
-    "authors": ["trinitum"],
-    "active": true
-  },
-
-  {
-    "name": "Redis::hiredis",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/Redis-hiredis/",
-    "description": "Perl binding for the hiredis C client",
-    "authors": ["neophenix"]
-  },
-
-  {
-    "name": "AnyEvent::Redis",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Redis/",
-    "repository": "https://github.com/miyagawa/AnyEvent-Redis",
-    "description": "Non-blocking Redis client",
-    "authors": ["miyagawa"]
-  },
-
-  {
-    "name": "AnyEvent::RipeRedis",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-RipeRedis/",
-    "repository": "https://github.com/iph0/AnyEvent-RipeRedis",
-    "description": "Flexible non-blocking Redis client",
-    "authors": ["iph0"],
-    "active": true
-  },
-
-  {
-    "name": "AnyEvent::RipeRedis::Cluster",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-RipeRedis-Cluster/",
-    "repository": "https://github.com/iph0/AnyEvent-RipeRedis-Cluster",
-    "description": "Non-blocking Redis Cluster client",
-    "authors": ["iph0"],
-    "active": true
-  },
-
-  {
-    "name": "AnyEvent::Hiredis",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
-    "repository": "https://github.com/wjackson/AnyEvent-Hiredis",
-    "description": "Non-blocking client using the hiredis C library",
-    "authors": []
-  },
-
-  {
-    "name": "Mojo::Redis",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/Mojo-Redis/",
-    "repository": "https://github.com/marcusramberg/mojo-redis",
-    "description": "asynchronous Redis client for Mojolicious",
-    "authors": ["und3f", "marcusramberg", "jhthorsen"]
-  },
-
-  {
-    "name": "Danga::Socket::Redis",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/Danga-Socket-Redis/",
-    "description": "An asynchronous redis client using the Danga::Socket async library",
-    "authors": ["martinredmond"]
-  },
-
-  {
-    "name": "Predis",
-    "language": "PHP",
-    "repository": "https://github.com/nrk/predis",
-    "description": "Mature and supported",
-    "authors": ["JoL1hAHN"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "phpredis",
-    "language": "PHP",
-    "repository": "https://github.com/phpredis/phpredis",
-    "description": "This is a client written in C as a PHP module.",
-    "authors": ["grumi78", "yowgi", "yatsukhnenko"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "Rediska",
-    "language": "PHP",
-    "url": "http://rediska.geometria-lab.net",
-    "repository": "https://github.com/Shumkov/Rediska",
-    "description": "",
-    "authors": ["shumkov"]
-  },
-
-  {
-    "name": "Redisent",
-    "language": "PHP",
-    "repository": "https://github.com/jdp/redisent",
-    "description": "",
-    "authors": ["justinpoliey"]
-  },
-
-  {
-    "name": "Credis",
-    "language": "PHP",
-    "repository": "https://github.com/colinmollenhour/credis",
-    "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
-    "authors": ["colinmollenhour"],
-    "active": true
-  },
-
-  {
-    "name": "PHP Sentinel Client",
-    "language": "PHP",
-    "repository": "https://github.com/jamescauwelier/PSRedis",
-    "description": "A PHP sentinel client acting as an extension to your regular redis client",
-    "authors": ["jamescauwelier"],
-    "active": true
-  },
-
-  {
-    "name": "redis-async",
-    "language": "PHP",
-    "repository": "https://github.com/swoole/redis-async",
-    "description": "Asynchronous redis client library for PHP.",
-    "authors": ["matyhtf"]
-  },
-
-  {
-    "name": "Yampee Redis",
-    "language": "PHP",
-    "repository": "https://github.com/yampee/Redis",
-    "description": "A full-featured Redis client for PHP 5.2. Easy to use and to extend.",
-    "authors": ["tgalopin"]
-  },
-
-  {
-    "name": "redis-py",
-    "language": "Python",
-    "repository": "https://github.com/andymccurdy/redis-py",
-    "description": "Mature and supported. Currently the way to go for Python.",
-    "authors": ["andymccurdy"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "gxredis",
-    "language": "Python",
-    "repository": "https://github.com/groove-x/gxredis",
-    "description": "Simple redis-py wrapper library",
-    "authors": ["loose_agilist"],
-    "active": true
-  },
-
-  {
-    "name": "txredis",
-    "language": "Python",
-    "url": "https://pypi.python.org/pypi/txredis",
-    "description": "",
-    "authors": ["dio_rian"]
-  },
-
-  {
-    "name": "txredisapi",
-    "language": "Python",
-    "url": "https://github.com/fiorix/txredisapi",
-    "description": "Full featured, non-blocking client for Twisted.",
-    "authors": ["fiorix"],
-    "active": true
-  },
-
-  {
-    "name": "desir",
-    "language": "Python",
-    "repository": "https://github.com/aallamaa/desir",
-    "description": "",
-    "authors": ["aallamaa"]
-  },
-
-  {
-    "name": "tornadis",
-    "language": "Python",
-    "repository": "https://github.com/thefab/tornadis",
-    "url": "http://tornadis.readthedocs.org",
-    "description": "Async minimal redis client for tornado ioloop designed for performances (use C hiredis parser)",
-    "active": true
-  },
-
-  {
-    "name": "brukva",
-    "language": "Python",
-    "repository": "https://github.com/evilkost/brukva",
-    "description": "Asynchronous Redis client that works within Tornado IO loop",
-    "authors": ["evilkost"]
-  },
-
-  {
-    "name": "aioredis",
-    "language": "Python",
-    "repository": "https://github.com/aio-libs/aioredis",
-    "url": "http://aioredis.readthedocs.org/",
-    "description": "Asyncio (PEP 3156) Redis client",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "prot-redis",
-    "language": "Rebol",
-    "repository": "https://github.com/rebolek/prot-redis",
-    "description": "Redis network scheme for Rebol 3",
-    "authors": ["rebolek"]
-  },
-
-  {
-    "name": "redisca2",
-    "language": "Python",
-    "repository": "https://github.com/khamin/redisca2",
-    "description": "Lightweight ORM for Redis",
-    "authors": ["vitaliykhamin"]
-  },
-
-  {
-    "name": "scala-redis",
-    "language": "Scala",
-    "repository": "https://github.com/acrosa/scala-redis",
-    "description": "",
-    "authors": ["alejandrocrosa"]
-  },
-
-  {
-    "name": "scala-redis",
-    "language": "Scala",
-    "repository": "https://github.com/debasishg/scala-redis",
-    "description": "Apparently a fork of the original client from @alejandrocrosa",
-    "authors": ["debasishg"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "redis-client-scala-netty",
-    "language": "Scala",
-    "repository": "https://github.com/andreyk0/redis-client-scala-netty",
-    "description": "",
-    "authors": []
-  },
-  {
-    "name": "sedis",
-    "language": "Scala",
-    "repository": "https://github.com/pk11/sedis",
-    "description": "a thin scala wrapper for the popular Redis Java client, Jedis",
-    "authors": ["pk11"]
-  },
-
-  {
-    "name": "scredis",
-    "language": "Scala",
-    "repository": "https://github.com/scredis/scredis",
-    "description": "Non-blocking, ultra-fast Scala Redis client built on top of Akka IO, used in production at Livestream",
-    "authors": ["livestream"],
-    "active": true
-  },
-
-  {
-    "name": "rediscala",
-    "language": "Scala",
-    "repository": "https://github.com/etaty/rediscala",
-    "description": "A Redis client for Scala (2.10+) and (AKKA 2.2+) with non-blocking and asynchronous I/O operations.",
-    "authors": ["etaty"],
-    "active": true
-  },
-
-  {
-    "name": "Tcl Client",
-    "language": "Tcl",
-    "repository": "https://github.com/antirez/redis/blob/unstable/tests/support/redis.tcl",
-    "description": "The client used in the Redis test suite. Not really full featured nor designed to be used in the real world.",
-    "authors": ["antirez"]
-  },
-
-  {
-    "name": "Retcl",
-    "language": "Tcl",
-    "repository": "https://github.com/gahr/retcl",
-    "description": "Retcl is an asynchronous, event-driven Redis client library implemented as a single-file Tcl module.",
-    "authors": ["gahrgahr"]
-  },
-
-  {
-    "name": "ServiceStack.Redis",
-    "language": "C#",
-    "url": "https://github.com/ServiceStack/ServiceStack.Redis",
-    "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
-    "authors": ["demisbellot"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "StackExchange.Redis",
-    "language": "C#",
-    "url": "https://github.com/StackExchange/StackExchange.Redis",
-    "description": "This .NET client was developed by Stack Exchange for very high performance needs (replacement to the earlier BookSleeve).",
-    "authors": ["marcgravell"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "Sider",
-    "language": "C#",
-    "url": "http://www.nuget.org/packages/Sider",
-    "description": "Minimalistic client for C#/.NET 4.0",
-    "authors": ["chakrit"]
-  },
-
-  {
-    "name": "DartRedisClient",
-    "language": "Dart",
-    "url": "https://github.com/dartist/redis_client",
-    "description": "A high-performance async/non-blocking Redis client for Dart",
-    "authors": ["demisbellot"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "hxneko-redis",
-    "language": "Haxe",
-    "url": "https://code.google.com/p/hxneko-redis/",
-    "repository": "https://code.google.com/p/hxneko-redis/source/browse",
-    "description": "",
-    "authors": []
-  },
-
-  {
-    "name": "em-hiredis",
-    "language": "Ruby",
-    "repository": "https://github.com/mloughran/em-hiredis",
-    "description": "An EventMachine Redis client (uses hiredis).",
-    "authors": ["mloughran"]
-  },
-
-  {
-    "name": "em-redis",
-    "language": "Ruby",
-    "repository": "https://github.com/madsimian/em-redis",
-    "description": "An eventmachine-based implementation of the Redis protocol. No longer actively maintained.",
-    "authors": ["madsimian"]
-  },
-
-  {
-    "name": "hiredis",
-    "language": "C",
-    "repository": "https://github.com/redis/hiredis",
-    "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
-    "authors": ["antirez","pnoordhuis","badboy_"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "credis",
-    "language": "C",
-    "repository": "https://code.google.com/p/credis/source/browse",
-    "description": "",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "node_redis",
-    "language": "Node.js",
-    "repository": "https://github.com/NodeRedis/node_redis",
-    "description": "Recommended client for node.",
-    "authors": ["mranney"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "thunk-redis",
-    "language": "Node.js",
-    "repository": "https://github.com/thunks/thunk-redis",
-    "description": "A thunk/promise-based redis client with pipelining and cluster.",
-    "authors": ["izensh"],
-    "active": true
-  },
-
-  {
-    "name": "spade",
-    "language": "Node.js",
-    "repository": "https://github.com/rootslab/spade",
-    "description": "♠ Spade, a full-featured modular client for node.",
-    "authors": ["44gtti"],
-    "recommended": false,
-    "active": true
-  },
-
-  {
-    "name": "then-redis",
-    "language": "Node.js",
-    "repository": "https://github.com/mjackson/then-redis",
-    "description": "A small, promise-based Redis client for node",
-    "authors": ["mjackson"],
-    "active": true
-  },
-
-  {
-    "name": "redis-node-client",
-    "language": "Node.js",
-    "repository": "https://github.com/fictorial/redis-node-client",
-    "description": "No longer maintained, does not work with node 0.3.",
-    "authors": []
-  },
-
-  {
-    "name": "ioredis",
-    "language": "Node.js",
-    "repository": "https://github.com/luin/ioredis",
-    "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
-    "authors": ["luinlee"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "redis-fast-driver",
-    "language": "Node.js",
-    "repository": "https://github.com/h0x91b/redis-fast-driver",
-    "description": "Driver based on hiredis async lib, can do PUBSUB and MONITOR, simple and really fast, written with NaN so works fine with node >=0.8",
-    "authors": ["h0x91b"],
-    "active": true
-  },
-
-  {
-    "name": "fast-redis-cluster",
-    "language": "Node.js",
-    "repository": "https://github.com/h0x91b/fast-redis-cluster",
-    "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
-    "authors": ["h0x91b"],
-    "active": true
-  },
-
-  {
-    "name": "iodis",
-    "language": "Io",
-    "repository": "https://github.com/vangberg/iodis",
-    "description": "",
-    "authors": ["ichverstehe"]
-  },
-
-  {
-    "name": "redis.go",
-    "language": "Go",
-    "repository": "https://github.com/hoisie/redis",
-    "description": "",
-    "authors": ["hoisie"]
-  },
-
-  {
-    "name": "Smalltalk Redis Client",
-    "language": "Smalltalk",
-    "repository": "http://www.squeaksource.com/Redis.html",
-    "description": "",
-    "authors": []
-  },
-
-  {
-    "name": "TeamDev Redis Client",
-    "language": "C#",
-    "repository": "http://redis.codeplex.com/",
-    "description": "Redis Client is based on redis-sharp for the basic communication functions, but it offers some differences.",
-    "authors": ["TeamDevPerugia"]
-  },
-
-  {
-    "name": "redis-sharp",
-    "language": "C#",
-    "repository": "https://github.com/migueldeicaza/redis-sharp",
-    "description": "",
-    "authors": ["migueldeicaza"]
-  },
-
-  {
-    "name": "ObjCHiredis",
-    "language": "Objective-C",
-    "repository": "https://github.com/lp/ObjCHiredis",
-    "description": "Static Library for iOS4 device and Simulator, plus Objective-C Framework for MacOS 10.5 and higher",
-    "authors": ["loopole"]
-  },
-
-  {
-    "name": "Puredis",
-    "language": "Pure Data",
-    "repository": "https://github.com/lp/puredis",
-    "description": "Pure Data Redis sync, async and subscriber client",
-    "authors": ["loopole"]
-  },
-
-  {
-    "name": "async-redis",
-    "language": "C++",
-    "url": "https://github.com/hamidr/async-redis",
-    "repository": "https://github.com/hamidr/async-redis",
-    "description": "An async redis library for C++ based on libevpp/boost-asio",
-    "authors": ["hamidr_"],
-    "active": true
-  },
-
-  {
-    "name": "acl-redis",
-    "language": "C++",
-    "url": "https://github.com/acl-dev/acl/tree/master/lib_acl_cpp/samples/redis",
-    "repository": "https://github.com/acl-dev/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
-    "description": "Standard C++ Redis Client with high performance and stl-like interface, supporting Redis Cluster, thread safety",
-    "authors": ["zhengshuxin"],
-    "active": true
-  },
-
-  {
-    "name": "redox",
-    "language": "C++",
-    "repository": "https://github.com/hmartiro/redox",
-    "description": "Modern, asynchronous, and fast C++11 client for Redis",
-    "authors": ["hmartiros"],
-    "active": true
-  },
-
-  {
-    "name": "redis3m",
-    "language": "C++",
-    "repository": "https://github.com/luca3m/redis3m",
-    "description": "A C++ wrapper of hiredis, with also connection pooling, high availability and ready-to-use patterns",
-    "authors": [ "luca3m" ],
-    "active": true
-  },
-
-  {
-    "name": "C++ Client",
-    "language": "C++",
-    "repository": "https://github.com/mrpi/redis-cplusplus-client",
-    "authors": []
-  },
-
-  {
-    "name": "libredis",
-    "language": "C",
-    "repository": "https://github.com/toymachine/libredis",
-    "description": "Support for executing commands on multiple servers in parallel via poll(2), ketama hashing. Includes PHP bindings.",
-    "authors": []
-  },
-
-  {
-    "name": "eredis",
-    "language": "emacs lisp",
-    "repository": "https://code.google.com/p/eredis/",
-    "description": "Full Redis API plus ways to pull Redis data into an org-mode table and push it back when edited",
-    "authors": ["justinhj"]
-  },
-
-  {
-    "name": "Tiny Redis",
-    "language": "D",
-    "url": "http://adilbaig.github.io/Tiny-Redis/",
-    "repository": "https://github.com/adilbaig/Tiny-Redis",
-    "description": "A Redis client for D2. Supports pipelining, transactions and Lua scripting",
-    "authors": ["aidezigns"]
-  },
-
-  {
-    "name": "redis-client",
-    "language": "Scheme",
-    "url": "http://wiki.call-cc.org/eggref/4/redis-client",
-    "repository": "https://github.com/carld/redis-client.egg",
-    "description": "A Redis client for Chicken Scheme 4.7",
-    "authors": ["carld"]
-  },
-
-  {
-    "name": "lettuce",
-    "language": "Java",
-    "url": "http://redis.paluch.biz",
-    "repository": "https://github.com/mp911de/lettuce",
-    "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
-    "authors": ["ar3te", "mp911de"],
-    "active": true,
-    "recommended": true
-  },
-
-  {
-    "name": "csredis",
-    "language": "C#",
-    "repository": "https://github.com/ctstone/csredis",
-    "description": "Async (and sync) client for Redis and Sentinel",
-    "authors": ["ctnstone"]
-  },
-
-  {
-    "name": "Brando",
-    "language": "Scala",
-    "repository": "https://github.com/chrisdinn/brando",
-    "description": "A Redis client written with the Akka IO package introduced in Akka 2.2.",
-    "authors": ["chrisdinn"]
-  },
-
-  {
-    "name": "redis-rs",
-    "language": "Rust",
-    "repository": "https://github.com/mitsuhiko/redis-rs",
-    "description": "A high and low level client library for Redis tracking Rust nightly.",
-    "authors": ["mitsuhiko"],
-    "active": true,
-    "recommended": true
-  },
-
-  {
-    "name": "rust-redis",
-    "language": "Rust",
-    "repository": "https://github.com/mneumann/rust-redis",
-    "description": "A Rust client library for Redis.",
-    "authors": ["mneumann"],
-    "active": true
-  },
-
-  {
-    "name": "redis-client",
-    "language": "Rust",
-    "repository": "https://github.com/AsoSunag/redis-client",
-    "description": "A Redis client library for Rust.",
-    "authors": []
-  },
-
-  {
-    "name": "redic",
-    "language": "Ruby",
-    "repository": "https://github.com/amakawa/redic",
-    "description": "Lightweight Redis Client",
-    "authors": ["soveran", "cyx"],
-    "active": true
-  },
-
-  {
-    "name": "gnuprolog-redisclient",
-    "language": "GNU Prolog",
-    "repository": "https://github.com/emacstheviking/gnuprolog-redisclient",
-    "description": "Simple Redis client for GNU Prolog in native Prolog, no FFI, libraries etc.",
-    "authors": ["seancharles"],
-    "active": true
-  },
-
-  {
-    "name": "SimpleRedisClient",
-    "language": "C++",
-    "repository": "https://github.com/Levhav/SimpleRedisClient",
-    "description": "Simple Redis client for C++",
-    "authors": ["Levhav"],
-    "active": true
-  },
-
-  {
-    "name": "RedisClient",
-    "language": "Java",
-    "repository": "https://github.com/caoxinyu/RedisClient",
-    "description": "redis client GUI tool",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "redis",
-    "language": "Nim",
-    "repository": "https://github.com/nim-lang/redis",
-    "description": "Redis client for Nim",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "libvmod-redis",
-    "language": "VCL",
-    "repository": "https://github.com/carlosabalde/libvmod-redis",
-    "description": "Varnish Cache module using the synchronous hiredis library API to access Redis servers from VCL.",
-    "authors": ["carlosabalde"],
-    "active": true
-  },
-
-  {
-    "name": "redisclient",
-    "language": "C++",
-    "repository": "https://github.com/nekipelov/redisclient",
-    "description": "A C++ asynchronous client based on boost::asio",
-    "authors": [ "nekipelov" ],
-    "active": true
-  },
-
-  {
-    "name": "redis-octave",
-    "language": "Matlab",
-    "repository": "https://github.com/markuman/go-redis",
-    "description": "A Redis client in pure Octave",
-    "authors": ["markuman"]
-  },
-
-  {
-    "name": "redisboost",
-    "language": "C#",
-    "url": "http://andrew-bn.github.io/RedisBoost/",
-    "repository": "https://github.com/andrew-bn/RedisBoost",
-    "description": "Thread-safe async Redis client. Offers high performance and simple api"
-  },
-
-  {
-    "name": "redis",
-    "language": "Dart",
-    "url": "https://github.com/ra1u/redis-dart",
-    "description": "Simple and fast client",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "ocaml-redis",
-    "language": "OCaml",
-    "repository": "https://github.com/0xffea/ocaml-redis",
-    "description": "Synchronous and asynchronous (via Lwt) Redis client library in OCaml. Provides implementation of cache and mutex helpers.",
-    "authors": [],
-    "active": true
-  },
-  {
-    "name": "Nhiredis",
-    "language": "C#",
-    "repository": "https://github.com/mhowlett/Nhiredis",
-    "description": "A lightweight wrapper around the C client hiredis.",
-    "authors": ["matt_howlett"],
-    "active": true
-  },
-
-  {
-    "name": "finagle-redis",
-    "language": "Scala",
-    "repository": "https://github.com/twitter/finagle/tree/develop/finagle-redis",
-    "description": "Redis client based on Finagle",
-    "authors": []
-  },
-  {
-      "name": "RedisCli",
-      "language": "R",
-      "repository": "https://bitbucket.org/cmbce/r-package-rediscli",
-      "description": "Basic client passing a (batch of) command(s) to redis-cli, getting back a (list of) character vector(s).",
-      "authors": ["CorentinBarbu"],
-      "active": true
-  },
-
-  {
-    "name": "rredis",
-    "language": "R",
-    "repository": "https://github.com/bwlewis/rredis",
-    "url": "https://cran.r-project.org/web/packages/rredis/index.html",
-    "description": "Redis client for R",
-    "authors": ["bwlewis"],
-    "active": true
-  },
-
-  {
-    "name": "Redis-AS3",
-    "language": "ActionScript",
-    "repository": "https://github.com/mikeheier/Redis-AS3",
-    "description": "An as3 client library for redis.",
-    "authors": []
-  },
-
-  {
-    "name": "redix",
-    "language": "Elixir",
-    "repository": "https://github.com/whatyouhide/redix",
-    "description": "Superfast, pipelined, resilient Redis client written in pure Elixir.",
-    "authors": ["whatyouhide"],
-    "active": true
-  },
-
-  {
-    "name": "crystal-redis",
-    "language": "Crystal",
-    "url": "http://www.stefanwille.com/projects/crystal-redis/",
-    "repository": "https://github.com/stefanwille/crystal-redis",
-    "description": "Full featured, high performance Redis client for Crystal",
-    "authors": ["stefanwille"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "redis-racket",
-    "language": "Racket",
-    "repository": "https://github.com/stchang/redis",
-    "description": "A Redis client for Racket.",
-    "authors": ["s_chng"],
-    "active": true
-  },
-
-  {
-    "name": "delphi-redis",
-    "language": "Pascal",
-    "url": "https://bitbucket.org/Gloegg/delphi-redis",
-    "repository": "https://bitbucket.org/Gloegg/delphi-redis.git",
-    "description": "A lightweight Redis client written in Delphi",
-    "authors": ["Gloegg"]
-  },
-
-  {
-    "name": "PHP Redis implementation / wrapper",
-    "language": "PHP",
-    "url": "https://github.com/ziogas/PHP-Redis-implementation",
-    "repository": "https://github.com/ziogas/PHP-Redis-implementation",
-    "description": "Simple and lightweight redis implementation. Basically wrapper for raw redis commands.",
-    "authors": ["arminas"]
-  },
-
-  {
-    "name": "asyncio_redis",
-    "language": "Python",
-    "url": "http://asyncio-redis.readthedocs.org/",
-    "repository": "https://github.com/jonathanslenders/asyncio-redis",
-    "description": "Asynchronous Redis client that works with the asyncio event loop",
-    "authors": ["jonathan_s"],
-    "active": true
-  },
-
-  {
-    "name": "Redis::Fast",
-    "language": "Perl",
-    "url": "https://metacpan.org/pod/Redis::Fast",
-    "repository": "https://github.com/shogo82148/Redis-Fast",
-    "description": "Perl binding for Redis database",
-    "authors": ["shogo82148"],
-    "active": true
-  },
-
-  {
-    "name": "RedisClient",
-    "language": "Scala",
-    "repository": "https://github.com/chiradip/RedisClient",
-    "description": "A no nonsense Redis Client using pure scala. Preserves elegant Redis style without any need to learn any special API",
-    "authors": ["chiradip"],
-    "active": true
-  },
-
-  {
-    "name": "Pypredis",
-    "language": "Python",
-    "repository": "https://github.com/pepijndevos/pypredis",
-    "description": "A client focused on arbitrary sharding and parallel pipelining.",
-    "authors": ["pepijndevos"]
-  },
-
-  {
-    "name": "IRedis",
-    "language": "Dart",
-    "repository": "https://github.com/himulawang/i_redis",
-    "description": "A redis client for Dart",
-    "authors": ["ila"],
-    "active": true
-  },
-
-  {
-    "name": "gawk-redis",
-    "language": "gawk",
-    "repository": "http://sourceforge.net/p/gawkextlib/code/ci/master/tree/",
-    "description": "Gawk extension, using the hiredis C library. Supports pipelining and pub/sub",
-    "authors": ["paulinohuerta"],
-    "active": true
-  },
-
-  {
-    "name": "vRedis",
-    "language": "VB",
-    "repository": "https://github.com/hishamco/vRedis",
-    "description": "Redis client using VB.NET.",
-    "authors": ["hishambinateya"],
-    "active": true
-  },
-
-  {
-    "name": "delphiredisclient",
-    "language": "Pascal",
-    "repository": "https://github.com/danieleteti/delphiredisclient",
-    "description": "Redis client for Delphi",
-    "authors": ["danieleteti"],
-    "active": true
-  },
-
-  {
-    "name": "redis_client.fpc",
-    "language": "Pascal",
-    "repository": "https://github.com/ik5/redis_client.fpc",
-    "description": "Object Pascal client implementation for the redis protocol and commands",
-    "authors": ["ik5"]
-  },
-
-  {
-    "name": "Redi.sh",
-    "language": "Bash",
-    "repository": "https://github.com/crypt1d/redi.sh",
-    "description": "Simple, Bash-based, Redis client to store your script's variables",
-    "authors": ["nkrzalic"],
-    "active": true
-  },
-
-  {
-    "name": "amphp/redis",
-    "language": "PHP",
-    "repository": "https://github.com/amphp/redis",
-    "description": "An async redis client built on the amp concurrency framework.",
-    "authors": ["kelunik"],
-    "active": true
-  },
-
-  {
-    "name": "pyredis",
-    "language": "Python",
-    "repository": "https://github.com/schlitzered/pyredis",
-    "description": "Python Client with support for Redis Cluster. Currently only Python 3 is supported.",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "Redis.jl",
-    "language": "Julia",
-    "repository": "https://github.com/jkaye2012/redis.jl",
-    "description": "A fully-featured Redis client for the Julia programming language",
-    "authors": ["jkaye2012"],
-    "active": true
-  },
-
-  {
-    "name": "Redis::Cluster",
-    "language": "Perl",
-    "url": "http://search.cpan.org/dist/Redis-Cluster/",
-    "repository": "https://github.com/smsonline/redis-cluster-perl",
-    "description": "Redis Cluster client for Perl",
-    "authors": ["smsonline"],
-    "active": true
-  },
-
-  {
-    "name": "Swidis",
-    "language": "Swift",
-    "repository": "https://github.com/Farhaddc/Swidis",
-    "description": "iOS Framework Allowing you to connect to Redis server with Swift programming language.",
-    "authors": ["Farhaddc"],
-    "active": false
-  },
-
- {
-    "name": "SwiftRedis",
-    "language": "Swift",
-    "repository": "https://github.com/ronp001/SwiftRedis",
-    "description": "Basic async client for Redis in Swift (iOS)",
-    "authors": ["ronp001"],
-    "active": true
-  },
-
- {
-    "name": "Redis",
-    "language": "Swift",
-    "repository": "https://github.com/Zewo/Redis",
-    "description": "Redis client for Swift. OpenSwift C7 Compliant, OS X and Linux compatible.",
-    "authors": ["rabc"],
-    "active": true
-  },
-
-  {
-    "name": "Redbird",
-    "language": "Swift",
-    "repository": "https://github.com/czechboy0/Redbird",
-    "description": "Pure-Swift implementation of a Redis client from the original protocol spec (OS X + Linux compatible)",
-    "authors": ["czechboy0"],
-    "active": true
-  },
-
-  {
-    "name": "PSSRedisClient",
-    "language": "Swift",
-    "repository": "https://github.com/perrystreetsoftware/PSSRedisClient",
-    "description": "Swift redis client using the CocoaAsyncSocket library, installable via Cocoapods",
-    "authors": ["esilverberg"],
-    "active": true
-  },
-
-  {
-    "name": "Rackdis",
-    "language": "Racket",
-    "repository": "https://github.com/eu90h/rackdis",
-    "description": "A Redis client for Racket",
-    "authors": ["eu90h"],
-    "active": true
-  },
-
-  {
-    "name": "RedisKit",
-    "language": "Objective-C",
-    "repository": "https://github.com/dizzus/RedisKit",
-    "description": "RedisKit is a asynchronious client framework for Redis server, written in Objective-C",
-    "authors": ["dizzus"]
-  },
-
-  {
-    "name": "qredisclient",
-    "language": "C++",
-    "repository": "https://github.com/uglide/qredisclient",
-    "description": "Asynchronous Qt-based Redis client with SSL and SSH tunnelling support.",
-    "authors": ["u_glide"],
-    "active": true
-  },
-
-  {
-    "name": "xredis",
-    "language": "C++",
-    "url": "http://xredis.0xsky.com/",
-    "repository": "https://github.com/0xsky/xredis",
-    "description": "Redis C++ client with data slice storage, Redis cluster, connection pool, master replica connection, read/write separation; requires hiredis only",
-    "authors": ["0xsky"],
-    "active": true
-  },
-
-  {
-    "name": "cpp_redis",
-    "language": "C++",
-    "repository": "https://github.com/cylix/cpp_redis",
-    "description": "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform.",
-    "authors": ["simon_ninon"],
-    "active": true
-  },
-
-  {
-    "name": "bredis",
-    "language": "C++",
-    "repository": "https://github.com/basiliscos/cpp-bredis",
-    "description": "Boost::ASIO low-level redis client",
-    "active": true
-  },
-
-  {
-    "name": "mruby-redis",
-    "language": "mruby",
-    "repository": "https://github.com/matsumoto-r/mruby-redis",
-    "description": "Redis class for mruby based on Hiredis",
-    "authors": ["matsumotory"],
-    "active": true
-  },
-
     {
-    "name": "mruby-hiredis",
-    "language": "mruby",
-    "repository": "https://github.com/Asmod4n/mruby-hiredis",
-    "description": "Redis Client for mruby with Async support, pipelines and transactions",
-    "authors": ["Asmod4n"],
-    "active": true
-  },
-
-  {
-    "name": "Pottery",
-    "language": "Python",
-    "repository": "https://github.com/brainix/pottery",
-    "description": "High level Pythonic dict, set, and list like containers around Redis data types (Python 3 only)",
-    "authors": ["brainix"],
-    "active": true
-  },
-
-  {
-    "name": "cheprasov/php-redis-client",
-    "language": "PHP",
-    "repository": "https://github.com/cheprasov/php-redis-client",
-    "description": "Supported PHP client for versions of Redis from 2.6 to 4.0",
-    "authors": ["cheprasov84"],
-    "active": true
-  },
-
-  {
-    "name": "lasso-redis",
-    "language": "Lasso",
-    "repository": "https://github.com/Zeroloop/lasso-redis",
-    "description": "High performance Redis client for Lasso, supports pub/sub and piping.",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "c+redis+client",
-    "language": "C++",
-    "repository": "https://github.com/shawn246/redis_client",
-    "description": "A redis client based on hiredis, supports cluster/pipeline and is thread safe and includes two files only. The transaction is on the way:)",
-    "authors": [],
-    "active": true
-  },
-
-  {
-    "name": "delphiredisclient",
-    "language": "Delphi",
-    "repository": "https://github.com/danieleteti/delphiredisclient",
-    "description": "A Delphi Redis Client",
-    "authors": ["danieleteti"],
-    "active": true
-  },
-
-  {
-    "name": "eredis",
-    "language": "C",
-    "repository": "https://github.com/EulerianTechnologies/eredis",
-    "description": "Fast and light Redis C client library extending Hiredis: thread-safe, write replication, auto-reconnect, sync pool, async libev",
-    "authors": ["EulerianTech"],
-    "active": true
-  },
-
-  {
-    "name": "Hierdis",
-    "language": "Erlang",
-    "repository": "https://github.com/funbox/hierdis",
-    "description": "High-performance Erlang client for the Redis key-value store (NIF wrapping the hiredis C client).",
-    "authors": ["funbox_team"]
-  },
-
-  {
-    "name": "yoredis",
-    "language": "Node.js",
-    "repository": "https://github.com/djanowski/yoredis",
-    "description": "A minimalistic Redis client using modern Node.js.",
-    "authors": ["djanowski"],
-    "active": true
-  },
-
-  {
-    "name": "spark-redis",
-    "language": "Scala",
-    "repository": "https://github.com/redislabs/spark-redis",
-    "description": "A connector between Apache Spark and Redis.",
-    "authors": ["redislabs", "sunheehnus", "dvirsky"],
-    "active": true
-  },
-
-  {
-    "name": "r3c",
-    "language": "C++",
-    "repository": "https://github.com/eyjian/r3c",
-    "description": "Redis Cluster C++ Client, based on hiredis, support password and standalone, it's easy to make and use, not depends on C++11 or later.",
-    "authors": ["eyjian"],
-    "active": true
-  },
-
-  {
-    "name": "rebridge",
-    "language": "Node.js",
-    "repository": "https://github.com/CapacitorSet/rebridge",
-    "description": "Rebridge is a transparent Javascript-Redis bridge. It creates JavaScript objects that are automatically synchronized to a Redis database. (Requires Node 6)",
-    "active": true
-  },
-
-  {
-    "name": "hiredis-vip",
-    "language": "C",
-    "repository": "https://github.com/vipshop/hiredis-vip",
-    "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
-    "authors": ["diguo58"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "hiredispool",
-    "language": "C",
-    "repository": "https://github.com/aclisp/hiredispool",
-    "description": "Provides connection pooling and auto-reconnect for hiredis. It is also minimalistic and easy to do customization.",
-    "active": true
-  },
-
-  {
-    "name": "oxblood",
-    "language": "Ruby",
-    "repository": "https://github.com/etehtsea/oxblood",
-    "description": "Straightforward Ruby client.",
-    "authors": ["etehtsea"],
-    "active": true
-  },
-
-  {
-    "name": "RcppRedis",
-    "language": "R",
-    "url": "https://cran.rstudio.com/web/packages/RcppRedis/index.html",
-    "repository": "https://github.com/eddelbuettel/rcppredis",
-    "description": "R interface to Redis using the hiredis library.",
-    "authors": ["eddelbuettel"],
-    "active": true
-  },
-
-  {
-    "name": "Redux",
-    "language": "R",
-    "url": "http://richfitz.github.io/redux/",
-    "repository": "https://github.com/richfitz/redux",
-    "description": "Provides a low-level interface to Redis, allowing execution of arbitrary Redis commands with almost no interface.",
-    "authors": ["rgfitzjohn"],
-    "active": true
-  },
-
-  {
-    "name": "oredis",
-    "language": "PL/SQL",
-    "repository": "https://github.com/SeYoungLee/oredis",
-    "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
-    "authors": ["SeyoungLee"],
-    "active": true
-  },
-
-  {
-    "name": "aredis",
-    "language": "Python",
-    "repository": "https://github.com/NoneGG/aredis",
-    "description": "An efficient and user-friendly async redis client ported from redis-py.",
-    "authors": [],
-    "active": true
-  },
-  
+        "name": "redis-rb",
+        "language": "Ruby",
+        "repository": "https://github.com/redis/redis-rb",
+        "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
+        "authors": [
+            "ezmobius",
+            "soveran",
+            "djanowski",
+            "pnoordhuis"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-02-26T00:53:51Z",
+            "periodCommits": 49,
+            "committedAt": "2018-11-05T08:06:29+01:00",
+            "fetchedAt": "2018-11-07T17:56:34",
+            "forks": 768,
+            "watchers": 83,
+            "stargazers": 3251,
+            "openPullRequests": 26,
+            "openIssues": 39
+        }
+    },
     {
-    "name": "Redis_MTC",
-    "language": "Xojo",
-    "repository": "https://github.com/ktekinay/XOJO-Redis/",
-    "description": "A Xojo library to connect to a Redis server.",
-    "authors": ["kemtekinay"],
-    "active": true
-  }
-  
+        "name": "carmine",
+        "language": "Clojure",
+        "repository": "https://github.com/ptaoussanis/carmine",
+        "description": "Simple, high-performance Redis (2.0+) client for Clojure.",
+        "authors": [
+            "ptaoussanis"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-05-12T10:34:01Z",
+            "periodCommits": 11,
+            "committedAt": "2018-11-03T13:02:27+01:00",
+            "fetchedAt": "2018-11-07T17:56:34",
+            "forks": 89,
+            "watchers": 41,
+            "stargazers": 819,
+            "openPullRequests": 5,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "CL-Redis",
+        "language": "Common Lisp",
+        "url": "http://www.cliki.net/cl-redis",
+        "repository": "https://github.com/vseloved/cl-redis",
+        "description": "",
+        "authors": [
+            "BigThingist"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-10-23T17:28:23Z",
+            "periodCommits": 2,
+            "committedAt": "2018-06-23T18:09:07+03:00",
+            "fetchedAt": "2018-11-07T17:56:36",
+            "forks": 28,
+            "watchers": 10,
+            "stargazers": 134,
+            "openPullRequests": 2,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Erldis",
+        "language": "Erlang",
+        "repository": "https://github.com/japerk/erldis",
+        "description": "A Redis erlang client library.",
+        "authors": [
+            "dialtone_",
+            "japerk"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-05-16T21:25:05Z",
+            "periodCommits": 0,
+            "committedAt": "2011-06-26T08:57:39-07:00",
+            "fetchedAt": "2018-11-07T17:56:36",
+            "forks": 10,
+            "watchers": 2,
+            "stargazers": 40,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Eredis",
+        "language": "Erlang",
+        "repository": "https://github.com/wooga/eredis",
+        "description": "Redis client with a focus on performance",
+        "authors": [
+            "wooga"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-04-08T09:54:32Z",
+            "periodCommits": 12,
+            "committedAt": "2018-09-12T13:29:34Z",
+            "fetchedAt": "2018-11-07T17:56:37",
+            "forks": 213,
+            "watchers": 209,
+            "stargazers": 562,
+            "openPullRequests": 4,
+            "openIssues": 16
+        }
+    },
+    {
+        "name": "eredis_cluster",
+        "language": "Erlang",
+        "repository": "https://github.com/adrienmo/eredis_cluster",
+        "description": "Eredis wrapper providing cluster support and connection pooling",
+        "authors": [
+            "adrienmo"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-05-22T07:20:19Z",
+            "periodCommits": 3,
+            "committedAt": "2018-06-26T00:19:08+02:00",
+            "fetchedAt": "2018-11-07T17:56:38",
+            "forks": 24,
+            "watchers": 10,
+            "stargazers": 54,
+            "openPullRequests": 1,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "sharded_eredis",
+        "language": "Erlang",
+        "repository": "https://github.com/jeremyong/sharded_eredis",
+        "description": "Wrapper around eredis providing process pools and consistent hashing.",
+        "authors": [
+            "jeremyong"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-11-17T21:22:26Z",
+            "periodCommits": 0,
+            "committedAt": "2014-08-22T20:53:06-07:00",
+            "fetchedAt": "2018-11-07T17:56:39",
+            "forks": 9,
+            "watchers": 3,
+            "stargazers": 23,
+            "openPullRequests": 1,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Tideland Erlang/OTP Redis Client",
+        "language": "Erlang",
+        "repository": "git://git.tideland.biz/errc",
+        "description": "A comfortable Redis client for Erlang/OTP support pooling, pub/sub and transactions.",
+        "authors": [
+            "themue"
+        ]
+    },
+    {
+        "name": "exredis",
+        "language": "Elixir",
+        "repository": "https://github.com/artemeff/exredis",
+        "description": "Redis client for Elixir.",
+        "authors": [
+            "artemeff"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-07-14T08:42:36Z",
+            "periodCommits": 0,
+            "committedAt": "2018-02-10T10:27:29+03:00",
+            "fetchedAt": "2018-11-07T17:56:40",
+            "forks": 67,
+            "watchers": 9,
+            "stargazers": 332,
+            "openPullRequests": 1,
+            "openIssues": 6
+        }
+    },
+    {
+        "name": "redis.fy",
+        "language": "Fancy",
+        "repository": "https://github.com/bakkdoor/redis.fy",
+        "description": "A Fancy Redis client library",
+        "authors": [
+            "bakkdoor"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-10-24T13:11:21Z",
+            "periodCommits": 0,
+            "committedAt": "2013-02-12T21:23:32+01:00",
+            "fetchedAt": "2018-11-07T17:56:40",
+            "forks": 1,
+            "watchers": 1,
+            "stargazers": 4,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "go-redis/redis",
+        "language": "Go",
+        "repository": "https://github.com/go-redis/redis",
+        "description": "Redis client for Golang supporting Redis Sentinel and Redis Cluster out of the box.",
+        "authors": [],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-07-25T13:01:39Z",
+            "periodCommits": 126,
+            "committedAt": "2018-11-03T12:07:25+02:00",
+            "fetchedAt": "2018-11-07T17:56:41",
+            "forks": 618,
+            "watchers": 187,
+            "stargazers": 4413,
+            "openPullRequests": 4,
+            "openIssues": 19
+        }
+    },
+    {
+        "name": "Go-Redis",
+        "language": "Go",
+        "repository": "https://github.com/alphazero/Go-Redis",
+        "description": "Google Go Client and Connectors for Redis.",
+        "authors": [
+            "SunOf27"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-11-15T02:04:18Z",
+            "periodCommits": 0,
+            "committedAt": "2012-09-24T13:16:22-04:00",
+            "fetchedAt": "2018-11-07T17:56:42",
+            "forks": 114,
+            "watchers": 33,
+            "stargazers": 384,
+            "openPullRequests": 8,
+            "openIssues": 8
+        }
+    },
+    {
+        "name": "Radix",
+        "language": "Go",
+        "repository": "https://github.com/mediocregopher/radix.v2",
+        "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
+        "authors": [
+            "fzzbt",
+            "mediocre_gopher"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-07-12T16:28:13Z",
+            "periodCommits": 5,
+            "committedAt": "2018-05-29T08:51:07-04:00",
+            "fetchedAt": "2018-11-07T17:56:43",
+            "forks": 85,
+            "watchers": 30,
+            "stargazers": 403,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Redigo",
+        "language": "Go",
+        "repository": "https://github.com/gomodule/redigo",
+        "description": "Redigo is a Go client for the Redis database with support for Print-alike API, Pipelining (including transactions), Pub/Sub, Connection pooling, scripting.",
+        "authors": [
+            "gburd"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-04-14T04:31:58Z",
+            "periodCommits": 5,
+            "committedAt": "2018-10-26T02:15:55+02:00",
+            "fetchedAt": "2018-11-07T17:56:44",
+            "forks": 764,
+            "watchers": 272,
+            "stargazers": 5127,
+            "openPullRequests": 0,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "Tideland Go Redis Client",
+        "language": "Go",
+        "url": "https://github.com/tideland/golib/tree/master/redis",
+        "repository": "https://github.com/tideland/golib",
+        "description": "A flexible Go Redis client able to handle all commands",
+        "authors": [
+            "themue"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-06-05T12:58:45Z",
+            "periodCommits": 0,
+            "committedAt": "2017-09-09T23:33:14+02:00",
+            "fetchedAt": "2018-11-07T17:56:45",
+            "forks": 17,
+            "watchers": 10,
+            "stargazers": 178,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "godis",
+        "language": "Go",
+        "repository": "https://github.com/simonz05/godis",
+        "description": "A Redis client for Go.",
+        "authors": []
+    },
+    {
+        "name": "gosexy/redis",
+        "language": "Go",
+        "repository": "https://github.com/gosexy/redis",
+        "url": "https://menteslibres.net/gosexy/redis",
+        "description": "Redis client library for Go that maps the full redis command list into equivalent Go functions.",
+        "authors": [
+            "xiam"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-02-04T04:25:29Z",
+            "periodCommits": 0,
+            "committedAt": "2015-06-02T21:25:29-05:00",
+            "fetchedAt": "2018-11-07T17:56:47",
+            "forks": 44,
+            "watchers": 21,
+            "stargazers": 166,
+            "openPullRequests": 0,
+            "openIssues": 11
+        }
+    },
+    {
+        "name": "goredis",
+        "language": "Go",
+        "repository": "https://github.com/xuyu/goredis",
+        "description": "A redis client for golang with full features",
+        "authors": [
+            "xuyu"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-08-23T05:31:44Z",
+            "periodCommits": 0,
+            "committedAt": "2016-09-29T09:12:45+07:00",
+            "fetchedAt": "2018-11-07T17:56:48",
+            "forks": 29,
+            "watchers": 6,
+            "stargazers": 49,
+            "openPullRequests": 1,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "gore",
+        "language": "Go",
+        "repository": "https://github.com/keimoon/gore",
+        "description": "A full feature redis Client for Go. Supports Pipeline, Transaction, LUA scripting, Pubsub, Connection Pool, Sentinel and client sharding",
+        "authors": [
+            "keimoon"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-05-28T08:22:29Z",
+            "periodCommits": 0,
+            "committedAt": "2016-03-17T10:26:03+07:00",
+            "fetchedAt": "2018-11-07T17:56:49",
+            "forks": 11,
+            "watchers": 5,
+            "stargazers": 38,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "shipwire/redis",
+        "language": "Go",
+        "repository": "https://github.com/shipwire/redis",
+        "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
+        "authors": [
+            "stephensearles"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-11-14T01:36:18Z",
+            "periodCommits": 0,
+            "committedAt": "2014-12-15T19:35:35-08:00",
+            "fetchedAt": "2018-11-07T17:56:50",
+            "forks": 0,
+            "watchers": 6,
+            "stargazers": 25,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "hedis",
+        "language": "Haskell",
+        "url": "http://hackage.haskell.org/package/hedis",
+        "repository": "https://github.com/informatikr/hedis",
+        "description": "Supports the complete command set. Commands are automatically pipelined for high performance.",
+        "authors": [],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-02-23T20:31:41Z",
+            "periodCommits": 18,
+            "committedAt": "2018-09-25T16:33:33+03:00",
+            "fetchedAt": "2018-11-07T17:56:50",
+            "forks": 48,
+            "watchers": 10,
+            "stargazers": 230,
+            "openPullRequests": 2,
+            "openIssues": 15
+        }
+    },
+    {
+        "name": "haskell-redis",
+        "language": "Haskell",
+        "url": "https://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
+        "repository": "https://bitbucket.org/videlalvaro/redis-haskell/src",
+        "description": "Not actively maintained, supports Redis <= 2.0.",
+        "authors": [
+            "old_sound"
+        ]
+    },
+    {
+        "name": "Jedis",
+        "language": "Java",
+        "repository": "https://github.com/xetorthio/jedis",
+        "description": "A blazingly small and sane redis java client",
+        "authors": [
+            "xetorthio"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-06-11T13:04:43Z",
+            "periodCommits": 22,
+            "committedAt": "2018-09-21T04:43:19+03:00",
+            "fetchedAt": "2018-11-07T17:56:52",
+            "forks": 2895,
+            "watchers": 714,
+            "stargazers": 7275,
+            "openPullRequests": 58,
+            "openIssues": 92
+        }
+    },
+    {
+        "name": "Jedipus",
+        "language": "Java",
+        "repository": "https://github.com/jamespedwards42/jedipus",
+        "description": "Redis Client & Command Executor.",
+        "authors": [
+            "jamespedwards"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": true,
+            "createdAt": "2015-05-02T23:14:21Z",
+            "periodCommits": 0,
+            "committedAt": "2017-02-08T17:20:38-05:00",
+            "fetchedAt": "2018-11-07T17:56:52",
+            "forks": 16,
+            "watchers": 13,
+            "stargazers": 89,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Redisson",
+        "language": "Java",
+        "repository": "https://github.com/mrniko/redisson",
+        "description": "distributed and scalable Java data structures on top of Redis server",
+        "authors": [
+            "mrniko"
+        ],
+        "recommended": true,
+        "active": true
+    },
+    {
+        "name": "JRedis",
+        "language": "Java",
+        "url": "https://code.google.com/p/jredis/",
+        "repository": "https://github.com/alphazero/jredis",
+        "description": "",
+        "authors": [
+            "SunOf27"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-03-27T18:58:45Z",
+            "periodCommits": 0,
+            "committedAt": "2015-01-20T18:04:47-05:00",
+            "fetchedAt": "2018-11-07T17:56:54",
+            "forks": 128,
+            "watchers": 38,
+            "stargazers": 291,
+            "openPullRequests": 1,
+            "openIssues": 19
+        }
+    },
+    {
+        "name": "JDBC-Redis",
+        "language": "Java",
+        "url": "https://code.google.com/p/jdbc-redis/",
+        "repository": "https://code.google.com/p/jdbc-redis/source/browse",
+        "description": "",
+        "authors": [
+            "mavcunha"
+        ]
+    },
+    {
+        "name": "RJC",
+        "language": "Java",
+        "repository": "https://github.com/e-mzungu/rjc",
+        "description": "",
+        "authors": [
+            "e_mzungu"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-12-25T16:01:40Z",
+            "periodCommits": 0,
+            "committedAt": "2011-05-02T17:43:42+04:00",
+            "fetchedAt": "2018-11-07T17:56:55",
+            "forks": 2,
+            "watchers": 1,
+            "stargazers": 24,
+            "openPullRequests": 0,
+            "openIssues": 9
+        }
+    },
+    {
+        "name": "redis-protocol",
+        "language": "Java",
+        "repository": "https://github.com/spullara/redis-protocol",
+        "description": "Up to 2.6 compatible high-performance Java, Java w/Netty & Scala (finagle) client",
+        "authors": [
+            "spullara"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-07-19T18:18:38Z",
+            "periodCommits": 0,
+            "committedAt": "2017-03-03T09:45:25-08:00",
+            "fetchedAt": "2018-11-07T17:56:55",
+            "forks": 123,
+            "watchers": 55,
+            "stargazers": 304,
+            "openPullRequests": 6,
+            "openIssues": 13
+        }
+    },
+    {
+        "name": "aredis",
+        "language": "Java",
+        "repository": "http://aredis.sourceforge.net/",
+        "description": "Asynchronous, pipelined client based on the Java 7 NIO Channel API",
+        "authors": []
+    },
+    {
+        "name": "vertx-redis-client",
+        "language": "Java",
+        "repository": "https://github.com/vert-x3/vertx-redis-client",
+        "description": "The Vert.x Redis client provides an asynchronous API to interact with a Redis data-structure server.",
+        "authors": [
+            "pmlopes"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-12-04T15:22:16Z",
+            "periodCommits": 22,
+            "committedAt": "2018-10-07T12:24:39+02:00",
+            "fetchedAt": "2018-11-07T17:56:56",
+            "forks": 51,
+            "watchers": 24,
+            "stargazers": 48,
+            "openPullRequests": 1,
+            "openIssues": 13
+        }
+    },
+    {
+        "name": "redis-lua",
+        "language": "Lua",
+        "repository": "https://github.com/nrk/redis-lua",
+        "description": "",
+        "authors": [
+            "JoL1hAHN"
+        ],
+        "recommended": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-03-24T18:58:15Z",
+            "periodCommits": 0,
+            "committedAt": "2014-11-17T12:36:34+01:00",
+            "fetchedAt": "2018-11-07T17:56:57",
+            "forks": 173,
+            "watchers": 54,
+            "stargazers": 527,
+            "openPullRequests": 2,
+            "openIssues": 18
+        }
+    },
+    {
+        "name": "lua-hiredis",
+        "language": "Lua",
+        "repository": "https://github.com/agladysh/lua-hiredis",
+        "description": "Lua bindings for the hiredis library",
+        "authors": [
+            "agladysh"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-03-23T00:45:11Z",
+            "periodCommits": 0,
+            "committedAt": "2014-03-24T10:24:37+04:00",
+            "fetchedAt": "2018-11-07T17:56:58",
+            "forks": 24,
+            "watchers": 9,
+            "stargazers": 58,
+            "openPullRequests": 1,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "lredis",
+        "language": "Lua",
+        "repository": "https://github.com/daurnimator/lredis",
+        "description": "Redis library for Lua",
+        "authors": [
+            "daurnimator"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-09-21T06:39:28Z",
+            "periodCommits": 0,
+            "committedAt": "2016-01-19T10:01:31+11:00",
+            "fetchedAt": "2018-11-07T17:56:59",
+            "forks": 5,
+            "watchers": 4,
+            "stargazers": 25,
+            "openPullRequests": 1,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "Redis",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/Redis/",
+        "repository": "https://github.com/PerlRedis/perl-redis",
+        "description": "Perl binding for Redis database",
+        "authors": [
+            "damsieboy"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-01-30T09:04:58Z",
+            "periodCommits": 2,
+            "committedAt": "2018-08-17T14:06:22+02:00",
+            "fetchedAt": "2018-11-07T17:57:00",
+            "forks": 54,
+            "watchers": 24,
+            "stargazers": 94,
+            "openPullRequests": 6,
+            "openIssues": 13
+        }
+    },
+    {
+        "name": "RedisDB",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/RedisDB/",
+        "repository": "https://github.com/trinitum/RedisDB",
+        "description": "Perl binding for Redis database with fast XS-based protocolparser",
+        "authors": [
+            "trinitum"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-04-02T02:01:15Z",
+            "periodCommits": 0,
+            "committedAt": "2017-11-28T21:34:57+01:00",
+            "fetchedAt": "2018-11-07T17:57:01",
+            "forks": 6,
+            "watchers": 3,
+            "stargazers": 18,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Redis::hiredis",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/Redis-hiredis/",
+        "description": "Perl binding for the hiredis C client",
+        "authors": [
+            "neophenix"
+        ]
+    },
+    {
+        "name": "AnyEvent::Redis",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/AnyEvent-Redis/",
+        "repository": "https://github.com/miyagawa/AnyEvent-Redis",
+        "description": "Non-blocking Redis client",
+        "authors": [
+            "miyagawa"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-11-08T11:32:39Z",
+            "periodCommits": 0,
+            "committedAt": "2012-12-12T16:21:36Z",
+            "fetchedAt": "2018-11-07T17:57:02",
+            "forks": 15,
+            "watchers": 8,
+            "stargazers": 41,
+            "openPullRequests": 2,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "AnyEvent::RipeRedis",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/AnyEvent-RipeRedis/",
+        "repository": "https://github.com/iph0/AnyEvent-RipeRedis",
+        "description": "Flexible non-blocking Redis client",
+        "authors": [
+            "iph0"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-07-12T09:18:30Z",
+            "periodCommits": 0,
+            "committedAt": "2017-12-05T16:26:32+03:00",
+            "fetchedAt": "2018-11-07T17:57:02",
+            "forks": 0,
+            "watchers": 2,
+            "stargazers": 0,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "AnyEvent::RipeRedis::Cluster",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/AnyEvent-RipeRedis-Cluster/",
+        "repository": "https://github.com/iph0/AnyEvent-RipeRedis-Cluster",
+        "description": "Non-blocking Redis Cluster client",
+        "authors": [
+            "iph0"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-06-20T15:28:43Z",
+            "periodCommits": 0,
+            "committedAt": "2017-12-22T13:19:57+03:00",
+            "fetchedAt": "2018-11-07T17:57:03",
+            "forks": 1,
+            "watchers": 2,
+            "stargazers": 1,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "AnyEvent::Hiredis",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
+        "repository": "https://github.com/wjackson/AnyEvent-Hiredis",
+        "description": "Non-blocking client using the hiredis C library",
+        "authors": [],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-05-15T00:39:27Z",
+            "periodCommits": 0,
+            "committedAt": "2015-05-13T19:02:27-05:00",
+            "fetchedAt": "2018-11-07T17:57:04",
+            "forks": 2,
+            "watchers": 2,
+            "stargazers": 3,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Mojo::Redis",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/Mojo-Redis/",
+        "repository": "https://github.com/marcusramberg/mojo-redis",
+        "description": "asynchronous Redis client for Mojolicious",
+        "authors": [
+            "und3f",
+            "marcusramberg",
+            "jhthorsen"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-06-16T22:50:04Z",
+            "periodCommits": 0,
+            "committedAt": "2015-07-14T17:20:16+02:00",
+            "fetchedAt": "2018-11-07T17:57:05",
+            "forks": 4,
+            "watchers": 6,
+            "stargazers": 15,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Danga::Socket::Redis",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/Danga-Socket-Redis/",
+        "description": "An asynchronous redis client using the Danga::Socket async library",
+        "authors": [
+            "martinredmond"
+        ]
+    },
+    {
+        "name": "Predis",
+        "language": "PHP",
+        "repository": "https://github.com/nrk/predis",
+        "description": "Mature and supported",
+        "authors": [
+            "JoL1hAHN"
+        ],
+        "recommended": true,
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-11-07T11:27:33Z",
+            "periodCommits": 0,
+            "committedAt": "2017-07-12T16:39:17+02:00",
+            "fetchedAt": "2018-11-07T17:57:06",
+            "forks": 746,
+            "watchers": 224,
+            "stargazers": 5111,
+            "openPullRequests": 29,
+            "openIssues": 61
+        }
+    },
+    {
+        "name": "phpredis",
+        "language": "PHP",
+        "repository": "https://github.com/phpredis/phpredis",
+        "description": "This is a client written in C as a PHP module.",
+        "authors": [
+            "grumi78",
+            "yowgi",
+            "yatsukhnenko"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-03-15T14:40:14Z",
+            "periodCommits": 60,
+            "committedAt": "2018-11-07T17:48:58+02:00",
+            "fetchedAt": "2018-11-07T17:57:08",
+            "forks": 1772,
+            "watchers": 519,
+            "stargazers": 6845,
+            "openPullRequests": 16,
+            "openIssues": 90
+        }
+    },
+    {
+        "name": "Rediska",
+        "language": "PHP",
+        "url": "http://rediska.geometria-lab.net",
+        "repository": "https://github.com/Shumkov/Rediska",
+        "description": "",
+        "authors": [
+            "shumkov"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-02-19T12:42:52Z",
+            "periodCommits": 0,
+            "committedAt": "2017-09-14T18:36:17+03:00",
+            "fetchedAt": "2018-11-07T17:57:09",
+            "forks": 64,
+            "watchers": 22,
+            "stargazers": 275,
+            "openPullRequests": 5,
+            "openIssues": 34
+        }
+    },
+    {
+        "name": "Redisent",
+        "language": "PHP",
+        "repository": "https://github.com/jdp/redisent",
+        "description": "",
+        "authors": [
+            "justinpoliey"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-06-02T23:05:54Z",
+            "periodCommits": 0,
+            "committedAt": "2013-11-18T23:55:46-05:00",
+            "fetchedAt": "2018-11-07T17:57:10",
+            "forks": 170,
+            "watchers": 12,
+            "stargazers": 149,
+            "openPullRequests": 3,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "Credis",
+        "language": "PHP",
+        "repository": "https://github.com/colinmollenhour/credis",
+        "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
+        "authors": [
+            "colinmollenhour"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-08-30T00:05:27Z",
+            "periodCommits": 8,
+            "committedAt": "2018-10-12T17:53:30-04:00",
+            "fetchedAt": "2018-11-07T17:57:10",
+            "forks": 115,
+            "watchers": 26,
+            "stargazers": 256,
+            "openPullRequests": 2,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "PHP Sentinel Client",
+        "language": "PHP",
+        "repository": "https://github.com/jamescauwelier/PSRedis",
+        "description": "A PHP sentinel client acting as an extension to your regular redis client",
+        "authors": [
+            "jamescauwelier"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-06-23T19:01:47Z",
+            "periodCommits": 0,
+            "committedAt": "2016-06-14T09:20:37+02:00",
+            "fetchedAt": "2018-11-07T17:57:11",
+            "forks": 38,
+            "watchers": 11,
+            "stargazers": 73,
+            "openPullRequests": 0,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "redis-async",
+        "language": "PHP",
+        "repository": "https://github.com/swoole/redis-async",
+        "description": "Asynchronous redis client library for PHP.",
+        "authors": [
+            "matyhtf"
+        ],
+        "stats": {
+            "isArchived": true,
+            "createdAt": "2014-10-29T12:00:23Z",
+            "periodCommits": 0,
+            "committedAt": "2014-11-17T14:29:04+08:00",
+            "fetchedAt": "2018-11-07T17:57:12",
+            "forks": 66,
+            "watchers": 19,
+            "stargazers": 136,
+            "openPullRequests": 1,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "Yampee Redis",
+        "language": "PHP",
+        "repository": "https://github.com/yampee/Redis",
+        "description": "A full-featured Redis client for PHP 5.2. Easy to use and to extend.",
+        "authors": [
+            "tgalopin"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-01-23T12:47:28Z",
+            "periodCommits": 0,
+            "committedAt": "2014-10-13T16:12:18+02:00",
+            "fetchedAt": "2018-11-07T17:57:13",
+            "forks": 9,
+            "watchers": 0,
+            "stargazers": 7,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "redis-py",
+        "language": "Python",
+        "repository": "https://github.com/andymccurdy/redis-py",
+        "description": "Mature and supported. Currently the way to go for Python.",
+        "authors": [
+            "andymccurdy"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-11-06T10:22:26Z",
+            "periodCommits": 124,
+            "committedAt": "2018-11-06T13:38:25-08:00",
+            "fetchedAt": "2018-11-07T17:57:14",
+            "forks": 1576,
+            "watchers": 362,
+            "stargazers": 6805,
+            "openPullRequests": 101,
+            "openIssues": 195
+        }
+    },
+    {
+        "name": "gxredis",
+        "language": "Python",
+        "repository": "https://github.com/groove-x/gxredis",
+        "description": "Simple redis-py wrapper library",
+        "authors": [
+            "loose_agilist"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-12-21T15:33:02Z",
+            "periodCommits": 0,
+            "committedAt": "2016-12-30T16:08:22+09:00",
+            "fetchedAt": "2018-11-07T17:57:15",
+            "forks": 0,
+            "watchers": 1,
+            "stargazers": 2,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "txredis",
+        "language": "Python",
+        "url": "https://pypi.python.org/pypi/txredis",
+        "description": "",
+        "authors": [
+            "dio_rian"
+        ]
+    },
+    {
+        "name": "txredisapi",
+        "language": "Python",
+        "url": "https://github.com/fiorix/txredisapi",
+        "description": "Full featured, non-blocking client for Twisted.",
+        "authors": [
+            "fiorix"
+        ],
+        "active": true
+    },
+    {
+        "name": "desir",
+        "language": "Python",
+        "repository": "https://github.com/aallamaa/desir",
+        "description": "",
+        "authors": [
+            "aallamaa"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-10-30T23:46:20Z",
+            "periodCommits": 0,
+            "committedAt": "2018-02-08T14:12:15Z",
+            "fetchedAt": "2018-11-07T17:57:15",
+            "forks": 2,
+            "watchers": 6,
+            "stargazers": 44,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "tornadis",
+        "language": "Python",
+        "repository": "https://github.com/thefab/tornadis",
+        "url": "http://tornadis.readthedocs.org",
+        "description": "Async minimal redis client for tornado ioloop designed for performances (use C hiredis parser)",
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-08-16T17:25:13Z",
+            "periodCommits": 0,
+            "committedAt": "2018-04-18T08:32:09+02:00",
+            "fetchedAt": "2018-11-07T17:57:16",
+            "forks": 22,
+            "watchers": 10,
+            "stargazers": 111,
+            "openPullRequests": 1,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "brukva",
+        "language": "Python",
+        "repository": "https://github.com/evilkost/brukva",
+        "description": "Asynchronous Redis client that works within Tornado IO loop",
+        "authors": [
+            "evilkost"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-08-17T14:10:32Z",
+            "periodCommits": 0,
+            "committedAt": "2011-05-20T02:01:30+04:00",
+            "fetchedAt": "2018-11-07T17:57:17",
+            "forks": 39,
+            "watchers": 19,
+            "stargazers": 262,
+            "openPullRequests": 3,
+            "openIssues": 15
+        }
+    },
+    {
+        "name": "aioredis",
+        "language": "Python",
+        "repository": "https://github.com/aio-libs/aioredis",
+        "url": "http://aioredis.readthedocs.org/",
+        "description": "Asyncio (PEP 3156) Redis client",
+        "authors": [],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-05-25T19:29:57Z",
+            "periodCommits": 30,
+            "committedAt": "2018-11-02T21:52:48+02:00",
+            "fetchedAt": "2018-11-07T17:57:18",
+            "forks": 131,
+            "watchers": 37,
+            "stargazers": 735,
+            "openPullRequests": 13,
+            "openIssues": 38
+        }
+    },
+    {
+        "name": "prot-redis",
+        "language": "Rebol",
+        "repository": "https://github.com/rebolek/prot-redis",
+        "description": "Redis network scheme for Rebol 3",
+        "authors": [
+            "rebolek"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-04-02T08:02:18Z",
+            "periodCommits": 0,
+            "committedAt": "2017-10-24T10:17:28+02:00",
+            "fetchedAt": "2018-11-07T17:57:19",
+            "forks": 3,
+            "watchers": 2,
+            "stargazers": 7,
+            "openPullRequests": 0,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "redisca2",
+        "language": "Python",
+        "repository": "https://github.com/khamin/redisca2",
+        "description": "Lightweight ORM for Redis",
+        "authors": [
+            "vitaliykhamin"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-03-06T06:10:57Z",
+            "periodCommits": 0,
+            "committedAt": "2014-04-28T10:03:02+06:00",
+            "fetchedAt": "2018-11-07T17:57:21",
+            "forks": 7,
+            "watchers": 3,
+            "stargazers": 19,
+            "openPullRequests": 1,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "scala-redis",
+        "language": "Scala",
+        "repository": "https://github.com/acrosa/scala-redis",
+        "description": "",
+        "authors": [
+            "alejandrocrosa"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-08-19T12:09:19Z",
+            "periodCommits": 0,
+            "committedAt": "2011-05-31T13:25:42-07:00",
+            "fetchedAt": "2018-11-07T17:57:21",
+            "forks": 234,
+            "watchers": 7,
+            "stargazers": 140,
+            "openPullRequests": 1,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "scala-redis",
+        "language": "Scala",
+        "repository": "https://github.com/debasishg/scala-redis",
+        "description": "Apparently a fork of the original client from @alejandrocrosa",
+        "authors": [
+            "debasishg"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-12-31T06:31:15Z",
+            "periodCommits": 23,
+            "committedAt": "2018-10-16T22:25:28+05:30",
+            "fetchedAt": "2018-11-07T17:57:22",
+            "forks": 194,
+            "watchers": 58,
+            "stargazers": 864,
+            "openPullRequests": 8,
+            "openIssues": 54
+        }
+    },
+    {
+        "name": "redis-client-scala-netty",
+        "language": "Scala",
+        "repository": "https://github.com/andreyk0/redis-client-scala-netty",
+        "description": "",
+        "authors": [],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-09-09T22:03:43Z",
+            "periodCommits": 0,
+            "committedAt": "2016-08-29T22:20:53-04:00",
+            "fetchedAt": "2018-11-07T17:57:23",
+            "forks": 8,
+            "watchers": 2,
+            "stargazers": 24,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "sedis",
+        "language": "Scala",
+        "repository": "https://github.com/pk11/sedis",
+        "description": "a thin scala wrapper for the popular Redis Java client, Jedis",
+        "authors": [
+            "pk11"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-10-20T19:29:51Z",
+            "periodCommits": 0,
+            "committedAt": "2016-06-13T09:22:05-07:00",
+            "fetchedAt": "2018-11-07T17:57:24",
+            "forks": 36,
+            "watchers": 11,
+            "stargazers": 64,
+            "openPullRequests": 4,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "scredis",
+        "language": "Scala",
+        "repository": "https://github.com/scredis/scredis",
+        "description": "Non-blocking, ultra-fast Scala Redis client built on top of Akka IO, used in production at Livestream",
+        "authors": [
+            "livestream"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-05-19T12:41:06Z",
+            "periodCommits": 54,
+            "committedAt": "2018-10-23T20:13:00+02:00",
+            "fetchedAt": "2018-11-07T17:57:25",
+            "forks": 16,
+            "watchers": 8,
+            "stargazers": 77,
+            "openPullRequests": 0,
+            "openIssues": 17
+        }
+    },
+    {
+        "name": "rediscala",
+        "language": "Scala",
+        "repository": "https://github.com/etaty/rediscala",
+        "description": "A Redis client for Scala (2.10+) and (AKKA 2.2+) with non-blocking and asynchronous I/O operations.",
+        "authors": [
+            "etaty"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-04-15T13:49:16Z",
+            "periodCommits": 0,
+            "committedAt": "2017-01-07T17:28:38Z",
+            "fetchedAt": "2018-11-07T17:57:26",
+            "forks": 122,
+            "watchers": 38,
+            "stargazers": 740,
+            "openPullRequests": 7,
+            "openIssues": 50
+        }
+    },
+    {
+        "name": "Tcl Client",
+        "language": "Tcl",
+        "repository": "https://github.com/antirez/redis/blob/unstable/tests/support/redis.tcl",
+        "description": "The client used in the Redis test suite. Not really full featured nor designed to be used in the real world.",
+        "authors": [
+            "antirez"
+        ]
+    },
+    {
+        "name": "Retcl",
+        "language": "Tcl",
+        "repository": "https://github.com/gahr/retcl",
+        "description": "Retcl is an asynchronous, event-driven Redis client library implemented as a single-file Tcl module.",
+        "authors": [
+            "gahrgahr"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-05-16T13:32:02Z",
+            "periodCommits": 35,
+            "committedAt": "2018-10-25T15:19:44Z",
+            "fetchedAt": "2018-11-07T17:57:28",
+            "forks": 2,
+            "watchers": 3,
+            "stargazers": 14,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "ServiceStack.Redis",
+        "language": "C#",
+        "url": "https://github.com/ServiceStack/ServiceStack.Redis",
+        "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
+        "authors": [
+            "demisbellot"
+        ],
+        "recommended": true,
+        "active": true
+    },
+    {
+        "name": "StackExchange.Redis",
+        "language": "C#",
+        "url": "https://github.com/StackExchange/StackExchange.Redis",
+        "description": "This .NET client was developed by Stack Exchange for very high performance needs (replacement to the earlier BookSleeve).",
+        "authors": [
+            "marcgravell"
+        ],
+        "recommended": true,
+        "active": true
+    },
+    {
+        "name": "Sider",
+        "language": "C#",
+        "url": "http://www.nuget.org/packages/Sider",
+        "description": "Minimalistic client for C#/.NET 4.0",
+        "authors": [
+            "chakrit"
+        ]
+    },
+    {
+        "name": "DartRedisClient",
+        "language": "Dart",
+        "url": "https://github.com/dartist/redis_client",
+        "description": "A high-performance async/non-blocking Redis client for Dart",
+        "authors": [
+            "demisbellot"
+        ],
+        "recommended": true,
+        "active": true
+    },
+    {
+        "name": "hxneko-redis",
+        "language": "Haxe",
+        "url": "https://code.google.com/p/hxneko-redis/",
+        "repository": "https://code.google.com/p/hxneko-redis/source/browse",
+        "description": "",
+        "authors": []
+    },
+    {
+        "name": "em-hiredis",
+        "language": "Ruby",
+        "repository": "https://github.com/mloughran/em-hiredis",
+        "description": "An EventMachine Redis client (uses hiredis).",
+        "authors": [
+            "mloughran"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-02-03T12:14:06Z",
+            "periodCommits": 1,
+            "committedAt": "2018-09-26T17:35:36+02:00",
+            "fetchedAt": "2018-11-07T17:57:28",
+            "forks": 60,
+            "watchers": 5,
+            "stargazers": 216,
+            "openPullRequests": 3,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "em-redis",
+        "language": "Ruby",
+        "repository": "https://github.com/madsimian/em-redis",
+        "description": "An eventmachine-based implementation of the Redis protocol. No longer actively maintained.",
+        "authors": [
+            "madsimian"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-04-29T01:10:14Z",
+            "periodCommits": 0,
+            "committedAt": "2010-04-22T21:04:40+08:00",
+            "fetchedAt": "2018-11-07T17:57:29",
+            "forks": 43,
+            "watchers": 2,
+            "stargazers": 142,
+            "openPullRequests": 2,
+            "openIssues": 6
+        }
+    },
+    {
+        "name": "hiredis",
+        "language": "C",
+        "repository": "https://github.com/redis/hiredis",
+        "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
+        "authors": [
+            "antirez",
+            "pnoordhuis",
+            "badboy_"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-05-18T15:10:01Z",
+            "periodCommits": 29,
+            "committedAt": "2018-10-25T09:53:50-07:00",
+            "fetchedAt": "2018-11-07T17:57:30",
+            "forks": 1136,
+            "watchers": 299,
+            "stargazers": 3370,
+            "openPullRequests": 8,
+            "openIssues": 62
+        }
+    },
+    {
+        "name": "credis",
+        "language": "C",
+        "repository": "https://code.google.com/p/credis/source/browse",
+        "description": "",
+        "authors": [],
+        "active": true
+    },
+    {
+        "name": "node_redis",
+        "language": "Node.js",
+        "repository": "https://github.com/NodeRedis/node_redis",
+        "description": "Recommended client for node.",
+        "authors": [
+            "mranney"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-09-14T02:05:09Z",
+            "periodCommits": 15,
+            "committedAt": "2018-08-23T11:48:41-07:00",
+            "fetchedAt": "2018-11-07T17:57:31",
+            "forks": 1256,
+            "watchers": 307,
+            "stargazers": 10517,
+            "openPullRequests": 13,
+            "openIssues": 48
+        }
+    },
+    {
+        "name": "thunk-redis",
+        "language": "Node.js",
+        "repository": "https://github.com/thunks/thunk-redis",
+        "description": "A thunk/promise-based redis client with pipelining and cluster.",
+        "authors": [
+            "izensh"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-07-20T09:24:42Z",
+            "periodCommits": 8,
+            "committedAt": "2018-11-07T09:57:41+08:00",
+            "fetchedAt": "2018-11-07T17:57:33",
+            "forks": 22,
+            "watchers": 9,
+            "stargazers": 190,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "spade",
+        "language": "Node.js",
+        "repository": "https://github.com/rootslab/spade",
+        "description": "\u2660 Spade, a full-featured modular client for node.",
+        "authors": [
+            "44gtti"
+        ],
+        "recommended": false,
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-05-18T21:00:48Z",
+            "periodCommits": 0,
+            "committedAt": "2018-02-10T15:41:18+01:00",
+            "fetchedAt": "2018-11-07T17:57:34",
+            "forks": 1,
+            "watchers": 5,
+            "stargazers": 55,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "then-redis",
+        "language": "Node.js",
+        "repository": "https://github.com/mjackson/then-redis",
+        "description": "A small, promise-based Redis client for node",
+        "authors": [
+            "mjackson"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-03-05T00:55:51Z",
+            "periodCommits": 0,
+            "committedAt": "2016-08-04T10:16:41-07:00",
+            "fetchedAt": "2018-11-07T17:57:34",
+            "forks": 45,
+            "watchers": 5,
+            "stargazers": 311,
+            "openPullRequests": 0,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "redis-node-client",
+        "language": "Node.js",
+        "repository": "https://github.com/fictorial/redis-node-client",
+        "description": "No longer maintained, does not work with node 0.3.",
+        "authors": [],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-06-16T01:40:58Z",
+            "periodCommits": 0,
+            "committedAt": "2011-05-29T00:30:58-04:00",
+            "fetchedAt": "2018-11-07T17:57:35",
+            "forks": 70,
+            "watchers": 8,
+            "stargazers": 413,
+            "openPullRequests": 4,
+            "openIssues": 13
+        }
+    },
+    {
+        "name": "ioredis",
+        "language": "Node.js",
+        "repository": "https://github.com/luin/ioredis",
+        "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
+        "authors": [
+            "luinlee"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-04-02T06:42:46Z",
+            "periodCommits": 96,
+            "committedAt": "2018-10-20T13:31:34+08:00",
+            "fetchedAt": "2018-11-07T17:57:36",
+            "forks": 489,
+            "watchers": 142,
+            "stargazers": 4929,
+            "openPullRequests": 5,
+            "openIssues": 19
+        }
+    },
+    {
+        "name": "redis-fast-driver",
+        "language": "Node.js",
+        "repository": "https://github.com/h0x91b/redis-fast-driver",
+        "description": "Driver based on hiredis async lib, can do PUBSUB and MONITOR, simple and really fast, written with NaN so works fine with node >=0.8",
+        "authors": [
+            "h0x91b"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-09-01T08:56:10Z",
+            "periodCommits": 0,
+            "committedAt": "2018-05-01T11:42:01+03:00",
+            "fetchedAt": "2018-11-07T17:57:37",
+            "forks": 4,
+            "watchers": 3,
+            "stargazers": 33,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "fast-redis-cluster",
+        "language": "Node.js",
+        "repository": "https://github.com/h0x91b/fast-redis-cluster",
+        "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
+        "authors": [
+            "h0x91b"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-02-19T13:45:54Z",
+            "periodCommits": 0,
+            "committedAt": "2017-09-14T11:17:16+03:00",
+            "fetchedAt": "2018-11-07T17:57:38",
+            "forks": 3,
+            "watchers": 2,
+            "stargazers": 14,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "iodis",
+        "language": "Io",
+        "repository": "https://github.com/vangberg/iodis",
+        "description": "",
+        "authors": [
+            "ichverstehe"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-01-24T09:21:25Z",
+            "periodCommits": 0,
+            "committedAt": "2010-04-22T00:12:13+02:00",
+            "fetchedAt": "2018-11-07T17:57:38",
+            "forks": 4,
+            "watchers": 1,
+            "stargazers": 19,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "redis.go",
+        "language": "Go",
+        "repository": "https://github.com/hoisie/redis",
+        "description": "",
+        "authors": [
+            "hoisie"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-01-21T05:58:22Z",
+            "periodCommits": 0,
+            "committedAt": "2016-07-30T08:44:56-07:00",
+            "fetchedAt": "2018-11-07T17:57:39",
+            "forks": 210,
+            "watchers": 31,
+            "stargazers": 575,
+            "openPullRequests": 6,
+            "openIssues": 11
+        }
+    },
+    {
+        "name": "Smalltalk Redis Client",
+        "language": "Smalltalk",
+        "repository": "http://www.squeaksource.com/Redis.html",
+        "description": "",
+        "authors": []
+    },
+    {
+        "name": "TeamDev Redis Client",
+        "language": "C#",
+        "repository": "http://redis.codeplex.com/",
+        "description": "Redis Client is based on redis-sharp for the basic communication functions, but it offers some differences.",
+        "authors": [
+            "TeamDevPerugia"
+        ]
+    },
+    {
+        "name": "redis-sharp",
+        "language": "C#",
+        "repository": "https://github.com/migueldeicaza/redis-sharp",
+        "description": "",
+        "authors": [
+            "migueldeicaza"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2009-11-27T23:22:32Z",
+            "periodCommits": 0,
+            "committedAt": "2017-12-08T23:21:20-05:00",
+            "fetchedAt": "2018-11-07T17:57:40",
+            "forks": 60,
+            "watchers": 15,
+            "stargazers": 135,
+            "openPullRequests": 2,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "ObjCHiredis",
+        "language": "Objective-C",
+        "repository": "https://github.com/lp/ObjCHiredis",
+        "description": "Static Library for iOS4 device and Simulator, plus Objective-C Framework for MacOS 10.5 and higher",
+        "authors": [
+            "loopole"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-10-15T21:25:58Z",
+            "periodCommits": 0,
+            "committedAt": "2014-03-28T08:50:15-04:00",
+            "fetchedAt": "2018-11-07T17:57:41",
+            "forks": 21,
+            "watchers": 12,
+            "stargazers": 164,
+            "openPullRequests": 0,
+            "openIssues": 8
+        }
+    },
+    {
+        "name": "Puredis",
+        "language": "Pure Data",
+        "repository": "https://github.com/lp/puredis",
+        "description": "Pure Data Redis sync, async and subscriber client",
+        "authors": [
+            "loopole"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-07-20T19:58:22Z",
+            "periodCommits": 0,
+            "committedAt": "2011-10-05T12:36:29-04:00",
+            "fetchedAt": "2018-11-07T17:57:42",
+            "forks": 1,
+            "watchers": 2,
+            "stargazers": 8,
+            "openPullRequests": 1,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "async-redis",
+        "language": "C++",
+        "url": "https://github.com/hamidr/async-redis",
+        "repository": "https://github.com/hamidr/async-redis",
+        "description": "An async redis library for C++ based on libevpp/boost-asio",
+        "authors": [
+            "hamidr_"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-10-08T09:12:54Z",
+            "periodCommits": 0,
+            "committedAt": "2017-06-14T20:00:54+04:30",
+            "fetchedAt": "2018-11-07T17:57:42",
+            "forks": 4,
+            "watchers": 6,
+            "stargazers": 16,
+            "openPullRequests": 1,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "acl-redis",
+        "language": "C++",
+        "url": "https://github.com/acl-dev/acl/tree/master/lib_acl_cpp/samples/redis",
+        "repository": "https://github.com/acl-dev/acl/tree/master/lib_acl_cpp/include/acl_cpp/redis",
+        "description": "Standard C++ Redis Client with high performance and stl-like interface, supporting Redis Cluster, thread safety",
+        "authors": [
+            "zhengshuxin"
+        ],
+        "active": true
+    },
+    {
+        "name": "redox",
+        "language": "C++",
+        "repository": "https://github.com/hmartiro/redox",
+        "description": "Modern, asynchronous, and fast C++11 client for Redis",
+        "authors": [
+            "hmartiros"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-12-23T07:00:00Z",
+            "periodCommits": 0,
+            "committedAt": "2017-04-23T13:24:49-07:00",
+            "fetchedAt": "2018-11-07T17:57:44",
+            "forks": 83,
+            "watchers": 37,
+            "stargazers": 277,
+            "openPullRequests": 8,
+            "openIssues": 22
+        }
+    },
+    {
+        "name": "redis3m",
+        "language": "C++",
+        "repository": "https://github.com/luca3m/redis3m",
+        "description": "A C++ wrapper of hiredis, with also connection pooling, high availability and ready-to-use patterns",
+        "authors": [
+            "luca3m"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-02-05T20:17:46Z",
+            "periodCommits": 0,
+            "committedAt": "2016-12-19T14:12:34+01:00",
+            "fetchedAt": "2018-11-07T17:57:45",
+            "forks": 62,
+            "watchers": 25,
+            "stargazers": 138,
+            "openPullRequests": 2,
+            "openIssues": 20
+        }
+    },
+    {
+        "name": "C++ Client",
+        "language": "C++",
+        "repository": "https://github.com/mrpi/redis-cplusplus-client",
+        "authors": [],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-08-28T22:24:55Z",
+            "periodCommits": 0,
+            "committedAt": "2011-03-02T21:46:16+01:00",
+            "fetchedAt": "2018-11-07T17:57:45",
+            "forks": 109,
+            "watchers": 26,
+            "stargazers": 169,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "libredis",
+        "language": "C",
+        "repository": "https://github.com/toymachine/libredis",
+        "description": "Support for executing commands on multiple servers in parallel via poll(2), ketama hashing. Includes PHP bindings.",
+        "authors": [],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-03-29T10:03:07Z",
+            "periodCommits": 0,
+            "committedAt": "2013-06-21T15:24:25+02:00",
+            "fetchedAt": "2018-11-07T17:57:46",
+            "forks": 25,
+            "watchers": 6,
+            "stargazers": 58,
+            "openPullRequests": 2,
+            "openIssues": 6
+        }
+    },
+    {
+        "name": "eredis",
+        "language": "emacs lisp",
+        "repository": "https://code.google.com/p/eredis/",
+        "description": "Full Redis API plus ways to pull Redis data into an org-mode table and push it back when edited",
+        "authors": [
+            "justinhj"
+        ]
+    },
+    {
+        "name": "Tiny Redis",
+        "language": "D",
+        "url": "http://adilbaig.github.io/Tiny-Redis/",
+        "repository": "https://github.com/adilbaig/Tiny-Redis",
+        "description": "A Redis client for D2. Supports pipelining, transactions and Lua scripting",
+        "authors": [
+            "aidezigns"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-07-20T21:57:55Z",
+            "periodCommits": 0,
+            "committedAt": "2017-12-25T00:13:12+04:00",
+            "fetchedAt": "2018-11-07T17:57:47",
+            "forks": 17,
+            "watchers": 8,
+            "stargazers": 66,
+            "openPullRequests": 1,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "redis-client",
+        "language": "Scheme",
+        "url": "http://wiki.call-cc.org/eggref/4/redis-client",
+        "repository": "https://github.com/carld/redis-client.egg",
+        "description": "A Redis client for Chicken Scheme 4.7",
+        "authors": [
+            "carld"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-08-17T05:16:55Z",
+            "periodCommits": 0,
+            "committedAt": "2014-03-09T11:49:13+13:00",
+            "fetchedAt": "2018-11-07T17:57:48",
+            "forks": 1,
+            "watchers": 2,
+            "stargazers": 7,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "lettuce",
+        "language": "Java",
+        "url": "http://redis.paluch.biz",
+        "repository": "https://github.com/mp911de/lettuce",
+        "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
+        "authors": [
+            "ar3te",
+            "mp911de"
+        ],
+        "active": true,
+        "recommended": true
+    },
+    {
+        "name": "csredis",
+        "language": "C#",
+        "repository": "https://github.com/ctstone/csredis",
+        "description": "Async (and sync) client for Redis and Sentinel",
+        "authors": [
+            "ctnstone"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-03-19T20:52:59Z",
+            "periodCommits": 0,
+            "committedAt": "2017-04-21T07:39:40-04:00",
+            "fetchedAt": "2018-11-07T17:57:49",
+            "forks": 80,
+            "watchers": 27,
+            "stargazers": 150,
+            "openPullRequests": 7,
+            "openIssues": 17
+        }
+    },
+    {
+        "name": "Brando",
+        "language": "Scala",
+        "repository": "https://github.com/chrisdinn/brando",
+        "description": "A Redis client written with the Akka IO package introduced in Akka 2.2.",
+        "authors": [
+            "chrisdinn"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-03-15T21:07:55Z",
+            "periodCommits": 0,
+            "committedAt": "2015-12-01T11:05:44-05:00",
+            "fetchedAt": "2018-11-07T17:57:50",
+            "forks": 26,
+            "watchers": 12,
+            "stargazers": 101,
+            "openPullRequests": 2,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "redis-rs",
+        "language": "Rust",
+        "repository": "https://github.com/mitsuhiko/redis-rs",
+        "description": "A high and low level client library for Redis tracking Rust nightly.",
+        "authors": [
+            "mitsuhiko"
+        ],
+        "active": true,
+        "recommended": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-12-29T15:46:50Z",
+            "periodCommits": 38,
+            "committedAt": "2018-09-10T12:04:28+02:00",
+            "fetchedAt": "2018-11-07T17:57:51",
+            "forks": 126,
+            "watchers": 37,
+            "stargazers": 891,
+            "openPullRequests": 13,
+            "openIssues": 16
+        }
+    },
+    {
+        "name": "rust-redis",
+        "language": "Rust",
+        "repository": "https://github.com/mneumann/rust-redis",
+        "description": "A Rust client library for Redis.",
+        "authors": [
+            "mneumann"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-12-19T20:21:03Z",
+            "periodCommits": 0,
+            "committedAt": "2014-03-17T09:58:12+01:00",
+            "fetchedAt": "2018-11-07T17:57:52",
+            "forks": 6,
+            "watchers": 6,
+            "stargazers": 45,
+            "openPullRequests": 1,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "redis-client",
+        "language": "Rust",
+        "repository": "https://github.com/AsoSunag/redis-client",
+        "description": "A Redis client library for Rust.",
+        "authors": [],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-01-13T22:39:50Z",
+            "periodCommits": 0,
+            "committedAt": "2016-02-21T17:50:09+01:00",
+            "fetchedAt": "2018-11-07T17:57:52",
+            "forks": 0,
+            "watchers": 1,
+            "stargazers": 7,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "redic",
+        "language": "Ruby",
+        "repository": "https://github.com/amakawa/redic",
+        "description": "Lightweight Redis Client",
+        "authors": [
+            "soveran",
+            "cyx"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-04-03T21:25:14Z",
+            "periodCommits": 0,
+            "committedAt": "2015-05-12T14:47:37Z",
+            "fetchedAt": "2018-11-07T17:57:53",
+            "forks": 9,
+            "watchers": 10,
+            "stargazers": 106,
+            "openPullRequests": 1,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "gnuprolog-redisclient",
+        "language": "GNU Prolog",
+        "repository": "https://github.com/emacstheviking/gnuprolog-redisclient",
+        "description": "Simple Redis client for GNU Prolog in native Prolog, no FFI, libraries etc.",
+        "authors": [
+            "seancharles"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-11-24T10:57:10Z",
+            "periodCommits": 0,
+            "committedAt": "2016-11-01T18:23:08Z",
+            "fetchedAt": "2018-11-07T17:57:54",
+            "forks": 2,
+            "watchers": 3,
+            "stargazers": 9,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "SimpleRedisClient",
+        "language": "C++",
+        "repository": "https://github.com/Levhav/SimpleRedisClient",
+        "description": "Simple Redis client for C++",
+        "authors": [
+            "Levhav"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-08-10T11:50:17Z",
+            "periodCommits": 0,
+            "committedAt": "2015-03-14T23:32:34+10:00",
+            "fetchedAt": "2018-11-07T17:57:55",
+            "forks": 7,
+            "watchers": 5,
+            "stargazers": 14,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "RedisClient",
+        "language": "Java",
+        "repository": "https://github.com/caoxinyu/RedisClient",
+        "description": "redis client GUI tool",
+        "authors": [],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-05-13T09:30:23Z",
+            "periodCommits": 0,
+            "committedAt": "2017-04-06T10:09:57+08:00",
+            "fetchedAt": "2018-11-07T17:57:55",
+            "forks": 402,
+            "watchers": 148,
+            "stargazers": 1184,
+            "openPullRequests": 0,
+            "openIssues": 32
+        }
+    },
+    {
+        "name": "redis",
+        "language": "Nim",
+        "repository": "https://github.com/nim-lang/redis",
+        "description": "Redis client for Nim",
+        "authors": [],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-06-20T21:39:30Z",
+            "periodCommits": 8,
+            "committedAt": "2018-09-16T15:40:08+01:00",
+            "fetchedAt": "2018-11-07T17:57:56",
+            "forks": 15,
+            "watchers": 13,
+            "stargazers": 41,
+            "openPullRequests": 3,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "libvmod-redis",
+        "language": "VCL",
+        "repository": "https://github.com/carlosabalde/libvmod-redis",
+        "description": "Varnish Cache module using the synchronous hiredis library API to access Redis servers from VCL.",
+        "authors": [
+            "carlosabalde"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-08-22T15:52:54Z",
+            "periodCommits": 7,
+            "committedAt": "2018-10-05T16:44:06+02:00",
+            "fetchedAt": "2018-11-07T17:57:57",
+            "forks": 17,
+            "watchers": 5,
+            "stargazers": 60,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "redisclient",
+        "language": "C++",
+        "repository": "https://github.com/nekipelov/redisclient",
+        "description": "A C++ asynchronous client based on boost::asio",
+        "authors": [
+            "nekipelov"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-01-15T07:21:51Z",
+            "periodCommits": 1,
+            "committedAt": "2018-09-14T17:57:22+03:00",
+            "fetchedAt": "2018-11-07T17:57:58",
+            "forks": 98,
+            "watchers": 29,
+            "stargazers": 160,
+            "openPullRequests": 0,
+            "openIssues": 11
+        }
+    },
+    {
+        "name": "redis-octave",
+        "language": "Matlab",
+        "repository": "https://github.com/markuman/go-redis",
+        "description": "A Redis client in pure Octave",
+        "authors": [
+            "markuman"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-05-18T09:55:27Z",
+            "periodCommits": 2,
+            "committedAt": "2018-06-04T13:57:11+02:00",
+            "fetchedAt": "2018-11-07T17:57:58",
+            "forks": 7,
+            "watchers": 5,
+            "stargazers": 16,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "redisboost",
+        "language": "C#",
+        "url": "http://andrew-bn.github.io/RedisBoost/",
+        "repository": "https://github.com/andrew-bn/RedisBoost",
+        "description": "Thread-safe async Redis client. Offers high performance and simple api",
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-03-01T13:03:50Z",
+            "periodCommits": 1,
+            "committedAt": "2018-06-29T10:05:04+03:00",
+            "fetchedAt": "2018-11-07T17:57:59",
+            "forks": 20,
+            "watchers": 9,
+            "stargazers": 34,
+            "openPullRequests": 2,
+            "openIssues": 13
+        }
+    },
+    {
+        "name": "redis",
+        "language": "Dart",
+        "url": "https://github.com/ra1u/redis-dart",
+        "description": "Simple and fast client",
+        "authors": [],
+        "active": true
+    },
+    {
+        "name": "ocaml-redis",
+        "language": "OCaml",
+        "repository": "https://github.com/0xffea/ocaml-redis",
+        "description": "Synchronous and asynchronous (via Lwt) Redis client library in OCaml. Provides implementation of cache and mutex helpers.",
+        "authors": [],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-10-10T18:04:05Z",
+            "periodCommits": 5,
+            "committedAt": "2018-08-07T09:08:59+02:00",
+            "fetchedAt": "2018-11-07T17:58:00",
+            "forks": 19,
+            "watchers": 11,
+            "stargazers": 37,
+            "openPullRequests": 1,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "Nhiredis",
+        "language": "C#",
+        "repository": "https://github.com/mhowlett/Nhiredis",
+        "description": "A lightweight wrapper around the C client hiredis.",
+        "authors": [
+            "matt_howlett"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-07-07T09:10:58Z",
+            "periodCommits": 0,
+            "committedAt": "2015-04-04T17:26:15+07:00",
+            "fetchedAt": "2018-11-07T17:58:01",
+            "forks": 7,
+            "watchers": 3,
+            "stargazers": 21,
+            "openPullRequests": 1,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "finagle-redis",
+        "language": "Scala",
+        "repository": "https://github.com/twitter/finagle/tree/develop/finagle-redis",
+        "description": "Redis client based on Finagle",
+        "authors": []
+    },
+    {
+        "name": "RedisCli",
+        "language": "R",
+        "repository": "https://bitbucket.org/cmbce/r-package-rediscli",
+        "description": "Basic client passing a (batch of) command(s) to redis-cli, getting back a (list of) character vector(s).",
+        "authors": [
+            "CorentinBarbu"
+        ],
+        "active": true
+    },
+    {
+        "name": "rredis",
+        "language": "R",
+        "repository": "https://github.com/bwlewis/rredis",
+        "url": "https://cran.r-project.org/web/packages/rredis/index.html",
+        "description": "Redis client for R",
+        "authors": [
+            "bwlewis"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2010-01-26T08:49:23Z",
+            "periodCommits": 1,
+            "committedAt": "2018-10-22T21:54:03-04:00",
+            "fetchedAt": "2018-11-07T17:58:03",
+            "forks": 27,
+            "watchers": 9,
+            "stargazers": 93,
+            "openPullRequests": 1,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "Redis-AS3",
+        "language": "ActionScript",
+        "repository": "https://github.com/mikeheier/Redis-AS3",
+        "description": "An as3 client library for redis.",
+        "authors": [],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-12-23T20:21:12Z",
+            "periodCommits": 0,
+            "committedAt": "2017-08-25T04:25:03Z",
+            "fetchedAt": "2018-11-07T17:58:03",
+            "forks": 3,
+            "watchers": 4,
+            "stargazers": 13,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "redix",
+        "language": "Elixir",
+        "repository": "https://github.com/whatyouhide/redix",
+        "description": "Superfast, pipelined, resilient Redis client written in pure Elixir.",
+        "authors": [
+            "whatyouhide"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-08-11T23:59:17Z",
+            "periodCommits": 57,
+            "committedAt": "2018-11-05T11:50:40+01:00",
+            "fetchedAt": "2018-11-07T17:58:04",
+            "forks": 62,
+            "watchers": 19,
+            "stargazers": 508,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "crystal-redis",
+        "language": "Crystal",
+        "url": "http://www.stefanwille.com/projects/crystal-redis/",
+        "repository": "https://github.com/stefanwille/crystal-redis",
+        "description": "Full featured, high performance Redis client for Crystal",
+        "authors": [
+            "stefanwille"
+        ],
+        "recommended": true,
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-03-08T21:38:34Z",
+            "periodCommits": 80,
+            "committedAt": "2018-09-25T17:12:12+02:00",
+            "fetchedAt": "2018-11-07T17:58:05",
+            "forks": 29,
+            "watchers": 13,
+            "stargazers": 263,
+            "openPullRequests": 1,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "redis-racket",
+        "language": "Racket",
+        "repository": "https://github.com/stchang/redis",
+        "description": "A Redis client for Racket.",
+        "authors": [
+            "s_chng"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-09-28T05:28:05Z",
+            "periodCommits": 0,
+            "committedAt": "2015-05-15T22:03:43-04:00",
+            "fetchedAt": "2018-11-07T17:58:07",
+            "forks": 3,
+            "watchers": 3,
+            "stargazers": 16,
+            "openPullRequests": 0,
+            "openIssues": 9
+        }
+    },
+    {
+        "name": "delphi-redis",
+        "language": "Pascal",
+        "url": "https://bitbucket.org/Gloegg/delphi-redis",
+        "repository": "https://bitbucket.org/Gloegg/delphi-redis.git",
+        "description": "A lightweight Redis client written in Delphi",
+        "authors": [
+            "Gloegg"
+        ]
+    },
+    {
+        "name": "PHP Redis implementation / wrapper",
+        "language": "PHP",
+        "url": "https://github.com/ziogas/PHP-Redis-implementation",
+        "repository": "https://github.com/ziogas/PHP-Redis-implementation",
+        "description": "Simple and lightweight redis implementation. Basically wrapper for raw redis commands.",
+        "authors": [
+            "arminas"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2011-01-26T20:49:16Z",
+            "periodCommits": 0,
+            "committedAt": "2017-06-06T10:16:28+03:00",
+            "fetchedAt": "2018-11-07T17:58:08",
+            "forks": 22,
+            "watchers": 3,
+            "stargazers": 39,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "asyncio_redis",
+        "language": "Python",
+        "url": "http://asyncio-redis.readthedocs.org/",
+        "repository": "https://github.com/jonathanslenders/asyncio-redis",
+        "description": "Asynchronous Redis client that works with the asyncio event loop",
+        "authors": [
+            "jonathan_s"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-10-13T21:31:36Z",
+            "periodCommits": 7,
+            "committedAt": "2018-07-30T08:34:13+02:00",
+            "fetchedAt": "2018-11-07T17:58:09",
+            "forks": 59,
+            "watchers": 21,
+            "stargazers": 442,
+            "openPullRequests": 6,
+            "openIssues": 38
+        }
+    },
+    {
+        "name": "Redis::Fast",
+        "language": "Perl",
+        "url": "https://metacpan.org/pod/Redis::Fast",
+        "repository": "https://github.com/shogo82148/Redis-Fast",
+        "description": "Perl binding for Redis database",
+        "authors": [
+            "shogo82148"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-09-26T15:09:02Z",
+            "periodCommits": 16,
+            "committedAt": "2018-08-12T15:30:03+09:00",
+            "fetchedAt": "2018-11-07T17:58:10",
+            "forks": 14,
+            "watchers": 3,
+            "stargazers": 17,
+            "openPullRequests": 1,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "RedisClient",
+        "language": "Scala",
+        "repository": "https://github.com/chiradip/RedisClient",
+        "description": "A no nonsense Redis Client using pure scala. Preserves elegant Redis style without any need to learn any special API",
+        "authors": [
+            "chiradip"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-04-09T06:01:42Z",
+            "periodCommits": 0,
+            "committedAt": "2016-08-15T10:07:57-07:00",
+            "fetchedAt": "2018-11-07T17:58:11",
+            "forks": 0,
+            "watchers": 1,
+            "stargazers": 0,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Pypredis",
+        "language": "Python",
+        "repository": "https://github.com/pepijndevos/pypredis",
+        "description": "A client focused on arbitrary sharding and parallel pipelining.",
+        "authors": [
+            "pepijndevos"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-04-13T17:39:21Z",
+            "periodCommits": 0,
+            "committedAt": "2014-04-26T17:16:28+02:00",
+            "fetchedAt": "2018-11-07T17:58:11",
+            "forks": 1,
+            "watchers": 3,
+            "stargazers": 1,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "IRedis",
+        "language": "Dart",
+        "repository": "https://github.com/himulawang/i_redis",
+        "description": "A redis client for Dart",
+        "authors": [
+            "ila"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-05-23T10:21:00Z",
+            "periodCommits": 0,
+            "committedAt": "2014-11-11T19:06:46+08:00",
+            "fetchedAt": "2018-11-07T17:58:12",
+            "forks": 1,
+            "watchers": 1,
+            "stargazers": 2,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "gawk-redis",
+        "language": "gawk",
+        "repository": "http://sourceforge.net/p/gawkextlib/code/ci/master/tree/",
+        "description": "Gawk extension, using the hiredis C library. Supports pipelining and pub/sub",
+        "authors": [
+            "paulinohuerta"
+        ],
+        "active": true
+    },
+    {
+        "name": "vRedis",
+        "language": "VB",
+        "repository": "https://github.com/hishamco/vRedis",
+        "description": "Redis client using VB.NET.",
+        "authors": [
+            "hishambinateya"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-03-30T21:42:13Z",
+            "periodCommits": 0,
+            "committedAt": "2017-06-24T03:37:33+03:00",
+            "fetchedAt": "2018-11-07T17:58:13",
+            "forks": 3,
+            "watchers": 1,
+            "stargazers": 2,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "delphiredisclient",
+        "language": "Pascal",
+        "repository": "https://github.com/danieleteti/delphiredisclient",
+        "description": "Redis client for Delphi",
+        "authors": [
+            "danieleteti"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-07-08T08:14:48Z",
+            "periodCommits": 3,
+            "committedAt": "2018-07-25T13:43:08+02:00",
+            "fetchedAt": "2018-11-07T17:58:14",
+            "forks": 50,
+            "watchers": 41,
+            "stargazers": 115,
+            "openPullRequests": 1,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "redis_client.fpc",
+        "language": "Pascal",
+        "repository": "https://github.com/ik5/redis_client.fpc",
+        "description": "Object Pascal client implementation for the redis protocol and commands",
+        "authors": [
+            "ik5"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2012-01-11T17:09:29Z",
+            "periodCommits": 0,
+            "committedAt": "2012-02-19T16:09:28+02:00",
+            "fetchedAt": "2018-11-07T17:58:14",
+            "forks": 4,
+            "watchers": 5,
+            "stargazers": 12,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Redi.sh",
+        "language": "Bash",
+        "repository": "https://github.com/crypt1d/redi.sh",
+        "description": "Simple, Bash-based, Redis client to store your script's variables",
+        "authors": [
+            "nkrzalic"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-04-12T16:08:16Z",
+            "periodCommits": 0,
+            "committedAt": "2016-11-12T23:30:06+01:00",
+            "fetchedAt": "2018-11-07T17:58:15",
+            "forks": 55,
+            "watchers": 13,
+            "stargazers": 152,
+            "openPullRequests": 5,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "amphp/redis",
+        "language": "PHP",
+        "repository": "https://github.com/amphp/redis",
+        "description": "An async redis client built on the amp concurrency framework.",
+        "authors": [
+            "kelunik"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-12-19T18:43:36Z",
+            "periodCommits": 0,
+            "committedAt": "2017-11-17T15:09:59+01:00",
+            "fetchedAt": "2018-11-07T17:58:16",
+            "forks": 10,
+            "watchers": 9,
+            "stargazers": 69,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "pyredis",
+        "language": "Python",
+        "repository": "https://github.com/schlitzered/pyredis",
+        "description": "Python Client with support for Redis Cluster. Currently only Python 3 is supported.",
+        "authors": [],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-03-18T21:04:41Z",
+            "periodCommits": 3,
+            "committedAt": "2018-07-09T07:22:04+02:00",
+            "fetchedAt": "2018-11-07T17:58:17",
+            "forks": 6,
+            "watchers": 4,
+            "stargazers": 20,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Redis.jl",
+        "language": "Julia",
+        "repository": "https://github.com/jkaye2012/redis.jl",
+        "description": "A fully-featured Redis client for the Julia programming language",
+        "authors": [
+            "jkaye2012"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-11-30T15:53:09Z",
+            "periodCommits": 0,
+            "committedAt": "2017-12-11T08:43:45-06:00",
+            "fetchedAt": "2018-11-07T17:58:18",
+            "forks": 13,
+            "watchers": 10,
+            "stargazers": 41,
+            "openPullRequests": 0,
+            "openIssues": 12
+        }
+    },
+    {
+        "name": "Redis::Cluster",
+        "language": "Perl",
+        "url": "http://search.cpan.org/dist/Redis-Cluster/",
+        "repository": "https://github.com/smsonline/redis-cluster-perl",
+        "description": "Redis Cluster client for Perl",
+        "authors": [
+            "smsonline"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-07-27T15:48:43Z",
+            "periodCommits": 0,
+            "committedAt": "2015-07-29T15:23:00+03:00",
+            "fetchedAt": "2018-11-07T17:58:19",
+            "forks": 3,
+            "watchers": 2,
+            "stargazers": 4,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Swidis",
+        "language": "Swift",
+        "repository": "https://github.com/Farhaddc/Swidis",
+        "description": "iOS Framework Allowing you to connect to Redis server with Swift programming language.",
+        "authors": [
+            "Farhaddc"
+        ],
+        "active": false
+    },
+    {
+        "name": "SwiftRedis",
+        "language": "Swift",
+        "repository": "https://github.com/ronp001/SwiftRedis",
+        "description": "Basic async client for Redis in Swift (iOS)",
+        "authors": [
+            "ronp001"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-11-09T06:41:56Z",
+            "periodCommits": 0,
+            "committedAt": "2016-12-31T03:00:57+02:00",
+            "fetchedAt": "2018-11-07T17:58:20",
+            "forks": 4,
+            "watchers": 5,
+            "stargazers": 26,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "Redis",
+        "language": "Swift",
+        "repository": "https://github.com/Zewo/Redis",
+        "description": "Redis client for Swift. OpenSwift C7 Compliant, OS X and Linux compatible.",
+        "authors": [
+            "rabc"
+        ],
+        "active": true
+    },
+    {
+        "name": "Redbird",
+        "language": "Swift",
+        "repository": "https://github.com/czechboy0/Redbird",
+        "description": "Pure-Swift implementation of a Redis client from the original protocol spec (OS X + Linux compatible)",
+        "authors": [
+            "czechboy0"
+        ],
+        "active": true
+    },
+    {
+        "name": "PSSRedisClient",
+        "language": "Swift",
+        "repository": "https://github.com/perrystreetsoftware/PSSRedisClient",
+        "description": "Swift redis client using the CocoaAsyncSocket library, installable via Cocoapods",
+        "authors": [
+            "esilverberg"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-03-11T20:44:53Z",
+            "periodCommits": 0,
+            "committedAt": "2017-11-06T10:59:10-05:00",
+            "fetchedAt": "2018-11-07T17:58:22",
+            "forks": 0,
+            "watchers": 5,
+            "stargazers": 16,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Rackdis",
+        "language": "Racket",
+        "repository": "https://github.com/eu90h/rackdis",
+        "description": "A Redis client for Racket",
+        "authors": [
+            "eu90h"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-08-18T22:47:13Z",
+            "periodCommits": 0,
+            "committedAt": "2017-04-26T02:35:10-04:00",
+            "fetchedAt": "2018-11-07T17:58:23",
+            "forks": 2,
+            "watchers": 2,
+            "stargazers": 11,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "RedisKit",
+        "language": "Objective-C",
+        "repository": "https://github.com/dizzus/RedisKit",
+        "description": "RedisKit is a asynchronious client framework for Redis server, written in Objective-C",
+        "authors": [
+            "dizzus"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-08-23T12:44:40Z",
+            "periodCommits": 0,
+            "committedAt": "2015-09-17T19:29:40+03:00",
+            "fetchedAt": "2018-11-07T17:58:25",
+            "forks": 13,
+            "watchers": 2,
+            "stargazers": 40,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "qredisclient",
+        "language": "C++",
+        "repository": "https://github.com/uglide/qredisclient",
+        "description": "Asynchronous Qt-based Redis client with SSL and SSH tunnelling support.",
+        "authors": [
+            "u_glide"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-09-10T21:32:46Z",
+            "periodCommits": 33,
+            "committedAt": "2018-11-06T13:29:46+02:00",
+            "fetchedAt": "2018-11-07T17:58:25",
+            "forks": 32,
+            "watchers": 16,
+            "stargazers": 62,
+            "openPullRequests": 0,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "xredis",
+        "language": "C++",
+        "url": "http://xredis.0xsky.com/",
+        "repository": "https://github.com/0xsky/xredis",
+        "description": "Redis C++ client with data slice storage, Redis cluster, connection pool, master replica connection, read/write separation; requires hiredis only",
+        "authors": [
+            "0xsky"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-07-07T14:52:46Z",
+            "periodCommits": 17,
+            "committedAt": "2018-10-30T15:41:26+08:00",
+            "fetchedAt": "2018-11-07T17:58:27",
+            "forks": 114,
+            "watchers": 48,
+            "stargazers": 193,
+            "openPullRequests": 1,
+            "openIssues": 12
+        }
+    },
+    {
+        "name": "cpp_redis",
+        "language": "C++",
+        "repository": "https://github.com/cylix/cpp_redis",
+        "description": "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform.",
+        "authors": [
+            "simon_ninon"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-07-10T15:59:20Z",
+            "periodCommits": 9,
+            "committedAt": "2018-09-16T21:39:50-07:00",
+            "fetchedAt": "2018-11-07T17:58:28",
+            "forks": 220,
+            "watchers": 84,
+            "stargazers": 709,
+            "openPullRequests": 1,
+            "openIssues": 26
+        }
+    },
+    {
+        "name": "bredis",
+        "language": "C++",
+        "repository": "https://github.com/basiliscos/cpp-bredis",
+        "description": "Boost::ASIO low-level redis client",
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-04-07T15:00:18Z",
+            "periodCommits": 7,
+            "committedAt": "2018-10-21T12:14:19+03:00",
+            "fetchedAt": "2018-11-07T17:58:29",
+            "forks": 10,
+            "watchers": 2,
+            "stargazers": 37,
+            "openPullRequests": 1,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "mruby-redis",
+        "language": "mruby",
+        "repository": "https://github.com/matsumoto-r/mruby-redis",
+        "description": "Redis class for mruby based on Hiredis",
+        "authors": [
+            "matsumotory"
+        ],
+        "active": true
+    },
+    {
+        "name": "mruby-hiredis",
+        "language": "mruby",
+        "repository": "https://github.com/Asmod4n/mruby-hiredis",
+        "description": "Redis Client for mruby with Async support, pipelines and transactions",
+        "authors": [
+            "Asmod4n"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-12-01T20:44:45Z",
+            "periodCommits": 1,
+            "committedAt": "2018-06-06T05:16:55+02:00",
+            "fetchedAt": "2018-11-07T17:58:30",
+            "forks": 1,
+            "watchers": 1,
+            "stargazers": 10,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Pottery",
+        "language": "Python",
+        "repository": "https://github.com/brainix/pottery",
+        "description": "High level Pythonic dict, set, and list like containers around Redis data types (Python 3 only)",
+        "authors": [
+            "brainix"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-06-10T07:30:43Z",
+            "periodCommits": 9,
+            "committedAt": "2018-10-29T21:55:32-07:00",
+            "fetchedAt": "2018-11-07T17:58:31",
+            "forks": 2,
+            "watchers": 8,
+            "stargazers": 102,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "cheprasov/php-redis-client",
+        "language": "PHP",
+        "repository": "https://github.com/cheprasov/php-redis-client",
+        "description": "Supported PHP client for versions of Redis from 2.6 to 4.0",
+        "authors": [
+            "cheprasov84"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-11-02T19:26:27Z",
+            "periodCommits": 7,
+            "committedAt": "2018-07-23T13:53:33+01:00",
+            "fetchedAt": "2018-11-07T17:58:32",
+            "forks": 25,
+            "watchers": 8,
+            "stargazers": 57,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "lasso-redis",
+        "language": "Lasso",
+        "repository": "https://github.com/Zeroloop/lasso-redis",
+        "description": "High performance Redis client for Lasso, supports pub/sub and piping.",
+        "authors": [],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-12-28T21:43:38Z",
+            "periodCommits": 0,
+            "committedAt": "2018-04-25T09:13:08+12:00",
+            "fetchedAt": "2018-11-07T17:58:33",
+            "forks": 4,
+            "watchers": 2,
+            "stargazers": 2,
+            "openPullRequests": 1,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "c+redis+client",
+        "language": "C++",
+        "repository": "https://github.com/shawn246/redis_client",
+        "description": "A redis client based on hiredis, supports cluster/pipeline and is thread safe and includes two files only. The transaction is on the way:)",
+        "authors": [],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-12-02T07:36:48Z",
+            "periodCommits": 0,
+            "committedAt": "2016-09-30T12:47:23+08:00",
+            "fetchedAt": "2018-11-07T17:58:33",
+            "forks": 34,
+            "watchers": 10,
+            "stargazers": 44,
+            "openPullRequests": 0,
+            "openIssues": 8
+        }
+    },
+    {
+        "name": "delphiredisclient",
+        "language": "Delphi",
+        "repository": "https://github.com/danieleteti/delphiredisclient",
+        "description": "A Delphi Redis Client",
+        "authors": [
+            "danieleteti"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2014-07-08T08:14:48Z",
+            "periodCommits": 3,
+            "committedAt": "2018-07-25T13:43:08+02:00",
+            "fetchedAt": "2018-11-07T17:58:35",
+            "forks": 50,
+            "watchers": 41,
+            "stargazers": 115,
+            "openPullRequests": 1,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "eredis",
+        "language": "C",
+        "repository": "https://github.com/EulerianTechnologies/eredis",
+        "description": "Fast and light Redis C client library extending Hiredis: thread-safe, write replication, auto-reconnect, sync pool, async libev",
+        "authors": [
+            "EulerianTech"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-03-31T01:11:19Z",
+            "periodCommits": 0,
+            "committedAt": "2018-04-11T15:30:40+02:00",
+            "fetchedAt": "2018-11-07T17:58:36",
+            "forks": 19,
+            "watchers": 11,
+            "stargazers": 50,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "Hierdis",
+        "language": "Erlang",
+        "repository": "https://github.com/funbox/hierdis",
+        "description": "High-performance Erlang client for the Redis key-value store (NIF wrapping the hiredis C client).",
+        "authors": [
+            "funbox_team"
+        ],
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-02-24T14:46:38Z",
+            "periodCommits": 0,
+            "committedAt": "2016-05-31T10:58:13+04:00",
+            "fetchedAt": "2018-11-07T17:58:37",
+            "forks": 2,
+            "watchers": 2,
+            "stargazers": 12,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "yoredis",
+        "language": "Node.js",
+        "repository": "https://github.com/djanowski/yoredis",
+        "description": "A minimalistic Redis client using modern Node.js.",
+        "authors": [
+            "djanowski"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-04-06T15:41:52Z",
+            "periodCommits": 0,
+            "committedAt": "2017-09-15T18:15:34-03:00",
+            "fetchedAt": "2018-11-07T17:58:38",
+            "forks": 4,
+            "watchers": 1,
+            "stargazers": 13,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "spark-redis",
+        "language": "Scala",
+        "repository": "https://github.com/redislabs/spark-redis",
+        "description": "A connector between Apache Spark and Redis.",
+        "authors": [
+            "redislabs",
+            "sunheehnus",
+            "dvirsky"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-08-16T08:39:33Z",
+            "periodCommits": 270,
+            "committedAt": "2018-11-05T10:03:47+02:00",
+            "fetchedAt": "2018-11-07T17:58:38",
+            "forks": 205,
+            "watchers": 62,
+            "stargazers": 436,
+            "openPullRequests": 6,
+            "openIssues": 32
+        }
+    },
+    {
+        "name": "r3c",
+        "language": "C++",
+        "repository": "https://github.com/eyjian/r3c",
+        "description": "Redis Cluster C++ Client, based on hiredis, support password and standalone, it's easy to make and use, not depends on C++11 or later.",
+        "authors": [
+            "eyjian"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-05-23T09:55:37Z",
+            "periodCommits": 32,
+            "committedAt": "2018-11-05T17:42:16+08:00",
+            "fetchedAt": "2018-11-07T17:58:39",
+            "forks": 22,
+            "watchers": 13,
+            "stargazers": 34,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "rebridge",
+        "language": "Node.js",
+        "repository": "https://github.com/CapacitorSet/rebridge",
+        "description": "Rebridge is a transparent Javascript-Redis bridge. It creates JavaScript objects that are automatically synchronized to a Redis database. (Requires Node 6)",
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-07-10T21:03:10Z",
+            "periodCommits": 0,
+            "committedAt": "2018-02-08T04:19:01+01:00",
+            "fetchedAt": "2018-11-07T17:58:40",
+            "forks": 14,
+            "watchers": 13,
+            "stargazers": 353,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "hiredis-vip",
+        "language": "C",
+        "repository": "https://github.com/vipshop/hiredis-vip",
+        "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
+        "authors": [
+            "diguo58"
+        ],
+        "recommended": true,
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-09-30T06:22:46Z",
+            "periodCommits": 0,
+            "committedAt": "2017-05-23T16:41:38+08:00",
+            "fetchedAt": "2018-11-07T17:58:41",
+            "forks": 90,
+            "watchers": 24,
+            "stargazers": 151,
+            "openPullRequests": 10,
+            "openIssues": 45
+        }
+    },
+    {
+        "name": "hiredispool",
+        "language": "C",
+        "repository": "https://github.com/aclisp/hiredispool",
+        "description": "Provides connection pooling and auto-reconnect for hiredis. It is also minimalistic and easy to do customization.",
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-02-06T11:22:43Z",
+            "periodCommits": 0,
+            "committedAt": "2017-04-02T18:22:31+08:00",
+            "fetchedAt": "2018-11-07T17:58:42",
+            "forks": 4,
+            "watchers": 3,
+            "stargazers": 15,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "oxblood",
+        "language": "Ruby",
+        "repository": "https://github.com/etehtsea/oxblood",
+        "description": "Straightforward Ruby client.",
+        "authors": [
+            "etehtsea"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-04-13T10:31:26Z",
+            "periodCommits": 0,
+            "committedAt": "2017-05-01T22:44:35+07:00",
+            "fetchedAt": "2018-11-07T17:58:42",
+            "forks": 1,
+            "watchers": 6,
+            "stargazers": 23,
+            "openPullRequests": 0,
+            "openIssues": 9
+        }
+    },
+    {
+        "name": "RcppRedis",
+        "language": "R",
+        "url": "https://cran.rstudio.com/web/packages/RcppRedis/index.html",
+        "repository": "https://github.com/eddelbuettel/rcppredis",
+        "description": "R interface to Redis using the hiredis library.",
+        "authors": [
+            "eddelbuettel"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2013-07-22T22:30:46Z",
+            "periodCommits": 24,
+            "committedAt": "2018-10-27T09:28:47-05:00",
+            "fetchedAt": "2018-11-07T17:58:43",
+            "forks": 12,
+            "watchers": 6,
+            "stargazers": 39,
+            "openPullRequests": 0,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "Redux",
+        "language": "R",
+        "url": "http://richfitz.github.io/redux/",
+        "repository": "https://github.com/richfitz/redux",
+        "description": "Provides a low-level interface to Redis, allowing execution of arbitrary Redis commands with almost no interface.",
+        "authors": [
+            "rgfitzjohn"
+        ],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2015-11-09T14:59:43Z",
+            "periodCommits": 13,
+            "committedAt": "2018-05-21T19:23:29+01:00",
+            "fetchedAt": "2018-11-07T17:58:44",
+            "forks": 4,
+            "watchers": 4,
+            "stargazers": 33,
+            "openPullRequests": 0,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "oredis",
+        "language": "PL/SQL",
+        "repository": "https://github.com/SeYoungLee/oredis",
+        "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
+        "authors": [
+            "SeyoungLee"
+        ],
+        "active": false,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-02-22T05:57:07Z",
+            "periodCommits": 0,
+            "committedAt": "2017-03-21T10:11:54+09:00",
+            "fetchedAt": "2018-11-07T17:58:45",
+            "forks": 4,
+            "watchers": 2,
+            "stargazers": 11,
+            "openPullRequests": 0,
+            "openIssues": 3
+        }
+    },
+    {
+        "name": "aredis",
+        "language": "Python",
+        "repository": "https://github.com/NoneGG/aredis",
+        "description": "An efficient and user-friendly async redis client ported from redis-py.",
+        "authors": [],
+        "active": true,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-12-16T09:30:46Z",
+            "periodCommits": 15,
+            "committedAt": "2018-10-12T21:28:15-07:00",
+            "fetchedAt": "2018-11-07T17:58:45",
+            "forks": 42,
+            "watchers": 17,
+            "stargazers": 337,
+            "openPullRequests": 1,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Redis_MTC",
+        "language": "Xojo",
+        "repository": "https://github.com/ktekinay/XOJO-Redis/",
+        "description": "A Xojo library to connect to a Redis server.",
+        "authors": [
+            "kemtekinay"
+        ],
+        "active": true
+    }
 ]

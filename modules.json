@@ -1,190 +1,394 @@
 [
-  {
-    "name": "redis-roaring",
-    "license": "MIT",
-    "repository": "https://github.com/aviggiano/redis-roaring",
-    "description": "Uses the CRoaring library to implement roaring bitmap commands for Redis.",
-    "authors": [
-      "aviggiano"
-    ],
-    "stars": 60
-  },
-  {
-    "name": "redis-cell",
-    "license": "MIT",
-    "repository": "https://github.com/brandur/redis-cell",
-    "description": "A Redis module that provides rate limiting in Redis as a single command.",
-    "authors": [
-      "brandur"
-    ],
-    "stars": 403
-  },
-  {
-    "name": "RedisGraph",
-    "license": "Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/redis-graph",
-    "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
-    "authors": [
-      "swilly22",
-      "RedisLabs"
-    ],
-    "stars": 401
-  },
-  {
-    "name": "redis-tdigest",
-    "license": "MIT",
-    "repository": "https://github.com/usmanm/redis-tdigest",
-    "description": "t-digest data structure wich can be used for accurate online accumulation of rank-based statistics such as quantiles and cumulative distribution at a point.",
-    "authors": [
-      "usmanm"
-    ],
-    "stars": 45
-  },
-  {
-    "name": "ReJSON",
-    "license": "Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/ReJSON",
-    "description": "A JSON data type for Redis",
-    "authors": [
-      "itamarhaber",
-      "RedisLabs"
-    ],
-    "stars": 641
-  },
-  {
-    "name": "Redis-ML",
-    "license": "Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/redis-ml",
-    "description": "Machine Learning Model Server",
-    "authors": [
-      "shaynativ",
-      "RedisLabs"
-    ],
-    "stars": 212
-  },
-  {
-    "name": "RediSearch",
-    "license": "Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/RediSearch",
-    "description": "Full-Text search over Redis",
-    "authors": [
-      "dvirsky",
-      "RedisLabs"
-    ],
-    "stars": 1323
-  },
-  {
-    "name": "topk",
-    "license": "Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/topk",
-    "description": "An almost deterministic top k elements counter",
-    "authors": [
-      "itamarhaber",
-      "RedisLabs"
-    ],
-    "stars": 21
-  },
-  {
-    "name": "countminsketch",
-    "license": "Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/countminsketch",
-    "description": "An apporximate frequency counter",
-    "authors": [
-      "itamarhaber",
-      "RedisLabs"
-    ],
-    "stars": 31
-  },
-  {
-    "name": "rebloom",
-    "license": "Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/rebloom",
-    "description": "Scalable Bloom filters",
-    "authors": [
-      "mnunberg",
-      "RedisLabs"
-    ],
-    "stars": 136
-  },
-  {
-    "name": "neural-redis",
-    "license": "BSD",
-    "repository": "https://github.com/antirez/neural-redis",
-    "description": "Online trainable neural networks as Redis data types.",
-    "authors": [
-      "antirez"
-    ],
-    "stars": 2073
-  },
-  {
-    "name": "redis-timerseries",
-    "license": "AGPL",
-    "repository": "https://github.com/danni-m/redis-timeseries",
-    "description": "Time-series data structure for redis",
-    "authors": [
-      "danni-m"
-    ],
-    "stars": 186
-  },
-  {
-    "name": "ReDe",
-    "license": "MIT",
-    "repository": "https://github.com/TamarLabs/ReDe",
-    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
-    "authors": [
-      "daTokenizer"
-    ],
-    "stars": 23
-  },
-  {
-    "name": "commentDis",
-    "license": "MIT",
-    "repository": "https://github.com/picotera/commentDis",
-    "description": "Add comment syntax to your redis-cli scripts.",
-    "authors": [
-      "daTokenizer"
-    ],
-    "stars": 6
-  },
-  {
-    "name": "redis-cuckoofilter",
-    "license": "MIT",
-    "repository": "https://github.com/kristoff-it/redis-cuckoofilter",
-    "description": "Hashing-function agnostic Cuckoo filters.",
-    "authors": [
-      "kristoff-it"
-    ],
-    "stars": 66
-  },
-  {
-    "name": "cthulhu",
-    "license": "BSD",
-    "repository": "https://github.com/sklivvz/cthulhu",
-    "description": "Extend Redis with JavaScript modules",
-    "authors": [
-      "sklivvz"
-    ],
-    "stars": 117
-  },
-  {
-    "name": "Session Gate",
-    "license": "MIT",
-    "repository": "https://github.com/f0rmiga/sessiongate",
-    "description": "Session management with multiple payloads using cryptographically signed tokens.",
-    "authors": [
-      "f0rmiga"
-    ],
-    "stars": 32
-  },
-  {
-    "name": "rediSQL",
-    "license": "AGPL-3.0",
-    "repository": "https://github.com/RedBeardLab/rediSQL",
-    "description": "A redis module that provide full SQL capabilities embedding SQLite",
-    "authors": [
-      "siscia",
-      "RedBeardLab"
-    ],
-    "stars": 613
-  }
+    {
+        "name": "redis-roaring",
+        "license": "MIT",
+        "repository": "https://github.com/aviggiano/redis-roaring",
+        "description": "Uses the CRoaring library to implement roaring bitmap commands for Redis.",
+        "authors": [
+            "aviggiano"
+        ],
+        "stars": 60,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-05-07T23:03:08Z",
+            "periodCommits": 15,
+            "committedAt": "2018-09-12T02:24:13Z",
+            "fetchedAt": "2018-11-07T18:00:00",
+            "forks": 8,
+            "watchers": 4,
+            "stargazers": 60,
+            "openPullRequests": 1,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "redis-cell",
+        "license": "MIT",
+        "repository": "https://github.com/brandur/redis-cell",
+        "description": "A Redis module that provides rate limiting in Redis as a single command.",
+        "authors": [
+            "brandur"
+        ],
+        "stars": 420,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-10-29T20:27:06Z",
+            "periodCommits": 0,
+            "committedAt": "2018-02-27T19:56:56-08:00",
+            "fetchedAt": "2018-11-07T18:00:01",
+            "forks": 22,
+            "watchers": 11,
+            "stargazers": 420,
+            "openPullRequests": 1,
+            "openIssues": 5
+        }
+    },
+    {
+        "name": "RedisGraph",
+        "license": "Apache 2.0 modified with Commons Clause",
+        "repository": "https://github.com/RedisLabsModules/redis-graph",
+        "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
+        "authors": [
+            "swilly22",
+            "RedisLabs"
+        ],
+        "stars": 401
+    },
+    {
+        "name": "redis-tdigest",
+        "license": "MIT",
+        "repository": "https://github.com/usmanm/redis-tdigest",
+        "description": "t-digest data structure wich can be used for accurate online accumulation of rank-based statistics such as quantiles and cumulative distribution at a point.",
+        "authors": [
+            "usmanm"
+        ],
+        "stars": 46,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-05-16T02:39:07Z",
+            "periodCommits": 0,
+            "committedAt": "2017-07-26T07:22:43-07:00",
+            "fetchedAt": "2018-11-07T18:00:03",
+            "forks": 3,
+            "watchers": 5,
+            "stargazers": 46,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "ReJSON",
+        "license": "Apache 2.0 modified with Commons Clause",
+        "repository": "https://github.com/RedisLabsModules/ReJSON",
+        "description": "A JSON data type for Redis",
+        "authors": [
+            "itamarhaber",
+            "RedisLabs"
+        ],
+        "stars": 668,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-06-16T15:46:20Z",
+            "periodCommits": 29,
+            "committedAt": "2018-10-22T15:19:59+02:00",
+            "fetchedAt": "2018-11-07T18:00:04",
+            "forks": 58,
+            "watchers": 30,
+            "stargazers": 668,
+            "openPullRequests": 3,
+            "openIssues": 26
+        }
+    },
+    {
+        "name": "Redis-ML",
+        "license": "Apache 2.0 modified with Commons Clause",
+        "repository": "https://github.com/RedisLabsModules/redis-ml",
+        "description": "Machine Learning Model Server",
+        "authors": [
+            "shaynativ",
+            "RedisLabs"
+        ],
+        "stars": 226,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-10-14T22:55:00Z",
+            "periodCommits": 22,
+            "committedAt": "2018-10-22T15:20:37+02:00",
+            "fetchedAt": "2018-11-07T18:00:05",
+            "forks": 38,
+            "watchers": 17,
+            "stargazers": 226,
+            "openPullRequests": 3,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "RediSearch",
+        "license": "Apache 2.0 modified with Commons Clause",
+        "repository": "https://github.com/RedisLabsModules/RediSearch",
+        "description": "Full-Text search over Redis",
+        "authors": [
+            "dvirsky",
+            "RedisLabs"
+        ],
+        "stars": 1376,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-05-05T13:25:43Z",
+            "periodCommits": 393,
+            "committedAt": "2018-10-30T16:34:23+02:00",
+            "fetchedAt": "2018-11-07T18:00:06",
+            "forks": 169,
+            "watchers": 80,
+            "stargazers": 1376,
+            "openPullRequests": 4,
+            "openIssues": 61
+        }
+    },
+    {
+        "name": "topk",
+        "license": "Apache 2.0 modified with Commons Clause",
+        "repository": "https://github.com/RedisLabsModules/topk",
+        "description": "An almost deterministic top k elements counter",
+        "authors": [
+            "itamarhaber",
+            "RedisLabs"
+        ],
+        "stars": 21,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-05-04T21:29:27Z",
+            "periodCommits": 0,
+            "committedAt": "2016-05-06T20:03:47-07:00",
+            "fetchedAt": "2018-11-07T18:00:08",
+            "forks": 4,
+            "watchers": 4,
+            "stargazers": 21,
+            "openPullRequests": 1,
+            "openIssues": 4
+        }
+    },
+    {
+        "name": "countminsketch",
+        "license": "Apache 2.0 modified with Commons Clause",
+        "repository": "https://github.com/RedisLabsModules/countminsketch",
+        "description": "An apporximate frequency counter",
+        "authors": [
+            "itamarhaber",
+            "RedisLabs"
+        ],
+        "stars": 32,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-05-21T23:50:32Z",
+            "periodCommits": 0,
+            "committedAt": "2016-06-29T18:26:50+03:00",
+            "fetchedAt": "2018-11-07T18:00:08",
+            "forks": 4,
+            "watchers": 2,
+            "stargazers": 32,
+            "openPullRequests": 0,
+            "openIssues": 2
+        }
+    },
+    {
+        "name": "rebloom",
+        "license": "Apache 2.0 modified with Commons Clause",
+        "repository": "https://github.com/RedisLabsModules/rebloom",
+        "description": "Scalable Bloom filters",
+        "authors": [
+            "mnunberg",
+            "RedisLabs"
+        ],
+        "stars": 164,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-06-22T19:06:10Z",
+            "periodCommits": 19,
+            "committedAt": "2018-10-22T16:34:19+03:00",
+            "fetchedAt": "2018-11-07T18:00:09",
+            "forks": 23,
+            "watchers": 13,
+            "stargazers": 164,
+            "openPullRequests": 1,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "neural-redis",
+        "license": "BSD",
+        "repository": "https://github.com/antirez/neural-redis",
+        "description": "Online trainable neural networks as Redis data types.",
+        "authors": [
+            "antirez"
+        ],
+        "stars": 2081,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-09-27T20:02:52Z",
+            "periodCommits": 5,
+            "committedAt": "2018-06-22T12:00:25+02:00",
+            "fetchedAt": "2018-11-07T18:00:10",
+            "forks": 93,
+            "watchers": 105,
+            "stargazers": 2081,
+            "openPullRequests": 9,
+            "openIssues": 7
+        }
+    },
+    {
+        "name": "redis-timerseries",
+        "license": "AGPL",
+        "repository": "https://github.com/danni-m/redis-timeseries",
+        "description": "Time-series data structure for redis",
+        "authors": [
+            "danni-m"
+        ],
+        "stars": 186,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-02-05T13:00:41Z",
+            "periodCommits": 9,
+            "committedAt": "2018-09-28T16:11:31+03:00",
+            "fetchedAt": "2018-11-07T18:00:11",
+            "forks": 26,
+            "watchers": 17,
+            "stargazers": 186,
+            "openPullRequests": 2,
+            "openIssues": 11
+        }
+    },
+    {
+        "name": "ReDe",
+        "license": "MIT",
+        "repository": "https://github.com/TamarLabs/ReDe",
+        "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+        "authors": [
+            "daTokenizer"
+        ],
+        "stars": 24,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-07-20T14:30:44Z",
+            "periodCommits": 0,
+            "committedAt": "2017-08-14T14:12:56+03:00",
+            "fetchedAt": "2018-11-07T18:00:13",
+            "forks": 3,
+            "watchers": 4,
+            "stargazers": 24,
+            "openPullRequests": 0,
+            "openIssues": 1
+        }
+    },
+    {
+        "name": "commentDis",
+        "license": "MIT",
+        "repository": "https://github.com/picotera/commentDis",
+        "description": "Add comment syntax to your redis-cli scripts.",
+        "authors": [
+            "daTokenizer"
+        ],
+        "stars": 6,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-11-20T10:11:23Z",
+            "periodCommits": 0,
+            "committedAt": "2017-07-28T14:01:35+03:00",
+            "fetchedAt": "2018-11-07T18:00:15",
+            "forks": 2,
+            "watchers": 1,
+            "stargazers": 6,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "redis-cuckoofilter",
+        "license": "MIT",
+        "repository": "https://github.com/kristoff-it/redis-cuckoofilter",
+        "description": "Hashing-function agnostic Cuckoo filters.",
+        "authors": [
+            "kristoff-it"
+        ],
+        "stars": 67,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-07-23T17:28:09Z",
+            "periodCommits": 0,
+            "committedAt": "2017-08-29T23:14:49+02:00",
+            "fetchedAt": "2018-11-07T18:00:17",
+            "forks": 5,
+            "watchers": 5,
+            "stargazers": 67,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "cthulhu",
+        "license": "BSD",
+        "repository": "https://github.com/sklivvz/cthulhu",
+        "description": "Extend Redis with JavaScript modules",
+        "authors": [
+            "sklivvz"
+        ],
+        "stars": 117,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-06-11T23:00:39Z",
+            "periodCommits": 0,
+            "committedAt": "2018-01-03T14:39:02+01:00",
+            "fetchedAt": "2018-11-07T18:00:18",
+            "forks": 5,
+            "watchers": 8,
+            "stargazers": 117,
+            "openPullRequests": 1,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "Session Gate",
+        "license": "MIT",
+        "repository": "https://github.com/f0rmiga/sessiongate",
+        "description": "Session management with multiple payloads using cryptographically signed tokens.",
+        "authors": [
+            "f0rmiga"
+        ],
+        "stars": 34,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2017-03-01T09:41:53Z",
+            "periodCommits": 0,
+            "committedAt": "2018-03-01T00:50:20-08:00",
+            "fetchedAt": "2018-11-07T18:00:19",
+            "forks": 1,
+            "watchers": 6,
+            "stargazers": 34,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    },
+    {
+        "name": "rediSQL",
+        "license": "AGPL-3.0",
+        "repository": "https://github.com/RedBeardLab/rediSQL",
+        "description": "A redis module that provide full SQL capabilities embedding SQLite",
+        "authors": [
+            "siscia",
+            "RedBeardLab"
+        ],
+        "stars": 634,
+        "stats": {
+            "isArchived": false,
+            "createdAt": "2016-11-21T15:03:59Z",
+            "periodCommits": 54,
+            "committedAt": "2018-10-14T15:26:07+02:00",
+            "fetchedAt": "2018-11-07T18:00:20",
+            "forks": 47,
+            "watchers": 34,
+            "stargazers": 634,
+            "openPullRequests": 0,
+            "openIssues": 0
+        }
+    }
 ]
