@@ -373,13 +373,19 @@ In order to enforce this behavior in scripts Redis does the following:
   Note that a _random command_ does not necessarily mean a command that uses
   random numbers: any non-deterministic command is considered a random command
   (the best example in this regard is the `TIME` command).
-* Redis commands that may return elements in random order, like `SMEMBERS`
-  (because Redis Sets are _unordered_) have a different behavior when called
-  from Lua, and undergo a silent lexicographical sorting filter before
-  returning data to Lua scripts.
-  So `redis.call("smembers",KEYS[1])` will always return the Set elements
-  in the same order, while the same command invoked from normal clients may
-  return different results even if the key contains exactly the same elements.
+* In Redis version 4, commands that may return elements in random order, like
+  `SMEMBERS` (because Redis Sets are _unordered_) have a different behavior
+  when called from Lua, and undergo a silent lexicographical sorting filter
+  before returning data to Lua scripts. So `redis.call("smembers",KEYS[1])`
+  will always return the Set elements in the same order, while the same
+  command invoked from normal clients may return different results even if
+  the key contains exactly the same elements. However starting with Redis 5
+  there is no longer such ordering step, because Redis 5 replicates scripts
+  in a way that no longer need non-deterministic commands to be converted
+  into deterministic ones. In general, even when developing for Redis 4, never
+  assume that certain commands in Lua will be ordered, but instead rely on
+  the documentation of the original command you call to see the properties
+  it provides.
 * Lua pseudo random number generation functions `math.random` and
   `math.randomseed` are modified in order to always have the same seed every
   time a new script is executed.
