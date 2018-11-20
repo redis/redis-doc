@@ -1,25 +1,33 @@
 # Introduction to Redis Streams
 
-The Stream is a new data type introduced with Redis 5.0, which models a *log data structure* in a more abstract way, however the essence of the log is still intact: like a log file, often implemented as a file open in append only mode, Redis streams are primarily an append only data structure. At least conceptually, because being Redis Streams an abstract data type represented in memory, they implement more powerful operations, to overcome the limits of the log file itself.
+Introduced with Redis 5.0, the **stream** is a new Redis data type that models a *log data structure* in a more abstract way while keeping the log semantics intact. Like log files, often implemented as a file opened in append-only mode, Redis streams are primarily an append-only data structure. But because Redis Streams are represented in memory, they implement more powerful operations to overcome the limits of a log file by itself.
 
-What makes Redis streams the most complex type of Redis, despite the data structure itself being quite simple, is the fact that it implements additional, non mandatory features: a set of blocking operations allowing consumers to wait for new data added to a stream by producers, and in addition to that a concept called **Consumer Groups**.
+Streams are the most sophisticated Redis data type, and what makes this so is the fact that they implement two additional, non-mandatory features. The first is a set of blocking operations allowing consumers to wait for new data added to a stream by producers. The second is **Consumer Groups**.
 
-Consumer groups were initially introduced by the popular messaging system called Kafka (TM). Redis reimplements a similar idea in completely different terms, but the goal is the same: to allow a group of clients to cooperate consuming a different portion of the same stream of messages.
+Consumer groups were initially introduced by the popular messaging system Kafka™. Redis reimplements a similar idea in somewhat different terms, but the goal is the same: to allow more than one client to consume its own copy of the entirety of the stream.
 
-## Streams basics
+## Redis Streams Basics
 
-For the goal of understanding what Redis streams are and how to use them, we will ignore all the advanced features, and instead focus on the data structure itself, in terms of commands used to manipulate and access it. This is, basically, the part which is common to most of the other Redis data types, like Lists, Sets, Sorted Sets and so forth. However, note that lists also have an optional more complex blocking API, exported by commands like **BLPOP** and similar. So streams are not much different than lists in this regard, it's just that the additional API is more complex and more powerful.
+To understand what Redis streams are and how to use them, we'll ignore all of the advanced features for now and instead focus on the data structure itself and the commands used to manipulate it. These commands are reminiscent of the already familiar commands used for Lists, Sets, and Sorted Sets. However, like Lists, which have an optional more sophisticated blocking API provided by commands like **BLPOP**, streams have an additional API exposing the more powerful functionality mentioned above.
 
-Because streams are an append only data structure, the fundamental write command, called **XADD**, appends a new entry into the specified stream. A stream entry is not just a string, but is instead composed of one or multiple field-value pairs. This way, each entry of a stream is already structured, like an append only file written in CSV format where multiple separated fields are present in each line.
+### XADD
+
+Streams are an append-only data structure. Thus, the write command, **XADD**, appends a new entry into the specified stream. A stream entry is not just a string; it is instead composed of one or more field-value pairs. This way, each entry in a stream is already structured, somewhat like an append-only file written in CSV format with multiple fields per line. Let's look at an example:
 
 ```
 > XADD mystream * sensor-id 1234 temperature 19.8
 1518951480106-0
 ```
 
-The above call to the **XADD** command adds an entry `sensor-id: 1234, temperature: 19.8` to the stream at key `mystream`, using an auto-generated entry ID, which is the one returned by the command, specifically `1518951480106-0`. It gets as first argument the key name `mystream`, the second argument is the entry ID that identifies every entry inside a stream. However, in this case, we passed `*` because we want the server to generate a new ID for us. Every new ID will be monotonically increasing, so in more simple terms, every new entry added will have a higher ID compared to all the past entries. Auto-generation of IDs by the server is almost always what you want, and the reasons for specifying an ID explicitly are very rare. We'll talk more about this later. The fact that each Stream entry has an ID is another similarity with log files, where line numbers, or the byte offset inside the file, can be used in order to identify a given entry. Returning back at our **XADD** example, after the key name and ID, the next arguments are the field-value pairs composing our stream entry.
+The above **XADD** command adds the entry `sensor-id: 123, temperature: 19.8` to the stream at key `mystream`. Thus, the first argument to **XADD** is the name of the steam to append to. Next, we pass in a `*` to tell Redis to auto-generate the entry's ID, which is then returned by the command (i.e., `1518951480106-0`). The remaining arguments are the field-value pairs that we want to store in our stream entry.
 
-It is possible to get the number of items inside a Stream just using the **XLEN** command:
+The fact that each stream entry has an ID is another similarity with log files, where line numbers, or the byte offset within the file, can be used to identify a given entry.
+
+Each new ID will be monotonically increasing, so in more simple terms, every new entry added will have an ID that's numerically greater than to all the previous entries. Instead of specifying a `*` to get an auto-generated ID, you may also use a custom entry ID. However, auto-generation of IDs by the server is almost always what you want, as valid use cases specifying an ID explicitly are rare. We'll talk more about this later.
+
+### XLEN
+
+To get the number of entries in a stream, use the **XLEN** command:
 
 ```
 > XLEN mystream
@@ -28,7 +36,7 @@ It is possible to get the number of items inside a Stream just using the **XLEN*
 
 ### Entry IDs
 
-The entry ID returned by the **XADD** command, and identifying univocally each entry inside a given stream, is composed of two parts:
+The entry ID returned by the **XADD** command, and identifying unequivocally each entry inside a given stream, is composed of two parts:
 
 ```
 <millisecondsTime>-<sequenceNumber>
@@ -712,5 +720,3 @@ A few remarks:
 
 * Here we processed up to 10k messages per iteration, this means that the `COUNT` parameter of XREADGROUP was set to 10000. This adds a lot of latency but is needed in order to allow the slow consumers to be able to keep with the message flow. So you can expect a real world latency that is a lot smaller.
 * The system used for this benchmark is very slow compared to today's standards.
-
-
