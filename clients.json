@@ -750,6 +750,16 @@
   },
 
   {
+    "name": "tedis",
+    "language": "Node.js",
+    "repository": "https://github.com/myour-cc/tedis",
+    "description": "Tedis is a redis client developed for nodejs platform. Its name was inspired by the Java platform jedis and the development language was typescript. Therefore, Tedis is named as Tedis",
+    "authors": ["dasoncheng"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
     "name": "redis-fast-driver",
     "language": "Node.js",
     "repository": "https://github.com/h0x91b/redis-fast-driver",
