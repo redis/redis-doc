@@ -1554,6 +1554,18 @@
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
-  }
+    },
+
+  {
+    "name": "wiredis",
+    "language": "C++",
+    "url": "https://github.com/nokia/wiredis",
+    "repository": "https://github.com/nokia/wiredis",
+    "description": "Standalone, asynchronous Redis client library based on ::boost::asio and c++11 standard",
+    "authors": ["winnieelte"],
+    "active": true
+  },
+
+    
   
 ]
