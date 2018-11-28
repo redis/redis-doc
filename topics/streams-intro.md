@@ -679,3 +679,22 @@ Such programs were not optimized and were executed in a small two core instance 
 
 
 Results obtained:
+
+```
+Processed between 0 and 1 ms -> 74.11%
+Processed between 1 and 2 ms -> 25.80%
+Processed between 2 and 3 ms -> 0.06%
+Processed between 3 and 4 ms -> 0.01%
+Processed between 4 and 5 ms -> 0.02%
+```
+
+So 99.9% of requests have a latency <= 2 milliseconds, with the outliers that remain still very close to the average.
+
+Adding a few millions of not acknowledged messages in the stream does not change the gist of the benchmark, with most queries still processed with very shor latency.
+
+A few remarks:
+
+* Here we processed up to 10k messages per iteration, this means that the `COUNT` parameter of XREADGROUP was set to 10000. This adds a lot of latency but is needed in order to allow the slow consumers to be able to keep with the message flow. So you can expect a real world latency that is a lot smaller.
+* The system used for this benchmark is very slow compared to today's standards.
+
+
