@@ -673,7 +673,7 @@ This model is *push based*, since adding data to the consumers buffers will be p
 
 ## Latency tests results
 
-In order to check this latency characteristics a test was performed using multiple instances of Ruby programs pushing messages having as an additional field the computer millisecond time, and Ruby programs reading the messages from the consumer group and processing them. The message processing step consisted in comparing the current computer time with the message timestamp, in order to understand the total latecy.
+In order to check this latency characteristics a test was performed using multiple instances of Ruby programs pushing messages having as an additional field the computer millisecond time, and Ruby programs reading the messages from the consumer group and processing them. The message processing step consisted in comparing the current computer time with the message timestamp, in order to understand the total latency.
 
 Such programs were not optimized and were executed in a small two core instance also running Redis, in order to try to provide the latency figures you could expect in non optimal conditions. Messages were produced at a rate of 10k per second, with ten simultaneous consumers consuming and acknowledging the messages from the same Redis stream and consumer group.
 
@@ -690,7 +690,7 @@ Processed between 4 and 5 ms -> 0.02%
 
 So 99.9% of requests have a latency <= 2 milliseconds, with the outliers that remain still very close to the average.
 
-Adding a few millions of not acknowledged messages in the stream does not change the gist of the benchmark, with most queries still processed with very shor latency.
+Adding a few millions of not acknowledged messages in the stream does not change the gist of the benchmark, with most queries still processed with very short latency.
 
 A few remarks:
 
