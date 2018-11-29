@@ -169,11 +169,11 @@ The blocking form of **XREAD** is also able to listen to multiple Streams, just 
 
 Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream is the first that will be unblocked as new items are available.
 
-**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attack consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
+**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
 
 ## Consumer groups
 
-When the task at hand is to consume the same stream from different clients, then **XREAD** already offers a way to  *fan-out* to N clients, potentially also using slaves in order to provide more read scalability. However in certain problems what we want to do is not to provide the same stream of messages to many clients, but to provide a *different subset* of messages from the same stream to many clients. An obvious case where this is useful is the case of slow to process messages: the ability to have N different workers that will receive different parts of the stream allow to scale message processing, by routing different messages to different workers that are ready to do more work.
+When the task at hand is to consume the same stream from different clients, then **XREAD** already offers a way to  *fan-out* to N clients, potentially also using slaves in order to provide more read scalability. However in certain problems what we want to do is not to provide the same stream of messages to many clients, but to provide a *different subset* of messages from the same stream to many clients. An obvious case where this is useful is the case of slow to process messages: the ability to have N different workers that will receive different parts of the stream allows us to scale message processing, by routing different messages to different workers that are ready to do more work.
 
 In practical terms, if we imagine having three consumers C1, C2, C3, and a stream that contains the messages 1, 2, 3, 4, 5, 6, 7 then what we want is to serve the messages like in the following diagram:
 
@@ -237,7 +237,7 @@ As you can see in the command above when creating the consumer group we have to 
 
 Now that the consumer group is created we can immediately start trying to read messages via the consumer group, by using the **XREADGROUP** command. We'll read from the consumers, that we will call Alice and Bob, to see how the system will return different messages to Alice and Bob.
 
-**XREADGROUP** is very similar yo **XREAD** and provides the same **BLOCK** option, otherwise it is a synchronous command. However there is a *mandatory* option that must be always specified, which is **GROUP** and has two arguments: the name of the consumer group, and the name of the consumer that is attempting to read. The option **COUNT** is also supported and is identical to the one in **XREAD**.
+**XREADGROUP** is very similar to **XREAD** and provides the same **BLOCK** option, otherwise it is a synchronous command. However there is a *mandatory* option that must be always specified, which is **GROUP** and has two arguments: the name of the consumer group, and the name of the consumer that is attempting to read. The option **COUNT** is also supported and is identical to the one in **XREAD**.
 
 Before reading from the stream, let's put some messages inside:
 
@@ -403,7 +403,7 @@ When called in this way the command just outputs the total number of pending mes
 We can ask for more info by giving more arguments to **XPENDING**, because the full command signature is the following:
 
 ```
-XPENDING <key> <groupname> [<start-id> <end-id> <count> [<conusmer-name>]]
+XPENDING <key> <groupname> [<start-id> <end-id> <count> [<consumer-name>]]
 ```
 
 By providing a start and end ID (that can be just `-` and `+` as in **XRANGE**) and a count to control the amount of information returned by the command, we are able to know more about the pending messages. The optional final argument, the consumer group name, is used if we want to limit the output to just messages pending for a given consumer group, but we'll not use this feature in the following example.
