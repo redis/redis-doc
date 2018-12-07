@@ -545,6 +545,16 @@
   },
 
   {
+    "name": "laserdisc",
+    "language": "Scala",
+    "repository": "https://github.com/laserdisc-io/laserdisc",
+    "description": "Future free Fs2 native pure FP Redis client http://laserdisc.io",
+    "authors": ["sirocchj", "barambani"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
     "name": "scala-redis",
     "language": "Scala",
     "repository": "https://github.com/acrosa/scala-redis",
