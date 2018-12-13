@@ -89,7 +89,7 @@ Securing Redis
 ===
 
 By default Redis binds to **all the interfaces** and has no authentication at
-all. If you use Redis into a very controlled environment, separated from the
+all. If you use Redis in a very controlled environment, separated from the
 external internet and in general from attackers, that's fine. However if Redis
 without any hardening is exposed to the internet, it is a big security
 concern. If you are not 100% sure your environment is secured properly, please
