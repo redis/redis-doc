@@ -169,7 +169,7 @@ The blocking form of **XREAD** is also able to listen to multiple Streams, just 
 
 Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream is the first that will be unblocked as new items are available.
 
-**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attack consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
+**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
 
 ## Consumer groups
 
