@@ -619,7 +619,7 @@ You may have noticed that there are several special IDs that can be
 used in the Redis API. Here is a short recap, so that they can make more
 sense in the future.
 
-The first two special IDs are `-` and `+`, and are used in range queries with the `XRANGE` command. Those two IDs respectively means the smallest ID possible (that is basically `0-1`) and the greatest ID possible (that is `18446744073709551615-18446744073709551615`). As you can see it is a log cleaner to write `-` and `+` instead of those numbers.
+The first two special IDs are `-` and `+`, and are used in range queries with the `XRANGE` command. Those two IDs respectively means the smallest ID possible (that is basically `0-1`) and the greatest ID possible (that is `18446744073709551615-18446744073709551615`). As you can see it is a lot cleaner to write `-` and `+` instead of those numbers.
 
 Then there are APIs where we want to say, the ID of the item with the greatest ID inside the stream. This is what `$` means. So for instance if I want only new entires with `XREADGROUP` I use such ID to tell that I already have all the existing entries, but not the news that will be inserted in the future. Similarly when I create or set the ID of a consumer group, I can set the last delivered item to `$` in order to just deliver new entires to the consumers using the group.
 
