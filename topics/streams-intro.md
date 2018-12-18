@@ -623,7 +623,7 @@ The first two special IDs are `-` and `+`, and are used in range queries with th
 
 Then there are APIs where we want to say, the ID of the item with the greatest ID inside the stream. This is what `$` means. So for instance if I want only new entires with `XREADGROUP` I use such ID to tell that I already have all the existing entries, but not the news that will be inserted in the future. Similarly when I create or set the ID of a consumer group, I can set the last delivered item to `$` in order to just deliver new entires to the consumers using the group.
 
-As you can see `$` does not mean `+`, they are two different things, as `+` is the greatest ID possible in every possible stream, while `$` is the greated ID in a given stream containing given entries. Moreover APIs will usually only understand `+` or `$`, yet it was useful to avoid loading a given symbol of multiple meanings.
+As you can see `$` does not mean `+`, they are two different things, as `+` is the greatest ID possible in every possible stream, while `$` is the greatest ID in a given stream containing given entries. Moreover APIs will usually only understand `+` or `$`, yet it was useful to avoid loading a given symbol of multiple meanings.
 
 Another special ID is `>`, that is a special meaning only related to consumer groups and only when the `XREADGROUP` command is used. Such special ID means that we want only entires that were never delivered to other consumers so far. So basically the `>` ID is the *last delivered ID* of a consumer group.
 
