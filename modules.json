@@ -21,7 +21,7 @@
   },
   {
     "name": "RedisGraph",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/redis-graph",
     "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
     "authors": [
@@ -42,7 +42,7 @@
   },
   {
     "name": "ReJSON",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/ReJSON",
     "description": "A JSON data type for Redis",
     "authors": [
@@ -53,7 +53,7 @@
   },
   {
     "name": "Redis-ML",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/redis-ml",
     "description": "Machine Learning Model Server",
     "authors": [
@@ -64,7 +64,7 @@
   },
   {
     "name": "RediSearch",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": [
@@ -75,7 +75,7 @@
   },
   {
     "name": "topk",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/topk",
     "description": "An almost deterministic top k elements counter",
     "authors": [
@@ -86,7 +86,7 @@
   },
   {
     "name": "countminsketch",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/countminsketch",
     "description": "An apporximate frequency counter",
     "authors": [
@@ -97,7 +97,7 @@
   },
   {
     "name": "rebloom",
-    "license": "Apache 2.0 modified with Commons Clause",
+    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
     "repository": "https://github.com/RedisLabsModules/rebloom",
     "description": "Scalable Bloom filters",
     "authors": [
