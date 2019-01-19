@@ -205,7 +205,15 @@
     "recommended": true,
     "active": true
   },
-
+  {
+    "name": "java-redis-client",
+    "language": "Java",
+    "repository": "https://github.com/drm/java-redis-client",
+    "description": "A very simple but very complete java client in less than 200 lines",
+    "authors": ["drm"],
+    "recommended": true,
+    "active": true
+  },
   {
     "name": "Jedipus",
     "language": "Java",
