@@ -1353,7 +1353,7 @@
   {
     "name": "cpp_redis",
     "language": "C++",
-    "repository": "https://github.com/cylix/cpp_redis",
+    "repository": "https://github.com/cpp-redis/cpp_redis",
     "description": "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform.",
     "authors": ["simon_ninon"],
     "active": true
