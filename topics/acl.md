@@ -88,8 +88,13 @@ perform a given change to the user ACL. Other rules are char prefixes that
 are concatenated with command or cagetories names, or key patterns, and
 so forth.
 
+Enable and disallow users:
+
 * `on`: Enable the user: it is possible to authenticate as this user.
 * `off`: Disable the user: it's no longer possible to authenticate with this user, however the already authenticated connections will still work. Note that if the default user is flagged as *off*, new connections will start not authenticated and will require the user to send `AUTH` or `HELLO` with the AUTH option in order to authenticate in some way, regardless of the default user configuration.
+
+Allow and disallow commands:
+
 * `+<command>`: Add the command to the list of commands the user can call.
 * `-<command>`: Remove the command to the list of commands the user can call.
 * `+@<category>`: Add all the commands in such category to be called by the user, with valid categories being like @admin, @set, @sortedset, ... and so forth, see the full list by calling the `ACL CAT` command. The special category @all means all the commands, both the ones currently present in the server, and the ones that will be loaded in the future via modules.
@@ -97,14 +102,27 @@ so forth.
 * `+<command>|subcommand`: Allow a specific subcommand of an otherwise disabled command. Note that this form is not allowed as negative like `-DEBUG|SEGFAULT`, but only additive starting with "+". This ACL will cause an error if the command is already active as a whole.
 * `allcommands`: Alias for +@all. Note that it implies the ability to execute all the future commands loaded via the modules system.
 * `nocommands`: Alias for -@all.
+
+Allow and disallow certain keys:
+
 `~<pattern>`: Add a pattern of keys that can be mentioned as part of commands. For instance `~*` allows all the keys. The pattern is a glob-style pattern like the one of KEYS.  It is possible to specify multiple patterns.
 * `allkeys`: Alias for `~*`.
 * `resetkeys`: Flush the list of allowed keys patterns. For instance the ACL `~foo:* ~bar:* resetkeys ~objects:*`, will result in the client only be able to access keys matching the pattern `objects:*`.
+
+Configure valid passwords for the user:
+
 * `><password>`: Add this passowrd to the list of valid passwords for the user. For example `>mypass` will add "mypass" to the list of valid passwords.  This directive clears the *nopass* flag (see later). Every user can have any number of passwords.
 * `<<password>`: Remove this password from the list of valid passwords. Emits an error in case the password you are trying to remove is actually not set.
 * `nopass`: All the set passwords of the user are removed, and the user is flagged as requiring no password: it means that every password will work against this user. If this directive is used for the default user, every new connection will be immediately authenticated with the default user without any explicit AUTH command required. Note that the *resetpass* directive will clear this condition.
 * `resetpass`: Flush the list of allowed passwords. Moreover removes the *nopass* status. After *resetpass* the user has no associated passwords and there is no way to authenticate without adding some password (or setting it as *nopass* later).
+
+*Note: an use that is not flagged with nopass, and has no list of valid passwords, is effectively impossible to use, because there will be no way to log in as such user.*
+
+Reset the user:
+
 * `reset` Performs the following actions: resetpass, resetkeys, off, -@all. The user returns to the same state it has immediately after its creation.
+
+# Creating and editing users ACLs with the ACL SETUSER command
 
 TODO list:
 
