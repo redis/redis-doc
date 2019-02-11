@@ -124,7 +124,98 @@ Reset the user:
 
 # Creating and editing users ACLs with the ACL SETUSER command
 
-TODO list:
+Users can be created and modified in two main ways:
+
+1. Using the ACL command and its `ACL SETUSER` subcommand.
+2. Modifying the server configuration, where users can be defined, and restarting the server, or if we are using an *external ACL file*, just issuing `ACL LOAD`.
+
+In this section we'll learn how to define users using the `ACL` command.
+With such knowledge it will be trivial to do the same things via the
+configuration files. Defining users in the configuration deserves its own
+section and will be discussed later separately.
+
+To start let's try the simplest `ACL SETUSER` command call:
+
+    > ACL SETUSER alice
+    OK
+
+The `SETUSER` command takes the username and a list of ACL rules to apply
+to the user. However in the above example I did not specify any rule at all.
+This will just create the user if it did not exist, using the default
+attributes of a just creates uses. If the user already exist, the command
+above will do nothing at all.
+
+Let's check what is the default user status:
+
+    > ACL LIST
+    1) "user alice off -@all"
+    2) "user default on nopass ~* +@all"
+
+The just created user "alice" is:
+
+* In off status, that is, it's disabled. AUTH will not work.
+* Cannot access any command. Note that the user is created by default without the ability to access any command, so the `-@all` in the output above could be omitted, however `ACL LIST` attempts to be explicit rather than implicit.
+* Finally there are no key patterns that the user can access.
+* The user also has no passwords set.
+
+Such user is completely useless. Let's try to define the user so that
+it is active, has a password, and can access with only the `GET` command
+to key names starting with the string "cached:".
+
+    > ACL SETUSER alice on >p1pp0 ~cached:* +get
+    OK
+
+Now the user can do something, but will refuse to do other things:
+
+    > AUTH alice p1pp0
+    OK
+    > GET foo
+    (error) NOPERM this user has no permissions to access one of the keys used as arguments
+    > GET cached:1234
+    (nil)
+    > SET cached:1234 zap
+    (error) NOPERM this user has no permissions to run the 'set' command or its subcommnad
+
+Things are working as expected. In order to inspect the configuration of the
+user alice (remember that user names are case sensitive), it is possible to
+use an alternative to `ACL LIST` which is designed to be more suitable for
+computers to read, while `ACL LIST` is more biased towards humans.
+
+    > ACL GETUSER alice
+    1) "flags"
+    2) 1) "on"
+    3) "passwords"
+    4) 1) "p1pp0"
+    5) "commands"
+    6) "-@all +get"
+    7) "keys"
+    8) 1) "cached:*"
+
+The `ACL GETUSER` returns a field-value array describing the user in more parsable terms. The output includes the set of flags, a list of key patterns, passwords and so forth. The output is probably more readalbe if we use RESP3, so that it is returned as as map reply:
+
+    > ACL GETUSER alice
+    1# "flags" => 1~ "on"
+    2# "passwords" => 1) "p1pp0"
+    3# "commands" => "-@all +get"
+    4# "keys" => 1) "cached:*"
+
+*Note: from now on we'll continue using the Redis default protocol, version 2, because it will take some time for the community to switch to the new one.*
+
+Using another `ACL SETUSER` command (from a different user, because alice cannot run the `ACL` command) we can add multiple patterns to the user:
+
+    > ACL SETUSER alice ~objects:* ~items:* ~public:*
+    OK
+    > ACL LIST
+    1) "user alice on >p1pp0 ~cached:* ~objects:* ~items:* ~public:* -@all +get"
+    2) "user default on nopass ~* +@all"
+
+The user representation in memory is now as we expect it to be.
+
+## Playings with command categories
+
+## +@all VS -@all
+
+## TODO list for this document
 
 * Make sure to specify that modules commands are ignored when adding/removing categories.
 * Document cost of keys matching with some benchmark.
