@@ -122,7 +122,7 @@ Reset the user:
 
 * `reset` Performs the following actions: resetpass, resetkeys, off, -@all. The user returns to the same state it has immediately after its creation.
 
-# Creating and editing users ACLs with the ACL SETUSER command
+## Creating and editing users ACLs with the ACL SETUSER command
 
 Users can be created and modified in two main ways:
 
