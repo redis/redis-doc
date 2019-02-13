@@ -211,7 +211,96 @@ Using another `ACL SETUSER` command (from a different user, because alice cannot
 
 The user representation in memory is now as we expect it to be.
 
+## What happens calling ACL SETUSER multiple times
+
+It is very important to understand what happens when ACL SETUSER is called
+multiple times. What is critical to know is that every `SETUSER` call will
+NOT reset the user, but will just apply the ACL rules to the existing user.
+The user is reset only if it was not known before: in that case a brand new
+user is created with zeroed-ACLs, that is, the user cannot do anything, is
+disabled, has no passwords and so forth: for safety this is the best default.
+
+However later calls will just modify the user incrementally so for instance
+the following sequence:
+
+    > ACL SETUSER myuser +set
+    OK
+    > ACL SETUSER myuser +get
+    OK
+
+Will result into myuser to be able to call both `GET` and `SET`:
+
+    > ACL LIST
+    1) "user default on nopass ~* +@all"
+    2) "user myuser off -@all +set +get"
+
 ## Playings with command categories
+
+Setting users ACLs by specifying all the commands one after the other is
+really annoying, so instead we do things like that:
+
+    > ACL SETUSER antirez on +@all -@dangerous >somepassword ~*
+
+By saying +@all and -@dangerous we included all the commands and later removed
+all the commands that are tagged as dangerous inside the Redis command table.
+Please note that command categories **never include modules commnads** with
+the exception of +@all. If you say +@all all the commands can be executed by
+the user, even future commands loaded via the modules system. However if you
+use the ACL rule +@readonly or any other, the modules commands are always
+excluded. This is very important because you should just trust the Redis
+internal command table for sanity. Moudles my expose dangerous things and in
+the case of an ACL that is just additive, that is, in the form of `+@all -...`
+You should be absolutely sure that you'll never include what you did not mean
+to.
+
+However to remember that categories are defined, and what commands each
+category exactly includes, is impossible and would be super boring, so the
+Redis `ACL` command exports the `CAT` subcommand that can be used in two forms:
+
+    ACL CAT -- Will just list all the categories available
+    ACL CAT <category-name> -- Will list all the commands inside the category
+
+Examples:
+
+     > ACL CAT
+     1) "keyspace"
+     2) "read"
+     3) "write"
+     4) "set"
+     5) "sortedset"
+     6) "list"
+     7) "hash"
+     8) "string"
+     9) "bitmap"
+    10) "hyperloglog"
+    11) "geo"
+    12) "stream"
+    13) "pubsub"
+    14) "admin"
+    15) "fast"
+    16) "slow"
+    17) "blocking"
+    18) "dangerous"
+    19) "connection"
+    20) "transaction"
+    21) "scripting"
+
+As you can see so far there are 21 distinct categories. Now let's check what
+command is part of the *geo* category:
+
+    > ACL CAT geo
+    1) "geohash"
+    2) "georadius_ro"
+    3) "georadiusbymember"
+    4) "geopos"
+    5) "geoadd"
+    6) "georadiusbymember_ro"
+    7) "geodist"
+    8) "georadius"
+
+Note that commands may be part of multiple categories, so for instance an
+ACL rule like `+@geo -@readonly` will result in certain geo commands to be
+excluded because they are readonly commands.
 
 ## +@all VS -@all
 
