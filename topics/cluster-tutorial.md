@@ -690,7 +690,7 @@ In order to trigger the failover, the simplest thing we can do (that is also
 the semantically simplest failure that can occur in a distributed system)
 is to crash a single process, in our case a single master.
 
-We can identify a cluster and crash it with the following command:
+We can identify a master and crash it with the following command:
 
 ```
 $ redis-cli -p 7000 cluster nodes | grep master
