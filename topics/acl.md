@@ -1,9 +1,9 @@
 # ACL
 
 The Redis ACL, short for Access Control List, is the feature that allows certain
-connections to be limited in the commands that can be executed and the keys
-that can be accessed. The way it works is that, after connecting, a client
-requires to authenticate providing a username and a valid password: if
+connections to be limited in terms of the commands that can be executed and the
+keys that can be accessed. The way it works is that, after connecting, a client
+is required to authenticate providing a username and a valid password: if
 the authentication stage succeeded, the connection is associated with a given
 user and the limits the user has. Redis can be configured so that new
 connections are already authenticated with a "default" user (this is the
