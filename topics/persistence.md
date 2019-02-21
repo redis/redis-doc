@@ -177,6 +177,26 @@ Older versions of Redis may not recover, and may require the following steps:
 * Optionally use `diff -u` to check what is the difference between two files.
 * Restart the server with the fixed file.
 
+### What should I do if my AOF gets corrupted?
+
+If the AOF file is not just truncated, but corrupted with invalid byte
+sequences in the middle, things are more complex. Redis will complain
+at startup and will abort:
+
+```
+* Reading the remaining AOF tail...
+# Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix <filename>
+```
+
+The best thing to do is to run the `redis-check-aof` utility, initially without
+the `--fix` option, then understand the problem, jump at the given
+offset in the file, and see if it is possible to manually repair the file:
+the AOF uses the same format of the Redis protocol and is quite simple to fix
+manually. Otherwise it is possible to let the utility fix the file for us, but
+in that case all the AOF portion from the invalid part to the end of the
+file may be discareded, leading to a massive amount of data lost if the
+corruption happen to be in the initial part of the file.
+
 ### How it works
 
 Log rewriting uses the same copy-on-write trick already in use for
