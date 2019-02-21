@@ -134,36 +134,47 @@ You can configure how many times Redis will
 [`fsync`](http://linux.die.net/man/2/fsync) data on disk. There are
 three options:
 
-* appendfsync always: `fsync` every time a new command is appended to the AOF. Very very
-slow, very safe.
-
+* appendfsync always: `fsync` every time a new command is appended to the AOF. Very very slow, very safe.
 * appendfsync everysec: `fsync` every second. Fast enough (in 2.4 likely to be as fast as snapshotting), and you can lose 1 second of data if there is a disaster.
-
-* appendfsync no: Never `fsync`, just put your data in the hands of the Operating
-System. The faster and less safe method.
+* appendfsync no: Never `fsync`, just put your data in the hands of the Operating System. The faster and less safe method. Normally Linux will flush data every 30 seconds with this configuration, but it's up to the kernel exact tuning.
 
 The suggested (and default) policy is to `fsync` every second. It is
 both very fast and pretty safe. The `always` policy is very slow in
-practice (although it was improved in Redis 2.0) – there is no way to
-make `fsync` slower than it is.
+practice, but it supports group commit, so if there are multiple parallel
+writes Redis will try to perform a single `fsync` operation.
 
-### What should I do if my AOF gets corrupted?
+### What should I do if my AOF gets truncated?
 
-It is possible that the server crashes while writing the AOF file (this
-still should never lead to inconsistencies), corrupting the file in a
-way that is no longer loadable by Redis. When this happens you can fix
-this problem using the following procedure:
+It is possible that the server crashed while writing the AOF file, or that the
+volume where the AOF file is stored is store was full. When this happens the
+AOF still contains consistent data representing a given point-in-time version
+of the dataset (that may be old up to one second with the default AOF fsync
+policy), but the last command in the AOF could be truncated.
+The latest major versions of Redis will be able to load the AOF anyway, just
+discarding the last non well formed command in the file. In this case the
+server will emit a log like the following:
+
+```
+* Reading RDB preamble from AOF file...
+* Reading the remaining AOF tail...
+# !!! Warning: short read while loading the AOF file !!!
+# !!! Truncating the AOF at offset 439 !!!
+# AOF loaded anyway because aof-load-truncated is enabled
+```
+
+You can change the default configuration to force Redis to stop in such
+cases if you want, but the default configuration is to continue regardless
+the fact the last command in the file is not well-formed, in order to guarantee
+availabiltiy after a restart.
+
+Older versions of Redis may not recover, and may require the following steps:
 
 * Make a backup copy of your AOF file.
-
-* Fix the original file using the `redis-check-aof` tool that ships with
-Redis:
+* Fix the original file using the `redis-check-aof` tool that ships with Redis:
 
       $ redis-check-aof --fix <filename>
 
-* Optionally use `diff -u` to check what is the difference between two
-files.
-
+* Optionally use `diff -u` to check what is the difference between two files.
 * Restart the server with the fixed file.
 
 ### How it works
