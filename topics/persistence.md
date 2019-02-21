@@ -134,18 +134,18 @@ You can configure how many times Redis will
 [`fsync`](http://linux.die.net/man/2/fsync) data on disk. There are
 three options:
 
-* `fsync` every time a new command is appended to the AOF. Very very
+* appendfsync always: `fsync` every time a new command is appended to the AOF. Very very
 slow, very safe.
 
-* `fsync` every second. Fast enough (in 2.4 likely to be as fast as snapshotting), and you can lose 1 second of data if there is a disaster.
+* appendfsync everysec: `fsync` every second. Fast enough (in 2.4 likely to be as fast as snapshotting), and you can lose 1 second of data if there is a disaster.
 
-* Never `fsync`, just put your data in the hands of the Operating
+* appendfsync no: Never `fsync`, just put your data in the hands of the Operating
 System. The faster and less safe method.
 
 The suggested (and default) policy is to `fsync` every second. It is
 both very fast and pretty safe. The `always` policy is very slow in
 practice (although it was improved in Redis 2.0) – there is no way to
-make `fsync` faster than it is.
+make `fsync` slower than it is.
 
 ### What should I do if my AOF gets corrupted?
 
