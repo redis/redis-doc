@@ -613,7 +613,7 @@
 
   {
     "name": "ServiceStack.Redis",
-    "language": "C#",
+    "language": "CSharp",
     "url": "https://github.com/ServiceStack/ServiceStack.Redis",
     "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
     "authors": ["demisbellot"],
@@ -623,7 +623,7 @@
 
   {
     "name": "StackExchange.Redis",
-    "language": "C#",
+    "language": "CSharp",
     "url": "https://github.com/StackExchange/StackExchange.Redis",
     "description": "This .NET client was developed by Stack Exchange for very high performance needs (replacement to the earlier BookSleeve).",
     "authors": ["marcgravell"],
@@ -633,7 +633,7 @@
 
   {
     "name": "Sider",
-    "language": "C#",
+    "language": "CSharp",
     "url": "http://www.nuget.org/packages/Sider",
     "description": "Minimalistic client for C#/.NET 4.0",
     "authors": ["chakrit"]
@@ -793,7 +793,7 @@
 
   {
     "name": "TeamDev Redis Client",
-    "language": "C#",
+    "language": "CSharp",
     "repository": "http://redis.codeplex.com/",
     "description": "Redis Client is based on redis-sharp for the basic communication functions, but it offers some differences.",
     "authors": ["TeamDevPerugia"]
@@ -801,7 +801,7 @@
 
   {
     "name": "redis-sharp",
-    "language": "C#",
+    "language": "CSharp",
     "repository": "https://github.com/migueldeicaza/redis-sharp",
     "description": "",
     "authors": ["migueldeicaza"]
@@ -915,7 +915,7 @@
 
   {
     "name": "csredis",
-    "language": "C#",
+    "language": "CSharp",
     "repository": "https://github.com/ctstone/csredis",
     "description": "Async (and sync) client for Redis and Sentinel",
     "authors": ["ctnstone"]
@@ -1029,7 +1029,7 @@
 
   {
     "name": "redisboost",
-    "language": "C#",
+    "language": "CSharp",
     "url": "http://andrew-bn.github.io/RedisBoost/",
     "repository": "https://github.com/andrew-bn/RedisBoost",
     "description": "Thread-safe async Redis client. Offers high performance and simple api"
@@ -1054,7 +1054,7 @@
   },
   {
     "name": "Nhiredis",
-    "language": "C#",
+    "language": "CSharp",
     "repository": "https://github.com/mhowlett/Nhiredis",
     "description": "A lightweight wrapper around the C client hiredis.",
     "authors": ["matt_howlett"],
