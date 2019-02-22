@@ -111,7 +111,7 @@ Allow and disallow certain keys:
 
 Configure valid passwords for the user:
 
-* `><password>`: Add this passowrd to the list of valid passwords for the user. For example `>mypass` will add "mypass" to the list of valid passwords.  This directive clears the *nopass* flag (see later). Every user can have any number of passwords.
+* `><password>`: Add this password to the list of valid passwords for the user. For example `>mypass` will add "mypass" to the list of valid passwords.  This directive clears the *nopass* flag (see later). Every user can have any number of passwords.
 * `<<password>`: Remove this password from the list of valid passwords. Emits an error in case the password you are trying to remove is actually not set.
 * `nopass`: All the set passwords of the user are removed, and the user is flagged as requiring no password: it means that every password will work against this user. If this directive is used for the default user, every new connection will be immediately authenticated with the default user without any explicit AUTH command required. Note that the *resetpass* directive will clear this condition.
 * `resetpass`: Flush the list of allowed passwords. Moreover removes the *nopass* status. After *resetpass* the user has no associated passwords and there is no way to authenticate without adding some password (or setting it as *nopass* later).
@@ -191,7 +191,7 @@ computers to read, while `ACL LIST` is more biased towards humans.
     7) "keys"
     8) 1) "cached:*"
 
-The `ACL GETUSER` returns a field-value array describing the user in more parsable terms. The output includes the set of flags, a list of key patterns, passwords and so forth. The output is probably more readalbe if we use RESP3, so that it is returned as as map reply:
+The `ACL GETUSER` returns a field-value array describing the user in more parsable terms. The output includes the set of flags, a list of key patterns, passwords and so forth. The output is probably more readable if we use RESP3, so that it is returned as as map reply:
 
     > ACL GETUSER alice
     1# "flags" => 1~ "on"
