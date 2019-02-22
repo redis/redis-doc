@@ -248,7 +248,7 @@ the exception of +@all. If you say +@all all the commands can be executed by
 the user, even future commands loaded via the modules system. However if you
 use the ACL rule +@readonly or any other, the modules commands are always
 excluded. This is very important because you should just trust the Redis
-internal command table for sanity. Moudles my expose dangerous things and in
+internal command table for sanity. Modules my expose dangerous things and in
 the case of an ACL that is just additive, that is, in the form of `+@all -...`
 You should be absolutely sure that you'll never include what you did not mean
 to.
@@ -300,9 +300,47 @@ command is part of the *geo* category:
 
 Note that commands may be part of multiple categories, so for instance an
 ACL rule like `+@geo -@readonly` will result in certain geo commands to be
-excluded because they are readonly commands.
+excluded because they are read-only commands.
+
+## Adding subcommands
+
+Often the ability to exclude or include a command as a whole is not enough.
+Many Redis commands do multiple things based on the subcommand passed as
+argument. For example the `CLIENT` command can be used in order to do
+dangerous and non dangerous operations. Many deployments may not be happy to
+provide the ability to execute `CLIENT KILL` to non admin-level users, but may
+still want them to be able to run `CLIENT SETNAME`.
+
+_Note: probably the new RESP3 `HELLO` command will provide a SETNAME option soon, but this is still a good exmaple anyway._
+
+In such case I could alter the ACL of a user in the following way:
+
+    ACL SETUSER myuser -client +client|setname +client|getname
+
+I started removing the `CLIENT` command, and later added the two allowed
+subcommands. Note that **it is not possible to do the reverse**, the subcommands
+can be only added, and not excluded, because it is possible that in the future
+new subcommands may be added: it is a lot safer to specify all the subcommands
+that are valid for some user. Moreover, if you add a subcommand about a command
+that is not already disabled, an error is generated, because this can only
+be a bug in the ACL rules:
+
+    > ACL SETUSER default +debug|segfault
+    (error) ERR Error in ACL SETUSER modifier '+debug|segfault': Adding a
+    subcommand of a command already fully added is not allowed. Remove the
+    command to start. Example: -DEBUG +DEBUG|DIGEST
+
+Note that subcommand matching may add some performance penalty, however such
+penalty is very hard to measure even with synthetic benchmarks, and the
+additional CPU cost is only payed when such command is called, and not when
+other commands are called.
 
 ## +@all VS -@all
+
+In the previous section it was observed how it is possible to define commands
+ACLs based on adding/removing single commands.
+
+## Using an external ACL file
 
 ## TODO list for this document
 
