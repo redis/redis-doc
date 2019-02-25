@@ -1,3 +1,5 @@
+# Redis Gopher support
+
 Redis contains an implementation of the Gopher protocol, as specified in
 the [RFC 1436](https://www.ietf.org/rfc/rfc1436.txt).
 
