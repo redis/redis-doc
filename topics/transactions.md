@@ -243,7 +243,7 @@ usually the script will be both simpler and faster.
 
 This duplication is due to the fact that scripting was introduced in Redis 2.6
 while transactions already existed long before. However we are unlikely to
-remove the support for transactions in the short time because it seems
+remove the support for transactions in the short-term because it seems
 semantically opportune that even without resorting to Redis scripting it is
 still possible to avoid race conditions, especially since the implementation
 complexity of Redis transactions is minimal.
