@@ -21,7 +21,7 @@
   },
   {
     "name": "RedisGraph",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/redis-graph",
     "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
     "authors": [
@@ -41,9 +41,9 @@
     "stars": 45
   },
   {
-    "name": "ReJSON",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/ReJSON",
+    "name": "RedisJSON",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/redisjson",
     "description": "A JSON data type for Redis",
     "authors": [
       "itamarhaber",
@@ -52,9 +52,9 @@
     "stars": 641
   },
   {
-    "name": "Redis-ML",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/redis-ml",
+    "name": "RedisML",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/redisml",
     "description": "Machine Learning Model Server",
     "authors": [
       "shaynativ",
@@ -64,7 +64,7 @@
   },
   {
     "name": "RediSearch",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": [
@@ -75,7 +75,7 @@
   },
   {
     "name": "topk",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/topk",
     "description": "An almost deterministic top k elements counter",
     "authors": [
@@ -86,7 +86,7 @@
   },
   {
     "name": "countminsketch",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/countminsketch",
     "description": "An apporximate frequency counter",
     "authors": [
@@ -96,9 +96,9 @@
     "stars": 31
   },
   {
-    "name": "rebloom",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/rebloom",
+    "name": "RedisBloom",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/redisbloom",
     "description": "Scalable Bloom filters",
     "authors": [
       "mnunberg",
@@ -117,14 +117,24 @@
     "stars": 2073
   },
   {
-    "name": "redis-timerseries",
-    "license": "AGPL",
-    "repository": "https://github.com/danni-m/redis-timeseries",
+    "name": "RedisTimeSeries",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/RedisTimeSeries",
     "description": "Time-series data structure for redis",
     "authors": [
       "danni-m"
     ],
     "stars": 186
+  },
+  {
+    "name": "RedisAI",
+    "license": "AGPL",
+    "repository": "https://github.com/RedisAI/RedisAI",
+    "description": "A Redis module for serving tensors and executing deep learning graphs",
+    "authors": [
+      "lantiga"
+    ],
+    "stars": 61
   },
   {
     "name": "ReDe",
