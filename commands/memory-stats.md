@@ -5,13 +5,13 @@ The information about memory usage is provided as metrics and their respective
 values. The following metrics are reported:
 
 *   `peak.allocated`: Peak memory consumed by Redis in bytes (see `INFO`'s
-     `used_memory`)
+     `used_memory_peak`)
 *   `total.allocated`: Total number of bytes allocated by Redis using its
      allocator (see `INFO`'s `used_memory`)
 *   `startup.allocated`: Initial amount of memory consumed by Redis at startup
      in bytes (see `INFO`'s `used_memory_startup`)
 *   `replication.backlog`: Size in bytes of the replication backlog (see
-     `INFO`'s `repl_backlog_size`)
+     `INFO`'s `repl_backlog_active`)
 *   `clients.slaves`: The total size in bytes of all replicas overheads (output
      and query buffers, connection contexts)
 *   `clients.normal`: The total size in bytes of all clients overheads (output
