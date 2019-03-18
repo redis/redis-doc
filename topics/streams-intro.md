@@ -169,7 +169,7 @@ The blocking form of **XREAD** is also able to listen to multiple Streams, just 
 
 Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream is the first that will be unblocked as new items are available.
 
-**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attack consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
+**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
 
 ## Consumer groups
 
@@ -385,7 +385,7 @@ Once the history was consumed, and we get an empty list of messages, we can swit
 
 The example above allows us to write consumers that participate to the same consumer group, taking each a subset of messages to process, and recovering from failures re-reading the pending messages that were delivered just to them. However in the real world consumers may permanently fail and never recover. What happens to the pending messages of the consumer that never recovers after stopping for any reason?
 
-Redis consumer groups offer a feature that is used exactly in this situations in order to *claim* the pending messages of a given consumer so that such messages will change ownership and will be re-assigned to a different consumer. The feature is very explicit, a consumer has to inspect the list of pending messages, and will have to claim specific messages using a special command, otherwise the server will take the messages pending forever assigned to the old consumer, in this way different applications can choose if to use such a feature or not, and exactly the way to use it.
+Redis consumer groups offer a feature that is used in these situations in order to *claim* the pending messages of a given consumer so that such messages will change ownership and will be re-assigned to a different consumer. The feature is very explicit, a consumer has to inspect the list of pending messages, and will have to claim specific messages using a special command, otherwise the server will take the messages pending forever assigned to the old consumer, in this way different applications can choose if to use such a feature or not, and exactly the way to use it.
 
 The first step of this process is just a command that provides observability of pending entries in the consumer group and is called **XPENDING**. This is just a read-only command which is always safe to call and will not change ownership of any message. In its simplest form, the command is just called with two arguments, which are the name of the stream and the name of the consumer group.
 
@@ -537,7 +537,7 @@ The output of the example above, where the **GROUPS** subcommand is used, should
    6) (integer) 83841983
 ```
 
-In case you do not remember the syntax of the command, just ask for help to the command itself:
+In case you do not remember the syntax of the command, just ask the command itself for help:
 
 ```
 > XINFO HELP
@@ -567,7 +567,7 @@ While Redis consumer groups are a server-side load balancing system of messages 
 
 ## Capped Streams
 
-Many applications do not want to collect data into a stream forever. Sometimes it is useful to have at maximum a given number of items inside a stream, other times once a given size is reached, it is useful to move data from Redis to a storage which is not in memory and not as fast but suited to take the history for potentially decades to come. Redis streams have some support for this. One the **MAXLEN** option of the **XADD** command. Such option is very simple to use:
+Many applications do not want to collect data into a stream forever. Sometimes it is useful to have at maximum a given number of items inside a stream, other times once a given size is reached, it is useful to move data from Redis to a storage which is not in memory and not as fast but suited to take the history for potentially decades to come. Redis streams have some support for this. One the **MAXLEN** option of the **XADD** command. This option is very simple to use:
 
 ```
 > XADD mystream MAXLEN 2 * value 1
@@ -621,7 +621,7 @@ sense in the future.
 
 The first two special IDs are `-` and `+`, and are used in range queries with the `XRANGE` command. Those two IDs respectively means the smallest ID possible (that is basically `0-1`) and the greatest ID possible (that is `18446744073709551615-18446744073709551615`). As you can see it is a lot cleaner to write `-` and `+` instead of those numbers.
 
-Then there are APIs where we want to say, the ID of the item with the greatest ID inside the stream. This is what `$` means. So for instance if I want only new entires with `XREADGROUP` I use such ID to tell that I already have all the existing entries, but not the news that will be inserted in the future. Similarly when I create or set the ID of a consumer group, I can set the last delivered item to `$` in order to just deliver new entires to the consumers using the group.
+Then there are APIs where we want to say, the ID of the item with the greatest ID inside the stream. This is what `$` means. So for instance if I want only new entries with `XREADGROUP` I use such ID to tell that I already have all the existing entries, but not the news that will be inserted in the future. Similarly when I create or set the ID of a consumer group, I can set the last delivered item to `$` in order to just deliver new entries to the consumers using the group.
 
 As you can see `$` does not mean `+`, they are two different things, as `+` is the greatest ID possible in every possible stream, while `$` is the greatest ID in a given stream containing given entries. Moreover APIs will usually only understand `+` or `$`, yet it was useful to avoid loading a given symbol of multiple meanings.
 
@@ -639,9 +639,9 @@ However note that Redis streams and consumer groups are persisted and replicated
 
 * AOF must be used with a strong fsync policy if persistence of messages is important in your application.
 * By default the asynchronous replication will not guarantee that **XADD** commands or consumer groups state changes are replicated: after a failover something can be missing depending on the ability of slaves to receive the data from the master.
-* The **WAIT** command may be used in order to force the propagation of the changes to a set of slaves. However note that while this makes very unlikely that data is lost, the Redis failover process as operated by Sentinel or Redis Cluster performs only a *best effort* check to failover to the slave which is the most updated, and under certain specific failures may promote a slave that lacks some data.
+* The **WAIT** command may be used in order to force the propagation of the changes to a set of slaves. However note that while this makes it very unlikely that data is lost, the Redis failover process as operated by Sentinel or Redis Cluster performs only a *best effort* check to failover to the slave which is the most updated, and under certain specific failures may promote a slave that lacks some data.
 
-So when designing application using Redis streams and consumer groups, make sure to understand the semantical properties your application should have during failures, and configure things accordingly, evaluating if it is safe enough for your use case.
+So when designing an application using Redis streams and consumer groups, make sure to understand the semantical properties your application should have during failures, and configure things accordingly, evaluating if it is safe enough for your use case.
 
 ## Removing single items from a stream
 
@@ -673,7 +673,7 @@ The reason why such an asymmetry exists is because Streams may have associated c
 
 ## Total latency of consuming a message
 
-Non blocking stream commands like XRANGE and XREAD or XREADGROUP without the BLOCK option are server synchronously like any other Redis command, so to discuss latency of such commands is meaningless: more interesting is to check the time complexity of the commands in the Redis documentation. It should be enough to say that stream commands are at least as fast as sorted set commands when extracting ranges, and that `XADD` is very fast and can easily insert from half million to one million of items per second in an average machine if pipelining is used.
+Non blocking stream commands like XRANGE and XREAD or XREADGROUP without the BLOCK option are executed on the server synchronously like any other Redis command, so to discuss latency of such commands is meaningless: more interesting is to check the time complexity of the commands in the Redis documentation. It should be enough to say that stream commands are at least as fast as sorted set commands when extracting ranges, and that `XADD` is very fast and can easily insert from half million to one million of items per second in an average machine if pipelining is used.
 
 However latency becomes an interesting parameter if we want to understand the delay of processing the message, in the context of blocking consumers in a consumer group, from the moment the message is produced via `XADD`, to the moment the message is obtained by the consumer because `XREADGROUP` returned with the message.
 
@@ -708,7 +708,7 @@ Processed between 4 and 5 ms -> 0.02%
 
 So 99.9% of requests have a latency <= 2 milliseconds, with the outliers that remain still very close to the average.
 
-Adding a few millions of not acknowledged messages in the stream does not change the gist of the benchmark, with most queries still processed with very short latency.
+Adding a few million unacknowledged messages to the stream does not change the gist of the benchmark, with most queries still processed with very short latency.
 
 A few remarks:
 
