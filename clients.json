@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "name": "redis-rb",
     "language": "Ruby",
@@ -1553,6 +1553,15 @@
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
+    "active": true
+  },
+
+  {
+    "name": "BeetleX.Redis",
+    "language": "C#",
+    "url": "https://github.com/IKende/BeetleX.Redis",
+    "description": "A high-performance async/non-blocking  redis client components for dotnet core,default support json and protobuf data format",
+    "authors": [ "henry" ],
     "active": true
   }
   
