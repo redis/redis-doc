@@ -1562,7 +1562,7 @@
     "url": "https://github.com/IKende/BeetleX.Redis",
     "repository": "https://github.com/IKende/BeetleX.Redis",
     "description": "A high-performance async/non-blocking  redis client components for dotnet core,default support json and protobuf data format",
-    "authors": [ "henry" ],
+    "authors": ["henry"],
     "active": true
   }
   
