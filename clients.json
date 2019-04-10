@@ -1315,6 +1315,15 @@
   },
 
   {
+    "name": "UniRedis",
+    "language": "Swift",
+    "repository": "https://github.com/seznam/swift-uniredis",
+    "description": "Redis client for Swift on macOS and Linux, capable of pipelining and transactions, with transparent support for authentication and sentinel.",
+    "authors": ["ddbilik"],
+    "active": true
+  },
+
+  {
     "name": "Rackdis",
     "language": "Racket",
     "repository": "https://github.com/eu90h/rackdis",
