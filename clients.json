@@ -1000,7 +1000,16 @@
     "authors": [],
     "active": true
   },
-
+  
+  {
+    "name": "redisclient",
+    "language": "Nim",
+    "repository": "https://github.com/xmonader/nim-redisclient",
+    "description": "Redis client for Nim",
+    "authors": ["xmonader"],
+    "active": true
+  },
+  
   {
     "name": "libvmod-redis",
     "language": "VCL",
