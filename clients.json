@@ -1554,6 +1554,15 @@
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  },
+  
+  {
+    "name": "song-yuan",
+    "language": "PHP",
+    "repository": "https://github.com/song-yuan/redis-doc",
+    "description": "redis client.",
+    "authors": ["kemtekinay"],
+    "active": true
   }
   
 ]
