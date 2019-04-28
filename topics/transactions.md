@@ -86,7 +86,6 @@ command will fail when executed even if the syntax is right:
     MULTI
     +OK
     SET a 3
-    abc
     +QUEUED
     LPOP a
     +QUEUED
