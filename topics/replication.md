@@ -98,7 +98,7 @@ Replication ID explained
 
 In the previous section we said that if two instances have the same replication
 ID and replication offset, they have exactly the same data. However it is useful
-to understand what exctly is the replication ID, and why instances have actually
+to understand what exactly is the replication ID, and why instances have actually
 two replication IDs the main ID and the secondary ID.
 
 A replication ID basically marks a given *history* of the data set. Every time
