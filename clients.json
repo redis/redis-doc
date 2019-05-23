@@ -1554,6 +1554,15 @@
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  },
+  
+  {
+    "name": "FlyRedis",
+    "language": "C++",
+    "repository": "https://github.com/icerlion/FlyRedis/",
+    "description": "C++ Redis Client, base on Boost.asio, Easy To Use",
+    "authors": ["icerlion"],
+    "active": true
   }
   
 ]
