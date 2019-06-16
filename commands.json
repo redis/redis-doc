@@ -1157,11 +1157,13 @@
       {
         "name": "key",
         "type": "key",
+        "optional": true,
         "multiple": true
       },
       {
         "name": "arg",
         "type": "string",
+        "optional": true,
         "multiple": true
       }
     ],
@@ -1209,11 +1211,13 @@
       {
         "name": "key",
         "type": "key",
+        "optional": true,
         "multiple": true
       },
       {
         "name": "arg",
         "type": "string",
+        "optional": true,
         "multiple": true
       }
     ],
@@ -2951,6 +2955,7 @@
       {
         "name": "element",
         "type": "string",
+        "optional": true,
         "multiple": true
       }
     ],
