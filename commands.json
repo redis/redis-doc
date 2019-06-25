@@ -1707,6 +1707,12 @@
         "optional": true
       },
       {
+        "command": "AUTH",
+        "name": "password",
+        "type": "string",
+        "optional": true
+      },
+      {
         "name": "key",
         "command": "KEYS",
         "type": "key",
