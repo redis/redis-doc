@@ -270,7 +270,7 @@ First steps with Redis Lists
 
 The `LPUSH` command adds a new element into a list, on the
 left (at the head), while the `RPUSH` command adds a new
-element into a list ,on the right (at the tail). Finally the
+element into a list, on the right (at the tail). Finally the
 `LRANGE` command extracts ranges of elements from lists:
 
     > rpush mylist A
