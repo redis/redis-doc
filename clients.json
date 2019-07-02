@@ -1547,13 +1547,24 @@
     "active": true
   },
   
-    {
+  {
     "name": "Redis_MTC",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  },
+
+  {
+    "name": "dartis",
+    "language": "Dart",
+    "repository": "https://github.com/jcmellado/dartis",
+    "url": "https://pub.dev/packages/dartis",
+    "description": "Redis client featuring type-safe commands, pipelining, fire and forget, publish/subscribe, monitor mode, inline commands, transactions, Lua scripting, modules, and much more.",
+    "authors": ["jcmellado"],
+    "active": true,
+    "recommended": true
   }
   
 ]
