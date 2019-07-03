@@ -31,7 +31,7 @@ redis> DEL zset1 zset2
 redis> ZADD zset1 0 a 1 b 2 c
 (integer) 3
 redis> BZPOPMAX zset1 zset2 0
-1) "zet1"
+1) "zset1"
 2) "2"
 2) "c"
 ```
