@@ -3317,6 +3317,12 @@
         "name": "count",
         "type": "integer",
         "optional": true
+      },
+      {
+        "command": "TYPE",
+        "name": "type",
+        "type": "string",
+        "optional": true
       }
     ],
     "since": "2.8.0",
