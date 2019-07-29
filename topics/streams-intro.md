@@ -231,7 +231,7 @@ Assuming I have a key `mystream` of type stream already existing, in order to cr
 OK
 ```
 
-Note: *Currently it is not possible to create consumer groups for non-existing streams, however it is possible that in the short future we'll add an option to the **XGROUP** command in order to create an empty stream in such cases.*
+Note: Currently it is not possible to create consumer groups for non-existing streams, however it is possible that in the short future we'll add an option to the **XGROUP** command in order to create an empty stream in such cases.
 
 As you can see in the command above when creating the consumer group we have to specify an ID, which in the example is just `$`. This is needed because the consumer group, among the other states, must have an idea about what message to serve next at the first consumer connecting, that is, what is the current *last message ID* when the group was just created? If we provide `$` as we did, then only new messages arriving in the stream from now on will be provided to the consumers in the group. If we specify `0` instead the consumer group will consume *all* the messages in the stream history to start with. Of course, you can specify any other valid ID. What you know is that the consumer group will start delivering messages that are greater than the ID you specify. Because `$` means the current greatest ID in the stream, specifying `$` will have the effect of consuming only new messages.
 
@@ -353,7 +353,7 @@ while true
     end
 
     items = r.xreadgroup('GROUP',GroupName,ConsumerName,'BLOCK','2000','COUNT','10','STREAMS',:my_stream_key,myid)
-    
+
     if items == nil
         puts "Timeout!"
         next
@@ -362,7 +362,7 @@ while true
     # If we receive an empty reply, it means we were consuming our history
     # and that the history is now empty. Let's start to consume new messages.
     check_backlog = false if items[0][1].length == 0
-    
+
     items[0][1].each{|i|
         id,fields = i
 
