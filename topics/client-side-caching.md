@@ -107,7 +107,114 @@ Using the new version of the Redis protocol, RESP3, supported by Redis 6, it is 
 
 We'll show an example, this time by using the actual Redis protocol in the old RRESP2 mode, how a complete session, involving the following steps: enabling tracking redirecting to another connection, asking for a key, and getting an invalidation message once such key gets modified.
 
+To start, the client opens a first connection that will be used for invalidations, requests the connection ID, and subscribes via Pub/Sub to the special channel that is used to get invalidation messages when in RESP2 modes (remember that RESP2 is the usual Redis protocol, and not the more advanced protocol that you can use, optionally, with Redis 6 using the `HELLO` command):
+
+```
+(Connection 1 -- used for invalidations)
+CLIENT ID
+:4
+SUBSCRIBE __redis__:invalidate
+*3
+$9
+subscribe
+$20
+__redis__:invalidate
+:1
+```
+
+Now we can enable tracking from the data connection:
+
+```
+(Connection 2 -- data connection)
+CLIENT TRACKING ON redirect 4
++OK
+
+GET foo
+$3
+bar
+```
+
+The client may decide to cache `"foo" => "bar"` in the local memory.
+
+A different client will now modify the value of the "foo" key:
+
+```
+(Some other unrelated connection)
+SET foo bar
++OK
+```
+
+As a result, the invalidations connection will receive a message that invalidates cachign slot 1872974. That number is obtained by doing the CRC64("foo") taking the least 24 significant bits.
+
+```
+(Connection 1 -- used for invalidations)
+*3
+$7
+message
+$20
+__redis__:invalidate
+$7
+1872974
+```
+
+The client will check if there are cached keys in such caching slot, and will evict the information that is no longer valid.
+
+## What tracking tracks
+
+As you can see clients do not need, by default, to tell the server what keys
+they are caching. Every key that is mentioned in the context of a read only
+command is tracked by the server, because it *could be cached*.
+
+This has the obvious advantage of not requiring the client to tell the server
+what it is caching. Moreover in many clients implementations, this is what
+you want, because a good solution could be to just cache everything that is not
+already cached, using a first-in last-out approach: we may want to cache a
+fixed number of objects, every new data we retrieve, we could cache it,
+discarding the oldest cached object. More advanced implementations may instead
+drop the least used object or alike.
+
+Note that anyway if there is write traffic on the server, caching slots
+will get invalidated during the course of the time. In general when the
+server assumes that what we get we also cache, we are making a tradeoff:
+
+1. It is more efficient when the client tends to cache many things with a policy that welcomes new objects.
+2. The server will be forced to retain more data about the client keys.
+3. The client will receive useless invalidation messages about objects it did not cache.
+
+So there is an alternative described in the next section.
+
 ## Opt-in caching
+
+(Note: this part is a work in progress and is yet not implemented inside Redis)
+
+Clients implementations may want to cache only selected keys, and communicate
+explicitly to the server what they'll cache and what not: this will require
+more bandwidth when caching new objects, but at the same time will reduce
+the amount of data that the server has to remember, and the amount of
+invalidation messages received by the client.
+
+In order to do so, tracking must be enabled using the OPTIN option:
+
+    CLIENT TRACKING on REDIRECT 1234 OPTIN
+
+In this mode, by default keys mentioned in read queries *are not supposed to be cached*, instead when a client wants to cache something, it must send a special command immediately before the actual command to retrieve the data:
+
+    CACHING
+    +OK
+    GET foo
+    "bar"
+
+To make the protocol more efficient, the `CACHING` command can be sent with the
+`NOREPLY` option: in this case it will be totally silent:
+
+    CACHING NOREPLY
+    GET foo
+    "bar"
+
+The `CACHING` command affects the command executed immadietely after it,
+however in case the next command is `MULTI`, all the commands in the
+transaction will be tracked. Similarly in case of Lua scripts, all the
+commands executed by the script will be tracked.
 
 ## When client side caching makes sense
 
@@ -115,6 +222,8 @@ We'll show an example, this time by using the actual Redis protocol in the old R
 
 ## What to cache
 
+## Avoiding race conditions
+
 ## Limiting the amount of memory used by clients
 
-## Avoiding race conditions
+## Limiting the amount of memory used by Redis
