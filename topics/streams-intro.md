@@ -1,4 +1,4 @@
-# Introduction to Redis Streams
+﻿# Introduction to Redis Streams
 
 The Stream is a new data type introduced with Redis 5.0, which models a *log data structure* in a more abstract way, however the essence of the log is still intact: like a log file, often implemented as a file open in append only mode, Redis streams are primarily an append only data structure. At least conceptually, because being Redis Streams an abstract data type represented in memory, they implement more powerful operations, to overcome the limits of the log file itself.
 
@@ -169,7 +169,7 @@ The blocking form of **XREAD** is also able to listen to multiple Streams, just 
 
 Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream is the first that will be unblocked as new items are available.
 
-**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attack consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
+**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
 
 ## Consumer groups
 
@@ -475,7 +475,7 @@ Messaging systems that lack observability are very hard to work with. Not knowin
 
 However we may want to do more than that, and the **XINFO** command is an observability interface that can be used with sub-commands in order to get information about streams or consumer groups.
 
-This command uses subcommands in order to show different informations about the status of the stream and its consumer groups. For instance using **XINFO STREAM <key>** reports information about the stream itself.
+This command uses subcommands in order to show different information about the status of the stream and its consumer groups. For instance using **XINFO STREAM <key>** reports information about the stream itself.
 
 ```
 > XINFO STREAM mystream
@@ -621,7 +621,7 @@ sense in the future.
 
 The first two special IDs are `-` and `+`, and are used in range queries with the `XRANGE` command. Those two IDs respectively means the smallest ID possible (that is basically `0-1`) and the greatest ID possible (that is `18446744073709551615-18446744073709551615`). As you can see it is a lot cleaner to write `-` and `+` instead of those numbers.
 
-Then there are APIs where we want to say, the ID of the item with the greatest ID inside the stream. This is what `$` means. So for instance if I want only new entires with `XREADGROUP` I use such ID to tell that I already have all the existing entries, but not the news that will be inserted in the future. Similarly when I create or set the ID of a consumer group, I can set the last delivered item to `$` in order to just deliver new entires to the consumers using the group.
+Then there are APIs where we want to say, the ID of the item with the greatest ID inside the stream. This is what `$` means. So for instance if I want only new entries with `XREADGROUP` I use such ID to tell that I already have all the existing entries, but not the news that will be inserted in the future. Similarly when I create or set the ID of a consumer group, I can set the last delivered item to `$` in order to just deliver new entries to the consumers using the group.
 
 As you can see `$` does not mean `+`, they are two different things, as `+` is the greatest ID possible in every possible stream, while `$` is the greatest ID in a given stream containing given entries. Moreover APIs will usually only understand `+` or `$`, yet it was useful to avoid loading a given symbol of multiple meanings.
 
