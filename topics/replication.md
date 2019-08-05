@@ -6,23 +6,23 @@ At the base of Redis replication (excluding the high availability features provi
 This system works using three main mechanisms:
 
 1. When a master and a slave instances are well-connected, the master keeps the slave updated by sending a stream of commands to the slave, in order to replicate the effects on the dataset happening in the master side due to: client writes, keys expired or evicted, any other action changing the master dataset.
-2. When the link between the master and the slave breaks, for network issues or because a timeout is sensed in the master or the slave, the slave reconnects and attempts to proceed with a partial resynchronization: it means that it will try to just obtain the part of the stream of commands it missed during the disconnection.
+2. When the link between the master and the slave breaks, for network issues or because a timeout is sensed in the master or the slave, the slave reconnects and attempts to proceed with a partial resynchronization: it means that it will try to obtain just the part of the stream of commands it missed during the disconnection.
 3. When a partial resynchronization is not possible, the slave will ask for a full resynchronization. This will involve a more complex process in which the master needs to create a snapshot of all its data, send it to the slave, and then continue sending the stream of commands as the dataset changes.
 
 Redis uses by default asynchronous replication, which being low latency and
 high performance, is the natural replication mode for the vast majority of Redis
-use cases. However Redis slaves asynchronously acknowledge the amount of data
-they received periodically with the master. So the master does not wait every time
+use cases. However, Redis slaves asynchronously acknowledge the amount of data
+they received periodically with the master. The master does not wait every time
 for a command to be processed by the slaves, however it knows, if needed, what
-slave already processed what command. This allows to have optional syncrhonous replication.
+slaves already processed what commands. This allows optional syncrhonous replication.
 
 Synchronous replication of certain data can be requested by the clients using
 the `WAIT` command. However `WAIT` is only able to ensure that there are the
 specified number of acknowledged copies in the other Redis instances, it does not
 turn a set of Redis instances into a CP system with strong consistency: acknowledged
 writes can still be lost during a failover, depending on the exact configuration
-of the Redis persistence. However with `WAIT` the probability of losign a write
-after a failure event is greatly reduced to certain hard to trigger failure
+of the Redis persistence. However, with `WAIT`, the probability of losing a write
+after a failure event is greatly reduced to certain hard-to-trigger failure
 modes.
 
 You could check the Sentinel or Redis Cluster documentation for more information
@@ -46,63 +46,63 @@ persistence turned on in the master and in the slaves. When this is not possible
 for example because of latency concerns due to very slow disks, instances should
 be configured to **avoid restarting automatically** after a reboot.
 
-To better understand why masters with persistence turned off configured to
+To better understand why masters with persistence turned off and configured to
 auto restart are dangerous, check the following failure mode where data
 is wiped from the master and all its slaves:
 
-1. We have a setup with node A acting as master, with persistence turned down, and nodes B and C replicating from node A.
-2. Node A crashes, however it has some auto-restart system, that restarts the process. However since persistence is turned off, the node restarts with an empty data set.
-3. Nodes B and C will replicate from node A, which is empty, so they'll effectively destroy their copy of the data.
+1. We have a setup with node A acting as the master, with persistence turned off, and nodes B and C replicating from node A.
+2. Node A crashes, and it has an auto-restart system that restarts the process. Since persistence is turned off, the node restarts with an empty data set.
+3. Nodes B and C will replicate from node A, which is empty, and so they'll effectively destroy their copy of the data.
 
-When Redis Sentinel is used for high availability, also turning off persistence
-on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to don't detect a failure, so that the failure mode described above happens.
+When Redis Sentinel is used for high availability, turning off persistence
+on the master together with auto restart of the process is dangerous. For example, the master can restart fast enough for Sentinel not to detect a failure, and so the failure mode described above happens.
 
-Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
+When data safety is important and replication is used with the master not configured with persistence, auto-restart of instances should be disabled.
 
 How Redis replication works
 ---
 
-Every Redis master has a replication ID: it is a large pseudo random string
-that marks a given story of the dataset. Each master also takes an offset that
-increments for every byte of replication stream that it is produced to be
-sent to slaves, in order to update the state of the slaves with the new changes
+Every Redis master has a replication ID, which a large pseudo random string
+that marks a given hisstory of the dataset. Each master also takes an offset that
+increments for every byte of replication stream that is produced and
+sent to slaves, in order to update the state of the slaves with new changes
 modifying the dataset. The replication offset is incremented even if no slave
 is actually connected, so basically every given pair of:
 
     Replication ID, offset
 
-Identifies an exact version of the dataset of a master.
+identifies an exact version of the dataset of a master.
 
-When slaves connects to masters, they use the `PSYNC` command in order to send
-their old master replication ID and the offsets they processed so far. This way
-the master can send just the incremental part needed. However if there is not
-enough *backlog* in the master buffers, or if the slave is referring to an
-history (replication ID) which is no longer known, than a full resynchronization
-happens: in this case the slave will get a full copy of the dataset, from scratch.
+When slaves connects to masters, they use the `PSYNC` command to send
+the old master replication ID and the offsets they've processed so far. This way
+the master can send just the incremental part needed. However, if there is not
+enough *backlog* in the master buffers, or if the slave is referring to a
+history (replication ID) which is no longer known, then a full resynchronization
+happens: the slave will get a full copy of the dataset from scratch.
 
 This is how a full synchronization works in more details:
 
-The master starts a background saving process in order to produce an RDB file. At the same time it starts to buffer all new write commands received from the clients. When the background saving is complete, the master transfers the database file to the slave, which saves it on disk, and then loads it into memory. The master will then send all buffered commands to the slave. This is done as a stream of commands and is in the same format of the Redis protocol itself.
+The master starts a background saving process in order to produce an RDB file, and simultaneously buffers all new write commands received from the clients. When the background saving is complete, the master transfers the database file to the slave, which then saves it on disk and loads it into memory. The master will then send all buffered commands to the slave. This is done as a stream of commands and is in the same format of the Redis protocol itself.
 
 You can try it yourself via telnet. Connect to the Redis port while the
 server is doing some work and issue the `SYNC` command. You'll see a bulk
 transfer and then every command received by the master will be re-issued
-in the telnet session. Actually `SYNC` is an old protocol no longer used by
-newer Redis instances, but is still there for backward compatibility: it does
+in the telnet session. While `SYNC` is actually an old protocol no longer used by
+newer Redis instances, it's still retained for backward compatibility. `SYNC` does
 not allow partial resynchronizations, so now `PSYNC` is used instead.
 
-As already said, slaves are able to automatically reconnect when the master-slave link goes down for some reason. If the master receives multiple concurrent slave synchronization requests, it performs a single background save in order to serve all of them.
+As already said, slaves can automatically reconnect when the master-slave link goes down for some reason. If the master receives multiple concurrent slave synchronization requests, it performs a single background save to serve all of them.
 
 Replication ID explained
 ---
 
 In the previous section we said that if two instances have the same replication
-ID and replication offset, they have exactly the same data. However it is useful
-to understand what exctly is the replication ID, and why instances have actually
-two replication IDs the main ID and the secondary ID.
+ID and replication offset, they have exactly the same data. However, it is useful
+to understand what exactly is the replication ID, and why each instance has actually
+two replication IDs: the main ID and the secondary ID.
 
 A replication ID basically marks a given *history* of the data set. Every time
-an instance restarts from scratch as a master, or a slave is promoted to master,
+an instance restarts from scratch as a master, or when a slave is promoted to master,
 a new replication ID is generated for this instance. The slaves connected to
 a master will inherit its replication ID after the handshake. So two instances
 with the same ID are related by the fact that they hold the same data, but
@@ -110,46 +110,46 @@ potentially at a different time. It is the offset that works as a logical time
 to understand, for a given history (replication ID) who holds the most updated
 data set.
 
-For instance if two instances A and B have the same replication ID, but one
+For instance, if two instances A and B have the same replication ID, but one
 with offset 1000 and one with offset 1023, it means that the first lacks certain
 commands applied to the data set. It also means that A, by applying just a few
 commands, may reach exactly the same state of B.
 
 The reason why Redis instances have two replication IDs is because of slaves
-that are promoted to masters. After a failover, the promoted slave requires
-to still remember what was its past replication ID, because such replication ID
-was the one of the former master. In this way, when other slaves will synchronize
+that are promoted to masters. After a failover, the promoted slave needs
+to remember what its past replication ID was, because such replication ID
+was the one of the former master. In this way, when other slaves synchronize
 with the new master, they will try to perform a partial resynchronization using the
 old master replication ID. This will work as expected, because when the slave
 is promoted to master it sets its secondary ID to its main ID, remembering what
-was the offset when this ID switch happend. Later it will select a new random
+the offset was when this ID switch happend. Later it will select a new random
 replication ID, because a new history begins. When handling the new slaves
 connecting, the master will match their IDs and offsets both with the current
-ID and the secondary ID (up to a given offset, for safety). In short this means
+ID and the secondary ID (up to a given offset, for safety). In short, this means
 that after a failover, slaves connecting to the new promoted master don't have
 to perform a full sync.
 
 In case you wonder why a slave promoted to master needs to change its
 replication ID after a failover: it is possible that the old master is still
-working as a master because of some network partition: retaining the same
+working as a master because of some network partition – retaining the same
 replication ID would violate the fact that the same ID and same offset of any
 two random instances mean they have the same data set.
 
 Diskless replication
 ---
 
-Normally a full resynchronization requires to create an RDB file on disk,
+Normally a full resynchronization requires creating an RDB file on disk,
 then reload the same RDB from disk in order to feed the slaves with the data.
 
 With slow disks this can be a very stressing operation for the master.
 Redis version 2.8.18 is the first version to have support for diskless
-replication. In this setup the child process directly sends the
-RDB over the wire to slaves, without using the disk as intermediate storage.
+replication. In this setup, the child process directly sends the
+RDB over the wire to slaves without using the disk as intermediate storage.
 
 Configuration
 ---
 
-To configure basic Redis replication is trivial: just add the following line to the slave configuration file:
+To configure basic Redis replication is trivial: just add the following line to the slave's configuration file:
 
     slaveof 192.168.1.1 6379
 
@@ -162,8 +162,8 @@ in memory by the master to perform the partial resynchronization. See the exampl
 `redis.conf` shipped with the Redis distribution for more information.
 
 Diskless replication can be enabled using the `repl-diskless-sync` configuration
-parameter. The delay to start the transfer in order to wait more slaves to
-arrive after the first one, is controlled by the `repl-diskless-sync-delay`
+parameter. Delaying the transfer to wait for more slaves to
+arrive after the first one is controlled by the `repl-diskless-sync-delay`
 parameter. Please refer to the example `redis.conf` file in the Redis distribution
 for more details.
 
@@ -181,16 +181,16 @@ While those writes will be discarded if the slave and the master
 resynchronize or if the slave is restarted, there are a few legitimate
 use case for storing ephemeral data in writable slaves.
 
-For example computing slow Set or Sorted set operations and storing them into local keys is an use case for writable slaves that was observed multiple times.
+For example, computing slow Set or Sorted set operations and storing them into local keys is an use case for writable slaves that are observed multiple times.
 
-However note that **writable slaves before version 4.0 were incapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. So in general mixing writable slaves (previous version 4.0) and keys with TTL is going to create issues.
+However, note that **writable slaves before version 4.0 were incapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak. While you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. In general, mixing writable slaves (previous version 4.0) and keys with TTL is likely to create issues.
 
-Redis 4.0 RC3 and greater versions totally solve this problem and now writable
+Redis 4.0 RC3 and greater versions have solved this problem and now writable
 slaves are able to evict keys with TTL as masters do, with the exceptions
-of keys written in DB numbers greater than 63 (but by default Redis instances
+of keys written in DB numbers greater than 63 (though by default Redis instances
 only have 16 databases).
 
-Also note that since Redis 4.0 slave writes are only local, and are not propagated to sub-slaves attached to the instance. Sub slaves instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate slaves. So for example in the following setup:
+Also note that since Redis 4.0 slave writes are only local, they are not propagated to sub-slaves attached to the instance. Sub slaves instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate slaves. So for example in the following setup:
 
     A ---> B ---> C
 
@@ -244,22 +244,21 @@ Redis source distribution.
 How Redis replication deals with expires on keys
 ---
 
-Redis expires allow keys to have a limited time to live. Such a feature depends
-on the ability of an instance to count the time, however Redis slaves correctly
-replicate keys with expires, even when such keys are altered using Lua
-scripts.
+Redis allow keys to have a limited time to live. Such a feature depends
+on the ability of an instance to count the time, though Redis slaves can correctly
+replicate keys with expires (even when such keys are altered using Lua
+scripts).
 
-To implement such a feature Redis cannot rely on the ability of the master and
-slave to have synchronized clocks, since this is a problem that cannot be solved
-and would result into race conditions and diverging data sets, so Redis
-uses three main techniques in order to make the replication of expired keys
-able to work:
+To implement this feature, Redis cannot rely on the ability of the master and
+slave to have synchronized clocks. Since this problem cannot be solved
+and would result into race conditions and diverging data sets, Redis
+uses three main techniques in order to make the replication of expired keys work:
 
-1. Slaves don't expire keys, instead they wait for masters to expire the keys. When a master expires a key (or evict it because of LRU), it synthesizes a `DEL` command which is transmitted to all the slaves.
-2. However because of master-driven expire, sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the slave uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way slaves avoid to report logically expired keys are still existing. In practical terms, an HTML fragments cache that uses slaves to scale will avoid returning items that are already older than the desired time to live.
-3. During Lua scripts executions no keys expires are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys to expire in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
+1. Slaves don't expire keys, instead they wait for masters to expire the keys. When a master expires a key (or evict it because of LRU), it executes a `DEL` command which is transmitted to all the slaves.
+2. Sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In this scenario, the slave uses its logical clock to report that a key does not exist **only for read operations** which won't violate the consistency of the data set (as new commands from the master will arrive). Slaves thus can avoid reporting logically expired keys as still existing. In practical terms, an HTML fragments cache that uses slaves to scale will not return items that are already older than the desired time to live.
+3. During Lua script executions, no key expires are performed. As a Lua script runs, the time in the master is conceptually frozen such that a given key will either exist or not for all the time the script runs. This prevents keys from expiring in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
 
-Once a slave is promoted to a master it will start to expire keys independently, and will not require any help from its old master.
+Once a slave is promoted to a master, it will start to expire keys independently and will not require any help from its old master.
 
 Configuring replication in Docker and NAT
 ---
