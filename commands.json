@@ -1517,7 +1517,7 @@
     "group": "list"
   },
   "LPUSHX": {
-    "summary": "Prepend a value to a list, only if the list exists",
+    "summary": "Prepend one or multiple values to a list, only if the list exists",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -1526,7 +1526,8 @@
       },
       {
         "name": "value",
-        "type": "string"
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "2.2.0",
@@ -2133,7 +2134,7 @@
     "group": "list"
   },
   "RPUSHX": {
-    "summary": "Append a value to a list, only if the list exists",
+    "summary": "Append one or multiple values to a list, only if the list exists",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -2142,7 +2143,8 @@
       },
       {
         "name": "value",
-        "type": "string"
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "2.2.0",

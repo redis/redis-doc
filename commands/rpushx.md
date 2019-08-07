@@ -1,5 +1,5 @@
-Inserts `value` at the tail of the list stored at `key`, only if `key` already
-exists and holds a list.
+Inserts specified values at the tail of the list stored at `key`, only if `key`
+already exists and holds a list.
 In contrary to `RPUSH`, no operation will be performed when `key` does not yet
 exist.
 
