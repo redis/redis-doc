@@ -1501,7 +1501,7 @@
   },
   "LPUSH": {
     "summary": "Prepend one or multiple values to a list",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of elements being pushed.",
     "arguments": [
       {
         "name": "key",
@@ -1518,7 +1518,7 @@
   },
   "LPUSHX": {
     "summary": "Prepend one or multiple values to a list, only if the list exists",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of elements being pushed.",
     "arguments": [
       {
         "name": "key",
@@ -2118,7 +2118,7 @@
   },
   "RPUSH": {
     "summary": "Append one or multiple values to a list",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of elements being pushed.",
     "arguments": [
       {
         "name": "key",
@@ -2135,7 +2135,7 @@
   },
   "RPUSHX": {
     "summary": "Append one or multiple values to a list, only if the list exists",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of elements being pushed.",
     "arguments": [
       {
         "name": "key",
