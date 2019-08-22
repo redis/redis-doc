@@ -1314,5 +1314,14 @@
     "description": "Redis class for mruby based on Hiredis",
     "authors": ["matsumotory"],
     "active": true
+  },
+    {
+    "name": "libredis-client",
+    "language": "C++",
+    "url": "http://libredis-client.0xsky.com/",
+    "repository": "https://github.com/0xsky/libredis-client",
+    "description": "Redis C++ client, suppert redis cluster, requires hiredis only",
+    "authors": ["0xsky"],
+    "active": true
   }
 ]
