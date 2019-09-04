@@ -6,7 +6,8 @@ The `count` argument is available since version 3.2.
 
 @return
 
-@bulk-string-reply: the removed element, or `nil` when `key` does not exist.
+@bulk-string-reply: without the additional `count` argument the command returns a Bulk Reply with the randomly selected element, or `nil` when `key` does not exist.
+@array-reply: when the additional `count` argument is passed the command returns an array of elements, or an empty array when `key` does not exist.
 
 @examples
 
