@@ -140,7 +140,7 @@
     "name": "ReDe",
     "license": "MIT",
     "repository": "https://github.com/TamarLabs/ReDe",
-    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+    "description": "Low Latency timed queues (Dehydrators) as Redis data types.",
     "authors": [
       "daTokenizer"
     ],

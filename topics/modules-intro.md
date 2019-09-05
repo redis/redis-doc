@@ -684,7 +684,7 @@ or head, using the following macros:
     REDISMODULE_LIST_HEAD
     REDISMODULE_LIST_TAIL
 
-Elements returned by `RedisModule_ListPop()` are like strings craeted with
+Elements returned by `RedisModule_ListPop()` are like strings created with
 `RedisModule_CreateString()`, they must be released with
 `RedisModule_FreeString()` or by enabling automatic memory management.
 

@@ -19,7 +19,7 @@ that can be used in order to model blocking commands.
 NOTE: This API si currently *experimental*, so it can only be used if
 the macro `REDISMODULE_EXPERIMENTAL_API` is defined. This is required because
 these calls are still not in their final stage of design, so may change
-in the future, certain parts may be reprecated and so forth.
+in the future, certain parts may be deprecated and so forth.
 
 To use this part of the modules API include the modules header like that:
 
@@ -97,7 +97,7 @@ int his command, in order to take the example simple.
         RedisModule_UnblockClient(bc,NULL);
     }
 
-The above command blocks the client ASAP, spawining a thread that will
+The above command blocks the client ASAP, spawning a thread that will
 wait a second and will unblock the client. Let's check the reply and
 timeout callbacks, which are in our case very similar, since they
 just reply the client with a different reply type.
@@ -148,7 +148,7 @@ caller. In order to make this working, we modify the functions as follow:
 As you can see, now the unblocking call is passing some private data,
 that is the `mynumber` pointer, to the reply callback. In order to
 obtain this private data, the reply callback will use the following
-fnuction:
+function:
 
     void *RedisModule_GetBlockedClientPrivateData(RedisModuleCtx *ctx);
 
