@@ -392,10 +392,46 @@ you should use in order to generate Redis passwords.
 
 ## Using an external ACL file
 
+There are two ways in order to store users inside the Redis configuration.
+
+    1. Users can be specified directly inside the `redis.conf` file.
+    2. It is possible to specify an external ACL file.
+
+The two methods are *mutually incompatible*, Redis will ask you to use one
+or the other. To specify useres inside `redis.conf` is a very simple way
+good for simple use cases. When there are multiple users to define, in a
+complex environment, we strongly suggest you to use the ACL file.
+
+The format used inside `redis.conf` and in the external ACL file is exactly
+the same, so it is trivial to switch from one to the other, and is
+the following:
+
+    user <username> ... acl rules ...
+
+For instance:
+
+    user worker +@list +@connection ~jobs:* on >ffa9203c493aa99
+
+When you want to use an external ACL file, you are required to specify
+the configuration directive called `aclfile`, like this:
+
+    aclfile /etc/redis/users.acl
+
+When you are just specifying a few users directly inside the `redis.conf`
+file, you can use `CONFIG REWRITE` in order to store the new user configuration
+inside the file by rewriting it.
+
+The external ACL file however is more powerful. You can do the following:
+
+    * Use `ACL LOAD` if you modified the ACL file manually and you want Redis to reload the new configuration. Note that this command is able to load the file *only if all the users are correctly specified*, otherwise an error is reported to the user, and the old configuration will remain valid.
+    * USE `ACL SAVE` in order to save the current ACL configuration to the ACL file.
+
+Note that `CONFIG REWRITE` does not also trigger `ACL SAVE`: when you use
+an ACL file the configuration and the ACLs are handled separately.
+
 ## TODO list for this document
 
 * Make sure to specify that modules commands are ignored when adding/removing categories.
 * Document cost of keys matching with some benchmark.
 * Document how +@all also includes module commands and every future command.
-* Document how ACL SAVE is not included in CONFIG REWRITE.
 * Document backward compatibility with requirepass and single argument AUTH.
