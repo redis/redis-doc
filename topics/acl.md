@@ -185,7 +185,7 @@ computers to read, while `ACL LIST` is more biased towards humans.
     1) "flags"
     2) 1) "on"
     3) "passwords"
-    4) 1) "p1pp0"
+    4) 1) "2d9c75..."
     5) "commands"
     6) "-@all +get"
     7) "keys"
@@ -195,7 +195,7 @@ The `ACL GETUSER` returns a field-value array describing the user in more parsab
 
     > ACL GETUSER alice
     1# "flags" => 1~ "on"
-    2# "passwords" => 1) "p1pp0"
+    2# "passwords" => 1) "2d9c75..."
     3# "commands" => "-@all +get"
     4# "keys" => 1) "cached:*"
 
@@ -206,7 +206,7 @@ Using another `ACL SETUSER` command (from a different user, because alice cannot
     > ACL SETUSER alice ~objects:* ~items:* ~public:*
     OK
     > ACL LIST
-    1) "user alice on >p1pp0 ~cached:* ~objects:* ~items:* ~public:* -@all +get"
+    1) "user alice on >2d9c75... ~cached:* ~objects:* ~items:* ~public:* -@all +get"
     2) "user default on nopass ~* +@all"
 
 The user representation in memory is now as we expect it to be.
@@ -239,7 +239,7 @@ Will result into myuser to be able to call both `GET` and `SET`:
 Setting users ACLs by specifying all the commands one after the other is
 really annoying, so instead we do things like that:
 
-    > ACL SETUSER antirez on +@all -@dangerous >somepassword ~*
+    > ACL SETUSER antirez on +@all -@dangerous >42a979... ~*
 
 By saying +@all and -@dangerous we included all the commands and later removed
 all the commands that are tagged as dangerous inside the Redis command table.
@@ -339,6 +339,56 @@ other commands are called.
 
 In the previous section it was observed how it is possible to define commands
 ACLs based on adding/removing single commands.
+
+## How passwords are stored internally
+
+Redis internally stores passwords hashed with SHA256, if you set a password
+and check the output of `ACL LIST` or `GETUSER` you'll see a long hex
+string that looks pseudo random. Here is an example, because in the previous
+examples, for the sake of brevity, the long hex string was trimmed:
+
+    > ACL GETUSER default
+    1) "flags"
+    2) 1) "on"
+       2) "allkeys"
+       3) "allcommands"
+    3) "passwords"
+    4) 1) "2d9c75273d72b32df726fb545c8a4edc719f0a95a6fd993950b10c474ad9c927"
+    5) "commands"
+    6) "+@all"
+    7) "keys"
+    8) 1) "*"
+
+Also the old command `CONFIG GET requirepass` will, starting with Redis 6,
+no longer return the clear text password, but instead the hashed password.
+
+Using SHA256 provides the ability to avoid storing the password in clear text
+while still allowing for a very fast `AUTH` command, which is a very important
+feature of Redis and is coherent with what clients expect from Redis.
+
+However ACL *passwords* are not really passwords: they are shared secrets
+between the server and the client, because in that case the password is
+not an authentication token used by a human being. For instance:
+
+    * There are no length limits, the password will just be memorized in some client software, there is no human that need to recall a password in this context.
+    * The ACL password does not protect any other thing: it will never be, for instance, the password for some email account.
+    * Often when you are able to access the hashed password itself, by having full access to the Redis commands of a given server, or corrupting the system itself, you have already access to what such password is protecting: the Redis instance stability and the data it contains.
+
+For this reason to slowdown the password authentication in order to use an
+algorithm that uses time and space, in order to make password cracking hard,
+is a very poor choice. What we suggest instead is to generate very strong
+password, so that even having the hash nobody will be able to crack it using a
+dictionary nor a brute force attack. For this reason there is a special ACL
+command that generates passwords using the system cryptographic pseudorandom
+generator:
+
+    > ACL GENPASS
+    "0e8ad12c1962355a3eb35e0ca686343b"
+
+The command outputs a 16 bytes (128 bit) pseudorandom string converted to a
+32 byte alphanumerical string. This is long enough to avoid attacks and short
+enough to be easy to manage, cut & paste, store and so forth. This is what
+you should use in order to generate Redis passwords.
 
 ## Using an external ACL file
 
