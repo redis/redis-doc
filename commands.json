@@ -3509,7 +3509,7 @@
       {
         "name": "ID",
         "type": "string",
-        "multiple": "true"
+        "multiple": true
       }
     ],
     "since": "5.0.0",
