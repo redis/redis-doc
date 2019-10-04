@@ -1707,6 +1707,12 @@
         "optional": true
       },
       {
+        "command": "AUTH",
+        "name": "password",
+        "type": "string",
+        "optional": true
+      },
+      {
         "name": "key",
         "command": "KEYS",
         "type": "key",
@@ -3503,7 +3509,7 @@
       {
         "name": "ID",
         "type": "string",
-        "multiple": "true"
+        "multiple": true
       }
     ],
     "since": "5.0.0",
