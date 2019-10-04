@@ -3463,8 +3463,8 @@
         "type": "string"
       },
       {
-        "name": ["field", "string"],
-        "type": ["value", "string"],
+        "name": ["field", "value"],
+        "type": ["string", "string"],
         "multiple": true
       }
     ],
