@@ -287,7 +287,9 @@ This is the full list of format specifiers:
 * **s** -- RedisModuleString as received in `argv` or by other Redis module APIs returning a RedisModuleString object.
 * **l** -- Long long integer.
 * **v** -- Array of RedisModuleString objects.
-* **!** -- This modifier just tells the function to replicate the command to slaves and AOF. It is ignored from the point of view of arguments parsing.
+* **!** -- This modifier just tells the function to replicate the command to replicas and AOF. It is ignored from the point of view of arguments parsing.
+* **A** -- This modifier, when `!` is given, tells to suppress AOF propagation: the command will be propagated only to replicas.
+* **R** -- This modifier, when `!` is given, tells to suppress replicas propagation: the command will be propagated only to the AOF if enabled.
 
 The function returns a `RedisModuleCallReply` object on success, on
 error NULL is returned.
