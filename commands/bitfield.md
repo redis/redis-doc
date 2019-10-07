@@ -2,7 +2,7 @@ The command treats a Redis string as a array of bits, and is capable of addressi
 
 `BITFIELD` is able to operate with multiple bit fields in the same command call. It takes a list of operations to perform, and returns an array of replies, where each array matches the corresponding operation in the list of arguments.
 
-For example the following command increments an 8 bit signed integer at bit offset 100, and gets the value of the 4 bit unsigned integer at bit offset 0:
+For example the following command increments an 5 bit signed integer at bit offset 100, and gets the value of the 4 bit unsigned integer at bit offset 0:
 
     > BITFIELD mykey INCRBY i5 100 1 GET u4 0
     1) (integer) 1
