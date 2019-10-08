@@ -18,12 +18,12 @@ LOLWUT wants to be a reminder that there is more in programming than just
 putting some code together in order to create something useful. Every
 LOLWUT version should have the following properties:
 
-1. It should display some computer art. There are no limits as long the output works well in a normal terminal display. However the output should not be limited to graphics (like LOLWUT 5 and 6 actually do), but can be even generative poetry and other things.
+1. It should display some computer art. There are no limits as long as the output works well in a normal terminal display. However the output should not be limited to graphics (like LOLWUT 5 and 6 actually do), but can be generative poetry and other non graphical things.
 2. LOLWUT output should be completely useless. Displaying some useful Redis internal metrics does not count as a valid LOLWUT.
 3. LOLWUT output should be fast to generate so that the command can be called in production instances without issues. It should remain fast even when the user experiments with odd parameters.
 4. LOLWUT implementations should be safe and carefully checked for security, and resist to untrusted inputs if they take arguments.
-5. LOLWUT must always dispaly the Redis version at the end.
+5. LOLWUT must always display the Redis version at the end.
 
 @return
 
-@bulk-string-reply (or verbatim reply if using the RESP3 protocol): the string containing the generative computer art, and a text with the Redis version.
+@bulk-string-reply (or verbatim reply when using the RESP3 protocol): the string containing the generative computer art, and a text with the Redis version.
