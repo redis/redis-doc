@@ -361,6 +361,16 @@
   },
 
   {
+    "name": "Redis::ClusterRider",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/Redis-ClusterRider/",
+    "repository": " https://github.com/iph0/Redis-ClusterRider",
+    "description": "Daring Redis Cluster client",
+    "authors": ["iph0"],
+    "active": true
+  },
+
+  {
     "name": "AnyEvent::Hiredis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
