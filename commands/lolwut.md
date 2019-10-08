@@ -7,7 +7,7 @@ By default the `LOLWUT` command will display the piece corresponding to the
 current Redis version, however it is possible to display a specific version
 using the following form:
 
-    LOLWUT VERSION 5 ... optional other arguments ...
+    LOLWUT VERSION 5 ... other optional arguments ...
 
 Of course the "5" above is an example. Each LOLWUT version takes a different
 set of arguments in order to change the output. The user is encouraged to
