@@ -1417,6 +1417,19 @@
     "since": "1.0.0",
     "group": "server"
   },
+  "LOLWUT": {
+    "summary": "Display some computer art and the Redis version",
+    "arguments": [
+      {
+        "command": "VERSION",
+        "name": "version",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "server"
+  },
   "KEYS": {
     "summary": "Find all keys matching the given pattern",
     "complexity": "O(N) with N being the number of keys in the database, under the assumption that the key names in the database and the given pattern have limited length.",
