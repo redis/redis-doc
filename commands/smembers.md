@@ -4,7 +4,7 @@ This has the same effect as running `SINTER` with one argument `key`.
 
 @return
 
-@array-reply: all elements of the set.
+@array-reply: all members of the set.
 
 @examples
 

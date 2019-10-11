@@ -5,7 +5,7 @@ If `destination` already exists, it is overwritten.
 
 @return
 
-@integer-reply: the number of elements in the resulting set.
+@integer-reply: the number of members in the resulting set.
 
 @examples
 
