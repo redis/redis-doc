@@ -1591,5 +1591,6 @@
     "description": "Lightweight Python utilities for working with Redis.",
     "authors": [],
     "recommended": true,
+    "active": true
   }
 ]
