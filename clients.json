@@ -1565,6 +1565,7 @@
     "authors": ["kemtekinay"],
     "active": true
   },
+<<<<<<< HEAD
 
   {
     "name": "guile-redis",
@@ -1575,6 +1576,8 @@
     "active": true
   },
 
+=======
+>>>>>>> 2be0c1d62986bcf47c4f16e1be955038dff06e3a
   {
     "name": "dartis",
     "language": "Dart",
@@ -1583,5 +1586,8 @@
     "authors": [],
     "active": true
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2be0c1d62986bcf47c4f16e1be955038dff06e3a
 ]
