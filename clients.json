@@ -1582,6 +1582,14 @@
     "description": "A Redis client for Dart 2",
     "authors": [],
     "active": true
-  }
+  },
 
+  {
+    "name": "walrus",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/walrus",
+    "description": "Lightweight Python utilities for working with Redis.",
+    "authors": [],
+    "recommended": true,
+  }
 ]
