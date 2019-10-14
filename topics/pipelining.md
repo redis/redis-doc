@@ -78,7 +78,7 @@ initially increases almost linearly with longer pipelines, and eventually
 reaches 10 times the baseline obtained not using pipelining, as you can
 see from the following graph:
 
-![Pipeline size and IOPs](http://redis.io/images/redisdoc/pipeline_iops.png)
+![Pipeline size and IOPs](https://redis.io/images/redisdoc/pipeline_iops.png)
 
 Some real world code example
 ---
