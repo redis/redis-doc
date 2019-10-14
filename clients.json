@@ -1564,6 +1564,15 @@
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  }
+
+  {
+    "name": "walrus",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/walrus",
+    "description": "Lightweight Python utilities for working with Redis.",
+    "authors": [],
+    "recommended": true,
   },
 
   {
