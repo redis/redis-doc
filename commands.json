@@ -2302,7 +2302,7 @@
         "type": "string"
       },
       {
-        "command": "expiration",
+        "name": "expiration",
         "type": "enum",
         "enum": ["EX seconds", "PX milliseconds"],
         "optional": true
