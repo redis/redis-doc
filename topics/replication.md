@@ -55,7 +55,7 @@ is wiped from the master and all its slaves:
 3. Nodes B and C will replicate from node A, which is empty, so they'll effectively destroy their copy of the data.
 
 When Redis Sentinel is used for high availability, also turning off persistence
-on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to don't detect a failure, so that the failure mode described above happens.
+on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to not detect a failure, so that the failure mode described above happens.
 
 Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
 
