@@ -270,7 +270,7 @@ number "10" as second argument (the increment), I'll use the following
 function call:
 
     RedisModuleCallReply *reply;
-    reply = RedisModule_Call(ctx,"INCR","sc",argv[1],"10");
+    reply = RedisModule_Call(ctx,"INCRBY","sc",argv[1],"10");
 
 The first argument is the context, and the second is always a null terminated
 C string with the command name. The third argument is the format specifier
@@ -308,7 +308,7 @@ In order to obtain the type or reply (corresponding to one of the data types
 supported by the Redis protocol), the function `RedisModule_CallReplyType()`
 is used:
 
-    reply = RedisModule_Call(ctx,"INCR","sc",argv[1],"10");
+    reply = RedisModule_Call(ctx,"INCRBY","sc",argv[1],"10");
     if (RedisModule_CallReplyType(reply) == REDISMODULE_REPLY_INTEGER) {
         long long myval = RedisModule_CallReplyInteger(reply);
         /* Do something with myval. */
@@ -451,8 +451,8 @@ with a special argument to `RedisModule_ReplyWithArray()`:
     RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_ARRAY_LEN);
 
 The above call starts an array reply so we can use other `ReplyWith` calls
-in order to produce the array items. Finally in order to set the length
-se use the following call:
+in order to produce the array items. Finally in order to set the length, 
+use the following call:
 
     RedisModule_ReplySetArrayLength(ctx, number_of_items);
 
@@ -739,7 +739,7 @@ When using the higher level APIs to invoke commands, replication happens
 automatically if you use the "!" modifier in the format string of
 `RedisModule_Call()` as in the following example:
 
-    reply = RedisModule_Call(ctx,"INCR","!sc",argv[1],"10");
+    reply = RedisModule_Call(ctx,"INCRBY","!sc",argv[1],"10");
 
 As you can see the format specifier is `"!sc"`. The bang is not parsed as a
 format specifier, but it internally flags the command as "must replicate".
