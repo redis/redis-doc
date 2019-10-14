@@ -14,14 +14,14 @@ high performance, is the natural replication mode for the vast majority of Redis
 use cases. However Redis slaves asynchronously acknowledge the amount of data
 they received periodically with the master. So the master does not wait every time
 for a command to be processed by the slaves, however it knows, if needed, what
-slave already processed what command. This allows to have optional syncrhonous replication.
+slave already processed what command. This allows to have optional synchronous replication.
 
 Synchronous replication of certain data can be requested by the clients using
 the `WAIT` command. However `WAIT` is only able to ensure that there are the
 specified number of acknowledged copies in the other Redis instances, it does not
 turn a set of Redis instances into a CP system with strong consistency: acknowledged
 writes can still be lost during a failover, depending on the exact configuration
-of the Redis persistence. However with `WAIT` the probability of losign a write
+of the Redis persistence. However with `WAIT` the probability of losing a write
 after a failure event is greatly reduced to certain hard to trigger failure
 modes.
 
@@ -55,7 +55,7 @@ is wiped from the master and all its slaves:
 3. Nodes B and C will replicate from node A, which is empty, so they'll effectively destroy their copy of the data.
 
 When Redis Sentinel is used for high availability, also turning off persistence
-on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to don't detect a failure, so that the failure mode described above happens.
+on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to not detect a failure, so that the failure mode described above happens.
 
 Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
 
@@ -120,7 +120,7 @@ that are promoted to masters. After a failover, the promoted slave requires
 to still remember what was its past replication ID, because such replication ID
 was the one of the former master. In this way, when other slaves will synchronize
 with the new master, they will try to perform a partial resynchronization using the
-old master replication ID. This will work as expected, becuase when the slave
+old master replication ID. This will work as expected, because when the slave
 is promoted to master it sets its secondary ID to its main ID, remembering what
 was the offset when this ID switch happend. Later it will select a new random
 replication ID, because a new history begins. When handling the new slaves

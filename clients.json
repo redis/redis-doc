@@ -361,6 +361,16 @@
   },
 
   {
+    "name": "Redis::ClusterRider",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/Redis-ClusterRider/",
+    "repository": " https://github.com/iph0/Redis-ClusterRider",
+    "description": "Daring Redis Cluster client",
+    "authors": ["iph0"],
+    "active": true
+  },
+
+  {
     "name": "AnyEvent::Hiredis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
@@ -1547,23 +1557,40 @@
     "active": true
   },
   
-    {
+  {
     "name": "Redis_MTC",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
-  },
-  
+  }
+
   {
     "name": "walrus",
     "language": "Python",
     "repository": "https://github.com/coleifer/walrus",
     "description": "Lightweight Python utilities for working with Redis.",
     "authors": [],
-    "recommended": false,
+    "recommended": true,
+  },
+
+  {
+    "name": "guile-redis",
+    "language": "Scheme",
+    "repository": "https://github.com/aconchillo/guile-redis",
+    "description": "A Redis client for Guile",
+    "authors": ["aconchillo"],
+    "active": true
+  },
+
+  {
+    "name": "dartis",
+    "language": "Dart",
+    "repository": "https://github.com/jcmellado/dartis",
+    "description": "A Redis client for Dart 2",
+    "authors": [],
     "active": true
   }
-  
+
 ]

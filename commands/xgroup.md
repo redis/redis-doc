@@ -27,7 +27,7 @@ limits to the number of consumer groups you can associate to a given stream.
 
 A consumer can be destroyed completely by using the following form:
 
-    XGROUP DESTROY mystream some-consumer-group
+    XGROUP DESTROY mystream consumer-group-name
 
 The consumer group will be destroyed even if there are active consumers
 and pending messages, so make sure to call this command only when really
@@ -36,7 +36,7 @@ needed.
 To just remove a given consumer from a consumer group, the following
 form is used:
 
-    XGROUP DELCONSUMER mystream consumergrouo myconsumer123
+    XGROUP DELCONSUMER mystream consumer-group-name myconsumer123
 
 Consumers in a consumer group are auto-created every time a new consumer
 name is mentioned by some command. However sometimes it may be useful to
@@ -51,7 +51,7 @@ group again. For instance if you want the consumers in a consumer group
 to re-process all the messages in a stream, you may want to set its next
 ID to 0:
 
-    XGROUP SETID mystream my-consumer-group 0
+    XGROUP SETID mystream consumer-group-name 0
 
 Finally to get some help if you don't remember the syntax, use the
 HELP subcommand:

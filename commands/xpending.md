@@ -20,10 +20,11 @@ explained in the [streams intro](/topics/streams-intro) and in the
 
 ## Summary form of XPENDING
 
-When `XPENDING` is called with just a key name and a consumer name, it
-just outputs a summary about the pending messages in a given consumer
-group. In the following example, we create a consumed group and immediately
-create a pending message by reading from the group with `XREADGROUP`.
+When `XPENDING` is called with just a key name and a consumer group
+name, it just outputs a summary about the pending messages in a given
+consumer group. In the following example, we create a consumed group and
+immediatelycreate a pending message by reading from the group with
+`XREADGROUP`.
 
 ```
 > XGROUP CREATE mystream group55 0-0
