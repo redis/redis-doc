@@ -190,14 +190,13 @@
     "name": "rediSQL",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedBeardLab/rediSQL",
-    "description": "A redis module that provide full SQL capabilities embedding SQLite",
+    "description": "A redis module that provides a full SQL capabilities embedding SQLite",
     "authors": [
       "siscia",
       "RedBeardLab"
     ],
     "stars": 613
   },
-
   {
     "name": "redis-rating",
     "license" : "MIT",
@@ -206,7 +205,18 @@
     "authors": ["devpoga"],
     "stars": 14
   },
-  
+
+  {
+    "name": "smartcache",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/fcerbell/redismodule-smartcache",
+    "description": "A redis module that provides a pass-through cache",
+    "authors": [
+      "fcerbelle"
+    ],
+    "stars": 2
+  },
+    
   {
     "name": "RedisPushIptables",
     "license": "GPL-3.0",
