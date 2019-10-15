@@ -635,6 +635,13 @@
     "authors": ["anandtrex"]
   },
   {
+    "name": "p3x-redis-ui",
+    "language": "javascript",
+    "repository": "https://github.com/patrikx3/p3x-redis-ui",
+    "description": "📡 P3X Redis UI that uses Socket.IO, AngularJs Material and IORedis with statistics, console - terminal, tree, dark mode, internationalization, multiple connections, web and desktop by Electron. Works as an app without Node.JS GUI or with the latest Node.Js version. Can test it at https://p3x.redis.patrikx3.com/.",
+    "authors": ["patrikx3", "p3x-robot"]
+  },
+  {
     "name": "Redis Server",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis",
@@ -642,4 +649,5 @@
     "url":"https://github.com/ktekinay/XOJO-Redis/releases/",
     "authors": ["KemTekinay"]
   }
+
 ]
