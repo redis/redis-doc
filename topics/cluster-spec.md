@@ -26,10 +26,10 @@ Implemented subset
 Redis Cluster implements all the single key commands available in the
 non-distributed version of Redis. Commands performing complex multi-key
 operations like Set type unions or intersections are implemented as well
-as long as the keys all belong to the same node.
+as long as the keys all hash to the same slot.
 
-Redis Cluster implements a concept called **hash tags** that can be used
-in order to force certain keys to be stored in the same node. However during
+Redis Cluster implements a concept called **hash tags** that can be used in
+order to force certain keys to be stored in the same hash slot. However during
 manual reshardings, multi-key operations may become unavailable for some time
 while single key operations are always available.
 
@@ -629,9 +629,9 @@ For example the following operation is valid:
 Multi-key operations may become unavailable when a resharding of the
 hash slot the keys belong to is in progress.
 
-More specifically, even during a resharding the multi-key operations
-targeting keys that all exist and are all still in the same node (either
-the source or destination node) are still available.
+More specifically, even during a resharding the multi-key operations targeting
+keys that all exist and all still hash to the same slot (either the source or
+destination node) are still available.
 
 Operations on keys that don't exist or are - during the resharding - split
 between the source and destination nodes, will generate a `-TRYAGAIN` error.

@@ -16,7 +16,7 @@ Without consumer groups, just using `XREAD`, all the clients are served with all
 
 Within a consumer group, a given consumer (that is, just a client consuming messages from the stream), has to identify with an unique *consumer name*. Which is just a string.
 
-One of the guarantees of consumer groups is that a given consumer can only see the history of messages that were delivered to it, so a message has just a single owner. However there is a special feature called *message claiming* that allows other consumers to claim messages in case there is a non recoverable failure of some consumer. In order to implement such semantics, consumer groups require explicit acknowledged of the messages successfully processed by the consumer, via the `XACK` command. This is needed because the stream will track, for each consumer group, who is processing what message.
+One of the guarantees of consumer groups is that a given consumer can only see the history of messages that were delivered to it, so a message has just a single owner. However there is a special feature called *message claiming* that allows other consumers to claim messages in case there is a non recoverable failure of some consumer. In order to implement such semantics, consumer groups require explicit acknowledgement of the messages successfully processed by the consumer, via the `XACK` command. This is needed because the stream will track, for each consumer group, who is processing what message.
 
 This is how to understand if you want to use a consumer group or not:
 
@@ -44,6 +44,10 @@ a list of message IDs delivered but not yet acknowledged.
 The client will have to acknowledge the message processing using `XACK`
 in order for the pending entry to be removed from the PEL. The PEL
 can be inspected using the `XPENDING` command.
+
+The `NOACK` subcommand can be used to avoid adding the message to the PEL in
+cases where reliability is not a requirement and the occasional message loss
+is acceptable. This is equivalent to acknowledging the message when it is read.
 
 The ID to specify in the **STREAMS** option when using `XREADGROUP` can
 be one of the following two:
