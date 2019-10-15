@@ -31,7 +31,7 @@ some nodes fail or are not able to communicate. However the cluster stops
 to operate in the event of larger failures (for example when the majority of
 masters are unavailable).
 
-So in practical terms, what you get with Redis Cluster?
+So in practical terms, what do you get with Redis Cluster?
 
 * The ability to **automatically split your dataset among multiple nodes**.
 * The ability to **continue operations when a subset of the nodes are experiencing failures** or are unable to communicate with the rest of the cluster.
@@ -218,7 +218,7 @@ let's introduce the configuration parameters that Redis Cluster introduces
 in the `redis.conf` file. Some will be obvious, others will be more clear
 as you continue reading.
 
-* **cluster-enabled `<yes/no>`**: If yes enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a stand alone instance as usually.
+* **cluster-enabled `<yes/no>`**: If yes enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a stand alone instance as usual.
 * **cluster-config-file `<filename>`**: Note that despite the name of this option, this is not an user editable configuration file, but the file where a Redis Cluster node automatically persists the cluster configuration (the state, basically) every time there is a change, in order to be able to re-read it at startup. The file lists things like the other nodes in the cluster, their state, persistent variables, and so forth. Often this file is rewritten and flushed on disk as a result of some message reception.
 * **cluster-node-timeout `<milliseconds>`**: The maximum amount of time a Redis Cluster node can be unavailable, without it being considered as failing. If a master node is not reachable for more than the specified amount of time, it will be failed over by its slaves. This parameter controls other important things in Redis Cluster. Notably, every node that can't reach the majority of master nodes for the specified amount of time, will stop accepting queries.
 * **cluster-slave-validity-factor `<factor>`**: If set to zero, a slave will always try to failover a master, regardless of the amount of time the link between the master and the slave remained disconnected. If the value is positive, a maximum disconnection time is calculated as the *node timeout* value multiplied by the factor provided with this option, and if the node is a slave, it will not try to start a failover if the master link was disconnected for more than the specified amount of time. For example if the node timeout is set to 5 seconds, and the validity factor is set to 10, a slave disconnected from the master for more than 50 seconds will not try to failover its master. Note that any value different than zero may result in Redis Cluster to be unavailable after a master failure if there is no slave able to failover it. In that case the cluster will return back available only when the original master rejoins the cluster.
@@ -300,16 +300,24 @@ Creating the cluster
 Now that we have a number of instances running, we need to create our
 cluster by writing some meaningful configuration to the nodes.
 
-This is very easy to accomplish as we are helped by the Redis Cluster
-command line utility embedded into `redis-cli`, that can be used to create new clusters,
-check or reshard an existing cluster, and so forth.
+If you are using Redis 5, this is very easy to accomplish as we are helped by the Redis Cluster command line utility embedded into `redis-cli`, that can be used to create new clusters, check or reshard an existing cluster, and so forth.
 
+For Redis version 3 or 4, there is the older tool called `redis-trib.rb` which is very similar. You can find it in the `src` directory of the Redis source code distribution. You need to install `redis` gem to be able to run `redis-trib`.
 
- To create your cluster simply type:
+    gem install redis
+
+The first example, that is, the cluster creation, will be shown using both `redis-cli` in Redis 5 and `redis-trib` in Redis 3 and 4. However all the next examples will only use `redis-cli`, since as you can see the syntax is very similar, and you can trivially change one command line into the other by using `redis-trib.rb help` to get info about the old syntax. **Important:** note that you can use Redis 5 `redis-cli` against Redis 4 clusters without issues if you wish.
+
+To create your cluster for Redis 5 with `redis-cli` simply type:
 
     redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 \
     127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 \
     --cluster-replicas 1
+
+Using `redis-trib.rb` for Redis 4 or 3 type:
+
+    ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
+    127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
 
 The command used here is **create**, since we want to create a new cluster.
 The option `--cluster-replicas 1` means that we want a slave for every master created.
@@ -589,7 +597,7 @@ the following command:
 
     redis-cli --cluster check 127.0.0.1:7000
 
-All the slots will be covered as usually, but this time the master at
+All the slots will be covered as usual, but this time the master at
 127.0.0.1:7000 will have more hash slots, something around 6461.
 
 Scripting a resharding operation
@@ -812,7 +820,7 @@ do in order to conform with the setup we used for the previous nodes:
 
 At this point the server should be running.
 
-Now we can use **redis-cli** as usually in order to add the node to
+Now we can use **redis-cli** as usual in order to add the node to
 the existing cluster.
 
     redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000
