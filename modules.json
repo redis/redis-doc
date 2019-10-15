@@ -204,6 +204,16 @@
     "repository": "https://github.com/poga/redis-rating",
     "description": "Estimate actual rating from postive/negative ratings",
     "authors": ["devpoga"],
-    "stars": 14
+    "stars": 563
+  },
+  {
+    "name": "redis-fpn",
+    "license": "Apache 2.0",
+    "repository": "https://github.com/infobip/redis-fpn",
+    "description": "Redis module for Fixed Point Number data type",
+    "authors": [
+      "xxlabaza"
+    ],
+    "stars": 7
   }
 ]
