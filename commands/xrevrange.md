@@ -7,12 +7,12 @@ between (or exactly like) the two IDs, starting from the *end* side.
 So for instance, to get all the elements from the higher ID to the lower
 ID one could use:
 
-    XREVRANGE + -
+    XREVRANGE somestream + -
 
 Similarly to get just the last element added into the stream it is
 enough to send:
 
-    XREVRANGE + - COUNT 1
+    XREVRANGE somestream + - COUNT 1
 
 ## Iterating with XREVRANGE
 

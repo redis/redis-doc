@@ -263,8 +263,8 @@ The above RESP data type encodes a two elements Array consisting of an Array tha
 Null elements in Arrays
 -----------------------
 
-Single elements of an Array may be Null. This is used in Redis replies  in
-order to signal that this elements are missing and not empty strings. This
+Single elements of an Array may be Null. This is used in Redis replies in
+order to signal that the element is missing and not an empty string. This
 can happen with the SORT command when used with the GET _pattern_ option
 when the specified key is missing. Example of an Array reply containing a
 Null element:
@@ -281,7 +281,7 @@ like this:
 
     ["foo",nil,"bar"]
 
-Note that this is not an exception to what said in the previous sections, but
+Note that this is not an exception to what was said in the previous sections, but
 just an example to further specify the protocol.
 
 Sending commands to a Redis Server

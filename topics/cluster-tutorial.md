@@ -155,7 +155,7 @@ happens:
 * The master B replies OK to your client.
 * The master B propagates the write to its slaves B1, B2 and B3.
 
-As you can see B does not wait for an acknowledge from B1, B2, B3 before
+As you can see, B does not wait for an acknowledgement from B1, B2, B3 before
 replying to the client, since this would be a prohibitive latency penalty
 for Redis, so if your client writes something, B acknowledges the write,
 but crashes before being able to send the write to its slaves, one of the
@@ -300,16 +300,24 @@ Creating the cluster
 Now that we have a number of instances running, we need to create our
 cluster by writing some meaningful configuration to the nodes.
 
-This is very easy to accomplish as we are helped by the Redis Cluster
-command line utility embedded into `redis-cli`, that can be used to create new clusters,
-check or reshard an existing cluster, and so forth.
+If you are using Redis 5, this is very easy to accomplish as we are helped by the Redis Cluster command line utility embedded into `redis-cli`, that can be used to create new clusters, check or reshard an existing cluster, and so forth.
 
+For Redis version 3 or 4, there is the older tool called `redis-trib.rb` which is very similar. You can find it in the `src` directory of the Redis source code distribution. You need to install `redis` gem to be able to run `redis-trib`.
 
- To create your cluster simply type:
+    gem install redis
+
+The first example, that is, the cluster creation, will be shown using both `redis-cli` in Redis 5 and `redis-trib` in Redis 3 and 4. However all the next examples will only use `redis-cli`, since as you can see the syntax is very similar, and you can trivially change one command line into the other by using `redis-trib.rb help` to get info about the old syntax. **Important:** note that you can use Redis 5 `redis-cli` against Redis 4 clusters without issues if you wish.
+
+To create your cluster for Redis 5 with `redis-cli` simply type:
 
     redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 \
     127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 \
     --cluster-replicas 1
+
+Using `redis-trib.rb` for Redis 4 or 3 type:
+
+    ./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
+    127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
 
 The command used here is **create**, since we want to create a new cluster.
 The option `--cluster-replicas 1` means that we want a slave for every master created.
@@ -589,7 +597,7 @@ the following command:
 
     redis-cli --cluster check 127.0.0.1:7000
 
-All the slots will be covered as usually, but this time the master at
+All the slots will be covered as usual, but this time the master at
 127.0.0.1:7000 will have more hash slots, something around 6461.
 
 Scripting a resharding operation
@@ -812,7 +820,7 @@ do in order to conform with the setup we used for the previous nodes:
 
 At this point the server should be running.
 
-Now we can use **redis-cli** as usually in order to add the node to
+Now we can use **redis-cli** as usual in order to add the node to
 the existing cluster.
 
     redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000

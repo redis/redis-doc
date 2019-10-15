@@ -57,7 +57,7 @@ is small, the amortized time for HGET and HSET commands is still O(1): the
 hash will be converted into a real hash table as soon as the number of elements
 it contains will grow too much (you can configure the limit in redis.conf).
 
-This does not work well just from the point of view of time complexity, but
+This works well not just from the point of view of time complexity, but
 also from the point of view of constant times, since a linear array of key
 value pairs happens to play very well with the CPU cache (it has a better
 cache locality than a hash table).
@@ -84,15 +84,15 @@ Now let's assume the objects we want to cache are numbered, like:
  * object:1234
  * object:5
 
-This is what we can do. Every time there is to perform a
+This is what we can do. Every time we perform a
 SET operation to set a new value, we actually split the key into two parts,
-one used as a key, and used as field name for the hash. For instance the
+one part used as a key, and the other part used as the field name for the hash. For instance the
 object named "object:1234" is actually split into:
 
 * a Key named object:12
 * a Field named 34
 
-So we use all the characters but the latest two for the key, and the final
+So we use all the characters but the last two for the key, and the final
 two characters for the hash field name. To set our key we use the following
 command:
 
