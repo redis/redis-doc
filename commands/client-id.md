@@ -5,10 +5,16 @@ ID has certain guarantees:
 2. The ID is monotonically incremental. If the ID of a connection is greater than the ID of another connection, it is guaranteed that the second connection was established with the server at a later time.
 
 This command is especially useful together with `CLIENT UNBLOCK` which was
-introduced also in Redis 5 together with `CLIETN ID`. Check the `CLIENT UNBLOCK` command page for a pattern involving the two commands.
+introduced also in Redis 5 together with `CLIENT ID`. Check the `CLIENT UNBLOCK` command page for a pattern involving the two commands.
 
 @examples
 
 ```cli
 CLIENT ID
 ```
+
+@return
+
+@integer-reply
+
+The id of the client.

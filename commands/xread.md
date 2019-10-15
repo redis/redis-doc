@@ -186,7 +186,7 @@ And so forth.
 ## How multiple clients blocked on a single stream are served
 
 Blocking list operations on lists or sorted sets have a *pop* behavior.
-Bascially, the element is removed from the list or sorted set in order
+Basically, the element is removed from the list or sorted set in order
 to be returned to the client. In this scenario you want the items
 to be consumed in a fair way, depending on the moment clients blocked
 on a given key arrived. Normally Redis uses the FIFO semantics in this
