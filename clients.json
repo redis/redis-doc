@@ -106,7 +106,7 @@
   {
     "name": "Radix",
     "language": "Go",
-    "repository": "https://github.com/mediocregopher/radix.v2",
+    "repository": "https://github.com/mediocregopher/radix",
     "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
     "authors": ["fzzbt", "mediocre_gopher"],
     "recommended": true,
@@ -361,6 +361,16 @@
   },
 
   {
+    "name": "Redis::ClusterRider",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/Redis-ClusterRider/",
+    "repository": " https://github.com/iph0/Redis-ClusterRider",
+    "description": "Daring Redis Cluster client",
+    "authors": ["iph0"],
+    "active": true
+  },
+
+  {
     "name": "AnyEvent::Hiredis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
@@ -542,6 +552,15 @@
     "repository": "https://github.com/khamin/redisca2",
     "description": "Lightweight ORM for Redis",
     "authors": ["vitaliykhamin"]
+  },
+
+  {
+    "name": "laserdisc",
+    "language": "Scala",
+    "repository": "https://github.com/laserdisc-io/laserdisc",
+    "description": "Future free Fs2 native pure FP Redis client http://laserdisc.io",
+    "authors": ["JSirocchi", "barambani"],
+    "active": true
   },
 
   {
@@ -745,6 +764,16 @@
     "repository": "https://github.com/luin/ioredis",
     "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
     "authors": ["luinlee"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "tedis",
+    "language": "Node.js",
+    "repository": "https://github.com/myour-cc/tedis",
+    "description": "Tedis is a redis client developed for nodejs platform. Its name was inspired by the Java platform jedis and the development language was typescript. Therefore, Tedis is named as Tedis",
+    "authors": ["dasoncheng"],
     "recommended": true,
     "active": true
   },
@@ -1547,13 +1576,59 @@
     "active": true
   },
   
-    {
+  {
     "name": "Redis_MTC",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  },
+
+  {
+    "name": "wiredis",
+    "language": "C++",
+    "url": "https://github.com/nokia/wiredis",
+    "repository": "https://github.com/nokia/wiredis",
+    "description": "Standalone, asynchronous Redis client library based on ::boost::asio and c++11 standard",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "redis-plus-plus",
+    "language": "C++",
+    "repository": "https://github.com/sewenew/redis-plus-plus",
+    "description": "This is a Redis client, based on hiredis and written in C++11. It supports scritpting, pub/sub, pipeline, transaction, Redis Cluster, connection pool and thread safety.",
+    "authors": ["sewenew"],
+    "active": true
+  },
+
+  {
+    "name": "guile-redis",
+    "language": "Scheme",
+    "repository": "https://github.com/aconchillo/guile-redis",
+    "description": "A Redis client for Guile",
+    "authors": ["aconchillo"],
+    "active": true
+  },
+
+  {
+    "name": "dartis",
+    "language": "Dart",
+    "repository": "https://github.com/jcmellado/dartis",
+    "description": "A Redis client for Dart 2",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "walrus",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/walrus",
+    "description": "Lightweight Python utilities for working with Redis.",
+    "authors": [],
+    "recommended": true,
+    "active": true
   }
-  
 ]

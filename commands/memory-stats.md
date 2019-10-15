@@ -19,6 +19,8 @@ values. The following metrics are reported:
 *   `aof.buffer`: The summed size in bytes of the current and rewrite AOF
      buffers (see `INFO`'s `aof_buffer_length` and `aof_rewrite_buffer_length`,
      respectively)
+*    `lua.caches`: the summed size in bytes of the overheads of the Lua scripts'
+     caches
 *   `dbXXX`: For each of the server's databases, the overheads of the main and
      expiry dictionaries (`overhead.hashtable.main` and
     `overhead.hashtable.expires`, respectively) are reported in bytes
