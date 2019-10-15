@@ -34,7 +34,7 @@ At this point you can test if your build has worked correctly by typing **make t
 * **redis-sentinel** is the Redis Sentinel executable (monitoring and failover).
 * **redis-cli** is the command line interface utility to talk with Redis.
 * **redis-benchmark** is used to check Redis performances.
-* **redis-check-aof** and **redis-check-dump** are useful in the rare event of corrupted data files.
+* **redis-check-aof** and **redis-check-rdb** (**redis-check-dump** in 3.0 and below) are useful in the rare event of corrupted data files.
 
 It is a good idea to copy both the Redis server and the command line interface into the proper places, either manually using the following commands:
 

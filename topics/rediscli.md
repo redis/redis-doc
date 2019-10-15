@@ -78,7 +78,7 @@ preform authentication saving the need of explicitly using the `AUTH` command:
     $ redis-cli -a myUnguessablePazzzzzword123 ping
     PONG
 
-Finally, it's possible to send a command that operates a on a database number
+Finally, it's possible to send a command that operates on a database number
 other than the default number zero by using the `-n <dbnum>` option:
 
     $ redis-cli flushall
@@ -238,7 +238,7 @@ is sent to the server, processed, and the reply is parsed back and rendered
 into a simpler form to read.
 
 Nothing special is needed for running the CLI in interactive mode -
-just lunch it without any arguments and you are in:
+just launch it without any arguments and you are in:
 
     $ redis-cli
     127.0.0.1:6379> ping

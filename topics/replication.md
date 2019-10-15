@@ -14,14 +14,14 @@ high performance, is the natural replication mode for the vast majority of Redis
 use cases. However Redis slaves asynchronously acknowledge the amount of data
 they received periodically with the master. So the master does not wait every time
 for a command to be processed by the slaves, however it knows, if needed, what
-slave already processed what command. This allows to have optional syncrhonous replication.
+slave already processed what command. This allows to have optional synchronous replication.
 
 Synchronous replication of certain data can be requested by the clients using
 the `WAIT` command. However `WAIT` is only able to ensure that there are the
 specified number of acknowledged copies in the other Redis instances, it does not
 turn a set of Redis instances into a CP system with strong consistency: acknowledged
 writes can still be lost during a failover, depending on the exact configuration
-of the Redis persistence. However with `WAIT` the probability of losign a write
+of the Redis persistence. However with `WAIT` the probability of losing a write
 after a failure event is greatly reduced to certain hard to trigger failure
 modes.
 
