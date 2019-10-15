@@ -204,8 +204,18 @@
     "repository": "https://github.com/poga/redis-rating",
     "description": "Estimate actual rating from postive/negative ratings",
     "authors": ["devpoga"],
-    "stars": 563
+    "stars": 14
   },
+  
+  {
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "repository": "https://github.com/limithit/RedisPushIptables",
+    "description": "RedisPushIptables is used to update firewall rules to reject the IP addresses for a specified amount of time or forever reject.",
+    "authors": ["Gandalf"],
+    "stars": 16
+  },
+
   {
     "name": "redis-fpn",
     "license": "Apache 2.0",
