@@ -12,13 +12,15 @@ values. The following metrics are reported:
      in bytes (see `INFO`'s `used_memory_startup`)
 *   `replication.backlog`: Size in bytes of the replication backlog (see
      `INFO`'s `repl_backlog_size`)
-*   `clients.slaves`: The total size in bytes of all slaves overheads (output
+*   `clients.slaves`: The total size in bytes of all replicas overheads (output
      and query buffers, connection contexts)
 *   `clients.normal`: The total size in bytes of all clients overheads (output
      and query buffers, connection contexts)
 *   `aof.buffer`: The summed size in bytes of the current and rewrite AOF
      buffers (see `INFO`'s `aof_buffer_length` and `aof_rewrite_buffer_length`,
      respectively)
+*    `lua.caches`: the summed size in bytes of the overheads of the Lua scripts'
+     caches
 *   `dbXXX`: For each of the server's databases, the overheads of the main and
      expiry dictionaries (`overhead.hashtable.main` and
     `overhead.hashtable.expires`, respectively) are reported in bytes
@@ -41,3 +43,5 @@ values. The following metrics are reported:
 @return
 
 @array-reply: nested list of memory usage metrics and their values
+
+**A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.

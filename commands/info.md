@@ -8,7 +8,7 @@ The optional parameter can be used to select a specific section of information:
 *   `memory`: Memory consumption related information
 *   `persistence`: RDB and AOF related information
 *   `stats`: General statistics
-*   `replication`: Master/slave replication information
+*   `replication`: Master/replica replication information
 *   `cpu`: CPU consumption statistics
 *   `commandstats`: Redis command statistics
 *   `cluster`: Redis Cluster section
@@ -68,7 +68,7 @@ Here is the meaning of all fields in the **server** section:
 Here is the meaning of all fields in the **clients** section:
 
 *   `connected_clients`: Number of client connections (excluding connections
-     from slaves)
+     from replicas)
 *   `client_longest_output_list`: longest output list among current client
      connections
 *   `client_biggest_input_buf`: biggest input buffer among current client
@@ -102,6 +102,8 @@ Here is the meaning of all fields in the **memory** section:
 *   `total_system_memory_human`: Human readable representation of previous value
 *   `used_memory_lua`: Number of bytes used by the Lua engine
 *   `used_memory_lua_human`: Human readable representation of previous value
+*   `used_memory_scripts`: Number of bytes used by cached Lua scripts
+*   `used_memory_scripts_human`: Human readable representation of previous value
 *   `maxmemory`: The value of the `maxmemory` configuration directive
 *   `maxmemory_human`: Human readable representation of previous value
 *   `maxmemory_policy`: The value of the `maxmemory-policy` configuration
@@ -199,7 +201,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `instantaneous_output_kbps`: The network's write rate per second in KB/sec
 *   `rejected_connections`: Number of connections rejected because of
      `maxclients` limit
-*   `sync_full`: The number of full resyncs with slaves
+*   `sync_full`: The number of full resyncs with replicas
 *   `sync_partial_ok`: The number of accepted partial resync requests
 *   `sync_partial_err`: The number of denied partial resync requests
 *   `expired_keys`: Total number of key expiration events
@@ -213,7 +215,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
 *   `migrate_cached_sockets`: The number of sockets open for `MIGRATE` purposes
 *   `slave_expires_tracked_keys`: The number of keys tracked for expiry purposes
-     (applicable only to writable slaves)
+     (applicable only to writable replicas)
 *   `active_defrag_hits`: Number of value reallocations performed by active the
      defragmentation process
 *   `active_defrag_misses`: Number of aborted value reallocations started by the
@@ -224,12 +226,10 @@ Here is the meaning of all fields in the **stats** section:
 
 Here is the meaning of all fields in the **replication** section:
 
-*   `role`: Value is "master" if the instance is slave of no one, or "slave" if
-     the instance is enslaved to master.
-     Note that a slave can be master of another slave (daisy chaining).
-*   `master_replid`: The replication ID of the Redis server, if it is a master
-*   `master_replid2`: The repliation ID of the Redis server's master, if it is
-     enslaved
+*   `role`: Value is "master" if the instance is replica of no one, or "slave" if the instance is a replica of some master instance.
+     Note that a replica can be master of another replica (chained replication).
+*   `master_replid`: The replication ID of the Redis server.
+*   `master_replid2`: The secondary replication ID, used for PSYNC after a failover.
 *   `master_repl_offset`: The server's current replication offset
 *   `second_repl_offset`: The offset up to which replication IDs are accepted
 *   `repl_backlog_active`: Flag indicating replication backlog is active
@@ -239,17 +239,17 @@ Here is the meaning of all fields in the **replication** section:
 *   `repl_backlog_histlen`: Size in bytes of the data in the replication backlog
      buffer
 
-If the instance is a slave, these additional fields are provided:
+If the instance is a replica, these additional fields are provided:
 
 *   `master_host`: Host or IP address of the master
 *   `master_port`: Master listening TCP port
 *   `master_link_status`: Status of the link (up/down)
 *   `master_last_io_seconds_ago`: Number of seconds since the last interaction
      with master
-*   `master_sync_in_progress`: Indicate the master is syncing to the slave
-*   `slave_repl_offset`: The replication offset of the slave instance
+*   `master_sync_in_progress`: Indicate the master is syncing to the replica 
+*   `slave_repl_offset`: The replication offset of the replica instance
 *   `slave_priority`: The priority of the instance as a candidate for failover
-*   `slave_read_only`: Flag indicating if the slave is read-only
+*   `slave_read_only`: Flag indicating if the replica is read-only
 
 If a SYNC operation is on-going, these additional fields are provided:
 
@@ -257,20 +257,19 @@ If a SYNC operation is on-going, these additional fields are provided:
 *   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O
      during a SYNC operation
 
-If the link between master and slave is down, an additional field is provided:
+If the link between master and replica is down, an additional field is provided:
 
 *   `master_link_down_since_seconds`: Number of seconds since the link is down
 
 The following field is always provided:
 
-*   `connected_slaves`: Number of connected slaves
+*   `connected_slaves`: Number of connected replicas
 
-If the server is configured with the `min-slaves-to-write` directive, an
-additional field is provided:
+If the server is configured with the `min-slaves-to-write` (or starting with Redis 5 with the `min-replicas-to-write`) directive, an additional field is provided:
 
-*   `min_slaves_good_slaves`: Number of slaves currently considered good 
+*   `min_slaves_good_slaves`: Number of replicas currently considered good 
 
-For each slave, the following line is added:
+For each replica, the following line is added:
 
 *   `slaveXXX`: id, IP address, port, state, offset, lag
 
@@ -302,3 +301,5 @@ For each database, the following line is added:
 *   `dbXXX`: `keys=XXX,expires=XXX`
 
 [hcgcpgp]: http://code.google.com/p/google-perftools/
+
+**A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.

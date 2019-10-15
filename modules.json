@@ -7,7 +7,7 @@
     "authors": [
       "aviggiano"
     ],
-    "stars": 49
+    "stars": 60
   },
   {
     "name": "redis-cell",
@@ -17,17 +17,18 @@
     "authors": [
       "brandur"
     ],
-    "stars": 343
+    "stars": 403
   },
   {
-    "name": "Redis Graph",
-    "license": "Apache 2.0 with Commons Clause",
-    "repository": "https://github.com/swilly22/redis-graph",
-    "description": "A graph database with a Cypher-based querying language",
+    "name": "RedisGraph",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/redis-graph",
+    "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
     "authors": [
-      "swilly22"
+      "swilly22",
+      "RedisLabs"
     ],
-    "stars": 394
+    "stars": 401
   },
   {
     "name": "redis-tdigest",
@@ -37,73 +38,73 @@
     "authors": [
       "usmanm"
     ],
-    "stars": 41
+    "stars": 45
   },
   {
-    "name": "ReJSON",
-    "license": "Apache 2.0 with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/ReJSON",
+    "name": "RedisJSON",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/redisjson",
     "description": "A JSON data type for Redis",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 586
+    "stars": 641
   },
   {
-    "name": "Redis-ML",
-    "license": "Apache 2.0 with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/redis-ml",
+    "name": "RedisML",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/redisml",
     "description": "Machine Learning Model Server",
     "authors": [
       "shaynativ",
       "RedisLabs"
     ],
-    "stars": 188
+    "stars": 212
   },
   {
     "name": "RediSearch",
-    "license": "Apache 2.0 with Commons Clause",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": [
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 1236
+    "stars": 1323
   },
   {
     "name": "topk",
-    "license": "AGPL",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/topk",
     "description": "An almost deterministic top k elements counter",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 20
+    "stars": 21
   },
   {
     "name": "countminsketch",
-    "license": "AGPL",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/countminsketch",
     "description": "An apporximate frequency counter",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 27
+    "stars": 31
   },
   {
-    "name": "rebloom",
-    "license": "Apache 2.0 with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/rebloom",
+    "name": "RedisBloom",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/redisbloom",
     "description": "Scalable Bloom filters",
     "authors": [
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 106
+    "stars": 136
   },
   {
     "name": "neural-redis",
@@ -113,27 +114,37 @@
     "authors": [
       "antirez"
     ],
-    "stars": 2053
+    "stars": 2073
   },
   {
-    "name": "redis-timerseries",
-    "license": "Apache 2.0 with Commons Clause",
-    "repository": "https://github.com/danni-m/redis-timeseries",
+    "name": "RedisTimeSeries",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisLabsModules/RedisTimeSeries",
     "description": "Time-series data structure for redis",
     "authors": [
       "danni-m"
     ],
-    "stars": 140
+    "stars": 186
+  },
+  {
+    "name": "RedisAI",
+    "license": "AGPL",
+    "repository": "https://github.com/RedisAI/RedisAI",
+    "description": "A Redis module for serving tensors and executing deep learning graphs",
+    "authors": [
+      "lantiga"
+    ],
+    "stars": 61
   },
   {
     "name": "ReDe",
     "license": "MIT",
     "repository": "https://github.com/TamarLabs/ReDe",
-    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+    "description": "Low Latency timed queues (Dehydrators) as Redis data types.",
     "authors": [
       "daTokenizer"
     ],
-    "stars": 17
+    "stars": 23
   },
   {
     "name": "commentDis",
@@ -143,7 +154,7 @@
     "authors": [
       "daTokenizer"
     ],
-    "stars": 5
+    "stars": 6
   },
   {
     "name": "redis-cuckoofilter",
@@ -153,7 +164,7 @@
     "authors": [
       "kristoff-it"
     ],
-    "stars": 62
+    "stars": 66
   },
   {
     "name": "cthulhu",
@@ -163,7 +174,7 @@
     "authors": [
       "sklivvz"
     ],
-    "stars": 112
+    "stars": 117
   },
   {
     "name": "Session Gate",
@@ -173,7 +184,7 @@
     "authors": [
       "f0rmiga"
     ],
-    "stars": 29
+    "stars": 32
   },
   {
     "name": "rediSQL",
@@ -184,7 +195,15 @@
       "siscia",
       "RedBeardLab"
     ],
-    "stars": 563
+    "stars": 613
+  },
+  {
+    "name": "redis-rating",
+    "license" : "MIT",
+    "repository": "https://github.com/poga/redis-rating",
+    "description": "Estimate actual rating from postive/negative ratings",
+    "authors": ["devpoga"],
+    "stars": 14
   },
   {
     "name": "smartcache",
