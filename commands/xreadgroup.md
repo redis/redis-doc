@@ -72,7 +72,7 @@ process them. In pseudo-code:
 
 ```
 WHILE true
-    entries = XREADGROUP $GroupName $ConsumerName BLOCK 2000 COUNT 10 STREAMS mystream >
+    entries = XREADGROUP GROUP $GroupName $ConsumerName BLOCK 2000 COUNT 10 STREAMS mystream >
     if entries == nil
         puts "Timeout... try again"
         CONTINUE
