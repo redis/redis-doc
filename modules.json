@@ -205,14 +205,35 @@
     "authors": ["devpoga"],
     "stars": 14
   },
+
   {
     "name": "smartcache",
     "license": "AGPL-3.0",
     "repository": "https://github.com/fcerbell/redismodule-smartcache",
     "description": "A redis module that provides a pass-through cache",
     "authors": [
-      "fcerbell"
+      "fcerbelle"
     ],
     "stars": 2
+  },
+    
+  {
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "repository": "https://github.com/limithit/RedisPushIptables",
+    "description": "RedisPushIptables is used to update firewall rules to reject the IP addresses for a specified amount of time or forever reject.",
+    "authors": ["Gandalf"],
+    "stars": 16
+  },
+
+  {
+    "name": "redis-fpn",
+    "license": "Apache 2.0",
+    "repository": "https://github.com/infobip/redis-fpn",
+    "description": "Redis module for Fixed Point Number data type",
+    "authors": [
+      "xxlabaza"
+    ],
+    "stars": 7
   }
 ]
