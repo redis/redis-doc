@@ -12,7 +12,7 @@ so that following how this command works will be simpler.
 The difference between this command and the vanilla `XREAD` is that this
 one supports consumer groups.
 
-Without consumer groups, just using `XREAD`, all the clients are served with all the entries arriving in a stream. Instead using consumer groups with `XREADGROUP`, it is possible to create groups of clients that consume different parts of the messages arriving in a given stream. If, for instance, the stream gets the new entires A, B, and C and there are two consumers reading via a consumer group, one client will get, for instance, the messages A and C, and the other the message B, and so forth.
+Without consumer groups, just using `XREAD`, all the clients are served with all the entries arriving in a stream. Instead using consumer groups with `XREADGROUP`, it is possible to create groups of clients that consume different parts of the messages arriving in a given stream. If, for instance, the stream gets the new entries A, B, and C and there are two consumers reading via a consumer group, one client will get, for instance, the messages A and C, and the other the message B, and so forth.
 
 Within a consumer group, a given consumer (that is, just a client consuming messages from the stream), has to identify with an unique *consumer name*. Which is just a string.
 
@@ -21,7 +21,7 @@ One of the guarantees of consumer groups is that a given consumer can only see t
 This is how to understand if you want to use a consumer group or not:
 
 1. If you have a stream and multiple clients, and you want all the clients to get all the messages, you do not need a consumer group.
-2. If you have a stream and multiple clients, and you want the stream to be *partitioned* or *shareded* across your clients, so that each client will get a sub set of the messages arriving in a stream, you need a consumer group.
+2. If you have a stream and multiple clients, and you want the stream to be *partitioned* or *sharded* across your clients, so that each client will get a sub set of the messages arriving in a stream, you need a consumer group.
 
 ## Differences between XREAD and XREADGROUP
 
@@ -72,7 +72,7 @@ process them. In pseudo-code:
 
 ```
 WHILE true
-    entries = XREADGROUP $GroupName $ConsumerName BLOCK 2000 COUNT 10 STREAMS mystream >
+    entries = XREADGROUP GROUP $GroupName $ConsumerName BLOCK 2000 COUNT 10 STREAMS mystream >
     if entries == nil
         puts "Timeout... try again"
         CONTINUE
