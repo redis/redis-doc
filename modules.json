@@ -205,5 +205,17 @@
     "description": "Estimate actual rating from postive/negative ratings",
     "authors": ["devpoga"],
     "stars": 14
+  },
+  
+  {
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "repository": "https://github.com/limithit/RedisPushIptables",
+    "description": "RedisPushIptables is used to update firewall rules to reject the IP addresses for a specified amount of time or forever reject.
+.",
+    "authors": [
+      "Gandalf"
+    ],
+    "stars": 0
   }
 ]
