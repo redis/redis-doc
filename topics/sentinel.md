@@ -125,7 +125,7 @@ The first line is used to tell Redis to monitor a master called *mymaster*,
 that is at address 127.0.0.1 and port 6379, with a quorum of 2. Everything
 is pretty obvious but the **quorum** argument:
 
-* The **quorum** is the number of Sentinels that need to agree about the fact the master is not reachable, in order for really mark the slave as failing, and eventually start a fail over procedure if possible.
+* The **quorum** is the number of Sentinels that need to agree about the fact the master is not reachable, in order to really mark the master as failing, and eventually start a failover procedure if possible.
 * However **the quorum is only used to detect the failure**. In order to actually perform a failover, one of the Sentinels need to be elected leader for the failover and be authorized to proceed. This only happens with the vote of the **majority of the Sentinel processes**.
 
 So for example if you have 5 Sentinel processes, and the quorum for a given
