@@ -203,7 +203,9 @@
     "license": "BSD",
     "repository": "https://github.com/halaei/lqrm",
     "description": "A Laravel compatible queue driver for Redis that supports reliable blocking pop from FIFO and scheduled queues.",
-    "authors": [],
+    "authors": [
+      "halaei"
+],
     "stars": 4
   },
 
