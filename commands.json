@@ -1733,6 +1733,42 @@
     "since": "2.6.0",
     "group": "generic"
   },
+  "MODULE LIST": {
+    "summary": "List all modules loaded by the server",
+    "complexity": "O(N) where N is the number of loaded modules.",
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MODULE LOAD": {
+    "summary": "Load a module",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "path",
+        "type": "string"
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "variadic": true,
+        "optional": true
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MODULE UNLOAD": {
+    "summary": "Unload a module",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server"
+  },
   "MONITOR": {
     "summary": "Listen for all requests received by the server in real time",
     "since": "1.0.0",
