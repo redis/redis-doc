@@ -122,6 +122,15 @@
     "recommended": true,
     "active": true
   },
+  
+  {
+    "name": "RedisPipe",
+    "language": "Go",
+    "repository": "https://github.com/joomcode/redispipe",
+    "description": "RedisPipe is the high-throughput Go client with implicit pipelining and robust Cluster support.",
+    "authors": ["funny_falcon"],
+    "active": true
+  },
 
   {
     "name": "Tideland Go Redis Client",
