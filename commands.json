@@ -2741,6 +2741,21 @@
     "since": "1.0.0",
     "group": "server"
   },
+  "PSYNC": {
+    "summary": "Internal command used for replication",
+    "arguments": [
+      {
+        "name": "replicationid",
+        "type": "integer"
+      },
+      {
+        "name": "offset",
+        "type": "integer"
+      }
+    ],
+    "since": "2.8.0",
+    "group": "server"
+  },
   "TIME": {
     "summary": "Return the current server time",
     "complexity": "O(1)",
