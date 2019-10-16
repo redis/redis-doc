@@ -98,7 +98,7 @@ Replication ID explained
 
 In the previous section we said that if two instances have the same replication
 ID and replication offset, they have exactly the same data. However it is useful
-to understand what exctly is the replication ID, and why instances have actually
+to understand what exactly is the replication ID, and why instances have actually
 two replication IDs the main ID and the secondary ID.
 
 A replication ID basically marks a given *history* of the data set. Every time
@@ -122,7 +122,7 @@ was the one of the former master. In this way, when other slaves will synchroniz
 with the new master, they will try to perform a partial resynchronization using the
 old master replication ID. This will work as expected, because when the slave
 is promoted to master it sets its secondary ID to its main ID, remembering what
-was the offset when this ID switch happend. Later it will select a new random
+was the offset when this ID switch happened. Later it will select a new random
 replication ID, because a new history begins. When handling the new slaves
 connecting, the master will match their IDs and offsets both with the current
 ID and the secondary ID (up to a given offset, for safety). In short this means
@@ -316,5 +316,5 @@ Moreover slaves when powered off gently and restarted, are able to store in the
 This is useful in case of upgrades. When this is needed, it is better to use
 the `SHUTDOWN` command in order to perform a `save & quit` operation on the slave.
 
-It is not possilbe to partially resynchronize a slave that restarted via the AOF file. However the instance may be turned to RDB persistence before shutting down it, than can be restarted, and finally AOF can be enabled again.
+It is not possible to partially resynchronize a slave that restarted via the AOF file. However the instance may be turned to RDB persistence before shutting down it, than can be restarted, and finally AOF can be enabled again.
 
