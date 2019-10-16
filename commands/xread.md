@@ -128,7 +128,7 @@ the command is able to block if it could not return any data, according
 to the specified streams and IDs, and automatically unblock once one of
 the requested keys accept data.
 
-It is important to understand that this command is *fans out* to all the
+It is important to understand that this command *fans out* to all the
 clients that are waiting for the same range of IDs, so every consumer will
 get a copy of the data, unlike to what happens when blocking list pop
 operations are used.
