@@ -3,7 +3,7 @@
     "name": "redis-rb",
     "language": "Ruby",
     "repository": "https://github.com/redis/redis-rb",
-    "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
+    "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performance.",
     "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
     "recommended": true,
     "active": true
