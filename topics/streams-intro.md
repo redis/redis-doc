@@ -1,4 +1,4 @@
-# Introduction to Redis Streams
+﻿# Introduction to Redis Streams
 
 The Stream is a new data type introduced with Redis 5.0, which models a *log data structure* in a more abstract way, however the essence of the log is still intact: like a log file, often implemented as a file open in append only mode, Redis streams are primarily an append only data structure. At least conceptually, because being Redis Streams an abstract data type represented in memory, they implement more powerful operations, to overcome the limits of the log file itself.
 
@@ -475,7 +475,7 @@ Messaging systems that lack observability are very hard to work with. Not knowin
 
 However we may want to do more than that, and the **XINFO** command is an observability interface that can be used with sub-commands in order to get information about streams or consumer groups.
 
-This command uses subcommands in order to show different informations about the status of the stream and its consumer groups. For instance **XINFO STREAM <key>** reports information about the stream itself.
+This command uses subcommands in order to show different information about the status of the stream and its consumer groups. For instance **XINFO STREAM <key>** reports information about the stream itself.
 
 ```
 > XINFO STREAM mystream

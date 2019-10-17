@@ -43,7 +43,7 @@ OK
 
 We expect the pending entries list for the consumer group `group55` to
 have a message right now: consumer named `consumer-123` fetched the
-message without acknowledging its processing. The simples `XPENDING`
+message without acknowledging its processing. The simple `XPENDING`
 form will give us this information:
 
 ```
