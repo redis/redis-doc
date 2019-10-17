@@ -1535,7 +1535,7 @@
         "type": "key"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string",
         "multiple": true
       }
@@ -1565,7 +1565,7 @@
   },
   "LREM": {
     "summary": "Remove elements from a list",
-    "complexity": "O(N) where N is the length of the list.",
+    "complexity": "O(N+M) where N is the length of the list and M is the number of elements removed.",
     "arguments": [
       {
         "name": "key",
@@ -1576,7 +1576,7 @@
         "type": "integer"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string"
       }
     ],
@@ -1596,7 +1596,7 @@
         "type": "integer"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string"
       }
     ],
@@ -2194,7 +2194,7 @@
         "type": "key"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string",
         "multiple": true
       }
