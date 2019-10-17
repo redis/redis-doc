@@ -2,22 +2,22 @@ Redis latency monitoring framework
 ===
 
 Redis is often used in the context of demanding use cases, where it
-serves a big amount of queries per second per instance, and at the same
+serves a large number of queries per second per instance, and at the same
 time, there are very strict latency requirements both for the average response
 time and for the worst case latency.
 
-While Redis is an in memory system, it deals with the operating system in
+While Redis is an in-memory system, it deals with the operating system in
 different ways, for example, in the context of persisting to disk.
 Moreover Redis implements a rich set of commands. Certain commands
 are fast and run in constant or logarithmic time, other commands are slower
-O(N) commands, that can cause latency spikes.
+O(N) commands that can cause latency spikes.
 
 Finally Redis is single threaded: this is usually an advantage
 from the point of view of the amount of work it can perform per core, and in
 the latency figures it is able to provide, but at the same time it poses
 a challenge from the point of view of latency, since the single
-thread must be able to perform certain tasks incrementally, like for
-example keys expiration, in a way that does not impact the other clients
+thread must be able to perform certain tasks incrementally, for
+example key expiration, in a way that does not impact the other clients
 that are served.
 
 For all these reasons, Redis 2.8.13 introduced a new feature called
@@ -50,16 +50,16 @@ event. This is how the time series work:
 
 * Every time a latency spike happens, it is logged in the appropriate time series.
 * Every time series is composed of 160 elements.
-* Each element is a pair: an unix timestamp of the time the latency spike was measured, and the number of milliseconds the event took to executed.
+* Each element is a pair: a Unix timestamp of the time the latency spike was measured, and the number of milliseconds the event took to executed.
 * Latency spikes for the same event happening in the same second are merged (by taking the maximum latency), so even if continuous latency spikes are measured for a given event, for example because the user set a very low threshold, at least 180 seconds of history are available.
 * For every element the all-time maximum latency is recorded.
 
 How to enable latency monitoring
 ---
 
-What is high latency for an use case, is not high latency for another. There are applications where all the queries must be served in less than 1 millisecond and applications where from time to time a small percentage of clients experiencing a 2 seconds latency is acceptable.
+What is high latency for one use case is not high latency for another. There are applications where all the queries must be served in less than 1 millisecond and applications where from time to time a small percentage of clients experiencing a 2 second latency is acceptable.
 
-So the first step to enable the latency monitor is to set a **latency threshold** in milliseconds. Only events that will take more than the specified threshold will be logged as latency spikes. The user should set the threshold according to its needs. For example if for the requirements of the application based on Redis the maximum acceptable latency is 100 milliseconds, the threshold should be set to such a value in order to log all the events blocking the server for a time equal or greater to 100 milliseconds.
+So the first step to enable the latency monitor is to set a **latency threshold** in milliseconds. Only events that will take more than the specified threshold will be logged as latency spikes. The user should set the threshold according to their needs. For example if for the requirements of the application based on Redis the maximum acceptable latency is 100 milliseconds, the threshold should be set to such a value in order to log all the events blocking the server for a time equal or greater to 100 milliseconds.
 
 The latency monitor can easily be enabled at runtime in a production server
 with the following command:
@@ -83,9 +83,9 @@ The `LATENCY LATEST` command reports the latest latency events logged. Each even
 * Event name.
 * Unix timestamp of the latest latency spike for the event.
 * Latest event latency in millisecond.
-* All time maximum latency for this event.
+* All-time maximum latency for this event.
 
-All time does not really mean the maximum latency since the Redis instance was
+All-time does not really mean the maximum latency since the Redis instance was
 started, because it is possible to reset events data using `LATENCY RESET` as we'll see later.
 
 The following is an example output:
