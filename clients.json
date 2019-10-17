@@ -178,6 +178,15 @@
   },
 
   {
+    "name": "Redis",
+    "language": "Go",
+    "repository": "https://github.com/pascaldekloe/redis",
+    "description": "clean, fully asynchronous, high-performance, low-memory",
+    "authors": [],
+    "active": true
+  },
+
+  {
     "name": "shipwire/redis",
     "language": "Go",
     "repository": "https://github.com/shipwire/redis",
