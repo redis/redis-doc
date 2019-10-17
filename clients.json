@@ -1618,7 +1618,17 @@
     "authors": ["kemtekinay"],
     "active": true
   },
-  
+
+  {
+    "name": "soce-redis",
+    "language": "C++",
+    "url": "https://github.com/wusongwei/soce/tree/master/soce-redis",
+    "repository": "https://github.com/wusongwei/soce/tree/master/soce-redis",
+    "description": "Based on hiredis, accesses the sever(single, sentinel, cluster) with the same interface, supports pipeline and async(by coroutine)",
+    "authors": [],
+    "active": true
+  },
+
   {
     "name": "mini_redis",
     "language": "Crystal",
@@ -1694,4 +1704,5 @@
     "recommended": true,
     "active": true
   }
+
 ]
