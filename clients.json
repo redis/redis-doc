@@ -1620,6 +1620,16 @@
   },
   
   {
+    "name": "mini_redis",
+    "language": "Crystal",
+    "url": "http://github.vladfaust.com/mini_redis/",
+    "repository": "https://github.com/vladfaust/mini_redis",
+    "description": "A light-weight low-level Redis client for Crystal",
+    "authors": ["vladfaust"],
+    "active": true
+  },
+  
+  {
     "name": "FlyRedis",
     "language": "C++",
     "repository": "https://github.com/icerlion/FlyRedis",
