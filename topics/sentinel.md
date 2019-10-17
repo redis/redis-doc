@@ -3,7 +3,7 @@ Redis Sentinel Documentation
 
 Redis Sentinel provides high availability for Redis. In practical terms this
 means that using Sentinel you can create a Redis deployment that resists
-without human intervention to certain kind of failures.
+without human intervention certain kinds of failures.
 
 Redis Sentinel also provides other collateral tasks such as monitoring,
 notifications and acts as a configuration provider for clients.
@@ -11,8 +11,8 @@ notifications and acts as a configuration provider for clients.
 This is the full list of Sentinel capabilities at a macroscopical level (i.e. the *big picture*):
 
 * **Monitoring**. Sentinel constantly checks if your master and slave instances are working as expected.
-* **Notification**. Sentinel can notify the system administrator, another computer programs, via an API, that something is wrong with one of the monitored Redis instances.
-* **Automatic failover**. If a master is not working as expected, Sentinel can start a failover process where a slave is promoted to master, the other additional slaves are reconfigured to use the new master, and the applications using the Redis server informed about the new address to use when connecting.
+* **Notification**. Sentinel can notify the system administrator, or other computer programs, via an API, that something is wrong with one of the monitored Redis instances.
+* **Automatic failover**. If a master is not working as expected, Sentinel can start a failover process where a slave is promoted to master, the other additional slaves are reconfigured to use the new master, and the applications using the Redis server are informed about the new address to use when connecting.
 * **Configuration provider**. Sentinel acts as a source of authority for clients service discovery: clients connect to Sentinels in order to ask for the address of the current Redis master responsible for a given service. If a failover occurs, Sentinels will report the new address.
 
 Distributed nature of Sentinel
@@ -23,7 +23,7 @@ Redis Sentinel is a distributed system:
 Sentinel itself is designed to run in a configuration where there are multiple Sentinel processes cooperating together. The advantage of having multiple Sentinel processes cooperating are the following:
 
 1. Failure detection is performed when multiple Sentinels agree about the fact a given master is no longer available. This lowers the probability of false positives.
-2. Sentinel works even if not all the Sentinel processes are working, making the system robust against failures. There is no fun in having a fail over system which is itself a single point of failure, after all.
+2. Sentinel works even if not all the Sentinel processes are working, making the system robust against failures. There is no fun in having a failover system which is itself a single point of failure, after all.
 
 The sum of Sentinels, Redis instances (masters and slaves) and clients
 connecting to Sentinel and Redis, are also a larger distributed system with
@@ -110,7 +110,7 @@ order to retain the information in case of restart). The configuration is
 also rewritten every time a slave is promoted to master during a failover
 and every time a new Sentinel is discovered.
 
-The example configuration above, basically monitor two sets of Redis
+The example configuration above basically monitors two sets of Redis
 instances, each composed of a master and an undefined number of slaves.
 One set of instances is called `mymaster`, and the other `resque`.
 
@@ -125,7 +125,7 @@ The first line is used to tell Redis to monitor a master called *mymaster*,
 that is at address 127.0.0.1 and port 6379, with a quorum of 2. Everything
 is pretty obvious but the **quorum** argument:
 
-* The **quorum** is the number of Sentinels that need to agree about the fact the master is not reachable, in order for really mark the slave as failing, and eventually start a fail over procedure if possible.
+* The **quorum** is the number of Sentinels that need to agree about the fact the master is not reachable, in order to really mark the master as failing, and eventually start a failover procedure if possible.
 * However **the quorum is only used to detect the failure**. In order to actually perform a failover, one of the Sentinels need to be elected leader for the failover and be authorized to proceed. This only happens with the vote of the **majority of the Sentinel processes**.
 
 So for example if you have 5 Sentinel processes, and the quorum for a given
@@ -167,7 +167,7 @@ Example Sentinel deployments
 ---
 
 Now that you know the basic information about Sentinel, you may wonder where
-you should place your Sentinel processes, how much Sentinel processes you need
+you should place your Sentinel processes, how many Sentinel processes you need
 and so forth. This section shows a few example deployments.
 
 We use ASCII art in order to show you configuration examples in a *graphical*
@@ -262,10 +262,10 @@ a Redis process and a Sentinel process.
 If the master M1 fails, S2 and S3 will agree about the failure and will
 be able to authorize a failover, making clients able to continue.
 
-In every Sentinel setup, being Redis asynchronously replicated, there is
-always the risk of losing some write because a given acknowledged write
+In every Sentinel setup, as Redis uses asynchronous replication, there is
+always the risk of losing some writes because a given acknowledged write
 may not be able to reach the slave which is promoted to master. However in
-the above setup there is an higher risk due to clients partitioned away
+the above setup there is an higher risk due to clients being partitioned away
 with an old master, like in the following picture:
 
              +----+
@@ -289,14 +289,14 @@ discarding its data set.
 
 This problem can be mitigated using the following Redis replication
 feature, that allows to stop accepting writes if a master detects that
-is no longer able to transfer its writes to the specified number of slaves.
+it is no longer able to transfer its writes to the specified number of slaves.
 
     min-slaves-to-write 1
     min-slaves-max-lag 10
 
 With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 slave. Since replication is asynchronous *not being able to write* actually means that the slave is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
 
-Using this configuration the old Redis master M1 in the above example, will become unavailable after 10 seconds. When the partition heals, the Sentinel configuration will converge to the new one, the client C1 will be able to fetch a valid configuration and will continue with the new master.
+Using this configuration, the old Redis master M1 in the above example, will become unavailable after 10 seconds. When the partition heals, the Sentinel configuration will converge to the new one, the client C1 will be able to fetch a valid configuration and will continue with the new master.
 
 However there is no free lunch. With this refinement, if the two slaves are
 down, the master will stop accepting writes. It's a trade off.
@@ -333,9 +333,8 @@ an application server, a Rails app, or something like that.
 If the box where M1 and S1 are running fails, the failover will happen
 without issues, however it is easy to see that different network partitions
 will result in different behaviors. For example Sentinel will not be able
-to setup if the network between the clients and the Redis servers will
-get disconnected, since the Redis master and slave will be both not
-available.
+to setup if the network between the clients and the Redis servers is
+disconnected, since the Redis master and slave will both be unavailable.
 
 Note that if C3 gets partitioned with M1 (hardly possible with
 the network described above, but more likely possible with different
@@ -348,12 +347,12 @@ otherwise the master would never be available during slave failures.
 So this is a valid setup but the setup in the Example 2 has advantages
 such as the HA system of Redis running in the same boxes as Redis itself
 which may be simpler to manage, and the ability to put a bound on the amount
-of time a master into the minority partition can receive writes.
+of time a master in the minority partition can receive writes.
 
 Example 4: Sentinel client side with less than three clients
 ---
 
-The setup described in the Example 3 cannot be used if there are not enough
+The setup described in the Example 3 cannot be used if there are less than
 three boxes in the client side (for example three web servers). In this
 case we need to resort to a mixed setup like the following:
 
@@ -373,7 +372,7 @@ case we need to resort to a mixed setup like the following:
           Configuration: quorum = 3
 
 This is similar to the setup in Example 3, but here we run four Sentinels
-in the four boxes we have available. If the master M1 becomes not available
+in the four boxes we have available. If the master M1 becomes unavailable
 the other three Sentinels will perform the failover.
 
 In theory this setup works removing the box where C2 and S4 are running, and
@@ -728,7 +727,7 @@ more time than the configured Lua script time limit. When this happens before
 triggering a fail over Redis Sentinel will try to send a `SCRIPT KILL`
 command, that will only succeed if the script was read-only.
 
-If the instance will still be in an error condition after this try, it will
+If the instance is still in an error condition after this try, it will
 eventually be failed over.
 
 Slaves priority
@@ -812,8 +811,8 @@ Sentinel requires explicit client support, unless the system is configured to ex
 More advanced concepts
 ===
 
-In the following sections we'll cover a few details about how Sentinel work,
-without to resorting to implementation details and algorithms that will be
+In the following sections we'll cover a few details about how Sentinel works,
+without resorting to implementation details and algorithms that will be
 covered in the final part of this document.
 
 SDOWN and ODOWN failure state
@@ -929,7 +928,7 @@ the time the master is also not available from the point of view of the
 Sentinel doing the failover, is considered to be not suitable for the failover
 and is skipped.
 
-In more rigorous terms, a slave whose the `INFO` output suggests to be
+In more rigorous terms, a slave whose the `INFO` output suggests it has been
 disconnected from the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
@@ -986,7 +985,7 @@ If instead the quorum is configured to 5, all the Sentinels must agree about the
 
 This means that the quorum can be used to tune Sentinel in two ways:
 
-1. If a the quorum is set to a value smaller than the majority of Sentinels we deploy, we are basically making Sentinel more sensible to master failures, triggering a failover as soon as even just a minority of Sentinels is no longer able to talk with the master.
+1. If a the quorum is set to a value smaller than the majority of Sentinels we deploy, we are basically making Sentinel more sensitive to master failures, triggering a failover as soon as even just a minority of Sentinels is no longer able to talk with the master.
 2. If a quorum is set to a value greater than the majority of Sentinels, we are making Sentinel able to failover only when there are a very large number (larger than majority) of well connected Sentinels which agree about the master being down.
 
 Configuration epochs
