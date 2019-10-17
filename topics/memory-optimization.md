@@ -207,12 +207,12 @@ again, you'll see the RSS (Resident Set Size) stay steady and not grow
 more, as you add up to 2GB of additional keys. The allocator is basically
 trying to reuse the 2GB of memory previously (logically) freed.
 * Because of all this, the fragmentation ratio is not reliable when you
-have a memory usage that at peak is much larger than the currently used memory.
-The fragmentation is calculated as the amount of memory currently in use
-(as the sum of all the allocations performed by Redis) divided by the physical
-memory actually used (the RSS value). Because the RSS reflects the peak memory,
+had a memory usage that at peak is much larger than the currently used memory.
+The fragmentation is calculated as the physical memory actually used (the RSS
+value) divided by the amount of memory currently in use (as the sum of all
+the allocations performed by Redis). Because the RSS reflects the peak memory,
 when the (virtually) used memory is low since a lot of keys / values were
-freed, but the RSS is high, the ratio `mem_used / RSS` will be very high.
+freed, but the RSS is high, the ratio `RSS / mem_used` will be very high.
 
 If `maxmemory` is not set Redis will keep allocating memory as it finds
 fit and thus it can (gradually) eat up all your free memory.
