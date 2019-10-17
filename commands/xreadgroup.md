@@ -53,9 +53,7 @@ The ID to specify in the **STREAMS** option when using `XREADGROUP` can
 be one of the following two:
 
 * The special `>` ID, which means that the consumer want to receive only messages that were *never delivered to any other consumer*. It just means, give me new messages.
-* Any other ID, that is, 0 or any other valid ID or incomplete ID (just the millisecond time part), will have the effect of returning entries that are pending for the consumer sending the command. So basically if the ID is not `>`, then the command will just let the client access its pending entries: delivered to it, but not yet acknowledged.
-
-Note that: in this case both BLOCK and NOACK are ignored
+* Any other ID, that is, 0 or any other valid ID or incomplete ID (just the millisecond time part), will have the effect of returning entries that are pending for the consumer sending the command with IDs equal or greater to the one provided. So basically if the ID is not `>`, then the command will just let the client access its pending entries: messages delivered to it, but not yet acknowledged. Note that in this case, both `BLOCK` and `NOACK` are ignored.
 
 Like `XREAD` the `XREADGROUP` command can be used in a blocking way. There
 are no differences in this regard.
