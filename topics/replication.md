@@ -14,14 +14,14 @@ high performance, is the natural replication mode for the vast majority of Redis
 use cases. However Redis slaves asynchronously acknowledge the amount of data
 they received periodically with the master. So the master does not wait every time
 for a command to be processed by the slaves, however it knows, if needed, what
-slave already processed what command. This allows to have optional syncrhonous replication.
+slave already processed what command. This allows to have optional synchronous replication.
 
 Synchronous replication of certain data can be requested by the clients using
 the `WAIT` command. However `WAIT` is only able to ensure that there are the
 specified number of acknowledged copies in the other Redis instances, it does not
 turn a set of Redis instances into a CP system with strong consistency: acknowledged
 writes can still be lost during a failover, depending on the exact configuration
-of the Redis persistence. However with `WAIT` the probability of losign a write
+of the Redis persistence. However with `WAIT` the probability of losing a write
 after a failure event is greatly reduced to certain hard to trigger failure
 modes.
 
@@ -55,7 +55,7 @@ is wiped from the master and all its slaves:
 3. Nodes B and C will replicate from node A, which is empty, so they'll effectively destroy their copy of the data.
 
 When Redis Sentinel is used for high availability, also turning off persistence
-on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to don't detect a failure, so that the failure mode described above happens.
+on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to not detect a failure, so that the failure mode described above happens.
 
 Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
 
@@ -98,7 +98,7 @@ Replication ID explained
 
 In the previous section we said that if two instances have the same replication
 ID and replication offset, they have exactly the same data. However it is useful
-to understand what exctly is the replication ID, and why instances have actually
+to understand what exactly is the replication ID, and why instances have actually
 two replication IDs the main ID and the secondary ID.
 
 A replication ID basically marks a given *history* of the data set. Every time
@@ -122,7 +122,7 @@ was the one of the former master. In this way, when other slaves will synchroniz
 with the new master, they will try to perform a partial resynchronization using the
 old master replication ID. This will work as expected, because when the slave
 is promoted to master it sets its secondary ID to its main ID, remembering what
-was the offset when this ID switch happend. Later it will select a new random
+was the offset when this ID switch happened. Later it will select a new random
 replication ID, because a new history begins. When handling the new slaves
 connecting, the master will match their IDs and offsets both with the current
 ID and the secondary ID (up to a given offset, for safety). In short this means
@@ -138,8 +138,8 @@ two random instances mean they have the same data set.
 Diskless replication
 ---
 
-Normally a full resynchronization requires to create an RDB file on disk,
-then reload the same RDB from disk in order to feed the slaves with the data.
+Normally a full resynchronization requires creating an RDB file on disk,
+then reloading the same RDB from disk in order to feed the slaves with the data.
 
 With slow disks this can be a very stressing operation for the master.
 Redis version 2.8.18 is the first version to have support for diskless
@@ -162,8 +162,8 @@ in memory by the master to perform the partial resynchronization. See the exampl
 `redis.conf` shipped with the Redis distribution for more information.
 
 Diskless replication can be enabled using the `repl-diskless-sync` configuration
-parameter. The delay to start the transfer in order to wait more slaves to
-arrive after the first one, is controlled by the `repl-diskless-sync-delay`
+parameter. The delay to start the transfer in order to wait for more slaves to
+arrive after the first one is controlled by the `repl-diskless-sync-delay`
 parameter. Please refer to the example `redis.conf` file in the Redis distribution
 for more details.
 
@@ -251,13 +251,13 @@ scripts.
 
 To implement such a feature Redis cannot rely on the ability of the master and
 slave to have synchronized clocks, since this is a problem that cannot be solved
-and would result into race conditions and diverging data sets, so Redis
+and would result in race conditions and diverging data sets, so Redis
 uses three main techniques in order to make the replication of expired keys
 able to work:
 
 1. Slaves don't expire keys, instead they wait for masters to expire the keys. When a master expires a key (or evict it because of LRU), it synthesizes a `DEL` command which is transmitted to all the slaves.
-2. However because of master-driven expire, sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the slave uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way slaves avoid to report logically expired keys are still existing. In practical terms, an HTML fragments cache that uses slaves to scale will avoid returning items that are already older than the desired time to live.
-3. During Lua scripts executions no keys expires are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys to expire in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
+2. However because of master-driven expire, sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the slave uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way slaves avoid reporting logically expired keys are still existing. In practical terms, an HTML fragments cache that uses slaves to scale will avoid returning items that are already older than the desired time to live.
+3. During Lua scripts executions no key expiries are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys expiring in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
 
 Once a slave is promoted to a master it will start to expire keys independently, and will not require any help from its old master.
 
@@ -316,5 +316,5 @@ Moreover slaves when powered off gently and restarted, are able to store in the
 This is useful in case of upgrades. When this is needed, it is better to use
 the `SHUTDOWN` command in order to perform a `save & quit` operation on the slave.
 
-It is not possilbe to partially resynchronize a slave that restarted via the AOF file. However the instance may be turned to RDB persistence before shutting down it, than can be restarted, and finally AOF can be enabled again.
+It is not possible to partially resynchronize a slave that restarted via the AOF file. However the instance may be turned to RDB persistence before shutting down it, than can be restarted, and finally AOF can be enabled again.
 
