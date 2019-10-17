@@ -85,7 +85,7 @@ command will fail when executed even if the syntax is right:
     Escape character is '^]'.
     MULTI
     +OK
-    SET a 3
+    SET a abc
     +QUEUED
     LPOP a
     +QUEUED
