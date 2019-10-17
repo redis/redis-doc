@@ -1535,8 +1535,9 @@
         "type": "key"
       },
       {
-        "name": "element",
-        "type": "string"
+        "name": "value",
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "2.2.0",
@@ -2193,8 +2194,9 @@
         "type": "key"
       },
       {
-        "name": "element",
-        "type": "string"
+        "name": "value",
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "2.2.0",
