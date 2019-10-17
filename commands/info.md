@@ -102,6 +102,8 @@ Here is the meaning of all fields in the **memory** section:
 *   `total_system_memory_human`: Human readable representation of previous value
 *   `used_memory_lua`: Number of bytes used by the Lua engine
 *   `used_memory_lua_human`: Human readable representation of previous value
+*   `used_memory_scripts`: Number of bytes used by cached Lua scripts
+*   `used_memory_scripts_human`: Human readable representation of previous value
 *   `maxmemory`: The value of the `maxmemory` configuration directive
 *   `maxmemory_human`: Human readable representation of previous value
 *   `maxmemory_policy`: The value of the `maxmemory-policy` configuration
