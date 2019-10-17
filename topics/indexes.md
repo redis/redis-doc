@@ -348,7 +348,7 @@ we just store the entry as `key:value`:
 
 And search for the key with:
 
-    ZRANGEBYLEX myindex mykey: + LIMIT 1 1
+    ZRANGEBYLEX myindex [mykey: + LIMIT 1 1
     1) "mykey:myvalue"
 
 Then we extract the part after the colon to retrieve the value.
