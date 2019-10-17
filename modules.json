@@ -140,7 +140,7 @@
     "name": "ReDe",
     "license": "MIT",
     "repository": "https://github.com/TamarLabs/ReDe",
-    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+    "description": "Low Latency timed queues (Dehydrators) as Redis data types.",
     "authors": [
       "daTokenizer"
     ],
@@ -190,11 +190,60 @@
     "name": "rediSQL",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedBeardLab/rediSQL",
-    "description": "A redis module that provide full SQL capabilities embedding SQLite",
+    "description": "A redis module that provides a full SQL capabilities embedding SQLite",
     "authors": [
       "siscia",
       "RedBeardLab"
     ],
     "stars": 613
+  },
+
+  {
+    "name": "lqrm",
+    "license": "BSD",
+    "repository": "https://github.com/halaei/lqrm",
+    "description": "A Laravel compatible queue driver for Redis that supports reliable blocking pop from FIFO and scheduled queues.",
+    "authors": [],
+    "stars": 4
+  },
+
+  {
+    "name": "redis-rating",
+    "license" : "MIT",
+    "repository": "https://github.com/poga/redis-rating",
+    "description": "Estimate actual rating from postive/negative ratings",
+    "authors": ["devpoga"],
+    "stars": 14
+  },
+
+  {
+    "name": "smartcache",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/fcerbell/redismodule-smartcache",
+    "description": "A redis module that provides a pass-through cache",
+    "authors": [
+      "fcerbelle"
+    ],
+    "stars": 2
+  },
+    
+  {
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "repository": "https://github.com/limithit/RedisPushIptables",
+    "description": "RedisPushIptables is used to update firewall rules to reject the IP addresses for a specified amount of time or forever reject.",
+    "authors": ["Gandalf"],
+    "stars": 16
+  },
+
+  {
+    "name": "redis-fpn",
+    "license": "Apache 2.0",
+    "repository": "https://github.com/infobip/redis-fpn",
+    "description": "Redis module for Fixed Point Number data type",
+    "authors": [
+      "xxlabaza"
+    ],
+    "stars": 7
   }
 ]
