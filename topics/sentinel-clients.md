@@ -6,8 +6,8 @@ Guidelines for Redis clients with support for Redis Sentinel
 Redis Sentinel is a monitoring solution for Redis instances that handles
 automatic failover of Redis masters and service discovery (who is the current
 master for a given group of instances?). Since Sentinel is both responsible
-to reconfigure instances during failovers, and to provide configurations to
-clients connecting to Redis masters or slaves, clients require to have
+for reconfiguring instances during failovers, and providing configurations to
+clients connecting to Redis masters or slaves, clients are required to have
 explicit support for Redis Sentinel.
 
 This document is targeted at Redis clients developers that want to support Sentinel in their clients implementation with the following goals:
@@ -20,7 +20,7 @@ For details about how Redis Sentinel works, please check the [Redis Documentatio
 Redis service discovery via Sentinel
 ===
 
-Redis Sentinel identify every master with a name like "stats" or "cache".
+Redis Sentinel identifies every master with a name like "stats" or "cache".
 Every name actually identifies a *group of instances*, composed of a master
 and a variable number of slaves.
 
