@@ -1461,7 +1461,7 @@
     "name": "cheprasov/php-redis-client",
     "language": "PHP",
     "repository": "https://github.com/cheprasov/php-redis-client",
-    "description": "Supported PHP client for versions of Redis from 2.6 to 4.0",
+    "description": "Supported PHP client for Redis. PHP ver 5.5 - 7.3 / REDIS ver 2.6 - 5.0",
     "authors": ["cheprasov84"],
     "active": true
   },
@@ -1628,7 +1628,6 @@
     "authors": [],
     "active": true
   },
-
   {
     "name": "mini_redis",
     "language": "Crystal",
