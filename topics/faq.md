@@ -111,11 +111,10 @@ more optimistic allocation fashion, and this is indeed what you want for Redis.
 A good source to understand how Linux Virtual Memory works and other
 alternatives for `overcommit_memory` and `overcommit_ratio` is this classic
 from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
-Beware, this article had `1` and `2` configuration values for `overcommit_memory`
-reversed: refer to the [proc(5)][proc5] man page for the right meaning of the
+You can also refer to the [proc(5)][proc5] man page for explanations of the
 available values.
 
-[redhatvm]: http://www.redhat.com/magazine/001nov04/features/vm/
+[redhatvm]: https://people.redhat.com/nhorman/papers/rhel3_vm.pdf
 [proc5]: http://man7.org/linux/man-pages/man5/proc.5.html
 
 ## Are Redis on-disk-snapshots atomic?
@@ -171,7 +170,7 @@ It means REmote DIctionary Server.
 
 Originally Redis was started in order to scale [LLOOGG][lloogg]. But after I got the basic server working I liked the idea to share the work with other people, and Redis was turned into an open source project.
 
-[lloogg]: http://lloogg.com
+[lloogg]: https://github.com/antirez/lloogg
 
 ## How is Redis pronounced?
 

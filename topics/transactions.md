@@ -85,8 +85,7 @@ command will fail when executed even if the syntax is right:
     Escape character is '^]'.
     MULTI
     +OK
-    SET a 3
-    abc
+    SET a abc
     +QUEUED
     LPOP a
     +QUEUED
@@ -223,9 +222,11 @@ transactions.
 ### Using `WATCH` to implement ZPOP
 
 A good example to illustrate how `WATCH` can be used to create new
-atomic operations otherwise not supported by Redis is to implement ZPOP,
-that is a command that pops the element with the lower score from a
-sorted set in an atomic way. This is the simplest implementation:
+atomic operations otherwise not supported by Redis is to implement ZPOP
+(`ZPOPMIN`, `ZPOPMAX` and their blocking variants have only been added
+in version 5.0), that is a command that pops the element with the lower
+score from a sorted set in an atomic way. This is the simplest
+implementation:
 
     WATCH zset
     element = ZRANGE zset 0 0
@@ -243,7 +244,7 @@ usually the script will be both simpler and faster.
 
 This duplication is due to the fact that scripting was introduced in Redis 2.6
 while transactions already existed long before. However we are unlikely to
-remove the support for transactions in the short time because it seems
+remove the support for transactions in the short-term because it seems
 semantically opportune that even without resorting to Redis scripting it is
 still possible to avoid race conditions, especially since the implementation
 complexity of Redis transactions is minimal.

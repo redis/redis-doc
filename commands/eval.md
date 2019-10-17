@@ -109,6 +109,8 @@ Redis to Lua conversion rule:
 
 * Lua boolean true -> Redis integer reply with value of 1.
 
+**RESP3 mode conversion rules**: note that the Lua engine can work in RESP3 mode using the new Redis 6 protocol. In this case there are additional conversion rules, and certain conversions are also modified compared to the RESP2 mode. Please refer to the RESP3 section of this document for more information.
+
 Also there are two important rules to note:
 
 * Lua has a single numerical type, Lua numbers. There is no distinction between integers and floats. So we always convert Lua numbers into integer replies, removing the decimal part of the number if any. **If you want to return a float from Lua you should return it as a string**, exactly like Redis itself does (see for instance the `ZSCORE` command).
@@ -596,6 +598,60 @@ selected by the client calling the script.
 The semantic change between patch level releases was needed since the old
 behavior was inherently incompatible with the Redis replication layer and
 was the cause of bugs.
+
+## Using Lua scripting in RESP3 mode
+
+Starting with Redis version 6, the server supports two differnent protocols.
+One is called RESP2, and is the old protocol: all the new connections to
+the server start in this mode. However clients are able to negotiate the
+new protocol using the `HELLO` command: this way the connection is put
+in RESP3 mode. In this mode certain commands, like for instance `HGETALL`,
+reply with a new data type (the Map data type in this specific case). The
+RESP3 protocol is semantically more powerful, however most scripts are ok
+with using just RESP3.
+
+The Lua engine always assumes to run in RESP2 mode when talking with Redis,
+so whatever the connection that is invoking the `EVAL` or `EVALSHA` command
+is in RESP2 or RESP3 mode, Lua scripts will, by default, still see the
+same kind of replies they used to see in the past from Redis, when calling
+commands using the `redis.call()` built-in function.
+
+However Lua scripts running in Redis 6 or greater, are able to switch to
+RESP3 mode, and get the replies using the new available types. Similarly
+Lua scripts are able to reply to clients using the new types. Please make
+sure to understand
+[the capabilities for RESP3](https://github.com/antirez/resp3)
+before continuing reading this section.
+
+In order to switch to RESP3 a script should call this function:
+
+    redis.setresp(3)
+
+Note that a script can switch back and forth from RESP3 and RESP2 by
+calling the function with the argument '3' or '2'.
+
+At this point the new conversions are available, specifically:
+
+**Redis to Lua** conversion table specific to RESP3:
+
+* Redis map reply -> Lua table with a single `map` field containing a Lua table representing the fields and values of the map.
+* Redis set reply -> Lua table with a single `set` field containing a Lua table representing the elements of the set as fields, having as value just `true`.
+* Redis new RESP3 single null value -> Lua nil.
+* Redis true reply -> Lua true boolean value.
+* Redis false reply -> Lua false boolean value.
+* Redis double reply -> Lua table with a single `score` field containing a Lua number representing the double value.
+* All the RESP2 old conversions still apply.
+
+**Lua to Redis** conversion table specific for RESP3.
+
+* Lua boolean -> Redis boolean true or false. **Note that this is a change compared to the RESP2 mode**, where returning true from Lua returned the number 1 to the Redis client, and returning false used to return NULL.
+* Lua table with a single `map` field set to a field-value Lua table -> Redis map reply.
+* Lua table with a single `set` field set to a field-value Lua table -> Redis set reply, the values are discared and can be anything.
+* Lua table with a single `double` field set to a field-value Lua table -> Redis double reply.
+* Lua null -> Redis RESP3 new null reply (protocol `"_\r\n"`).
+* All the RESP2 old conversions still apply unless specified above.
+
+There is one key thing to understand: in case Lua replies with RESP3 types, but the connection calling Lua is in RESP2 mode, Redis will automatically convert the RESP3 protocol to RESP2 compatible protocol, as it happens for normal commands. For instance returning a map type to a connection in RESP2 mode will have the effect of returning a flat array of fields and values.
 
 ## Available libraries
 
