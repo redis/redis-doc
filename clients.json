@@ -173,7 +173,7 @@
     "language": "Go",
     "repository": "https://github.com/pascaldekloe/redis",
     "description": "clean, fully asynchronous, high-performance, low-memory",
-    "authors": ["pascaldekloe"],
+    "authors": [],
     "active": true
   },
 
