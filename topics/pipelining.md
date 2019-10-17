@@ -37,7 +37,7 @@ A Request/Response server can be implemented so that it is able to process new r
 
 This is called pipelining, and is a technique widely in use since many decades. For instance many POP3 protocol implementations already supported this feature, dramatically speeding up the process of downloading new emails from the server.
 
-Redis supports pipelining since the very early days, so whatever version you are running, you can use pipelining with Redis. This is an example using the raw netcat utility:
+Redis has supported pipelining since the very early days, so whatever version you are running, you can use pipelining with Redis. This is an example using the raw netcat utility:
 
     $ (printf "PING\r\nPING\r\nPING\r\n"; sleep 1) | nc localhost 6379
     +PONG
@@ -57,7 +57,7 @@ To be very explicit, with pipelining the order of operations of our very first e
  * *Server:* 3
  * *Server:* 4
 
-**IMPORTANT NOTE**: While the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send a lot of commands with pipelining, it is better to send them as batches having a reasonable number, for instance 10k commands, read the replies, and then send another 10k commands again, and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for this 10k commands.
+**IMPORTANT NOTE**: While the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send a lot of commands with pipelining, it is better to send them as batches having a reasonable number, for instance 10k commands, read the replies, and then send another 10k commands again, and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for these 10k commands.
 
 It's not just a matter of RTT
 ---
@@ -78,7 +78,7 @@ initially increases almost linearly with longer pipelines, and eventually
 reaches 10 times the baseline obtained not using pipelining, as you can
 see from the following graph:
 
-![Pipeline size and IOPs](http://redis.io/images/redisdoc/pipeline_iops.png)
+![Pipeline size and IOPs](https://redis.io/images/redisdoc/pipeline_iops.png)
 
 Some real world code example
 ---
@@ -131,7 +131,7 @@ Using [Redis scripting](/commands/eval) (available in Redis version 2.6 or great
 
 Sometimes the application may also want to send `EVAL` or `EVALSHA` commands in a pipeline. This is entirely possible and Redis explicitly supports it with the [SCRIPT LOAD](http://redis.io/commands/script-load) command (it guarantees that `EVALSHA` can be called without the risk of failing).
 
-Appendix: why a busy loops are slow even on the loopback interface?
+Appendix: Why are busy loops slow even on the loopback interface?
 ---
 
 Even with all the background covered in this page, you may still wonder why

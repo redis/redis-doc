@@ -3,7 +3,9 @@ ACLs
 AMD
 AOF
 API
+Atomicvar
 BitOp
+Bitfields
 CAS
 CJSON
 CJSON
@@ -30,6 +32,7 @@ Fsyncing
 GCC
 GDB
 GEODEL
+GeoHashes
 GETs
 GHz
 GPG
@@ -55,11 +58,13 @@ JPEG
 JSON
 LDB
 LF
+LFU
 LLOOGG
 LRU
 Linode
 Liveness
 Lua
+MAXLEN
 MERCHANTABILITY
 MX
 MacBook
@@ -78,11 +83,13 @@ NX
 Nehalem
 Netflix
 NoSQL
+NOOP
 Noordhuis
 ODOWN
 OOM
 OSGEO
 Opteron
+PEL
 PHP
 PINGs
 POSIX
@@ -142,6 +149,7 @@ Xen
 Xeon
 Yukihiro
 ZPOP
+ZSET
 addr
 afterwards
 allkeys
@@ -187,6 +195,8 @@ dataset
 datasets
 decrement
 decrementing
+defragmented
+defragmentation
 denyoom
 deserialize
 deserializing
@@ -278,6 +288,7 @@ mutex
 mylist
 mymaster
 myzset
+namespacing
 netcat
 netsplits
 newjobs
@@ -306,8 +317,10 @@ pubsub
 qsort
 queueing
 rdb
+radix
 readonly
 readwrite
+reallocations
 realtime
 rebalance
 rebalancing
@@ -327,6 +340,7 @@ resharded
 resharding
 reshardings
 resync
+resyncs
 resynchronization
 resynchronizations
 resynchronize
@@ -336,8 +350,10 @@ rss
 runid
 runtime
 scalable
+selectable
 semantical
 sharding
+sharded
 sismember
 slowlog
 smaps
@@ -396,3 +412,4 @@ vtype
 wildcards
 ziplist
 ziplists
+zset

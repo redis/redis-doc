@@ -55,7 +55,7 @@ is wiped from the master and all its slaves:
 3. Nodes B and C will replicate from node A, which is empty, so they'll effectively destroy their copy of the data.
 
 When Redis Sentinel is used for high availability, also turning off persistence
-on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to don't detect a failure, so that the failure mode described above happens.
+on the master, together with auto restart of the process, is dangerous. For example the master can restart fast enough for Sentinel to not detect a failure, so that the failure mode described above happens.
 
 Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
 
@@ -138,8 +138,8 @@ two random instances mean they have the same data set.
 Diskless replication
 ---
 
-Normally a full resynchronization requires to create an RDB file on disk,
-then reload the same RDB from disk in order to feed the slaves with the data.
+Normally a full resynchronization requires creating an RDB file on disk,
+then reloading the same RDB from disk in order to feed the slaves with the data.
 
 With slow disks this can be a very stressing operation for the master.
 Redis version 2.8.18 is the first version to have support for diskless
@@ -162,8 +162,8 @@ in memory by the master to perform the partial resynchronization. See the exampl
 `redis.conf` shipped with the Redis distribution for more information.
 
 Diskless replication can be enabled using the `repl-diskless-sync` configuration
-parameter. The delay to start the transfer in order to wait more slaves to
-arrive after the first one, is controlled by the `repl-diskless-sync-delay`
+parameter. The delay to start the transfer in order to wait for more slaves to
+arrive after the first one is controlled by the `repl-diskless-sync-delay`
 parameter. Please refer to the example `redis.conf` file in the Redis distribution
 for more details.
 
@@ -251,13 +251,13 @@ scripts.
 
 To implement such a feature Redis cannot rely on the ability of the master and
 slave to have synchronized clocks, since this is a problem that cannot be solved
-and would result into race conditions and diverging data sets, so Redis
+and would result in race conditions and diverging data sets, so Redis
 uses three main techniques in order to make the replication of expired keys
 able to work:
 
 1. Slaves don't expire keys, instead they wait for masters to expire the keys. When a master expires a key (or evict it because of LRU), it synthesizes a `DEL` command which is transmitted to all the slaves.
-2. However because of master-driven expire, sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the slave uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way slaves avoid to report logically expired keys are still existing. In practical terms, an HTML fragments cache that uses slaves to scale will avoid returning items that are already older than the desired time to live.
-3. During Lua scripts executions no keys expires are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys to expire in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
+2. However because of master-driven expire, sometimes slaves may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the slave uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way slaves avoid reporting logically expired keys are still existing. In practical terms, an HTML fragments cache that uses slaves to scale will avoid returning items that are already older than the desired time to live.
+3. During Lua scripts executions no key expiries are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys expiring in the middle of a script, and is needed in order to send the same script to the slave in a way that is guaranteed to have the same effects in the data set.
 
 Once a slave is promoted to a master it will start to expire keys independently, and will not require any help from its old master.
 
