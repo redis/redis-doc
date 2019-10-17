@@ -966,7 +966,8 @@ For example imagine you want to know the longest streak of daily visits of
 your web site users. You start counting days starting from zero, that is the
 day you made your web site public, and set a bit with `SETBIT` every time
 the user visits the web site. As a bit index you simply take the current unix
-time, subtract the initial offset, and divide by 3600\*24.
+time, subtract the initial offset, and divide by the number of seconds in a day
+(normally, 3600\*24).
 
 This way for each user you have a small string containing the visit
 information for each day. With `BITCOUNT` it is possible to easily get
