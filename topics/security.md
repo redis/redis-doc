@@ -83,7 +83,7 @@ unauthenticated clients. A client can authenticate itself by sending the
 **AUTH** command followed by the password.
 
 The password is set by the system administrator in clear text inside the
-redis.conf file. It should be long enough to prevent brute force attacks 
+redis.conf file. It should be long enough to prevent brute force attacks
 for two reasons:
 
 * Redis is very fast at serving queries. Many passwords per second can be tested by an external client.
@@ -91,11 +91,11 @@ for two reasons:
 
 The goal of the authentication layer is to optionally provide a layer of
 redundancy. If firewalling or any other system implemented to protect Redis
-from external attackers fail, an external client will still not be able to 
+from external attackers fail, an external client will still not be able to
 access the Redis instance without knowledge of the authentication password.
 
-The AUTH command, like every other Redis command, is sent unencrypted, so it 
-does not protect against an attacker that has enough access to the network to 
+The AUTH command, like every other Redis command, is sent unencrypted, so it
+does not protect against an attacker that has enough access to the network to
 perform eavesdropping.
 
 Data encryption support
@@ -117,8 +117,8 @@ service. In this context, normal users should probably not be able to
 call the Redis **CONFIG** command to alter the configuration of the instance,
 but the systems that provide and remove instances should be able to do so.
 
-In this case, it is possible to either rename or completely shadow commands from 
-the command table. This feature is available as a statement that can be used 
+In this case, it is possible to either rename or completely shadow commands from
+the command table. This feature is available as a statement that can be used
 inside the redis.conf configuration file. For example:
 
     rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52
@@ -136,21 +136,21 @@ the ability to insert data into Redis that triggers pathological (worst case)
 algorithm complexity on data structures implemented inside Redis internals.
 
 For instance an attacker could supply, via a web form, a set of strings that
-is known to hash to the same bucket into a hash table in order to turn the
+are known to hash to the same bucket into a hash table in order to turn the
 O(1) expected time (the average time) to the O(N) worst case, consuming more
 CPU than expected, and ultimately causing a Denial of Service.
 
 To prevent this specific attack, Redis uses a per-execution pseudo-random
 seed to the hash function.
 
-Redis implements the SORT command using the qsort algorithm. Currently, 
+Redis implements the SORT command using the qsort algorithm. Currently,
 the algorithm is not randomized, so it is possible to trigger a quadratic
 worst-case behavior by carefully selecting the right set of inputs.
 
 String escaping and NoSQL injection
 ---
 
-The Redis protocol has no concept of string escaping, so injection 
+The Redis protocol has no concept of string escaping, so injection
 is impossible under normal circumstances using a normal client library.
 The protocol uses prefixed-length strings and is completely binary safe.
 
@@ -162,8 +162,8 @@ While it would be a very strange use case, the application should avoid composin
 Code security
 ---
 
-In a classical Redis setup, clients are allowed full access to the command set, 
-but accessing the instance should never result in the ability to control the 
+In a classical Redis setup, clients are allowed full access to the command set,
+but accessing the instance should never result in the ability to control the
 system where Redis is running.
 
 Internally, Redis uses all the well known practices for writing secure code, to

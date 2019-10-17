@@ -1,5 +1,5 @@
 The command returns the stream entries matching a given range of IDs.
-The range is specified by a minimum and maximum ID. All the entires having
+The range is specified by a minimum and maximum ID. All the entries having
 an ID between the two specified or exactly one of the two IDs specified
 (closed interval) are returned.
 
@@ -7,7 +7,7 @@ The `XRANGE` command has a number of applications:
 
 * Returning items in a specific time range. This is possible because
   Stream IDs are [related to time](/topics/streams-intro).
-* Iteratating a stream incrementally, returning just
+* Iterating a stream incrementally, returning just
   a few items at every iteration. However it is semantically much more
   robust than the `SCAN` family of functions.
 * Fetching a single entry from a stream, providing the ID of the entry
