@@ -138,7 +138,7 @@ retrieve elements by radius.
 Limits of the score
 ---
 
-Sorted set elements scores are double precision integers. It means that
+Sorted set elements scores are double precision floats. It means that
 they can represent different decimal or integer values with different
 errors, because they use an exponential representation internally.
 However what is interesting for indexing purposes is that the score is
