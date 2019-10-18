@@ -6,10 +6,10 @@ Redis Keyspace Notifications
 Feature overview
 ---
 
-Keyspace notifications allows clients to subscribe to Pub/Sub channels in order
+Keyspace notifications allow clients to subscribe to Pub/Sub channels in order
 to receive events affecting the Redis data set in some way.
 
-Examples of the events that is possible to receive are the following:
+Examples of the events that are possible to receive are the following:
 
 * All the commands affecting a given key.
 * All the keys receiving an LPUSH operation.
@@ -31,7 +31,7 @@ Pub/Sub messages to perform operations like pushing the events into a list.
 Type of events
 ---
 
-Keyspace notifications are implemented sending two distinct type of events
+Keyspace notifications are implemented by sending two distinct types of events
 for every operation affecting the Redis data space. For instance a `DEL`
 operation targeting the key named `mykey` in database `0` will trigger
 the delivering of two messages, exactly equivalent to the following two
@@ -40,7 +40,7 @@ the delivering of two messages, exactly equivalent to the following two
     PUBLISH __keyspace@0__:mykey del
     PUBLISH __keyevent@0__:del mykey
 
-It is easy to see how one channel allows to listen to all the events targeting
+It is easy to see how one channel allows us to listen to all the events targeting
 the key `mykey` and the other channel allows to obtain information about
 all the keys that are target of a `del` operation.
 
@@ -60,7 +60,7 @@ just the subset of events we are interested in.
 Configuration
 ---
 
-By default keyspace events notifications are disabled because while not
+By default keyspace event notifications are disabled because while not
 very sensible the feature uses some CPU power. Notifications are enabled
 using the `notify-keyspace-events` of redis.conf or via the **CONFIG SET**.
 
@@ -121,7 +121,7 @@ Different commands generate different kind of events according to the following 
 * `SREM` generates a single `srem` event, and an additional `del` event if the resulting set is empty and the key is removed.
 * `SMOVE` generates an `srem` event for the source key, and an `sadd` event for the destination key.
 * `SPOP` generates an `spop` event, and an additional `del` event if the resulting set is empty and the key is removed.
-* `SINTERSTORE`, `SUNIONSTORE`, `SDIFFSTORE` generate `sinterstore`, `sunionostore`, `sdiffstore` events respectively. In the special case the resulting set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
+* `SINTERSTORE`, `SUNIONSTORE`, `SDIFFSTORE` generate `sinterstore`, `sunionstore`, `sdiffstore` events respectively. In the special case the resulting set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * `ZINCR` generates a `zincr` event.
 * `ZADD` generates a single `zadd` event even when multiple elements are added.
 * `ZREM` generates a single `zrem` event even when multiple elements are deleted. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.

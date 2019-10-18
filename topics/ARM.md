@@ -11,7 +11,7 @@ to also make it an officially supported platform.
 We believe that Redis is ideal for IoT and Embedded devices for several
 reasons:
 
-* Redis has a very small memory footprint and CPU requirements. Can run in small devices like the Raspberry Pi Zero without impacting the overall performance, using a small amount of memory, while delivering good performance for many use cases.
+* Redis has a very small memory footprint and CPU requirements. It can run in small devices like the Raspberry Pi Zero without impacting the overall performance, using a small amount of memory, while delivering good performance for many use cases.
 * The data structures of Redis are often a good way to model IoT/embedded use cases. For example in order to accumulate time series data, to receive or queue commands to execute or responses to send back to the remote servers and so forth.
 * Modeling data inside Redis can be very useful in order to make in-device decisions for appliances that must respond very quickly or when the remote servers are offline.
 * Redis can be used as an interprocess communication system between the processes running in the device.
@@ -29,8 +29,8 @@ run as expected.
 
 ## Building Redis in the Pi
 
-* Download Redis verison 4 or 5.
-* Just use `make` as usually to create the executable.
+* Download Redis version 4 or 5.
+* Just use `make` as usual to create the executable.
 
 There is nothing special in the process. The only difference is that by
 default, Redis uses the libc allocator instead of defaulting to Jemalloc
@@ -62,6 +62,4 @@ Raspberry Pi 1 model B:
 * Test 3: Like test 1 but with AOF enabled, fsync 1 sec: 1,820 ops/sec
 * Test 4: Like test 3, but with an AOF rewrite in progress: 1,000 ops/sec
 
-The benchmarks above are referring to simple SET/GET operations. The performance is similar for all the Redis fast operations (not running in linear time). However sorted sets may show slightly slow numbers.
-
-
+The benchmarks above are referring to simple SET/GET operations. The performance is similar for all the Redis fast operations (not running in linear time). However sorted sets may show slightly slower numbers.
