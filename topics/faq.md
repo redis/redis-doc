@@ -5,7 +5,17 @@
 There are two main reasons:
 
 * Redis is a different evolution path in the key-value DBs where values can contain more complex data types, with atomic operations defined on those data types. Redis data types are closely related to fundamental data structures and are exposed to the programmer as such, without additional abstraction layers.
-* Redis is an in-memory but persistent on disk database, so it represents a different trade off where very high write and read speed is achieved with the limitation of data sets that can't be larger than memory. Another advantage of in memory databases is that the memory representation of complex data structures is much simpler to manipulate compared to the same data structures on disk, so Redis can do a lot, with little internal complexity. At the same time the two on-disk storage formats (RDB and AOF) don't need to be suitable for random access, so they are compact and always generated in an append-only fashion (Even the AOF log rotation is an append-only operation, since the new version is generated from the copy of data in memory). However this design also involves different challenges compared to traditional on-disk stores. Being the main data representation on memory, Redis operations must be carefully handled to make sure there is always an updated version of the data set on disk.
+* Redis is an in-memory but persistent on disk database, so it represents a different trade off where very high write and read speed is achieved with the limitation of data sets that can't be larger than memory. Another advantage of
+in memory databases is that the memory representation of complex data structures
+is much simpler to manipulate compared to the same data structures on disk, so
+Redis can do a lot, with little internal complexity. At the same time the
+two on-disk storage formats (RDB and AOF) don't need to be suitable for random
+access, so they are compact and always generated in an append-only fashion
+(Even the AOF log rotation is an append-only operation, since the new version
+is generated from the copy of data in memory). However this design also involves
+different challenges compared to traditional on-disk stores. Being the main data
+representation on memory, Redis operations must be carefully handled to make sure
+there is always an updated version of the data set on disk. 
 
 ## What's the Redis memory footprint?
 
