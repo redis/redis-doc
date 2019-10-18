@@ -23,25 +23,17 @@ To give you a few examples (all obtained using 64-bit instances):
 
 * An empty instance uses ~ 3MB of memory.
 * 1 Million small Keys -> String Value pairs use ~ 85MB of memory.
-* 1 Million Keys -> Hash value, representing an object with 5 fields, use ~160
-MB of memory.
+* 1 Million Keys -> Hash value, representing an object with 5 fields, use ~160 MB of memory.
 
-To test your use case is trivial using the `redis-benchmark` utility to generate
-random data sets and check with the `INFO memory` command the space used.
+To test your use case is trivial using the `redis-benchmark` utility to generate random data sets and check with the `INFO memory` command the space used.
 
-64-bit systems will use considerably more memory than 32-bit systems to store
-the same keys, especially if the keys and values are small. This is because
-pointers take 8 bytes in 64-bit systems. But of course the advantage is that you
-can have a lot of memory in 64-bit systems, so in order to run large Redis
-servers a 64-bit system is more or less required. The alternative is sharding.
+64-bit systems will use considerably more memory than 32-bit systems to store the same keys, especially if the keys and values are small. This is because pointers take 8 bytes in 64-bit systems. But of course the advantage is that you can
+have a lot of memory in 64-bit systems, so in order to run large Redis servers a 64-bit system is more or less required. The alternative is sharding.
 
 ## I like Redis's high level operations and features, but I don't like that it takes everything in memory and I can't have a dataset larger than memory. Plans to change this?
 
-In the past the Redis developers experimented with Virtual Memory and other
-systems in order to allow larger than RAM datasets, but after all we are very
-happy if we can do one thing well: data served from memory, disk used for
-storage. So for now there are no plans to create an on-disk backend for Redis.
-Most of what Redis is, after all, is a direct result of its current design.
+In the past the Redis developers experimented with Virtual Memory and other systems in order to allow larger than RAM datasets, but after all we are very happy if we can do one thing well: data served from memory, disk used for storage. So for now there are no plans to create an on-disk backend for Redis. Most of what
+Redis is, after all, is a direct result of its current design.
 
 If your real problem is not the total RAM needed, but the fact that you need
 to split your data set into multiple Redis instances, please read the
