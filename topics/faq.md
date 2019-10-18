@@ -15,7 +15,7 @@ access, so they are compact and always generated in an append-only fashion
 is generated from the copy of data in memory). However this design also involves
 different challenges compared to traditional on-disk stores. Being the main data
 representation on memory, Redis operations must be carefully handled to make sure
-there is always an updated version of the data set on disk. 
+there is always an updated version of the data set on disk.
 
 ## What's the Redis memory footprint?
 
