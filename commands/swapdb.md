@@ -12,6 +12,6 @@ This will swap database 0 with database 1. All the clients connected with databa
 
 @examples
 
-```cli
+```
 SWAPDB 0 1
 ```

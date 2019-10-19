@@ -63,11 +63,13 @@ just a single key exists.
 * `COPY` -- Do not remove the key from the local instance.
 * `REPLACE` -- Replace existing key on the remote instance.
 * `KEYS` -- If the key argument is an empty string, the command will instead migrate all the keys that follow the `KEYS` option (see the above section for more info).
+* `AUTH` -- Authenticate with the given password to the remote instance.
 
 `COPY` and `REPLACE` are available only in 3.0 and above.
 `KEYS` is available starting with Redis 3.0.6.
+`AUTH` is available starting with Redis 4.0.7.
 
 @return
 
 @simple-string-reply: The command returns OK on success, or `NOKEY` if no keys were
-found in the source instance.  
+found in the source instance.
