@@ -7,7 +7,7 @@ Because when a given node is part of the cluster, all the other nodes
 participating in the cluster knows about it, in order for a node to be
 completely removed from a cluster, the `CLUSTER FORGET` command must be
 sent to all the remaining nodes, regardless of the fact they are masters
-or slaves.
+or replicas.
 
 However the command cannot simply drop the node from the internal node
 table of the node receiving the command, it also implements a ban-list, not
@@ -49,7 +49,7 @@ we want to remove a node.
 The command does not succeed and returns an error in the following cases:
 
 1. The specified node ID is not found in the nodes table.
-2. The node receiving the command is a slave, and the specified node ID identifies its current master.
+2. The node receiving the command is a replica, and the specified node ID identifies its current master.
 3. The node ID identifies the same node we are sending the command to.
 
 @return

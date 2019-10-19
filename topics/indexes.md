@@ -138,7 +138,7 @@ retrieve elements by radius.
 Limits of the score
 ---
 
-Sorted set elements scores are double precision integers. It means that
+Sorted set elements scores are double precision floats. It means that
 they can represent different decimal or integer values with different
 errors, because they use an exponential representation internally.
 However what is interesting for indexing purposes is that the score is
@@ -348,7 +348,7 @@ we just store the entry as `key:value`:
 
 And search for the key with:
 
-    ZRANGEBYLEX myindex mykey: + LIMIT 1 1
+    ZRANGEBYLEX myindex [mykey: + LIMIT 1 1
     1) "mykey:myvalue"
 
 Then we extract the part after the colon to retrieve the value.

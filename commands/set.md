@@ -24,6 +24,8 @@ Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it
 ```cli
 SET mykey "Hello"
 GET mykey
+
+SET anotherkey "will expire in a minute" EX 60
 ```
 
 ## Patterns
