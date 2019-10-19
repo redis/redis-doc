@@ -627,6 +627,15 @@
     "description": "Synchronizes nonces across node instances.",
     "authors": []
   },
+
+  {
+    "name": "predixy",
+    "language": "C++",
+    "repository": "https://github.com/joyieldInc/predixy",
+    "description": "A high performance and full features proxy for redis, supports redis sentinel and redis cluster.",
+    "authors": []
+  },
+
   {
     "name": "redis-browser",
     "language": "javascript",
@@ -634,6 +643,7 @@
     "description": "Cross platform GUI tool for redis that includes support for ReJSON",
     "authors": ["anandtrex"]
   },
+
   {
     "name": "p3x-redis-ui",
     "language": "javascript",
@@ -642,6 +652,7 @@
     "description": "📡 P3X Redis UI that uses Socket.IO, AngularJs Material and IORedis with statistics, console - terminal, tree, dark mode, internationalization, multiple connections, web and desktop by Electron. Works as an app without Node.JS GUI or with the latest Node.Js version. Can test it at https://p3x.redis.patrikx3.com/.",
     "authors": ["patrikx3"]
   },
+
   {
     "name": "Redis Server",
     "language": "Xojo",
