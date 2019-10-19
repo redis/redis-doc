@@ -1625,7 +1625,7 @@
     "repository": "https://github.com/bukalapak/redis-cluster",
     "description": "Redis cluster client on top of redis-rb. Support pipelining.",
     "authors": ["bukalapak"],
-    "actuve": true
+    "active": true
   },
 
   {
