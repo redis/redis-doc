@@ -1,7 +1,7 @@
 Problems with Redis? This is a good starting point.
 ===
 
-This page tries to help you about what to do if you have issues with Redis. Part of the Redis project is helping people that are experiencing problems because we don't like to let people alone with their issues.
+This page tries to help you with what to do if you have issues with Redis. Part of the Redis project is helping people that are experiencing problems because we don't like to leave people alone with their issues.
 
 * If you have **latency problems** with Redis, that in some way appears to be idle for some time, read our [Redis latency troubleshooting guide](/topics/latency).
 * Redis stable releases are usually very reliable, however in the rare event you are **experiencing crashes** the developers can help a lot more if you provide debugging information. Please read our [Debugging Redis guide](/topics/debugging).

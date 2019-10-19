@@ -18,10 +18,10 @@ The `OBJECT` command supports multiple sub commands:
   While the value is returned in seconds the actual resolution of this timer is
   10 seconds, but may vary in future implementations. This subcommand is
   available when `maxmemory-policy` is set to an LRU policy or `noeviction`. 
- * `OBJECT FREQ <key>` returns the logarithmic access frequency counter of the
-   object stored at the specified key. This subcommand is available when
-   `maxmemory-policy` is set to an LFU policy.
- * `OBJECT HELP` returns a succint help text.
+* `OBJECT FREQ <key>` returns the logarithmic access frequency counter of the
+  object stored at the specified key. This subcommand is available when
+  `maxmemory-policy` is set to an LFU policy.
+* `OBJECT HELP` returns a succinct help text.
 
 Objects can be encoded in different ways:
 

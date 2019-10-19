@@ -1,4 +1,4 @@
-This page provides a technical description of Redis persistence, it is a suggested read for all the Redis users. For a wider overview of Redis persistence and the durability guarantees it provides you may want to also read [Redis persistence demystified](http://antirez.com/post/redis-persistence-demystified.html).
+This page provides a technical description of Redis persistence, it is a suggested read for all Redis users. For a wider overview of Redis persistence and the durability guarantees it provides you may also want to read [Redis persistence demystified](http://antirez.com/post/redis-persistence-demystified.html).
 
 Redis Persistence
 ===
@@ -6,8 +6,8 @@ Redis Persistence
 Redis provides a different range of persistence options:
 
 * The RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
-* the AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to rewrite the log on background when it gets too big.
-* If you wish, you can disable persistence at all, if you want your data to just exist as long as the server is running.
+* The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to rewrite the log in the background when it gets too big.
+* If you wish, you can disable persistence completely, if you want your data to just exist as long as the server is running.
 * It is possible to combine both AOF and RDB in the same instance. Notice that, in this case, when Redis restarts the AOF file will be used to reconstruct the original dataset since it is guaranteed to be the most complete.
 
 The most important thing to understand is the different trade-offs between the
@@ -17,7 +17,7 @@ RDB advantages
 ---
 
 * RDB is a very compact single-file point-in-time representation of your Redis data. RDB files are perfect for backups. For instance you may want to archive your RDB files every hour for the latest 24 hours, and to save an RDB snapshot every day for 30 days. This allows you to easily restore different versions of the data set in case of disasters.
-* RDB is very good for disaster recovery, being a single compact file can be transferred to far data centers, or on Amazon S3 (possibly encrypted).
+* RDB is very good for disaster recovery, being a single compact file that can be transferred to far data centers, or onto Amazon S3 (possibly encrypted).
 * RDB maximizes Redis performances since the only work the Redis parent process needs to do in order to persist is forking a child that will do all the rest. The parent instance will never perform disk I/O or alike.
 * RDB allows faster restarts with big datasets compared to AOF.
 
@@ -39,10 +39,10 @@ AOF disadvantages
 ---
 
 * AOF files are usually bigger than the equivalent RDB files for the same dataset.
-* AOF can be slower than RDB depending on the exact fsync policy. In general with fsync set to *every second* performances are still very high, and with fsync disabled it should be exactly as fast as RDB even under high load. Still RDB is able to provide more guarantees about the maximum latency even in the case of an huge write load.
-* In the past we experienced rare bugs in specific commands (for instance there was one involving blocking commands like BRPOPLPUSH) causing the AOF produced to not reproduce exactly the same dataset on reloading. These bugs are rare and we have tests in the test suite creating random complex datasets automatically and reloading them to check everything is fine. However, these kind of bugs are almost impossible with RDB persistence. To make this point more clear: the Redis AOF works incrementally updating an existing state, like MySQL or MongoDB does, while the RDB snapshotting creates everything from scratch again and again, that is conceptually more robust. However -
+* AOF can be slower than RDB depending on the exact fsync policy. In general with fsync set to *every second* performance is still very high, and with fsync disabled it should be exactly as fast as RDB even under high load. Still RDB is able to provide more guarantees about the maximum latency even in the case of an huge write load.
+* In the past we experienced rare bugs in specific commands (for instance there was one involving blocking commands like BRPOPLPUSH) causing the AOF produced to not reproduce exactly the same dataset on reloading. These bugs are rare and we have tests in the test suite creating random complex datasets automatically and reloading them to check everything is fine. However, these kind of bugs are almost impossible with RDB persistence. To make this point more clear: the Redis AOF works by incrementally updating an existing state, like MySQL or MongoDB does, while the RDB snapshotting creates everything from scratch again and again, that is conceptually more robust. However -
   1) It should be noted that every time the AOF is rewritten by Redis it is recreated from scratch starting from the actual data contained in the data set, making resistance to bugs stronger compared to an always appending AOF file (or one rewritten reading the old AOF instead of reading the data in memory).
-  2) We never had a single report from users about an AOF corruption that was detected in the real world.
+  2) We have never had a single report from users about an AOF corruption that was detected in the real world.
 
 Ok, so what should I use?
 ---
@@ -134,37 +134,68 @@ You can configure how many times Redis will
 [`fsync`](http://linux.die.net/man/2/fsync) data on disk. There are
 three options:
 
-* `fsync` every time a new command is appended to the AOF. Very very
-slow, very safe.
-
-* `fsync` every second. Fast enough (in 2.4 likely to be as fast as snapshotting), and you can lose 1 second of data if there is a disaster.
-
-* Never `fsync`, just put your data in the hands of the Operating
-System. The faster and less safe method.
+* appendfsync always: `fsync` every time a new command is appended to the AOF. Very very slow, very safe.
+* appendfsync everysec: `fsync` every second. Fast enough (in 2.4 likely to be as fast as snapshotting), and you can lose 1 second of data if there is a disaster.
+* appendfsync no: Never `fsync`, just put your data in the hands of the Operating System. The faster and less safe method. Normally Linux will flush data every 30 seconds with this configuration, but it's up to the kernel exact tuning.
 
 The suggested (and default) policy is to `fsync` every second. It is
 both very fast and pretty safe. The `always` policy is very slow in
-practice (although it was improved in Redis 2.0) – there is no way to
-make `fsync` faster than it is.
+practice, but it supports group commit, so if there are multiple parallel
+writes Redis will try to perform a single `fsync` operation.
 
-### What should I do if my AOF gets corrupted?
+### What should I do if my AOF gets truncated?
 
-It is possible that the server crashes while writing the AOF file (this
-still should never lead to inconsistencies), corrupting the file in a
-way that is no longer loadable by Redis. When this happens you can fix
-this problem using the following procedure:
+It is possible that the server crashed while writing the AOF file, or that the
+volume where the AOF file is stored is store was full. When this happens the
+AOF still contains consistent data representing a given point-in-time version
+of the dataset (that may be old up to one second with the default AOF fsync
+policy), but the last command in the AOF could be truncated.
+The latest major versions of Redis will be able to load the AOF anyway, just
+discarding the last non well formed command in the file. In this case the
+server will emit a log like the following:
+
+```
+* Reading RDB preamble from AOF file...
+* Reading the remaining AOF tail...
+# !!! Warning: short read while loading the AOF file !!!
+# !!! Truncating the AOF at offset 439 !!!
+# AOF loaded anyway because aof-load-truncated is enabled
+```
+
+You can change the default configuration to force Redis to stop in such
+cases if you want, but the default configuration is to continue regardless
+the fact the last command in the file is not well-formed, in order to guarantee
+availabiltiy after a restart.
+
+Older versions of Redis may not recover, and may require the following steps:
 
 * Make a backup copy of your AOF file.
-
-* Fix the original file using the `redis-check-aof` tool that ships with
-Redis:
+* Fix the original file using the `redis-check-aof` tool that ships with Redis:
 
       $ redis-check-aof --fix <filename>
 
-* Optionally use `diff -u` to check what is the difference between two
-files.
-
+* Optionally use `diff -u` to check what is the difference between two files.
 * Restart the server with the fixed file.
+
+### What should I do if my AOF gets corrupted?
+
+If the AOF file is not just truncated, but corrupted with invalid byte
+sequences in the middle, things are more complex. Redis will complain
+at startup and will abort:
+
+```
+* Reading the remaining AOF tail...
+# Bad file format reading the append only file: make a backup of your AOF file, then use ./redis-check-aof --fix <filename>
+```
+
+The best thing to do is to run the `redis-check-aof` utility, initially without
+the `--fix` option, then understand the problem, jump at the given
+offset in the file, and see if it is possible to manually repair the file:
+the AOF uses the same format of the Redis protocol and is quite simple to fix
+manually. Otherwise it is possible to let the utility fix the file for us, but
+in that case all the AOF portion from the invalid part to the end of the
+file may be discareded, leading to a massive amount of data lost if the
+corruption happen to be in the initial part of the file.
 
 ### How it works
 
@@ -256,6 +287,11 @@ running. This is what we suggest:
 * Every time the cron script runs, make sure to call the `find` command to make sure too old snapshots are deleted: for instance you can take hourly snapshots for the latest 48 hours, and daily snapshots for one or two months. Make sure to name the snapshots with data and time information.
 * At least one time every day make sure to transfer an RDB snapshot *outside your data center* or at least *outside the physical machine* running your Redis instance.
 
+If you run a Redis instance with only AOF persistence enabled, you can still
+copy the AOF in order to create backups. The file may lack the final part
+but Redis will be still able to load it (see the previous sections about
+truncated AOF files).
+
 Disaster recovery
 ---
 
@@ -269,16 +305,15 @@ Since many Redis users are in the startup scene and thus don't have plenty
 of money to spend we'll review the most interesting disaster recovery techniques
 that don't have too high costs.
 
-* Amazon S3 and other similar services are a good way for mounting your disaster recovery system. Simply transfer your daily or hourly RDB snapshot to S3 in an encrypted form. You can encrypt your data using `gpg -c` (in symmetric encryption mode). Make sure to store your password in many different safe places (for instance give a copy to the most important people of your organization). It is recommended to use multiple storage services for improved data safety.
-* Transfer your snapshots using SCP (part of SSH) to far servers. This is a fairly simple and safe route: get a small VPS in a place that is very far from you, install ssh there, and generate an ssh client key without passphrase, then add it in the authorized_keys file of your small VPS. You are ready to transfer
-backups in an automated fashion. Get at least two VPS in two different providers
+* Amazon S3 and other similar services are a good way for implementing your disaster recovery system. Simply transfer your daily or hourly RDB snapshot to S3 in an encrypted form. You can encrypt your data using `gpg -c` (in symmetric encryption mode). Make sure to store your password in many different safe places (for instance give a copy to the most important people of your organization). It is recommended to use multiple storage services for improved data safety.
+* Transfer your snapshots using SCP (part of SSH) to far servers. This is a fairly simple and safe route: get a small VPS in a place that is very far from you, install ssh there, and generate an ssh client key without passphrase, then add it in the `authorized_keys` file of your small VPS. You are ready to transfer backups in an automated fashion. Get at least two VPS in two different providers
 for best results.
 
-It is important to understand that this system can easily fail if not coded
-in the right way. At least make absolutely sure that after the transfer is
-completed you are able to verify the file size (that should match the one of
-the file you copied) and possibly the SHA1 digest if you are using a VPS.
+It is important to understand that this system can easily fail if not
+implemented in the right way. At least make absolutely sure that after the
+transfer is completed you are able to verify the file size (that should match
+the one of the file you copied) and possibly the SHA1 digest if you are using
+a VPS.
 
 You also need some kind of independent alert system if the transfer of fresh
 backups is not working for some reason.
-

@@ -24,6 +24,9 @@ by Redis, which will be covered separately in this tutorial:
 * HyperLogLogs: this is a probabilistic data structure which is used in order
   to estimate the cardinality of a set. Don't be scared, it is simpler than
   it seems... See later in the HyperLogLog section of this tutorial.
+* Streams: append-only collections of map-like entries that provide an abstract
+  log data type. They are covered in depth in the
+  [Introduction to Redis Streams](/topics/streams-intro).
 
 It's not always trivial to grasp how these data types work and what to use in
 order to solve a given problem from the [command reference](/commands), so this
@@ -267,7 +270,7 @@ First steps with Redis Lists
 
 The `LPUSH` command adds a new element into a list, on the
 left (at the head), while the `RPUSH` command adds a new
-element into a list ,on the right (at the tail). Finally the
+element into a list, on the right (at the tail). Finally the
 `LRANGE` command extracts ranges of elements from lists:
 
     > rpush mylist A
@@ -327,7 +330,7 @@ pop. If we try to pop yet another element, this is the result we get:
     > rpop mylist
     (nil)
 
-Redis returned a NULL value to signal that there are no elements into the
+Redis returned a NULL value to signal that there are no elements in the
 list.
 
 Common use cases for lists
@@ -455,12 +458,12 @@ an empty list if the key does not exist and we are trying to add elements
 to it, for example, with `LPUSH`.
 
 This is not specific to lists, it applies to all the Redis data types
-composed of multiple elements -- Sets, Sorted Sets and Hashes.
+composed of multiple elements -- Streams, Sets, Sorted Sets and Hashes.
 
 Basically we can summarize the behavior with three rules:
 
 1. When we add an element to an aggregate data type, if the target key does not exist, an empty aggregate data type is created before adding the element.
-2. When we remove elements from an aggregate data type, if the value remains empty, the key is automatically destroyed.
+2. When we remove elements from an aggregate data type, if the value remains empty, the key is automatically destroyed. The Stream data type is the only exception to this rule.
 3. Calling a read-only command such as `LLEN` (which returns the length of the list), or a write command removing elements, with an empty key, always produces the same result as if the key is holding an empty aggregate type of the type the command expects to find.
 
 Examples of rule 1:
@@ -963,7 +966,8 @@ For example imagine you want to know the longest streak of daily visits of
 your web site users. You start counting days starting from zero, that is the
 day you made your web site public, and set a bit with `SETBIT` every time
 the user visits the web site. As a bit index you simply take the current unix
-time, subtract the initial offset, and divide by 3600\*24.
+time, subtract the initial offset, and divide by the number of seconds in a day
+(normally, 3600\*24).
 
 This way for each user you have a small string containing the visit
 information for each day. With `BITCOUNT` it is possible to easily get
