@@ -122,7 +122,7 @@
     "recommended": true,
     "active": true
   },
-  
+
   {
     "name": "RedisPipe",
     "language": "Go",
@@ -1054,7 +1054,7 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "redisclient",
     "language": "Nim",
@@ -1063,7 +1063,7 @@
     "authors": ["xmonader"],
     "active": true
   },
-  
+
   {
     "name": "libvmod-redis",
     "language": "VCL",
@@ -1618,7 +1618,7 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "Redis_MTC",
     "language": "Xojo",
@@ -1637,6 +1637,7 @@
     "authors": [],
     "active": true
   },
+
   {
     "name": "mini_redis",
     "language": "Crystal",
@@ -1646,7 +1647,7 @@
     "authors": ["vladfaust"],
     "active": true
   },
-  
+
   {
     "name": "FlyRedis",
     "language": "C++",
@@ -1710,6 +1711,15 @@
     "description": "Lightweight Python utilities for working with Redis.",
     "authors": [],
     "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "redisio",
+    "language": "Python",
+    "repository": "https://github.com/cf020031308/redisio",
+    "description": "A tiny and fast redis client for script boys.",
+    "authors": [],
     "active": true
   }
 
