@@ -88,7 +88,7 @@
     "name": "Redis-sync",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/redis-sync",
-    "description": "A node.js Redis replication slave toolkit",
+    "description": "A node.js Redis replication toolkit",
     "authors": ["pconstr"]
   },
   {
@@ -159,7 +159,7 @@
     "name": "Redis_failover",
     "language": "Ruby",
     "repository": "https://github.com/ryanlecompte/redis_failover",
-    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
+    "description": "Redis Failover is a ZooKeeper-based automatic master/replica failover solution for Ruby.",
     "authors": ["ryanlecompte"]
   },
   {
@@ -461,13 +461,6 @@
     "authors": ["fgribreau"]
   },
   {
-    "name": "Redis_failover",
-    "language": "Ruby",
-    "repository": "https://github.com/ryanlecompte/redis_failover",
-    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
-    "authors": ["ryanlecompte"]
-  },
-  {
     "name": "redis-in-labview",
     "language": "LabVIEW",
     "repository": "https://decibel.ni.com/content/docs/DOC-36322",
@@ -633,5 +626,29 @@
     "repository": "https://github.com/reidwmulkey/noncis",
     "description": "Synchronizes nonces across node instances.",
     "authors": []
+  },
+  {
+    "name": "redis-browser",
+    "language": "javascript",
+    "repository": "https://github.com/anandtrex/redis-browser",
+    "description": "Cross platform GUI tool for redis that includes support for ReJSON",
+    "authors": ["anandtrex"]
+  },
+  {
+    "name": "p3x-redis-ui",
+    "language": "javascript",
+    "repository": "https://github.com/patrikx3/redis-ui/",
+    "url":"https://pages.corifeus.com/redis-ui/",
+    "description": "📡 P3X Redis UI that uses Socket.IO, AngularJs Material and IORedis with statistics, console - terminal, tree, dark mode, internationalization, multiple connections, web and desktop by Electron. Works as an app without Node.JS GUI or with the latest Node.Js version. Can test it at https://p3x.redis.patrikx3.com/.",
+    "authors": ["patrikx3"]
+  },
+  {
+    "name": "Redis Server",
+    "language": "Xojo",
+    "repository": "https://github.com/ktekinay/XOJO-Redis",
+    "description": "Cross platform GUI to spin up and control redis-server, included in the project",
+    "url":"https://github.com/ktekinay/XOJO-Redis/releases/",
+    "authors": ["KemTekinay"]
   }
+
 ]

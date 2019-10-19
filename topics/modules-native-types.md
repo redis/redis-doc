@@ -182,7 +182,7 @@ and to test if a given key is already associated to a value of a specific data
 type.
 
 The API uses the normal modules `RedisModule_OpenKey()` low level key access
-interface in order to deal with this. This is an eaxmple of setting a
+interface in order to deal with this. This is an example of setting a
 native type private data structure to a Redis key:
 
     RedisModuleKey *key = RedisModule_OpenKey(ctx,keyname,REDISMODULE_WRITE);

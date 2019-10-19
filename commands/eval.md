@@ -109,6 +109,8 @@ Redis to Lua conversion rule:
 
 * Lua boolean true -> Redis integer reply with value of 1.
 
+**RESP3 mode conversion rules**: note that the Lua engine can work in RESP3 mode using the new Redis 6 protocol. In this case there are additional conversion rules, and certain conversions are also modified compared to the RESP2 mode. Please refer to the RESP3 section of this document for more information.
+
 Also there are two important rules to note:
 
 * Lua has a single numerical type, Lua numbers. There is no distinction between integers and floats. So we always convert Lua numbers into integer replies, removing the decimal part of the number if any. **If you want to return a float from Lua you should return it as a string**, exactly like Redis itself does (see for instance the `ZSCORE` command).
@@ -325,15 +327,17 @@ SCRIPT currently accepts three different commands:
 
 ## Scripts as pure functions
 
+*Note: starting with Redis 5, scripts are always replicated as effects and not sending the script verbatim. So the following section is mostly applicable to Redis version 4 or older.*
+
 A very important part of scripting is writing scripts that are pure functions.
-Scripts executed in a Redis instance are, by default, replicated on slaves
-and into the AOF file by sending the script itself -- not the resulting
+Scripts executed in a Redis instance are, by default, propagated to replicas
+and to the AOF file by sending the script itself -- not the resulting
 commands.
 
 The reason is that sending a script to another Redis instance is often much
 faster than sending the multiple commands the script generates, so if the
 client is sending many scripts to the master, converting the scripts into
-individual commands for the slave / AOF would result in too much bandwidth
+individual commands for the replica / AOF would result in too much bandwidth
 for the replication link or the Append Only File (and also too much CPU since
 dispatching a command received via network is a lot more work for Redis compared
 to dispatching a command invoked by Lua scripts).
@@ -371,13 +375,19 @@ In order to enforce this behavior in scripts Redis does the following:
   Note that a _random command_ does not necessarily mean a command that uses
   random numbers: any non-deterministic command is considered a random command
   (the best example in this regard is the `TIME` command).
-* Redis commands that may return elements in random order, like `SMEMBERS`
-  (because Redis Sets are _unordered_) have a different behavior when called
-  from Lua, and undergo a silent lexicographical sorting filter before
-  returning data to Lua scripts.
-  So `redis.call("smembers",KEYS[1])` will always return the Set elements
-  in the same order, while the same command invoked from normal clients may
-  return different results even if the key contains exactly the same elements.
+* In Redis version 4, commands that may return elements in random order, like
+  `SMEMBERS` (because Redis Sets are _unordered_) have a different behavior
+  when called from Lua, and undergo a silent lexicographical sorting filter
+  before returning data to Lua scripts. So `redis.call("smembers",KEYS[1])`
+  will always return the Set elements in the same order, while the same
+  command invoked from normal clients may return different results even if
+  the key contains exactly the same elements. However starting with Redis 5
+  there is no longer such ordering step, because Redis 5 replicates scripts
+  in a way that no longer needs non-deterministic commands to be converted
+  into deterministic ones. In general, even when developing for Redis 4, never
+  assume that certain commands in Lua will be ordered, but instead rely on
+  the documentation of the original command you call to see the properties
+  it provides.
 * Lua pseudo random number generation functions `math.random` and
   `math.randomseed` are modified in order to always have the same seed every
   time a new script is executed.
@@ -456,7 +466,7 @@ changing one of the arguments in every invocation, generating the random seed
 client-side.
 The seed will be propagated as one of the arguments both in the replication
 link and in the Append Only File, guaranteeing that the same changes will be
-generated when the AOF is reloaded or when the slave processes the script.
+generated when the AOF is reloaded or when the replica processes the script.
 
 Note: an important part of this behavior is that the PRNG that Redis implements
 as `math.random` and `math.randomseed` is guaranteed to have the same output
@@ -465,6 +475,8 @@ regardless of the architecture of the system running Redis.
 output.
 
 ## Replicating commands instead of scripts
+
+*Note: starting with Redis 5, the replication method described in this section (scripts effects replication) is the default and does not need to be explicitly enabled.*
 
 Starting with Redis 3.2, it is possible to select an
 alternative replication method. Instead of replication whole scripts, we
@@ -475,12 +487,12 @@ In this replication mode, while Lua scripts are executed, Redis collects
 all the commands executed by the Lua scripting engine that actually modify
 the dataset. When the script execution finishes, the sequence of commands
 that the script generated are wrapped into a MULTI / EXEC transaction and
-are sent to slaves and AOF.
+are sent to replicas and AOF.
 
 This is useful in several ways depending on the use case:
 
 * When the script is slow to compute, but the effects can be summarized by
-a few write commands, it is a shame to re-compute the script on the slaves
+a few write commands, it is a shame to re-compute the script on the replicas 
 or when reloading the AOF. In this case to replicate just the effect of the
 script is much better.
 * When script effects replication is enabled, the controls about non
@@ -501,9 +513,9 @@ is used.
 ## Selective replication of commands
 
 When script effects replication is selected (see the previous section), it
-is possible to have more control in the way commands are replicated to slaves
+is possible to have more control in the way commands are replicated to replicas
 and AOF. This is a very advanced feature since **a misuse can do damage** by
-breaking the contract that the master, slaves, and AOF, all must contain the
+breaking the contract that the master, replicas, and AOF, all must contain the
 same logical content.
 
 However this is a useful feature since, sometimes, we need to execute certain
@@ -524,13 +536,14 @@ an error if called when script effects replication is disabled.
 
 The command can be called with four different arguments:
 
-    redis.set_repl(redis.REPL_ALL) -- Replicate to AOF and slaves.
+    redis.set_repl(redis.REPL_ALL) -- Replicate to AOF and replicas.
     redis.set_repl(redis.REPL_AOF) -- Replicate only to AOF.
-    redis.set_repl(redis.REPL_SLAVE) -- Replicate only to slaves.
+    redis.set_repl(redis.REPL_REPLICA) -- Replicate only to replicas (Redis >= 5)
+    redis.set_repl(redis.REPL_SLAVE) -- Used for backward compatibility, the same as REPL_REPLICA.
     redis.set_repl(redis.REPL_NONE) -- Don't replicate at all.
 
 By default the scripting engine is always set to `REPL_ALL`. By calling
-this function the user can switch on/off AOF and or slaves replication, and
+this function the user can switch on/off AOF and or replicas propagation, and
 turn them back later at her/his wish.
 
 A simple example follows:
@@ -543,7 +556,7 @@ A simple example follows:
     redis.call('set','C','3')
 
 After running the above script, the result is that only keys A and C
-will be created on slaves and AOF.
+will be created on replicas and AOF.
 
 ## Global variables protection
 
@@ -585,6 +598,60 @@ selected by the client calling the script.
 The semantic change between patch level releases was needed since the old
 behavior was inherently incompatible with the Redis replication layer and
 was the cause of bugs.
+
+## Using Lua scripting in RESP3 mode
+
+Starting with Redis version 6, the server supports two differnent protocols.
+One is called RESP2, and is the old protocol: all the new connections to
+the server start in this mode. However clients are able to negotiate the
+new protocol using the `HELLO` command: this way the connection is put
+in RESP3 mode. In this mode certain commands, like for instance `HGETALL`,
+reply with a new data type (the Map data type in this specific case). The
+RESP3 protocol is semantically more powerful, however most scripts are ok
+with using just RESP3.
+
+The Lua engine always assumes to run in RESP2 mode when talking with Redis,
+so whatever the connection that is invoking the `EVAL` or `EVALSHA` command
+is in RESP2 or RESP3 mode, Lua scripts will, by default, still see the
+same kind of replies they used to see in the past from Redis, when calling
+commands using the `redis.call()` built-in function.
+
+However Lua scripts running in Redis 6 or greater, are able to switch to
+RESP3 mode, and get the replies using the new available types. Similarly
+Lua scripts are able to reply to clients using the new types. Please make
+sure to understand
+[the capabilities for RESP3](https://github.com/antirez/resp3)
+before continuing reading this section.
+
+In order to switch to RESP3 a script should call this function:
+
+    redis.setresp(3)
+
+Note that a script can switch back and forth from RESP3 and RESP2 by
+calling the function with the argument '3' or '2'.
+
+At this point the new conversions are available, specifically:
+
+**Redis to Lua** conversion table specific to RESP3:
+
+* Redis map reply -> Lua table with a single `map` field containing a Lua table representing the fields and values of the map.
+* Redis set reply -> Lua table with a single `set` field containing a Lua table representing the elements of the set as fields, having as value just `true`.
+* Redis new RESP3 single null value -> Lua nil.
+* Redis true reply -> Lua true boolean value.
+* Redis false reply -> Lua false boolean value.
+* Redis double reply -> Lua table with a single `score` field containing a Lua number representing the double value.
+* All the RESP2 old conversions still apply.
+
+**Lua to Redis** conversion table specific for RESP3.
+
+* Lua boolean -> Redis boolean true or false. **Note that this is a change compared to the RESP2 mode**, where returning true from Lua returned the number 1 to the Redis client, and returning false used to return NULL.
+* Lua table with a single `map` field set to a field-value Lua table -> Redis map reply.
+* Lua table with a single `set` field set to a field-value Lua table -> Redis set reply, the values are discared and can be anything.
+* Lua table with a single `double` field set to a field-value Lua table -> Redis double reply.
+* Lua null -> Redis RESP3 new null reply (protocol `"_\r\n"`).
+* All the RESP2 old conversions still apply unless specified above.
+
+There is one key thing to understand: in case Lua replies with RESP3 types, but the connection calling Lua is in RESP2 mode, Redis will automatically convert the RESP3 protocol to RESP2 compatible protocol, as it happens for normal commands. For instance returning a map type to a connection in RESP2 mode will have the effect of returning a flat array of fields and values.
 
 ## Available libraries
 
