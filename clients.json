@@ -1620,6 +1620,15 @@
   },
 
   {
+    "name": "redis-cluster",
+    "language": "Ruby",
+    "repository": "https://github.com/bukalapak/redis-cluster",
+    "description": "Redis cluster client on top of redis-rb. Support pipelining.",
+    "authors": ["bukalapak"],
+    "active": true
+  },
+
+  {
     "name": "Redis_MTC",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
