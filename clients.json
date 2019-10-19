@@ -1628,6 +1628,14 @@
   },
 
   {
+    "name": "RedisGo-Async",
+    "language": "Go",
+    "repository": "https://github.com/gistao/RedisGo-Async",
+    "description": "RedisGo-Async is a Go client for Redis, both asynchronous and synchronous modes are supported,,its API is fully compatible with redigo.",
+    "authors": ["gistao"]
+  },
+
+  {
     "name": "redis-cluster",
     "language": "Ruby",
     "repository": "https://github.com/bukalapak/redis-cluster",
