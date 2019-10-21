@@ -146,7 +146,7 @@ writes Redis will try to perform a single `fsync` operation.
 ### What should I do if my AOF gets truncated?
 
 It is possible that the server crashed while writing the AOF file, or that the
-volume where the AOF file is stored is store was full. When this happens the
+volume where the AOF file is stored was full at the time of writing. When this happens the
 AOF still contains consistent data representing a given point-in-time version
 of the dataset (that may be old up to one second with the default AOF fsync
 policy), but the last command in the AOF could be truncated.
@@ -194,8 +194,8 @@ offset in the file, and see if it is possible to manually repair the file:
 the AOF uses the same format of the Redis protocol and is quite simple to fix
 manually. Otherwise it is possible to let the utility fix the file for us, but
 in that case all the AOF portion from the invalid part to the end of the
-file may be discareded, leading to a massive amount of data lost if the
-corruption happen to be in the initial part of the file.
+file may be discarded, leading to a massive amount of data loss if the
+corruption happened to be in the initial part of the file.
 
 ### How it works
 
