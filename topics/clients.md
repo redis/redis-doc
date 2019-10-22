@@ -46,14 +46,14 @@ However Redis does the following two things when serving clients:
 Maximum number of clients
 ---
 
-In Redis 2.4 there was an hard-coded limit about the maximum number of clients
-that was possible to handle simultaneously.
+In Redis 2.4 there was a hard-coded limit for the maximum number of clients
+that could be handled simultaneously.
 
-In Redis 2.6 this limit is dynamic: by default is set to 10000 clients, unless
+In Redis 2.6 this limit is dynamic: by default it is set to 10000 clients, unless
 otherwise stated by the `maxclients` directive in Redis.conf.
 
-However Redis checks with the kernel what is the maximum number of file
-descriptors that we are able to open (the *soft limit* is checked), if the
+However, Redis checks with the kernel what is the maximum number of file
+descriptors that we are able to open (the *soft limit* is checked). If the
 limit is smaller than the maximum number of clients we want to handle, plus
 32 (that is the number of file descriptors Redis reserves for internal uses),
 then the number of maximum clients is modified by Redis to match the amount
@@ -161,4 +161,11 @@ See the [CLIENT LIST](http://redis.io/commands/client-list) documentation for th
 
 Once you have the list of clients, you can easily close the connection with a client using the `CLIENT KILL` command specifying the client address as argument.
 
-The commands `CLIENT SETNAME` and `CLIENT GETNAME` can be used to set and get the connection name.
+The commands `CLIENT SETNAME` and `CLIENT GETNAME` can be used to set and get the connection name. Starting with Redis 4.0, the client name is shown in the
+`SLOWLOG` output, so that it gets simpler to identify clients that are creating
+latency issues.
+
+TCP keepalive
+---
+
+Recent versions of Redis (3.2 or greater) have TCP keepalive (`SO_KEEPALIVE` socket option) enabled by default and set to about 300 seconds. This option is useful in order to detect dead peers (clients that cannot be reached even if they look connected). Moreover, if there is network equipment between clients and servers that need to see some traffic in order to take the connection open, the option will prevent unexpected connection closed events.

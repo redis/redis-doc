@@ -1,8 +1,8 @@
 Using Redis as an LRU cache
 ===
 
-When Redis is used as a cache, sometimes it is handy to let it automatically
-evict old data as you add new one. This behavior is very well known in the
+When Redis is used as a cache, often it is handy to let it automatically
+evict old data as you add new data. This behavior is very well known in the
 community of developers, since it is the default behavior of the popular
 *memcached* system.
 
@@ -11,6 +11,9 @@ the more general topic of the Redis `maxmemory` directive that is used in
 order to limit the memory usage to a fixed amount, and it also covers in
 depth the LRU algorithm used by Redis, that is actually an approximation of
 the exact LRU.
+
+Starting with Redis version 4.0, a new LFU (Least Frequently Used) eviction
+policy was introduced. This is covered in a separated section of this documentation.
 
 Maxmemory configuration directive
 ---
@@ -44,17 +47,17 @@ configured using the `maxmemory-policy` configuration directive.
 The following policies are available:
 
 * **noeviction**: return errors when the memory limit was reached and the client is trying to execute commands that could result in more memory to be used (most write commands, but `DEL` and a few more exceptions).
-* **allkeys-lru**: evict keys trying to remove the less recently used (LRU) keys first, in order to make space for the new data added.
-* **volatile-lru**: evict keys trying to remove the less recently used (LRU) keys first, but only among keys that have an **expire set**, in order to make space for the new data added.
-* **allkeys-random**: evict random keys in order to make space for the new data added.
-* **volatile-random**: evict random keys in order to make space for the new data added, but only evict keys with an **expire set**.
-* **volatile-ttl**: In order to make space for the new data, evict only keys with an **expire set**, and try to evict keys with a shorter time to live (TTL) first.
+* **allkeys-lru**: evict keys by trying to remove the less recently used (LRU) keys first, in order to make space for the new data added.
+* **volatile-lru**: evict keys by trying to remove the less recently used (LRU) keys first, but only among keys that have an **expire set**, in order to make space for the new data added.
+* **allkeys-random**: evict keys randomly in order to make space for the new data added.
+* **volatile-random**: evict keys randomly in order to make space for the new data added, but only evict keys with an **expire set**.
+* **volatile-ttl**: evict keys with an **expire set**, and try to evict keys with a shorter time to live (TTL) first, in order to make space for the new data added.
 
 The policies **volatile-lru**, **volatile-random** and **volatile-ttl** behave like **noeviction** if there are no keys to evict matching the prerequisites.
 
-To pick the right eviction policy is important depending on the access pattern 
-of your application, however you can reconfigure the policy at runtime while 
-the application is running, and monitor the number of cache misses and hits 
+Picking the right eviction policy is important depending on the access pattern
+of your application, however you can reconfigure the policy at runtime while
+the application is running, and monitor the number of cache misses and hits
 using the Redis `INFO` output in order to tune your setup.
 
 In general as a rule of thumb:
@@ -65,7 +68,7 @@ In general as a rule of thumb:
 
 The **volatile-lru** and **volatile-random** policies are mainly useful when you want to use a single instance for both caching and to have a set of persistent keys. However it is usually a better idea to run two Redis instances to solve such a problem.
 
-It is also worth to note that setting an expire to a key costs memory, so using a policy like **allkeys-lru** is more memory efficient since there is no need to set an expire for the key to be evicted under memory pressure.
+It is also worth noting that setting an expire to a key costs memory, so using a policy like **allkeys-lru** is more memory efficient since there is no need to set an expire for the key to be evicted under memory pressure.
 
 How the eviction process works
 ---
@@ -129,3 +132,60 @@ difference in your cache misses rate.
 To experiment in production with different values for the sample size by using
 the `CONFIG SET maxmemory-samples <count>` command, is very simple.
 
+The new LFU mode
+---
+
+Starting with Redis 4.0, a new [Least Frequently Used eviction mode](http://antirez.com/news/109) is available. This mode may work better (provide a better
+hits/misses ratio) in certain cases, since using LFU Redis will try to track
+the frequency of access of items, so that the ones used rarely are evicted while
+the one used often have an higher chance of remaining in memory.
+
+If you think at LRU, an item that was recently accessed but is actually almost never requested, will not get expired, so the risk is to evict a key that has an higher chance to be requested in the future. LFU does not have this problem, and in general should adapt better to different access patterns.
+
+To configure the LFU mode, the following policies are available:
+
+* `volatile-lfu` Evict using approximated LFU among the keys with an expire set.
+* `allkeys-lfu` Evict any key using approximated LFU.
+
+LFU is approximated like LRU: it uses a probabilistic counter, called a [Morris counter](https://en.wikipedia.org/wiki/Approximate_counting_algorithm) in order to estimate the object access frequency using just a few bits per object, combined with a decay period so that the counter is reduced over time: at some point we no longer want to consider keys as frequently accessed, even if they were in the past, so that the algorithm can adapt to a shift in the access pattern.
+
+Those informations are sampled similarly to what happens for LRU (as explained in the previous section of this documentation) in order to select a candidate for eviction.
+
+However unlike LRU, LFU has certain tunable parameters: for instance, how fast
+should a frequent item lower in rank if it gets no longer accessed? It is also possible to tune the Morris counters range in order to better adapt the algorithm to specific use cases.
+
+By default Redis 4.0 is configured to:
+
+* Saturate the counter at, around, one million requests.
+* Decay the counter every one minute.
+
+Those should be reasonable values and were tested experimental, but the user may want to play with these configuration settings in order to pick optimal values.
+
+Instructions about how to tune these parameters can be found inside the example `redis.conf` file in the source distribution, but briefly, they are:
+
+```
+lfu-log-factor 10
+lfu-decay-time 1
+```
+
+The decay time is the obvious one, it is the amount of minutes a counter should be decayed, when sampled and found to be older than that value. A special value of `0` means: always decay the counter every time is scanned, and is rarely useful.
+
+The counter *logarithm factor* changes how many hits are needed in order to saturate the frequency counter, which is just in the range 0-255. The higher the factor, the more accesses are needed in order to reach the maximum. The lower the factor, the better is the resolution of the counter for low accesses, according to the following table:
+
+```
++--------+------------+------------+------------+------------+------------+
+| factor | 100 hits   | 1000 hits  | 100K hits  | 1M hits    | 10M hits   |
++--------+------------+------------+------------+------------+------------+
+| 0      | 104        | 255        | 255        | 255        | 255        |
++--------+------------+------------+------------+------------+------------+
+| 1      | 18         | 49         | 255        | 255        | 255        |
++--------+------------+------------+------------+------------+------------+
+| 10     | 10         | 18         | 142        | 255        | 255        |
++--------+------------+------------+------------+------------+------------+
+| 100    | 8          | 11         | 49         | 143        | 255        |
++--------+------------+------------+------------+------------+------------+
+```
+
+So basically the factor is a trade off between better distinguishing items with low accesses VS distinguishing items with high accesses. More informations are available in the example `redis.conf` file self documenting comments.
+
+Since LFU is a new feature, we'll appreciate any feedback about how it performs in your use case compared to LRU.

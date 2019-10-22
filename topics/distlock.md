@@ -25,16 +25,18 @@ already available that can be used for reference.
 
 * [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation). There is also a [fork of Redlock-rb](https://github.com/leandromoreira/redlock-rb) that adds a gem for easy distribution and perhaps more.
 * [Redlock-py](https://github.com/SPSCommerce/redlock-py) (Python implementation).
+* [Aioredlock](https://github.com/joanvila/aioredlock) (Asyncio Python implementation).
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [PHPRedisMutex](https://github.com/malkusch/lock#phpredismutex) (further PHP implementation)
 * [cheprasov/php-redis-lock](https://github.com/cheprasov/php-redis-lock) (PHP library for locks)
-* [Redsync.go](https://github.com/hjr265/redsync.go) (Go implementation).
+* [Redsync](https://github.com/go-redsync/redsync) (Go implementation).
 * [Redisson](https://github.com/mrniko/redisson) (Java implementation).
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (C++ implementation).
 * [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
 * [RedLock.net](https://github.com/samcook/RedLock.net) (C#/.NET implementation). Includes async and lock extension support.
 * [ScarletLock](https://github.com/psibernetic/scarletlock) (C# .NET implementation with configurable datastore)
+* [Redlock4Net](https://github.com/LiZhenNet/Redlock4Net) (C# .NET implementation)
 * [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
 
 Safety and Liveness guarantees
@@ -43,7 +45,7 @@ Safety and Liveness guarantees
 We are going to model our design with just three properties that, from our point of view, are the minimum guarantees needed to use distributed locks in an effective way.
 
 1. Safety property: Mutual exclusion. At any given moment, only one client can hold a lock.
-2. Liveness property A: Deadlock free. Eventually it is always possible to acquire a lock, even if the client that locked a resource crashed or gets partitioned.
+2. Liveness property A: Deadlock free. Eventually it is always possible to acquire a lock, even if the client that locked a resource crashes or gets partitioned.
 3. Liveness property B: Fault tolerance. As long as the majority of Redis nodes are up, clients are able to acquire and release locks.
 
 Why failover-based implementations are not enough

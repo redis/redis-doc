@@ -4,10 +4,10 @@ Redis debugging guide
 Redis is developed with a great stress on stability: we do our best with
 every release to make sure you'll experience a very stable product and no
 crashes. However even with our best efforts it is impossible to avoid all
-the critical bugs with 100% of success.
+the critical bugs with 100% success.
 
 When Redis crashes it produces a detailed report of what happened, however
-sometimes looking at the crash report is not enough, nor it is possible for
+sometimes looking at the crash report is not enough, nor is it possible for
 the Redis core team to reproduce the issue independently: in this scenario we
 need help from the user that is able to reproduce the issue.
 
@@ -27,8 +27,10 @@ GDB can be used in two ways:
 + It can attach to a running program and inspect the state of it at runtime.
 + It can inspect the state of a program that already terminated using what is called a *core file*, that is, the image of the memory at the time the program was running.
 
-From the point of view of investigating Redis bugs we need to use both this
-GDB modes: the user able to reproduce the bug attaches GDB to his or her running Redis instance, and when the crash happens, he creates the `core` file that the in turn the developer will use to inspect the Redis internals at the time of the crash.
+From the point of view of investigating Redis bugs we need to use both of these
+GDB modes: the user able to reproduce the bug attaches GDB to their running Redis
+instance, and when the crash happens, they create the `core` file that in
+turn the developer will use to inspect the Redis internals at the time of the crash.
 
 This way the developer can perform all the inspections in his or her computer without the help of the user, and the user is free to restart Redis in the production environment.
 
@@ -49,7 +51,7 @@ compiled with optimizations.
 It is great if you make sure to recompile Redis with `make noopt` after the
 first crash, so that the next time it will be simpler to track the issue.
 
-You should not be concerned with the loss of performances compiling Redis
+You should not be concerned with the loss of performance compiling Redis
 without optimizations, it is very unlikely that this will cause problems in
 your environment since it is usually just a matter of a small percentage
 because Redis is not very CPU-bound (it does a lot of I/O to serve queries).
@@ -58,10 +60,10 @@ Attaching GDB to a running process
 ----------------------------------
 
 If you have an already running Redis server, you can attach GDB to it, so that
-if Redis will crash it will be possible to both inspect the internals and
+if Redis crashes it will be possible to both inspect the internals and
 generate a `core dump` file.
 
-After you attach GDB to the Redis process it will continue running as usually without any loss of performance, so this is not a dangerous procedure.
+After you attach GDB to the Redis process it will continue running as usual without any loss of performance, so this is not a dangerous procedure.
 
 In order to attach GDB the first thing you need is the *process ID* of the running Redis instance (the *pid* of the process). You can easily obtain it using `redis-cli`:
 
@@ -165,9 +167,16 @@ The next step is to generate the core dump, that is the image of the memory of t
     (gdb) gcore
     Saved corefile core.58414
 
-Now you have the core dump to send to the Redis developer, but **it is important to understand** that this happens to contain all the data that was inside the Redis instance at the time of the crash: Redis developers will make sure to don't share the content with any other, and will delete the file as soon as it is no longer used for debugging purposes, but you are warned that sending the core file you are sending your data.
+Now you have the core dump to send to the Redis developer, but **it is important
+to understand** that this happens to contain all the data that was inside the
+Redis instance at the time of the crash; Redis developers will make sure not to
+share the content with anyone else, and will delete the file as soon as it is no
+longer used for debugging purposes, but you are warned that by sending the core
+file you are sending your data.
 
-If there are sensible stuff in the data set we suggest sending the dump directly to Salvatore Sanfilippo (that is the guy writing this doc) at the email address **antirez at gmail dot com**.
+If there are sensible stuff in the data set we suggest sending the dump directly
+to Salvatore Sanfilippo (that is the guy writing this doc) at the email address
+**antirez at gmail dot com**.
 
 What to send to developers
 --------------------------
@@ -182,4 +191,6 @@ Finally you can send everything to the Redis core team:
 Thank you
 ---------
 
-Your help is extremely important! Many issues can only be tracked this way, thanks! It is also possible that helping Redis debugging you'll be among the winners of the next [Redis Moka Award](http://antirez.com/post/redis-moka-awards-2011.html).
+Your help is extremely important! Many issues can only be tracked this way,
+thanks! It is also possible that helping Redis debugging you'll be among the
+winners of the next [Redis Moka Award](http://antirez.com/post/redis-moka-awards-2011.html).

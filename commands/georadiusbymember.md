@@ -5,6 +5,8 @@ The position of the specified member is used as the center of the query.
 
 Please check the example below and the `GEORADIUS` documentation for more information about the command and its options.
 
+Note that `GEORADIUSBYMEMBER_RO` is also available since Redis 3.2.10 and Redis 4.0.0 in order to provide a read-only command that can be used in replicas. See the `GEORADIUS` page for more information.
+
 @examples
 
 ```cli

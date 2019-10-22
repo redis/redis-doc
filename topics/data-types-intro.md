@@ -1,7 +1,7 @@
 An introduction to Redis data types and abstractions
 ===
 
-Redis is not a *plain* key-value store, actually it is a *data structures server*, supporting different kind of values. What this means is that, while in
+Redis is not a *plain* key-value store, it is actually a *data structures server*, supporting different kinds of values. What this means is that, while in
 traditional key-value stores you associated string keys to string values, in
 Redis the value is not limited to a simple string, but can also hold more complex
 data structures. The following is the list of all the data structures supported
@@ -24,6 +24,9 @@ by Redis, which will be covered separately in this tutorial:
 * HyperLogLogs: this is a probabilistic data structure which is used in order
   to estimate the cardinality of a set. Don't be scared, it is simpler than
   it seems... See later in the HyperLogLog section of this tutorial.
+* Streams: append-only collections of map-like entries that provide an abstract
+  log data type. They are covered in depth in the
+  [Introduction to Redis Streams](/topics/streams-intro).
 
 It's not always trivial to grasp how these data types work and what to use in
 order to solve a given problem from the [command reference](/commands), so this
@@ -83,7 +86,7 @@ already stored into the key, in the case that the key already exists, even if
 the key is associated with a non-string value. So `SET` performs an assignment.
 
 Values can be strings (including binary data) of every kind, for instance you
-can store a jpeg image inside a key. A value can't be bigger than 512 MB.
+can store a jpeg image inside a value. A value can't be bigger than 512 MB.
 
 The `SET` command has interesting options, that are provided as additional
 arguments. For example, I may ask `SET` to fail if the key already exists,
@@ -267,7 +270,7 @@ First steps with Redis Lists
 
 The `LPUSH` command adds a new element into a list, on the
 left (at the head), while the `RPUSH` command adds a new
-element into a list ,on the right (at the tail). Finally the
+element into a list, on the right (at the tail). Finally the
 `LRANGE` command extracts ranges of elements from lists:
 
     > rpush mylist A
@@ -327,7 +330,7 @@ pop. If we try to pop yet another element, this is the result we get:
     > rpop mylist
     (nil)
 
-Redis returned a NULL value to signal that there are no elements into the
+Redis returned a NULL value to signal that there are no elements in the
 list.
 
 Common use cases for lists
@@ -455,12 +458,12 @@ an empty list if the key does not exist and we are trying to add elements
 to it, for example, with `LPUSH`.
 
 This is not specific to lists, it applies to all the Redis data types
-composed of multiple elements -- Sets, Sorted Sets and Hashes.
+composed of multiple elements -- Streams, Sets, Sorted Sets and Hashes.
 
 Basically we can summarize the behavior with three rules:
 
 1. When we add an element to an aggregate data type, if the target key does not exist, an empty aggregate data type is created before adding the element.
-2. When we remove elements from an aggregate data type, if the value remains empty, the key is automatically destroyed.
+2. When we remove elements from an aggregate data type, if the value remains empty, the key is automatically destroyed. The Stream data type is the only exception to this rule.
 3. Calling a read-only command such as `LLEN` (which returns the length of the list), or a write command removing elements, with an empty key, always produces the same result as if the key is holding an empty aggregate type of the type the command expects to find.
 
 Examples of rule 1:
@@ -875,7 +878,7 @@ the `+` and `-` strings. See the documentation for more information.
 This feature is important because it allows us to use sorted sets as a generic
 index. For example, if you want to index elements by a 128-bit unsigned
 integer argument, all you need to do is to add elements into a sorted
-set with the same score (for example 0) but with an 8 byte prefix
+set with the same score (for example 0) but with an 16 byte prefix
 consisting of **the 128 bit number in big endian**. Since numbers in big
 endian, when ordered lexicographically (in raw bytes order) are actually
 ordered numerically as well, you can ask for ranges in the 128 bit space,
@@ -954,7 +957,7 @@ is a trivial example of `BITCOUNT` call:
     > bitcount key
     (integer) 2
 
-Common user cases for bitmaps are:
+Common use cases for bitmaps are:
 
 * Real time analytics of all kinds.
 * Storing space efficient but high performance boolean information associated with object IDs.
@@ -963,7 +966,8 @@ For example imagine you want to know the longest streak of daily visits of
 your web site users. You start counting days starting from zero, that is the
 day you made your web site public, and set a bit with `SETBIT` every time
 the user visits the web site. As a bit index you simply take the current unix
-time, subtract the initial offset, and divide by 3600\*24.
+time, subtract the initial offset, and divide by the number of seconds in a day
+(normally, 3600\*24).
 
 This way for each user you have a small string containing the visit
 information for each day. With `BITCOUNT` it is possible to easily get
@@ -989,13 +993,13 @@ proportional to the number of items you want to count, because you need
 to remember the elements you have already seen in the past in order to avoid
 counting them multiple times. However there is a set of algorithms that trade
 memory for precision: you end with an estimated measure with a standard error,
-in the case of the Redis implementation, which is less than 1%.  The
+which in the case of the Redis implementation is less than 1%.  The
 magic of this algorithm is that you no longer need to use an amount of memory
 proportional to the number of items counted, and instead can use a
 constant amount of memory! 12k bytes in the worst case, or a lot less if your
 HyperLogLog (We'll just call them HLL from now) has seen very few elements.
 
-HLLs in Redis, while technically a different data structure, is encoded
+HLLs in Redis, while technically a different data structure, are encoded
 as a Redis string, so you can call `GET` to serialize a HLL, and `SET`
 to deserialize it back to the server.
 
@@ -1029,7 +1033,7 @@ There are other important things in the Redis API that can't be explored
 in the context of this document, but are worth your attention:
 
 * It is possible to [iterate the key space of a large collection incrementally](/commands/scan).
-* It is possible to run [Lua scripts server side](/commands/eval) to win latency and bandwidth.
+* It is possible to run [Lua scripts server side](/commands/eval) to improve latency and bandwidth.
 * Redis is also a [Pub-Sub server](/topics/pubsub).
 
 Learn more

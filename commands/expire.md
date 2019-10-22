@@ -46,12 +46,14 @@ command altering its value had the effect of removing the key entirely.
 This semantics was needed because of limitations in the replication layer that
 are now fixed.
 
+`EXPIRE` would return 0 and not alter the timeout for a key with a timeout set.
+
 @return
 
 @integer-reply, specifically:
 
 * `1` if the timeout was set.
-* `0` if `key` does not exist or the timeout could not be set.
+* `0` if `key` does not exist.
 
 @examples
 
@@ -160,12 +162,12 @@ second divided by 4.
 
 In order to obtain a correct behavior without sacrificing consistency, when a
 key expires, a `DEL` operation is synthesized in both the AOF file and gains all
-the attached slaves.
+the attached replicas nodes.
 This way the expiration process is centralized in the master instance, and there
 is no chance of consistency errors.
 
-However while the slaves connected to a master will not expire keys
+However while the replicas connected to a master will not expire keys
 independently (but will wait for the `DEL` coming from the master), they'll
 still take the full state of the expires existing in the dataset, so when a
-slave is elected to a master it will be able to expire the keys independently,
+replica is elected to master it will be able to expire the keys independently,
 fully acting as a master.
