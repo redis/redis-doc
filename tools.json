@@ -660,6 +660,14 @@
     "description": "Cross platform GUI to spin up and control redis-server, included in the project",
     "url":"https://github.com/ktekinay/XOJO-Redis/releases/",
     "authors": ["KemTekinay"]
-  }
+  },
 
+  {
+    "name": "iredis",
+    "language": "Python",
+    "repository": "https://github.com/laixintao/iredis",
+    "description": "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.",
+    "url": "https://iredis.io",
+    "authors": ["laixintao"]
+  }
 ]
