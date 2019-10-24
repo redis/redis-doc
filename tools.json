@@ -669,5 +669,13 @@
     "description": "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.",
     "url": "https://iredis.io",
     "authors": ["laixintao"]
+  },
+
+  {
+    "name": "flask-redisboard",
+    "language": "Python",
+    "repository": "https://github.com/hjlarry/flask-redisboard",
+    "description": "A flask extension to support user view and manage redis with beautiful interface.",
+    "authors": ["hjlarry"]
   }
 ]
