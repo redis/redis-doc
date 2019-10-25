@@ -670,8 +670,16 @@
     "url": "https://iredis.io",
     "authors": ["laixintao"]
   },
-  
-    {
+
+  {
+    "name": "flask-redisboard",
+    "language": "Python",
+    "repository": "https://github.com/hjlarry/flask-redisboard",
+    "description": "A flask extension to support user view and manage redis with beautiful interface.",
+    "authors": ["hjlarry"]
+  },
+
+  {
     "name": "Rediseen",
     "language": "Go",
     "repository": "https://github.com/XD-DENG/rediseen",
