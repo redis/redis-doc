@@ -677,5 +677,14 @@
     "repository": "https://github.com/hjlarry/flask-redisboard",
     "description": "A flask extension to support user view and manage redis with beautiful interface.",
     "authors": ["hjlarry"]
+  },
+
+  {
+    "name": "Rediseen",
+    "language": "Go",
+    "repository": "https://github.com/XD-DENG/rediseen",
+    "description": "Start a REST-like API service for your Redis database, without writing a single line of code.",
+    "url": "https://github.com/XD-DENG/rediseen",
+    "authors": ["XiaodongDENG1"]
   }
 ]
