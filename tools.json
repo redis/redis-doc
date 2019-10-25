@@ -669,5 +669,14 @@
     "description": "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.",
     "url": "https://iredis.io",
     "authors": ["laixintao"]
+  },
+  
+    {
+    "name": "Rediseen",
+    "language": "Go",
+    "repository": "https://github.com/XD-DENG/rediseen",
+    "description": "Start a REST-like API service for your Redis database, without writing a single line of code.",
+    "url": "https://github.com/XD-DENG/rediseen",
+    "authors": ["Xiaodong DENG"]
   }
 ]
