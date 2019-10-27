@@ -59,8 +59,8 @@ important to understand what the user is really able to do.
 
 By default there is a single user defined, that is called *default*. We
 can use the `ACL LIST` command in order to check the currently active ACLs
-and verify what the configuration of a freshly stared and unconfigured Redis
-instance is:
+and verify what the configuration of a freshly started, defaults-configured
+Redis instance is:
 
     > ACL LIST
     1) "user default on nopass ~* +@all"
@@ -85,7 +85,7 @@ without any explicit `AUTH` call needed.
 The following is the list of the valid ACL rules. Certain rules are just
 single words that are used in order to activate or remove a flag, or to
 perform a given change to the user ACL. Other rules are char prefixes that
-are concatenated with command or cagetories names, or key patterns, and
+are concatenated with command or categories names, or key patterns, and
 so forth.
 
 Enable and disallow users:
@@ -113,7 +113,7 @@ Configure valid passwords for the user:
 
 * `><password>`: Add this password to the list of valid passwords for the user. For example `>mypass` will add "mypass" to the list of valid passwords.  This directive clears the *nopass* flag (see later). Every user can have any number of passwords.
 * `<<password>`: Remove this password from the list of valid passwords. Emits an error in case the password you are trying to remove is actually not set.
-* `#<hash>`: Add this SHA-256 hash value to the list of valid passwords for the user. This hash value will be compared to the hash of a password entered for an ACL user. This allows users to store hashes in the acl.conf file rather than storing cleartext passwords. Only SHA-256 hash values are accepted as the password hash must be 64 characters and only container lowercase hexadecimal characters.
+* `#<hash>`: Add this SHA-256 hash value to the list of valid passwords for the user. This hash value will be compared to the hash of a password entered for an ACL user. This allows users to store hashes in the `acl.conf` file rather than storing cleartext passwords. Only SHA-256 hash values are accepted as the password hash must be 64 characters and only container lowercase hexadecimal characters.
 * `!<hash>`: Remove this hash value from from the list of valid passwords. This is useful when you do not know the password specified by the hash value but would like to remove the password from the user.
 * `nopass`: All the set passwords of the user are removed, and the user is flagged as requiring no password: it means that every password will work against this user. If this directive is used for the default user, every new connection will be immediately authenticated with the default user without any explicit AUTH command required. Note that the *resetpass* directive will clear this condition.
 * `resetpass`: Flush the list of allowed passwords. Moreover removes the *nopass* status. After *resetpass* the user has no associated passwords and there is no way to authenticate without adding some password (or setting it as *nopass* later).
@@ -230,7 +230,7 @@ the following sequence:
     > ACL SETUSER myuser +get
     OK
 
-Will result into myuser to be able to call both `GET` and `SET`:
+Will result in myuser being able to call both `GET` and `SET`:
 
     > ACL LIST
     1) "user default on nopass ~* +@all"
@@ -245,7 +245,7 @@ really annoying, so instead we do things like that:
 
 By saying +@all and -@dangerous we included all the commands and later removed
 all the commands that are tagged as dangerous inside the Redis command table.
-Please note that command categories **never include modules commnads** with
+Please note that command categories **never include modules commands** with
 the exception of +@all. If you say +@all all the commands can be executed by
 the user, even future commands loaded via the modules system. However if you
 use the ACL rule +@readonly or any other, the modules commands are always
@@ -313,7 +313,7 @@ dangerous and non dangerous operations. Many deployments may not be happy to
 provide the ability to execute `CLIENT KILL` to non admin-level users, but may
 still want them to be able to run `CLIENT SETNAME`.
 
-_Note: probably the new RESP3 `HELLO` command will provide a SETNAME option soon, but this is still a good exmaple anyway._
+_Note: the new RESP3 `HELLO` command will probably provide a SETNAME option soon, but this is still a good example anyway._
 
 In such case I could alter the ACL of a user in the following way:
 
@@ -400,7 +400,7 @@ There are two ways in order to store users inside the Redis configuration.
     2. It is possible to specify an external ACL file.
 
 The two methods are *mutually incompatible*, Redis will ask you to use one
-or the other. To specify useres inside `redis.conf` is a very simple way
+or the other. To specify users inside `redis.conf` is a very simple way
 good for simple use cases. When there are multiple users to define, in a
 complex environment, we strongly suggest you to use the ACL file.
 
