@@ -355,6 +355,12 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER BUMPEPOCH": {
+    "summary": "Advance the cluster config epoch",
+    "complexity": "O(1)",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER COUNT-FAILURE-REPORTS": {
     "summary": "Return the number of failure reports active for a given node",
     "complexity": "O(N) where N is the number of failure reports",
@@ -403,6 +409,12 @@
         "optional": true
       }
     ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER FLUSHSLOTS": {
+    "summary": "Delete a node's own slots information",
+    "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
@@ -465,6 +477,12 @@
         "type": "integer"
       }
     ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER MYID": {
+    "summary": "Return the node id",
+    "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
