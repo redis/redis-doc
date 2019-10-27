@@ -2,6 +2,7 @@ Sets or clears the bit at _offset_ in the string value stored at _key_.
 
 The bit is either set or cleared depending on _value_, which can be either 0 or
 1.
+
 When _key_ does not exist, a new string value is created.
 The string is grown to make sure it can hold a bit at _offset_.
 The _offset_ argument is required to be greater than or equal to 0, and smaller
@@ -36,7 +37,7 @@ GET mykey
 There are cases when you need to set all the bits of single bitmap at once, for
 example when initializing it to a default non-zero value. It is possible to do
 this with multiple calls to the `SETBIT` command, one for each bit that needs to
-be set. However, as an optimization, you can use a single `SET` command to set
+be set. However, so as an optimization you can use a single `SET` command to set
 the entire bitmap.
 
 Bitmaps are not an actual data type, but a set of bit-oriented operations
@@ -70,6 +71,19 @@ bitmap by performing the bits-to-bytes encoding in the client and calling `SET`
 with the resultant string.
 
 [ti]: /topics/data-types-intro#bitmaps
+
+## Pattern: setting multiple bits
+
+`SETBIT` excels at setting single bits, and can be called several times when
+multiple bits need to be set. To optimize this operation you can replace
+multiple `SETBIT` calls with a single call to the variadic `BITFIELD` command
+and the use of fields of type `u1`.
+
+For example, the example above could be replaced by:
+
+```
+> BITFIELD bitsinabitmap SET u1 2 1 SET u1 3 1 SET u1 5 1 SET u1 10 1 SET u1 11 1 SET u1 14 1
+```
 
 ## Advanced Pattern: accessing bitmap ranges
 
