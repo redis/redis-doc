@@ -3,7 +3,7 @@
 Redis contains an implementation of the Gopher protocol, as specified in
 the [RFC 1436](https://www.ietf.org/rfc/rfc1436.txt).
 
-The Gopher protocol was very popular in the late '90s. It is an alternative 
+The Gopher protocol was very popular in the late '90s. It is an alternative
 to the web, and the implementation both server and client side is so simple
 that the Redis server has just 100 lines of code in order to implement this
 support.
@@ -31,9 +31,7 @@ a string like "/foo", if there is a key named "/foo" it is served via the
 Gopher protocol.
 
 In order to create a real Gopher "hole" (the name of a Gopher site in Gopher
-talking), you likely need a script like the following:
-
-  https://github.com/antirez/gopher2redis
+talking), you likely need a script such as the one in [https://github.com/antirez/gopher2redis](https://github.com/antirez/gopher2redis).
 
 ## SECURITY WARNING
 
@@ -46,7 +44,7 @@ Once a password is set:
 
 So use the `requirepass` option to protect your instance.
 
-To enable Gopher support use hte following configuration line.
+To enable Gopher support use the following configuration line.
 
     gopher-enabled yes
 

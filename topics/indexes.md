@@ -719,7 +719,7 @@ property or not.
 
 Similarly lists can be used in order to index items into a fixed order.
 I can add all my items into a Redis list and rotate the list with
-RPOPLPUSH using the same key name as source and destination. This is useful
+`RPOPLPUSH` using the same key name as source and destination. This is useful
 when I want to process a given set of items again and again forever in the
 same order. Think of an RSS feed system that needs to refresh the local copy
 periodically.

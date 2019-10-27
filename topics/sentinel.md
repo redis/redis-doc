@@ -10,9 +10,9 @@ notifications and acts as a configuration provider for clients.
 
 This is the full list of Sentinel capabilities at a macroscopical level (i.e. the *big picture*):
 
-* **Monitoring**. Sentinel constantly checks if your master and slave instances are working as expected.
+* **Monitoring**. Sentinel constantly checks if your master and replica instances are working as expected.
 * **Notification**. Sentinel can notify the system administrator, or other computer programs, via an API, that something is wrong with one of the monitored Redis instances.
-* **Automatic failover**. If a master is not working as expected, Sentinel can start a failover process where a slave is promoted to master, the other additional slaves are reconfigured to use the new master, and the applications using the Redis server are informed about the new address to use when connecting.
+* **Automatic failover**. If a master is not working as expected, Sentinel can start a failover process where a replica is promoted to master, the other additional replicas are reconfigured to use the new master, and the applications using the Redis server are informed about the new address to use when connecting.
 * **Configuration provider**. Sentinel acts as a source of authority for clients service discovery: clients connect to Sentinels in order to ask for the address of the current Redis master responsible for a given service. If a failover occurs, Sentinels will report the new address.
 
 Distributed nature of Sentinel
@@ -25,7 +25,7 @@ Sentinel itself is designed to run in a configuration where there are multiple S
 1. Failure detection is performed when multiple Sentinels agree about the fact a given master is no longer available. This lowers the probability of false positives.
 2. Sentinel works even if not all the Sentinel processes are working, making the system robust against failures. There is no fun in having a failover system which is itself a single point of failure, after all.
 
-The sum of Sentinels, Redis instances (masters and slaves) and clients
+The sum of Sentinels, Redis instances (masters and replicas) and clients
 connecting to Sentinel and Redis, are also a larger distributed system with
 specific properties. In this document concepts will be introduced gradually
 starting from basic information needed in order to understand the basic
@@ -82,7 +82,7 @@ Fundamental things to know about Sentinel before deploying
 3. Sentinel + Redis distributed system does not guarantee that acknowledged writes are retained during failures, since Redis uses asynchronous replication. However there are ways to deploy Sentinel that make the window to lose writes limited to certain moments, while there are other less secure ways to deploy it.
 4. You need Sentinel support in your clients. Popular client libraries have Sentinel support, but not all.
 5. There is no HA setup which is safe if you don't test from time to time in development environments, or even better if you can, in production environments, if they work. You may have a misconfiguration that will become apparent only when it's too late (at 3am when your master stops working).
-6. **Sentinel, Docker, or other forms of Network Address Translation or Port Mapping should be mixed with care**: Docker performs port remapping, breaking Sentinel auto discovery of other Sentinel processes and the list of slaves for a master. Check the section about Sentinel and Docker later in this document for more information.
+6. **Sentinel, Docker, or other forms of Network Address Translation or Port Mapping should be mixed with care**: Docker performs port remapping, breaking Sentinel auto discovery of other Sentinel processes and the list of replicas for a master. Check the section about Sentinel and Docker later in this document for more information.
 
 Configuring Sentinel
 ---
@@ -103,15 +103,15 @@ following:
     sentinel parallel-syncs resque 5
 
 You only need to specify the masters to monitor, giving to each separated
-master (that may have any number of slaves) a different name. There is no
-need to specify slaves, which are auto-discovered. Sentinel will update the
-configuration automatically with additional information about slaves (in
+master (that may have any number of replicas) a different name. There is no
+need to specify replicas, which are auto-discovered. Sentinel will update the
+configuration automatically with additional information about replicas (in
 order to retain the information in case of restart). The configuration is
-also rewritten every time a slave is promoted to master during a failover
+also rewritten every time a replica is promoted to master during a failover
 and every time a new Sentinel is discovered.
 
 The example configuration above basically monitors two sets of Redis
-instances, each composed of a master and an undefined number of slaves.
+instances, each composed of a master and an undefined number of replicas.
 One set of instances is called `mymaster`, and the other `resque`.
 
 The meaning of the arguments of `sentinel monitor` statements is the following:
@@ -148,13 +148,13 @@ And are used for the following purposes:
 * `down-after-milliseconds` is the time in milliseconds an instance should not
 be reachable (either does not reply to our PINGs or it is replying with an
 error) for a Sentinel starting to think it is down.
-* `parallel-syncs` sets the number of slaves that can be reconfigured to use
+* `parallel-syncs` sets the number of replicas that can be reconfigured to use
 the new master after a failover at the same time. The lower the number, the
 more time it will take for the failover process to complete, however if the
-slaves are configured to serve old data, you may not want all the slaves to
+replicas are configured to serve old data, you may not want all the replicas to
 re-synchronize with the master at the same time. While the replication
-process is mostly non blocking for a slave, there is a moment when it stops to
-load the bulk data from the master. You may want to make sure only one slave
+process is mostly non blocking for a replica, there is a moment when it stops to
+load the bulk data from the master. You may want to make sure only one replica
 at a time is not reachable by setting this option to the value of 1.
 
 Additional options are described in the rest of this document and
@@ -202,7 +202,7 @@ Network partitions are shown as interrupted lines using slashes:
 Also note that:
 
 * Masters are called M1, M2, M3, ..., Mn.
-* Slaves are called R1, R2, R3, ..., Rn (R stands for *replica*).
+* replicas are called R1, R2, R3, ..., Rn (R stands for *replica*).
 * Sentinels are called S1, S2, S3, ..., Sn.
 * Clients are called C1, C2, C3, ..., Cn.
 * When an instance changes role because of Sentinel actions, we put it inside square brackets, so [M1] means an instance that is now a master because of Sentinel intervention.
@@ -264,7 +264,7 @@ be able to authorize a failover, making clients able to continue.
 
 In every Sentinel setup, as Redis uses asynchronous replication, there is
 always the risk of losing some writes because a given acknowledged write
-may not be able to reach the slave which is promoted to master. However in
+may not be able to reach the replica which is promoted to master. However in
 the above setup there is an higher risk due to clients being partitioned away
 with an old master, like in the following picture:
 
@@ -281,31 +281,31 @@ with an old master, like in the following picture:
     +------+         +----+
 
 In this case a network partition isolated the old master M1, so the
-slave R2 is promoted to master. However clients, like C1, that are
+replica R2 is promoted to master. However clients, like C1, that are
 in the same partition as the old master, may continue to write data
 to the old master. This data will be lost forever since when the partition
-will heal, the master will be reconfigured as a slave of the new master,
+will heal, the master will be reconfigured as a replica of the new master,
 discarding its data set.
 
 This problem can be mitigated using the following Redis replication
 feature, that allows to stop accepting writes if a master detects that
-it is no longer able to transfer its writes to the specified number of slaves.
+it is no longer able to transfer its writes to the specified number of replicas.
 
-    min-slaves-to-write 1
-    min-slaves-max-lag 10
+    min-replicas-to-write 1
+    min-replicas-max-lag 10
 
-With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 slave. Since replication is asynchronous *not being able to write* actually means that the slave is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
+With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 replica. Since replication is asynchronous *not being able to write* actually means that the replica is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
 
 Using this configuration, the old Redis master M1 in the above example, will become unavailable after 10 seconds. When the partition heals, the Sentinel configuration will converge to the new one, the client C1 will be able to fetch a valid configuration and will continue with the new master.
 
-However there is no free lunch. With this refinement, if the two slaves are
+However there is no free lunch. With this refinement, if the two replicas are
 down, the master will stop accepting writes. It's a trade off.
 
 Example 3: Sentinel in the client boxes
 ---
 
 Sometimes we have only two Redis boxes available, one for the master and
-one for the slave. The configuration in the example 2 is not viable in
+one for the replica. The configuration in the example 2 is not viable in
 that case, so we can resort to the following, where Sentinels are placed
 where clients are:
 
@@ -334,15 +334,15 @@ If the box where M1 and S1 are running fails, the failover will happen
 without issues, however it is easy to see that different network partitions
 will result in different behaviors. For example Sentinel will not be able
 to setup if the network between the clients and the Redis servers is
-disconnected, since the Redis master and slave will both be unavailable.
+disconnected, since the Redis master and replica will both be unavailable.
 
 Note that if C3 gets partitioned with M1 (hardly possible with
 the network described above, but more likely possible with different
 layouts, or because of failures at the software layer), we have a similar
 issue as described in Example 2, with the difference that here we have
-no way to break the symmetry, since there is just a slave and master, so
-the master can't stop accepting queries when it is disconnected from its slave,
-otherwise the master would never be available during slave failures.
+no way to break the symmetry, since there is just a replica and master, so
+the master can't stop accepting queries when it is disconnected from its replica,
+otherwise the master would never be available during replica failures.
 
 So this is a valid setup but the setup in the Example 2 has advantages
 such as the HA system of Redis running in the same boxes as Redis itself
@@ -362,7 +362,7 @@ case we need to resort to a mixed setup like the following:
                 +----+    |    +----+
                           |
                    +------+-----+
-                   |            |  
+                   |            |
                    |            |
                 +----+        +----+
                 | C1 |        | C2 |
@@ -394,13 +394,13 @@ not ports but also IP addresses.
 Remapping ports and addresses creates issues with Sentinel in two ways:
 
 1. Sentinel auto-discovery of other Sentinels no longer works, since it is based on *hello* messages where each Sentinel announce at which port and IP address they are listening for connection. However Sentinels have no way to understand that an address or port is remapped, so it is announcing an information that is not correct for other Sentinels to connect.
-2. Slaves are listed in the `INFO` output of a Redis master in a similar way: the address is detected by the master checking the remote peer of the TCP connection, while the port is advertised by the slave itself during the handshake, however the port may be wrong for the same reason as exposed in point 1.
+2. Replicas are listed in the `INFO` output of a Redis master in a similar way: the address is detected by the master checking the remote peer of the TCP connection, while the port is advertised by the replica itself during the handshake, however the port may be wrong for the same reason as exposed in point 1.
 
-Since Sentinels auto detect slaves using masters `INFO` output information,
-the detected slaves will not be reachable, and Sentinel will never be able to
-failover the master, since there are no good slaves from the point of view of
+Since Sentinels auto detect replicas using masters `INFO` output information,
+the detected replicas will not be reachable, and Sentinel will never be able to
+failover the master, since there are no good replicas from the point of view of
 the system, so there is currently no way to monitor with Sentinel a set of
-master and slave instances deployed with Docker, **unless you instruct Docker
+master and replica instances deployed with Docker, **unless you instruct Docker
 to map the port 1:1**.
 
 For the first problem, in case you want to run a set of Sentinel
@@ -423,7 +423,7 @@ how to configure and interact with 3 Sentinel instances.
 
 Here we assume that the instances are executed at port 5000, 5001, 5002.
 We also assume that you have a running Redis master at port 6379 with a
-slave running at port 6380. We will use the IPv4 loopback address 127.0.0.1
+replica running at port 6380. We will use the IPv4 loopback address 127.0.0.1
 everywhere during the tutorial, assuming you are running the simulation
 on your personal computer.
 
@@ -440,7 +440,7 @@ as port numbers.
 
 A few things to note about the above configuration:
 
-* The master set is called `mymaster`. It identifies the master and its slaves. Since each *master set* has a different name, Sentinel can monitor different sets of masters and slaves at the same time.
+* The master set is called `mymaster`. It identifies the master and its replicas. Since each *master set* has a different name, Sentinel can monitor different sets of masters and replicas at the same time.
 * The quorum was set to the value of 2 (last argument of `sentinel monitor` configuration directive).
 * The `down-after-milliseconds` value is 5000 milliseconds, that is 5 seconds, so masters will be detected as failing as soon as we don't receive any reply from our pings within this amount of time.
 
@@ -508,7 +508,7 @@ a few that are of particular interest for us:
 
 1. `num-other-sentinels` is 2, so we know the Sentinel already detected two more Sentinels for this master. If you check the logs you'll see the `+sentinel` events generated.
 2. `flags` is just `master`. If the master was down we could expect to see `s_down` or `o_down` flag as well here.
-3. `num-slaves` is correctly set to 1, so Sentinel also detected that there is an attached slave to our master.
+3. `num-slaves` is correctly set to 1, so Sentinel also detected that there is an attached replica to our master.
 
 In order to explore more about this instance, you may want to try the following
 two commands:
@@ -516,14 +516,14 @@ two commands:
     SENTINEL slaves mymaster
     SENTINEL sentinels mymaster
 
-The first will provide similar information about the slaves connected to the
+The first will provide similar information about the replicas connected to the
 master, and the second about the other Sentinels.
 
 Obtaining the address of the current master
 ---
 
 As we already specified, Sentinel also acts as a configuration provider for
-clients that want to connect to a set of master and slaves. Because of
+clients that want to connect to a set of master and replicas. Because of
 possible failovers or reconfigurations, clients have no idea about who is
 the currently active master for a given set of instances, so Sentinel exports
 an API to ask this question:
@@ -565,7 +565,7 @@ Sentinel API
 ===
 
 Sentinel provides an API in order to inspect its state, check the health
-of monitored masters and slaves, subscribe in order to receive specific
+of monitored masters and replicas, subscribe in order to receive specific
 notifications, and change the Sentinel configuration at run time.
 
 By default Sentinel runs using TCP port 26379 (note that 6379 is the normal
@@ -589,10 +589,10 @@ order to modify the Sentinel configuration, which are covered later.
 * **PING** This command simply returns PONG.
 * **SENTINEL masters** Show a list of monitored masters and their state.
 * **SENTINEL master `<master name>`** Show the state and info of the specified master.
-* **SENTINEL slaves `<master name>`** Show a list of slaves for this master, and their state.
+* **SENTINEL slaves `<master name>`** Show a list of replicas for this master, and their state.
 * **SENTINEL sentinels `<master name>`** Show a list of sentinel instances for this master, and their state.
-* **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted slave.
-* **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every slave and sentinel already discovered and associated with the master.
+* **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted replica.
+* **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every replica and sentinel already discovered and associated with the master.
 * **SENTINEL failover `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
 * **SENTINEL ckquorum `<master name>`** Check if the current Sentinel configuration is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
 * **SENTINEL flushconfig** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
@@ -625,7 +625,7 @@ Adding a new Sentinel to your deployment is a simple process because of the
 auto-discover mechanism implemented by Sentinel. All you need to do is to
 start the new Sentinel configured to monitor the currently active master.
 Within 10 seconds the Sentinel will acquire the list of other Sentinels and
-the set of slaves attached to the master.
+the set of replicas attached to the master.
 
 If you need to add multiple Sentinels at once, it is suggested to add it
 one after the other, waiting for all the other Sentinels to already know
@@ -649,23 +649,23 @@ the following steps should be performed in absence of network partitions:
 2. Send a `SENTINEL RESET *` command to all the other Sentinel instances (instead of `*` you can use the exact master name if you want to reset just a single master). One after the other, waiting at least 30 seconds between instances.
 3. Check that all the Sentinels agree about the number of Sentinels currently active, by inspecting the output of `SENTINEL MASTER mastername` of every Sentinel.
 
-Removing the old master or unreachable slaves
+Removing the old master or unreachable replicas
 ---
 
-Sentinels never forget about slaves of a given master, even when they are
+Sentinels never forget about replicas of a given master, even when they are
 unreachable for a long time. This is useful, because Sentinels should be able
-to correctly reconfigure a returning slave after a network partition or a
+to correctly reconfigure a returning replica after a network partition or a
 failure event.
 
 Moreover, after a failover, the failed over master is virtually added as a
-slave of the new master, this way it will be reconfigured to replicate with
+replica of the new master, this way it will be reconfigured to replicate with
 the new master as soon as it will be available again.
 
-However sometimes you want to remove a slave (that may be the old master)
-forever from the list of slaves monitored by Sentinels.
+However sometimes you want to remove a replica (that may be the old master)
+forever from the list of replicas monitored by Sentinels.
 
 In order to do this, you need to send a `SENTINEL RESET mastername` command
-to all the Sentinels: they'll refresh the list of slaves within the next
+to all the Sentinels: they'll refresh the list of replicas within the next
 10 seconds, only adding the ones listed as correctly replicating from the
 current master `INFO` output.
 
@@ -694,12 +694,12 @@ The part identifying the master (from the @ argument to the end) is optional
 and is only specified if the instance is not a master itself.
 
 * **+reset-master** `<instance details>` -- The master was reset.
-* **+slave** `<instance details>` -- A new slave was detected and attached.
+* **+slave** `<instance details>` -- A new replica was detected and attached.
 * **+failover-state-reconf-slaves** `<instance details>` -- Failover state changed to `reconf-slaves` state.
-* **+failover-detected** `<instance details>` -- A failover started by another Sentinel or any other external entity was detected (An attached slave turned into a master).
-* **+slave-reconf-sent** `<instance details>` -- The leader sentinel sent the `SLAVEOF` command to this instance in order to reconfigure it for the new slave.
-* **+slave-reconf-inprog** `<instance details>` -- The slave being reconfigured showed to be a slave of the new master ip:port pair, but the synchronization process is not yet complete.
-* **+slave-reconf-done** `<instance details>` -- The slave is now synchronized with the new master.
+* **+failover-detected** `<instance details>` -- A failover started by another Sentinel or any other external entity was detected (An attached replica turned into a master).
+* **+slave-reconf-sent** `<instance details>` -- The leader sentinel sent the `SLAVEOF` command to this instance in order to reconfigure it for the new replica.
+* **+slave-reconf-inprog** `<instance details>` -- The replica being reconfigured showed to be a replica of the new master ip:port pair, but the synchronization process is not yet complete.
+* **+slave-reconf-done** `<instance details>` -- The replica is now synchronized with the new master.
 * **-dup-sentinel** `<instance details>` -- One or more sentinels for the specified master were removed as duplicated (this happens for instance when a Sentinel instance is restarted).
 * **+sentinel** `<instance details>` -- A new sentinel for this master was detected and attached.
 * **+sdown** `<instance details>` -- The specified instance is now in Subjectively Down state.
@@ -709,12 +709,12 @@ and is only specified if the instance is not a master itself.
 * **+new-epoch** `<instance details>` -- The current epoch was updated.
 * **+try-failover** `<instance details>` -- New failover in progress, waiting to be elected by the majority.
 * **+elected-leader** `<instance details>` -- Won the election for the specified epoch, can do the failover.
-* **+failover-state-select-slave** `<instance details>` -- New failover state is `select-slave`: we are trying to find a suitable slave for promotion.
-* **no-good-slave** `<instance details>` -- There is no good slave to promote. Currently we'll try after some time, but probably this will change and the state machine will abort the failover at all in this case.
-* **selected-slave** `<instance details>` -- We found the specified good slave to promote.
-* **failover-state-send-slaveof-noone** `<instance details>` -- We are trying to reconfigure the promoted slave as master, waiting for it to switch.
-* **failover-end-for-timeout** `<instance details>` -- The failover terminated for timeout, slaves will eventually be configured to replicate with the new master anyway.
-* **failover-end** `<instance details>` -- The failover terminated with success. All the slaves appears to be reconfigured to replicate with the new master.
+* **+failover-state-select-slave** `<instance details>` -- New failover state is `select-slave`: we are trying to find a suitable replica for promotion.
+* **no-good-slave** `<instance details>` -- There is no good replica to promote. Currently we'll try after some time, but probably this will change and the state machine will abort the failover at all in this case.
+* **selected-slave** `<instance details>` -- We found the specified good replica to promote.
+* **failover-state-send-slaveof-noone** `<instance details>` -- We are trying to reconfigure the promoted replica as master, waiting for it to switch.
+* **failover-end-for-timeout** `<instance details>` -- The failover terminated for timeout, replicas will eventually be configured to replicate with the new master anyway.
+* **failover-end** `<instance details>` -- The failover terminated with success. All the replicas appears to be reconfigured to replicate with the new master.
 * **switch-master** `<master name> <oldip> <oldport> <newip> <newport>` -- The master new IP and address is the specified one after a configuration change. This is **the message most external users are interested in**.
 * **+tilt** -- Tilt mode entered.
 * **-tilt** -- Tilt mode exited.
@@ -730,49 +730,49 @@ command, that will only succeed if the script was read-only.
 If the instance is still in an error condition after this try, it will
 eventually be failed over.
 
-Slaves priority
+Replicas priority
 ---
 
-Redis instances have a configuration parameter called `slave-priority`.
-This information is exposed by Redis slave instances in their `INFO` output,
-and Sentinel uses it in order to pick a slave among the ones that can be
+Redis instances have a configuration parameter called `replica-priority`.
+This information is exposed by Redis replica instances in their `INFO` output,
+and Sentinel uses it in order to pick a replica among the ones that can be
 used in order to failover a master:
 
-1. If the slave priority is set to 0, the slave is never promoted to master.
-2. Slaves with a *lower* priority number are preferred by Sentinel.
+1. If the replica priority is set to 0, the replica is never promoted to master.
+2. Replicas with a *lower* priority number are preferred by Sentinel.
 
-For example if there is a slave S1 in the same data center of the current
-master, and another slave S2 in another data center, it is possible to set
+For example if there is a replica S1 in the same data center of the current
+master, and another replica S2 in another data center, it is possible to set
 S1 with a priority of 10 and S2 with a priority of 100, so that if the master
 fails and both S1 and S2 are available, S1 will be preferred.
 
-For more information about the way slaves are selected, please check the **slave selection and priority** section of this documentation.
+For more information about the way replicas are selected, please check the **replica selection and priority** section of this documentation.
 
 Sentinel and Redis authentication
 ---
 
 When the master is configured to require a password from clients,
-as a security measure, slaves need to also be aware of this password in
-order to authenticate with the master and create the master-slave connection
+as a security measure, replicas need to also be aware of this password in
+order to authenticate with the master and create the master-replica connection
 used for the asynchronous replication protocol.
 
 This is achieved using the following configuration directives:
 
 * `requirepass` in the master, in order to set the authentication password, and to make sure the instance will not process requests for non authenticated clients.
-* `masterauth` in the slaves in order for the slaves to authenticate with the master in order to correctly replicate data from it.
+* `masterauth` in the replicas in order for the replicas to authenticate with the master in order to correctly replicate data from it.
 
 When Sentinel is used, there is not a single master, since after a failover
-slaves may play the role of masters, and old masters can be reconfigured in
-order to act as slaves, so what you want to do is to set the above directives
-in all your instances, both masters and slaves.
+replicas may play the role of masters, and old masters can be reconfigured in
+order to act as replicas, so what you want to do is to set the above directives
+in all your instances, both masters and replicas.
 
 This is also usually a sane setup since you don't want to protect
-data only in the master, having the same data accessible in the slaves.
+data only in the master, having the same data accessible in the replicas.
 
-However, in the uncommon case where you need a slave that is accessible
-without authentication, you can still do it by setting up **a slave priority
-of zero**, to prevent this slave from being promoted to master, and
-configuring in this slave only the `masterauth` directive, without
+However, in the uncommon case where you need a replica that is accessible
+without authentication, you can still do it by setting up **a replica priority
+of zero**, to prevent this replica from being promoted to master, and
+configuring in this replica only the `masterauth` directive, without
 using the `requirepass` directive, so that data will be readable by
 unauthenticated clients.
 
@@ -838,7 +838,7 @@ An acceptable reply to PING is one of the following:
 * PING replied with -MASTERDOWN error.
 
 Any other reply (or no reply at all) is considered non valid.
-However note that **a logical master that advertises itself as a slave in
+However note that **a logical master that advertises itself as a replica in
 the INFO output is considered to be down**.
 
 Note that SDOWN requires that no acceptable reply is received for the whole
@@ -860,13 +860,13 @@ order to really start the failover, but no failover can be triggered without
 reaching the ODOWN state.
 
 The ODOWN condition **only applies to masters**. For other kind of instances
-Sentinel doesn't require to act, so the ODOWN state is never reached for slaves
+Sentinel doesn't require to act, so the ODOWN state is never reached for replicas
 and other sentinels, but only SDOWN is.
 
-However SDOWN has also semantic implications. For example a slave in SDOWN
+However SDOWN has also semantic implications. For example a replica in SDOWN
 state is not selected to be promoted by a Sentinel performing a failover.
 
-Sentinels and Slaves auto discovery
+Sentinels and replicas auto discovery
 ---
 
 Sentinels stay connected with other Sentinels in order to reciprocally
@@ -874,16 +874,16 @@ check the availability of each other, and to exchange messages. However you
 don't need to configure a list of other Sentinel addresses in every Sentinel
 instance you run, as Sentinel uses the Redis instances Pub/Sub capabilities
 in order to discover the other Sentinels that are monitoring the same masters
-and slaves.
+and replicas.
 
 This feature is implemented by sending *hello messages* into the channel named
 `__sentinel__:hello`.
 
-Similarly you don't need to configure what is the list of the slaves attached
+Similarly you don't need to configure what is the list of the replicas attached
 to a master, as Sentinel will auto discover this list querying Redis.
 
-* Every Sentinel publishes a message to every monitored master and slave Pub/Sub channel `__sentinel__:hello`, every two seconds, announcing its presence with ip, port, runid.
-* Every Sentinel is subscribed to the Pub/Sub channel `__sentinel__:hello` of every master and slave, looking for unknown sentinels. When new sentinels are detected, they are added as sentinels of this master.
+* Every Sentinel publishes a message to every monitored master and replica Pub/Sub channel `__sentinel__:hello`, every two seconds, announcing its presence with ip, port, runid.
+* Every Sentinel is subscribed to the Pub/Sub channel `__sentinel__:hello` of every master and replica, looking for unknown sentinels. When new sentinels are detected, they are added as sentinels of this master.
 * Hello messages also include the full current configuration of the master. If the receiving Sentinel has a configuration for a given master which is older than the one received, it updates to the new configuration immediately.
 * Before adding a new sentinel to a master a Sentinel always checks if there is already a sentinel with the same runid or the same address (ip and port pair). In that case all the matching sentinels are removed, and the new added.
 
@@ -893,64 +893,64 @@ Sentinel reconfiguration of instances outside the failover procedure
 Even when no failover is in progress, Sentinels will always try to set the
 current configuration on monitored instances. Specifically:
 
-* Slaves (according to the current configuration) that claim to be masters, will be configured as slaves to replicate with the current master.
-* Slaves connected to a wrong master, will be reconfigured to replicate with the right master.
+* Replicas (according to the current configuration) that claim to be masters, will be configured as replicas to replicate with the current master.
+* Replicas connected to a wrong master, will be reconfigured to replicate with the right master.
 
-For Sentinels to reconfigure slaves, the wrong configuration must be observed for some time, that is greater than the period used to broadcast new configurations.
+For Sentinels to reconfigure replicas, the wrong configuration must be observed for some time, that is greater than the period used to broadcast new configurations.
 
-This prevents Sentinels with a stale configuration (for example because they just rejoined from a partition) will try to change the slaves configuration before receiving an update.
+This prevents Sentinels with a stale configuration (for example because they just rejoined from a partition) will try to change the replicas configuration before receiving an update.
 
 Also note how the semantics of always trying to impose the current configuration makes the failover more resistant to partitions:
 
-* Masters failed over are reconfigured as slaves when they return available.
-* Slaves partitioned away during a partition are reconfigured once reachable.
+* Masters failed over are reconfigured as replicas when they return available.
+* Replicas partitioned away during a partition are reconfigured once reachable.
 
 The important lesson to remember about this section is: **Sentinel is a system where each process will always try to impose the last logical configuration to the set of monitored instances**.
 
-Slave selection and priority
+Replica selection and priority
 ---
 
 When a Sentinel instance is ready to perform a failover, since the master
 is in `ODOWN` state and the Sentinel received the authorization to failover
-from the majority of the Sentinel instances known, a suitable slave needs
+from the majority of the Sentinel instances known, a suitable replica needs
 to be selected.
 
-The slave selection process evaluates the following information about slaves:
+The replica selection process evaluates the following information about replicas:
 
 1. Disconnection time from the master.
-2. Slave priority.
+2. Replica priority.
 3. Replication offset processed.
 4. Run ID.
 
-A slave that is found to be disconnected from the master for more than ten
+A replica that is found to be disconnected from the master for more than ten
 times the configured master timeout (down-after-milliseconds option), plus
 the time the master is also not available from the point of view of the
 Sentinel doing the failover, is considered to be not suitable for the failover
 and is skipped.
 
-In more rigorous terms, a slave whose the `INFO` output suggests it has been
+In more rigorous terms, a replica whose the `INFO` output suggests it has been
 disconnected from the master for more than:
 
     (down-after-milliseconds * 10) + milliseconds_since_master_is_in_SDOWN_state
 
 Is considered to be unreliable and is disregarded entirely.
 
-The slave selection only considers the slaves that passed the above test,
+The replica selection only considers the replicas that passed the above test,
 and sorts it based on the above criteria, in the following order.
 
-1. The slaves are sorted by `slave-priority` as configured in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
-2. If the priority is the same, the replication offset processed by the slave is checked, and the slave that received more data from the master is selected.
-3. If multiple slaves have the same priority and processed the same data from the master, a further check is performed, selecting the slave with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a slave, but is useful in order to make the process of slave selection more deterministic, instead of resorting to select a random slave.
+1. The replicas are sorted by `replica-priority` as configured in the `redis.conf` file of the Redis instance. A lower priority will be preferred.
+2. If the priority is the same, the replication offset processed by the replica is checked, and the replica that received more data from the master is selected.
+3. If multiple replicas have the same priority and processed the same data from the master, a further check is performed, selecting the replica with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a replica, but is useful in order to make the process of replica selection more deterministic, instead of resorting to select a random replica.
 
-Redis masters (that may be turned into slaves after a failover), and slaves, all
-must be configured with a `slave-priority` if there are machines to be strongly
+Redis masters (that may be turned into replicas after a failover), and replicas, all
+must be configured with a `replica-priority` if there are machines to be strongly
 preferred. Otherwise all the instances can run with the default run ID (which
-is the suggested setup, since it is far more interesting to select the slave
+is the suggested setup, since it is far more interesting to select the replica
 by replication offset).
 
-A Redis instance can be configured with a special `slave-priority` of zero
+A Redis instance can be configured with a special `replica-priority` of zero
 in order to be **never selected** by Sentinels as the new master.
-However a slave configured in this way will still be reconfigured by
+However a replica configured in this way will still be reconfigured by
 Sentinels in order to replicate with the new master after a failover, the
 only difference is that it will never become a master itself.
 
@@ -1007,14 +1007,14 @@ Configuration propagation
 
 Once a Sentinel is able to failover a master successfully, it will start to broadcast the new configuration so that the other Sentinels will update their information about a given master.
 
-For a failover to be considered successful, it requires that the Sentinel was able to send the `SLAVEOF NO ONE` command to the selected slave, and that the switch to master was later observed in the `INFO` output of the master.
+For a failover to be considered successful, it requires that the Sentinel was able to send the `SLAVEOF NO ONE` command to the selected replica, and that the switch to master was later observed in the `INFO` output of the master.
 
-At this point, even if the reconfiguration of the slaves is in progress, the failover is considered to be successful, and all the Sentinels are required to start reporting the new configuration.
+At this point, even if the reconfiguration of the replicas is in progress, the failover is considered to be successful, and all the Sentinels are required to start reporting the new configuration.
 
 The way a new configuration is propagated is the reason why we need that every
 Sentinel failover is authorized with a different version number (configuration epoch).
 
-Every Sentinel continuously broadcast its version of the configuration of a master using Redis Pub/Sub messages, both in the master and all the slaves.  At the same time all the Sentinels wait for messages to see what is the configuration
+Every Sentinel continuously broadcast its version of the configuration of a master using Redis Pub/Sub messages, both in the master and all the replicas.  At the same time all the Sentinels wait for messages to see what is the configuration
 advertised by the other Sentinels.
 
 Configurations are broadcast in the `__sentinel__:hello` Pub/Sub channel.
@@ -1061,7 +1061,7 @@ a Redis instance, and a Sentinel instance:
     +-------------+                +------------+
 
 In this system the original state was that Redis 3 was the master, while
-Redis 1 and 2 were slaves. A partition occurred isolating the old master.
+Redis 1 and 2 were replicas. A partition occurred isolating the old master.
 Sentinels 1 and 2 started a failover promoting Sentinel 1 as the new master.
 
 The Sentinel properties guarantee that Sentinel 1 and 2 now have the new
@@ -1073,7 +1073,7 @@ partition will heal, however what happens during the partition if there
 are clients partitioned with the old master?
 
 Clients will be still able to write to Redis 3, the old master. When the
-partition will rejoin, Redis 3 will be turned into a slave of Redis 1, and
+partition will rejoin, Redis 3 will be turned into a replica of Redis 1, and
 all the data written during the partition will be lost.
 
 Depending on your configuration you may want or not that this scenario happens:
@@ -1084,10 +1084,10 @@ Depending on your configuration you may want or not that this scenario happens:
 Since Redis is asynchronously replicated, there is no way to totally prevent data loss in this scenario, however you can bound the divergence between Redis 3 and Redis 1
 using the following Redis configuration option:
 
-    min-slaves-to-write 1
-    min-slaves-max-lag 10
+    min-replicas-to-write 1
+    min-replicas-max-lag 10
 
-With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 slave. Since replication is asynchronous *not being able to write* actually means that the slave is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
+With the above configuration (please see the self-commented `redis.conf` example in the Redis distribution for more information) a Redis instance, when acting as a master, will stop accepting writes if it can't write to at least 1 replica. Since replication is asynchronous *not being able to write* actually means that the replica is either disconnected, or is not sending us asynchronous acknowledges for more than the specified `max-lag` number of seconds.
 
 Using this configuration the Redis 3 in the above example will become unavailable after 10 seconds. When the partition heals, the Sentinel 3 configuration will converge to
 the new one, and Client B will be able to fetch a valid configuration and continue.

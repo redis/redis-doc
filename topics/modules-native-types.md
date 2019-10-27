@@ -272,7 +272,7 @@ that can automatically store inside the RDB file the following types:
 
 It is up to the module to find a viable representation using the above base
 types. However note that while the integer and double values are stored
-and loaded in an architecture and *endianess* agnostic way, if you use
+and loaded in an architecture and *endianness* agnostic way, if you use
 the raw string saving API to, for example, save a structure on disk, you
 have to care those details yourself.
 
@@ -354,7 +354,7 @@ in order to allocate, reallocate and release heap memory used to implement the n
 
 This is not just useful in order for Redis to be able to account for the memory used by the module, but there are also more advantages:
 
-* Redis uses the `jemalloc` allcator, that often prevents fragmentation problems that could be caused by using the libc allocator.
+* Redis uses the `jemalloc` allocator, that often prevents fragmentation problems that could be caused by using the libc allocator.
 * When loading strings from the RDB file, the native types API is able to return strings allocated directly with `RedisModule_Alloc()`, so that the module can directly link this memory into the data structure representation, avoiding an useless copy of the data.
 
 Even if you are using external libraries implementing your data structures, the
