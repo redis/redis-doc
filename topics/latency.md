@@ -150,7 +150,7 @@ placement (taskset), cgroups, real-time priorities (chrt), NUMA
 configuration (numactl), or by using a low-latency kernel. Please note
 vanilla Redis is not really suitable to be bound on a **single** CPU core.
 Redis can fork background tasks that can be extremely CPU consuming
-like bgsave or AOF rewrite. These tasks must **never** run on the same core
+like `BGSAVE` or `BGREWRITEAOF`. These tasks must **never** run on the same core
 as the main event loop.
 
 In most situations, these kind of system level optimizations are not needed.

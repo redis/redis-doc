@@ -30,7 +30,7 @@ as long as the keys all hash to the same slot.
 
 Redis Cluster implements a concept called **hash tags** that can be used in
 order to force certain keys to be stored in the same hash slot. However during
-manual reshardings, multi-key operations may become unavailable for some time
+manual resharding, multi-key operations may become unavailable for some time
 while single key operations are always available.
 
 Redis Cluster does not support multiple databases like the stand alone version
@@ -974,9 +974,9 @@ Liveness property: because of the second rule, eventually all nodes in the clust
 
 This mechanism in Redis Cluster is called **last failover wins**.
 
-The same happens during reshardings. When a node importing a hash slot
-completes the import operation, its configuration epoch is incremented to make
-sure the change will be propagated throughout the cluster.
+The same happens during resharding. When a node importing a hash slot completes
+the import operation, its configuration epoch is incremented to make sure the
+change will be propagated throughout the cluster.
 
 UPDATE messages, a closer look
 ---
@@ -1110,14 +1110,14 @@ Both the events are system-administrator triggered:
 1. `CLUSTER FAILOVER` command with `TAKEOVER` option is able to manually promote a slave node into a master *without the majority of masters being available*. This is useful, for example, in multi data center setups.
 2. Migration of slots for cluster rebalancing also generates new configuration epochs inside the local node without agreement for performance reasons.
 
-Specifically, during manual reshardings, when a hash slot is migrated from
+Specifically, during manual resharding, when a hash slot is migrated from
 a node A to a node B, the resharding program will force B to upgrade
 its configuration to an epoch which is the greatest found in the cluster,
 plus 1 (unless the node is already the one with the greatest configuration
 epoch), without requiring agreement from other nodes.
 Usually a real world resharding involves moving several hundred hash slots
 (especially in small clusters). Requiring an agreement to generate new
-configuration epochs during reshardings, for each hash slot moved, is
+configuration epochs during resharding, for each hash slot moved, is
 inefficient. Moreover it requires an fsync in each of the cluster nodes
 every time in order to store the new configuration. Because of the way it is
 performed instead, we only need a new config epoch when the first hash slot is moved,
@@ -1136,7 +1136,7 @@ When masters serving different hash slots have the same `configEpoch`, there
 are no issues. It is more important that slaves failing over a master have
 unique configuration epochs.
 
-That said, manual interventions or reshardings may change the cluster
+That said, manual interventions or resharding may change the cluster
 configuration in different ways. The Redis Cluster main liveness property
 requires that slot configurations always converge, so under every circumstance
 we really want all the master nodes to have a different `configEpoch`.

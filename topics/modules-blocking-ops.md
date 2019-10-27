@@ -172,7 +172,7 @@ long value must be freed. Our callback will look like the following:
     }
 
 NOTE: It is important to stress that the private data is best freed in the
-`free_privdata` callback becaues the reply function may not be called
+`free_privdata` callback because the reply function may not be called
 if the client disconnects or timeout.
 
 Also note that the private data is also accessible from the timeout

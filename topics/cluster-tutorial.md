@@ -604,7 +604,7 @@ All the slots will be covered as usual, but this time the master at
 Scripting a resharding operation
 ---
 
-Reshardings can be performed automatically without the need to manually
+Resharding can be performed automatically without the need to manually
 enter the parameters in an interactive way. This is possible using a command
 line like the following:
 
@@ -947,7 +947,7 @@ resistant to failures as the number of replicas attached to a given master.
 For example a cluster where every master has a single replica can't continue
 operations if the master and its replica fail at the same time, simply because
 there is no other instance to have a copy of the hash slots the master was
-serving. However while netsplits are likely to isolate a number of nodes
+serving. However while net-splits are likely to isolate a number of nodes
 at the same time, many other kind of failures, like hardware or software failures
 local to a single node, are a very notable class of failures that are unlikely
 to happen at the same time, so it is possible that in your cluster where

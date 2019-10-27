@@ -81,7 +81,7 @@ As you can see if the VM system is not enabled we allocate just `sizeof(*o)-size
 The Swap File
 ---
 
-The next step in order to understand how the VM subsystem works is understanding how objects are stored inside the swap file. The good news is that's not some kind of special format, we just use the same format used to store the objects in .rdb files, that are the usual dump files produced by Redis using the SAVE command.
+The next step in order to understand how the VM subsystem works is understanding how objects are stored inside the swap file. The good news is that's not some kind of special format, we just use the same format used to store the objects in .rdb files, that are the usual dump files produced by Redis using the `SAVE` command.
 
 The swap file is composed of a given number of pages, where every page size is a given number of bytes. This parameters can be changed in redis.conf, since different Redis instances may work better with different values: it depends on the actual data you store inside it. The following are the default values:
 
@@ -159,7 +159,7 @@ So this is what happens:
  * The command implementation calls the lookup function
  * The lookup function search for the key in the top level hash table. If the value associated with the requested key is swapped (we can see that checking the _storage_ field of the key object), we load it back in memory in a blocking way before to return to the user.
 
-This is pretty straightforward, but things will get more _interesting_ with the threads. From the point of view of the blocking VM the only real problem is the saving of the dataset using another process, that is, handling BGSAVE and BGREWRITEAOF commands.
+This is pretty straightforward, but things will get more _interesting_ with the threads. From the point of view of the blocking VM the only real problem is the saving of the dataset using another process, that is, handling `BGSAVE` and `BGREWRITEAOF` commands.
 
 Background saving when VM is active
 ---
@@ -175,7 +175,7 @@ The child process will just store the whole dataset into the dump.rdb file and f
 
 In order to avoid problems while both the processes are accessing the same swap file we do a simple thing, that is, not allowing values to be swapped out in the parent process while a background saving is in progress. This way both the processes will access the swap file in read only. This approach has the problem that while the child process is saving no new values can be transferred on the swap file even if Redis is using more memory than the max memory parameters dictates. This is usually not a problem as the background saving will terminate in a short amount of time and if still needed a percentage of values will be swapped on disk ASAP.
 
-An alternative to this scenario is to enable the Append Only File that will have this problem only when a log rewrite is performed using the BGREWRITEAOF command.
+An alternative to this scenario is to enable the Append Only File that will have this problem only when a log rewrite is performed using the `BGREWRITEAOF` command.
 
 The problem with the blocking VM
 ---
@@ -246,7 +246,7 @@ So you can think of this as a blocked VM that almost always happen to have the r
 
 If the function checking what argument is a key fails in some way, there is no problem: the lookup function will see that a given key is associated to a swapped out value and will block loading it. So our non blocking VM reverts to a blocking one when it is not possible to anticipate what keys are touched.
 
-For instance in the case of the SORT command used together with the GET or BY options, it is not trivial to know beforehand what keys will be requested, so at least in the first implementation, SORT BY/GET resorts to the blocking VM implementation.
+For instance in the case of the `SORT` command used together with the `GET` or `BY` options, it is not trivial to know beforehand what keys will be requested, so at least in the first implementation, `SORT BY/GET` resorts to the blocking VM implementation.
 
 Blocking clients on swapped keys
 ---

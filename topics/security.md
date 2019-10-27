@@ -51,7 +51,7 @@ like the following to the **redis.conf** file:
     bind 127.0.0.1
 
 Failing to protect the Redis port from the outside can have a big security
-impact because of the nature of Redis. For instance, a single **FLUSHALL** command can be used by an external attacker to delete the whole data set.
+impact because of the nature of Redis. For instance, a single `FLUSHALL` command can be used by an external attacker to delete the whole data set.
 
 Protected mode
 ---
@@ -154,7 +154,7 @@ The Redis protocol has no concept of string escaping, so injection
 is impossible under normal circumstances using a normal client library.
 The protocol uses prefixed-length strings and is completely binary safe.
 
-Lua scripts executed by the **EVAL** and **EVALSHA** commands follow the
+Lua scripts executed by the `EVAL` and `EVALSHA` commands follow the
 same rules, and thus those commands are also safe.
 
 While it would be a very strange use case, the application should avoid composing the body of the Lua script using strings obtained from untrusted sources.
