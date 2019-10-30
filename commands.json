@@ -1650,7 +1650,6 @@
     "summary": "Show helpful text about the different subcommands",
     "since": "4.0.0",
     "group": "server"
-
   },
   "MEMORY MALLOC-STATS": {
     "summary": "Show allocator internal stats",
@@ -3876,5 +3875,54 @@
     ],
     "since": "5.0.0",
     "group": "stream"
+  },
+  "LATENCY DOCTOR": {
+    "summary": "Return a human readable latency analysis report.",
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY GRAPH": {
+    "summary": "Return a latency graph for the event.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY HISTORY": {
+    "summary": "Return timestamp-latency samples for the event.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY LATEST": {
+    "summary": "Return the latest latency samples for all events.",
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY RESET": {
+    "summary": "Reset latency data for one or more events.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY HELP": {
+    "summary": "Show helpful text about the different subcommands.",
+    "since": "2.8.13",
+    "group": "server"
   }
 }
