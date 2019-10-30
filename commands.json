@@ -45,8 +45,14 @@
         "type": "key"
       },
       {
-        "name": ["start", "end"],
-        "type": ["integer", "integer"],
+        "name": [
+          "start",
+          "end"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -63,26 +69,52 @@
       },
       {
         "command": "GET",
-        "name": ["type", "offset"],
-        "type": ["type", "integer"],
+        "name": [
+          "type",
+          "offset"
+        ],
+        "type": [
+          "type",
+          "integer"
+        ],
         "optional": true
       },
       {
         "command": "SET",
-        "name": ["type", "offset", "value"],
-        "type": ["type", "integer", "integer"],
+        "name": [
+          "type",
+          "offset",
+          "value"
+        ],
+        "type": [
+          "type",
+          "integer",
+          "integer"
+        ],
         "optional": true
       },
       {
         "command": "INCRBY",
-        "name": ["type", "offset", "increment"],
-        "type": ["type", "integer", "integer"],
+        "name": [
+          "type",
+          "offset",
+          "increment"
+        ],
+        "type": [
+          "type",
+          "integer",
+          "integer"
+        ],
         "optional": true
       },
       {
         "command": "OVERFLOW",
         "type": "enum",
-        "enum": ["WRAP", "SAT", "FAIL"],
+        "enum": [
+          "WRAP",
+          "SAT",
+          "FAIL"
+        ],
         "optional": true
       }
     ],
@@ -248,7 +280,12 @@
       {
         "command": "TYPE",
         "type": "enum",
-        "enum": ["normal", "master", "slave", "pubsub"],
+        "enum": [
+          "normal",
+          "master",
+          "slave",
+          "pubsub"
+        ],
         "optional": true
       },
       {
@@ -274,7 +311,12 @@
       {
         "command": "TYPE",
         "type": "enum",
-        "enum": ["normal", "master", "replica", "pubsub"],
+        "enum": [
+          "normal",
+          "master",
+          "replica",
+          "pubsub"
+        ],
         "optional": true
       }
     ],
@@ -306,7 +348,11 @@
       {
         "name": "reply-mode",
         "type": "enum",
-        "enum": ["ON", "OFF", "SKIP"]
+        "enum": [
+          "ON",
+          "OFF",
+          "SKIP"
+        ]
       }
     ],
     "since": "3.2",
@@ -335,7 +381,10 @@
       {
         "name": "unblock-type",
         "type": "enum",
-        "enum": ["TIMEOUT", "ERROR"],
+        "enum": [
+          "TIMEOUT",
+          "ERROR"
+        ],
         "optional": true
       }
     ],
@@ -405,7 +454,10 @@
       {
         "name": "options",
         "type": "enum",
-        "enum": ["FORCE","TAKEOVER"],
+        "enum": [
+          "FORCE",
+          "TAKEOVER"
+        ],
         "optional": true
       }
     ],
@@ -511,7 +563,10 @@
       {
         "name": "reset-type",
         "type": "enum",
-        "enum": ["HARD", "SOFT"],
+        "enum": [
+          "HARD",
+          "SOFT"
+        ],
         "optional": true
       }
     ],
@@ -547,7 +602,12 @@
       {
         "name": "subcommand",
         "type": "enum",
-        "enum": ["IMPORTING", "MIGRATING", "STABLE", "NODE"]
+        "enum": [
+          "IMPORTING",
+          "MIGRATING",
+          "STABLE",
+          "NODE"
+        ]
       },
       {
         "name": "node-id",
@@ -854,7 +914,9 @@
       {
         "name": "async",
         "type": "enum",
-        "enum": ["ASYNC"],
+        "enum": [
+          "ASYNC"
+        ],
         "optional": true
       }
     ],
@@ -867,7 +929,9 @@
       {
         "name": "async",
         "type": "enum",
-        "enum": ["ASYNC"],
+        "enum": [
+          "ASYNC"
+        ],
         "optional": true
       }
     ],
@@ -883,8 +947,16 @@
         "type": "key"
       },
       {
-        "name": ["longitude", "latitude", "member"],
-        "type": ["double", "double", "string"],
+        "name": [
+          "longitude",
+          "latitude",
+          "member"
+        ],
+        "type": [
+          "double",
+          "double",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -973,24 +1045,35 @@
       {
         "name": "unit",
         "type": "enum",
-        "enum": ["m", "km", "ft", "mi"]
+        "enum": [
+          "m",
+          "km",
+          "ft",
+          "mi"
+        ]
       },
       {
         "name": "withcoord",
         "type": "enum",
-        "enum": ["WITHCOORD"],
+        "enum": [
+          "WITHCOORD"
+        ],
         "optional": true
       },
       {
         "name": "withdist",
         "type": "enum",
-        "enum": ["WITHDIST"],
+        "enum": [
+          "WITHDIST"
+        ],
         "optional": true
       },
       {
         "name": "withhash",
         "type": "enum",
-        "enum": ["WITHHASH"],
+        "enum": [
+          "WITHHASH"
+        ],
         "optional": true
       },
       {
@@ -1002,7 +1085,10 @@
       {
         "name": "order",
         "type": "enum",
-        "enum": ["ASC", "DESC"],
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
         "optional": true
       },
       {
@@ -1040,24 +1126,35 @@
       {
         "name": "unit",
         "type": "enum",
-        "enum": ["m", "km", "ft", "mi"]
+        "enum": [
+          "m",
+          "km",
+          "ft",
+          "mi"
+        ]
       },
       {
         "name": "withcoord",
         "type": "enum",
-        "enum": ["WITHCOORD"],
+        "enum": [
+          "WITHCOORD"
+        ],
         "optional": true
       },
       {
         "name": "withdist",
         "type": "enum",
-        "enum": ["WITHDIST"],
+        "enum": [
+          "WITHDIST"
+        ],
         "optional": true
       },
       {
         "name": "withhash",
         "type": "enum",
-        "enum": ["WITHHASH"],
+        "enum": [
+          "WITHHASH"
+        ],
         "optional": true
       },
       {
@@ -1069,7 +1166,10 @@
       {
         "name": "order",
         "type": "enum",
-        "enum": ["ASC", "DESC"],
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
         "optional": true
       },
       {
@@ -1303,8 +1403,14 @@
         "type": "key"
       },
       {
-        "name": ["field", "value"],
-        "type": ["string", "string"],
+        "name": [
+          "field",
+          "value"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -1320,8 +1426,14 @@
         "type": "key"
       },
       {
-        "name": ["field", "value"],
-        "type": ["string", "string"],
+        "name": [
+          "field",
+          "value"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -1489,7 +1601,10 @@
       {
         "name": "where",
         "type": "enum",
-        "enum": ["BEFORE", "AFTER"]
+        "enum": [
+          "BEFORE",
+          "AFTER"
+        ]
       },
       {
         "name": "pivot",
@@ -1712,7 +1827,10 @@
       {
         "name": "key",
         "type": "enum",
-        "enum": ["key", "\"\""]
+        "enum": [
+          "key",
+          "\"\""
+        ]
       },
       {
         "name": "destination-db",
@@ -1725,13 +1843,17 @@
       {
         "name": "copy",
         "type": "enum",
-        "enum": ["COPY"],
+        "enum": [
+          "COPY"
+        ],
         "optional": true
       },
       {
         "name": "replace",
         "type": "enum",
-        "enum": ["REPLACE"],
+        "enum": [
+          "REPLACE"
+        ],
         "optional": true
       },
       {
@@ -1813,8 +1935,14 @@
     "complexity": "O(N) where N is the number of keys to set.",
     "arguments": [
       {
-        "name": ["key", "value"],
-        "type": ["key", "string"],
+        "name": [
+          "key",
+          "value"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -1826,8 +1954,14 @@
     "complexity": "O(N) where N is the number of keys to set.",
     "arguments": [
       {
-        "name": ["key", "value"],
-        "type": ["key", "string"],
+        "name": [
+          "key",
+          "value"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -1985,8 +2119,12 @@
     "complexity": "O(N) where N is the number of patterns the client is already subscribed to.",
     "arguments": [
       {
-        "name": ["pattern"],
-        "type": ["pattern"],
+        "name": [
+          "pattern"
+        ],
+        "type": [
+          "pattern"
+        ],
         "multiple": true
       }
     ],
@@ -2127,13 +2265,17 @@
       {
         "name": "replace",
         "type": "enum",
-        "enum": ["REPLACE"],
+        "enum": [
+          "REPLACE"
+        ],
         "optional": true
       },
       {
         "name": "absttl",
         "type": "enum",
-        "enum": ["ABSTTL"],
+        "enum": [
+          "ABSTTL"
+        ],
         "optional": true
       },
       {
@@ -2260,7 +2402,11 @@
       {
         "name": "mode",
         "type": "enum",
-        "enum": ["YES", "SYNC", "NO"]
+        "enum": [
+          "YES",
+          "SYNC",
+          "NO"
+        ]
       }
     ],
     "since": "3.2.0",
@@ -2359,13 +2505,19 @@
       {
         "name": "expiration",
         "type": "enum",
-        "enum": ["EX seconds", "PX milliseconds"],
+        "enum": [
+          "EX seconds",
+          "PX milliseconds"
+        ],
         "optional": true
       },
       {
         "name": "condition",
         "type": "enum",
-        "enum": ["NX", "XX"],
+        "enum": [
+          "NX",
+          "XX"
+        ],
         "optional": true
       }
     ],
@@ -2454,7 +2606,10 @@
       {
         "name": "save-mode",
         "type": "enum",
-        "enum": ["NOSAVE", "SAVE"],
+        "enum": [
+          "NOSAVE",
+          "SAVE"
+        ],
         "optional": true
       }
     ],
@@ -2601,8 +2756,14 @@
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       },
       {
@@ -2615,13 +2776,18 @@
       {
         "name": "order",
         "type": "enum",
-        "enum": ["ASC", "DESC"],
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
         "optional": true
       },
       {
         "name": "sorting",
         "type": "enum",
-        "enum": ["ALPHA"],
+        "enum": [
+          "ALPHA"
+        ],
         "optional": true
       },
       {
@@ -2702,8 +2868,12 @@
     "complexity": "O(N) where N is the number of channels to subscribe to.",
     "arguments": [
       {
-        "name": ["channel"],
-        "type": ["string"],
+        "name": [
+          "channel"
+        ],
+        "type": [
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -2891,24 +3061,37 @@
       {
         "name": "condition",
         "type": "enum",
-        "enum": ["NX","XX"],
+        "enum": [
+          "NX",
+          "XX"
+        ],
         "optional": true
       },
       {
         "name": "change",
         "type": "enum",
-        "enum": ["CH"],
+        "enum": [
+          "CH"
+        ],
         "optional": true
       },
       {
         "name": "increment",
         "type": "enum",
-        "enum": ["INCR"],
+        "enum": [
+          "INCR"
+        ],
         "optional": true
       },
       {
-        "name": ["score", "member"],
-        "type": ["double", "string"],
+        "name": [
+          "score",
+          "member"
+        ],
+        "type": [
+          "double",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -2995,7 +3178,11 @@
         "command": "AGGREGATE",
         "name": "aggregate",
         "type": "enum",
-        "enum": ["SUM", "MIN", "MAX"],
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
         "optional": true
       }
     ],
@@ -3075,7 +3262,9 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       }
     ],
@@ -3100,8 +3289,14 @@
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -3126,8 +3321,14 @@
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -3153,13 +3354,21 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -3278,7 +3487,9 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       }
     ],
@@ -3304,13 +3515,21 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -3377,7 +3596,11 @@
         "command": "AGGREGATE",
         "name": "aggregate",
         "type": "enum",
-        "enum": ["SUM", "MIN", "MAX"],
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
         "optional": true
       }
     ],
@@ -3504,8 +3727,14 @@
     "arguments": [
       {
         "command": "CONSUMERS",
-        "name": ["key", "groupname"],
-        "type": ["key", "string"],
+        "name": [
+          "key",
+          "groupname"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
         "optional": true
       },
       {
@@ -3523,7 +3752,9 @@
       {
         "name": "help",
         "type": "enum",
-        "enum": ["HELP"],
+        "enum": [
+          "HELP"
+        ],
         "optional": true
       }
     ],
@@ -3543,8 +3774,14 @@
         "type": "string"
       },
       {
-        "name": ["field", "value"],
-        "type": ["string", "string"],
+        "name": [
+          "field",
+          "value"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -3562,12 +3799,16 @@
       {
         "name": "strategy",
         "type": "enum",
-        "enum": ["MAXLEN"]
+        "enum": [
+          "MAXLEN"
+        ]
       },
       {
         "name": "approx",
         "type": "enum",
-        "enum": ["~"],
+        "enum": [
+          "~"
+        ],
         "optional": true
       },
       {
@@ -3678,7 +3919,9 @@
       {
         "name": "streams",
         "type": "enum",
-        "enum": ["STREAMS"]
+        "enum": [
+          "STREAMS"
+        ]
       },
       {
         "name": "key",
@@ -3700,26 +3943,56 @@
     "arguments": [
       {
         "command": "CREATE",
-        "name": ["key", "groupname", "id-or-$"],
-        "type": ["key", "string", "string"],
+        "name": [
+          "key",
+          "groupname",
+          "id-or-$"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
         "optional": true
       },
       {
         "command": "SETID",
-        "name": ["key", "groupname", "id-or-$"],
-        "type": ["key", "string", "string"],
+        "name": [
+          "key",
+          "groupname",
+          "id-or-$"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
         "optional": true
       },
       {
         "command": "DESTROY",
-        "name": ["key", "groupname"],
-        "type": ["key", "string"],
+        "name": [
+          "key",
+          "groupname"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
         "optional": true
       },
       {
         "command": "DELCONSUMER",
-        "name": ["key", "groupname", "consumername"],
-        "type": ["key", "string", "string"],
+        "name": [
+          "key",
+          "groupname",
+          "consumername"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
         "optional": true
       }
     ],
@@ -3732,8 +4005,14 @@
     "arguments": [
       {
         "command": "GROUP",
-        "name": ["group", "consumer"],
-        "type": ["string", "string"]
+        "name": [
+          "group",
+          "consumer"
+        ],
+        "type": [
+          "string",
+          "string"
+        ]
       },
       {
         "command": "COUNT",
@@ -3750,13 +4029,17 @@
       {
         "name": "noack",
         "type": "enum",
-        "enum": ["NOACK"],
+        "enum": [
+          "NOACK"
+        ],
         "optional": true
       },
       {
         "name": "streams",
         "type": "enum",
-        "enum": ["STREAMS"]
+        "enum": [
+          "STREAMS"
+        ]
       },
       {
         "name": "key",
@@ -3838,12 +4121,16 @@
       },
       {
         "name": "force",
-        "enum": ["FORCE"],
+        "enum": [
+          "FORCE"
+        ],
         "optional": true
       },
       {
         "name": "justid",
-        "enum": ["JUSTID"],
+        "enum": [
+          "JUSTID"
+        ],
         "optional": true
       }
     ],
@@ -3863,8 +4150,16 @@
         "type": "string"
       },
       {
-        "name": ["start", "end", "count"],
-        "type": ["string", "string", "integer"],
+        "name": [
+          "start",
+          "end",
+          "count"
+        ],
+        "type": [
+          "string",
+          "string",
+          "integer"
+        ],
         "optional": true
       },
       {
