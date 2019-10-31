@@ -78,6 +78,13 @@
     "authors": ["srithedabbler"]
   },
   {
+    "name": "Redily",
+    "language": "Javascript",
+    "url": "https://www.redily.app",
+    "description": "An intuitive, cross-platform Redis GUI Client built in Electron.",
+    "authors": ["stefano_arnone"]
+  },
+  {
     "name": "Rdb-parser",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/rdb-parser",
