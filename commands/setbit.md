@@ -43,7 +43,7 @@ the entire bitmap.
 Bitmaps are not an actual data type, but a set of bit-oriented operations
 defined on the String type (for more information refer to the
 [Bitmaps section of the Data Types Introduction page][ti]). This means that
-bitmaps can be used with in string command, and most importantly with `SET` and
+bitmaps can be used with string commands, and most importantly with `SET` and
 `GET`.
 
 Because Redis' strings are binary-safe, a bitmap is trivially encoded as a bytes
