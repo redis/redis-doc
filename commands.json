@@ -2914,11 +2914,11 @@
     "summary": "Swaps two Redis databases",
     "arguments": [
       {
-        "name": "index",
+        "name": "index1",
         "type": "integer"
       },
       {
-        "name": "index",
+        "name": "index2",
         "type": "integer"
       }
     ],
