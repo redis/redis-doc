@@ -1,12 +1,12 @@
 Redis Modules: an introduction to the API
 ===
 
-The modules documentation is composed of the following files:
+The modules documentation is composed of the following pages:
 
-* `INTRO.md` (this file). An overview about Redis Modules system and API. It's a good idea to start your reading here.
-* `API.md` is generated from module.c top comments of RedisModule functions. It is a good reference in order to understand how each function works.
-* `TYPES.md` covers the implementation of native data types into modules.
-* `BLOCK.md` shows how to write blocking commands that will not reply immediately, but will block the client, without blocking the Redis server, and will provide a reply whenever will be possible.
+* Introduction to Redis modules (this file). An overview about Redis Modules system and API. It's a good idea to start your reading here.
+* [Redis modules API reference](/topics/modules-api-ref) is generated from module.c top comments of RedisModule functions. It is a good reference in order to understand how each function works.
+* [Implementing native data types](/topics/modules-native-types) covers the implementation of native data types into modules.
+* [Blocking operations](/topics/modules-blocking-ops) shows how to write blocking commands that will not reply immediately, but will block the client, without blocking the Redis server, and will provide a reply whenever will be possible.
 
 Redis modules make possible to extend Redis functionality using external
 modules, implementing new Redis commands at a speed and with features
