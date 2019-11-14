@@ -609,7 +609,7 @@ new protocol using the `HELLO` command: this way the connection is put
 in RESP3 mode. In this mode certain commands, like for instance `HGETALL`,
 reply with a new data type (the Map data type in this specific case). The
 RESP3 protocol is semantically more powerful, however most scripts are ok
-with using just RESP3.
+with using just RESP2.
 
 The Lua engine always assumes to run in RESP2 mode when talking with Redis,
 so whatever the connection that is invoking the `EVAL` or `EVALSHA` command
