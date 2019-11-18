@@ -231,9 +231,14 @@ Assuming I have a key `mystream` of type stream already existing, in order to cr
 OK
 ```
 
-Note: _Currently it is not possible to create consumer groups for non-existing streams, however it is possible that in the short future we'll add an option to the **XGROUP** command in order to create an empty stream in such cases._
-
 As you can see in the command above when creating the consumer group we have to specify an ID, which in the example is just `$`. This is needed because the consumer group, among the other states, must have an idea about what message to serve next at the first consumer connecting, that is, what is the current *last message ID* when the group was just created? If we provide `$` as we did, then only new messages arriving in the stream from now on will be provided to the consumers in the group. If we specify `0` instead the consumer group will consume *all* the messages in the stream history to start with. Of course, you can specify any other valid ID. What you know is that the consumer group will start delivering messages that are greater than the ID you specify. Because `$` means the current greatest ID in the stream, specifying `$` will have the effect of consuming only new messages.
+
+`XGROUP CREATE` now supports creating the stream automatically, if it doesn't exist yet, using the optional `MKSTREAM` option at the end:
+
+```
+> XGROUP CREATE newstream mygroup $ MKSTREAM
+OK
+```
 
 Now that the consumer group is created we can immediately start trying to read messages via the consumer group, by using the **XREADGROUP** command. We'll read from the consumers, that we will call Alice and Bob, to see how the system will return different messages to Alice and Bob.
 
