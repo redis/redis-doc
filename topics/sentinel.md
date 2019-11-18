@@ -39,7 +39,7 @@ Obtaining Sentinel
 ---
 
 The current version of Sentinel is called **Sentinel 2**. It is a rewrite of
-the initial Sentinel implementation using stronger and simpler to predict
+the initial Sentinel implementation using stronger and simpler-to-predict
 algorithms (that are explained in this documentation).
 
 A stable release of Redis Sentinel is shipped since Redis 2.8.
