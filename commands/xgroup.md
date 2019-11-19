@@ -25,11 +25,10 @@ consumer group already exists, the command returns a `-BUSYGROUP` error.
 Otherwise the operation is performed and OK is returned. There are no hard
 limits to the number of consumer groups you can associate to a given stream.
 
-If the specified stream doesn't exist already when creating a group, 
-an `ERR` will return, indicating that the key is required to exist. 
-You can add an optional `MKSTREAM` option as the last argument after the ID 
-to create the stream automatically, if it doesn't yet exist. Note, this will 
-make it an empty stream, with length 0. See the following form:
+If the specified stream doesn't exist when creating a group, an error will be
+returned. You can use the optional `MKSTREAM` subcommand as the last argument
+after the `ID` to automatically create the stream, if it doesn't exist. Note
+that if the stream is created in this way it will have a length of 0:
 
     XGROUP CREATE mystream consumer-group-name $ MKSTREAM
 
