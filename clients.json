@@ -193,6 +193,15 @@
     "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
     "authors": ["stephensearles"]
   },
+  
+  {
+    "name": "go-resp3",
+    "language": "Go",
+    "repository": "https://github.com/d024441/go-resp3",
+    "description": "A Redis Go client implementation based on the Redis RESP3 protocol.",
+    "authors": [],
+    "active": true
+  },
 
   {
     "name": "hedis",
