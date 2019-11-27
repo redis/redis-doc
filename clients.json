@@ -812,8 +812,9 @@
   {
     "name": "tedis",
     "language": "Node.js",
-    "repository": "https://github.com/myour-cc/tedis",
-    "description": "Tedis is a redis client developed for nodejs platform. Its name was inspired by the Java platform jedis and the development language was typescript. Therefore, Tedis is named as Tedis",
+    "repository": "https://github.com/silkjs/tedis",
+    "url": "https://tedis.silkjs.org",
+    "description": "Tedis is a redis client developed for Node.js . Its name was inspired by the Jedis and TypeScript.",
     "authors": ["dasoncheng"],
     "recommended": true,
     "active": true
