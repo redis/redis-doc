@@ -77,9 +77,10 @@ following table:
     s     Set commands
     h     Hash commands
     z     Sorted set commands
+    t     Stream commands
     x     Expired events (events generated every time a key expires)
     e     Evicted events (events generated when a key is evicted for maxmemory)
-    A     Alias for g$lshzxe, so that the "AKE" string means all the events.
+    A     Alias for g$lshztxe, so that the "AKE" string means all the events.
 
 At least `K` or `E` should be present in the string, otherwise no event
 will be delivered regardless of the rest of the string.
@@ -128,6 +129,14 @@ Different commands generate different kind of events according to the following 
 * `ZREMBYSCORE` generates a single `zrembyscore` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZREMBYRANK` generates a single `zrembyrank` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the special case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
+* `XADD` generates an `xadd` event, possibly followed an `xtrim` event when used with the `MAXLEN` subcommand.
+* `XDEL` generates a single `xdel` event even when multiple entries are are deleted.
+* `XGROUP CREATE` generates an `xgroup-create` event.
+* `XGROUP DELCONSUMER` generates an `xgroup-delconsumer` event.
+* `XGROUP DESTROY` generates an `xgroup-destroy` event.
+* `XGROUP SETID` generates an `xgroup-setid` event.
+* `XSETID` generates an `xsetid` event.
+* `XTRIM` generates an `xtrim` event.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
 
