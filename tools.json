@@ -693,5 +693,13 @@
     "description": "Start a REST-like API service for your Redis database, without writing a single line of code.",
     "url": "https://github.com/XD-DENG/rediseen",
     "authors": ["XiaodongDENG1"]
+  },
+
+  {
+    "name": "redis-stats",
+    "language": "PHP",
+    "repository": "https://github.com/tessus/redis-stats",
+    "description": "A lightweight dashboard to show statistics about your Redis server. Flushing databases is available when set in config.",
+    "authors": []
   }
 ]
