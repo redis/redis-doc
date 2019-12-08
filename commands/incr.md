@@ -69,25 +69,35 @@ The more simple and direct implementation of this pattern is the following:
 FUNCTION LIMIT_API_CALL(ip)
 ts = CURRENT_UNIX_TIME()
 keyname = ip+":"+ts
-current = GET(keyname)
-IF current != NULL AND current > 10 THEN
+result = MULTI
+    INCR(keyname,1)
+    EXPIRE(keyname,10)
+EXEC
+IF result[0] > 10 THEN
     ERROR "too many requests per second"
 ELSE
-    MULTI
-        INCR(keyname,1)
-        EXPIRE(keyname,10)
-    EXEC
     PERFORM_API_CALL()
 END
 ```
 
 Basically we have a counter for every IP, for every different second.
-But this counters are always incremented setting an expire of 10 seconds so that
+But these counters are always incremented with an expiry of 10 seconds so that
 they'll be removed by Redis automatically when the current second is a different
 one.
 
 Note the used of `MULTI` and `EXEC` in order to make sure that we'll both
-increment and set the expire at every API call.
+increment and set the expiry atomically. This ensures that if we lose our
+connection with redis, we will never see keys created without an expiry.
+
+Also note how we make checks after incrementing, to ensure this thread is seeing
+a unique value of the key.
+
+**Caution**: If there is a significant amount of time that passes between getting
+the current unix time and redis executing the multi block (major network
+latency for example), the rate limit key for that second could expire before
+we increment. This could allow >10 api calls in a given time interval. This
+is why we use an expiry of 10 seconds, and feel free to increase this value if
+needed in practice.
 
 ## Pattern: Rate limiter 2
 
@@ -97,11 +107,10 @@ We'll examine different variants.
 
 ```
 FUNCTION LIMIT_API_CALL(ip):
-current = GET(ip)
-IF current != NULL AND current > 10 THEN
+value = INCR(ip)
+IF value > 10 THEN
     ERROR "too many requests per second"
 ELSE
-    value = INCR(ip)
     IF value == 1 THEN
         EXPIRE(ip,1)
     END
@@ -114,27 +123,28 @@ from the first request performed in the current second.
 If there are more than 10 requests in the same second the counter will reach a
 value greater than 10, otherwise it will expire and start again from 0.
 
-**In the above code there is a race condition**.
+**The above code is not safe from exceptional behavior**.
 If for some reason the client performs the `INCR` command but does not perform
 the `EXPIRE` the key will be leaked until we'll see the same IP address again.
 
-This can be fixed easily turning the `INCR` with optional `EXPIRE` into a Lua
-script that is send using the `EVAL` command (only available since Redis version
-2.6).
+One solution to this is using a default TTL for your redis keys. Another 
+solution is converting the `INCR` with optional `EXPIRE` into a Lua script that 
+is sent using the `EVAL` command (only available since Redis version 2.6).
 
 ```
-local current
-current = redis.call("incr",KEYS[1])
-if tonumber(current) == 1 then
+local value
+value = redis.call("incr",KEYS[1])
+if tonumber(value) == 1 then
     redis.call("expire",KEYS[1],1)
 end
 ```
 
-There is a different way to fix this issue without using scripting, but using
-Redis lists instead of counters.
-The implementation is more complex and uses more advanced features but has the
-advantage of remembering the IP addresses of the clients currently performing an
-API call, that may be useful or not depending on the application.
+You could also use Redis lists instead of counters. This implementation is more
+complex and uses more advanced features, but has the advantage of remembering the
+IP addresses of the clients currently performing an API call. This could be
+useful depending on the application.
+
+**This implementation is not safe for concurrent usage**
 
 ```
 FUNCTION LIMIT_API_CALL(ip)
