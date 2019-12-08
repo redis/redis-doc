@@ -92,17 +92,10 @@ connection with redis, we will never see keys created without an expiry.
 Also note how we make checks after incrementing, to ensure this thread is seeing
 a unique value of the key.
 
-**Caution**: If there is a significant amount of time that passes between getting
-the current unix time and redis executing the multi block (major network
-latency for example), the rate limit key for that second could expire before
-we increment. This could allow >10 api calls in a given time interval. This
-is why we use an expiry of 10 seconds, and feel free to increase this value if
-needed in practice.
-
 ## Pattern: Rate limiter 2
 
 An alternative implementation uses a single counter, but is a bit more complex
-to get it right without race conditions.
+to get it right considering exceptional behavior.
 We'll examine different variants.
 
 ```
@@ -144,8 +137,6 @@ complex and uses more advanced features, but has the advantage of remembering th
 IP addresses of the clients currently performing an API call. This could be
 useful depending on the application.
 
-**This implementation is not safe for concurrent usage**
-
 ```
 FUNCTION LIMIT_API_CALL(ip)
 current = LLEN(ip)
@@ -163,6 +154,8 @@ ELSE
     PERFORM_API_CALL()
 END
 ```
+
+**The above code is not safe for concurrent usage**
 
 The `RPUSHX` command only pushes the element if the key already exists.
 
