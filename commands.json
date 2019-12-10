@@ -2538,7 +2538,7 @@
       },
       {
         "name": "value",
-        "type": "string"
+        "type": "integer"
       }
     ],
     "since": "2.2.0",
