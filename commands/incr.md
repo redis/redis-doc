@@ -120,9 +120,8 @@ value greater than 10, otherwise it will expire and start again from 0.
 If for some reason the client performs the `INCR` command but does not perform
 the `EXPIRE` the key will be leaked until we'll see the same IP address again.
 
-One solution to this is using a default TTL for your redis keys. Another 
-solution is converting the `INCR` with optional `EXPIRE` into a Lua script that 
-is sent using the `EVAL` command (only available since Redis version 2.6).
+This can be fixed by turning the `INCR` with optional `EXPIRE` into a Lua script,
+sent using the `EVAL` command (only available since Redis version 2.6).
 
 ```
 local value
