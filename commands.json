@@ -1015,7 +1015,13 @@
       },
       {
         "name": "unit",
-        "type": "string",
+        "type": "enum",
+        "enum": [
+          "m",
+          "km",
+          "ft",
+          "mi"
+        ],
         "optional": true
       }
     ],
