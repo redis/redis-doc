@@ -10,8 +10,6 @@ Since this is a CPU / memory trade off it is possible to tune the maximum number
 
     hash-max-zipmap-entries 512 (hash-max-ziplist-entries for Redis >= 2.6)
     hash-max-zipmap-value 64  (hash-max-ziplist-value for Redis >= 2.6)
-    list-max-ziplist-entries 512
-    list-max-ziplist-value 64
     zset-max-ziplist-entries 128
     zset-max-ziplist-value 64
     set-max-intset-entries 512
