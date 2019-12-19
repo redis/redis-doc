@@ -940,6 +940,15 @@
   },
 
   {
+    "name": "aedis",
+    "language": "C++",
+    "repository": "https://github.com/mzimbres/aedis",
+    "description": "An async redis client designed for simplicity and reliability.",
+    "authors": ["mzimbres"],
+    "active": true
+  },
+
+  {
     "name": "libredis",
     "language": "C",
     "repository": "https://github.com/toymachine/libredis",
