@@ -228,7 +228,7 @@
     ],
     "stars": 2
   },
-    
+
   {
     "name": "RedisPushIptables",
     "license": "GPL-3.0",
@@ -247,5 +247,16 @@
       "xxlabaza"
     ],
     "stars": 7
+  },
+
+  {
+    "name": "redis-percentile",
+    "license": "MIT",
+    "repository": "https://github.com/poga/redis-percentile",
+    "description": "Redis module for efficient percentile estimation of streaming or distributed data with t-digest algorithm.",
+    "authors": [
+      "devpoga"
+    ],
+    "stars": 2
   }
 ]
