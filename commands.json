@@ -376,7 +376,7 @@
     "arguments": [
       {
         "name": "client-id",
-        "type": "string"
+        "type": "integer"
       },
       {
         "name": "unblock-type",
