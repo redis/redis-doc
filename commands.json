@@ -2874,12 +2874,8 @@
     "complexity": "O(N) where N is the number of channels to subscribe to.",
     "arguments": [
       {
-        "name": [
-          "channel"
-        ],
-        "type": [
-          "string"
-        ],
+        "name": "channel",
+        "type": "string",
         "multiple": true
       }
     ],
