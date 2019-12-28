@@ -12,7 +12,10 @@ behavior:
 * `NX` -- Only set the key if it does not already exist.
 * `XX` -- Only set the key if it already exist.
 
-Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it is possible that in future versions of Redis these three commands will be deprecated and finally removed.
+Note:
+
+* Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it is possible that in future versions of Redis these three commands will be deprecated and finally removed.
+* `EX` and `PX` should not be used together.
 
 @return
 
