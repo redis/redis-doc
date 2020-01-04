@@ -2525,6 +2525,14 @@
           "XX"
         ],
         "optional": true
+      },
+      {
+        "name": "keepttl",
+        "type": "enum",
+        "enum": [
+          "KEEPTTL"
+        ],
+        "optional": true
       }
     ],
     "since": "1.0.0",
