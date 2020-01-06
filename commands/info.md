@@ -302,7 +302,7 @@ The **cluster** section currently only contains a unique field:
 
 *   `cluster_enabled`: Indicate Redis cluster is enabled
 
-The **modules** section contains additional information about loaded modules if they modules provide it. The field part of properties lines in this section is always prefixed with the module's name.
+The **modules** section contains additional information about loaded modules if the modules provide it. The field part of properties lines in this section is always prefixed with the module's name.
 
 The **keyspace** section provides statistics on the main dictionary of each
 database.
