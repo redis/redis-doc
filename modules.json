@@ -258,5 +258,16 @@
       "devpoga"
     ],
     "stars": 2
+  },
+
+  {
+    "name": "redlock",
+    "license": "MIT",
+    "repository": "https://github.com/wujunwei/redlock",
+    "description": "Redis module for distributed lock without using LUA script,safe unlock for different redis client.",
+    "authors": [
+      "wujunwei"
+    ],
+    "stars": 4
   }
 ]
