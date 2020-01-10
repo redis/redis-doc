@@ -32,7 +32,7 @@ that if the stream is created in this way it will have a length of 0:
 
     XGROUP CREATE mystream consumer-group-name $ MKSTREAM
 
-A consumer can be destroyed completely by using the following form:
+A consumer group can be destroyed completely by using the following form:
 
     XGROUP DESTROY mystream consumer-group-name
 
