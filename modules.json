@@ -1,5 +1,26 @@
 [
   {
+    "name": "Disque",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/antirez/disque-module",
+    "description": "Disque, an in-memory, distributed job queue, ported as Redis module.",
+    "authors": [
+      "antirez"
+    ],
+    "stars": 332
+  },
+  {
+    "name": "RedisGears",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisGears/RedisGears",
+    "description": "Dynamic execution framework for your Redis data.",
+    "authors": [
+      "MeirShpilraien",
+      "RedisLabs"
+    ],
+    "stars": 67
+  },
+  {
     "name": "redis-roaring",
     "license": "MIT",
     "repository": "https://github.com/aviggiano/redis-roaring",
@@ -7,7 +28,7 @@
     "authors": [
       "aviggiano"
     ],
-    "stars": 60
+    "stars": 130
   },
   {
     "name": "redis-cell",
@@ -17,18 +38,18 @@
     "authors": [
       "brandur"
     ],
-    "stars": 403
+    "stars": 651
   },
   {
     "name": "RedisGraph",
     "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/redis-graph",
+    "repository": "https://github.com/RedisGraph/RedisGraph",
     "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
     "authors": [
       "swilly22",
       "RedisLabs"
     ],
-    "stars": 401
+    "stars": 884
   },
   {
     "name": "redis-tdigest",
@@ -38,18 +59,18 @@
     "authors": [
       "usmanm"
     ],
-    "stars": 45
+    "stars": 54
   },
   {
     "name": "RedisJSON",
     "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/redisjson",
+    "repository": "https://github.com/RedisJSON/RedisJSON",
     "description": "A JSON data type for Redis",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 641
+    "stars": 939
   },
   {
     "name": "RedisML",
@@ -60,18 +81,18 @@
       "shaynativ",
       "RedisLabs"
     ],
-    "stars": 212
+    "stars": 286
   },
   {
     "name": "RediSearch",
     "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/RediSearch",
+    "repository": "https://github.com/RediSearch/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": [
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 1323
+    "stars": 1936
   },
   {
     "name": "topk",
@@ -82,7 +103,7 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 21
+    "stars": 32
   },
   {
     "name": "countminsketch",
@@ -93,18 +114,18 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 31
+    "stars": 39
   },
   {
     "name": "RedisBloom",
     "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/redisbloom",
+    "repository": "https://github.com/RedisBloom/RedisBloom",
     "description": "Scalable Bloom filters",
     "authors": [
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 136
+    "stars": 473
   },
   {
     "name": "neural-redis",
@@ -114,17 +135,17 @@
     "authors": [
       "antirez"
     ],
-    "stars": 2073
+    "stars": 2160
   },
   {
     "name": "RedisTimeSeries",
     "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/RedisTimeSeries",
+    "repository": "https://github.com/RedisTimeSeries/RedisTimeSeries",
     "description": "Time-series data structure for redis",
     "authors": [
       "danni-m"
     ],
-    "stars": 186
+    "stars": 310
   },
   {
     "name": "RedisAI",
@@ -134,7 +155,7 @@
     "authors": [
       "lantiga"
     ],
-    "stars": 61
+    "stars": 289
   },
   {
     "name": "ReDe",
@@ -144,7 +165,7 @@
     "authors": [
       "daTokenizer"
     ],
-    "stars": 23
+    "stars": 36
   },
   {
     "name": "commentDis",
@@ -154,7 +175,7 @@
     "authors": [
       "daTokenizer"
     ],
-    "stars": 6
+    "stars": 9
   },
   {
     "name": "redis-cuckoofilter",
@@ -164,7 +185,7 @@
     "authors": [
       "kristoff-it"
     ],
-    "stars": 66
+    "stars": 123
   },
   {
     "name": "cthulhu",
@@ -174,7 +195,7 @@
     "authors": [
       "sklivvz"
     ],
-    "stars": 117
+    "stars": 139
   },
   {
     "name": "Session Gate",
@@ -184,7 +205,7 @@
     "authors": [
       "f0rmiga"
     ],
-    "stars": 32
+    "stars": 45
   },
   {
     "name": "rediSQL",
@@ -195,9 +216,8 @@
       "siscia",
       "RedBeardLab"
     ],
-    "stars": 613
+    "stars": 1125
   },
-
   {
     "name": "lqrm",
     "license": "BSD",
@@ -205,19 +225,19 @@
     "description": "A Laravel compatible queue driver for Redis that supports reliable blocking pop from FIFO and scheduled queues.",
     "authors": [
       "halaei"
-],
+    ],
     "stars": 4
   },
-
   {
     "name": "redis-rating",
-    "license" : "MIT",
+    "license": "MIT",
     "repository": "https://github.com/poga/redis-rating",
     "description": "Estimate actual rating from postive/negative ratings",
-    "authors": ["devpoga"],
+    "authors": [
+      "devpoga"
+    ],
     "stars": 14
   },
-
   {
     "name": "smartcache",
     "license": "AGPL-3.0",
@@ -226,18 +246,18 @@
     "authors": [
       "fcerbell"
     ],
-    "stars": 2
+    "stars": 5
   },
-
   {
     "name": "RedisPushIptables",
     "license": "GPL-3.0",
     "repository": "https://github.com/limithit/RedisPushIptables",
     "description": "RedisPushIptables is used to update firewall rules to reject the IP addresses for a specified amount of time or forever reject.",
-    "authors": ["Gandalf"],
-    "stars": 16
+    "authors": [
+      "Gandalf"
+    ],
+    "stars": 19
   },
-
   {
     "name": "redis-fpn",
     "license": "Apache 2.0",
@@ -246,9 +266,8 @@
     "authors": [
       "xxlabaza"
     ],
-    "stars": 7
+    "stars": 8
   },
-
   {
     "name": "redis-percentile",
     "license": "MIT",
@@ -257,9 +276,8 @@
     "authors": [
       "devpoga"
     ],
-    "stars": 2
+    "stars": 8
   },
-
   {
     "name": "redlock",
     "license": "MIT",
@@ -268,6 +286,6 @@
     "authors": [
       "wujunwei"
     ],
-    "stars": 4
+    "stars": 28
   }
 ]
