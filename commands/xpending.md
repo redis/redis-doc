@@ -22,7 +22,7 @@ explained in the [streams intro](/topics/streams-intro) and in the
 
 When `XPENDING` is called with just a key name and a consumer group
 name, it just outputs a summary about the pending messages in a given
-consumer group. In the following example, we create a consumed group and
+consumer group. In the following example, we create a consumer group and
 immediately create a pending message by reading from the group with
 `XREADGROUP`.
 
