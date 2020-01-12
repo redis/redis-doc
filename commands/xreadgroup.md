@@ -95,7 +95,7 @@ not complete, because it does not handle recovering after a crash. What
 will happen if we crash in the middle of processing messages, is that our
 messages will remain in the pending entries list, so we can access our
 history by giving `XREADGROUP` initially an ID of 0, and performing the same
-loop. Once providing and ID of 0 the reply is an empty set of messages, we
+loop. Once providing an ID of 0 the reply is an empty set of messages, we
 know that we processed and acknowledged all the pending messages: we
 can start to use `>` as ID, in order to get the new messages and rejoin the
 consumers that are processing new things.
