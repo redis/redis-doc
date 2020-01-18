@@ -287,5 +287,15 @@
       "wujunwei"
     ],
     "stars": 28
+  },
+  {
+    "name": "redis-protobuf",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/sewenew/redis-protobuf",
+    "description": "Redis module for reading and writing Protobuf messages",
+    "authors": [
+      "sewenew"
+    ],
+    "stars": 30
   }
 ]
