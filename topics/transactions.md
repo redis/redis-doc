@@ -15,7 +15,7 @@ isolated operation.
 transaction is also atomic. The `EXEC` command
 triggers the execution of all the commands in the transaction, so
 if a client loses the connection to the server in the context of a
-transaction before calling the `MULTI` command none of the operations
+transaction before calling the `EXEC` command none of the operations
 are performed, instead if the `EXEC` command is called, all the
 operations are performed. When using the
 [append-only file](/topics/persistence#append-only-file) Redis makes sure
