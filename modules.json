@@ -297,5 +297,15 @@
       "sewenew"
     ],
     "stars": 30
-  }
+  },
+	{
+		"name": "Reventis",
+		"license": "Redis Source Available License",
+		"repository": "https://github.com/starkdg/reventis",
+		"description": "Redis module for storing and querying spatio-temporal event data",
+		"authors": [
+			"starkdg"
+		],
+		"stars": 2
+	}
 ]
