@@ -708,5 +708,12 @@
     "repository": "https://github.com/lifeblood/lua-redis-admin",
     "description": "Redis client tool, Redis web client, Redis web UI, openresty lor Lua ",
     "authors": ["nbdanny"]
+  },
+   {
+    "name": "RedisWebManager",
+    "language": "Ruby",
+    "repository": "https://github.com/OpenGems/redis_web_manager",
+    "description": "Web interface that allows you to manage easily your Redis instance (see keys, memory used, connected client, etc...).",
+    "authors": []
   }
 ]
