@@ -714,6 +714,6 @@
     "language": "Ruby",
     "repository": "https://github.com/OpenGems/redis_web_manager",
     "description": "Web interface that allows you to manage easily your Redis instance (see keys, memory used, connected client, etc...).",
-    "authors": ["OpenGems"]
+    "authors": []
   }
 ]
