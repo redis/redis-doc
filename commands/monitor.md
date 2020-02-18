@@ -45,6 +45,13 @@ Manually issue the `QUIT` command to stop a `MONITOR` stream running via
 For security concerns, certain special administration commands like `CONFIG`
 are not logged into the `MONITOR` output.
 
+Other not logged commands: 
+
+ * `AUTH` (start from Redis 6.0)
+ * `EXEC`
+ * `HELLO`
+ * `QUIT`
+
 ## Cost of running `MONITOR`
 
 Because `MONITOR` streams back **all** commands, its use comes at a cost.
