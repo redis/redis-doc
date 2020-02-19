@@ -257,14 +257,64 @@ In this mode we have the following main behaviors:
 * The server will consume a CPU proportional to the number of registered prefixes. If you have just a few, it is hard to see any difference. With a big number of prefixes the CPU cost can become quite large.
 * In this mode the server can perform the optimization of creating a single reply for all the clients subscribed to a given prefix, and send the same reply to all. This helps to lower the CPU usage.
 
-## When client side caching makes sense
+## Avoiding race conditions
 
-# Implementing client side caching in client libraries
+When implementing client side caching redirecting the invalidation messages
+to a different connection, you should be aware that there is a possible
+race condition. See the following example interaction, where we'll call
+the data connection "D" and the invalidation connection "I":
+
+    [D] client -> server: GET foo
+    [I] server <- client: Invalidate foo (somebody else touched it)
+    [D] server <- client: "bar" (the reply of "GET foo")
+
+As you can see, because the reply to the GET was slower to reach the
+client, we received the invalidation message before the actual data that
+is already no longer valid. So we'll keep serving a stale version of the
+foo key. To avoid this problem, it is a good idea to populate the cache
+when we send the command with a placeholder:
+
+    Client cache: set the local copy of "foo" to "caching-in-progress"
+    [D] client-> server: GET foo.
+    [I] server <- client: Invalidate foo (somebody else touched it)
+    Client cahce: delete "foo" from the local cache.
+    [D] server <- client: "bar" (the reply of "GET foo")
+    Client cache: don't set "bar" since the entry for "foo" is missing.
+
+Such race condition is not possible when using a single connection for both
+data and invalidation messages, since the order of the messages is always known
+in that case.
+
+## What to do when losing connection with the server
+
+Similarly, if we lost the connection with the socket we use in order to
+get the invalidation messages, we may end with stale data. In order to avoid
+this problem, we need to do the following things:
+
+1. Make sure that if the connection is lost, the local cache is flushed.
+2. Both when using RESP2 with Pub/Sub, or RESP3, ping the invalidation channel periodically (you can send PING commands even when the connection is in Pub/Sub mode!). If the connection looks broken and we are not able to receive ping backs, after a maximum amount of time, close the connection and flush the cache.
 
 ## What to cache
 
-## Avoiding race conditions
+Clients may want to run an internal statistics about the amount of times
+a given cached key was actually served in a request, to understand in the
+future what is good to cache. In general:
 
-## Limiting the amount of memory used by clients
+* We don't want to cache much keys that change continuously.
+* We don't want to cache much keys that are requested very rarely.
+* We want to cache keys that are requested often and change at a reasonable rate. For an example of key not changing at a reasonable rate, think at a global counter that is continuously `INCR`emented.
+
+However simpler clients may just evict data using some random sampling just
+remembering the last time a given cached value was served, trying to evict
+keys that were not served recently.
+
+## Other hitns about client libraries implementation
+
+* Handling TTLs: make sure you request also the key TTL and set the TTL in the local cache if you want to support caching keys with a TTL.
+* Putting a max TTL in every key is a good idea, even if it had no TTL. This is a good protection against bugs or connection issues that would make the client having old data in the local copy.
+* Limiting the amount of memory used by clients is absolutely needed. There must be a way to evict old keys when new ones are added.
 
 ## Limiting the amount of memory used by Redis
+
+Just make sure to configure a suitable value for the maxmimum number of keys remembered by Redis, or alternatively use the BCAST mode that consumes no memory at all in the Redis side. Note that the memory consumed by Redis when BCAST is not used, is proportional both to the number of keys tracked, and the number of clients requested such keys.
+
