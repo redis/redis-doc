@@ -98,13 +98,11 @@ The AUTH command, like every other Redis command, is sent unencrypted, so it
 does not protect against an attacker that has enough access to the network to
 perform eavesdropping.
 
-Data encryption support
+TLS support
 ---
 
-Redis does not support encryption. In order to implement setups where
-trusted parties can access a Redis instance over the internet or other
-untrusted networks, an additional layer of protection should be implemented,
-such as an SSL proxy. We recommend [spiped](http://www.tarsnap.com/spiped.html).
+Redis has optional support for TLS on all communication channels, including
+client connections, replication links and the Redis Cluster bus protocol.
 
 Disabling of specific commands
 ---

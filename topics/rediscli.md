@@ -99,6 +99,16 @@ option and a valid URI:
     $ redis-cli -u redis://p%40ssw0rd@redis-16379.hosted.com:16379/0 ping
     PONG
 
+## SSL/TLS
+
+By default, `redis-cli` uses a plain TCP connection to connect to Redis.
+You may enable SSL/TLS using the `--tls` option, along with `--cacert` or
+`--cacertdir` to configure a trusted root certificate bundle or directory.
+
+If the target server requires authentication using a client side certificate,
+you can specify a certificate and a corresponding private key using `--cert` and
+`--key`.
+
 ## Getting input from other programs
 
 There are two ways you can use `redis-cli` in order to get the input from other
