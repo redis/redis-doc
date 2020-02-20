@@ -91,4 +91,4 @@ flow.
 
 @history
 
-* `>=6.0`: `AUTH`, `EXEC`, `HELLO` and `QUIT` excluded from output.
+* `>=6.0`: `AUTH` excluded from the command's output.
