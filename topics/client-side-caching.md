@@ -277,7 +277,7 @@ when we send the command with a placeholder:
     Client cache: set the local copy of "foo" to "caching-in-progress"
     [D] client-> server: GET foo.
     [I] server <- client: Invalidate foo (somebody else touched it)
-    Client cahce: delete "foo" from the local cache.
+    Client cache: delete "foo" from the local cache.
     [D] server <- client: "bar" (the reply of "GET foo")
     Client cache: don't set "bar" since the entry for "foo" is missing.
 
