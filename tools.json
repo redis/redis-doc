@@ -715,5 +715,13 @@
     "repository": "https://github.com/OpenGems/redis_web_manager",
     "description": "Web interface that allows you to manage easily your Redis instance (see keys, memory used, connected client, etc...).",
     "authors": []
+  },
+
+  {
+    "name": "Reliable Message Delivery",
+    "language": "C#",
+    "repository": "https://github.com/Oriflame/RedisMessaging.ReliableDelivery",
+    "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
+    "authors": ["PetrKozelek" , "OriflameSoftware"]
   }
 ]
