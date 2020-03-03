@@ -129,9 +129,9 @@ that are really hard to model in other kind of databases.
 
 With Sorted Sets you can:
 
-* Take a leader board in a massive online game, where every time a new score
+* Take a leaderboard in a massive online game, where every time a new score
 is submitted you update it using [ZADD](/commands/zadd). You can easily
-take the top users using [ZRANGE](/commands/zrange), you can also, given an
+take the top users using [ZRANGE](/commands/zrange), you can also, given a
 user name, return its rank in the listing using [ZRANK](/commands/zrank).
 Using ZRANK and ZRANGE together you can show users with a score similar to
 a given user. All very *quickly*.
