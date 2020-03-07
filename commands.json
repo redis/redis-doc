@@ -4219,7 +4219,8 @@
       {
         "name": "event",
         "type": "string",
-        "optional": true
+        "optional": true,
+        "multiple": true
       }
     ],
     "since": "2.8.13",
