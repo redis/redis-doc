@@ -18,6 +18,6 @@ If all the members of the set have the same type of integers, returned array wil
 
 @example 
 ```cli
-SADD myset 9 10 2 6 20
-SMEMBERS myset
+SADD myset1 9 10 2 6 20
+SMEMBERS myset1
 ```
