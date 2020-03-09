@@ -13,3 +13,11 @@ SADD myset "Hello"
 SADD myset "World"
 SMEMBERS myset
 ```
+
+If all the members of the set have the same type of integers, returned array will be sorted automatically in ascending order 
+
+@example 
+```cli
+SADD myset1 9 10 2 6 20
+SMEMBERS myset
+```
