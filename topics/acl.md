@@ -431,6 +431,30 @@ The external ACL file however is more powerful. You can do the following:
 Note that `CONFIG REWRITE` does not also trigger `ACL SAVE`: when you use
 an ACL file the configuration and the ACLs are handled separately.
 
+## ACL rules for Sentinel and Replicas
+
+In case you don't want to provide Redis replicas and Redis Sentinel instances
+full access to your Redis instances, the following is the set of commands
+that must be allowed in order for everything to work correctly.
+
+For Sentinel, allow the user to access the following commands both in the master and replica instances:
+
+* AUTH, CLIENT, SUBSCRIBE, SCRIPT, PUBLISH, PING, INFO, MULTI, SLAVEOF, CONFIG, CLIENT, EXEC.
+
+Sentinel does not need to access any key in the database, so the ACL rule would be the following (note: AUTH is not needed since is always allowed):
+
+    ACL setuser sentinel-user >somepassword +client +subscribe +publish +ping +info +multi +slaveof +config +client +exec on
+
+Redis replicas require the following commands to be whitelisted on the master instance:
+
+* PSYNC, REPLCONF, PING
+
+No keys need to be accessed, so this translates to the following rules:
+
+    ACL setuser replica-user >somepassword +psync +replconf +ping on
+
+Note that you don't need to configure the replicas to allow the master to be able to execute any set of commands: the master is always authenticated as the root user from the point of view of replicas.
+
 ## TODO list for this document
 
 * Make sure to specify that modules commands are ignored when adding/removing categories.
