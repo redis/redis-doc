@@ -730,5 +730,12 @@
     "repository": "https://github.com/Oriflame/RedisMessaging.ReliableDelivery",
     "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
     "authors": ["PetrKozelek" , "OriflameSoftware"]
+  },
+  {
+    "name": "Red",
+    "language": "Swift",
+    "url": "https://echodot.com/red/",
+    "description": "♥️ A beautiful Redis UI for the Mac with tabbed-views, pub/sub, real-time updates, interactive console, LUA scripting and much more.  Available on the Mac App Store.",
+    "authors": ["echodot"]
   }
 ]
