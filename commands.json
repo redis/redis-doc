@@ -33,6 +33,16 @@
   },
   "BGSAVE": {
     "summary": "Asynchronously save the dataset to disk",
+    "arguments": [
+      {
+        "name": "schedule",
+        "type": "enum",
+        "enum": [
+          "SCHEDULE"
+        ],
+        "optional": true
+      }
+    ],
     "since": "1.0.0",
     "group": "server"
   },
