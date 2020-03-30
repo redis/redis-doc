@@ -4,12 +4,12 @@ Normally the OK code is immediately returned.
 Redis forks, the parent continues to serve the clients, the child saves the DB
 on disk then exits.
 
-An error is returned if there is already a background save running
+An error is returned if there is already a background save running or if there
+is another non-background-save process running, specifically an in-progress AOF
+rewrite.
 
-An error is returned if there is another non-background-save process running,
-specifically an in-progress AOF rewrite.
-If `BGSAVE SCHEDULE` is used, the command will immediately return `OK` when the
-AOF rewrite is in progress, and schedule the background save to run at the next
+If `BGSAVE SCHEDULE` is used, the command will immediately return `OK` when an
+AOF rewrite is in progress and schedule the background save to run at the next
 opportunity.
 
 A client may be able to check if the operation succeeded using the `LASTSAVE`
