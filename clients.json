@@ -436,8 +436,7 @@
     "repository": "https://github.com/nrk/predis",
     "description": "Mature and supported",
     "authors": ["JoL1hAHN"],
-    "recommended": true,
-    "active": true
+    "recommended": true
   },
 
   {
