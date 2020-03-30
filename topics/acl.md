@@ -250,7 +250,7 @@ the exception of +@all. If you say +@all all the commands can be executed by
 the user, even future commands loaded via the modules system. However if you
 use the ACL rule +@readonly or any other, the modules commands are always
 excluded. This is very important because you should just trust the Redis
-internal command table for sanity. Modules my expose dangerous things and in
+internal command table for sanity. Modules may expose dangerous things and in
 the case of an ACL that is just additive, that is, in the form of `+@all -...`
 You should be absolutely sure that you'll never include what you did not mean
 to.
