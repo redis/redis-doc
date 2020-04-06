@@ -97,6 +97,7 @@ Different commands generate different kind of events according to the following 
 
 * `DEL` generates a `del` event for every deleted key.
 * `RENAME` generates two events, a `rename_from` event for the source key, and a `rename_to` event for the destination key.
+* `MOVE` generates two events, a `move_from` event for the source key, and a `move_to` event for the destination key.
 * `MIGRATE` generates a `del` event if the source key is removed.
 * `RESTORE` generates a `restore` event for the key.
 * `EXPIRE` generates an `expire` event when an expire is set to the key, or an `expired` event every time a positive timeout set on a key results into the key being deleted (see `EXPIRE` documentation for more info).
