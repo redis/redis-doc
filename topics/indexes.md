@@ -470,7 +470,7 @@ Representing and querying graphs using an hexastore
 
 One cool thing about composite indexes is that they are handy in order
 to represent graphs, using a data structure which is called
-[Hexastore](http://www.vldb.org/pvldb/1/1453965.pdf).
+[Hexastore](http://www.vldb.org/pvldb/vol1/1453965.pdf).
 
 The hexastore provides a representation for relations between objects,
 formed by a *subject*, a *predicate* and an *object*.
