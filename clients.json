@@ -436,8 +436,7 @@
     "repository": "https://github.com/nrk/predis",
     "description": "Mature and supported",
     "authors": ["JoL1hAHN"],
-    "recommended": true,
-    "active": true
+    "recommended": true
   },
 
   {
@@ -1781,6 +1780,13 @@
     "description": "A simple and small redis client for java.",
     "authors": [],
     "active": true
-  }
+  },
 
+  {
+    "name": "redis-cpp",
+    "language": "C++",
+    "repository": "https://github.com/tdv/redis-cpp",
+    "description": "redis-cpp is a library in C++17 for executing Redis commands with support of the pipelines and publish / subscribe pattern",
+    "active": true
+  }
 ]

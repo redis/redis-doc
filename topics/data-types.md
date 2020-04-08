@@ -53,7 +53,7 @@ You can do many interesting things with Redis Lists, for instance you can:
 
 * Model a timeline in a social network, using [LPUSH](/commands/lpush) in order to add new elements in the user time line, and using [LRANGE](/commands/lrange) in order to retrieve a few of recently inserted items.
 * You can use [LPUSH](/commands/lpush) together with [LTRIM](/commands/ltrim) to create a list that never exceeds a given number of elements, but just remembers the latest N elements.
-* Lists can be used as a message passing primitive, See for instance the well known [Resque](https://github.com/defunkt/resque) Ruby library for creating background jobs.
+* Lists can be used as a message passing primitive, See for instance the well known [Resque](https://github.com/resque/resque) Ruby library for creating background jobs.
 * You can do a lot more with lists, this data type supports a number of commands, including blocking commands like [BLPOP](/commands/blpop).
 
 Please check all the [available commands operating on lists](/commands#list) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).

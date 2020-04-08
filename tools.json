@@ -85,6 +85,13 @@
     "authors": ["stefano_arnone"]
   },
   {
+    "name": "AnotherRedisDesktopManager",
+    "language": "Javascript",
+    "repository": "https://github.com/qishibo/AnotherRedisDesktopManager",
+    "description": "🚀🚀🚀A faster, better and more stable redis desktop manager. What's more, it won't crash when loading a large number of keys.",
+    "authors": ["qii404"]
+  },
+  {
     "name": "Rdb-parser",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/rdb-parser",
