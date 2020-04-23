@@ -42,24 +42,24 @@ The following documentation is a reference manual about the capabilities of this
 
 This is a list of all the supported Redis ACL rules:
 
-* **`on`**: set the user as active, it will be possible to authenticate as this user using `AUTH <username> <password>`.
-* **`off`**: set user as not active, it will be impossible to log as this user. Please note that if a user gets disabled (set to off) after there are connections already authenticated with such a user, the connections will continue to work as expected. To also kill the old connections you can use `CLIENT KILL` with the user option. An alternative is to delete the user with `ACL DELUSER`, that will result in all the connections authenticated as the deleted user to be disconnected.
-* **`~<pattern>`**: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. You can add as many key patterns you want to the same user. Example: `~objects:*`
-* **`allkeys`**: alias for `~*`, it allows the user to access all the keys.
-* **`resetkey`**: removes all the key patterns from the list of key patterns the user can access.
-* **`+<command>`**: add this command to the list of the commands the user can call. Example: `+zadd`.
-* **`+@<categoty>`**: add all the commands in the specified categoty to the list of commands the user is able to execute. Example: `+@string` (adds all the string commands). For a list of categories check the `ACL CAT` command.
-* **`+<command>|<subcommand>`**: add the specified command to the list of the commands the user can execute, but only for the specified subcommand. Example: `+config|get`. Generates an error if the specified command is already allowed in its full version for the specified user. Note: there is no symmetrical command to remove subcommands, you need to remove the whole command and re-add the subcommands you want to allow. This is much safer than removing subcommands, in the future Redis may add new dangerous subcommands, so configuring by subtraction is not good.
-* **`allcommands`**: alias of `+@all`. Adds all the commands there are in the server, including *future commands* loaded via module, to be executed by this user.
-* **`-<command>`**. Like **`+<command>`** but removes the command instead of adding it.
-* **`-@<categoty>`**: Like **`-@<category>`** but removes all the commands in the category instead of adding them.
-* **`nocommands`**: alias for `-@all`. Removes all the commands, the user will no longer be able to execute anything.
-* **`nopass`**: the user is set as a "no password" user. It means that it will be possible to authenticate as such user with any password. By default, the `default` special user is set as "nopass". The `nopass` rule will also reset all the configured passwords for the user.
-* **`>password`**: Add the specified clear text password as an hashed password in the list of the users passwords. Every user can have many active passwords, so that password rotation will be simpler. The specified password is not stored in cleartext inside the server. Example: `>mypassword`.
-* **`#<hashedpassword>`**: Add the specified hashed password to the list of user passwords. A Redis hashed password is hashed with SHA256 and translated into a hexadecimal string. Example: `#c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2`.
-* **`<password`**: Like **`>password`** but removes the password instead of adding it.
-* **!<hashedpassword>`**: Like **`#<hashedpassword>`** but removes the password instead of adding it.
-* **reset**: Remove any capability from the user. It is set to off, without passwords, unable to execute any command, unable to access any key.
+* `on`: set the user as active, it will be possible to authenticate as this user using `AUTH <username> <password>`.
+* `off`: set user as not active, it will be impossible to log as this user. Please note that if a user gets disabled (set to off) after there are connections already authenticated with such a user, the connections will continue to work as expected. To also kill the old connections you can use `CLIENT KILL` with the user option. An alternative is to delete the user with `ACL DELUSER`, that will result in all the connections authenticated as the deleted user to be disconnected.
+* `~<pattern>`: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. You can add as many key patterns you want to the same user. Example: `~objects:*`
+* `allkeys`: alias for `~*`, it allows the user to access all the keys.
+* `resetkey`: removes all the key patterns from the list of key patterns the user can access.
+* `+<command>`: add this command to the list of the commands the user can call. Example: `+zadd`.
+* `+@<categoty>`: add all the commands in the specified categoty to the list of commands the user is able to execute. Example: `+@string` (adds all the string commands). For a list of categories check the `ACL CAT` command.
+* `+<command>|<subcommand>`: add the specified command to the list of the commands the user can execute, but only for the specified subcommand. Example: `+config|get`. Generates an error if the specified command is already allowed in its full version for the specified user. Note: there is no symmetrical command to remove subcommands, you need to remove the whole command and re-add the subcommands you want to allow. This is much safer than removing subcommands, in the future Redis may add new dangerous subcommands, so configuring by subtraction is not good.
+* `allcommands`: alias of `+@all`. Adds all the commands there are in the server, including *future commands* loaded via module, to be executed by this user.
+* `-<command>`. Like `+<command>` but removes the command instead of adding it.
+* `-@<categoty>`: Like `-@<category>` but removes all the commands in the category instead of adding them.
+* `nocommands`: alias for `-@all`. Removes all the commands, the user will no longer be able to execute anything.
+* `nopass`: the user is set as a "no password" user. It means that it will be possible to authenticate as such user with any password. By default, the `default` special user is set as "nopass". The `nopass` rule will also reset all the configured passwords for the user.
+* `>password`: Add the specified clear text password as an hashed password in the list of the users passwords. Every user can have many active passwords, so that password rotation will be simpler. The specified password is not stored in cleartext inside the server. Example: `>mypassword`.
+* `#<hashedpassword>`: Add the specified hashed password to the list of user passwords. A Redis hashed password is hashed with SHA256 and translated into a hexadecimal string. Example: `#c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2`.
+* `<password`: Like `>password` but removes the password instead of adding it.
+* !<hashedpassword>`: Like `#<hashedpassword>` but removes the password instead of adding it.
+* reset: Remove any capability from the user. It is set to off, without passwords, unable to execute any command, unable to access any key.
 
 @return
 
