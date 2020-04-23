@@ -58,7 +58,7 @@ This is a list of all the supported Redis ACL rules:
 * `>password`: Add the specified clear text password as an hashed password in the list of the users passwords. Every user can have many active passwords, so that password rotation will be simpler. The specified password is not stored in cleartext inside the server. Example: `>mypassword`.
 * `#<hashedpassword>`: Add the specified hashed password to the list of user passwords. A Redis hashed password is hashed with SHA256 and translated into a hexadecimal string. Example: `#c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2`.
 * `<password`: Like `>password` but removes the password instead of adding it.
-* !<hashedpassword>`: Like `#<hashedpassword>` but removes the password instead of adding it.
+* `!<hashedpassword>`: Like `#<hashedpassword>` but removes the password instead of adding it.
 * reset: Remove any capability from the user. It is set to off, without passwords, unable to execute any command, unable to access any key.
 
 @return
