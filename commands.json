@@ -65,6 +65,13 @@
   "ACL GENPASS": {
     "summary": "Generate a pseudorandom secure password to use for ACL users",
     "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "bits",
+        "type": "integer",
+        "optional": true
+      }
+    ],
     "since": "6.0.0",
     "group": "server"
   },
