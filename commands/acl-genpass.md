@@ -28,3 +28,16 @@ hex character.
 @return
 
 @bulk-string-reply: by default 64 bytes string representing 128 bits of pseudorandom data. Otherwise if an argument if needed, the output string length is the number of specified bits (rounded to the next multiple of 4) divided by 4.
+
+@examples
+
+```
+> ACL GENPASS
+"dd721260bfe1b3d9601e7fbab36de6d04e2e67b0ef1c53de59d45950db0dd3cc"
+
+> ACL GENPASS 32
+"355ef3dd"
+
+> ACL GENPASS 5
+"90"
+```
