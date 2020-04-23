@@ -6,7 +6,7 @@ from /dev/urandom if available, otherwise (in systems without /dev/urandom) it
 uses a weaker system that is likely still better than picking a weak password
 by hand.
 
-By default (if /dev/urandom is availalbe) the password is strong and
+By default (if /dev/urandom is available) the password is strong and
 can be used for other uses in the context of a Redis application, for
 instance in order to create unique session identifiers or other kind of
 unguessable and not colliding IDs. The password generation is also very cheap
@@ -17,7 +17,7 @@ create more random bytes as needed. This means that the application developer
 should be feel free to abuse `ACL GENPASS` to create as many secure
 pseudorandom strings as needed.
 
-The command outout is an hexadecimal representation of a binary string.
+The command output is an hexadecimal representation of a binary string.
 By default it emits 256 bits (so 64 hex characters). The user can provide
 an argument in form of number of bits to emit from 1 to 1024 to change
 the output length. Note that the number of bits provided is always
