@@ -266,7 +266,7 @@ the data connection "D" and the invalidation connection "I":
 
     [D] client -> server: GET foo
     [I] server <- client: Invalidate foo (somebody else touched it)
-    [D] server <- client: "bar" (the reply of "GET foo")
+    [D] server -> client: "bar" (the reply of "GET foo")
 
 As you can see, because the reply to the GET was slower to reach the
 client, we received the invalidation message before the actual data that
@@ -275,10 +275,10 @@ foo key. To avoid this problem, it is a good idea to populate the cache
 when we send the command with a placeholder:
 
     Client cache: set the local copy of "foo" to "caching-in-progress"
-    [D] client-> server: GET foo.
+    [D] client -> server: GET foo.
     [I] server <- client: Invalidate foo (somebody else touched it)
     Client cache: delete "foo" from the local cache.
-    [D] server <- client: "bar" (the reply of "GET foo")
+    [D] server -> client: "bar" (the reply of "GET foo")
     Client cache: don't set "bar" since the entry for "foo" is missing.
 
 Such race condition is not possible when using a single connection for both
