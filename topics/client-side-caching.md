@@ -308,7 +308,7 @@ However simpler clients may just evict data using some random sampling just
 remembering the last time a given cached value was served, trying to evict
 keys that were not served recently.
 
-## Other hitns about client libraries implementation
+## Other hints about client libraries implementation
 
 * Handling TTLs: make sure you request also the key TTL and set the TTL in the local cache if you want to support caching keys with a TTL.
 * Putting a max TTL in every key is a good idea, even if it had no TTL. This is a good protection against bugs or connection issues that would make the client having old data in the local copy.
