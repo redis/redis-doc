@@ -257,6 +257,21 @@ In this mode we have the following main behaviors:
 * The server will consume a CPU proportional to the number of registered prefixes. If you have just a few, it is hard to see any difference. With a big number of prefixes the CPU cost can become quite large.
 * In this mode the server can perform the optimization of creating a single reply for all the clients subscribed to a given prefix, and send the same reply to all. This helps to lower the CPU usage.
 
+## The NOLOOP option
+
+By default client side tracking will send invalidation messages even to
+client that modified the key. Sometimes clients want this, since they
+implement a very basic logic that does not involve automatically caching
+writes locally. However more advanced clients may want to cache even the
+writes they are doing in the local in-memory table. In such case receiving
+an invalidation message immediately after the write is a problem, since it
+will force the client to evict the value it just cached.
+
+In this case it is possible to use the `NOLOOP` option: it works both
+in normal and broadcasting mode. Using such option, clients are able to
+tell the server they don't want to receive invalidation messages for keys
+that are modified by themselves.
+
 ## Avoiding race conditions
 
 When implementing client side caching redirecting the invalidation messages
