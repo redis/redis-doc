@@ -280,8 +280,8 @@ race condition. See the following example interaction, where we'll call
 the data connection "D" and the invalidation connection "I":
 
     [D] client -> server: GET foo
-    [I] server <- client: Invalidate foo (somebody else touched it)
-    [D] server <- client: "bar" (the reply of "GET foo")
+    [I] server -> client: Invalidate foo (somebody else touched it)
+    [D] server -> client: "bar" (the reply of "GET foo")
 
 As you can see, because the reply to the GET was slower to reach the
 client, we received the invalidation message before the actual data that
@@ -291,9 +291,9 @@ when we send the command with a placeholder:
 
     Client cache: set the local copy of "foo" to "caching-in-progress"
     [D] client-> server: GET foo.
-    [I] server <- client: Invalidate foo (somebody else touched it)
+    [I] server -> client: Invalidate foo (somebody else touched it)
     Client cache: delete "foo" from the local cache.
-    [D] server <- client: "bar" (the reply of "GET foo")
+    [D] server -> client: "bar" (the reply of "GET foo")
     Client cache: don't set "bar" since the entry for "foo" is missing.
 
 Such race condition is not possible when using a single connection for both
@@ -323,7 +323,7 @@ However simpler clients may just evict data using some random sampling just
 remembering the last time a given cached value was served, trying to evict
 keys that were not served recently.
 
-## Other hitns about client libraries implementation
+## Other hints about client libraries implementation
 
 * Handling TTLs: make sure you request also the key TTL and set the TTL in the local cache if you want to support caching keys with a TTL.
 * Putting a max TTL in every key is a good idea, even if it had no TTL. This is a good protection against bugs or connection issues that would make the client having old data in the local copy.
