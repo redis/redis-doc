@@ -29,7 +29,7 @@ The basic usage is the following:
 "mytext"
 ```
 
-It is possible to also compute the LCS between the content of two keys:
+It is also possible to compute the LCS between the content of two keys:
 
 ```
 > MSET key1 ohmytext key2 mynewtext
