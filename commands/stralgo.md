@@ -1,4 +1,4 @@
-The STRALGO implements complex algorithsm that operate on strings.
+The STRALGO implements complex algorithms that operate on strings.
 Right now the only algorithm implemented is the LCS algorithm (longest common
 substring). However new algorithms could be implemented in the future.
 The goal of this command is to provide to Redis users algorithms that need
@@ -16,7 +16,7 @@ STRALGO LCS [KEYS ...] [STRINGS ...] [LEN] [IDX] [MINRANGELEN] [WITHRANGELEN]
 
 The LCS subcommand implements the longest common subsequence algorithm. Note that this is different than the longest common string algorithm, since matching characters in the string does not need to be contiguous.
 
-For instane the LCS between "foo" and "fao" is "fo", since scanning the two strings from left to right, the longest common set of characters is composed of the first "f" and then the "o".
+For instance the LCS between "foo" and "fao" is "fo", since scanning the two strings from left to right, the longest common set of characters is composed of the first "f" and then the "o".
 
 LCS is very useful in order to evaluate how similar two strings are. Strings can represent many things. For instance if two strings are DNA sequences, the LCS will provide a measure of similarity between the two DNA sequences. If the strings represent some text edited by some user, the LCS could represent how different the new text is compared to the old one, and so forth.
 
@@ -29,7 +29,7 @@ The basic usage is the following:
 "mytext"
 ```
 
-It is possible to also compute the LCS between the contet of two keys:
+It is possible to also compute the LCS between the content of two keys:
 
 ```
 > MSET key1 ohmytext key2 mynewtext
