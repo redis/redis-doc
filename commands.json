@@ -375,13 +375,13 @@
       }
     ],
     "since": "6.0.0",
-    "group": "server"
+    "group": "connectin"
   },
   "CLIENT ID": {
     "summary": "Returns the client ID for the current connection",
     "complexity": "O(1)",
     "since": "5.0.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
@@ -423,7 +423,7 @@
       }
     ],
     "since": "2.4.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT LIST": {
     "summary": "Get the list of client connections",
@@ -442,19 +442,19 @@
       }
     ],
     "since": "2.4.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT GETNAME": {
     "summary": "Get the current connection name",
     "complexity": "O(1)",
     "since": "2.6.9",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT GETREDIR": {
     "summary": "Get tracking notifications redirection client ID if any",
     "complexity": "O(1)",
     "since": "6.0.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT PAUSE": {
     "summary": "Stop processing commands from clients for some time",
@@ -466,7 +466,7 @@
       }
     ],
     "since": "2.9.50",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT REPLY": {
     "summary": "Instruct the server whether to reply to commands",
@@ -483,7 +483,7 @@
       }
     ],
     "since": "3.2",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT SETNAME": {
     "summary": "Set the current connection name",
@@ -495,7 +495,7 @@
         "type": "string"
       }
     ],
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT TRACKING": {
     "summary": "Enable or disable server assisted client side caching support",
@@ -555,7 +555,7 @@
       }
     ],
     "since": "6.0.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT UNBLOCK": {
     "summary": "Unblock a client blocked in a blocking command from a different connection",
@@ -576,7 +576,7 @@
       }
     ],
     "since": "5.0.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLUSTER ADDSLOTS": {
     "summary": "Assign new hash slots to receiving node",
@@ -1461,6 +1461,36 @@
     ],
     "since": "2.0.0",
     "group": "hash"
+  },
+  "HELLO": {
+    "summary": "switch Redis protocol",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "protover",
+        "type": "integer"
+      },
+      {
+        "command": "AUTH",
+        "name": [
+          "username",
+          "password"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "SETNAME",
+        "name": "clientname",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "connection"
   },
   "HEXISTS": {
     "summary": "Determine if a hash field exists",
@@ -3140,7 +3170,7 @@
       }
     ],
     "since": "4.0.0",
-    "group": "connection"
+    "group": "server"
   },
   "SYNC": {
     "summary": "Internal command used for replication",
