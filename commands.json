@@ -434,6 +434,12 @@
     "since": "2.6.9",
     "group": "server"
   },
+  "CLIENT GETREDIR": {
+    "summary": "Get tracking notifications redirection client ID if any",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "server"
+  },
   "CLIENT PAUSE": {
     "summary": "Stop processing commands from clients for some time",
     "complexity": "O(1)",
