@@ -375,7 +375,7 @@
       }
     ],
     "since": "6.0.0",
-    "group": "connectin"
+    "group": "connection"
   },
   "CLIENT ID": {
     "summary": "Returns the client ID for the current connection",
