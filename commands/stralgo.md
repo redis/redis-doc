@@ -42,7 +42,7 @@ Sometimes we need just the length of the match:
 
 ```
 > STRALGO LCS STRINGS ohmytext mynewtext LEN
-"mytext"
+6
 ```
 
 However what is often very useful, is to know the match position in each strings:
