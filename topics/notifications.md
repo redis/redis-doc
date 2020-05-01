@@ -133,13 +133,14 @@ Different commands generate different kind of events according to the following 
 * `ZREMBYRANK` generates a single `zrembyrank` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the special case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * `XADD` generates an `xadd` event, possibly followed an `xtrim` event when used with the `MAXLEN` subcommand.
-* `XDEL` generates a single `xdel` event even when multiple entries are are deleted.
+* `XDEL` generates a single `xdel` event even when multiple entries are deleted.
 * `XGROUP CREATE` generates an `xgroup-create` event.
 * `XGROUP DELCONSUMER` generates an `xgroup-delconsumer` event.
 * `XGROUP DESTROY` generates an `xgroup-destroy` event.
 * `XGROUP SETID` generates an `xgroup-setid` event.
 * `XSETID` generates an `xsetid` event.
 * `XTRIM` generates an `xtrim` event.
+* `PERSIST` generates a `persist` event if the expiry time associated with key has been successfully deleted.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
 
