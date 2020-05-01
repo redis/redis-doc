@@ -1,40 +1,21 @@
 {
-  "ACL LOAD": {
-    "summary": "Reload the ACLs from the configured ACL file",
-    "complexity": "O(N). Where N is the number of configured users.",
-    "since": "6.0.0",
-    "group": "server"
-  },
-  "ACL SAVE": {
-    "summary": "Save the current ACL rules in the configured ACL file",
-    "complexity": "O(N). Where N is the number of configured users.",
-    "since": "6.0.0",
-    "group": "server"
-  },
-  "ACL LIST": {
-    "summary": "List the current ACL rules in ACL config file format",
-    "complexity": "O(N). Where N is the number of configured users.",
-    "since": "6.0.0",
-    "group": "server"
-  },
-  "ACL USERS": {
-    "summary": "List the username of all the configured ACL rules",
-    "complexity": "O(N). Where N is the number of configured users.",
-    "since": "6.0.0",
-    "group": "server"
-  },
-  "ACL SETUSER": {
-    "summary": "Modify or create the rules for a specific ACL user",
-    "complexity": "O(N). Where N is the number of rules provided.",
+  "ACL CAT": {
+    "summary": "List the ACL categories or the commands inside a category",
+    "complexity": "O(1) since the categories and commands are a fixed set.",
     "arguments": [
       {
-        "name": "rule",
+        "name": "categoryname",
         "type": "string",
-        "multiple": true
+        "optional": true
       }
     ],
     "since": "6.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "ACL DELUSER": {
     "summary": "Remove the specified ACL users and the associated rules",
@@ -47,20 +28,12 @@
       }
     ],
     "since": "6.0.0",
-    "group": "server"
-  },
-  "ACL CAT": {
-    "summary": "List the ACL categories or the commands inside a category",
-    "complexity": "O(1) since the categories and commands are a fixed set.",
-    "arguments": [
-      {
-        "name": "categoryname",
-        "type": "string",
-        "optional": true
-      }
-    ],
-    "since": "6.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "ACL GENPASS": {
     "summary": "Generate a pseudorandom secure password to use for ACL users",
@@ -73,13 +46,34 @@
       }
     ],
     "since": "6.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
-  "ACL WHOAMI": {
-    "summary": "Return the name of the user associated to the current connection",
-    "complexity": "O(1)",
+  "ACL LIST": {
+    "summary": "List the current ACL rules in ACL config file format",
+    "complexity": "O(N). Where N is the number of configured users.",
     "since": "6.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "ACL LOAD": {
+    "summary": "Reload the ACLs from the configured ACL file",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "ACL LOG": {
     "summary": "List latest events denied because of ACLs in place",
@@ -92,7 +86,63 @@
       }
     ],
     "since": "6.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "ACL SAVE": {
+    "summary": "Save the current ACL rules in the configured ACL file",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "ACL SETUSER": {
+    "summary": "Modify or create the rules for a specific ACL user",
+    "complexity": "O(N). Where N is the number of rules provided.",
+    "arguments": [
+      {
+        "name": "rule",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "ACL USERS": {
+    "summary": "List the username of all the configured ACL rules",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "ACL WHOAMI": {
+    "summary": "Return the name of the user associated to the current connection",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "APPEND": {
     "summary": "Append a value to a key",
@@ -108,7 +158,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "AUTH": {
     "summary": "Authenticate to the server",
@@ -119,12 +174,21 @@
       }
     ],
     "since": "1.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@connection",
+      "@fast"
+    ]
   },
   "BGREWRITEAOF": {
     "summary": "Asynchronously rewrite the append-only file",
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "BGSAVE": {
     "summary": "Asynchronously save the dataset to disk",
@@ -139,7 +203,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "BITCOUNT": {
     "summary": "Count set bits in a string",
@@ -162,7 +231,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@bitmap",
+      "@read",
+      "@slow"
+    ]
   },
   "BITFIELD": {
     "summary": "Perform arbitrary bitfield integer operations on strings",
@@ -224,7 +298,12 @@
       }
     ],
     "since": "3.2.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@bitmap",
+      "@slow",
+      "@write"
+    ]
   },
   "BITOP": {
     "summary": "Perform bitwise operations between strings",
@@ -245,7 +324,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@bitmap",
+      "@slow",
+      "@write"
+    ]
   },
   "BITPOS": {
     "summary": "Find first bit set or clear in a string",
@@ -271,7 +355,12 @@
       }
     ],
     "since": "2.8.7",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@bitmap",
+      "@read",
+      "@slow"
+    ]
   },
   "BLPOP": {
     "summary": "Remove and get the first element in a list, or block until one is available",
@@ -288,7 +377,13 @@
       }
     ],
     "since": "2.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@blocking",
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "BRPOP": {
     "summary": "Remove and get the last element in a list, or block until one is available",
@@ -305,7 +400,13 @@
       }
     ],
     "since": "2.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@blocking",
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "BRPOPLPUSH": {
     "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
@@ -325,24 +426,13 @@
       }
     ],
     "since": "2.2.0",
-    "group": "list"
-  },
-  "BZPOPMIN": {
-    "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
-    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      },
-      {
-        "name": "timeout",
-        "type": "integer"
-      }
-    ],
-    "since": "5.0.0",
-    "group": "sorted_set"
+    "group": "list",
+    "aclcats": [
+      "@blocking",
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "BZPOPMAX": {
     "summary": "Remove and return the member with the highest score from one or more sorted sets, or block until one is available",
@@ -359,7 +449,36 @@
       }
     ],
     "since": "5.0.0",
-    "group": "sorted_set"
+    "group": "sorted_set",
+    "aclcats": [
+      "@blocking",
+      "@fast",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "BZPOPMIN": {
+    "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@blocking",
+      "@fast",
+      "@sortedset",
+      "@write"
+    ]
   },
   "CLIENT CACHING": {
     "summary": "Instruct the server about tracking or not keys in the next request",
@@ -375,13 +494,49 @@
       }
     ],
     "since": "6.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "CLIENT GETNAME": {
+    "summary": "Get the current connection name",
+    "complexity": "O(1)",
+    "since": "2.6.9",
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "CLIENT GETREDIR": {
+    "summary": "Get tracking notifications redirection client ID if any",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT ID": {
     "summary": "Returns the client ID for the current connection",
     "complexity": "O(1)",
     "since": "5.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
@@ -423,7 +578,13 @@
       }
     ],
     "since": "2.4.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT LIST": {
     "summary": "Get the list of client connections",
@@ -442,19 +603,13 @@
       }
     ],
     "since": "2.4.0",
-    "group": "connection"
-  },
-  "CLIENT GETNAME": {
-    "summary": "Get the current connection name",
-    "complexity": "O(1)",
-    "since": "2.6.9",
-    "group": "connection"
-  },
-  "CLIENT GETREDIR": {
-    "summary": "Get tracking notifications redirection client ID if any",
-    "complexity": "O(1)",
-    "since": "6.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT PAUSE": {
     "summary": "Stop processing commands from clients for some time",
@@ -466,7 +621,13 @@
       }
     ],
     "since": "2.9.50",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT REPLY": {
     "summary": "Instruct the server whether to reply to commands",
@@ -483,7 +644,13 @@
       }
     ],
     "since": "3.2",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT SETNAME": {
     "summary": "Set the current connection name",
@@ -495,7 +662,13 @@
         "type": "string"
       }
     ],
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT TRACKING": {
     "summary": "Enable or disable server assisted client side caching support",
@@ -555,7 +728,13 @@
       }
     ],
     "since": "6.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLIENT UNBLOCK": {
     "summary": "Unblock a client blocked in a blocking command from a different connection",
@@ -576,7 +755,13 @@
       }
     ],
     "since": "5.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@admin",
+      "@connection",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER ADDSLOTS": {
     "summary": "Assign new hash slots to receiving node",
@@ -589,13 +774,23 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER BUMPEPOCH": {
     "summary": "Advance the cluster config epoch",
     "complexity": "O(1)",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER COUNT-FAILURE-REPORTS": {
     "summary": "Return the number of failure reports active for a given node",
@@ -607,7 +802,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER COUNTKEYSINSLOT": {
     "summary": "Return the number of local keys in the specified hash slot",
@@ -619,7 +819,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER DELSLOTS": {
     "summary": "Set hash slots as unbound in receiving node",
@@ -632,7 +837,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER FAILOVER": {
     "summary": "Forces a replica to perform a manual failover of its master.",
@@ -649,13 +859,23 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER FLUSHSLOTS": {
     "summary": "Delete a node's own slots information",
     "complexity": "O(1)",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER FORGET": {
     "summary": "Remove a node from the nodes table",
@@ -667,7 +887,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER GETKEYSINSLOT": {
     "summary": "Return local key names in the specified hash slot",
@@ -683,13 +908,23 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER INFO": {
     "summary": "Provides info about Redis Cluster node state",
     "complexity": "O(1)",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER KEYSLOT": {
     "summary": "Returns the hash slot of the specified key",
@@ -701,7 +936,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER MEET": {
     "summary": "Force a node cluster to handshake with another node",
@@ -717,19 +957,51 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER MYID": {
     "summary": "Return the node id",
     "complexity": "O(1)",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER NODES": {
     "summary": "Get Cluster config for the node",
     "complexity": "O(N) where N is the total number of Cluster nodes",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "CLUSTER REPLICAS": {
+    "summary": "List replica nodes of the specified master node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER REPLICATE": {
     "summary": "Reconfigure a node as a replica of the specified master node",
@@ -741,7 +1013,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER RESET": {
     "summary": "Reset a Redis Cluster node",
@@ -758,13 +1035,23 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER SAVECONFIG": {
     "summary": "Forces the node to save cluster state on disk",
     "complexity": "O(1)",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER SET-CONFIG-EPOCH": {
     "summary": "Set the configuration epoch in a new node",
@@ -776,7 +1063,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER SETSLOT": {
     "summary": "Bind a hash slot to a specific node",
@@ -803,7 +1095,12 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER SLAVES": {
     "summary": "List replica nodes of the specified master node",
@@ -815,43 +1112,53 @@
       }
     ],
     "since": "3.0.0",
-    "group": "cluster"
-  },
-  "CLUSTER REPLICAS": {
-    "summary": "List replica nodes of the specified master node",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "node-id",
-        "type": "string"
-      }
-    ],
-    "since": "5.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CLUSTER SLOTS": {
     "summary": "Get array of Cluster slot to node mappings",
     "complexity": "O(N) where N is the total number of Cluster nodes",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "COMMAND": {
     "summary": "Get array of Redis command details",
     "complexity": "O(N) where N is the total number of Redis commands",
     "since": "2.8.13",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@connection",
+      "@slow"
+    ]
   },
   "COMMAND COUNT": {
     "summary": "Get total number of Redis commands",
     "complexity": "O(1)",
     "since": "2.8.13",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@connection",
+      "@slow"
+    ]
   },
   "COMMAND GETKEYS": {
     "summary": "Extract keys given a full Redis command",
     "complexity": "O(N) where N is the number of arguments to the command",
     "since": "2.8.13",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@connection",
+      "@slow"
+    ]
   },
   "COMMAND INFO": {
     "summary": "Get array of specific Redis command details",
@@ -864,7 +1171,11 @@
         "multiple": true
       }
     ],
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@connection",
+      "@slow"
+    ]
   },
   "CONFIG GET": {
     "summary": "Get the value of a configuration parameter",
@@ -875,12 +1186,33 @@
       }
     ],
     "since": "2.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "CONFIG RESETSTAT": {
+    "summary": "Reset the stats returned by INFO",
+    "complexity": "O(1)",
+    "since": "2.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CONFIG REWRITE": {
     "summary": "Rewrite the configuration file with the in memory configuration",
     "since": "2.8.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "CONFIG SET": {
     "summary": "Set a configuration parameter to the given value",
@@ -895,18 +1227,22 @@
       }
     ],
     "since": "2.0.0",
-    "group": "server"
-  },
-  "CONFIG RESETSTAT": {
-    "summary": "Reset the stats returned by INFO",
-    "complexity": "O(1)",
-    "since": "2.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "DBSIZE": {
     "summary": "Return the number of keys in the selected database",
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@read"
+    ]
   },
   "DEBUG OBJECT": {
     "summary": "Get debugging information about a key",
@@ -917,12 +1253,22 @@
       }
     ],
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "DEBUG SEGFAULT": {
     "summary": "Make the server crash",
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "DECR": {
     "summary": "Decrement the integer value of a key by one",
@@ -934,7 +1280,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "DECRBY": {
     "summary": "Decrement the integer value of a key by the given number",
@@ -950,7 +1301,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "DEL": {
     "summary": "Delete a key",
@@ -963,12 +1319,21 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@keyspace",
+      "@slow",
+      "@write"
+    ]
   },
   "DISCARD": {
     "summary": "Discard all commands issued after MULTI",
     "since": "2.0.0",
-    "group": "transactions"
+    "group": "transactions",
+    "aclcats": [
+      "@fast",
+      "@transaction"
+    ]
   },
   "DUMP": {
     "summary": "Return a serialized version of the value stored at the specified key.",
@@ -980,7 +1345,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@keyspace",
+      "@read",
+      "@slow"
+    ]
   },
   "ECHO": {
     "summary": "Echo the given string",
@@ -991,7 +1361,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@connection",
+      "@fast",
+      "@read"
+    ]
   },
   "EVAL": {
     "summary": "Execute a Lua script server side",
@@ -1017,7 +1392,11 @@
       }
     ],
     "since": "2.6.0",
-    "group": "scripting"
+    "group": "scripting",
+    "aclcats": [
+      "@scripting",
+      "@slow"
+    ]
   },
   "EVALSHA": {
     "summary": "Execute a Lua script server side",
@@ -1043,12 +1422,20 @@
       }
     ],
     "since": "2.6.0",
-    "group": "scripting"
+    "group": "scripting",
+    "aclcats": [
+      "@scripting",
+      "@slow"
+    ]
   },
   "EXEC": {
     "summary": "Execute all commands issued after MULTI",
     "since": "1.2.0",
-    "group": "transactions"
+    "group": "transactions",
+    "aclcats": [
+      "@slow",
+      "@transaction"
+    ]
   },
   "EXISTS": {
     "summary": "Determine if a key exists",
@@ -1061,7 +1448,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@read"
+    ]
   },
   "EXPIRE": {
     "summary": "Set a key's time to live in seconds",
@@ -1077,7 +1469,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
   },
   "EXPIREAT": {
     "summary": "Set the expiration for a key as a UNIX timestamp",
@@ -1093,7 +1490,12 @@
       }
     ],
     "since": "1.2.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
   },
   "FLUSHALL": {
     "summary": "Remove all keys from all databases",
@@ -1108,7 +1510,13 @@
       }
     ],
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@dangerous",
+      "@keyspace",
+      "@slow",
+      "@write"
+    ]
   },
   "FLUSHDB": {
     "summary": "Remove all keys from the current database",
@@ -1123,7 +1531,13 @@
       }
     ],
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@dangerous",
+      "@keyspace",
+      "@slow",
+      "@write"
+    ]
   },
   "GEOADD": {
     "summary": "Add one or more geospatial items in the geospatial index represented using a sorted set",
@@ -1148,41 +1562,12 @@
       }
     ],
     "since": "3.2.0",
-    "group": "geo"
-  },
-  "GEOHASH": {
-    "summary": "Returns members of a geospatial index as standard geohash strings",
-    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "member",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "3.2.0",
-    "group": "geo"
-  },
-  "GEOPOS": {
-    "summary": "Returns longitude and latitude of members of a geospatial index",
-    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "member",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "3.2.0",
-    "group": "geo"
+    "group": "geo",
+    "aclcats": [
+      "@geo",
+      "@slow",
+      "@write"
+    ]
   },
   "GEODIST": {
     "summary": "Returns the distance between two members of a geospatial index",
@@ -1213,7 +1598,56 @@
       }
     ],
     "since": "3.2.0",
-    "group": "geo"
+    "group": "geo",
+    "aclcats": [
+      "@geo",
+      "@read",
+      "@slow"
+    ]
+  },
+  "GEOHASH": {
+    "summary": "Returns members of a geospatial index as standard geohash strings",
+    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo",
+    "aclcats": [
+      "@geo",
+      "@read",
+      "@slow"
+    ]
+  },
+  "GEOPOS": {
+    "summary": "Returns longitude and latitude of members of a geospatial index",
+    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "3.2.0",
+    "group": "geo",
+    "aclcats": [
+      "@geo",
+      "@read",
+      "@slow"
+    ]
   },
   "GEORADIUS": {
     "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
@@ -1298,7 +1732,12 @@
       }
     ],
     "since": "3.2.0",
-    "group": "geo"
+    "group": "geo",
+    "aclcats": [
+      "@geo",
+      "@slow",
+      "@write"
+    ]
   },
   "GEORADIUSBYMEMBER": {
     "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member",
@@ -1379,7 +1818,12 @@
       }
     ],
     "since": "3.2.0",
-    "group": "geo"
+    "group": "geo",
+    "aclcats": [
+      "@geo",
+      "@slow",
+      "@write"
+    ]
   },
   "GET": {
     "summary": "Get the value of a key",
@@ -1391,7 +1835,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@string"
+    ]
   },
   "GETBIT": {
     "summary": "Returns the bit value at offset in the string value stored at key",
@@ -1407,7 +1856,12 @@
       }
     ],
     "since": "2.2.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@bitmap",
+      "@fast",
+      "@read"
+    ]
   },
   "GETRANGE": {
     "summary": "Get a substring of the string stored at a key",
@@ -1427,7 +1881,12 @@
       }
     ],
     "since": "2.4.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@string"
+    ]
   },
   "GETSET": {
     "summary": "Set the string value of a key and return its old value",
@@ -1443,7 +1902,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "HDEL": {
     "summary": "Delete one or more hash fields",
@@ -1460,7 +1924,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@write"
+    ]
   },
   "HELLO": {
     "summary": "switch Redis protocol",
@@ -1490,7 +1959,11 @@
       }
     ],
     "since": "6.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@connection",
+      "@fast"
+    ]
   },
   "HEXISTS": {
     "summary": "Determine if a hash field exists",
@@ -1506,7 +1979,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@read"
+    ]
   },
   "HGET": {
     "summary": "Get the value of a hash field",
@@ -1522,7 +2000,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@read"
+    ]
   },
   "HGETALL": {
     "summary": "Get all the fields and values in a hash",
@@ -1534,7 +2017,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@hash",
+      "@read",
+      "@slow"
+    ]
   },
   "HINCRBY": {
     "summary": "Increment the integer value of a hash field by the given number",
@@ -1554,7 +2042,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@write"
+    ]
   },
   "HINCRBYFLOAT": {
     "summary": "Increment the float value of a hash field by the given amount",
@@ -1574,7 +2067,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@write"
+    ]
   },
   "HKEYS": {
     "summary": "Get all the fields in a hash",
@@ -1586,7 +2084,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@hash",
+      "@read",
+      "@slow"
+    ]
   },
   "HLEN": {
     "summary": "Get the number of fields in a hash",
@@ -1598,7 +2101,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@read"
+    ]
   },
   "HMGET": {
     "summary": "Get the values of all the given hash fields",
@@ -1615,7 +2123,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@read"
+    ]
   },
   "HMSET": {
     "summary": "Set multiple hash fields to multiple values",
@@ -1638,7 +2151,45 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@write"
+    ]
+  },
+  "HSCAN": {
+    "summary": "Incrementally iterate hash fields and associated values",
+    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "cursor",
+        "type": "integer"
+      },
+      {
+        "command": "MATCH",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "hash",
+    "aclcats": [
+      "@hash",
+      "@read",
+      "@slow"
+    ]
   },
   "HSET": {
     "summary": "Set the string value of a hash field",
@@ -1661,7 +2212,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@write"
+    ]
   },
   "HSETNX": {
     "summary": "Set the value of a hash field, only if the field does not exist",
@@ -1681,7 +2237,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@write"
+    ]
   },
   "HSTRLEN": {
     "summary": "Get the length of the value of a hash field",
@@ -1697,7 +2258,12 @@
       }
     ],
     "since": "3.2.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@fast",
+      "@hash",
+      "@read"
+    ]
   },
   "HVALS": {
     "summary": "Get all the values in a hash",
@@ -1709,7 +2275,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "hash"
+    "group": "hash",
+    "aclcats": [
+      "@hash",
+      "@read",
+      "@slow"
+    ]
   },
   "INCR": {
     "summary": "Increment the integer value of a key by one",
@@ -1721,7 +2292,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "INCRBY": {
     "summary": "Increment the integer value of a key by the given amount",
@@ -1737,7 +2313,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "INCRBYFLOAT": {
     "summary": "Increment the float value of a key by the given amount",
@@ -1753,7 +2334,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "INFO": {
     "summary": "Get information and statistics about the server",
@@ -1765,20 +2351,11 @@
       }
     ],
     "since": "1.0.0",
-    "group": "server"
-  },
-  "LOLWUT": {
-    "summary": "Display some computer art and the Redis version",
-    "arguments": [
-      {
-        "command": "VERSION",
-        "name": "version",
-        "type": "integer",
-        "optional": true
-      }
-    ],
-    "since": "5.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@dangerous",
+      "@slow"
+    ]
   },
   "KEYS": {
     "summary": "Find all keys matching the given pattern",
@@ -1790,12 +2367,103 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@dangerous",
+      "@keyspace",
+      "@read",
+      "@slow"
+    ]
   },
   "LASTSAVE": {
     "summary": "Get the UNIX time stamp of the last successful save to disk",
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@fast",
+      "@read"
+    ]
+  },
+  "LATENCY DOCTOR": {
+    "summary": "Return a human readable latency analysis report.",
+    "since": "2.8.13",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "LATENCY GRAPH": {
+    "summary": "Return a latency graph for the event.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "LATENCY HELP": {
+    "summary": "Show helpful text about the different subcommands.",
+    "since": "2.8.13",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "LATENCY HISTORY": {
+    "summary": "Return timestamp-latency samples for the event.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "LATENCY LATEST": {
+    "summary": "Return the latest latency samples for all events.",
+    "since": "2.8.13",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "LATENCY RESET": {
+    "summary": "Reset latency data for one or more events.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "LINDEX": {
     "summary": "Get an element from a list by its index",
@@ -1811,7 +2479,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@list",
+      "@read",
+      "@slow"
+    ]
   },
   "LINSERT": {
     "summary": "Insert an element before or after another element in a list",
@@ -1839,7 +2512,12 @@
       }
     ],
     "since": "2.2.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "LLEN": {
     "summary": "Get the length of a list",
@@ -1851,7 +2529,29 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@fast",
+      "@list",
+      "@read"
+    ]
+  },
+  "LOLWUT": {
+    "summary": "Display some computer art and the Redis version",
+    "arguments": [
+      {
+        "command": "VERSION",
+        "name": "version",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "server",
+    "aclcats": [
+      "@fast",
+      "@read"
+    ]
   },
   "LPOP": {
     "summary": "Remove and get the first element in a list",
@@ -1863,7 +2563,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@fast",
+      "@list",
+      "@write"
+    ]
   },
   "LPUSH": {
     "summary": "Prepend one or multiple elements to a list",
@@ -1880,7 +2585,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@fast",
+      "@list",
+      "@write"
+    ]
   },
   "LPUSHX": {
     "summary": "Prepend an element to a list, only if the list exists",
@@ -1897,7 +2607,12 @@
       }
     ],
     "since": "2.2.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@fast",
+      "@list",
+      "@write"
+    ]
   },
   "LRANGE": {
     "summary": "Get a range of elements from a list",
@@ -1917,7 +2632,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@list",
+      "@read",
+      "@slow"
+    ]
   },
   "LREM": {
     "summary": "Remove elements from a list",
@@ -1937,7 +2657,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "LSET": {
     "summary": "Set the value of an element in a list by its index",
@@ -1957,7 +2682,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "LTRIM": {
     "summary": "Trim a list to the specified range",
@@ -1977,32 +2707,57 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "MEMORY DOCTOR": {
     "summary": "Outputs memory problems report",
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@read",
+      "@slow"
+    ]
   },
   "MEMORY HELP": {
     "summary": "Show helpful text about the different subcommands",
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@read",
+      "@slow"
+    ]
   },
   "MEMORY MALLOC-STATS": {
     "summary": "Show allocator internal stats",
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@read",
+      "@slow"
+    ]
   },
   "MEMORY PURGE": {
     "summary": "Ask the allocator to release memory",
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@read",
+      "@slow"
+    ]
   },
   "MEMORY STATS": {
     "summary": "Show memory usage details",
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@read",
+      "@slow"
+    ]
   },
   "MEMORY USAGE": {
     "summary": "Estimate the memory usage of a key",
@@ -2020,7 +2775,11 @@
       }
     ],
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@read",
+      "@slow"
+    ]
   },
   "MGET": {
     "summary": "Get the values of all the given keys",
@@ -2033,7 +2792,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@string"
+    ]
   },
   "MIGRATE": {
     "summary": "Atomically transfer a key from a Redis instance to another one.",
@@ -2094,13 +2858,24 @@
       }
     ],
     "since": "2.6.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@dangerous",
+      "@keyspace",
+      "@slow",
+      "@write"
+    ]
   },
   "MODULE LIST": {
     "summary": "List all modules loaded by the server",
     "complexity": "O(N) where N is the number of loaded modules.",
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "MODULE LOAD": {
     "summary": "Load a module",
@@ -2118,7 +2893,12 @@
       }
     ],
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "MODULE UNLOAD": {
     "summary": "Unload a module",
@@ -2130,12 +2910,22 @@
       }
     ],
     "since": "4.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "MONITOR": {
     "summary": "Listen for all requests received by the server in real time",
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "MOVE": {
     "summary": "Move a key to another database",
@@ -2151,7 +2941,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
   },
   "MSET": {
     "summary": "Set multiple keys to multiple values",
@@ -2170,7 +2965,12 @@
       }
     ],
     "since": "1.0.1",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@slow",
+      "@string",
+      "@write"
+    ]
   },
   "MSETNX": {
     "summary": "Set multiple keys to multiple values, only if none of the keys exist",
@@ -2189,12 +2989,21 @@
       }
     ],
     "since": "1.0.1",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@slow",
+      "@string",
+      "@write"
+    ]
   },
   "MULTI": {
     "summary": "Mark the start of a transaction block",
     "since": "1.2.0",
-    "group": "transactions"
+    "group": "transactions",
+    "aclcats": [
+      "@fast",
+      "@transaction"
+    ]
   },
   "OBJECT": {
     "summary": "Inspect the internals of Redis objects",
@@ -2212,6 +3021,11 @@
         "optional": true,
         "multiple": true
       }
+    ],
+    "aclcats": [
+      "@keyspace",
+      "@read",
+      "@slow"
     ]
   },
   "PERSIST": {
@@ -2224,7 +3038,12 @@
       }
     ],
     "since": "2.2.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
   },
   "PEXPIRE": {
     "summary": "Set a key's time to live in milliseconds",
@@ -2240,7 +3059,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
   },
   "PEXPIREAT": {
     "summary": "Set the expiration for a key as a UNIX timestamp specified in milliseconds",
@@ -2256,7 +3080,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
   },
   "PFADD": {
     "summary": "Adds the specified elements to the specified HyperLogLog.",
@@ -2273,7 +3102,12 @@
       }
     ],
     "since": "2.8.9",
-    "group": "hyperloglog"
+    "group": "hyperloglog",
+    "aclcats": [
+      "@fast",
+      "@hyperloglog",
+      "@write"
+    ]
   },
   "PFCOUNT": {
     "summary": "Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).",
@@ -2286,7 +3120,12 @@
       }
     ],
     "since": "2.8.9",
-    "group": "hyperloglog"
+    "group": "hyperloglog",
+    "aclcats": [
+      "@hyperloglog",
+      "@read",
+      "@slow"
+    ]
   },
   "PFMERGE": {
     "summary": "Merge N different HyperLogLogs into a single one.",
@@ -2303,7 +3142,12 @@
       }
     ],
     "since": "2.8.9",
-    "group": "hyperloglog"
+    "group": "hyperloglog",
+    "aclcats": [
+      "@hyperloglog",
+      "@slow",
+      "@write"
+    ]
   },
   "PING": {
     "summary": "Ping the server",
@@ -2315,7 +3159,11 @@
       }
     ],
     "since": "1.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@connection",
+      "@fast"
+    ]
   },
   "PSETEX": {
     "summary": "Set the value and expiration in milliseconds of a key",
@@ -2335,7 +3183,12 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@slow",
+      "@string",
+      "@write"
+    ]
   },
   "PSUBSCRIBE": {
     "summary": "Listen for messages published to channels matching the given patterns",
@@ -2352,7 +3205,68 @@
       }
     ],
     "since": "2.0.0",
-    "group": "pubsub"
+    "group": "pubsub",
+    "aclcats": [
+      "@pubsub",
+      "@slow"
+    ]
+  },
+  "PSYNC": {
+    "summary": "Internal command used for replication",
+    "arguments": [
+      {
+        "name": "replicationid",
+        "type": "integer"
+      },
+      {
+        "name": "offset",
+        "type": "integer"
+      }
+    ],
+    "since": "2.8.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "PTTL": {
+    "summary": "Get the time to live for a key in milliseconds",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "2.6.0",
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@read"
+    ]
+  },
+  "PUBLISH": {
+    "summary": "Post a message to a channel",
+    "complexity": "O(N+M) where N is the number of clients subscribed to the receiving channel and M is the total number of subscribed patterns (by any client).",
+    "arguments": [
+      {
+        "name": "channel",
+        "type": "string"
+      },
+      {
+        "name": "message",
+        "type": "string"
+      }
+    ],
+    "since": "2.0.0",
+    "group": "pubsub",
+    "aclcats": [
+      "@fast",
+      "@pubsub"
+    ]
   },
   "PUBSUB": {
     "summary": "Inspect the state of the Pub/Sub subsystem",
@@ -2370,35 +3284,11 @@
       }
     ],
     "since": "2.8.0",
-    "group": "pubsub"
-  },
-  "PTTL": {
-    "summary": "Get the time to live for a key in milliseconds",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      }
-    ],
-    "since": "2.6.0",
-    "group": "generic"
-  },
-  "PUBLISH": {
-    "summary": "Post a message to a channel",
-    "complexity": "O(N+M) where N is the number of clients subscribed to the receiving channel and M is the total number of subscribed patterns (by any client).",
-    "arguments": [
-      {
-        "name": "channel",
-        "type": "string"
-      },
-      {
-        "name": "message",
-        "type": "string"
-      }
-    ],
-    "since": "2.0.0",
-    "group": "pubsub"
+    "group": "pubsub",
+    "aclcats": [
+      "@pubsub",
+      "@slow"
+    ]
   },
   "PUNSUBSCRIBE": {
     "summary": "Stop listening for messages posted to channels matching the given patterns",
@@ -2412,7 +3302,11 @@
       }
     ],
     "since": "2.0.0",
-    "group": "pubsub"
+    "group": "pubsub",
+    "aclcats": [
+      "@pubsub",
+      "@slow"
+    ]
   },
   "QUIT": {
     "summary": "Close the connection",
@@ -2423,19 +3317,32 @@
     "summary": "Return a random key from the keyspace",
     "complexity": "O(1)",
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@keyspace",
+      "@read",
+      "@slow"
+    ]
   },
   "READONLY": {
     "summary": "Enables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@fast",
+      "@keyspace"
+    ]
   },
   "READWRITE": {
     "summary": "Disables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
-    "group": "cluster"
+    "group": "cluster",
+    "aclcats": [
+      "@fast",
+      "@keyspace"
+    ]
   },
   "RENAME": {
     "summary": "Rename a key",
@@ -2451,7 +3358,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@keyspace",
+      "@slow",
+      "@write"
+    ]
   },
   "RENAMENX": {
     "summary": "Rename a key, only if the new key does not exist",
@@ -2467,7 +3379,32 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
+  },
+  "REPLICAOF": {
+    "summary": "Make the server a replica of another instance, or promote it as master.",
+    "arguments": [
+      {
+        "name": "host",
+        "type": "string"
+      },
+      {
+        "name": "port",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "RESTORE": {
     "summary": "Create a key using the provided serialized value, previously obtained using DUMP.",
@@ -2515,12 +3452,23 @@
       }
     ],
     "since": "2.6.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@dangerous",
+      "@keyspace",
+      "@slow",
+      "@write"
+    ]
   },
   "ROLE": {
     "summary": "Return the role of the instance in the context of replication",
     "since": "2.8.12",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@dangerous",
+      "@fast",
+      "@read"
+    ]
   },
   "RPOP": {
     "summary": "Remove and get the last element in a list",
@@ -2532,7 +3480,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@fast",
+      "@list",
+      "@write"
+    ]
   },
   "RPOPLPUSH": {
     "summary": "Remove the last element in a list, prepend it to another list and return it",
@@ -2548,7 +3501,12 @@
       }
     ],
     "since": "1.2.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@list",
+      "@slow",
+      "@write"
+    ]
   },
   "RPUSH": {
     "summary": "Append one or multiple elements to a list",
@@ -2565,7 +3523,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@fast",
+      "@list",
+      "@write"
+    ]
   },
   "RPUSHX": {
     "summary": "Append an element to a list, only if the list exists",
@@ -2582,7 +3545,12 @@
       }
     ],
     "since": "2.2.0",
-    "group": "list"
+    "group": "list",
+    "aclcats": [
+      "@fast",
+      "@list",
+      "@write"
+    ]
   },
   "SADD": {
     "summary": "Add one or more members to a set",
@@ -2599,12 +3567,57 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@fast",
+      "@set",
+      "@write"
+    ]
   },
   "SAVE": {
     "summary": "Synchronously save the dataset to disk",
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "SCAN": {
+    "summary": "Incrementally iterate the keys space",
+    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
+    "arguments": [
+      {
+        "name": "cursor",
+        "type": "integer"
+      },
+      {
+        "command": "MATCH",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TYPE",
+        "name": "type",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "generic",
+    "aclcats": [
+      "@keyspace",
+      "@read",
+      "@slow"
+    ]
   },
   "SCARD": {
     "summary": "Get the number of members in a set",
@@ -2616,7 +3629,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@set"
+    ]
   },
   "SCRIPT DEBUG": {
     "summary": "Set the debug mode for executed scripts.",
@@ -2633,7 +3651,11 @@
       }
     ],
     "since": "3.2.0",
-    "group": "scripting"
+    "group": "scripting",
+    "aclcats": [
+      "@scripting",
+      "@slow"
+    ]
   },
   "SCRIPT EXISTS": {
     "summary": "Check existence of scripts in the script cache.",
@@ -2646,19 +3668,31 @@
       }
     ],
     "since": "2.6.0",
-    "group": "scripting"
+    "group": "scripting",
+    "aclcats": [
+      "@scripting",
+      "@slow"
+    ]
   },
   "SCRIPT FLUSH": {
     "summary": "Remove all the scripts from the script cache.",
     "complexity": "O(N) with N being the number of scripts in cache",
     "since": "2.6.0",
-    "group": "scripting"
+    "group": "scripting",
+    "aclcats": [
+      "@scripting",
+      "@slow"
+    ]
   },
   "SCRIPT KILL": {
     "summary": "Kill the script currently in execution.",
     "complexity": "O(1)",
     "since": "2.6.0",
-    "group": "scripting"
+    "group": "scripting",
+    "aclcats": [
+      "@scripting",
+      "@slow"
+    ]
   },
   "SCRIPT LOAD": {
     "summary": "Load the specified Lua script into the script cache.",
@@ -2670,7 +3704,11 @@
       }
     ],
     "since": "2.6.0",
-    "group": "scripting"
+    "group": "scripting",
+    "aclcats": [
+      "@scripting",
+      "@slow"
+    ]
   },
   "SDIFF": {
     "summary": "Subtract multiple sets",
@@ -2683,7 +3721,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@read",
+      "@set",
+      "@slow"
+    ]
   },
   "SDIFFSTORE": {
     "summary": "Subtract multiple sets and store the resulting set in a key",
@@ -2700,7 +3743,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@set",
+      "@slow",
+      "@write"
+    ]
   },
   "SELECT": {
     "summary": "Change the selected database for the current connection",
@@ -2711,7 +3759,11 @@
       }
     ],
     "since": "1.0.0",
-    "group": "connection"
+    "group": "connection",
+    "aclcats": [
+      "@fast",
+      "@keyspace"
+    ]
   },
   "SET": {
     "summary": "Set the string value of a key",
@@ -2753,7 +3805,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@slow",
+      "@string",
+      "@write"
+    ]
   },
   "SETBIT": {
     "summary": "Sets or clears the bit at offset in the string value stored at key",
@@ -2773,7 +3830,12 @@
       }
     ],
     "since": "2.2.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@bitmap",
+      "@slow",
+      "@write"
+    ]
   },
   "SETEX": {
     "summary": "Set the value and expiration of a key",
@@ -2793,7 +3855,12 @@
       }
     ],
     "since": "2.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@slow",
+      "@string",
+      "@write"
+    ]
   },
   "SETNX": {
     "summary": "Set the value of a key, only if the key does not exist",
@@ -2809,7 +3876,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@string",
+      "@write"
+    ]
   },
   "SETRANGE": {
     "summary": "Overwrite part of a string at key starting at the specified offset",
@@ -2829,7 +3901,12 @@
       }
     ],
     "since": "2.2.0",
-    "group": "string"
+    "group": "string",
+    "aclcats": [
+      "@slow",
+      "@string",
+      "@write"
+    ]
   },
   "SHUTDOWN": {
     "summary": "Synchronously save the dataset to disk and then shut down the server",
@@ -2845,7 +3922,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "SINTER": {
     "summary": "Intersect multiple sets",
@@ -2858,7 +3940,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@read",
+      "@set",
+      "@slow"
+    ]
   },
   "SINTERSTORE": {
     "summary": "Intersect multiple sets and store the resulting set in a key",
@@ -2875,7 +3962,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@set",
+      "@slow",
+      "@write"
+    ]
   },
   "SISMEMBER": {
     "summary": "Determine if a given value is a member of a set",
@@ -2891,7 +3983,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@set"
+    ]
   },
   "SLAVEOF": {
     "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
@@ -2906,22 +4003,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "server"
-  },
-  "REPLICAOF": {
-    "summary": "Make the server a replica of another instance, or promote it as master.",
-    "arguments": [
-      {
-        "name": "host",
-        "type": "string"
-      },
-      {
-        "name": "port",
-        "type": "string"
-      }
-    ],
-    "since": "5.0.0",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "SLOWLOG": {
     "summary": "Manages the Redis slow queries log",
@@ -2937,7 +4024,12 @@
       }
     ],
     "since": "2.2.12",
-    "group": "server"
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
   },
   "SMEMBERS": {
     "summary": "Get all the members in a set",
@@ -2949,7 +4041,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@read",
+      "@set",
+      "@slow"
+    ]
   },
   "SMOVE": {
     "summary": "Move a member from one set to another",
@@ -2969,7 +4066,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@fast",
+      "@set",
+      "@write"
+    ]
   },
   "SORT": {
     "summary": "Sort the elements in a list, set or sorted set",
@@ -3029,7 +4131,15 @@
       }
     ],
     "since": "1.0.0",
-    "group": "generic"
+    "group": "generic",
+    "aclcats": [
+      "@dangerous",
+      "@list",
+      "@set",
+      "@slow",
+      "@sortedset",
+      "@write"
+    ]
   },
   "SPOP": {
     "summary": "Remove and return one or multiple random members from a set",
@@ -3046,7 +4156,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@fast",
+      "@set",
+      "@write"
+    ]
   },
   "SRANDMEMBER": {
     "summary": "Get one or multiple random members from a set",
@@ -3063,7 +4178,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@read",
+      "@set",
+      "@slow"
+    ]
   },
   "SREM": {
     "summary": "Remove one or more members from a set",
@@ -3080,809 +4200,12 @@
       }
     ],
     "since": "1.0.0",
-    "group": "set"
-  },
-  "STRALGO": {
-    "summary": "Run algorithms (currently LCS) against strings",
-    "complexity": "For LCS O(strlen(s1)*strlen(s2))",
-    "arguments": [
-      {
-        "name": "algorithm",
-        "type": "enum",
-        "enum": [
-          "LCS"
-        ]
-      },
-      {
-        "name": "algo-specific-argument",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "6.0.0",
-    "group": "string"
-  },
-  "STRLEN": {
-    "summary": "Get the length of the value stored in a key",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      }
-    ],
-    "since": "2.2.0",
-    "group": "string"
-  },
-  "SUBSCRIBE": {
-    "summary": "Listen for messages published to the given channels",
-    "complexity": "O(N) where N is the number of channels to subscribe to.",
-    "arguments": [
-      {
-        "name": "channel",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "2.0.0",
-    "group": "pubsub"
-  },
-  "SUNION": {
-    "summary": "Add multiple sets",
-    "complexity": "O(N) where N is the total number of elements in all given sets.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      }
-    ],
-    "since": "1.0.0",
-    "group": "set"
-  },
-  "SUNIONSTORE": {
-    "summary": "Add multiple sets and store the resulting set in a key",
-    "complexity": "O(N) where N is the total number of elements in all given sets.",
-    "arguments": [
-      {
-        "name": "destination",
-        "type": "key"
-      },
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      }
-    ],
-    "since": "1.0.0",
-    "group": "set"
-  },
-  "SWAPDB": {
-    "summary": "Swaps two Redis databases",
-    "arguments": [
-      {
-        "name": "index1",
-        "type": "integer"
-      },
-      {
-        "name": "index2",
-        "type": "integer"
-      }
-    ],
-    "since": "4.0.0",
-    "group": "server"
-  },
-  "SYNC": {
-    "summary": "Internal command used for replication",
-    "since": "1.0.0",
-    "group": "server"
-  },
-  "PSYNC": {
-    "summary": "Internal command used for replication",
-    "arguments": [
-      {
-        "name": "replicationid",
-        "type": "integer"
-      },
-      {
-        "name": "offset",
-        "type": "integer"
-      }
-    ],
-    "since": "2.8.0",
-    "group": "server"
-  },
-  "TIME": {
-    "summary": "Return the current server time",
-    "complexity": "O(1)",
-    "since": "2.6.0",
-    "group": "server"
-  },
-  "TOUCH": {
-    "summary": "Alters the last access time of a key(s). Returns the number of existing keys specified.",
-    "complexity": "O(N) where N is the number of keys that will be touched.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      }
-    ],
-    "since": "3.2.1",
-    "group": "generic"
-  },
-  "TTL": {
-    "summary": "Get the time to live for a key",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      }
-    ],
-    "since": "1.0.0",
-    "group": "generic"
-  },
-  "TYPE": {
-    "summary": "Determine the type stored at key",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      }
-    ],
-    "since": "1.0.0",
-    "group": "generic"
-  },
-  "UNSUBSCRIBE": {
-    "summary": "Stop listening for messages posted to the given channels",
-    "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
-    "arguments": [
-      {
-        "name": "channel",
-        "type": "string",
-        "optional": true,
-        "multiple": true
-      }
-    ],
-    "since": "2.0.0",
-    "group": "pubsub"
-  },
-  "UNLINK": {
-    "summary": "Delete a key asynchronously in another thread. Otherwise it is just as DEL, but non blocking.",
-    "complexity": "O(1) for each key removed regardless of its size. Then the command does O(N) work in a different thread in order to reclaim memory, where N is the number of allocations the deleted objects where composed of.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      }
-    ],
-    "since": "4.0.0",
-    "group": "generic"
-  },
-  "UNWATCH": {
-    "summary": "Forget about all watched keys",
-    "complexity": "O(1)",
-    "since": "2.2.0",
-    "group": "transactions"
-  },
-  "WAIT": {
-    "summary": "Wait for the synchronous replication of all the write commands sent in the context of the current connection",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "numreplicas",
-        "type": "integer"
-      },
-      {
-        "name": "timeout",
-        "type": "integer"
-      }
-    ],
-    "since": "3.0.0",
-    "group": "generic"
-  },
-  "WATCH": {
-    "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
-    "complexity": "O(1) for every key.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      }
-    ],
-    "since": "2.2.0",
-    "group": "transactions"
-  },
-  "ZADD": {
-    "summary": "Add one or more members to a sorted set, or update its score if it already exists",
-    "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "condition",
-        "type": "enum",
-        "enum": [
-          "NX",
-          "XX"
-        ],
-        "optional": true
-      },
-      {
-        "name": "change",
-        "type": "enum",
-        "enum": [
-          "CH"
-        ],
-        "optional": true
-      },
-      {
-        "name": "increment",
-        "type": "enum",
-        "enum": [
-          "INCR"
-        ],
-        "optional": true
-      },
-      {
-        "name": [
-          "score",
-          "member"
-        ],
-        "type": [
-          "double",
-          "string"
-        ],
-        "multiple": true
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZCARD": {
-    "summary": "Get the number of members in a sorted set",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZCOUNT": {
-    "summary": "Count the members in a sorted set with scores within the given values",
-    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "min",
-        "type": "double"
-      },
-      {
-        "name": "max",
-        "type": "double"
-      }
-    ],
-    "since": "2.0.0",
-    "group": "sorted_set"
-  },
-  "ZINCRBY": {
-    "summary": "Increment the score of a member in a sorted set",
-    "complexity": "O(log(N)) where N is the number of elements in the sorted set.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "increment",
-        "type": "integer"
-      },
-      {
-        "name": "member",
-        "type": "string"
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZINTERSTORE": {
-    "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
-    "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
-    "arguments": [
-      {
-        "name": "destination",
-        "type": "key"
-      },
-      {
-        "name": "numkeys",
-        "type": "integer"
-      },
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      },
-      {
-        "command": "WEIGHTS",
-        "name": "weight",
-        "type": "integer",
-        "variadic": true,
-        "optional": true
-      },
-      {
-        "command": "AGGREGATE",
-        "name": "aggregate",
-        "type": "enum",
-        "enum": [
-          "SUM",
-          "MIN",
-          "MAX"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "2.0.0",
-    "group": "sorted_set"
-  },
-  "ZLEXCOUNT": {
-    "summary": "Count the number of members in a sorted set between a given lexicographical range",
-    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "min",
-        "type": "string"
-      },
-      {
-        "name": "max",
-        "type": "string"
-      }
-    ],
-    "since": "2.8.9",
-    "group": "sorted_set"
-  },
-  "ZPOPMAX": {
-    "summary": "Remove and return members with the highest scores in a sorted set",
-    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      }
-    ],
-    "since": "5.0.0",
-    "group": "sorted_set"
-  },
-  "ZPOPMIN": {
-    "summary": "Remove and return members with the lowest scores in a sorted set",
-    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      }
-    ],
-    "since": "5.0.0",
-    "group": "sorted_set"
-  },
-  "ZRANGE": {
-    "summary": "Return a range of members in a sorted set, by index",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "start",
-        "type": "integer"
-      },
-      {
-        "name": "stop",
-        "type": "integer"
-      },
-      {
-        "name": "withscores",
-        "type": "enum",
-        "enum": [
-          "WITHSCORES"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZRANGEBYLEX": {
-    "summary": "Return a range of members in a sorted set, by lexicographical range",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "min",
-        "type": "string"
-      },
-      {
-        "name": "max",
-        "type": "string"
-      },
-      {
-        "command": "LIMIT",
-        "name": [
-          "offset",
-          "count"
-        ],
-        "type": [
-          "integer",
-          "integer"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "2.8.9",
-    "group": "sorted_set"
-  },
-  "ZREVRANGEBYLEX": {
-    "summary": "Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "max",
-        "type": "string"
-      },
-      {
-        "name": "min",
-        "type": "string"
-      },
-      {
-        "command": "LIMIT",
-        "name": [
-          "offset",
-          "count"
-        ],
-        "type": [
-          "integer",
-          "integer"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "2.8.9",
-    "group": "sorted_set"
-  },
-  "ZRANGEBYSCORE": {
-    "summary": "Return a range of members in a sorted set, by score",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "min",
-        "type": "double"
-      },
-      {
-        "name": "max",
-        "type": "double"
-      },
-      {
-        "name": "withscores",
-        "type": "enum",
-        "enum": [
-          "WITHSCORES"
-        ],
-        "optional": true
-      },
-      {
-        "command": "LIMIT",
-        "name": [
-          "offset",
-          "count"
-        ],
-        "type": [
-          "integer",
-          "integer"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "1.0.5",
-    "group": "sorted_set"
-  },
-  "ZRANK": {
-    "summary": "Determine the index of a member in a sorted set",
-    "complexity": "O(log(N))",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "member",
-        "type": "string"
-      }
-    ],
-    "since": "2.0.0",
-    "group": "sorted_set"
-  },
-  "ZREM": {
-    "summary": "Remove one or more members from a sorted set",
-    "complexity": "O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "member",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZREMRANGEBYLEX": {
-    "summary": "Remove all members in a sorted set between the given lexicographical range",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "min",
-        "type": "string"
-      },
-      {
-        "name": "max",
-        "type": "string"
-      }
-    ],
-    "since": "2.8.9",
-    "group": "sorted_set"
-  },
-  "ZREMRANGEBYRANK": {
-    "summary": "Remove all members in a sorted set within the given indexes",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "start",
-        "type": "integer"
-      },
-      {
-        "name": "stop",
-        "type": "integer"
-      }
-    ],
-    "since": "2.0.0",
-    "group": "sorted_set"
-  },
-  "ZREMRANGEBYSCORE": {
-    "summary": "Remove all members in a sorted set within the given scores",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "min",
-        "type": "double"
-      },
-      {
-        "name": "max",
-        "type": "double"
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZREVRANGE": {
-    "summary": "Return a range of members in a sorted set, by index, with scores ordered from high to low",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "start",
-        "type": "integer"
-      },
-      {
-        "name": "stop",
-        "type": "integer"
-      },
-      {
-        "name": "withscores",
-        "type": "enum",
-        "enum": [
-          "WITHSCORES"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZREVRANGEBYSCORE": {
-    "summary": "Return a range of members in a sorted set, by score, with scores ordered from high to low",
-    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "max",
-        "type": "double"
-      },
-      {
-        "name": "min",
-        "type": "double"
-      },
-      {
-        "name": "withscores",
-        "type": "enum",
-        "enum": [
-          "WITHSCORES"
-        ],
-        "optional": true
-      },
-      {
-        "command": "LIMIT",
-        "name": [
-          "offset",
-          "count"
-        ],
-        "type": [
-          "integer",
-          "integer"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "2.2.0",
-    "group": "sorted_set"
-  },
-  "ZREVRANK": {
-    "summary": "Determine the index of a member in a sorted set, with scores ordered from high to low",
-    "complexity": "O(log(N))",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "member",
-        "type": "string"
-      }
-    ],
-    "since": "2.0.0",
-    "group": "sorted_set"
-  },
-  "ZSCORE": {
-    "summary": "Get the score associated with the given member in a sorted set",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "member",
-        "type": "string"
-      }
-    ],
-    "since": "1.2.0",
-    "group": "sorted_set"
-  },
-  "ZUNIONSTORE": {
-    "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
-    "complexity": "O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
-    "arguments": [
-      {
-        "name": "destination",
-        "type": "key"
-      },
-      {
-        "name": "numkeys",
-        "type": "integer"
-      },
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      },
-      {
-        "command": "WEIGHTS",
-        "name": "weight",
-        "type": "integer",
-        "variadic": true,
-        "optional": true
-      },
-      {
-        "command": "AGGREGATE",
-        "name": "aggregate",
-        "type": "enum",
-        "enum": [
-          "SUM",
-          "MIN",
-          "MAX"
-        ],
-        "optional": true
-      }
-    ],
-    "since": "2.0.0",
-    "group": "sorted_set"
-  },
-  "SCAN": {
-    "summary": "Incrementally iterate the keys space",
-    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
-    "arguments": [
-      {
-        "name": "cursor",
-        "type": "integer"
-      },
-      {
-        "command": "MATCH",
-        "name": "pattern",
-        "type": "pattern",
-        "optional": true
-      },
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "command": "TYPE",
-        "name": "type",
-        "type": "string",
-        "optional": true
-      }
-    ],
-    "since": "2.8.0",
-    "group": "generic"
+    "group": "set",
+    "aclcats": [
+      "@fast",
+      "@set",
+      "@write"
+    ]
   },
   "SSCAN": {
     "summary": "Incrementally iterate Set elements",
@@ -3910,103 +4233,313 @@
       }
     ],
     "since": "2.8.0",
-    "group": "set"
+    "group": "set",
+    "aclcats": [
+      "@read",
+      "@set",
+      "@slow"
+    ]
   },
-  "HSCAN": {
-    "summary": "Incrementally iterate hash fields and associated values",
-    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+  "STRALGO": {
+    "summary": "Run algorithms (currently LCS) against strings",
+    "complexity": "For LCS O(strlen(s1)*strlen(s2))",
     "arguments": [
       {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "cursor",
-        "type": "integer"
-      },
-      {
-        "command": "MATCH",
-        "name": "pattern",
-        "type": "pattern",
-        "optional": true
-      },
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      }
-    ],
-    "since": "2.8.0",
-    "group": "hash"
-  },
-  "ZSCAN": {
-    "summary": "Incrementally iterate sorted sets elements and associated scores",
-    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "cursor",
-        "type": "integer"
-      },
-      {
-        "command": "MATCH",
-        "name": "pattern",
-        "type": "pattern",
-        "optional": true
-      },
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      }
-    ],
-    "since": "2.8.0",
-    "group": "sorted_set"
-  },
-  "XINFO": {
-    "summary": "Get information on streams and consumer groups",
-    "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
-    "arguments": [
-      {
-        "command": "CONSUMERS",
-        "name": [
-          "key",
-          "groupname"
-        ],
-        "type": [
-          "key",
-          "string"
-        ],
-        "optional": true
-      },
-      {
-        "command": "GROUPS",
-        "name": "key",
-        "type": "key",
-        "optional": true
-      },
-      {
-        "command": "STREAM",
-        "name": "key",
-        "type": "key",
-        "optional": true
-      },
-      {
-        "name": "help",
+        "name": "algorithm",
         "type": "enum",
         "enum": [
-          "HELP"
-        ],
-        "optional": true
+          "LCS"
+        ]
+      },
+      {
+        "name": "algo-specific-argument",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "string",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@string"
+    ]
+  },
+  "STRLEN": {
+    "summary": "Get the length of the value stored in a key",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "2.2.0",
+    "group": "string",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@string"
+    ]
+  },
+  "SUBSCRIBE": {
+    "summary": "Listen for messages published to the given channels",
+    "complexity": "O(N) where N is the number of channels to subscribe to.",
+    "arguments": [
+      {
+        "name": "channel",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "2.0.0",
+    "group": "pubsub",
+    "aclcats": [
+      "@pubsub",
+      "@slow"
+    ]
+  },
+  "SUNION": {
+    "summary": "Add multiple sets",
+    "complexity": "O(N) where N is the total number of elements in all given sets.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "1.0.0",
+    "group": "set",
+    "aclcats": [
+      "@read",
+      "@set",
+      "@slow"
+    ]
+  },
+  "SUNIONSTORE": {
+    "summary": "Add multiple sets and store the resulting set in a key",
+    "complexity": "O(N) where N is the total number of elements in all given sets.",
+    "arguments": [
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "1.0.0",
+    "group": "set",
+    "aclcats": [
+      "@set",
+      "@slow",
+      "@write"
+    ]
+  },
+  "SWAPDB": {
+    "summary": "Swaps two Redis databases",
+    "arguments": [
+      {
+        "name": "index1",
+        "type": "integer"
+      },
+      {
+        "name": "index2",
+        "type": "integer"
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server",
+    "aclcats": [
+      "@dangerous",
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
+  },
+  "SYNC": {
+    "summary": "Internal command used for replication",
+    "since": "1.0.0",
+    "group": "server",
+    "aclcats": [
+      "@admin",
+      "@dangerous",
+      "@slow"
+    ]
+  },
+  "TIME": {
+    "summary": "Return the current server time",
+    "complexity": "O(1)",
+    "since": "2.6.0",
+    "group": "server",
+    "aclcats": [
+      "@fast",
+      "@read"
+    ]
+  },
+  "TOUCH": {
+    "summary": "Alters the last access time of a key(s). Returns the number of existing keys specified.",
+    "complexity": "O(N) where N is the number of keys that will be touched.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "3.2.1",
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@read"
+    ]
+  },
+  "TTL": {
+    "summary": "Get the time to live for a key",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "1.0.0",
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@read"
+    ]
+  },
+  "TYPE": {
+    "summary": "Determine the type stored at key",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "1.0.0",
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@read"
+    ]
+  },
+  "UNLINK": {
+    "summary": "Delete a key asynchronously in another thread. Otherwise it is just as DEL, but non blocking.",
+    "complexity": "O(1) for each key removed regardless of its size. Then the command does O(N) work in a different thread in order to reclaim memory, where N is the number of allocations the deleted objects where composed of.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "4.0.0",
+    "group": "generic",
+    "aclcats": [
+      "@fast",
+      "@keyspace",
+      "@write"
+    ]
+  },
+  "UNSUBSCRIBE": {
+    "summary": "Stop listening for messages posted to the given channels",
+    "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+    "arguments": [
+      {
+        "name": "channel",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      }
+    ],
+    "since": "2.0.0",
+    "group": "pubsub",
+    "aclcats": [
+      "@pubsub",
+      "@slow"
+    ]
+  },
+  "UNWATCH": {
+    "summary": "Forget about all watched keys",
+    "complexity": "O(1)",
+    "since": "2.2.0",
+    "group": "transactions",
+    "aclcats": [
+      "@fast",
+      "@transaction"
+    ]
+  },
+  "WAIT": {
+    "summary": "Wait for the synchronous replication of all the write commands sent in the context of the current connection",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "numreplicas",
+        "type": "integer"
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "3.0.0",
+    "group": "generic",
+    "aclcats": [
+      "@keyspace",
+      "@slow"
+    ]
+  },
+  "WATCH": {
+    "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
+    "complexity": "O(1) for every key.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "2.2.0",
+    "group": "transactions",
+    "aclcats": [
+      "@fast",
+      "@transaction"
+    ]
+  },
+  "XACK": {
+    "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
+    "complexity": "O(1) for each message ID processed.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
+    "group": "stream",
+    "aclcats": [
+      "@fast",
+      "@stream",
+      "@write"
+    ]
   },
   "XADD": {
     "summary": "Appends a new entry to a stream",
@@ -4033,38 +4566,78 @@
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
+    "group": "stream",
+    "aclcats": [
+      "@fast",
+      "@stream",
+      "@write"
+    ]
   },
-  "XTRIM": {
-    "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
-    "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
+  "XCLAIM": {
+    "summary": "Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.",
+    "complexity": "O(log N) with N being the number of messages in the PEL of the consumer group.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "strategy",
-        "type": "enum",
-        "enum": [
-          "MAXLEN"
-        ]
+        "name": "group",
+        "type": "string"
       },
       {
-        "name": "approx",
-        "type": "enum",
+        "name": "consumer",
+        "type": "string"
+      },
+      {
+        "name": "min-idle-time",
+        "type": "string"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      },
+      {
+        "command": "IDLE",
+        "name": "ms",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TIME",
+        "name": "ms-unix-time",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "RETRYCOUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "force",
         "enum": [
-          "~"
+          "FORCE"
         ],
         "optional": true
       },
       {
-        "name": "count",
-        "type": "integer"
+        "name": "justid",
+        "enum": [
+          "JUSTID"
+        ],
+        "optional": true
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
+    "group": "stream",
+    "aclcats": [
+      "@fast",
+      "@stream",
+      "@write"
+    ]
   },
   "XDEL": {
     "summary": "Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.",
@@ -4081,108 +4654,12 @@
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
-  },
-  "XRANGE": {
-    "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval",
-    "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "start",
-        "type": "string"
-      },
-      {
-        "name": "end",
-        "type": "string"
-      },
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      }
-    ],
-    "since": "5.0.0",
-    "group": "stream"
-  },
-  "XREVRANGE": {
-    "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
-    "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "end",
-        "type": "string"
-      },
-      {
-        "name": "start",
-        "type": "string"
-      },
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      }
-    ],
-    "since": "5.0.0",
-    "group": "stream"
-  },
-  "XLEN": {
-    "summary": "Return the number of entires in a stream",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      }
-    ],
-    "since": "5.0.0",
-    "group": "stream"
-  },
-  "XREAD": {
-    "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
-    "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
-    "arguments": [
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "command": "BLOCK",
-        "name": "milliseconds",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "streams",
-        "type": "enum",
-        "enum": [
-          "STREAMS"
-        ]
-      },
-      {
-        "name": "key",
-        "type": "key",
-        "multiple": true
-      },
-      {
-        "name": "id",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "5.0.0",
-    "group": "stream"
+    "group": "stream",
+    "aclcats": [
+      "@fast",
+      "@stream",
+      "@write"
+    ]
   },
   "XGROUP": {
     "summary": "Create, destroy, and manage consumer groups.",
@@ -4244,7 +4721,187 @@
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
+    "group": "stream",
+    "aclcats": [
+      "@slow",
+      "@stream",
+      "@write"
+    ]
+  },
+  "XINFO": {
+    "summary": "Get information on streams and consumer groups",
+    "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
+    "arguments": [
+      {
+        "command": "CONSUMERS",
+        "name": [
+          "key",
+          "groupname"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "GROUPS",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "command": "STREAM",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "name": "help",
+        "type": "enum",
+        "enum": [
+          "HELP"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@stream"
+    ]
+  },
+  "XLEN": {
+    "summary": "Return the number of entires in a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@stream"
+    ]
+  },
+  "XPENDING": {
+    "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
+    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": [
+          "start",
+          "end",
+          "count"
+        ],
+        "type": [
+          "string",
+          "string",
+          "integer"
+        ],
+        "optional": true
+      },
+      {
+        "name": "consumer",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@stream"
+    ]
+  },
+  "XRANGE": {
+    "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval",
+    "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "string"
+      },
+      {
+        "name": "end",
+        "type": "string"
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@stream"
+    ]
+  },
+  "XREAD": {
+    "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
+    "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
+    "arguments": [
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "BLOCK",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "streams",
+        "type": "enum",
+        "enum": [
+          "STREAMS"
+        ]
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream",
+    "aclcats": [
+      "@blocking",
+      "@read",
+      "@slow",
+      "@stream"
+    ]
   },
   "XREADGROUP": {
     "summary": "Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.",
@@ -4300,171 +4957,779 @@
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
+    "group": "stream",
+    "aclcats": [
+      "@blocking",
+      "@slow",
+      "@stream",
+      "@write"
+    ]
   },
-  "XACK": {
-    "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
-    "complexity": "O(1) for each message ID processed.",
+  "XREVRANGE": {
+    "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
+    "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "group",
+        "name": "end",
         "type": "string"
       },
       {
-        "name": "ID",
-        "type": "string",
-        "multiple": true
-      }
-    ],
-    "since": "5.0.0",
-    "group": "stream"
-  },
-  "XCLAIM": {
-    "summary": "Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.",
-    "complexity": "O(log N) with N being the number of messages in the PEL of the consumer group.",
-    "arguments": [
-      {
-        "name": "key",
-        "type": "key"
-      },
-      {
-        "name": "group",
+        "name": "start",
         "type": "string"
       },
       {
-        "name": "consumer",
-        "type": "string"
-      },
-      {
-        "name": "min-idle-time",
-        "type": "string"
-      },
-      {
-        "name": "ID",
-        "type": "string",
-        "multiple": true
-      },
-      {
-        "command": "IDLE",
-        "name": "ms",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "command": "TIME",
-        "name": "ms-unix-time",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "command": "RETRYCOUNT",
+        "command": "COUNT",
         "name": "count",
         "type": "integer",
         "optional": true
-      },
-      {
-        "name": "force",
-        "enum": [
-          "FORCE"
-        ],
-        "optional": true
-      },
-      {
-        "name": "justid",
-        "enum": [
-          "JUSTID"
-        ],
-        "optional": true
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
+    "group": "stream",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@stream"
+    ]
   },
-  "XPENDING": {
-    "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
-    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+  "XTRIM": {
+    "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
+    "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "group",
-        "type": "string"
+        "name": "strategy",
+        "type": "enum",
+        "enum": [
+          "MAXLEN"
+        ]
       },
       {
-        "name": [
-          "start",
-          "end",
-          "count"
-        ],
-        "type": [
-          "string",
-          "string",
-          "integer"
+        "name": "approx",
+        "type": "enum",
+        "enum": [
+          "~"
         ],
         "optional": true
       },
       {
-        "name": "consumer",
-        "type": "string",
+        "name": "count",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream",
+    "aclcats": [
+      "@slow",
+      "@stream",
+      "@write"
+    ]
+  },
+  "ZADD": {
+    "summary": "Add one or more members to a sorted set, or update its score if it already exists",
+    "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "change",
+        "type": "enum",
+        "enum": [
+          "CH"
+        ],
+        "optional": true
+      },
+      {
+        "name": "increment",
+        "type": "enum",
+        "enum": [
+          "INCR"
+        ],
+        "optional": true
+      },
+      {
+        "name": [
+          "score",
+          "member"
+        ],
+        "type": [
+          "double",
+          "string"
+        ],
+        "multiple": true
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "ZCARD": {
+    "summary": "Get the number of members in a sorted set",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@sortedset"
+    ]
+  },
+  "ZCOUNT": {
+    "summary": "Count the members in a sorted set with scores within the given values",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "double"
+      },
+      {
+        "name": "max",
+        "type": "double"
+      }
+    ],
+    "since": "2.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@sortedset"
+    ]
+  },
+  "ZINCRBY": {
+    "summary": "Increment the score of a member in a sorted set",
+    "complexity": "O(log(N)) where N is the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "increment",
+        "type": "integer"
+      },
+      {
+        "name": "member",
+        "type": "string"
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "ZINTERSTORE": {
+    "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
+    "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "2.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@slow",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "ZLEXCOUNT": {
+    "summary": "Count the number of members in a sorted set between a given lexicographical range",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.9",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@sortedset"
+    ]
+  },
+  "ZPOPMAX": {
+    "summary": "Remove and return members with the highest scores in a sorted set",
+    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
         "optional": true
       }
     ],
     "since": "5.0.0",
-    "group": "stream"
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@sortedset",
+      "@write"
+    ]
   },
-  "LATENCY DOCTOR": {
-    "summary": "Return a human readable latency analysis report.",
-    "since": "2.8.13",
-    "group": "server"
-  },
-  "LATENCY GRAPH": {
-    "summary": "Return a latency graph for the event.",
+  "ZPOPMIN": {
+    "summary": "Remove and return members with the lowest scores in a sorted set",
+    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
     "arguments": [
       {
-        "name": "event",
-        "type": "string"
-      }
-    ],
-    "since": "2.8.13",
-    "group": "server"
-  },
-  "LATENCY HISTORY": {
-    "summary": "Return timestamp-latency samples for the event.",
-    "arguments": [
+        "name": "key",
+        "type": "key"
+      },
       {
-        "name": "event",
-        "type": "string"
-      }
-    ],
-    "since": "2.8.13",
-    "group": "server"
-  },
-  "LATENCY LATEST": {
-    "summary": "Return the latest latency samples for all events.",
-    "since": "2.8.13",
-    "group": "server"
-  },
-  "LATENCY RESET": {
-    "summary": "Reset latency data for one or more events.",
-    "arguments": [
-      {
-        "name": "event",
-        "type": "string",
+        "name": "count",
+        "type": "integer",
         "optional": true
       }
     ],
-    "since": "2.8.13",
-    "group": "server"
+    "since": "5.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@sortedset",
+      "@write"
+    ]
   },
-  "LATENCY HELP": {
-    "summary": "Show helpful text about the different subcommands.",
-    "since": "2.8.13",
-    "group": "server"
+  "ZRANGE": {
+    "summary": "Return a range of members in a sorted set, by index",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "integer"
+      },
+      {
+        "name": "stop",
+        "type": "integer"
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@sortedset"
+    ]
+  },
+  "ZRANGEBYLEX": {
+    "summary": "Return a range of members in a sorted set, by lexicographical range",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "sorted_set",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@sortedset"
+    ]
+  },
+  "ZRANGEBYSCORE": {
+    "summary": "Return a range of members in a sorted set, by score",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "double"
+      },
+      {
+        "name": "max",
+        "type": "double"
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "1.0.5",
+    "group": "sorted_set",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@sortedset"
+    ]
+  },
+  "ZRANK": {
+    "summary": "Determine the index of a member in a sorted set",
+    "complexity": "O(log(N))",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string"
+      }
+    ],
+    "since": "2.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@sortedset"
+    ]
+  },
+  "ZREM": {
+    "summary": "Remove one or more members from a sorted set",
+    "complexity": "O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "ZREMRANGEBYLEX": {
+    "summary": "Remove all members in a sorted set between the given lexicographical range",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.9",
+    "group": "sorted_set",
+    "aclcats": [
+      "@slow",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "ZREMRANGEBYRANK": {
+    "summary": "Remove all members in a sorted set within the given indexes",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "integer"
+      },
+      {
+        "name": "stop",
+        "type": "integer"
+      }
+    ],
+    "since": "2.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@slow",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "ZREMRANGEBYSCORE": {
+    "summary": "Remove all members in a sorted set within the given scores",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "double"
+      },
+      {
+        "name": "max",
+        "type": "double"
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@slow",
+      "@sortedset",
+      "@write"
+    ]
+  },
+  "ZREVRANGE": {
+    "summary": "Return a range of members in a sorted set, by index, with scores ordered from high to low",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "integer"
+      },
+      {
+        "name": "stop",
+        "type": "integer"
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@sortedset"
+    ]
+  },
+  "ZREVRANGEBYLEX": {
+    "summary": "Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "2.8.9",
+    "group": "sorted_set",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@sortedset"
+    ]
+  },
+  "ZREVRANGEBYSCORE": {
+    "summary": "Return a range of members in a sorted set, by score, with scores ordered from high to low",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "max",
+        "type": "double"
+      },
+      {
+        "name": "min",
+        "type": "double"
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "2.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@sortedset"
+    ]
+  },
+  "ZREVRANK": {
+    "summary": "Determine the index of a member in a sorted set, with scores ordered from high to low",
+    "complexity": "O(log(N))",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string"
+      }
+    ],
+    "since": "2.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@sortedset"
+    ]
+  },
+  "ZSCAN": {
+    "summary": "Incrementally iterate sorted sets elements and associated scores",
+    "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "cursor",
+        "type": "integer"
+      },
+      {
+        "command": "MATCH",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "2.8.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@read",
+      "@slow",
+      "@sortedset"
+    ]
+  },
+  "ZSCORE": {
+    "summary": "Get the score associated with the given member in a sorted set",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string"
+      }
+    ],
+    "since": "1.2.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@fast",
+      "@read",
+      "@sortedset"
+    ]
+  },
+  "ZUNIONSTORE": {
+    "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
+    "complexity": "O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "2.0.0",
+    "group": "sorted_set",
+    "aclcats": [
+      "@slow",
+      "@sortedset",
+      "@write"
+    ]
   }
 }
