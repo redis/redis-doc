@@ -96,8 +96,10 @@ OK
 
 The reported information contains all of the fields reported by the simple
 form of `XINFO STREAM`, with some additional information:
+
 1. Stream entries are returned, including fields and values.
 2. Groups, consumers and PELs are returned.
+
 The `COUNT` option is used to limit the amount of stream/PEL entries that are
 returned (The first <count> entries are returned). The default `COUNT` is 10 and
 a `COUNT` of 0 means that all entries will be returned (Execution time may be
