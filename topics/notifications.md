@@ -140,7 +140,7 @@ Different commands generate different kind of events according to the following 
 * `XGROUP SETID` generates an `xgroup-setid` event.
 * `XSETID` generates an `xsetid` event.
 * `XTRIM` generates an `xtrim` event.
-* `PERSIST` generates an `persist` event if expire time associates with key has been successfully deleted.
+* `PERSIST` generates a `persist` event if the expiry time associated with key has been successfully deleted.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
 
