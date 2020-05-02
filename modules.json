@@ -317,5 +317,15 @@
       "linfangrong"
     ],
     "stars": 0
+  },
+  {
+    "name": "dbx",
+    "license": "MIT",
+    "repository": "https://github.com/cscan/dbx",
+    "description": "Redis module for maintaining hash by simple SQL",
+    "authors": [
+      "cscan"
+    ],
+    "stars": 0
   }
 ]
