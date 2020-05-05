@@ -28,9 +28,14 @@
     "complexity": "O(N). Where N is the number of rules provided.",
     "arguments": [
       {
+        "name": "username",
+        "type": "string"
+      },
+      {
         "name": "rule",
         "type": "string",
-        "multiple": true
+        "multiple": true,
+        "optional": true
       }
     ],
     "since": "6.0.0",
