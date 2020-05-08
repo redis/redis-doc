@@ -32,7 +32,7 @@ up the connection.
 
 This command accepts two non mandatory options:
 
-* `AUTH <username> <password>`: directly authenticate the connection other than switching to the specified protocol. In this way there is no need to call `AUTH` before `HELLO` when setting up new connections. Note that the username can be set to "default" in order to authenticate against a server that does not use ACLs, but the simpler `requirepass` machanism of Redis before version 6.
+* `AUTH <username> <password>`: directly authenticate the connection other than switching to the specified protocol. In this way there is no need to call `AUTH` before `HELLO` when setting up new connections. Note that the username can be set to "default" in order to authenticate against a server that does not use ACLs, but the simpler `requirepass` mechanism of Redis before version 6.
 * `SETNAME <clientname>`: this is equivalent to also call `CLIENT SETNAME`.
 
 @return
