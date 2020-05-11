@@ -48,11 +48,11 @@ This is a list of all the supported Redis ACL rules:
 * `allkeys`: alias for `~*`, it allows the user to access all the keys.
 * `resetkey`: removes all the key patterns from the list of key patterns the user can access.
 * `+<command>`: add this command to the list of the commands the user can call. Example: `+zadd`.
-* `+@<categoty>`: add all the commands in the specified categoty to the list of commands the user is able to execute. Example: `+@string` (adds all the string commands). For a list of categories check the `ACL CAT` command.
+* `+@<category>`: add all the commands in the specified category to the list of commands the user is able to execute. Example: `+@string` (adds all the string commands). For a list of categories check the `ACL CAT` command.
 * `+<command>|<subcommand>`: add the specified command to the list of the commands the user can execute, but only for the specified subcommand. Example: `+config|get`. Generates an error if the specified command is already allowed in its full version for the specified user. Note: there is no symmetrical command to remove subcommands, you need to remove the whole command and re-add the subcommands you want to allow. This is much safer than removing subcommands, in the future Redis may add new dangerous subcommands, so configuring by subtraction is not good.
 * `allcommands`: alias of `+@all`. Adds all the commands there are in the server, including *future commands* loaded via module, to be executed by this user.
 * `-<command>`. Like `+<command>` but removes the command instead of adding it.
-* `-@<categoty>`: Like `-@<category>` but removes all the commands in the category instead of adding them.
+* `-@<category>`: Like `+@<category>` but removes all the commands in the category instead of adding them.
 * `nocommands`: alias for `-@all`. Removes all the commands, the user will no longer be able to execute anything.
 * `nopass`: the user is set as a "no password" user. It means that it will be possible to authenticate as such user with any password. By default, the `default` special user is set as "nopass". The `nopass` rule will also reset all the configured passwords for the user.
 * `>password`: Add the specified clear text password as an hashed password in the list of the users passwords. Every user can have many active passwords, so that password rotation will be simpler. The specified password is not stored in cleartext inside the server. Example: `>mypassword`.
