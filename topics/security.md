@@ -30,9 +30,6 @@ This is a specific example, but, in general, untrusted access to Redis should
 always be mediated by a layer implementing ACLs, validating user input,
 and deciding what operations to perform against the Redis instance.
 
-In general, Redis is not optimized for maximum security but for maximum
-performance and simplicity.
-
 Network security
 ---
 
