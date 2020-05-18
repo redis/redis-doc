@@ -23,6 +23,12 @@ Please refer to the [persistence documentation][tp] for detailed information.
 
 @simple-string-reply: `Background saving started` if `BGSAVE` started correctly.
 
+@simple-string-reply: `Background saving scheduled` if use `SCHEDULE` option thought
+an AOF rewrite is in progress.
+
+@error-reply: `Background save already in progress` if there is already a background
+save running whatever use `SCHEDULE` option or not.
+
 @history
 
 * `>= 3.2.2`: Added the `SCHEDULE` option.
