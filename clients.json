@@ -193,7 +193,7 @@
     "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
     "authors": ["stephensearles"]
   },
-  
+
   {
     "name": "go-resp3",
     "language": "Go",
@@ -593,6 +593,15 @@
     "repository": "https://github.com/laserdisc-io/laserdisc",
     "description": "Future free Fs2 native pure FP Redis client http://laserdisc.io",
     "authors": ["JSirocchi", "barambani"],
+    "active": true
+  },
+
+  {
+    "name": "Redis4Cats",
+    "language": "Scala",
+    "repository": "https://redis4cats.profunktor.dev/",
+    "description": "Purely functional Redis client for Cats Effect & Fs2",
+    "authors": ["volpegabriel87"],
     "active": true
   },
 
@@ -1643,7 +1652,7 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "Noderis",
     "language": "Node.js",
