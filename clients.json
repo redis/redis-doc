@@ -599,7 +599,8 @@
   {
     "name": "Redis4Cats",
     "language": "Scala",
-    "repository": "https://redis4cats.profunktor.dev/",
+    "url": "https://redis4cats.profunktor.dev/",
+    "repository": "https://github.com/profunktor/redis4cats",
     "description": "Purely functional Redis client for Cats Effect & Fs2",
     "authors": ["volpegabriel87"],
     "active": true
