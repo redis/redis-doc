@@ -541,8 +541,9 @@
       {
         "command": "PREFIX",
         "name": "prefix",
-        "type": "srting",
-        "optional": true
+        "type": "string",
+        "optional": true,
+        "multiple": true
       },
       {
         "name": "BCAST",
