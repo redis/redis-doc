@@ -1798,5 +1798,16 @@
     "repository": "https://github.com/tdv/redis-cpp",
     "description": "redis-cpp is a library in C++17 for executing Redis commands with support of the pipelines and publish / subscribe pattern",
     "active": true
+  },
+
+  {
+    "name": "OkRedis",
+    "language": "Zig",
+    "url": "https://github.com/kristoff-it/zig-okredis",
+    "repository": "https://github.com/kristoff-it/zig-okredis",
+    "description": "OkRedis is a zero-allocation client for Redis 6+ ",
+    "authors": ["kristoff-it"],
+    "recommended": true,
+    "active": true
   }
 ]
