@@ -21,7 +21,7 @@ Please refer to the [persistence documentation][tp] for detailed information.
 
 @return
 
-@simple-string-reply: `OK` if `BGSAVE` started correctly.
+@simple-string-reply: `Background saving started` if `BGSAVE` started correctly or `Background saving scheduled` when used with the `SCHEDULE` subcommand. 
 
 @history
 

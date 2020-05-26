@@ -23,6 +23,18 @@
     "since": "6.0.0",
     "group": "server"
   },
+  "ACL GETUSER": {
+    "summary": "Get the rules for a specific ACL user",
+    "complexity": "O(N). Where N is the number of password, command and pattern rules that the user has.",
+    "arguments": [
+      {
+        "name": "username",
+        "type": "string"
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
   "ACL SETUSER": {
     "summary": "Modify or create the rules for a specific ACL user",
     "complexity": "O(N). Where N is the number of rules provided.",
@@ -96,6 +108,12 @@
         "optional": true
       }
     ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
     "since": "6.0.0",
     "group": "server"
   },
@@ -487,7 +505,7 @@
         ]
       }
     ],
-    "since": "3.2",
+    "since": "3.2.0",
     "group": "connection"
   },
   "CLIENT SETNAME": {

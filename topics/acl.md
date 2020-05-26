@@ -385,10 +385,10 @@ command that generates passwords using the system cryptographic pseudorandom
 generator:
 
     > ACL GENPASS
-    "0e8ad12c1962355a3eb35e0ca686343b"
+    "dd721260bfe1b3d9601e7fbab36de6d04e2e67b0ef1c53de59d45950db0dd3cc"
 
-The command outputs a 16 bytes (128 bit) pseudorandom string converted to a
-32 byte alphanumerical string. This is long enough to avoid attacks and short
+The command outputs a 32 bytes (256 bit) pseudorandom string converted to a
+64 byte alphanumerical string. This is long enough to avoid attacks and short
 enough to be easy to manage, cut & paste, store and so forth. This is what
 you should use in order to generate Redis passwords.
 
