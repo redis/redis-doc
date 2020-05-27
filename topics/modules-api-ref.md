@@ -1794,7 +1794,7 @@ Like `RedisModule_DictGetC()` but takes the key as a RedisModuleString.
     int RedisModule_DictDelC(RedisModuleDict *d, void *key, size_t keylen, void *oldval);
 
 Remove the specified key from the dictionary, returning `REDISMODULE_OK` if
-the key was found and delted, or `REDISMODULE_ERR` if instead there was
+the key was found and deleted, or `REDISMODULE_ERR` if instead there was
 no such key in the dictionary. When the operation is successful, if
 'oldval' is not NULL, then '*oldval' is set to the value stored at the
 key before it was deleted. Using this feature it is possible to get
