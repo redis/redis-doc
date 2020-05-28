@@ -512,12 +512,16 @@ The output shows information about how the stream is encoded internally, and als
    4) (integer) 2
    5) pending
    6) (integer) 2
+   7) last-delivered-id
+   8) "1588152489012-0"
 2) 1) name
    2) "some-other-group"
    3) consumers
    4) (integer) 1
    5) pending
    6) (integer) 0
+   7) last-delivered-id
+   8) "1588152498034-0"
 ```
 
 As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported, and allows the command to report more information in the future by adding more fields without breaking the compatibility with older clients. Other commands that must be more bandwidth efficient instead, like **XPENDING**, just report the information without the field names.

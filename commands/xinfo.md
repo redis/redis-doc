@@ -118,12 +118,16 @@ stream:
    4) (integer) 2
    5) pending
    6) (integer) 2
+   7) last-delivered-id
+   8) "1588152489012-0"
 2) 1) name
    2) "some-other-group"
    3) consumers
    4) (integer) 1
    5) pending
    6) (integer) 0
+   7) last-delivered-id
+   8) "1588152498034-0"
 ```
 
 For each consumer group listed the command also shows the number of consumers
