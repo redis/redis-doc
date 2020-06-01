@@ -730,5 +730,14 @@
     "repository": "https://github.com/Oriflame/RedisMessaging.ReliableDelivery",
     "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
     "authors": ["PetrKozelek" , "OriflameSoftware"]
+  },
+
+  {
+    "name": "River",
+    "language": "C++, Python",
+    "repository": "https://github.com/pbotros/river",
+    "description": "A structured streaming framework built atop Redis Streams with built-in support for persistence and indefinitely long streams.",
+    "authors": []
   }
+
 ]
