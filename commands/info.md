@@ -75,6 +75,8 @@ Here is the meaning of all fields in the **clients** section:
      connections
 *   `blocked_clients`: Number of clients pending on a blocking call (BLPOP, 
      BRPOP, BRPOPLPUSH)
+*   `tracking_clients`: Number of clients enables tracking
+*   `clients_in_timeout_table`: Number of clients in clients timeout table
 
 Here is the meaning of all fields in the **memory** section:
 
@@ -223,6 +225,9 @@ Here is the meaning of all fields in the **stats** section:
 *   `active_defrag_key_hits`: Number of keys that were actively defragmented
 *   `active_defrag_key_misses`: Number of keys that were skipped by the active
      defragmentation process
+*   `tracking_total_keys`: Number of tracking keys in server tracking table
+*   `tracking_total_items`: Number of tracking items (the sum of tracked clients number for each key) in server tracking table
+*   `tracking_total_prefixes`: Number of tracking prefixes in server prefix table (broadcast mode only)
 
 Here is the meaning of all fields in the **replication** section:
 
