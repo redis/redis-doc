@@ -99,13 +99,8 @@ If you intend to enable TLS support, Redis must be built specifically for TLS.
 This requires you to install Redis with the 'make BUILD_TLS=yes' flag as well as 
 to install the OpenSSL development libraries. 
 
-Requirements for Ubuntu:
- 
-    sudo apt install build-essential tcl -y
-    sudo apt install tcl-tls -y
-    sudo apt install libssl-dev -y
-    make && make BUILD_TLS=yes
-    
+Requirements for Ubuntu include tcl-tls and libssl-dev.
+
 TLS configuration of cipher suites, protocols and client authentication are supported. 
 To find out more about configuration best practices, visit the [Mozilla SSL configuration generator.](https://ssl-config.mozilla.org/#server=redis&version=6.0&config=intermediate&openssl=1.1.1d&guideline=5.4)
 
