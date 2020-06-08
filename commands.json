@@ -433,6 +433,12 @@
         "optional": true
       },
       {
+        "command": "USER",
+        "name": "username",
+        "type": "string",
+        "optional": true
+      },
+      {
         "command": "ADDR",
         "name": "ip:port",
         "type": "string",
