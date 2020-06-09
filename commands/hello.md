@@ -23,12 +23,11 @@ RESP2). Clients that want to handshake the RESP3 mode need to call the
 
 The `HELLO` command has a useful reply that will state a number of facts
 about the server: the exact version, the set of modules loaded, the client
-ID, the replication role and so forth. Because of that, and given that
-the `HELLO` command also works with "2" as argument, both in order to
-downgrade the protocol back to version 2, or just to get the reply from
-the server without switching the protocol, client library authors may
-consider using this command instead of the canonical `PING` when setting
-up the connection.
+ID, the replication role and so forth. And the `HELLO` command also works
+with "2" as argument, which will downgrade the protocol back to version 2.
+Or use "0" as argument just to get the reply from the server without
+switching the protocol, client library authors may consider using this
+command instead of the canonical `PING` when setting up the connection.
 
 This command accepts two non mandatory options:
 
