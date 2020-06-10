@@ -176,7 +176,7 @@ Now the user can do something, but will refuse to do other things:
     > GET cached:1234
     (nil)
     > SET cached:1234 zap
-    (error) NOPERM this user has no permissions to run the 'set' command or its subcommnad
+    (error) NOPERM this user has no permissions to run the 'set' command or its subcommand
 
 Things are working as expected. In order to inspect the configuration of the
 user alice (remember that user names are case sensitive), it is possible to
