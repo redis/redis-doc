@@ -1895,6 +1895,40 @@
     "since": "1.0.0",
     "group": "list"
   },
+  "LPOS": {
+    "summary": "Return the index of matching elements on a list",
+    "complexity": "O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "element",
+        "type": "string"
+      },
+      {
+        "command": "FIRST",
+        "name": "rank",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "num-matches",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "MAXLEN",
+        "name": "len",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "6.0.6",
+    "group": "list"
+  },
   "LPUSH": {
     "summary": "Prepend one or multiple elements to a list",
     "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
