@@ -513,7 +513,7 @@ a few that are of particular interest for us:
 In order to explore more about this instance, you may want to try the following
 two commands:
 
-    SENTINEL slaves mymaster
+    SENTINEL replicas mymaster
     SENTINEL sentinels mymaster
 
 The first will provide similar information about the replicas connected to the
@@ -589,7 +589,7 @@ order to modify the Sentinel configuration, which are covered later.
 * **PING** This command simply returns PONG.
 * **SENTINEL masters** Show a list of monitored masters and their state.
 * **SENTINEL master `<master name>`** Show the state and info of the specified master.
-* **SENTINEL slaves `<master name>`** Show a list of replicas for this master, and their state.
+* **SENTINEL replicas `<master name>`** Show a list of replicas for this master, and their state.
 * **SENTINEL sentinels `<master name>`** Show a list of sentinel instances for this master, and their state.
 * **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted replica.
 * **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every replica and sentinel already discovered and associated with the master.
@@ -697,7 +697,7 @@ and is only specified if the instance is not a master itself.
 * **+slave** `<instance details>` -- A new replica was detected and attached.
 * **+failover-state-reconf-slaves** `<instance details>` -- Failover state changed to `reconf-slaves` state.
 * **+failover-detected** `<instance details>` -- A failover started by another Sentinel or any other external entity was detected (An attached replica turned into a master).
-* **+slave-reconf-sent** `<instance details>` -- The leader sentinel sent the `SLAVEOF` command to this instance in order to reconfigure it for the new replica.
+* **+slave-reconf-sent** `<instance details>` -- The leader sentinel sent the `REPLICAOF` command to this instance in order to reconfigure it for the new replica.
 * **+slave-reconf-inprog** `<instance details>` -- The replica being reconfigured showed to be a replica of the new master ip:port pair, but the synchronization process is not yet complete.
 * **+slave-reconf-done** `<instance details>` -- The replica is now synchronized with the new master.
 * **-dup-sentinel** `<instance details>` -- One or more sentinels for the specified master were removed as duplicated (this happens for instance when a Sentinel instance is restarted).
@@ -1007,7 +1007,7 @@ Configuration propagation
 
 Once a Sentinel is able to failover a master successfully, it will start to broadcast the new configuration so that the other Sentinels will update their information about a given master.
 
-For a failover to be considered successful, it requires that the Sentinel was able to send the `SLAVEOF NO ONE` command to the selected replica, and that the switch to master was later observed in the `INFO` output of the master.
+For a failover to be considered successful, it requires that the Sentinel was able to send the `REPLICAOF NO ONE` command to the selected replica, and that the switch to master was later observed in the `INFO` output of the master.
 
 At this point, even if the reconfiguration of the replicas is in progress, the failover is considered to be successful, and all the Sentinels are required to start reporting the new configuration.
 
@@ -1142,3 +1142,5 @@ Note that in some way TILT mode could be replaced using the monotonic clock
 API that many kernels offer. However it is not still clear if this is a good
 solution since the current system avoids issues in case the process is just
 suspended or not executed by the scheduler for a long time.
+
+**A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.
