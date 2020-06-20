@@ -1505,7 +1505,7 @@
     "name": "cheprasov/php-redis-client",
     "language": "PHP",
     "repository": "https://github.com/cheprasov/php-redis-client",
-    "description": "Supported PHP client for Redis. PHP ver 5.5 - 7.3 / REDIS ver 2.6 - 5.0",
+    "description": "Supported PHP client for Redis. PHP ver 5.5 - 7.4 / REDIS ver 2.6 - 6.0",
     "authors": ["cheprasov84"],
     "active": true
   },
