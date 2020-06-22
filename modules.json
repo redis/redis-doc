@@ -306,7 +306,7 @@
     "authors": [
       "starkdg"
      ],
-     "stars": 2
+     "stars": 13
     },
   {
     "name": "redismodule-ratelimit",
@@ -327,5 +327,15 @@
       "cscan"
     ],
     "stars": 0
-  }
+  },
+
+	{ "name": "Redis-AudioScout",
+	  "license": "pHash Source Available License",
+	  "repository": "https://github.com/starkdg/Redis-AudioScout",
+	  "description": "Redis module for Audio Track Recognition",
+	  "authors": [
+		  "starkdg"
+	  ],
+	  "stars":1
+	}
 ]
