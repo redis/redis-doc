@@ -226,15 +226,8 @@ In order to do so, tracking must be enabled using the OPTIN option:
 
 In this mode, by default keys mentioned in read queries *are not supposed to be cached*, instead when a client wants to cache something, it must send a special command immediately before the actual command to retrieve the data:
 
-    CACHING
+    CLIENT CACHING YES
     +OK
-    GET foo
-    "bar"
-
-To make the protocol more efficient, the `CACHING` command can be sent with the
-`NOREPLY` option: in this case it will be totally silent:
-
-    CACHING NOREPLY
     GET foo
     "bar"
 
