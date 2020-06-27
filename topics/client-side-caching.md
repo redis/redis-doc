@@ -212,8 +212,6 @@ So there is an alternative described in the next section.
 
 ## Opt-in caching
 
-(Note: this part is a work in progress and is yet not implemented inside Redis)
-
 Clients implementations may want to cache only selected keys, and communicate
 explicitly to the server what they'll cache and what not: this will require
 more bandwidth when caching new objects, but at the same time will reduce
