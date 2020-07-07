@@ -1908,7 +1908,7 @@
         "type": "string"
       },
       {
-        "command": "FIRST",
+        "command": "RANK",
         "name": "rank",
         "type": "string",
         "optional": true
