@@ -11,10 +11,10 @@ This system works using three main mechanisms:
 
 Redis uses by default asynchronous replication, which being low latency and
 high performance, is the natural replication mode for the vast majority of Redis
-use cases. However Redis replicas asynchronously acknowledge the amount of data
+use cases. However, Redis replicas asynchronously acknowledge the amount of data
 they received periodically with the master. So the master does not wait every time
 for a command to be processed by the replicas, however it knows, if needed, what
-replica already processed what command. This allows to have optional synchronous replication.
+replica already processed what command. This allows having optional synchronous replication.
 
 Synchronous replication of certain data can be requested by the clients using
 the `WAIT` command. However `WAIT` is only able to ensure that there are the
@@ -36,7 +36,7 @@ The following are some very important facts about Redis replication:
 * Redis replication is non-blocking on the master side. This means that the master will continue to handle queries when one or more replicas perform the initial synchronization or a partial resynchronization.
 * Replication is also largely non-blocking on the replica side. While the replica is performing the initial synchronization, it can handle queries using the old version of the dataset, assuming you configured Redis to do so in redis.conf.  Otherwise, you can configure Redis replicas to return an error to clients if the replication stream is down. However, after the initial sync, the old dataset must be deleted and the new one must be loaded. The replica will block incoming connections during this brief window (that can be as long as many seconds for very large datasets). Since Redis 4.0 it is possible to configure Redis so that the deletion of the old data set happens in a different thread, however loading the new initial dataset will still happen in the main thread and block the replica.
 * Replication can be used both for scalability, in order to have multiple replicas for read-only queries (for example, slow O(N) operations can be offloaded to replicas), or simply for improving data safety and high availability.
-* It is possible to use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a replica configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the replica tries to synchronized with it, the replica will be emptied as well.
+* It is possible to use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a replica configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the replica tries to synchronize with it, the replica will be emptied as well.
 
 Safety of replication when master has persistence turned off
 ---
@@ -110,7 +110,7 @@ potentially at a different time. It is the offset that works as a logical time
 to understand, for a given history (replication ID) who holds the most updated
 data set.
 
-For instance if two instances A and B have the same replication ID, but one
+For instance, if two instances A and B have the same replication ID, but one
 with offset 1000 and one with offset 1023, it means that the first lacks certain
 commands applied to the data set. It also means that A, by applying just a few
 commands, may reach exactly the same state of B.
@@ -126,7 +126,7 @@ was the offset when this ID switch happened. Later it will select a new random
 replication ID, because a new history begins. When handling the new replicas
 connecting, the master will match their IDs and offsets both with the current
 ID and the secondary ID (up to a given offset, for safety). In short this means
-that after a failover, replicas connecting to the new promoted master don't have
+that after a failover, replicas connecting to the newly promoted master don't have
 to perform a full sync.
 
 In case you wonder why a replica promoted to master needs to change its
@@ -244,7 +244,7 @@ Redis source distribution.
 How Redis replication deals with expires on keys
 ---
 
-Redis expires allow keys to have a limited time to live. Such a feature depends
+Redis expires allow keys to have a limited time to live (TTL). Such a feature depends
 on the ability of an instance to count the time, however Redis replicas correctly
 replicate keys with expires, even when such keys are altered using Lua
 scripts.
@@ -264,7 +264,7 @@ Once a replica is promoted to a master it will start to expire keys independentl
 Configuring replication in Docker and NAT
 ---
 
-When Docker, or other types of containers using port forwarding, or Network Address Translation is used, Redis replication needs some extra care, especially when using Redis Sentinel or other systems where the master `INFO` or `ROLE` commands output are scanned in order to discover replicas' addresses.
+When Docker, or other types of containers using port forwarding, or Network Address Translation is used, Redis replication needs some extra care, especially when using Redis Sentinel or other systems where the master `INFO` or `ROLE` commands output is scanned in order to discover replicas' addresses.
 
 The problem is that the `ROLE` command, and the replication section of
 the `INFO` output, when issued into a master instance, will show replicas
@@ -273,7 +273,7 @@ environments using NAT may be different compared to the logical address of the
 replica instance (the one that clients should use to connect to replicas).
 
 Similarly the replicas will be listed with the listening port configured
-into `redis.conf`, that may be different than the forwarded port in case
+into `redis.conf`, that may be different from the forwarded port in case
 the port is remapped.
 
 In order to fix both issues, it is possible, since Redis 3.2.2, to force
