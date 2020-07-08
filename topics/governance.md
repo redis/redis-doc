@@ -75,7 +75,7 @@ We encourage that all significant communications will be public, asynchronous, a
 
 ## New Redis repository and commits approval process
 
-Initially, the Redis core source repository will be hosted under [https://github.com/redis-io/redis](https://github.com/redis-io/redis). Our target is to eventually host everything (the Redis core source and other ecosystem projects) under the Redis GitHub organization ([https://github.com/redis](https://github.com/redis)). Commits to the Redis source repository will require code review, approval of at least one core-team member who is not the author of the commit, and no objections.
+Initially, the Redis core source repository will be hosted under [https://github.com/redis/redis](https://github.com/redis/redis). Our target is to eventually host everything (the Redis core source and other ecosystem projects) under the Redis GitHub organization ([https://github.com/redis](https://github.com/redis)). Commits to the Redis source repository will require code review, approval of at least one core-team member who is not the author of the commit, and no objections.
 
 ## Project and development updates
 
