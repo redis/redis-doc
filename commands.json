@@ -1910,7 +1910,7 @@
       {
         "command": "RANK",
         "name": "rank",
-        "type": "string",
+        "type": "integer",
         "optional": true
       },
       {
