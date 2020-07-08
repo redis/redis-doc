@@ -20,7 +20,7 @@ Unstable tree
 ===
 
 The unstable version of Redis is always located in the `unstable` branch in
-the [Redis GitHub Repository](http://github.com/antirez/redis).
+the [Redis GitHub Repository](http://github.com/redis/redis).
 
 This is the source tree where most of the new features are developed and
 is not considered to be production ready: it may contain critical bugs,

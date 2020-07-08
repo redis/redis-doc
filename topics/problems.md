@@ -14,9 +14,9 @@ List of known critical bugs in Redis 3.0.x, 2.8.x and 2.6.x
 
 To find a list of critical bugs please refer to the changelogs:
 
-* [Redis 3.0 Changelog](https://raw.githubusercontent.com/antirez/redis/3.0/00-RELEASENOTES).
-* [Redis 2.8 Changelog](https://raw.githubusercontent.com/antirez/redis/2.8/00-RELEASENOTES).
-* [Redis 2.6 Changelog](https://raw.githubusercontent.com/antirez/redis/2.6/00-RELEASENOTES).
+* [Redis 3.0 Changelog](https://raw.githubusercontent.com/redis/redis/3.0/00-RELEASENOTES).
+* [Redis 2.8 Changelog](https://raw.githubusercontent.com/redis/redis/2.8/00-RELEASENOTES).
+* [Redis 2.6 Changelog](https://raw.githubusercontent.com/redis/redis/2.6/00-RELEASENOTES).
 
 Check the *upgrade urgency* level in each patch release to more easily spot
 releases that included important fixes.
