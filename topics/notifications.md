@@ -80,7 +80,8 @@ following table:
     t     Stream commands
     x     Expired events (events generated every time a key expires)
     e     Evicted events (events generated when a key is evicted for maxmemory)
-    A     Alias for g$lshztxe, so that the "AKE" string means all the events.
+    m     Key miss events (events generated when a key that doesn't exist is accessed)
+    A     Alias for "g$lshztxe", so that the "AKE" string means all the events except "m".
 
 At least `K` or `E` should be present in the string, otherwise no event
 will be delivered regardless of the rest of the string.
@@ -174,3 +175,8 @@ The `expired` events are generated when a key is accessed and is found to be exp
 If no command targets the key constantly, and there are many keys with a TTL associated, there can be a significant delay between the time the key time to live drops to zero, and the time the `expired` event is generated.
 
 Basically `expired` events **are generated when the Redis server deletes the key** and not when the time to live theoretically reaches the value of zero.
+
+@history
+
+*   `>= 6.0`: Key miss events were added.
+
