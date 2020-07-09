@@ -455,7 +455,8 @@
     "url": "http://rediska.geometria-lab.net",
     "repository": "https://github.com/Shumkov/Rediska",
     "description": "",
-    "authors": ["shumkov"]
+    "authors": ["shumkov"],
+    "active": false
   },
 
   {
@@ -463,7 +464,8 @@
     "language": "PHP",
     "repository": "https://github.com/jdp/redisent",
     "description": "",
-    "authors": ["justinpoliey"]
+    "authors": ["justinpoliey"],
+    "active": false
   },
 
   {
@@ -489,7 +491,8 @@
     "language": "PHP",
     "repository": "https://github.com/swoole/redis-async",
     "description": "Asynchronous redis client library for PHP.",
-    "authors": ["matyhtf"]
+    "authors": ["matyhtf"],
+    "active": false
   },
 
   {
@@ -497,7 +500,8 @@
     "language": "PHP",
     "repository": "https://github.com/yampee/Redis",
     "description": "A full-featured Redis client for PHP 5.2. Easy to use and to extend.",
-    "authors": ["tgalopin"]
+    "authors": ["tgalopin"],
+    "active": false
   },
 
   {
