@@ -18,15 +18,13 @@ Salvatore Sanfilippo has stepped down as head of the project and named two succe
 
 With the backing and blessing of Redis Labs, we wish to use this opportunity and create a more open, scalable, and community-driven “core team” structure to run the project. The core team will consist of members selected based on demonstrated, long-term personal involvement and contributions.
 
-The current core team comprises:
+The core team comprises of:
 
-* Three members from Redis Labs :
-    * Project leads: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) and Oran Agra  ([oranagra](https://github.com/oranagra))
-    * Community lead: Itamar Haber ([itamarhaber](https://github.com/itamarhaber))
-
-    The work of these three core team members will be funded by Redis Labs.
-
-* Redis community members. During the next few days, we plan to approach community members known for their contribution and involvement with Redis open-source. Their names will be shared here as soon as they have accepted this new role.
+* Project Lead: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) from Redis Labs
+* Project Lead: Oran Agra  ([oranagra](https://github.com/oranagra)) from Redis Labs
+* Community Lead: Itamar Haber ([itamarhaber](https://github.com/itamarhaber)) from Redis Labs
+* Member: Zhao Zhao ([soloestoy](https://github.com/soloestoy)) from Alibaba
+* Member: Madelyn Olson ([madolson](https://github.com/madolson)) from Amazon Web Services
 
 The Redis core team members serve the Redis open source project and community. They are expected to set a good example of behavior, culture, and tone in accordance with the adopted [Code of Conduct](https://www.contributor-covenant.org/). They should also consider and act upon the best interests of the project and the community in a way that is free from foreign or conflicting interests.
 
@@ -69,7 +67,6 @@ The core team will aim to form and empower a community of contributors by furthe
 ## Community forums and communications
 
 We want the Redis community to be as welcoming and inclusive as possible. To that end, we have adopted a [Code of Conduct](https://www.contributor-covenant.org/) that we ask all community members to read and observe.
-
 
 We encourage that all significant communications will be public, asynchronous, archived, and open for the community to actively participate in using the channels described [here](https://redis.io/community). The exception to that is sensitive security issues that require resolution prior to public disclosure.
 
