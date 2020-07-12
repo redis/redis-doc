@@ -78,7 +78,8 @@ Here is the meaning of all fields in the **clients** section:
 *   `client_biggest_input_buf`: Biggest input buffer among current client
      connections
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
-     `BRPOP`, `BRPOPLPUSH`, `BZPOPMIN`, `BZPOPMAX`)
+     `BRPOP`, `BRPOPLPUSH`, `BRPOPRPUSH`, `BLPOPLPUSH`, `BLPOPRPUSH`,
+     `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
 
