@@ -132,17 +132,19 @@
     "repository": "https://github.com/RedisTimeSeries/RedisTimeSeries",
     "description": "Time-series data structure for redis",
     "authors": [
-      "danni-m"
+      "danni-m",
+      "RedisLabs"
     ],
     "stars": 310
   },
   {
     "name": "RedisAI",
-    "license": "AGPL",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisAI/RedisAI",
     "description": "A Redis module for serving tensors and executing deep learning graphs",
     "authors": [
-      "lantiga"
+      "lantiga",
+      "RedisLabs"
     ],
     "stars": 289
   },
