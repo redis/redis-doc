@@ -73,17 +73,6 @@
     "stars": 939
   },
   {
-    "name": "RedisML",
-    "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/redisml",
-    "description": "Machine Learning Model Server",
-    "authors": [
-      "shaynativ",
-      "RedisLabs"
-    ],
-    "stars": 286
-  },
-  {
     "name": "RediSearch",
     "license": "Redis Source Available License",
     "repository": "https://github.com/RediSearch/RediSearch",
