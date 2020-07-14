@@ -70,6 +70,8 @@ We want the Redis community to be as welcoming and inclusive as possible. To tha
 
 We encourage that all significant communications will be public, asynchronous, archived, and open for the community to actively participate in using the channels described [here](https://redis.io/community). The exception to that is sensitive security issues that require resolution prior to public disclosure.
 
+For contacting the core team on sensitive matters, such as misconduct or security issues, please email [redis@redis.io](mailto:redis@redis.io).
+
 ## New Redis repository and commits approval process
 
 The Redis core source repository is hosted under [https://github.com/redis/redis](https://github.com/redis/redis). Our target is to eventually host everything (the Redis core source and other ecosystem projects) under the Redis GitHub organization ([https://github.com/redis](https://github.com/redis)). Commits to the Redis source repository will require code review, approval of at least one core-team member who is not the author of the commit, and no objections.
