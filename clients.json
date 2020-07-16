@@ -1813,5 +1813,16 @@
     "authors": ["kristoff-it"],
     "recommended": true,
     "active": true
+  },
+
+  {
+    "name": "Redis COM client",
+    "language": "ActiveX/COM+",
+    "url": "https://gitlab.com/erik4/redis-com-client",
+    "repository": "https://gitlab.com/erik4/redis-com-client",
+    "description": "A COM wrapper for StackExchange.Redis that allows using Redis from a COM environment like Classic ASP (ASP 3.0) using vbscript, jscript or any other COM capable language.",
+    "authors": [],
+    "recommended": true,
+    "active": true
   }
 ]
