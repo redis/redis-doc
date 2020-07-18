@@ -592,7 +592,7 @@
   },
 
   {
-    "name": "monix-redis",
+    "name": "MonixRedis",
     "language": "Scala",
     "url": "https://monix.github.io/monix-connect/docs/redis",
     "repository": "https://github.com/monix/monix-connect",
