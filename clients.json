@@ -592,6 +592,16 @@
   },
 
   {
+    "name": "monix-redis",
+    "language": "Scala",
+    "url": "https://monix.github.io/monix-connect/docs/redis",
+    "repository": "https://github.com/monix/monix-connect",
+    "description": "Monix integration with Redis",
+    "authors": ["paualarco"],
+    "active": true
+  },
+  
+  {
     "name": "laserdisc",
     "language": "Scala",
     "repository": "https://github.com/laserdisc-io/laserdisc",
