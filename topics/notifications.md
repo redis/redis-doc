@@ -80,7 +80,8 @@ following table:
     t     Stream commands
     x     Expired events (events generated every time a key expires)
     e     Evicted events (events generated when a key is evicted for maxmemory)
-    A     Alias for g$lshztxe, so that the "AKE" string means all the events.
+    m     Key miss events (events generated when a key that doesn't exist is accessed)
+    A     Alias for "g$lshztxe", so that the "AKE" string means all the events except "m".
 
 At least `K` or `E` should be present in the string, otherwise no event
 will be delivered regardless of the rest of the string.
@@ -97,10 +98,13 @@ Different commands generate different kind of events according to the following 
 
 * `DEL` generates a `del` event for every deleted key.
 * `RENAME` generates two events, a `rename_from` event for the source key, and a `rename_to` event for the destination key.
+* `MOVE` generates two events, a `move_from` event for the source key, and a `move_to` event for the destination key.
+* `MIGRATE` generates a `del` event if the source key is removed.
+* `RESTORE` generates a `restore` event for the key.
 * `EXPIRE` generates an `expire` event when an expire is set to the key, or an `expired` event every time a positive timeout set on a key results into the key being deleted (see `EXPIRE` documentation for more info).
 * `SORT` generates a `sortstore` event when `STORE` is used to set a new key. If the resulting list is empty, and the `STORE` option is used, and there was already an existing key with that name, the result is that the key is deleted, so a `del` event is generated in this condition.
 * `SET` and all its variants (`SETEX`, `SETNX`,`GETSET`) generate `set` events. However `SETEX` will also generate an `expire` events.
-* `MSET` generates a separated `set` event for every key.
+* `MSET` generates a separate `set` event for every key.
 * `SETRANGE` generates a `setrange` event.
 * `INCR`, `DECR`, `INCRBY`, `DECRBY` commands all generate `incrby` events.
 * `INCRBYFLOAT` generates an `incrbyfloat` events.
@@ -130,13 +134,14 @@ Different commands generate different kind of events according to the following 
 * `ZREMBYRANK` generates a single `zrembyrank` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the special case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * `XADD` generates an `xadd` event, possibly followed an `xtrim` event when used with the `MAXLEN` subcommand.
-* `XDEL` generates a single `xdel` event even when multiple entries are are deleted.
+* `XDEL` generates a single `xdel` event even when multiple entries are deleted.
 * `XGROUP CREATE` generates an `xgroup-create` event.
 * `XGROUP DELCONSUMER` generates an `xgroup-delconsumer` event.
 * `XGROUP DESTROY` generates an `xgroup-destroy` event.
 * `XGROUP SETID` generates an `xgroup-setid` event.
 * `XSETID` generates an `xsetid` event.
 * `XTRIM` generates an `xtrim` event.
+* `PERSIST` generates a `persist` event if the expiry time associated with key has been successfully deleted.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
 
@@ -170,3 +175,8 @@ The `expired` events are generated when a key is accessed and is found to be exp
 If no command targets the key constantly, and there are many keys with a TTL associated, there can be a significant delay between the time the key time to live drops to zero, and the time the `expired` event is generated.
 
 Basically `expired` events **are generated when the Redis server deletes the key** and not when the time to live theoretically reaches the value of zero.
+
+@history
+
+*   `>= 6.0`: Key miss events were added.
+

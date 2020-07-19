@@ -82,7 +82,7 @@ To query the stream by range we are only required to specify two IDs, *start* an
       4) "18.2"
 ```
 
-Each entry returned is an array of two items: the ID and the list of field-value pairs. We already said that the entry IDs have a relation with the time, because the part at the left of the `-` character is the Unix time in milliseconds of the local node that created the stream entry, in the moment the entry was created (however note that Streams are replicated with fully specified **XADD** commands, so the slaves will have identical IDs to the master). This means that I could query a range of time using **XRANGE**. In order to do so, however, I may want to omit the sequence part of the ID: if omitted, in the start of the range it will be assumed to be 0, while in the end part it will be assumed to be the maximum sequence number available. This way, querying using just two milliseconds Unix times, we get all the entries that were generated in that range of time, in an inclusive way. For instance, I may want to query a two milliseconds period I could use:
+Each entry returned is an array of two items: the ID and the list of field-value pairs. We already said that the entry IDs have a relation with the time, because the part at the left of the `-` character is the Unix time in milliseconds of the local node that created the stream entry, in the moment the entry was created (however note that Streams are replicated with fully specified **XADD** commands, so the replicas will have identical IDs to the master). This means that I could query a range of time using **XRANGE**. In order to do so, however, I may want to omit the sequence part of the ID: if omitted, in the start of the range it will be assumed to be 0, while in the end part it will be assumed to be the maximum sequence number available. This way, querying using just two milliseconds Unix times, we get all the entries that were generated in that range of time, in an inclusive way. For instance, I may want to query a two milliseconds period I could use:
 
 ```
 > XRANGE mystream 1518951480106 1518951480107
@@ -173,7 +173,7 @@ Similarly to blocking list operations, blocking stream reads are *fair* from the
 
 ## Consumer groups
 
-When the task at hand is to consume the same stream from different clients, then **XREAD** already offers a way to  *fan-out* to N clients, potentially also using slaves in order to provide more read scalability. However in certain problems what we want to do is not to provide the same stream of messages to many clients, but to provide a *different subset* of messages from the same stream to many clients. An obvious case where this is useful is the case of slow to process messages: the ability to have N different workers that will receive different parts of the stream allows us to scale message processing, by routing different messages to different workers that are ready to do more work.
+When the task at hand is to consume the same stream from different clients, then **XREAD** already offers a way to  *fan-out* to N clients, potentially also using replicas in order to provide more read scalability. However in certain problems what we want to do is not to provide the same stream of messages to many clients, but to provide a *different subset* of messages from the same stream to many clients. An obvious case where this is useful is the case of slow to process messages: the ability to have N different workers that will receive different parts of the stream allows us to scale message processing, by routing different messages to different workers that are ready to do more work.
 
 In practical terms, if we imagine having three consumers C1, C2, C3, and a stream that contains the messages 1, 2, 3, 4, 5, 6, 7 then what we want is to serve the messages like in the following diagram:
 
@@ -512,12 +512,16 @@ The output shows information about how the stream is encoded internally, and als
    4) (integer) 2
    5) pending
    6) (integer) 2
+   7) last-delivered-id
+   8) "1588152489012-0"
 2) 1) name
    2) "some-other-group"
    3) consumers
    4) (integer) 1
    5) pending
    6) (integer) 0
+   7) last-delivered-id
+   8) "1588152498034-0"
 ```
 
 As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported, and allows the command to report more information in the future by adding more fields without breaking the compatibility with older clients. Other commands that must be more bandwidth efficient instead, like **XPENDING**, just report the information without the field names.
@@ -636,13 +640,13 @@ So we have `-`, `+`, `$`, `>` and `*`, and all have a different meaning, and mos
 
 ## Persistence, replication and message safety
 
-A Stream, like any other Redis data structure, is asynchronously replicated to slaves and persisted into AOF and RDB files. However what may not be so obvious is that also consumer groups full state is propagated to AOF, RDB and slaves, so if a message is pending in the master, also the slave will have the same information. Similarly, after a restart, the AOF will restore the consumer groups state.
+A Stream, like any other Redis data structure, is asynchronously replicated to replicas and persisted into AOF and RDB files. However what may not be so obvious is that also consumer groups full state is propagated to AOF, RDB and replicas, so if a message is pending in the master, also the replica will have the same information. Similarly, after a restart, the AOF will restore the consumer groups state.
 
 However note that Redis streams and consumer groups are persisted and replicated using the Redis default replication, so:
 
 * AOF must be used with a strong fsync policy if persistence of messages is important in your application.
-* By default the asynchronous replication will not guarantee that **XADD** commands or consumer groups state changes are replicated: after a failover something can be missing depending on the ability of slaves to receive the data from the master.
-* The **WAIT** command may be used in order to force the propagation of the changes to a set of slaves. However note that while this makes it very unlikely that data is lost, the Redis failover process as operated by Sentinel or Redis Cluster performs only a *best effort* check to failover to the slave which is the most updated, and under certain specific failures may promote a slave that lacks some data.
+* By default the asynchronous replication will not guarantee that **XADD** commands or consumer groups state changes are replicated: after a failover something can be missing depending on the ability of replicas to receive the data from the master.
+* The **WAIT** command may be used in order to force the propagation of the changes to a set of replicas. However note that while this makes it very unlikely that data is lost, the Redis failover process as operated by Sentinel or Redis Cluster performs only a *best effort* check to failover to the replica which is the most updated, and under certain specific failures may promote a replica that lacks some data.
 
 So when designing an application using Redis streams and consumer groups, make sure to understand the semantical properties your application should have during failures, and configure things accordingly, evaluating if it is safe enough for your use case.
 

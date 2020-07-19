@@ -85,6 +85,13 @@
     "authors": ["stefano_arnone"]
   },
   {
+    "name": "AnotherRedisDesktopManager",
+    "language": "Javascript",
+    "repository": "https://github.com/qishibo/AnotherRedisDesktopManager",
+    "description": "🚀🚀🚀A faster, better and more stable redis desktop manager. What's more, it won't crash when loading a large number of keys.",
+    "authors": ["qii404"]
+  },
+  {
     "name": "Rdb-parser",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/rdb-parser",
@@ -655,7 +662,7 @@
     "name": "p3x-redis-ui",
     "language": "javascript",
     "repository": "https://github.com/patrikx3/redis-ui/",
-    "url":"https://pages.corifeus.com/redis-ui/",
+    "url":"https://www.corifeus.com/redis-ui/",
     "description": "📡 P3X Redis UI that uses Socket.IO, AngularJs Material and IORedis with statistics, console - terminal, tree, dark mode, internationalization, multiple connections, web and desktop by Electron. Works as an app without Node.JS GUI or with the latest Node.Js version. Can test it at https://p3x.redis.patrikx3.com/.",
     "authors": ["patrikx3"]
   },
@@ -701,5 +708,36 @@
     "repository": "https://github.com/tessus/redis-stats",
     "description": "A lightweight dashboard to show statistics about your Redis server. Flushing databases is available when set in config.",
     "authors": []
+  },
+   {
+    "name": "Lua Redis Admin",
+    "language": "Lua",
+    "repository": "https://github.com/lifeblood/lua-redis-admin",
+    "description": "Redis client tool, Redis web client, Redis web UI, openresty lor Lua ",
+    "authors": ["nbdanny"]
+  },
+   {
+    "name": "RedisWebManager",
+    "language": "Ruby",
+    "repository": "https://github.com/OpenGems/redis_web_manager",
+    "description": "Web interface that allows you to manage easily your Redis instance (see keys, memory used, connected client, etc...).",
+    "authors": []
+  },
+
+  {
+    "name": "Reliable Message Delivery",
+    "language": "C#",
+    "repository": "https://github.com/Oriflame/RedisMessaging.ReliableDelivery",
+    "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
+    "authors": ["PetrKozelek" , "OriflameSoftware"]
+  },
+
+  {
+    "name": "River",
+    "language": "C++, Python",
+    "repository": "https://github.com/pbotros/river",
+    "description": "A structured streaming framework built atop Redis Streams with built-in support for persistence and indefinitely long streams.",
+    "authors": []
   }
+
 ]

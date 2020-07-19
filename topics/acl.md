@@ -176,7 +176,7 @@ Now the user can do something, but will refuse to do other things:
     > GET cached:1234
     (nil)
     > SET cached:1234 zap
-    (error) NOPERM this user has no permissions to run the 'set' command or its subcommnad
+    (error) NOPERM this user has no permissions to run the 'set' command or its subcommand
 
 Things are working as expected. In order to inspect the configuration of the
 user alice (remember that user names are case sensitive), it is possible to
@@ -248,9 +248,9 @@ all the commands that are tagged as dangerous inside the Redis command table.
 Please note that command categories **never include modules commands** with
 the exception of +@all. If you say +@all all the commands can be executed by
 the user, even future commands loaded via the modules system. However if you
-use the ACL rule +@readonly or any other, the modules commands are always
+use the ACL rule +@read or any other, the modules commands are always
 excluded. This is very important because you should just trust the Redis
-internal command table for sanity. Modules my expose dangerous things and in
+internal command table for sanity. Modules may expose dangerous things and in
 the case of an ACL that is just additive, that is, in the form of `+@all -...`
 You should be absolutely sure that you'll never include what you did not mean
 to.
@@ -301,7 +301,7 @@ command is part of the *geo* category:
     8) "georadius"
 
 Note that commands may be part of multiple categories, so for instance an
-ACL rule like `+@geo -@readonly` will result in certain geo commands to be
+ACL rule like `+@geo -@read` will result in certain geo commands to be
 excluded because they are read-only commands.
 
 ## Adding subcommands
@@ -385,10 +385,10 @@ command that generates passwords using the system cryptographic pseudorandom
 generator:
 
     > ACL GENPASS
-    "0e8ad12c1962355a3eb35e0ca686343b"
+    "dd721260bfe1b3d9601e7fbab36de6d04e2e67b0ef1c53de59d45950db0dd3cc"
 
-The command outputs a 16 bytes (128 bit) pseudorandom string converted to a
-32 byte alphanumerical string. This is long enough to avoid attacks and short
+The command outputs a 32 bytes (256 bit) pseudorandom string converted to a
+64 byte alphanumerical string. This is long enough to avoid attacks and short
 enough to be easy to manage, cut & paste, store and so forth. This is what
 you should use in order to generate Redis passwords.
 
@@ -430,6 +430,30 @@ The external ACL file however is more powerful. You can do the following:
 
 Note that `CONFIG REWRITE` does not also trigger `ACL SAVE`: when you use
 an ACL file the configuration and the ACLs are handled separately.
+
+## ACL rules for Sentinel and Replicas
+
+In case you don't want to provide Redis replicas and Redis Sentinel instances
+full access to your Redis instances, the following is the set of commands
+that must be allowed in order for everything to work correctly.
+
+For Sentinel, allow the user to access the following commands both in the master and replica instances:
+
+* AUTH, CLIENT, SUBSCRIBE, SCRIPT, PUBLISH, PING, INFO, MULTI, SLAVEOF, CONFIG, CLIENT, EXEC.
+
+Sentinel does not need to access any key in the database, so the ACL rule would be the following (note: AUTH is not needed since is always allowed):
+
+    ACL setuser sentinel-user >somepassword +client +subscribe +publish +ping +info +multi +slaveof +config +client +exec on
+
+Redis replicas require the following commands to be whitelisted on the master instance:
+
+* PSYNC, REPLCONF, PING
+
+No keys need to be accessed, so this translates to the following rules:
+
+    ACL setuser replica-user >somepassword +psync +replconf +ping on
+
+Note that you don't need to configure the replicas to allow the master to be able to execute any set of commands: the master is always authenticated as the root user from the point of view of replicas.
 
 ## TODO list for this document
 

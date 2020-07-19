@@ -1,4 +1,122 @@
 {
+  "ACL LOAD": {
+    "summary": "Reload the ACLs from the configured ACL file",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL SAVE": {
+    "summary": "Save the current ACL rules in the configured ACL file",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL LIST": {
+    "summary": "List the current ACL rules in ACL config file format",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL USERS": {
+    "summary": "List the username of all the configured ACL rules",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL GETUSER": {
+    "summary": "Get the rules for a specific ACL user",
+    "complexity": "O(N). Where N is the number of password, command and pattern rules that the user has.",
+    "arguments": [
+      {
+        "name": "username",
+        "type": "string"
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL SETUSER": {
+    "summary": "Modify or create the rules for a specific ACL user",
+    "complexity": "O(N). Where N is the number of rules provided.",
+    "arguments": [
+      {
+        "name": "username",
+        "type": "string"
+      },
+      {
+        "name": "rule",
+        "type": "string",
+        "multiple": true,
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL DELUSER": {
+    "summary": "Remove the specified ACL users and the associated rules",
+    "complexity": "O(1) amortized time considering the typical user.",
+    "arguments": [
+      {
+        "name": "username",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL CAT": {
+    "summary": "List the ACL categories or the commands inside a category",
+    "complexity": "O(1) since the categories and commands are a fixed set.",
+    "arguments": [
+      {
+        "name": "categoryname",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL GENPASS": {
+    "summary": "Generate a pseudorandom secure password to use for ACL users",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "bits",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL WHOAMI": {
+    "summary": "Return the name of the user associated to the current connection",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL LOG": {
+    "summary": "List latest events denied because of ACLs in place",
+    "complexity": "O(N) with N being the number of entries shown.",
+    "arguments": [
+      {
+        "name": "count or RESET",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "server"
+  },
   "APPEND": {
     "summary": "Append a value to a key",
     "complexity": "O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.",
@@ -33,6 +151,16 @@
   },
   "BGSAVE": {
     "summary": "Asynchronously save the dataset to disk",
+    "arguments": [
+      {
+        "name": "schedule",
+        "type": "enum",
+        "enum": [
+          "SCHEDULE"
+        ],
+        "optional": true
+      }
+    ],
     "since": "1.0.0",
     "group": "server"
   },
@@ -256,11 +384,27 @@
     "since": "5.0.0",
     "group": "sorted_set"
   },
+  "CLIENT CACHING": {
+    "summary": "Instruct the server about tracking or not keys in the next request",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "mode",
+        "type": "enum",
+        "enum": [
+          "YES",
+          "NO"
+        ]
+      }
+    ],
+    "since": "6.0.0",
+    "group": "connection"
+  },
   "CLIENT ID": {
     "summary": "Returns the client ID for the current connection",
     "complexity": "O(1)",
     "since": "5.0.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
@@ -289,6 +433,12 @@
         "optional": true
       },
       {
+        "command": "USER",
+        "name": "username",
+        "type": "string",
+        "optional": true
+      },
+      {
         "command": "ADDR",
         "name": "ip:port",
         "type": "string",
@@ -302,7 +452,7 @@
       }
     ],
     "since": "2.4.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT LIST": {
     "summary": "Get the list of client connections",
@@ -321,13 +471,19 @@
       }
     ],
     "since": "2.4.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT GETNAME": {
     "summary": "Get the current connection name",
     "complexity": "O(1)",
     "since": "2.6.9",
-    "group": "server"
+    "group": "connection"
+  },
+  "CLIENT GETREDIR": {
+    "summary": "Get tracking notifications redirection client ID if any",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "connection"
   },
   "CLIENT PAUSE": {
     "summary": "Stop processing commands from clients for some time",
@@ -339,7 +495,7 @@
       }
     ],
     "since": "2.9.50",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT REPLY": {
     "summary": "Instruct the server whether to reply to commands",
@@ -355,8 +511,8 @@
         ]
       }
     ],
-    "since": "3.2",
-    "group": "server"
+    "since": "3.2.0",
+    "group": "connection"
   },
   "CLIENT SETNAME": {
     "summary": "Set the current connection name",
@@ -368,7 +524,68 @@
         "type": "string"
       }
     ],
-    "group": "server"
+    "group": "connection"
+  },
+  "CLIENT TRACKING": {
+    "summary": "Enable or disable server assisted client side caching support",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "status",
+        "type": "enum",
+        "enum": [
+          "ON",
+          "OFF"
+        ]
+      },
+      {
+        "command": "REDIRECT",
+        "name": "client-id",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "PREFIX",
+        "name": "prefix",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "BCAST",
+        "type": "enum",
+        "enum": [
+          "BCAST"
+        ],
+        "optional": true
+      },
+      {
+        "name": "OPTIN",
+        "type": "enum",
+        "enum": [
+          "OPTIN"
+        ],
+        "optional": true
+      },
+      {
+        "name": "OPTOUT",
+        "type": "enum",
+        "enum": [
+          "OPTOUT"
+        ],
+        "optional": true
+      },
+      {
+        "name": "NOLOOP",
+        "type": "enum",
+        "enum": [
+          "NOLOOP"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "connection"
   },
   "CLIENT UNBLOCK": {
     "summary": "Unblock a client blocked in a blocking command from a different connection",
@@ -389,7 +606,7 @@
       }
     ],
     "since": "5.0.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLUSTER ADDSLOTS": {
     "summary": "Assign new hash slots to receiving node",
@@ -1275,6 +1492,36 @@
     "since": "2.0.0",
     "group": "hash"
   },
+  "HELLO": {
+    "summary": "switch Redis protocol",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "protover",
+        "type": "integer"
+      },
+      {
+        "command": "AUTH",
+        "name": [
+          "username",
+          "password"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "SETNAME",
+        "name": "clientname",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "connection"
+  },
   "HEXISTS": {
     "summary": "Determine if a hash field exists",
     "complexity": "O(1)",
@@ -1646,6 +1893,40 @@
       }
     ],
     "since": "1.0.0",
+    "group": "list"
+  },
+  "LPOS": {
+    "summary": "Return the index of matching elements on a list",
+    "complexity": "O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "element",
+        "type": "string"
+      },
+      {
+        "command": "RANK",
+        "name": "rank",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "num-matches",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "MAXLEN",
+        "name": "len",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "6.0.6",
     "group": "list"
   },
   "LPUSH": {
@@ -2525,6 +2806,14 @@
           "XX"
         ],
         "optional": true
+      },
+      {
+        "name": "keepttl",
+        "type": "enum",
+        "enum": [
+          "KEEPTTL"
+        ],
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -2857,6 +3146,26 @@
     "since": "1.0.0",
     "group": "set"
   },
+  "STRALGO": {
+    "summary": "Run algorithms (currently LCS) against strings",
+    "complexity": "For LCS O(strlen(s1)*strlen(s2))",
+    "arguments": [
+      {
+        "name": "algorithm",
+        "type": "enum",
+        "enum": [
+          "LCS"
+        ]
+      },
+      {
+        "name": "algo-specific-argument",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "string"
+  },
   "STRLEN": {
     "summary": "Get the length of the value stored in a key",
     "complexity": "O(1)",
@@ -2925,7 +3234,7 @@
       }
     ],
     "since": "4.0.0",
-    "group": "connection"
+    "group": "server"
   },
   "SYNC": {
     "summary": "Internal command used for replication",
@@ -4211,7 +4520,8 @@
       {
         "name": "event",
         "type": "string",
-        "optional": true
+        "optional": true,
+        "multiple": true
       }
     ],
     "since": "2.8.13",

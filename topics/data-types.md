@@ -53,7 +53,7 @@ You can do many interesting things with Redis Lists, for instance you can:
 
 * Model a timeline in a social network, using [LPUSH](/commands/lpush) in order to add new elements in the user time line, and using [LRANGE](/commands/lrange) in order to retrieve a few of recently inserted items.
 * You can use [LPUSH](/commands/lpush) together with [LTRIM](/commands/ltrim) to create a list that never exceeds a given number of elements, but just remembers the latest N elements.
-* Lists can be used as a message passing primitive, See for instance the well known [Resque](https://github.com/defunkt/resque) Ruby library for creating background jobs.
+* Lists can be used as a message passing primitive, See for instance the well known [Resque](https://github.com/resque/resque) Ruby library for creating background jobs.
 * You can do a lot more with lists, this data type supports a number of commands, including blocking commands like [BLPOP](/commands/blpop).
 
 Please check all the [available commands operating on lists](/commands#list) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
@@ -89,7 +89,6 @@ Hashes
 
 Redis Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (e.g. A User with a number of fields like name, surname, age, and so forth):
 
-    @cli
     HMSET user:1000 username antirez password P1pp0 age 34
     HGETALL user:1000
     HSET user:1000 password 12345
@@ -129,9 +128,9 @@ that are really hard to model in other kind of databases.
 
 With Sorted Sets you can:
 
-* Take a leader board in a massive online game, where every time a new score
+* Take a leaderboard in a massive online game, where every time a new score
 is submitted you update it using [ZADD](/commands/zadd). You can easily
-take the top users using [ZRANGE](/commands/zrange), you can also, given an
+take the top users using [ZRANGE](/commands/zrange), you can also, given a
 user name, return its rank in the listing using [ZRANK](/commands/zrank).
 Using ZRANK and ZRANGE together you can show users with a score similar to
 a given user. All very *quickly*.

@@ -558,7 +558,7 @@ However the algorithm is adaptive and will loop if it finds more than 25% of key
 
 Basically this means that **if the database has many many keys expiring in the same second, and these make up at least 25% of the current population of keys with an expire set**, Redis can block in order to get the percentage of keys already expired below 25%.
 
-This approach is needed in order to avoid using too much memory for keys that area already expired, and usually is absolutely harmless since it's strange that a big number of keys are going to expire in the same exact second, but it is not impossible that the user used `EXPIREAT` extensively with the same Unix time.
+This approach is needed in order to avoid using too much memory for keys that are already expired, and usually is absolutely harmless since it's strange that a big number of keys are going to expire in the same exact second, but it is not impossible that the user used `EXPIREAT` extensively with the same Unix time.
 
 In short: be aware that many keys expiring at the same moment can be a source of latency.
 
