@@ -14,11 +14,13 @@ The optional parameter can be used to select a specific section of information:
 *   `cluster`: Redis Cluster section
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
+*   `modules`: Module related sections
 
 It can also take the following values:
 
-*   `all`: Return all sections
+*   `all`: Return all sections (excluding module generated ones)
 *   `default`: Return only the default set of sections
+*   `everything`: Includes `all` and `modules`
 
 When no parameter is provided, the `default` option is assumed.
 
@@ -322,3 +324,5 @@ For each database, the following line is added:
 [hcgcpgp]: http://code.google.com/p/google-perftools/
 
 **A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.
+
+**Modules generated sections**: Starting with Redis 6, modules can inject their info into the `INFO` command, these are excluded by default even when the `all` argument is provided (it will include a list of loaded modules but not their generated info fields). To get these you must use either the `modules` argument or `everything`.,
