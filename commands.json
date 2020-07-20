@@ -2790,12 +2790,15 @@
         "type": "string"
       },
       {
-        "name": "expiration",
-        "type": "enum",
-        "enum": [
-          "EX seconds",
-          "PX milliseconds"
-        ],
+        "command": "EX",
+        "name": "seconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "PX",
+        "name": "milliseconds",
+        "type": "integer",
         "optional": true
       },
       {

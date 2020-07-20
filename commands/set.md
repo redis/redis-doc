@@ -12,7 +12,10 @@ The `SET` command supports a set of options that modify its behavior:
 * `XX` -- Only set the key if it already exist.
 * `KEEPTTL` -- Retain the time to live associated with the key.
 
-Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it is possible that in future versions of Redis these three commands will be deprecated and finally removed.
+Note:
+
+* Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it is possible that in future versions of Redis these three commands will be deprecated and finally removed.
+* `EX` and `PX` should not be used together.
 
 @return
 
