@@ -101,7 +101,7 @@ Updating simple sorted set indexes
 Often we index things which change over time. In the above
 example, the age of the user changes every year. In such a case it would
 make sense to use the birth date as index instead of the age itself,
-but there are other cases where we simple want some field to change from
+but there are other cases where we simply want some field to change from
 time to time, and the index to reflect this change.
 
 The `ZADD` command makes updating simple indexes a very trivial operation
