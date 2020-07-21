@@ -101,7 +101,7 @@ Different commands generate different kind of events according to the following 
 * `MOVE` generates two events, a `move_from` event for the source key, and a `move_to` event for the destination key.
 * `MIGRATE` generates a `del` event if the source key is removed.
 * `RESTORE` generates a `restore` event for the key.
-* `EXPIRE` generates an `expire` event when an expire is set to the key, or an `expired` event every time a positive timeout set on a key results into the key being deleted (see `EXPIRE` documentation for more info).
+* `EXPIRE` and all its variants (`PEXPIRE`, `EXPIREAT`, `PEXPIREAT`) generate an `expire` event when called with a positive timeout (or a future timestamp). Note that when these commands are called with a negative timeout value or timestamp in the past, the key is deleted and only a `del` event is generated instead.
 * `SORT` generates a `sortstore` event when `STORE` is used to set a new key. If the resulting list is empty, and the `STORE` option is used, and there was already an existing key with that name, the result is that the key is deleted, so a `del` event is generated in this condition.
 * `SET` and all its variants (`SETEX`, `SETNX`,`GETSET`) generate `set` events. However `SETEX` will also generate an `expire` events.
 * `MSET` generates a separate `set` event for every key.
