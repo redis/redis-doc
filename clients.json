@@ -775,7 +775,17 @@
     "authors": [],
     "active": true
   },
-
+  
+  {
+    "name": "xredis",
+    "language": "Node.js",
+    "repository": "https://github.com/razaellahi/xredis",
+    "description": "Redis client with redis ACL features",
+    "authors": ["RazaEllai"],
+    "recommended": true,
+    "active": true
+  },
+  
   {
     "name": "node_redis",
     "language": "Node.js",
