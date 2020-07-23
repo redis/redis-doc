@@ -323,7 +323,7 @@ were in the middle of it:
 This is usually not an issue when using the CLI in interactive mode for
 testing, but you should be aware of this limitation.
 
-## Editing, history and completion
+## Editing, history, completion and hints
 
 Because `redis-cli` uses the
 [linenoise line editing library](http://github.com/antirez/linenoise), it
@@ -344,6 +344,22 @@ key, like in the following example:
     127.0.0.1:6379> Z<TAB>
     127.0.0.1:6379> ZADD<TAB>
     127.0.0.1:6379> ZCARD<TAB>
+
+Once you've entered a valid command name at the prompt, its syntax will be
+displayed by the CLI by default. The default syntax hints display can be
+controlled via the CLI's preferences.
+
+## Preferences
+
+The CLI's behavior can be customized to your preferences. Once started, the CLI
+loads the preferences from a file named `.redisclirc` in the home directory of
+the user. Preferences can also be set during runtime.
+
+To set a preference, either via file or in runtime, use the the special `:set`
+command. The following preferences can be used:
+
+* `:set hints` - enables syntax hints
+* `:set nohints` - disables syntax hints
 
 ## Running the same command N times
 
