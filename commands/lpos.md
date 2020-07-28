@@ -47,7 +47,7 @@ We can combine `COUNT` and `RANK`, so that `COUNT` will try to return up to the 
 When `COUNT` is used, it is possible to specify 0 as the number of matches, as a way to tell the command we want all the matches found returned as an array of indexes. This is better than giving a very large `COUNT` option because it is more general.
 
 ```
-> LPOS mylist COUNT 0
+> LPOS mylist c COUNT 0
 [2,6,7]
 ```
 
