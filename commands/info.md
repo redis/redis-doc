@@ -81,6 +81,7 @@ Here is the meaning of all fields in the **clients** section:
      `BRPOP`, `BRPOPLPUSH`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
+*    `io_threads_active`: Flag indicating if I/O threads are active
 
 Here is the meaning of all fields in the **memory** section:
 
@@ -241,7 +242,11 @@ Here is the meaning of all fields in the **stats** section:
 *   `tracking_total_prefixes`: Number of tracked prefixes in server's prefix table
     (only applicable for broadcast mode)
 *   `unexpected_error_replies`: Number of unexpected error replies, that are types
-    of errors from an AOF load or replication 
+    of errors from an AOF load or replication
+*    `total_reads_processed`: Total number of read events processed
+*    `total_writes_processed`: Total number of write events processed
+*    `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
+*    `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
 
 Here is the meaning of all fields in the **replication** section:
 
