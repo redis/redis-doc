@@ -723,6 +723,16 @@
   },
 
   {
+    "name": "Rediska",
+    "language": "C#",
+    "url": "https://github.com/pepelev/Rediska",
+    "description": "Rediska is a Redis client for .NET with a focus on flexibility and extensibility.",
+    "authors": ["pepelev"],
+    "recommended": false,
+    "active": true
+  },
+
+  {
     "name": "DartRedisClient",
     "language": "Dart",
     "url": "https://github.com/dartist/redis_client",
