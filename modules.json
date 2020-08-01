@@ -328,5 +328,15 @@
 		  "starkdg"
 	  ],
 	  "stars":1
-	}
+	},
+  {
+    "name": "redis_hnsw",
+    "license": "MIT",
+    "repository": "https://github.com/zhao-lang/redis_hnsw",
+    "description": "Redis module for Hierarchical Navigable Small World (HNSW) approxmiate nearest neighbor search",
+    "authors": [
+      "zhao-lang"
+    ],
+    "stars":0
+  }	
 ]
