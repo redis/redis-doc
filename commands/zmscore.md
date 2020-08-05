@@ -1,6 +1,6 @@
 Returns the scores associated with the specified `members` in the sorted set stored at `key`.
 
-For every `member` that does not exist in the hash, a `nil` value is returned.
+For every `member` that does not exist in the sorted set, a `nil` value is returned.
 
 @return
 
