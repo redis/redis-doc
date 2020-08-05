@@ -2957,6 +2957,23 @@
     "since": "1.0.0",
     "group": "set"
   },
+  "SMISMEMBER": {
+    "summary": "Returns the membership associated with the given elements for a set",
+    "complexity": "O(N) where N is the number of elements being checked for membership",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "set"
+  },
   "SLAVEOF": {
     "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
     "arguments": [
