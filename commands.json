@@ -3881,7 +3881,7 @@
   },
   "ZMSCORE": {
     "summary": "Get the score associated with the given members in a sorted set",
-    "complexity": "O(N) where N is the number of fields being requested.",
+    "complexity": "O(N) where N is the number of members being requested.",
     "arguments": [
       {
         "name": "key",
