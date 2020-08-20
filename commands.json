@@ -2794,7 +2794,8 @@
         "type": "enum",
         "enum": [
           "EX seconds",
-          "PX milliseconds"
+          "PX milliseconds",
+          "KEEPTTL"
         ],
         "optional": true
       },
@@ -2804,14 +2805,6 @@
         "enum": [
           "NX",
           "XX"
-        ],
-        "optional": true
-      },
-      {
-        "name": "keepttl",
-        "type": "enum",
-        "enum": [
-          "KEEPTTL"
         ],
         "optional": true
       }
