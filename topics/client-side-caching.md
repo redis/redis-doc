@@ -195,7 +195,7 @@ command is tracked by the server, because it *could be cached*.
 This has the obvious advantage of not requiring the client to tell the server
 what it is caching. Moreover in many clients implementations, this is what
 you want, because a good solution could be to just cache everything that is not
-already cached, using a first-in last-out approach: we may want to cache a
+already cached, using a first-in first-out approach: we may want to cache a
 fixed number of objects, every new data we retrieve, we could cache it,
 discarding the oldest cached object. More advanced implementations may instead
 drop the least used object or alike.
