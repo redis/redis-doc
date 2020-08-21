@@ -1855,5 +1855,14 @@
     "authors": [],
     "recommended": true,
     "active": true
+  },
+
+  {
+    "name": "Redis Connector for Dell Boomi",
+    "language": "Boomi",
+    "repository": "https://github.com/zachary-samsel/boomi-redis-connector",
+    "description": "A custom connector for Dell Boomi that utilizes the lettuce.io Java client to add Redis client support to the Dell Boomi iPaaS.",
+    "authors": [],
+    "active": true
   }
 ]
