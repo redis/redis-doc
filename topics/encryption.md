@@ -117,7 +117,7 @@ versions, ciphers and cipher suites, etc. Please consult the self documented
 Performance Considerations
 ---
 
-TLS involves another layer in the stack, that brings additional overhead like writing/reading bytes from ssl connetion, encrypt/decrypt and integrity check, and consequently a drop in the achievable throughput per Redis instance ([More on this](https://github.com/redis/redis/issues/7595)). 
+TLS adds a layer to the communication stack with overheads due to writing/reading to/from an SSL connection, encryption/decryption and integrity checks. Consequently, using TLS results in a decrease of the achievable throughput per Redis instance (for more information see refer to this [discussion](https://github.com/redis/redis/issues/7595)). 
 
 Limitations
 ---
