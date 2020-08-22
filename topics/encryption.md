@@ -114,6 +114,11 @@ Additional TLS configuration is available to control the choice of TLS protocol
 versions, ciphers and cipher suites, etc. Please consult the self documented
 `redis.conf` for more information.
 
+Performance Considerations
+---
+
+TLS involves another layer in the stack, that brings additional overhead like writing/reading bytes from ssl connetion, encrypt/decrypt and integrity check, and consequently a drop in the achievable throughput per Redis instance ([More on this](https://github.com/redis/redis/issues/7595)). 
+
 Limitations
 ---
 
