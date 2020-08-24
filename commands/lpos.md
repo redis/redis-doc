@@ -9,22 +9,22 @@ looking for the first match of "element". If the element is found, its index (th
 ```
 
 The optional arguments and options can modify the command's behavior.
-The `FIRST` option specifies the "rank" of the first element to return, in case there are multiple matches. A rank of 1 means to return the first match, 2 to return the second match, and so forth.
+The `RANK` option specifies the "rank" of the first element to return, in case there are multiple matches. A rank of 1 means to return the first match, 2 to return the second match, and so forth.
 
 For instance, in the above example the element "c" is present multiple times, if I want the index of the second match, I'll write:
 
 ```
-> LPOS mylist c FIRST 2
+> LPOS mylist c RANK 2
 6
 ```
 
 That is, the second occurrence of "c" is at position 6.
-A negative "rank" as the `FIRST` argument tells `LPOS` to invert the search direction, starting from the tail to the head.
+A negative "rank" as the `RANK` argument tells `LPOS` to invert the search direction, starting from the tail to the head.
 
 So, we want to say, give me the first element starting from the tail of the list:
 
 ```
-> LPOS mylist c -1
+> LPOS mylist c RANK -1
 7
 ```
 
@@ -37,17 +37,17 @@ Sometimes we want to return not just the Nth matching element, but the position 
 [2,6]
 ```
 
-We can combine `COUNT` and `FIRST`, so that `COUNT` will try to return up to the specified number of matches, but starting from the Nth match, as specified by the `FIRST` option.
+We can combine `COUNT` and `RANK`, so that `COUNT` will try to return up to the specified number of matches, but starting from the Nth match, as specified by the `RANK` option.
 
 ```
-> LPOS mylist c FIRST -1 COUNT 2
+> LPOS mylist c RANK -1 COUNT 2
 [7,6]
 ```
 
 When `COUNT` is used, it is possible to specify 0 as the number of matches, as a way to tell the command we want all the matches found returned as an array of indexes. This is better than giving a very large `COUNT` option because it is more general.
 
 ```
-> LPOS mylist COUNT 0
+> LPOS mylist c COUNT 0
 [2,6,7]
 ```
 
@@ -64,5 +64,5 @@ The command returns the integer representing the matching element, or null if th
 ```cli
 RPUSH mylist a b c d 1 2 3 4 3 3 3
 LPOS mylist 3
-LPOS mylist 3 COUNT 0 FIRST 2
+LPOS mylist 3 COUNT 0 RANK 2
 ```

@@ -9,7 +9,7 @@ Feature overview
 Keyspace notifications allow clients to subscribe to Pub/Sub channels in order
 to receive events affecting the Redis data set in some way.
 
-Examples of the events that are possible to receive are the following:
+Examples of events that can be received are:
 
 * All the commands affecting a given key.
 * All the keys receiving an LPUSH operation.
@@ -80,7 +80,8 @@ following table:
     t     Stream commands
     x     Expired events (events generated every time a key expires)
     e     Evicted events (events generated when a key is evicted for maxmemory)
-    A     Alias for g$lshztxe, so that the "AKE" string means all the events.
+    m     Key miss events (events generated when a key that doesn't exist is accessed)
+    A     Alias for "g$lshztxe", so that the "AKE" string means all the events except "m".
 
 At least `K` or `E` should be present in the string, otherwise no event
 will be delivered regardless of the rest of the string.
@@ -100,7 +101,7 @@ Different commands generate different kind of events according to the following 
 * `MOVE` generates two events, a `move_from` event for the source key, and a `move_to` event for the destination key.
 * `MIGRATE` generates a `del` event if the source key is removed.
 * `RESTORE` generates a `restore` event for the key.
-* `EXPIRE` generates an `expire` event when an expire is set to the key, or an `expired` event every time a positive timeout set on a key results into the key being deleted (see `EXPIRE` documentation for more info).
+* `EXPIRE` and all its variants (`PEXPIRE`, `EXPIREAT`, `PEXPIREAT`) generate an `expire` event when called with a positive timeout (or a future timestamp). Note that when these commands are called with a negative timeout value or timestamp in the past, the key is deleted and only a `del` event is generated instead.
 * `SORT` generates a `sortstore` event when `STORE` is used to set a new key. If the resulting list is empty, and the `STORE` option is used, and there was already an existing key with that name, the result is that the key is deleted, so a `del` event is generated in this condition.
 * `SET` and all its variants (`SETEX`, `SETNX`,`GETSET`) generate `set` events. However `SETEX` will also generate an `expire` events.
 * `MSET` generates a separate `set` event for every key.
@@ -167,10 +168,20 @@ Timing of expired events
 Keys with a time to live associated are expired by Redis in two ways:
 
 * When the key is accessed by a command and is found to be expired.
-* Via a background system that looks for expired keys in background, incrementally, in order to be able to also collect keys that are never accessed.
+* Via a background system that looks for expired keys in the background, incrementally, in order to be able to also collect keys that are never accessed.
 
 The `expired` events are generated when a key is accessed and is found to be expired by one of the above systems, as a result there are no guarantees that the Redis server will be able to generate the `expired` event at the time the key time to live reaches the value of zero.
 
 If no command targets the key constantly, and there are many keys with a TTL associated, there can be a significant delay between the time the key time to live drops to zero, and the time the `expired` event is generated.
 
 Basically `expired` events **are generated when the Redis server deletes the key** and not when the time to live theoretically reaches the value of zero.
+
+Events in a cluster
+---
+
+Every node of a Redis cluster generates events about its own subset of the keyspace as described above. However, unlike regular Pub/Sub communication in a cluster, events' notifications **are not** broadcasted to all nodes. Put differently, keyspace events are node-specific. This means that to receive all keyspace events of a cluster, clients need to subscribe to each of the nodes.
+
+@history
+
+*   `>= 6.0`: Key miss events were added.
+

@@ -149,6 +149,24 @@ Zooming into the example command implementation, we can find another call:
 This function returns an integer to the client that invoked the command,
 exactly like other Redis commands do, like for example `INCR` or `SCARD`.
 
+# Module cleanup
+
+In most cases, there is no need for special cleanup.
+When a module is unloaded, Redis will automatically unregister commands and
+unsubscribe from notifications.
+However in the case where a module contains some persistent memory or
+configuration, a module may include an optional `RedisModule_OnUnload`
+function.
+If a module provides this function, it will be invoked during the module unload
+process.
+The following is the function prototype:
+
+    int RedisModule_OnUnload(RedisModuleCtx *ctx);
+
+The `OnUnload` function may prevent module unloading by returning
+`REDISMODULE_ERR`.
+Otherwise, `REDISMODULE_OK` should be returned.
+
 # Setup and dependencies of a Redis module
 
 Redis modules don't depend on Redis or some other library, nor they

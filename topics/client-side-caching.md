@@ -195,7 +195,7 @@ command is tracked by the server, because it *could be cached*.
 This has the obvious advantage of not requiring the client to tell the server
 what it is caching. Moreover in many clients implementations, this is what
 you want, because a good solution could be to just cache everything that is not
-already cached, using a first-in last-out approach: we may want to cache a
+already cached, using a first-in first-out approach: we may want to cache a
 fixed number of objects, every new data we retrieve, we could cache it,
 discarding the oldest cached object. More advanced implementations may instead
 drop the least used object or alike.
@@ -212,8 +212,6 @@ So there is an alternative described in the next section.
 
 ## Opt-in caching
 
-(Note: this part is a work in progress and is yet not implemented inside Redis)
-
 Clients implementations may want to cache only selected keys, and communicate
 explicitly to the server what they'll cache and what not: this will require
 more bandwidth when caching new objects, but at the same time will reduce
@@ -226,15 +224,8 @@ In order to do so, tracking must be enabled using the OPTIN option:
 
 In this mode, by default keys mentioned in read queries *are not supposed to be cached*, instead when a client wants to cache something, it must send a special command immediately before the actual command to retrieve the data:
 
-    CACHING
+    CLIENT CACHING YES
     +OK
-    GET foo
-    "bar"
-
-To make the protocol more efficient, the `CACHING` command can be sent with the
-`NOREPLY` option: in this case it will be totally silent:
-
-    CACHING NOREPLY
     GET foo
     "bar"
 

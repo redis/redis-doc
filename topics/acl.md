@@ -248,7 +248,7 @@ all the commands that are tagged as dangerous inside the Redis command table.
 Please note that command categories **never include modules commands** with
 the exception of +@all. If you say +@all all the commands can be executed by
 the user, even future commands loaded via the modules system. However if you
-use the ACL rule +@readonly or any other, the modules commands are always
+use the ACL rule +@read or any other, the modules commands are always
 excluded. This is very important because you should just trust the Redis
 internal command table for sanity. Modules may expose dangerous things and in
 the case of an ACL that is just additive, that is, in the form of `+@all -...`
@@ -301,7 +301,7 @@ command is part of the *geo* category:
     8) "georadius"
 
 Note that commands may be part of multiple categories, so for instance an
-ACL rule like `+@geo -@readonly` will result in certain geo commands to be
+ACL rule like `+@geo -@read` will result in certain geo commands to be
 excluded because they are read-only commands.
 
 ## Adding subcommands
