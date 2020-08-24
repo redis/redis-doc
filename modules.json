@@ -320,20 +320,16 @@
     "stars": 0
   },
 
-	{ "name": "Redis-AudioScout",
-	  "license": "pHash Source Available License",
-	  "repository": "https://github.com/starkdg/Redis-AudioScout",
-	  "description": "Redis module for Audio Track Recognition",
-	  "authors": [
-		  "starkdg"
-	  ],
-	  "stars":1
-<<<<<<< HEAD
-	}
-=======
-	},
-  {
-    "name": "redis_hnsw",
+  { "name": "Redis-AudioScout",
+	"license": "pHash Source Available License",
+	"repository": "https://github.com/starkdg/Redis-AudioScout",
+	"description": "Redis module for Audio Track Recognition",
+	"authors": [
+		"starkdg"
+	],
+	"stars":1
+  },
+  { "name": "redis_hnsw",
     "license": "MIT",
     "repository": "https://github.com/zhao-lang/redis_hnsw",
     "description": "Redis module for Hierarchical Navigable Small World (HNSW) approxmiate nearest neighbor search",
@@ -341,6 +337,14 @@
       "zhao-lang"
     ],
     "stars":0
-  }	
->>>>>>> upstream/master
+  },
+	{ "name":"Redis-ImageScout",
+	  "license": "pHash Redis Source Available License",
+	  "repository": "https://github.com/starkdg/Redis-ImageScout",
+	  "description": "Redis module for Indexing Image pHash fingerprints",
+	  "authors": [
+		  "starkdg"
+	  ],
+	  "stars": 2
+	}
 ]
