@@ -297,7 +297,7 @@
     "authors": [
       "starkdg"
      ],
-     "stars": 13
+     "stars": 14
     },
   {
     "name": "redismodule-ratelimit",
@@ -338,5 +338,14 @@
       "zhao-lang"
     ],
     "stars":0
-  }	
+  },
+  { "name":"Redis-ImageScout",
+    "license": "pHash Redis Source Available License",
+    "repository": "https://github.com/starkdg/Redis-ImageScout.git",
+    "description": "Redis module for Indexing of pHash Image fingerprints for Near-Duplicate Detection",
+    "authors": [
+		"starkdg"
+	],
+	"stars":2
+  }
 ]
