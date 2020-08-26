@@ -738,6 +738,12 @@
     "repository": "https://github.com/pbotros/river",
     "description": "A structured streaming framework built atop Redis Streams with built-in support for persistence and indefinitely long streams.",
     "authors": []
+  },
+  {
+    "name": "Runnel",
+    "language": "Python",
+    "repository": "https://github.com/mjwestcott/runnel",
+    "description": "Distributed event processing for Python based on Redis Streams",
+    "authors": ["mjwestcott"]
   }
-
 ]
