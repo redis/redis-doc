@@ -177,7 +177,7 @@ are groups of keys to invalidate, we can do that in a single message.
 A very important thing to understand about client side caching used with
 RESP2, and a Pub/Sub connection in order to read the invalidation messages,
 is that using Pub/Sub is entirely a trick **in order to reuse old client
-implementations**, but actually the message is not really sent a channel
+implementations**, but actually the message is not really sent to a channel
 and received by all the clients subscribed to it. Only the connection we
 specified in the `REDIRECT` argument of the `CLIENT` command will actually
 receive the Pub/Sub message, making the feature a lot more scalable.
@@ -242,7 +242,7 @@ point of view of a different tradeoff, does not consume any memory on the
 server side, but instead sends more invalidation messages to clients.
 In this mode we have the following main behaviors:
 
-* Clients enable client side caching using the `BCAST` option, specifying one or more prefixes using the `PREFIX` option. For instance: `CLIENT TRACKING on REDIRECT 10 BCAST PREFIX object: PREFIX user:`. If no prefix is specified at all, the prefix is assumed to be the empty string, so the client will receive invalidation messages for every key that gets modified. Instead if one or more prefixes are used, only keys matching the one of the specified prefixes will be send in the invalidation messages.
+* Clients enable client side caching using the `BCAST` option, specifying one or more prefixes using the `PREFIX` option. For instance: `CLIENT TRACKING on REDIRECT 10 BCAST PREFIX object: PREFIX user:`. If no prefix is specified at all, the prefix is assumed to be the empty string, so the client will receive invalidation messages for every key that gets modified. Instead if one or more prefixes are used, only keys matching the one of the specified prefixes will be sent in the invalidation messages.
 * The server does not store anything in the invalidation table. Instead it only uses a different **Prefixes Table**, where each prefix is associated to a list of clients.
 * Every time a key matching any of the prefixes is modified, all the clients subscribed to such prefix, will receive the invalidation message.
 * The server will consume a CPU proportional to the number of registered prefixes. If you have just a few, it is hard to see any difference. With a big number of prefixes the CPU cost can become quite large.
@@ -306,8 +306,8 @@ Clients may want to run an internal statistics about the amount of times
 a given cached key was actually served in a request, to understand in the
 future what is good to cache. In general:
 
-* We don't want to cache much keys that change continuously.
-* We don't want to cache much keys that are requested very rarely.
+* We don't want to cache many keys that change continuously.
+* We don't want to cache many keys that are requested very rarely.
 * We want to cache keys that are requested often and change at a reasonable rate. For an example of key not changing at a reasonable rate, think at a global counter that is continuously `INCR`emented.
 
 However simpler clients may just evict data using some random sampling just
@@ -322,5 +322,5 @@ keys that were not served recently.
 
 ## Limiting the amount of memory used by Redis
 
-Just make sure to configure a suitable value for the maxmimum number of keys remembered by Redis, or alternatively use the BCAST mode that consumes no memory at all in the Redis side. Note that the memory consumed by Redis when BCAST is not used, is proportional both to the number of keys tracked, and the number of clients requested such keys.
+Just make sure to configure a suitable value for the maxmimum number of keys remembered by Redis, or alternatively use the BCAST mode that consumes no memory at all in the Redis side. Note that the memory consumed by Redis when BCAST is not used, is proportional both to the number of keys tracked, and the number of clients requesting such keys.
 
