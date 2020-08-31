@@ -70,7 +70,7 @@ Command flags is @array-reply containing one or more status replies:
 
   - *write* - command may result in modifications
   - *readonly* - command will never modify keys
-  - *denyoom* - reject command if currently OOM (Out Of Memory)
+  - *denyoom* - reject command if currently out of memory
   - *admin* - server admin command
   - *pubsub* - pubsub-related command
   - *noscript* - deny this command from scripts
