@@ -313,7 +313,7 @@ dangerous and non dangerous operations. Many deployments may not be happy to
 provide the ability to execute `CLIENT KILL` to non admin-level users, but may
 still want them to be able to run `CLIENT SETNAME`.
 
-_Note: the new RESP3 `HELLO` command will probably provide a SETNAME option soon, but this is still a good example anyway._
+_Note: the new RESP3 `HELLO` command provide a SETNAME option, wich is a good example to enable only this `SETNAME` subcommand._
 
 In such case I could alter the ACL of a user in the following way:
 
@@ -361,7 +361,7 @@ examples, for the sake of brevity, the long hex string was trimmed:
     7) "keys"
     8) 1) "*"
 
-Also the old command `CONFIG GET requirepass` will, starting with Redis 6,
+Also, starting with Redis 6, the old command `CONFIG GET requirepass` will
 no longer return the clear text password, but instead the hashed password.
 
 Using SHA256 provides the ability to avoid storing the password in clear text
