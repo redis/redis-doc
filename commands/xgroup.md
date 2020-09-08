@@ -41,7 +41,7 @@ and pending messages, so make sure to call this command only when really
 needed.
 
 Consumers in a consumer group are auto-created every time a new consumer
-name is mentioned by some command. But also can be created explicitly
+name is mentioned by some command. They can also be explicitly created
 by using the following form:
 
     XGROUP CREATECONSUMER mystream consumer-group-name myconsumer123
