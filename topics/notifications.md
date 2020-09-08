@@ -136,6 +136,7 @@ Different commands generate different kind of events according to the following 
 * `XADD` generates an `xadd` event, possibly followed an `xtrim` event when used with the `MAXLEN` subcommand.
 * `XDEL` generates a single `xdel` event even when multiple entries are deleted.
 * `XGROUP CREATE` generates an `xgroup-create` event.
+* `XGROUP CREATECONSUMER` generates an `xgroup-createconsumer` event.
 * `XGROUP DELCONSUMER` generates an `xgroup-delconsumer` event.
 * `XGROUP DESTROY` generates an `xgroup-destroy` event.
 * `XGROUP SETID` generates an `xgroup-setid` event.
