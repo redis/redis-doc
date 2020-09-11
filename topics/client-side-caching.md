@@ -104,7 +104,7 @@ This is an example of the protocol:
 
 This looks great superficially, but if you think at 10k connected clients all
 asking for millions of keys in the story of each long living connection, the
-server would end storing too much information. For this reason Redis uses two
+server would end up storing too much information. For this reason Redis uses two
 key ideas in order to limit the amount of memory used server side, and the
 CPU cost of handling the data structures implementing the feature:
 
