@@ -137,6 +137,11 @@
     "summary": "Authenticate to the server",
     "arguments": [
       {
+        "name": "username",
+        "type": "string",
+        "optional": true
+      },
+      {
         "name": "password",
         "type": "string"
       }
