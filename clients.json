@@ -1028,8 +1028,8 @@
   {
     "name": "lettuce",
     "language": "Java",
-    "url": "http://redis.paluch.biz",
-    "repository": "https://github.com/mp911de/lettuce",
+    "url": "https://lettuce.io/",
+    "repository": "https://github.com/lettuce-io/lettuce-core",
     "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
     "authors": ["ar3te", "mp911de"],
     "active": true,
