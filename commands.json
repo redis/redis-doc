@@ -3465,6 +3465,49 @@
     "since": "1.2.0",
     "group": "sorted_set"
   },
+  "ZINTER": {
+    "summary": "Intersect multiple sorted sets",
+    "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
   "ZINTERSTORE": {
     "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
     "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
@@ -3881,6 +3924,49 @@
       }
     ],
     "since": "1.2.0",
+    "group": "sorted_set"
+  },
+  "ZUNION": {
+    "summary": "Add multiple sorted sets",
+    "complexity": "O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
     "group": "sorted_set"
   },
   "ZUNIONSTORE": {
