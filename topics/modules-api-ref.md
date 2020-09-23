@@ -1053,6 +1053,8 @@ The input flags are:
 
     REDISMODULE_ZADD_XX: Element must already exist. Do nothing otherwise.
     REDISMODULE_ZADD_NX: Element must not exist. Do nothing otherwise.
+    REDISMODULE_ZADD_LT: For existing element, only update if the new score is less than the current score.
+    REDISMODULE_ZADD_GT: For existing element, only update if the new score is greater than the current score.
 
 The output flags are:
 
