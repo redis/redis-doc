@@ -10,7 +10,7 @@ members is created, like if the sorted set was empty. If the key exists but does
 
 The score values should be the string representation of a double precision floating point number. `+inf` and `-inf` values are valid values as well.
 
-ZADD options (Redis 3.0.2 or greater)
+ZADD options
 ---
 
 ZADD supports a list of options, specified after the name of the key and before
@@ -18,12 +18,12 @@ the first score argument. Options are:
 
 * **XX**: Only update elements that already exist. Never add elements.
 * **NX**: Don't update already existing elements. Always add new elements.
-* **LT**: Only update existing elements if the new score is **less than** the current score. Will add new elements unless **XX** is used in combination. *(Redis 6.2 or greater)*
-* **GT**: Only update existing elements if the new score is **greater than** the current score. Will add new elements unless **XX** is used in combination. *(Redis 6.2 or greater)*
+* **LT**: Only update existing elements if the new score is **less than** the current score. Adds new elements unless used with **XX**.
+* **GT**: Only update existing elements if the new score is **greater than** the current score. Adds new elements unless used with **XX**.
 * **CH**: Modify the return value from the number of new elements added, to the total number of elements changed (CH is an abbreviation of *changed*). Changed elements are **new elements added** and elements already existing for which **the score was updated**. So elements specified in the command line having the same score as they had in the past are not counted. Note: normally the return value of `ZADD` only counts the number of new elements added.
 * **INCR**: When this option is specified `ZADD` acts like `ZINCRBY`. Only one score-element pair can be specified in this mode.
 
-**GT**, **LT**, and/or **NX** may not be used in combination with one another, though either **GT** or **LT** may be combined with **XX**.
+Note: The **GT**, **LT** and **NX** options are mutually exclusive.
 
 Range of integer scores that can be expressed precisely
 ---
@@ -74,6 +74,8 @@ If the `INCR` option is specified, the return value will be @bulk-string-reply:
 * `>= 2.4`: Accepts multiple elements.
   In Redis versions older than 2.4 it was possible to add or update a single
   member per call.
+* `>= 3.0.2`: Added the `XX`, `NX`, `CH` and `INCR` options.
+* `>=6.2`: Added the `GT` and `LT` options.
 
 @examples
 
