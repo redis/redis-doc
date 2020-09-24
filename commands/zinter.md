@@ -1,5 +1,5 @@
-The difference with `ZINTERSTORE` is that the result is returned rather than 
-stored.
+This command is similar to `ZINTERSTORE`, but instead of storing the resulting
+sorted set, it is returned to the client.
 
 For a description of the `WEIGHTS` and `AGGREGATE` options, see `ZUNIONSTORE`.
 
