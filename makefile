@@ -27,7 +27,7 @@ $(TEXT_FILES): tmp/%.txt: %.md
 
 $(SPELL_FILES): %.spell: %.txt tmp/dict
 	aspell -a --extra-dicts=./tmp/dict 2>/dev/null < $< | \
-		awk -v FILE=$(patsubst tmp/%.spell,%.md,$@) '/^\&/ { print FILE, $$2 }' | \
+		awk -v FILE=$(patsubst tmp/%.spell,%.md,$@) '/^&/ { print FILE, $$2 }' | \
 		sort -f | uniq > $@
 
 tmp/commands:
