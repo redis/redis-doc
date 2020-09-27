@@ -350,7 +350,7 @@ syntax hints. This behavior can be turned on and off via the CLI preferences.
 
 ## Preferences
 
-TThere are two ways to customize the CLI's behavior. The file `.redisclirc`
+There are two ways to customize the CLI's behavior. The file `.redisclirc`
 in your home directory is loaded by the CLI on startup. Preferences can also
 be set during a CLI session, in which case they will last only the the
 duration of the session.
