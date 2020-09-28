@@ -134,7 +134,7 @@ You can configure how many times Redis will
 [`fsync`](http://linux.die.net/man/2/fsync) data on disk. There are
 three options:
 
-* `appendfsync always`: `fsync` every time a new command is appended to the AOF. Very very slow, very safe.
+* `appendfsync always`: `fsync` every time new commands are appended to the AOF. Very very slow, very safe. Note that the commands are apended to the AOF after a batch of commands from multiple clients or a pipeline are executed, so it means a single write and a single fsync (before sending the replies).
 * `appendfsync everysec`: `fsync` every second. Fast enough (in 2.4 likely to be as fast as snapshotting), and you can lose 1 second of data if there is a disaster.
 * `appendfsync no`: Never `fsync`, just put your data in the hands of the Operating System. The faster and less safe method. Normally Linux will flush data every 30 seconds with this configuration, but it's up to the kernel exact tuning.
 
