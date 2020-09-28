@@ -602,13 +602,13 @@ was the cause of bugs.
 
 ## Using Lua scripting in RESP3 mode
 
-Starting with Redis version 6, the server supports two differnent protocols.
+Starting with Redis version 6, the server supports two different protocols.
 One is called RESP2, and is the old protocol: all the new connections to
 the server start in this mode. However clients are able to negotiate the
 new protocol using the `HELLO` command: this way the connection is put
 in RESP3 mode. In this mode certain commands, like for instance `HGETALL`,
 reply with a new data type (the Map data type in this specific case). The
-RESP3 protocol is semantically more powerful, however most scripts are ok
+RESP3 protocol is semantically more powerful, however most scripts are OK
 with using just RESP2.
 
 The Lua engine always assumes to run in RESP2 mode when talking with Redis,
@@ -647,7 +647,7 @@ At this point the new conversions are available, specifically:
 
 * Lua boolean -> Redis boolean true or false. **Note that this is a change compared to the RESP2 mode**, where returning true from Lua returned the number 1 to the Redis client, and returning false used to return NULL.
 * Lua table with a single `map` field set to a field-value Lua table -> Redis map reply.
-* Lua table with a single `set` field set to a field-value Lua table -> Redis set reply, the values are discared and can be anything.
+* Lua table with a single `set` field set to a field-value Lua table -> Redis set reply, the values are discarded and can be anything.
 * Lua table with a single `double` field set to a field-value Lua table -> Redis double reply.
 * Lua null -> Redis RESP3 new null reply (protocol `"_\r\n"`).
 * All the RESP2 old conversions still apply unless specified above.
