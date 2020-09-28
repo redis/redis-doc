@@ -16,7 +16,7 @@ Without consumer groups, just using `XREAD`, all the clients are served with all
 
 Within a consumer group, a given consumer (that is, just a client consuming messages from the stream), has to identify with an unique *consumer name*. Which is just a string.
 
-One of the guarantees of consumer groups is that a given consumer can only see the history of messages that were delivered to it, so a message has just a single owner. However there is a special feature called *message claiming* that allows other consumers to claim messages in case there is a non recoverable failure of some consumer. In order to implement such semantics, consumer groups require explicit acknowledgement of the messages successfully processed by the consumer, via the `XACK` command. This is needed because the stream will track, for each consumer group, who is processing what message.
+One of the guarantees of consumer groups is that a given consumer can only see the history of messages that were delivered to it, so a message has just a single owner. However there is a special feature called *message claiming* that allows other consumers to claim messages in case there is a non recoverable failure of some consumer. In order to implement such semantics, consumer groups require explicit acknowledgment of the messages successfully processed by the consumer, via the `XACK` command. This is needed because the stream will track, for each consumer group, who is processing what message.
 
 This is how to understand if you want to use a consumer group or not:
 
