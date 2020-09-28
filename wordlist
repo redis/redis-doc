@@ -8,7 +8,6 @@ BitOp
 Bitfields
 CAS
 CJSON
-CJSON
 CLI
 CP
 CPUs
@@ -94,7 +93,6 @@ PHP
 PINGs
 POSIX
 PRNG
-PSYNC
 PostgreSQL
 Presharding
 RDB
