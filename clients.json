@@ -1028,8 +1028,8 @@
   {
     "name": "lettuce",
     "language": "Java",
-    "url": "http://redis.paluch.biz",
-    "repository": "https://github.com/mp911de/lettuce",
+    "url": "https://lettuce.io/",
+    "repository": "https://github.com/lettuce-io/lettuce-core",
     "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
     "authors": ["ar3te", "mp911de"],
     "active": true,
@@ -1416,7 +1416,7 @@
     "repository": "https://github.com/ronp001/SwiftRedis",
     "description": "Basic async client for Redis in Swift (iOS)",
     "authors": ["ronp001"],
-    "active": true
+    "active": false
   },
 
  {
@@ -1425,7 +1425,7 @@
     "repository": "https://github.com/Zewo/Redis",
     "description": "Redis client for Swift. OpenSwift C7 Compliant, OS X and Linux compatible.",
     "authors": ["rabc"],
-    "active": true
+    "active": false
   },
 
   {
@@ -1434,7 +1434,7 @@
     "repository": "https://github.com/czechboy0/Redbird",
     "description": "Pure-Swift implementation of a Redis client from the original protocol spec (OS X + Linux compatible)",
     "authors": ["czechboy0"],
-    "active": true
+    "active": false
   },
 
   {
@@ -1455,6 +1455,17 @@
     "active": true
   },
 
+  {
+    "name": "RediStack",
+    "language": "Swift",
+    "repository": "https://gitlab.com/Mordil/RediStack",
+    "description": "Non-blocking, event-driven Swift client for Redis built with SwiftNIO for all official Swift deployment environments.",
+    "authors": ["mordil"],
+    "active": true,
+    "recommended": true,
+    "url": "https://docs.redistack.info"
+  },
+  
   {
     "name": "Rackdis",
     "language": "Racket",

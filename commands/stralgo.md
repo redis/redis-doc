@@ -100,5 +100,5 @@ Finally to also have the match len:
 For the LCS algorithm:
 
 * Without modifiers the string representing the longest common substring is returned.
-* When LEN is given the command returns the length of the longest common substring.
-* When IDX is given the command returns an array with the LCS length and all the ranges in both the strings, start and end offset for each string, where there are matches. When WITHMATCHLEN is given each array representing a match will also have the length of the match (see examples).
+* When `LEN` is given the command returns the length of the longest common substring.
+* When `IDX` is given the command returns an array with the LCS length and all the ranges in both the strings, start and end offset for each string, where there are matches. When `WITHMATCHLEN` is given each array representing a match will also have the length of the match (see examples).
