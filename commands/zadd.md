@@ -18,8 +18,8 @@ the first score argument. Options are:
 
 * **XX**: Only update elements that already exist. Never add elements.
 * **NX**: Don't update already existing elements. Always add new elements.
-* **LT**: Only update existing elements if the new score is **less than** the current score. Adds new elements unless used with **XX**.
-* **GT**: Only update existing elements if the new score is **greater than** the current score. Adds new elements unless used with **XX**.
+* **LT**: Only update existing elements if the new score is **less than** the current score. This flag doesn't prevent adding new elements.
+* **GT**: Only update existing elements if the new score is **greater than** the current score. This flag doesn't prevent adding new elements.
 * **CH**: Modify the return value from the number of new elements added, to the total number of elements changed (CH is an abbreviation of *changed*). Changed elements are **new elements added** and elements already existing for which **the score was updated**. So elements specified in the command line having the same score as they had in the past are not counted. Note: normally the return value of `ZADD` only counts the number of new elements added.
 * **INCR**: When this option is specified `ZADD` acts like `ZINCRBY`. Only one score-element pair can be specified in this mode.
 
