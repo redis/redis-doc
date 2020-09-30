@@ -3400,6 +3400,15 @@
         "optional": true
       },
       {
+        "name": "comparison",
+        "type": "enum",
+        "enum": [
+          "GT",
+          "LT"
+        ],
+        "optional": true
+      },
+      {
         "name": "change",
         "type": "enum",
         "enum": [
