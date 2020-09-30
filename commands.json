@@ -4314,6 +4314,20 @@
         "optional": true
       },
       {
+        "command": "CREATECONSUMER",
+        "name": [
+          "key",
+          "groupname",
+          "consumername"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
+        "optional": true
+      },
+      {
         "command": "DELCONSUMER",
         "name": [
           "key",
