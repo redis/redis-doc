@@ -2818,6 +2818,14 @@
           "XX"
         ],
         "optional": true
+      },
+      {
+        "name": "get",
+        "type": "enum",
+        "enum": [
+          "GET"
+        ],
+        "optional": true
       }
     ],
     "since": "1.0.0",
