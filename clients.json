@@ -600,7 +600,7 @@
     "authors": ["paualarco"],
     "active": true
   },
-  
+
   {
     "name": "laserdisc",
     "language": "Scala",
@@ -785,7 +785,7 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "xredis",
     "language": "Node.js",
@@ -795,7 +795,7 @@
     "recommended": true,
     "active": true
   },
-  
+
   {
     "name": "node_redis",
     "language": "Node.js",
@@ -1465,7 +1465,7 @@
     "recommended": true,
     "url": "https://docs.redistack.info"
   },
-  
+
   {
     "name": "Rackdis",
     "language": "Racket",
@@ -1875,5 +1875,15 @@
     "description": "A custom connector for Dell Boomi that utilizes the lettuce.io Java client to add Redis client support to the Dell Boomi iPaaS.",
     "authors": [],
     "active": true
+  },
+
+  {
+    "name": "Redis library for SWI-Prolog",
+    "language": "Prolog",
+    "repository": "https://github.com/SWI-Prolog/packages-redis",
+    "description": "Prolog redis client that exploits SWI-Prolog's extensions such as strings for compact replies and threads to deal with publish/subscribe.",
+    "authors": ["Jan Wielemaker", "Sean Charles"],
+    "active": true
   }
+
 ]
