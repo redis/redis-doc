@@ -777,7 +777,7 @@ At node creation every Redis Cluster node, both slaves and master nodes, set the
 
 Every time a packet is received from another node, if the epoch of the sender (part of the cluster bus messages header) is greater than the local node epoch, the `currentEpoch` is updated to the sender epoch.
 
-Because of these semantics, eventually all the nodes will agree to the greatest `configEpoch` in the cluster.
+Because of these semantics, eventually all the nodes will agree to the greatest `currentEpoch` in the cluster.
 
 This information is used when the state of the cluster is changed and a node seeks agreement in order to perform some action.
 
