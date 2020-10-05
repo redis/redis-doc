@@ -31,6 +31,8 @@ Here is the meaning of the fields:
 * `omem`: output buffer memory usage
 * `events`: file descriptor events (see below)
 * `cmd`: last command played
+* `argv-mem`: incomplete arguments for the next command (already extracted from query buffer)
+* `tot-mem`: total memory consumed by this client in its various buffers
 
 The client flags can be a combination of:
 
@@ -49,6 +51,8 @@ S: the client is a replica node connection to this instance
 u: the client is unblocked
 U: the client is connected via a Unix domain socket
 x: the client is in a MULTI/EXEC context
+t: the client enabled keys tracking in order to perform client side caching
+R: the client tracking target client is invalid
 ```
 
 The file descriptor events can be:
