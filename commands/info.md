@@ -78,8 +78,7 @@ Here is the meaning of all fields in the **clients** section:
 *   `client_biggest_input_buf`: Biggest input buffer among current client
      connections
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
-     `BRPOP`, `BRPOPLPUSH`, `BRPOPRPUSH`, `BLPOPLPUSH`, `BLPOPRPUSH`,
-     `BZPOPMIN`, `BZPOPMAX`)
+     `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
 
@@ -242,7 +241,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `tracking_total_prefixes`: Number of tracked prefixes in server's prefix table
     (only applicable for broadcast mode)
 *   `unexpected_error_replies`: Number of unexpected error replies, that are types
-    of errors from an AOF load or replication 
+    of errors from an AOF load or replication
 
 Here is the meaning of all fields in the **replication** section:
 

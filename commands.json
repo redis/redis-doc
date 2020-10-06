@@ -350,7 +350,7 @@
     "since": "2.2.0",
     "group": "list"
   },
-  "BRPOPRPUSH": {
+  "BLMOVE": {
     "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
     "complexity": "O(1)",
     "arguments": [
@@ -363,51 +363,27 @@
         "type": "key"
       },
       {
-        "name": "timeout",
-        "type": "integer"
-      }
-    ],
-    "since": "6.0.6",
-    "group": "list"
-  },
-  "BLPOPLPUSH": {
-    "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "source",
-        "type": "key"
+        "name": "wherefrom",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
       },
       {
-        "name": "destination",
-        "type": "key"
+        "name": "whereto",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
       },
       {
         "name": "timeout",
         "type": "integer"
       }
     ],
-    "since": "6.0.6",
-    "group": "list"
-  },
-  "BLPOPRPUSH": {
-    "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "source",
-        "type": "key"
-      },
-      {
-        "name": "destination",
-        "type": "key"
-      },
-      {
-        "name": "timeout",
-        "type": "integer"
-      }
-    ],
-    "since": "6.0.6",
+    "since": "6.2.0",
     "group": "list"
   },
   "BZPOPMIN": {
@@ -2674,8 +2650,8 @@
     "since": "1.2.0",
     "group": "list"
   },
-  "RPOPRPUSH": {
-    "summary": "Remove the last element in a list, prepend it to another list and return it",
+  "LMOVE": {
+    "summary": "Pop an element from a list, push it to another list and return it",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -2685,41 +2661,25 @@
       {
         "name": "destination",
         "type": "key"
-      }
-    ],
-    "since": "6.0.6",
-    "group": "list"
-  },
-  "LPOPLPUSH": {
-    "summary": "Remove the last element in a list, prepend it to another list and return it",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "source",
-        "type": "key"
       },
       {
-        "name": "destination",
-        "type": "key"
-      }
-    ],
-    "since": "6.0.6",
-    "group": "list"
-  },
-  "LPOPRPUSH": {
-    "summary": "Remove the last element in a list, prepend it to another list and return it",
-    "complexity": "O(1)",
-    "arguments": [
-      {
-        "name": "source",
-        "type": "key"
+        "name": "wherefrom",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
       },
       {
-        "name": "destination",
-        "type": "key"
+        "name": "whereto",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
       }
     ],
-    "since": "6.0.6",
+    "since": "6.2.0",
     "group": "list"
   },
   "RPUSH": {

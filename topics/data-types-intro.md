@@ -445,8 +445,8 @@ A few things to note about `BRPOP`:
 There are more things you should know about lists and blocking ops. We
 suggest that you read more on the following:
 
-* It is possible to build safer queues or rotating queues using `RPOPLPUSH` (or any `xPOPxPUSH` command).
-* There is also a blocking variant of the command, called `BRPOPLPUSH` (`BxPOPxPUSH` in general).
+* It is possible to build safer queues or rotating queues using `RPOPLPUSH` or `LMOVE`.
+* There are also blocking variants of the commands, called `BRPOPLPUSH` and `BLMOVE`.
 
 Automatic creation and removal of keys
 ---
