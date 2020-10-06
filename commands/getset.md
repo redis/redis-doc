@@ -15,6 +15,8 @@ GETSET mycounter "0"
 GET mycounter
 ```
 
+As per Redis 6.2, GETSET is considered deprecated. Please use `SET` with `GET` parameter in new code.
+
 @return
 
 @bulk-string-reply: the old value stored at `key`, or `nil` when `key` did not exist.

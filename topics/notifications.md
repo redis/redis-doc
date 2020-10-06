@@ -9,7 +9,7 @@ Feature overview
 Keyspace notifications allow clients to subscribe to Pub/Sub channels in order
 to receive events affecting the Redis data set in some way.
 
-Examples of the events that are possible to receive are the following:
+Examples of events that can be received are:
 
 * All the commands affecting a given key.
 * All the keys receiving an LPUSH operation.
@@ -137,6 +137,7 @@ Different commands generate different kind of events according to the following 
 * `XADD` generates an `xadd` event, possibly followed an `xtrim` event when used with the `MAXLEN` subcommand.
 * `XDEL` generates a single `xdel` event even when multiple entries are deleted.
 * `XGROUP CREATE` generates an `xgroup-create` event.
+* `XGROUP CREATECONSUMER` generates an `xgroup-createconsumer` event.
 * `XGROUP DELCONSUMER` generates an `xgroup-delconsumer` event.
 * `XGROUP DESTROY` generates an `xgroup-destroy` event.
 * `XGROUP SETID` generates an `xgroup-setid` event.
@@ -169,13 +170,18 @@ Timing of expired events
 Keys with a time to live associated are expired by Redis in two ways:
 
 * When the key is accessed by a command and is found to be expired.
-* Via a background system that looks for expired keys in background, incrementally, in order to be able to also collect keys that are never accessed.
+* Via a background system that looks for expired keys in the background, incrementally, in order to be able to also collect keys that are never accessed.
 
 The `expired` events are generated when a key is accessed and is found to be expired by one of the above systems, as a result there are no guarantees that the Redis server will be able to generate the `expired` event at the time the key time to live reaches the value of zero.
 
 If no command targets the key constantly, and there are many keys with a TTL associated, there can be a significant delay between the time the key time to live drops to zero, and the time the `expired` event is generated.
 
 Basically `expired` events **are generated when the Redis server deletes the key** and not when the time to live theoretically reaches the value of zero.
+
+Events in a cluster
+---
+
+Every node of a Redis cluster generates events about its own subset of the keyspace as described above. However, unlike regular Pub/Sub communication in a cluster, events' notifications **are not** broadcasted to all nodes. Put differently, keyspace events are node-specific. This means that to receive all keyspace events of a cluster, clients need to subscribe to each of the nodes.
 
 @history
 

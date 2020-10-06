@@ -330,6 +330,31 @@ no FreeString() call is performed.
 
 It is possible to call this function with a NULL context.
 
+## `RedisModule_HoldString`
+
+    RedisModuleString* RedisModule_HoldString(RedisModuleCtx *ctx, RedisModuleString *str);
+
+/**
+* This function can be used instead of `RedisModule_RetainString()`.
+* The main difference between the two is that this function will always
+* succeed, whereas `RedisModule_RetainString()` may fail because of an
+* assertion.
+* 
+* The function returns a pointer to RedisModuleString, which is owned
+* by the caller. It requires a call to `RedisModule_FreeString()` to free
+* the string when automatic memory management is disabled for the context.
+* When automatic memory management is enabled, you can either call
+* `RedisModule_FreeString()` or let the automation free it.
+* 
+* This function is more efficient than `RedisModule_CreateStringFromString()`
+* because whenever possible, it avoids copying the underlying
+* RedisModuleString. The disadvantage of using this function is that it
+* might not be possible to use `RedisModule_StringAppendBuffer()` on the
+* returned RedisModuleString.
+* 
+* It is possible to call this function with a NULL context.
+ 
+
 ## `RedisModule_StringPtrLen`
 
     const char *RedisModule_StringPtrLen(const RedisModuleString *str, size_t *len);
@@ -1028,6 +1053,8 @@ The input flags are:
 
     REDISMODULE_ZADD_XX: Element must already exist. Do nothing otherwise.
     REDISMODULE_ZADD_NX: Element must not exist. Do nothing otherwise.
+    REDISMODULE_ZADD_LT: For existing element, only update if the new score is less than the current score.
+    REDISMODULE_ZADD_GT: For existing element, only update if the new score is greater than the current score.
 
 The output flags are:
 
@@ -1750,6 +1777,14 @@ Note: `RedisModule_UnblockClient` should be called for every blocked client,
       even if client was killed, timed-out or disconnected. Failing to do so
       will result in memory leaks.
 
+There are some cases where `RedisModule_BlockClient()` cannot be used:
+
+1. If the client is a Lua script.
+2. If the client is executing a MULTI block.
+
+In these cases, a call to `RedisModule_BlockClient()` will **not** block the
+client, but instead produce a specific error reply.
+
 ## `RedisModule_BlockClientOnKeys`
 
     RedisModuleBlockedClient *RedisModule_BlockClientOnKeys(RedisModuleCtx *ctx, RedisModuleCmdFunc reply_callback, RedisModuleCmdFunc timeout_callback, void (*free_privdata)(RedisModuleCtx*,void*), long long timeout_ms, RedisModuleString **keys, int numkeys, void *privdata);
@@ -1988,6 +2023,11 @@ is interested in. This can be an ORed mask of any of the following flags:
  - REDISMODULE_NOTIFY_STREAM: Stream events
  - REDISMODULE_NOTIFY_KEYMISS: Key-miss events
  - REDISMODULE_NOTIFY_ALL: All events (Excluding REDISMODULE_NOTIFY_KEYMISS)
+ - REDISMODULE_NOTIFY_LOADED: A special notification available only for modules,
+                              indicates that the key was loaded from persistence.
+                              Notice, when this event fires, the given key
+                              can not be retained, use RM_CreateStringFromString
+                              instead.
 
 We do not distinguish between key events and keyspace events, and it is up
 to the module to filter the actions taken based on the key.

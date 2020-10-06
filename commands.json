@@ -137,6 +137,11 @@
     "summary": "Authenticate to the server",
     "arguments": [
       {
+        "name": "username",
+        "type": "string",
+        "optional": true
+      },
+      {
         "name": "password",
         "type": "string"
       }
@@ -1038,7 +1043,7 @@
   },
   "DUMP": {
     "summary": "Return a serialized version of the value stored at the specified key.",
-    "complexity": "O(1) to access the key and additional O(N*M) to serialized it, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1).",
+    "complexity": "O(1) to access the key and additional O(N*M) to serialize it, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1).",
     "arguments": [
       {
         "name": "key",
@@ -2186,6 +2191,12 @@
         "optional": true
       },
       {
+        "command": "AUTH2",
+        "name": "username password",
+        "type": "string",
+        "optional": true
+      },
+      {
         "name": "key",
         "command": "KEYS",
         "type": "key",
@@ -2862,7 +2873,8 @@
         "type": "enum",
         "enum": [
           "EX seconds",
-          "PX milliseconds"
+          "PX milliseconds",
+          "KEEPTTL"
         ],
         "optional": true
       },
@@ -2876,10 +2888,10 @@
         "optional": true
       },
       {
-        "name": "keepttl",
+        "name": "get",
         "type": "enum",
         "enum": [
-          "KEEPTTL"
+          "GET"
         ],
         "optional": true
       }
@@ -3023,6 +3035,23 @@
       }
     ],
     "since": "1.0.0",
+    "group": "set"
+  },
+  "SMISMEMBER": {
+    "summary": "Returns the membership associated with the given elements for a set",
+    "complexity": "O(N) where N is the number of elements being checked for membership",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.2.0",
     "group": "set"
   },
   "SLAVEOF": {
@@ -3447,6 +3476,15 @@
         "optional": true
       },
       {
+        "name": "comparison",
+        "type": "enum",
+        "enum": [
+          "GT",
+          "LT"
+        ],
+        "optional": true
+      },
+      {
         "name": "change",
         "type": "enum",
         "enum": [
@@ -3527,6 +3565,49 @@
       }
     ],
     "since": "1.2.0",
+    "group": "sorted_set"
+  },
+  "ZINTER": {
+    "summary": "Intersect multiple sorted sets",
+    "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
     "group": "sorted_set"
   },
   "ZINTERSTORE": {
@@ -3947,6 +4028,66 @@
     "since": "1.2.0",
     "group": "sorted_set"
   },
+  "ZUNION": {
+    "summary": "Add multiple sorted sets",
+    "complexity": "O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
+  "ZMSCORE": {
+    "summary": "Get the score associated with the given members in a sorted set",
+    "complexity": "O(N) where N is the number of members being requested.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
   "ZUNIONSTORE": {
     "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
     "complexity": "O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
@@ -4356,6 +4497,20 @@
         ],
         "type": [
           "key",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "CREATECONSUMER",
+        "name": [
+          "key",
+          "groupname",
+          "consumername"
+        ],
+        "type": [
+          "key",
+          "string",
           "string"
         ],
         "optional": true

@@ -105,7 +105,7 @@ Allow and disallow commands:
 
 Allow and disallow certain keys:
 
-`~<pattern>`: Add a pattern of keys that can be mentioned as part of commands. For instance `~*` allows all the keys. The pattern is a glob-style pattern like the one of KEYS.  It is possible to specify multiple patterns.
+* `~<pattern>`: Add a pattern of keys that can be mentioned as part of commands. For instance `~*` allows all the keys. The pattern is a glob-style pattern like the one of KEYS. It is possible to specify multiple patterns.
 * `allkeys`: Alias for `~*`.
 * `resetkeys`: Flush the list of allowed keys patterns. For instance the ACL `~foo:* ~bar:* resetkeys ~objects:*`, will result in the client only be able to access keys matching the pattern `objects:*`.
 

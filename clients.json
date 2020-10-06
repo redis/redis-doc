@@ -723,6 +723,16 @@
   },
 
   {
+    "name": "Rediska",
+    "language": "C#",
+    "url": "https://github.com/pepelev/Rediska",
+    "description": "Rediska is a Redis client for .NET with a focus on flexibility and extensibility.",
+    "authors": [],
+    "recommended": false,
+    "active": true
+  },
+
+  {
     "name": "DartRedisClient",
     "language": "Dart",
     "url": "https://github.com/dartist/redis_client",
@@ -1018,8 +1028,8 @@
   {
     "name": "lettuce",
     "language": "Java",
-    "url": "http://redis.paluch.biz",
-    "repository": "https://github.com/mp911de/lettuce",
+    "url": "https://lettuce.io/",
+    "repository": "https://github.com/lettuce-io/lettuce-core",
     "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
     "authors": ["ar3te", "mp911de"],
     "active": true,
@@ -1406,7 +1416,7 @@
     "repository": "https://github.com/ronp001/SwiftRedis",
     "description": "Basic async client for Redis in Swift (iOS)",
     "authors": ["ronp001"],
-    "active": true
+    "active": false
   },
 
  {
@@ -1415,7 +1425,7 @@
     "repository": "https://github.com/Zewo/Redis",
     "description": "Redis client for Swift. OpenSwift C7 Compliant, OS X and Linux compatible.",
     "authors": ["rabc"],
-    "active": true
+    "active": false
   },
 
   {
@@ -1424,7 +1434,7 @@
     "repository": "https://github.com/czechboy0/Redbird",
     "description": "Pure-Swift implementation of a Redis client from the original protocol spec (OS X + Linux compatible)",
     "authors": ["czechboy0"],
-    "active": true
+    "active": false
   },
 
   {
@@ -1445,6 +1455,17 @@
     "active": true
   },
 
+  {
+    "name": "RediStack",
+    "language": "Swift",
+    "repository": "https://gitlab.com/Mordil/RediStack",
+    "description": "Non-blocking, event-driven Swift client for Redis built with SwiftNIO for all official Swift deployment environments.",
+    "authors": ["mordil"],
+    "active": true,
+    "recommended": true,
+    "url": "https://docs.redistack.info"
+  },
+  
   {
     "name": "Rackdis",
     "language": "Racket",
@@ -1765,8 +1786,9 @@
     "name": "redis-plus-plus",
     "language": "C++",
     "repository": "https://github.com/sewenew/redis-plus-plus",
-    "description": "This is a Redis client, based on hiredis and written in C++11. It supports scritpting, pub/sub, pipeline, transaction, Redis Cluster, connection pool and thread safety.",
+    "description": "This is a Redis client, based on hiredis and written in C++11. It supports scritpting, pub/sub, pipeline, transaction, Redis Cluster, Redis Sentinel, connection pool, ACL, SSL and thread safety.",
     "authors": ["sewenew"],
+    "recommended": true,
     "active": true
   },
 
@@ -1843,6 +1865,15 @@
     "description": "A COM wrapper for StackExchange.Redis that allows using Redis from a COM environment like Classic ASP (ASP 3.0) using vbscript, jscript or any other COM capable language.",
     "authors": [],
     "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "Redis Connector for Dell Boomi",
+    "language": "Boomi",
+    "repository": "https://github.com/zachary-samsel/boomi-redis-connector",
+    "description": "A custom connector for Dell Boomi that utilizes the lettuce.io Java client to add Redis client support to the Dell Boomi iPaaS.",
+    "authors": [],
     "active": true
   }
 ]

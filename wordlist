@@ -8,7 +8,6 @@ BitOp
 Bitfields
 CAS
 CJSON
-CJSON
 CLI
 CP
 CPUs
@@ -41,6 +40,7 @@ Geohashes
 Geospatial
 GitHub
 Google
+HMAC
 HLL
 HLLs
 HOWTO
@@ -56,6 +56,7 @@ IRC
 Inline
 JPEG
 JSON
+LCS
 LDB
 LF
 LFU
@@ -90,11 +91,11 @@ OOM
 OSGEO
 Opteron
 PEL
+PELs
 PHP
 PINGs
 POSIX
 PRNG
-PSYNC
 PostgreSQL
 Presharding
 RDB
@@ -221,10 +222,12 @@ failback
 failover
 failovers
 fanout
+fao
 fdatasync
 filesystem
 firewalled
 firewalling
+fo
 freenode
 fsync
 functionalities
@@ -294,6 +297,7 @@ netsplits
 newjobs
 nils
 noeviction
+nopass
 noscript
 numactl
 online
@@ -313,6 +317,7 @@ probabilistically
 proc
 programmatically
 prstat
+pseudorandom
 pubsub
 qsort
 queueing
@@ -358,12 +363,14 @@ sismember
 slowlog
 smaps
 snapshotting
+somekey
 startup
 strace
 struct
 subcommand
 subcommands
 suboptimal
+subsequence
 substring
 swappability
 syscall
@@ -405,6 +412,7 @@ variadic
 versa
 versioned
 versioning
+virginia
 virtualization
 virtualized
 vmstat
