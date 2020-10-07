@@ -13,7 +13,7 @@ performed.
 If `source` and `destination` are the same, the operation is equivalent to
 removing the first/last element from the list and pushing it as first/last
 element of the list, so it can be considered as a list rotation command (or a
-noop if `wherefrom` is the same as `whereto`).
+no-op if `wherefrom` is the same as `whereto`).
 
 The command `RPOPLPUSH` is equivalent to this command with `wherefrom` as
 `RIGHT` and `whereto` as `LEFT`.
