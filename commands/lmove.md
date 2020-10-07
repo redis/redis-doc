@@ -15,8 +15,8 @@ removing the first/last element from the list and pushing it as first/last
 element of the list, so it can be considered as a list rotation command (or a
 no-op if `wherefrom` is the same as `whereto`).
 
-The command `RPOPLPUSH` is equivalent to this command with `wherefrom` as
-`RIGHT` and `whereto` as `LEFT`.
+This command comes in place of the now deprecated `RPOPLPUSH`. Doing
+`LMOVE RIGHT LEFT` is equivalent.
 
 @return
 
