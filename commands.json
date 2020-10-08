@@ -312,7 +312,7 @@
       },
       {
         "name": "timeout",
-        "type": "integer"
+        "type": "double"
       }
     ],
     "since": "2.0.0",
@@ -329,7 +329,7 @@
       },
       {
         "name": "timeout",
-        "type": "integer"
+        "type": "double"
       }
     ],
     "since": "2.0.0",
@@ -349,7 +349,7 @@
       },
       {
         "name": "timeout",
-        "type": "integer"
+        "type": "double"
       }
     ],
     "since": "2.2.0",
@@ -385,7 +385,7 @@
       },
       {
         "name": "timeout",
-        "type": "integer"
+        "type": "double"
       }
     ],
     "since": "6.2.0",
@@ -402,7 +402,7 @@
       },
       {
         "name": "timeout",
-        "type": "integer"
+        "type": "double"
       }
     ],
     "since": "5.0.0",
@@ -419,7 +419,7 @@
       },
       {
         "name": "timeout",
-        "type": "integer"
+        "type": "double"
       }
     ],
     "since": "5.0.0",

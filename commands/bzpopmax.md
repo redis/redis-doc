@@ -5,7 +5,7 @@ members to pop from any of the given sorted sets.
 A member with the highest score is popped from first sorted set that is
 non-empty, with the given keys being checked in the order that they are given.
 
-The `timeout` argument is interpreted as an integer value specifying the maximum
+The `timeout` argument is interpreted as a double value specifying the maximum
 number of seconds to block. A timeout of zero can be used to block indefinitely.
 
 See the [BZPOPMIN documentation][cb] for the exact semantics, since `BZPOPMAX`
