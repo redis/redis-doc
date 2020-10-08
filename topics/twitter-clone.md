@@ -143,7 +143,7 @@ also to retrieve its score if it exists, we use the `ZSCORE` command:
 
 Sorted Sets are a very powerful data structure, you can query elements by
 score range, lexicographically, in reverse order, and so forth.
-To know more [please check the Sorted Set sections in the official Redis commands documentation](http://redis.io/commands/#sorted_set).
+To know more [please check the Sorted Set sections in the official Redis commands documentation](https://redis.io/commands/#sorted_set).
 
 The Hash data type
 ---

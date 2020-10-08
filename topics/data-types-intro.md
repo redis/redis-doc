@@ -548,7 +548,7 @@ as well, like `HINCRBY`:
     > hincrby user:1000 birthyear 10
     (integer) 1997
 
-You can find the [full list of hash commands in the documentation](http://redis.io/commands#hash).
+You can find the [full list of hash commands in the documentation](https://redis.io/commands#hash).
 
 It is worth noting that small hashes (i.e., a few elements with small values) are
 encoded in special way in memory that make them very memory efficient.
