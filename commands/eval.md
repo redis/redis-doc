@@ -109,10 +109,13 @@ Redis to Lua conversion rule:
 
 * Lua boolean true -> Redis integer reply with value of 1.
 
-Also there are two important rules to note:
+Lastly, there are three important rules to note:
 
 * Lua has a single numerical type, Lua numbers. There is no distinction between integers and floats. So we always convert Lua numbers into integer replies, removing the decimal part of the number if any. **If you want to return a float from Lua you should return it as a string**, exactly like Redis itself does (see for instance the `ZSCORE` command).
 * There is [no simple way to have nils inside Lua arrays](http://www.lua.org/pil/19.1.html), this is a result of Lua table semantics, so when Redis converts a Lua array into Redis protocol the conversion is stopped if a nil is encountered.
+* When a Lua table contains keys (and their values), the converted Redis reply will **not** include them.
+
+**RESP3 mode conversion rules**: note that the Lua engine can work in RESP3 mode using the new Redis 6 protocol. In this case there are additional conversion rules, and certain conversions are also modified compared to the RESP2 mode. Please refer to the RESP3 section of this document for more information.
 
 Here are a few conversion examples:
 
@@ -133,17 +136,17 @@ The last example shows how it is possible to receive the exact return value of
 `redis.call()` or `redis.pcall()` from Lua that would be returned if the command
 was called directly.
 
-In the following example we can see how floats and arrays with nils are handled:
+In the following example we can see how floats and arrays containing nils and keys are handled:
 
 ```
-> eval "return {1,2,3.3333,'foo',nil,'bar'}" 0
+> eval "return {1,2,3.3333,somekey='somevalue','foo',nil,'bar'}" 0
 1) (integer) 1
 2) (integer) 2
 3) (integer) 3
 4) "foo"
 ```
 
-As you can see 3.333 is converted into 3, and the *bar* string is never returned as there is a nil before.
+As you can see 3.333 is converted into 3, *somekey* is excluded, and the *bar* string is never returned as there is a nil before.
 
 ## Helper functions to return Redis types
 
@@ -373,13 +376,19 @@ In order to enforce this behavior in scripts Redis does the following:
   Note that a _random command_ does not necessarily mean a command that uses
   random numbers: any non-deterministic command is considered a random command
   (the best example in this regard is the `TIME` command).
-* Redis commands that may return elements in random order, like `SMEMBERS`
-  (because Redis Sets are _unordered_) have a different behavior when called
-  from Lua, and undergo a silent lexicographical sorting filter before
-  returning data to Lua scripts.
-  So `redis.call("smembers",KEYS[1])` will always return the Set elements
-  in the same order, while the same command invoked from normal clients may
-  return different results even if the key contains exactly the same elements.
+* In Redis version 4, commands that may return elements in random order, like
+  `SMEMBERS` (because Redis Sets are _unordered_) have a different behavior
+  when called from Lua, and undergo a silent lexicographical sorting filter
+  before returning data to Lua scripts. So `redis.call("smembers",KEYS[1])`
+  will always return the Set elements in the same order, while the same
+  command invoked from normal clients may return different results even if
+  the key contains exactly the same elements. However starting with Redis 5
+  there is no longer such ordering step, because Redis 5 replicates scripts
+  in a way that no longer needs non-deterministic commands to be converted
+  into deterministic ones. In general, even when developing for Redis 4, never
+  assume that certain commands in Lua will be ordered, but instead rely on
+  the documentation of the original command you call to see the properties
+  it provides.
 * Lua pseudo random number generation functions `math.random` and
   `math.randomseed` are modified in order to always have the same seed every
   time a new script is executed.
@@ -590,6 +599,60 @@ selected by the client calling the script.
 The semantic change between patch level releases was needed since the old
 behavior was inherently incompatible with the Redis replication layer and
 was the cause of bugs.
+
+## Using Lua scripting in RESP3 mode
+
+Starting with Redis version 6, the server supports two different protocols.
+One is called RESP2, and is the old protocol: all the new connections to
+the server start in this mode. However clients are able to negotiate the
+new protocol using the `HELLO` command: this way the connection is put
+in RESP3 mode. In this mode certain commands, like for instance `HGETALL`,
+reply with a new data type (the Map data type in this specific case). The
+RESP3 protocol is semantically more powerful, however most scripts are OK
+with using just RESP2.
+
+The Lua engine always assumes to run in RESP2 mode when talking with Redis,
+so whatever the connection that is invoking the `EVAL` or `EVALSHA` command
+is in RESP2 or RESP3 mode, Lua scripts will, by default, still see the
+same kind of replies they used to see in the past from Redis, when calling
+commands using the `redis.call()` built-in function.
+
+However Lua scripts running in Redis 6 or greater, are able to switch to
+RESP3 mode, and get the replies using the new available types. Similarly
+Lua scripts are able to reply to clients using the new types. Please make
+sure to understand
+[the capabilities for RESP3](https://github.com/antirez/resp3)
+before continuing reading this section.
+
+In order to switch to RESP3 a script should call this function:
+
+    redis.setresp(3)
+
+Note that a script can switch back and forth from RESP3 and RESP2 by
+calling the function with the argument '3' or '2'.
+
+At this point the new conversions are available, specifically:
+
+**Redis to Lua** conversion table specific to RESP3:
+
+* Redis map reply -> Lua table with a single `map` field containing a Lua table representing the fields and values of the map.
+* Redis set reply -> Lua table with a single `set` field containing a Lua table representing the elements of the set as fields, having as value just `true`.
+* Redis new RESP3 single null value -> Lua nil.
+* Redis true reply -> Lua true boolean value.
+* Redis false reply -> Lua false boolean value.
+* Redis double reply -> Lua table with a single `score` field containing a Lua number representing the double value.
+* All the RESP2 old conversions still apply.
+
+**Lua to Redis** conversion table specific for RESP3.
+
+* Lua boolean -> Redis boolean true or false. **Note that this is a change compared to the RESP2 mode**, where returning true from Lua returned the number 1 to the Redis client, and returning false used to return NULL.
+* Lua table with a single `map` field set to a field-value Lua table -> Redis map reply.
+* Lua table with a single `set` field set to a field-value Lua table -> Redis set reply, the values are discarded and can be anything.
+* Lua table with a single `double` field set to a field-value Lua table -> Redis double reply.
+* Lua null -> Redis RESP3 new null reply (protocol `"_\r\n"`).
+* All the RESP2 old conversions still apply unless specified above.
+
+There is one key thing to understand: in case Lua replies with RESP3 types, but the connection calling Lua is in RESP2 mode, Redis will automatically convert the RESP3 protocol to RESP2 compatible protocol, as it happens for normal commands. For instance returning a map type to a connection in RESP2 mode will have the effect of returning a flat array of fields and values.
 
 ## Available libraries
 
