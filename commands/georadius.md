@@ -24,6 +24,11 @@ The command default is to return unsorted items. Two different sorting methods c
 
 By default all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option. However note that internally the command needs to perform an effort proportional to the number of items matching the specified area, so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned. On the other hand `COUNT` can be a very effective way to reduce bandwidth usage if normally just the first results are used.
 
+By default the command returns the items to the client. It is possible to store the results with one of these options:
+
+* `!STORE`: Store the items in a sorted set populated with their geospatial information.
+* `!STOREDIST`: Store the items in a sorted set populated with their distance from the center as a floating point number, in the same unit specified in the radius.
+
 @return
 
 @array-reply, specifically:
@@ -43,9 +48,9 @@ So for example the command `GEORADIUS Sicily 15 37 200 km WITHCOORD WITHDIST` wi
 
 ## Read only variants
 
-Since `GEORADIUS` and `GEORADIUSBYMEMBER` have a `STORE` and `STOREDIST` option they are technically flagged as writing commands in the Redis command table. For this reason read-only slaves will flag them, and Redis Cluster slaves will redirect them to the master instance even if the connection is in read only mode (See the `READONLY` command of Redis Cluster).
+Since `GEORADIUS` and `GEORADIUSBYMEMBER` have a `STORE` and `STOREDIST` option they are technically flagged as writing commands in the Redis command table. For this reason read-only replicas will flag them, and Redis Cluster replicas will redirect them to the master instance even if the connection is in read only mode (See the `READONLY` command of Redis Cluster).
 
-Breaking the compatibility with the past was considered but rejected, at least for Redis 4.0, so instead two read only variants of the commands were added. They are exactly like the original commands but refuse the `STORE` and `STOREDIST` options. The two variants are called `GEORADIUS_RO` and `GEORADIUSBYMEMBER_RO`, and can safely be used in slaves.
+Breaking the compatibility with the past was considered but rejected, at least for Redis 4.0, so instead two read only variants of the commands were added. They are exactly like the original commands but refuse the `STORE` and `STOREDIST` options. The two variants are called `GEORADIUS_RO` and `GEORADIUSBYMEMBER_RO`, and can safely be used in replicas.
 
 Both commands were introduced in Redis 3.2.10 and Redis 4.0.0 respectively.
 

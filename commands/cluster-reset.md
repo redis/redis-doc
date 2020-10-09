@@ -8,7 +8,7 @@ Effects on the node:
 
 1. All the other nodes in the cluster are forgotten.
 2. All the assigned / open slots are reset, so the slots-to-nodes mapping is totally cleared.
-3. If the node is a slave it is turned into an (empty) master. Its dataset is flushed, so at the end the node will be an empty master.
+3. If the node is a replica it is turned into an (empty) master. Its dataset is flushed, so at the end the node will be an empty master.
 4. **Hard reset only**: a new Node ID is generated.
 5. **Hard reset only**: `currentEpoch` and `configEpoch` vars are set to 0.
 6. The new configuration is persisted on disk in the node cluster configuration file.

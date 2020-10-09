@@ -1,4 +1,122 @@
 {
+  "ACL LOAD": {
+    "summary": "Reload the ACLs from the configured ACL file",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL SAVE": {
+    "summary": "Save the current ACL rules in the configured ACL file",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL LIST": {
+    "summary": "List the current ACL rules in ACL config file format",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL USERS": {
+    "summary": "List the username of all the configured ACL rules",
+    "complexity": "O(N). Where N is the number of configured users.",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL GETUSER": {
+    "summary": "Get the rules for a specific ACL user",
+    "complexity": "O(N). Where N is the number of password, command and pattern rules that the user has.",
+    "arguments": [
+      {
+        "name": "username",
+        "type": "string"
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL SETUSER": {
+    "summary": "Modify or create the rules for a specific ACL user",
+    "complexity": "O(N). Where N is the number of rules provided.",
+    "arguments": [
+      {
+        "name": "username",
+        "type": "string"
+      },
+      {
+        "name": "rule",
+        "type": "string",
+        "multiple": true,
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL DELUSER": {
+    "summary": "Remove the specified ACL users and the associated rules",
+    "complexity": "O(1) amortized time considering the typical user.",
+    "arguments": [
+      {
+        "name": "username",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL CAT": {
+    "summary": "List the ACL categories or the commands inside a category",
+    "complexity": "O(1) since the categories and commands are a fixed set.",
+    "arguments": [
+      {
+        "name": "categoryname",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL GENPASS": {
+    "summary": "Generate a pseudorandom secure password to use for ACL users",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "bits",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL WHOAMI": {
+    "summary": "Return the name of the user associated to the current connection",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL LOG": {
+    "summary": "List latest events denied because of ACLs in place",
+    "complexity": "O(N) with N being the number of entries shown.",
+    "arguments": [
+      {
+        "name": "count or RESET",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "server"
+  },
+  "ACL HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "server"
+  },
   "APPEND": {
     "summary": "Append a value to a key",
     "complexity": "O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.",
@@ -19,6 +137,11 @@
     "summary": "Authenticate to the server",
     "arguments": [
       {
+        "name": "username",
+        "type": "string",
+        "optional": true
+      },
+      {
         "name": "password",
         "type": "string"
       }
@@ -33,6 +156,16 @@
   },
   "BGSAVE": {
     "summary": "Asynchronously save the dataset to disk",
+    "arguments": [
+      {
+        "name": "schedule",
+        "type": "enum",
+        "enum": [
+          "SCHEDULE"
+        ],
+        "optional": true
+      }
+    ],
     "since": "1.0.0",
     "group": "server"
   },
@@ -45,8 +178,14 @@
         "type": "key"
       },
       {
-        "name": ["start", "end"],
-        "type": ["integer", "integer"],
+        "name": [
+          "start",
+          "end"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -63,26 +202,52 @@
       },
       {
         "command": "GET",
-        "name": ["type", "offset"],
-        "type": ["type", "integer"],
+        "name": [
+          "type",
+          "offset"
+        ],
+        "type": [
+          "type",
+          "integer"
+        ],
         "optional": true
       },
       {
         "command": "SET",
-        "name": ["type", "offset", "value"],
-        "type": ["type", "integer", "integer"],
+        "name": [
+          "type",
+          "offset",
+          "value"
+        ],
+        "type": [
+          "type",
+          "integer",
+          "integer"
+        ],
         "optional": true
       },
       {
         "command": "INCRBY",
-        "name": ["type", "offset", "increment"],
-        "type": ["type", "integer", "integer"],
+        "name": [
+          "type",
+          "offset",
+          "increment"
+        ],
+        "type": [
+          "type",
+          "integer",
+          "integer"
+        ],
         "optional": true
       },
       {
         "command": "OVERFLOW",
         "type": "enum",
-        "enum": ["WRAP", "SAT", "FAIL"],
+        "enum": [
+          "WRAP",
+          "SAT",
+          "FAIL"
+        ],
         "optional": true
       }
     ],
@@ -171,7 +336,7 @@
     "group": "list"
   },
   "BRPOPLPUSH": {
-    "summary": "Pop a value from a list, push it to another list and return it; or block until one is available",
+    "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -189,6 +354,98 @@
     ],
     "since": "2.2.0",
     "group": "list"
+  },
+  "BLMOVE": {
+    "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "key"
+      },
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "wherefrom",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "name": "whereto",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "6.2.0",
+    "group": "list"
+  },
+  "BZPOPMIN": {
+    "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "BZPOPMAX": {
+    "summary": "Remove and return the member with the highest score from one or more sorted sets, or block until one is available",
+    "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "timeout",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "CLIENT CACHING": {
+    "summary": "Instruct the server about tracking or not keys in the next request",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "mode",
+        "type": "enum",
+        "enum": [
+          "YES",
+          "NO"
+        ]
+      }
+    ],
+    "since": "6.0.0",
+    "group": "connection"
+  },
+  "CLIENT ID": {
+    "summary": "Returns the client ID for the current connection",
+    "complexity": "O(1)",
+    "since": "5.0.0",
+    "group": "connection"
   },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
@@ -208,7 +465,18 @@
       {
         "command": "TYPE",
         "type": "enum",
-        "enum": ["normal", "master", "slave", "pubsub"],
+        "enum": [
+          "normal",
+          "master",
+          "slave",
+          "pubsub"
+        ],
+        "optional": true
+      },
+      {
+        "command": "USER",
+        "name": "username",
+        "type": "string",
         "optional": true
       },
       {
@@ -225,19 +493,38 @@
       }
     ],
     "since": "2.4.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT LIST": {
     "summary": "Get the list of client connections",
     "complexity": "O(N) where N is the number of client connections",
+    "arguments": [
+      {
+        "command": "TYPE",
+        "type": "enum",
+        "enum": [
+          "normal",
+          "master",
+          "replica",
+          "pubsub"
+        ],
+        "optional": true
+      }
+    ],
     "since": "2.4.0",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT GETNAME": {
     "summary": "Get the current connection name",
     "complexity": "O(1)",
     "since": "2.6.9",
-    "group": "server"
+    "group": "connection"
+  },
+  "CLIENT GETREDIR": {
+    "summary": "Get tracking notifications redirection client ID if any",
+    "complexity": "O(1)",
+    "since": "6.0.0",
+    "group": "connection"
   },
   "CLIENT PAUSE": {
     "summary": "Stop processing commands from clients for some time",
@@ -249,7 +536,7 @@
       }
     ],
     "since": "2.9.50",
-    "group": "server"
+    "group": "connection"
   },
   "CLIENT REPLY": {
     "summary": "Instruct the server whether to reply to commands",
@@ -258,11 +545,15 @@
       {
         "name": "reply-mode",
         "type": "enum",
-        "enum": ["ON", "OFF", "SKIP"]
+        "enum": [
+          "ON",
+          "OFF",
+          "SKIP"
+        ]
       }
     ],
-    "since": "3.2",
-    "group": "server"
+    "since": "3.2.0",
+    "group": "connection"
   },
   "CLIENT SETNAME": {
     "summary": "Set the current connection name",
@@ -274,7 +565,89 @@
         "type": "string"
       }
     ],
-    "group": "server"
+    "group": "connection"
+  },
+  "CLIENT TRACKING": {
+    "summary": "Enable or disable server assisted client side caching support",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "status",
+        "type": "enum",
+        "enum": [
+          "ON",
+          "OFF"
+        ]
+      },
+      {
+        "command": "REDIRECT",
+        "name": "client-id",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "PREFIX",
+        "name": "prefix",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "BCAST",
+        "type": "enum",
+        "enum": [
+          "BCAST"
+        ],
+        "optional": true
+      },
+      {
+        "name": "OPTIN",
+        "type": "enum",
+        "enum": [
+          "OPTIN"
+        ],
+        "optional": true
+      },
+      {
+        "name": "OPTOUT",
+        "type": "enum",
+        "enum": [
+          "OPTOUT"
+        ],
+        "optional": true
+      },
+      {
+        "name": "NOLOOP",
+        "type": "enum",
+        "enum": [
+          "NOLOOP"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "connection"
+  },
+  "CLIENT UNBLOCK": {
+    "summary": "Unblock a client blocked in a blocking command from a different connection",
+    "complexity": "O(log N) where N is the number of client connections",
+    "arguments": [
+      {
+        "name": "client-id",
+        "type": "integer"
+      },
+      {
+        "name": "unblock-type",
+        "type": "enum",
+        "enum": [
+          "TIMEOUT",
+          "ERROR"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "connection"
   },
   "CLUSTER ADDSLOTS": {
     "summary": "Assign new hash slots to receiving node",
@@ -286,6 +659,12 @@
         "multiple": true
       }
     ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER BUMPEPOCH": {
+    "summary": "Advance the cluster config epoch",
+    "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
@@ -327,16 +706,25 @@
     "group": "cluster"
   },
   "CLUSTER FAILOVER": {
-    "summary": "Forces a slave to perform a manual failover of its master.",
+    "summary": "Forces a replica to perform a manual failover of its master.",
     "complexity": "O(1)",
     "arguments": [
       {
         "name": "options",
         "type": "enum",
-        "enum": ["FORCE","TAKEOVER"],
+        "enum": [
+          "FORCE",
+          "TAKEOVER"
+        ],
         "optional": true
       }
     ],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER FLUSHSLOTS": {
+    "summary": "Delete a node's own slots information",
+    "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
@@ -402,6 +790,12 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER MYID": {
+    "summary": "Return the node id",
+    "complexity": "O(1)",
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "CLUSTER NODES": {
     "summary": "Get Cluster config for the node",
     "complexity": "O(N) where N is the total number of Cluster nodes",
@@ -409,7 +803,7 @@
     "group": "cluster"
   },
   "CLUSTER REPLICATE": {
-    "summary": "Reconfigure a node as a slave of the specified master node",
+    "summary": "Reconfigure a node as a replica of the specified master node",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -427,7 +821,10 @@
       {
         "name": "reset-type",
         "type": "enum",
-        "enum": ["HARD", "SOFT"],
+        "enum": [
+          "HARD",
+          "SOFT"
+        ],
         "optional": true
       }
     ],
@@ -463,7 +860,12 @@
       {
         "name": "subcommand",
         "type": "enum",
-        "enum": ["IMPORTING", "MIGRATING", "STABLE", "NODE"]
+        "enum": [
+          "IMPORTING",
+          "MIGRATING",
+          "STABLE",
+          "NODE"
+        ]
       },
       {
         "name": "node-id",
@@ -475,7 +877,7 @@
     "group": "cluster"
   },
   "CLUSTER SLAVES": {
-    "summary": "List slave nodes of the specified master node",
+    "summary": "List replica nodes of the specified master node",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -484,6 +886,18 @@
       }
     ],
     "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER REPLICAS": {
+    "summary": "List replica nodes of the specified master node",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "node-id",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
     "group": "cluster"
   },
   "CLUSTER SLOTS": {
@@ -629,7 +1043,7 @@
   },
   "DUMP": {
     "summary": "Return a serialized version of the value stored at the specified key.",
-    "complexity": "O(1) to access the key and additional O(N*M) to serialized it, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1).",
+    "complexity": "O(1) to access the key and additional O(N*M) to serialize it, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1).",
     "arguments": [
       {
         "name": "key",
@@ -758,7 +1172,9 @@
       {
         "name": "async",
         "type": "enum",
-        "enum": ["ASYNC"],
+        "enum": [
+          "ASYNC"
+        ],
         "optional": true
       }
     ],
@@ -771,7 +1187,9 @@
       {
         "name": "async",
         "type": "enum",
-        "enum": ["ASYNC"],
+        "enum": [
+          "ASYNC"
+        ],
         "optional": true
       }
     ],
@@ -787,8 +1205,16 @@
         "type": "key"
       },
       {
-        "name": ["longitude", "latitude", "member"],
-        "type": ["double", "double", "string"],
+        "name": [
+          "longitude",
+          "latitude",
+          "member"
+        ],
+        "type": [
+          "double",
+          "double",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -847,7 +1273,13 @@
       },
       {
         "name": "unit",
-        "type": "string",
+        "type": "enum",
+        "enum": [
+          "m",
+          "km",
+          "ft",
+          "mi"
+        ],
         "optional": true
       }
     ],
@@ -877,24 +1309,35 @@
       {
         "name": "unit",
         "type": "enum",
-        "enum": ["m", "km", "ft", "mi"]
+        "enum": [
+          "m",
+          "km",
+          "ft",
+          "mi"
+        ]
       },
       {
         "name": "withcoord",
         "type": "enum",
-        "enum": ["WITHCOORD"],
+        "enum": [
+          "WITHCOORD"
+        ],
         "optional": true
       },
       {
         "name": "withdist",
         "type": "enum",
-        "enum": ["WITHDIST"],
+        "enum": [
+          "WITHDIST"
+        ],
         "optional": true
       },
       {
         "name": "withhash",
         "type": "enum",
-        "enum": ["WITHHASH"],
+        "enum": [
+          "WITHHASH"
+        ],
         "optional": true
       },
       {
@@ -906,7 +1349,10 @@
       {
         "name": "order",
         "type": "enum",
-        "enum": ["ASC", "DESC"],
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
         "optional": true
       },
       {
@@ -944,24 +1390,35 @@
       {
         "name": "unit",
         "type": "enum",
-        "enum": ["m", "km", "ft", "mi"]
+        "enum": [
+          "m",
+          "km",
+          "ft",
+          "mi"
+        ]
       },
       {
         "name": "withcoord",
         "type": "enum",
-        "enum": ["WITHCOORD"],
+        "enum": [
+          "WITHCOORD"
+        ],
         "optional": true
       },
       {
         "name": "withdist",
         "type": "enum",
-        "enum": ["WITHDIST"],
+        "enum": [
+          "WITHDIST"
+        ],
         "optional": true
       },
       {
         "name": "withhash",
         "type": "enum",
-        "enum": ["WITHHASH"],
+        "enum": [
+          "WITHHASH"
+        ],
         "optional": true
       },
       {
@@ -973,7 +1430,10 @@
       {
         "name": "order",
         "type": "enum",
-        "enum": ["ASC", "DESC"],
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
         "optional": true
       },
       {
@@ -1072,6 +1532,36 @@
     ],
     "since": "2.0.0",
     "group": "hash"
+  },
+  "HELLO": {
+    "summary": "switch Redis protocol",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "protover",
+        "type": "integer"
+      },
+      {
+        "command": "AUTH",
+        "name": [
+          "username",
+          "password"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "SETNAME",
+        "name": "clientname",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "connection"
   },
   "HEXISTS": {
     "summary": "Determine if a hash field exists",
@@ -1207,8 +1697,14 @@
         "type": "key"
       },
       {
-        "name": ["field", "value"],
-        "type": ["string", "string"],
+        "name": [
+          "field",
+          "value"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -1217,19 +1713,22 @@
   },
   "HSET": {
     "summary": "Set the string value of a hash field",
-    "complexity": "O(1)",
+    "complexity": "O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "field",
-        "type": "string"
-      },
-      {
-        "name": "value",
-        "type": "string"
+        "name": [
+          "field",
+          "value"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
+        "multiple": true
       }
     ],
     "since": "2.0.0",
@@ -1339,6 +1838,19 @@
     "since": "1.0.0",
     "group": "server"
   },
+  "LOLWUT": {
+    "summary": "Display some computer art and the Redis version",
+    "arguments": [
+      {
+        "command": "VERSION",
+        "name": "version",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "server"
+  },
   "KEYS": {
     "summary": "Find all keys matching the given pattern",
     "complexity": "O(N) with N being the number of keys in the database, under the assumption that the key names in the database and the given pattern have limited length.",
@@ -1383,14 +1895,17 @@
       {
         "name": "where",
         "type": "enum",
-        "enum": ["BEFORE", "AFTER"]
+        "enum": [
+          "BEFORE",
+          "AFTER"
+        ]
       },
       {
         "name": "pivot",
         "type": "string"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string"
       }
     ],
@@ -1421,16 +1936,50 @@
     "since": "1.0.0",
     "group": "list"
   },
-  "LPUSH": {
-    "summary": "Prepend one or multiple values to a list",
-    "complexity": "O(1)",
+  "LPOS": {
+    "summary": "Return the index of matching elements on a list",
+    "complexity": "O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "value",
+        "name": "element",
+        "type": "string"
+      },
+      {
+        "command": "RANK",
+        "name": "rank",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "num-matches",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "MAXLEN",
+        "name": "len",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "6.0.6",
+    "group": "list"
+  },
+  "LPUSH": {
+    "summary": "Prepend one or multiple elements to a list",
+    "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "element",
         "type": "string",
         "multiple": true
       }
@@ -1439,16 +1988,17 @@
     "group": "list"
   },
   "LPUSHX": {
-    "summary": "Prepend a value to a list, only if the list exists",
-    "complexity": "O(1)",
+    "summary": "Prepend an element to a list, only if the list exists",
+    "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "value",
-        "type": "string"
+        "name": "element",
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "2.2.0",
@@ -1476,7 +2026,7 @@
   },
   "LREM": {
     "summary": "Remove elements from a list",
-    "complexity": "O(N) where N is the length of the list.",
+    "complexity": "O(N+M) where N is the length of the list and M is the number of elements removed.",
     "arguments": [
       {
         "name": "key",
@@ -1487,7 +2037,7 @@
         "type": "integer"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string"
       }
     ],
@@ -1507,7 +2057,7 @@
         "type": "integer"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string"
       }
     ],
@@ -1543,7 +2093,6 @@
     "summary": "Show helpful text about the different subcommands",
     "since": "4.0.0",
     "group": "server"
-
   },
   "MEMORY MALLOC-STATS": {
     "summary": "Show allocator internal stats",
@@ -1606,7 +2155,10 @@
       {
         "name": "key",
         "type": "enum",
-        "enum": ["key", "\"\""]
+        "enum": [
+          "key",
+          "\"\""
+        ]
       },
       {
         "name": "destination-db",
@@ -1619,13 +2171,29 @@
       {
         "name": "copy",
         "type": "enum",
-        "enum": ["COPY"],
+        "enum": [
+          "COPY"
+        ],
         "optional": true
       },
       {
         "name": "replace",
         "type": "enum",
-        "enum": ["REPLACE"],
+        "enum": [
+          "REPLACE"
+        ],
+        "optional": true
+      },
+      {
+        "command": "AUTH",
+        "name": "password",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "AUTH2",
+        "name": "username password",
+        "type": "string",
         "optional": true
       },
       {
@@ -1638,6 +2206,42 @@
     ],
     "since": "2.6.0",
     "group": "generic"
+  },
+  "MODULE LIST": {
+    "summary": "List all modules loaded by the server",
+    "complexity": "O(N) where N is the number of loaded modules.",
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MODULE LOAD": {
+    "summary": "Load a module",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "path",
+        "type": "string"
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "variadic": true,
+        "optional": true
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server"
+  },
+  "MODULE UNLOAD": {
+    "summary": "Unload a module",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "since": "4.0.0",
+    "group": "server"
   },
   "MONITOR": {
     "summary": "Listen for all requests received by the server in real time",
@@ -1665,8 +2269,14 @@
     "complexity": "O(N) where N is the number of keys to set.",
     "arguments": [
       {
-        "name": ["key", "value"],
-        "type": ["key", "string"],
+        "name": [
+          "key",
+          "value"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -1678,8 +2288,14 @@
     "complexity": "O(N) where N is the number of keys to set.",
     "arguments": [
       {
-        "name": ["key", "value"],
-        "type": ["key", "string"],
+        "name": [
+          "key",
+          "value"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -1837,8 +2453,12 @@
     "complexity": "O(N) where N is the number of patterns the client is already subscribed to.",
     "arguments": [
       {
-        "name": ["pattern"],
-        "type": ["pattern"],
+        "name": [
+          "pattern"
+        ],
+        "type": [
+          "pattern"
+        ],
         "multiple": true
       }
     ],
@@ -1917,13 +2537,13 @@
     "group": "generic"
   },
   "READONLY": {
-    "summary": "Enables read queries for a connection to a cluster slave node",
+    "summary": "Enables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
   },
   "READWRITE": {
-    "summary": "Disables read queries for a connection to a cluster slave node",
+    "summary": "Disables read queries for a connection to a cluster replica node",
     "complexity": "O(1)",
     "since": "3.0.0",
     "group": "cluster"
@@ -1979,10 +2599,31 @@
       {
         "name": "replace",
         "type": "enum",
-        "enum": ["REPLACE"],
+        "enum": [
+          "REPLACE"
+        ],
+        "optional": true
+      },
+      {
+        "name": "absttl",
+        "type": "enum",
+        "enum": [
+          "ABSTTL"
+        ],
+        "optional": true
+      },
+      {
+        "command": "IDLETIME",
+        "name": "seconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "FREQ",
+        "name": "frequency",
+        "type": "integer",
         "optional": true
       }
-
     ],
     "since": "2.6.0",
     "group": "generic"
@@ -2020,16 +2661,48 @@
     "since": "1.2.0",
     "group": "list"
   },
-  "RPUSH": {
-    "summary": "Append one or multiple values to a list",
+  "LMOVE": {
+    "summary": "Pop an element from a list, push it to another list and return it",
     "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "key"
+      },
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "wherefrom",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "name": "whereto",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      }
+    ],
+    "since": "6.2.0",
+    "group": "list"
+  },
+  "RPUSH": {
+    "summary": "Append one or multiple elements to a list",
+    "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "value",
+        "name": "element",
         "type": "string",
         "multiple": true
       }
@@ -2038,16 +2711,17 @@
     "group": "list"
   },
   "RPUSHX": {
-    "summary": "Append a value to a list, only if the list exists",
-    "complexity": "O(1)",
+    "summary": "Append an element to a list, only if the list exists",
+    "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "value",
-        "type": "string"
+        "name": "element",
+        "type": "string",
+        "multiple": true
       }
     ],
     "since": "2.2.0",
@@ -2094,7 +2768,11 @@
       {
         "name": "mode",
         "type": "enum",
-        "enum": ["YES", "SYNC", "NO"]
+        "enum": [
+          "YES",
+          "SYNC",
+          "NO"
+        ]
       }
     ],
     "since": "3.2.0",
@@ -2191,21 +2869,30 @@
         "type": "string"
       },
       {
-        "command": "EX",
-        "name": "seconds",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "command": "PX",
-        "name": "milliseconds",
-        "type": "integer",
+        "name": "expiration",
+        "type": "enum",
+        "enum": [
+          "EX seconds",
+          "PX milliseconds",
+          "KEEPTTL"
+        ],
         "optional": true
       },
       {
         "name": "condition",
         "type": "enum",
-        "enum": ["NX", "XX"],
+        "enum": [
+          "NX",
+          "XX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "get",
+        "type": "enum",
+        "enum": [
+          "GET"
+        ],
         "optional": true
       }
     ],
@@ -2226,7 +2913,7 @@
       },
       {
         "name": "value",
-        "type": "string"
+        "type": "integer"
       }
     ],
     "since": "2.2.0",
@@ -2294,7 +2981,10 @@
       {
         "name": "save-mode",
         "type": "enum",
-        "enum": ["NOSAVE", "SAVE"],
+        "enum": [
+          "NOSAVE",
+          "SAVE"
+        ],
         "optional": true
       }
     ],
@@ -2347,8 +3037,25 @@
     "since": "1.0.0",
     "group": "set"
   },
+  "SMISMEMBER": {
+    "summary": "Returns the membership associated with the given elements for a set",
+    "complexity": "O(N) where N is the number of elements being checked for membership",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "set"
+  },
   "SLAVEOF": {
-    "summary": "Make the server a slave of another instance, or promote it as master",
+    "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
     "arguments": [
       {
         "name": "host",
@@ -2360,6 +3067,21 @@
       }
     ],
     "since": "1.0.0",
+    "group": "server"
+  },
+  "REPLICAOF": {
+    "summary": "Make the server a replica of another instance, or promote it as master.",
+    "arguments": [
+      {
+        "name": "host",
+        "type": "string"
+      },
+      {
+        "name": "port",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
     "group": "server"
   },
   "SLOWLOG": {
@@ -2426,8 +3148,14 @@
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       },
       {
@@ -2440,13 +3168,18 @@
       {
         "name": "order",
         "type": "enum",
-        "enum": ["ASC", "DESC"],
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
         "optional": true
       },
       {
         "name": "sorting",
         "type": "enum",
-        "enum": ["ALPHA"],
+        "enum": [
+          "ALPHA"
+        ],
         "optional": true
       },
       {
@@ -2510,6 +3243,26 @@
     "since": "1.0.0",
     "group": "set"
   },
+  "STRALGO": {
+    "summary": "Run algorithms (currently LCS) against strings",
+    "complexity": "For LCS O(strlen(s1)*strlen(s2))",
+    "arguments": [
+      {
+        "name": "algorithm",
+        "type": "enum",
+        "enum": [
+          "LCS"
+        ]
+      },
+      {
+        "name": "algo-specific-argument",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.0.0",
+    "group": "string"
+  },
   "STRLEN": {
     "summary": "Get the length of the value stored in a key",
     "complexity": "O(1)",
@@ -2527,8 +3280,8 @@
     "complexity": "O(N) where N is the number of channels to subscribe to.",
     "arguments": [
       {
-        "name": ["channel"],
-        "type": ["string"],
+        "name": "channel",
+        "type": "string",
         "multiple": true
       }
     ],
@@ -2569,20 +3322,35 @@
     "summary": "Swaps two Redis databases",
     "arguments": [
       {
-        "name": "index",
+        "name": "index1",
         "type": "integer"
       },
       {
-        "name": "index",
+        "name": "index2",
         "type": "integer"
       }
     ],
     "since": "4.0.0",
-    "group": "connection"
+    "group": "server"
   },
   "SYNC": {
     "summary": "Internal command used for replication",
     "since": "1.0.0",
+    "group": "server"
+  },
+  "PSYNC": {
+    "summary": "Internal command used for replication",
+    "arguments": [
+      {
+        "name": "replicationid",
+        "type": "integer"
+      },
+      {
+        "name": "offset",
+        "type": "integer"
+      }
+    ],
+    "since": "2.8.0",
     "group": "server"
   },
   "TIME": {
@@ -2666,7 +3434,7 @@
     "complexity": "O(1)",
     "arguments": [
       {
-        "name": "numslaves",
+        "name": "numreplicas",
         "type": "integer"
       },
       {
@@ -2701,24 +3469,46 @@
       {
         "name": "condition",
         "type": "enum",
-        "enum": ["NX","XX"],
+        "enum": [
+          "NX",
+          "XX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "comparison",
+        "type": "enum",
+        "enum": [
+          "GT",
+          "LT"
+        ],
         "optional": true
       },
       {
         "name": "change",
         "type": "enum",
-        "enum": ["CH"],
+        "enum": [
+          "CH"
+        ],
         "optional": true
       },
       {
         "name": "increment",
         "type": "enum",
-        "enum": ["INCR"],
+        "enum": [
+          "INCR"
+        ],
         "optional": true
       },
       {
-        "name": ["score", "member"],
-        "type": ["double", "string"],
+        "name": [
+          "score",
+          "member"
+        ],
+        "type": [
+          "double",
+          "string"
+        ],
         "multiple": true
       }
     ],
@@ -2777,6 +3567,49 @@
     "since": "1.2.0",
     "group": "sorted_set"
   },
+  "ZINTER": {
+    "summary": "Intersect multiple sorted sets",
+    "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
   "ZINTERSTORE": {
     "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
     "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
@@ -2805,7 +3638,11 @@
         "command": "AGGREGATE",
         "name": "aggregate",
         "type": "enum",
-        "enum": ["SUM", "MIN", "MAX"],
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
         "optional": true
       }
     ],
@@ -2832,6 +3669,40 @@
     "since": "2.8.9",
     "group": "sorted_set"
   },
+  "ZPOPMAX": {
+    "summary": "Remove and return members with the highest scores in a sorted set",
+    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "ZPOPMIN": {
+    "summary": "Remove and return members with the lowest scores in a sorted set",
+    "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "sorted_set"
+  },
   "ZRANGE": {
     "summary": "Return a range of members in a sorted set, by index",
     "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
@@ -2851,7 +3722,9 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       }
     ],
@@ -2876,8 +3749,14 @@
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -2902,8 +3781,14 @@
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -2929,13 +3814,21 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -3054,7 +3947,9 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       }
     ],
@@ -3080,13 +3975,21 @@
       {
         "name": "withscores",
         "type": "enum",
-        "enum": ["WITHSCORES"],
+        "enum": [
+          "WITHSCORES"
+        ],
         "optional": true
       },
       {
         "command": "LIMIT",
-        "name": ["offset", "count"],
-        "type": ["integer", "integer"],
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
         "optional": true
       }
     ],
@@ -3125,6 +4028,66 @@
     "since": "1.2.0",
     "group": "sorted_set"
   },
+  "ZUNION": {
+    "summary": "Add multiple sorted sets",
+    "complexity": "O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "command": "WEIGHTS",
+        "name": "weight",
+        "type": "integer",
+        "variadic": true,
+        "optional": true
+      },
+      {
+        "command": "AGGREGATE",
+        "name": "aggregate",
+        "type": "enum",
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
+  "ZMSCORE": {
+    "summary": "Get the score associated with the given members in a sorted set",
+    "complexity": "O(N) where N is the number of members being requested.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "member",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
   "ZUNIONSTORE": {
     "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
     "complexity": "O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
@@ -3153,7 +4116,11 @@
         "command": "AGGREGATE",
         "name": "aggregate",
         "type": "enum",
-        "enum": ["SUM", "MIN", "MAX"],
+        "enum": [
+          "SUM",
+          "MIN",
+          "MAX"
+        ],
         "optional": true
       }
     ],
@@ -3178,6 +4145,12 @@
         "command": "COUNT",
         "name": "count",
         "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TYPE",
+        "name": "type",
+        "type": "string",
         "optional": true
       }
     ],
@@ -3267,5 +4240,519 @@
     ],
     "since": "2.8.0",
     "group": "sorted_set"
+  },
+  "XINFO": {
+    "summary": "Get information on streams and consumer groups",
+    "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
+    "arguments": [
+      {
+        "command": "CONSUMERS",
+        "name": [
+          "key",
+          "groupname"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "GROUPS",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "command": "STREAM",
+        "name": "key",
+        "type": "key",
+        "optional": true
+      },
+      {
+        "name": "help",
+        "type": "enum",
+        "enum": [
+          "HELP"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XADD": {
+    "summary": "Appends a new entry to a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "ID",
+        "type": "string"
+      },
+      {
+        "name": [
+          "field",
+          "value"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XTRIM": {
+    "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
+    "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "strategy",
+        "type": "enum",
+        "enum": [
+          "MAXLEN"
+        ]
+      },
+      {
+        "name": "approx",
+        "type": "enum",
+        "enum": [
+          "~"
+        ],
+        "optional": true
+      },
+      {
+        "name": "count",
+        "type": "integer"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XDEL": {
+    "summary": "Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.",
+    "complexity": "O(1) for each single item to delete in the stream, regardless of the stream size.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XRANGE": {
+    "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval",
+    "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "start",
+        "type": "string"
+      },
+      {
+        "name": "end",
+        "type": "string"
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XREVRANGE": {
+    "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
+    "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "end",
+        "type": "string"
+      },
+      {
+        "name": "start",
+        "type": "string"
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XLEN": {
+    "summary": "Return the number of entires in a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XREAD": {
+    "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
+    "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
+    "arguments": [
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "BLOCK",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "streams",
+        "type": "enum",
+        "enum": [
+          "STREAMS"
+        ]
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XGROUP": {
+    "summary": "Create, destroy, and manage consumer groups.",
+    "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
+    "arguments": [
+      {
+        "command": "CREATE",
+        "name": [
+          "key",
+          "groupname",
+          "id-or-$"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "SETID",
+        "name": [
+          "key",
+          "groupname",
+          "id-or-$"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "DESTROY",
+        "name": [
+          "key",
+          "groupname"
+        ],
+        "type": [
+          "key",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "CREATECONSUMER",
+        "name": [
+          "key",
+          "groupname",
+          "consumername"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "DELCONSUMER",
+        "name": [
+          "key",
+          "groupname",
+          "consumername"
+        ],
+        "type": [
+          "key",
+          "string",
+          "string"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XREADGROUP": {
+    "summary": "Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.",
+    "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
+    "arguments": [
+      {
+        "command": "GROUP",
+        "name": [
+          "group",
+          "consumer"
+        ],
+        "type": [
+          "string",
+          "string"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "BLOCK",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "noack",
+        "type": "enum",
+        "enum": [
+          "NOACK"
+        ],
+        "optional": true
+      },
+      {
+        "name": "streams",
+        "type": "enum",
+        "enum": [
+          "STREAMS"
+        ]
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XACK": {
+    "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
+    "complexity": "O(1) for each message ID processed.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XCLAIM": {
+    "summary": "Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.",
+    "complexity": "O(log N) with N being the number of messages in the PEL of the consumer group.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": "consumer",
+        "type": "string"
+      },
+      {
+        "name": "min-idle-time",
+        "type": "string"
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "multiple": true
+      },
+      {
+        "command": "IDLE",
+        "name": "ms",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "TIME",
+        "name": "ms-unix-time",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "command": "RETRYCOUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "force",
+        "enum": [
+          "FORCE"
+        ],
+        "optional": true
+      },
+      {
+        "name": "justid",
+        "enum": [
+          "JUSTID"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XPENDING": {
+    "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
+    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": [
+          "start",
+          "end",
+          "count"
+        ],
+        "type": [
+          "string",
+          "string",
+          "integer"
+        ],
+        "optional": true
+      },
+      {
+        "name": "consumer",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "LATENCY DOCTOR": {
+    "summary": "Return a human readable latency analysis report.",
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY GRAPH": {
+    "summary": "Return a latency graph for the event.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY HISTORY": {
+    "summary": "Return timestamp-latency samples for the event.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string"
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY LATEST": {
+    "summary": "Return the latest latency samples for all events.",
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY RESET": {
+    "summary": "Reset latency data for one or more events.",
+    "arguments": [
+      {
+        "name": "event",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      }
+    ],
+    "since": "2.8.13",
+    "group": "server"
+  },
+  "LATENCY HELP": {
+    "summary": "Show helpful text about the different subcommands.",
+    "since": "2.8.13",
+    "group": "server"
   }
 }

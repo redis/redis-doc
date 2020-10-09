@@ -2,7 +2,7 @@ Using Redis as an LRU cache
 ===
 
 When Redis is used as a cache, often it is handy to let it automatically
-evict old data as you add new one. This behavior is very well known in the
+evict old data as you add new data. This behavior is very well known in the
 community of developers, since it is the default behavior of the popular
 *memcached* system.
 
@@ -55,9 +55,9 @@ The following policies are available:
 
 The policies **volatile-lru**, **volatile-random** and **volatile-ttl** behave like **noeviction** if there are no keys to evict matching the prerequisites.
 
-To pick the right eviction policy is important depending on the access pattern 
-of your application, however you can reconfigure the policy at runtime while 
-the application is running, and monitor the number of cache misses and hits 
+Picking the right eviction policy is important depending on the access pattern
+of your application, however you can reconfigure the policy at runtime while
+the application is running, and monitor the number of cache misses and hits
 using the Redis `INFO` output in order to tune your setup.
 
 In general as a rule of thumb:
@@ -68,7 +68,7 @@ In general as a rule of thumb:
 
 The **volatile-lru** and **volatile-random** policies are mainly useful when you want to use a single instance for both caching and to have a set of persistent keys. However it is usually a better idea to run two Redis instances to solve such a problem.
 
-It is also worth to note that setting an expire to a key costs memory, so using a policy like **allkeys-lru** is more memory efficient since there is no need to set an expire for the key to be evicted under memory pressure.
+It is also worth noting that setting an expire to a key costs memory, so using a policy like **allkeys-lru** is more memory efficient since there is no need to set an expire for the key to be evicted under memory pressure.
 
 How the eviction process works
 ---

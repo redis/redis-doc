@@ -30,7 +30,7 @@ Once a command is received, it is processed and a reply is sent back to the clie
 This is the simplest model possible, however there are two exceptions:
 
 * Redis supports pipelining (covered later in this document). So it is possible for clients to send multiple commands at once, and wait for replies later.
-* When a Redis client subscribes to a Pub/Sub channel, the protocol changes semantics and becomes a *push* protocol, that is, the client no longer requires to send commands, because the server will automatically send to the client new messages (for the channels the client is subscribed to) as soon as they are received.
+* When a Redis client subscribes to a Pub/Sub channel, the protocol changes semantics and becomes a *push* protocol, that is, the client no longer requires sending commands, because the server will automatically send to the client new messages (for the channels the client is subscribed to) as soon as they are received.
 
 Excluding the above two exceptions, the Redis protocol is a simple request-response protocol.
 
@@ -263,8 +263,8 @@ The above RESP data type encodes a two elements Array consisting of an Array tha
 Null elements in Arrays
 -----------------------
 
-Single elements of an Array may be Null. This is used in Redis replies  in
-order to signal that this elements are missing and not empty strings. This
+Single elements of an Array may be Null. This is used in Redis replies in
+order to signal that these elements are missing and not empty strings. This
 can happen with the SORT command when used with the GET _pattern_ option
 when the specified key is missing. Example of an Array reply containing a
 Null element:
@@ -281,17 +281,17 @@ like this:
 
     ["foo",nil,"bar"]
 
-Note that this is not an exception to what said in the previous sections, but
+Note that this is not an exception to what was said in the previous sections, but
 just an example to further specify the protocol.
 
 Sending commands to a Redis Server
 ----------------------------------
 
 Now that you are familiar with the RESP serialization format, writing an
-implementation of a Redis client library will be easy. We can further specify
+implementation of a Redis client library will be easy. We can further to specify
 how the interaction between the client and the server works:
 
-* A client sends to the Redis server a RESP Array consisting of just Bulk Strings.
+* A client sends the Redis server a RESP Array consisting of just Bulk Strings.
 * A Redis server replies to clients sending any valid RESP data type as reply.
 
 So for example a typical interaction could be the following.
@@ -306,7 +306,7 @@ The client sends the command **LLEN mylist** in order to get the length of the l
 
     S: :48293\r\n
 
-As usually we separate different parts of the protocol with newlines for simplicity, but the actual interaction is the client sending `*2\r\n$4\r\nLLEN\r\n$6\r\nmylist\r\n` as a whole.
+As usual we separate different parts of the protocol with newlines for simplicity, but the actual interaction is the client sending `*2\r\n$4\r\nLLEN\r\n$6\r\nmylist\r\n` as a whole.
 
 Multiple commands and pipelining
 --------------------------------
@@ -322,7 +322,7 @@ For more information please check our [page about Pipelining](/topics/pipelining
 Inline Commands
 ---------------
 
-Sometimes you have only `telnet` in your hands and you need to send a command
+Sometimes you have only `telnet` to hand and you need to send a command
 to the Redis server. While the Redis protocol is simple to implement it is
 not ideal to use in interactive sessions, and `redis-cli` may not always be
 available. For this reason Redis also accepts commands in a special way that
@@ -350,7 +350,7 @@ While the Redis protocol is very human readable and easy to implement it can
 be implemented with a performance similar to that of a binary protocol.
 
 RESP uses prefixed lengths to transfer bulk data, so there is
-never need to scan the payload for special characters like it happens for
+never a need to scan the payload for special characters like it happens for
 instance with JSON, nor to quote the payload that needs to be sent to the
 server.
 

@@ -1,7 +1,9 @@
 Hacking Strings
 ===
 
-The implementation of Redis strings is contained in `sds.c` (`sds` stands for Simple Dynamic Strings).
+The implementation of Redis strings is contained in `sds.c` (`sds` stands for
+Simple Dynamic Strings). The implementation is available as a standalone library
+at [https://github.com/antirez/sds](https://github.com/antirez/sds).
 
 The C structure `sdshdr` declared in `sds.h` represents a Redis string:
 
@@ -91,4 +93,4 @@ Look at `sdslen` function and see this trick at work:
 
 Knowing this trick you could easily go through the rest of the functions in `sds.c`.
 
-The Redis string implementation is hidden behind an interface that accepts only character pointers. The users of Redis strings need not care about how its implemented and treat Redis strings as a character pointer.
+The Redis string implementation is hidden behind an interface that accepts only character pointers. The users of Redis strings need not care about how it's implemented and can treat Redis strings as a character pointer.
