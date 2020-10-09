@@ -49,12 +49,12 @@ This is how the Redis Object structure _robj_ looks like:
 
 As you can see there are a few fields about VM. The most important one is _storage_, that can be one of this values:
 
- * REDIS_VM_MEMORY: the associated value is in memory.
- * REDIS_VM_SWAPPED: the associated values is swapped, and the value entry of the hash table is just set to NULL.
- * REDIS_VM_LOADING: the value is swapped on disk, the entry is NULL, but there is a job to load the object from the swap to the memory (this field is only used when threaded VM is active).
- * REDIS_VM_SWAPPING: the value is in memory, the entry is a pointer to the actual Redis Object, but there is an I/O job in order to transfer this value to the swap file.
+ * `REDIS_VM_MEMORY`: the associated value is in memory.
+ * `REDIS_VM_SWAPPED`: the associated values is swapped, and the value entry of the hash table is just set to NULL.
+ * `REDIS_VM_LOADING`: the value is swapped on disk, the entry is NULL, but there is a job to load the object from the swap to the memory (this field is only used when threaded VM is active).
+ * `REDIS_VM_SWAPPING`: the value is in memory, the entry is a pointer to the actual Redis Object, but there is an I/O job in order to transfer this value to the swap file.
 
-If an object is swapped on disk (REDIS_VM_SWAPPED or REDIS_VM_LOADING), how do we know where it is stored, what type it is, and so forth? That's simple: the _vtype_ field is set to the original type of the Redis object swapped, while the _vm_ field (that is a _redisObjectVM_ structure) holds information about the location of the object. This is the definition of this additional structure:
+If an object is swapped on disk (`REDIS_VM_SWAPPED` or `REDIS_VM_LOADING`), how do we know where it is stored, what type it is, and so forth? That's simple: the _vtype_ field is set to the original type of the Redis object swapped, while the _vm_ field (that is a _redisObjectVM_ structure) holds information about the location of the object. This is the definition of this additional structure:
 
     /* The VM object structure */
     struct redisObjectVM {
@@ -81,7 +81,7 @@ As you can see if the VM system is not enabled we allocate just `sizeof(*o)-size
 The Swap File
 ---
 
-The next step in order to understand how the VM subsystem works is understanding how objects are stored inside the swap file. The good news is that's not some kind of special format, we just use the same format used to store the objects in .rdb files, that are the usual dump files produced by Redis using the SAVE command.
+The next step in order to understand how the VM subsystem works is understanding how objects are stored inside the swap file. The good news is that's not some kind of special format, we just use the same format used to store the objects in .rdb files, that are the usual dump files produced by Redis using the `SAVE` command.
 
 The swap file is composed of a given number of pages, where every page size is a given number of bytes. This parameters can be changed in redis.conf, since different Redis instances may work better with different values: it depends on the actual data you store inside it. The following are the default values:
 
@@ -101,14 +101,14 @@ In order to transfer an object from memory to disk we need to perform the follow
  * Now that we know how many pages are required in the swap file, we need to find this number of contiguous free pages inside the swap file. This task is accomplished by the `vmFindContiguousPages` function. As you can guess this function may fail if the swap is full, or so fragmented that we can't easily find the required number of contiguous free pages. When this happens we just abort the swapping of the object, that will continue to live in memory.
  * Finally we can write the object on disk, at the specified position, just calling the function `vmWriteObjectOnSwap`.
 
-As you can guess once the object was correctly written in the swap file, it is freed from memory, the storage field in the associated key is set to REDIS_VM_SWAPPED, and the used pages are marked as used in the page table.
+As you can guess once the object was correctly written in the swap file, it is freed from memory, the storage field in the associated key is set to `REDIS_VM_SWAPPED`, and the used pages are marked as used in the page table.
 
 Loading objects back in memory
 ---
 
 Loading an object from swap to memory is simpler, as we already know where the object is located and how many pages it is using. We also know the type of the object (the loading functions are required to know this information, as there is no header or any other information about the object type on disk), but this is stored in the _vtype_ field of the associated key as already seen above.
 
-Calling the function `vmLoadObject` passing the key object associated to the value object we want to load back is enough. The function will also take care of fixing the storage type of the key (that will be REDIS_VM_MEMORY), marking the pages as freed in the page table, and so forth.
+Calling the function `vmLoadObject` passing the key object associated to the value object we want to load back is enough. The function will also take care of fixing the storage type of the key (that will be `REDIS_VM_MEMORY`), marking the pages as freed in the page table, and so forth.
 
 The return value of the function is the loaded Redis Object itself, that we'll have to set again as value in the main hash table (instead of the NULL value we put in place of the object pointer when the value was originally swapped out).
 
@@ -130,7 +130,7 @@ vmSwapOneObject acts performing the following steps:
 
  * The key space in inspected in order to find a good candidate for swapping (we'll see later what a good candidate for swapping is).
  * The associated value is transferred to disk, in a blocking way.
- * The key storage field is set to REDIS_VM_SWAPPED, while the _vm_ fields of the object are set to the right values (the page index where the object was swapped, and the number of pages used to swap it).
+ * The key storage field is set to `REDIS_VM_SWAPPED`, while the _vm_ fields of the object are set to the right values (the page index where the object was swapped, and the number of pages used to swap it).
  * Finally the value object is freed and the value entry of the hash table is set to NULL.
 
 The function is called again and again until one of the following happens: there is no way to swap more objects because either the swap file is full or nearly all the objects are already transferred on disk, or simply the memory usage is already under the vm-max-memory parameter.
@@ -159,7 +159,7 @@ So this is what happens:
  * The command implementation calls the lookup function
  * The lookup function search for the key in the top level hash table. If the value associated with the requested key is swapped (we can see that checking the _storage_ field of the key object), we load it back in memory in a blocking way before to return to the user.
 
-This is pretty straightforward, but things will get more _interesting_ with the threads. From the point of view of the blocking VM the only real problem is the saving of the dataset using another process, that is, handling BGSAVE and BGREWRITEAOF commands.
+This is pretty straightforward, but things will get more _interesting_ with the threads. From the point of view of the blocking VM the only real problem is the saving of the dataset using another process, that is, handling `BGSAVE` and `BGREWRITEAOF` commands.
 
 Background saving when VM is active
 ---
@@ -175,7 +175,7 @@ The child process will just store the whole dataset into the dump.rdb file and f
 
 In order to avoid problems while both the processes are accessing the same swap file we do a simple thing, that is, not allowing values to be swapped out in the parent process while a background saving is in progress. This way both the processes will access the swap file in read only. This approach has the problem that while the child process is saving no new values can be transferred on the swap file even if Redis is using more memory than the max memory parameters dictates. This is usually not a problem as the background saving will terminate in a short amount of time and if still needed a percentage of values will be swapped on disk ASAP.
 
-An alternative to this scenario is to enable the Append Only File that will have this problem only when a log rewrite is performed using the BGREWRITEAOF command.
+An alternative to this scenario is to enable the Append Only File that will have this problem only when a log rewrite is performed using the `BGREWRITEAOF` command.
 
 The problem with the blocking VM
 ---
@@ -223,11 +223,11 @@ This is how the `iojob` structure looks like:
 
 There are just three type of jobs that an I/O thread can perform (the type is specified by the `type` field of the structure):
 
-* REDIS_IOJOB_LOAD: load the value associated to a given key from swap to memory. The object offset inside the swap file is `page`, the object type is `key->vtype`. The result of this operation will populate the `val` field of the structure.
-* REDIS_IOJOB_PREPARE_SWAP: compute the number of pages needed in order to save the object pointed by `val` into the swap. The result of this operation will populate the `pages` field.
-* REDIS_IOJOB_DO_SWAP: Transfer the object pointed by `val` to the swap file, at page offset `page`.
+* `REDIS_IOJOB_LOAD`: load the value associated to a given key from swap to memory. The object offset inside the swap file is `page`, the object type is `key->vtype`. The result of this operation will populate the `val` field of the structure.
+* `REDIS_IOJOB_PREPARE_SWAP`: compute the number of pages needed in order to save the object pointed by `val` into the swap. The result of this operation will populate the `pages` field.
+* `REDIS_IOJOB_DO_SWAP`: Transfer the object pointed by `val` to the swap file, at page offset `page`.
 
-The main thread delegates just the above three tasks. All the rest is handled by the main thread itself, for instance finding a suitable range of free pages in the swap file page table (that is a fast operation), deciding what object to swap, altering the storage field of a Redis object to reflect the current state of a value.
+The main thread delegates just the above three tasks. All the rest is handled by the I/O thread itself, for instance finding a suitable range of free pages in the swap file page table (that is a fast operation), deciding what object to swap, altering the storage field of a Redis object to reflect the current state of a value.
 
 Non blocking VM as probabilistic enhancement of blocking VM
 ---
@@ -246,7 +246,7 @@ So you can think of this as a blocked VM that almost always happen to have the r
 
 If the function checking what argument is a key fails in some way, there is no problem: the lookup function will see that a given key is associated to a swapped out value and will block loading it. So our non blocking VM reverts to a blocking one when it is not possible to anticipate what keys are touched.
 
-For instance in the case of the SORT command used together with the GET or BY options, it is not trivial to know beforehand what keys will be requested, so at least in the first implementation, SORT BY/GET resorts to the blocking VM implementation.
+For instance in the case of the `SORT` command used together with the `GET` or `BY` options, it is not trivial to know beforehand what keys will be requested, so at least in the first implementation, `SORT BY/GET` resorts to the blocking VM implementation.
 
 Blocking clients on swapped keys
 ---
@@ -260,7 +260,7 @@ There is something hard to solve about the interactions between our blocking and
 
 For instance while SORT BY is executed, a few keys are being loaded in a blocking manner by the sort command. At the same time, another client may request the same keys with a simple _GET key_ command, that will trigger the creation of an I/O job to load the key in background.
 
-The only simple way to deal with this problem is to be able to kill I/O jobs in the main thread, so that if a key that we want to load or swap in a blocking way is in the REDIS_VM_LOADING or REDIS_VM_SWAPPING state (that is, there is an I/O job about this key), we can just kill the I/O job about this key, and go ahead with the blocking operation we want to perform.
+The only simple way to deal with this problem is to be able to kill I/O jobs in the main thread, so that if a key that we want to load or swap in a blocking way is in the `REDIS_VM_LOADING` or `REDIS_VM_SWAPPING` state (that is, there is an I/O job about this key), we can just kill the I/O job about this key, and go ahead with the blocking operation we want to perform.
 
 This is not as trivial as it is. In a given moment an I/O job can be in one of the following three queues:
 

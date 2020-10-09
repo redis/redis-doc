@@ -1,5 +1,26 @@
 [
   {
+    "name": "Disque",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/antirez/disque-module",
+    "description": "Disque, an in-memory, distributed job queue, ported as Redis module.",
+    "authors": [
+      "antirez"
+    ],
+    "stars": 332
+  },
+  {
+    "name": "RedisGears",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisGears/RedisGears",
+    "description": "Dynamic execution framework for your Redis data.",
+    "authors": [
+      "MeirShpilraien",
+      "RedisLabs"
+    ],
+    "stars": 122
+  },
+  {
     "name": "redis-roaring",
     "license": "MIT",
     "repository": "https://github.com/aviggiano/redis-roaring",
@@ -7,7 +28,7 @@
     "authors": [
       "aviggiano"
     ],
-    "stars": 60
+    "stars": 130
   },
   {
     "name": "redis-cell",
@@ -17,18 +38,18 @@
     "authors": [
       "brandur"
     ],
-    "stars": 403
+    "stars": 651
   },
   {
     "name": "RedisGraph",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/redis-graph",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisGraph/RedisGraph",
     "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
     "authors": [
       "swilly22",
       "RedisLabs"
     ],
-    "stars": 401
+    "stars": 1144
   },
   {
     "name": "redis-tdigest",
@@ -38,73 +59,62 @@
     "authors": [
       "usmanm"
     ],
-    "stars": 45
+    "stars": 54
   },
   {
-    "name": "ReJSON",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/ReJSON",
+    "name": "RedisJSON",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisJSON/RedisJSON",
     "description": "A JSON data type for Redis",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 641
-  },
-  {
-    "name": "Redis-ML",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/redis-ml",
-    "description": "Machine Learning Model Server",
-    "authors": [
-      "shaynativ",
-      "RedisLabs"
-    ],
-    "stars": 212
+    "stars": 1119
   },
   {
     "name": "RediSearch",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/RediSearch",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RediSearch/RediSearch",
     "description": "Full-Text search over Redis",
     "authors": [
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 1323
+    "stars": 2585
   },
   {
     "name": "topk",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/topk",
     "description": "An almost deterministic top k elements counter",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 21
+    "stars": 32
   },
   {
     "name": "countminsketch",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
+    "license": "Redis Source Available License",
     "repository": "https://github.com/RedisLabsModules/countminsketch",
     "description": "An apporximate frequency counter",
     "authors": [
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 31
+    "stars": 39
   },
   {
-    "name": "rebloom",
-    "license": "(non OSI license) Apache 2.0 modified with Commons Clause",
-    "repository": "https://github.com/RedisLabsModules/rebloom",
+    "name": "RedisBloom",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisBloom/RedisBloom",
     "description": "Scalable Bloom filters",
     "authors": [
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 136
+    "stars": 691
   },
   {
     "name": "neural-redis",
@@ -114,27 +124,39 @@
     "authors": [
       "antirez"
     ],
-    "stars": 2073
+    "stars": 2160
   },
   {
-    "name": "redis-timerseries",
-    "license": "AGPL",
-    "repository": "https://github.com/danni-m/redis-timeseries",
+    "name": "RedisTimeSeries",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisTimeSeries/RedisTimeSeries",
     "description": "Time-series data structure for redis",
     "authors": [
-      "danni-m"
+      "danni-m",
+      "RedisLabs"
     ],
-    "stars": 186
+    "stars": 452
+  },
+  {
+    "name": "RedisAI",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/RedisAI/RedisAI",
+    "description": "A Redis module for serving tensors and executing deep learning graphs",
+    "authors": [
+      "lantiga",
+      "RedisLabs"
+    ],
+    "stars": 435
   },
   {
     "name": "ReDe",
     "license": "MIT",
     "repository": "https://github.com/TamarLabs/ReDe",
-    "description": "Low Latancy timed queues (Dehydrators) as Redis data types.",
+    "description": "Low Latency timed queues (Dehydrators) as Redis data types.",
     "authors": [
       "daTokenizer"
     ],
-    "stars": 23
+    "stars": 36
   },
   {
     "name": "commentDis",
@@ -144,7 +166,7 @@
     "authors": [
       "daTokenizer"
     ],
-    "stars": 6
+    "stars": 9
   },
   {
     "name": "redis-cuckoofilter",
@@ -154,7 +176,7 @@
     "authors": [
       "kristoff-it"
     ],
-    "stars": 66
+    "stars": 123
   },
   {
     "name": "cthulhu",
@@ -164,7 +186,7 @@
     "authors": [
       "sklivvz"
     ],
-    "stars": 117
+    "stars": 139
   },
   {
     "name": "Session Gate",
@@ -174,17 +196,156 @@
     "authors": [
       "f0rmiga"
     ],
-    "stars": 32
+    "stars": 45
   },
   {
     "name": "rediSQL",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedBeardLab/rediSQL",
-    "description": "A redis module that provide full SQL capabilities embedding SQLite",
+    "description": "A redis module that provides a full SQL capabilities embedding SQLite",
     "authors": [
       "siscia",
       "RedBeardLab"
     ],
-    "stars": 613
+    "stars": 1125
+  },
+  {
+    "name": "lqrm",
+    "license": "BSD",
+    "repository": "https://github.com/halaei/lqrm",
+    "description": "A Laravel compatible queue driver for Redis that supports reliable blocking pop from FIFO and scheduled queues.",
+    "authors": [
+      "halaei"
+    ],
+    "stars": 4
+  },
+  {
+    "name": "redis-rating",
+    "license": "MIT",
+    "repository": "https://github.com/poga/redis-rating",
+    "description": "Estimate actual rating from postive/negative ratings",
+    "authors": [
+      "devpoga"
+    ],
+    "stars": 14
+  },
+  {
+    "name": "smartcache",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/fcerbell/redismodule-smartcache",
+    "description": "A redis module that provides a pass-through cache",
+    "authors": [
+      "fcerbell"
+    ],
+    "stars": 5
+  },
+  {
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "repository": "https://github.com/limithit/RedisPushIptables",
+    "description": "RedisPushIptables is used to update firewall rules to reject the IP addresses for a specified amount of time or forever reject.",
+    "authors": [
+      "Gandalf"
+    ],
+    "stars": 19
+  },
+  {
+    "name": "redis-fpn",
+    "license": "Apache 2.0",
+    "repository": "https://github.com/infobip/redis-fpn",
+    "description": "Redis module for Fixed Point Number data type",
+    "authors": [
+      "xxlabaza"
+    ],
+    "stars": 8
+  },
+  {
+    "name": "redis-percentile",
+    "license": "MIT",
+    "repository": "https://github.com/poga/redis-percentile",
+    "description": "Redis module for efficient percentile estimation of streaming or distributed data with t-digest algorithm.",
+    "authors": [
+      "devpoga"
+    ],
+    "stars": 8
+  },
+  {
+    "name": "redlock",
+    "license": "MIT",
+    "repository": "https://github.com/wujunwei/redlock",
+    "description": "Redis module for distributed lock without using LUA script,safe unlock for different redis client.",
+    "authors": [
+      "wujunwei"
+    ],
+    "stars": 28
+  },
+  {
+    "name": "redis-protobuf",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/sewenew/redis-protobuf",
+    "description": "Redis module for reading and writing Protobuf messages",
+    "authors": [
+      "sewenew"
+    ],
+    "stars": 30
+  },
+  {
+    "name": "Reventis",
+    "license": "Redis Source Available License",
+    "repository": "https://github.com/starkdg/reventis",
+    "description": "Redis module for storing and querying spatio-temporal event data",
+    "authors": [
+      "starkdg"
+     ],
+     "stars": 14
+    },
+  {
+    "name": "redismodule-ratelimit",
+    "license": "MIT",
+    "repository": "https://github.com/linfangrong/redismodule-ratelimit",
+    "description": "Redis module that provides ratelimit",
+    "authors": [
+      "linfangrong"
+    ],
+    "stars": 0
+  },
+  {
+    "name": "dbx",
+    "license": "MIT",
+    "repository": "https://github.com/cscan/dbx",
+    "description": "Redis module for maintaining hash by simple SQL",
+    "authors": [
+      "cscan"
+    ],
+    "stars": 0
+  },
+
+	{ "name": "Redis-AudioScout",
+	  "license": "pHash Source Available License",
+	  "repository": "https://github.com/starkdg/Redis-AudioScout",
+	  "description": "Redis module for Audio Track Recognition",
+	  "authors": [
+		  "starkdg"
+	  ],
+	  "stars":1
+	},
+  {
+    "name": "redis_hnsw",
+    "license": "MIT",
+    "repository": "https://github.com/zhao-lang/redis_hnsw",
+    "description": "Redis module for Hierarchical Navigable Small World (HNSW) approxmiate nearest neighbor search",
+    "authors": [
+      "zhao-lang"
+    ],
+    "stars":0
+  },
+  { "name":"Redis-ImageScout",
+    "license": "pHash Redis Source Available License",
+    "repository": "https://github.com/starkdg/Redis-ImageScout.git",
+    "description": "Redis module for Indexing of pHash Image fingerprints for Near-Duplicate Detection",
+    "authors": [
+		"starkdg"
+	],
+	"stars":2
   }
 ]

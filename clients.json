@@ -3,7 +3,7 @@
     "name": "redis-rb",
     "language": "Ruby",
     "repository": "https://github.com/redis/redis-rb",
-    "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performances.",
+    "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performance.",
     "authors": ["ezmobius", "soveran", "djanowski", "pnoordhuis"],
     "recommended": true,
     "active": true
@@ -106,7 +106,7 @@
   {
     "name": "Radix",
     "language": "Go",
-    "repository": "https://github.com/mediocregopher/radix.v2",
+    "repository": "https://github.com/mediocregopher/radix",
     "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
     "authors": ["fzzbt", "mediocre_gopher"],
     "recommended": true,
@@ -120,6 +120,15 @@
     "description": "Redigo is a Go client for the Redis database with support for Print-alike API, Pipelining (including transactions), Pub/Sub, Connection pooling, scripting.",
     "authors": ["gburd"],
     "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "RedisPipe",
+    "language": "Go",
+    "repository": "https://github.com/joomcode/redispipe",
+    "description": "RedisPipe is the high-throughput Go client with implicit pipelining and robust Cluster support.",
+    "authors": ["funny_falcon"],
     "active": true
   },
 
@@ -169,11 +178,29 @@
   },
 
   {
+    "name": "Redis",
+    "language": "Go",
+    "repository": "https://github.com/pascaldekloe/redis",
+    "description": "clean, fully asynchronous, high-performance, low-memory",
+    "authors": [],
+    "active": true
+  },
+
+  {
     "name": "shipwire/redis",
     "language": "Go",
     "repository": "https://github.com/shipwire/redis",
     "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
     "authors": ["stephensearles"]
+  },
+
+  {
+    "name": "go-resp3",
+    "language": "Go",
+    "repository": "https://github.com/stfnmllr/go-resp3",
+    "description": "A Redis Go client implementation based on the Redis RESP3 protocol.",
+    "authors": [],
+    "active": true
   },
 
   {
@@ -205,7 +232,14 @@
     "recommended": true,
     "active": true
   },
-
+  {
+    "name": "java-redis-client",
+    "language": "Java",
+    "repository": "https://github.com/drm/java-redis-client",
+    "description": "A very simple yet very complete java client in less than 200 lines with 0 dependencies.",
+    "authors": [],
+    "active": true
+  },
   {
     "name": "Jedipus",
     "language": "Java",
@@ -361,6 +395,16 @@
   },
 
   {
+    "name": "Redis::ClusterRider",
+    "language": "Perl",
+    "url": "http://search.cpan.org/dist/Redis-ClusterRider/",
+    "repository": " https://github.com/iph0/Redis-ClusterRider",
+    "description": "Daring Redis Cluster client",
+    "authors": ["iph0"],
+    "active": true
+  },
+
+  {
     "name": "AnyEvent::Hiredis",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/AnyEvent-Hiredis/",
@@ -392,8 +436,7 @@
     "repository": "https://github.com/nrk/predis",
     "description": "Mature and supported",
     "authors": ["JoL1hAHN"],
-    "recommended": true,
-    "active": true
+    "recommended": true
   },
 
   {
@@ -412,7 +455,8 @@
     "url": "http://rediska.geometria-lab.net",
     "repository": "https://github.com/Shumkov/Rediska",
     "description": "",
-    "authors": ["shumkov"]
+    "authors": ["shumkov"],
+    "active": false
   },
 
   {
@@ -420,7 +464,8 @@
     "language": "PHP",
     "repository": "https://github.com/jdp/redisent",
     "description": "",
-    "authors": ["justinpoliey"]
+    "authors": ["justinpoliey"],
+    "active": false
   },
 
   {
@@ -446,7 +491,8 @@
     "language": "PHP",
     "repository": "https://github.com/swoole/redis-async",
     "description": "Asynchronous redis client library for PHP.",
-    "authors": ["matyhtf"]
+    "authors": ["matyhtf"],
+    "active": false
   },
 
   {
@@ -454,7 +500,8 @@
     "language": "PHP",
     "repository": "https://github.com/yampee/Redis",
     "description": "A full-featured Redis client for PHP 5.2. Easy to use and to extend.",
-    "authors": ["tgalopin"]
+    "authors": ["tgalopin"],
+    "active": false
   },
 
   {
@@ -545,11 +592,47 @@
   },
 
   {
+    "name": "monix-connect",
+    "language": "Scala",
+    "url": "https://monix.github.io/monix-connect/docs/redis",
+    "repository": "https://github.com/monix/monix-connect",
+    "description": "Monix integration with Redis",
+    "authors": ["paualarco"],
+    "active": true
+  },
+  
+  {
+    "name": "laserdisc",
+    "language": "Scala",
+    "repository": "https://github.com/laserdisc-io/laserdisc",
+    "description": "Future free Fs2 native pure FP Redis client http://laserdisc.io",
+    "authors": ["JSirocchi", "barambani"],
+    "active": true
+  },
+
+  {
+    "name": "Redis4Cats",
+    "language": "Scala",
+    "url": "https://redis4cats.profunktor.dev/",
+    "repository": "https://github.com/profunktor/redis4cats",
+    "description": "Purely functional Redis client for Cats Effect & Fs2",
+    "authors": ["volpegabriel87"],
+    "active": true
+  },
+
+  {
     "name": "scala-redis",
     "language": "Scala",
     "repository": "https://github.com/acrosa/scala-redis",
     "description": "",
     "authors": ["alejandrocrosa"]
+  },
+  {
+    "name": "scala-redis",
+    "language": "Scala",
+    "repository": "https://github.com/yarosman/redis-client-scala-netty",
+    "description": "Non-blocking, netty 4.1.x based Scala Redis client",
+    "authors": []
   },
 
   {
@@ -598,7 +681,7 @@
   {
     "name": "Tcl Client",
     "language": "Tcl",
-    "repository": "https://github.com/antirez/redis/blob/unstable/tests/support/redis.tcl",
+    "repository": "https://github.com/redis/redis/blob/unstable/tests/support/redis.tcl",
     "description": "The client used in the Redis test suite. Not really full featured nor designed to be used in the real world.",
     "authors": ["antirez"]
   },
@@ -637,6 +720,16 @@
     "url": "http://www.nuget.org/packages/Sider",
     "description": "Minimalistic client for C#/.NET 4.0",
     "authors": ["chakrit"]
+  },
+
+  {
+    "name": "Rediska",
+    "language": "C#",
+    "url": "https://github.com/pepelev/Rediska",
+    "description": "Rediska is a Redis client for .NET with a focus on flexibility and extensibility.",
+    "authors": [],
+    "recommended": false,
+    "active": true
   },
 
   {
@@ -692,7 +785,17 @@
     "authors": [],
     "active": true
   },
-
+  
+  {
+    "name": "xredis",
+    "language": "Node.js",
+    "repository": "https://github.com/razaellahi/xredis",
+    "description": "Redis client with redis ACL features",
+    "authors": ["razaellahi531"],
+    "recommended": true,
+    "active": true
+  },
+  
   {
     "name": "node_redis",
     "language": "Node.js",
@@ -745,6 +848,17 @@
     "repository": "https://github.com/luin/ioredis",
     "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
     "authors": ["luinlee"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "tedis",
+    "language": "Node.js",
+    "repository": "https://github.com/silkjs/tedis",
+    "url": "https://tedis.silkjs.org",
+    "description": "Tedis is a redis client developed for Node.js . Its name was inspired by the Jedis and TypeScript.",
+    "authors": ["dasoncheng"],
     "recommended": true,
     "active": true
   },
@@ -869,6 +983,15 @@
   },
 
   {
+    "name": "aedis",
+    "language": "C++",
+    "repository": "https://github.com/mzimbres/aedis",
+    "description": "An async redis client designed for simplicity and reliability.",
+    "authors": ["mzimbres"],
+    "active": true
+  },
+
+  {
     "name": "libredis",
     "language": "C",
     "repository": "https://github.com/toymachine/libredis",
@@ -905,8 +1028,8 @@
   {
     "name": "lettuce",
     "language": "Java",
-    "url": "http://redis.paluch.biz",
-    "repository": "https://github.com/mp911de/lettuce",
+    "url": "https://lettuce.io/",
+    "repository": "https://github.com/lettuce-io/lettuce-core",
     "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
     "authors": ["ar3te", "mp911de"],
     "active": true,
@@ -998,6 +1121,15 @@
     "repository": "https://github.com/nim-lang/redis",
     "description": "Redis client for Nim",
     "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "redisclient",
+    "language": "Nim",
+    "repository": "https://github.com/xmonader/nim-redisclient",
+    "description": "Redis client for Nim",
+    "authors": ["xmonader"],
     "active": true
   },
 
@@ -1284,7 +1416,7 @@
     "repository": "https://github.com/ronp001/SwiftRedis",
     "description": "Basic async client for Redis in Swift (iOS)",
     "authors": ["ronp001"],
-    "active": true
+    "active": false
   },
 
  {
@@ -1293,7 +1425,7 @@
     "repository": "https://github.com/Zewo/Redis",
     "description": "Redis client for Swift. OpenSwift C7 Compliant, OS X and Linux compatible.",
     "authors": ["rabc"],
-    "active": true
+    "active": false
   },
 
   {
@@ -1302,7 +1434,7 @@
     "repository": "https://github.com/czechboy0/Redbird",
     "description": "Pure-Swift implementation of a Redis client from the original protocol spec (OS X + Linux compatible)",
     "authors": ["czechboy0"],
-    "active": true
+    "active": false
   },
 
   {
@@ -1314,6 +1446,26 @@
     "active": true
   },
 
+  {
+    "name": "UniRedis",
+    "language": "Swift",
+    "repository": "https://github.com/seznam/swift-uniredis",
+    "description": "Redis client for Swift on macOS and Linux, capable of pipelining and transactions, with transparent support for authentication and sentinel.",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "RediStack",
+    "language": "Swift",
+    "repository": "https://gitlab.com/Mordil/RediStack",
+    "description": "Non-blocking, event-driven Swift client for Redis built with SwiftNIO for all official Swift deployment environments.",
+    "authors": ["mordil"],
+    "active": true,
+    "recommended": true,
+    "url": "https://docs.redistack.info"
+  },
+  
   {
     "name": "Rackdis",
     "language": "Racket",
@@ -1353,7 +1505,7 @@
   {
     "name": "cpp_redis",
     "language": "C++",
-    "repository": "https://github.com/cylix/cpp_redis",
+    "repository": "https://github.com/cpp-redis/cpp_redis",
     "description": "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform.",
     "authors": ["simon_ninon"],
     "active": true
@@ -1398,7 +1550,7 @@
     "name": "cheprasov/php-redis-client",
     "language": "PHP",
     "repository": "https://github.com/cheprasov/php-redis-client",
-    "description": "Supported PHP client for versions of Redis from 2.6 to 4.0",
+    "description": "Supported PHP client for Redis. PHP ver 5.5 - 7.4 / REDIS ver 2.6 - 6.0",
     "authors": ["cheprasov84"],
     "active": true
   },
@@ -1546,14 +1698,182 @@
     "authors": [],
     "active": true
   },
-  
-    {
+
+  {
+    "name": "Noderis",
+    "language": "Node.js",
+    "repository": "https://github.com/wallneradam/noderis",
+    "description": "A fast, standalone Redis client without external dependencies. It can be used with callbacks, Promises and async-await as well at the same time. Clean, well designed and documented source code. Because of this supports code completion (WebStorm/PHPStorm).",
+    "authors": []
+  },
+
+  {
+    "name": "RedisGo-Async",
+    "language": "Go",
+    "repository": "https://github.com/gistao/RedisGo-Async",
+    "description": "RedisGo-Async is a Go client for Redis, both asynchronous and synchronous modes are supported,,its API is fully compatible with redigo.",
+    "authors": ["gistao"]
+  },
+
+  {
+    "name": "redis-cluster",
+    "language": "Ruby",
+    "repository": "https://github.com/bukalapak/redis-cluster",
+    "description": "Redis cluster client on top of redis-rb. Support pipelining.",
+    "authors": ["bukalapak"],
+    "active": true
+  },
+
+  {
     "name": "Redis_MTC",
     "language": "Xojo",
     "repository": "https://github.com/ktekinay/XOJO-Redis/",
     "description": "A Xojo library to connect to a Redis server.",
     "authors": ["kemtekinay"],
     "active": true
+  },
+
+  {
+    "name": "soce-redis",
+    "language": "C++",
+    "url": "https://github.com/wusongwei/soce/tree/master/soce-redis",
+    "repository": "https://github.com/wusongwei/soce/tree/master/soce-redis",
+    "description": "Based on hiredis, accesses the sever(single, sentinel, cluster) with the same interface, supports pipeline and async(by coroutine)",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "mini_redis",
+    "language": "Crystal",
+    "url": "http://github.vladfaust.com/mini_redis/",
+    "repository": "https://github.com/vladfaust/mini_redis",
+    "description": "A light-weight low-level Redis client for Crystal",
+    "authors": ["vladfaust"],
+    "active": true
+  },
+
+  {
+    "name": "FlyRedis",
+    "language": "C++",
+    "repository": "https://github.com/icerlion/FlyRedis",
+    "description": "C++ Redis Client, base on Boost.asio, Easy To Use",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "BeetleX.Redis",
+    "language": "C#",
+    "url": "https://github.com/IKende/BeetleX.Redis",
+    "repository": "https://github.com/IKende/BeetleX.Redis",
+    "description": "A high-performance async/non-blocking redis client components for dotnet core, default support json and protobuf data format",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "wiredis",
+    "language": "C++",
+    "url": "https://github.com/nokia/wiredis",
+    "repository": "https://github.com/nokia/wiredis",
+    "description": "Standalone, asynchronous Redis client library based on ::boost::asio and c++11 standard",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "redis-plus-plus",
+    "language": "C++",
+    "repository": "https://github.com/sewenew/redis-plus-plus",
+    "description": "This is a Redis client, based on hiredis and written in C++11. It supports scritpting, pub/sub, pipeline, transaction, Redis Cluster, Redis Sentinel, connection pool, ACL, SSL and thread safety.",
+    "authors": ["sewenew"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "guile-redis",
+    "language": "Scheme",
+    "repository": "https://github.com/aconchillo/guile-redis",
+    "description": "A Redis client for Guile",
+    "authors": ["aconchillo"],
+    "active": true
+  },
+
+  {
+    "name": "dartis",
+    "language": "Dart",
+    "repository": "https://github.com/jcmellado/dartis",
+    "description": "A Redis client for Dart 2",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "walrus",
+    "language": "Python",
+    "repository": "https://github.com/coleifer/walrus",
+    "description": "Lightweight Python utilities for working with Redis.",
+    "authors": [],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "redisio",
+    "language": "Python",
+    "repository": "https://github.com/cf020031308/redisio",
+    "description": "A tiny and fast redis client for script boys.",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "viredis",
+    "language": "Java",
+    "repository": "https://github.com/virendradhankar/viredis",
+    "description": "A simple and small redis client for java.",
+    "authors": [],
+    "active": true
+  },
+
+  {
+    "name": "redis-cpp",
+    "language": "C++",
+    "repository": "https://github.com/tdv/redis-cpp",
+    "description": "redis-cpp is a library in C++17 for executing Redis commands with support of the pipelines and publish / subscribe pattern",
+    "active": true
+  },
+
+  {
+    "name": "OkRedis",
+    "language": "Zig",
+    "url": "https://github.com/kristoff-it/zig-okredis",
+    "repository": "https://github.com/kristoff-it/zig-okredis",
+    "description": "OkRedis is a zero-allocation client for Redis 6+ ",
+    "authors": ["kristoff-it"],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "Redis COM client",
+    "language": "ActiveX/COM+",
+    "url": "https://gitlab.com/erik4/redis-com-client",
+    "repository": "https://gitlab.com/erik4/redis-com-client",
+    "description": "A COM wrapper for StackExchange.Redis that allows using Redis from a COM environment like Classic ASP (ASP 3.0) using vbscript, jscript or any other COM capable language.",
+    "authors": [],
+    "recommended": true,
+    "active": true
+  },
+
+  {
+    "name": "Redis Connector for Dell Boomi",
+    "language": "Boomi",
+    "repository": "https://github.com/zachary-samsel/boomi-redis-connector",
+    "description": "A custom connector for Dell Boomi that utilizes the lettuce.io Java client to add Redis client support to the Dell Boomi iPaaS.",
+    "authors": [],
+    "active": true
   }
-  
 ]

@@ -21,22 +21,22 @@ discouraged as usually the available version is not the latest.
 
 You can either download the latest Redis tar ball from the [redis.io](http://redis.io) web site, or you can alternatively use this special URL that always points to the latest stable Redis version, that is, [http://download.redis.io/redis-stable.tar.gz](http://download.redis.io/redis-stable.tar.gz).
 
-In order to compile Redis follow this simple steps:
+In order to compile Redis follow these simple steps:
 
     wget http://download.redis.io/redis-stable.tar.gz
     tar xvzf redis-stable.tar.gz
     cd redis-stable
     make
 
-At this point you can try if your build works correctly by typing **make test**, but this is an optional step. After the compilation the **src** directory inside the Redis distribution is populated with the different executables that are part of Redis:
+At this point you can test if your build has worked correctly by typing **make test**, but this is an optional step. After compilation the **src** directory inside the Redis distribution is populated with the different executables that are part of Redis:
 
 * **redis-server** is the Redis Server itself.
 * **redis-sentinel** is the Redis Sentinel executable (monitoring and failover).
 * **redis-cli** is the command line interface utility to talk with Redis.
 * **redis-benchmark** is used to check Redis performances.
-* **redis-check-aof** and **redis-check-dump** are useful in the rare event of corrupted data files.
+* **redis-check-aof** and **redis-check-rdb** (**redis-check-dump** in 3.0 and below) are useful in the rare event of corrupted data files.
 
-It is a good idea to copy both the Redis server and the command line interface in proper places, either manually using the following commands:
+It is a good idea to copy both the Redis server and the command line interface into the proper places, either manually using the following commands:
 
 * sudo cp src/redis-server /usr/local/bin/
 * sudo cp src/redis-cli /usr/local/bin/
@@ -75,7 +75,7 @@ Running **redis-cli** followed by a command name and its arguments will send thi
 
 Another interesting way to run redis-cli is without arguments: the program will start in interactive mode, you can type different commands and see their replies.
 
-    $ redis-cli                                                                
+    $ redis-cli
     redis 127.0.0.1:6379> ping
     PONG
     redis 127.0.0.1:6379> set mykey somevalue
@@ -89,7 +89,7 @@ Securing Redis
 ===
 
 By default Redis binds to **all the interfaces** and has no authentication at
-all. If you use Redis into a very controlled environment, separated from the
+all. If you use Redis in a very controlled environment, separated from the
 external internet and in general from attackers, that's fine. However if Redis
 without any hardening is exposed to the internet, it is a big security
 concern. If you are not 100% sure your environment is secured properly, please
@@ -97,9 +97,9 @@ check the following steps in order to make Redis more secure, which are
 enlisted in order of increased security.
 
 1. Make sure the port Redis uses to listen for connections (by default 6379 and additionally 16379 if you run Redis in cluster mode, plus 26379 for Sentinel) is firewalled, so that it is not possible to contact Redis from the outside world.
-2. Use a configuration file where the `bind` directive is set in order to guarantee that Redis listens just in as little network interfaces you are using. For example only the loopback interface (127.0.0.1) if you are accessing Redis just locally from the same computer, and so forth.
+2. Use a configuration file where the `bind` directive is set in order to guarantee that Redis listens on only the network interfaces you are using. For example only the loopback interface (127.0.0.1) if you are accessing Redis just locally from the same computer, and so forth.
 3. Use the `requirepass` option in order to add an additional layer of security so that clients will require to authenticate using the `AUTH` command.
-4. Use [spiped](http://www.tarsnap.com/spiped.html) or another SSL tunnelling software in order to encrypt traffic between Redis servers and Redis clients if your environment requires encryption.
+4. Use [spiped](http://www.tarsnap.com/spiped.html) or another SSL tunneling software in order to encrypt traffic between Redis servers and Redis clients if your environment requires encryption.
 
 Note that a Redis exposed to the internet without any security [is very simple to exploit](http://antirez.com/news/96), so make sure you understand the above and apply **at least** a firewalling layer. After the firewalling is in place, try to connect with `redis-cli` from an external host in order to prove yourself the instance is actually not reachable.
 
@@ -157,7 +157,7 @@ The following instructions can be used to perform a proper installation using th
 
 We assume you already copied **redis-server** and **redis-cli** executables under /usr/local/bin.
 
-* Create a directory where to store your Redis config files and your data:
+* Create a directory in which to store your Redis config files and your data:
 
         sudo mkdir /etc/redis
         sudo mkdir /var/redis
