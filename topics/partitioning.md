@@ -116,4 +116,4 @@ Clients supporting consistent hashing
 
 An alternative to Twemproxy is to use a client that implements client side partitioning via consistent hashing or other similar algorithms. There are multiple Redis clients with support for consistent hashing, notably [Redis-rb](https://github.com/redis/redis-rb) and [Predis](https://github.com/nrk/predis).
 
-Please check the [full list of Redis clients](http://redis.io/clients) to check if there is a mature client with consistent hashing implementation for your language.
+Please check the [full list of Redis clients](https://redis.io/clients) to check if there is a mature client with consistent hashing implementation for your language.
