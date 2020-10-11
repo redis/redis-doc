@@ -7,7 +7,7 @@
     "authors": [
       "antirez"
     ],
-    "stars": 332
+    "stars": 457
   },
   {
     "name": "RedisGears",
@@ -81,29 +81,7 @@
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 2585
-  },
-  {
-    "name": "topk",
-    "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/topk",
-    "description": "An almost deterministic top k elements counter",
-    "authors": [
-      "itamarhaber",
-      "RedisLabs"
-    ],
-    "stars": 32
-  },
-  {
-    "name": "countminsketch",
-    "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/countminsketch",
-    "description": "An apporximate frequency counter",
-    "authors": [
-      "itamarhaber",
-      "RedisLabs"
-    ],
-    "stars": 39
+    "stars": 2616
   },
   {
     "name": "RedisBloom",
@@ -135,7 +113,7 @@
       "danni-m",
       "RedisLabs"
     ],
-    "stars": 452
+    "stars": 455
   },
   {
     "name": "RedisAI",
@@ -339,7 +317,8 @@
     ],
     "stars":0
   },
-  { "name":"Redis-ImageScout",
+  { 
+    "name":"Redis-ImageScout",
     "license": "pHash Redis Source Available License",
     "repository": "https://github.com/starkdg/Redis-ImageScout.git",
     "description": "Redis module for Indexing of pHash Image fingerprints for Near-Duplicate Detection",
@@ -347,5 +326,15 @@
 		"starkdg"
 	],
 	"stars":2
+  },
+  { 
+    "name":"redex",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/RedisLabsModules/redex.git",
+    "description": "Extension modules to Redis' native data types and commands",
+    "authors": [
+       "itamarhaber"
+    ],
+    "stars":52
   }
 ]
