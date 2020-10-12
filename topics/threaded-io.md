@@ -27,7 +27,9 @@ For the reading process, when a command/message is sent to the Redis server, it'
 
 I/O threads are only activated when the main thread gets the read/write pending list prepared. The workflow can be described as below:
 ```
-main thread prepare the pending list for read -> I/O threads read from the connections -> main thread execute command one by one -> main thread prepare the pending list for write -> I/O threads write reply content to the connections
+main thread prepare the pending list for read -> I/O threads read from the connections -> 
+main thread execute command one by one -> main thread prepare the pending list for write -> 
+I/O threads write reply content to the connections
 ```
 
 ## Low-Level Design
