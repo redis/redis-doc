@@ -26,11 +26,13 @@ For example, when Redis has done processing a command from client `A` and got th
 For the reading process, when a command/message is sent to the Redis server, it's described as a file event, which will trigger Redis to read from the client connection directly. After the reading process, Redis continues to decode/analysis/execute the command/message and get the result, added it to the write pending list as we discussed above, and handle the next happened event until no more available file event or time event happened. So in this case, the `io-threads-do-reads` option allows you to stop reading client connection when the event arrived, collect them to a **pending list** as well, and postpone the read action to the next cycle period using multiple I/O threads. When reads are done, Redis use the main thread to execute the client command one by one.
 
 I/O threads are only activated when the main thread gets the read/write pending list prepared. The workflow can be described as below:
-```
-main thread prepare the pending list for read -> I/O threads read from the connections -> 
-main thread execute command one by one -> main thread prepare the pending list for write -> 
-I/O threads write reply content to the connections
-```
+
+1. main thread prepare the pending list for read
+2. I/O threads read from the connections
+3. main thread execute command one by one
+4. main thread prepare the pending list for write
+5. I/O threads write reply content to the connections
+
 
 ## Low-Level Design
 ### Where is the pending list
