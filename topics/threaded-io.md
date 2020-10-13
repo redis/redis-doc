@@ -100,19 +100,11 @@ io_threads_list
 Each thread can iterate over the clients they should read, do read action, and store the result to `client.querybuf` attribute. The main thread will also handle part of the pending tasks after dispatching. In this example, thread 0, which is the main thread, will read through client 0 and then client 4, thread 1 will handle client 1 and client 5, and so on.
 
 ### Blocking and Locking
-There will be a racing condition if the I/O thread keeps monitoring and editing the `io_threads_list[i]` list. So Redis prepared another global variable named `io_threads_pending`. It's a thread number length list and stores an integer value representing the number of the remaining task that thread i should handle.
+There will be a racing condition if the I/O thread keeps monitoring and editing the `io_threads_list[i]` list. So Redis prepared another global variable named `io_threads_pending`. It's a thread number length list and stores an integer value representing the number of the remaining task that thread i should handle. When the main thread finished dispatching task to `io_threads_list`, it set `io_threads_pending[i]` to the actual task count.
 
-When the main thread finished dispatching task to `io_threads_list`, it set `io_threads_pending[i]` to the actual task count.
+The I/O threads will stay in a `for (int j = 0; j < 1000000; j++)` loop and checking if `io_threads_pending[id] != 0`. So when the value changed to an positive integer, thread i begin to read/write through the client in `io_threads_list[i]`. Once I/O threads finish their job, they will empty the list in `io_threads_list[i]`, and set `io_threads_pending[i]` to 0.
 
-The I/O threads will stay in a `for (int j = 0; j < 1000000; j++)` loop and checking if `io_threads_pending[id] != 0`. So when the value changed to an positive integer, thread i begin to read/write through the client in `io_threads_list[i]`. 
-
-Once I/O threads finish their job, they will empty the list in `io_threads_list[i]`, and set `io_threads_pending[i]` to 0.
-
-When the Redis server is running under a low workload, it will use a mutex lock to stop the I/O threads from keeping looping and checking the `io_threads_pending[i]` value. 
-
-When I/O threads are inited, Redis also inited a list of mutex `io_threads_mutex`, `io_threads_mutex[i]` representing the mutex lock for the thread i.
-
-When `server.clients_pending_write` length is lower than 2 * io_threads_num we've configured, Redis will stop the I/O threads by executing `pthread_mutex_lock(&io_threads_mutex[i])`. So when the main thread acquired the i-th mutex lock successfully, the corresponding I/O thread will be blocked on acquiring the same mutex lock. 
+When the Redis server is running under a low workload, it will use a mutex lock to stop the I/O threads from keeping looping and checking the `io_threads_pending[i]` value. Redis inited a list of mutex `io_threads_mutex` during I/O threads' initialization, `io_threads_mutex[i]` representing the mutex lock for the thread i. Before writing to client, Redis will check if `server.clients_pending_write` length is lower than 2 * io_threads_num we've configured. If yes, Redis will stop the I/O threads by executing `pthread_mutex_lock(&io_threads_mutex[i])`. So when the main thread acquired the i-th mutex lock successfully, the corresponding I/O thread will be blocked on acquiring the same mutex lock.
 
 The I/O thread will execute those codes in their `while` loop. So in each loop period, the main thread will have a chance to stop them by locking:
 ```
