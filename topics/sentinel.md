@@ -785,14 +785,10 @@ configured with `requirepass`, the Sentinel configuration must include the
 Configuring Sentinel instances with authentication
 ---
 
-You can also configure the Sentinel instance itself in order to require
-client authentication via the `AUTH` command, however this feature is
-only available starting with Redis 5.0.1. Start from Redis 6.2.0, ACL 
-is also supported for Sentinel mode. please visit (https://redis.io/topics/acl)
-for more details.
+You can also configure the Sentinel instance itself to require client authentication via the `AUTH` command.
+This feature is only available starting with Redis 5.0.1 by using requirepass config, and starting from Redis 6.2 by using ACL (details below).
 
-In order to do authentication with non-acl mode, just add the following 
-configuration directive to all your Sentinel instances:
+The old pre-6.2 mode, just add the following configuration directive to all your Sentinel instances:
 
     requirepass "your_password_here"
 
@@ -805,13 +801,13 @@ This means that **you will have to configure the same `requirepass` password in 
 
 Before using this configuration make sure your client library is able to send the `AUTH` command to Sentinel instances.
 
-In order to do authentication with acl way, you need provide following configuration directive to all your Sentinel instances:
+Starting Redis 6.2 you can use ACL to directives to control the users and passwords which Sentinel allows to connect with (see https://redis.io/topics/acl), additionally you need provide following configuration directive to all your Sentinel instances:
 
     sentinel sentinel-user <username>
 
     sentinel sentinel-pass <password>
 
-This two configurations provide acl user and acl password to authenticate with other sentinels. you will need to make sure each Sentinel instances have configured same acl user and password with sufficient permissions. In this way, as long as acl user configured is not 'default' user, you don't need to configure the same `requirepass` password in all the Sentinel instances.
+These two configurations provide acl user and ACL password to authenticate with other sentinels. you will need to make sure each Sentinel instances have configured same ACL user and password with sufficient permissions.
 
 Sentinel clients implementation
 ---
