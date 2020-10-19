@@ -787,7 +787,7 @@ Configuring Sentinel instances with authentication
 
 You can also configure the Sentinel instance itself in order to require
 client authentication via the `AUTH` command, however this feature is
-only available starting with Redis 5.0.1. Start from Redis 6.x.x, ACL 
+only available starting with Redis 5.0.1. Start from Redis 6.2.0, ACL 
 is also supported for Sentinel mode. please visit (https://redis.io/topics/acl)
 for more details.
 
