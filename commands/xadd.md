@@ -65,6 +65,17 @@ items. When this option modifier is used, the trimming is performed only when
 Redis is able to remove a whole macro node. This makes it much more efficient,
 and it is usually what you want.
 
+## NOMKSTREAM option
+
+By default, XADD will create a new stream if not exist in keyspace. Starting from 
+Redis 6.2, you can use NOMKSTREAM option to only append entries in existing stream 
+and not creating new one if stream doesn't exist. For example:
+
+	XADD mystream NOMKSTREAM * ... entry fields here ...
+
+Only if mystream exist, this XADD command will append entries to mystream. Otherwise 
+the command will not updating keyspace and just return NULL.
+
 ## Additional information about streams
 
 For further information about Redis streams please check our
