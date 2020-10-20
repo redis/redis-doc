@@ -785,7 +785,7 @@
     "authors": [],
     "active": true
   },
-
+  
   {
     "name": "xredis",
     "language": "Node.js",
@@ -834,7 +834,7 @@
     "recommended": false,
     "active": false
   },
-  
+
   {
     "name": "then-redis",
     "language": "Node.js",
