@@ -787,21 +787,21 @@
   },
 
   {
+    "name": "xredis",
+    "language": "Node.js",
+    "repository": "https://github.com/razaellahi/xredis",
+    "description": "Redis client with redis ACL features",
+    "authors": ["razaellahi531"],
+    "recommended": false,
+    "active": true
+  },
+  
+  {
     "name": "node_redis",
     "language": "Node.js",
     "repository": "https://github.com/NodeRedis/node_redis",
     "description": "Recommended client for node.",
     "authors": ["mranney"],
-    "recommended": true,
-    "active": true
-  },
-
-  {
-    "name": "ioredis",
-    "language": "Node.js",
-    "repository": "https://github.com/luin/ioredis",
-    "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
-    "authors": ["luinlee"],
     "recommended": true,
     "active": true
   },
@@ -836,16 +836,6 @@
   },
   
   {
-    "name": "xredis",
-    "language": "Node.js",
-    "repository": "https://github.com/razaellahi/xredis",
-    "description": "Redis client with redis ACL features",
-    "authors": ["razaellahi531"],
-    "recommended": false,
-    "active": true
-  },
-  
-  {
     "name": "then-redis",
     "language": "Node.js",
     "repository": "https://github.com/mjackson/then-redis",
@@ -860,6 +850,16 @@
     "repository": "https://github.com/fictorial/redis-node-client",
     "description": "No longer maintained, does not work with node 0.3.",
     "authors": []
+  },
+
+  {
+    "name": "ioredis",
+    "language": "Node.js",
+    "repository": "https://github.com/luin/ioredis",
+    "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
+    "authors": ["luinlee"],
+    "recommended": true,
+    "active": true
   },
 
   {
