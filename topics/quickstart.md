@@ -19,7 +19,7 @@ Redis has no dependencies other than a working GCC compiler and libc.
 Installing it using the package manager of your Linux distribution is somewhat
 discouraged as usually the available version is not the latest.
 
-You can either download the latest Redis tar ball from the [redis.io](http://redis.io) web site, or you can alternatively use this special URL that always points to the latest stable Redis version, that is, [http://download.redis.io/redis-stable.tar.gz](http://download.redis.io/redis-stable.tar.gz).
+You can either download the latest Redis tar ball from the [redis.io](https://redis.io) web site, or you can alternatively use this special URL that always points to the latest stable Redis version, that is, [http://download.redis.io/redis-stable.tar.gz](http://download.redis.io/redis-stable.tar.gz).
 
 In order to compile Redis follow these simple steps:
 
@@ -83,7 +83,7 @@ Another interesting way to run redis-cli is without arguments: the program will 
     redis 127.0.0.1:6379> get mykey
     "somevalue"
 
-At this point you are able to talk with Redis. It is the right time to pause a bit with this tutorial and start the [fifteen minutes introduction to Redis data types](http://redis.io/topics/data-types-intro) in order to learn a few Redis commands. Otherwise if you already know a few basic Redis commands you can keep reading.
+At this point you are able to talk with Redis. It is the right time to pause a bit with this tutorial and start the [fifteen minutes introduction to Redis data types](https://redis.io/topics/data-types-intro) in order to learn a few Redis commands. Otherwise if you already know a few basic Redis commands you can keep reading.
 
 Securing Redis
 ===
@@ -109,7 +109,7 @@ Using Redis from your application
 Of course using Redis just from the command line interface is not enough as
 the goal is to use it from your application. In order to do so you need to
 download and install a Redis client library for your programming language.
-You'll find a [full list of clients for different languages in this page](http://redis.io/clients).
+You'll find a [full list of clients for different languages in this page](https://redis.io/clients).
 
 For instance if you happen to use the Ruby programming language our best advice
 is to use the [Redis-rb](https://github.com/redis/redis-rb) client.
@@ -135,12 +135,12 @@ commands calling methods. A short interactive example using Ruby:
 Redis persistence
 =================
 
-You can learn [how Redis persistence works on this page](http://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
+You can learn [how Redis persistence works on this page](https://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
 
     $ redis-cli shutdown
 
 This way Redis will make sure to save the data on disk before quitting.
-Reading the [persistence page](http://redis.io/topics/persistence) is strongly suggested in order to better understand how Redis persistence works.
+Reading the [persistence page](https://redis.io/topics/persistence) is strongly suggested in order to better understand how Redis persistence works.
 
 Installing Redis more properly
 ==============================

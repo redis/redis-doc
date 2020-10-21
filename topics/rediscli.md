@@ -99,6 +99,16 @@ option and a valid URI:
     $ redis-cli -u redis://p%40ssw0rd@redis-16379.hosted.com:16379/0 ping
     PONG
 
+## SSL/TLS
+
+By default, `redis-cli` uses a plain TCP connection to connect to Redis.
+You may enable SSL/TLS using the `--tls` option, along with `--cacert` or
+`--cacertdir` to configure a trusted root certificate bundle or directory.
+
+If the target server requires authentication using a client side certificate,
+you can specify a certificate and a corresponding private key using `--cert` and
+`--key`.
+
 ## Getting input from other programs
 
 There are two ways you can use `redis-cli` in order to get the input from other
@@ -313,7 +323,7 @@ were in the middle of it:
 This is usually not an issue when using the CLI in interactive mode for
 testing, but you should be aware of this limitation.
 
-## Editing, history and completion
+## Editing, history, completion and hints
 
 Because `redis-cli` uses the
 [linenoise line editing library](http://github.com/antirez/linenoise), it
@@ -334,6 +344,23 @@ key, like in the following example:
     127.0.0.1:6379> Z<TAB>
     127.0.0.1:6379> ZADD<TAB>
     127.0.0.1:6379> ZCARD<TAB>
+
+Once you've typed a Redis command name at the prompt, the CLI will display
+syntax hints. This behavior can be turned on and off via the CLI preferences.
+
+## Preferences
+
+There are two ways to customize the CLI's behavior. The file `.redisclirc`
+in your home directory is loaded by the CLI on startup. Preferences can also
+be set during a CLI session, in which case they will last only the the
+duration of the session.
+
+To set preferences, use the special `:set` command. The following preferences
+can be set, either by typing the command in the CLI or adding it to the
+`.redisclirc` file:
+
+* `:set hints` - enables syntax hints
+* `:set nohints` - disables syntax hints
 
 ## Running the same command N times
 

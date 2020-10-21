@@ -105,7 +105,7 @@ costs more memory. However the approximation is virtually equivalent for the
 application using Redis. The following is a graphical comparison of how
 the LRU approximation used by Redis compares with true LRU.
 
-![LRU comparison](http://redis.io/images/redisdoc/lru_comparison.png)
+![LRU comparison](https://redis.io/images/redisdoc/lru_comparison.png)
 
 The test to generate the above graphs filled a Redis server with a given number of keys. The keys were accessed from the first to the last, so that the first keys are the best candidates for eviction using an LRU algorithm. Later more 50% of keys are added, in order to force half of the old keys to be evicted.
 

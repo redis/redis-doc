@@ -71,7 +71,8 @@ simple module that implements a command that outputs a random number.
             == REDISMODULE_ERR) return REDISMODULE_ERR;
 
         if (RedisModule_CreateCommand(ctx,"helloworld.rand",
-            HelloworldRand_RedisCommand) == REDISMODULE_ERR)
+            HelloworldRand_RedisCommand, "fast random",
+            0, 0, 0) == REDISMODULE_ERR)
             return REDISMODULE_ERR;
 
         return REDISMODULE_OK;
@@ -117,17 +118,19 @@ otherwise the module will segfault and the Redis instance will crash.
 The second function called, `RedisModule_CreateCommand`, is used in order
 to register commands into the Redis core. The following is the prototype:
 
-    int RedisModule_CreateCommand(RedisModuleCtx *ctx, const char *cmdname,
-                                  RedisModuleCmdFunc cmdfunc);
+    int RedisModule_CreateCommand(RedisModuleCtx *ctx, const char *name,
+                                  RedisModuleCmdFunc cmdfunc, const char *strflags,
+                                  int firstkey, int lastkey, int keystep);
 
 As you can see, most Redis modules API calls all take as first argument
 the `context` of the module, so that they have a reference to the module
 calling it, to the command and client executing a given command, and so forth.
 
-To create a new command, the above function needs the context, the command
-name, and the function pointer of the function implementing the command,
-which must have the following prototype:
+To create a new command, the above function needs the context, the command's
+name, a pointer to the function implementing the command, the command's flags
+and the positions of key names in the command's arguments.
 
+The function that implements the command must have the following prototype:
 
     int mycommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc);
 
@@ -145,6 +148,24 @@ Zooming into the example command implementation, we can find another call:
 
 This function returns an integer to the client that invoked the command,
 exactly like other Redis commands do, like for example `INCR` or `SCARD`.
+
+# Module cleanup
+
+In most cases, there is no need for special cleanup.
+When a module is unloaded, Redis will automatically unregister commands and
+unsubscribe from notifications.
+However in the case where a module contains some persistent memory or
+configuration, a module may include an optional `RedisModule_OnUnload`
+function.
+If a module provides this function, it will be invoked during the module unload
+process.
+The following is the function prototype:
+
+    int RedisModule_OnUnload(RedisModuleCtx *ctx);
+
+The `OnUnload` function may prevent module unloading by returning
+`REDISMODULE_ERR`.
+Otherwise, `REDISMODULE_OK` should be returned.
 
 # Setup and dependencies of a Redis module
 

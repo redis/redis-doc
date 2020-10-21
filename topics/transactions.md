@@ -15,7 +15,7 @@ isolated operation.
 transaction is also atomic. The `EXEC` command
 triggers the execution of all the commands in the transaction, so
 if a client loses the connection to the server in the context of a
-transaction before calling the `MULTI` command none of the operations
+transaction before calling the `EXEC` command none of the operations
 are performed, instead if the `EXEC` command is called, all the
 operations are performed. When using the
 [append-only file](/topics/persistence#append-only-file) Redis makes sure
@@ -196,7 +196,7 @@ So what is `WATCH` really about? It is a command that will
 make the `EXEC` conditional: we are asking Redis to perform
 the transaction only if none of the `WATCH`ed keys were modified.
 (But they might be changed by the same client inside the transaction
-without aborting it. [More on this](https://github.com/antirez/redis-doc/issues/734).)
+without aborting it. [More on this](https://github.com/redis/redis-doc/issues/734).)
 Otherwise the transaction is not entered at
 all. (Note that if you `WATCH` a volatile key and Redis expires
 the key after you `WATCH`ed it, `EXEC` will still work. [More on

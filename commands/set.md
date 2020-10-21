@@ -4,20 +4,28 @@ Any previous time to live associated with the key is discarded on successful `SE
 
 ## Options
 
-Starting with Redis 2.6.12 `SET` supports a set of options that modify its
-behavior:
+The `SET` command supports a set of options that modify its behavior:
 
 * `EX` *seconds* -- Set the specified expire time, in seconds.
 * `PX` *milliseconds* -- Set the specified expire time, in milliseconds.
 * `NX` -- Only set the key if it does not already exist.
 * `XX` -- Only set the key if it already exist.
+* `KEEPTTL` -- Retain the time to live associated with the key.
+* `GET` -- Return the old value stored at key, or nil when key did not exist.
 
-Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, it is possible that in future versions of Redis these three commands will be deprecated and finally removed.
+Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `GETSET`, it is possible that in future versions of Redis these three commands will be deprecated and finally removed.
 
 @return
 
 @simple-string-reply: `OK` if `SET` was executed correctly.
-@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met.
+@bulk-string-reply: when `GET` option is set, the old value stored at key, or nil when key did not exist.
+@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met or if user specified the `NX` and `GET` options that do not met.
+
+@history
+
+* `>= 2.6.12`: Added the `EX`, `PX`, `NX` and `XX` options.
+* `>= 6.0`: Added the `KEEPTTL` option.
+* `>= 6.2`: Added the `GET` option.
 
 @examples
 
@@ -30,7 +38,7 @@ SET anotherkey "will expire in a minute" EX 60
 
 ## Patterns
 
-**Note:** The following pattern is discouraged in favor of [the Redlock algorithm](http://redis.io/topics/distlock) which is only a bit more complex to implement, but offers better guarantees and is fault tolerant.
+**Note:** The following pattern is discouraged in favor of [the Redlock algorithm](https://redis.io/topics/distlock) which is only a bit more complex to implement, but offers better guarantees and is fault tolerant.
 
 The command `SET resource-name anystring NX EX max-lock-time` is a simple way to implement a locking system with Redis.
 

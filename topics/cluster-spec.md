@@ -273,7 +273,7 @@ the node was pinged and the last time the pong was received, the current
 *configuration epoch* of the node (explained later in this specification),
 the link state and finally the set of hash slots served.
 
-A detailed [explanation of all the node fields](http://redis.io/commands/cluster-nodes) is described in the `CLUSTER NODES` documentation.
+A detailed [explanation of all the node fields](https://redis.io/commands/cluster-nodes) is described in the `CLUSTER NODES` documentation.
 
 The `CLUSTER NODES` command can be sent to any node in the cluster and provides the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
 
@@ -777,7 +777,7 @@ At node creation every Redis Cluster node, both slaves and master nodes, set the
 
 Every time a packet is received from another node, if the epoch of the sender (part of the cluster bus messages header) is greater than the local node epoch, the `currentEpoch` is updated to the sender epoch.
 
-Because of these semantics, eventually all the nodes will agree to the greatest `configEpoch` in the cluster.
+Because of these semantics, eventually all the nodes will agree to the greatest `currentEpoch` in the cluster.
 
 This information is used when the state of the cluster is changed and a node seeks agreement in order to perform some action.
 

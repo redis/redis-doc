@@ -12,12 +12,15 @@ The optional parameter can be used to select a specific section of information:
 *   `cpu`: CPU consumption statistics
 *   `commandstats`: Redis command statistics
 *   `cluster`: Redis Cluster section
+*   `modules`: Modules section
 *   `keyspace`: Database related statistics
+*   `modules`: Module related sections
 
 It can also take the following values:
 
-*   `all`: Return all sections
+*   `all`: Return all sections (excluding module generated ones)
 *   `default`: Return only the default set of sections
+*   `everything`: Includes `all` and `modules`
 
 When no parameter is provided, the `default` option is assumed.
 
@@ -60,7 +63,8 @@ Here is the meaning of all fields in the **server** section:
 *   `tcp_port`: TCP/IP listen port
 *   `uptime_in_seconds`: Number of seconds since Redis server start
 *   `uptime_in_days`: Same value expressed in days
-*   `hz`: The server's frequency setting
+*   `hz`: The server's current frequency setting
+*   `configured_hz`: The server's configured frequency setting
 *   `lru_clock`: Clock incrementing every minute, for LRU management
 *   `executable`: The path to the server's executable
 *   `config_file`: The path to the config file
@@ -69,12 +73,15 @@ Here is the meaning of all fields in the **clients** section:
 
 *   `connected_clients`: Number of client connections (excluding connections
      from replicas)
-*   `client_longest_output_list`: longest output list among current client
+*   `client_longest_output_list`: Longest output list among current client
      connections
-*   `client_biggest_input_buf`: biggest input buffer among current client
+*   `client_biggest_input_buf`: Biggest input buffer among current client
      connections
-*   `blocked_clients`: Number of clients pending on a blocking call (BLPOP, 
-     BRPOP, BRPOPLPUSH)
+*   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
+     `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
+*   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
+*   `clients_in_timeout_table`: Number of clients in the clients timeout table
+*    `io_threads_active`: Flag indicating if I/O threads are active
 
 Here is the meaning of all fields in the **memory** section:
 
@@ -131,7 +138,7 @@ When Redis frees memory, the memory is given back to the allocator, and the
 allocator may or may not give the memory back to the system. There may be
 a discrepancy between the `used_memory` value and memory consumption as
 reported by the operating system. It may be due to the fact memory has been
-used and released by Redis, but not given back to the system. The 
+used and released by Redis, but not given back to the system. The
 `used_memory_peak` value is generally useful to check this point.
 
 Additional introspective information about the server's memory can be obtained
@@ -163,8 +170,11 @@ Here is the meaning of all fields in the **persistence** section:
 *   `aof_last_write_status`: Status of the last write operation to the AOF
 *   `aof_last_cow_size`: The size in bytes of copy-on-write allocations during
      the last AOF rewrite operation
+*   `module_fork_in_progress`: Flag indicating a module fork is on-going
+*   `module_fork_last_cow_size`: The size in bytes of copy-on-write allocations
+     during the last module fork operation
 
-`changes_since_last_save` refers to the number of operations that produced
+`rdb_changes_since_last_save` refers to the number of operations that produced
 some kind of changes in the dataset since the last time either `SAVE` or
 `BGSAVE` was called.
 
@@ -205,6 +215,9 @@ Here is the meaning of all fields in the **stats** section:
 *   `sync_partial_ok`: The number of accepted partial resync requests
 *   `sync_partial_err`: The number of denied partial resync requests
 *   `expired_keys`: Total number of key expiration events
+*   `expired_stale_perc`: The percentage of keys probably expired
+*   `expired_time_cap_reached_count`: The count of times that active expiry cycles have stopped early
+*   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spend on active expiry cycles
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
 *   `keyspace_misses`: Number of failed lookup of keys in the main dictionary
@@ -223,6 +236,17 @@ Here is the meaning of all fields in the **stats** section:
 *   `active_defrag_key_hits`: Number of keys that were actively defragmented
 *   `active_defrag_key_misses`: Number of keys that were skipped by the active
      defragmentation process
+*   `tracking_total_keys`: Number of keys being tracked by the server
+*   `tracking_total_items`: Number of items, that is the sum of clients number for
+     each key, that are being tracked
+*   `tracking_total_prefixes`: Number of tracked prefixes in server's prefix table
+    (only applicable for broadcast mode)
+*   `unexpected_error_replies`: Number of unexpected error replies, that are types
+    of errors from an AOF load or replication
+*    `total_reads_processed`: Total number of read events processed
+*    `total_writes_processed`: Total number of write events processed
+*    `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
+*    `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
 
 Here is the meaning of all fields in the **replication** section:
 
@@ -246,7 +270,7 @@ If the instance is a replica, these additional fields are provided:
 *   `master_link_status`: Status of the link (up/down)
 *   `master_last_io_seconds_ago`: Number of seconds since the last interaction
      with master
-*   `master_sync_in_progress`: Indicate the master is syncing to the replica 
+*   `master_sync_in_progress`: Indicate the master is syncing to the replica
 *   `slave_repl_offset`: The replication offset of the replica instance
 *   `slave_priority`: The priority of the instance as a candidate for failover
 *   `slave_read_only`: Flag indicating if the replica is read-only
@@ -267,7 +291,7 @@ The following field is always provided:
 
 If the server is configured with the `min-slaves-to-write` (or starting with Redis 5 with the `min-replicas-to-write`) directive, an additional field is provided:
 
-*   `min_slaves_good_slaves`: Number of replicas currently considered good 
+*   `min_slaves_good_slaves`: Number of replicas currently considered good
 
 For each replica, the following line is added:
 
@@ -292,6 +316,8 @@ The **cluster** section currently only contains a unique field:
 
 *   `cluster_enabled`: Indicate Redis cluster is enabled
 
+The **modules** section contains additional information about loaded modules if the modules provide it. The field part of properties lines in this section is always prefixed with the module's name.
+
 The **keyspace** section provides statistics on the main dictionary of each
 database.
 The statistics are the number of keys, and the number of keys with an expiration.
@@ -303,3 +329,5 @@ For each database, the following line is added:
 [hcgcpgp]: http://code.google.com/p/google-perftools/
 
 **A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.
+
+**Modules generated sections**: Starting with Redis 6, modules can inject their info into the `INFO` command, these are excluded by default even when the `all` argument is provided (it will include a list of loaded modules but not their generated info fields). To get these you must use either the `modules` argument or `everything`.,

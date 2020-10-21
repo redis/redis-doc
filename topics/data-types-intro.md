@@ -2,7 +2,7 @@ An introduction to Redis data types and abstractions
 ===
 
 Redis is not a *plain* key-value store, it is actually a *data structures server*, supporting different kinds of values. What this means is that, while in
-traditional key-value stores you associated string keys to string values, in
+traditional key-value stores you associate string keys to string values, in
 Redis the value is not limited to a simple string, but can also hold more complex
 data structures. The following is the list of all the data structures supported
 by Redis, which will be covered separately in this tutorial:
@@ -30,7 +30,7 @@ by Redis, which will be covered separately in this tutorial:
 
 It's not always trivial to grasp how these data types work and what to use in
 order to solve a given problem from the [command reference](/commands), so this
-document is a crash course to Redis data types and their most common patterns.
+document is a crash course in Redis data types and their most common patterns.
 
 For all the examples we'll use the `redis-cli` utility, a simple but
 handy command-line utility, to issue commands against the Redis server.
@@ -445,8 +445,8 @@ A few things to note about `BRPOP`:
 There are more things you should know about lists and blocking ops. We
 suggest that you read more on the following:
 
-* It is possible to build safer queues or rotating queues using `RPOPLPUSH`.
-* There is also a blocking variant of the command, called `BRPOPLPUSH`.
+* It is possible to build safer queues or rotating queues using `LMOVE`.
+* There is also a blocking variant of the command, called `BLMOVE`.
 
 Automatic creation and removal of keys
 ---
@@ -548,7 +548,7 @@ as well, like `HINCRBY`:
     > hincrby user:1000 birthyear 10
     (integer) 1997
 
-You can find the [full list of hash commands in the documentation](http://redis.io/commands#hash).
+You can find the [full list of hash commands in the documentation](https://redis.io/commands#hash).
 
 It is worth noting that small hashes (i.e., a few elements with small values) are
 encoded in special way in memory that make them very memory efficient.

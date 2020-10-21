@@ -43,7 +43,7 @@ bit offset inside the string.
 However if the offset is prefixed with a `#` character, the specified offset
 is multiplied by the integer type width, so for example:
 
-    BITFIELD mystring SET i8 #0 100 i8 #1 200
+    BITFIELD mystring SET i8 #0 100 SET i8 #1 200
 
 Will set the first i8 integer at offset 0 and the second at offset 8.
 This way you don't have to do the math yourself inside your client if what
