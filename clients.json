@@ -811,7 +811,7 @@
     "language": "Node.js",
     "repository": "https://github.com/mmkal/handy-redis",
     "description": "A wrapper around node_redis with Promise and TypeScript support.",
-    "authors": ["mmkal"],
+    "authors": [],
     "recommended": true,
     "active": true
   },
