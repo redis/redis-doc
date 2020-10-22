@@ -583,26 +583,36 @@ so forth.
 Sentinel commands
 ---
 
-The following is a list of accepted commands, not covering commands used in
-order to modify the Sentinel configuration, which are covered later.
+For connection management and administration purposes, Sentinel supports the following subset of Redis' commands:
 
+* **ACL** This command manages the Sentinel Access Control List entries. For more information refer to the [ACL](/topics/acl) documentation page and the [_Configuring Sentinel instances with authentication_ section](#configuring-sentinel-instances-with-authentication).
+* **AUTH** Authenticate a client connection. For more information refer to the `AUTH` command and the [_Configuring Sentinel instances with authentication_ section](#configuring-sentinel-instances-with-authentication).
+* **CLIENT** This command manages client connections. For more information refer to the its subcommands' pages.
+* **COMMAND** This command returns information about commands. For more information refer to the `COMMAND` command and its various subcommands.
+* **HELLO** Switch the connection's protocol. For more information refer to the `HELLO` command.
+* **INFO** Return information and statistics about the Sentinel server. For more information see the `INFO` command.
 * **PING** This command simply returns PONG.
-* **SENTINEL masters** Show a list of monitored masters and their state.
-* **SENTINEL master `<master name>`** Show the state and info of the specified master.
-* **SENTINEL replicas `<master name>`** Show a list of replicas for this master, and their state.
-* **SENTINEL sentinels `<master name>`** Show a list of sentinel instances for this master, and their state.
-* **SENTINEL get-master-addr-by-name `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted replica.
-* **SENTINEL reset `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every replica and sentinel already discovered and associated with the master.
-* **SENTINEL failover `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
-* **SENTINEL ckquorum `<master name>`** Check if the current Sentinel configuration is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
-* **SENTINEL flushconfig** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
+* **ROLE** This command returns the string "sentinel" and a list of monitored masters. For more information refer to the `ROLE` command.
+* **SHUTDOWN** Shut down the Sentinel instance.
+
+In addition to these, the `SENTINEL` command is the main API for Sentinel and the following is the list of its subcommands (excluding configuration-related subcommands that are covered later):
+
+* **SENTINEL MASTERS** Show a list of monitored masters and their state.
+* **SENTINEL MASTER `<master name>`** Show the state and info of the specified master.
+* **SENTINEL REPLICAS `<master name>`** Show a list of replicas for this master, and their state.
+* **SENTINEL SENTINELS `<master name>`** Show a list of sentinel instances for this master, and their state.
+* **SENTINEL GET-MASTER-ADDR-BY-NAME `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted replica.
+* **SENTINEL RESET `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every replica and sentinel already discovered and associated with the master.
+* **SENTINEL FAILOVER `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
+* **SENTINEL CKQUORUM `<master name>`** Check if the current Sentinel configuration is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
+* **SENTINEL FLUSHCONFIG** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
 
 Reconfiguring Sentinel at Runtime
 ---
 
 Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagates the changes to the other Sentinels in the network.
 
-The following is a list of `SENTINEL` sub commands used in order to update the configuration of a Sentinel instance.
+The following is a list of `SENTINEL` subcommands used in order to update the configuration of a Sentinel instance.
 
 * **SENTINEL MONITOR `<name>` `<ip>` `<port>` `<quorum>`** This command tells the Sentinel to start monitoring a new master with the specified name, ip, port, and quorum. It is identical to the `sentinel monitor` configuration directive in `sentinel.conf` configuration file, with the difference that you can't use an hostname in as `ip`, but you need to provide an IPv4 or IPv6 address.
 * **SENTINEL REMOVE `<name>`** is used in order to remove the specified master: the master will no longer be monitored, and will totally be removed from the internal state of the Sentinel, so it will no longer listed by `SENTINEL masters` and so forth.
@@ -672,7 +682,7 @@ current master `INFO` output.
 Pub/Sub Messages
 ---
 
-A client can use a Sentinel as it was a Redis compatible Pub/Sub server
+A client can use a Sentinel as a Redis-compatible Pub/Sub server
 (but you can't use `PUBLISH`) in order to `SUBSCRIBE` or `PSUBSCRIBE` to
 channels and get notified about specific events.
 
@@ -785,7 +795,31 @@ configured with `requirepass`, the Sentinel configuration must include the
 Configuring Sentinel instances with authentication
 ---
 
-The Sentinel instance itself can provide client authentication via the `AUTH` command. Password authentication is available starting with Redis 5.0.1, and starting with Redis 6.2 [Access Control Lists](/topics/acl) are also supported.
+Sentinel instances themselves can be secured by requiring clients to authenticate via the `AUTH` command. Starting with Redis 6.2, the [Access Control List (ACL)](/topics/acl) is available, whereas previous versions (starting with Redis 5.0.1) support password-only authentication. 
+
+Note that Sentinel's authentication configuration should be **applied to each of the instances** in your deployment, and **all instances should use the same configuration**. Furthermore, ACL and password-only authentication should not be used together.
+
+### Access Control List authentication
+
+The first step in securing a Sentinel instance with ACL is preventing any unauthorized access. To do that, you'll need to disable the default superuser (or at the very least set it up with a strong password) and create a new one:
+
+    127.0.0.1:5000> ACL SETUSER admin ON >adminpassword +@all
+    OK
+    127.0.0.1:5000> ACL SETUSER default off
+    OK
+
+The default user is used by Sentinel to connect to other instances. You can provide the credentials of another superuser with the following configuration directives:
+
+    sentinel sentinel-user <username>
+    sentinel sentinel-pass <password>
+
+Where `<username>` and `<password>` are the Sentinel's ACL user and password, respectively.
+
+Lastly, for authenticating incoming client connections, you can create a restricted Sentinel user like this:
+
+    127.0.0.1:5000> ACL SETUSER sentinel-user ON >user-password -@all +@connection +SENTINEL|MASTERS +SENTINEL|MASTER +SENTINEL|GET-MASTER-ADDR-BY-NAME
+
+### Password-only authentication
 
 To use Sentinel with password-only authentication, add the `requirepass` configuration directive to **all** your Sentinel instances as follows:
 
@@ -799,17 +833,6 @@ When configured this way, Sentinels will do two things:
 This means that **you will have to configure the same `requirepass` password in all the Sentinel instances**. This way every Sentinel can talk with every other Sentinel without any need to configure for each Sentinel the password to access all the other Sentinels, that would be very impractical.
 
 Before using this configuration, make sure your client library can send the `AUTH` command to Sentinel instances.
-
-With Redis 6.2, Sentinel instances can be configured with ACL authentication, so clients need to provide both a user and a password. As with password-only authentication, the same ACL user is used to authenticate both incoming clients and outgoing Sentinel connections. You can create and manage the Sentinel ACL user on all instances with regular [ACL directives](/topics/acl), for example:
-
-    ACL SETUSER my-sentinel-user on >my-sentinel-password +@all 
-
-After setting up the Sentinel ACL user, you'll also need to provide the following configuration directives:
-
-    sentinel sentinel-user <username>
-    sentinel sentinel-pass <password>
-
-Where `<username>` and `<password>` are Sentinel ACL user and password, respectively.
 
 Sentinel clients implementation
 ---
