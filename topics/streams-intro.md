@@ -56,7 +56,7 @@ Note that in this case, the minimum ID is 0-1 and that the command will not acce
 
 ## Getting data from Streams
 
-Now we are finally able to append entries in our stream via **XADD**. However, while appending data to a stream is quite obvious, the way streams can be queried in order to extract data is not so obvious. If we continue with the analogy of the log file, one obvious way is to mimic what we normally do with the Unix command `tail -f`, that is, we may start to listen in order to get the new messages that are appended to the stream. Note that unlike the blocking list operations of Redis, where a given element will reach a single client which is blocking in a *pop style* operation like **BLPOP**, with streams we want multiple consumers to see the new messages appended to the stream. The same way many `tail -f` processes can see what is added to a log. Using the traditional terminology we want the streams to be able to *fan out* messages to multiple clients.
+Now we are finally able to append entries in our stream via **XADD**. However, while appending data to a stream is quite obvious, the way streams can be queried in order to extract data is not so obvious. If we continue with the analogy of the log file, one obvious way is to mimic what we normally do with the Unix command `tail -f`, that is, we may start to listen in order to get the new messages that are appended to the stream. Note that unlike the blocking list operations of Redis, where a given element will reach a single client which is blocking in a *pop style* operation like **BLPOP**, with streams we want multiple consumers to see the new messages appended to the stream (the same way many `tail -f` processes can see what is added to a log). Using the traditional terminology we want the streams to be able to *fan out* messages to multiple clients.
 
 However, this is just one potential access mode. We could also see a stream in quite a different way: not as a messaging system, but as a *time series store*. In this case, maybe it's also useful to get the new messages appended, but another natural query mode is to get messages by ranges of time, or alternatively to iterate the messages using a cursor to incrementally check all the history. This is definitely another useful access mode.
 
@@ -721,5 +721,4 @@ A few remarks:
 
 * Here we processed up to 10k messages per iteration, this means that the `COUNT` parameter of XREADGROUP was set to 10000. This adds a lot of latency but is needed in order to allow the slow consumers to be able to keep with the message flow. So you can expect a real world latency that is a lot smaller.
 * The system used for this benchmark is very slow compared to today's standards.
-
 
