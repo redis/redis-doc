@@ -13,6 +13,7 @@ With the new form it is possible to kill clients by different attributes
 instead of killing just by address. The following filters are available:
 
 * `CLIENT KILL ADDR ip:port`. This is exactly the same as the old three-arguments behavior.
+* `CLIENT KILL LADDR ip:port`. Kill all clients connected to specified local (bind) address.
 * `CLIENT KILL ID client-id`. Allows to kill a client by its unique `ID` field, which was introduced in the `CLIENT LIST` command starting from Redis 2.8.12.
 * `CLIENT KILL TYPE type`, where *type* is one of `normal`, `master`, `slave` and `pubsub` (the `master` type is available from v3.2). This closes the connections of **all the clients** in the specified class. Note that clients blocked into the `MONITOR` command are considered to belong to the `normal` class.
 * `CLIENT KILL USER username`. Closes all the connections that are authenticated with the specified [ACL](/topics/acl) username, however it returns an error if the username does not map to an existing ACL user.
