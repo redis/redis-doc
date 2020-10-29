@@ -16,6 +16,7 @@ Here is the meaning of the fields:
 * `id`: an unique 64-bit client ID (introduced in Redis 2.8.12).
 * `name`: the name set by the client with `CLIENT SETNAME`
 * `addr`: address/port of the client
+* `laddr`: address/port of local address client connected to (bind address)
 * `fd`: file descriptor corresponding to the socket
 * `age`: total duration of the connection in seconds
 * `idle`: idle time of the connection in seconds
