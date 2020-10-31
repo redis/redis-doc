@@ -54,3 +54,7 @@ When called with the three arguments format:
 When called with the filter / value format:
 
 @integer-reply: the number of clients killed.
+
+@history
+
+* `>=6.2`: `LADDR` option.
