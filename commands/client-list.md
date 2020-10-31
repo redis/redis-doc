@@ -1,7 +1,7 @@
-The `CLIENT LIST` command returns information and statistics about the client
+The `CLIENT LIST [TYPE type]` command returns information and statistics about the client
 connections server in a mostly human readable format.
 
-As of v5.0, the optional `TYPE type` subcommand can be used to filter the list by clients' type, where *type* is one of `normal`, `master`, `replica` and `pubsub`. Note that clients blocked into the `MONITOR` command are considered to belong to the `normal` class.
+The optional `TYPE type` subcommand can be used to filter the list by clients' type, where *type* is one of `normal`, `master`, `replica` and `pubsub`. Note that clients blocked into the `MONITOR` command are considered to belong to the `normal` class.
 
 @return
 
@@ -13,7 +13,7 @@ As of v5.0, the optional `TYPE type` subcommand can be used to filter the list b
 
 Here is the meaning of the fields:
 
-* `id`: an unique 64-bit client ID (introduced in Redis 2.8.12).
+* `id`: an unique 64-bit client ID.
 * `name`: the name set by the client with `CLIENT SETNAME`
 * `addr`: address/port of the client
 * `laddr`: address/port of local address client connected to (bind address)
@@ -69,3 +69,9 @@ New fields are regularly added for debugging purpose. Some could be removed
 in the future. A version safe Redis client using this command should parse
 the output accordingly (i.e. handling gracefully missing fields, skipping
 unknown fields).
+
+@history
+
+* `>=2.8.12`: Added unique client `id` field.
+* `>=5.0`: Added optional `TYPE` filter.
+* `>=6.2`: Added `laddr`.
