@@ -195,6 +195,8 @@ If a load operation is on-going, these additional fields will be added:
 *   `loading_start_time`: Epoch-based timestamp of the start of the load
      operation
 *   `loading_total_bytes`: Total file size
+*   `loading_rdb_used_mem`: The server's memory usage when the RDB file was
+     created
 *   `loading_loaded_bytes`: Number of bytes already loaded
 *   `loading_loaded_perc`: Same value expressed as a percentage
 *   `loading_eta_seconds`: ETA in seconds for the load to be complete
@@ -277,7 +279,11 @@ If the instance is a replica, these additional fields are provided:
 
 If a SYNC operation is on-going, these additional fields are provided:
 
+*   `master_sync_total_bytes`: Total number of bytes that need to be transferred
+*   `master_sync_read_bytes`: Number of bytes already transferred
 *   `master_sync_left_bytes`: Number of bytes left before syncing is complete
+*   `master_sync_perc`: The percentage `master_sync_read_bytes` from 
+    `master_sync_total_bytes`
 *   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O
      during a SYNC operation
 
