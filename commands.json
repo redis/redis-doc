@@ -3547,6 +3547,52 @@
     "since": "2.0.0",
     "group": "sorted_set"
   },
+  "ZDIFF": {
+    "summary": "Subtract multiple sorted sets",
+    "complexity": "O(N)+O(M*log(M)) worst case with N is the total number of elements in all given sets and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "withscores",
+        "type": "enum",
+        "enum": [
+          "WITHSCORES"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
+  "ZDIFFSTORE": {
+    "summary": "Subtract multiple sorted sets and store the resulting sorted set in a new key",
+    "complexity": "O(N)+O(M*log(M)) worst case with N is the total number of elements in all given sets and M being the number of elements in the resulting sorted set.",
+    "arguments": [
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
   "ZINCRBY": {
     "summary": "Increment the score of a member in a sorted set",
     "complexity": "O(log(N)) where N is the number of elements in the sorted set.",
