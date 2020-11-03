@@ -1,7 +1,6 @@
-Computes the difference between the first set and all the successive sorted
-sets given by the specified keys, and stores the result in `destination`.
-It is mandatory to provide the number of input keys (`numkeys`) before passing
-the input keys.
+Computes the difference of `numkeys` sorted sets given by the specified keys,
+between the first and all the successive sets, and stores the result in
+`destination`.
 
 Keys that do not exist are considered to be empty sets.
 
