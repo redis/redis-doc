@@ -195,8 +195,8 @@ If a load operation is on-going, these additional fields will be added:
 *   `loading_start_time`: Epoch-based timestamp of the start of the load
      operation
 *   `loading_total_bytes`: Total file size
-*   `loading_rdb_used_mem`: The server's memory usage when the RDB file was
-     created
+*   `loading_rdb_used_mem`: The memory usage of the server that created the
+     RDB file was at the time of creation
 *   `loading_loaded_bytes`: Number of bytes already loaded
 *   `loading_loaded_perc`: Same value expressed as a percentage
 *   `loading_eta_seconds`: ETA in seconds for the load to be complete
