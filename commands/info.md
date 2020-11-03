@@ -75,7 +75,9 @@ Here is the meaning of all fields in the **clients** section:
      from replicas)
 *   `cluster_connections`: An approximation of the number of sockets used by the
      cluster's bus
-*   `maxclients`: The value of the `maxclients` configuration directive
+*   `maxclients`: The value of the `maxclients` configuration directive. This is
+    the upper limit for the sum of `connected_clients`, `connected_slaves` and
+    `cluster_connections`.
 *   `client_longest_output_list`: Longest output list among current client
      connections
 *   `client_biggest_input_buf`: Biggest input buffer among current client
