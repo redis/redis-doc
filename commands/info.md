@@ -279,7 +279,7 @@ If the instance is a replica, these additional fields are provided:
 
 If a SYNC operation is on-going, these additional fields are provided:
 
-*   `master_sync_total_bytes`: Total number of bytes that need to be transferred
+*   `master_sync_total_bytes`: Total number of bytes that need to be transferred. this may be 0 when the size is unknown (when `repl-diskless-sync` config is used)
 *   `master_sync_read_bytes`: Number of bytes already transferred
 *   `master_sync_left_bytes`: Number of bytes left before syncing is complete
 *   `master_sync_perc`: The percentage `master_sync_read_bytes` from 
