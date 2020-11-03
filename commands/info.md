@@ -283,7 +283,7 @@ If a SYNC operation is on-going, these additional fields are provided:
 *   `master_sync_read_bytes`: Number of bytes already transferred
 *   `master_sync_left_bytes`: Number of bytes left before syncing is complete (may be negative when `master_sync_total_bytes` is 0)
 *   `master_sync_perc`: The percentage `master_sync_read_bytes` from 
-    `master_sync_total_bytes`
+    `master_sync_total_bytes` or an approximation that uses `loading_rdb_used_mem` when `master_sync_total_bytes` is 0
 *   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O
      during a SYNC operation
 
