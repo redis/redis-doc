@@ -73,6 +73,11 @@ Here is the meaning of all fields in the **clients** section:
 
 *   `connected_clients`: Number of client connections (excluding connections
      from replicas)
+*   `cluster_connections`: An approximation of the number of sockets used by the
+     cluster's bus
+*   `maxclients`: The value of the `maxclients` configuration directive. This is
+    the upper limit for the sum of `connected_clients`, `connected_slaves` and
+    `cluster_connections`.
 *   `client_longest_output_list`: Longest output list among current client
      connections
 *   `client_biggest_input_buf`: Biggest input buffer among current client
@@ -195,6 +200,8 @@ If a load operation is on-going, these additional fields will be added:
 *   `loading_start_time`: Epoch-based timestamp of the start of the load
      operation
 *   `loading_total_bytes`: Total file size
+*   `loading_rdb_used_mem`: The memory usage of the server that had generated
+    the RDB file at the time of the file's creation
 *   `loading_loaded_bytes`: Number of bytes already loaded
 *   `loading_loaded_perc`: Same value expressed as a percentage
 *   `loading_eta_seconds`: ETA in seconds for the load to be complete
@@ -277,7 +284,15 @@ If the instance is a replica, these additional fields are provided:
 
 If a SYNC operation is on-going, these additional fields are provided:
 
+*   `master_sync_total_bytes`: Total number of bytes that need to be 
+    transferred. this may be 0 when the size is unknown (for example, when
+    the `repl-diskless-sync` configuration directive is used)
+*   `master_sync_read_bytes`: Number of bytes already transferred
 *   `master_sync_left_bytes`: Number of bytes left before syncing is complete
+    (may be negative when `master_sync_total_bytes` is 0)
+*   `master_sync_perc`: The percentage `master_sync_read_bytes` from 
+    `master_sync_total_bytes`, or an approximation that uses
+    `loading_rdb_used_mem` when `master_sync_total_bytes` is 0
 *   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O
      during a SYNC operation
 
