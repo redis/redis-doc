@@ -224,14 +224,14 @@ Now it's time to zoom in to see the fundamental consumer group commands. They ar
 
 ## Creating a consumer group
 
-Assuming I have a key `mystream` of type stream already existing, in order to create a consumer group I need to do just the following:
+Assuming I have a key `mystream` of type stream already existing, in order to create a consumer group I just need to do the following:
 
 ```
 > XGROUP CREATE mystream mygroup $
 OK
 ```
 
-As you can see in the command above when creating the consumer group we have to specify an ID, which in the example is just `$`. This is needed because the consumer group, among the other states, must have an idea about what message to serve next at the first consumer connecting, that is, what is the current *last message ID* when the group was just created? If we provide `$` as we did, then only new messages arriving in the stream from now on will be provided to the consumers in the group. If we specify `0` instead the consumer group will consume *all* the messages in the stream history to start with. Of course, you can specify any other valid ID. What you know is that the consumer group will start delivering messages that are greater than the ID you specify. Because `$` means the current greatest ID in the stream, specifying `$` will have the effect of consuming only new messages.
+As you can see in the command above when creating the consumer group we have to specify an ID, which in the example is just `$`. This is needed because the consumer group, among the other states, must have an idea about what message to serve next at the first consumer connecting, that is, what was the *last message ID* when the group was just created. If we provide `$` as we did, then only new messages arriving in the stream from now on will be provided to the consumers in the group. If we specify `0` instead the consumer group will consume *all* the messages in the stream history to start with. Of course, you can specify any other valid ID. What you know is that the consumer group will start delivering messages that are greater than the ID you specify. Because `$` means the current greatest ID in the stream, specifying `$` will have the effect of consuming only new messages.
 
 `XGROUP CREATE` also supports creating the stream automatically, if it doesn't exist, using the optional `MKSTREAM` subcommand as the last argument:
 
@@ -240,7 +240,7 @@ As you can see in the command above when creating the consumer group we have to 
 OK
 ```
 
-Now that the consumer group is created we can immediately start trying to read messages via the consumer group, by using the **XREADGROUP** command. We'll read from the consumers, that we will call Alice and Bob, to see how the system will return different messages to Alice and Bob.
+Now that the consumer group is created we can immediately try to read messages via the consumer group using the **XREADGROUP** command. We'll read from consumers, that we will call Alice and Bob, to see how the system will return different messages to Alice or Bob.
 
 **XREADGROUP** is very similar to **XREAD** and provides the same **BLOCK** option, otherwise it is a synchronous command. However there is a *mandatory* option that must be always specified, which is **GROUP** and has two arguments: the name of the consumer group, and the name of the consumer that is attempting to read. The option **COUNT** is also supported and is identical to the one in **XREAD**.
 
@@ -271,13 +271,13 @@ It is time to try reading something using the consumer group:
             2) "apple"
 ```
 
-**XREADGROUP** replies are just like **XREAD** replies. Note however the `GROUP <group-name> <consumer-name>` provided above, it states that I want to read from the stream using the consumer group `mygroup` and I'm the consumer `Alice`. Every time a consumer performs an operation with a consumer group, it must specify its name uniquely identifying this consumer inside the group.
+**XREADGROUP** replies are just like **XREAD** replies. Note however the `GROUP <group-name> <consumer-name>` provided above. It states that I want to read from the stream using the consumer group `mygroup` and I'm the consumer `Alice`. Every time a consumer performs an operation with a consumer group, it must specify its name, uniquely identifying this consumer inside the group.
 
 There is another very important detail in the command line above, after the mandatory **STREAMS** option the ID requested for the key `mystream` is the special ID `>`. This special ID is only valid in the context of consumer groups, and it means: **messages never delivered to other consumers so far**.
 
-This is almost always what you want, however it is also possible to specify a real ID, such as `0` or any other valid ID, in this case however what happens is that we request to **XREADGROUP** to just provide us with the **history of pending messages**, and in such case, will never see new messages in the group. So basically **XREADGROUP** has the following behavior based on the ID we specify:
+This is almost always what you want, however it is also possible to specify a real ID, such as `0` or any other valid ID, in this case, however, what happens is that we request from **XREADGROUP** to just provide us with the **history of pending messages**, and in such case, will never see new messages in the group. So basically **XREADGROUP** has the following behavior based on the ID we specify:
 
-* If the ID is the special ID `>` then the command will return only new messages never delivered to other consumers so far, and as a side effect, will update the consumer group *last ID*.
+* If the ID is the special ID `>` then the command will return only new messages never delivered to other consumers so far, and as a side effect, will update the consumer group's *last ID*.
 * If the ID is any other valid numerical ID, then the command will let us access our *history of pending messages*. That is, the set of messages that were delivered to this specified consumer (identified by the provided name), and never acknowledged so far with **XACK**.
 
 We can test this behavior immediately specifying an ID of 0, without any **COUNT** option: we'll just see the only pending message, that is, the one about apples:
@@ -300,9 +300,9 @@ However, if we acknowledge the message as processed, it will no longer be part o
    2) (empty list or set)
 ```
 
-Don't worry if you yet don't know how **XACK** works, the concept is just that processed messages are no longer part of the history that we can access.
+Don't worry if you yet don't know how **XACK** works, the idea is just that processed messages are no longer part of the history that we can access.
 
-Now it's the turn of Bob to read something:
+Now it's Bob's turn to read something:
 
 ```
 > XREADGROUP GROUP mygroup Bob COUNT 2 STREAMS mystream >
@@ -317,15 +317,15 @@ Now it's the turn of Bob to read something:
 
 Bob asked for a maximum of two messages and is reading via the same group `mygroup`. So what happens is that Redis reports just *new* messages. As you can see the "apple" message is not delivered, since it was already delivered to Alice, so Bob gets orange and strawberry, and so forth.
 
-This way Alice, Bob, and any other consumer in the group, are able to read different messages from the same stream, to read their history of yet to process messages, or to mark messages as processed. This allows creating different topologies and semantics to consume messages from a stream.
+This way Alice, Bob, and any other consumer in the group, are able to read different messages from the same stream, to read their history of yet to process messages, or to mark messages as processed. This allows creating different topologies and semantics for consuming messages from a stream.
 
 There are a few things to keep in mind:
 
 * Consumers are auto-created the first time they are mentioned, no need for explicit creation.
-* Even with **XREADGROUP** you can read from multiple keys at the same time, however for this to work, you need to create a consumer group with the same name in every stream. This is not a common need, but it is worth to mention that the feature is technically available.
-* **XREADGROUP** is a *write command* because even if it reads from the stream, the consumer group is modified as a side effect of reading, so it can be only called in master instances.
+* Even with **XREADGROUP** you can read from multiple keys at the same time, however for this to work, you need to create a consumer group with the same name in every stream. This is not a common need, but it is worth mentioning that the feature is technically available.
+* **XREADGROUP** is a *write command* because even if it reads from the stream, the consumer group is modified as a side effect of reading, so it can only be called on master instances.
 
-An example of consumer implementation, using consumer groups, written in the Ruby language could be the following. The Ruby code is written in a way to be readable from virtually any experienced programmer programming in some other language and not knowing Ruby:
+An example of a consumer implementation, using consumer groups, written in the Ruby language could be the following. The Ruby code is aimed to be readable by virtually any experienced programmer, even if they do not know Ruby:
 
 ```ruby
 require 'redis'
@@ -382,7 +382,7 @@ while true
 end
 ```
 
-As you can see the idea here is to start consuming the history, that is, our list of pending messages. This is useful because the consumer may have crashed before, so in the event of a restart we want to read again messages that were delivered to us without getting acknowledged. This way we can process a message multiple times or one time (at least in the case of consumers failures, but there are also the limits of Redis persistence and replication involved, see the specific section about this topic).
+As you can see the idea here is to start by consuming the history, that is, our list of pending messages. This is useful because the consumer may have crashed before, so in the event of a restart we want to re-read messages that were delivered to us without getting acknowledged. Note that we might process a message multiple times or one time (at least in the case of consumer failures, but there are also the limits of Redis persistence and replication involved, see the specific section about this topic).
 
 Once the history was consumed, and we get an empty list of messages, we can switch to use the `>` special ID in order to consume new messages.
 
