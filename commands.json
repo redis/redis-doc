@@ -4414,7 +4414,7 @@
     "group": "stream"
   },
   "XLEN": {
-    "summary": "Return the number of entires in a stream",
+    "summary": "Return the number of entries in a stream",
     "complexity": "O(1)",
     "arguments": [
       {
