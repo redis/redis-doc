@@ -476,7 +476,7 @@ When there are failures, it is normal that messages will be delivered multiple t
 
 ## Streams observability
 
-Messaging systems that lack observability are very hard to work with. Not knowing who is consuming messages, what messages are pending, the set of consumer groups active in a given stream, makes everything opaque. For this reason, Redis streams and consumer groups have different ways to observe what is happening. We already covered **XPENDING**, which allows us to inspect the list of messages that are under processing at a given moment, together with their idle time and number of deliveries.
+Messaging systems that lack observability are very hard to work with. Not knowing who is consuming messages, what messages are pending, the set of consumer groups active in a given stream, makes everything opaque. For this reason, Redis Streams and consumer groups have different ways to observe what is happening. We already covered **XPENDING**, which allows us to inspect the list of messages that are under processing at a given moment, together with their idle time and number of deliveries.
 
 However we may want to do more than that, and the **XINFO** command is an observability interface that can be used with sub-commands in order to get information about streams or consumer groups.
 
@@ -502,7 +502,7 @@ This command uses subcommands in order to show different information about the s
        2) "banana"
 ```
 
-The output shows information about how the stream is encoded internally, and also shows the first and the last message in the stream. Another information available is the number of consumer groups associated with this stream value. We can dig further asking for more information about the consumer groups.
+The output shows information about how the stream is encoded internally, and also shows the first and last message in the stream. Another piece of information available is the number of consumer groups associated with this stream. We can dig further asking for more information about the consumer groups.
 
 ```
 > XINFO GROUPS mystream
@@ -524,9 +524,9 @@ The output shows information about how the stream is encoded internally, and als
    8) "1588152498034-0"
 ```
 
-As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported, and allows the command to report more information in the future by adding more fields without breaking the compatibility with older clients. Other commands that must be more bandwidth efficient instead, like **XPENDING**, just report the information without the field names.
+As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported, and allows the command to report more information in the future by adding more fields without breaking compatibility with older clients. Other commands that must be more bandwidth efficient, like **XPENDING**, just report the information without the field names.
 
-The output of the example above, where the **GROUPS** subcommand is used, should be clear observing the field names. We can check more in detail the state of a specific consumer group by checking the consumers that are registered in such group.
+The output of the example above, where the **GROUPS** subcommand is used, should be clear observing the field names. We can check in more detail the state of a specific consumer group by checking the consumers that are registered in the group.
 
 ```
 > XINFO CONSUMERS mystream mygroup
