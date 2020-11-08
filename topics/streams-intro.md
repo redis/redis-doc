@@ -173,9 +173,9 @@ Similarly to blocking list operations, blocking stream reads are *fair* from the
 
 ## Consumer groups
 
-When the task at hand is to consume the same stream from different clients, then **XREAD** already offers a way to  *fan-out* to N clients, potentially also using replicas in order to provide more read scalability. However in certain problems what we want to do is not to provide the same stream of messages to many clients, but to provide a *different subset* of messages from the same stream to many clients. An obvious case where this is useful is the case of slow to process messages: the ability to have N different workers that will receive different parts of the stream allows us to scale message processing, by routing different messages to different workers that are ready to do more work.
+When the task at hand is to consume the same stream from different clients, then **XREAD** already offers a way to *fan-out* to N clients, potentially also using replicas in order to provide more read scalability. However in certain problems what we want to do is not to provide the same stream of messages to many clients, but to provide a *different subset* of messages from the same stream to many clients. An obvious case where this is useful is that of messages which are slow to process: the ability to have N different workers that will receive different parts of the stream allows us to scale message processing, by routing different messages to different workers that are ready to do more work.
 
-In practical terms, if we imagine having three consumers C1, C2, C3, and a stream that contains the messages 1, 2, 3, 4, 5, 6, 7 then what we want is to serve the messages like in the following diagram:
+In practical terms, if we imagine having three consumers C1, C2, C3, and a stream that contains the messages 1, 2, 3, 4, 5, 6, 7 then what we want is to serve the messages according to the following diagram:
 
 ```
 1 -> C1
@@ -187,17 +187,17 @@ In practical terms, if we imagine having three consumers C1, C2, C3, and a strea
 7 -> C1
 ```
 
-In order to obtain this effect, Redis uses a concept called *consumer groups*. It is very important to understand that Redis consumer groups have nothing to do from the point of view of the implementation with Kafka (TM) consumer groups, but they are only similar from the point of view of the concept they implement, so I decided to do not change terminology compared to the software product that initially popularized such idea.
+In order to achieve this, Redis uses a concept called *consumer groups*. It is very important to understand that Redis consumer groups have nothing to do, from an implementation standpoint, with Kafka (TM) consumer groups. Yet they are similar in functionality, so I decided to keep Kafka's (TM) terminology, as it originaly popularized this idea.
 
 A consumer group is like a *pseudo consumer* that gets data from a stream, and actually serves multiple consumers, providing certain guarantees:
 
-1. Each message is served to a different consumer so that it is not possible that the same message is delivered to multiple consumers.
+1. Each message is served to a different consumer so that it is not possible that the same message will be delivered to multiple consumers.
 2. Consumers are identified, within a consumer group, by a name, which is a case-sensitive string that the clients implementing consumers must choose. This means that even after a disconnect, the stream consumer group retains all the state, since the client will claim again to be the same consumer. However, this also means that it is up to the client to provide a unique identifier.
-3. Each consumer group has the concept of the *first ID never consumed* so that, when a consumer asks for new messages, it can provide just messages that were never delivered previously.
-4. Consuming a message however requires explicit acknowledge using a specific command, to say: this message was correctly processed, so can be evicted from the consumer group.
-5. A consumer group tracks all the messages that are currently pending, that is, messages that were delivered to some consumer of the consumer group, but are yet to be acknowledged as processed. Thanks to this feature, when accessing the history of messages of a stream, each consumer *will only see messages that were delivered to it*.
+3. Each consumer group has the concept of the *first ID never consumed* so that, when a consumer asks for new messages, it can provide just messages that were not previously delivered.
+4. Consuming a message, however, requires an explicit acknowledgment using a specific command. Redis interperts the acknowledgment as: this message was correctly processed so it can be evicted from the consumer group.
+5. A consumer group tracks all the messages that are currently pending, that is, messages that were delivered to some consumer of the consumer group, but are yet to be acknowledged as processed. Thanks to this feature, when accessing the message history of a stream, each consumer *will only see messages that were delivered to it*.
 
-In some way a consumer group can be imagined as some *amount of state* about a stream:
+In a way, a consumer group can be imagined as some *amount of state* about a stream:
 
 ```
 +----------------------------------------+
@@ -216,7 +216,7 @@ In some way a consumer group can be imagined as some *amount of state* about a s
 
 If you see this from this point of view, it is very simple to understand what a consumer group can do, how it is able to just provide consumers with their history of pending messages, and how consumers asking for new messages will just be served with message IDs greater than `last_delivered_id`. At the same time, if you look at the consumer group as an auxiliary data structure for Redis streams, it is obvious that a single stream can have multiple consumer groups, that have a different set of consumers. Actually, it is even possible for the same stream to have clients reading without consumer groups via **XREAD**, and clients reading via **XREADGROUP** in different consumer groups.
 
-Now it's time to zoom in to see the fundamental consumer group commands, that are the following:
+Now it's time to zoom in to see the fundamental consumer group commands. They are the following:
 
 * **XGROUP** is used in order to create, destroy and manage consumer groups.
 * **XREADGROUP** is used to read from a stream via a consumer group.
