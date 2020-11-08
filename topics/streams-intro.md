@@ -153,9 +153,9 @@ The command that provides the ability to listen for new messages arriving into a
 
 The above is the non-blocking form of **XREAD**. Note that the **COUNT** option is not mandatory, in fact the only mandatory option of the command is the **STREAMS** option, that specifies a list of keys together with the corresponding maximum ID already seen for each stream by the calling consumer, so that the command will provide the client only with messages with an ID greater than the one we specified.
 
-In the above command we wrote `STREAMS mystream 0` so we want all the messages in the Stream `mystream` having an ID greater than `0-0`. As you can see in the example above, the command returns the key name, because actually it is possible to call this command with more than one key to read from different streams at the same time. I could write, for instance: `STREAMS mystream otherstream 0 0`. Note how after the **STREAMS** option we need to provide the keys names, and later the IDs. For this reason, the **STREAMS** option must always be the last one.
+In the above command we wrote `STREAMS mystream 0` so we want all the messages in the Stream `mystream` having an ID greater than `0-0`. As you can see in the example above, the command returns the key name, because actually it is possible to call this command with more than one key to read from different streams at the same time. I could write, for instance: `STREAMS mystream otherstream 0 0`. Note how after the **STREAMS** option we need to provide the key names, and later the IDs. For this reason, the **STREAMS** option must always be the last one.
 
-Apart from the fact that **XREAD** can access multiple streams at once, and that we are able to specify the last ID we own to just get newer messages, in this simple form the command is not doing something so different compared to **XRANGE**. However, the interesting part is that we can turn **XREAD** in a *blocking command* easily, by specifying the **BLOCK** argument:
+Apart from the fact that **XREAD** can access multiple streams at once, and that we are able to specify the last ID we own to just get newer messages, in this simple form the command is not doing something so different compared to **XRANGE**. However, the interesting part is that we can turn **XREAD** into a *blocking command* easily, by specifying the **BLOCK** argument:
 
 ```
 > XREAD BLOCK 0 STREAMS mystream $
@@ -165,9 +165,9 @@ Note that in the example above, other than removing **COUNT**, I specified the n
 
 Note that when the **BLOCK** option is used, we do not have to use the special ID `$`. We can use any valid ID. If the command is able to serve our request immediately without blocking, it will do so, otherwise it will block. Normally if we want to consume the stream starting from new entries, we start with the ID `$`, and after that we continue using the ID of the last message received to make the next call, and so forth.
 
-The blocking form of **XREAD** is also able to listen to multiple Streams, just by specifying multiple key names. If the request can be served synchronously because there is at least one stream with elements greater than the corresponding ID we specified, it returns with the results. Otherwise, the command will block and will return the items of the first stream getting new data (according to the specified ID).
+The blocking form of **XREAD** is also able to listen to multiple Streams, just by specifying multiple key names. If the request can be served synchronously because there is at least one stream with elements greater than the corresponding ID we specified, it returns with the results. Otherwise, the command will block and will return the items of the first stream which gets new data (according to the specified ID).
 
-Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream is the first that will be unblocked as new items are available.
+Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream will be the first to be unblocked when new items are available.
 
 **XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
 
