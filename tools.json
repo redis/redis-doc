@@ -751,6 +751,7 @@
     "language": "SQL",
     "url": "https://prestosql.io/docs/current/connector/redis.html",
     "repository": "https://github.com/prestosql/presto",
-    "description": " Presto Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once"
+    "description": "Presto Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once",
+    "authors": []
   }
 ]
