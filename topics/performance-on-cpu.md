@@ -79,7 +79,7 @@ The following steps rely uppon Linux perf_events (aka ["perf"](https://man7.org/
 
 We assume beforehand you have:
 
-- Installed the perf tool on your system. Most Linux distributions will likely package this as a package related to the kernel. More information about the perf tool can be found at https://perf.wiki.kernel.org/.
+- Installed the perf tool on your system. Most Linux distributions will likely package this as a package related to the kernel. More information about the perf tool can be found at perf [wiki](https://perf.wiki.kernel.org/).
 
 - Followed the Install [bcc/BPF](https://github.com/iovisor/bcc/blob/master/INSTALL.md#installing-bcc) instructions to install bcc toolkit on your machine.
 
@@ -125,6 +125,23 @@ You can then render the on CPU flame graph with:
 By default perf script will generate a perf.data file in the current working directory. See the [perf script](https://linux.die.net/man/1/perf-script.html) documention for advanced usage.
 
 See [FlameGraph usage options](https://github.com/brendangregg/FlameGraph#options) for more advanced  Stack trace visualizations ( like the differential one ).
+
+
+#### Archiving and sharing recorded profile information
+
+So that analysis of perf.data contents can be possible on other machine than the one in which 
+collection happened, you need to export along with the perf.data file all object files 
+with build-ids found in the record data file. This can be easily done with the help of 
+[perf-archive.sh](https://github.com/torvalds/linux/blob/master/tools/perf/perf-archive.sh) script:
+
+    perf-archive.sh perf.data
+
+
+Now please run:
+
+    tar xvf perf.data.tar.bz2 -C ~/.debug
+
+wherever machine you need to run `perf report` on.
 
 
 ### Sampling stack traces using bcc/BPF's profile
