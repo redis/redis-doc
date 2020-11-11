@@ -34,6 +34,7 @@ Here is the meaning of the fields:
 * `cmd`: last command played
 * `argv-mem`: incomplete arguments for the next command (already extracted from query buffer)
 * `tot-mem`: total memory consumed by this client in its various buffers
+* `redir`: client id of current client tracking redirection
 
 The client flags can be a combination of:
 
@@ -54,6 +55,7 @@ U: the client is connected via a Unix domain socket
 x: the client is in a MULTI/EXEC context
 t: the client enabled keys tracking in order to perform client side caching
 R: the client tracking target client is invalid
+B: the client enabled broadcast tracking mode 
 ```
 
 The file descriptor events can be:
