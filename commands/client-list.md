@@ -35,7 +35,7 @@ Here is the meaning of the fields:
 * `argv-mem`: incomplete arguments for the next command (already extracted from query buffer)
 * `tot-mem`: total memory consumed by this client in its various buffers
 * `redir`: client id of current client tracking redirection
-* `user`: current authenticated user of this client
+* `user`: the authenticated username of the client
 
 The client flags can be a combination of:
 
