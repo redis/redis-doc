@@ -3574,7 +3574,7 @@
   },
   "ZDIFFSTORE": {
     "summary": "Subtract multiple sorted sets and store the resulting sorted set in a new key",
-    "complexity": "O(N)+O(M*log(M)) worst case with N is the total number of elements in all given sets and M being the number of elements in the resulting sorted set.",
+    "complexity": "O(N + (M-L)log(N)) worst case, where N is the total number of elements in all the sets, M is the size of the first set, and L is the size of the result set.",
     "arguments": [
       {
         "name": "destination",
