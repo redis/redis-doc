@@ -976,7 +976,7 @@
   },
   "COPY": {
     "summary": "Copy a key",
-    "complexity": "O(1) to access the source and destination keys. An additional O(N*M) to iterate and copy the value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
+    "complexity": "For small string values and ziplist encoded collections the time complexity is O(1). For most other collections the complexity is O(N) where N is the size of the collection.",
     "since": "6.2.0",
     "arguments": [
       {
