@@ -4751,6 +4751,12 @@
         "name": "consumer",
         "type": "string",
         "optional": true
+      },
+      {
+        "command": "IDLE",
+        "name": "min-idle-time",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "5.0.0",

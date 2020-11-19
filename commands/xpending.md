@@ -88,7 +88,7 @@ when some other consumer *claims* the message with `XCLAIM`, or when the
 message is delivered again via `XREADGROUP`, when accessing the history
 of a consumer in a consumer group (see the `XREADGROUP` page for more info).
 
-Finally it is possible to pass an additional argument to the command, in order
+It is possible to pass an additional argument to the command, in order
 to see the messages having a specific owner:
 
 ```
@@ -103,6 +103,29 @@ we have a pending entries list data structure both globally, and for
 every consumer, so we can very efficiently show just messages pending for
 a single consumer.
 
+If the owner argument is an empty string, the command will return entries
+assigned to any consumer:
+
+```
+> XPENDING mystream group55 - + 10 ""
+```
+
+The above case will return the first 10 (or less) PEL entries of the entire group
+
+Since version 6.2 it is possible to filter entries by their idle-time,
+given in milliseconds (useful for `XCLAIM`ing entries that have not been
+processed for some time):
+
+```
+> XPENDING mystream group55 - + 10 "" IDLE 9000
+> XPENDING mystream group55 - + 10 consumer-123 IDLE 9000
+```
+
+The first case will return the first 10 (or less) PEL entries of the entire group
+that are idle for over 9 seconds, whereas in the second case only those of
+`consumer-123`.
+
+
 @return
 
 @array-reply, specifically:
@@ -110,3 +133,7 @@ a single consumer.
 The command returns data in different format depending on the way it is
 called, as previously explained in this page. However the reply is always
 an array of items.
+
+@history
+
+* `>= 6.2.0`: Added the `IDLE` option to `XPENDING`.
