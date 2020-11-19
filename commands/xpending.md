@@ -110,21 +110,20 @@ assigned to any consumer:
 > XPENDING mystream group55 - + 10 ""
 ```
 
-The above case will return the 10 (or less) first PEL entries of the entire group
+The above case will return the first 10 (or less) PEL entries of the entire group
 
 Since version 6.2 it is possible to filter entries by their idle-time,
-given in milliseconds (Useful if you want to use `XCLAIM` to claim entries
-that have not been processed for some amount of time):
+given in milliseconds (useful for `XCLAIM`ing entries that have not been
+processed for some time):
 
 ```
 > XPENDING mystream group55 - + 10 "" IDLE 9000
 > XPENDING mystream group55 - + 10 consumer-123 IDLE 9000
 ```
 
-The first case will return the 10 (or less) first PEL entries of the entire group
-that are idle for over 9 seconds.
-The second case will return the 10 (or less) first PEL entries of `consumer-123`
-that are idle for over 9 seconds.
+The first case will return the first 10 (or less) PEL entries of the entire group
+that are idle for over 9 seconds, whereas in the second case only those of
+`consumer-123`.
 
 
 @return
