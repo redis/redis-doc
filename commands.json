@@ -4341,8 +4341,33 @@
         "type": "key"
       },
       {
-        "name": "ID",
-        "type": "string"
+        "type": "block",
+        "block": [
+          {
+            "command": "MAXLEN"
+          },
+          {
+            "type": "block",
+            "block": [
+              {
+                "command": "~",
+                "optional": true
+              },
+              {
+                "name": "length",
+                "type": "integer"
+              }
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "type": "enum",
+        "enum": [
+          "*",
+          "ID"
+        ]
       },
       {
         "name": [
@@ -4500,7 +4525,7 @@
         "multiple": true
       },
       {
-        "name": "id",
+        "name": "ID",
         "type": "string",
         "multiple": true
       }
@@ -4513,30 +4538,56 @@
     "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
     "arguments": [
       {
-        "command": "CREATE",
-        "name": [
-          "key",
-          "groupname",
-          "id-or-$"
-        ],
-        "type": [
-          "key",
-          "string",
-          "string"
+        "type": "block",
+        "block": [
+          {
+            "command": "CREATE",
+            "name": [
+              "key",
+              "groupname"
+            ],
+            "type": [
+              "key",
+              "string"
+            ]
+          },
+          {
+            "name": "id",
+            "type": "enum",
+            "enum": [
+              "ID",
+              "$"
+            ]
+          },
+          {
+            "command": "MKSTREAM",
+            "optional": true
+          }
         ],
         "optional": true
       },
       {
-        "command": "SETID",
-        "name": [
-          "key",
-          "groupname",
-          "id-or-$"
-        ],
-        "type": [
-          "key",
-          "string",
-          "string"
+        "type": "block",
+        "block": [
+          {
+            "command": "SETID",
+            "name": [
+              "key",
+              "groupname"
+            ],
+            "type": [
+              "key",
+              "string"
+            ]
+          },
+          {
+            "name": "id",
+            "type": "enum",
+            "enum": [
+              "ID",
+              "$"
+            ]
+          }
         ],
         "optional": true
       },
@@ -4735,27 +4786,38 @@
         "type": "string"
       },
       {
-        "name": [
-          "start",
-          "end",
-          "count"
+        "type": "block",
+        "block": [
+          {
+            "name": "start",
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "type": "integer"
+          },
+          {
+            "name": "filter",
+            "type": "block",
+            "block": [
+              {
+                "name": "consumer",
+                "type": "string"
+              },
+              {
+                "command": "IDLE",
+                "name": "min-idle-time",
+                "type": "integer",
+                "optional": true
+              }
+            ],
+            "optional": true
+          }
         ],
-        "type": [
-          "string",
-          "string",
-          "integer"
-        ],
-        "optional": true
-      },
-      {
-        "name": "consumer",
-        "type": "string",
-        "optional": true
-      },
-      {
-        "command": "IDLE",
-        "name": "min-idle-time",
-        "type": "integer",
         "optional": true
       }
     ],
