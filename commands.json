@@ -4363,6 +4363,10 @@
         "optional": true
       },
       {
+        "command": "NOMKSTREAM",
+        "optional": true
+      },
+      {
         "type": "enum",
         "enum": [
           "*",

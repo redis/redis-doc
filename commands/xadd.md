@@ -1,6 +1,7 @@
 Appends the specified stream entry to the stream at the specified key.
 If the key does not exist, as a side effect of running this command the
-key is created with a stream value.
+key is created with a stream value. The creation of stream's key can be
+disabled with the `NOMKSTREAM` option.
 
 An entry is composed of a set of field-value pairs, it is basically a
 small dictionary. The field-value pairs are stored in the same order
@@ -77,6 +78,13 @@ For further information about Redis streams please check our
 The command returns the ID of the added entry. The ID is the one auto-generated
 if `*` is passed as ID argument, otherwise the command just returns the same ID
 specified by the user during insertion.
+
+The command returns a @nil-reply when used with the `NOMKSTREAM` option and the
+key doesn't exist.
+
+@history
+
+* `>= 6.2`: Added the `NOMKSTREAM` option.
 
 @examples
 
