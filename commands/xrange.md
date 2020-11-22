@@ -67,6 +67,13 @@ Used in this way `XRANGE` works as a range query command to obtain entries
 in a specified time. This is very handy in order to access the history
 of past events in a stream.
 
+## Exclusive ranges
+
+The range is open (inclusive) by default, meaning that the reply can include
+entries with IDs matching the query's start and end intervals. It is possible
+to specify an open interval (exclusive) by prefixing the ID with the
+character `(`.
+
 ## Returning a maximum number of entries
 
 Using the **COUNT** option it is possible to reduce the number of entries
@@ -111,13 +118,13 @@ elements, which is trivial:
 
 Then instead of starting the iteration again from `-`, as the start
 of the range we use the entry ID of the *last* entry returned by the
-previous `XRANGE` call, adding the sequence part of the ID by one.
+previous `XRANGE` call as an exclusive interval.
 
-The ID of the last entry is `1526985685298-0`, so we just add 1 to the
-sequence to obtain `1526985685298-1`, and continue our iteration:
+The ID of the last entry is `1526985685298-0`, so we just prefix it
+with a '(', and continue our iteration:
 
 ```
-> XRANGE writers 1526985685298-1 + COUNT 2
+> XRANGE writers (1526985685298-0 + COUNT 2
 1) 1) 1526985691746-0
    2) 1) "name"
       2) "Toni"
@@ -171,6 +178,10 @@ The command returns the entries with IDs matching the specified range.
 The returned entries are complete, that means that the ID and all the fields
 they are composed are returned. Moreover, the entries are returned with
 their fields and values in the exact same order as `XADD` added them.
+
+@history
+
+* `>= 6.2` Added exclusive ranges.
 
 @examples
 
