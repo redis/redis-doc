@@ -976,7 +976,7 @@
   },
   "COPY": {
     "summary": "Copy a key",
-    "complexity": "For small string values and ziplist encoded collections the time complexity is O(1). For most other collections the complexity is O(N) where N is the size of the collection.",
+    "complexity": "O(N) worst case for collections, where N is the number of nested items. O(1) for string values.",
     "since": "6.2.0",
     "arguments": [
       {
