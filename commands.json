@@ -974,6 +974,36 @@
     "since": "2.0.0",
     "group": "server"
   },
+  "COPY": {
+    "summary": "Copy a key",
+    "complexity": "O(N) worst case for collections, where N is the number of nested items. O(1) for string values.",
+    "since": "6.2.0",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "key"
+      },
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "command": "DB",
+        "name": "destination-db",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "replace",
+        "type": "enum",
+        "enum": [
+          "REPLACE"
+        ],
+        "optional": true
+      }
+    ],
+    "group": "generic"
+  },
   "DBSIZE": {
     "summary": "Return the number of keys in the selected database",
     "since": "1.0.0",
