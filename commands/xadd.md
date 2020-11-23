@@ -49,7 +49,10 @@ IDs to match the one of this other system.
 ## Capped streams
 
 It is possible to limit the size of the stream to a maximum number of
-elements using the **MAXLEN** option. 
+elements using the **MAXLEN** option. By default, or when used with the `=`
+argument, the **MAXLEN** option performs an exact trimming. That means that the
+trimmed stream's length will be exactly the minimum between its original length
+and the specified maximum length.
 
 Trimming with **MAXLEN** can be expensive compared to just adding entries with 
 `XADD`: streams are represented by macro nodes into a radix tree, in order to

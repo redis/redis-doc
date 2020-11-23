@@ -10,6 +10,11 @@ the latest 1000 items:
 XTRIM mystream MAXLEN 1000
 ```
 
+By default, or when provided with the optional `=` argument, the command
+performs exact trimming. That means that the trimmed stream's length will be
+exactly the minimum between its original length and the specified maximum
+length.
+
 It is possible to give the command in the following special form in
 order to make it more efficient:
 

@@ -4350,7 +4350,11 @@
             "type": "block",
             "block": [
               {
-                "command": "~",
+                "type": "enum",
+                "enum": [
+                  "=",
+                  "~"
+                ],
                 "optional": true
               },
               {
@@ -4404,16 +4408,21 @@
         ]
       },
       {
-        "name": "approx",
-        "type": "enum",
-        "enum": [
-          "~"
-        ],
-        "optional": true
-      },
-      {
-        "name": "count",
-        "type": "integer"
+        "type": "block",
+        "block": [
+          {
+            "type": "enum",
+            "enum": [
+              "=",
+              "~"
+            ],
+            "optional": true
+          },
+          {
+            "name": "length",
+            "type": "integer"
+          }
+        ]
       }
     ],
     "since": "5.0.0",
