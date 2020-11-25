@@ -4754,7 +4754,7 @@
   },
   "XPENDING": {
     "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
-    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+    "complexity": "O(N) with N being the number of elements returned (In case of IDLE: N being number of elements scanned, some filtered and some returned), so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
     "arguments": [
       {
         "name": "key",
@@ -4763,6 +4763,12 @@
       {
         "name": "group",
         "type": "string"
+      },
+      {
+        "command": "IDLE",
+        "name": "min-idle-time",
+        "type": "integer",
+        "optional": true
       },
       {
         "name": [
@@ -4780,12 +4786,6 @@
       {
         "name": "consumer",
         "type": "string",
-        "optional": true
-      },
-      {
-        "command": "IDLE",
-        "name": "min-idle-time",
-        "type": "integer",
         "optional": true
       }
     ],

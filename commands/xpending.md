@@ -103,22 +103,13 @@ we have a pending entries list data structure both globally, and for
 every consumer, so we can very efficiently show just messages pending for
 a single consumer.
 
-If the owner argument is an empty string, the command will return entries
-assigned to any consumer:
-
-```
-> XPENDING mystream group55 - + 10 ""
-```
-
-The above case will return the first 10 (or less) PEL entries of the entire group
-
 Since version 6.2 it is possible to filter entries by their idle-time,
 given in milliseconds (useful for `XCLAIM`ing entries that have not been
 processed for some time):
 
 ```
-> XPENDING mystream group55 - + 10 "" IDLE 9000
-> XPENDING mystream group55 - + 10 consumer-123 IDLE 9000
+> XPENDING mystream group55 IDLE 9000 - + 10
+> XPENDING mystream group55 IDLE 9000 - + 10 consumer-123
 ```
 
 The first case will return the first 10 (or less) PEL entries of the entire group
