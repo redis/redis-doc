@@ -228,7 +228,7 @@
     "language": "Java",
     "repository": "https://github.com/redis/jedis",
     "description": "A blazingly small and sane Redis Java client",
-    "authors": ["xetorthio", "gkorland", "sazzad16],
+    "authors": ["xetorthio", "gkorland", "sazzad16"],
     "recommended": true,
     "active": true
   },
