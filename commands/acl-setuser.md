@@ -47,7 +47,7 @@ This is a list of all the supported Redis ACL rules:
 * `~<pattern>`: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. You can add multiple key patterns to the same user. Example: `~objects:*`
 * `allkeys`: alias for `~*`, it allows the user to access all the keys.
 * `resetkeys`: removes all the key patterns from the list of key patterns the user can access.
-* `&<pattern>`: add the specified glob style pattern to the list of Pub/Sub channel patterns accessibe by the user. You can add multiple channel patterns to the same user. Example: `&chatroom:*`
+* `&<pattern>`: add the specified glob style pattern to the list of Pub/Sub channel patterns accessible by the user. You can add multiple channel patterns to the same user. Example: `&chatroom:*`
 * `allchannels`: alias for `&*`, it allows the user to access all Pub/Sub channels.
 * `resetchannels`: removes all channel patterns from the list of Pub/Sub channel patterns the user can access.
 * `+<command>`: add this command to the list of the commands the user can call. Example: `+zadd`.
