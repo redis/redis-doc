@@ -111,7 +111,7 @@ Allow and disallow certain keys:
 
 Allow and disallow Pub/Sub channels:
 
-* `&<pattern>`: Add a glob style pattern of Pub/Sub channels that can be be accessed by the user. It is possible to specify multiple channel patterns. Note that pattern matching is done only for channels mentioned by `PUBLISH` and `SUBSCRIBE`, whereas `PSUBSCRIBE` requires a literal match between its channel patterns and those allowed for user.
+* `&<pattern>`: Add a glob style pattern of Pub/Sub channels that can be accessed by the user. It is possible to specify multiple channel patterns. Note that pattern matching is done only for channels mentioned by `PUBLISH` and `SUBSCRIBE`, whereas `PSUBSCRIBE` requires a literal match between its channel patterns and those allowed for user.
 * `allchannels`: Alias for `&*` that allows the user to access all Pub/Sub channels.
 * `resetchannels`: Flush the list of allowed channel patterns and disconnect the user's Pub/Sub clients if these are no longer able to access their respective channels and/or channel patterns.
 
