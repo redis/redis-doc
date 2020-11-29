@@ -29,6 +29,7 @@ already available that can be used for reference.
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [PHPRedisMutex](https://github.com/malkusch/lock#phpredismutex) (further PHP implementation)
 * [cheprasov/php-redis-lock](https://github.com/cheprasov/php-redis-lock) (PHP library for locks)
+* [rtckit/react-redlock](https://github.com/rtckit/reactphp-redlock) (Async PHP implementation)
 * [Redsync](https://github.com/go-redsync/redsync) (Go implementation).
 * [Redisson](https://github.com/mrniko/redisson) (Java implementation).
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
