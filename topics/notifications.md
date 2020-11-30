@@ -99,6 +99,7 @@ Different commands generate different kind of events according to the following 
 * `DEL` generates a `del` event for every deleted key.
 * `RENAME` generates two events, a `rename_from` event for the source key, and a `rename_to` event for the destination key.
 * `MOVE` generates two events, a `move_from` event for the source key, and a `move_to` event for the destination key.
+* `COPY` generates a `copy_to` event.
 * `MIGRATE` generates a `del` event if the source key is removed.
 * `RESTORE` generates a `restore` event for the key.
 * `EXPIRE` and all its variants (`PEXPIRE`, `EXPIREAT`, `PEXPIREAT`) generate an `expire` event when called with a positive timeout (or a future timestamp). Note that when these commands are called with a negative timeout value or timestamp in the past, the key is deleted and only a `del` event is generated instead.

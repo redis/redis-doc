@@ -226,9 +226,9 @@
   {
     "name": "Jedis",
     "language": "Java",
-    "repository": "https://github.com/xetorthio/jedis",
-    "description": "A blazingly small and sane redis java client",
-    "authors": ["xetorthio"],
+    "repository": "https://github.com/redis/jedis",
+    "description": "A blazingly small and sane Redis Java client",
+    "authors": ["xetorthio", "gkorland", "sazzad16"],
     "recommended": true,
     "active": true
   },
@@ -792,7 +792,7 @@
     "repository": "https://github.com/razaellahi/xredis",
     "description": "Redis client with redis ACL features",
     "authors": ["razaellahi531"],
-    "recommended": true,
+    "recommended": false,
     "active": true
   },
   
@@ -807,12 +807,21 @@
   },
 
   {
+    "name": "handy-redis",
+    "language": "Node.js",
+    "repository": "https://github.com/mmkal/handy-redis",
+    "description": "A wrapper around node_redis with Promise and TypeScript support.",
+    "authors": [],
+    "active": true
+  },
+
+  {
     "name": "thunk-redis",
     "language": "Node.js",
     "repository": "https://github.com/thunks/thunk-redis",
     "description": "A thunk/promise-based redis client with pipelining and cluster.",
     "authors": ["izensh"],
-    "active": true
+    "active": false
   },
 
   {
@@ -822,7 +831,7 @@
     "description": "♠ Spade, a full-featured modular client for node.",
     "authors": ["44gtti"],
     "recommended": false,
-    "active": true
+    "active": false
   },
 
   {
@@ -831,7 +840,7 @@
     "repository": "https://github.com/mjackson/then-redis",
     "description": "A small, promise-based Redis client for node",
     "authors": ["mjackson"],
-    "active": true
+    "active": false
   },
 
   {
@@ -878,7 +887,7 @@
     "repository": "https://github.com/h0x91b/fast-redis-cluster",
     "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
     "authors": ["h0x91b"],
-    "active": true
+    "active": false
   },
 
   {

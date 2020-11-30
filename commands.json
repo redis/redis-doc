@@ -974,6 +974,36 @@
     "since": "2.0.0",
     "group": "server"
   },
+  "COPY": {
+    "summary": "Copy a key",
+    "complexity": "O(N) worst case for collections, where N is the number of nested items. O(1) for string values.",
+    "since": "6.2.0",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "key"
+      },
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "command": "DB",
+        "name": "destination-db",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "replace",
+        "type": "enum",
+        "enum": [
+          "REPLACE"
+        ],
+        "optional": true
+      }
+    ],
+    "group": "generic"
+  },
   "DBSIZE": {
     "summary": "Return the number of keys in the selected database",
     "since": "1.0.0",
@@ -4788,7 +4818,7 @@
   },
   "XPENDING": {
     "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
-    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+    "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). O(M), where M is the total number of entries scanned when used with the IDLE filter. When the command returns just the summary and the list of consumers is small, it runs in O(1) time; otherwise, an additional O(N) time for iterating every consumer.",
     "arguments": [
       {
         "name": "key",
@@ -4802,6 +4832,12 @@
         "type": "block",
         "block": [
           {
+            "command": "IDLE",
+            "name": "min-idle-time",
+            "type": "integer",
+            "optional": true
+          },
+          {
             "name": "start",
             "type": "string"
           },
@@ -4814,20 +4850,8 @@
             "type": "integer"
           },
           {
-            "name": "filter",
-            "type": "block",
-            "block": [
-              {
-                "name": "consumer",
-                "type": "string"
-              },
-              {
-                "command": "IDLE",
-                "name": "min-idle-time",
-                "type": "integer",
-                "optional": true
-              }
-            ],
+            "name": "consumer",
+            "type": "string",
             "optional": true
           }
         ],
