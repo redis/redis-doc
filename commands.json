@@ -4371,8 +4371,41 @@
         "type": "key"
       },
       {
-        "name": "ID",
-        "type": "string"
+        "type": "block",
+        "block": [
+          {
+            "command": "MAXLEN"
+          },
+          {
+            "type": "block",
+            "block": [
+              {
+                "type": "enum",
+                "enum": [
+                  "=",
+                  "~"
+                ],
+                "optional": true
+              },
+              {
+                "name": "length",
+                "type": "integer"
+              }
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "command": "NOMKSTREAM",
+        "optional": true
+      },
+      {
+        "type": "enum",
+        "enum": [
+          "*",
+          "ID"
+        ]
       },
       {
         "name": [
@@ -4405,16 +4438,21 @@
         ]
       },
       {
-        "name": "approx",
-        "type": "enum",
-        "enum": [
-          "~"
-        ],
-        "optional": true
-      },
-      {
-        "name": "count",
-        "type": "integer"
+        "type": "block",
+        "block": [
+          {
+            "type": "enum",
+            "enum": [
+              "=",
+              "~"
+            ],
+            "optional": true
+          },
+          {
+            "name": "length",
+            "type": "integer"
+          }
+        ]
       }
     ],
     "since": "5.0.0",
@@ -4530,7 +4568,7 @@
         "multiple": true
       },
       {
-        "name": "id",
+        "name": "ID",
         "type": "string",
         "multiple": true
       }
@@ -4543,30 +4581,56 @@
     "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
     "arguments": [
       {
-        "command": "CREATE",
-        "name": [
-          "key",
-          "groupname",
-          "id-or-$"
-        ],
-        "type": [
-          "key",
-          "string",
-          "string"
+        "type": "block",
+        "block": [
+          {
+            "command": "CREATE",
+            "name": [
+              "key",
+              "groupname"
+            ],
+            "type": [
+              "key",
+              "string"
+            ]
+          },
+          {
+            "name": "id",
+            "type": "enum",
+            "enum": [
+              "ID",
+              "$"
+            ]
+          },
+          {
+            "command": "MKSTREAM",
+            "optional": true
+          }
         ],
         "optional": true
       },
       {
-        "command": "SETID",
-        "name": [
-          "key",
-          "groupname",
-          "id-or-$"
-        ],
-        "type": [
-          "key",
-          "string",
-          "string"
+        "type": "block",
+        "block": [
+          {
+            "command": "SETID",
+            "name": [
+              "key",
+              "groupname"
+            ],
+            "type": [
+              "key",
+              "string"
+            ]
+          },
+          {
+            "name": "id",
+            "type": "enum",
+            "enum": [
+              "ID",
+              "$"
+            ]
+          }
         ],
         "optional": true
       },
@@ -4765,27 +4829,32 @@
         "type": "string"
       },
       {
-        "command": "IDLE",
-        "name": "min-idle-time",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": [
-          "start",
-          "end",
-          "count"
+        "type": "block",
+        "block": [
+          {
+            "command": "IDLE",
+            "name": "min-idle-time",
+            "type": "integer",
+            "optional": true
+          },
+          {
+            "name": "start",
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "type": "integer"
+          },
+          {
+            "name": "consumer",
+            "type": "string",
+            "optional": true
+          }
         ],
-        "type": [
-          "string",
-          "string",
-          "integer"
-        ],
-        "optional": true
-      },
-      {
-        "name": "consumer",
-        "type": "string",
         "optional": true
       }
     ],
