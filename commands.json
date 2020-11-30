@@ -4371,12 +4371,14 @@
         "type": "key"
       },
       {
+        "name": "maxlen",
         "type": "block",
         "block": [
           {
             "command": "MAXLEN"
           },
           {
+            "name": "operator",
             "type": "block",
             "block": [
               {
@@ -4439,6 +4441,7 @@
       },
       {
         "type": "block",
+        "name": "operator",
         "block": [
           {
             "type": "enum",
@@ -4581,6 +4584,7 @@
     "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
     "arguments": [
       {
+        "name": "create",
         "type": "block",
         "block": [
           {
@@ -4610,6 +4614,7 @@
         "optional": true
       },
       {
+        "name": "setid",
         "type": "block",
         "block": [
           {
@@ -4830,6 +4835,7 @@
       },
       {
         "type": "block",
+        "name": "filters",
         "block": [
           {
             "command": "IDLE",
