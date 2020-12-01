@@ -63,7 +63,7 @@ and verify what the configuration of a freshly started, defaults-configured
 Redis instance is:
 
     > ACL LIST
-    1) "user default on nopass ~* +@all"
+    1) "user default on nopass ~* &* +@all"
 
 The command above reports the list of users in the same format that is
 used in the Redis configuration files, by translating the current ACLs set
@@ -73,8 +73,8 @@ The first two words in each line are "user" followed by the username. The
 next words are ACL rules that describe different things. We'll show in
 details how the rules work, but for now it is enough to say that the default
 user is configured to be active (on), to require no password (nopass), to
-access every possible key (`~*`) and be able to call every possible command
-(+@all).
+access every possible key (`~*`) and Pub/Sub channel (`&*`), and be able to
+call every possible command (`+@all`).
 
 Also, in the special case of the default user, having the *nopass* rule means
 that new connections are automatically authenticated with the default user
@@ -105,9 +105,15 @@ Allow and disallow commands:
 
 Allow and disallow certain keys:
 
-* `~<pattern>`: Add a pattern of keys that can be mentioned as part of commands. For instance `~*` allows all the keys. The pattern is a glob-style pattern like the one of KEYS. It is possible to specify multiple patterns.
+* `~<pattern>`: Add a pattern of keys that can be mentioned as part of commands. For instance `~*` allows all the keys. The pattern is a glob-style pattern like the one of `KEYS`. It is possible to specify multiple patterns.
 * `allkeys`: Alias for `~*`.
 * `resetkeys`: Flush the list of allowed keys patterns. For instance the ACL `~foo:* ~bar:* resetkeys ~objects:*`, will result in the client only be able to access keys matching the pattern `objects:*`.
+
+Allow and disallow Pub/Sub channels:
+
+* `&<pattern>`: Add a glob style pattern of Pub/Sub channels that can be accessed by the user. It is possible to specify multiple channel patterns. Note that pattern matching is done only for channels mentioned by `PUBLISH` and `SUBSCRIBE`, whereas `PSUBSCRIBE` requires a literal match between its channel patterns and those allowed for user.
+* `allchannels`: Alias for `&*` that allows the user to access all Pub/Sub channels.
+* `resetchannels`: Flush the list of allowed channel patterns and disconnect the user's Pub/Sub clients if these are no longer able to access their respective channels and/or channel patterns.
 
 Configure valid passwords for the user:
 
@@ -122,7 +128,7 @@ Configure valid passwords for the user:
 
 Reset the user:
 
-* `reset` Performs the following actions: resetpass, resetkeys, off, -@all. The user returns to the same state it has immediately after its creation.
+* `reset` Performs the following actions: resetpass, resetkeys, resetchannels, off, -@all. The user returns to the same state it has immediately after its creation.
 
 ## Creating and editing users ACLs with the ACL SETUSER command
 
@@ -143,22 +149,24 @@ To start let's try the simplest `ACL SETUSER` command call:
 
 The `SETUSER` command takes the username and a list of ACL rules to apply
 to the user. However in the above example I did not specify any rule at all.
-This will just create the user if it did not exist, using the default
-attributes of a just creates uses. If the user already exist, the command
-above will do nothing at all.
+This will just create the user if it did not exist, using the defaults for new
+users. If the user already exist, the command above will do nothing at all.
 
 Let's check what is the default user status:
 
     > ACL LIST
-    1) "user alice off -@all"
-    2) "user default on nopass ~* +@all"
+    1) "user alice off &* -@all"
+    2) "user default on nopass ~* ~& +@all"
 
 The just created user "alice" is:
 
 * In off status, that is, it's disabled. AUTH will not work.
-* Cannot access any command. Note that the user is created by default without the ability to access any command, so the `-@all` in the output above could be omitted, however `ACL LIST` attempts to be explicit rather than implicit.
-* Finally there are no key patterns that the user can access.
 * The user also has no passwords set.
+* Cannot access any command. Note that the user is created by default without the ability to access any command, so the `-@all` in the output above could be omitted, however `ACL LIST` attempts to be explicit rather than implicit.
+* There are no key patterns that the user can access.
+* The user can access all Pub/Sub channels.
+
+New users are created with restrictive permissions by default. Starting with Redis 6.2, ACL provides Pub/Sub channels access management as well. To ensure backwards compatability with version 6.0 when upgrading to Redis 6.2, new users are granted the 'allchannels' permission by default. The default can be set to `resetchannels` via the `acl-pubsub-default` configuration directive.
 
 Such user is completely useless. Let's try to define the user so that
 it is active, has a password, and can access with only the `GET` command
@@ -186,20 +194,25 @@ computers to read, while `ACL LIST` is more biased towards humans.
     > ACL GETUSER alice
     1) "flags"
     2) 1) "on"
+       2) "allchannels"
     3) "passwords"
     4) 1) "2d9c75..."
     5) "commands"
     6) "-@all +get"
     7) "keys"
     8) 1) "cached:*"
+    9) "channels"
+    10) 1) "*"
 
 The `ACL GETUSER` returns a field-value array describing the user in more parsable terms. The output includes the set of flags, a list of key patterns, passwords and so forth. The output is probably more readable if we use RESP3, so that it is returned as as map reply:
 
     > ACL GETUSER alice
     1# "flags" => 1~ "on"
-    2# "passwords" => 1) "2d9c75..."
+       2~ "allchannels"
+    2# "passwords" => 1) "2d9c75273d72b32df726fb545c8a4edc719f0a95a6fd993950b10c474ad9c927"
     3# "commands" => "-@all +get"
     4# "keys" => 1) "cached:*"
+    5# "channels" => 1) "*"
 
 *Note: from now on we'll continue using the Redis default protocol, version 2, because it will take some time for the community to switch to the new one.*
 
@@ -208,8 +221,8 @@ Using another `ACL SETUSER` command (from a different user, because alice cannot
     > ACL SETUSER alice ~objects:* ~items:* ~public:*
     OK
     > ACL LIST
-    1) "user alice on >2d9c75... ~cached:* ~objects:* ~items:* ~public:* -@all +get"
-    2) "user default on nopass ~* +@all"
+    1) "user alice on >2d9c75... ~cached:* ~objects:* ~items:* ~public:* &* -@all +get"
+    2) "user default on nopass ~* &* +@all"
 
 The user representation in memory is now as we expect it to be.
 
@@ -233,8 +246,8 @@ the following sequence:
 Will result in myuser being able to call both `GET` and `SET`:
 
     > ACL LIST
-    1) "user default on nopass ~* +@all"
-    2) "user myuser off -@all +set +get"
+    1) "user default on nopass ~* &* +@all"
+    2) "user myuser off &* -@all +set +get"
 
 ## Playings with command categories
 
@@ -354,12 +367,15 @@ examples, for the sake of brevity, the long hex string was trimmed:
     2) 1) "on"
        2) "allkeys"
        3) "allcommands"
+       4) "allchannels"
     3) "passwords"
     4) 1) "2d9c75273d72b32df726fb545c8a4edc719f0a95a6fd993950b10c474ad9c927"
     5) "commands"
     6) "+@all"
     7) "keys"
     8) 1) "*"
+    9) "channels"
+    10) 1) "*"
 
 Also the old command `CONFIG GET requirepass` will, starting with Redis 6,
 no longer return the clear text password, but instead the hashed password.
@@ -441,9 +457,9 @@ For Sentinel, allow the user to access the following commands both in the master
 
 * AUTH, CLIENT, SUBSCRIBE, SCRIPT, PUBLISH, PING, INFO, MULTI, SLAVEOF, CONFIG, CLIENT, EXEC.
 
-Sentinel does not need to access any key in the database, so the ACL rule would be the following (note: AUTH is not needed since is always allowed):
+Sentinel does not need to access any key in the database but does use Pub/Sub, so the ACL rule would be the following (note: AUTH is not needed since is always allowed):
 
-    ACL setuser sentinel-user >somepassword +client +subscribe +publish +ping +info +multi +slaveof +config +client +exec on
+    ACL SETUSER sentinel-user on >somepassword allchannels +multi +slaveof +ping +exec +subscribe +config|rewrite +role +publish +info +client|setname +client|kill +script|kill
 
 Redis replicas require the following commands to be whitelisted on the master instance:
 
@@ -451,7 +467,7 @@ Redis replicas require the following commands to be whitelisted on the master in
 
 No keys need to be accessed, so this translates to the following rules:
 
-    ACL setuser replica-user >somepassword +psync +replconf +ping on
+    ACL setuser replica-user on >somepassword +psync +replconf +ping
 
 Note that you don't need to configure the replicas to allow the master to be able to execute any set of commands: the master is always authenticated as the root user from the point of view of replicas.
 

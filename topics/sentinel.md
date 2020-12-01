@@ -789,7 +789,7 @@ following directives:
 
 Where `<username>` and `<password>` are the username and password for accessing the group's instances. These credentials should be provisioned on all of the group's Redis instances with the minimal control permissions. For example:
 
-    127.0.0.1:6379> ACL SETUSER sentinels ON >sentinels-password -@all +multi +slaveof +ping +exec +subscribe +auth +config|rewrite +role +publish +info +client|setname +client|kill +script|kill
+    127.0.0.1:6379> ACL SETUSER sentinel-user ON >somepassword allchannels +multi +slaveof +ping +exec +subscribe +config|rewrite +role +publish +info +client|setname +client|kill +script|kill
 
 ### Redis password-only authentication
 
@@ -828,9 +828,9 @@ Note that Sentinel's authentication configuration should be **applied to each of
 
 ### Sentinel Access Control List authentication
 
-The first step in securing a Sentinel instance with ACL is preventing any unauthorized access to it. To do that, you'll need to disable the default superuser (or at the very least set it up with a strong password) and create a new one:
+The first step in securing a Sentinel instance with ACL is preventing any unauthorized access to it. To do that, you'll need to disable the default superuser (or at the very least set it up with a strong password) and create a new one and allow it access to Pub/Sub channels:
 
-    127.0.0.1:5000> ACL SETUSER admin ON >admin-password +@all
+    127.0.0.1:5000> ACL SETUSER admin ON >admin-password allchannels +@all
     OK
     127.0.0.1:5000> ACL SETUSER default off
     OK
