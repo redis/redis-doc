@@ -174,7 +174,7 @@ sequence part to 0. For example, incrementing the ID
 `1526985685298-18446744073709551615` should result in `1526985685299-0`.
 
 A symmetrical pattern applies to iterating the stream with `XREVRANGE`. The
-only difference is that the client needs to decrement the ID for the subsquent
+only difference is that the client needs to decrement the ID for the subsequent
 calls. When decrementing an ID with a sequence part of 0, the timestamp needs
 to be decremented by 1 and the sequence set to 18446744073709551615.
 
