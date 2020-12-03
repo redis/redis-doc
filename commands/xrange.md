@@ -69,7 +69,7 @@ of past events in a stream.
 
 ## Exclusive ranges
 
-The range is open (inclusive) by default, meaning that the reply can include
+The range is close (inclusive) by default, meaning that the reply can include
 entries with IDs matching the query's start and end intervals. It is possible
 to specify an open interval (exclusive) by prefixing the ID with the
 character `(`. This is useful for iterating the stream, as explained below.
