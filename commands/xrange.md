@@ -72,7 +72,7 @@ of past events in a stream.
 The range is open (inclusive) by default, meaning that the reply can include
 entries with IDs matching the query's start and end intervals. It is possible
 to specify an open interval (exclusive) by prefixing the ID with the
-character `(`.
+character `(`. This is useful for iterating the stream, as explained below.
 
 ## Returning a maximum number of entries
 
@@ -146,6 +146,37 @@ ID or incomplete ID instead of `+`.
 The command `XREAD` is also able to iterate the stream.
 The command `XREVRANGE` can iterate the stream reverse, from higher IDs
 (or times) to lower IDs (or times).
+
+### Iterating with earlier versions of Redis
+
+While exclusive range intervals are only available from Redis 6.2, it is still
+possible to use a similar stream iteration pattern with earlier versions. You
+start fetching from the stream the same way as described above to obtain the
+first entries.
+
+For the subsequent calls, you'll need to programmatically advance the last
+entry's ID returned. Most Redis client should abstract this detail, but the
+implementation can also be in the application if needed. In the example above,
+this means incrementing the sequence of `1526985685298-0` by one, from 0 to 1.
+The second call would, therefore, be:
+
+```
+> XRANGE writers 1526985685298-1 + COUNT 2
+1) 1) 1526985691746-0
+   2) 1) "name"
+      2) "Toni"
+...
+```
+
+Also, note that once the sequence part of the last ID equals 
+18446744073709551615, you'll need to increment the timestamp and reset the
+sequence part to 0. For example, incrementing the ID
+`1526985685298-18446744073709551615` should result in `1526985685299-0`.
+
+A symmetrical pattern applies to iterating the stream with `XREVRANGE`. The
+only difference is that the client needs to decrement the ID for the subsquent
+calls. When decrementing an ID with a sequence part of 0, the timestamp needs
+to be decremented by 1 and the sequence set to 18446744073709551615.
 
 ## Fetching single items
 

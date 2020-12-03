@@ -66,7 +66,7 @@ Redis Streams support all the three query modes described above via different co
 
 ### Querying by range: XRANGE and XREVRANGE
 
-To query the stream by range we are only required to specify two IDs, *start* and *end*. The range returned will include the elements having start or end as ID, so the range is inclusive. The two special IDs `-` and `+` respectively means the smallest and the greatest ID possible.
+To query the stream by range we are only required to specify two IDs, *start* and *end*. The range returned will include the elements having start or end as ID, so the range is inclusive. The two special IDs `-` and `+` respectively mean the smallest and the greatest ID possible.
 
 ```
 > XRANGE mystream - +
@@ -105,10 +105,10 @@ I have only a single entry in this range, however in real data sets, I could que
       2) "value_2"
 ```
 
-In order to continue the iteration with the next two items, I have to pick the last ID returned, that is `1519073279157-0` and add 1 to the sequence number part of the ID. Note that the sequence number is 64 bit so there is no need to check for overflows. The resulting ID, that is `1519073279157-1` in this case, can now be used as the new *start* argument for the next **XRANGE** call:
+In order to continue the iteration with the next two items, I have to pick the last ID returned, that is `1519073279157-0` and add the prefix `(` to it. The resulting exclusive range interval, that is `(1519073279157-0` in this case, can now be used as the new *start* argument for the next **XRANGE** call:
 
 ```
-> XRANGE mystream 1519073279157-1 + COUNT 2
+> XRANGE mystream (1519073279157-0 + COUNT 2
 1) 1) 1519073280281-0
    2) 1) "foo"
       2) "value_3"
