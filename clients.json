@@ -43,6 +43,14 @@
     "description": "Redis client with a focus on performance",
     "authors": ["wooga"],
     "recommended": true,
+    "active": false
+  },
+  {
+    "name": "Eredis (Nordix fork)",
+    "language": "Erlang",
+    "repository": "https://github.com/Nordix/eredis",
+    "description": "An updated fork of eredis, adding TLS and various corrections and testing",
+    "recommended": true,
     "active": true
   },
   {
@@ -51,6 +59,14 @@
     "repository": "https://github.com/adrienmo/eredis_cluster",
     "description": "Eredis wrapper providing cluster support and connection pooling",
     "authors": ["adrienmo"],
+    "active": false
+  },
+  {
+    "name": "eredis_cluster (Nordix fork)",
+    "language": "Erlang",
+    "repository": "https://github.com/Nordix/eredis_cluster",
+    "description": "An updated fork of eredis_cluster (providing cluster support and connection pooling), with added TLS support, ASK redirects, various corrections and testing",
+    "recommended": true,
     "active": true
   },
   {
@@ -1647,8 +1663,17 @@
     "name": "hiredis-vip",
     "language": "C",
     "repository": "https://github.com/vipshop/hiredis-vip",
-    "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
+    "description": "This was the original C client for Redis Cluster. Support for synchronous and asyncronous APIs, MSET/MGET/DEL, pipelining. Built around an outdated version of hiredis.",
     "authors": ["diguo58"],
+    "recommended": false,
+    "active": false
+  },
+
+  {
+    "name": "hiredis-cluster",
+    "language": "C",
+    "repository": "https://github.com/Nordix/hiredis-cluster",
+    "description": "This is an updated fork of hiredis-cluster, the C client for Redis Cluster, with added TLS and AUTH support, decoupling hiredis as an external dependency, leak corrections and improved testing.",
     "recommended": true,
     "active": true
   },
