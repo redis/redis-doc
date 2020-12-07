@@ -321,3 +321,7 @@ It is not possible to partially resynchronize a replica that restarted via the
 AOF file. However the instance may be turned to RDB persistence before shutting
 down it, than can be restarted, and finally AOF can be enabled again.
 
+Maxmemory on replicas
+---
+
+Replicas don't honor `maxmemory` when it is a slave because this is expected to be consistent with the master, but this is option is used again if the instance is turned into a master.
