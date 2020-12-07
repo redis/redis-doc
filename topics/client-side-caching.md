@@ -322,5 +322,5 @@ keys that were not served recently.
 
 ## Limiting the amount of memory used by Redis
 
-Just make sure to configure a suitable value for the maxmimum number of keys remembered by Redis, or alternatively use the BCAST mode that consumes no memory at all in the Redis side. Note that the memory consumed by Redis when BCAST is not used, is proportional both to the number of keys tracked, and the number of clients requesting such keys.
+Just make sure to configure a suitable value for the maximum number of keys remembered by Redis, or alternatively use the BCAST mode that consumes no memory at all in the Redis side. Note that the memory consumed by Redis when BCAST is not used, is proportional both to the number of keys tracked, and the number of clients requesting such keys.
 
