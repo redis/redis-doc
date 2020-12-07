@@ -447,6 +447,12 @@
     "since": "5.0.0",
     "group": "connection"
   },
+  "CLIENT INFO": {
+    "summary": "Returns information about the current client connection.",
+    "complexity": "O(1)",
+    "since": "6.2.0",
+    "group": "connection"
+  },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
     "complexity": "O(N) where N is the number of client connections",
@@ -507,6 +513,21 @@
           "master",
           "replica",
           "pubsub"
+        ],
+        "optional": true
+      },
+      {
+        "name": "id",
+        "type": "block",
+        "block": [
+          {
+            "command": "ID"
+          },
+          {
+            "name": "client-id",
+            "type": "integer",
+            "multiple": true
+          }
         ],
         "optional": true
       }
