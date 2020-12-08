@@ -649,6 +649,12 @@
     "since": "6.0.0",
     "group": "connection"
   },
+  "CLIENT TRACKINGINFO": {
+    "summary": "Return information about server assisted client side caching for the current connection",
+    "complexity": "O(1)",
+    "since": "6.2.0",
+    "group": "connection"
+  },
   "CLIENT UNBLOCK": {
     "summary": "Unblock a client blocked in a blocking command from a different connection",
     "complexity": "O(log N) where N is the number of client connections",
