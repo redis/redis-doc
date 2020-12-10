@@ -316,8 +316,8 @@ For each replica, the following line is added:
 
 Here is the meaning of all fields in the **cpu** section:
 
-*   `used_cpu_sys`: System CPU consumed by the Redis server, which is the sum of system CPU consumed by all threads in the Redis server process ( main thread and background threads )
-*   `used_cpu_user`: User CPU consumed by the Redis server, which is the sum of user CPU consumed by all threads in the Redis server process ( main thread and background threads )
+*   `used_cpu_sys`: System CPU consumed by the Redis server, which is the sum of system CPU consumed by all threads of the server process (main thread and background threads)
+*   `used_cpu_user`: User CPU consumed by the Redis server, which is the sum of user CPU consumed by all threads of the server process (main thread and background threads)
 *   `used_cpu_sys_children`: System CPU consumed by the background processes
 *   `used_cpu_user_children`: User CPU consumed by the background processes
 *   `used_cpu_sys_main_thread`: System CPU consumed by the Redis server main thread
