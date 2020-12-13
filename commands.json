@@ -1976,12 +1976,17 @@
     "group": "list"
   },
   "LPOP": {
-    "summary": "Remove and get the first element in a list",
-    "complexity": "O(1)",
+    "summary": "Remove and get the first elements in a list",
+    "complexity": "O(N) where N is the number of elements returned",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -2690,12 +2695,17 @@
     "group": "server"
   },
   "RPOP": {
-    "summary": "Remove and get the last element in a list",
-    "complexity": "O(1)",
+    "summary": "Remove and get the last elements in a list",
+    "complexity": "O(N) where N is the number of elements returned",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
