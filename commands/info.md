@@ -61,6 +61,7 @@ Here is the meaning of all fields in the **server** section:
 *   `run_id`: Random value identifying the Redis server (to be used by Sentinel
      and Cluster)
 *   `tcp_port`: TCP/IP listen port
+*   `server_time_in_usec`: Epoch-based system time with microsecond precision
 *   `uptime_in_seconds`: Number of seconds since Redis server start
 *   `uptime_in_days`: Same value expressed in days
 *   `hz`: The server's current frequency setting
@@ -315,10 +316,12 @@ For each replica, the following line is added:
 
 Here is the meaning of all fields in the **cpu** section:
 
-*   `used_cpu_sys`: System CPU consumed by the Redis server
-*   `used_cpu_user`:User CPU consumed by the Redis server
+*   `used_cpu_sys`: System CPU consumed by the Redis server, which is the sum of system CPU consumed by all threads of the server process (main thread and background threads)
+*   `used_cpu_user`: User CPU consumed by the Redis server, which is the sum of user CPU consumed by all threads of the server process (main thread and background threads)
 *   `used_cpu_sys_children`: System CPU consumed by the background processes
 *   `used_cpu_user_children`: User CPU consumed by the background processes
+*   `used_cpu_sys_main_thread`: System CPU consumed by the Redis server main thread
+*   `used_cpu_user_main_thread`: User CPU consumed by the Redis server main thread
 
 The **commandstats** section provides statistics based on the command type,
 including the number of calls, the total CPU time consumed by these commands,
