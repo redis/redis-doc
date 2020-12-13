@@ -18,5 +18,6 @@ The command returns information about the current client connection's use of the
   * `optin`: The client does not cache keys by default.
   * `optout`: The client caches keys by default.
 * **`caching`**: Indicates whether the next command will cache its keys, depending on the connection's opt-mode and whether `CLIENT CACHING` was called. Possible values are:
+  * `nil`: The connection isn't using server assisted client side caching.
   * `yes`: The next command will cache keys.
   * `no`: The next command won't cache keys.
