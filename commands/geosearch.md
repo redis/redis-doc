@@ -1,27 +1,27 @@
-GEOSEARCH is compatible with `GEORADIUS`, in addition to searching for circular areas, it can also support searching for rectangular areas.
+Return the members of a sorted set populated with geospatial information using `GEOADD`, which are within the borders of the area specified by a given shape. This command extends the `GEORADIUS` command, so in addition to searching within circular areas, it supports searching within rectangular areas.
 
-The search center point is determined by the following option:
+The query's center point is provided by one of these mandatory options:
 
-* `FROMMEMBER`: It takes the name of a member already existing inside the geospatial index represented by the sorted set.
-* `FROMLOC`: Use parameters to pass longitude and latitude.
+* `FROMMEMBER`: Use the position of the given existing `<member>` in the sorted set.
+* `FROMLONLAT`: Use the given `<longitude>` and `<latitude>`.
 
-The search area is determined by the following options:
+The query's shape is provided by one of these mandatory options:
 
-* `BYRADIUS`: Similar to GEORADIUS, searching for circular areas according to radius.
-* `BYBOX`: Axis-aligned rectangle, determined by height and width.
+* `BYRADIUS`: Similar to `GEORADIUS`, search inside circular area according to given `<radius>`.
+* `BYBOX`: Search inside an axis-aligned rectangle, determined by `<height>` and `<width>`.
 
 The command optionally returns additional information using the following options:
 
-* `WITHDIST`: Also return the distance of the returned items from the specified center. The distance is returned in the same unit as the unit specified as the radius or height or width argument of the command.
-* `WITHCOORD`: Also return the longitude,latitude coordinates of the matching items.
+* `WITHDIST`: Also return the distance of the returned items from the specified center. The distance is returned in the same unit asspecified for the radius or height and width arguments.
+* `WITHCOORD`: Also return the longitude and latitude of the matching items.
 * `WITHHASH`: Also return the raw geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low level hacks or debugging and is otherwise of little interest for the general user.
 
-The command default is to return unsorted items. Two different sorting methods can be invoked using the following two options:
+By default, the command returns unsorted items. Two different sorting methods can be invoked using one of the following two options:
 
 * `ASC`: Sort returned items from the nearest to the farthest, relative to the center.
 * `DESC`: Sort returned items from the farthest to the nearest, relative to the center.
 
-By default all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option. However note that internally the command needs to perform an effort proportional to the number of items matching the specified area, so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned. On the other hand `COUNT` can be a very effective way to reduce bandwidth usage if normally just the first results are used.
+By default, all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option. However note that internally the command needs to perform an effort proportional to the number of items matching the specified area, so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned. On the other hand `COUNT` can be a very effective way to reduce bandwidth usage if normally just the first results are used.
 
 @return
 
@@ -42,5 +42,5 @@ When additional information is returned as an array of arrays for each item, the
 GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
 GEOADD Sicily 12.758489 38.788135 "edge1"   17.241510 38.788135 "edge2" 
 GEORADIUS Sicily 15 37 200 km ASC
-GEOSEARCH Sicily FROMLOC 15 37 BYBOX 400 400 km ASC
+GEOSEARCH Sicily FROMLONLAT 15 37 BYBOX 400 400 km ASC
 ```

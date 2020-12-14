@@ -1505,7 +1505,7 @@
   },
   "GEOSEARCH": {
     "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
-    "complexity": "O(N+log(M)), where N is the number of elements in the a grid aligned bounding box area around the provided circle or box, and M is the number of items inside the actual provided circle or box area.",
+    "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
     "arguments": [
       {
         "name": "key",
@@ -1518,10 +1518,10 @@
         "optional": true
       },
       {
-        "command": "FROMLOC",
+        "command": "FROMLONLAT",
         "name": [
-          "long",
-          "lat"
+          "longitude",
+          "latitude"
         ],
         "type": [
           "double",
@@ -1534,8 +1534,8 @@
         "name": "circle",
         "block": [
           {
-            "command": "BYRADIUS",
             "name": "radius",
+            "command": "BYRADIUS",
             "type": "double"
           },
           {
@@ -1556,8 +1556,8 @@
         "name": "box",
         "block": [
           {
-            "command": "BYBOX",
             "name": "width",
+            "command": "BYBOX",
             "type": "double"
           },
           {
@@ -1578,6 +1578,21 @@
         "optional": true
       },
       {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "name": "count",
+        "command": "COUNT",
+        "type": "integer",
+        "optional": true
+      },
+      {
         "name": "withcoord",
         "type": "enum",
         "enum": [
@@ -1600,29 +1615,14 @@
           "WITHHASH"
         ],
         "optional": true
-      },
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "order",
-        "type": "enum",
-        "enum": [
-          "ASC",
-          "DESC"
-        ],
-        "optional": true
       }
     ],
     "since": "6.2",
     "group": "geo"
   },
   "GEOSEARCHSTORE": {
-    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result another key.",
-    "complexity": "O(N+log(M)), where N is the number of elements in the a grid aligned bounding box area around the provided circle or box, and M is the number of items inside the actual provided circle or box area.",
+    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
+    "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
     "arguments": [
       {
         "name": "destination",
@@ -1639,10 +1639,10 @@
         "optional": true
       },
       {
-        "command": "FROMLOC",
+        "command": "FROMLONLAT",
         "name": [
-          "long",
-          "lat"
+          "longitude",
+          "latitude"
         ],
         "type": [
           "double",
@@ -1651,29 +1651,66 @@
         "optional": true
       },
       {
-        "command": "BYRADIUS",
-        "name": [
-          "radius",
-          "unit"
-        ],
-        "type": [
-          "double",
-          "string"
+        "type": "block",
+        "name": "circle",
+        "block": [
+          {
+            "name": "radius",
+            "command": "BYRADIUS",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
         ],
         "optional": true
       },
       {
-        "command": "BYBOX",
-        "name": [
-          "width",
-          "height",
-          "unit"
+        "type": "block",
+        "name": "box",
+        "block": [
+          {
+            "name": "width",
+            "command": "BYBOX",
+            "type": "double"
+          },
+          {
+            "name": "height",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
         ],
-        "type": [
-          "double",
-          "double",
-          "string"
+        "optional": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
         ],
+        "optional": true
+      },
+      {
+        "name": "count",
+        "command": "COUNT",
+        "type": "integer",
         "optional": true
       },
       {
@@ -1697,21 +1734,6 @@
         "type": "enum",
         "enum": [
           "WITHHASH"
-        ],
-        "optional": true
-      },
-      {
-        "command": "COUNT",
-        "name": "count",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "order",
-        "type": "enum",
-        "enum": [
-          "ASC",
-          "DESC"
         ],
         "optional": true
       },
