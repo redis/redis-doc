@@ -1503,6 +1503,252 @@
     "since": "3.2.0",
     "group": "geo"
   },
+  "GEOSEARCH": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
+    "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "FROMMEMBER",
+        "name": "member",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "FROMLONLAT",
+        "name": [
+          "longitude",
+          "latitude"
+        ],
+        "type": [
+          "double",
+          "double"
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "circle",
+        "block": [
+          {
+            "name": "radius",
+            "command": "BYRADIUS",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "box",
+        "block": [
+          {
+            "name": "width",
+            "command": "BYBOX",
+            "type": "double"
+          },
+          {
+            "name": "height",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "name": "count",
+        "command": "COUNT",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "withcoord",
+        "type": "enum",
+        "enum": [
+          "WITHCOORD"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withdist",
+        "type": "enum",
+        "enum": [
+          "WITHDIST"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withhash",
+        "type": "enum",
+        "enum": [
+          "WITHHASH"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2",
+    "group": "geo"
+  },
+  "GEOSEARCHSTORE": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
+    "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+    "arguments": [
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "source",
+        "type": "key"
+      },
+      {
+        "command": "FROMMEMBER",
+        "name": "member",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "FROMLONLAT",
+        "name": [
+          "longitude",
+          "latitude"
+        ],
+        "type": [
+          "double",
+          "double"
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "circle",
+        "block": [
+          {
+            "name": "radius",
+            "command": "BYRADIUS",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "box",
+        "block": [
+          {
+            "name": "width",
+            "command": "BYBOX",
+            "type": "double"
+          },
+          {
+            "name": "height",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "name": "count",
+        "command": "COUNT",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "withcoord",
+        "type": "enum",
+        "enum": [
+          "WITHCOORD"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withdist",
+        "type": "enum",
+        "enum": [
+          "WITHDIST"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withhash",
+        "type": "enum",
+        "enum": [
+          "WITHHASH"
+        ],
+        "optional": true
+      },
+      {
+        "name": "storedist",
+        "type": "enum",
+        "enum": [
+          "STOREDIST"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2",
+    "group": "geo"
+  },
   "GET": {
     "summary": "Get the value of a key",
     "complexity": "O(1)",
