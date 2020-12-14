@@ -1503,6 +1503,208 @@
     "since": "3.2.0",
     "group": "geo"
   },
+  "GEOSEARCH": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members matching a box or circular.",
+    "complexity": "O(N+log(M)), where N is the number of elements in the bounding box of the circular area or box area, the circular area is defined by the center and radius, the box area is defined by the center, height and width, and M is the number of items inside the index.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "FROMMEMBER",
+        "name": "member",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "FROMLOC",
+        "name": [
+          "long",
+          "lat"
+        ],
+        "type": [
+          "double",
+          "double"
+        ],
+        "optional": true
+      },
+      {
+        "command": "BYRADIUS",
+        "name": [
+          "radius",
+          "unit"
+        ],
+        "type": [
+          "double",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "BYBOX",
+        "name": [
+          "width",
+          "height",
+          "unit"
+        ],
+        "type": [
+          "double",
+          "double",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withcoord",
+        "type": "enum",
+        "enum": [
+          "WITHCOORD"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withdist",
+        "type": "enum",
+        "enum": [
+          "WITHDIST"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withhash",
+        "type": "enum",
+        "enum": [
+          "WITHHASH"
+        ],
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2",
+    "group": "geo"
+  },
+  "GEOSEARCHSTORE": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members matching a box or circular, and stores the result in destination.",
+    "complexity": "O(N+log(M)), where N is the number of elements in the bounding box of the circular area or box area, the circular area is defined by the center and radius, the box area is defined by the center, height and width, and M is the number of items inside the index.",
+    "arguments": [
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "FROMMEMBER",
+        "name": "member",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "FROMLOC",
+        "name": [
+          "long",
+          "lat"
+        ],
+        "type": [
+          "double",
+          "double"
+        ],
+        "optional": true
+      },
+      {
+        "command": "BYRADIUS",
+        "name": [
+          "radius",
+          "unit"
+        ],
+        "type": [
+          "double",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "command": "BYBOX",
+        "name": [
+          "width",
+          "height",
+          "unit"
+        ],
+        "type": [
+          "double",
+          "double",
+          "string"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withcoord",
+        "type": "enum",
+        "enum": [
+          "WITHCOORD"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withdist",
+        "type": "enum",
+        "enum": [
+          "WITHDIST"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withhash",
+        "type": "enum",
+        "enum": [
+          "WITHHASH"
+        ],
+        "optional": true
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "name": "storedist",
+        "type": "enum",
+        "enum": [
+          "STOREDIST"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2",
+    "group": "geo"
+  },
   "GET": {
     "summary": "Get the value of a key",
     "complexity": "O(1)",
