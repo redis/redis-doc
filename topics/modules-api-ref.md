@@ -1070,8 +1070,10 @@ The input flags are:
 
     REDISMODULE_ZADD_XX: Element must already exist. Do nothing otherwise.
     REDISMODULE_ZADD_NX: Element must not exist. Do nothing otherwise.
-    REDISMODULE_ZADD_LT: For existing element, only update if the new score is less than the current score.
-    REDISMODULE_ZADD_GT: For existing element, only update if the new score is greater than the current score.
+    REDISMODULE_ZADD_GT: If element exists, new score must be greater than the current score. 
+                         Do nothing otherwise. Can optionally be combined with XX.
+    REDISMODULE_ZADD_LT: If element exists, new score must be less than the current score.
+                         Do nothing otherwise. Can optionally be combined with XX.
 
 The output flags are:
 
@@ -1471,6 +1473,10 @@ documentation, especially https://redis.io/topics/modules-native-types.
          .mem_usage = myType_MemUsageCallBack,
          .aux_load = myType_AuxRDBLoadCallBack,
          .aux_save = myType_AuxRDBSaveCallBack,
+         .free_effort = myType_FreeEffortCallBack,
+         .unlink = myType_UnlinkCallBack,
+         .copy = myType_CopyCallback,
+         .defrag = myType_DefragCallback
      }
 
 * **rdb_load**: A callback function pointer that loads data from RDB files.
@@ -1482,9 +1488,35 @@ documentation, especially https://redis.io/topics/modules-native-types.
   'when' argument is either REDISMODULE_AUX_BEFORE_RDB or REDISMODULE_AUX_AFTER_RDB.
 * **aux_load**: A callback function pointer that loads out of keyspace data from RDB files.
   Similar to aux_save, returns REDISMODULE_OK on success, and ERR otherwise.
+* **free_effort**: A callback function pointer that used to determine whether the module's
+  memory needs to be lazy reclaimed. The module should return the complexity involved by
+  freeing the value. for example: how many pointers are gonna be freed. Note that if it 
+  returns 0, we'll always do an async free.
+* **unlink**: A callback function pointer that used to notifies the module that the key has 
+  been removed from the DB by redis, and may soon be freed by a background thread. Note that 
+  it won't be called on FLUSHALL/FLUSHDB (both sync and async), and the module can use the 
+  RedisModuleEvent_FlushDB to hook into that.
+* **copy**: A callback function pointer that is used to make a copy of the specified key.
+  The module is expected to perform a deep copy of the specified value and return it.
+  In addition, hints about the names of the source and destination keys is provided.
+  A NULL return value is considered an error and the copy operation fails.
+  Note: if the target key exists and is being overwritten, the copy callback will be
+  called first, followed by a free callback to the value that is being replaced.
 
-The **digest** and **mem_usage** methods should currently be omitted since
-they are not yet implemented inside the Redis modules core.
+* **defrag**: A callback function pointer that is used to request the module to defrag
+  a key. The module should then iterate pointers and call the relevant RM_Defrag*()
+  functions to defragment pointers or complex types. The module should continue
+  iterating as long as RM_DefragShouldStop() returns a zero value, and return a
+  zero value if finished or non-zero value if more work is left to be done. If more work
+  needs to be done, RM_DefragCursorSet() and RM_DefragCursorGet() can be used to track
+  this work across different calls.
+  Normally, the defrag mechanism invokes the callback without a time limit, so
+  RM_DefragShouldStop() always returns zero. The "late defrag" mechanism which has
+  a time limit and provides cursor support is used only for keys that are determined
+  to have significant internal complexity. To determine this, the defrag mechanism
+  uses the free_effort callback and the 'active-defrag-max-scan-fields' config directive.
+  NOTE: The value is passed as a void** and the function is expected to update the
+  pointer if the top-level value pointer is defragmented and consequentially changes.
 
 Note: the module name "AAAAAAAAA" is reserved and produces an error, it
 happens to be pretty lame as well.
@@ -2232,6 +2264,15 @@ With the following effects:
 Create a new timer that will fire after `period` milliseconds, and will call
 the specified function using `data` as argument. The returned timer ID can be
 used to get information from the timer or to stop it before it fires.
+Note that for the common use case of a repeating timer (Re-registration
+of the timer inside the RedisModuleTimerProc callback) it matters when
+this API is called:
+If it is called at the beginning of 'callback' it means
+the event will triggered every 'period'.
+If it is called at the end of 'callback' it means
+there will 'period' milliseconds gaps between events.
+(If the time it takes to execute 'callback' is negligible the two
+statements above mean the same)
 
 ## `RedisModule_StopTimer`
 
@@ -3152,7 +3193,7 @@ Here is a list of events you can use as 'eid' and related sub events:
 
      RedisModuleEvent_SwapDB
 
-         This event is called when a swap db command has been successfully 
+         This event is called when a SWAPDB command has been successfully
          Executed. 
          For this event call currently there is no subevents available.
 
@@ -3162,6 +3203,18 @@ Here is a list of events you can use as 'eid' and related sub events:
             int32_t dbnum_first;    // Swap Db first dbnum 
             int32_t dbnum_second;   // Swap Db second dbnum 
 
+     RedisModuleEvent_ReplBackup
+
+         Called when diskless-repl-load config is set to swapdb,
+         And redis needs to backup the the current database for the
+         possibility to be restored later. A module with global data and
+         maybe with aux_load and aux_save callbacks may need to use this
+         notification to backup / restore / discard its globals.
+         The following sub events are available:
+
+             REDISMODULE_SUBEVENT_REPL_BACKUP_CREATE
+             REDISMODULE_SUBEVENT_REPL_BACKUP_RESTORE
+             REDISMODULE_SUBEVENT_REPL_BACKUP_DISCARD
 
 
 The function returns `REDISMODULE_OK` if the module was successfully subscribed
@@ -3251,6 +3304,15 @@ Example:
 Return the redis version in format of 0x00MMmmpp.
 Example for 6.0.7 the return value will be 0x00060007.
 
+## `RedisModule_GetTypeMethodVersion`
+
+    int RedisModule_GetTypeMethodVersion();
+
+/**
+Return the current redis-server runtime value of `REDISMODULE_TYPE_METHOD_VERSION`.
+You can use that when calling `RM_CreateDataType` to know which fields of
+RedisModuleTypeMethods are gonna be supported and which will be ignored.
+
 ## `RedisModule_ModuleTypeReplaceValue`
 
     int RedisModule_ModuleTypeReplaceValue(RedisModuleKey *key, moduleType *mt, void *new_value, void **old_value);
@@ -3290,4 +3352,94 @@ as folllows:
 NOTE: The returned array is not a Redis Module object so it does not
 get automatically freed even when auto-memory is used. The caller
 must explicitly call `RM_Free()` to free it.
+
+## `RedisModule_RegisterDefragFunc`
+
+    int RedisModule_RegisterDefragFunc(RedisModuleCtx *ctx, RedisModuleDefragFunc cb);
+
+Register a defrag callback for global data, i.e. anything that the module
+may allocate that is not tied to a specific data type.
+
+## `RedisModule_DefragShouldStop`
+
+    int RedisModule_DefragShouldStop(RedisModuleDefragCtx *ctx);
+
+When the data type defrag callback iterates complex structures, this
+function should be called periodically. A zero (false) return
+indicates the callback may continue its work. A non-zero value (true)
+indicates it should stop.
+
+When stopped, the callback may use `RM_DefragCursorSet()` to store its
+position so it can later use `RM_DefragCursorGet()` to resume defragging.
+
+When stopped and more work is left to be done, the callback should
+return 1. Otherwise, it should return 0.
+
+NOTE: Modules should consider the frequency in which this function is called,
+so it generally makes sense to do small batches of work in between calls.
+
+## `RedisModule_DefragCursorSet`
+
+    int RedisModule_DefragCursorSet(RedisModuleDefragCtx *ctx, unsigned long cursor);
+
+Store an arbitrary cursor value for future re-use.
+
+This should only be called if `RM_DefragShouldStop()` has returned a non-zero
+value and the defrag callback is about to exit without fully iterating its
+data type.
+
+This behavior is reserved to cases where late defrag is performed. Late
+defrag is selected for keys that implement the free_effort callback and
+return a free_effort value that is larger than the defrag
+'active-defrag-max-scan-fields' configuration directive.
+
+Smaller keys, keys that do not implement free_effort or the global
+defrag callback are not called in late-defrag mode. In those cases, a
+call to this function will return `REDISMODULE_ERR`.
+
+The cursor may be used by the module to represent some progress into the
+module's data type. Modules may also store additional cursor-related
+information locally and use the cursor as a flag that indicates when
+traversal of a new key begins. This is possible because the API makes
+a guarantee that concurrent defragmentation of multiple keys will
+not be performed.
+
+## `RedisModule_DefragCursorGet`
+
+    int RedisModule_DefragCursorGet(RedisModuleDefragCtx *ctx, unsigned long *cursor);
+
+Fetch a cursor value that has been previously stored using `RM_DefragCursorSet()`.
+
+If not called for a late defrag operation, `REDISMODULE_ERR` will be returned and
+the cursor should be ignored. See DM_DefragCursorSet() for more details on
+defrag cursors.
+
+## `RedisModule_DefragAlloc`
+
+    void *RedisModule_DefragAlloc(RedisModuleDefragCtx *ctx, void *ptr);
+
+Defrag a memory allocation previously allocated by `RM_Alloc`, `RM_Calloc`, etc.
+The defragmentation process involves allocating a new memory block and copying
+the contents to it, like realloc().
+
+If defragmentation was not necessary, NULL is returned and the operation has
+no other effect.
+
+If a non-NULL value is returned, the caller should use the new pointer instead
+of the old one and update any reference to the old pointer, which must not
+be used again.
+
+## `RedisModule_DefragRedisModuleString`
+
+    RedisModuleString *RedisModule_DefragRedisModuleString(RedisModuleDefragCtx *ctx, RedisModuleString *str);
+
+Defrag a RedisModuleString previously allocated by `RM_Alloc`, `RM_Calloc`, etc.
+See `RM_DefragAlloc()` for more information on how the defragmentation process
+works.
+
+NOTE: It is only possible to defrag strings that have a single reference.
+Typically this means strings retained with `RM_RetainString` or `RM_HoldString`
+may not be defragmentable. One exception is command argvs which, if retained
+by the module, will end up with a single reference (because the reference
+on the Redis side is dropped as soon as the command callback returns).
 
