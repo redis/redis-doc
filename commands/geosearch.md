@@ -12,7 +12,7 @@ The query's shape is provided by one of these mandatory options:
 
 The command optionally returns additional information using the following options:
 
-* `WITHDIST`: Also return the distance of the returned items from the specified center. The distance is returned in the same unit asspecified for the radius or height and width arguments.
+* `WITHDIST`: Also return the distance of the returned items from the specified center. The distance is returned in the same unit as specified for the radius or height and width arguments.
 * `WITHCOORD`: Also return the longitude and latitude of the matching items.
 * `WITHHASH`: Also return the raw geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low level hacks or debugging and is otherwise of little interest for the general user.
 
