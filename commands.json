@@ -1504,8 +1504,8 @@
     "group": "geo"
   },
   "GEOSEARCH": {
-    "summary": "Query a sorted set representing a geospatial index to fetch members matching a box or circular.",
-    "complexity": "O(N+log(M)), where N is the number of elements in the bounding box of the circular area or box area, the circular area is defined by the center and radius, the box area is defined by the center, height and width, and M is the number of items inside the index.",
+    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
+    "complexity": "O(N+log(M)), where N is the number of elements in the a grid aligned bounding box area around the provided circle or box, and M is the number of items inside the actual provided circle or box area.",
     "arguments": [
       {
         "name": "key",
@@ -1530,28 +1530,50 @@
         "optional": true
       },
       {
-        "command": "BYRADIUS",
-        "name": [
-          "radius",
-          "unit"
-        ],
-        "type": [
-          "double",
-          "string"
+        "type": "block",
+        "name": "circle",
+        "block": [
+          {
+            "command": "BYRADIUS",
+            "name": "radius",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
         ],
         "optional": true
       },
       {
-        "command": "BYBOX",
-        "name": [
-          "width",
-          "height",
-          "unit"
-        ],
-        "type": [
-          "double",
-          "double",
-          "string"
+        "type": "block",
+        "name": "box",
+        "block": [
+          {
+            "command": "BYBOX",
+            "name": "width",
+            "type": "double"
+          },
+          {
+            "name": "height",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
         ],
         "optional": true
       },
@@ -1599,15 +1621,15 @@
     "group": "geo"
   },
   "GEOSEARCHSTORE": {
-    "summary": "Query a sorted set representing a geospatial index to fetch members matching a box or circular, and stores the result in destination.",
-    "complexity": "O(N+log(M)), where N is the number of elements in the bounding box of the circular area or box area, the circular area is defined by the center and radius, the box area is defined by the center, height and width, and M is the number of items inside the index.",
+    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result another key.",
+    "complexity": "O(N+log(M)), where N is the number of elements in the a grid aligned bounding box area around the provided circle or box, and M is the number of items inside the actual provided circle or box area.",
     "arguments": [
       {
         "name": "destination",
         "type": "key"
       },
       {
-        "name": "key",
+        "name": "source",
         "type": "key"
       },
       {

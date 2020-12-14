@@ -10,16 +10,31 @@ The search area is determined by the following options:
 * `BYRADIUS`: Similar to GEORADIUS, searching for circular areas according to radius.
 * `BYBOX`: Axis-aligned rectangle, determined by height and width.
 
-`WITHCOORD`, `WITHDIST`, `WITHHASH`, `COUNT`, `ASC|DESC` option can refer to `GEORADIUS` commands.
+The command optionally returns additional information using the following options:
 
-## Search process
+* `WITHDIST`: Also return the distance of the returned items from the specified center. The distance is returned in the same unit as the unit specified as the radius or height or width argument of the command.
+* `WITHCOORD`: Also return the longitude,latitude coordinates of the matching items.
+* `WITHHASH`: Also return the raw geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low level hacks or debugging and is otherwise of little interest for the general user.
 
-1. Calculate the [Minimum bounding box](https://en.wikipedia.org/wiki/Minimum_bounding_box) of the search area. On the one hand, it is used to determine whether the point is in the box(When search box), and the other is to exclude GEOHASH boxes that do not need to be searched (a total of 9).
-2. Estimate the geohash encoding bits by radius or max(height/2, width/2) value. Since geohash value represent a box, considering the edge case referenced in [Geohash Wiki](http://en.wikipedia.org/wiki/Geohash), to search fast, we need find the smallest geohash box with surrounding 8 geohash box that could cover all points in radius in the worst case. 
-3. According to the minimum bounding box, exclude areas that do not need to be searched, for example, when area.latitude.min < box.min_lat, which means that south, south_west, and south_east will not need to be searched.
-4. For each geohash box, we convert it to a score range.
-5. For each score range, use `ZRANGEBYSCORE key min max WITHSCORES` to retrieve all point's value and it's score.
-6. For each point value and it's score, we can decode the score to a GeoHash area by geohash-int and judge whether the point meets the search conditions. 
+The command default is to return unsorted items. Two different sorting methods can be invoked using the following two options:
+
+* `ASC`: Sort returned items from the nearest to the farthest, relative to the center.
+* `DESC`: Sort returned items from the farthest to the nearest, relative to the center.
+
+By default all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option. However note that internally the command needs to perform an effort proportional to the number of items matching the specified area, so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned. On the other hand `COUNT` can be a very effective way to reduce bandwidth usage if normally just the first results are used.
+
+@return
+
+@array-reply, specifically:
+
+* Without any `WITH` option specified, the command just returns a linear array like ["New York","Milan","Paris"].
+* If `WITHCOORD`, `WITHDIST` or `WITHHASH` options are specified, the command returns an array of arrays, where each sub-array represents a single item.
+
+When additional information is returned as an array of arrays for each item, the first item in the sub-array is always the name of the returned item. The other information is returned in the following order as successive elements of the sub-array.
+
+1. The distance from the center as a floating point number, in the same unit specified in the shape.
+2. The geohash integer.
+3. The coordinates as a two items x,y array (longitude,latitude).
 
 @examples
 
