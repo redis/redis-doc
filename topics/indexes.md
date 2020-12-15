@@ -1,6 +1,6 @@
 # Secondary indexing with Redis
 
-There are two general ways to create indexes on secondary attributes in Redis.
+There are two general ways to create indexes on secondary attributes in Redis:
 
 * Use native Redis data structures to index secondary attributes manually.
 * Use the [RediSearch module](https://oss.redislabs.com/redisearch/) to create secondary indexes declaratively and query those indexes using a built-in query language.
