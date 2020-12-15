@@ -1,34 +1,42 @@
-Secondary indexing with Redis
-===
+# Secondary indexing with Redis
 
-Redis is not exactly a key-value store, since values can be complex data structures. However it has an external key-value shell: at API level data is addressed by the key name. It is fair to say that, natively, Redis only offers *primary key access*. However since Redis is a data structures server, its capabilities can be used for indexing, in order to create secondary indexes of different kinds, including composite (multi-column) indexes.
+There are two general ways to create indexes on secondary attributes in Redis.
+
+* Use native Redis data structures to index secondary attributes manually.
+* Use the [RediSearch module](https://oss.redislabs.com/redisearch/) to create secondary indexes declaratively and query those indexes using a built-in query language.
+
+If you're interested in learning more about RediSearch, see the [official tutorial](https://github.com/RediSearch/redisearch-getting-started), the [RediSearch docs](https://oss.redislabs.com/redisearch/), or this [RediSearch video explainer](https://www.youtube.com/watch?v=B10nHEdW3NA).
+
+If you want to build secondary indexes with native Redis data structures, then read on.
+
+## Using Redis data structures to index data
+
+It's fair to say that, natively, Redis only offers *primary key access*. However, since Redis is a data structures server, you can use the built-in data structures to create secondary indexes of different kinds, including composite (multi-column) indexes.
 
 This document explains how it is possible to create indexes in Redis using the following data structures:
 
 * Sorted sets to create secondary indexes by ID or other numerical fields.
-* Sorted sets with lexicographical ranges for creating more advanced secondary indexes, composite indexes and graph traversal indexes.
+* Sorted sets with lexicographical ranges for creating more advanced secondary indexes, composite indexes, and graph traversal indexes.
 * Sets for creating random indexes.
-* Lists for creating simple iterable indexes and last N items indexes.
+* Lists for creating simple iterable indexes and index on the  "last _N_ items*.
 
-Implementing and maintaining indexes with Redis is an advanced topic, so most
-users that need to perform complex queries on data should understand if they
-are better served by a relational store. However often, especially in caching
-scenarios, there is the explicit need to store indexed data into Redis in order to speedup common queries which require some form of indexing in order to be executed.
+Implementing and maintaining indexes with Redis is an advanced topic;
+users who need to perform complex queries on data maybe want to consider the [RediSearch module](https://oss.redislabs.com/redisearch/), the [RedisGraph module](https://oss.redislabs.com/redisgraph/),
+or a relational store. However, you can often get away with using native Redis structure if you have simple querying requirements. We discuss some techniques below.
 
-Simple numerical indexes with sorted sets
-===
+### Simple numerical indexes with sorted sets
 
-The simplest secondary index you can create with Redis is by using the
+The simplest secondary index you can create with Redis uses the
 sorted set data type, which is a data structure representing a set of
-elements ordered by a floating point number which is the *score* of
+elements ordered by a floating point number, which is the *score* of
 each element. Elements are ordered from the smallest to the highest score.
 
 Since the score is a double precision float, indexes you can build with
-vanilla sorted sets are limited to things where the indexing field is a number
+vanilla sorted sets are limited to things where the indexed field is a number
 within a given range.
 
 The two commands to build these kind of indexes are `ZADD` and
-`ZRANGEBYSCORE` to respectively add items and retrieve items within a
+`ZRANGEBYSCORE`. `ZADD` adds items to a sorted set; `ZRANGEBYSCORE` retrieves items within a
 specified range.
 
 For instance, it is possible to index a set of person names by their
@@ -40,63 +48,57 @@ person and the score will be the age.
     ZADD myindex 35 Jon
     ZADD myindex 67 Helen
 
-In order to retrieve all persons with an age between 20 and 40, the following
-command can be used:
+To retrieve all persons with an age between 20 and 40, you can use the following command:
 
     ZRANGEBYSCORE myindex 20 40
     1) "Manuel"
     2) "Jon"
 
-By using the **WITHSCORES** option of `ZRANGEBYSCORE` it is also possible
+By using the **WITHSCORES** option of `ZRANGEBYSCORE`, you can also 
 to obtain the scores associated with the returned elements.
 
-The `ZCOUNT` command can be used in order to retrieve the number of elements
-within a given range, without actually fetching the elements, which is also
-useful, especially given the fact the operation is executed in logarithmic
+You can also use the `ZCOUNT` command to get the number of elements
+within a given range, without actually fetching the elements. 
+This is especially useful because the operation is executed in logarithmic
 time regardless of the size of the range.
 
-Ranges can be inclusive or exclusive, please refer to the `ZRANGEBYSCORE`
-command documentation for more information.
+Ranges can be inclusive or exclusive; please refer to the [`ZRANGEBYSCORE`
+command documentation](/commands/zrangebyscore) for more information.
 
-**Note**: Using the `ZREVRANGEBYSCORE` it is possible to query a range in
-reversed order, which is often useful when data is indexed in a given
-direction (ascending or descending) but we want to retrieve information
-the other way around.
+**Note**: Using the `ZREVRANGEBYSCORE`, you can query a range in
+reverse order
 
-Using objects IDs as associated values
----
+### Using objects IDs as associated values
 
-In the above example we associated names to ages. However in general we
+In the above example we associated names to ages. However, in general, we
 may want to index some field of an object which is stored elsewhere.
 Instead of using the sorted set value directly to store the data associated
-with the indexed field, it is possible to store just the ID of the object.
+with the indexed field, you can just the ID of the object.
 
-For example I may have Redis hashes representing users. Each user is
+For example, you might be using Redis hashes to represent users. Each user is
 represented by a single key, directly accessible by ID:
 
     HMSET user:1 id 1 username antirez ctime 1444809424 age 38
     HMSET user:2 id 2 username maria ctime 1444808132 age 42
     HMSET user:3 id 3 username jballard ctime 1443246218 age 33
 
-If I want to create an index in order to query users by their age, I
-could do:
+If you want to create an index to query users by their age, you
+can store the users' IDs and ages in a sorted set as follows:
 
     ZADD user.age.index 38 1
     ZADD user.age.index 42 2
     ZADD user.age.index 33 3
 
-This time the value associated with the score in the sorted set is the
-ID of the object. So once I query the index with `ZRANGEBYSCORE` I'll
-also have to retrieve the information I need with `HGETALL` or similar
-commands. The obvious advantage is that objects can change without touching
-the index, as long as we don't change the indexed field.
+This time, the value associated with the score in the sorted set is the
+ID of the object. So once you query the index with `ZRANGEBYSCORE`, you'll have to use the ID to
+retrieve the indexed user hash with `HGETALL` or a similar
+command.
 
-In the next examples we'll almost always use IDs as values associated with
-the index, since this is usually the more sounding design, with a few
+In the following examples, we'll almost always use IDs as values associated with
+the index, since this is usually the more sound design, with a few
 exceptions.
 
-Updating simple sorted set indexes
----
+### Updating simple sorted set indexes
 
 Often we index things which change over time. In the above
 example, the age of the user changes every year. In such a case it would
@@ -117,8 +119,7 @@ to execute the following two commands:
 The operation may be wrapped in a `MULTI`/`EXEC` transaction in order to
 make sure both fields are updated or none.
 
-Turning multi dimensional data into linear data
----
+### Turning multi dimensional data into linear data
 
 Indexes created with sorted sets are able to index only a single numerical
 value. Because of this you may think it is impossible to index something
@@ -135,8 +136,7 @@ linear score of a sorted set to many small *squares* in the earth surface.
 By doing an 8+1 style center plus neighborhoods search it is possible to
 retrieve elements by radius.
 
-Limits of the score
----
+### Limits of the score
 
 Sorted set elements scores are double precision floats. It means that
 they can represent different decimal or integer values with different
@@ -149,8 +149,7 @@ When representing much larger numbers, you need a different form of indexing
 that is able to index numbers at any precision, called a lexicographical
 index.
 
-Lexicographical indexes
-===
+### Lexicographical indexes
 
 Redis sorted sets have an interesting property. When elements are added
 with the same score, they are sorted lexicographically, comparing the
@@ -213,8 +212,7 @@ string and the infinitely positive string, which are `-` and `+`.
 
 That's it basically. Let's see how to use these features to build indexes.
 
-A first example: completion
----
+### A first example: completion
 
 An interesting application of indexing is completion. Completion is what
 happens when you start typing your query into a search engine: the user
@@ -240,8 +238,7 @@ as start, and the same string plus a trailing byte set to 255, which is `\xff` i
 
 Note that we don't want too many items returned, so we may use the **LIMIT** option in order to reduce the number of results.
 
-Adding frequency into the mix
----
+### Adding frequency into the mix
 
 The above approach is a bit naive, because all the user searches are the same
 in this way. In a real system we want to complete strings according to their
@@ -327,8 +324,7 @@ Basically we add another field that we'll extract and use only for
 visualization. Ranges will always be computed using the normalized strings
 instead. This is a common trick which has multiple applications.
 
-Adding auxiliary information in the index
----
+### Adding auxiliary information in the index
 
 When using a sorted set in a direct way, we have two different attributes
 for each object: the score, which we use as an index, and an associated
@@ -407,8 +403,7 @@ the least significant bytes. This way when Redis compares the strings with
 Keep in mind that data stored in binary format is less observable for
 debugging, harder to parse and export. So it is definitely a trade off.
 
-Composite indexes
-===
+## Composite indexes
 
 So far we explored ways to index single fields. However we all know that
 SQL stores are able to create indexes using multiple fields. For example
@@ -443,8 +438,7 @@ in order to optimize complex queries. In Redis they could be useful both
 to implement a very fast in-memory Redis index of something stored into
 a traditional data store, or in order to directly index Redis data.
 
-Updating lexicographical indexes
-===
+## Updating lexicographical indexes
 
 The value of the index in a lexicographical index can get pretty fancy
 and hard or slow to rebuild from what we store about the object. So one
@@ -465,8 +459,7 @@ ID 90, regardless of the *current* fields values of the object, we just
 have to retrieve the hash value by object ID and `ZREM` it in the sorted
 set view.
 
-Representing and querying graphs using an hexastore
-===
+### Representing and querying graphs using a hexastore
 
 One cool thing about composite indexes is that they are handy in order
 to represent graphs, using a data structure which is called
@@ -522,8 +515,7 @@ matteocollina.
 
 Make sure to check [Matteo Collina's slides about Levelgraph](http://nodejsconfit.levelgraph.io/) in order to better understand these ideas.
 
-Multi dimensional indexes
-===
+## Multi-dimensional indexes
 
 A more complex type of index is an index that allows you to perform queries
 where two or more variables are queried at the same time for specific
@@ -691,8 +683,7 @@ For now, the good thing is that the complexity may be easily encapsulated
 inside a library that can be used in order to perform indexing and queries.
 One example of such library is [Redimension](https://github.com/antirez/redimension), a proof of concept Ruby library which indexes N-dimensional data inside Redis using the technique described here.
 
-Multi dimensional indexes with negative or floating point numbers
-===
+## Multi dimensional indexes with negative or floating point numbers
 
 The simplest way to represent negative values is just to work with unsigned
 integers and represent them using an offset, so that when you index, before
@@ -703,8 +694,7 @@ For floating point numbers, the simplest approach is probably to convert them
 to integers by multiplying the integer for a power of ten proportional to the
 number of digits after the dot you want to retain.
 
-Non range indexes
-===
+## Non-range indexes
 
 So far we checked indexes which are useful to query by range or by single
 item. However other Redis data structures such as Sets or Lists can be used
@@ -729,8 +719,7 @@ are added with `LPUSH` and trimmed with `LTRIM`, in order to create a view
 with just the latest N items encountered, in the same order they were
 seen.
 
-Index inconsistency
-===
+### Index inconsistency
 
 Keeping the index updated may be challenging, in the course of months
 or years it is possible that inconsistencies are added because of software
