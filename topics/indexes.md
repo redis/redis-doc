@@ -18,7 +18,7 @@ This document explains how it is possible to create indexes in Redis using the f
 * Sorted sets to create secondary indexes by ID or other numerical fields.
 * Sorted sets with lexicographical ranges for creating more advanced secondary indexes, composite indexes, and graph traversal indexes.
 * Sets for creating random indexes.
-* Lists for creating simple iterable indexes and index on the  "last _N_ items*.
+* Lists for creating simple iterable indexes and index on the  "last _N_ items".
 
 Implementing and maintaining indexes with Redis is an advanced topic;
 users who need to perform complex queries on data maybe want to consider the [RediSearch module](https://oss.redislabs.com/redisearch/), the [RedisGraph module](https://oss.redislabs.com/redisgraph/),
