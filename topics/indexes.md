@@ -65,7 +65,7 @@ time regardless of the size of the range.
 Ranges can be inclusive or exclusive; please refer to the [`ZRANGEBYSCORE`
 command documentation](/commands/zrangebyscore) for more information.
 
-**Note**: Using the `ZREVRANGEBYSCORE`, you can query a range in
+Use `ZREVRANGEBYSCORE` to query ranges in reverse order.
 reverse order
 
 ### Using objects IDs as associated values
