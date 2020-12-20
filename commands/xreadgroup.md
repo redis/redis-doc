@@ -101,3 +101,28 @@ can start to use `>` as ID, in order to get the new messages and rejoin the
 consumers that are processing new things.
 
 To see how the command actually replies, please check the `XREAD` command page.
+
+@array-reply, specifically:
+
+The command returns an array of results: each element of the returned
+array is an array composed of a two element containing the key name and
+the entries reported for that key. The entries reported are full stream
+entries, having IDs and the list of all the fields and values. Field and
+values are guaranteed to be reported in the same order they were added
+by `XADD`.
+
+When **BLOCK** is used, on timeout a null reply is returned.
+
+Reading the [Redis Streams introduction](/topics/streams-intro) is highly
+suggested in order to understand more about the streams overall behavior
+and semantics.
+
+@examples
+
+```cli
+XGROUP CREATE s1 g1 $
+XREADGROUP Group g1 c1 COUNT 5 STREAMS s1 '>'
+XADD s1 * f1 v11 f2 v12
+XADD s1 * f1 v21 f2 v22
+XREADGROUP Group g1 c1 COUNT 5 STREAMS s1 '>'
+```
