@@ -14,7 +14,7 @@ not need to updated or changed (nor there are short term plans to drop support f
 RESP2, but future version may default to RESP3).
 
 When called without any arguments, `HELLO` replies with the current list of
-server and connection propeties. In Redis 6.2, and its default use of RESP2
+server and connection properties. In Redis 6.2, and its default use of RESP2
 protocol, the reply looks like this:
 
     > HELLO
