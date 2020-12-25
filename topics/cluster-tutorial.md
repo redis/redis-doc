@@ -618,6 +618,11 @@ rebalance the cluster checking the distribution of keys across the cluster
 nodes and intelligently moving slots as needed. This feature will be added
 in the future.
 
+The `--cluster-yes` option instructs the cluster manager to automatically answer
+"yes" to the command's prompts, allowing it to run in a non-interactive mode.
+Note that this option can also be activated by setting the
+`REDISCLI_CLUSTER_YES` environment variable.
+
 A more interesting example application
 ---
 
