@@ -399,7 +399,7 @@ OK
 redis 127.0.0.1:7000> get foo
 -> Redirected to slot [12182] located at 127.0.0.1:7002
 "bar"
-redis 127.0.0.1:7000> get hello
+redis 127.0.0.1:7002> get hello
 -> Redirected to slot [866] located at 127.0.0.1:7000
 "world"
 ```
