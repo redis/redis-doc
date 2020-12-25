@@ -313,7 +313,7 @@ dangerous and non dangerous operations. Many deployments may not be happy to
 provide the ability to execute `CLIENT KILL` to non admin-level users, but may
 still want them to be able to run `CLIENT SETNAME`.
 
-_Note: the new RESP3 `HELLO` command provide a SETNAME option, wich is a good example to enable only this `SETNAME` subcommand._
+_Note: the new RESP3 `HELLO` handshake command provides a `SETNAME` option, but this is still a good example for subcommand control._
 
 In such case I could alter the ACL of a user in the following way:
 
