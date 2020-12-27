@@ -15,6 +15,7 @@ The optional parameter can be used to select a specific section of information:
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
 *   `modules`: Module related sections
+*   `errorstats`: Redis error statistics
 
 It can also take the following values:
 
@@ -252,6 +253,9 @@ Here is the meaning of all fields in the **stats** section:
     (only applicable for broadcast mode)
 *   `unexpected_error_replies`: Number of unexpected error replies, that are types
     of errors from an AOF load or replication
+*   `total_error_replies`: Total number of issued error replies, that is the sum of
+    rejected commands (errors prior command execution) and
+    failed commands (errors within the command execution)
 *    `total_reads_processed`: Total number of read events processed
 *    `total_writes_processed`: Total number of write events processed
 *    `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
@@ -324,12 +328,22 @@ Here is the meaning of all fields in the **cpu** section:
 *   `used_cpu_user_main_thread`: User CPU consumed by the Redis server main thread
 
 The **commandstats** section provides statistics based on the command type,
-including the number of calls, the total CPU time consumed by these commands,
-and the average CPU consumed per command execution.
+ including the number of calls that reached command execution (not rejected),
+ the total CPU time consumed by these commands, the average CPU consumed
+ per command execution, the number of rejected calls
+ (errors prior command execution), and the number of failed calls
+ (errors within the command execution).
 
 For each command type, the following line is added:
 
-*   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX`
+*   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX,rejected_calls=XXX,failed_calls=XXX`
+
+The **errorstats** section enables keeping track of the different errors that occurred within Redis, 
+ based upon the reply error prefix ( The first word after the "-", up to the first space. Example: `ERR` ).
+
+For each error type, the following line is added:
+
+*   `errorstat_XXX`: `count=XXX`
 
 The **cluster** section currently only contains a unique field:
 
