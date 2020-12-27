@@ -10,8 +10,8 @@ The command returns information about the current client connection's use of the
   * `bcast`: The client uses broadcasting mode.
   * `optin`: The client does not cache keys by default.
   * `optout`: The client caches keys by default.
-  * `caching-yes`: The next command will cache keys.
-  * `caching-no`: The next command won't cache keys.
+  * `caching-yes`: The next command will cache keys (exists only together with `optin`).
+  * `caching-no`: The next command won't cache keys (exists only together with `optout`).
   * `noloop`: The client isn't notified about keys modified by itself.
   * `broken_redirect`: The client ID used for redirection isn't valid anymore.
 * **redirect**: The client ID used for notifications redirection, or -1 when none.
