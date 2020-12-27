@@ -16,4 +16,3 @@ The command returns information about the current client connection's use of the
   * `broken_redirect`: The client ID used for redirection isn't valid anymore.
 * **redirect**: The client ID used for notifications redirection, or -1 when none.
 * **prefixes**: A list of key prefixes for which notifications are sent to the client.
-]
