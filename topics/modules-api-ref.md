@@ -211,9 +211,9 @@ When enabled, automatic memory management tracks and automatically frees
 keys, call replies and Redis string objects once the command returns. In most
 cases this eliminates the need of calling the following functions:
 
-1) `RedisModule_CloseKey()`
-2) `RedisModule_FreeCallReply()`
-3) `RedisModule_FreeString()`
+1. `RedisModule_CloseKey()`
+2. `RedisModule_FreeCallReply()`
+3. `RedisModule_FreeString()`
 
 These functions can still be used with automatic memory management enabled,
 to optimize loops that make numerous allocations for example.
@@ -325,10 +325,10 @@ enabling modules automatic memory management counts for one
 Normally you want to call this function when, at the same time
 the following conditions are true:
 
-1) You have automatic memory management enabled.
-2) You want to create string objects.
-3) Those string objects you create need to live *after* the callback
-   function(for example a command implementation) creating them returns.
+1. You have automatic memory management enabled.
+2. You want to create string objects.
+3. Those string objects you create need to live *after* the callback
+   function (for example a command implementation) creating them returns.
 
 Usually you want this in order to store the created string object
 into your own data structure, for example when implementing a new data
@@ -1033,9 +1033,10 @@ Pop an element from the list, and returns it as a module string object
 that the user should be free with `RM_FreeString()` or by enabling
 automatic memory. 'where' specifies if the element should be popped from
 head or tail. The command returns NULL if:
-1) The list is empty.
-2) The key was not open for writing.
-3) The key is not a list.
+
+1. The list is empty.
+2. The key was not open for writing.
+3. The key is not a list.
 
 ## `RedisModule_ZsetAddFlagsToCoreFlags`
 
