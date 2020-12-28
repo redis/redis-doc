@@ -345,26 +345,24 @@ It is possible to call this function with a NULL context.
 
     RedisModuleString* RedisModule_HoldString(RedisModuleCtx *ctx, RedisModuleString *str);
 
-/**
-* This function can be used instead of `RedisModule_RetainString()`.
-* The main difference between the two is that this function will always
-* succeed, whereas `RedisModule_RetainString()` may fail because of an
-* assertion.
-* 
-* The function returns a pointer to RedisModuleString, which is owned
-* by the caller. It requires a call to `RedisModule_FreeString()` to free
-* the string when automatic memory management is disabled for the context.
-* When automatic memory management is enabled, you can either call
-* `RedisModule_FreeString()` or let the automation free it.
-* 
-* This function is more efficient than `RedisModule_CreateStringFromString()`
-* because whenever possible, it avoids copying the underlying
-* RedisModuleString. The disadvantage of using this function is that it
-* might not be possible to use `RedisModule_StringAppendBuffer()` on the
-* returned RedisModuleString.
-* 
-* It is possible to call this function with a NULL context.
- 
+This function can be used instead of `RedisModule_RetainString()`.
+The main difference between the two is that this function will always
+succeed, whereas `RedisModule_RetainString()` may fail because of an
+assertion.
+
+The function returns a pointer to RedisModuleString, which is owned
+by the caller. It requires a call to `RedisModule_FreeString()` to free
+the string when automatic memory management is disabled for the context.
+When automatic memory management is enabled, you can either call
+`RedisModule_FreeString()` or let the automation free it.
+
+This function is more efficient than `RedisModule_CreateStringFromString()`
+because whenever possible, it avoids copying the underlying
+RedisModuleString. The disadvantage of using this function is that it
+might not be possible to use `RedisModule_StringAppendBuffer()` on the
+returned RedisModuleString.
+
+It is possible to call this function with a NULL context.
 
 ## `RedisModule_StringPtrLen`
 
@@ -3225,7 +3223,6 @@ is given then `REDISMODULE_ERR` is returned.
 
     int RedisModule_IsSubEventSupported(RedisModuleEvent event, int64_t subevent);
 
-/**
 For a given server event and subevent, return zero if the
 subevent is not supported and non-zero otherwise.
 
@@ -3268,7 +3265,6 @@ returns `REDISMODULE_OK` if when key is valid.
 
     int RedisModule_GetContextFlagsAll();
 
-/**
 Returns the full ContextFlags mask, using the return value
 the module can check if a certain set of flags are supported
 by the redis server version in use.
@@ -3284,7 +3280,6 @@ Example:
 
     int RedisModule_GetKeyspaceNotificationFlagsAll();
 
-/**
 Returns the full KeyspaceNotification mask, using the return value
 the module can check if a certain set of flags are supported
 by the redis server version in use.
@@ -3300,7 +3295,6 @@ Example:
 
     int RedisModule_GetServerVersion();
 
-/**
 Return the redis version in format of 0x00MMmmpp.
 Example for 6.0.7 the return value will be 0x00060007.
 
@@ -3308,7 +3302,6 @@ Example for 6.0.7 the return value will be 0x00060007.
 
     int RedisModule_GetTypeMethodVersion();
 
-/**
 Return the current redis-server runtime value of `REDISMODULE_TYPE_METHOD_VERSION`.
 You can use that when calling `RM_CreateDataType` to know which fields of
 RedisModuleTypeMethods are gonna be supported and which will be ignored.
