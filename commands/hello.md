@@ -10,7 +10,7 @@ a hash before returning it to the caller. For a full coverage of RESP3, please
 [check this repository](https://github.com/antirez/resp3).
 
 In Redis 6 connections start in RESP2 mode, so clients implementing RESP2 do
-not need to updated or changed. There are short term plans to drop support for
+not need to updated or changed. There are no short term plans to drop support for
 RESP2, although future version may default to RESP3.
 
 `HELLO` always replies with a list of current server and connection properties,
