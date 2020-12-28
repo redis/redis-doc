@@ -4,39 +4,39 @@
 
     void *RedisModule_Alloc(size_t bytes);
 
-Use like malloc(). Memory allocated with this function is reported in
+Use like `malloc()`. Memory allocated with this function is reported in
 Redis INFO memory, used for keys eviction according to maxmemory settings
 and in general is taken into account as memory allocated by Redis.
-You should avoid using malloc().
+You should avoid using `malloc()`.
 
 ## `RedisModule_Calloc`
 
     void *RedisModule_Calloc(size_t nmemb, size_t size);
 
-Use like calloc(). Memory allocated with this function is reported in
+Use like `calloc()`. Memory allocated with this function is reported in
 Redis INFO memory, used for keys eviction according to maxmemory settings
 and in general is taken into account as memory allocated by Redis.
-You should avoid using calloc() directly.
+You should avoid using `calloc()` directly.
 
 ## `RedisModule_Realloc`
 
     void* RedisModule_Realloc(void *ptr, size_t bytes);
 
-Use like realloc() for memory obtained with `RedisModule_Alloc()`.
+Use like `realloc()` for memory obtained with `RedisModule_Alloc()`.
 
 ## `RedisModule_Free`
 
     void RedisModule_Free(void *ptr);
 
-Use like free() for memory obtained by `RedisModule_Alloc()` and
+Use like `free()` for memory obtained by `RedisModule_Alloc()` and
 `RedisModule_Realloc()`. However you should never try to free with
-`RedisModule_Free()` memory allocated with malloc() inside your module.
+`RedisModule_Free()` memory allocated with `malloc()` inside your module.
 
 ## `RedisModule_Strdup`
 
     char *RedisModule_Strdup(const char *str);
 
-Like strdup() but returns memory allocated with `RedisModule_Alloc()`.
+Like `strdup()` but returns memory allocated with `RedisModule_Alloc()`.
 
 ## `RedisModule_PoolAlloc`
 
@@ -228,7 +228,7 @@ with `RedisModule_FreeString()`, unless automatic memory is enabled.
 The string is created by copying the `len` bytes starting
 at `ptr`. No reference is retained to the passed buffer.
 
-The module context 'ctx' is optional and may be NULL if you want to create
+The module context `ctx` is optional and may be NULL if you want to create
 a string out of the context scope. However in that case, the automatic
 memory management will not be available, and the string memory must be
 managed manually.
@@ -241,9 +241,9 @@ Create a new module string object from a printf format and arguments.
 The returned string must be freed with `RedisModule_FreeString()`, unless
 automatic memory is enabled.
 
-The string is created using the sds formatter function sdscatvprintf().
+The string is created using the sds formatter function `sdscatvprintf()`.
 
-The passed context 'ctx' may be NULL if necessary, see the
+The passed context `ctx` may be `NULL` if necessary, see the
 `RedisModule_CreateString()` documentation for more info.
 
 ## `RedisModule_CreateStringFromLongLong`
@@ -256,7 +256,7 @@ integer instead of taking a buffer and its length.
 The returned string must be released with `RedisModule_FreeString()` or by
 enabling automatic memory management.
 
-The passed context 'ctx' may be NULL if necessary, see the
+The passed context `ctx` may be `NULL` if necessary, see the
 `RedisModule_CreateString()` documentation for more info.
 
 ## `RedisModule_CreateStringFromDouble`
@@ -279,7 +279,7 @@ double.
 The returned string must be released with `RedisModule_FreeString()` or by
 enabling automatic memory management.
 
-The passed context 'ctx' may be NULL if necessary, see the
+The passed context `ctx` may be `NULL` if necessary, see the
 `RedisModule_CreateString()` documentation for more info.
 
 ## `RedisModule_CreateStringFromString`
@@ -292,7 +292,7 @@ RedisModuleString.
 The returned string must be released with `RedisModule_FreeString()` or by
 enabling automatic memory management.
 
-The passed context 'ctx' may be NULL if necessary, see the
+The passed context `ctx` may be `NULL` if necessary, see the
 `RedisModule_CreateString()` documentation for more info.
 
 ## `RedisModule_FreeString`
@@ -306,7 +306,7 @@ It is possible to call this function even when automatic memory management
 is enabled. In that case the string will be released ASAP and removed
 from the pool of string to release at the end.
 
-If the string was created with a NULL context 'ctx', it is also possible to
+If the string was created with a NULL context `ctx`, it is also possible to
 pass ctx as NULL when releasing the string (but passing a context will not
 create any issue). Strings created with a context should be freed also passing
 the context, so if you want to free a string out of context later, make sure
@@ -1492,7 +1492,7 @@ documentation, especially https://redis.io/topics/modules-native-types.
   freeing the value. for example: how many pointers are gonna be freed. Note that if it 
   returns 0, we'll always do an async free.
 * **unlink**: A callback function pointer that used to notifies the module that the key has 
-  been removed from the DB by redis, and may soon be freed by a background thread. Note that 
+  been removed from the DB by Redis, and may soon be freed by a background thread. Note that
   it won't be called on FLUSHALL/FLUSHDB (both sync and async), and the module can use the 
   RedisModuleEvent_FlushDB to hook into that.
 * **copy**: A callback function pointer that is used to make a copy of the specified key.
@@ -2107,39 +2107,39 @@ When subscribing to notifications with `RedisModule_SubscribeToKeyspaceEvents`
 the module must provide an event type-mask, denoting the events the subscriber
 is interested in. This can be an ORed mask of any of the following flags:
 
- - REDISMODULE_NOTIFY_GENERIC: Generic commands like DEL, EXPIRE, RENAME
- - REDISMODULE_NOTIFY_STRING: String events
- - REDISMODULE_NOTIFY_LIST: List events
- - REDISMODULE_NOTIFY_SET: Set events
- - REDISMODULE_NOTIFY_HASH: Hash events
- - REDISMODULE_NOTIFY_ZSET: Sorted Set events
- - REDISMODULE_NOTIFY_EXPIRED: Expiration events
- - REDISMODULE_NOTIFY_EVICTED: Eviction events
- - REDISMODULE_NOTIFY_STREAM: Stream events
- - REDISMODULE_NOTIFY_KEYMISS: Key-miss events
- - REDISMODULE_NOTIFY_ALL: All events (Excluding REDISMODULE_NOTIFY_KEYMISS)
- - REDISMODULE_NOTIFY_LOADED: A special notification available only for modules,
-                              indicates that the key was loaded from persistence.
-                              Notice, when this event fires, the given key
-                              can not be retained, use RM_CreateStringFromString
-                              instead.
+ - `REDISMODULE_NOTIFY_GENERIC`: Generic commands like DEL, EXPIRE, RENAME
+ - `REDISMODULE_NOTIFY_STRING`: String events
+ - `REDISMODULE_NOTIFY_LIST`: List events
+ - `REDISMODULE_NOTIFY_SET`: Set events
+ - `REDISMODULE_NOTIFY_HASH`: Hash events
+ - `REDISMODULE_NOTIFY_ZSET`: Sorted Set events
+ - `REDISMODULE_NOTIFY_EXPIRED`: Expiration events
+ - `REDISMODULE_NOTIFY_EVICTED`: Eviction events
+ - `REDISMODULE_NOTIFY_STREAM`: Stream events
+ - `REDISMODULE_NOTIFY_KEYMISS`: Key-miss events
+ - `REDISMODULE_NOTIFY_ALL`: All events (Excluding REDISMODULE_NOTIFY_KEYMISS)
+ - `REDISMODULE_NOTIFY_LOADED`: A special notification available only for modules,
+                                indicates that the key was loaded from persistence.
+                                Notice, when this event fires, the given key
+                                can not be retained, use RM_CreateStringFromString
+                                instead.
 
 We do not distinguish between key events and keyspace events, and it is up
 to the module to filter the actions taken based on the key.
 
 The subscriber signature is:
 
-  int (*RedisModuleNotificationFunc) (RedisModuleCtx *ctx, int type,
-                                      const char *event,
-                                      RedisModuleString *key);
+    int (*RedisModuleNotificationFunc) (RedisModuleCtx *ctx, int type,
+                                        const char *event,
+                                        RedisModuleString *key);
 
 `type` is the event type bit, that must match the mask given at registration
 time. The event string is the actual command being executed, and key is the
 relevant Redis key.
 
-Notification callback gets executed with a redis context that can not be
-used to send anything to the client, and has the db number where the event
-occurred as its selected db number.
+Notification callback gets executed with a Redis context that can not be
+used to send anything to the client, and has the DB number where the event
+occurred as its selected DB number.
 
 Notice that it is not necessary to enable notifications in redis.conf for
 module notifications to work.
@@ -2329,8 +2329,8 @@ authenticated with it. See `RM_CreateModuleUser` for detailed usage.
 
     int RedisModule_SetModuleUserACL(RedisModuleUser *user, const char* acl);
 
-Sets the permissions of a user created through the redis module 
-interface. The syntax is the same as ACL SETUSER, so refer to the 
+Sets the permissions of a user created through the Redis module
+interface. The syntax is the same as ACL SETUSER, so refer to the
 documentation in acl.c for more information. See `RM_CreateModuleUser`
 for detailed usage.
 
@@ -2341,7 +2341,7 @@ and will set an errno describing why the operation failed.
 
     int RedisModule_AuthenticateClientWithUser(RedisModuleCtx *ctx, RedisModuleUser *module_user, RedisModuleUserChangedFunc callback, void *privdata, uint64_t *client_id);
 
-Authenticate the current context's user with the provided redis acl user. 
+Authenticate the current context's user with the provided Redis ACL user.
 Returns `REDISMODULE_ERR` if the user is disabled.
 
 See authenticateClientWithUser for information about callback, client_id,
@@ -2351,7 +2351,7 @@ and general usage for authentication.
 
     int RedisModule_AuthenticateClientWithACLUser(RedisModuleCtx *ctx, const char *name, size_t len, RedisModuleUserChangedFunc callback, void *privdata, uint64_t *client_id);
 
-Authenticate the current context's user with the provided redis acl user. 
+Authenticate the current context's user with the provided Redis ACL user.
 Returns `REDISMODULE_ERR` if the user is disabled or the user does not exist.
 
 See authenticateClientWithUser for information about callback, client_id,
@@ -2394,14 +2394,14 @@ A NULL value is returned in the following conditions:
 
     RedisModuleDict *RedisModule_CreateDict(RedisModuleCtx *ctx);
 
-Create a new dictionary. The 'ctx' pointer can be the current module context
+Create a new dictionary. The `ctx` pointer can be the current module context
 or NULL, depending on what you want. Please follow the following rules:
 
 1. Use a NULL context if you plan to retain a reference to this dictionary
    that will survive the time of the module callback where you created it.
 2. Use a NULL context if no context is available at the time you are creating
    the dictionary (of course...).
-3. However use the current callback context as 'ctx' argument if the
+3. However use the current callback context as `ctx` argument if the
    dictionary time to live is just limited to the callback scope. In this
    case, if enabled, you can enjoy the automatic memory management that will
    reclaim the dictionary memory, as well as the strings returned by the
@@ -2412,7 +2412,7 @@ or NULL, depending on what you want. Please follow the following rules:
     void RedisModule_FreeDict(RedisModuleCtx *ctx, RedisModuleDict *d);
 
 Free a dictionary created with `RM_CreateDict()`. You need to pass the
-context pointer 'ctx' only if the dictionary was created using the
+context pointer `ctx` only if the dictionary was created using the
 context instead of passing NULL.
 
 ## `RedisModule_DictSize`
@@ -2584,7 +2584,7 @@ element (laxicographically smaller) instead of the next one.
 
 Like RedisModuleNextC(), but instead of returning an internally allocated
 buffer and key length, it returns directly a module string object allocated
-in the specified context 'ctx' (that may be NULL exactly like for the main
+in the specified context `ctx` (that may be NULL exactly like for the main
 API `RedisModule_CreateString)`.
 
 The returned string object should be deallocated after use, either manually
@@ -2669,7 +2669,7 @@ automatic memory management mechanism if enabled.
     void RedisModule_FreeServerInfo(RedisModuleCtx *ctx, RedisModuleServerInfoData *data);
 
 Free data created with `RM_GetServerInfo()`. You need to pass the
-context pointer 'ctx' only if the dictionary was created using the
+context pointer `ctx` only if the dictionary was created using the
 context instead of passing NULL.
 
 ## `RedisModule_ServerInfoGetField`
@@ -2677,7 +2677,7 @@ context instead of passing NULL.
     RedisModuleString *RedisModule_ServerInfoGetField(RedisModuleCtx *ctx, RedisModuleServerInfoData *data, const char* field);
 
 Get the value of a field from data collected with `RM_GetServerInfo()`. You
-need to pass the context pointer 'ctx' only if you want to use auto memory
+need to pass the context pointer `ctx` only if you want to use auto memory
 mechanism to release the returned string. Return value will be NULL if the
 field was not found.
 
@@ -2853,25 +2853,26 @@ Destroy the cursor struct.
 
     int RedisModule_Scan(RedisModuleCtx *ctx, RedisModuleScanCursor *cursor, RedisModuleScanCB fn, void *privdata);
 
-Scan API that allows a module to scan all the keys and value in
-the selected db.
+Scan API that allows a module to scan all the keys and values in
+the selected DB.
 
-Callback for scan implementation.
-void scan_callback(RedisModuleCtx *ctx, RedisModuleString *keyname,
-                   RedisModuleKey *key, void *privdata);
-ctx - the redis module context provided to for the scan.
-keyname - owned by the caller and need to be retained if used after this
-function.
+Callback for scan implementation:
 
-key - holds info on the key and value, it is provided as best effort, in
-some cases it might be NULL, in which case the user should (can) use
-`RedisModule_OpenKey` (and CloseKey too).
-when it is provided, it is owned by the caller and will be free when the
-callback returns.
+    void scan_callback(RedisModuleCtx *ctx, RedisModuleString *keyname,
+                       RedisModuleKey *key, void *privdata);
 
-privdata - the user data provided to `RedisModule_Scan`.
+* `ctx`: The Redis module context provided for the scan.
+* `keyname`: Owned by the caller and need to be retained if used after this
+  function.
+* `key`: Holds info on the key and value, it is provided as best effort, in
+  some cases it might be NULL, in which case the user should (can) use
+  `RedisModule_OpenKey()` (and `RedisModule_CloseKey()` too).
+  When it is provided, it is owned by the caller and will be free when the
+  callback returns.
+* `privdata`: The user data provided to `RedisModule_Scan`.
 
 The way it should be used:
+
      RedisModuleCursor *c = RedisModule_ScanCursorCreate();
      while(RedisModule_Scan(ctx, c, callback, privateData));
      RedisModule_ScanCursorDestroy(c);
@@ -2913,18 +2914,22 @@ possible during the iteration, given that this is safe.
 
     int RedisModule_ScanKey(RedisModuleKey *key, RedisModuleScanCursor *cursor, RedisModuleScanKeyCB fn, void *privdata);
 
-Scan api that allows a module to scan the elements in a hash, set or sorted set key
+Scan API that allows a module to scan the elements in a hash, set or sorted set.
 
-Callback for scan implementation.
-void scan_callback(RedisModuleKey *key, RedisModuleString* field, RedisModuleString* value, void *privdata);
-- key - the redis key context provided to for the scan.
-- field - field name, owned by the caller and need to be retained if used
+Callback for scan implementation:
+
+    void scan_callback(RedisModuleKey *key, RedisModuleString* field,
+                       RedisModuleString* value, void *privdata);
+
+- `key`: The Redis key context provided to for the scan.
+- `field`: Field name, owned by the caller and need to be retained if used
   after this function.
-- value - value string or NULL for set type, owned by the caller and need to
+- `value`: Value string or NULL for set type, owned by the caller and need to
   be retained if used after this function.
-- privdata - the user data provided to `RedisModule_ScanKey`.
+- `privdata`: The user data provided to `RedisModule_ScanKey`.
 
 The way it should be used:
+
      RedisModuleCursor *c = RedisModule_ScanCursorCreate();
      RedisModuleKey *key = RedisModule_OpenKey(...)
      while(RedisModule_ScanKey(key, c, callback, privateData));
@@ -2933,6 +2938,7 @@ The way it should be used:
 
 It is also possible to use this API from another thread while the lock is acquired during
 the actuall call to `RM_ScanKey`, and re-opening the key each time:
+
      RedisModuleCursor *c = RedisModule_ScanCursorCreate();
      RedisModule_ThreadSafeContextLock(ctx);
      RedisModuleKey *key = RedisModule_OpenKey(...)
@@ -3003,218 +3009,216 @@ is not null, the old callback will be replaced with the new one.
 
 The callback must be of this type:
 
- int (*RedisModuleEventCallback)(RedisModuleCtx *ctx,
-                                 RedisModuleEvent eid,
-                                 uint64_t subevent,
-                                 void *data);
+    int (*RedisModuleEventCallback)(RedisModuleCtx *ctx,
+                                    RedisModuleEvent eid,
+                                    uint64_t subevent,
+                                    void *data);
 
-The 'ctx' is a normal Redis module context that the callback can use in
-order to call other modules APIs. The 'eid' is the event itself, this
+The `ctx` is a normal Redis module context that the callback can use in
+order to call other modules APIs. The `eid` is the event itself, this
 is only useful in the case the module subscribed to multiple events: using
-the 'id' field of this structure it is possible to check if the event
-is one of the events we registered with this callback. The 'subevent' field
+the `id` field of this structure it is possible to check if the event
+is one of the events we registered with this callback. The `subevent` field
 depends on the event that fired.
 
-Finally the 'data' pointer may be populated, only for certain events, with
+Finally the `data` pointer may be populated, only for certain events, with
 more relevant data.
 
-Here is a list of events you can use as 'eid' and related sub events:
+Here is a list of events you can use as `eid` and related sub events:
 
-     RedisModuleEvent_ReplicationRoleChanged
+* `RedisModuleEvent_ReplicationRoleChanged`
 
-         This event is called when the instance switches from master
-         to replica or the other way around, however the event is
-         also called when the replica remains a replica but starts to
-         replicate with a different master.
+  This event is called when the instance switches from master
+  to replica or the other way around, however the event is
+  also called when the replica remains a replica but starts to
+  replicate with a different master.
 
-         The following sub events are available:
+  The following sub events are available:
 
-             REDISMODULE_SUBEVENT_REPLROLECHANGED_NOW_MASTER
-             REDISMODULE_SUBEVENT_REPLROLECHANGED_NOW_REPLICA
+      REDISMODULE_SUBEVENT_REPLROLECHANGED_NOW_MASTER
+      REDISMODULE_SUBEVENT_REPLROLECHANGED_NOW_REPLICA
 
-         The 'data' field can be casted by the callback to a
-         RedisModuleReplicationInfo structure with the following fields:
+  The 'data' field can be casted by the callback to a
+  RedisModuleReplicationInfo structure with the following fields:
 
-             int master; // true if master, false if replica
-             char *masterhost; // master instance hostname for NOW_REPLICA
-             int masterport; // master instance port for NOW_REPLICA
-             char *replid1; // Main replication ID
-             char *replid2; // Secondary replication ID
-             uint64_t repl1_offset; // Main replication offset
-             uint64_t repl2_offset; // Offset of replid2 validity
+      int master; // true if master, false if replica
+      char *masterhost; // master instance hostname for NOW_REPLICA
+      int masterport; // master instance port for NOW_REPLICA
+      char *replid1; // Main replication ID
+      char *replid2; // Secondary replication ID
+      uint64_t repl1_offset; // Main replication offset
+      uint64_t repl2_offset; // Offset of replid2 validity
 
-     RedisModuleEvent_Persistence
+* `RedisModuleEvent_Persistence`
 
-         This event is called when RDB saving or AOF rewriting starts
-         and ends. The following sub events are available:
+  This event is called when RDB saving or AOF rewriting starts
+  and ends. The following sub events are available:
 
-             REDISMODULE_SUBEVENT_PERSISTENCE_RDB_START
-             REDISMODULE_SUBEVENT_PERSISTENCE_AOF_START
-             REDISMODULE_SUBEVENT_PERSISTENCE_SYNC_RDB_START
-             REDISMODULE_SUBEVENT_PERSISTENCE_ENDED
-             REDISMODULE_SUBEVENT_PERSISTENCE_FAILED
+      REDISMODULE_SUBEVENT_PERSISTENCE_RDB_START
+      REDISMODULE_SUBEVENT_PERSISTENCE_AOF_START
+      REDISMODULE_SUBEVENT_PERSISTENCE_SYNC_RDB_START
+      REDISMODULE_SUBEVENT_PERSISTENCE_ENDED
+      REDISMODULE_SUBEVENT_PERSISTENCE_FAILED
 
-         The above events are triggered not just when the user calls the
-         relevant commands like BGSAVE, but also when a saving operation
-         or AOF rewriting occurs because of internal server triggers.
-         The SYNC_RDB_START sub events are happening in the forground due to
-         SAVE command, FLUSHALL, or server shutdown, and the other RDB and
-         AOF sub events are executed in a background fork child, so any
-         action the module takes can only affect the generated AOF or RDB,
-         but will not be reflected in the parent process and affect connected
-         clients and commands. Also note that the AOF_START sub event may end
-         up saving RDB content in case of an AOF with rdb-preamble.
+  The above events are triggered not just when the user calls the
+  relevant commands like BGSAVE, but also when a saving operation
+  or AOF rewriting occurs because of internal server triggers.
+  The SYNC_RDB_START sub events are happening in the forground due to
+  SAVE command, FLUSHALL, or server shutdown, and the other RDB and
+  AOF sub events are executed in a background fork child, so any
+  action the module takes can only affect the generated AOF or RDB,
+  but will not be reflected in the parent process and affect connected
+  clients and commands. Also note that the AOF_START sub event may end
+  up saving RDB content in case of an AOF with rdb-preamble.
 
-     RedisModuleEvent_FlushDB
+* `RedisModuleEvent_FlushDB`
 
-         The FLUSHALL, FLUSHDB or an internal flush (for instance
-         because of replication, after the replica synchronization)
-         happened. The following sub events are available:
+  The FLUSHALL, FLUSHDB or an internal flush (for instance
+  because of replication, after the replica synchronization)
+  happened. The following sub events are available:
 
-             REDISMODULE_SUBEVENT_FLUSHDB_START
-             REDISMODULE_SUBEVENT_FLUSHDB_END
+      REDISMODULE_SUBEVENT_FLUSHDB_START
+      REDISMODULE_SUBEVENT_FLUSHDB_END
 
-         The data pointer can be casted to a RedisModuleFlushInfo
-         structure with the following fields:
+  The data pointer can be casted to a RedisModuleFlushInfo
+  structure with the following fields:
 
-             int32_t async;  // True if the flush is done in a thread.
-                                See for instance FLUSHALL ASYNC.
-                                In this case the END callback is invoked
-                                immediately after the database is put
-                                in the free list of the thread.
-             int32_t dbnum;  // Flushed database number, -1 for all the DBs
-                                in the case of the FLUSHALL operation.
+      int32_t async;  // True if the flush is done in a thread.
+                         See for instance FLUSHALL ASYNC.
+                         In this case the END callback is invoked
+                         immediately after the database is put
+                         in the free list of the thread.
+      int32_t dbnum;  // Flushed database number, -1 for all the DBs
+                         in the case of the FLUSHALL operation.
 
-         The start event is called *before* the operation is initated, thus
-         allowing the callback to call DBSIZE or other operation on the
-         yet-to-free keyspace.
+  The start event is called *before* the operation is initated, thus
+  allowing the callback to call DBSIZE or other operation on the
+  yet-to-free keyspace.
 
-     RedisModuleEvent_Loading
+* `RedisModuleEvent_Loading`
 
-         Called on loading operations: at startup when the server is
-         started, but also after a first synchronization when the
-         replica is loading the RDB file from the master.
-         The following sub events are available:
+  Called on loading operations: at startup when the server is
+  started, but also after a first synchronization when the
+  replica is loading the RDB file from the master.
+  The following sub events are available:
 
-             REDISMODULE_SUBEVENT_LOADING_RDB_START
-             REDISMODULE_SUBEVENT_LOADING_AOF_START
-             REDISMODULE_SUBEVENT_LOADING_REPL_START
-             REDISMODULE_SUBEVENT_LOADING_ENDED
-             REDISMODULE_SUBEVENT_LOADING_FAILED
+      REDISMODULE_SUBEVENT_LOADING_RDB_START
+      REDISMODULE_SUBEVENT_LOADING_AOF_START
+      REDISMODULE_SUBEVENT_LOADING_REPL_START
+      REDISMODULE_SUBEVENT_LOADING_ENDED
+      REDISMODULE_SUBEVENT_LOADING_FAILED
 
-         Note that AOF loading may start with an RDB data in case of
-         rdb-preamble, in which case you'll only receive an AOF_START event.
+  Note that AOF loading may start with an RDB data in case of
+  rdb-preamble, in which case you'll only receive an `AOF_START` event.
 
+* `RedisModuleEvent_ClientChange`
 
-     RedisModuleEvent_ClientChange
+  Called when a client connects or disconnects.
+  The data pointer can be casted to a RedisModuleClientInfo
+  structure, documented in RedisModule_GetClientInfoById().
+  The following sub events are available:
 
-         Called when a client connects or disconnects.
-         The data pointer can be casted to a RedisModuleClientInfo
-         structure, documented in RedisModule_GetClientInfoById().
-         The following sub events are available:
+      REDISMODULE_SUBEVENT_CLIENT_CHANGE_CONNECTED
+      REDISMODULE_SUBEVENT_CLIENT_CHANGE_DISCONNECTED
 
-             REDISMODULE_SUBEVENT_CLIENT_CHANGE_CONNECTED
-             REDISMODULE_SUBEVENT_CLIENT_CHANGE_DISCONNECTED
+* `RedisModuleEvent_Shutdown`
 
-     RedisModuleEvent_Shutdown
+  The server is shutting down. No subevents are available.
 
-         The server is shutting down. No subevents are available.
+* `RedisModuleEvent_ReplicaChange`
 
- RedisModuleEvent_ReplicaChange
+  This event is called when the instance (that can be both a
+  master or a replica) get a new online replica, or lose a
+  replica since it gets disconnected.
+  The following sub events are available:
 
-         This event is called when the instance (that can be both a
-         master or a replica) get a new online replica, or lose a
-         replica since it gets disconnected.
-         The following sub events are available:
+      REDISMODULE_SUBEVENT_REPLICA_CHANGE_ONLINE
+      REDISMODULE_SUBEVENT_REPLICA_CHANGE_OFFLINE
 
-             REDISMODULE_SUBEVENT_REPLICA_CHANGE_ONLINE
-             REDISMODULE_SUBEVENT_REPLICA_CHANGE_OFFLINE
+  No additional information is available so far: future versions
+  of Redis will have an API in order to enumerate the replicas
+  connected and their state.
 
-         No additional information is available so far: future versions
-         of Redis will have an API in order to enumerate the replicas
-         connected and their state.
+* `RedisModuleEvent_CronLoop`
 
- RedisModuleEvent_CronLoop
+  This event is called every time Redis calls the serverCron()
+  function in order to do certain bookkeeping. Modules that are
+  required to do operations from time to time may use this callback.
+  Normally Redis calls this function 10 times per second, but
+  this changes depending on the "hz" configuration.
+  No sub events are available.
 
-         This event is called every time Redis calls the serverCron()
-         function in order to do certain bookkeeping. Modules that are
-         required to do operations from time to time may use this callback.
-         Normally Redis calls this function 10 times per second, but
-         this changes depending on the "hz" configuration.
-         No sub events are available.
+  The data pointer can be casted to a RedisModuleCronLoop
+  structure with the following fields:
 
-         The data pointer can be casted to a RedisModuleCronLoop
-         structure with the following fields:
+      int32_t hz;  // Approximate number of events per second.
 
-             int32_t hz;  // Approximate number of events per second.
+* `RedisModuleEvent_MasterLinkChange`
 
- RedisModuleEvent_MasterLinkChange
+  This is called for replicas in order to notify when the
+  replication link becomes functional (up) with our master,
+  or when it goes down. Note that the link is not considered
+  up when we just connected to the master, but only if the
+  replication is happening correctly.
+  The following sub events are available:
 
-         This is called for replicas in order to notify when the
-         replication link becomes functional (up) with our master,
-         or when it goes down. Note that the link is not considered
-         up when we just connected to the master, but only if the
-         replication is happening correctly.
-         The following sub events are available:
+      REDISMODULE_SUBEVENT_MASTER_LINK_UP
+      REDISMODULE_SUBEVENT_MASTER_LINK_DOWN
 
-             REDISMODULE_SUBEVENT_MASTER_LINK_UP
-             REDISMODULE_SUBEVENT_MASTER_LINK_DOWN
+* `RedisModuleEvent_ModuleChange`
 
- RedisModuleEvent_ModuleChange
+  This event is called when a new module is loaded or one is unloaded.
+  The following sub events are available:
 
-         This event is called when a new module is loaded or one is unloaded.
-         The following sub events are available:
+      REDISMODULE_SUBEVENT_MODULE_LOADED
+      REDISMODULE_SUBEVENT_MODULE_UNLOADED
 
-             REDISMODULE_SUBEVENT_MODULE_LOADED
-             REDISMODULE_SUBEVENT_MODULE_UNLOADED
+  The data pointer can be casted to a RedisModuleModuleChange
+  structure with the following fields:
 
-         The data pointer can be casted to a RedisModuleModuleChange
-         structure with the following fields:
+      const char* module_name;  // Name of module loaded or unloaded.
+      int32_t module_version;  // Module version.
 
-             const char* module_name;  // Name of module loaded or unloaded.
-             int32_t module_version;  // Module version.
+* `RedisModuleEvent_LoadingProgress`
 
- RedisModuleEvent_LoadingProgress
+  This event is called repeatedly called while an RDB or AOF file
+  is being loaded.
+  The following sub events are availble:
 
-         This event is called repeatedly called while an RDB or AOF file
-         is being loaded.
-         The following sub events are availble:
+      REDISMODULE_SUBEVENT_LOADING_PROGRESS_RDB
+      REDISMODULE_SUBEVENT_LOADING_PROGRESS_AOF
 
-             REDISMODULE_SUBEVENT_LOADING_PROGRESS_RDB
-             REDISMODULE_SUBEVENT_LOADING_PROGRESS_AOF
+  The data pointer can be casted to a RedisModuleLoadingProgress
+  structure with the following fields:
 
-         The data pointer can be casted to a RedisModuleLoadingProgress
-         structure with the following fields:
+      int32_t hz;  // Approximate number of events per second.
+      int32_t progress;  // Approximate progress between 0 and 1024,
+                            or -1 if unknown.
 
-             int32_t hz;  // Approximate number of events per second.
-             int32_t progress;  // Approximate progress between 0 and 1024,
-                                   or -1 if unknown.
+* `RedisModuleEvent_SwapDB`
 
-     RedisModuleEvent_SwapDB
+  This event is called when a SWAPDB command has been successfully
+  Executed.
+  For this event call currently there is no subevents available.
 
-         This event is called when a SWAPDB command has been successfully
-         Executed. 
-         For this event call currently there is no subevents available.
+  The data pointer can be casted to a RedisModuleSwapDbInfo
+  structure with the following fields:
 
-         The data pointer can be casted to a RedisModuleSwapDbInfo
-         structure with the following fields:
+      int32_t dbnum_first;    // Swap Db first dbnum
+      int32_t dbnum_second;   // Swap Db second dbnum
 
-            int32_t dbnum_first;    // Swap Db first dbnum 
-            int32_t dbnum_second;   // Swap Db second dbnum 
+* `RedisModuleEvent_ReplBackup`
 
-     RedisModuleEvent_ReplBackup
+  Called when diskless-repl-load config is set to swapdb,
+  And redis needs to backup the the current database for the
+  possibility to be restored later. A module with global data and
+  maybe with aux_load and aux_save callbacks may need to use this
+  notification to backup / restore / discard its globals.
+  The following sub events are available:
 
-         Called when diskless-repl-load config is set to swapdb,
-         And redis needs to backup the the current database for the
-         possibility to be restored later. A module with global data and
-         maybe with aux_load and aux_save callbacks may need to use this
-         notification to backup / restore / discard its globals.
-         The following sub events are available:
-
-             REDISMODULE_SUBEVENT_REPL_BACKUP_CREATE
-             REDISMODULE_SUBEVENT_REPL_BACKUP_RESTORE
-             REDISMODULE_SUBEVENT_REPL_BACKUP_DISCARD
-
+      REDISMODULE_SUBEVENT_REPL_BACKUP_CREATE
+      REDISMODULE_SUBEVENT_REPL_BACKUP_RESTORE
+      REDISMODULE_SUBEVENT_REPL_BACKUP_DISCARD
 
 The function returns `REDISMODULE_OK` if the module was successfully subscribed
 for the specified event. If the API is called from a wrong context or unsupported event
@@ -3268,14 +3272,15 @@ returns `REDISMODULE_OK` if when key is valid.
 
 Returns the full ContextFlags mask, using the return value
 the module can check if a certain set of flags are supported
-by the redis server version in use.
+by the Redis server version in use.
 Example:
-       int supportedFlags = RM_GetContextFlagsAll()
-       if (supportedFlags & REDISMODULE_CTX_FLAGS_MULTI) {
-             // REDISMODULE_CTX_FLAGS_MULTI is supported
-       } else{
-             // REDISMODULE_CTX_FLAGS_MULTI is not supported
-       }
+
+    int supportedFlags = RM_GetContextFlagsAll();
+    if (supportedFlags & REDISMODULE_CTX_FLAGS_MULTI) {
+        // REDISMODULE_CTX_FLAGS_MULTI is supported
+    } else{
+        // REDISMODULE_CTX_FLAGS_MULTI is not supported
+    }
 
 ## `RedisModule_GetKeyspaceNotificationFlagsAll`
 
@@ -3285,12 +3290,13 @@ Returns the full KeyspaceNotification mask, using the return value
 the module can check if a certain set of flags are supported
 by the redis server version in use.
 Example:
-       int supportedFlags = RM_GetKeyspaceNotificationFlagsAll()
-       if (supportedFlags & REDISMODULE_NOTIFY_LOADED) {
-             // REDISMODULE_NOTIFY_LOADED is supported
-       } else{
-             // REDISMODULE_NOTIFY_LOADED is not supported
-       }
+
+    int supportedFlags = RM_GetKeyspaceNotificationFlagsAll();
+    if (supportedFlags & REDISMODULE_NOTIFY_LOADED) {
+        // REDISMODULE_NOTIFY_LOADED is supported
+    } else{
+        // REDISMODULE_NOTIFY_LOADED is not supported
+    }
 
 ## `RedisModule_GetServerVersion`
 
@@ -3340,8 +3346,8 @@ A NULL return value indicates the specified command has no keys, or
 an error condition. Error conditions are indicated by setting errno
 as folllows:
 
- ENOENT: Specified command does not exist.
- EINVAL: Invalid command arity specified.
+* `ENOENT`: Specified command does not exist.
+* `EINVAL`: Invalid command arity specified.
 
 NOTE: The returned array is not a Redis Module object so it does not
 get automatically freed even when auto-memory is used. The caller
@@ -3414,7 +3420,7 @@ defrag cursors.
 
 Defrag a memory allocation previously allocated by `RM_Alloc`, `RM_Calloc`, etc.
 The defragmentation process involves allocating a new memory block and copying
-the contents to it, like realloc().
+the contents to it, like `realloc()`.
 
 If defragmentation was not necessary, NULL is returned and the operation has
 no other effect.
