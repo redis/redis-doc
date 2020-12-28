@@ -47,9 +47,8 @@ command and specify the value "3" as the `protover` argument, like so:
     7# "modules" => (empty array)
 
 Because `HELLO` replies with useful information, and given that `protover` is
-optional and can be set to "2" (both to downgrade the protocol back to version
-2 or ), client library authors may consider using this command instead of the
-canonical `PING` when setting up the connection.
+optional or can be set to "2", client library authors may consider using this
+command instead of the canonical `PING` when setting up the connection.
 
 When called with the optional `protover` argument, this command switches the
 protocol to the specified version and also accepts the following options:
