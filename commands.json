@@ -5131,7 +5131,7 @@
       {
         "command": "COUNT",
         "name": "count",
-        "type": "integer"
+        "type": "integer",
         "optional": true
       },
     ],
