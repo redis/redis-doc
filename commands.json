@@ -5132,6 +5132,7 @@
         "command": "COUNT",
         "name": "count",
         "type": "integer"
+        "optional": true
       },
     ],
     "since": "6.2.0",
