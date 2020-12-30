@@ -5133,7 +5133,7 @@
         "name": "count",
         "type": "integer",
         "optional": true
-      },
+      }
     ],
     "since": "6.2.0",
     "group": "stream"
