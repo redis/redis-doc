@@ -3,6 +3,7 @@ mimicking the effect of disconnecting and reconnecting again.
 
 When the command is called from a regular client connection, it does the
 following:
+
 * Discards the current `MULTI` transaction block, if one exists.
 * Unwatches all keys `WATCH`ed by the connection.
 * Disables `CLIENT TRACKING`, if in use.
