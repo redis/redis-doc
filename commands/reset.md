@@ -20,4 +20,4 @@ following:
 
 @return
 
-@simple-string-reply: always `RESET`.
+@simple-string-reply: always 'RESET'.
