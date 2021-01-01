@@ -1,5 +1,7 @@
 When all the elements in a sorted set are inserted with the same score, in order to force lexicographical ordering, this command returns all the elements in the sorted set at `key` with a value between `max` and `min`.
 
+As per Redis 6.2.0, ZREVRANGEBYLEX is considered deprecated. Please prefer `ZRANGE` with `BYLEX` and `REV` arguments in new code.
+
 Apart from the reversed ordering, `ZREVRANGEBYLEX` is similar to `ZRANGEBYLEX`.
 
 @return

@@ -2,23 +2,33 @@ Returns the specified range of elements in the sorted set stored at `key`.
 The elements are considered to be ordered from the lowest to the highest score.
 Lexicographical order is used for elements with equal score.
 
-See `ZREVRANGE` when you need the elements ordered from highest to lowest score
-(and descending lexicographical order for elements with equal score).
+As per Redis 6.2.0, this command has the capability to replace `Z[REV]RANGE[BYLEX|BYSCORE]` which are now considered deprecated.
 
-Both `start` and `stop` are zero-based indexes, where `0` is the first element,
-`1` is the next element and so on.
+By default the `min` and `max` arguments represent zero-based indexes, where `0`
+is the first element, `1` is the next element and so on.
 They can also be negative numbers indicating offsets from the end of the sorted
 set, with `-1` being the last element of the sorted set, `-2` the penultimate
-element and so on.
-
-`start` and `stop` are **inclusive ranges**, so for example `ZRANGE myzset 0 1`
+element and so on. in that case
+`min` and `max` are **inclusive ranges**, so for example `ZRANGE myzset 0 1`
 will return both the first and the second element of the sorted set.
 
 Out of range indexes will not produce an error.
-If `start` is larger than the largest index in the sorted set, or `start >
-stop`, an empty list is returned.
-If `stop` is larger than the end of the sorted set Redis will treat it like it
+If `min` is larger than the largest index in the sorted set, or `min > max`, an empty list is returned.
+If `max` is larger than the end of the sorted set Redis will treat it like it
 is the last element of the sorted set.
+
+If a `BYSCORE` argument is given the command behaves like `ZRANGEBYSCORE`, see its documentation for details.
+If a `BYLEX` argument is given the command behaves like `ZRANGEBYLEX`, see its documentation for details.
+
+The optional `REV` argument can be used to have the elements ordered from the highest to the lowest score.
+Descending lexicographical order is used for elements with equal score.
+
+The optional `LIMIT` argument can be used to only get a range of the matching
+elements (similar to _SELECT LIMIT offset, count_ in SQL). A negative `count`
+returns all elements from the `offset`.
+Keep in mind that if `offset` is large, the sorted set needs to be traversed for
+`offset` elements before getting to the elements to return, which can add up to
+O(N) time complexity.
 
 It is possible to pass the `WITHSCORES` option in order to return the scores of
 the elements together with the elements.
@@ -31,6 +41,10 @@ array with (value, score) arrays/tuples).
 
 @array-reply: list of elements in the specified range (optionally with
 their scores, in case the `WITHSCORES` option is given).
+
+@history
+
+* `>= 6.2`: Added the `REV`, `BYSCORE`, `BYLEX` and `LIMIT` options.
 
 @examples
 

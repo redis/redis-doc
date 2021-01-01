@@ -6,6 +6,8 @@ elements are considered to be ordered from high to low scores.
 The elements having the same score are returned in reverse lexicographical
 order.
 
+As per Redis 6.2.0, ZREVRANGEBYSCORE is considered deprecated. Please prefer `ZRANGE` with `BYSCORE` and `REV` arguments in new code.
+
 Apart from the reversed ordering, `ZREVRANGEBYSCORE` is similar to
 `ZRANGEBYSCORE`.
 
