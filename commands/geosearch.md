@@ -21,7 +21,10 @@ By default, the command returns unsorted items. Two different sorting methods ca
 * `ASC`: Sort returned items from the nearest to the farthest, relative to the center.
 * `DESC`: Sort returned items from the farthest to the nearest, relative to the center.
 
-By default, all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option. However note that internally the command needs to perform an effort proportional to the number of items matching the specified area, so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned. On the other hand `COUNT` can be a very effective way to reduce bandwidth usage if normally just the first results are used.
+By default all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option.
+When `<count>` is positive, the command will internally perform an effort proportional to the number of items matching the specified area and sort sort them,
+so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned.
+When `<count>` is negative the command will return ASAP as soon as enough matches are found, so the results that return are not necessarily the best matches.
 
 @return
 
@@ -35,6 +38,10 @@ When additional information is returned as an array of arrays for each item, the
 1. The distance from the center as a floating point number, in the same unit specified in the shape.
 2. The geohash integer.
 3. The coordinates as a two items x,y array (longitude,latitude).
+
+@history
+
+* `>= 6.2`: COUNT can take negative number to return some matches ASAP.
 
 @examples
 
