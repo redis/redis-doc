@@ -1,5 +1,7 @@
 Return the members of a sorted set populated with geospatial information using `GEOADD`, which are within the borders of the area specified by a given shape. This command extends the `GEORADIUS` command, so in addition to searching within circular areas, it supports searching within rectangular areas.
 
+This command comes in place of the now deprecated `GEORADIUS` and `GEORADIUSBYMEMBER`.
+
 The query's center point is provided by one of these mandatory options:
 
 * `FROMMEMBER`: Use the position of the given existing `<member>` in the sorted set.
