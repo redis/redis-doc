@@ -424,3 +424,5 @@ ziplists
 zset
 GeoHash
 WITHSCORES
+deauthenticates
+reauthenticate
