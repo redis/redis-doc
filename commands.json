@@ -1837,29 +1837,36 @@
     "group": "hash"
   },
   "HELLO": {
-    "summary": "switch Redis protocol",
+    "summary": "Handshake with Redis",
     "complexity": "O(1)",
     "arguments": [
       {
-        "name": "protover",
-        "type": "integer"
-      },
-      {
-        "command": "AUTH",
-        "name": [
-          "username",
-          "password"
+        "name": "arguments",
+        "type": "block",
+        "block": [
+          {
+            "name": "protover",
+            "type": "integer"
+          },
+          {
+            "command": "AUTH",
+            "name": [
+              "username",
+              "password"
+            ],
+            "type": [
+              "string",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "command": "SETNAME",
+            "name": "clientname",
+            "type": "string",
+            "optional": true
+          }
         ],
-        "type": [
-          "string",
-          "string"
-        ],
-        "optional": true
-      },
-      {
-        "command": "SETNAME",
-        "name": "clientname",
-        "type": "string",
         "optional": true
       }
     ],
