@@ -5105,7 +5105,7 @@
     "group": "stream"
   },
   "XAUTOCLAIM": {
-    "summary": "Changes (or acquires) ownership of messages in a consumer group, as if the message was delivered to the specified consumer.",
+    "summary": "Changes (or acquires) ownership of messages in a consumer group, as if the messages were delivered to the specified consumer.",
     "complexity": "O(1) if COUNT is small.",
     "arguments": [
       {

@@ -1,22 +1,23 @@
-This command is used for automatic claiming of entries, without needing to specify their IDs
-It is the equivalent of `XPENDING` + `XCLAIM`
+This command transfers ownership of pending stream entries that match the specified criteria. Conceptually, `XAUTOCLAIM`  is equivalent to calling `XPENDING` and then `XCLAIM`, but provides a more straightforward way to deal with message delivery failures via `SCAN`-like semantics.
 
-The `COUNT` argument limits the amount of entries to claim. Default value is 10.
-The `<start>` argument specifies the minimal ID for claiming (see comment below). 
+Like `XCLAIM`, the command operates on the stream entries at `<key>` and in the context of the provided `<group>`. It transfers ownership to `<consumer>` of messages pending for more than `<min-idle-time>` milliseconds and having an equal or greater ID than `<start>`. 
 
-This command returns, apart from the array of claimed entries, a stream ID which should be used as a cursor (like `SCAN`) in the succeeding call to `XAUTOCLAIM`. When `0-0` is returned it means the scan is complete. The user may want to continue calling `XAUTOCLAIM` even after a scan is complete, because entries from the beginning of stream could be idle enough for claiming.
+The optional `<count>` argument, which defaults to 10, is the upper limit of the number of entries that the command attempts to claim. Internally, the command begins scanning the consumer group's PEL from `<start>` and filters out entries having an idle time less than or equal to `<min-idle-time>`. The maximum number of pending entries that the command scans is the product of multiplying `<count>`'s value by 10 (hard-coded). It is possible, therefore, that the number of entries claimed will be less than the specified value.
 
-Note that the message is claimed only if its idle time is greater the minimum idle time we specify when calling `XAUTOCLAIM`. Because as a side effect `XAUTOCLAIM` will also reset the idle time (since this is a new attempt at processing the message), two consumers trying to claim a message at the same time will never both succeed: only one will successfully claim the message. This avoids that we process a given message multiple times in a trivial way (yet multiple processing is possible and unavoidable in the general case).
+The command returns the claimed entries as an array. It also returns a stream ID intended for cursor-like use as the `<start>` argument for its subsequent call. When there are no remaining PEL entries, the command returns the special `0-0` ID to signal completion. However, note that you may want to continue calling `XAUTOCLAIM` even after the scan is complete with the `0-0` as `<start>` ID, because enough time passed, so older pending entries may now be eligible for claiming.
 
-Moreover, as a side effect, `XAUTOCLAIM` will increment the count of attempted deliveries of the message. In this way messages that cannot be processed for some reason, for instance because the consumers crash attempting to process them, will start to have a larger counter and can be detected inside the system.
+Note that only messages that are idle longer than `<min-idle-time>` are claimed, and claiming a message resets its idle time. This ensures that only a single consumer can successfully claim a given pending message at a specific instant of time and trivially reduces the probability of processing the same message multiple times.
+
+Lastly, claiming a message with `XAUTOCLAIM` also increments the attempted deliveries count for that message. Messages that cannot be processed for some reason - for example, because consumers systematically crash when processing them - will exhibit high attempted delivery counts that can be detected by monitoring.
 
 @return
 
 @array-reply, specifically:
 
 An array with two elements:
-The first element is an array of all the messages successfully claimed, in the same format as `XRANGE`.
-The second element is a stream ID to be used as `<start>` in the next call to `XAUTOCLAIM`
+
+1. The first element is an array containing all the successfully claimed messages in the same format as `XRANGE`.
+2. The second element is a stream ID to be used as the `<start>` argument for the next call to `XAUTOCLAIM`
 
 Example:
 
@@ -28,4 +29,4 @@ Example:
 2) "0-0"
 ```
 
-In the above example we claim a maximum of 25 entries, starting from the beginning of the stream, only if the message is idle for at least one hour without the original consumer or some other consumer making progresses (acknowledging or claiming it), and assigns the ownership to the consumer `Alice`. Note that the cursor returned is `0-0` meaning we scanned the entire stream.
+In the above example, we attempt to claim up to 25 entries that are pending and idle (not having been acknowledged or claimed) for at least an hour, starting at the stream's beginning. The consumer "Alice" from the "mygroup" group acquires ownership of these messages. Note that the stream ID returned in the example is `0-0`, indicating that the entire stream was scanned.
