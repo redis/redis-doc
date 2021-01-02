@@ -494,7 +494,7 @@ Like `XCLAIM`, the command replies with an array of the claimed messages, but it
 > XAUTOCLAIM mystream mygroup Lora 3600000 1526569498055-0 COUNT 1
 1) 1) 1526569506935-0
    2) 1) "message"
-       2) "strawberry"
+      2) "strawberry"
 2) 0-0
 ```
 When `XAUTOCLAIM` returns the "0-0" stream ID as a cursor, that means that it reached the end of the consumer group pending entries list. That doesn't mean that there are no new idle pending messages, so the process continues by calling `XAUTOCLAIM` from the beginning of the stream.
