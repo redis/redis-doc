@@ -23,9 +23,9 @@ The command default is to return unsorted items. Two different sorting methods c
 * `DESC`: Sort returned items from the farthest to the nearest, relative to the center.
 
 By default all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option.
-When `<count>` is positive, the command will internally perform an effort proportional to the number of items matching the specified area and sort sort them,
+When `<count>` is positive, the command will perform an effort that is proportional to the number of items matching the specified area and sort them,
 so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned.
-When `<count>` is negative the command will return ASAP as soon as enough matches are found, so the results that return are not necessarily the best matches.
+When `<count>` is negative the command will return as soon as enough matches are found. That means the results may not be the ones closest to the specified point, but on the other hand, the effort invested by the server is significantly lower.
 
 By default the command returns the items to the client. It is possible to store the results with one of these options:
 
@@ -59,7 +59,7 @@ Both commands were introduced in Redis 3.2.10 and Redis 4.0.0 respectively.
 
 @history
 
-* `>= 6.2`: COUNT can take negative number to return some matches ASAP.
+* `>= 6.2`: COUNT accepts a negative value and returns as soon as possible.
 
 @examples
 
