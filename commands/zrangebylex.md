@@ -2,7 +2,7 @@ When all the elements in a sorted set are inserted with the same score, in order
 
 If the elements in the sorted set have different scores, the returned elements are unspecified.
 
-As per Redis 6.2.0, ZRANGEBYLEX is considered deprecated. Please prefer `ZRANGE` with `BYLEX` argument in new code.
+As per Redis 6.2.0, this command is considered deprecated. Please prefer using the `ZRANGE` command with the `BYLEX` argument in new code.
 
 The elements are considered to be ordered from lower to higher strings as compared byte-by-byte using the `memcmp()` C function. Longer strings are considered greater than shorter strings if the common part is identical.
 
