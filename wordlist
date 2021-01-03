@@ -187,6 +187,7 @@ cli
 cmsgpack
 codename
 commandstats
+errorstats
 conf
 config
 configEpoch
