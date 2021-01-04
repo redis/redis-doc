@@ -1262,6 +1262,23 @@
         "type": "key"
       },
       {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "change",
+        "type": "enum",
+        "enum": [
+          "CH"
+        ],
+        "optional": true
+      },
+      {
         "name": [
           "longitude",
           "latitude",
