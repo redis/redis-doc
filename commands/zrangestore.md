@@ -1,4 +1,4 @@
-This command is like `ZRANGE`, but stores the result in destination key.
+This command is like `ZRANGE`, but stores the result in the `<dst>` destination key.
 
 @return
 
@@ -7,7 +7,7 @@ This command is like `ZRANGE`, but stores the result in destination key.
 @examples
 
 ```cli
-ZADD key1 1 "one" 2 "two" 3 "three" 4 "four"
-ZRANGESTORE key2 key1 2 -1
-ZRANGE key2
+ZADD srczset 1 "one" 2 "two" 3 "three" 4 "four"
+ZRANGESTORE dstzset srczset 2 -1
+ZRANGE dstzset
 ```
