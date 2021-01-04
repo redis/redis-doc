@@ -3662,7 +3662,7 @@
   },
   "SWAPDB": {
     "summary": "Swaps two Redis databases",
-    "complexity": "O(N) where N is the count of clients watching or blocking on keys from both databases."
+    "complexity": "O(N) where N is the count of clients watching or blocking on keys from both databases.",
     "arguments": [
       {
         "name": "index1",
