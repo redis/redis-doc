@@ -10,7 +10,7 @@ The order of elements is from the lowest to the highest score. Elements with the
 
 The optional `REV` argument reverses the ordering, so elements are ordered from highest to lowest score, and score ties are resolved by reverse lexicographical ordering.
 
-The optional `LIMIT` argument can be used to obtain a subrange from the matching elements (similar to _SELECT LIMIT offset, count_ in SQL). 
+The optional `LIMIT` argument can be used to obtain a sub-range from the matching elements (similar to _SELECT LIMIT offset, count_ in SQL).
 A negative `<count>` returns all elements from the `<offset>`. Keep in mind that if `<offset>` is large, the sorted set needs to be traversed for `<offset>` elements before getting to the elements to return, which can add up to O(N) time complexity.
 
 The optional `WITHSCORES` argument supplements the command's reply with the scores of elements returned. The returned list contains `value1,score1,...,valueN,scoreN` instead of `value1,...,valueN`. Client libraries are free to return a more appropriate data type (suggestion: an array with (value, score) arrays/tuples).
@@ -19,7 +19,7 @@ The optional `WITHSCORES` argument supplements the command's reply with the scor
 
 By default, the command performs an index range query. The `<min>` and `<max>` arguments represent zero-based indexes, where `0` is the first element, `1` is the next element, and so on. These arguments specify an **inclusive range**, so for example, `ZRANGE myzset 0 1` will return both the first and the second element of the sorted set.
 
-The indexes can also be negative numbers indicating offsets from the end of the sorted set, with `-1` being the last element of the sorted set, `-2` the penultimate element, and so on. 
+The indexes can also be negative numbers indicating offsets from the end of the sorted set, with `-1` being the last element of the sorted set, `-2` the penultimate element, and so on.
 
 Out of range indexes do not produce an error.
 
@@ -103,7 +103,7 @@ The following example using `WITHSCORES` shows how the command returns always an
 ZRANGE myzset 0 1 WITHSCORES
 ```
 
-This example shows how to query the sorted set by score, excluding the value `1` and up to inifinity, returning only the second element of the result: 
+This example shows how to query the sorted set by score, excluding the value `1` and up to infinity, returning only the second element of the result:
 
 ```cli
 ZRANGE myzset (1 +inf BYSCORE LIMIT 1 1
