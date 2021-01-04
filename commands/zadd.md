@@ -62,8 +62,8 @@ If the user inserts all the elements in a sorted set with the same score (for ex
 
 @integer-reply, specifically:
 
-* The number of elements added to the sorted set, not including elements
-  already existing for which the score was updated.
+* When used without optional arguments, the number of elements added to the sorted set (excluding score updates).
+* If the `CH` option is specified, the number of elements that were changed (added or updated).
 
 If the `INCR` option is specified, the return value will be @bulk-string-reply:
 
