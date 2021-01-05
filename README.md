@@ -65,7 +65,10 @@ Returns all keys matching the given pattern.
 
 Please use the following formatting rules:
 
-* Wrap lines to 80 characters.
+* No need for manual lines wrapping at any specific lengh, doing so usually
+  means that adding a word creates a cascade effect and changes other lines.
+* Please avoid writing lines that are too long, this makes the diff harder to
+  review when only one word is changed. 
 * Start every sentence on a new line.
 
 Luckily, this repository comes with an automated Markdown formatter.
