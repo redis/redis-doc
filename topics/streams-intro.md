@@ -392,7 +392,9 @@ The example above allows us to write consumers that participate in the same cons
 
 Redis consumer groups offer a feature that is used in these situations in order to *claim* the pending messages of a given consumer so that such messages will change ownership and will be re-assigned to a different consumer. The feature is very explicit. A consumer has to inspect the list of pending messages, and will have to claim specific messages using a special command, otherwise the server will leave the messages pending forever and assigned to the old consumer. In this way different applications can choose if to use such a feature or not, and exactly how to use it.
 
-The first step of this process is just a command that provides observability of pending entries in the consumer group and is called **XPENDING**. This is a read-only command which is always safe to call and will not change ownership of any message. In its simplest form, the command is called with two arguments, which are the name of the stream and the name of the consumer group.
+The first step of this process is just a command that provides observability of pending entries in the consumer group and is called **XPENDING**.
+This is a read-only command which is always safe to call and will not change ownership of any message.
+In its simplest form, the command is called with two arguments, which are the name of the stream and the name of the consumer group.
 
 ```
 > XPENDING mystream mygroup
@@ -403,7 +405,8 @@ The first step of this process is just a command that provides observability of 
       2) "2"
 ```
 
-When called in this way the command outputs the total number of pending messages in the consumer group, only two messages in this case, the lower and higher message ID among the pending messages, and finally a list of consumers and the number of pending messages they have. We have only Bob with two pending messages because the single message that Alice requested was acknowledged using **XACK**.
+When called in this way the command outputs the total number of pending messages in the consumer group, only two messages in this case, the lower and higher message ID among the pending messages, and finally a list of consumers and the number of pending messages they have.
+We have only Bob with two pending messages because the single message that Alice requested was acknowledged using **XACK**.
 
 We can ask for more information by giving more arguments to **XPENDING**, because the full command signature is the following:
 
@@ -425,7 +428,8 @@ By providing a start and end ID (that can be just `-` and `+` as in **XRANGE**) 
    4) (integer) 1
 ```
 
-Now we have the details for each message: the ID, the consumer name, the *idle time* in milliseconds, which is how much milliseconds have passed since the last time the message was delivered to some consumer, and finally the number of times that a given message was delivered. We have two messages from Bob, and they are idle for 74170458 milliseconds, about 20 hours.
+Now we have the details for each message: the ID, the consumer name, the *idle time* in milliseconds, which is how much milliseconds have passed since the last time the message was delivered to some consumer, and finally the number of times that a given message was delivered.
+We have two messages from Bob, and they are idle for 74170458 milliseconds, about 20 hours.
 
 Note that nobody prevents us from checking what the first message content was by just using **XRANGE**.
 
@@ -470,9 +474,12 @@ Claiming may also be implemented by a separate process: one that just checks the
 
 ## Automatic claiming
 
-The `XAUTOCLAIM` command, added in Redis 6.2, implements the claiming process that we've described above. `XPENDING` and `XCLAIM` provide the basic building blocks for different types of recovery mechanisms. This command optimizes the generic process by having Redis manage it and offers a simple solution for most recovery needs.
+The `XAUTOCLAIM` command, added in Redis 6.2, implements the claiming process that we've described above.
+`XPENDING` and `XCLAIM` provide the basic building blocks for different types of recovery mechanisms.
+This command optimizes the generic process by having Redis manage it and offers a simple solution for most recovery needs.
 
-`XAUTOCLAIM` identifies idle pending messages and transfers ownership of them to a consumer. The command's signature looks like this:
+`XAUTOCLAIM` identifies idle pending messages and transfers ownership of them to a consumer.
+The command's signature looks like this:
 
 ```
 XAUTOCLAIM <key> <group> <consumer> <min-idle-time> <start> [COUNT count]
@@ -488,7 +495,8 @@ So, in the example above, I could have used automatic claiming to claim a single
 2) 1526569498055-0
 ```
 
-Like `XCLAIM`, the command replies with an array of the claimed messages, but it also returns a stream ID that allows iterating the pending entries. The stream ID is a cursor, and I can use it in my next call to continue in claiming idle pending messages:
+Like `XCLAIM`, the command replies with an array of the claimed messages, but it also returns a stream ID that allows iterating the pending entries.
+The stream ID is a cursor, and I can use it in my next call to continue in claiming idle pending messages:
 
 ```
 > XAUTOCLAIM mystream mygroup Lora 3600000 1526569498055-0 COUNT 1
@@ -497,7 +505,8 @@ Like `XCLAIM`, the command replies with an array of the claimed messages, but it
       2) "strawberry"
 2) 0-0
 ```
-When `XAUTOCLAIM` returns the "0-0" stream ID as a cursor, that means that it reached the end of the consumer group pending entries list. That doesn't mean that there are no new idle pending messages, so the process continues by calling `XAUTOCLAIM` from the beginning of the stream.
+When `XAUTOCLAIM` returns the "0-0" stream ID as a cursor, that means that it reached the end of the consumer group pending entries list.
+That doesn't mean that there are no new idle pending messages, so the process continues by calling `XAUTOCLAIM` from the beginning of the stream.
 
 ## Claiming and the delivery counter
 
