@@ -482,17 +482,17 @@ This command optimizes the generic process by having Redis manage it and offers 
 The command's signature looks like this:
 
 ```
-XAUTOCLAIM <key> <group> <consumer> <min-idle-time> <start> [COUNT count]
+XAUTOCLAIM <key> <group> <consumer> <min-idle-time> <start> [COUNT count] [JUSTID]
 ```
 
 So, in the example above, I could have used automatic claiming to claim a single message like this:
 
 ```
 > XAUTOCLAIM mystream mygroup Alice 3600000 0-0 COUNT 1
-1) 1) 1526569498055-0
+1) 1526569498055-0
+2) 1) 1526569498055-0
    2) 1) "message"
       2) "orange"
-2) 1526569498055-0
 ```
 
 Like `XCLAIM`, the command replies with an array of the claimed messages, but it also returns a stream ID that allows iterating the pending entries.
@@ -500,10 +500,10 @@ The stream ID is a cursor, and I can use it in my next call to continue in claim
 
 ```
 > XAUTOCLAIM mystream mygroup Lora 3600000 1526569498055-0 COUNT 1
-1) 1) 1526569506935-0
+1) 0-0
+2) 1) 1526569506935-0
    2) 1) "message"
       2) "strawberry"
-2) 0-0
 ```
 When `XAUTOCLAIM` returns the "0-0" stream ID as a cursor, that means that it reached the end of the consumer group pending entries list.
 That doesn't mean that there are no new idle pending messages, so the process continues by calling `XAUTOCLAIM` from the beginning of the stream.

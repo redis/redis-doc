@@ -5133,6 +5133,13 @@
         "name": "count",
         "type": "integer",
         "optional": true
+      },
+      {
+        "name": "justid",
+        "enum": [
+          "JUSTID"
+        ],
+        "optional": true
       }
     ],
     "since": "6.2.0",
