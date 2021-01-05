@@ -65,7 +65,7 @@ Returns all keys matching the given pattern.
 
 Please use the following formatting rules:
 
-* No need for manual lines wrapping at any specific lengh, doing so usually
+* No need for manual lines wrapping at any specific length, doing so usually
   means that adding a word creates a cascade effect and changes other lines.
 * Please avoid writing lines that are too long, this makes the diff harder to
   review when only one word is changed. 
