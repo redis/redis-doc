@@ -290,6 +290,7 @@ mmap
 movablekeys
 multi
 mutex
+mygroup
 mylist
 mymaster
 myzset
