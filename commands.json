@@ -4671,50 +4671,49 @@
   },
   "XADD": {
     "summary": "Appends a new entry to a stream",
-    "complexity": "O(1)",
+    "complexity": "O(1) when adding a new entry, O(N) when trimming where N being the number of entires evicted.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "maxlen",
-        "type": "block",
-        "block": [
-          {
-            "name": "trim-strategy",
-            "type": "string"
-          },
-          {
-            "name": "operator",
-            "type": "block",
-            "block": [
-              {
-                "type": "enum",
-                "enum": [
-                  "=",
-                  "~"
-                ],
-                "optional": true
-              },
-              {
-                "name": "threshold",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "command": "LIMIT",
-            "name": "limit",
-            "type": "integer",
-            "optional": true
-          }
-        ],
+        "command": "NOMKSTREAM",
         "optional": true
       },
       {
-        "command": "NOMKSTREAM",
-        "optional": true
+        "name": "trim",
+        "type": "block",
+        "optional": true,
+        "block": [
+          {
+            "name": "strategy",
+            "type": "enum",
+            "enum": [
+              "MAXLEN",
+              "MINID"
+            ]
+          },
+          {
+            "name": "operator",
+            "type": "enum",
+            "enum": [
+              "=",
+              "~"
+            ],
+            "optional": true
+          },
+          {
+            "name": "threshold",
+            "type": "string"
+          },
+          {
+            "command": "LIMIT",
+            "name": "count",
+            "type": "integer",
+            "optional": true
+          }
+        ]
       },
       {
         "type": "enum",
@@ -4747,14 +4746,19 @@
         "type": "key"
       },
       {
-        "name": "trim-strategy",
-        "type": "string"
-      },
-      {
+        "name": "trim",
         "type": "block",
-        "name": "operator",
         "block": [
           {
+            "name": "strategy",
+            "type": "enum",
+            "enum": [
+              "MAXLEN",
+              "MINID"
+            ]
+          },
+          {
+            "name": "operator",
             "type": "enum",
             "enum": [
               "=",
@@ -4763,16 +4767,16 @@
             "optional": true
           },
           {
-            "name": "thrshold",
+            "name": "threshold",
             "type": "string"
+          },
+          {
+            "command": "LIMIT",
+            "name": "count",
+            "type": "integer",
+            "optional": true
           }
         ]
-      },
-      {
-        "command": "LIMIT",
-        "name": "limit",
-        "type": "integer",
-        "optional": true
       }
     ],
     "since": "5.0.0",

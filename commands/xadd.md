@@ -48,42 +48,15 @@ IDs to match the one of this other system.
 
 ## Capped streams
 
-It is possible to limit the size of the stream by using the **trim-strategy** option.
-Currently two trimming strategies are supported:
-`MAXLEN`: Trim the strim so that its length doesn't exceed `threshold`
-`MINID`: Trim the stream so that the minimal ID is `threshold` (supported since 6.2.0)
-So `threshold` can represent either the maximal stream length or the
-minimal stream ID
-By default, or when used with the `=` argument, the **trim-strategy** option performs
-an exact trimming.
-If one uses the `MAXLEN` strategy, that means that the trimmed stream's length will be
-exactly the minimum between its original length and the specified maximum
-length.
-If one uses the `MINID` strategy, that means that the oldest ID in the stream will be
-exactly the minimum between its original oldest ID and the specified `threshold`.
+`XADD` incorporates the same semantics as the `XTRIM` command - refer to its documentation page for more information.
+This allows adding new entries and keeping the stream's size in check with a single call to `XADD`, effectively capping the stream with an arbitrary threshold.
+Although exact trimming is possible and is the default, due to the internal representation of steams it is more effecient to add an entry and trim stream with `XADD` using **almost exact** trimming (the `~` argument).
 
-Trimming with **trim-strategy** can be expensive compared to just adding entries with 
-`XADD`: streams are represented by macro nodes into a radix tree, in order to
-be very memory efficient. Altering the single macro node, consisting of a few
-tens of elements, is not optimal. So it is possible to give the command in the
-following special form:
+For example, calling `XADD` in the following form:
 
     XADD mystream MAXLEN ~ 1000 * ... entry fields here ...
- or
-    XADD mystream MINID ~ 649085820-0 * ... entry fields here ...
-
-The `~` argument between the **trim-strategy** option and the `threshold` means that
-the user is not really requesting that the stream is trimmed exactly at the `threshold`,
-but instead it could be a few tens of entries more, but never less than th `threshold`.
-When this option modifier is used, the trimming is performed only when
-Redis is able to remove a whole macro node. This makes it much more efficient,
-and it is usually what you want.
-
-The `LIMIT` option represents the maximum number of entries to trim, and so offers
-another way to cap the trimming, making it more efficient on the expense of accuracy.
-This option is only valid with the `~` modifier and its default is (100 * the number
-of entries per macro node).
-`LIMIT` of 0 means no limit on the number of trimmed entries.
+ 
+Will add a new entry but will also evict old entries so that the stream will contain only 1000 entries, or at most a few tens more.
 
 ## Additional information about streams
 
@@ -103,8 +76,7 @@ key doesn't exist.
 
 @history
 
-* `>= 6.2`: Added the `NOMKSTREAM` option.
-* `>= 6.2`: Added the `MINID` trim strategy and the `LIMIT` option.
+* `>= 6.2`: Added the `NOMKSTREAM` option, `MINID` trimming strategy and the `LIMIT` option.
 
 @examples
 

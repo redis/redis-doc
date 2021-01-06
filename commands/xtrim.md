@@ -1,62 +1,56 @@
-`XTRIM` trims the stream to according the the **trim-strategy**, evicting older items
-(items with lower IDs) if needed. The command is conceived to accept multiple
-trimming strategies, however currently only two strategies is implemented:
-`MAXLEN`: Trim the strim so that its length doesn't exceed `threshold`
-`MINID`: Trim the stream so that the minimal ID is `threshold` (supported since 6.2.0)
-So `threshold` can represent either the maximal stream length or the
-minimal stream ID
+`XTRIM` trims the stream by evicting older entries (entries with lower IDs) if needed.
 
-For example the following command will trim the stream to exactly
-the latest 1000 items:
+Trimming the stream can be done using one of these strategies:
+
+* `MAXLEN`: Evicts entries as long as the stream's length exceeds the specified `threshold`, where `threshold` is a positive integer.
+* `MINID`: Evicts entries with IDs lower than `threshold`, where `threshold` is a stream ID.
+
+For example, this will trim the stream to exactly the latest 1000 items:
 
 ```
 XTRIM mystream MAXLEN 1000
 ```
 
-To give another exmaple, the following command will trim the stream
-so that it won't contain entries with IDs smaller than 649085820:
+Whereas in this example, all entries that have an ID lower than 649085820-0 will be evicted:
 
 ```
-XTRIM mystream MINID 649085820-0
+XTRIM mystream MINID 649085820
 ```
 
-By default, or when provided with the optional `=` argument, the command
-performs exact trimming.
-If one uses the `MAXLEN` strategy, that means that the trimmed stream's length will be
-exactly the minimum between its original length and the specified maximum
-length.
-If one uses the `MINID` strategy, that means that the oldest ID in the stream will be
-exactly the minimum between its original oldest ID and the specified `threshold`.
+By default, or when provided with the optional `=` argument, the command performs exact trimming.
 
-It is possible to give the command in the following special form in
-order to make it more efficient:
+Depending on the strategy, exact trimming means:
+
+* `MAXLEN`: the trimmed stream's length will be exactly the minimum between its original length and the specified `threshold`.
+* `MINID`: the oldest ID in the stream will be exactly the minimum between its original oldest ID and the specified `threshold`.
+
+Nearly exact trimming
+---
+
+Because exact trimming may require additional effort from the Redis server, the optional `~` argument can be provided to make it more efficient.
+
+For example:
 
 ```
 XTRIM mystream MAXLEN ~ 1000
 ```
 
-The `~` argument between the **trim-strategy** option and the actual count means that
-the user is not really requesting that the stream is trimmed exactly at the `threshold`,
-but instead it could be a few tens of entries more, but never less than the `threshold`.
-When this option modifier is used, the trimming is performed only when
-Redis is able to remove a whole macro node. This makes it much more efficient,
-and it is usually what you want.
+The `~` argument between the `MAXLEN` strategy and the `threshold` means that the user is requesting to trim the stream so its length is **at least** the `threshold`, but possibly slightly more.
+In this case, Redis will stop trimming early when performance can be gained (for example, when a whole macro node in the data structure can't be removed).
+This makes trimming much more efficient, and it is usually what you want, although after trimming, the stream may have few tens of additional entries over the `threshold`.
 
-The `LIMIT` option represents the maximum number of entries to trim, and so offers
-another way to cap the trimming, making it more efficient on the expense of accuracy.
-This option is only valid with the `~` modifier and its default is (100 * the number
-of entries per macro node).
-`LIMIT` of 0 means no limit on the number of trimmed entries.
+Another way to control the amount of work done by the command when using the `~`, is the `LIMIT` clause. 
+When used, it specifies the maximal `count` of entries that will be evicted.
+When `LIMIT` and `count` aren't specified, the default value of 100 * the number of entries in a macro node will be implicitly used as the `count`.
+Specifying the value 0 as `count` disables the limiting mechanism entirely.
 
 @return
 
-@integer-reply, specifically:
-
-The command returns the number of entries deleted from the stream.
+@integer-reply: The number of entries deleted from the stream.
 
 @history
 
-* `>= 6.2`: Added the `MINID` trim strategy and the `LIMIT` option.
+* `>= 6.2`: Added the `MINID` trimming strategy and the `LIMIT` option.
 
 @examples
 
