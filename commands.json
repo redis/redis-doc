@@ -4682,7 +4682,8 @@
         "type": "block",
         "block": [
           {
-            "command": "MAXLEN"
+            "name": "trim-strategy",
+            "type": "string"
           },
           {
             "name": "operator",
@@ -4697,10 +4698,16 @@
                 "optional": true
               },
               {
-                "name": "length",
-                "type": "integer"
+                "name": "threshold",
+                "type": "string"
               }
             ]
+          },
+          {
+            "command": "LIMIT",
+            "name": "limit",
+            "type": "integer",
+            "optional": true
           }
         ],
         "optional": true
@@ -4740,11 +4747,8 @@
         "type": "key"
       },
       {
-        "name": "strategy",
-        "type": "enum",
-        "enum": [
-          "MAXLEN"
-        ]
+        "name": "trim-strategy",
+        "type": "string"
       },
       {
         "type": "block",
@@ -4759,10 +4763,16 @@
             "optional": true
           },
           {
-            "name": "length",
-            "type": "integer"
+            "name": "thrshold",
+            "type": "string"
           }
         ]
+      },
+      {
+        "command": "LIMIT",
+        "name": "limit",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "5.0.0",
