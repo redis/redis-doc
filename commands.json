@@ -4091,8 +4091,61 @@
     "since": "5.0.0",
     "group": "sorted_set"
   },
+  "ZRANGESTORE": {
+    "summary": "Store a range of members from sorted set into another key",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.",
+    "arguments": [
+      {
+        "name": "dst",
+        "type": "key"
+      },
+      {
+        "name": "src",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "name": "sortby",
+        "type": "enum",
+        "enum": [
+          "BYSCORE",
+          "BYLEX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "rev",
+        "type": "enum",
+        "enum": [
+          "REV"
+        ],
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
   "ZRANGE": {
-    "summary": "Return a range of members in a sorted set, by index",
+    "summary": "Return a range of members in a sorted set",
     "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
     "arguments": [
       {
@@ -4100,12 +4153,41 @@
         "type": "key"
       },
       {
-        "name": "start",
-        "type": "integer"
+        "name": "min",
+        "type": "string"
       },
       {
-        "name": "stop",
-        "type": "integer"
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "name": "sortby",
+        "type": "enum",
+        "enum": [
+          "BYSCORE",
+          "BYLEX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "rev",
+        "type": "enum",
+        "enum": [
+          "REV"
+        ],
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
       },
       {
         "name": "withscores",
