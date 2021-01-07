@@ -154,6 +154,8 @@ by referring to the `MEMORY STATS` command and the `MEMORY DOCTOR`.
 Here is the meaning of all fields in the **persistence** section:
 
 *   `loading`: Flag indicating if the load of a dump file is on-going
+*   `current_cow_size`: The size in bytes of copy-on-write memory
+     while a child fork is running
 *   `rdb_changes_since_last_save`: Number of changes since the last dump
 *   `rdb_bgsave_in_progress`: Flag indicating a RDB save is on-going
 *   `rdb_last_save_time`: Epoch-based timestamp of last successful RDB save
@@ -162,7 +164,7 @@ Here is the meaning of all fields in the **persistence** section:
      seconds
 *   `rdb_current_bgsave_time_sec`: Duration of the on-going RDB save operation
      if any
-*   `rdb_last_cow_size`: The size in bytes of copy-on-write allocations during
+*   `rdb_last_cow_size`: The size in bytes of copy-on-write memory during
      the last RDB save operation
 *   `aof_enabled`: Flag indicating AOF logging is activated
 *   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is
@@ -175,10 +177,10 @@ Here is the meaning of all fields in the **persistence** section:
      operation if any
 *   `aof_last_bgrewrite_status`: Status of the last AOF rewrite operation
 *   `aof_last_write_status`: Status of the last write operation to the AOF
-*   `aof_last_cow_size`: The size in bytes of copy-on-write allocations during
+*   `aof_last_cow_size`: The size in bytes of copy-on-write memory during
      the last AOF rewrite operation
 *   `module_fork_in_progress`: Flag indicating a module fork is on-going
-*   `module_fork_last_cow_size`: The size in bytes of copy-on-write allocations
+*   `module_fork_last_cow_size`: The size in bytes of copy-on-write memory
      during the last module fork operation
 
 `rdb_changes_since_last_save` refers to the number of operations that produced
