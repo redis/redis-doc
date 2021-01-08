@@ -77,6 +77,6 @@ unknown fields).
 
 @history
 
-* `>=2.8.12`: Added unique client `id` field.
-* `>=5.0`: Added optional `TYPE` filter.
-* `>=6.2`: Added `laddr` field and the optional `ID` filter.
+* `>= 2.8.12`: Added unique client `id` field.
+* `>= 5.0`: Added optional `TYPE` filter.
+* `>= 6.2`: Added `laddr` field and the optional `ID` filter.

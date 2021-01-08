@@ -91,5 +91,5 @@ flow.
 
 @history
 
-* `>=6.2`: `RESET` can be called to exit monitor mode.
-* `>=6.0`: `AUTH` excluded from the command's output.
+* `>= 6.2`: `RESET` can be called to exit monitor mode.
+* `>= 6.0`: `AUTH` excluded from the command's output.
