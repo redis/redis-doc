@@ -590,7 +590,7 @@
   },
   "CLIENT TRACKING": {
     "summary": "Enable or disable server assisted client side caching support",
-    "complexity": "O(1)",
+    "complexity": "O(1). Some options may introduce additional complexity.",
     "arguments": [
       {
         "name": "status",

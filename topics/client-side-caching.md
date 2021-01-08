@@ -244,6 +244,7 @@ In this mode we have the following main behaviors:
 
 * Clients enable client side caching using the `BCAST` option, specifying one or more prefixes using the `PREFIX` option. For instance: `CLIENT TRACKING on REDIRECT 10 BCAST PREFIX object: PREFIX user:`. If no prefix is specified at all, the prefix is assumed to be the empty string, so the client will receive invalidation messages for every key that gets modified. Instead if one or more prefixes are used, only keys matching the one of the specified prefixes will be sent in the invalidation messages.
 * The server does not store anything in the invalidation table. Instead it only uses a different **Prefixes Table**, where each prefix is associated to a list of clients.
+* No two prefixes can track overlapping parts of the keyspace. For instance, having the prefix foo and foob would not be allowed, since they would both trigger an invalidation for the key foobar. However, just using the prefix foo is sufficient.
 * Every time a key matching any of the prefixes is modified, all the clients subscribed to such prefix, will receive the invalidation message.
 * The server will consume a CPU proportional to the number of registered prefixes. If you have just a few, it is hard to see any difference. With a big number of prefixes the CPU cost can become quite large.
 * In this mode the server can perform the optimization of creating a single reply for all the clients subscribed to a given prefix, and send the same reply to all. This helps to lower the CPU usage.
