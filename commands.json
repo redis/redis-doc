@@ -1430,9 +1430,23 @@
         "optional": true
       },
       {
-        "command": "COUNT",
+        "type": "block",
         "name": "count",
-        "type": "integer",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
         "optional": true
       },
       {
@@ -1511,9 +1525,23 @@
         "optional": true
       },
       {
-        "command": "COUNT",
+        "type": "block",
         "name": "count",
-        "type": "integer",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
         "optional": true
       },
       {
@@ -1625,9 +1653,23 @@
         "optional": true
       },
       {
+        "type": "block",
         "name": "count",
-        "command": "COUNT",
-        "type": "integer",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
         "optional": true
       },
       {
@@ -1746,9 +1788,23 @@
         "optional": true
       },
       {
+        "type": "block",
         "name": "count",
-        "command": "COUNT",
-        "type": "integer",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
         "optional": true
       },
       {

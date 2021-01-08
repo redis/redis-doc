@@ -23,7 +23,11 @@ By default, the command returns unsorted items. Two different sorting methods ca
 * `ASC`: Sort returned items from the nearest to the farthest, relative to the center.
 * `DESC`: Sort returned items from the farthest to the nearest, relative to the center.
 
-By default, all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option. However note that internally the command needs to perform an effort proportional to the number of items matching the specified area, so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned. On the other hand `COUNT` can be a very effective way to reduce bandwidth usage if normally just the first results are used.
+By default all the matching items are returned. It is possible to limit the results to the first N matching items by using the **COUNT `<count>`** option.
+When `ANY` is provided the command will return as soon as enough matches are found,
+so the results may not be the ones closest to the specified point, but on the other hand, the effort invested by the server is significantly lower.
+When `ANY` is not provided, the command will perform an effort that is proportional to the number of items matching the specified area and sort them,
+so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned.
 
 @return
 
