@@ -6,4 +6,4 @@ other commands, except for additional `SUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`,
 
 @history
 
-* `>=6.2`: `RESET` can be called to exit subscribed state.
+* `>= 6.2`: `RESET` can be called to exit subscribed state.
