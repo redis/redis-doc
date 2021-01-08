@@ -1404,7 +1404,7 @@
           {
             "name": "count",
             "command": "COUNT",
-            "type": "integer",
+            "type": "integer"
           },
           {
             "name": "any",
@@ -1499,7 +1499,7 @@
           {
             "name": "count",
             "command": "COUNT",
-            "type": "integer",
+            "type": "integer"
           },
           {
             "name": "any",
@@ -1627,7 +1627,7 @@
           {
             "name": "count",
             "command": "COUNT",
-            "type": "integer",
+            "type": "integer"
           },
           {
             "name": "any",
@@ -1762,7 +1762,7 @@
           {
             "name": "count",
             "command": "COUNT",
-            "type": "integer",
+            "type": "integer"
           },
           {
             "name": "any",
