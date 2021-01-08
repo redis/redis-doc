@@ -550,7 +550,7 @@
   "CLIENT UNPAUSE": {
     "summary": "Resume processing of clients that were paused",
     "complexity": "O(N) Where N is the number of paused clients",
-    "since": "6.2",
+    "since": "6.2.0",
     "group": "connection"
   },
   "CLIENT PAUSE": {

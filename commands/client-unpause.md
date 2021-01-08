@@ -2,4 +2,4 @@
 
 @return
 
-@simple-string-reply: The command returns OK or an error if the timeout is invalid.
+@simple-string-reply: The command returns `OK`

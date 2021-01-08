@@ -2,17 +2,16 @@
 
 The command performs the following actions:
 
-* It stops processing all the pending commands from normal and pub/sub clients for the given mode. However interactions with replicas will continue normally.
+* It stops processing all the pending commands from normal and pub/sub clients for the given mode. However interactions with replicas will continue normally. Note that clients are formally paused when they try to execute a command, so no work is taken on the server side for inactive clients.
 * However it returns OK to the caller ASAP, so the `CLIENT PAUSE` command execution is not paused by itself.
-* A `CLIENT PAUSE` in a MULTI/EXEC block will not block commands in the same block, this can be used to set state before the pause.
 * When the specified amount of time has elapsed, all the clients are unblocked: this will trigger the processing of all the commands accumulated in the query buffer of every client during the pause.
 
-Client pause currently supports two mode:
-* `ALL`: This is the default mode if no type is provided. All client commands are blocked.
+Client pause currently supports two modes:
+* `ALL`: This is the default mode. All client commands are blocked.
 * `WRITE`: Clients are only blocked if they attempt to execute a write command.
 
-For the `WRITE` mode, some commands have special behavior.
-* `EVAL`/`EVALSHA`. Will block client for all scripts.
+For the `WRITE` mode, some commands have special behavior:
+* `EVAL`/`EVALSHA`: Will block client for all scripts.
 * `PUBLISH`: Will block client.
 * `PFCOUNT`: Will block client.
 * `WAIT`: Acknowledgements will be delayed, so this command will appear blocked.
@@ -40,5 +39,5 @@ to be static not just from the point of view of clients not being able to write,
 
 @history
 
-* `>=3.2.10`: Client pause prevents client pause and key eviction as well
-* `>=6.2`: `type` option added
+* `>= 3.2.10`: Client pause prevents client pause and key eviction as well.
+* `>= 6.2`: CLIENT PAUSE WRITE mode added along with the `mode` option.
