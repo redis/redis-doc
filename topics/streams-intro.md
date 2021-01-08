@@ -655,9 +655,9 @@ Or, as for the **XADD** option:
 > XTRIM mystream MAXLEN ~ 10
 ```
 
-However, **XTRIM** is designed to accept different trimming strategies, even if only **MAXLEN** is currently implemented.
+However, **XTRIM** is designed to accept different trimming strategies. Another trimming strategy is **MINID**, that evicts entries with IDs lower than the one specified.
 
-As **XTRIM** is an explicit command, the user is expected to know about the possible shortcomings of different trimming strategies. As such, it's possible that trimming by time will be implemented at a later time.
+As **XTRIM** is an explicit command, the user is expected to know about the possible shortcomings of different trimming strategies.
 
 Another useful eviction strategy that may be added to **XTRIM** in the future, is to remove by a range of IDs to ease use of **XRANGE** and **XTRIM** to move data from Redis to other storage systems if needed.
 
