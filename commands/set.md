@@ -13,7 +13,7 @@ The `SET` command supports a set of options that modify its behavior:
 * `KEEPTTL` -- Retain the time to live associated with the key.
 * `GET` -- Return the old value stored at key, or nil when key did not exist.
 
-Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `GETSET`, it is possible that in future versions of Redis these four commands will be deprecated and finally removed.
+Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `GETSET`, it is possible that in future versions of Redis these commands will be deprecated and finally removed.
 
 @return
 
