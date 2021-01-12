@@ -153,7 +153,9 @@ example "write deny-oom". The set of flags are:
                     other reason.
 * **"no-auth"**:    This command can be run by an un-authenticated client.
                     Normally this is used by a command that is used
-                    to authenticate a client.
+                    to authenticate a client. 
+* **"may-replicate"**: This command may generate replication traffic, even
+                       though it's not a write command.
 
 ## `RedisModule_SetModuleAttribs`
 
@@ -2973,6 +2975,13 @@ The done handler callback will be executed on the parent process when the
 child existed (but not when killed)
 Return: -1 on failure, on success the parent process will get a positive PID
 of the child, and the child process will get 0.
+
+## `RedisModule_SendChildCOWInfo`
+
+    void RedisModule_SendChildCOWInfo(void);
+
+The module is advised to call this function from the fork child once in a while,
+so that it can report COW memory to the parent which will be reported in INFO
 
 ## `RedisModule_ExitFromChild`
 
