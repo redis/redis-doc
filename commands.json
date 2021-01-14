@@ -1245,7 +1245,8 @@
         "name": "async",
         "type": "enum",
         "enum": [
-          "ASYNC"
+          "ASYNC",
+          "SYNC"
         ],
         "optional": true
       }
@@ -1260,7 +1261,8 @@
         "name": "async",
         "type": "enum",
         "enum": [
-          "ASYNC"
+          "ASYNC",
+          "SYNC"
         ],
         "optional": true
       }
@@ -3206,6 +3208,17 @@
   },
   "SCRIPT FLUSH": {
     "summary": "Remove all the scripts from the script cache.",
+    "arguments": [
+      {
+        "name": "async",
+        "type": "enum",
+        "enum": [
+          "ASYNC",
+          "SYNC"
+        ],
+        "optional": true
+      }
+    ],
     "complexity": "O(N) with N being the number of scripts in cache",
     "since": "2.6.0",
     "group": "scripting"

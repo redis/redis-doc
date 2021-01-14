@@ -429,3 +429,5 @@ GeoHash
 WITHSCORES
 deauthenticates
 reauthenticate
+async
+lazyfree
