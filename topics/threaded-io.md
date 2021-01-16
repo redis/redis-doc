@@ -1,6 +1,6 @@
 # Threaded I/O
 ## Introduction
-Redis is mostly single-threaded, however there are certain threaded operations such as UNLINK, slow I/O accesses and other things that are performed on side threads.
+In order to keep it simple and reliable, Redis is mostly single-threaded. The implementation of parallel query execution might set an entry barrier for every new feature. However, there are certain threaded operations such as UNLINK, slow I/O accesses and other things that are performed on side threads.
 
 Now it is also possible to handle Redis clients' socket reads and writes in different I/O threads. Since especially writing is so slow, normally Redis users use pipelining in order to speed up the Redis performances per core, and spawn multiple instances in order to scale more. Using I/O threads it is possible to easily speedup two times Redis without resorting to pipelining nor sharding of the instance.
 
@@ -16,14 +16,14 @@ The `io-threads` option control how many threads you want to use on reading/writ
 ```
 io-threads-do-reads yes
 ```
-By default, Redis uses I/O threads on the writing process only. If you want to use it on the reading process, you have to enable this option as well. Usually, threaded reads don't help much.
+By default, Redis uses I/O threads on the write system call only. If you want to use it on the read  system call, you have to enable this option as well. Usually, threaded reads don't help much.
 
 ## High-Level Architecture
-The main idea of this feature is to postpone the read and write process and accumulate those events to the next event loop cycle. So that we have multiple events waiting to be handled and use I/O threads to deal with them.
+The main idea of this feature is to postpone the read and write action and accumulate those events to the next event loop cycle. So that we have multiple events waiting to be handled and use I/O threads to deal with them.
 
-For example, when Redis has done processing a command from client `A` and got the reply content, instead of writing it to the client connection synchronously, Redis save it to a **pending list**, which contains other `client-reply content` pairs as well, and wait for better timing to do the write action (next event loop cycle period). In the previous version, Redis read this pending list sequentially, and write the reply content to the client one by one using the main thread. In Redis 6, it changed into writing with multiple I/O threads parallelly.
+For example, when Redis has done executing a command from client `A` and got the reply content, instead of writing it to the client connection synchronously, Redis save it to a **pending list**, which contains other `client-reply content` pairs as well, and wait for better timing to do the write action (next event loop cycle period). In the previous version, Redis read this pending list sequentially, and write the reply content to the client one by one using the main thread. In Redis 6, it changed into writing with multiple I/O threads parallelly.
 
-For the reading process, when a command/message is sent to the Redis server, it's described as a file event, which will trigger Redis to read from the client connection directly. After the reading process, Redis continues to decode/analysis/execute the command/message and get the result, added it to the write pending list as we discussed above, and handle the next happened event until no more available file event or time event happened. So in this case, the `io-threads-do-reads` option allows you to stop reading client connection when the event arrived, collect them to a **pending list** as well, and postpone the read action to the next cycle period using multiple I/O threads. When reads are done, Redis use the main thread to execute the client command one by one.
+For the reading action, when a command/message is sent to the Redis server, it's described as a file event, which will trigger Redis to read from the client connection directly. After that, Redis continues to decode/analysis/execute the command/message and get the result, added it to the write pending list as we discussed above, and handle the next happened event until no more available file event or time event happened. So in this case, the `io-threads-do-reads` option allows you to stop reading client connection when the event arrived, collect them to a **pending list** as well, and postpone the read action to the next cycle period using multiple I/O threads. When reads are done, Redis use the main thread to execute the client command one by one.
 
 I/O threads are only activated when the main thread gets the read/write pending list prepared. The workflow can be described as below:
 
@@ -75,7 +75,7 @@ main thread append the `client` object to `server.clients_pending_read` when fil
 ```
 
 ### Dispatch read/write tasks to I/O threads
-So when the `server.clients_pending_read` is ready (same for the writing process), we need to dispatch them to the I/O threads which are waiting.
+So when the `server.clients_pending_read` is ready (same for the write), we need to dispatch them to the I/O threads which are waiting.
 
 Redis prepared a global variable `io_threads_list` to store the task. `io_threads_list` is a list type variable with thread number length (configured by `io-threads n`). Its item value is a list as well which each sub-item stores the `client` object pointer.
 
@@ -123,5 +123,6 @@ The I/O threads won't work (won't postpone read/write) when:
 - `io-threads` not configured or set to 1.
 - The client is marked as a master/slave role.
 - The client has added to the pending list already.
+- Server running with TLS.
 
-And remember `io-threads-do-reads` control the I/O threads' behavior in the read process.
+And remember `io-threads-do-reads` control the I/O threads' behavior in the reading procedure.
