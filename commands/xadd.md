@@ -15,7 +15,10 @@ remove data from a stream.
 
 ## Specifying a Stream ID as an argument
 
-A stream entry ID identifies a given entry inside a stream.
+A stream entry ID identifies a given entry inside a stream. An error is
+returned if the ID provided is an invalid stream ID, or if the ID is
+equal or smaller than the target stream top item.
+
 The `XADD` command will auto-generate a unique ID for you if the ID argument
 specified is the `*` character (asterisk ASCII character). However, while
 useful only in very rare cases, it is possible to specify a well-formed ID, so
