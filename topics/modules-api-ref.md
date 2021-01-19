@@ -946,7 +946,7 @@ the key was not open for writing or is an empty key.
     void RedisModule_ResetDataset(int restart_aof, int async);
 
 Performs similar operation to FLUSHALL, and optionally start a new AOF file (if enabled)
-If restart_aof is true, you must make sure the command that triggered this call is not
+If `restart_aof` is true, you must make sure the command that triggered this call is not
 propagated to the AOF file.
 When async is set to true, db contents will be freed by a background thread.
 
@@ -1373,7 +1373,9 @@ Exported API to call any Redis command from modules.
 
 * **cmdname**: The Redis command to call.
 * **fmt**: A format specifier string for the command's arguments. Each
-  of the arguments should be specified by a valid type specification:
+  of the arguments should be specified by a valid type specification. The
+  format specifier can also contain the modifiers `!`, `A` and `R` which
+  don't have a corresponding argument.
 
     * `b` -- The argument is a buffer and is immediately followed by another
              argument that is the buffer's length.
@@ -1381,9 +1383,6 @@ Exported API to call any Redis command from modules.
     * `l` -- The argument is long long integer.
     * `s` -- The argument is a RedisModuleString.
     * `v` -- The argument(s) is a vector of RedisModuleString.
-
-    The format specifier can also include modifiers:
-
     * `!` -- Sends the Redis command and its arguments to replicas and AOF.
     * `A` -- Suppress AOF propagation, send only to replicas (requires `!`).
     * `R` -- Suppress replicas propagation, send only to AOF (requires `!`).
@@ -1439,11 +1438,11 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
   For example the module "tree-AntZ" initially used encver=0. Later
   after an upgrade, it started to serialize data in a different format
   and to register the type with encver=1. However this module may
-  still load old data produced by an older version if the rdb_load
+  still load old data produced by an older version if the `rdb_load`
   callback is able to check the encver value and act accordingly.
   The encver must be a positive value between 0 and 1023.
 
-* **typemethods_ptr** is a pointer to a `RedisModuleTypeMethods` structure
+* **`typemethods_ptr`** is a pointer to a `RedisModuleTypeMethods` structure
   that should be populated with the methods callbacks and structure
   version, like in the following example:
 
@@ -1465,16 +1464,16 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
             .defrag = myType_DefragCallback
         }
 
-* **rdb_load**: A callback function pointer that loads data from RDB files.
-* **rdb_save**: A callback function pointer that saves data to RDB files.
-* **aof_rewrite**: A callback function pointer that rewrites data as commands.
+* **`rdb_load`**: A callback function pointer that loads data from RDB files.
+* **`rdb_save`**: A callback function pointer that saves data to RDB files.
+* **`aof_rewrite`**: A callback function pointer that rewrites data as commands.
 * **digest**: A callback function pointer that is used for `DEBUG DIGEST`.
 * **free**: A callback function pointer that can free a type value.
-* **aux_save**: A callback function pointer that saves out of keyspace data to RDB files.
+* **`aux_save`**: A callback function pointer that saves out of keyspace data to RDB files.
   'when' argument is either `REDISMODULE_AUX_BEFORE_RDB` or `REDISMODULE_AUX_AFTER_RDB`.
-* **aux_load**: A callback function pointer that loads out of keyspace data from RDB files.
-  Similar to aux_save, returns `REDISMODULE_OK` on success, and ERR otherwise.
-* **free_effort**: A callback function pointer that used to determine whether the module's
+* **`aux_load`**: A callback function pointer that loads out of keyspace data from RDB files.
+  Similar to `aux_save`, returns `REDISMODULE_OK` on success, and ERR otherwise.
+* **`free_effort`**: A callback function pointer that used to determine whether the module's
   memory needs to be lazy reclaimed. The module should return the complexity involved by
   freeing the value. for example: how many pointers are gonna be freed. Note that if it 
   returns 0, we'll always do an async free.
@@ -1490,7 +1489,7 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
   called first, followed by a free callback to the value that is being replaced.
 
 * **defrag**: A callback function pointer that is used to request the module to defrag
-  a key. The module should then iterate pointers and call the relevant `RedisModule_Defrag`*()
+  a key. The module should then iterate pointers and call the relevant `RedisModule_Defrag*()`
   functions to defragment pointers or complex types. The module should continue
   iterating as long as `RedisModule_DefragShouldStop()` returns a zero value, and return a
   zero value if finished or non-zero value if more work is left to be done. If more work
@@ -1500,8 +1499,8 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
   `RedisModule_DefragShouldStop()` always returns zero. The "late defrag" mechanism which has
   a time limit and provides cursor support is used only for keys that are determined
   to have significant internal complexity. To determine this, the defrag mechanism
-  uses the free_effort callback and the 'active-defrag-max-scan-fields' config directive.
-  NOTE: The value is passed as a void** and the function is expected to update the
+  uses the `free_effort` callback and the 'active-defrag-max-scan-fields' config directive.
+  NOTE: The value is passed as a `void**` and the function is expected to update the
   pointer if the top-level value pointer is defragmented and consequentially changes.
 
 Note: the module name "AAAAAAAAA" is reserved and produces an error, it
@@ -1565,7 +1564,7 @@ for `Load*` APIs the `REDISMODULE_OPTIONS_HANDLE_IO_ERRORS` flag must be set wit
     void RedisModule_SaveUnsigned(RedisModuleIO *io, uint64_t value);
 
 Save an unsigned 64 bit value into the RDB file. This function should only
-be called in the context of the rdb_save method of modules implementing new
+be called in the context of the `rdb_save` method of modules implementing new
 data types.
 
 ## `RedisModule_LoadUnsigned`
@@ -1592,7 +1591,7 @@ Like `RedisModule_LoadUnsigned()` but for signed 64 bit values.
 
     void RedisModule_SaveString(RedisModuleIO *io, RedisModuleString *s);
 
-In the context of the rdb_save method of a module type, saves a
+In the context of the `rdb_save` method of a module type, saves a
 string into the RDB file taking as input a `RedisModuleString`.
 
 The string can be later loaded with `RedisModule_LoadString()` or
@@ -1610,7 +1609,7 @@ as input.
 
     RedisModuleString *RedisModule_LoadString(RedisModuleIO *io);
 
-In the context of the rdb_load method of a module data type, loads a string
+In the context of the `rdb_load` method of a module data type, loads a string
 from the RDB file, that was previously saved with `RedisModule_SaveString()`
 functions family.
 
@@ -1636,7 +1635,7 @@ exactly as it was stored inside the RDB file.
 
     void RedisModule_SaveDouble(RedisModuleIO *io, double value);
 
-In the context of the rdb_save method of a module data type, saves a double
+In the context of the `rdb_save` method of a module data type, saves a double
 value to the RDB file. The double can be a valid number, a NaN or infinity.
 It is possible to load back the value with `RedisModule_LoadDouble()`.
 
@@ -1644,14 +1643,14 @@ It is possible to load back the value with `RedisModule_LoadDouble()`.
 
     double RedisModule_LoadDouble(RedisModuleIO *io);
 
-In the context of the rdb_save method of a module data type, loads back the
+In the context of the `rdb_save` method of a module data type, loads back the
 double value saved by `RedisModule_SaveDouble()`.
 
 ## `RedisModule_SaveFloat`
 
     void RedisModule_SaveFloat(RedisModuleIO *io, float value);
 
-In the context of the rdb_save method of a module data type, saves a float
+In the context of the `rdb_save` method of a module data type, saves a float
 value to the RDB file. The float can be a valid number, a NaN or infinity.
 It is possible to load back the value with `RedisModule_LoadFloat()`.
 
@@ -1659,14 +1658,14 @@ It is possible to load back the value with `RedisModule_LoadFloat()`.
 
     float RedisModule_LoadFloat(RedisModuleIO *io);
 
-In the context of the rdb_save method of a module data type, loads back the
+In the context of the `rdb_save` method of a module data type, loads back the
 float value saved by `RedisModule_SaveFloat()`.
 
 ## `RedisModule_SaveLongDouble`
 
     void RedisModule_SaveLongDouble(RedisModuleIO *io, long double value);
 
-In the context of the rdb_save method of a module data type, saves a long double
+In the context of the `rdb_save` method of a module data type, saves a long double
 value to the RDB file. The double can be a valid number, a NaN or infinity.
 It is possible to load back the value with `RedisModule_LoadLongDouble()`.
 
@@ -1674,7 +1673,7 @@ It is possible to load back the value with `RedisModule_LoadLongDouble()`.
 
     long double RedisModule_LoadLongDouble(RedisModuleIO *io);
 
-In the context of the rdb_save method of a module data type, loads back the
+In the context of the `rdb_save` method of a module data type, loads back the
 long double value saved by `RedisModule_SaveLongDouble()`.
 
 ## `RedisModule_DigestAddStringBuffer`
@@ -1738,7 +1737,7 @@ See the documentation for `RedisModule_DigestAddElement()`.
 Decode a serialized representation of a module data type 'mt' from string
 'str' and return a newly allocated value, or NULL if decoding failed.
 
-This call basically reuses the 'rdb_load' callback which module data types
+This call basically reuses the '`rdb_load`' callback which module data types
 implement in order to allow a module to arbitrarily serialize/de-serialize
 keys, similar to how the Redis 'DUMP' and 'RESTORE' commands are implemented.
 
@@ -1756,7 +1755,7 @@ data by producing an error message and terminating the process.
 Encode a module data type 'mt' value 'data' into serialized form, and return it
 as a newly allocated `RedisModuleString`.
 
-This call basically reuses the 'rdb_save' callback which module data types
+This call basically reuses the '`rdb_save`' callback which module data types
 implement in order to allow a module to arbitrarily serialize/de-serialize
 keys, similar to how the Redis 'DUMP' and 'RESTORE' commands are implemented.
 
@@ -1765,7 +1764,7 @@ keys, similar to how the Redis 'DUMP' and 'RESTORE' commands are implemented.
     void RedisModule_EmitAOF(RedisModuleIO *io, const char *cmdname, const char *fmt, ...);
 
 Emits a command into the AOF during the AOF rewriting process. This function
-is only called in the context of the aof_rewrite method of data types exported
+is only called in the context of the `aof_rewrite` method of data types exported
 by a module. The command works exactly like `RedisModule_Call()` in the way
 the parameters are passed, but it does not return anything as the error
 handling is performed by Redis itself.
@@ -1918,7 +1917,7 @@ passed when calling `RedisModule_UnblockClient()` but here the unblocking
 is performed by Redis itself, so we need to have some private data before
 hand. The private data is used to store any information about the specific
 unblocking operation that you are implementing. Such information will be
-freed using the free_privdata callback provided by the user.
+freed using the `free_privdata` callback provided by the user.
 
 However the reply callback will be able to access the argument vector of
 the command, so the private data is often not needed.
@@ -1936,7 +1935,7 @@ Note: Under normal circumstances `RedisModule_UnblockClient` should not be
 
 This function is used in order to potentially unblock a client blocked
 on keys with `RedisModule_BlockClientOnKeys()`. When this function is called,
-all the clients blocked for this key will get their reply_callback called.
+all the clients blocked for this key will get their `reply_callback` called.
 
 Note: The function has no effect if the signaled key doesn't exist.
 
@@ -1962,7 +1961,7 @@ Unblocking a client that was blocked for keys using this API will still
 require the client to get some reply, so the function will use the
 "timeout" handler in order to do so (The privdata provided in
 `RedisModule_BlockClientOnKeys()` is accessible from the timeout
-callback via `RedisModule_GetBlockedClientPrivateData)`.
+callback via `RedisModule_GetBlockedClientPrivateData`).
 
 ## `RedisModule_AbortBlock`
 
@@ -2165,7 +2164,7 @@ See [https://redis.io/topics/notifications](https://redis.io/topics/notification
     int RedisModule_GetNotifyKeyspaceEvents();
 
 Get the configured bitmap of notify-keyspace-events (Could be used
-for additional filtering in `RedisModuleNotificationFunc)`
+for additional filtering in `RedisModuleNotificationFunc`)
 
 ## `RedisModule_NotifyKeyspaceEvent`
 
@@ -2276,15 +2275,15 @@ This is useful for modules that use the Cluster API in order to create
 a different distributed system, but still want to use the Redis Cluster
 message bus. Flags that can be set:
 
-* CLUSTER_MODULE_FLAG_NO_FAILOVER
-* CLUSTER_MODULE_FLAG_NO_REDIRECTION
+* `CLUSTER_MODULE_FLAG_NO_FAILOVER`
+* `CLUSTER_MODULE_FLAG_NO_REDIRECTION`
 
 With the following effects:
 
-* NO_FAILOVER: prevent Redis Cluster slaves to failover a failing master.
+* `NO_FAILOVER`: prevent Redis Cluster slaves to failover a failing master.
                Also disables the replica migration feature.
 
-* NO_REDIRECTION: Every node will accept any key, without trying to perform
+* `NO_REDIRECTION`: Every node will accept any key, without trying to perform
                   partitioning according to the user Redis Cluster algorithm.
                   Slots informations will still be propagated across the
                   cluster, but without effects.
@@ -2377,7 +2376,7 @@ and will set an errno describing why the operation failed.
 Authenticate the current context's user with the provided redis acl user. 
 Returns `REDISMODULE_ERR` if the user is disabled.
 
-See authenticateClientWithUser for information about callback, client_id,
+See authenticateClientWithUser for information about callback, `client_id`,
 and general usage for authentication.
 
 ## `RedisModule_AuthenticateClientWithACLUser`
@@ -2387,7 +2386,7 @@ and general usage for authentication.
 Authenticate the current context's user with the provided redis acl user. 
 Returns `REDISMODULE_ERR` if the user is disabled or the user does not exist.
 
-See authenticateClientWithUser for information about callback, client_id,
+See authenticateClientWithUser for information about callback, `client_id`,
 and general usage for authentication.
 
 ## `RedisModule_DeauthenticateAndCloseClient`
@@ -2618,7 +2617,7 @@ element (laxicographically smaller) instead of the next one.
 Like `RedisModuleNextC()`, but instead of returning an internally allocated
 buffer and key length, it returns directly a module string object allocated
 in the specified context 'ctx' (that may be NULL exactly like for the main
-API `RedisModule_CreateString)`.
+API `RedisModule_CreateString`).
 
 The returned string object should be deallocated after use, either manually
 or by using a context that has automatic memory management active.
@@ -2637,7 +2636,7 @@ smaller) instead of the next one.
 
 Compare the element currently pointed by the iterator to the specified
 element given by key/keylen, according to the operator 'op' (the set of
-valid operators are the same valid for `RedisModule_DictIteratorStart)`.
+valid operators are the same valid for `RedisModule_DictIteratorStart`).
 If the comparision is successful the command returns `REDISMODULE_OK`
 otherwise `REDISMODULE_ERR` is returned.
 
@@ -2757,7 +2756,7 @@ Similar to `RedisModule_ServerInfoGetField`, but returns a char* which should no
 
 Get the value of a field from data collected with `RedisModule_GetServerInfo()`. If the
 field is not found, or is not numerical or out of range, return value will be
-0, and the optional out_err argument will be set to `REDISMODULE_ERR`.
+0, and the optional `out_err` argument will be set to `REDISMODULE_ERR`.
 
 ## `RedisModule_ServerInfoGetFieldUnsigned`
 
@@ -2765,7 +2764,7 @@ field is not found, or is not numerical or out of range, return value will be
 
 Get the value of a field from data collected with `RedisModule_GetServerInfo()`. If the
 field is not found, or is not numerical or out of range, return value will be
-0, and the optional out_err argument will be set to `REDISMODULE_ERR`.
+0, and the optional `out_err` argument will be set to `REDISMODULE_ERR`.
 
 ## `RedisModule_ServerInfoGetFieldDouble`
 
@@ -2773,7 +2772,7 @@ field is not found, or is not numerical or out of range, return value will be
 
 Get the value of a field from data collected with `RedisModule_GetServerInfo()`. If the
 field is not found, or is not a double, return value will be 0, and the
-optional out_err argument will be set to `REDISMODULE_ERR`.
+optional `out_err` argument will be set to `REDISMODULE_ERR`.
 
 ## `RedisModule_GetRandomBytes`
 
@@ -3079,7 +3078,7 @@ retcode will be provided to the done handler executed on the parent process.
     int RedisModule_KillForkChild(int child_pid);
 
 Can be used to kill the forked child process from the parent process.
-child_pid would be the return value of `RedisModule_Fork`.
+`child_pid` would be the return value of `RedisModule_Fork`.
 
 ## `RedisModule_SubscribeToServerEvent`
 
@@ -3425,7 +3424,7 @@ such as:
 2. Key is not a module data type key.
 3. Key is a module datatype other than 'mt'.
 
-If old_value is non-NULL, the old value is returned by reference.
+If `old_value` is non-NULL, the old value is returned by reference.
 
 ## `RedisModule_GetCommandKeys`
 
@@ -3504,7 +3503,7 @@ not be performed.
 Fetch a cursor value that has been previously stored using `RedisModule_DefragCursorSet()`.
 
 If not called for a late defrag operation, `REDISMODULE_ERR` will be returned and
-the cursor should be ignored. See DM_DefragCursorSet() for more details on
+the cursor should be ignored. See `RedisModule_DefragCursorSet()` for more details on
 defrag cursors.
 
 ## `RedisModule_DefragAlloc`
