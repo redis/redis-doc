@@ -1442,7 +1442,7 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
   callback is able to check the encver value and act accordingly.
   The encver must be a positive value between 0 and 1023.
 
-* **`typemethods_ptr`** is a pointer to a `RedisModuleTypeMethods` structure
+* **typemethods_ptr** is a pointer to a `RedisModuleTypeMethods` structure
   that should be populated with the methods callbacks and structure
   version, like in the following example:
 
@@ -1464,16 +1464,16 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
             .defrag = myType_DefragCallback
         }
 
-* **`rdb_load`**: A callback function pointer that loads data from RDB files.
-* **`rdb_save`**: A callback function pointer that saves data to RDB files.
-* **`aof_rewrite`**: A callback function pointer that rewrites data as commands.
+* **rdb_load**: A callback function pointer that loads data from RDB files.
+* **rdb_save**: A callback function pointer that saves data to RDB files.
+* **aof_rewrite**: A callback function pointer that rewrites data as commands.
 * **digest**: A callback function pointer that is used for `DEBUG DIGEST`.
 * **free**: A callback function pointer that can free a type value.
-* **`aux_save`**: A callback function pointer that saves out of keyspace data to RDB files.
+* **aux_save**: A callback function pointer that saves out of keyspace data to RDB files.
   'when' argument is either `REDISMODULE_AUX_BEFORE_RDB` or `REDISMODULE_AUX_AFTER_RDB`.
-* **`aux_load`**: A callback function pointer that loads out of keyspace data from RDB files.
+* **aux_load**: A callback function pointer that loads out of keyspace data from RDB files.
   Similar to `aux_save`, returns `REDISMODULE_OK` on success, and ERR otherwise.
-* **`free_effort`**: A callback function pointer that used to determine whether the module's
+* **free_effort**: A callback function pointer that used to determine whether the module's
   memory needs to be lazy reclaimed. The module should return the complexity involved by
   freeing the value. for example: how many pointers are gonna be freed. Note that if it 
   returns 0, we'll always do an async free.
