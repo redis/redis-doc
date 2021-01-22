@@ -1085,7 +1085,15 @@
     "description": "A Redis client written with the Akka IO package introduced in Akka 2.2.",
     "authors": ["chrisdinn"]
   },
-
+  {
+    "name": "redisclient",
+    "language": "Rust",
+    "repository": "https://github.com/ltoddy/redis-rs",
+    "description": "Redis client for Rust.",
+    "authors": ["ltoddy"],
+    "active": true,
+    "recommended": true
+  },
   {
     "name": "redis-rs",
     "language": "Rust",
@@ -1095,7 +1103,6 @@
     "active": true,
     "recommended": true
   },
-
   {
     "name": "rust-redis",
     "language": "Rust",
