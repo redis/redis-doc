@@ -1871,6 +1871,42 @@
     "since": "2.2.0",
     "group": "string"
   },
+  "GETDEL": {
+    "summary":"Get the value of a key and delete the key.",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "6.2.0",
+    "group": "string"
+  },
+  "GETEX": {
+    "summary": "Get the value of a key and optionally set expiration of a key or remove expiration of a key",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "expiration",
+        "type": "enum",
+        "enum": [
+          "EX seconds",
+          "PX milliseconds",
+          "EXAT timestamp",
+          "PXAT milliseconds-timestamp",
+          "PERSIST"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "string"
+  },
   "GETRANGE": {
     "summary": "Get a substring of the string stored at a key",
     "complexity": "O(N) where N is the length of the returned string. The complexity is ultimately determined by the returned length, but because creating a substring from an existing string is very cheap, it can be considered O(1) for small strings.",
@@ -3287,6 +3323,8 @@
         "enum": [
           "EX seconds",
           "PX milliseconds",
+          "EXAT timestamp",
+          "PXAT milliseconds-timestamp",
           "KEEPTTL"
         ],
         "optional": true
