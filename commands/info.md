@@ -265,6 +265,7 @@ Here is the meaning of all fields in the **replication** section:
 
 *   `role`: Value is "master" if the instance is replica of no one, or "slave" if the instance is a replica of some master instance.
      Note that a replica can be master of another replica (chained replication).
+*   `master_failover_state`: The state of an ongoing failover, if any.
 *   `master_replid`: The replication ID of the Redis server.
 *   `master_replid2`: The secondary replication ID, used for PSYNC after a failover.
 *   `master_repl_offset`: The server's current replication offset
