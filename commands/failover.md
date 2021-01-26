@@ -26,6 +26,7 @@ is already behind in consuming the replication stream. If this value is not spec
 * `FORCE` -- If both the `TIMEOUT` and `TO` options are set, the force flag can also be used to designate that that once the timeout has elapsed, the master should failover to the target replica any way. This can be used for a best effort attempt at a failover without dataloss, but limiting write outage. NOTE: The master will still rollback if the if the `PSYNC FAILOVER` request is rejected by the target replica.
 
 ## Failover abort
+
 The failover command is intend to be safe from data loss and corruption, but can encounter some
 scenarios it can not automatically remediate from and may get stuck. For this purpose, the 
 `FAILOVER ABORT` command exists, which will abort an ongoing failover and return the master
