@@ -4,18 +4,18 @@ data loss and unavailability of the cluster during the failover. This command is
 to the `CLUSTER FAILOVER` command for non-clustered Redis and is similar to the failover support provided by sentinel. 
 The specific details of the default failover flow are as follows:
 1. The master will internally start a `CLIENT PAUSE WRITE`, which will pause incoming writes and prevent the accumulation of new data in the replication stream.
-2. The master will monitor it's replicas, waiting for a replica to indicate that it has fully consumed the replication stream. If the master has multiple replicas, it will only wait for the first replica to catch up.
+2. The master will monitor its replicas, waiting for a replica to indicate that it has fully consumed the replication stream. If the master has multiple replicas, it will only wait for the first replica to catch up. This caught up replica will now be referred to as the target replica.
 3. The master will then demote itself to a replica. This is done to prevent any dual master scenarios. NOTE: The master will not discard it's data, so it will be able to rollback if the replica rejects the failover request in the next step.
 4. The previous master will send a special PSYNC request to the target replica, `PSYNC FAILOVER `, instructing the target replica to become a master.
 5. Once the previous master receives acknowledgement the `PSYNC FAILOVER` was accepted it will unpause its clients. If the PSYNC request is rejected, the master will abort the failover and return to normal.
 
 The field `master_failover_state` in `INFO REPLICATION` can be used to track the current state of the failover, which has the following values:
 * `no-failover`: There is no ongoing coordinated failover.
-* `waiting-for-sync`: The master is waiting for the replica to catch up to its replication offset. (States 1,2,3 above)
-* `failover-in-progress`: The master has demoted itself, and is attempting to hand off ownership to a target replica. (States 4 and 5 above)
+* `waiting-for-sync`: The master is waiting for the replica to catch up to its replication offset.
+* `failover-in-progress`: The master has demoted itself, and is attempting to hand off ownership to a target replica.
 
 If the previous master had additional replicas attached to it, they will continue replicating from it as chained replicas. You will need to manually
-execute a `REPLICAOF` on these other replicas to start replicating directly from the new master.
+execute a `REPLICAOF` on these replicas to start replicating directly from the new master.
 
 ## Optional arguments
 
@@ -23,7 +23,7 @@ The following optional arguments exist to modify the behavior of the failover fl
 * `TIMEOUT` *milliseconds* -- This option allows specifying a maximum time a master will wait in the `waiting-for-sync` state before aborting the failover attempt and rolling back. This is intended to set an upper bound on the write outage the redis cluster can experience. Failovers typically happen in less than a second, but could take longer if there is a large amount of write traffic or the replica
 is already behind in consuming the replication stream. If this value is not specified, the timeout can be considered to be "infinite".
 * `TO` *HOST* *IP* -- This option allows designating a specific replica, by it's host and port, to failover to. The master will wait specifically for this replica to catch up to it's replication offset, and then failover to it.
-* `FORCE` -- If both the `TIMEOUT` and `TO` options are set, the force flag can also be used to designate that that once the timeout has elapsed, the master should failover to the target replica any way. This can be used for a best effort attempt at a failover without dataloss, but limiting write outage. NOTE: The master will still rollback if the if the `PSYNC FAILOVER` request is rejected by the target replica.
+* `FORCE` -- If both the `TIMEOUT` and `TO` options are set, the force flag can also be used to designate that that once the timeout has elapsed, the master should failover to the target replica any way. This can be used for a best effort attempt at a failover without dataloss, but limiting write outage. NOTE: The master will still rollback if the `PSYNC FAILOVER` request is rejected by the target replica.
 
 ## Failover abort
 
