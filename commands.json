@@ -2152,6 +2152,37 @@
     "since": "2.0.0",
     "group": "hash"
   },
+  "HRANDMEMBER": {
+    "summary": "Get one or multiple random fields from a hash",
+    "complexity": "O(N) where N is the number of fields returned",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "options",
+        "type": "block",
+        "block": [
+          {
+            "name": "count",
+            "type": "integer"
+          },
+          {
+            "name": "withvalues",
+            "type": "enum",
+            "enum": [
+              "WITHVALUES"
+            ],
+            "optional": true
+          }    
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "hash"
+  },
   "HSTRLEN": {
     "summary": "Get the length of the value of a hash field",
     "complexity": "O(1)",
@@ -4161,6 +4192,37 @@
       }
     ],
     "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "ZRANDMEMBER": {
+    "summary": "Get one or multiple random elements from a sorted set",
+    "complexity": "O(N*log(N)) where N is the number of elements returned",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "options",
+        "type": "block",
+        "block": [
+          {
+            "name": "count",
+            "type": "integer"
+          },
+          {
+            "name": "withscores",
+            "type": "enum",
+            "enum": [
+              "WITHSCORES"
+            ],
+            "optional": true
+          }    
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
     "group": "sorted_set"
   },
   "ZRANGESTORE": {
