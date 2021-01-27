@@ -427,3 +427,6 @@ GeoHash
 WITHSCORES
 deauthenticates
 reauthenticate
+acknowledgement
+remediate
+unpause
