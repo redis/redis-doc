@@ -9,4 +9,5 @@ Get the value of `key` and delete the key. Return values are similar as `GET`.
 ```cli
 SET mykey "Hello"
 GETDEL mykey
+GET mykey
 ```
