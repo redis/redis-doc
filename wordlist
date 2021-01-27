@@ -152,6 +152,7 @@ Yukihiro
 ZPOP
 ZSET
 addr
+acknowledgement
 afterwards
 allkeys
 allocator
@@ -340,6 +341,7 @@ redirections
 redis
 redissrc
 reimplement
+remediate
 representable
 reprovisioned
 reshard
@@ -396,6 +398,7 @@ unguessable
 unix
 unlinks
 unordered
+unpause
 unreachability
 unsubscribe
 unsubscribed
@@ -427,6 +430,3 @@ GeoHash
 WITHSCORES
 deauthenticates
 reauthenticate
-acknowledgement
-remediate
-unpause
