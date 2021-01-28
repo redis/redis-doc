@@ -27,7 +27,7 @@ If this value is not specified, the timeout can be considered to be "infinite".
 `TO` *HOST* *PORT* -- This option allows designating a specific replica, by its host and port, to failover to. The master will wait specifically for this replica to catch up to it's replication offset, and then failover to it.
 
 `FORCE` -- If both the `TIMEOUT` and `TO` options are set, the force flag can also be used to designate that that once the timeout has elapsed, the master should failover to the target replica any way.
-This can be used for a best effort attempt at a failover without dataloss, but limiting write outage.
+This can be used for a best effort attempt at a failover without data loss, but limiting write outage.
 NOTE: The master will still rollback if the `PSYNC FAILOVER` request is rejected by the target replica.
 
 ## Failover abort
