@@ -1,4 +1,5 @@
-Get the value of `key` and delete the key. Return values are similar as `GET`.
+Get the value of `key` and delete the key.
+This command is identical to `GET`, except for the fact that it also deletes the key.
 
 @return
 

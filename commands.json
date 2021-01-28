@@ -1872,7 +1872,7 @@
     "group": "string"
   },
   "GETDEL": {
-    "summary":"Get the value of a key and delete the key.",
+    "summary":"Get the value of a key and delete the key",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -1884,7 +1884,7 @@
     "group": "string"
   },
   "GETEX": {
-    "summary": "Get the value of a key and optionally set expiration of a key or remove expiration of a key",
+    "summary": "Get the value of a key and optionally set its expiration",
     "complexity": "O(1)",
     "arguments": [
       {
