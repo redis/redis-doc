@@ -2152,7 +2152,7 @@
     "since": "2.0.0",
     "group": "hash"
   },
-  "HRANDMEMBER": {
+  "HRANDFIELD": {
     "summary": "Get one or multiple random fields from a hash",
     "complexity": "O(N) where N is the number of fields returned",
     "arguments": [
@@ -4196,7 +4196,7 @@
   },
   "ZRANDMEMBER": {
     "summary": "Get one or multiple random elements from a sorted set",
-    "complexity": "O(N*log(N)) where N is the number of elements returned",
+    "complexity": "O(N) where N is the number of elements returned",
     "arguments": [
       {
         "name": "key",
