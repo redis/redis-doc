@@ -529,6 +529,15 @@
     "recommended": true,
     "active": true
   },
+  
+  {
+    "name": "redis-py-cluster",
+    "language": "Python",
+    "repository": "https://github.com/Grokzen/redis-py-cluster",
+    "description": "Python cluster client for the official redis cluster. Redis 3.0+.",
+    "authors": ["grokzen"],
+    "active": true
+  },
 
   {
     "name": "gxredis",
