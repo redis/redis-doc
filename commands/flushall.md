@@ -1,19 +1,21 @@
-Delete all the keys of all the existing databases, not just the currently
-selected one.
+Delete all the keys of all the existing databases, not just the currently selected one.
 This command never fails.
 
-The time-complexity for this operation is O(N), N being the number of
-keys in all existing databases.
+By default, `FLUSHALL` will synchronously flush all the databases.
+Starting with Redis 6.2, setting the **lazyfree-lazy-user-flush** configuration directive to "yes" changes the default flush mode to asynchronous.
 
-`SYNC` and `ASYNC`
----
+It is possible to use one of the following modifiers to dictate the flushing mode explicitly:
 
-`FLUSHALL`：flushes the database in an sync manner, but if **lazyfree-lazy-user-flush** (available since 6.2) is yes, it will be flushed asynchronously.  
-`FLUSHALL SYNC`: flushes the database in an sync manner.(available since 6.2)  
-`FLUSHALL ASYNC`: flushes the database in an async manner. (available since 4.0.0)  
+* `ASYNC`: flushes the databases asynchronously
+* `SYNC`: flushes the databases synchronously
 
-Asynchronous `FLUSHALL` and `FLUSHDB` commands only delete keys that were present at the time the command was invoked. Keys created during an asynchronous flush will be unaffected.
+Note: an asynchronous `FLUSHALL` command only deletes keys that were present at the time the command was invoked. Keys created during an asynchronous flush will be unaffected.
 
 @return
 
 @simple-string-reply
+
+@history
+
+* `>= 4.0.0`: Added the `ASYNC` flushing mode modifier.
+* `>= 6.2.0`: Added the `SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive.

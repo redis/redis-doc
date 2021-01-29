@@ -1,15 +1,19 @@
 Flush the Lua scripts cache.
 
-Please refer to the `EVAL` documentation for detailed information about Redis
-Lua scripting.
+Please refer to the `EVAL` documentation for detailed information about Redis Lua scripting.
 
-`SYNC` and `ASYNC`
----
+By default, `SCRIPT FLUSH` will synchronously flush the cache.
+Starting with Redis 6.2, setting the **lazyfree-lazy-user-flush** configuration directive to "yes" changes the default flush mode to asynchronous.
 
-`SCRIPT FLUSH`：flushes the cache in an sync manner, but if **lazyfree-lazy-user-flush** (available since 6.2) is yes, it will be flushed asynchronously.  
-`SCRIPT FLUSH SYNC`: flushes the cache in an sync manner.(available since 6.2)  
-`SCRIPT FLUSH ASYNC`: flushes the cache in an async manner. (available since 6.2) 
+It is possible to use one of the following modifiers to dictate the flushing mode explicitly:
+
+* `ASYNC`: flushes the cache asynchronously
+* `SYNC`: flushes the cache synchronously
 
 @return
 
 @simple-string-reply
+
+@history
+
+* `>= 6.2.0`: Added the `ASYNC` and `SYNC` flushing mode modifiers, as well as the  **lazyfree-lazy-user-flush** configuration directive.

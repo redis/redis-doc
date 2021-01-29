@@ -1240,6 +1240,7 @@
   },
   "FLUSHALL": {
     "summary": "Remove all keys from all databases",
+    "complexity": "O(N) where N is the total number of keys in all databases",
     "arguments": [
       {
         "name": "async",
@@ -1256,6 +1257,7 @@
   },
   "FLUSHDB": {
     "summary": "Remove all keys from the current database",
+    "complexity": "O(N) where N is the number of keys in the selected database",
     "arguments": [
       {
         "name": "async",
