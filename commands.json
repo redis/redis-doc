@@ -1240,12 +1240,14 @@
   },
   "FLUSHALL": {
     "summary": "Remove all keys from all databases",
+    "complexity": "O(N) where N is the total number of keys in all databases",
     "arguments": [
       {
         "name": "async",
         "type": "enum",
         "enum": [
-          "ASYNC"
+          "ASYNC",
+          "SYNC"
         ],
         "optional": true
       }
@@ -1255,12 +1257,14 @@
   },
   "FLUSHDB": {
     "summary": "Remove all keys from the current database",
+    "complexity": "O(N) where N is the number of keys in the selected database",
     "arguments": [
       {
         "name": "async",
         "type": "enum",
         "enum": [
-          "ASYNC"
+          "ASYNC",
+          "SYNC"
         ],
         "optional": true
       }
@@ -3273,6 +3277,17 @@
   },
   "SCRIPT FLUSH": {
     "summary": "Remove all the scripts from the script cache.",
+    "arguments": [
+      {
+        "name": "async",
+        "type": "enum",
+        "enum": [
+          "ASYNC",
+          "SYNC"
+        ],
+        "optional": true
+      }
+    ],
     "complexity": "O(N) with N being the number of scripts in cache",
     "since": "2.6.0",
     "group": "scripting"
