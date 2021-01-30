@@ -161,7 +161,11 @@ Additional options are described in the rest of this document and
 documented in the example `sentinel.conf` file shipped with the Redis
 distribution.
 
-All the configuration parameters can be modified at runtime using the `SENTINEL SET` command. See the **Reconfiguring Sentinel at runtime** section for more information.
+Configuration parameters can be modified at runtime:
+* Master-specific configuration parameters are modified using `SENTINEL SET`.
+* Global configuration parameters are modified using `SENTINEL CONFIG SET`.
+
+See the **Reconfiguring Sentinel at runtime** section for more information.
 
 Example Sentinel deployments
 ---
@@ -413,6 +417,25 @@ in order to force Sentinel to announce a specific set of IP and port:
 
 Note that Docker has the ability to run in *host networking mode* (check the `--net=host` option for more information). This should create no issues since ports are not remapped in this setup.
 
+IP Addresses and DNS names
+---
+
+Older versions of Sentinel did not support host names and required IP addresses to be specified everywhere.
+Starting with version 6.2, Sentinel has *optional* support for host names. This capability is disabled by default, and should only be enabled if needed and in environments where DNS is reliable and able to resolve local addresses quickly. Unexpected delays in address resolution may have a negative impact on Sentinel.
+
+Enabling the `resolve-hostnames` global configuration allows Sentinel to accept host names:
+
+* As part of a `sentinel monitor` command
+* As a replica address, if the replica uses a host name value for `replica-announce-ip`
+
+Sentinel will accept host names as valid inputs and resolve them, but will still refer to IP addresses when announcing an instance, updating configuration files, etc.
+
+Enabling the `announce-hostnames` global configuration makes Sentinel use host names instead. This affects replies to clients, values written in configuration files, the `REPLICAOF` command issued to replicas, etc.
+
+This behavior may not be compatible with all Sentinel clients, that may explicitly expect an IP address.
+
+Using host names may be useful when clients use TLS to connect to instances and require a name rather than an IP address in order to perform certificate ASN matching.
+
 A quick tutorial
 ===
 
@@ -583,8 +606,10 @@ so forth.
 Sentinel commands
 ---
 
-The `SENTINEL` command, as of Redis 2.8, is the main API for Sentinel. The following is the list of its subcommands (minimal version is noted for where applicable):
+The `SENTINEL` command is the main API for Sentinel. The following is the list of its subcommands (minimal version is noted for where applicable):
 
+* **SENTINEL CONFIG GET `<name>`** (`>= 6.2`) Get the current value of a global Sentinel configuration parameter. The specified name may be a wildcard, similar to the Redis `CONFIG GET` command.
+* **SENTINEL CONFIG SET `<name>` `<value>`** (`>= 6.2`) Set the value of a global Sentinel configuration parameter.
 * **SENTINEL CKQUORUM `<master name>`** Check if the current Sentinel configuration is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
 * **SENTINEL FLUSHCONFIG** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
 * **SENTINEL FAILOVER `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
@@ -637,6 +662,17 @@ As already stated, `SENTINEL SET` can be used to set all the configuration param
     SENTINEL SET objects-cache-master quorum 5
 
 Note that there is no equivalent GET command since `SENTINEL MASTER` provides all the configuration parameters in a simple to parse format (as a field/value pairs array).
+
+Starting with Redis version 6.2, Sentinel also allows getting and setting global configuration parameters which were only supported in the configuration file prior to that.
+
+* **SENTINEL CONFIG GET `<name>`** Get the current value of a global Sentinel configuration parameter. The specified name may be a wildcard, similar to the Redis `CONFIG GET` command.
+* **SENTINEL CONFIG SET `<name>` `<value>`** Set the value of a global Sentinel configuration parameter.
+
+Global parameters that can be manipulated include:
+
+* `resolve-hostnames`, `announce-hostnames`. See [_IP addresses and DNS names_](#ip-addresses-and-dns-names).
+* `announce-ip`, `announce-port`. See [_Sentinel, Docker, NAT, and possible issues_](#sentinel-docker-nat-and-possible-issues).
+* `sentinel-user`, `sentinel-pass`. See [_Configuring Sentinel instances with authentication_](#configuring-sentinel-instances-with-authentication).
 
 Adding or removing Sentinels
 ---
