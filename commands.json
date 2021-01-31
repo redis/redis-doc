@@ -1238,6 +1238,45 @@
     "since": "1.2.0",
     "group": "generic"
   },
+  "FAILOVER": {
+    "summary": "Start a coordinated failover between this server and one of its replicas.",
+    "arguments": [
+      {
+        "name": "target",
+        "type": "block",
+        "optional": true,
+        "block": [
+          {
+            "command": "TO"
+          },
+          {
+            "name": "host",
+            "type": "string"
+          },
+          {
+            "name": "port",
+            "type": "integer"
+          },
+          {
+            "command": "FORCE",
+            "optional": true
+          }
+        ]
+      },
+      {
+        "command": "ABORT",
+        "optional": true
+      },
+      {
+        "command": "TIMEOUT",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "server"
+  },
   "FLUSHALL": {
     "summary": "Remove all keys from all databases",
     "complexity": "O(N) where N is the total number of keys in all databases",
