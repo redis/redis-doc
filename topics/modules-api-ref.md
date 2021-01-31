@@ -181,6 +181,27 @@ Otherwise zero is returned.
 
 Return the current UNIX time in milliseconds.
 
+## `RedisModule_BlockedClientMeasureTimeStart`
+
+    int RedisModule_BlockedClientMeasureTimeStart(RedisModuleBlockedClient *bc);
+
+Mark a point in time that will be used as the start time to calculate
+the elapsed execution time when `RedisModule_BlockedClientMeasureTimeEnd()` is called.
+Within the same command, you can call multiple times
+`RedisModule_BlockedClientMeasureTimeStart()` and `RedisModule_BlockedClientMeasureTimeEnd()`
+to accummulate indepedent time intervals to the background duration.
+This method always return `REDISMODULE_OK`.
+
+## `RedisModule_BlockedClientMeasureTimeEnd`
+
+    int RedisModule_BlockedClientMeasureTimeEnd(RedisModuleBlockedClient *bc);
+
+Mark a point in time that will be used as the end time
+to calculate the elapsed execution time.
+On success `REDISMODULE_OK` is returned.
+This method only returns `REDISMODULE_ERR` if no start time was
+previously defined ( meaning `RedisModule_BlockedClientMeasureTimeStart` was not called ).
+
 ## `RedisModule_SetModuleOptions`
 
     void RedisModule_SetModuleOptions(RedisModuleCtx *ctx, int options);
@@ -299,6 +320,16 @@ enabling automatic memory management.
 The passed context 'ctx' may be NULL if necessary, see the
 `RedisModule_CreateString()` documentation for more info.
 
+## `RedisModule_CreateStringFromStreamID`
+
+    RedisModuleString *RedisModule_CreateStringFromStreamID(RedisModuleCtx *ctx, const RedisModuleStreamID *id);
+
+Creates a string from a stream ID. The returned string must be released with
+`RedisModule_FreeString()`, unless automatic memory is enabled.
+
+The passed context `ctx` may be NULL if necessary. See the
+`RedisModule_CreateString()` documentation for more info.
+
 ## `RedisModule_FreeString`
 
     void RedisModule_FreeString(RedisModuleCtx *ctx, RedisModuleString *str);
@@ -401,6 +432,23 @@ not a valid string representation of a double value.
 Convert the string into a long double, storing it at `*ld`.
 Returns `REDISMODULE_OK` on success or `REDISMODULE_ERR` if the string is
 not a valid string representation of a double value.
+
+## `RedisModule_StringToStreamID`
+
+    int RedisModule_StringToStreamID(const RedisModuleString *str, RedisModuleStreamID *id);
+
+Convert the string into a stream ID, storing it at `*id`.
+Returns `REDISMODULE_OK` on success and returns `REDISMODULE_ERR` if the string
+is not a valid string representation of a stream ID. The special IDs "+" and
+"-" are allowed.
+
+`RedisModuleStreamID` is a struct with two 64-bit fields, which is used in
+stream functions and defined as
+
+    typedef struct RedisModuleStreamID {
+        uint64_t ms;
+        uint64_t seq;
+    } RedisModuleStreamID;
 
 ## `RedisModule_StringCompare`
 
@@ -1320,6 +1368,237 @@ Memory management:
 The returned `RedisModuleString` objects should be released with
 `RedisModule_FreeString()`, or by enabling automatic memory management.
 
+## `RedisModule_StreamAdd`
+
+    int RedisModule_StreamAdd(RedisModuleKey *key, int flags, RedisModuleStreamID *id, RedisModuleString **argv, long numfields);
+
+Adds an entry to a stream. Like XADD without trimming.
+
+- `key`: The key where the stream is (or will be) stored
+- `flags`: A bit field of
+  - `REDISMODULE_STREAM_ADD_AUTOID`: Assign a stream ID automatically, like
+    `*` in the XADD command.
+- `id`: If the `AUTOID` flag is set, this is where the assigned ID is
+  returned. Can be NULL if `AUTOID` is set, if you don't care to receive the
+  ID. If `AUTOID` is not set, this is the requested ID.
+- `argv`: A pointer to an array of size `numfields * 2` containing the
+  fields and values.
+- `numfields`: The number of field-value pairs in `argv`.
+
+Returns `REDISMODULE_OK` if an entry has been added. On failure,
+`REDISMODULE_ERR` is returned and `errno` is set as follows:
+
+- EINVAL if called with invalid arguments
+- ENOTSUP if the key refers to a value of a type other than stream
+- EBADF if the key was not opened for writing
+- EDOM if the given ID was 0-0 or not greater than all other IDs in the
+  stream (only if the AUTOID flag is unset)
+- EFBIG if the stream has reached the last possible ID
+
+## `RedisModule_StreamDelete`
+
+    int RedisModule_StreamDelete(RedisModuleKey *key, RedisModuleStreamID *id);
+
+Deletes an entry from a stream.
+
+- `key`: A key opened for writing, with no stream iterator started.
+- `id`: The stream ID of the entry to delete.
+
+Returns `REDISMODULE_OK` on success. On failure, `REDISMODULE_ERR` is returned
+and `errno` is set as follows:
+
+- EINVAL if called with invalid arguments
+- ENOTSUP if the key refers to a value of a type other than stream or if the
+  key is empty
+- EBADF if the key was not opened for writing or if a stream iterator is
+  associated with the key
+- ENOENT if no entry with the given stream ID exists
+
+See also `RedisModule_StreamIteratorDelete()` for deleting the current entry while
+iterating using a stream iterator.
+
+## `RedisModule_StreamIteratorStart`
+
+    int RedisModule_StreamIteratorStart(RedisModuleKey *key, int flags, RedisModuleStreamID *start, RedisModuleStreamID *end);
+
+Sets up a stream iterator.
+
+- `key`: The stream key opened for reading using `RedisModule_OpenKey()`.
+- `flags`:
+  - `REDISMODULE_STREAM_ITERATOR_EXCLUSIVE`: Don't include `start` and `end`
+    in the iterated range.
+  - `REDISMODULE_STREAM_ITERATOR_REVERSE`: Iterate in reverse order, starting
+    from the `end` of the range.
+- `start`: The lower bound of the range. Use NULL for the beginning of the
+  stream.
+- `end`: The upper bound of the range. Use NULL for the end of the stream.
+
+Returns `REDISMODULE_OK` on success. On failure, `REDISMODULE_ERR` is returned
+and `errno` is set as follows:
+
+- EINVAL if called with invalid arguments
+- ENOTSUP if the key refers to a value of a type other than stream or if the
+  key is empty
+- EBADF if the key was not opened for writing or if a stream iterator is
+  already associated with the key
+- EDOM if `start` or `end` is outside the valid range
+
+Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` if the key doesn't
+refer to a stream or if invalid arguments were given.
+
+The stream IDs are retrieved using `RedisModule_StreamIteratorNextID()` and
+for each stream ID, the fields and values are retrieved using
+`RedisModule_StreamIteratorNextField()`. The iterator is freed by calling
+`RedisModule_StreamIteratorStop()`.
+
+Example (error handling omitted):
+
+    RedisModule_StreamIteratorStart(key, 0, startid_ptr, endid_ptr);
+    RedisModuleStreamID id;
+    long numfields;
+    while (RedisModule_StreamIteratorNextID(key, &id, &numfields) ==
+           REDISMODULE_OK) {
+        RedisModuleString *field, *value;
+        while (RedisModule_StreamIteratorNextField(key, &field, &value) ==
+               REDISMODULE_OK) {
+            //
+            // ... Do stuff ...
+            //
+            RedisModule_Free(field);
+            RedisModule_Free(value);
+        }
+    }
+    RedisModule_StreamIteratorStop(key);
+
+## `RedisModule_StreamIteratorStop`
+
+    int RedisModule_StreamIteratorStop(RedisModuleKey *key);
+
+Stops a stream iterator created using `RedisModule_StreamIteratorStart()` and
+reclaims its memory.
+
+Returns `REDISMODULE_OK` on success. On failure, `REDISMODULE_ERR` is returned
+and `errno` is set as follows:
+
+- EINVAL if called with a NULL key
+- ENOTSUP if the key refers to a value of a type other than stream or if the
+  key is empty
+- EBADF if the key was not opened for writing or if no stream iterator is
+  associated with the key
+
+## `RedisModule_StreamIteratorNextID`
+
+    int RedisModule_StreamIteratorNextID(RedisModuleKey *key, RedisModuleStreamID *id, long *numfields);
+
+Finds the next stream entry and returns its stream ID and the number of
+fields.
+
+- `key`: Key for which a stream iterator has been started using
+  `RedisModule_StreamIteratorStart()`.
+- `id`: The stream ID returned. NULL if you don't care.
+- `numfields`: The number of fields in the found stream entry. NULL if you
+  don't care.
+
+Returns `REDISMODULE_OK` and sets `*id` and `*numfields` if an entry was found.
+On failure, `REDISMODULE_ERR` is returned and `errno` is set as follows:
+
+- EINVAL if called with a NULL key
+- ENOTSUP if the key refers to a value of a type other than stream or if the
+  key is empty
+- EBADF if no stream iterator is associated with the key
+- ENOENT if there are no more entries in the range of the iterator
+
+In practice, if `RedisModule_StreamIteratorNextID()` is called after a successful call
+to `RedisModule_StreamIteratorStart()` and with the same key, it is safe to assume that
+an `REDISMODULE_ERR` return value means that there are no more entries.
+
+Use `RedisModule_StreamIteratorNextField()` to retrieve the fields and values.
+See the example at `RedisModule_StreamIteratorStart()`.
+
+## `RedisModule_StreamIteratorNextField`
+
+    int RedisModule_StreamIteratorNextField(RedisModuleKey *key, RedisModuleString **field_ptr, RedisModuleString **value_ptr);
+
+Retrieves the next field of the current stream ID and its corresponding value
+in a stream iteration. This function should be called repeatedly after calling
+`RedisModule_StreamIteratorNextID()` to fetch each field-value pair.
+
+- `key`: Key where a stream iterator has been started.
+- `field_ptr`: This is where the field is returned.
+- `value_ptr`: This is where the value is returned.
+
+Returns `REDISMODULE_OK` and points `*field_ptr` and `*value_ptr` to freshly
+allocated `RedisModuleString` objects. The string objects are freed
+automatically when the callback finishes if automatic memory is enabled. On
+failure, `REDISMODULE_ERR` is returned and `errno` is set as follows:
+
+- EINVAL if called with a NULL key
+- ENOTSUP if the key refers to a value of a type other than stream or if the
+  key is empty
+- EBADF if no stream iterator is associated with the key
+- ENOENT if there are no more fields in the current stream entry
+
+In practice, if `RedisModule_StreamIteratorNextField()` is called after a successful
+call to `RedisModule_StreamIteratorNextID()` and with the same key, it is safe to assume
+that an `REDISMODULE_ERR` return value means that there are no more fields.
+
+See the example at `RedisModule_StreamIteratorStart()`.
+
+## `RedisModule_StreamIteratorDelete`
+
+    int RedisModule_StreamIteratorDelete(RedisModuleKey *key);
+
+Deletes the current stream entry while iterating.
+
+This function can be called after `RedisModule_StreamIteratorNextID()` or after any
+calls to `RedisModule_StreamIteratorNextField()`.
+
+Returns `REDISMODULE_OK` on success. On failure, `REDISMODULE_ERR` is returned
+and `errno` is set as follows:
+
+- EINVAL if key is NULL
+- ENOTSUP if the key is empty or is of another type than stream
+- EBADF if the key is not opened for writing, if no iterator has been started
+- ENOENT if the iterator has no current stream entry
+
+## `RedisModule_StreamTrimByLength`
+
+    long long RedisModule_StreamTrimByLength(RedisModuleKey *key, int flags, long long length);
+
+Trim a stream by length, similar to XTRIM with MAXLEN.
+
+- `key`: Key opened for writing.
+- `flags`: A bitfield of
+  - `REDISMODULE_STREAM_TRIM_APPROX`: Trim less if it improves performance,
+    like XTRIM with `~`.
+- `length`: The number of stream entries to keep after trimming.
+
+Returns the number of entries deleted. On failure, a negative value is
+returned and `errno` is set as follows:
+
+- EINVAL if called with invalid arguments
+- ENOTSUP if the key is empty or of a type other than stream
+- EBADF if the key is not opened for writing
+
+## `RedisModule_StreamTrimByID`
+
+    long long RedisModule_StreamTrimByID(RedisModuleKey *key, int flags, RedisModuleStreamID *id);
+
+Trim a stream by ID, similar to XTRIM with MINID.
+
+- `key`: Key opened for writing.
+- `flags`: A bitfield of
+  - `REDISMODULE_STREAM_TRIM_APPROX`: Trim less if it improves performance,
+    like XTRIM with `~`.
+- `id`: The smallest stream ID to keep after trimming.
+
+Returns the number of entries deleted. On failure, a negative value is
+returned and `errno` is set as follows:
+
+- EINVAL if called with invalid arguments
+- ENOTSUP if the key is empty or of a type other than stream
+- EBADF if the key is not opened for writing
+
 ## `RedisModule_FreeCallReply`
 
     void RedisModule_FreeCallReply(RedisModuleCallReply *reply);
@@ -1866,6 +2145,11 @@ There are some cases where `RedisModule_BlockClient()` cannot be used:
 
 In these cases, a call to `RedisModule_BlockClient()` will **not** block the
 client, but instead produce a specific error reply.
+
+Measuring background time: By default the time spent in the blocked command
+is not account for the total command duration. To include such time you should
+use `RedisModule_BlockedClientMeasureTimeStart()` and `RedisModule_BlockedClientMeasureTimeEnd()` one,
+or multiple times within the blocking command background work.
 
 ## `RedisModule_BlockClientOnKeys`
 
@@ -3306,6 +3590,14 @@ Here is a list of events you can use as 'eid' and related sub events:
     * `REDISMODULE_SUBEVENT_REPL_BACKUP_CREATE`
     * `REDISMODULE_SUBEVENT_REPL_BACKUP_RESTORE`
     * `REDISMODULE_SUBEVENT_REPL_BACKUP_DISCARD`
+
+* `RedisModuleEvent_ForkChild`
+
+    Called when a fork child (AOFRW, RDBSAVE, module fork...) is born/dies
+    The following sub events are available:
+
+    * `REDISMODULE_SUBEVENT_FORK_CHILD_BORN`
+    * `REDISMODULE_SUBEVENT_FORK_CHILD_DIED`
 
 The function returns `REDISMODULE_OK` if the module was successfully subscribed
 for the specified event. If the API is called from a wrong context or unsupported event
