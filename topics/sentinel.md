@@ -162,6 +162,7 @@ documented in the example `sentinel.conf` file shipped with the Redis
 distribution.
 
 Configuration parameters can be modified at runtime:
+
 * Master-specific configuration parameters are modified using `SENTINEL SET`.
 * Global configuration parameters are modified using `SENTINEL CONFIG SET`.
 
