@@ -20,6 +20,7 @@ The `GETEX` command supports a set of options that modify its behavior:
 ```cli
 SET mykey "Hello"
 GETEX mykey
-GETEX mykey "will expire in a minute" EX 60
+TTL mykey
+GETEX mykey EX 60
 TTL mykey
 ```
