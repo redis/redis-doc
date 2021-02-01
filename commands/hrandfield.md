@@ -19,9 +19,9 @@ If the `WITHVALUES` modifier is used, the reply is a list fields and their value
 
 ```cli
 HMSET coin heads obverse tails reverse edge null
-HRANDMEMBER coin
-HRANDMEMBER coin
-HRANDMEMBER coin -5 WITHVALUES
+HRANDFIELD coin
+HRANDFIELD coin
+HRANDFIELD coin -5 WITHVALUES
 ```
 
 ## Specification of the behavior when count is passed
