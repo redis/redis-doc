@@ -1883,7 +1883,6 @@
     "url": "https://github.com/2881099/FreeRedis",
     "description": "This .NET client supports redis6.0+, cluster, sentinel, pipeline, And simple api.",
     "authors": ["2881099"],
-    "recommended": true,
     "active": true
   }
 ]
