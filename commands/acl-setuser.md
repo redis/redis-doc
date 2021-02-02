@@ -44,9 +44,12 @@ This is a list of all the supported Redis ACL rules:
 
 * `on`: set the user as active, it will be possible to authenticate as this user using `AUTH <username> <password>`.
 * `off`: set user as not active, it will be impossible to log as this user. Please note that if a user gets disabled (set to off) after there are connections already authenticated with such a user, the connections will continue to work as expected. To also kill the old connections you can use `CLIENT KILL` with the user option. An alternative is to delete the user with `ACL DELUSER`, that will result in all the connections authenticated as the deleted user to be disconnected.
-* `~<pattern>`: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. You can add as many key patterns you want to the same user. Example: `~objects:*`
+* `~<pattern>`: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. You can add multiple key patterns to the same user. Example: `~objects:*`
 * `allkeys`: alias for `~*`, it allows the user to access all the keys.
-* `resetkey`: removes all the key patterns from the list of key patterns the user can access.
+* `resetkeys`: removes all the key patterns from the list of key patterns the user can access.
+* `&<pattern>`: add the specified glob style pattern to the list of Pub/Sub channel patterns accessible by the user. You can add multiple channel patterns to the same user. Example: `&chatroom:*`
+* `allchannels`: alias for `&*`, it allows the user to access all Pub/Sub channels.
+* `resetchannels`: removes all channel patterns from the list of Pub/Sub channel patterns the user can access.
 * `+<command>`: add this command to the list of the commands the user can call. Example: `+zadd`.
 * `+@<category>`: add all the commands in the specified category to the list of commands the user is able to execute. Example: `+@string` (adds all the string commands). For a list of categories check the `ACL CAT` command.
 * `+<command>|<subcommand>`: add the specified command to the list of the commands the user can execute, but only for the specified subcommand. Example: `+config|get`. Generates an error if the specified command is already allowed in its full version for the specified user. Note: there is no symmetrical command to remove subcommands, you need to remove the whole command and re-add the subcommands you want to allow. This is much safer than removing subcommands, in the future Redis may add new dangerous subcommands, so configuring by subtraction is not good.
@@ -66,6 +69,10 @@ This is a list of all the supported Redis ACL rules:
 @simple-string-reply: `OK` on success.
 
 If the rules contain errors, the error is returned.
+
+@history
+
+* `>= 6.2`: Added Pub/Sub channel patterns.
 
 @examples
 

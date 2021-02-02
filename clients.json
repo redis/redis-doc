@@ -43,6 +43,14 @@
     "description": "Redis client with a focus on performance",
     "authors": ["wooga"],
     "recommended": true,
+    "active": false
+  },
+  {
+    "name": "Eredis (Nordix fork)",
+    "language": "Erlang",
+    "repository": "https://github.com/Nordix/eredis",
+    "description": "An updated fork of eredis, adding TLS and various corrections and testing",
+    "recommended": true,
     "active": true
   },
   {
@@ -51,6 +59,14 @@
     "repository": "https://github.com/adrienmo/eredis_cluster",
     "description": "Eredis wrapper providing cluster support and connection pooling",
     "authors": ["adrienmo"],
+    "active": false
+  },
+  {
+    "name": "eredis_cluster (Nordix fork)",
+    "language": "Erlang",
+    "repository": "https://github.com/Nordix/eredis_cluster",
+    "description": "An updated fork of eredis_cluster (providing cluster support and connection pooling), with added TLS support, ASK redirects, various corrections and testing",
+    "recommended": true,
     "active": true
   },
   {
@@ -208,7 +224,7 @@
     "language": "Haskell",
     "url": "http://hackage.haskell.org/package/hedis",
     "repository": "https://github.com/informatikr/hedis",
-    "description": "Supports the complete command set. Commands are automatically pipelined for high performance.",
+    "description": "Supports the complete command set and cluster. Commands are automatically pipelined for high performance.",
     "authors": [],
     "recommended": true,
     "active": true
@@ -226,9 +242,9 @@
   {
     "name": "Jedis",
     "language": "Java",
-    "repository": "https://github.com/xetorthio/jedis",
-    "description": "A blazingly small and sane redis java client",
-    "authors": ["xetorthio"],
+    "repository": "https://github.com/redis/jedis",
+    "description": "A blazingly small and sane Redis Java client",
+    "authors": ["xetorthio", "g_korland", "sazzad16"],
     "recommended": true,
     "active": true
   },
@@ -513,6 +529,15 @@
     "recommended": true,
     "active": true
   },
+  
+  {
+    "name": "redis-py-cluster",
+    "language": "Python",
+    "repository": "https://github.com/Grokzen/redis-py-cluster",
+    "description": "Python cluster client for the official redis cluster. Redis 3.0+.",
+    "authors": ["grokzen"],
+    "active": true
+  },
 
   {
     "name": "gxredis",
@@ -792,7 +817,7 @@
     "repository": "https://github.com/razaellahi/xredis",
     "description": "Redis client with redis ACL features",
     "authors": ["razaellahi531"],
-    "recommended": true,
+    "recommended": false,
     "active": true
   },
 
@@ -807,12 +832,21 @@
   },
 
   {
+    "name": "handy-redis",
+    "language": "Node.js",
+    "repository": "https://github.com/mmkal/handy-redis",
+    "description": "A wrapper around node_redis with Promise and TypeScript support.",
+    "authors": [],
+    "active": true
+  },
+
+  {
     "name": "thunk-redis",
     "language": "Node.js",
     "repository": "https://github.com/thunks/thunk-redis",
     "description": "A thunk/promise-based redis client with pipelining and cluster.",
     "authors": ["izensh"],
-    "active": true
+    "active": false
   },
 
   {
@@ -822,7 +856,7 @@
     "description": "♠ Spade, a full-featured modular client for node.",
     "authors": ["44gtti"],
     "recommended": false,
-    "active": true
+    "active": false
   },
 
   {
@@ -831,7 +865,7 @@
     "repository": "https://github.com/mjackson/then-redis",
     "description": "A small, promise-based Redis client for node",
     "authors": ["mjackson"],
-    "active": true
+    "active": false
   },
 
   {
@@ -862,6 +896,15 @@
     "recommended": true,
     "active": true
   },
+  
+  {
+    "name": "@camaro/redis",
+    "language": "Node.js",
+    "repository": "https://github.com/camarojs/redis",
+    "description": "Redis client for node, support resp3.",
+    "authors": [],
+    "active": true
+  },
 
   {
     "name": "redis-fast-driver",
@@ -878,7 +921,7 @@
     "repository": "https://github.com/h0x91b/fast-redis-cluster",
     "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
     "authors": ["h0x91b"],
-    "active": true
+    "active": false
   },
 
   {
@@ -1638,8 +1681,17 @@
     "name": "hiredis-vip",
     "language": "C",
     "repository": "https://github.com/vipshop/hiredis-vip",
-    "description": "This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.",
+    "description": "This was the original C client for Redis Cluster. Support for synchronous and asyncronous APIs, MSET/MGET/DEL, pipelining. Built around an outdated version of hiredis.",
     "authors": ["diguo58"],
+    "recommended": false,
+    "active": false
+  },
+
+  {
+    "name": "hiredis-cluster",
+    "language": "C",
+    "repository": "https://github.com/Nordix/hiredis-cluster",
+    "description": "This is an updated fork of hiredis-cluster, the C client for Redis Cluster, with added TLS and AUTH support, decoupling hiredis as an external dependency, leak corrections and improved testing.",
     "recommended": true,
     "active": true
   },
@@ -1773,6 +1825,16 @@
   },
 
   {
+    "name": "NewLife.Redis",
+    "language": "C#",
+    "url": "https://github.com/NewLifeX/NewLife.Redis",
+    "repository": "https://github.com/NewLifeX/NewLife.Redis",
+    "description": "The high-performance redis client supports .NETCORE/.NET4.0/.NET4.5, which is specially optimized for big data and message queuing. The average daily call volume of single online application is 10 billion",
+    "authors": [],
+    "active": true
+  },
+
+  {
     "name": "wiredis",
     "language": "C++",
     "url": "https://github.com/nokia/wiredis",
@@ -1882,6 +1944,15 @@
     "language": "Prolog",
     "repository": "https://github.com/SWI-Prolog/packages-redis",
     "description": "Prolog redis client that exploits SWI-Prolog's extensions such as strings for compact replies and threads to deal with publish/subscribe.",
+    "active": true
+  },
+  
+  {
+    "name": "FreeRedis",
+    "language": "C#",
+    "url": "https://github.com/2881099/FreeRedis",
+    "description": "This .NET client supports redis6.0+, cluster, sentinel, pipeline, And simple api.",
+    "authors": [],
     "active": true
   }
 

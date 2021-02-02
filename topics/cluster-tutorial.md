@@ -399,7 +399,7 @@ OK
 redis 127.0.0.1:7000> get foo
 -> Redirected to slot [12182] located at 127.0.0.1:7002
 "bar"
-redis 127.0.0.1:7000> get hello
+redis 127.0.0.1:7002> get hello
 -> Redirected to slot [866] located at 127.0.0.1:7000
 "world"
 ```
@@ -617,6 +617,11 @@ however currently there is no way for `redis-cli` to automatically
 rebalance the cluster checking the distribution of keys across the cluster
 nodes and intelligently moving slots as needed. This feature will be added
 in the future.
+
+The `--cluster-yes` option instructs the cluster manager to automatically answer
+"yes" to the command's prompts, allowing it to run in a non-interactive mode.
+Note that this option can also be activated by setting the
+`REDISCLI_CLUSTER_YES` environment variable.
 
 A more interesting example application
 ---

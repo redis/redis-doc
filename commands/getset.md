@@ -15,7 +15,7 @@ GETSET mycounter "0"
 GET mycounter
 ```
 
-As per Redis 6.2, GETSET is considered deprecated. Please use `SET` with `GET` parameter in new code.
+As per Redis 6.2, GETSET is considered deprecated. Please prefer `SET` with `GET` parameter in new code.
 
 @return
 

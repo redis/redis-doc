@@ -445,8 +445,8 @@ A few things to note about `BRPOP`:
 There are more things you should know about lists and blocking ops. We
 suggest that you read more on the following:
 
-* It is possible to build safer queues or rotating queues using `RPOPLPUSH`.
-* There is also a blocking variant of the command, called `BRPOPLPUSH`.
+* It is possible to build safer queues or rotating queues using `LMOVE`.
+* There is also a blocking variant of the command, called `BLMOVE`.
 
 Automatic creation and removal of keys
 ---
@@ -548,7 +548,7 @@ as well, like `HINCRBY`:
     > hincrby user:1000 birthyear 10
     (integer) 1997
 
-You can find the [full list of hash commands in the documentation](http://redis.io/commands#hash).
+You can find the [full list of hash commands in the documentation](https://redis.io/commands#hash).
 
 It is worth noting that small hashes (i.e., a few elements with small values) are
 encoded in special way in memory that make them very memory efficient.

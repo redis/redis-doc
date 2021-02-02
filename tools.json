@@ -745,5 +745,13 @@
     "repository": "https://github.com/mjwestcott/runnel",
     "description": "Distributed event processing for Python based on Redis Streams",
     "authors": ["mjwestcott"]
+  },
+  {
+    "name": "Trino (formerly Presto SQL) Redis Connector",
+    "language": "SQL",
+    "url": "https://trino.io/docs/current/connector/redis.html",
+    "repository": "https://github.com/trinodb/trino",
+    "description": "Trino Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once",
+    "authors": []
   }
 ]

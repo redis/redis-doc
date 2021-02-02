@@ -99,6 +99,7 @@ Different commands generate different kind of events according to the following 
 * `DEL` generates a `del` event for every deleted key.
 * `RENAME` generates two events, a `rename_from` event for the source key, and a `rename_to` event for the destination key.
 * `MOVE` generates two events, a `move_from` event for the source key, and a `move_to` event for the destination key.
+* `COPY` generates a `copy_to` event.
 * `MIGRATE` generates a `del` event if the source key is removed.
 * `RESTORE` generates a `restore` event for the key.
 * `EXPIRE` and all its variants (`PEXPIRE`, `EXPIREAT`, `PEXPIREAT`) generate an `expire` event when called with a positive timeout (or a future timestamp). Note that when these commands are called with a negative timeout value or timestamp in the past, the key is deleted and only a `del` event is generated instead.
@@ -118,6 +119,7 @@ Different commands generate different kind of events according to the following 
 * `LREM` generates an `lrem` event, and additionally a `del` event if the resulting list is empty and the key is removed.
 * `LTRIM` generates an `ltrim` event, and additionally a `del` event if the resulting list is empty and the key is removed.
 * `RPOPLPUSH` and `BRPOPLPUSH` generate an `rpop` event and an `lpush` event. In both cases the order is guaranteed (the `lpush` event will always be delivered after the `rpop` event). Additionally a `del` event will be generated if the resulting list is zero length and the key is removed.
+* `LMOVE` and `BLMOVE` generate an `lpop`/`rpop` event (depending on the wherefrom argument) and an `lpush`/`rpush` event (depending on the whereto argument). In both cases the order is guaranteed (the `lpush`/`rpush` event will always be delivered after the `lpop`/`rpop` event). Additionally a `del` event will be generated if the resulting list is zero length and the key is removed.
 * `HSET`, `HSETNX` and `HMSET` all generate a single `hset` event.
 * `HINCRBY` generates an `hincrby` event.
 * `HINCRBYFLOAT` generates an `hincrbyfloat` event.
@@ -132,7 +134,7 @@ Different commands generate different kind of events according to the following 
 * `ZREM` generates a single `zrem` event even when multiple elements are deleted. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZREMBYSCORE` generates a single `zrembyscore` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
 * `ZREMBYRANK` generates a single `zrembyrank` event. When the resulting sorted set is empty and the key is generated, an additional `del` event is generated.
-* `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zinterstore` and `zunionstore` events. In the special case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
+* `ZDIFFSTORE`, `ZINTERSTORE` and `ZUNIONSTORE` respectively generate `zdiffstore`, `zinterstore` and `zunionstore` events. In the special case the resulting sorted set is empty, and the key where the result is stored already exists, a `del` event is generated since the key is removed.
 * `XADD` generates an `xadd` event, possibly followed an `xtrim` event when used with the `MAXLEN` subcommand.
 * `XDEL` generates a single `xdel` event even when multiple entries are deleted.
 * `XGROUP CREATE` generates an `xgroup-create` event.

@@ -8,12 +8,14 @@ The `SET` command supports a set of options that modify its behavior:
 
 * `EX` *seconds* -- Set the specified expire time, in seconds.
 * `PX` *milliseconds* -- Set the specified expire time, in milliseconds.
+* `EXAT` *timestamp-seconds* -- Set the specified Unix time at which the key will expire, in seconds.
+* `PXAT` *timestamp-milliseconds* -- Set the specified Unix time at which the key will expire, in milliseconds.
 * `NX` -- Only set the key if it does not already exist.
 * `XX` -- Only set the key if it already exist.
 * `KEEPTTL` -- Retain the time to live associated with the key.
 * `GET` -- Return the old value stored at key, or nil when key did not exist.
 
-Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `GETSET`, it is possible that in future versions of Redis these three commands will be deprecated and finally removed.
+Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `GETSET`, it is possible that in future versions of Redis these commands will be deprecated and finally removed.
 
 @return
 
@@ -25,7 +27,7 @@ Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `G
 
 * `>= 2.6.12`: Added the `EX`, `PX`, `NX` and `XX` options.
 * `>= 6.0`: Added the `KEEPTTL` option.
-* `>= 6.2`: Added the `GET` option.
+* `>= 6.2`: Added the `GET`, `EXAT` and `PXAT` option.
 
 @examples
 
@@ -38,7 +40,7 @@ SET anotherkey "will expire in a minute" EX 60
 
 ## Patterns
 
-**Note:** The following pattern is discouraged in favor of [the Redlock algorithm](http://redis.io/topics/distlock) which is only a bit more complex to implement, but offers better guarantees and is fault tolerant.
+**Note:** The following pattern is discouraged in favor of [the Redlock algorithm](https://redis.io/topics/distlock) which is only a bit more complex to implement, but offers better guarantees and is fault tolerant.
 
 The command `SET resource-name anystring NX EX max-lock-time` is a simple way to implement a locking system with Redis.
 
