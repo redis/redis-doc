@@ -45,7 +45,6 @@ These may also add new features and introduce changes, but at a decreasing rate 
 ### Stable Tree
 
 Once development has ended and the frequency of critical bug reports for the release candidate wanes, it is ready for the final release.
-
 At this point, the release is marked as stable and is released with "0" as its patch-level version.
 
 Versioning
