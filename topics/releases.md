@@ -22,7 +22,7 @@ A given version of Redis can be at three different levels of stability:
 The unstable version of Redis is located in the `unstable` branch in the [Redis GitHub repository](http://github.com/redis/redis).
 
 This branch is the source tree where most of the new features under development.
-`unstable` is not considered production-ready: it may contain critical bugs, incomplete features, and is potentially unstable features.
+`unstable` is not considered production-ready: it may contain critical bugs, incomplete features, and is potentially unstable.
 
 However, we try hard to make sure that even the unstable branch is usable most of the time in a development environment without significant issues.
 
@@ -33,14 +33,14 @@ The forked branch's name is the target release
 
 For example, when Redis 6.0 was released as a release candidate, the `unstable` branch was forked into the `6.0` branch. The new branch is the release candidate (RC) for that version.
 
-Bug fixes and new features that can be stabilized during the release's time frame are committed to the release candidate branch.
-That said, the `unstable` branch may include work that is not a part of the release candidate.
+Bug fixes and new features that can be stabilized during the release's time frame are committed to the unstable branch and backported to the release candidate branch.
+The `unstable` branch may include additional work that is not a part of the release candidate and scheduled for future releases.
 
 The first release candidate, or RC1, is released once it can be used for development purposes and for testing the new version.
 At this stage, most of the new features and changes the new version brings are ready for review, and the release's purpose is collecting the public's feedback.
 
 Subsequent release candidates are released every three weeks or so, primarily for fixing bugs.
-These may also add new features and introduce changes, but at a decreasing rate towards the final release candidate.
+These may also add new features and introduce changes, but at a decreasing rate and decreasing potential risk towards the final release candidate.
 
 ### Stable Tree
 
