@@ -1882,7 +1882,6 @@
     "language": "Prolog",
     "repository": "https://github.com/SWI-Prolog/packages-redis",
     "description": "Prolog redis client that exploits SWI-Prolog's extensions such as strings for compact replies and threads to deal with publish/subscribe.",
-    "authors": ["Jan Wielemaker", "Sean Charles"],
     "active": true
   }
 
