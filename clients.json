@@ -1937,5 +1937,14 @@
     "description": "A custom connector for Dell Boomi that utilizes the lettuce.io Java client to add Redis client support to the Dell Boomi iPaaS.",
     "authors": [],
     "active": true
+  },
+  
+  {
+    "name": "FreeRedis",
+    "language": "C#",
+    "url": "https://github.com/2881099/FreeRedis",
+    "description": "This .NET client supports redis6.0+, cluster, sentinel, pipeline, And simple api.",
+    "authors": [],
+    "active": true
   }
 ]
