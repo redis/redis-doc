@@ -1111,8 +1111,7 @@
     "repository": "https://github.com/ltoddy/redis-rs",
     "description": "Redis client for Rust.",
     "authors": ["ltoddygen"],
-    "active": true,
-    "recommended": true
+    "active": true
   },
 
   {
