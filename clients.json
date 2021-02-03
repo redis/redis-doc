@@ -1106,6 +1106,15 @@
   },
 
   {
+    "name": "redisclient",
+    "language": "Rust",
+    "repository": "https://github.com/ltoddy/redis-rs",
+    "description": "Redis client for Rust.",
+    "authors": ["ltoddygen"],
+    "active": true
+  },
+
+  {
     "name": "rust-redis",
     "language": "Rust",
     "repository": "https://github.com/mneumann/rust-redis",
