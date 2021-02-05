@@ -901,7 +901,7 @@
     "name": "@camaro/redis",
     "language": "Node.js",
     "repository": "https://github.com/camarojs/redis",
-    "description": "Redis client for node, support resp3.",
+    "description": "Redis client for node, support resp2/3 and redis6.",
     "authors": [],
     "active": true
   },
