@@ -414,7 +414,7 @@
     "name": "Redis::ClusterRider",
     "language": "Perl",
     "url": "http://search.cpan.org/dist/Redis-ClusterRider/",
-    "repository": " https://github.com/iph0/Redis-ClusterRider",
+    "repository": "https://github.com/iph0/Redis-ClusterRider",
     "description": "Daring Redis Cluster client",
     "authors": ["iph0"],
     "active": true
@@ -559,7 +559,7 @@
   {
     "name": "txredisapi",
     "language": "Python",
-    "url": "https://github.com/fiorix/txredisapi",
+    "repository": "https://github.com/fiorix/txredisapi",
     "description": "Full featured, non-blocking client for Twisted.",
     "authors": ["fiorix"],
     "active": true
@@ -722,7 +722,7 @@
   {
     "name": "ServiceStack.Redis",
     "language": "C#",
-    "url": "https://github.com/ServiceStack/ServiceStack.Redis",
+    "repository": "https://github.com/ServiceStack/ServiceStack.Redis",
     "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
     "authors": ["demisbellot"],
     "recommended": true,
@@ -732,7 +732,7 @@
   {
     "name": "StackExchange.Redis",
     "language": "C#",
-    "url": "https://github.com/StackExchange/StackExchange.Redis",
+    "repository": "https://github.com/StackExchange/StackExchange.Redis",
     "description": "This .NET client was developed by Stack Exchange for very high performance needs (replacement to the earlier BookSleeve).",
     "authors": ["marcgravell"],
     "recommended": true,
@@ -750,7 +750,7 @@
   {
     "name": "Rediska",
     "language": "C#",
-    "url": "https://github.com/pepelev/Rediska",
+    "repository": "https://github.com/pepelev/Rediska",
     "description": "Rediska is a Redis client for .NET with a focus on flexibility and extensibility.",
     "authors": [],
     "recommended": false,
@@ -760,7 +760,7 @@
   {
     "name": "DartRedisClient",
     "language": "Dart",
-    "url": "https://github.com/dartist/redis_client",
+    "repository": "https://github.com/dartist/redis_client",
     "description": "A high-performance async/non-blocking Redis client for Dart",
     "authors": ["demisbellot"],
     "recommended": true,
@@ -1222,7 +1222,7 @@
   {
     "name": "redis",
     "language": "Dart",
-    "url": "https://github.com/ra1u/redis-dart",
+    "repository": "https://github.com/ra1u/redis-dart",
     "description": "Simple and fast client",
     "authors": [],
     "active": true
@@ -1951,7 +1951,7 @@
   {
     "name": "FreeRedis",
     "language": "C#",
-    "url": "https://github.com/2881099/FreeRedis",
+    "repository": "https://github.com/2881099/FreeRedis",
     "description": "This .NET client supports redis6.0+, cluster, sentinel, pipeline, And simple api.",
     "authors": [],
     "active": true
