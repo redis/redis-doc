@@ -244,24 +244,17 @@
     "language": "Java",
     "repository": "https://github.com/redis/jedis",
     "description": "A blazingly small and sane Redis Java client",
-    "authors": ["xetorthio", "g_korland", "sazzad16"],
+    "authors": ["xetorthio", "g_korland"],
     "recommended": true,
     "active": true
   },
+
   {
     "name": "java-redis-client",
     "language": "Java",
     "repository": "https://github.com/drm/java-redis-client",
     "description": "A very simple yet very complete java client in less than 200 lines with 0 dependencies.",
     "authors": [],
-    "active": true
-  },
-  {
-    "name": "Jedipus",
-    "language": "Java",
-    "repository": "https://github.com/jamespedwards42/jedipus",
-    "description": "Redis Client & Command Executor.",
-    "authors": ["jamespedwards"],
     "active": true
   },
 
@@ -291,7 +284,7 @@
     "url": "https://code.google.com/p/jdbc-redis/",
     "repository": "https://code.google.com/p/jdbc-redis/source/browse",
     "description": "",
-    "authors": ["mavcunha"]
+    "authors": []
   },
 
   {
@@ -507,7 +500,7 @@
     "language": "PHP",
     "repository": "https://github.com/swoole/redis-async",
     "description": "Asynchronous redis client library for PHP.",
-    "authors": ["matyhtf"],
+    "authors": [],
     "active": false
   },
 
@@ -587,7 +580,7 @@
     "language": "Python",
     "repository": "https://github.com/evilkost/brukva",
     "description": "Asynchronous Redis client that works within Tornado IO loop",
-    "authors": ["evilkost"]
+    "authors": []
   },
 
   {
@@ -682,7 +675,7 @@
     "language": "Scala",
     "repository": "https://github.com/pk11/sedis",
     "description": "a thin scala wrapper for the popular Redis Java client, Jedis",
-    "authors": ["pk11"]
+    "authors": []
   },
 
   {
@@ -854,7 +847,7 @@
     "language": "Node.js",
     "repository": "https://github.com/rootslab/spade",
     "description": "♠ Spade, a full-featured modular client for node.",
-    "authors": ["44gtti"],
+    "authors": [],
     "recommended": false,
     "active": false
   },
@@ -953,7 +946,7 @@
     "language": "C#",
     "repository": "http://redis.codeplex.com/",
     "description": "Redis Client is based on redis-sharp for the basic communication functions, but it offers some differences.",
-    "authors": ["TeamDevPerugia"]
+    "authors": []
   },
 
   {
@@ -1644,14 +1637,6 @@
   },
 
   {
-    "name": "Hierdis",
-    "language": "Erlang",
-    "repository": "https://github.com/funbox/hierdis",
-    "description": "High-performance Erlang client for the Redis key-value store (NIF wrapping the hiredis C client).",
-    "authors": ["funbox_team"]
-  },
-
-  {
     "name": "yoredis",
     "language": "Node.js",
     "repository": "https://github.com/djanowski/yoredis",
@@ -1923,7 +1908,7 @@
     "url": "https://github.com/kristoff-it/zig-okredis",
     "repository": "https://github.com/kristoff-it/zig-okredis",
     "description": "OkRedis is a zero-allocation client for Redis 6+ ",
-    "authors": ["kristoff-it"],
+    "authors": ["croloris"],
     "recommended": true,
     "active": true
   },
