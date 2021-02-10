@@ -8,6 +8,8 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+    - name: Install aspell
+      run: sudo apt-get install aspell
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6
