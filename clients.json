@@ -815,13 +815,13 @@
   },
   
   {
-    "name": "node_redis",
+    "name": "node-redis",
     "language": "Node.js",
-    "repository": "https://github.com/NodeRedis/node_redis",
+    "repository": "https://github.com/NodeRedis/node-redis",
     "description": "Recommended client for node.",
     "authors": ["mranney"],
     "recommended": true,
-    "active": true
+    "active": false
   },
 
   {
