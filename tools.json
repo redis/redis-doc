@@ -188,7 +188,7 @@
     "language": "Ruby",
     "repository": "http://sidekiq.org/",
     "description": "Simple, efficient message processing for your Rails 3 application.",
-    "authors": ["mperham"]
+    "authors": ["getajobmike"]
   },
   {
     "name": "Omhiredis",
@@ -258,7 +258,7 @@
     "language": "Python",
     "repository": "https://github.com/bbangert/retools",
     "description": "Caching and locking helper library.",
-    "authors": ["benbangert"]
+    "authors": []
   },
   {
     "name": "Redback",
@@ -342,14 +342,6 @@
     "authors": ["zeeg"]
   },
   {
-    "name": "redis-mount",
-    "language": "Go",
-    "url": "https://github.com/poying/redis-mount",
-    "repository": "https://github.com/poying/redis-mount",
-    "description": "redis-mount lets you use Redis as a filesystem.",
-    "authors": ["poying"]
-  },
-  {
     "name": "RPQueue",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/rpqueue",
@@ -371,7 +363,7 @@
     "url": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "repository": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "description": "A Node.js library for streamlining the configuration and maintenance of your Redis namespace",
-    "authors": ["codecreativity"]
+    "authors": []
   },
   {
     "name": "phpRedExpert",
@@ -394,7 +386,7 @@
     "language": "Python",
     "repository" : "https://github.com/binarydud/pyres",
     "description" : "Python library inspired by Resque for creating background jobs and workers",
-    "authors" : ["binarydud"]
+    "authors" : []
   },
   {
     "name": "Redis-RdbParser",
@@ -516,7 +508,7 @@
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
     "repository": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
-    "description": "A C++ Redis tool to create and manage a Redis cluster, basing on acl Redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "description": "A C++ Redis tool to create and manage a Redis cluster",
     "authors": ["zhengshuxin"]
   },
   {
@@ -524,14 +516,14 @@
     "language": "Python",
     "repository": "https://github.com/coleifer/huey",
     "description": "Simple multi-threaded Python task queue. Supports Redis.",
-    "authors": ["coleifer"]
+    "authors": []
   },
   {
     "name": "walrus",
     "language": "Python",
     "repository": "https://github.com/coleifer/walrus",
     "description": "A collection of lightweight utilities for working with Redis in Python. Includes ORM, autocompletion, full-text search, cache, locks, and more.",
-    "authors": ["coleifer"]
+    "authors": []
   },
   {
     "name": "RedisPlatform",
@@ -729,7 +721,7 @@
     "language": "C#",
     "repository": "https://github.com/Oriflame/RedisMessaging.ReliableDelivery",
     "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
-    "authors": ["PetrKozelek" , "OriflameSoftware"]
+    "authors": ["PetrKozelek"]
   },
 
   {
