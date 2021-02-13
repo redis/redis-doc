@@ -88,7 +88,7 @@ intensive and will likely saturate a single core in your system.
     Max latency so far: 83 microseconds.
     Max latency so far: 115 microseconds.
 
-Note: redis-cli in this special case needs to **run in the server** where you run or plan to run Redis, not in the client. In this special mode redis-cli does no connect to a Redis server at all: it will just try to measure the largest time the kernel does not provide CPU time to run to the redis-cli process itself.
+Note: redis-cli in this special case needs to **run in the server** where you run or plan to run Redis, not in the client. In this special mode redis-cli does not connect to a Redis server at all: it will just try to measure the largest time the kernel does not provide CPU time to run to the redis-cli process itself.
 
 In the above example, the intrinsic latency of the system is just 0.115
 milliseconds (or 115 microseconds), which is a good news, however keep in mind
