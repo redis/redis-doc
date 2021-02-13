@@ -78,6 +78,20 @@
     "authors": ["srithedabbler"]
   },
   {
+    "name": "Redily",
+    "language": "Javascript",
+    "url": "https://www.redily.app",
+    "description": "An intuitive, cross-platform Redis GUI Client built in Electron.",
+    "authors": ["stefano_arnone"]
+  },
+  {
+    "name": "AnotherRedisDesktopManager",
+    "language": "Javascript",
+    "repository": "https://github.com/qishibo/AnotherRedisDesktopManager",
+    "description": "🚀🚀🚀A faster, better and more stable redis desktop manager. What's more, it won't crash when loading a large number of keys.",
+    "authors": ["qii404"]
+  },
+  {
     "name": "Rdb-parser",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/rdb-parser",
@@ -88,7 +102,7 @@
     "name": "Redis-sync",
     "language": "Javascript",
     "repository": "https://github.com/pconstr/redis-sync",
-    "description": "A node.js Redis replication slave toolkit",
+    "description": "A node.js Redis replication toolkit",
     "authors": ["pconstr"]
   },
   {
@@ -159,7 +173,7 @@
     "name": "Redis_failover",
     "language": "Ruby",
     "repository": "https://github.com/ryanlecompte/redis_failover",
-    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
+    "description": "Redis Failover is a ZooKeeper-based automatic master/replica failover solution for Ruby.",
     "authors": ["ryanlecompte"]
   },
   {
@@ -174,7 +188,7 @@
     "language": "Ruby",
     "repository": "http://sidekiq.org/",
     "description": "Simple, efficient message processing for your Rails 3 application.",
-    "authors": ["mperham"]
+    "authors": ["getajobmike"]
   },
   {
     "name": "Omhiredis",
@@ -244,7 +258,7 @@
     "language": "Python",
     "repository": "https://github.com/bbangert/retools",
     "description": "Caching and locking helper library.",
-    "authors": ["benbangert"]
+    "authors": []
   },
   {
     "name": "Redback",
@@ -328,14 +342,6 @@
     "authors": ["zeeg"]
   },
   {
-    "name": "redis-mount",
-    "language": "Go",
-    "url": "https://github.com/poying/redis-mount",
-    "repository": "https://github.com/poying/redis-mount",
-    "description": "redis-mount lets you use Redis as a filesystem.",
-    "authors": ["poying"]
-  },
-  {
     "name": "RPQueue",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/rpqueue",
@@ -357,7 +363,7 @@
     "url": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "repository": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "description": "A Node.js library for streamlining the configuration and maintenance of your Redis namespace",
-    "authors": ["codecreativity"]
+    "authors": []
   },
   {
     "name": "phpRedExpert",
@@ -380,7 +386,7 @@
     "language": "Python",
     "repository" : "https://github.com/binarydud/pyres",
     "description" : "Python library inspired by Resque for creating background jobs and workers",
-    "authors" : ["binarydud"]
+    "authors" : []
   },
   {
     "name": "Redis-RdbParser",
@@ -461,13 +467,6 @@
     "authors": ["fgribreau"]
   },
   {
-    "name": "Redis_failover",
-    "language": "Ruby",
-    "repository": "https://github.com/ryanlecompte/redis_failover",
-    "description": "Redis Failover is a ZooKeeper-based automatic master/slave failover solution for Ruby.",
-    "authors": ["ryanlecompte"]
-  },
-  {
     "name": "redis-in-labview",
     "language": "LabVIEW",
     "repository": "https://decibel.ni.com/content/docs/DOC-36322",
@@ -509,7 +508,7 @@
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
     "repository": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
-    "description": "A C++ Redis tool to create and manage a Redis cluster, basing on acl Redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "description": "A C++ Redis tool to create and manage a Redis cluster",
     "authors": ["zhengshuxin"]
   },
   {
@@ -517,14 +516,14 @@
     "language": "Python",
     "repository": "https://github.com/coleifer/huey",
     "description": "Simple multi-threaded Python task queue. Supports Redis.",
-    "authors": ["coleifer"]
+    "authors": []
   },
   {
     "name": "walrus",
     "language": "Python",
     "repository": "https://github.com/coleifer/walrus",
     "description": "A collection of lightweight utilities for working with Redis in Python. Includes ORM, autocompletion, full-text search, cache, locks, and more.",
-    "authors": ["coleifer"]
+    "authors": []
   },
   {
     "name": "RedisPlatform",
@@ -597,5 +596,154 @@
     "repository": "https://github.com/vipshop/redis-migrate-tool",
     "description": "A convenient and useful tool for migrating data between redis groups.",
     "authors": ["diguo58"]
+  },
+  {
+    "name": "facil.io",
+    "language": "C",
+    "url": "http://facil.io/",
+    "repository": "https://github.com/boazsegev/facil.io",
+    "description": "facil.io includes an asynchronous Redis client as well as a RESP parser/formatter that can be used independently. It's MIT licensed and doesn't use hiredis.",
+    "authors": ["bowildmusic"]
+  },
+  {
+    "name": "iodine",
+    "language": "Ruby",
+    "repository": "https://github.com/boazsegev/iodine",
+    "description": "Iodine is an HTTP / Websocket server with native pub/sub support. Iodine includes an integrated Redis client that provides Pub/Sub scaling beyond machine boundaries.",
+    "authors": ["bowildmusic"]
+  },
+  {
+    "name": "Regis",
+    "language": "Swift",
+    "url": "https://www.harfangapps.com/regis/",
+    "description": "Full-featured Redis client for the Mac, available on the Mac App Store.",
+    "authors": ["harfangapps"]
+  },
+  {
+    "name": "miniredis",
+    "language": "Go",
+    "repository": "https://github.com/alicebob/miniredis",
+    "description": "Pure Go Redis server for Go unittests",
+    "authors": []
+  },
+  {
+    "name": "noncis",
+    "language": "Javascript",
+    "repository": "https://github.com/reidwmulkey/noncis",
+    "description": "Synchronizes nonces across node instances.",
+    "authors": []
+  },
+
+  {
+    "name": "predixy",
+    "language": "C++",
+    "repository": "https://github.com/joyieldInc/predixy",
+    "description": "A high performance and full features proxy for redis, supports redis sentinel and redis cluster.",
+    "authors": []
+  },
+
+  {
+    "name": "redis-browser",
+    "language": "javascript",
+    "repository": "https://github.com/anandtrex/redis-browser",
+    "description": "Cross platform GUI tool for redis that includes support for ReJSON",
+    "authors": ["anandtrex"]
+  },
+
+  {
+    "name": "p3x-redis-ui",
+    "language": "javascript",
+    "repository": "https://github.com/patrikx3/redis-ui/",
+    "url":"https://www.corifeus.com/redis-ui/",
+    "description": "📡 P3X Redis UI that uses Socket.IO, AngularJs Material and IORedis with statistics, console - terminal, tree, dark mode, internationalization, multiple connections, web and desktop by Electron. Works as an app without Node.JS GUI or with the latest Node.Js version. Can test it at https://p3x.redis.patrikx3.com/.",
+    "authors": ["patrikx3"]
+  },
+
+  {
+    "name": "Redis Server",
+    "language": "Xojo",
+    "repository": "https://github.com/ktekinay/XOJO-Redis",
+    "description": "Cross platform GUI to spin up and control redis-server, included in the project",
+    "url":"https://github.com/ktekinay/XOJO-Redis/releases/",
+    "authors": ["KemTekinay"]
+  },
+
+  {
+    "name": "iredis",
+    "language": "Python",
+    "repository": "https://github.com/laixintao/iredis",
+    "description": "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.",
+    "url": "https://iredis.io",
+    "authors": ["laixintao"]
+  },
+
+  {
+    "name": "flask-redisboard",
+    "language": "Python",
+    "repository": "https://github.com/hjlarry/flask-redisboard",
+    "description": "A flask extension to support user view and manage redis with beautiful interface.",
+    "authors": ["hjlarry"]
+  },
+
+  {
+    "name": "Rediseen",
+    "language": "Go",
+    "repository": "https://github.com/XD-DENG/rediseen",
+    "description": "Start a REST-like API service for your Redis database, without writing a single line of code.",
+    "url": "https://github.com/XD-DENG/rediseen",
+    "authors": ["XiaodongDENG1"]
+  },
+
+  {
+    "name": "redis-stats",
+    "language": "PHP",
+    "repository": "https://github.com/tessus/redis-stats",
+    "description": "A lightweight dashboard to show statistics about your Redis server. Flushing databases is available when set in config.",
+    "authors": []
+  },
+   {
+    "name": "Lua Redis Admin",
+    "language": "Lua",
+    "repository": "https://github.com/lifeblood/lua-redis-admin",
+    "description": "Redis client tool, Redis web client, Redis web UI, openresty lor Lua ",
+    "authors": ["nbdanny"]
+  },
+   {
+    "name": "RedisWebManager",
+    "language": "Ruby",
+    "repository": "https://github.com/OpenGems/redis_web_manager",
+    "description": "Web interface that allows you to manage easily your Redis instance (see keys, memory used, connected client, etc...).",
+    "authors": []
+  },
+
+  {
+    "name": "Reliable Message Delivery",
+    "language": "C#",
+    "repository": "https://github.com/Oriflame/RedisMessaging.ReliableDelivery",
+    "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
+    "authors": ["PetrKozelek"]
+  },
+
+  {
+    "name": "River",
+    "language": "C++, Python",
+    "repository": "https://github.com/pbotros/river",
+    "description": "A structured streaming framework built atop Redis Streams with built-in support for persistence and indefinitely long streams.",
+    "authors": []
+  },
+  {
+    "name": "Runnel",
+    "language": "Python",
+    "repository": "https://github.com/mjwestcott/runnel",
+    "description": "Distributed event processing for Python based on Redis Streams",
+    "authors": ["mjwestcott"]
+  },
+  {
+    "name": "Trino (formerly Presto SQL) Redis Connector",
+    "language": "SQL",
+    "url": "https://trino.io/docs/current/connector/redis.html",
+    "repository": "https://github.com/trinodb/trino",
+    "description": "Trino Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once",
+    "authors": []
   }
 ]

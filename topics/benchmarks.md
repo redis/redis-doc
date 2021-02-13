@@ -99,7 +99,7 @@ specified with `-c`) sends the next command only when the reply of the previous
 command is received, this means that the server will likely need a read call
 in order to read each command from every client. Also RTT is paid as well.
 
-Redis supports [/topics/pipelining](pipelining), so it is possible to send
+Redis supports [pipelining](/topics/pipelining), so it is possible to send
 multiple commands at once, a feature often exploited by real world applications.
 Redis pipelining is able to dramatically improve the number of operations per
 second a server is able do deliver.

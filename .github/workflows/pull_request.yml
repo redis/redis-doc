@@ -1,0 +1,22 @@
+name: Check pull request
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install aspell
+      run: sudo apt-get install aspell
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6
+    - uses: actions/checkout@v2.1.1
+    - name: Install dependencies
+      run: gem install $(sed -e 's/ -v /:/' .gems)
+    - name: Sanity parse test
+      run: make -s
+    - name: Spelling check
+      run: make spell

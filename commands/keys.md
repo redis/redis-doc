@@ -33,8 +33,8 @@ Use `\` to escape special characters if you want to match them verbatim.
 @examples
 
 ```cli
-MSET one 1 two 2 three 3 four 4
-KEYS *o*
-KEYS t??
+MSET firstname Jack lastname Stuntman age 35
+KEYS *name*
+KEYS a??
 KEYS *
 ```

@@ -26,11 +26,11 @@ Implemented subset
 Redis Cluster implements all the single key commands available in the
 non-distributed version of Redis. Commands performing complex multi-key
 operations like Set type unions or intersections are implemented as well
-as long as the keys all belong to the same node.
+as long as the keys all hash to the same slot.
 
-Redis Cluster implements a concept called **hash tags** that can be used
-in order to force certain keys to be stored in the same node. However during
-manual reshardings, multi-key operations may become unavailable for some time
+Redis Cluster implements a concept called **hash tags** that can be used in
+order to force certain keys to be stored in the same hash slot. However during
+manual resharding, multi-key operations may become unavailable for some time
 while single key operations are always available.
 
 Redis Cluster does not support multiple databases like the stand alone version
@@ -273,7 +273,7 @@ the node was pinged and the last time the pong was received, the current
 *configuration epoch* of the node (explained later in this specification),
 the link state and finally the set of hash slots served.
 
-A detailed [explanation of all the node fields](http://redis.io/commands/cluster-nodes) is described in the `CLUSTER NODES` documentation.
+A detailed [explanation of all the node fields](https://redis.io/commands/cluster-nodes) is described in the `CLUSTER NODES` documentation.
 
 The `CLUSTER NODES` command can be sent to any node in the cluster and provides the state of the cluster and the information for each node according to the local view the queried node has of the cluster.
 
@@ -486,9 +486,9 @@ there are no race conditions). This is how `MIGRATE` works:
     MIGRATE target_host target_port key target_database id timeout
 
 `MIGRATE` will connect to the target instance, send a serialized version of
-the key, and once an OK code is received will delete the old key from its own
-dataset. From the point of view of an external client a key exists either
-in A or B at any given time.
+the key, and once an OK code is received, the old key from its own dataset
+will be deleted. From the point of view of an external client a key exists
+either in A or B at any given time.
 
 In Redis Cluster there is no need to specify a database other than 0, but
 `MIGRATE` is a general command that can be used for other tasks not
@@ -629,9 +629,9 @@ For example the following operation is valid:
 Multi-key operations may become unavailable when a resharding of the
 hash slot the keys belong to is in progress.
 
-More specifically, even during a resharding the multi-key operations
-targeting keys that all exist and are all still in the same node (either
-the source or destination node) are still available.
+More specifically, even during a resharding the multi-key operations targeting
+keys that all exist and all still hash to the same slot (either the source or
+destination node) are still available.
 
 Operations on keys that don't exist or are - during the resharding - split
 between the source and destination nodes, will generate a `-TRYAGAIN` error.
@@ -777,7 +777,7 @@ At node creation every Redis Cluster node, both slaves and master nodes, set the
 
 Every time a packet is received from another node, if the epoch of the sender (part of the cluster bus messages header) is greater than the local node epoch, the `currentEpoch` is updated to the sender epoch.
 
-Because of these semantics, eventually all the nodes will agree to the greatest `configEpoch` in the cluster.
+Because of these semantics, eventually all the nodes will agree to the greatest `currentEpoch` in the cluster.
 
 This information is used when the state of the cluster is changed and a node seeks agreement in order to perform some action.
 
@@ -895,7 +895,7 @@ This section illustrates how the epoch concept is used to make the slave promoti
 
 At this point B is down and A is available again with a role of master (actually `UPDATE` messages would reconfigure it promptly, but here we assume all `UPDATE` messages were lost). At the same time, slave C will try to get elected in order to fail over B. This is what happens:
 
-1. B will try to get elected and will succeed, since for the majority of masters its master is actually down. It will obtain a new incremental `configEpoch`.
+1. C will try to get elected and will succeed, since for the majority of masters its master is actually down. It will obtain a new incremental `configEpoch`.
 2. A will not be able to claim to be the master for its hash slots, because the other nodes already have the same hash slots associated with a higher configuration epoch (the one of B) compared to the one published by A.
 3. So, all the nodes will upgrade their table to assign the hash slots to C, and the cluster will continue its operations.
 
@@ -974,9 +974,9 @@ Liveness property: because of the second rule, eventually all nodes in the clust
 
 This mechanism in Redis Cluster is called **last failover wins**.
 
-The same happens during reshardings. When a node importing a hash slot
-completes the import operation, its configuration epoch is incremented to make
-sure the change will be propagated throughout the cluster.
+The same happens during resharding. When a node importing a hash slot completes
+the import operation, its configuration epoch is incremented to make sure the
+change will be propagated throughout the cluster.
 
 UPDATE messages, a closer look
 ---
@@ -1110,14 +1110,14 @@ Both the events are system-administrator triggered:
 1. `CLUSTER FAILOVER` command with `TAKEOVER` option is able to manually promote a slave node into a master *without the majority of masters being available*. This is useful, for example, in multi data center setups.
 2. Migration of slots for cluster rebalancing also generates new configuration epochs inside the local node without agreement for performance reasons.
 
-Specifically, during manual reshardings, when a hash slot is migrated from
+Specifically, during manual resharding, when a hash slot is migrated from
 a node A to a node B, the resharding program will force B to upgrade
 its configuration to an epoch which is the greatest found in the cluster,
 plus 1 (unless the node is already the one with the greatest configuration
 epoch), without requiring agreement from other nodes.
 Usually a real world resharding involves moving several hundred hash slots
 (especially in small clusters). Requiring an agreement to generate new
-configuration epochs during reshardings, for each hash slot moved, is
+configuration epochs during resharding, for each hash slot moved, is
 inefficient. Moreover it requires an fsync in each of the cluster nodes
 every time in order to store the new configuration. Because of the way it is
 performed instead, we only need a new config epoch when the first hash slot is moved,
@@ -1136,7 +1136,7 @@ When masters serving different hash slots have the same `configEpoch`, there
 are no issues. It is more important that slaves failing over a master have
 unique configuration epochs.
 
-That said, manual interventions or reshardings may change the cluster
+That said, manual interventions or resharding may change the cluster
 configuration in different ways. The Redis Cluster main liveness property
 requires that slot configurations always converge, so under every circumstance
 we really want all the master nodes to have a different `configEpoch`.

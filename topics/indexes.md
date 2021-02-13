@@ -101,7 +101,7 @@ Updating simple sorted set indexes
 Often we index things which change over time. In the above
 example, the age of the user changes every year. In such a case it would
 make sense to use the birth date as index instead of the age itself,
-but there are other cases where we simple want some field to change from
+but there are other cases where we simply want some field to change from
 time to time, and the index to reflect this change.
 
 The `ZADD` command makes updating simple indexes a very trivial operation
@@ -138,7 +138,7 @@ retrieve elements by radius.
 Limits of the score
 ---
 
-Sorted set elements scores are double precision integers. It means that
+Sorted set elements scores are double precision floats. It means that
 they can represent different decimal or integer values with different
 errors, because they use an exponential representation internally.
 However what is interesting for indexing purposes is that the score is
@@ -348,7 +348,7 @@ we just store the entry as `key:value`:
 
 And search for the key with:
 
-    ZRANGEBYLEX myindex mykey: + LIMIT 1 1
+    ZRANGEBYLEX myindex [mykey: + LIMIT 1 1
     1) "mykey:myvalue"
 
 Then we extract the part after the colon to retrieve the value.
@@ -470,7 +470,7 @@ Representing and querying graphs using an hexastore
 
 One cool thing about composite indexes is that they are handy in order
 to represent graphs, using a data structure which is called
-[Hexastore](http://www.vldb.org/pvldb/1/1453965.pdf).
+[Hexastore](http://www.vldb.org/pvldb/vol1/1453965.pdf).
 
 The hexastore provides a representation for relations between objects,
 formed by a *subject*, a *predicate* and an *object*.
@@ -547,7 +547,7 @@ our coordinates. Both variables max value is 400.
 The blue box in the picture represents our query. We want all the points
 where `x` is between 50 and 100, and where `y` is between 100 and 300.
 
-![Points in the space](http://redis.io/images/redisdoc/2idx_0.png)
+![Points in the space](https://redis.io/images/redisdoc/2idx_0.png)
 
 In order to represent data that makes these kinds of queries fast to perform,
 we start by padding our numbers with 0. So for example imagine we want to
@@ -586,7 +586,7 @@ variable is between 70 and 79, and the `y` variable is between 200 and 209.
 We can write random points in this interval, in order to identify this
 specific area:
 
-![Small area](http://redis.io/images/redisdoc/2idx_1.png)
+![Small area](https://redis.io/images/redisdoc/2idx_1.png)
 
 So the above lexicographic query allows us to easily query for points in
 a specific square in the picture. However the square may be too small for
@@ -601,7 +601,7 @@ This time the range represents all the points where `x` is between 0 and 99
 and `y` is between 200 and 299. Drawing random points in this interval
 shows us this larger area:
 
-![Large area](http://redis.io/images/redisdoc/2idx_2.png)
+![Large area](https://redis.io/images/redisdoc/2idx_2.png)
 
 Oops now our area is ways too big for our query, and still our search box is
 not completely included. We need more granularity, but we can easily obtain
@@ -644,7 +644,7 @@ What we do is to start with the left bottom corner of our search box,
 which is 50,100, and find the first range by substituting the last 6 bits
 in each number with 0. Then we do the same with the right top corner.
 
-With two trivial nested for loops where we increment only the significative
+With two trivial nested for loops where we increment only the significant
 bits, we can find all the squares between these two. For each square we
 convert the two numbers into our interleaved representation, and create
 the range using the converted representation as our start, and the same
@@ -687,7 +687,7 @@ Turning this into code is simple. Here is a Ruby example:
 
 While non immediately trivial this is a very useful indexing strategy that
 in the future may be implemented in Redis in a native way.
-For now, the good thing is that the complexity may be easily encapsualted
+For now, the good thing is that the complexity may be easily encapsulated
 inside a library that can be used in order to perform indexing and queries.
 One example of such library is [Redimension](https://github.com/antirez/redimension), a proof of concept Ruby library which indexes N-dimensional data inside Redis using the technique described here.
 
@@ -719,7 +719,7 @@ property or not.
 
 Similarly lists can be used in order to index items into a fixed order.
 I can add all my items into a Redis list and rotate the list with
-RPOPLPUSH using the same key name as source and destination. This is useful
+`RPOPLPUSH` using the same key name as source and destination. This is useful
 when I want to process a given set of items again and again forever in the
 same order. Think of an RSS feed system that needs to refresh the local copy
 periodically.
