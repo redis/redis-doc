@@ -15,9 +15,7 @@ remove data from a stream.
 
 ## Specifying a Stream ID as an argument
 
-A stream entry ID identifies a given entry inside a stream. An error is
-returned if the ID provided is an invalid stream ID, or if the ID is
-equal or smaller than the target stream top item.
+A stream entry ID identifies a given entry inside a stream.
 
 The `XADD` command will auto-generate a unique ID for you if the ID argument
 specified is the `*` character (asterisk ASCII character). However, while
@@ -44,7 +42,7 @@ a different absolute time.
 
 When a user specified an explicit ID to `XADD`, the minimum valid ID is
 `0-1`, and the user *must* specify an ID which is greater than any other
-ID currently inside the stream, otherwise the command will fail. Usually
+ID currently inside the stream, otherwise the command will fail and return an error. Usually
 resorting to specific IDs is useful only if you have another system generating
 unique IDs (for instance an SQL table) and you really want the Redis stream
 IDs to match the one of this other system.
