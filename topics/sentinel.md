@@ -422,7 +422,12 @@ IP Addresses and DNS names
 ---
 
 Older versions of Sentinel did not support host names and required IP addresses to be specified everywhere.
-Starting with version 6.2, Sentinel has *optional* support for host names. This capability is disabled by default, and should only be enabled if needed and in environments where DNS is reliable and able to resolve local addresses quickly. Unexpected delays in address resolution may have a negative impact on Sentinel.
+Starting with version 6.2, Sentinel has *optional* support for host names.
+
+**This capability is disabled by default. If you're going to enable DNS/hostnames support, please note:**
+
+1. The name resolution configuration on your Redis and Sentinel nodes must be reliable and be able to resolve addresses quickly. Unexpected delays in address resolution may have a negative impact on Sentinel.
+2. You should use hostnames everywhere and avoid mixing hostnames and IP addresses. To do that, use `replica-announce-ip <hostname>` and `sentinel announce-ip <hostname>` for all Redis and Sentinel instances, respectively.
 
 Enabling the `resolve-hostnames` global configuration allows Sentinel to accept host names:
 
