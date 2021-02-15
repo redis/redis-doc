@@ -78,14 +78,6 @@
   },
 
   {
-    "name": "Tideland Erlang/OTP Redis Client",
-    "language": "Erlang",
-    "repository": "git://git.tideland.biz/errc",
-    "description": "A comfortable Redis client for Erlang/OTP support pooling, pub/sub and transactions.",
-    "authors": ["themue"]
-  },
-
-  {
     "name": "exredis",
     "language": "Elixir",
     "repository": "https://github.com/artemeff/exredis",
@@ -108,6 +100,7 @@
       "repository": "https://github.com/go-redis/redis",
     "description": "Redis client for Golang supporting Redis Sentinel and Redis Cluster out of the box.",
     "authors": [],
+    "recommended": true,
     "active": true
   },
 
@@ -228,15 +221,6 @@
     "authors": [],
     "recommended": true,
     "active": true
-  },
-
-  {
-    "name": "haskell-redis",
-    "language": "Haskell",
-    "url": "https://bitbucket.org/videlalvaro/redis-haskell/wiki/Home",
-    "repository": "https://bitbucket.org/videlalvaro/redis-haskell/src",
-    "description": "Not actively maintained, supports Redis <= 2.0.",
-    "authors": ["old_sound"]
   },
 
   {
@@ -801,7 +785,7 @@
     "repository": "https://code.google.com/p/credis/source/browse",
     "description": "",
     "authors": [],
-    "active": true
+    "active": false
   },
   
   {
@@ -1503,7 +1487,7 @@
   {
     "name": "RediStack",
     "language": "Swift",
-    "repository": "https://gitlab.com/Mordil/RediStack",
+    "repository": "https://github.com/Mordil/RediStack",
     "description": "Non-blocking, event-driven Swift client for Redis built with SwiftNIO for all official Swift deployment environments.",
     "authors": ["mordil"],
     "active": true,

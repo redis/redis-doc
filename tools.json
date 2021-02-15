@@ -78,13 +78,6 @@
     "authors": ["srithedabbler"]
   },
   {
-    "name": "Redily",
-    "language": "Javascript",
-    "url": "https://www.redily.app",
-    "description": "An intuitive, cross-platform Redis GUI Client built in Electron.",
-    "authors": ["stefano_arnone"]
-  },
-  {
     "name": "AnotherRedisDesktopManager",
     "language": "Javascript",
     "repository": "https://github.com/qishibo/AnotherRedisDesktopManager",
@@ -115,7 +108,8 @@
   {
     "name": "Meerkat",
     "language": "Ruby",
-    "repository": "http://carlhoerberg.github.io/meerkat/",
+    "url": "https://carlhoerberg.github.io/meerkat/",
+    "repository": "https://github.com/carlhoerberg/meerkat",
     "description": "Rack middleware for Server Sent Events with multiple backends.",
     "authors": ["carlhoerberg"]
   },
@@ -186,14 +180,15 @@
   {
     "name": "Sidekiq",
     "language": "Ruby",
-    "repository": "http://sidekiq.org/",
+    "url": "http://sidekiq.org/",
+    "repository": "https://github.com/mperham/sidekiq/",
     "description": "Simple, efficient message processing for your Rails 3 application.",
     "authors": ["getajobmike"]
   },
   {
     "name": "Omhiredis",
     "language": "C",
-    "repository": "http://www.rsyslog.com/doc/build_from_repo.html",
+    "repository": "https://github.com/rsyslog/rsyslog",
     "description": "Redis output plugin for rsyslog (rsyslog dev, and rsyslog head).",
     "authors": ["taotetek"]
   },
@@ -263,7 +258,7 @@
   {
     "name": "Redback",
     "language": "Javascript",
-    "repository": "http://github.com/chriso/redback",
+    "repository": "https://github.com/chriso/redback",
     "description": "Higher-level Redis constructs - social graph, full text search, rate limiting, key pairs.",
     "authors": []
   },
@@ -337,7 +332,7 @@
     "name": "Nydus",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/nydus",
-    "repository": "https://pypi.python.org/pypi/nydus",
+    "repository": "https://github.com/disqus/nydus",
     "description": "Connection clustering and routing for Redis and Python.",
     "authors": ["zeeg"]
   },
@@ -481,13 +476,6 @@
     "authors": ["cinience"]
   },
   {
-    "name": "Keylord",
-    "language": "Java",
-    "url": "http://protonail.com/products/keylord",
-    "description": "Cross-platform administration and development GUI application for key-value databases like Redis, LevelDB, etc.",
-    "authors": ["protonail"]
-  },
-  {
     "name": "redispapa",
     "language": "Python",
     "url": "https://github.com/no13bus/redispapa",
@@ -611,13 +599,6 @@
     "repository": "https://github.com/boazsegev/iodine",
     "description": "Iodine is an HTTP / Websocket server with native pub/sub support. Iodine includes an integrated Redis client that provides Pub/Sub scaling beyond machine boundaries.",
     "authors": ["bowildmusic"]
-  },
-  {
-    "name": "Regis",
-    "language": "Swift",
-    "url": "https://www.harfangapps.com/regis/",
-    "description": "Full-featured Redis client for the Mac, available on the Mac App Store.",
-    "authors": ["harfangapps"]
   },
   {
     "name": "miniredis",
