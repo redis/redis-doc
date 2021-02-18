@@ -156,7 +156,7 @@ Here is the meaning of all fields in the **persistence** section:
 *   `loading`: Flag indicating if the load of a dump file is on-going
 *   `current_cow_size`: The size in bytes of copy-on-write memory
      while a child fork is running
-*   `current_fork_perc`: The progress in percentage of the current fork process, in AOF or RDB fork it indicates the percentage of processed keys
+*   `current_fork_perc`: The percentage of progress of the current fork process. For AOF and RDB forks it is the percentage of `current_save_keys_processed` out of `current_save_keys_total`.
 *   `current_save_keys_processed`: Number of keys processed by the current save operation
 *   `current_save_keys_total`: Number of keys at the beginning of the current save operation 
 *   `rdb_changes_since_last_save`: Number of changes since the last dump
