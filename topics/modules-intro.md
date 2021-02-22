@@ -8,12 +8,12 @@ The modules documentation is composed of the following pages:
 * [Blocking operations](/topics/modules-blocking-ops) shows how to write blocking commands that will not reply immediately, but will block the client, without blocking the Redis server, and will provide a reply whenever will be possible.
 * [Redis modules API reference](/topics/modules-api-ref) is generated from module.c top comments of RedisModule functions. It is a good reference in order to understand how each function works.
 
-Redis modules make possible to extend Redis functionality using external
-modules, implementing new Redis commands at a speed and with features
+Redis modules make it possible to extend Redis functionality using external
+modules, rapidly implementing new Redis commands with features
 similar to what can be done inside the core itself.
 
-Redis modules are dynamic libraries, that can be loaded into Redis at
-startup or using the `MODULE LOAD` command. Redis exports a C API, in the
+Redis modules are dynamic libraries that can be loaded into Redis at
+startup, or using the `MODULE LOAD` command. Redis exports a C API, in the
 form of a single C header file called `redismodule.h`. Modules are meant
 to be written in C, however it will be possible to use C++ or other languages
 that have C binding functionalities.
