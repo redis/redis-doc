@@ -1302,6 +1302,10 @@ set to `REDISMODULE_HASH_NONE` if no special behavior is needed.
                          are created.
     REDISMODULE_HASH_CFIELDS: The field names passed are null terminated C
                               strings instead of RedisModuleString objects.
+    REDISMODULE_HASH_COUNT_ALL: Include the number of inserted fields in the
+                                returned number, in addition to the number of
+                                updated and deleted fields. (Added in Redis
+                                6.2.)
 
 Unless NX is specified, the command overwrites the old field value with
 the new one.
@@ -1315,13 +1319,24 @@ code can be used:
 
 Return value:
 
-The number of fields updated (that may be less than the number of fields
-specified because of the XX or NX options).
+The number of fields existing in the hash prior to the call, which have been
+updated (its old value has been replaced by a new value) or deleted. If the
+flag `REDISMODULE_HASH_COUNT_ALL` is set, insterted fields not previously
+existing in the hash are also counted.
 
-In the following case the return value is always zero:
+If the return value is zero, `errno` is set (since Redis 6.2) as follows:
 
-* The key was not open for writing.
-* The key was associated with a non Hash value.
+- EINVAL if any unknown flags are set or if key is NULL.
+- ENOTSUP if the key is associated with a non Hash value.
+- EBADF if the key was not opened for writing.
+- ENOENT if no fields were counted as described under Return value above.
+  This is not actually an error. The return value can be zero if all fields
+  were just created and the `COUNT_ALL` flag was unset, or if changes were held
+  back due to the NX and XX flags.
+
+NOTICE: The return value semantics of this function are very different
+between Redis 6.2 and older versions. Modules that use it should determine
+the Redis version and handle it accordingly.
 
 ## `RedisModule_HashGet`
 
@@ -3343,12 +3358,14 @@ child existed (but not when killed)
 Return: -1 on failure, on success the parent process will get a positive PID
 of the child, and the child process will get 0.
 
-## `RedisModule_SendChildCOWInfo`
+## `RedisModule_SendChildHeartbeat`
 
-    void RedisModule_SendChildCOWInfo(void);
+    void RedisModule_SendChildHeartbeat(double progress);
 
 The module is advised to call this function from the fork child once in a while,
-so that it can report COW memory to the parent which will be reported in INFO
+so that it can report progress and COW memory to the parent which will be
+reported in INFO.
+The `progress` argument should between 0 and 1, or -1 when not available.
 
 ## `RedisModule_ExitFromChild`
 
