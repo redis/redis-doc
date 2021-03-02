@@ -741,6 +741,15 @@ is actually happening in the context of AOF loading, using this macro:
          // Handle it differently.
      }
 
+## `RedisModule_GetClientUserNameById`
+
+    RedisModuleString *RedisModule_GetClientUserNameById(RedisModuleCtx *ctx, uint64_t id);
+
+Return the ACL user name used by the client with the specified client ID.
+Client ID can be obtained with `RedisModule_GetClientId()` API. If the client does not
+exist, NULL is returned and errno is set to ENOENT. If the client isn't 
+using an ACL user, NULL is returned and errno is set to ENOTSUP
+
 ## `RedisModule_GetClientInfoById`
 
     int RedisModule_GetClientInfoById(void *ci, uint64_t id);
