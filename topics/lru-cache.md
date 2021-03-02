@@ -19,7 +19,7 @@ Maxmemory configuration directive
 ---
 
 The `maxmemory` configuration directive is used in order to configure Redis
-to use a specified amount of memory for the data set. It is possible to
+to use a specified amount of memory. It is possible to
 set the configuration directive using the `redis.conf` file, or later using
 the `CONFIG SET` command at runtime.
 
