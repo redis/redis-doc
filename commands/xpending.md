@@ -105,6 +105,8 @@ we have a pending entries list data structure both globally, and for
 every consumer, so we can very efficiently show just messages pending for
 a single consumer.
 
+## Idle time filter
+
 Since version 6.2 it is possible to filter entries by their idle-time,
 given in milliseconds (useful for `XCLAIM`ing entries that have not been
 processed for some time):
