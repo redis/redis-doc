@@ -11,7 +11,7 @@ the argument must be "LCS", since this is the only implemented one.
 ## LCS algorithm
 
 ```
-STRALGO LCS [KEYS ...] [STRINGS ...] [LEN] [IDX] [MINMATCHLEN <len>] [WITHMATCHLEN]
+STRALGO LCS STRINGS <string_a> <string_b> | KEYS <key_a> <key_b> [LEN] [IDX] [MINMATCHLEN <len>] [WITHMATCHLEN]
 ```
 
 The LCS subcommand implements the longest common subsequence algorithm. Note that this is different than the longest common string algorithm, since matching characters in the string does not need to be contiguous.
