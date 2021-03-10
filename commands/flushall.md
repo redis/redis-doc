@@ -7,7 +7,7 @@ Starting with Redis 6.2, setting the **lazyfree-lazy-user-flush** configuration 
 It is possible to use one of the following modifiers to dictate the flushing mode explicitly:
 
 * `ASYNC`: flushes the databases asynchronously
-* `SYNC`: flushes the databases synchronously
+* `!SYNC`: flushes the databases synchronously
 
 Note: an asynchronous `FLUSHALL` command only deletes keys that were present at the time the command was invoked. Keys created during an asynchronous flush will be unaffected.
 
@@ -18,4 +18,4 @@ Note: an asynchronous `FLUSHALL` command only deletes keys that were present at 
 @history
 
 * `>= 4.0.0`: Added the `ASYNC` flushing mode modifier.
-* `>= 6.2.0`: Added the `SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive.
+* `>= 6.2.0`: Added the `!SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive.
