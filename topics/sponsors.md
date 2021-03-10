@@ -36,4 +36,4 @@ Martens](https://twitter.com/soveran). Damian and Michel remain the current
 maintainers.
 
 The `redis.io` domain was donated for a few years to the project by [I Want My
-Name](https://iwantmyname.com). Now is sponsored by myself (Salvatore Sanfilippo).
+Name](https://iwantmyname.com).
