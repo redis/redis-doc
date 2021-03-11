@@ -336,5 +336,15 @@
        "itamarhaber"
     ],
     "stars":52
+  },
+  { 
+    "name":"Redis Interval Sets",
+    "license": "BSD-3-Clause",
+    "repository": "https://github.com/danitseitlin/redis-interval-sets",
+    "description": "A Redis module for creating interval sets",
+    "authors": [
+       "danitseitlin"
+    ],
+    "stars":3
   }
 ]
