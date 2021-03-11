@@ -8,7 +8,7 @@ Starting with Redis 6.2, setting the **lazyfree-lazy-user-flush** configuration 
 It is possible to use one of the following modifiers to dictate the flushing mode explicitly:
 
 * `ASYNC`: flushes the cache asynchronously
-* `SYNC`: flushes the cache synchronously
+* `!SYNC`: flushes the cache synchronously
 
 @return
 
@@ -16,4 +16,4 @@ It is possible to use one of the following modifiers to dictate the flushing mod
 
 @history
 
-* `>= 6.2.0`: Added the `ASYNC` and `SYNC` flushing mode modifiers, as well as the  **lazyfree-lazy-user-flush** configuration directive.
+* `>= 6.2.0`: Added the `ASYNC` and `!SYNC` flushing mode modifiers, as well as the  **lazyfree-lazy-user-flush** configuration directive.
