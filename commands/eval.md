@@ -194,6 +194,18 @@ returned in the format specified above (as a Lua table with an `err` field).
 The script can pass the exact error to the user by returning the error object
 returned by `redis.pcall()`.
 
+## Running Lua under low memory conditions
+
+When the memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the Lua script that uses additional memory will cause the script to abort (unless `redis.pcall` was used).
+However, one thing to caution here is that if the first write command does not use additional memory such as DEL, LREM, or SREM, etc, Redis will allow it to run and all subsequent commands in the Lua script will execute to completion for atomicity.
+If the subsequent writes in the script generate additional memory, the Redis memory usage can go over `maxmemory`.
+
+Another possible way for Lua script to cause Redis memory usage to go above `maxmemory` happens when the script execution starts when Redis is slightly below `maxmemory` so the first write command in the script is allowed.
+As the script executes, subsequent write commands continue to generate memory and causes the Redis server to go above `maxmemory`.
+
+In those scenarios, it is recommended to configure the `maxmemory-policy` not to use `noeviction`.
+Also Lua scripts should be short so that evictions of items can happen in between Lua scripts.
+
 ## Bandwidth and EVALSHA
 
 The `EVAL` command forces you to send the script body again and again.
