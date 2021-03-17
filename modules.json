@@ -317,7 +317,7 @@
     ],
     "stars":0
   },
-  { 
+  {
     "name":"Redis-ImageScout",
     "license": "pHash Redis Source Available License",
     "repository": "https://github.com/starkdg/Redis-ImageScout.git",
@@ -327,7 +327,7 @@
 	],
 	"stars":2
   },
-  { 
+  {
     "name":"redex",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedisLabsModules/redex.git",
@@ -337,7 +337,7 @@
     ],
     "stars":52
   },
-  { 
+  {
     "name":"Redis Interval Sets",
     "license": "BSD-3-Clause",
     "repository": "https://github.com/danitseitlin/redis-interval-sets",
@@ -346,5 +346,16 @@
        "danitseitlin"
     ],
     "stars":3
+  },
+  {
+    "name":"redicrypt",
+    "license": "MIT",
+    "repository": "https://github.com/chayim/redicrypt",
+    "description": "Redis module for string encryption and decryption",
+    "authors": [
+       "chayim"
+    ],
+    "stars":A
   }
+
 ]
