@@ -1,5 +1,5 @@
 The `XACK` command removes one or multiple messages from the
-*pending entries list* (PEL) of a stream consumer group. A message is pending,
+*Pending Entries List* (PEL) of a stream consumer group. A message is pending,
 and as such stored inside the PEL, when it was delivered to some consumer,
 normally as a side effect of calling `XREADGROUP`, or when a consumer took
 ownership of a message calling `XCLAIM`. The pending message was delivered to

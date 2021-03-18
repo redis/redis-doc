@@ -62,7 +62,7 @@ are no differences in this regard.
 
 Two things:
 
-1. If the message was never delivered to anyone, that is, if we are talking about a new message, then a PEL (Pending Entry List) is created.
+1. If the message was never delivered to anyone, that is, if we are talking about a new message, then a PEL (Pending Entries List) is created.
 2. If instead the message was already delivered to this consumer, and it is just re-fetching the same message again, then the *last delivery counter* is updated to the current time, and the *number of deliveries* is incremented by one. You can access those message properties using the `XPENDING` command.
 
 ## Usage example

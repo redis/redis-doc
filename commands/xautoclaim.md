@@ -5,7 +5,7 @@ Like `XCLAIM`, the command operates on the stream entries at `<key>` and in the 
 It transfers ownership to `<consumer>` of messages pending for more than `<min-idle-time>` milliseconds and having an equal or greater ID than `<start>`. 
 
 The optional `<count>` argument, which defaults to 100, is the upper limit of the number of entries that the command attempts to claim.
-Internally, the command begins scanning the consumer group's PEL from `<start>` and filters out entries having an idle time less than or equal to `<min-idle-time>`.
+Internally, the command begins scanning the consumer group's Pending Entries List (PEL) from `<start>` and filters out entries having an idle time less than or equal to `<min-idle-time>`.
 The maximum number of pending entries that the command scans is the product of multiplying `<count>`'s value by 10 (hard-coded).
 It is possible, therefore, that the number of entries claimed will be less than the specified value.
 
