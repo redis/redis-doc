@@ -63,7 +63,7 @@ at least one pending message, and the number of pending messages it has.
 ## Extended form of XPENDING
 
 The summary provides a good overview, but sometimes we are interested in the
-details. In order to see all the pending messages with more associated 
+details. In order to see all the pending messages with more associated
 information we need to also pass a range of IDs, in a similar way we do it with
 `XRANGE`, and a non optional *count* argument, to limit the number
 of messages returned per call:
@@ -127,6 +127,8 @@ The `XPENDING` command allows iterating over the pending entries just like
 prefixing the ID of the last-read pending entry with the `(` character that
 denotes an open (exclusive) range, and proving it to the subsequent call to the
 command.
+
+@return
 
 @array-reply, specifically:
 

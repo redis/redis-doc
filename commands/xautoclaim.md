@@ -2,7 +2,7 @@ This command transfers ownership of pending stream entries that match the specif
 but provides a more straightforward way to deal with message delivery failures via `SCAN`-like semantics.
 
 Like `XCLAIM`, the command operates on the stream entries at `<key>` and in the context of the provided `<group>`.
-It transfers ownership to `<consumer>` of messages pending for more than `<min-idle-time>` milliseconds and having an equal or greater ID than `<start>`. 
+It transfers ownership to `<consumer>` of messages pending for more than `<min-idle-time>` milliseconds and having an equal or greater ID than `<start>`.
 
 The optional `<count>` argument, which defaults to 100, is the upper limit of the number of entries that the command attempts to claim.
 Internally, the command begins scanning the consumer group's Pending Entries List (PEL) from `<start>` and filters out entries having an idle time less than or equal to `<min-idle-time>`.
@@ -31,7 +31,7 @@ An array with two elements:
 1. The first element is a stream ID to be used as the `<start>` argument for the next call to `XAUTOCLAIM`
 2. The second element is an array containing all the successfully claimed messages in the same format as `XRANGE`.
 
-Example:
+@examples
 
 ```
 > XAUTOCLAIM mystream mygroup Alice 3600000 0-0 COUNT 25

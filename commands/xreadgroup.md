@@ -102,6 +102,8 @@ consumers that are processing new things.
 
 To see how the command actually replies, please check the `XREAD` command page.
 
+@return
+
 @array-reply, specifically:
 
 The command returns an array of results: each element of the returned

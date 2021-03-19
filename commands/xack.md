@@ -20,8 +20,10 @@ Redis server.
 
 The command returns the number of messages successfully acknowledged.
 Certain message IDs may no longer be part of the PEL (for example because
-they have been already acknowledge), and XACK will not count them as
+they have already been acknowledged), and XACK will not count them as
 successfully acknowledged.
+
+@examples
 
 ```cli
 XACK mystream mygroup 1526569495631-0

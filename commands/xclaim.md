@@ -35,7 +35,7 @@ The command returns all the messages successfully claimed, in the same format
 as `XRANGE`. However if the `JUSTID` option was specified, only the message
 IDs are reported, without including the actual message.
 
-Example:
+@examples
 
 ```
 > XCLAIM mystream mygroup Alice 3600000 1526569498055-0
