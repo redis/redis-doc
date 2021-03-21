@@ -268,6 +268,16 @@
     "stars": 30
   },
   {
+    "name": "redis-tree",
+    "license": "MIT",
+    "repository": "https://github.com/OhBonsai/RedisTree",
+    "description": "Implements Polytree as a native data type. It allows creating,locating,pushing and detaching tree from Redis keys.",
+    "authors": [
+      "ohbonsai"
+    ],
+    "stars": 18
+  },
+  {
     "name": "Reventis",
     "license": "Redis Source Available License",
     "repository": "https://github.com/starkdg/reventis",
