@@ -38,8 +38,8 @@ A consumer group can be destroyed completely by using the following form:
 
 The consumer group will be destroyed even if there are active consumers
 and pending messages, so make sure to call this command only when really
-needed. This form returns an @integer-reply with the number of destroyed
-consumer groups (0 or 1).
+needed.
+This form returns an @integer-reply with the number of destroyed consumer groups (0 or 1).
 
 Consumers in a consumer group are auto-created every time a new consumer
 name is mentioned by some command. They can also be explicitly created
