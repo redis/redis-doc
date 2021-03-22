@@ -21,7 +21,7 @@ Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `G
 
 @simple-string-reply: `OK` if `SET` was executed correctly.
 @bulk-string-reply: when `GET` option is set, the old value stored at key, or nil when key did not exist.
-@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met or if user specified the `NX` and `GET` options that do not met.
+@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met, or if the user specified the `GET` option and there was no previous value for the key.
 
 @history
 
