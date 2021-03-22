@@ -55,8 +55,8 @@ form is used:
     XGROUP DELCONSUMER mystream consumer-group-name myconsumer123
 
 Sometimes it may be useful to remove old consumers since they are no longer
-used. This form returns an @integer-reply with the number of pending messages
-that the consumer had before it was deleted.
+used.
+This form returns an @integer-reply with the number of pending messages that the consumer had before it was deleted.
 
 Finally it possible to set the next message to deliver using the
 `SETID` subcommand. Normally the next ID is set when the consumer is
