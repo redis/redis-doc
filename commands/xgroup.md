@@ -22,8 +22,8 @@ zero as the starting ID for the consumer group:
 
 Of course it is also possible to use any other valid ID. If the specified
 consumer group already exists, the command returns a `-BUSYGROUP` error.
-Otherwise the operation is performed and a @simple-string-reply `OK` is returned. There are no hard
-limits to the number of consumer groups you can associate to a given stream.
+Otherwise, the operation is performed and a @simple-string-reply `OK` is returned.
+There are no hard limits to the number of consumer groups you can associate with a given stream.
 
 If the specified stream doesn't exist when creating a group, an error will be
 returned. You can use the optional `MKSTREAM` subcommand as the last argument
