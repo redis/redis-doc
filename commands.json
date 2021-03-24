@@ -1378,7 +1378,7 @@
   },
   "GEOPOS": {
     "summary": "Returns longitude and latitude of members of a geospatial index",
-    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+    "complexity": "O(N) where N is the number of members requested.",
     "arguments": [
       {
         "name": "key",
