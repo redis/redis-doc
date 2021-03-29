@@ -7,8 +7,8 @@ An error is returned when the value stored at `key` is not a set.
 
 @return
 
-@integer-reply: the number of elements that were added to the set, not including
-all the elements already present into the set.
+@integer-reply: the number of members that were added to the set, not including
+all the members already present into the set.
 
 @history
 

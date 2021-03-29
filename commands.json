@@ -3770,7 +3770,7 @@
   },
   "SREM": {
     "summary": "Remove one or more members from a set",
-    "complexity": "O(N) where N is the number of members to be removed.",
+    "complexity": "O(1) for each element removed, so O(N) to remove N elements when the command is called with multiple arguments.",
     "arguments": [
       {
         "name": "key",
