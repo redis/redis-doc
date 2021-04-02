@@ -286,11 +286,11 @@ in order to complete the user input, we may see something like that:
 
     ZRANGEBYLEX myindex "[banana:" + LIMIT 0 10
     1) "banana:123"
-    2) "banahhh:1"
+    2) "banaooo:1"
     3) "banned user:49"
     4) "banning:89"
 
-Apparently nobody searches for "banahhh", for example, but the query was
+Apparently nobody searches for "banaooo", for example, but the query was
 performed a single time, so we end presenting it to the user.
 
 This is what we can do. Out of the returned items, we pick a random one,
