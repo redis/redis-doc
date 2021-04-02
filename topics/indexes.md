@@ -262,7 +262,7 @@ We also need logic in order to increment the index if the search term
 already exists in the index, so what we'll actually do is something like
 that:
 
-    ZRANGEBYLEX myindex "[banana:" + LIMIT 1 1
+    ZRANGEBYLEX myindex "[banana:" + LIMIT 0 1
     1) "banana:1"
 
 This will return the single entry of `banana` if it exists. Then we
@@ -284,13 +284,13 @@ There is more: our goal is to just have items searched very frequently.
 So we need some form of purging. When we actually query the index
 in order to complete the user input, we may see something like that:
 
-    ZRANGEBYLEX myindex "[banana:" + LIMIT 1 10
+    ZRANGEBYLEX myindex "[banana:" + LIMIT 0 10
     1) "banana:123"
-    2) "banahhh:1"
+    2) "banaooo:1"
     3) "banned user:49"
     4) "banning:89"
 
-Apparently nobody searches for "banahhh", for example, but the query was
+Apparently nobody searches for "banaooo", for example, but the query was
 performed a single time, so we end presenting it to the user.
 
 This is what we can do. Out of the returned items, we pick a random one,
@@ -348,7 +348,7 @@ we just store the entry as `key:value`:
 
 And search for the key with:
 
-    ZRANGEBYLEX myindex [mykey: + LIMIT 1 1
+    ZRANGEBYLEX myindex [mykey: + LIMIT 0 1
     1) "mykey:myvalue"
 
 Then we extract the part after the colon to retrieve the value.
