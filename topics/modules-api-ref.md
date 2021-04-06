@@ -998,6 +998,28 @@ the number of milliseconds of TTL the key should have.
 The function returns `REDISMODULE_OK` on success or `REDISMODULE_ERR` if
 the key was not open for writing or is an empty key.
 
+## `RedisModule_GetAbsExpire`
+
+    mstime_t RedisModule_GetAbsExpire(RedisModuleKey *key);
+
+Return the key expire value, as absolute Unix timestamp.
+If no TTL is associated with the key or if the key is empty,
+`REDISMODULE_NO_EXPIRE` is returned.
+
+## `RedisModule_SetAbsExpire`
+
+    int RedisModule_SetAbsExpire(RedisModuleKey *key, mstime_t expire);
+
+Set a new expire for the key. If the special expire
+`REDISMODULE_NO_EXPIRE` is set, the expire is cancelled if there was
+one (the same as the PERSIST command).
+
+Note that the expire must be provided as a positive integer representing
+the absolute Unix timestamp the key should have.
+
+The function returns `REDISMODULE_OK` on success or `REDISMODULE_ERR` if
+the key was not open for writing or is an empty key.
+
 ## `RedisModule_ResetDataset`
 
     void RedisModule_ResetDataset(int restart_aof, int async);
@@ -1767,9 +1789,9 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
             .defrag = myType_DefragCallback
         }
 
-* **rdb_load**: A callback function pointer that loads data from RDB files.
-* **rdb_save**: A callback function pointer that saves data to RDB files.
-* **aof_rewrite**: A callback function pointer that rewrites data as commands.
+* **rdb_load**: A callback function pointer that loads data from RDB files. (mandatory)
+* **rdb_save**: A callback function pointer that saves data to RDB files. (mandatory)
+* **aof_rewrite**: A callback function pointer that rewrites data as commands. (mandatory)
 * **digest**: A callback function pointer that is used for `DEBUG DIGEST`.
 * **free**: A callback function pointer that can free a type value.
 * **aux_save**: A callback function pointer that saves out of keyspace data to RDB files.
@@ -1809,8 +1831,8 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
 Note: the module name "AAAAAAAAA" is reserved and produces an error, it
 happens to be pretty lame as well.
 
-If there is already a module registering a type with the same name,
-and if the module name or encver is invalid, NULL is returned.
+If there is already a module registering a type with the same name, the name
+or encver are invalid, or a mandatory callback is missing, NULL is returned.
 Otherwise the new type is registered into Redis, and a reference of
 type `RedisModuleType` is returned: the caller of the function should store
 this reference into a global variable to make future use of it in the
@@ -2094,10 +2116,10 @@ Produces a log message to the standard Redis log, the format accepts
 printf-alike specifiers, while level is a string describing the log
 level to use when emitting the log, and must be one of the following:
 
-* "debug"
-* "verbose"
-* "notice"
-* "warning"
+* "debug" (`REDISMODULE_LOGLEVEL_DEBUG`)
+* "verbose" (`REDISMODULE_LOGLEVEL_VERBOSE`)
+* "notice" (`REDISMODULE_LOGLEVEL_NOTICE`)
+* "warning" (`REDISMODULE_LOGLEVEL_WARNING`)
 
 If the specified log level is invalid, verbose is used by default.
 There is a fixed limit to the length of the log line this function is able
