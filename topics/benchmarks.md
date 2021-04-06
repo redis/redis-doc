@@ -13,6 +13,7 @@ The following options are supported:
      -p <port>          Server port (default 6379)
      -s <socket>        Server socket (overrides host and port)
      -a <password>      Password for Redis Auth
+     --user             Username for Redis ACL
      -c <clients>       Number of parallel connections (default 50)
      -n <requests>      Total number of requests (default 100000)
      -d <size>          Data size of SET/GET value in bytes (default 2)
