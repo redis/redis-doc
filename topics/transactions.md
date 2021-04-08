@@ -198,9 +198,10 @@ the transaction only if none of the `WATCH`ed keys were modified.
 (But they might be changed by the same client inside the transaction
 without aborting it. [More on this](https://github.com/redis/redis-doc/issues/734).)
 Otherwise the transaction is not entered at
-all. (Note that if you `WATCH` a volatile key and Redis expires
-the key after you `WATCH`ed it, `EXEC` will still work. [More on
-this](http://code.google.com/p/redis/issues/detail?id=270).)
+all. (Note that `WATCH` in a multi-exec transaction will ignore expired keys before version 6.0.9,
+[More on this](http://code.google.com/p/redis/issues/detail?id=270) .if you `WATCH` a 
+volatile key and Redis expires the key after you `WATCH`ed it, `EXEC` will still work,
+but now this behavior has been changed.[More on this](https://github.com/redis/redis/pull/7920).)
 
 `WATCH` can be called multiple times. Simply all the `WATCH` calls will
 have the effects to watch for changes starting from the call, up to
