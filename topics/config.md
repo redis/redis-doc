@@ -18,9 +18,13 @@ This is an example of configuration directive:
     slaveof 127.0.0.1 6380
 
 It is possible to provide strings containing spaces as arguments using
-quotes, as in the following example:
+(double or single) quotes, as in the following example:
 
     requirepass "hello world"
+
+Single-quoted string can contain characters escaped by backslashes, and
+double-quoted strings can additionally include any ASCII symbols encoded using
+backslashed hexadecimal notation "\\xff".
 
 The list of configuration directives, and their meaning and intended usage
 is available in the self documented example redis.conf shipped into the
