@@ -25,6 +25,7 @@ successfully acknowledged.
 
 @examples
 
-```cli
-XACK mystream mygroup 1526569495631-0
+```
+redis> XACK mystream mygroup 1526569495631-0
+(integer) 1
 ```
