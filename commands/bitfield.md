@@ -22,7 +22,7 @@ The following is the list of supported commands.
 * **INCRBY** `<type>` `<offset>` `<increment>` -- Increments or decrements (if a negative increment is given) the specified bit field and returns the new value.
 
 There is another subcommand that only changes the behavior of successive
-`INCRBY` subcommand calls by setting the overflow behavior:
+`INCRBY` and `SET` subcommands calls by setting the overflow behavior:
 
 * **OVERFLOW** `[WRAP|SAT|FAIL]`
 
@@ -59,8 +59,8 @@ the following behaviors:
 * **SAT**: uses saturation arithmetic, that is, on underflows the value is set to the minimum integer value, and on overflows to the maximum integer value. For example incrementing an `i8` integer starting from value 120 with an increment of 10, will result into the value 127, and further increments will always keep the value at 127. The same happens on underflows, but towards the value is blocked at the most negative value.
 * **FAIL**: in this mode no operation is performed on overflows or underflows detected. The corresponding return value is set to NULL to signal the condition to the caller.
 
-Note that each `OVERFLOW` statement only affects the `INCRBY` commands
-that follow it in the list of subcommands, up to the next `OVERFLOW`
+Note that each `OVERFLOW` statement only affects the `INCRBY` and `SET`
+commands that follow it in the list of subcommands, up to the next `OVERFLOW`
 statement.
 
 By default, **WRAP** is used if not otherwise specified.
