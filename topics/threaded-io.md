@@ -7,14 +7,14 @@ Now it is also possible to handle Redis clients' socket reads and writes in diff
 ## Configuration
 We have two options to control how I/O threads perform.
 ```
-io-threads 4
+io-threads [thread-num]
 ```
 The `io-threads` option control how many threads you want to use on reading/writing client connections.
 - 1 or not configured: Use single thread like what we have in the older version.
 - n (n >= 2): Use n threads(1 main thread & n-1 I/O threads) to handle network reads/writes.
 
 ```
-io-threads-do-reads yes
+io-threads-do-reads [yes|no]
 ```
 By default, Redis uses I/O threads on the write system call only. If you want to use it on the read  system call, you have to enable this option as well. Usually, threaded reads don't help much.
 
