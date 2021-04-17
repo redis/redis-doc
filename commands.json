@@ -303,7 +303,7 @@
   },
   "BLPOP": {
     "summary": "Remove and get the first element in a list, or block until one is available",
-    "complexity": "O(N). Where N is the number of provided keys.",
+    "complexity": "O(N) where N is the number of provided keys.",
     "arguments": [
       {
         "name": "key",
@@ -320,7 +320,7 @@
   },
   "BRPOP": {
     "summary": "Remove and get the last element in a list, or block until one is available",
-    "complexity": "O(N). Where N is the number of provided keys.",
+    "complexity": "O(N) where N is the number of provided keys.",
     "arguments": [
       {
         "name": "key",
