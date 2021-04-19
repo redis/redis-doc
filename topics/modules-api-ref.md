@@ -124,7 +124,7 @@ The function returns NULL if `bytes` is 0.
 
 These functions are used to implement custom Redis commands.
 
-For examples, see[ https://redis.io/topics/modules-intro]( https://redis.io/topics/modules-intro).
+For examples, see [https://redis.io/topics/modules-intro](https://redis.io/topics/modules-intro).
 
 <span id="RedisModule_IsKeysPositionRequest"></span>
 
@@ -1761,7 +1761,7 @@ The returned `RedisModuleString` objects should be released with
 
 ## Key API for Stream type
 
-For an introduction to streams, see[ https://redis.io/topics/streams-intro]( https://redis.io/topics/streams-intro).
+For an introduction to streams, see [https://redis.io/topics/streams-intro](https://redis.io/topics/streams-intro).
 
 The type `RedisModuleStreamID`, which is used in stream functions, is a struct
 with two 64-bit fields and is defined as
@@ -2152,7 +2152,7 @@ Example code fragment:
        // Do something with myval.
      }
 
-This API is documented here:[ https://redis.io/topics/modules-intro]( https://redis.io/topics/modules-intro)
+This API is documented here: [https://redis.io/topics/modules-intro](https://redis.io/topics/modules-intro)
 
 <span id="RedisModule_CallReplyProto"></span>
 
@@ -2185,7 +2185,7 @@ AOF rewrite, and so forth). In this section we define this API.
 
 Register a new data type exported by the module. The parameters are the
 following. Please for in depth documentation check the modules API
-documentation, especially[ https://redis.io/topics/modules-native-types]( https://redis.io/topics/modules-native-types).
+documentation, especially [https://redis.io/topics/modules-native-types](https://redis.io/topics/modules-native-types).
 
 * **name**: A 9 characters data type name that MUST be unique in the Redis
   Modules ecosystem. Be creative... and there will be no collisions. Use
@@ -3058,6 +3058,7 @@ is interested in. This can be an ORed mask of any of the following flags:
  - `REDISMODULE_NOTIFY_EXPIRED`: Expiration events
  - `REDISMODULE_NOTIFY_EVICTED`: Eviction events
  - `REDISMODULE_NOTIFY_STREAM`: Stream events
+ - `REDISMODULE_NOTIFY_MODULE`: Module types events
  - `REDISMODULE_NOTIFY_KEYMISS`: Key-miss events
  - `REDISMODULE_NOTIFY_ALL`: All events (Excluding `REDISMODULE_NOTIFY_KEYMISS`)
  - `REDISMODULE_NOTIFY_LOADED`: A special notification available only for modules,
@@ -3090,7 +3091,7 @@ Warning: the notification callbacks are performed in a synchronous manner,
 so notification callbacks must to be fast, or they would slow Redis down.
 If you need to take long actions, use threads to offload them.
 
-See[ https://redis.io/topics/notifications]( https://redis.io/topics/notifications) for more information.
+See [https://redis.io/topics/notifications](https://redis.io/topics/notifications) for more information.
 
 <span id="RedisModule_GetNotifyKeyspaceEvents"></span>
 
