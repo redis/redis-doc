@@ -78,10 +78,11 @@ following table:
     h     Hash commands
     z     Sorted set commands
     t     Stream commands
+    d     Module key type events
     x     Expired events (events generated every time a key expires)
     e     Evicted events (events generated when a key is evicted for maxmemory)
     m     Key miss events (events generated when a key that doesn't exist is accessed)
-    A     Alias for "g$lshztxe", so that the "AKE" string means all the events except "m".
+    A     Alias for "g$lshztxed", so that the "AKE" string means all the events except "m".
 
 At least `K` or `E` should be present in the string, otherwise no event
 will be delivered regardless of the rest of the string.
