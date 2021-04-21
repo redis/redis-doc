@@ -7,7 +7,7 @@
     "authors": [
       "antirez"
     ],
-    "stars": 332
+    "stars": 457
   },
   {
     "name": "RedisGears",
@@ -18,7 +18,7 @@
       "MeirShpilraien",
       "RedisLabs"
     ],
-    "stars": 67
+    "stars": 122
   },
   {
     "name": "redis-roaring",
@@ -49,7 +49,7 @@
       "swilly22",
       "RedisLabs"
     ],
-    "stars": 884
+    "stars": 1144
   },
   {
     "name": "redis-tdigest",
@@ -70,7 +70,7 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 939
+    "stars": 1119
   },
   {
     "name": "RediSearch",
@@ -81,29 +81,7 @@
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 1936
-  },
-  {
-    "name": "topk",
-    "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/topk",
-    "description": "An almost deterministic top k elements counter",
-    "authors": [
-      "itamarhaber",
-      "RedisLabs"
-    ],
-    "stars": 32
-  },
-  {
-    "name": "countminsketch",
-    "license": "Redis Source Available License",
-    "repository": "https://github.com/RedisLabsModules/countminsketch",
-    "description": "An apporximate frequency counter",
-    "authors": [
-      "itamarhaber",
-      "RedisLabs"
-    ],
-    "stars": 39
+    "stars": 2616
   },
   {
     "name": "RedisBloom",
@@ -114,7 +92,7 @@
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 473
+    "stars": 691
   },
   {
     "name": "neural-redis",
@@ -135,7 +113,7 @@
       "danni-m",
       "RedisLabs"
     ],
-    "stars": 310
+    "stars": 455
   },
   {
     "name": "RedisAI",
@@ -146,7 +124,7 @@
       "lantiga",
       "RedisLabs"
     ],
-    "stars": 289
+    "stars": 435
   },
   {
     "name": "ReDe",
@@ -290,6 +268,16 @@
     "stars": 30
   },
   {
+    "name": "redis-tree",
+    "license": "MIT",
+    "repository": "https://github.com/OhBonsai/RedisTree",
+    "description": "Implements Polytree as a native data type. It allows creating,locating,pushing and detaching tree from Redis keys.",
+    "authors": [
+      "ohbonsai"
+    ],
+    "stars": 18
+  },
+  {
     "name": "Reventis",
     "license": "Redis Source Available License",
     "repository": "https://github.com/starkdg/reventis",
@@ -297,7 +285,7 @@
     "authors": [
       "starkdg"
      ],
-     "stars": 13
+     "stars": 14
     },
   {
     "name": "redismodule-ratelimit",
@@ -338,5 +326,46 @@
       "zhao-lang"
     ],
     "stars":0
-  }	
+  },
+  {
+    "name":"Redis-ImageScout",
+    "license": "pHash Redis Source Available License",
+    "repository": "https://github.com/starkdg/Redis-ImageScout.git",
+    "description": "Redis module for Indexing of pHash Image fingerprints for Near-Duplicate Detection",
+    "authors": [
+		"starkdg"
+	],
+	"stars":2
+  },
+  {
+    "name":"redex",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/RedisLabsModules/redex.git",
+    "description": "Extension modules to Redis' native data types and commands",
+    "authors": [
+       "itamarhaber"
+    ],
+    "stars":52
+  },
+  {
+    "name":"Redis Interval Sets",
+    "license": "BSD-3-Clause",
+    "repository": "https://github.com/danitseitlin/redis-interval-sets",
+    "description": "A Redis module for creating interval sets",
+    "authors": [
+       "danitseitlin"
+    ],
+    "stars":3
+  },
+  {
+    "name":"redicrypt",
+    "license": "MIT",
+    "repository": "https://github.com/chayim/redicrypt",
+    "description": "Redis module for string encryption and decryption",
+    "authors": [
+       "chayim"
+    ],
+    "stars":0
+  }
+
 ]

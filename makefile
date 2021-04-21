@@ -16,8 +16,31 @@ clients:
 tools:
 	ruby utils/clients.rb tools.json
 
+check_duplicate_wordlist: wordlist
+	@cat wordlist |sort |uniq -c |sort -n \
+		|awk '{ if ($$1 > 1) print "grep -nw "$$2" wordlist"}' \
+		|sh >tmp/duplicates_in_wordlist.txt || true
+	@test -s tmp/duplicates_in_wordlist.txt \
+		&& echo "ERROR: The following word(s) appear more than once in the './wordlist' file:" \
+		&& echo "line:word" \
+		&& echo "---------" \
+		&& cat tmp/duplicates_in_wordlist.txt \
+		|| true
+	@test ! -s tmp/duplicates_in_wordlist.txt
 
-spell: tmp/commands tmp/topics $(SPELL_FILES)
+check_command_wordlist: wordlist tmp/commands.txt check_duplicate_wordlist
+	@cat wordlist tmp/commands.txt |sort |uniq -c |sort -n \
+		|awk '{ if ($$1 > 1) print "grep -nw "$$2" wordlist"}' \
+		|sh >tmp/commands_in_wordlist.txt || true
+	@test -s tmp/commands_in_wordlist.txt \
+		&& echo "ERROR: The following command(s) should be removed from in the './wordlist' file:" \
+		&& echo "line:command" \
+		&& echo "------------" \
+		&& cat tmp/commands_in_wordlist.txt \
+		|| true
+	@test ! -s tmp/commands_in_wordlist.txt
+
+spell: tmp/commands tmp/topics $(SPELL_FILES) check_command_wordlist
 	find tmp -name '*.spell' | xargs cat > tmp/spelling-errors
 	cat tmp/spelling-errors
 	test ! -s tmp/spelling-errors
@@ -27,7 +50,7 @@ $(TEXT_FILES): tmp/%.txt: %.md
 
 $(SPELL_FILES): %.spell: %.txt tmp/dict
 	aspell -a --extra-dicts=./tmp/dict 2>/dev/null < $< | \
-		awk -v FILE=$(patsubst tmp/%.spell,%.md,$@) '/^\&/ { print FILE, $$2 }' | \
+		awk -v FILE=$(patsubst tmp/%.spell,%.md,$@) '/^&/ { print FILE, $$2 }' | \
 		sort -f | uniq > $@
 
 tmp/commands:

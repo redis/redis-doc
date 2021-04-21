@@ -6,7 +6,7 @@ Starting from June 2015 the work [Salvatore Sanfilippo](http://twitter.com/antir
 Past sponsorships:
 
 * The [Shuttleworth Foundation](http://www.shuttleworthfoundation.org) donated 5000 USD to the Redis project in form of a flash grant. The details will be posted soon on a blog post documenting how the money was used.
-![Shuttleworth Foundation](http://redis.io/images/shuttleworth.png)
+![Shuttleworth Foundation](/images/shuttleworth.png)
 * From May 2013 to June 2015 the work [Salvatore Sanfilippo](http://twitter.com/antirez) did in order to develop Redis was sponsored by [Pivotal](http://gopivotal.com).
 * Before May 2013 the project was sponsored by VMware with the work of [Salvatore Sanfilippo](http://twitter.com/antirez) and [Pieter Noordhuis](http://twitter.com/pnoordhuis).
 * [VMware](http://vmware.com) and later [Pivotal](http://pivotal.io) provided a 24 GB RAM workstation for me to run the [Redis CI test](http://ci.redis.io) and other long running tests. Later I (Salvatore) equipped the server with an SSD drive in order to test in the same hardware with rotating and flash drives.
@@ -36,4 +36,4 @@ Martens](https://twitter.com/soveran). Damian and Michel remain the current
 maintainers.
 
 The `redis.io` domain was donated for a few years to the project by [I Want My
-Name](https://iwantmyname.com). Now is sponsored by myself (Salvatore Sanfilippo).
+Name](https://iwantmyname.com).

@@ -8,7 +8,6 @@ BitOp
 Bitfields
 CAS
 CJSON
-CJSON
 CLI
 CP
 CPUs
@@ -41,6 +40,7 @@ Geohashes
 Geospatial
 GitHub
 Google
+HMAC
 HLL
 HLLs
 HOWTO
@@ -56,6 +56,7 @@ IRC
 Inline
 JPEG
 JSON
+LCS
 LDB
 LF
 LFU
@@ -90,11 +91,11 @@ OOM
 OSGEO
 Opteron
 PEL
+PELs
 PHP
 PINGs
 POSIX
 PRNG
-PSYNC
 PostgreSQL
 Presharding
 RDB
@@ -151,6 +152,7 @@ Yukihiro
 ZPOP
 ZSET
 addr
+acknowledgement
 afterwards
 allkeys
 allocator
@@ -186,6 +188,7 @@ cli
 cmsgpack
 codename
 commandstats
+errorstats
 conf
 config
 configEpoch
@@ -221,10 +224,12 @@ failback
 failover
 failovers
 fanout
+fao
 fdatasync
 filesystem
 firewalled
 firewalling
+fo
 freenode
 fsync
 functionalities
@@ -244,6 +249,7 @@ incrementing
 indexable
 indices
 infeasible
+ing
 init
 inline
 internet
@@ -285,6 +291,7 @@ mmap
 movablekeys
 multi
 mutex
+mygroup
 mylist
 mymaster
 myzset
@@ -294,6 +301,7 @@ netsplits
 newjobs
 nils
 noeviction
+nopass
 noscript
 numactl
 online
@@ -313,6 +321,7 @@ probabilistically
 proc
 programmatically
 prstat
+pseudorandom
 pubsub
 qsort
 queueing
@@ -325,6 +334,7 @@ realtime
 rebalance
 rebalancing
 reconfigures
+reconfiguring
 reconnection
 reconnections
 recv
@@ -333,6 +343,7 @@ redirections
 redis
 redissrc
 reimplement
+remediate
 representable
 reprovisioned
 reshard
@@ -358,12 +369,14 @@ sismember
 slowlog
 smaps
 snapshotting
+somekey
 startup
 strace
 struct
 subcommand
 subcommands
 suboptimal
+subsequence
 substring
 swappability
 syscall
@@ -387,6 +400,7 @@ unguessable
 unix
 unlinks
 unordered
+unpause
 unreachability
 unsubscribe
 unsubscribed
@@ -405,6 +419,7 @@ variadic
 versa
 versioned
 versioning
+virginia
 virtualization
 virtualized
 vmstat
@@ -413,3 +428,9 @@ wildcards
 ziplist
 ziplists
 zset
+GeoHash
+WITHSCORES
+deauthenticates
+reauthenticate
+async
+lazyfree

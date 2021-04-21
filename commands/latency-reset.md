@@ -29,6 +29,6 @@ For more information refer to the [Latency Monitoring Framework page][lm].
 
 [lm]: /topics/latency-monitor
 
-@reply
+@return
 
 @integer-reply: the number of event time series that were reset.

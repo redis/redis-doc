@@ -262,7 +262,7 @@ We also need logic in order to increment the index if the search term
 already exists in the index, so what we'll actually do is something like
 that:
 
-    ZRANGEBYLEX myindex "[banana:" + LIMIT 1 1
+    ZRANGEBYLEX myindex "[banana:" + LIMIT 0 1
     1) "banana:1"
 
 This will return the single entry of `banana` if it exists. Then we
@@ -284,13 +284,13 @@ There is more: our goal is to just have items searched very frequently.
 So we need some form of purging. When we actually query the index
 in order to complete the user input, we may see something like that:
 
-    ZRANGEBYLEX myindex "[banana:" + LIMIT 1 10
+    ZRANGEBYLEX myindex "[banana:" + LIMIT 0 10
     1) "banana:123"
-    2) "banahhh:1"
+    2) "banaooo:1"
     3) "banned user:49"
     4) "banning:89"
 
-Apparently nobody searches for "banahhh", for example, but the query was
+Apparently nobody searches for "banaooo", for example, but the query was
 performed a single time, so we end presenting it to the user.
 
 This is what we can do. Out of the returned items, we pick a random one,
@@ -348,7 +348,7 @@ we just store the entry as `key:value`:
 
 And search for the key with:
 
-    ZRANGEBYLEX myindex [mykey: + LIMIT 1 1
+    ZRANGEBYLEX myindex [mykey: + LIMIT 0 1
     1) "mykey:myvalue"
 
 Then we extract the part after the colon to retrieve the value.
@@ -547,7 +547,7 @@ our coordinates. Both variables max value is 400.
 The blue box in the picture represents our query. We want all the points
 where `x` is between 50 and 100, and where `y` is between 100 and 300.
 
-![Points in the space](http://redis.io/images/redisdoc/2idx_0.png)
+![Points in the space](https://redis.io/images/redisdoc/2idx_0.png)
 
 In order to represent data that makes these kinds of queries fast to perform,
 we start by padding our numbers with 0. So for example imagine we want to
@@ -586,7 +586,7 @@ variable is between 70 and 79, and the `y` variable is between 200 and 209.
 We can write random points in this interval, in order to identify this
 specific area:
 
-![Small area](http://redis.io/images/redisdoc/2idx_1.png)
+![Small area](https://redis.io/images/redisdoc/2idx_1.png)
 
 So the above lexicographic query allows us to easily query for points in
 a specific square in the picture. However the square may be too small for
@@ -601,7 +601,7 @@ This time the range represents all the points where `x` is between 0 and 99
 and `y` is between 200 and 299. Drawing random points in this interval
 shows us this larger area:
 
-![Large area](http://redis.io/images/redisdoc/2idx_2.png)
+![Large area](https://redis.io/images/redisdoc/2idx_2.png)
 
 Oops now our area is ways too big for our query, and still our search box is
 not completely included. We need more granularity, but we can easily obtain

@@ -78,13 +78,6 @@
     "authors": ["srithedabbler"]
   },
   {
-    "name": "Redily",
-    "language": "Javascript",
-    "url": "https://www.redily.app",
-    "description": "An intuitive, cross-platform Redis GUI Client built in Electron.",
-    "authors": ["stefano_arnone"]
-  },
-  {
     "name": "AnotherRedisDesktopManager",
     "language": "Javascript",
     "repository": "https://github.com/qishibo/AnotherRedisDesktopManager",
@@ -115,7 +108,8 @@
   {
     "name": "Meerkat",
     "language": "Ruby",
-    "repository": "http://carlhoerberg.github.io/meerkat/",
+    "url": "https://carlhoerberg.github.io/meerkat/",
+    "repository": "https://github.com/carlhoerberg/meerkat",
     "description": "Rack middleware for Server Sent Events with multiple backends.",
     "authors": ["carlhoerberg"]
   },
@@ -186,14 +180,15 @@
   {
     "name": "Sidekiq",
     "language": "Ruby",
-    "repository": "http://sidekiq.org/",
+    "url": "http://sidekiq.org/",
+    "repository": "https://github.com/mperham/sidekiq/",
     "description": "Simple, efficient message processing for your Rails 3 application.",
-    "authors": ["mperham"]
+    "authors": ["getajobmike"]
   },
   {
     "name": "Omhiredis",
     "language": "C",
-    "repository": "http://www.rsyslog.com/doc/build_from_repo.html",
+    "repository": "https://github.com/rsyslog/rsyslog",
     "description": "Redis output plugin for rsyslog (rsyslog dev, and rsyslog head).",
     "authors": ["taotetek"]
   },
@@ -258,12 +253,12 @@
     "language": "Python",
     "repository": "https://github.com/bbangert/retools",
     "description": "Caching and locking helper library.",
-    "authors": ["benbangert"]
+    "authors": []
   },
   {
     "name": "Redback",
     "language": "Javascript",
-    "repository": "http://github.com/chriso/redback",
+    "repository": "https://github.com/chriso/redback",
     "description": "Higher-level Redis constructs - social graph, full text search, rate limiting, key pairs.",
     "authors": []
   },
@@ -337,17 +332,9 @@
     "name": "Nydus",
     "language": "Python",
     "url": "https://pypi.python.org/pypi/nydus",
-    "repository": "https://pypi.python.org/pypi/nydus",
+    "repository": "https://github.com/disqus/nydus",
     "description": "Connection clustering and routing for Redis and Python.",
     "authors": ["zeeg"]
-  },
-  {
-    "name": "redis-mount",
-    "language": "Go",
-    "url": "https://github.com/poying/redis-mount",
-    "repository": "https://github.com/poying/redis-mount",
-    "description": "redis-mount lets you use Redis as a filesystem.",
-    "authors": ["poying"]
   },
   {
     "name": "RPQueue",
@@ -371,7 +358,7 @@
     "url": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "repository": "https://github.com/adriano-di-giovanni/node-redis-keychain",
     "description": "A Node.js library for streamlining the configuration and maintenance of your Redis namespace",
-    "authors": ["codecreativity"]
+    "authors": []
   },
   {
     "name": "phpRedExpert",
@@ -394,7 +381,7 @@
     "language": "Python",
     "repository" : "https://github.com/binarydud/pyres",
     "description" : "Python library inspired by Resque for creating background jobs and workers",
-    "authors" : ["binarydud"]
+    "authors" : []
   },
   {
     "name": "Redis-RdbParser",
@@ -489,13 +476,6 @@
     "authors": ["cinience"]
   },
   {
-    "name": "Keylord",
-    "language": "Java",
-    "url": "http://protonail.com/products/keylord",
-    "description": "Cross-platform administration and development GUI application for key-value databases like Redis, LevelDB, etc.",
-    "authors": ["protonail"]
-  },
-  {
     "name": "redispapa",
     "language": "Python",
     "url": "https://github.com/no13bus/redispapa",
@@ -516,7 +496,7 @@
     "language": "C++",
     "url": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
     "repository": "https://github.com/zhengshuxin/acl/tree/master/app/redis_tools/redis_builder",
-    "description": "A C++ Redis tool to create and manage a Redis cluster, basing on acl Redis lib in https://github.com/zhengshuxin/acl/tree/master/lib_acl_cpp/samples/redis",
+    "description": "A C++ Redis tool to create and manage a Redis cluster",
     "authors": ["zhengshuxin"]
   },
   {
@@ -524,14 +504,14 @@
     "language": "Python",
     "repository": "https://github.com/coleifer/huey",
     "description": "Simple multi-threaded Python task queue. Supports Redis.",
-    "authors": ["coleifer"]
+    "authors": []
   },
   {
     "name": "walrus",
     "language": "Python",
     "repository": "https://github.com/coleifer/walrus",
     "description": "A collection of lightweight utilities for working with Redis in Python. Includes ORM, autocompletion, full-text search, cache, locks, and more.",
-    "authors": ["coleifer"]
+    "authors": []
   },
   {
     "name": "RedisPlatform",
@@ -619,13 +599,6 @@
     "repository": "https://github.com/boazsegev/iodine",
     "description": "Iodine is an HTTP / Websocket server with native pub/sub support. Iodine includes an integrated Redis client that provides Pub/Sub scaling beyond machine boundaries.",
     "authors": ["bowildmusic"]
-  },
-  {
-    "name": "Regis",
-    "language": "Swift",
-    "url": "https://www.harfangapps.com/regis/",
-    "description": "Full-featured Redis client for the Mac, available on the Mac App Store.",
-    "authors": ["harfangapps"]
   },
   {
     "name": "miniredis",
@@ -729,7 +702,7 @@
     "language": "C#",
     "repository": "https://github.com/Oriflame/RedisMessaging.ReliableDelivery",
     "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
-    "authors": ["PetrKozelek" , "OriflameSoftware"]
+    "authors": ["PetrKozelek"]
   },
 
   {
@@ -745,6 +718,20 @@
     "url": "https://echodot.com/red/",
     "description": "♥️ A beautiful Redis UI for the Mac with tabbed-views, pub/sub, real-time updates, interactive console, LUA scripting and much more.  Available on the Mac App Store.",
     "authors": ["echodot"]
+  },
+  {
+    "name": "Runnel",
+    "language": "Python",
+    "repository": "https://github.com/mjwestcott/runnel",
+    "description": "Distributed event processing for Python based on Redis Streams",
+    "authors": ["mjwestcott"]
+  },
+  {
+    "name": "Trino (formerly Presto SQL) Redis Connector",
+    "language": "SQL",
+    "url": "https://trino.io/docs/current/connector/redis.html",
+    "repository": "https://github.com/trinodb/trino",
+    "description": "Trino Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once",
+    "authors": []
   }
-
 ]

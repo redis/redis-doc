@@ -125,7 +125,7 @@ script that is send using the `EVAL` command (only available since Redis version
 ```
 local current
 current = redis.call("incr",KEYS[1])
-if tonumber(current) == 1 then
+if current == 1 then
     redis.call("expire",KEYS[1],1)
 end
 ```
