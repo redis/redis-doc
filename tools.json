@@ -738,6 +738,13 @@
     "repository": "https://github.com/pbotros/river",
     "description": "A structured streaming framework built atop Redis Streams with built-in support for persistence and indefinitely long streams.",
     "authors": []
+  },
+  {
+    "name": "Red",
+    "language": "Swift",
+    "url": "https://echodot.com/red/",
+    "description": "♥️ A beautiful Redis UI for the Mac with tabbed-views, pub/sub, real-time updates, interactive console, LUA scripting and much more.  Available on the Mac App Store.",
+    "authors": ["echodot"]
   }
 
 ]
