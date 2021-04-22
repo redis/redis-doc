@@ -14,7 +14,7 @@ When called without the `count` argument:
 
 When called with the `count` argument:
 
-@array-reply: the removed members, or an empty list when `key` does not exist.
+@array-reply: the removed members, or an empty set when `key` does not exist.
 
 @history
 
