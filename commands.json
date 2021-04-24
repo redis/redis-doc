@@ -1169,7 +1169,7 @@
     "group": "scripting"
   },
   "EVAL_RO": {
-    "summary": "Execute a read only Lua script server side",
+    "summary": "Execute a read-only Lua script server side",
     "complexity": "Depends on the script that is executed.",
     "arguments": [
       {
@@ -1221,7 +1221,7 @@
     "group": "scripting"
   },
   "EVALSHA_RO": {
-    "summary": "Execute a read only Lua script server side",
+    "summary": "Execute a read-only Lua script server side",
     "complexity": "Depends on the script that is executed.",
     "arguments": [
       {
