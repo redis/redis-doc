@@ -1,1 +1,0 @@
-This is a variant of the `EVALSHA` command that can not execute commands that modify keys or values. So unlike `EVALSHA`, scripts executed with this command will not become unkillable and will never replicate traffic. This command can also always be routed to primaries or replicas and will execute consistently on both.

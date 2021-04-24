@@ -1191,7 +1191,7 @@
         "multiple": true
       }
     ],
-    "since": "7.0",
+    "since": "7.0.0",
     "group": "scripting"
   },
   "EVALSHA": {
@@ -1243,7 +1243,7 @@
         "multiple": true
       }
     ],
-    "since": "7.0",
+    "since": "7.0.0",
     "group": "scripting"
   },
   "EXEC": {
