@@ -1857,30 +1857,6 @@
         "optional": true
       },
       {
-        "name": "withcoord",
-        "type": "enum",
-        "enum": [
-          "WITHCOORD"
-        ],
-        "optional": true
-      },
-      {
-        "name": "withdist",
-        "type": "enum",
-        "enum": [
-          "WITHDIST"
-        ],
-        "optional": true
-      },
-      {
-        "name": "withhash",
-        "type": "enum",
-        "enum": [
-          "WITHHASH"
-        ],
-        "optional": true
-      },
-      {
         "name": "storedist",
         "type": "enum",
         "enum": [
