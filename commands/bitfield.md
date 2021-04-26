@@ -10,8 +10,8 @@ For example the following command increments an 5 bit signed integer at bit offs
 
 Note that:
 
-1. Addressing with `GET` bits outside the current string length (including the case the key does not exist at all), results in the operation to be performed like the missing part all consists of bits set to 0.
-2. Addressing with `SET` or `INCRBY` bits outside the current string length will enlarge the string, zero-padding it, as needed, for the minimal length needed, according to the most far bit touched.
+1. Addressing with `!GET` bits outside the current string length (including the case the key does not exist at all), results in the operation to be performed like the missing part all consists of bits set to 0.
+2. Addressing with `!SET` or `!INCRBY` bits outside the current string length will enlarge the string, zero-padding it, as needed, for the minimal length needed, according to the most far bit touched.
 
 ## Supported subcommands and integer types
 
@@ -22,7 +22,7 @@ The following is the list of supported commands.
 * **INCRBY** `<type>` `<offset>` `<increment>` -- Increments or decrements (if a negative increment is given) the specified bit field and returns the new value.
 
 There is another subcommand that only changes the behavior of successive
-`INCRBY` and `SET` subcommands calls by setting the overflow behavior:
+`!INCRBY` and `!SET` subcommands calls by setting the overflow behavior:
 
 * **OVERFLOW** `[WRAP|SAT|FAIL]`
 
@@ -59,7 +59,7 @@ the following behaviors:
 * **SAT**: uses saturation arithmetic, that is, on underflows the value is set to the minimum integer value, and on overflows to the maximum integer value. For example incrementing an `i8` integer starting from value 120 with an increment of 10, will result into the value 127, and further increments will always keep the value at 127. The same happens on underflows, but towards the value is blocked at the most negative value.
 * **FAIL**: in this mode no operation is performed on overflows or underflows detected. The corresponding return value is set to NULL to signal the condition to the caller.
 
-Note that each `OVERFLOW` statement only affects the `INCRBY` and `SET`
+Note that each `OVERFLOW` statement only affects the `!INCRBY` and `!SET`
 commands that follow it in the list of subcommands, up to the next `OVERFLOW`
 statement.
 
