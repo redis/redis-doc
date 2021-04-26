@@ -713,6 +713,13 @@
     "authors": []
   },
   {
+    "name": "Red",
+    "language": "Swift",
+    "url": "https://echodot.com/red/",
+    "description": "♥️ A beautiful Redis UI for the Mac with tabbed-views, pub/sub, real-time updates, interactive console, LUA scripting and much more.  Available on the Mac App Store.",
+    "authors": ["echodot"]
+  },
+  {
     "name": "Runnel",
     "language": "Python",
     "repository": "https://github.com/mjwestcott/runnel",
