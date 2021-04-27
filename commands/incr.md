@@ -69,6 +69,7 @@ The more simple and direct implementation of this pattern is the following:
 FUNCTION LIMIT_API_CALL(ip)
 ts = CURRENT_UNIX_TIME()
 keyname = ip+":"+ts
+WATCH(keyname)
 current = GET(keyname)
 IF current != NULL AND current > 10 THEN
     ERROR "too many requests per second"
@@ -76,18 +77,24 @@ ELSE
     MULTI
         INCR(keyname,1)
         EXPIRE(keyname,10)
-    EXEC
-    PERFORM_API_CALL()
+    reply = EXEC
+    IF reply != NULL
+        PERFORM_API_CALL()
+    ELSE
+      RETURN LIMIT_API_CALL(ip)
+    END
 END
 ```
 
 Basically we have a counter for every IP, for every different second.
-But this counters are always incremented setting an expire of 10 seconds so that
-they'll be removed by Redis automatically when the current second is a different
-one.
+Thease counters are always incremented and set with an expiration of 10 seconds
+so that they'll be removed by Redis automatically when the current second is a
+different one.
 
-Note the used of `MULTI` and `EXEC` in order to make sure that we'll both
-increment and set the expire at every API call.
+Note the use of `MULTI` and `EXEC` in order to make sure that we'll both
+increment and set the expire at every API call. Also, the use of `WATCH` prevents
+race conditions with other processes, but requires a retry mechanism that is more
+robust than the scope of the example.
 
 ## Pattern: Rate limiter 2
 
