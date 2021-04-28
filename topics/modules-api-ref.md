@@ -170,7 +170,7 @@ order to report keys, like in the following example:
                                   int keystep);
 
 Register a new command in the Redis server, that will be handled by
-calling the function pointer 'func' using the RedisModule calling
+calling the function pointer 'cmdfunc' using the RedisModule calling
 convention. The function returns `REDISMODULE_ERR` if the specified command
 name is already busy or a set of invalid flags were passed, otherwise
 `REDISMODULE_OK` is returned and the new command is registered.
@@ -228,6 +228,15 @@ example "write deny-oom". The set of flags are:
                     to authenticate a client. 
 * **"may-replicate"**: This command may generate replication traffic, even
                        though it's not a write command.
+
+The last three parameters are used to specify which arguments of the new command
+are Redis keys.
+
+* 'firstkey': The first argument that's a key. 0 for commands with no keys.
+* 'lastkey':  The last argument that's a key. 0 for commands with no keys.
+* 'keystep':  The step between first and last key. 0 for commands with no keys.
+
+This information is used by ACL, Cluster and the 'COMMAND' command.
 
 <span id="section-module-information-and-time-measurement"></span>
 
