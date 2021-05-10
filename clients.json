@@ -160,6 +160,13 @@
   },
 
   {
+    "name": "godis",
+    "language": "Go",
+    "repository": "https://github.com/piaohao/godis",
+    "description": "redis client implement by golang, inspired by jedis."
+  },
+
+  {
     "name": "gosexy/redis",
     "language": "Go",
     "repository": "https://github.com/gosexy/redis",
