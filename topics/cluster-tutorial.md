@@ -2,7 +2,7 @@ Redis cluster tutorial
 ===
 
 This document is a gentle introduction to Redis Cluster, that does not use
-difficult to understand concepts of distributed systems . It provides
+difficult to understand concepts of distributed systems. It provides
 instructions about how to setup a cluster, test, and operate it, without
 going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
