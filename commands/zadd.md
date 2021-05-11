@@ -16,8 +16,8 @@ ZADD options
 ZADD supports a list of options, specified after the name of the key and before
 the first score argument. Options are:
 
-* **XX**: Only update elements that already exist. Never add elements.
-* **NX**: Don't update already existing elements. Always add new elements.
+* **XX**: Only update elements that already exist. Don't add new elements.
+* **NX**: Only add new elements. Don't update already existing elements.
 * **LT**: Only update existing elements if the new score is **less than** the current score. This flag doesn't prevent adding new elements.
 * **GT**: Only update existing elements if the new score is **greater than** the current score. This flag doesn't prevent adding new elements.
 * **CH**: Modify the return value from the number of new elements added, to the total number of elements changed (CH is an abbreviation of *changed*). Changed elements are **new elements added** and elements already existing for which **the score was updated**. So elements specified in the command line having the same score as they had in the past are not counted. Note: normally the return value of `ZADD` only counts the number of new elements added.
