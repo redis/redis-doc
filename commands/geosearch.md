@@ -18,7 +18,7 @@ The command optionally returns additional information using the following option
 * `WITHCOORD`: Also return the longitude and latitude of the matching items.
 * `WITHHASH`: Also return the raw geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low level hacks or debugging and is otherwise of little interest for the general user.
 
-Matching items are returned unsorted by default.  To sort them, use one of the following two options:
+Matching items are returned unsorted by default. To sort them, use one of the following two options:
 
 * `ASC`: Sort returned items from the nearest to the farthest, relative to the center point.
 * `DESC`: Sort returned items from the farthest to the nearest, relative to the center point.
