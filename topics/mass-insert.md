@@ -66,28 +66,32 @@ The Redis protocol is extremely simple to generate and parse, and is
 the goal of mass insertion you don't need to understand every detail of the
 protocol, but just that every command is represented in the following way:
 
-    *<args><cr><lf>
-    $<len><cr><lf>
-    <arg0><cr><lf>
-    <arg1><cr><lf>
+    *<args><lf>
+    $<len0><lf>
+    <arg0><lf>
+    $<len1><lf>
+    <arg1><lf>
     ...
-    <argN><cr><lf>
+    <argN><lf>
 
-Where `<cr>` means "\r" (or ASCII character 13) and `<lf>` means "\n" (or ASCII character 10).
+Where `<lf>` means "\n" (or ASCII character 10), `<args>` is the
+number of arguments of the command to execute, including the redis
+command, and `<lenX>` is the length of the next argument. So in the
+above example `<args>` would be equal to N+1.
 
 For instance the command **SET key value** is represented by the following protocol:
 
-    *3<cr><lf>
-    $3<cr><lf>
-    SET<cr><lf>
-    $3<cr><lf>
-    key<cr><lf>
-    $5<cr><lf>
-    value<cr><lf>
+    *3<lf>
+    $3<lf>
+    SET<lf>
+    $3<lf>
+    key<lf>
+    $5<lf>
+    value<lf>
 
 Or represented as a quoted string:
 
-    "*3\r\n$3\r\nSET\r\n$3\r\nkey\r\n$5\r\nvalue\r\n"
+    "*3\n$3\nSET\n$3\nkey\n$5\nvalue\n"
 
 The file you need to generate for mass insertion is just composed of commands
 represented in the above way, one after the other.
@@ -96,10 +100,10 @@ The following Ruby function generates valid protocol:
 
     def gen_redis_proto(*cmd)
         proto = ""
-        proto << "*"+cmd.length.to_s+"\r\n"
+        proto << "*"+cmd.length.to_s+"\n"
         cmd.each{|arg|
-            proto << "$"+arg.to_s.bytesize.to_s+"\r\n"
-            proto << arg.to_s+"\r\n"
+            proto << "$"+arg.to_s.bytesize.to_s+"\n"
+            proto << arg.to_s+"\n"
         }
         proto
     end
