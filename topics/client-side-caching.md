@@ -42,7 +42,7 @@ Moreover there are many datasets where items change very infrequently.
 For instance most user posts in a social network are either immutable or
 rarely edited by the user. Adding this to the fact that usually a small
 percentage of the posts are very popular, either because a small set of users
-have a lot of follower and/or because recent posts have a lot more
+have a lot of followers and/or because recent posts have a lot more
 visibility, it is clear why such pattern can be very useful.
 
 Usually the two key advantages of client side caching are:
