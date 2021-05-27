@@ -188,6 +188,26 @@
     "stars": 1125
   },
   {
+    "name": "TairHash",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/alibaba/TairHash",
+    "description": "A redis module, similar to redis hash, and you can set expire and version for the field",
+    "authors": [
+      "Alibaba"
+    ],
+    "stars": 37
+  },
+  {
+    "name": "TairString",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/alibaba/TairString",
+    "description": "A redis module, similar to redis string, and support CAS/CAD operations",
+    "authors": [
+      "Alibaba"
+    ],
+    "stars": 28
+  },
+  {
     "name": "lqrm",
     "license": "BSD",
     "repository": "https://github.com/halaei/lqrm",
