@@ -517,6 +517,7 @@
         "enum": [
           "normal",
           "master",
+          "slave",
           "replica",
           "pubsub"
         ],
