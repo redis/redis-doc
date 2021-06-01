@@ -1,4 +1,4 @@
-Returns the absolute Unix timestamp(since January 1, 1970) in seconds at which the given key will expire.
+Returns the absolute Unix timestamp (since January 1, 1970) in seconds at which the given key will expire.
 
 See also the `PEXPIRETIME` command that returns the same information with milliseconds resolution.
 
@@ -15,4 +15,3 @@ SET mykey "Hello"
 EXPIREAT mykey 33177117420
 EXPIRETIME mykey
 ```
-
