@@ -2877,7 +2877,7 @@
     "group": "generic"
   },
   "PEXPIRETIME": {
-    "summary": "Get the expiration UNIX timestamp for a key in milliseconds",
+    "summary": "Get the expiration Unix timestamp for a key in milliseconds",
     "complexity": "O(1)",
     "arguments": [
       {
