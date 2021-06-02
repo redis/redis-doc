@@ -5,7 +5,7 @@ See also the `PEXPIRETIME` command that returns the same information with millis
 @return
 
 @integer-reply: Expiration UNIX timestamp in seconds, or a negative value in order to signal an error (see the description below).
-* The command returns `-1` if the key exists but has no associated expire.
+* The command returns `-1` if the key exists but has no associated expiration time.
 * The command returns `-2` if the key does not exist.
 
 @examples
