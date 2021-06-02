@@ -1245,7 +1245,7 @@
     "group": "generic"
   },
   "EXPIRETIME": {
-    "summary": "Get the expiration UNIX timestamp for a key",
+    "summary": "Get the expiration Unix timestamp for a key",
     "complexity": "O(1)",
     "arguments": [
       {
