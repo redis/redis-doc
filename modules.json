@@ -315,7 +315,7 @@
     "authors": [
       "linfangrong"
     ],
-    "stars": 0
+    "stars": 19
   },
   {
     "name": "dbx",
@@ -327,16 +327,16 @@
     ],
     "stars": 0
   },
-
-	{ "name": "Redis-AudioScout",
-	  "license": "pHash Source Available License",
-	  "repository": "https://github.com/starkdg/Redis-AudioScout",
-	  "description": "Redis module for Audio Track Recognition",
-	  "authors": [
-		  "starkdg"
-	  ],
-	  "stars":1
-	},
+  { 
+    "name": "Redis-AudioScout",
+    "license": "pHash Source Available License",
+    "repository": "https://github.com/starkdg/Redis-AudioScout",
+    "description": "Redis module for Audio Track Recognition",
+    "authors": [
+      "starkdg"
+    ],
+    "stars":1
+  },
   {
     "name": "redis_hnsw",
     "license": "MIT",
@@ -353,9 +353,9 @@
     "repository": "https://github.com/starkdg/Redis-ImageScout.git",
     "description": "Redis module for Indexing of pHash Image fingerprints for Near-Duplicate Detection",
     "authors": [
-		"starkdg"
-	],
-	"stars":2
+        "starkdg"
+    ],
+    "stars":2
   },
   {
     "name":"redex",
@@ -387,5 +387,4 @@
     ],
     "stars":0
   }
-
 ]
