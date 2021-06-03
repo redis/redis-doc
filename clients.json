@@ -1426,6 +1426,15 @@
     "authors": ["jkaye2012"],
     "active": true
   },
+  
+  {
+    "name": "Jedis.jl",
+    "language": "Julia",
+    "repository": "https://github.com/captchanjack/Jedis.jl",
+    "description": "A lightweight Redis client, implemented in Julia.",
+    "authors": ["captchanjack"],
+    "active": true
+  },
 
   {
     "name": "Redis::Cluster",
