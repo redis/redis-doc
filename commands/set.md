@@ -13,7 +13,7 @@ The `SET` command supports a set of options that modify its behavior:
 * `NX` -- Only set the key if it does not already exist.
 * `XX` -- Only set the key if it already exist.
 * `KEEPTTL` -- Retain the time to live associated with the key.
-* `GET` -- Return the old string stored at key, or nil when key did not exist. An error is returned if the value stored at key is not a string.
+* `GET` -- Return the old string stored at key, or nil if key did not exist. An error is returned and `SET` aborted if the value stored at key is not a string.
 
 Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `GETSET`, it is possible that in future versions of Redis these commands will be deprecated and finally removed.
 
