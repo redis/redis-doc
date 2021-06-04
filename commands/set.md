@@ -13,15 +13,22 @@ The `SET` command supports a set of options that modify its behavior:
 * `NX` -- Only set the key if it does not already exist.
 * `XX` -- Only set the key if it already exist.
 * `KEEPTTL` -- Retain the time to live associated with the key.
-* `GET` -- Return the old value stored at key, or nil when key did not exist, instead of the status of the SET operation.
+* `GET` -- Return the old string stored at key, or nil when key did not exist. An error is returned if the value stored at key is not a string.
 
 Note: Since the `SET` command options can replace `SETNX`, `SETEX`, `PSETEX`, `GETSET`, it is possible that in future versions of Redis these commands will be deprecated and finally removed.
 
 @return
 
 @simple-string-reply: `OK` if `SET` was executed correctly.
-@bulk-string-reply: when `GET` option is set, the old value stored at key, or nil when key did not exist.
-@nil-reply: a Null Bulk Reply is returned if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met, or if the user specified the `GET` option and there was no previous value for the key.
+
+@nil-reply: `(nil)` if the `SET` operation was not performed because the user specified the `NX` or `XX` option but the condition was not met.
+
+If the command is issues with the `GET` option, the above does not apply. It will instead reply as follows, regardless if the `SET` was actually performed:
+
+@bulk-string-reply: the old string value stored at key.
+
+@nil-reply: `(nil)` if the key did not exist.
+
 
 @history
 
