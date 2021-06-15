@@ -1244,6 +1244,18 @@
     "since": "1.2.0",
     "group": "generic"
   },
+  "EXPIRETIME": {
+    "summary": "Get the expiration Unix timestamp for a key",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "7.0.0",
+    "group": "generic"
+  },
   "FAILOVER": {
     "summary": "Start a coordinated failover between this server and one of its replicas.",
     "arguments": [
@@ -2862,6 +2874,18 @@
       }
     ],
     "since": "2.6.0",
+    "group": "generic"
+  },
+  "PEXPIRETIME": {
+    "summary": "Get the expiration Unix timestamp for a key in milliseconds",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "7.0.0",
     "group": "generic"
   },
   "PFADD": {
