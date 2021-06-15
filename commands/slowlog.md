@@ -35,6 +35,7 @@ To read the slow log the **SLOWLOG GET** command is used, that returns every
 entry in the slow log.
 It is possible to return only the N most recent entries passing an additional
 argument to the command (for instance **SLOWLOG GET 10**).
+The default requested length is 10 (when the argument is omitted). It's possible to pass -1 to get the entire slowlog.
 
 Note that you need a recent version of redis-cli in order to read the slow log
 output, since it uses some features of the protocol that were not formerly
