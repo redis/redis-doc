@@ -29,14 +29,6 @@
   },
 
   {
-    "name": "Erldis",
-    "language": "Erlang",
-    "repository": "https://github.com/japerk/erldis",
-    "description": "A Redis erlang client library.",
-    "authors": ["dialtone_","japerk"]
-  },
-
-  {
     "name": "Eredis",
     "language": "Erlang",
     "repository": "https://github.com/wooga/eredis",
@@ -70,20 +62,12 @@
     "active": true
   },
   {
-    "name": "sharded_eredis",
-    "language": "Erlang",
-    "repository": "https://github.com/jeremyong/sharded_eredis",
-    "description": "Wrapper around eredis providing process pools and consistent hashing.",
-    "authors": ["jeremyong"]
-  },
-  {
     "name": "ecredis",
     "language": "Erlang",
     "repository": "https://github.com/HalloAppInc/ecredis",
     "description": "Redis Cluster client that allows for connections to multiple clusters. Queries are send directly to eredis clients allowing for large throughput.",
     "authors": ["HalloAppInc"]
   },
-
 
   {
     "name": "exredis",
