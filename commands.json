@@ -1168,6 +1168,32 @@
     "since": "2.6.0",
     "group": "scripting"
   },
+  "EVAL_RO": {
+    "summary": "Execute a read-only Lua script server side",
+    "complexity": "Depends on the script that is executed.",
+    "arguments": [
+      {
+        "name": "script",
+        "type": "string"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "scripting"
+  },
   "EVALSHA": {
     "summary": "Execute a Lua script server side",
     "complexity": "Depends on the script that is executed.",
@@ -1192,6 +1218,32 @@
       }
     ],
     "since": "2.6.0",
+    "group": "scripting"
+  },
+  "EVALSHA_RO": {
+    "summary": "Execute a read-only Lua script server side",
+    "complexity": "Depends on the script that is executed.",
+    "arguments": [
+      {
+        "name": "sha1",
+        "type": "string"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "scripting"
   },
   "EXEC": {
