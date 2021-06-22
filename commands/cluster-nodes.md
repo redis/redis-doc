@@ -39,7 +39,7 @@ The meaning of each filed is the following:
 
 1. `id`: The node ID, a 40 characters random string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
 2. `ip:port@cport`: The node address where clients should contact the node to run queries.
-3. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `noflags`. Flags are explained in detail in the next section.
+3. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `nofailover`, `noflags`. Flags are explained in detail in the next section.
 4. `master`: If the node is a replica, and the master is known, the master node ID, otherwise the "-" character.
 5. `ping-sent`: Milliseconds unix time at which the currently active ping was sent, or zero if there are no pending pings.
 6. `pong-recv`: Milliseconds unix time the last pong was received.
@@ -56,6 +56,7 @@ Meaning of the flags (field number 3):
 * `fail`: Node is in `FAIL` state. It was not reachable for multiple nodes that promoted the `PFAIL` state to `FAIL`.
 * `handshake`: Untrusted node, we are handshaking.
 * `noaddr`: No address known for this node.
+* `nofailover`: Replica will not try to failover.
 * `noflags`: No flags at all.
 
 ## Notes on published config epochs
