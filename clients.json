@@ -1404,8 +1404,7 @@
     "language": "Bash",
     "repository": "https://github.com/crypt1d/redi.sh",
     "description": "Simple, Bash-based, Redis client to store your script's variables",
-    "authors": ["nkrzalic"],
-    "active": true
+    "authors": ["nkrzalic"]
   },
 
   {
@@ -1955,6 +1954,14 @@
     "repository": "https://github.com/2881099/FreeRedis",
     "description": "This .NET client supports redis6.0+, cluster, sentinel, pipeline, And simple api.",
     "authors": [],
+    "active": true
+  },
+  
+  {
+    "name": "redis-client",
+    "language": "Bash",
+    "repository": "https://github.com/SomajitDey/redis-client",
+    "description": "extensible client library for Bash scripting or command-line + connection pooling + redis-cli",
     "active": true
   }
 
