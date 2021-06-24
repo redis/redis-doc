@@ -195,7 +195,7 @@ there's no need to repeat the operation.
 So what is `WATCH` really about? It is a command that will
 make the `EXEC` conditional: we are asking Redis to perform
 the transaction only if none of the `WATCH`ed keys were modified. This includes
-modifications made by the client, like writes commands, and by Redis itself,
+modifications made by the client, like write commands, and by Redis itself,
 like expiration or eviction. If keys were modified between when they were
 `WATCH`ed and when the `EXEC` was recieved, the entire transaction will be aborted
 instead.
