@@ -609,7 +609,7 @@
     "authors": ["paualarco"],
     "active": true
   },
-  
+
   {
     "name": "laserdisc",
     "language": "Scala",
@@ -794,7 +794,7 @@
     "authors": [],
     "active": false
   },
-  
+
   {
     "name": "xredis",
     "language": "Node.js",
@@ -804,7 +804,7 @@
     "recommended": false,
     "active": true
   },
-  
+
   {
     "name": "node-redis",
     "language": "Node.js",
@@ -1501,7 +1501,7 @@
     "recommended": true,
     "url": "https://docs.redistack.info"
   },
-  
+
   {
     "name": "Rackdis",
     "language": "Racket",
@@ -1923,6 +1923,14 @@
     "authors": [],
     "active": true
   },
+
+  {
+    "name": "Redis library for SWI-Prolog",
+    "language": "Prolog",
+    "repository": "https://github.com/SWI-Prolog/packages-redis",
+    "description": "Prolog redis client that exploits SWI-Prolog's extensions such as strings for compact replies and threads to deal with publish/subscribe.",
+    "active": true
+  },
   
   {
     "name": "FreeRedis",
@@ -1932,4 +1940,5 @@
     "authors": [],
     "active": true
   }
+
 ]
