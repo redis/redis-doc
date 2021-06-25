@@ -12,7 +12,7 @@ When called without the `count` argument:
 
 When called with the `count` argument:
 
-@array-reply: the values of the last elements, or `nil` when `key` does not exist.
+@array-reply: list of popped elements, or `nil` when `key` does not exist.
 
 @history
 
