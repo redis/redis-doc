@@ -203,8 +203,8 @@ instead.
 **NOTE**
 * In Redis versions before 6.0.9, an expired key would not cause a transaction
 to be aborted. [More on this](https://github.com/redis/redis/pull/7920)
-* Commands executed within the transaction are allowed without aborting the 
-transaction. [More on this](https://github.com/redis/redis-doc/issues/734)
+* Commands within a transaction wont trigger the `WATCH` condition since they
+are only queued until the `EXEC` is sent.
 
 `WATCH` can be called multiple times. Simply all the `WATCH` calls will
 have the effects to watch for changes starting from the call, up to
