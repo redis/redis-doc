@@ -21,9 +21,8 @@ When called with the `count` argument:
 @examples
 
 ```cli
-RPUSH mylist "one"
-RPUSH mylist "two"
-RPUSH mylist "three"
+RPUSH mylist "one" "two" "three" "four" "five"
 RPOP mylist
+RPOP mylist 2
 LRANGE mylist 0 -1
 ```
