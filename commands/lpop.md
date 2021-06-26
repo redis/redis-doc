@@ -12,7 +12,7 @@ When called without the `count` argument:
 
 When called with the `count` argument:
 
-@array-reply: the values of the first elements, or `nil` when `key` does not exist.
+@array-reply: list of popped elements, or `nil` when `key` does not exist.
 
 @history
 
@@ -21,9 +21,8 @@ When called with the `count` argument:
 @examples
 
 ```cli
-RPUSH mylist "one"
-RPUSH mylist "two"
-RPUSH mylist "three"
+RPUSH mylist "one" "two" "three" "four" "five"
 LPOP mylist
+LPOP mylist 2
 LRANGE mylist 0 -1
 ```
