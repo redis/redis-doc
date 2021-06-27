@@ -1257,7 +1257,7 @@
   },
   "EXISTS": {
     "summary": "Determine if a key exists",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of keys to check.",
     "arguments": [
       {
         "name": "key",
@@ -3793,7 +3793,7 @@
   },
   "SPOP": {
     "summary": "Remove and return one or multiple random members from a set",
-    "complexity": "O(1)",
+    "complexity": "Without the count argument O(1), otherwise O(N) where N is the value of the passed count.",
     "arguments": [
       {
         "name": "key",
