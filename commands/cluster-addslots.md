@@ -42,7 +42,7 @@ node advertising the new hash slot, is greater than the node currently listed
 in the table.
 
 This means that this command should be used with care only by applications
-orchestrating Redis Cluster, like `redis-trib`, and the command if used
+orchestrating Redis Cluster, like `redis-cli`, and the command if used
 out of the right context can leave the cluster in a wrong state or cause
 data loss.
 

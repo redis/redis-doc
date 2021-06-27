@@ -12,7 +12,7 @@ Note that normally clients willing to fetch the map between Cluster
 hash slots and node addresses should use `CLUSTER SLOTS` instead.
 `CLUSTER NODES`, that provides more information, should be used for
 administrative tasks, debugging, and configuration inspections.
-It is also used by `redis-trib` in order to manage a cluster.
+It is also used by `redis-cli` in order to manage a cluster.
 
 ## Serialization format
 
