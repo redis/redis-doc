@@ -324,7 +324,7 @@ down it, than can be restarted, and finally AOF can be enabled again.
 Maxmemory on replicas
 ---
 
-Replicas don't honor `maxmemory` because by default a replica will ignore this setting (unless it is promoted to master after a failover or manually). It means that the eviction of keys will be just handled by the master, sending the DEL commands to the replica as keys evict in the master side.
+Replicas don't honor `maxmemory` because by default a replica will ignore this setting (unless it is promoted to master after a failover or manually). It means that the eviction of keys will just be handled by the master, sending the DEL commands to the replica as keys evict in the master side.
 
 This behavior ensures that masters and replicas stay consistent, and is usually what you want, however if your replica is writable, or you want the replica to have a different memory setting, and you are sure all the writes performed to the replica are idempotent, then you may change this default (but be sure to understand what you are doing).
 
@@ -333,4 +333,3 @@ Note that since the replica by default does not evict, it may end using more mem
 In order to change this behavior, it is possible to allow a replica don't ignore the maxmemory. The configuration directives to use is:
 
     replica-ignore-maxmemory no
-
