@@ -85,11 +85,12 @@ The formatter has the following dependencies:
 * Redcarpet
 * Nokogiri
 * The `par` tool
+* batch
 
 Installation of the Ruby gems:
 
 ```
-gem install redcarpet nokogiri
+gem install redcarpet nokogiri batch
 ```
 
 Installation of par (OSX):
