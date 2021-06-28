@@ -330,6 +330,6 @@ This behavior ensures that masters and replicas stay consistent, which is usuall
 
 Note that since the replica by default does not evict, it may up end using more memory than what is set via `maxmemory` (since there are certain buffers that may be larger on the replica, or data structures may sometimes take more memory and so forth). So make sure you monitor your replicas and make sure they have enough memory to never hit a real out-of-memory condition before the master hits the configured `maxmemory` setting.
 
-In order to change this behavior, it is possible to allow a replica don't ignore the maxmemory. The configuration directives to use is:
+In order to change this behavior, it is possible to allow a replica to not ignore the maxmemory. The configuration directives to use is:
 
     replica-ignore-maxmemory no
