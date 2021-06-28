@@ -326,7 +326,7 @@ Maxmemory on replicas
 
 Replicas don't honor `maxmemory` because by default a replica will ignore this setting (unless it is promoted to master after a failover or manually). It means that the eviction of keys will just be handled by the master, sending the DEL commands to the replica as keys evict in the master side.
 
-This behavior ensures that masters and replicas stay consistent, and is usually what you want, however if your replica is writable, or you want the replica to have a different memory setting, and you are sure all the writes performed to the replica are idempotent, then you may change this default (but be sure to understand what you are doing).
+This behavior ensures that masters and replicas stay consistent, which is usually what you want. However, if your replica is writable, or you want the replica to have a different memory setting, and you are sure all the writes performed to the replica are idempotent, then you may change this default (but be sure to understand what you are doing).
 
 Note that since the replica by default does not evict, it may end using more memory than the one set via maxmemory (there are certain buffers that may be larger on the replica, or data structures may sometimes take more memory and so forth). So make sure you monitor your replicas and make sure they have enough memory to never hit a real out-of-memory condition before the master hits the configured maxmemory setting.
 
