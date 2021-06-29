@@ -22,7 +22,7 @@ on the [following link](http://www.brendangregg.com/methodology.html).
 We recommend the Utilization Saturation and Errors (USE) Method for answering 
 the question of what is your bottleneck. Check the following mapping between 
 system resource, metric and tools for a pratical deep dive 
-[[link](http://www.brendangregg.com/USEmethod/use-rosetta.html)]. 
+[[USE method](http://www.brendangregg.com/USEmethod/use-rosetta.html)]. 
 
 
 ### Ensuring the CPU is your bottleneck
