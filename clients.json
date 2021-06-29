@@ -1213,6 +1213,15 @@
     "active": true
   },
   {
+    "name": "redis-async",
+    "language": "OCaml",
+    "repository": "https://github.com/janestreet/redis-async",
+    "url": "https://github.com/janestreet/redis-async",
+    "description": "A Redis client for OCaml Async applications with a strongly-typed API and client tracking support.",
+    "authors": [ "janestreet", "lukepalmer" ],
+    "active": true
+  },
+  {
     "name": "Nhiredis",
     "language": "C#",
     "repository": "https://github.com/mhowlett/Nhiredis",
