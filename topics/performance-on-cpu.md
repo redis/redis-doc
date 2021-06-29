@@ -13,41 +13,41 @@ or pursuing an performance regression investigation you will need a concise meth
 way of monitoring and analyzing Redis performance. 
 
 
-To do so you can rely on different methodologies ( ones more suited than other 
-depending on the classe of issues/analysis we intent to make ). 
+To do so you can rely on different methodologies (some more suited than other 
+depending on the class of issues/analysis we intent to make). 
 A curated list of methodologies and their steps are enumerated by Brendan Greg
 on the [following link](http://www.brendangregg.com/methodology.html). 
 
 
 We recommend the Utilization Saturation and Errors (USE) Method for answering 
-the question of what is you bottleneck - check the following mapping between 
+the question of what is your bottleneck. Check the following mapping between 
 system resource, metric and tools for a pratical deep dive 
 [[link](http://www.brendangregg.com/USEmethod/use-rosetta.html)]. 
 
 
 ### Ensuring the CPU is your bottleneck
 
-This guide assumes you've followed one of the above methodolgies to perform a 
+This guide assumes you've followed one of the above methodologies to perform a 
 complete check of system health, and identified the bottleneck being the CPU. 
-**If you've identified that most of time is spent blocked on I/O, locks, timers, 
+**If you've identified that most of the time is spent blocked on I/O, locks, timers, 
 paging/swapping, etc, this guide is not for you**. 
 
-Further guides on Off-CPU Analysis are in the process of being release. 
+Further guides on Off-CPU Analysis are in the process of being released.
 Help on filling the blanks on the new "guides" or improving this one is much welcome!
 
 
 ### Build Prerequisites
 
-For a proper On-CPU analysis Redis ( and any dynamic loaded library like Redis Modules )
-require stack traces to be available to tracers, which you may need to fix first. 
+For a proper On-CPU analysis, Redis (and any dynamically loaded library like Redis Modules)
+requires stack traces to be available to tracers, which you may need to fix first. 
 
-By default Redis is compiled with the `-O2` switch ( which we intent to keep during profiling), this means that compiler
-optimizations are enabled. Many compilers ommit the frame pointer as a way of 
-runtime optimization ( saving a register ), thus breaking frame pointer-based 
+By default, Redis is compiled with the `-O2` switch (which we intent to keep during profiling). This means that compiler
+optimizations are enabled. Many compilers omit the frame pointer as a
+runtime optimization (saving a register), thus breaking frame pointer-based
 stack walking. This makes the Redis executable faster, but at the
-same time it makes Redis (like any other program) harder to trace, potentially 
+same time it makes Redis (like any other program) harder to trace, potentially
 wrongfully pinpointing on-CPU time to the last available frame pointer of a call
- stack that can get a lot deeper ( but impossible to trace ).
+stack that can get a lot deeper (but impossible to trace).
 
 It's important that you ensure:
 - debug information is present: compile option `-g`
@@ -62,20 +62,20 @@ You can do it as follows within redis main repo
 A set of instruments to identify performance regressions and/or potential **on-CPU performance** improvements 
 ------------
 
-This document focus specifically **on CPU** resource bottlenecks analysis, meaning we're interested in understanding where threads are spending CPU cycles while running on-CPU, and as important wether those cycles are effectively being used for computation or stalled waiting (not blocked!) for memory I/O, and cache misses, etc...
+This document focuses specifically on **on-CPU** resource bottlenecks analysis, meaning we're interested in understanding where threads are spending CPU cycles while running on-CPU and, as importantly, whether those cycles are effectively being used for computation or stalled waiting (not blocked!) for memory I/O, and cache misses, etc...
 
-For that we will rely uppon toolkits (perf, bcc tools), and hardware specific PMCs (Performance Monitoring Counters), to proceed with:
+For that we will rely on toolkits (perf, bcc tools), and hardware specific PMCs (Performance Monitoring Counters), to proceed with:
 
-- Hotspot analysis ( pref or bcc tools ): to profile code execution and determine which functions are consuming the most time and thus are targets for optimization. We'll present two options to collect, report and visualize hotspots either with perf or bcc/BPF tracing tools.
+- Hotspot analysis (pref or bcc tools): to profile code execution and determine which functions are consuming the most time and thus are targets for optimization. We'll present two options to collect, report and visualize hotspots either with perf or bcc/BPF tracing tools.
 
-- Call counts analysis: to count events including function calls, enabling us to correlate severall calls/components at once, relying on bcc/BPF tracing tools.
+- Call counts analysis: to count events including function calls, enabling us to correlate several calls/components at once, relying on bcc/BPF tracing tools.
 
 - Hardware event sampling: crucial for understanding CPU behavior, including memory I/O, stall cycles, and cache misses.
 
 
 ### Tool prerequesits
 
-The following steps rely uppon Linux perf_events (aka ["perf"](https://man7.org/linux/man-pages/man1/perf.1.html)), [bcc/BPF tracing tools](https://github.com/iovisor/bcc) and Brendan Greg’s [FlameGraph repo](https://github.com/brendangregg/FlameGraph).
+The following steps rely on Linux perf_events (aka ["perf"](https://man7.org/linux/man-pages/man1/perf.1.html)), [bcc/BPF tracing tools](https://github.com/iovisor/bcc) and Brendan Greg’s [FlameGraph repo](https://github.com/brendangregg/FlameGraph).
 
 We assume beforehand you have:
 
@@ -94,7 +94,7 @@ performance-critical code sections (hotspots).
 
 ### Sampling stack traces using perf
 
-To profile both user and kernel-level stacks of redis-server for a specific length of time, for example 60 seconds, at an sampling frequency of 999 samples per second:
+To profile both user and kernel-level stacks of redis-server for a specific length of time, for example 60 seconds, at a sampling frequency of 999 samples per second:
 
     perf record -g --pid $(pgrep redis-server) -F 999 -- sleep 60
 
@@ -112,24 +112,24 @@ See the [perf report](https://man7.org/linux/man-pages/man1/perf-report.1.html) 
 
 #### Visualizing the recorded profile information using Flame Graphs
 
-[Flame graphs](http://www.brendangregg.com/flamegraphs.html) allow for a quick and accurate visualization of frequent code-paths. They can be generated using [Brendan Greg] open source programs on [github](https://github.com/brendangregg/FlameGraph), which create interactive SVGs from folded stack files.
+[Flame graphs](http://www.brendangregg.com/flamegraphs.html) allow for a quick and accurate visualization of frequent code-paths. They can be generated using Brendan Greg's open source programs on [github](https://github.com/brendangregg/FlameGraph), which create interactive SVGs from folded stack files.
 
 
-Specifically for perf we need to convert the generate perf.data into the captured stacks, and fold each of then into single lines.
-You can then render the on CPU flame graph with:
+Specifically, for perf we need to convert the generated perf.data into the captured stacks, and fold each of them into single lines.
+You can then render the on-CPU flame graph with:
 
     perf script > redis.perf.stacks
     stackcollapse-perf.pl redis.perf.stacks > redis.folded.stacks
     flamegraph.pl redis.folded.stacks > redis.svg
 
-By default perf script will generate a perf.data file in the current working directory. See the [perf script](https://linux.die.net/man/1/perf-script.html) documention for advanced usage.
+By default, perf script will generate a perf.data file in the current working directory. See the [perf script](https://linux.die.net/man/1/perf-script.html) documention for advanced usage.
 
-See [FlameGraph usage options](https://github.com/brendangregg/FlameGraph#options) for more advanced  Stack trace visualizations ( like the differential one ).
+See [FlameGraph usage options](https://github.com/brendangregg/FlameGraph#options) for more advanced stack trace visualizations (like the differential one).
 
 
 #### Archiving and sharing recorded profile information
 
-So that analysis of perf.data contents can be possible on other machine than the one in which 
+So that analysis of the perf.data contents can be possible on another machine than the one in which 
 collection happened, you need to export along with the perf.data file all object files 
 with build-ids found in the record data file. This can be easily done with the help of 
 [perf-archive.sh](https://github.com/torvalds/linux/blob/master/tools/perf/perf-archive.sh) script:
@@ -141,7 +141,7 @@ Now please run:
 
     tar xvf perf.data.tar.bz2 -C ~/.debug
 
-wherever machine you need to run `perf report` on.
+on the machine where you need to run `perf report`.
 
 
 ### Sampling stack traces using bcc/BPF's profile
@@ -149,11 +149,11 @@ wherever machine you need to run `perf report` on.
 Similarly to perf, as of Linux kernel 4.9, BPF-optimized profiling is now fully available with the promise of lower overhead on CPU (as stack traces are frequency counted in
 kernel context) and disk I/O resources during profiling. 
 
-Apart from it, and relying solely on bcc/BPF's profile tool we've also removed the perf.data and intermediate steps if stack traces analysis is our main goal. You can use bcc's profile tool to output folded format directly, for flame graph generation:
+Apart from that, and relying solely on bcc/BPF's profile tool, we've also removed the perf.data and intermediate steps if stack traces analysis is our main goal. You can use bcc's profile tool to output folded format directly, for flame graph generation:
 
     $ /usr/share/bcc/tools/profile -F 999 -f --pid $(pgrep redis-server) --duration 60 > redis.folded.stacks
 
-In that manner, we've remove any preprocessing and can render the on CPU flame graph with a single command:
+In that manner, we've remove any preprocessing and can render the on-CPU flame graph with a single command:
 
     flamegraph.pl redis.folded.stacks > redis.svg
 
@@ -164,7 +164,7 @@ Call counts analysis with bcc/BPF
 ------------
 
 A function may consume significant CPU cycles either
-because its code is slow or because it's frequently called. To answer at what rate are functions being called you can rely uppon call counts analysis using BCC's `funccount` tool:
+because its code is slow or because it's frequently called. To answer at what rate functions are being called, you can rely upon call counts analysis using BCC's `funccount` tool:
 
     $ /usr/share/bcc/tools/funccount 'redis-server:(call*|*Read*|*Write*)' --pid $(pgrep redis-server) --duration 60
     Tracing 64 functions for "redis-server:(call*|*Read*|*Write*)"... Hit Ctrl-C to end.
@@ -180,7 +180,7 @@ because its code is slow or because it's frequently called. To answer at what ra
     Detaching...
 
 
-The above output shows that while tracing the Redis's call() function was called 334 times, handleClientsWithPendingWrites() 388 times, etc.
+The above output shows that, while tracing, the Redis's call() function was called 334 times, handleClientsWithPendingWrites() 388 times, etc.
 
 
 Hardware event counting with Performance Monitoring Counters (PMCs)
@@ -188,7 +188,7 @@ Hardware event counting with Performance Monitoring Counters (PMCs)
 
 Many modern processors contain a performance monitoring unit (PMU) exposing Performance Monitoring Counters (PMCs). PMCs are crucial for understanding CPU behavior, including memory I/O, stall cycles, and cache misses, and provide low-level CPU performance statistics that aren't available anywhere else.
 
-The design and functionality of a PMU is CPU-specific and you should assess you your CPU supported counters and features by using `perf list`. 
+The design and functionality of a PMU is CPU-specific and you should assess your CPU supported counters and features by using `perf list`. 
 
 To calculate the number of instructions per cycle, the number of micro ops executed, the number of cycles during which no micro ops were dispatched,  the number stalled cycles on memory, including a per memory type stalls, for the duration of 60s, specifically for redis process: 
 
