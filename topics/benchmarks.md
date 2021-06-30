@@ -22,22 +22,23 @@ The following options are supported:
      --cluster          Enable cluster mode.
      --enable-tracking  Send CLIENT TRACKING on before starting benchmark.
      -k <boolean>       1=keep alive 0=reconnect (default 1)
-     -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD,
-                         random members and scores for ZADD.
-     Using this option the benchmark will expand the string __rand_int__
-     inside an argument with a 12 digits number in the specified range
-     from 0 to keyspacelen-1. The substitution changes every time a command
-     is executed. Default tests use this to hit random keys in the
-     specified range.
+     -r <keyspacelen>    Use random keys for SET/GET/INCR, random values for
+                         SADD, random members and scores for ZADD.
+                         Using this option the benchmark will expand the string
+                         __rand_int__ inside an argument with a 12 digits number
+                         in the specified range from 0 to keyspacelen-1. The
+                         substitution changes every time a command is executed.
+                         Default tests use this to hit random keys in the
+                         specified range.
      -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
      -e                 If server replies with errors, show them on stdout.
-                         (no more than 1 error per second is displayed)
+                        (No more than 1 error per second is displayed.)
      -q                 Quiet. Just show query/sec values
      --precision        Number of decimal places to display in latency output (default 0)
      --csv              Output in CSV format
      -l                 Loop. Run the tests forever
      -t <tests>         Only run the comma separated list of tests. The test
-                         names are the same as the ones produced as output.
+                        names are the same as the ones produced as output.
      -I                 Idle mode. Just open N idle connections and wait.
      --help             Output this help and exit.
      --version          Output version and exit.
@@ -321,7 +322,9 @@ To assess it, we've conducted benchmarks on the released versions of Redis (star
 
 The used hardware platform was a stable bare-metal HPE ProLiant DL380 Gen10 Server, with one Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz, disabling Intel HT Technology, disabling CPU Frequency scaling, with all configurable BIOS and CPU system settings set to performance. 
 
-The box was running Ubuntu 18.04 Linux release 4.15.0-123, and Redis was compiled with gcc 7.5.0. The used benchmark client (`redis-benchmark`) was kept stable across all tests, with version `redis-benchmark 6.2.0 (git:445aa844)`. Both the redis-server and redis-benchmark processes were pinned to specific physical cores.
+The box was running Ubuntu 18.04 Linux release 4.15.0-123, and Redis was compiled with gcc 7.5.0.
+The used benchmark client (`redis-benchmark`) was kept stable across all tests, with version `redis-benchmark 6.2.0 (git:445aa844)`.
+Both the redis-server and redis-benchmark processes were pinned to specific physical cores.
 
 The following benchmark options were used across tests:
 
@@ -333,7 +336,7 @@ The following benchmark options were used across tests:
 * For each redis-benchmark process, 2 threads were used to ensure that the benchmark client was not the bottleneck.
 * Strings, Hashes, Sets, and Sorted Sets data types were benchmarked.
 
-Bellow we present the obtained results, broken by data type.
+Below we present the obtained results, broken by data type.
 
 
 ![Strings performance over versions](./performance-strings.png)
