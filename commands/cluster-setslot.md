@@ -42,7 +42,7 @@ In this way when a node in migrating state generates an `ASK` redirection, the c
 ## CLUSTER SETSLOT `<slot>` STABLE
 
 This subcommand just clears migrating / importing state from the slot. It is
-mainly used to fix a cluster stuck in a wrong state by `redis-trib fix`.
+mainly used to fix a cluster stuck in a wrong state by `redis-cli --cluster fix`.
 Normally the two states are cleared automatically at the end of the migration
 using the `SETSLOT ... NODE ...` subcommand as explained in the next section.
 

@@ -39,7 +39,7 @@ The following command removes the association for slots 5000 and
 
 This command only works in cluster mode and may be useful for
 debugging and in order to manually orchestrate a cluster configuration
-when a new cluster is created. It is currently not used by `redis-trib`,
+when a new cluster is created. It is currently not used by `redis-cli`,
 and mainly exists for API completeness.
 
 @return

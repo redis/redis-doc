@@ -470,7 +470,7 @@ is that:
 * All queries about non-existing keys in A are processed by "B", because "A" will redirect clients to "B".
 
 This way we no longer create new keys in "A".
-In the meantime, a special program called `redis-trib` used during reshardings
+In the meantime, `redis-cli` used during reshardings
 and Redis Cluster configuration will migrate existing keys in
 hash slot 8 from A to B.
 This is performed using the following command:
@@ -478,12 +478,12 @@ This is performed using the following command:
     CLUSTER GETKEYSINSLOT slot count
 
 The above command will return `count` keys in the specified hash slot.
-For every key returned, `redis-trib` sends node "A" a `MIGRATE` command, that
-will migrate the specified key from A to B in an atomic way (both instances
-are locked for the time (usually very small time) needed to migrate a key so
+For keys returned, `redis-cli` sends node "A" a `MIGRATE` command, that
+will migrate the specified keys from A to B in an atomic way (both instances
+are locked for the time (usually very small time) needed to migrate keys so
 there are no race conditions). This is how `MIGRATE` works:
 
-    MIGRATE target_host target_port key target_database id timeout
+    MIGRATE target_host target_port "" target_database id timeout KEYS key1 key2 ...
 
 `MIGRATE` will connect to the target instance, send a serialized version of
 the key, and once an OK code is received, the old key from its own dataset
@@ -942,7 +942,7 @@ So if we receive a heartbeat from node A claiming to serve hash slots 1 and 2 wi
 16383 -> NULL
 ```
 
-When a new cluster is created, a system administrator needs to manually assign (using the `CLUSTER ADDSLOTS` command, via the redis-trib command line tool, or by any other means) the slots served by each master node only to the node itself, and the information will rapidly propagate across the cluster.
+When a new cluster is created, a system administrator needs to manually assign (using the `CLUSTER ADDSLOTS` command, via the redis-cli command line tool, or by any other means) the slots served by each master node only to the node itself, and the information will rapidly propagate across the cluster.
 
 However this rule is not enough. We know that hash slot mapping can change
 during two events:
@@ -954,7 +954,7 @@ For now let's focus on failovers. When a slave fails over its master, it obtains
 a configuration epoch which is guaranteed to be greater than the one of its
 master (and more generally greater than any other configuration epoch
 generated previously). For example node B, which is a slave of A, may failover
-B with configuration epoch of 4. It will start to send heartbeat packets
+A with configuration epoch of 4. It will start to send heartbeat packets
 (the first time mass-broadcasting cluster-wide) and because of the following
 second rule, receivers will update their hash slot tables:
 
@@ -1153,7 +1153,7 @@ If there are any set of nodes with the same `configEpoch`, all the nodes but the
 
 This mechanism also guarantees that after a fresh cluster is created, all
 nodes start with a different `configEpoch` (even if this is not actually
-used) since `redis-trib` makes sure to use `CONFIG SET-CONFIG-EPOCH` at startup.
+used) since `redis-cli` makes sure to use `CONFIG SET-CONFIG-EPOCH` at startup.
 However if for some reason a node is left misconfigured, it will update
 its configuration to a different configuration epoch automatically.
 
