@@ -22,14 +22,14 @@ The following options are supported:
      --cluster          Enable cluster mode.
      --enable-tracking  Send CLIENT TRACKING on before starting benchmark.
      -k <boolean>       1=keep alive 0=reconnect (default 1)
-     -r <keyspacelen>    Use random keys for SET/GET/INCR, random values for
-                         SADD, random members and scores for ZADD.
-                         Using this option the benchmark will expand the string
-                         __rand_int__ inside an argument with a 12 digits number
-                         in the specified range from 0 to keyspacelen-1. The
-                         substitution changes every time a command is executed.
-                         Default tests use this to hit random keys in the
-                         specified range.
+     -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for
+                        SADD, random members and scores for ZADD.
+                        Using this option the benchmark will expand the string
+                        __rand_int__ inside an argument with a 12 digits number
+                        in the specified range from 0 to keyspacelen-1. The
+                        substitution changes every time a command is executed.
+                        Default tests use this to hit random keys in the
+                        specified range.
      -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
      -e                 If server replies with errors, show them on stdout.
                         (No more than 1 error per second is displayed.)
