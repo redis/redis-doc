@@ -470,7 +470,7 @@ is that:
 * All queries about non-existing keys in A are processed by "B", because "A" will redirect clients to "B".
 
 This way we no longer create new keys in "A".
-In the meantime, a special program called `redis-cli` used during reshardings
+In the meantime, `redis-cli` used during reshardings
 and Redis Cluster configuration will migrate existing keys in
 hash slot 8 from A to B.
 This is performed using the following command:
