@@ -190,7 +190,7 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "BITFIELD": {
     "summary": "Perform arbitrary bitfield integer operations on strings",
@@ -252,7 +252,7 @@
       }
     ],
     "since": "3.2.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "BITOP": {
     "summary": "Perform bitwise operations between strings",
@@ -273,7 +273,7 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "BITPOS": {
     "summary": "Find first bit set or clear in a string",
@@ -299,7 +299,7 @@
       }
     ],
     "since": "2.8.7",
-    "group": "string"
+    "group": "bitmap"
   },
   "BLPOP": {
     "summary": "Remove and get the first element in a list, or block until one is available",
@@ -1962,7 +1962,7 @@
       }
     ],
     "since": "2.2.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "GETDEL": {
     "summary":"Get the value of a key and delete the key",
@@ -3516,7 +3516,7 @@
       }
     ],
     "since": "2.2.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "SETEX": {
     "summary": "Set the value and expiration of a key",
