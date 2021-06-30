@@ -1241,6 +1241,8 @@ When in TILT mode the Sentinel will continue to monitor everything, but:
 If everything appears to be normal for 30 second, the TILT mode is exited.
         
 In the Sentinel Tilt Mode, if we send INFO command, we could get the following response:
+    
+    $ redis-cli -p 26379
     127.0.0.1:26379>info
     //*** Other information from Sentinel server
 
@@ -1253,7 +1255,8 @@ In the Sentinel Tilt Mode, if we send INFO command, we could get the following r
     sentinel_simulate_failure_flags:0
     master0:name=mymaster,status=ok,address=127.0.0.1:6379,slaves=0,sentinels=1
         
-The Field "sentinel_tilt_since_seconds" indicates how many millisecond Sentinel already is in the Tilt mode. If it is not in the Tilt mode, the value will be -1
+        
+The Field "sentinel_tilt_since_seconds" indicates how many seconds Sentinel already is in the Tilt mode. If it is not in the Tilt mode, the value will be -1
 
 Note that in some way TILT mode could be replaced using the monotonic clock
 API that many kernels offer. However it is not still clear if this is a good
