@@ -288,14 +288,20 @@
         "type": "integer"
       },
       {
-        "name": "start",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "end",
-        "type": "integer",
-        "optional": true
+        "name": "index",
+        "type": "block",
+        "optional": true,
+        "block": [
+          {
+            "name": "start",
+            "type": "integer"
+          },
+          {
+            "name": "end",
+            "type": "integer",
+            "optional": true
+          }
+        ]
       }
     ],
     "since": "2.8.7",
