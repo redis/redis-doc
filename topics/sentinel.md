@@ -1256,7 +1256,7 @@ In the Sentinel TILT mode, if we send the INFO command, we could get the followi
     master0:name=mymaster,status=ok,address=127.0.0.1:6379,slaves=0,sentinels=1
 
 The field "sentinel_tilt_since_seconds" indicates how many seconds the Sentinel already is in the TILT mode.
-If it is not in TILT mode, the value will be -1
+If it is not in TILT mode, the value will be -1.
 
 Note that in some way TILT mode could be replaced using the monotonic clock
 API that many kernels offer. However it is not still clear if this is a good
