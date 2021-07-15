@@ -1239,6 +1239,24 @@ When in TILT mode the Sentinel will continue to monitor everything, but:
 * It starts to reply negatively to `SENTINEL is-master-down-by-addr` requests as the ability to detect a failure is no longer trusted.
 
 If everything appears to be normal for 30 second, the TILT mode is exited.
+ 
+In the Sentinel TILT mode, if we send the INFO command, we could get the following response:
+
+    $ redis-cli -p 26379
+    127.0.0.1:26379> info
+    (Other information from Sentinel server skipped.)
+
+    # Sentinel
+    sentinel_masters:1
+    sentinel_tilt:0
+    sentinel_tilt_since_seconds:-1
+    sentinel_running_scripts:0
+    sentinel_scripts_queue_length:0
+    sentinel_simulate_failure_flags:0
+    master0:name=mymaster,status=ok,address=127.0.0.1:6379,slaves=0,sentinels=1
+
+The field "sentinel_tilt_since_seconds" indicates how many seconds the Sentinel already is in the TILT mode.
+If it is not in TILT mode, the value will be -1.
 
 Note that in some way TILT mode could be replaced using the monotonic clock
 API that many kernels offer. However it is not still clear if this is a good
