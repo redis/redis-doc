@@ -3979,7 +3979,7 @@
     "group": "generic"
   },
   "TTL": {
-    "summary": "Get the time to live for a key",
+    "summary": "Get the time to live for a key in seconds",
     "complexity": "O(1)",
     "arguments": [
       {
