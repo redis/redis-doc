@@ -51,7 +51,7 @@ It will use the `LREM` command in order to remove the message from the
 _processing_ list once the message has been processed.
 
 An additional client may monitor the _processing_ list for items that remain
-there for too much time, pushing those timed out items into the queue
+there for too much time, pushing timed out items into the queue
 again if needed.
 
 ## Pattern: Circular list
