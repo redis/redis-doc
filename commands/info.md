@@ -234,7 +234,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spend on active expiry cycles
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `total_eviction_exceeded_time`:  Total time used memory is greater than `maxmemory`
-     since server startup, unit is `ms`
+     since server startup, in milliseconds
 *   `current_eviction_exceeded_time`: How much time currently used memory is greater than `maxmemory`,
      if used memory is below `maxmemory`, this metric is reset to 0, unit is `ms`
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
