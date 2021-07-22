@@ -236,7 +236,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_eviction_exceeded_time`:  Total time used memory is greater than `maxmemory`
      since server startup, in milliseconds
 *   `current_eviction_exceeded_time`: Duration currently used memory is greater than `maxmemory`,
-     if used memory is below `maxmemory` this metric is reset to 0, in milliseocnds
+     if used memory is below `maxmemory` this metric is reset to 0, in milliseconds
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
 *   `keyspace_misses`: Number of failed lookup of keys in the main dictionary
 *   `pubsub_channels`: Global number of pub/sub channels with client
