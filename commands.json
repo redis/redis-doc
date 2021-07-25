@@ -4287,7 +4287,7 @@
         "name": "key",
         "type": "key",
         "multiple": true
-      },
+      }
     ],
     "since": "7.0.0",
     "group": "sorted_set"
