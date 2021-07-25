@@ -136,7 +136,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
 *   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting)
 *   `mem_allocator`: Memory allocator, chosen at compile time
-*   `active_defrag_running`: When `activedefrag` is enabled, this indicates whether active defrag is active, and the CPU percentage it intends to utilize
+*   `active_defrag_running`: When `activedefrag` is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
      option)
