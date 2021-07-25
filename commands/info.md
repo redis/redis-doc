@@ -123,7 +123,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `maxmemory_policy`: The value of the `maxmemory-policy` configuration
      directive
 *   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`.
-    Note that this doesn't only includes fragmentation, but also other process overheads (see the `allocator_*` metrics), and also overheads like code, shared libraies, stack, etc.
+    Note that this doesn't only includes fragmentation, but also other process overheads (see the `allocator_*` metrics), and also overheads like code, shared libraries, stack, etc.
 *   `mem_fragmentation_bytes`: Delta between `used_memory_rss` and `used_memory`
     Note that when the total fragmentation bytes is low (few megabytes), a high ratio (e.g. 1.5 and above) is not an indication of an issue.
 *   `allocator_frag_ratio:`: Ratio between `allocator_allocated` and `allocator_active`. This is the true (external) fragmentation metric (not `mem_fragmentation_ratio`)
@@ -134,7 +134,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `rss_overhead_bytes`: Delta between `allocator_resident` and `used_memory_rss` (the process RSS).
 *   `allocator_allocated`: Total bytes allocated form the allocator, including internal-fragmentation. Normally the same as `used_memory`.
 *   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
-*   `allocator_resident`: Total bytes redident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting)
+*   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting)
 *   `mem_allocator`: Memory allocator, chosen at compile time
 *   `active_defrag_running`: When `activedefrag` is enabled, this indicates if active if is active, and the CPU percentage it intends to utilize
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
