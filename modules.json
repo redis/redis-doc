@@ -18,7 +18,7 @@
       "MeirShpilraien",
       "RedisLabs"
     ],
-    "stars": 122
+    "stars": 185
   },
   {
     "name": "redis-roaring",
@@ -49,7 +49,7 @@
       "swilly22",
       "RedisLabs"
     ],
-    "stars": 1144
+    "stars": 1409
   },
   {
     "name": "redis-tdigest",
@@ -70,7 +70,7 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 1119
+    "stars": 1358
   },
   {
     "name": "RediSearch",
@@ -81,7 +81,7 @@
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 2616
+    "stars": 3051
   },
   {
     "name": "RedisBloom",
@@ -92,7 +92,7 @@
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 691
+    "stars": 960
   },
   {
     "name": "neural-redis",
@@ -113,7 +113,7 @@
       "danni-m",
       "RedisLabs"
     ],
-    "stars": 455
+    "stars": 593
   },
   {
     "name": "RedisAI",
@@ -124,7 +124,7 @@
       "lantiga",
       "RedisLabs"
     ],
-    "stars": 435
+    "stars": 604
   },
   {
     "name": "ReDe",
