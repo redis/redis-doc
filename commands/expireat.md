@@ -15,12 +15,21 @@ timeouts for the AOF persistence mode.
 Of course, it can be used directly to specify that a given key should expire at
 a given time in the future.
 
+## Options
+
+The `EXPIREAT` command supports a set of options since Redis 7.0:
+
+* `NX` -- Set expiry only when the key has no expiry
+* `XX` -- Set expiry only when the key has an existing expiry
+* `GT` -- Set expiry only when the new expiry is greater than current one
+* `LT` -- Set expiry only when the new expiry is less than current one
+
 @return
 
 @integer-reply, specifically:
 
 * `1` if the timeout was set.
-* `0` if `key` does not exist.
+* `0` if `key` does not exist the expiry was not applied due to provided option.
 
 @examples
 

@@ -31,6 +31,15 @@ will be `del`, not `expired`).
 [del]: /commands/del
 [ntf]: /topics/notifications
 
+## Options
+
+The `EXPIRE` command supports a set of options since Redis 7.0:
+
+* `NX` -- Set expiry only when the key has no expiry
+* `XX` -- Set expiry only when the key has an existing expiry
+* `GT` -- Set expiry only when the new expiry is greater than current one
+* `LT` -- Set expiry only when the new expiry is less than current one
+
 ## Refreshing expires
 
 It is possible to call `EXPIRE` using as argument a key that already has an
@@ -53,7 +62,7 @@ are now fixed.
 @integer-reply, specifically:
 
 * `1` if the timeout was set.
-* `0` if `key` does not exist.
+* `0` if `key` does not exist or the expiry was not applied due to provided option.
 
 @examples
 
@@ -62,6 +71,10 @@ SET mykey "Hello"
 EXPIRE mykey 10
 TTL mykey
 SET mykey "Hello World"
+TTL mykey
+EXPIRE mykey 10 XX
+TTL mykey
+EXPIRE mykey 10 NX
 TTL mykey
 ```
 
