@@ -123,18 +123,29 @@ Here is the meaning of all fields in the **memory** section:
 *   `maxmemory_human`: Human readable representation of previous value
 *   `maxmemory_policy`: The value of the `maxmemory-policy` configuration
      directive
-*   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`
-*   `mem_allocator`: Memory allocator, chosen at compile time
-*   `active_defrag_running`: Flag indicating if active defragmentation is active
+*   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`.
+    Note that this doesn't only includes fragmentation, but also other process overheads (see the `allocator_*` metrics), and also overheads like code, shared libraries, stack, etc.
+*   `mem_fragmentation_bytes`: Delta between `used_memory_rss` and `used_memory`.
+    Note that when the total fragmentation bytes is low (few megabytes), a high ratio (e.g. 1.5 and above) is not an indication of an issue.
+*   `allocator_frag_ratio:`: Ratio between `allocator_active` and `allocator_allocated`. This is the true (external) fragmentation metric (not `mem_fragmentation_ratio`).
+*   `allocator_frag_bytes` Delta between `allocator_active` and `allocator_allocated`. See note about `mem_fragmentation_bytes`.
+*   `allocator_rss_ratio`: Ratio between `allocator_resident` and `allocator_active`. This usually indicates pages that the allocator can and probably will soon release back to the OS.
+*   `allocator_rss_bytes`: Delta between `allocator_resident` and `allocator_active`
+*   `rss_overhead_ratio`: Ratio between `used_memory_rss` (the process RSS) and `allocator_resident`. This includes RSS overheads that are not allocator or heap related.
+*   `rss_overhead_bytes`: Delta between `used_memory_rss` (the process RSS) and `allocator_resident`
+*   `allocator_allocated`: Total bytes allocated form the allocator, including internal-fragmentation. Normally the same as `used_memory`.
+*   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
+*   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting).
+*   `mem_allocator`: Memory allocator, chosen at compile time.
+*   `active_defrag_running`: When `activedefrag` is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize.
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
      option)
 
 Ideally, the `used_memory_rss` value should be only slightly higher than
 `used_memory`.
-When rss >> used, a large difference means there is memory fragmentation
-(internal or external), which can be evaluated by checking
-`mem_fragmentation_ratio`.
+When rss >> used, a large difference may mean there is (external) memory fragmentation, which can be evaluated by checking
+`allocator_frag_ratio`, `allocator_frag_bytes`.
 When used >> rss, it means part of Redis memory has been swapped off by the
 operating system: expect some significant latencies.
 
