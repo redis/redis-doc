@@ -1,4 +1,4 @@
-Returns the cardinality of the set resulting from the intersection of all the given sets.
+Returns the cardinality of the set which would result from the intersection of all the given sets.
 
 Keys that do not exist are considered to be empty sets.
 With one of the keys being an empty set, the resulting set is also empty (since set intersection with an empty set always results in an empty set).
