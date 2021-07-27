@@ -269,6 +269,7 @@ You should be absolutely sure that you'll never include what you did not mean
 to.
 
 The following is a list of command categories and their meanings:
+
 * keyspace - Writing or reading from keys, databases, or their metadata 
   in a type agnostic way. Includes `DEL`, `RESTORE`, `DUMP`, `RENAME`, `EXISTS`, `DBSIZE`,
   `KEYS`, `EXPIRE`, `TTL`, `FLUSHALL`, etc. Commands that may modify the keyspace,
