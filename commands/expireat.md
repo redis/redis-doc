@@ -24,12 +24,16 @@ The `EXPIREAT` command supports a set of options since Redis 7.0:
 * `GT` -- Set expiry only when the new expiry is greater than current one
 * `LT` -- Set expiry only when the new expiry is less than current one
 
+A non-volatile key is treated as an infinite TTL for the purpose of `GT` and `LT`.
+The `GT`, `LT` and `NX` options are mutually exclusive.
+
 @return
 
 @integer-reply, specifically:
 
 * `1` if the timeout was set.
-* `0` if `key` does not exist the expiry was not applied due to provided option.
+* `0` if the timeout was not set. e.g. key doesn't exist, or operation skipped
+  due to the provided arguments.
 
 @examples
 
@@ -39,3 +43,7 @@ EXISTS mykey
 EXPIREAT mykey 1293840000
 EXISTS mykey
 ```
+
+@history
+
+* `>= 7.0`: Added options: `NX`, `XX`, `GT` and `LT`.
