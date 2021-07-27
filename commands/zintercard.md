@@ -5,7 +5,7 @@ With one of the keys being an empty set, the resulting set is also empty (since 
 
 @return
 
-@integer-reply: the number of elements in the result intersection.
+@integer-reply: the number of elements in the resulting intersection.
 
 @examples
 
