@@ -59,6 +59,7 @@ Here is the meaning of all fields in the **server** section:
 *   `atomicvar_api`: Atomicvar API used by Redis
 *   `gcc_version`: Version of the GCC compiler used to compile the Redis server
 *   `process_id`: PID of the server process
+*   `process_supervised`: Supervised system ("upstart", "systemd", "unknown" or "no")
 *   `run_id`: Random value identifying the Redis server (to be used by Sentinel
      and Cluster)
 *   `tcp_port`: TCP/IP listen port
