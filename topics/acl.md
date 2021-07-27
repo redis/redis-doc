@@ -302,8 +302,7 @@ The following is a list of command categories and their meanings:
 * geo - Data type: geospatial indexes related.
 * stream - Data type: streams related.
 
-Redis can also show you a list of all categories, and the exact commands each category includes.
-Redis `ACL` command exports the `CAT` subcommand that can be used in two forms:
+Redis can also show you a list of all categories, and the exact commands each category includes using the redis `ACL` command's `CAT` subcommand that can be used in two forms:
 
     ACL CAT -- Will just list all the categories available
     ACL CAT <category-name> -- Will list all the commands inside the category
