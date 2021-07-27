@@ -2,7 +2,7 @@
 When `source` contains elements, this command behaves exactly like `LMOVE`.
 When used inside a `MULTI`/`EXEC` block, this command behaves exactly like `LMOVE`.
 When `source` is empty, Redis will block the connection until another client
-pushes to it or until `timeout` is reached.
+pushes to it or until `timeout` (a double value specifying the maximum number of seconds to block) is reached.
 A `timeout` of zero can be used to block indefinitely.
 
 This command comes in place of the now deprecated `BRPOPLPUSH`. Doing
