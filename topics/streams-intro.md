@@ -187,14 +187,14 @@ In practical terms, if we imagine having three consumers C1, C2, C3, and a strea
 7 -> C1
 ```
 
-In order to achieve this, Redis uses a concept called *consumer groups*. It is very important to understand that Redis consumer groups have nothing to do, from an implementation standpoint, with Kafka (TM) consumer groups. Yet they are similar in functionality, so I decided to keep Kafka's (TM) terminology, as it originaly popularized this idea.
+In order to achieve this, Redis uses a concept called *consumer groups*. It is very important to understand that Redis consumer groups have nothing to do, from an implementation standpoint, with Kafka (TM) consumer groups. Yet they are similar in functionality, so I decided to keep Kafka's (TM) terminology, as it originally popularized this idea.
 
 A consumer group is like a *pseudo consumer* that gets data from a stream, and actually serves multiple consumers, providing certain guarantees:
 
 1. Each message is served to a different consumer so that it is not possible that the same message will be delivered to multiple consumers.
 2. Consumers are identified, within a consumer group, by a name, which is a case-sensitive string that the clients implementing consumers must choose. This means that even after a disconnect, the stream consumer group retains all the state, since the client will claim again to be the same consumer. However, this also means that it is up to the client to provide a unique identifier.
 3. Each consumer group has the concept of the *first ID never consumed* so that, when a consumer asks for new messages, it can provide just messages that were not previously delivered.
-4. Consuming a message, however, requires an explicit acknowledgment using a specific command. Redis interperts the acknowledgment as: this message was correctly processed so it can be evicted from the consumer group.
+4. Consuming a message, however, requires an explicit acknowledgment using a specific command. Redis interprets the acknowledgment as: this message was correctly processed so it can be evicted from the consumer group.
 5. A consumer group tracks all the messages that are currently pending, that is, messages that were delivered to some consumer of the consumer group, but are yet to be acknowledged as processed. Thanks to this feature, when accessing the message history of a stream, each consumer *will only see messages that were delivered to it*.
 
 In a way, a consumer group can be imagined as some *amount of state* about a stream:
@@ -405,7 +405,7 @@ In its simplest form, the command is called with two arguments, which are the na
       2) "2"
 ```
 
-When called in this way the command outputs the total number of pending messages in the consumer group, only two messages in this case, the lower and higher message ID among the pending messages, and finally a list of consumers and the number of pending messages they have.
+When called in this way, the command outputs the total number of pending messages in the consumer group (two in this case), the lower and higher message ID among the pending messages, and finally a list of consumers and the number of pending messages they have.
 We have only Bob with two pending messages because the single message that Alice requested was acknowledged using **XACK**.
 
 We can ask for more information by giving more arguments to **XPENDING**, because the full command signature is the following:
@@ -455,7 +455,7 @@ Client 1: XCLAIM mystream mygroup Alice 3600000 1526569498055-0
 Client 2: XCLAIM mystream mygroup Lora 3600000 1526569498055-0
 ```
 
-However claiming a message, as a side effect will reset its idle time! And will increment its number of deliveries counter, so the second client will fail claiming it. In this way we avoid trivial re-processing of messages (even if in the general case you cannot obtain exactly once processing).
+However, as a side effect, claiming a message will reset its idle time and will increment its number of deliveries counter, so the second client will fail claiming it. In this way we avoid trivial re-processing of messages (even if in the general case you cannot obtain exactly once processing).
 
 This is the result of the command execution:
 
@@ -466,7 +466,7 @@ This is the result of the command execution:
       2) "orange"
 ```
 
-The message was successfully claimed by Alice, that can now process the message and acknowledge it, and move things forward even if the original consumer is not recovering.
+The message was successfully claimed by Alice, who can now process the message and acknowledge it, and move things forward even if the original consumer is not recovering.
 
 It is clear from the example above that as a side effect of successfully claiming a given message, the **XCLAIM** command also returns it. However this is not mandatory. The **JUSTID** option can be used in order to return just the IDs of the message successfully claimed. This is useful if you want to reduce the bandwidth used between the client and the server (and also the performance of the command) and you are not interested in the message because your consumer is implemented in a way that it will rescan the history of pending messages from time to time.
 
