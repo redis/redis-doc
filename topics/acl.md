@@ -268,9 +268,41 @@ the case of an ACL that is just additive, that is, in the form of `+@all -...`
 You should be absolutely sure that you'll never include what you did not mean
 to.
 
-However to remember that categories are defined, and what commands each
-category exactly includes, is impossible and would be super boring, so the
-Redis `ACL` command exports the `CAT` subcommand that can be used in two forms:
+The following is a list of command categories and their meanings:
+* keyspace - Writing or reading from keys, databases, or their metadata 
+  in a type agnostic way. Includes `DEL`, `RESTORE`, `DUMP`, `RENAME`, `EXISTS`, `DBSIZE`,
+  `KEYS`, `EXPIRE`, `TTL`, `FLUSHALL`, etc. Commands that may modify the keyspace,
+  key or metadata will also have `write` category. Commands that only read
+  the keyspace, key or metadata will have the `read` category.
+* read - Reading from keys (values or metadata). Note that commands that don't
+  interact with keys, will not have either `read` or `write`.
+* write - Writing to keys (values or metadata).
+* admin - Administrative commands. Normal applications will never need to use
+  these. Includes `REPLICAOF`, `CONFIG`, `DEBUG`, `SAVE`, `MONITOR`, `ACL`, `SHUTDOWN`, etc.
+* dangerous - Potentially dangerous commands (each should be considered with care for
+  various reasons). This includes `FLUSHALL`, `MIGRATE`, `RESTORE`, `SORT`, `KEYS`,
+  `CLIENT`, `DEBUG`, `INFO`, `CONFIG`, `SAVE`, `REPLICAOF`, etc.
+* connection - Commands affecting the connection or other connections.
+  This includes `AUTH`, `SELECT`, `COMMAND`, `CLIENT`, `ECHO`, `PING`, etc.
+* blocking - Potentially blocking the connection until released by another
+  command.
+* fast - Fast O(1) commands. May loop on the number of arguments, but not the
+  number of elements in the key.
+* slow - All commands that are not `fast`.
+* pubsub - PubSub-related commands.
+* transaction - `WATCH` / `MULTI` / `EXEC` related commands.
+* scripting - Scripting related.
+* set - Data type: sets related.
+* sortedset - Data type: sorted sets related.
+* list - Data type: lists related.
+* hash - Data type: hashes related.
+* string - Data type: strings related.
+* bitmap - Data type: bitmaps related.
+* hyperloglog - Data type: hyperloglog related.
+* geo - Data type: geospatial indexes related.
+* stream - Data type: streams related.
+
+Redis can also show you a list of all categories, and the exact commands each category includes using the redis `ACL` command's `CAT` subcommand that can be used in two forms:
 
     ACL CAT -- Will just list all the categories available
     ACL CAT <category-name> -- Will list all the commands inside the category
