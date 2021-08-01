@@ -7,10 +7,12 @@ The command performs the following actions:
 * When the specified amount of time has elapsed, all the clients are unblocked: this will trigger the processing of all the commands accumulated in the query buffer of every client during the pause.
 
 Client pause currently supports two modes:
+
 * `ALL`: This is the default mode. All client commands are blocked.
 * `WRITE`: Clients are only blocked if they attempt to execute a write command.
 
 For the `WRITE` mode, some commands have special behavior:
+
 * `EVAL`/`EVALSHA`: Will block client for all scripts.
 * `PUBLISH`: Will block client.
 * `PFCOUNT`: Will block client.
