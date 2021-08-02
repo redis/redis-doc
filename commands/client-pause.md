@@ -16,7 +16,7 @@ For the `WRITE` mode, some commands have special behavior:
 * `EVAL`/`EVALSHA`: Will block client for all scripts.
 * `PUBLISH`: Will block client.
 * `PFCOUNT`: Will block client.
-* `WAIT`: Acknowledgements will be delayed, so this command will appear blocked.
+* `WAIT`: Acknowledgments will be delayed, so this command will appear blocked.
 
 This command is useful as it makes able to switch clients from a Redis instance to another one in a controlled way. For example during an instance upgrade the system administrator could do the following:
 
