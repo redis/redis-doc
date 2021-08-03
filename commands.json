@@ -3609,6 +3609,19 @@
     "since": "1.0.0",
     "group": "set"
   },
+  "SINTERCARD": {
+    "summary": "Intersect multiple sets and return the cardinality of the result",
+    "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "set"
+  },
   "SINTERSTORE": {
     "summary": "Intersect multiple sets and store the resulting set in a key",
     "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
@@ -4260,6 +4273,23 @@
       }
     ],
     "since": "6.2.0",
+    "group": "sorted_set"
+  },
+  "ZINTERCARD": {
+    "summary": "Intersect multiple sorted sets and return the cardinality of the result",
+    "complexity": "O(N*K) worst case with N being the smallest input sorted set, K being the number of input sorted sets.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "sorted_set"
   },
   "ZINTERSTORE": {
