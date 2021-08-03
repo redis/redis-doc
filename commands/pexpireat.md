@@ -32,4 +32,3 @@ PTTL mykey
 @history
 
 * `>= 7.0`: Added options: `NX`, `XX`, `GT` and `LT`.
-
