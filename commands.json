@@ -1285,6 +1285,17 @@
       {
         "name": "seconds",
         "type": "integer"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -1301,6 +1312,17 @@
       {
         "name": "timestamp",
         "type": "posix time"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "1.2.0",
@@ -2310,7 +2332,7 @@
               "WITHVALUES"
             ],
             "optional": true
-          }    
+          }
         ],
         "optional": true
       }
@@ -2917,6 +2939,17 @@
       {
         "name": "milliseconds",
         "type": "integer"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "2.6.0",
@@ -2933,6 +2966,17 @@
       {
         "name": "milliseconds-timestamp",
         "type": "posix time"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "2.6.0",
@@ -4408,7 +4452,7 @@
               "WITHSCORES"
             ],
             "optional": true
-          }    
+          }
         ],
         "optional": true
       }
