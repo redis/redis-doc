@@ -52,11 +52,11 @@ So for example the command `GEORADIUS Sicily 15 37 200 km WITHCOORD WITHDIST` wi
 
     ["Palermo","190.4424",["13.361389338970184","38.115556395496299"]]
 
-## Read only variants
+## Read-only variants
 
-Since `GEORADIUS` and `GEORADIUSBYMEMBER` have a `STORE` and `STOREDIST` option they are technically flagged as writing commands in the Redis command table. For this reason read-only replicas will flag them, and Redis Cluster replicas will redirect them to the master instance even if the connection is in read only mode (See the `READONLY` command of Redis Cluster).
+Since `GEORADIUS` and `GEORADIUSBYMEMBER` have a `STORE` and `STOREDIST` option they are technically flagged as writing commands in the Redis command table. For this reason read-only replicas will flag them, and Redis Cluster replicas will redirect them to the master instance even if the connection is in read-only mode (see the `READONLY` command of Redis Cluster).
 
-Breaking the compatibility with the past was considered but rejected, at least for Redis 4.0, so instead two read only variants of the commands were added. They are exactly like the original commands but refuse the `STORE` and `STOREDIST` options. The two variants are called `GEORADIUS_RO` and `GEORADIUSBYMEMBER_RO`, and can safely be used in replicas.
+Breaking the compatibility with the past was considered but rejected, at least for Redis 4.0, so instead two read-only variants of the commands were added. They are exactly like the original commands but refuse the `STORE` and `STOREDIST` options. The two variants are called `GEORADIUS_RO` and `GEORADIUSBYMEMBER_RO`, and can safely be used in replicas.
 
 Both commands were introduced in Redis 3.2.10 and Redis 4.0.0 respectively.
 

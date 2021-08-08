@@ -1,5 +1,8 @@
 Returns or stores the elements contained in the [list][tdtl], [set][tdts] or
 [sorted set][tdtss] at `key`.
+
+This manual page also covers the `SORT_RO` variant (see the section below for more information).
+
 By default, sorting is numeric and elements are compared by their value
 interpreted as double precision floating point number.
 This is `SORT` in its simplest form:
@@ -139,3 +142,11 @@ key is accessed to retrieve the specified hash field.
 
 @array-reply: without passing the `store` option the command returns a list of sorted elements.
 @integer-reply: when the `store` option is specified the command returns the number of sorted elements in the destination list.
+
+## Read-only variant `SORT_RO`
+
+Since `SORT` has a `STORE` option it is technically flagged as a writing command in the Redis command table. For this reason read-only replicas will flag it, and Redis Cluster replicas will redirect it to the master instance even if the connection is in read-only mode (see the `READONLY` command of Redis Cluster).
+
+In order to allow its usage in read-only replicas without breaking compatibility, the `SORT_RO` variant of `SORT` was added. It is exactly like the original `SORT` but refuses the `STORE` option and can safely be used in replicas.
+
+`SORT_RO` was introduced in Redis 7.0.0.
