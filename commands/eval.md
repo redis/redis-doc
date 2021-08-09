@@ -657,7 +657,7 @@ At this point the new conversions are available, specifically:
 * Redis verbatim string reply -> Lua table with a single `verbatim_string` field containing a Lua table with two fields, `string` and `format`, representing the verbatim string and verbatim format respectively.
 * All the RESP2 old conversions still apply.
 
-Note: big number and verbatim replies are only available on Redis 7 and above. RESP3 attributes are not yet give to the Lua interpreter and simply ignored.
+Note: the big number and verbatim replies are only available in Redis 7 or greater. Also, presently RESP3 attributes are not supported in Lua.
 
 **Lua to Redis** conversion table specific for RESP3.
 
