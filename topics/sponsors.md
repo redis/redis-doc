@@ -1,7 +1,7 @@
 Redis Sponsors
 ===
 
-Starting from June 2015 the work [Salvatore Sanfilippo](http://twitter.com/antirez) is doing in order to develop Redis is sponsored by [Redis Labs](https://redislabs.com).
+Between 2015 to June 2020, the work Salvatore Sanfilippo was doing in order to develop Redis was sponsored by [Redis Ltd.](https://redis.com) As of June 2020, Redis Ltd. sponsors the Redis project [governance](/topics/governance).
 
 Past sponsorships:
 
@@ -22,7 +22,7 @@ Also thanks to the following people or organizations that donated to the Project
 * [Brad Jasper](http://bradjasper.com/)
 * [Mrkris](http://www.mrkris.com/)
 
-We are grateful to [Redis Labs](http://redislabs.com), [Pivotal](http://gopivotal.com), [VMware](http://vmware.com) and to the other companies and people that donated to the Redis project. Thank you.
+We are grateful to [Redis Ltd.](http://redis.com), [Pivotal](http://gopivotal.com), [VMware](http://vmware.com) and to the other companies and people that donated to the Redis project. Thank you.
 
 ## redis.io
 
@@ -32,8 +32,7 @@ transferred its copyright to Salvatore Sanfilippo.
 
 They also sponsored the initial implementation of this site by
 [Damian Janowski](https://twitter.com/djanowski) and [Michel
-Martens](https://twitter.com/soveran). Damian and Michel remain the current
-maintainers.
+Martens](https://twitter.com/soveran).
 
 The `redis.io` domain was donated for a few years to the project by [I Want My
 Name](https://iwantmyname.com).

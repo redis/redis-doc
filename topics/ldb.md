@@ -215,7 +215,7 @@ LDB uses the client-server model where the Redis server acts as a debugging serv
 2. The client provides an interface for sending arbitrary commands over RESP.
 3. The client allows sending raw messages to the Redis server.
 
-For example, the [Redis plugin](https://redislabs.com/blog/zerobrane-studio-plugin-for-redis-lua-scripts) for [ZeroBrane Studio](http://studio.zerobrane.com/) integrates with LDB using [redis-lua](https://github.com/nrk/redis-lua). The following Lua code is a simplified example of how the plugin achieves that:
+For example, the [Redis plugin](https://redis.com/blog/zerobrane-studio-plugin-for-redis-lua-scripts) for [ZeroBrane Studio](http://studio.zerobrane.com/) integrates with LDB using [redis-lua](https://github.com/nrk/redis-lua). The following Lua code is a simplified example of how the plugin achieves that:
 
 ```Lua
 local redis = require 'redis'
