@@ -257,8 +257,7 @@
     "url": "https://code.google.com/p/jredis/",
     "repository": "https://github.com/alphazero/jredis",
     "description": "",
-    "authors": ["SunOf27"],
-    "active": true
+    "authors": ["SunOf27"]
   },
 
   {
@@ -299,7 +298,8 @@
     "language": "Java",
     "repository": "https://github.com/vert-x3/vertx-redis-client",
     "description": "The Vert.x Redis client provides an asynchronous API to interact with a Redis data-structure server.",
-    "authors": ["pmlopes"]
+    "authors": ["pmlopes"],
+    "active": true
   },
 
   {
@@ -1139,8 +1139,7 @@
     "language": "Java",
     "repository": "https://github.com/caoxinyu/RedisClient",
     "description": "redis client GUI tool",
-    "authors": [],
-    "active": true
+    "authors": []
   },
 
   {
@@ -1890,8 +1889,7 @@
     "language": "Java",
     "repository": "https://github.com/virendradhankar/viredis",
     "description": "A simple and small redis client for java.",
-    "authors": [],
-    "active": true
+    "authors": []
   },
 
   {
