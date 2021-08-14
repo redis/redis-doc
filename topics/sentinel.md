@@ -82,7 +82,7 @@ Fundamental things to know about Sentinel before deploying
 3. Sentinel + Redis distributed system does not guarantee that acknowledged writes are retained during failures, since Redis uses asynchronous replication. However there are ways to deploy Sentinel that make the window to lose writes limited to certain moments, while there are other less secure ways to deploy it.
 4. You need Sentinel support in your clients. Popular client libraries have Sentinel support, but not all.
 5. There is no HA setup which is safe if you don't test from time to time in development environments, or even better if you can, in production environments, if they work. You may have a misconfiguration that will become apparent only when it's too late (at 3am when your master stops working).
-6. **Sentinel, Docker, or other forms of Network Address Translation or Port Mapping should be mixed with care**: Docker performs port remapping, breaking Sentinel auto discovery of other Sentinel processes and the list of replicas for a master. Check the section about Sentinel and Docker later in this document for more information.
+6. **Sentinel, Docker, or other forms of Network Address Translation or Port Mapping should be mixed with care**: Docker performs port remapping, breaking Sentinel auto discovery of other Sentinel processes and the list of replicas for a master. Check the [section about _Sentinel and Docker_](#sentinel-docker-nat-and-possible-issues) later in this document for more information.
 
 Configuring Sentinel
 ---
@@ -166,7 +166,7 @@ Configuration parameters can be modified at runtime:
 * Master-specific configuration parameters are modified using `SENTINEL SET`.
 * Global configuration parameters are modified using `SENTINEL CONFIG SET`.
 
-See the **Reconfiguring Sentinel at runtime** section for more information.
+See the [_Reconfiguring Sentinel at runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
 
 Example Sentinel deployments
 ---
@@ -445,7 +445,7 @@ Using host names may be useful when clients use TLS to connect to instances and 
 A quick tutorial
 ===
 
-In the next sections of this document, all the details about Sentinel API,
+In the next sections of this document, all the details about [_Sentinel API_](#sentinel-api),
 configuration and semantics will be covered incrementally. However for people
 that want to play with the system ASAP, this section is a tutorial that shows
 how to configure and interact with 3 Sentinel instances.
@@ -478,7 +478,7 @@ Once you start the three Sentinels, you'll see a few messages they log, like:
     +monitor master mymaster 127.0.0.1 6379 quorum 2
 
 This is a Sentinel event, and you can receive this kind of events via Pub/Sub
-if you `SUBSCRIBE` to the event name as specified later.
+if you `SUBSCRIBE` to the event name as specified later in [_Pub/Sub Messages_ section](#pubsub-messages).
 
 Sentinel generates and logs different events during failure detection and
 failover.
@@ -808,7 +808,7 @@ master, and another replica S2 in another data center, it is possible to set
 S1 with a priority of 10 and S2 with a priority of 100, so that if the master
 fails and both S1 and S2 are available, S1 will be preferred.
 
-For more information about the way replicas are selected, please check the **replica selection and priority** section of this documentation.
+For more information about the way replicas are selected, please check the [_Replica selection and priority_ section](#replica-selection-and-priority) of this documentation.
 
 Sentinel and Redis authentication
 ---
