@@ -3796,7 +3796,7 @@
   },
   "SORT": {
     "summary": "Sort the elements in a list, set or sorted set",
-    "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.",
+    "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
     "arguments": [
       {
         "name": "key",
@@ -3852,6 +3852,60 @@
       }
     ],
     "since": "1.0.0",
+    "group": "generic"
+  },
+  "SORT_RO": {
+    "summary": "Sort the elements in a list, set or sorted set. Read-only variant of SORT.",
+    "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "BY",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      },
+      {
+        "command": "GET",
+        "name": "pattern",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "name": "sorting",
+        "type": "enum",
+        "enum": [
+          "ALPHA"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "generic"
   },
   "SPOP": {
