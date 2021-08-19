@@ -26,10 +26,13 @@ the same _key_ will not have the allocation overhead.
 
 @examples
 
-```cli
-SETBIT mykey 7 1
-SETBIT mykey 7 0
-GET mykey
+```
+redis> SETBIT mykey 7 1
+(integer) 0
+redis> SETBIT mykey 7 0
+(integer) 1
+redis> GET mykey
+"\x00"
 ```
 
 ## Pattern: accessing the entire bitmap
