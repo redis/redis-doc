@@ -804,6 +804,12 @@ the failover starts, and the old master is informed about the configuration
 switch. When the clients are unblocked on the old master, they are redirected
 to the new master.
 
+Note:
+
+* To promote a replica to master, it must first be known as a replica by a majority of the masters in the cluster.
+  Otherwise, it cannot win the failover election.
+  If the replica has just been added to the cluster (see [Adding a new node as a replica](#adding-a-new-node-as-a-replica) below), you may need to wait a while before sending the `CLUSTER FAILOVER` command, to make sure the masters in cluster are aware of the new replica.
+
 Adding a new node
 ---
 
@@ -991,7 +997,8 @@ one is not available.
 
 Upgrading masters is a bit more complex, and the suggested procedure is:
 
-1. Use CLUSTER FAILOVER to trigger a manual failover of the master to one of its slaves (see the "Manual failover" section of this documentation).
+1. Use `CLUSTER FAILOVER` to trigger a manual failover of the master to one of its replicas.
+   (See the [Manual failover](#manual-failover) section in this document.)
 2. Wait for the master to turn into a slave.
 3. Finally upgrade the node as you do for slaves.
 4. If you want the master to be the node you just upgraded, trigger a new manual failover in order to turn back the upgraded node into a master.

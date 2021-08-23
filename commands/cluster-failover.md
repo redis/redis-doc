@@ -53,11 +53,14 @@ Because of this the **TAKEOVER** option should be used with care.
 
 ## Implementation details and notes
 
-`CLUSTER FAILOVER`, unless the **TAKEOVER** option is specified,  does not
-execute a failover synchronously, it only *schedules* a manual failover,
-bypassing the failure detection stage, so to check if the failover actually
-happened, `CLUSTER NODES` or other means should be used in order to verify
-that the state of the cluster changes after some time the command was sent.
+* `CLUSTER FAILOVER`, unless the **TAKEOVER** option is specified, does not execute a failover synchronously.
+  It only *schedules* a manual failover, bypassing the failure detection stage.
+* An `OK` reply is no guarantee that the failover will succeed.
+* A replica can only be promoted to a master if it is known as a replica by a majority of the masters in the cluster.
+  If the replica is a new node that has just been added to the cluster (for example after upgrading it), it may not yet be known to all the masters in the cluster.
+  To check that the masters are aware of a new replica, you can send `CLUSTER NODES` or `CLUSTER REPLICAS` to each of the master nodes and check that it appears as a replica, before sending `CLUSTER FAILOVER` to the replica.
+* To check that the failover has actually happened you can use `ROLE`, `INFO REPLICATION` (which indicates "role:master" after successful failover), or `CLUSTER NODES` to verify that the state of the cluster has changed sometime after the command was sent.
+* To check if the failover has failed, check the replica's log for "Manual failover timed out", which is logged if the replica has given up after a few seconds.
 
 @return
 
