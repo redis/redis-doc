@@ -1044,11 +1044,11 @@ and sorts it based on the above criteria, in the following order.
 2. If the priority is the same, the replication offset processed by the replica is checked, and the replica that received more data from the master is selected.
 3. If multiple replicas have the same priority and processed the same data from the master, a further check is performed, selecting the replica with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a replica, but is useful in order to make the process of replica selection more deterministic, instead of resorting to select a random replica.
 
-Redis masters (that may be turned into replicas after a failover), and replicas, all
-must be configured with a `replica-priority` if there are machines to be strongly
-preferred. Otherwise all the instances can run with the default run ID (which
-is the suggested setup, since it is far more interesting to select the replica
-by replication offset).
+In most cases, `replica-priority` does not need to be set explicitly so all
+instances will use the same default value. If there is a particular fail-over
+preference, `replica-priority` must be set on all instances, including masters,
+as a master may become a replica at some future point in time - and it will then
+need the proper `replica-priority` settings.
 
 A Redis instance can be configured with a special `replica-priority` of zero
 in order to be **never selected** by Sentinels as the new master.
