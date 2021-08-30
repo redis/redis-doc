@@ -1,0 +1,34 @@
+`LPOP` or `RPOP` takes one key, and can return multiple elements.
+`BLPOP` or `BRPOP` takes multiple keys, but returns one element from just one key.
+`LMPOP` or `BLMPOP` can take multiple keys and return multiple elements from just one key.
+
+Search the list from left to right, find the first non-empty list, return
+the corresponding list key name, pop from the head/left or tail/right
+(depending on the `where` argument) and return the elements.
+The number of returned elements will consist of up to `count`(default 1),
+depending on the list's length.
+
+@return
+
+@array-reply: specifically:
+
+* A `nil` multi-bulk when no element could be popped.
+* A two-element multi-bulk with the first element being the name of the key where
+  elements was popped, and the second element is a multi-bulk with an array of elements.
+
+@examples
+
+```cli
+LMPOP 2 non1 non2 LEFT COUNT 10
+LPUSH mylist "one" "two" "three" "four" "five"
+LMPOP 1 mylist LEFT
+LRANGE mylist 0 -1
+LMPOP 1 mylist RIGHT COUNT 10
+LPUSH mylist "one" "two" "three" "four" "five"
+LPUSH mylist2 "a" "b" "c" "d" "e"
+LMPOP 2 mylist mylist2 right count 3
+LRANGE mylist 0 -1
+LMPOP 2 mylist mylist2 right count 5
+LMPOP 2 mylist mylist2 right count 10
+EXISTS mylist mylist2
+```
