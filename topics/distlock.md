@@ -80,7 +80,7 @@ To acquire the lock, the way to go is the following:
         SET resource_name my_random_value NX PX 30000
 
 The command will set the key only if it does not already exist (NX option), with an expire of 30000 milliseconds (PX option).
-The key is set to a value “my_random_value”. This value must be unique across all clients and all lock requests.
+The key is set to a value “my\_random\_value”. This value must be unique across all clients and all lock requests.
 
 Basically the random value is used in order to release the lock in a safe way, with a script that tells Redis: remove the key only if it exists and the value stored at the key is exactly the one I expect to be. This is accomplished by the following Lua script:
 
