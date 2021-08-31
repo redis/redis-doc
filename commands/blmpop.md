@@ -11,9 +11,8 @@ See `LMPOP` for more information.
 
 @array-reply: specifically:
 
-* A `nil` multi-bulk when no element could be popped, and timeout is reached.
-* A two-element multi-bulk with the first element being the name of the key where
-  elements was popped, and the second element is a multi-bulk with an array of elements.
+* A `nil` when no element could be popped, and timeout is reached.
+* A two-element array with the first element being the name of the key from which elements where popped, and the second element is an array of elements.
 
 @examples
 
