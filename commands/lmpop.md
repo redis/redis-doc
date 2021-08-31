@@ -2,11 +2,8 @@
 `BLPOP` or `BRPOP` takes multiple keys, but returns one element from just one key.
 `LMPOP` or `BLMPOP` can take multiple keys and return multiple elements from just one key.
 
-Search the list from left to right, find the first non-empty list, return
-the corresponding list key name, pop from the head/left or tail/right
-(depending on the `where` argument) and return the elements.
-The number of returned elements will consist of up to `count`(default 1),
-depending on the list's length.
+Search the list from left to right, find the first non-empty list, return the corresponding list key name, pop from the left or right depending on the argument given, and return the elements.
+The number of returned elements will be limited to `count`(default 1) and the list length.
 
 @return
 
