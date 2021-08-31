@@ -420,6 +420,7 @@
         ]
       },
       {
+        "command": "COUNT",
         "name": "count",
         "type": "integer",
         "optional": true
@@ -455,6 +456,7 @@
         ]
       },
       {
+        "command": "COUNT",
         "name": "count",
         "type": "integer",
         "optional": true
