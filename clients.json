@@ -804,7 +804,7 @@
     "description": "Recommended client for node.",
     "authors": ["mranney"],
     "recommended": true,
-    "active": false
+    "active": true
   },
 
   {
