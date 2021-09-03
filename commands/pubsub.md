@@ -39,9 +39,9 @@ will just return an empty list.
 
 # `PUBSUB NUMPAT`
 
-Returns the number of subscriptions to patterns (that are performed using the
-`PSUBSCRIBE` command). Note that this is not just the count of clients subscribed
-to patterns but the total number of patterns all the clients are subscribed to.
+Returns the number of unique patterns that are subscribed to by clients (that are performed using the
+`PSUBSCRIBE` command). Note that this is not the count of clients subscribed
+to patterns but the total number of unique patterns all the clients are subscribed to.
 
 @return
 
