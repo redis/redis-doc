@@ -1961,7 +1961,7 @@
     "language": "Python",
     "repository": "https://github.com/gh0st-work/python_redis_orm",
     "description": "Python Redis ORM library that gives redis easy-to-use objects with fields and speeds a developmet up, inspired by Django ORM",
-    "authors": ["Anton Nechaev <antonnechaev990@gmail.com>"],
+    "authors": [],
     "active": true
   }
 
