@@ -1954,6 +1954,15 @@
     "repository": "https://github.com/SomajitDey/redis-client",
     "description": "extensible client library for Bash scripting or command-line + connection pooling + redis-cli",
     "active": true
+  },
+  
+  {
+    "name": "pyton-redis-orm",
+    "language": "Python",
+    "repository": "https://github.com/gh0st-work/python_redis_orm",
+    "description": "Python Redis ORM library that gives redis easy-to-use objectsand fields and speeds a developmet up, inspired by Django ORM",
+    "authors": ["Anton Nechaev <antonnechaev990@gmail.com>"],
+    "active": true
   }
 
 ]
