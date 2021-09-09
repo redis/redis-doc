@@ -267,6 +267,8 @@ Here is the meaning of all fields in the **stats** section:
 *   `active_defrag_key_hits`: Number of keys that were actively defragmented
 *   `active_defrag_key_misses`: Number of keys that were skipped by the active
      defragmentation process
+*   `total_active_defrag_time`: Total time memory fragmentation was over the limit, in milliseconds
+*   `current_active_defrag_time`: The time passed since memory fragmentation last was over the limit, in milliseconds
 *   `tracking_total_keys`: Number of keys being tracked by the server
 *   `tracking_total_items`: Number of items, that is the sum of clients number for
      each key, that are being tracked
