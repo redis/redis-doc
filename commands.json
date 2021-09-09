@@ -133,6 +133,13 @@
     "since": "2.0.0",
     "group": "string"
   },
+  "ASKING": {
+    "summary": "Sent by cluster clients after an -ASK redirect",
+    "complexity": "O(1)",
+    "arguments": [],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "AUTH": {
     "summary": "Authenticate to the server",
     "arguments": [
