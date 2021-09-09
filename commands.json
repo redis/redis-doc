@@ -397,6 +397,74 @@
     "since": "6.2.0",
     "group": "list"
   },
+  "LMPOP": {
+    "summary": "Pop elements from a list",
+    "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "list"
+  },
+  "BLMPOP": {
+    "summary": "Pop elements from a list, or block until one is available",
+    "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
+    "arguments": [
+      {
+        "name": "timeout",
+        "type": "double"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "list"
+  },
   "BZPOPMIN": {
     "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
     "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
