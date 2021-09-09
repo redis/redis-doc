@@ -547,9 +547,8 @@ kind of objects, by key name:
     $ redis-cli --scan --pattern 'user:*' | wc -l
     3829433
 
-You can use `-i 0.01` to add a delay between calls to the `SCAN` command
-this will make the command slower but will significantly reduce load on
-the server.
+You can use `-i 0.01` to add a delay between calls to the `SCAN` command.
+This will make the command slower but will significantly reduce load on the server.
 
 ## Pub/sub mode
 
