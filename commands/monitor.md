@@ -13,8 +13,9 @@ $ redis-cli monitor
 1339518087.877697 [0 127.0.0.1:60866] "dbsize"
 1339518090.420270 [0 127.0.0.1:60866] "set" "x" "6"
 1339518096.506257 [0 127.0.0.1:60866] "get" "x"
-1339518099.363765 [0 127.0.0.1:60866] "del" "x"
-1339518100.544926 [0 127.0.0.1:60866] "get" "x"
+1339518099.363765 [0 127.0.0.1:60866] "eval" "return redis.call('set','x','7')" "0"
+1339518100.363799 [0 lua] "set" "x" "7"
+1339518100.544926 [0 127.0.0.1:60866] "del" "x"
 ```
 
 Use `SIGINT` (Ctrl-C) to stop a `MONITOR` stream running via `redis-cli`.
@@ -42,15 +43,10 @@ via `telnet`.
 
 ## Commands not logged by MONITOR
 
-Because of security concerns, all administrative commands are not logged
-by `MONITOR`'s output.
+Because of security concerns, no administrative commands are logged
+by `MONITOR`'s output and sensitive data is redacted in the command `AUTH`.
 
-Furthermore, the following commands are also not logged:
-
- * `AUTH`
- * `EXEC`
- * `HELLO`
- * `QUIT`
+Furthermore, the command `QUIT` is also not logged.
 
 ## Cost of running MONITOR
 
@@ -91,5 +87,6 @@ flow.
 
 @history
 
-* `>= 6.2`: `RESET` can be called to exit monitor mode.
 * `>= 6.0`: `AUTH` excluded from the command's output.
+* `>= 6.2`: `RESET` can be called to exit monitor mode.
+* `>= 6.2.4`: `AUTH`, `HELLO`, `EVAL`, `EVAL_RO`, `EVALSHA` and `EVALSHA_RO` included in the command's output.
