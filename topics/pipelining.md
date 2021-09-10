@@ -148,7 +148,7 @@ box, isn't it just messages being copied via memory from one place to another wi
 any actual latency and actual networking involved?
 
 The reason is that processes in a system are not always running, actually it is
-the kernel scheduler that let's the process run. So, for
+the kernel scheduler that lets the process run. So, for
 instance, when the benchmark is allowed to run, it reads the reply from the Redis server
 (related to the last command executed), and writes a new command. The command is
 now in the loopback interface buffer, but in order to be read by the server, the
