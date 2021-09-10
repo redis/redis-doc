@@ -647,7 +647,11 @@ At this point the new conversions are available, specifically:
 * Redis true reply -> Lua true boolean value.
 * Redis false reply -> Lua false boolean value.
 * Redis double reply -> Lua table with a single `score` field containing a Lua number representing the double value.
+* Redis big number reply -> Lua table with a single `big_number` field containing a Lua string representing the big number value.
+* Redis verbatim string reply -> Lua table with a single `verbatim_string` field containing a Lua table with two fields, `string` and `format`, representing the verbatim string and verbatim format respectively.
 * All the RESP2 old conversions still apply.
+
+Note: the big number and verbatim replies are only available in Redis 7 or greater. Also, presently RESP3 attributes are not supported in Lua.
 
 **Lua to Redis** conversion table specific for RESP3.
 
