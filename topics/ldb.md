@@ -3,8 +3,6 @@
 Starting with version 3.2 Redis includes a complete Lua debugger, that can be
 used in order to make the task of writing complex Redis scripts much simpler.
 
-Because Redis 3.2 is still in beta, please download the `unstable` branch of Redis from Github and compile it in order to test the debugger. You can use Redis unstable in order to debug your scripts that you'll later run in a stable version of Redis, so the debugger is already usable in practical terms.
-
 The Redis Lua debugger, codename LDB, has the following important features:
 
 * It uses a server-client model, so it's a remote debugger. The Redis server acts as the debugging server, while the default client is `redis-cli`. However other clients can be developed by following the simple protocol implemented by the server.
@@ -40,7 +38,7 @@ Note that with the `--eval` option of `redis-cli` you can pass key names and arg
     ./redis-cli --ldb --eval /tmp/script.lua mykey somekey , arg1 arg2
 
 You'll enter a special mode where `redis-cli` no longer accepts its normal
-commands, but instead prints an help screen and passes the unmodified debugging
+commands, but instead prints a help screen and passes the unmodified debugging
 commands directly to Redis.
 
 The only commands which are not passed to the Redis debugger are:
@@ -104,7 +102,7 @@ Termination of the debugging session
 
 When the scripts terminates naturally, the debugging session ends and
 `redis-cli` returns in its normal non-debugging mode. You can restart the
-session using the `restart` command as usually.
+session using the `restart` command as usual.
 
 Another way to stop a debugging session is just interrupting `redis-cli`
 manually by pressing `Ctrl+C`. Note that also any event breaking the
@@ -144,8 +142,8 @@ a breakpoint in the next line that will be executed.
 
     if counter > 10 then redis.breakpoint() end
 
-This feature is extremely useful when debugging, so that we can avoid to
-continue the script execution manually multiple times until a given condition
+This feature is extremely useful when debugging, so that we can avoid
+continuing the script execution manually multiple times until a given condition
 is encountered.
 
 Synchronous mode
@@ -211,13 +209,13 @@ lua debugger> e redis.sha1hex('foo')
 Debugging clients
 ---
 
-LDB uses the client-server model where the Redis servers acts as a debugging server that communicates using [RESP](/topics/protocol). While `redis-cli` is the default debug client, any [client](/clients) can be used for debugging as long as it meets one of the following conditions:
+LDB uses the client-server model where the Redis server acts as a debugging server that communicates using [RESP](/topics/protocol). While `redis-cli` is the default debug client, any [client](/clients) can be used for debugging as long as it meets one of the following conditions:
 
 1. The client provides a native interface for setting the debug mode and controlling the debug session.
 2. The client provides an interface for sending arbitrary commands over RESP.
 3. The client allows sending raw messages to the Redis server.
 
-For example, the [Redis plugin](https://redislabs.com/blog/zerobrane-studio-plugin-for-redis-lua-scripts) for [ZeroBrane Studio](http://studio.zerobrane.com/) integrates with LDB using [redis-lua](https://github.com/nrk/redis-lua). The following Lua code is a simplified example of how the plugin achieves that:
+For example, the [Redis plugin](https://redis.com/blog/zerobrane-studio-plugin-for-redis-lua-scripts) for [ZeroBrane Studio](http://studio.zerobrane.com/) integrates with LDB using [redis-lua](https://github.com/nrk/redis-lua). The following Lua code is a simplified example of how the plugin achieves that:
 
 ```Lua
 local redis = require 'redis'

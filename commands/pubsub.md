@@ -4,6 +4,12 @@ documented separately. The general form is:
 
     PUBSUB <subcommand> ... args ...
 
+Cluster note: in a Redis Cluster clients can subscribe to every node, and can
+also publish to every other node. The cluster will make sure that published
+messages are forwarded as needed. That said, `PUBSUB`'s replies in a cluster only
+report information from the node's Pub/Sub context, rather than the entire
+cluster.
+
 # PUBSUB CHANNELS [pattern]
 
 Lists the currently *active channels*. An active channel is a Pub/Sub channel
@@ -33,9 +39,9 @@ will just return an empty list.
 
 # `PUBSUB NUMPAT`
 
-Returns the number of subscriptions to patterns (that are performed using the
-`PSUBSCRIBE` command). Note that this is not just the count of clients subscribed
-to patterns but the total number of patterns all the clients are subscribed to.
+Returns the number of unique patterns that are subscribed to by clients (that are performed using the
+`PSUBSCRIBE` command). Note that this is not the count of clients subscribed
+to patterns but the total number of unique patterns all the clients are subscribed to.
 
 @return
 

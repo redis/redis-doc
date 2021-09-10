@@ -18,20 +18,26 @@ This is an example of configuration directive:
     slaveof 127.0.0.1 6380
 
 It is possible to provide strings containing spaces as arguments using
-quotes, as in the following example:
+(double or single) quotes, as in the following example:
 
     requirepass "hello world"
+
+Single-quoted string can contain characters escaped by backslashes, and
+double-quoted strings can additionally include any ASCII symbols encoded using
+backslashed hexadecimal notation "\\xff".
 
 The list of configuration directives, and their meaning and intended usage
 is available in the self documented example redis.conf shipped into the
 Redis distribution.
 
-* The self documented [redis.conf for Redis 4.0](https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf).
-* The self documented [redis.conf for Redis 3.2](https://raw.githubusercontent.com/antirez/redis/3.2/redis.conf).
-* The self documented [redis.conf for Redis 3.0](https://raw.githubusercontent.com/antirez/redis/3.0/redis.conf).
-* The self documented [redis.conf for Redis 2.8](https://raw.githubusercontent.com/antirez/redis/2.8/redis.conf).
-* The self documented [redis.conf for Redis 2.6](https://raw.githubusercontent.com/antirez/redis/2.6/redis.conf).
-* The self documented [redis.conf for Redis 2.4](https://raw.githubusercontent.com/antirez/redis/2.4/redis.conf).
+* The self documented [redis.conf for Redis 6.0](https://raw.githubusercontent.com/redis/redis/6.0/redis.conf).
+* The self documented [redis.conf for Redis 5.0](https://raw.githubusercontent.com/redis/redis/5.0/redis.conf).
+* The self documented [redis.conf for Redis 4.0](https://raw.githubusercontent.com/redis/redis/4.0/redis.conf).
+* The self documented [redis.conf for Redis 3.2](https://raw.githubusercontent.com/redis/redis/3.2/redis.conf).
+* The self documented [redis.conf for Redis 3.0](https://raw.githubusercontent.com/redis/redis/3.0/redis.conf).
+* The self documented [redis.conf for Redis 2.8](https://raw.githubusercontent.com/redis/redis/2.8/redis.conf).
+* The self documented [redis.conf for Redis 2.6](https://raw.githubusercontent.com/redis/redis/2.6/redis.conf).
+* The self documented [redis.conf for Redis 2.4](https://raw.githubusercontent.com/redis/redis/2.4/redis.conf).
 
 Passing arguments via the command line
 ---

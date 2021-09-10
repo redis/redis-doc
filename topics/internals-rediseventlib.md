@@ -80,11 +80,11 @@ Event Loop Processing
 
 `ae.c:aeProcessEvents` looks for the time event that will be pending in the smallest amount of time by calling `ae.c:aeSearchNearestTimer` on the event loop. In our case there is only one timer event in the event loop that was created by `ae.c:aeCreateTimeEvent`.
 
-Remember, that timer event created by `aeCreateTimeEvent` has by now probably elapsed because it had a expiry time of one millisecond. Since, the timer has already expired the seconds and microseconds fields of the `tvp` `timeval` structure variable is initialized to zero.
+Remember, that the timer event created by `aeCreateTimeEvent` has probably elapsed by now because it had an expiry time of one millisecond. Since the timer has already expired, the seconds and microseconds fields of the `tvp` `timeval` structure variable is initialized to zero.
 
 The `tvp` structure variable along with the event loop variable is passed to `ae_epoll.c:aeApiPoll`.
 
-`aeApiPoll` functions does a [`epoll_wait`](http://man.cx/epoll_wait) on the `epoll` descriptor and populates the `eventLoop->fired` table with the details:
+`aeApiPoll` functions does an [`epoll_wait`](http://man.cx/epoll_wait) on the `epoll` descriptor and populates the `eventLoop->fired` table with the details:
 
   * `fd`: The descriptor that is now ready to do a read/write operation depending on the mask value.
   * `mask`: The read/write event that can now be performed on the corresponding descriptor.

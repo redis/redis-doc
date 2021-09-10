@@ -33,7 +33,7 @@ Different implementations of partitioning
 Partitioning can be the responsibility of different parts of a software stack.
 
 * **Client side partitioning** means that the clients directly select the right node where to write or read a given key. Many Redis clients implement client side partitioning.
-* **Proxy assisted partitioning** means that our clients send requests to a proxy that is able to speak the Redis protocol, instead of sending requests directly to the right Redis instance. The proxy will make sure to forward our request to the right Redis instance accordingly to the configured partitioning schema, and will send the replies back to the client. The Redis and Memcached proxy [Twemproxy](https://github.com/twitter/twemproxy) implements proxy assisted partitioning.
+* **Proxy assisted partitioning** means that our clients send requests to a proxy that is able to speak the Redis protocol, instead of sending requests directly to the right Redis instance. The proxy will make sure to forward our request to the right Redis instance according to the configured partitioning schema, and will send the replies back to the client. The Redis and Memcached proxy [Twemproxy](https://github.com/twitter/twemproxy) implements proxy assisted partitioning.
 * **Query routing** means that you can send your query to a random instance, and the instance will make sure to forward your query to the right node. Redis Cluster implements an hybrid form of query routing, with the help of the client (the request is not directly forwarded from a Redis instance to another, but the client gets *redirected* to the right node).
 
 Disadvantages of partitioning
@@ -66,11 +66,11 @@ We learned that a problem with partitioning is that, unless we are using Redis a
 
 However the data storage needs may vary over the time. Today I can live with 10 Redis nodes (instances), but tomorrow I may need 50 nodes.
 
-Since Redis is extremely small footprint and lightweight (a spare instance uses 1 MB of memory), a simple approach to this problem is to start with a lot of instances since the start. Even if you start with just one server, you can decide to live in a distributed world since your first day, and run multiple Redis instances in your single server, using partitioning.
+Since Redis has an extremely small footprint and is lightweight (a spare instance uses 1 MB of memory), a simple approach to this problem is to start with a lot of instances from the start. Even if you start with just one server, you can decide to live in a distributed world from day one, and run multiple Redis instances in your single server, using partitioning.
 
-And you can select this number of instances to be quite big since the start. For example, 32 or 64 instances could do the trick for most users, and will provide enough room for growth.
+And you can select this number of instances to be quite big from the start. For example, 32 or 64 instances could do the trick for most users, and will provide enough room for growth.
 
-In this way as your data storage needs increase and you need more Redis servers, what to do is to simply move instances from one server to another. Once you add the first additional server, you will need to move half of the Redis instances from the first server to the second, and so forth.
+In this way as your data storage needs increase and you need more Redis servers, what you do is simply move instances from one server to another. Once you add the first additional server, you will need to move half of the Redis instances from the first server to the second, and so forth.
 
 Using Redis replication you will likely be able to do the move with minimal or no downtime for your users:
 
@@ -94,7 +94,7 @@ Redis Cluster is the preferred way to get automatic sharding and high availabili
 It is generally available and production-ready as of [April 1st, 2015](https://groups.google.com/d/msg/redis-db/dO0bFyD_THQ/Uoo2GjIx6qgJ).
 You can get more information about Redis Cluster in the [Cluster tutorial](/topics/cluster-tutorial).
 
-Once Redis Cluster will be available, and if a Redis Cluster compliant client is available for your language, Redis Cluster will be the de facto standard for Redis partitioning.
+Once Redis Cluster is available, and if a Redis Cluster compliant client is available for your language, Redis Cluster will be the de facto standard for Redis partitioning.
 
 Redis Cluster is a mix between *query routing* and *client side partitioning*.
 
@@ -114,6 +114,6 @@ You can read more about Twemproxy [in this antirez blog post](http://antirez.com
 Clients supporting consistent hashing
 ---
 
-An alternative to Twemproxy is to use a client that implements client side partitioning via consistent hashing or other similar algorithms. There are multiple Redis clients with support for consistent hashing, notably [Redis-rb](https://github.com/redis/redis-rb) and [Predis](https://github.com/nrk/predis).
+An alternative to Twemproxy is to use a client that implements client side partitioning via consistent hashing or other similar algorithms. There are multiple Redis clients with support for consistent hashing, notably [Redis-rb](https://github.com/redis/redis-rb), [Predis](https://github.com/nrk/predis) and [Jedis](https://github.com/redis/jedis).
 
-Please check the [full list of Redis clients](http://redis.io/clients) to check if there is a mature client with consistent hashing implementation for your language.
+Please check the [full list of Redis clients](https://redis.io/clients) to check if there is a mature client with consistent hashing implementation for your language.

@@ -2,22 +2,22 @@ Redis latency monitoring framework
 ===
 
 Redis is often used in the context of demanding use cases, where it
-serves a big amount of queries per second per instance, and at the same
+serves a large number of queries per second per instance, and at the same
 time, there are very strict latency requirements both for the average response
 time and for the worst case latency.
 
-While Redis is an in memory system, it deals with the operating system in
+While Redis is an in-memory system, it deals with the operating system in
 different ways, for example, in the context of persisting to disk.
 Moreover Redis implements a rich set of commands. Certain commands
 are fast and run in constant or logarithmic time, other commands are slower
-O(N) commands, that can cause latency spikes.
+O(N) commands that can cause latency spikes.
 
 Finally Redis is single threaded: this is usually an advantage
 from the point of view of the amount of work it can perform per core, and in
 the latency figures it is able to provide, but at the same time it poses
 a challenge from the point of view of latency, since the single
-thread must be able to perform certain tasks incrementally, like for
-example keys expiration, in a way that does not impact the other clients
+thread must be able to perform certain tasks incrementally, for
+example key expiration, in a way that does not impact the other clients
 that are served.
 
 For all these reasons, Redis 2.8.13 introduced a new feature called
@@ -50,16 +50,35 @@ event. This is how the time series work:
 
 * Every time a latency spike happens, it is logged in the appropriate time series.
 * Every time series is composed of 160 elements.
-* Each element is a pair: an unix timestamp of the time the latency spike was measured, and the number of milliseconds the event took to executed.
+* Each element is a pair: a Unix timestamp of the time the latency spike was measured, and the number of milliseconds the event took to executed.
 * Latency spikes for the same event happening in the same second are merged (by taking the maximum latency), so even if continuous latency spikes are measured for a given event, for example because the user set a very low threshold, at least 180 seconds of history are available.
 * For every element the all-time maximum latency is recorded.
+
+The framework monitors and logs latency spikes in the execution time of these events:
+
+* `command`: regular commands.
+* `fast-command`: O(1) and O(log N) commands.
+* `fork`: the `fork(2)` system call.
+* `rdb-unlink-temp-file`: the `unlink(2)` system call.
+* `aof-write`: writing to the AOF - a catchall event `fsync(2)` system calls.
+* `aof-fsync-always`: the `fsync(2)` system call when invoked by the `appendfsync allways` policy.
+* `aof-write-pending-fsync`: the `fsync(2)` system call when there are pending writes.
+* `aof-write-active-child`: the `fsync(2)` system call when performed by a child process.
+* `aof-write-alone`: the `fsync(2)` system call when performed by the main process.
+* `aof-fstat`: the `fstat(2)` system call.
+* `aof-rename`: the `rename(2)` system call for renaming the temporary file after completing `BGREWRITEAOF`.
+* `aof-rewrite-diff-write`: writing the differences accumulated while performing `BGREWRITEAOF`.
+* `active-defrag-cycle`: the active defragmentation cycle.
+* `expire-cycle`: the expiration cycle.
+* `eviction-cycle`: the eviction cycle.
+* `eviction-del`: deletes during the eviction cycle.
 
 How to enable latency monitoring
 ---
 
-What is high latency for an use case, is not high latency for another. There are applications where all the queries must be served in less than 1 millisecond and applications where from time to time a small percentage of clients experiencing a 2 seconds latency is acceptable.
+What is high latency for one use case is not high latency for another. There are applications where all the queries must be served in less than 1 millisecond and applications where from time to time a small percentage of clients experiencing a 2 second latency is acceptable.
 
-So the first step to enable the latency monitor is to set a **latency threshold** in milliseconds. Only events that will take more than the specified threshold will be logged as latency spikes. The user should set the threshold according to its needs. For example if for the requirements of the application based on Redis the maximum acceptable latency is 100 milliseconds, the threshold should be set to such a value in order to log all the events blocking the server for a time equal or greater to 100 milliseconds.
+So the first step to enable the latency monitor is to set a **latency threshold** in milliseconds. Only events that will take more than the specified threshold will be logged as latency spikes. The user should set the threshold according to their needs. For example if for the requirements of the application based on Redis the maximum acceptable latency is 100 milliseconds, the threshold should be set to such a value in order to log all the events blocking the server for a time equal or greater to 100 milliseconds.
 
 The latency monitor can easily be enabled at runtime in a production server
 with the following command:
@@ -72,142 +91,12 @@ Information reporting with the LATENCY command
 ---
 
 The user interface to the latency monitoring subsystem is the `LATENCY` command.
-Like many other Redis commands, `LATENCY` accept subcommands that modify the
-behavior of the command. The next sections document each subcommand.
+Like many other Redis commands, `LATENCY` accepts subcommands that modifies its behavior. These subcommands are:
 
-LATENCY LATEST
----
+* `LATENCY LATEST` - returns the latest latency samples for all events.
+* `LATENCY HISTORY` - returns latency time series for a given event.
+* `LATENCY RESET` - resets latency time series data for one or more events.
+* `LATENCY GRAPH` - renders an ASCII-art graph of an event's latency samples.
+* `LATENCY DOCTOR` - replies with a human-readable latency analysis report.
 
-The `LATENCY LATEST` command reports the latest latency events logged. Each event has the following fields:
-
-* Event name.
-* Unix timestamp of the latest latency spike for the event.
-* Latest event latency in millisecond.
-* All time maximum latency for this event.
-
-All time does not really mean the maximum latency since the Redis instance was
-started, because it is possible to reset events data using `LATENCY RESET` as we'll see later.
-
-The following is an example output:
-
-```
-127.0.0.1:6379> debug sleep 1
-OK
-(1.00s)
-127.0.0.1:6379> debug sleep .25
-OK
-127.0.0.1:6379> latency latest
-1) 1) "command"
-   2) (integer) 1405067976
-   3) (integer) 251
-   4) (integer) 1001
-```
-
-LATENCY HISTORY `event-name`
----
-
-The `LATENCY HISTORY` command is useful in order to fetch raw data from the
-event time series, as timestamp-latency pairs. The command will return up
-to 160 elements for a given event. An application may want to fetch raw data
-in order to perform monitoring, display graphs, and so forth.
-
-Example output:
-
-```
-127.0.0.1:6379> latency history command
-1) 1) (integer) 1405067822
-   2) (integer) 251
-2) 1) (integer) 1405067941
-   2) (integer) 1001
-```
-
-LATENCY RESET [`event-name` ... `event-name`]
----
-
-The `LATENCY RESET` command, if called without arguments, resets all the
-events, discarding the currently logged latency spike events, and resetting
-the maximum event time register.
-
-It is possible to reset only specific events by providing the event names
-as arguments. The command returns the number of events time series that were
-reset during the command execution.
-
-LATENCY GRAPH `event-name`
----
-
-Produces an ASCII-art style graph for the specified event:
-
-```
-127.0.0.1:6379> latency reset command
-(integer) 0
-127.0.0.1:6379> debug sleep .1
-OK
-127.0.0.1:6379> debug sleep .2
-OK
-127.0.0.1:6379> debug sleep .3
-OK
-127.0.0.1:6379> debug sleep .5
-OK
-127.0.0.1:6379> debug sleep .4
-OK
-127.0.0.1:6379> latency graph command
-command - high 500 ms, low 101 ms (all time high 500 ms)
---------------------------------------------------------------------------------
-   #_
-  _||
- _|||
-_||||
-
-11186
-542ss
-sss
-```
-
-The vertical labels under each graph column represent the amount of seconds,
-minutes, hours or days ago the event happened. For example "15s" means that the
-first graphed event happened 15 seconds ago.
-
-The graph is normalized in the min-max scale so that the zero (the underscore
-in the lower row) is the minimum, and a # in the higher row is the maximum.
-
-The graph subcommand is useful in order to get a quick idea about the trend
-of a given latency event without using additional tooling, and without the
-need to interpret raw data as provided by `LATENCY HISTORY`.
-
-LATENCY DOCTOR
----
-
-The `LATENCY DOCTOR` command is the most powerful analysis tool in the latency
-monitoring, and is able to provide additional statistical data like the average
-period between latency spikes, the median deviation, and an human readable
-analysis of the event. For certain events, like `fork`, additional information
-is provided, like the rate at which the system forks processes.
-
-This is the output you should post in the Redis mailing list if you are
-looking for help about Latency related issues.
-
-Example output:
-
-    127.0.0.1:6379> latency doctor
-
-    Dave, I have observed latency spikes in this Redis instance.
-    You don't mind talking about it, do you Dave?
-
-    1. command: 5 latency spikes (average 300ms, mean deviation 120ms,
-       period 73.40 sec). Worst all time event 500ms.
-
-    I have a few advices for you:
-
-    - Your current Slow Log configuration only logs events that are
-      slower than your configured latency monitor threshold. Please
-      use 'CONFIG SET slowlog-log-slower-than 1000'.
-    - Check your Slow Log to understand what are the commands you are
-      running which are too slow to execute. Please check
-      http://redis.io/commands/slowlog for more information.
-    - Deleting, expiring or evicting (because of maxmemory policy)
-      large objects is a blocking operation. If you have very large
-      objects that are often deleted, expired, or evicted, try to
-      fragment those objects into multiple smaller objects.
-
-The doctor has erratic psychological behaviors, so we recommend interacting with
-it carefully.
+Refer to each subcommand's documentation page for further information.

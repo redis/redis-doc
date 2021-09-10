@@ -1,81 +1,111 @@
-Redis release cycle
+Redis Release Cycle
 ===
 
-Redis is system software, and a type of system software that holds user
-data, so it is among the most critical pieces of a software stack.
+Redis is system software and a type of system software that holds user data, so it is among the most critical pieces of a software stack.
 
-For this reason our release cycle tries hard to make sure that a stable
-release is only released when it reaches a sufficiently high level of
-stability, even at the cost of a slower release cycle.
+For this reason, Redis' release cycle is such that it ensures highly-stable releases, even at the cost of slower cycles.
+
+New releases are published in the [Redis GitHub repository](http://github.com/redis/redis) and are also available for [download](/download).
+Announcements are sent to the [Redis mailing list](http://groups.google.com/group/redis-db) and by [@redisfeed on Twitter](https://twitter.com/redisfeed).
+
+Release Cycle
+---
 
 A given version of Redis can be at three different levels of stability:
 
-* unstable
-* development
-* frozen
-* release candidate
-* stable
+* Unstable
+* Release Candidate
+* Stable
 
-Unstable tree
-===
+### Unstable Tree
 
-The unstable version of Redis is always located in the `unstable` branch in
-the [Redis GitHub Repository](http://github.com/antirez/redis).
+The unstable version of Redis is located in the `unstable` branch in the [Redis GitHub repository](http://github.com/redis/redis).
 
-This is the source tree where most of the new features are developed and
-is not considered to be production ready: it may contain critical bugs,
-not entirely ready features, and may be unstable.
+This branch is the source tree where most of the new features under development.
+`unstable` is not considered production-ready: it may contain critical bugs, incomplete features, and is potentially unstable.
 
-However, we try hard to make sure that even the unstable branch is
-usable most of the time in a development environment without major
-issues.
+However, we try hard to make sure that even the unstable branch is usable most of the time in a development environment without significant issues.
 
-Forked, Frozen, Release candidate tree
-===
+### Release Candidate
 
-When a new version of Redis starts to be planned, the unstable branch
-(or sometimes the currently stable branch) is forked into a new
-branch that has the name of the target release.
+New minor and major versions of Redis begin as forks of the `unstable` branch.
+The forked branch's name is the target release
 
-For instance, when Redis 2.6 was released as stable, the `unstable` branch
-was forked into the `2.8` branch.
+For example, when Redis 6.0 was released as a release candidate, the `unstable` branch was forked into the `6.0` branch. The new branch is the release candidate (RC) for that version.
 
-This new branch can be at three different levels of stability:
-development, frozen, and release candidate.
+Bug fixes and new features that can be stabilized during the release's time frame are committed to the unstable branch and backported to the release candidate branch.
+The `unstable` branch may include additional work that is not a part of the release candidate and scheduled for future releases.
 
-* Development: new features and bug fixes are committed into the branch, but not everything going into `unstable` is merged here. Only the features that can become stable in a reasonable time frame are merged.
-* Frozen: no new feature is added, unless it is almost guaranteed to have zero stability impacts on the source code, and at the same time for some reason it is a very important feature that must be shipped ASAP. Big code changes are only allowed when they are needed in order to fix bugs.
-* Release Candidate: only fixes are committed against this release.
+The first release candidate, or RC1, is released once it can be used for development purposes and for testing the new version.
+At this stage, most of the new features and changes the new version brings are ready for review, and the release's purpose is collecting the public's feedback.
 
-Stable tree
-===
+Subsequent release candidates are released every three weeks or so, primarily for fixing bugs.
+These may also add new features and introduce changes, but at a decreasing rate and decreasing potential risk towards the final release candidate.
 
-At some point, when a given Redis release is in the Release Candidate state
-for enough time, we observe that the frequency at which critical bugs are
-signaled starts to decrease, to the point that for a few weeks we don't have
-any serious bugs reported.
+### Stable Tree
 
-When this happens, the release is marked as stable.
+Once development has ended and the frequency of critical bug reports for the release candidate wanes, it is ready for the final release.
+At this point, the release is marked as stable and is released with "0" as its patch-level version.
 
-Version numbers
+Versioning
 ---
 
-Stable releases follow the usual `major.minor.patch` versioning schema, with the following special rules:
+Stable releases liberally follow the usual `major.minor.patch` semantic versioning schema.
+The primary goal is to provide explicit guarantees regarding backward compatibility.
 
-* The minor is even in stable versions of Redis.
-* The minor is odd in unstable, development, frozen, release candidates. For instance the unstable version of 2.8.x will have a version number in the form 2.7.x. In general the unstable version of x.y.z will have a version x.(y-1).z.
-* As an unstable version of Redis progresses, the patch level is incremented from time to time, so at a given time you may have 2.7.2, and later 2.7.3 and so forth. However when the release candidate state is reached, the patch level starts from 101. So for instance 2.7.101 is the first release candidate for 2.8, 2.7.105 is Release Candidate 5, and so forth.
+### Patch-Level Versions
+
+Patches primarily consist of bug fixes and very rarely introduce any compatibility issues.
+
+Upgrading from a previous patch-level version is almost always safe and seamless.
+
+New features and configuration directives may be added, or default values changed, as long as these don’t carry significant impacts or introduce operations-related issues.
+
+### Minor Versions
+
+Minor versions usually deliver maturity and extended functionality.
+
+Upgrading between minor versions does not introduce any application-level compatibility issues.
+
+Minor releases may include new commands and data types that introduce operations-related incompatibilities, including changes in data persistence format and replication protocol.
+
+### Major Versions
+
+Major versions introduce new capabilities and significant changes.
+
+Ideally, these don't introduce application-level compatibility issues.
+
+Release Schedule
+---
+
+A new major version is planned for release once a year.
+
+Generally, every major release is followed by a minor version after six months.
+
+Patches are released as needed to fix high-urgency issues, or once a stable version accumulates enough fixes to justify it.
+
+For contacting the core team on sensitive matters and security issues, please email [redis@redis.io](mailto:redis@redis.io).
 
 Support
 ---
 
-Older versions are not supported as we try very hard to make the
-Redis API mostly backward compatible. Upgrading to newer versions
-is usually trivial.
+As a rule, older versions are not supported as we try very hard to make the Redis API mostly backward compatible.
 
-For example, if the current stable release is 2.6.x, we accept bug
-reports and provide support for the previous stable release
-(2.4.x), but not for older ones such as 2.2.x.
+Upgrading to newer versions is the recommended approach and is usually trivial.
 
-When 2.8 becomes the current stable release, the 2.6.x will be the
-oldest supported release.
+The latest stable release is always fully supported and maintained.
+
+Two additional versions receive maintenance only, meaning that only fixes for critical bugs and major security issues are committed and released as patches:
+
+* The previous minor version of the latest stable release.
+* The previous stable major release.
+ 
+For example, consider the following hypothetical versions: 1.2, 2.0, 2.2, 3.0, 3.2, ...
+
+When version 2.2 is the latest stable release, both 2.0 and 1.2 are maintained.
+
+Once version 3.0.0 replaces 2.2 as the latest stable, versions 2.0 and 2.2 are maintained, whereas version 1.x reaches its end of life.
+
+This process repeats with version 3.2.0, after which only versions 2.2 and 3.0 are maintained.
+
+The above are guidelines rather than rules set in stone and will not replace common sense.

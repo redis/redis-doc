@@ -8,7 +8,7 @@ stable Redis distribution in Redis 2.0. However Virtual Memory (called VM
 starting from now) is already available and stable enough to be tests in the
 unstable branch of Redis available [on Git][redissrc].
 
-[redissrc]: http://github.com/antirez/redis
+[redissrc]: http://github.com/redis/redis
 
 ## Virtual Memory explained in simple words
 

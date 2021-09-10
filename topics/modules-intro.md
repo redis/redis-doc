@@ -1,19 +1,19 @@
 Redis Modules: an introduction to the API
 ===
 
-The modules documentation is composed of the following files:
+The modules documentation is composed of the following pages:
 
-* `INTRO.md` (this file). An overview about Redis Modules system and API. It's a good idea to start your reading here.
-* `API.md` is generated from module.c top comments of RedisMoule functions. It is a good reference in order to understand how each function works.
-* `TYPES.md` covers the implementation of native data types into modules.
-* `BLOCK.md` shows how to write blocking commands that will not reply immediately, but will block the client, without blocking the Redis server, and will provide a reply whenever will be possible.
+* Introduction to Redis modules (this file). An overview about Redis Modules system and API. It's a good idea to start your reading here.
+* [Implementing native data types](/topics/modules-native-types) covers the implementation of native data types into modules.
+* [Blocking operations](/topics/modules-blocking-ops) shows how to write blocking commands that will not reply immediately, but will block the client, without blocking the Redis server, and will provide a reply whenever will be possible.
+* [Redis modules API reference](/topics/modules-api-ref) is generated from module.c top comments of RedisModule functions. It is a good reference in order to understand how each function works.
 
-Redis modules make possible to extend Redis functionality using external
-modules, implementing new Redis commands at a speed and with features
+Redis modules make it possible to extend Redis functionality using external
+modules, rapidly implementing new Redis commands with features
 similar to what can be done inside the core itself.
 
-Redis modules are dynamic libraries, that can be loaded into Redis at
-startup or using the `MODULE LOAD` command. Redis exports a C API, in the
+Redis modules are dynamic libraries that can be loaded into Redis at
+startup, or using the `MODULE LOAD` command. Redis exports a C API, in the
 form of a single C header file called `redismodule.h`. Modules are meant
 to be written in C, however it will be possible to use C++ or other languages
 that have C binding functionalities.
@@ -71,7 +71,8 @@ simple module that implements a command that outputs a random number.
             == REDISMODULE_ERR) return REDISMODULE_ERR;
 
         if (RedisModule_CreateCommand(ctx,"helloworld.rand",
-            HelloworldRand_RedisCommand) == REDISMODULE_ERR)
+            HelloworldRand_RedisCommand, "fast random",
+            0, 0, 0) == REDISMODULE_ERR)
             return REDISMODULE_ERR;
 
         return REDISMODULE_OK;
@@ -117,17 +118,19 @@ otherwise the module will segfault and the Redis instance will crash.
 The second function called, `RedisModule_CreateCommand`, is used in order
 to register commands into the Redis core. The following is the prototype:
 
-    int RedisModule_CreateCommand(RedisModuleCtx *ctx, const char *cmdname,
-                                  RedisModuleCmdFunc cmdfunc);
+    int RedisModule_CreateCommand(RedisModuleCtx *ctx, const char *name,
+                                  RedisModuleCmdFunc cmdfunc, const char *strflags,
+                                  int firstkey, int lastkey, int keystep);
 
 As you can see, most Redis modules API calls all take as first argument
 the `context` of the module, so that they have a reference to the module
 calling it, to the command and client executing a given command, and so forth.
 
-To create a new command, the above function needs the context, the command
-name, and the function pointer of the function implementing the command,
-which must have the following prototype:
+To create a new command, the above function needs the context, the command's
+name, a pointer to the function implementing the command, the command's flags
+and the positions of key names in the command's arguments.
 
+The function that implements the command must have the following prototype:
 
     int mycommand(RedisModuleCtx *ctx, RedisModuleString **argv, int argc);
 
@@ -145,6 +148,24 @@ Zooming into the example command implementation, we can find another call:
 
 This function returns an integer to the client that invoked the command,
 exactly like other Redis commands do, like for example `INCR` or `SCARD`.
+
+# Module cleanup
+
+In most cases, there is no need for special cleanup.
+When a module is unloaded, Redis will automatically unregister commands and
+unsubscribe from notifications.
+However in the case where a module contains some persistent memory or
+configuration, a module may include an optional `RedisModule_OnUnload`
+function.
+If a module provides this function, it will be invoked during the module unload
+process.
+The following is the function prototype:
+
+    int RedisModule_OnUnload(RedisModuleCtx *ctx);
+
+The `OnUnload` function may prevent module unloading by returning
+`REDISMODULE_ERR`.
+Otherwise, `REDISMODULE_OK` should be returned.
 
 # Setup and dependencies of a Redis module
 
@@ -270,7 +291,7 @@ number "10" as second argument (the increment), I'll use the following
 function call:
 
     RedisModuleCallReply *reply;
-    reply = RedisModule_Call(ctx,"INCR","sc",argv[1],"10");
+    reply = RedisModule_Call(ctx,"INCRBY","sc",argv[1],"10");
 
 The first argument is the context, and the second is always a null terminated
 C string with the command name. The third argument is the format specifier
@@ -287,7 +308,9 @@ This is the full list of format specifiers:
 * **s** -- RedisModuleString as received in `argv` or by other Redis module APIs returning a RedisModuleString object.
 * **l** -- Long long integer.
 * **v** -- Array of RedisModuleString objects.
-* **!** -- This modifier just tells the function to replicate the command to slaves and AOF. It is ignored from the point of view of arguments parsing.
+* **!** -- This modifier just tells the function to replicate the command to replicas and AOF. It is ignored from the point of view of arguments parsing.
+* **A** -- This modifier, when `!` is given, tells to suppress AOF propagation: the command will be propagated only to replicas.
+* **R** -- This modifier, when `!` is given, tells to suppress replicas propagation: the command will be propagated only to the AOF if enabled.
 
 The function returns a `RedisModuleCallReply` object on success, on
 error NULL is returned.
@@ -306,7 +329,7 @@ In order to obtain the type or reply (corresponding to one of the data types
 supported by the Redis protocol), the function `RedisModule_CallReplyType()`
 is used:
 
-    reply = RedisModule_Call(ctx,"INCR","sc",argv[1],"10");
+    reply = RedisModule_Call(ctx,"INCRBY","sc",argv[1],"10");
     if (RedisModule_CallReplyType(reply) == REDISMODULE_REPLY_INTEGER) {
         long long myval = RedisModule_CallReplyInteger(reply);
         /* Do something with myval. */
@@ -385,7 +408,7 @@ memory ASAP).
 Like normal Redis commands, new commands implemented via modules must be
 able to return values to the caller. The API exports a set of functions for
 this goal, in order to return the usual types of the Redis protocol, and
-arrays of such types as elemented. Also errors can be returned with any
+arrays of such types as elements. Also errors can be returned with any
 error string and code (the error code is the initial uppercase letters in
 the error message, like the "BUSY" string in the "BUSY the sever is busy" error
 message).
@@ -421,7 +444,7 @@ two different functions:
 
     int RedisModule_ReplyWithString(RedisModuleCtx *ctx, RedisModuleString *str);
 
-The first function gets a C pointer and length. The second a RedisMoudleString
+The first function gets a C pointer and length. The second a RedisModuleString
 object. Use one or the other depending on the source type you have at hand.
 
 In order to reply with an array, you just need to use a function to emit the
@@ -449,8 +472,8 @@ with a special argument to `RedisModule_ReplyWithArray()`:
     RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_ARRAY_LEN);
 
 The above call starts an array reply so we can use other `ReplyWith` calls
-in order to produce the array items. Finally in order to set the length
-se use the following call:
+in order to produce the array items. Finally in order to set the length,
+use the following call:
 
     RedisModule_ReplySetArrayLength(ctx, number_of_items);
 
@@ -535,7 +558,7 @@ both modes. Currently a key opened for writing can also be accessed for reading
 but this is to be considered an implementation detail. The right mode should
 be used in sane modules.
 
-You can open non exisitng keys for writing, since the keys will be created
+You can open non existing keys for writing, since the keys will be created
 when an attempt to write to the key is performed. However when opening keys
 just for reading, `RedisModule_OpenKey` will return NULL if the key does not
 exist.
@@ -664,7 +687,7 @@ is used. Example:
     RedisModule_StringTruncate(mykey,1024);
 
 The function truncates, or enlarges the string as needed, padding it with
-zero bytes if the previos length is smaller than the new length we request.
+zero bytes if the previous length is smaller than the new length we request.
 If the string does not exist since `key` is associated to an open empty key,
 a string value is created and associated to the key.
 
@@ -684,7 +707,7 @@ or head, using the following macros:
     REDISMODULE_LIST_HEAD
     REDISMODULE_LIST_TAIL
 
-Elements returned by `RedisModule_ListPop()` are like strings craeted with
+Elements returned by `RedisModule_ListPop()` are like strings created with
 `RedisModule_CreateString()`, they must be released with
 `RedisModule_FreeString()` or by enabling automatic memory management.
 
@@ -737,7 +760,7 @@ When using the higher level APIs to invoke commands, replication happens
 automatically if you use the "!" modifier in the format string of
 `RedisModule_Call()` as in the following example:
 
-    reply = RedisModule_Call(ctx,"INCR","!sc",argv[1],"10");
+    reply = RedisModule_Call(ctx,"INCRBY","!sc",argv[1],"10");
 
 As you can see the format specifier is `"!sc"`. The bang is not parsed as a
 format specifier, but it internally flags the command as "must replicate".
@@ -820,7 +843,7 @@ They work exactly like their `libc` equivalent calls, however they use
 the same allocator Redis uses, and the memory allocated using these
 functions is reported by the `INFO` command in the memory section, is
 accounted when enforcing the `maxmemory` policy, and in general is
-a first citizen of the Redis executable. On the contrar, the method
+a first citizen of the Redis executable. On the contrary, the method
 allocated inside modules with libc `malloc()` is transparent to Redis.
 
 Another reason to use the modules functions in order to allocate memory

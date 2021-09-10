@@ -13,6 +13,9 @@ If `source` and `destination` are the same, the operation is equivalent to
 removing the last element from the list and pushing it as first element of the
 list, so it can be considered as a list rotation command.
 
+As per Redis 6.2.0, RPOPLPUSH is considered deprecated. Please prefer `LMOVE` in
+new code.
+
 @return
 
 @bulk-string-reply: the element being popped and pushed.
@@ -39,7 +42,7 @@ operation.
 
 However in this context the obtained queue is not _reliable_ as messages can
 be lost, for example in the case there is a network problem or if the consumer
-crashes just after the message is received but it is still to process.
+crashes just after the message is received but before it can be processed.
 
 `RPOPLPUSH` (or `BRPOPLPUSH` for the blocking variant) offers a way to avoid
 this problem: the consumer fetches the message and at the same time pushes it
@@ -48,7 +51,7 @@ It will use the `LREM` command in order to remove the message from the
 _processing_ list once the message has been processed.
 
 An additional client may monitor the _processing_ list for items that remain
-there for too much time, and will push those timed out items into the queue
+there for too much time, pushing timed out items into the queue
 again if needed.
 
 ## Pattern: Circular list
@@ -58,12 +61,12 @@ all the elements of an N-elements list, one after the other, in O(N) without
 transferring the full list from the server to the client using a single `LRANGE`
 operation.
 
-The above pattern works even if the following two conditions:
+The above pattern works even if one or both of the following conditions occur:
 
 * There are multiple clients rotating the list: they'll fetch different 
   elements, until all the elements of the list are visited, and the process 
   restarts.
-* Even if other clients are actively pushing new items at the end of the list.
+* Other clients are actively pushing new items at the end of the list.
 
 The above makes it very simple to implement a system where a set of items must
 be processed by N workers continuously as fast as possible.

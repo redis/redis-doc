@@ -6,8 +6,8 @@ Guidelines for Redis clients with support for Redis Sentinel
 Redis Sentinel is a monitoring solution for Redis instances that handles
 automatic failover of Redis masters and service discovery (who is the current
 master for a given group of instances?). Since Sentinel is both responsible
-to reconfigure instances during failovers, and to provide configurations to
-clients connecting to Redis masters or slaves, clients require to have
+for reconfiguring instances during failovers, and providing configurations to
+clients connecting to Redis masters or replicas, clients are required to have
 explicit support for Redis Sentinel.
 
 This document is targeted at Redis clients developers that want to support Sentinel in their clients implementation with the following goals:
@@ -20,9 +20,9 @@ For details about how Redis Sentinel works, please check the [Redis Documentatio
 Redis service discovery via Sentinel
 ===
 
-Redis Sentinel identify every master with a name like "stats" or "cache".
+Redis Sentinel identifies every master with a name like "stats" or "cache".
 Every name actually identifies a *group of instances*, composed of a master
-and a variable number of slaves.
+and a variable number of replicas.
 
 The address of the Redis master that is used for a specific purpose inside a network may change after events like an automatic failover, a manually triggered failover (for instance in order to upgrade a Redis instance), and other reasons.
 
@@ -85,32 +85,32 @@ Sentinel failover disconnection
 ===
 
 Starting with Redis 2.8.12, when Redis Sentinel changes the configuration of
-an instance, for example promoting a slave to a master, demoting a master to
+an instance, for example promoting a replica to a master, demoting a master to
 replicate to the new master after a failover, or simply changing the master
-address of a stale slave instance, it sends a `CLIENT KILL type normal`
+address of a stale replica instance, it sends a `CLIENT KILL type normal`
 command to the instance in order to make sure all the clients are disconnected
 from the reconfigured instance. This will force clients to resolve the master
 address again.
 
 If the client will contact a Sentinel with yet not updated information, the verification of the Redis instance role via the `ROLE` command will fail, allowing the client to detect that the contacted Sentinel provided stale information, and will try again.
 
-Note: it is possible that a stale master returns online at the same time a client contacts a stale Sentinel instance, so the client may connect with a stale master, and yet the ROLE output will match. However when the master is back again Sentinel will try to demote it to slave, triggering a new disconnection. The same reasoning applies to connecting to stale slaves that will get reconfigured to replicate with a different master.
+Note: it is possible that a stale master returns online at the same time a client contacts a stale Sentinel instance, so the client may connect with a stale master, and yet the ROLE output will match. However when the master is back again Sentinel will try to demote it to replica, triggering a new disconnection. The same reasoning applies to connecting to stale replicas that will get reconfigured to replicate with a different master.
 
-Connecting to slaves
+Connecting to replicas
 ===
 
-Sometimes clients are interested to connect to slaves, for example in order to scale read requests. This protocol supports connecting to slaves by modifying step 2 slightly. Instead of calling the following command:
+Sometimes clients are interested to connect to replicas, for example in order to scale read requests. This protocol supports connecting to replicas by modifying step 2 slightly. Instead of calling the following command:
 
     SENTINEL get-master-addr-by-name master-name
 
 The clients should call instead:
 
-    SENTINEL slaves master-name
+    SENTINEL replicas master-name
 
-In order to retrieve a list of slave instances.
+In order to retrieve a list of replica instances.
 
 Symmetrically the client should verify with the `ROLE` command that the
-instance is actually a slave, in order to avoid scaling read queries with
+instance is actually a replica, in order to avoid scaling read queries with
 the master.
 
 Connection pools
@@ -146,7 +146,7 @@ Redis instances configurations.
 This mechanism can be used in order to speedup the reconfiguration of clients,
 that is, clients may listen to Pub/Sub in order to know when a configuration
 change happened in order to run the three steps protocol explained in this
-document in order to resolve the new Redis master (or slave) address.
+document in order to resolve the new Redis master (or replica) address.
 
 However update messages received via Pub/Sub should not substitute the
 above procedure, since there is no guarantee that a client is able to

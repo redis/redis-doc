@@ -6,11 +6,11 @@ of different POSIX signals such as `SIGTERM`, `SIGSEGV` and so forth.
 
 The information contained in this document is **only applicable to Redis version 2.6 or greater**.
 
-Handling of SIGTERM
+Handling of SIGTERM and SIGINT
 ---
 
-The `SIGTERM` signals tells Redis to shutdown gracefully. When this signal is
-received the server does not actually exits as a result, but it schedules
+The `SIGTERM` and `SIGINT` signals tell Redis to shutdown gracefully. When this signal is
+received the server does not immediately exit as a result, but it schedules
 a shutdown very similar to the one performed when the `SHUTDOWN` command is
 called. The scheduled shutdown starts ASAP, specifically as long as the
 current command in execution terminates (if any), with a possible additional

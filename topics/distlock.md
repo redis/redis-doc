@@ -25,17 +25,20 @@ already available that can be used for reference.
 
 * [Redlock-rb](https://github.com/antirez/redlock-rb) (Ruby implementation). There is also a [fork of Redlock-rb](https://github.com/leandromoreira/redlock-rb) that adds a gem for easy distribution and perhaps more.
 * [Redlock-py](https://github.com/SPSCommerce/redlock-py) (Python implementation).
+* [Pottery](https://github.com/brainix/pottery#redlock) (Python implementation).
 * [Aioredlock](https://github.com/joanvila/aioredlock) (Asyncio Python implementation).
 * [Redlock-php](https://github.com/ronnylt/redlock-php) (PHP implementation).
 * [PHPRedisMutex](https://github.com/malkusch/lock#phpredismutex) (further PHP implementation)
 * [cheprasov/php-redis-lock](https://github.com/cheprasov/php-redis-lock) (PHP library for locks)
-* [Redsync.go](https://github.com/hjr265/redsync.go) (Go implementation).
+* [rtckit/react-redlock](https://github.com/rtckit/reactphp-redlock) (Async PHP implementation)
+* [Redsync](https://github.com/go-redsync/redsync) (Go implementation).
 * [Redisson](https://github.com/mrniko/redisson) (Java implementation).
 * [Redis::DistLock](https://github.com/sbertrang/redis-distlock) (Perl implementation).
 * [Redlock-cpp](https://github.com/jacket-code/redlock-cpp) (C++ implementation).
 * [Redlock-cs](https://github.com/kidfashion/redlock-cs) (C#/.NET implementation).
 * [RedLock.net](https://github.com/samcook/RedLock.net) (C#/.NET implementation). Includes async and lock extension support.
 * [ScarletLock](https://github.com/psibernetic/scarletlock) (C# .NET implementation with configurable datastore)
+* [Redlock4Net](https://github.com/LiZhenNet/Redlock4Net) (C# .NET implementation)
 * [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
 
 Safety and Liveness guarantees
@@ -77,7 +80,7 @@ To acquire the lock, the way to go is the following:
         SET resource_name my_random_value NX PX 30000
 
 The command will set the key only if it does not already exist (NX option), with an expire of 30000 milliseconds (PX option).
-The key is set to a value “my_random_value”. This value must be unique across all clients and all lock requests.
+The key is set to a value “my\_random\_value”. This value must be unique across all clients and all lock requests.
 
 Basically the random value is used in order to release the lock in a safe way, with a script that tells Redis: remove the key only if it exists and the value stored at the key is exactly the one I expect to be. This is accomplished by the following Lua script:
 

@@ -1,7 +1,7 @@
 # Redis Design Draft 2 -- RDB version 7 info fields
 
 * Author: Salvatore Sanfilippo `antirez@gmail.com`
-* GitHub issue [#1048](https://github.com/antirez/redis/issues/1048)
+* GitHub issue [#1048](https://github.com/redis/redis/issues/1048)
 
 ## History of revisions
 

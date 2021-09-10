@@ -78,7 +78,10 @@ preform authentication saving the need of explicitly using the `AUTH` command:
     $ redis-cli -a myUnguessablePazzzzzword123 ping
     PONG
 
-Finally, it's possible to send a command that operates a on a database number
+Alternatively, it is possible to provide the password to `redis-cli` via the
+`REDISCLI_AUTH` environment variable.
+
+Finally, it's possible to send a command that operates on a database number
 other than the default number zero by using the `-n <dbnum>` option:
 
     $ redis-cli flushall
@@ -96,12 +99,22 @@ option and a valid URI:
     $ redis-cli -u redis://p%40ssw0rd@redis-16379.hosted.com:16379/0 ping
     PONG
 
+## SSL/TLS
+
+By default, `redis-cli` uses a plain TCP connection to connect to Redis.
+You may enable SSL/TLS using the `--tls` option, along with `--cacert` or
+`--cacertdir` to configure a trusted root certificate bundle or directory.
+
+If the target server requires authentication using a client side certificate,
+you can specify a certificate and a corresponding private key using `--cert` and
+`--key`.
+
 ## Getting input from other programs
 
 There are two ways you can use `redis-cli` in order to get the input from other
 commands (from the standard input, basically). One is to use as last argument
 the payload we read from *stdin*. For example, in order to set a Redis key
-to the content of the file `/etc/services` if my computer, I can use the `-x`
+to the content of the file `/etc/services` of my computer, I can use the `-x`
 option:
 
     $ redis-cli -x set foo < /etc/services
@@ -203,7 +216,7 @@ of Lua scripting, available starting with Redis 3.2. For this feature, please
 refer to the [Redis Lua debugger documentation](/topics/ldb).
 
 However, even without using the debugger, you can use `redis-cli` to
-run scripts from a file in a way more comfortable compared to typing
+run scripts from a file in a way more comfortable way compared to typing
 the script interactively into the shell or as an argument:
 
     $ cat /tmp/script.lua
@@ -238,7 +251,7 @@ is sent to the server, processed, and the reply is parsed back and rendered
 into a simpler form to read.
 
 Nothing special is needed for running the CLI in interactive mode -
-just lunch it without any arguments and you are in:
+just launch it without any arguments and you are in:
 
     $ redis-cli
     127.0.0.1:6379> ping
@@ -310,14 +323,14 @@ were in the middle of it:
 This is usually not an issue when using the CLI in interactive mode for
 testing, but you should be aware of this limitation.
 
-## Editing, history and completion
+## Editing, history, completion and hints
 
 Because `redis-cli` uses the
 [linenoise line editing library](http://github.com/antirez/linenoise), it
 always has line editing capabilities, without depending on `libreadline` or
 other optional libraries.
 
-You can access an history of commands executed, in order to avoid retyping
+You can access a history of commands executed, in order to avoid retyping
 them again and again, by pressing the arrow keys (up and down).
 The history is preserved between restarts of the CLI, in a file called
 `.rediscli_history` inside the user home directory, as specified
@@ -331,6 +344,24 @@ key, like in the following example:
     127.0.0.1:6379> Z<TAB>
     127.0.0.1:6379> ZADD<TAB>
     127.0.0.1:6379> ZCARD<TAB>
+
+Once you've typed a Redis command name at the prompt, the CLI will display
+syntax hints. This behavior can be turned on and off via the CLI preferences.
+
+## Preferences
+
+There are two ways to customize the CLI's behavior. The file `.redisclirc`
+in your home directory is loaded by the CLI on startup. You can override the
+file's default location by setting the `REDISCLI_RCFILE` environment variable to
+an alternative path. Preferences can also be set during a CLI session, in which 
+case they will last only the the duration of the session.
+
+To set preferences, use the special `:set` command. The following preferences
+can be set, either by typing the command in the CLI or adding it to the
+`.redisclirc` file:
+
+* `:set hints` - enables syntax hints
+* `:set nohints` - disables syntax hints
 
 ## Running the same command N times
 
@@ -598,7 +629,7 @@ You can change the sampling sessions' length with the `-i <interval>` option.
 
 The most advanced latency study tool, but also a bit harder to
 interpret for non experienced users, is the ability to use color terminals
-to show a spectrum of latencies. You'll see a colored output that indicate the
+to show a spectrum of latencies. You'll see a colored output that indicates the
 different percentages of samples, and different ASCII characters that indicate
 different latency figures. This mode is enabled using the `--latency-dist`
 option:
@@ -714,11 +745,11 @@ different LRU settings (number of samples) and LRU's implementation, which
 is approximated in Redis, changes a lot between different versions. Similarly
 the amount of memory per key may change between versions. That is why this
 tool was built: its main motivation was for testing the quality of Redis' LRU
-implementation, but now is also useful in for testing how a given version 
+implementation, but now is also useful in for testing how a given version
 behaves with the settings you had in mind for your deployment.
 
 In order to use this mode, you need to specify the amount of keys
-in the test. You also need to configure a `maxmemory` setting that 
+in the test. You also need to configure a `maxmemory` setting that
 makes sense as a first try.
 
 IMPORTANT NOTE: Configuring the `maxmemory` setting in the Redis configuration
@@ -754,8 +785,8 @@ the actual figure we can expect in the long time:
     124250 Gets/sec | Hits: 50147 (40.36%) | Misses: 74103 (59.64%)
 
 A miss rage of 59% may not be acceptable for our use case. So we know that
-100MB of memory are no enough. Let's try with half gigabyte. After a few
-minutes we'll see the output to stabilize to the following figures:
+100MB of memory is not enough. Let's try with half gigabyte. After a few
+minutes we'll see the output stabilize to the following figures:
 
     140000 Gets/sec | Hits: 135376 (96.70%) | Misses: 4624 (3.30%)
     141250 Gets/sec | Hits: 136523 (96.65%) | Misses: 4727 (3.35%)

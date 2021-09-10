@@ -139,9 +139,33 @@ redis 127.0.0.1:6379>
 
 As you can see most of the calls returned zero elements, but the last call where a COUNT of 1000 was used in order to force the command to do more scanning for that iteration.
 
+
+## The TYPE option
+
+As of version 6.0 you can use this option to ask `SCAN` to only return objects that match a given `type`, allowing you to iterate through the database looking for keys of a specific type. The **TYPE** option is only available on the whole-database `SCAN`, not `HSCAN` or `ZSCAN` etc.
+
+The `type` argument is the same string name that the `TYPE` command returns. Note a quirk where some Redis types, such as GeoHashes, HyperLogLogs, Bitmaps, and Bitfields, may internally be implemented using other Redis types, such as a string or zset, so can't be distinguished from other keys of that same type by `SCAN`. For example, a ZSET and GEOHASH:
+
+```
+redis 127.0.0.1:6379> GEOADD geokey 0 0 value
+(integer) 1
+redis 127.0.0.1:6379> ZADD zkey 1000 value
+(integer) 1
+redis 127.0.0.1:6379> TYPE geokey
+zset
+redis 127.0.0.1:6379> TYPE zkey
+zset
+redis 127.0.0.1:6379> SCAN 0 TYPE zset
+1) "0"
+2) 1) "geokey"
+   2) "zkey"
+```
+
+It is important to note that the **TYPE** filter is also applied after elements are retrieved from the database, so the option does not reduce the amount of work the server has to do to complete a full iteration, and for rare types you may receive no elements in many iterations.
+
 ## Multiple parallel iterations
 
-It is possible for an infinite number of clients to iterate the same collection at the same time, as the full state of the iterator is in the cursor, that is obtained and returned to the client at every call. Server side no state is taken at all.
+It is possible for an infinite number of clients to iterate the same collection at the same time, as the full state of the iterator is in the cursor, that is obtained and returned to the client at every call. No server side state is taken at all.
 
 ## Terminating iterations in the middle
 
@@ -178,6 +202,10 @@ Also note that this behavior is specific of `SSCAN`, `HSCAN` and `ZSCAN`. `SCAN`
 * `SSCAN` array of elements is a list of Set members.
 * `HSCAN` array of elements contain two elements, a field and a value, for every returned element of the Hash.
 * `ZSCAN` array of elements contain two elements, a member and its associated score, for every returned element of the sorted set.
+
+@history
+
+  * `>= 6.0`: Supports the `TYPE` subcommand.
 
 ## Additional examples
 

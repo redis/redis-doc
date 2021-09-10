@@ -2,8 +2,8 @@ Redis cluster tutorial
 ===
 
 This document is a gentle introduction to Redis Cluster, that does not use
-complex to understand distributed systems concepts. It provides instructions
-about how to setup a cluster, test, and operate it, without
+difficult to understand concepts of distributed systems. It provides
+instructions about how to setup a cluster, test, and operate it, without
 going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
 how the system behaves from the point of view of the user.
@@ -83,7 +83,7 @@ Redis Cluster data sharding
 ---
 
 Redis Cluster does not use consistent hashing, but a different form of sharding
-where every key is conceptually part of what we call an **hash slot**.
+where every key is conceptually part of what we call a **hash slot**.
 
 There are 16384 hash slots in Redis Cluster, and to compute what is the hash
 slot of a given key, we simply take the CRC16 of the key modulo
@@ -131,13 +131,13 @@ range 5501-11000.
 
 However when the cluster is created (or at a later time) we add a slave
 node to every master, so that the final cluster is composed of A, B, C
-that are masters nodes, and A1, B1, C1 that are slaves nodes, the system is
-able to continue if node B fails.
+that are master nodes, and A1, B1, C1 that are slave nodes.
+This way, the system is able to continue if node B fails.
 
 Node B1 replicates B, and B fails, the cluster will promote node B1 as the new
 master and will continue to operate correctly.
 
-However note that if nodes B and B1 fail at the same time Redis Cluster is not
+However, note that if nodes B and B1 fail at the same time, Redis Cluster is not
 able to continue to operate.
 
 Redis Cluster consistency guarantees
@@ -155,7 +155,7 @@ happens:
 * The master B replies OK to your client.
 * The master B propagates the write to its slaves B1, B2 and B3.
 
-As you can see B does not wait for an acknowledge from B1, B2, B3 before
+As you can see, B does not wait for an acknowledgement from B1, B2, B3 before
 replying to the client, since this would be a prohibitive latency penalty
 for Redis, so if your client writes something, B acknowledges the write,
 but crashes before being able to send the write to its slaves, one of the
@@ -166,19 +166,19 @@ This is **very similar to what happens** with most databases that are
 configured to flush data to disk every second, so it is a scenario you
 are already able to reason about because of past experiences with traditional
 database systems not involving distributed systems. Similarly you can
-improve consistency by forcing the database to flush data on disk before
-replying to the client, but this usually results into prohibitively low
+improve consistency by forcing the database to flush data to disk before
+replying to the client, but this usually results in prohibitively low
 performance. That would be the equivalent of synchronous replication in
 the case of Redis Cluster.
 
-Basically there is a trade-off to take between performance and consistency.
+Basically, there is a trade-off to be made between performance and consistency.
 
 Redis Cluster has support for synchronous writes when absolutely needed,
-implemented via the `WAIT` command, this makes losing writes a lot less
-likely, however note that Redis Cluster does not implement strong consistency
-even when synchronous replication is used: it is always possible under more
-complex failure scenarios that a slave that was not able to receive the write
-is elected as master.
+implemented via the `WAIT` command. This makes losing writes a lot less
+likely. However, note that Redis Cluster does not implement strong consistency
+even when synchronous replication is used: it is always possible, under more
+complex failure scenarios, that a slave that was not able to receive the write
+will be elected as master.
 
 There is another notable scenario where Redis Cluster will lose writes, that
 happens during a network partition where a client is isolated with a minority
@@ -190,23 +190,23 @@ with 3 masters and 3 slaves. There is also a client, that we will call Z1.
 After a partition occurs, it is possible that in one side of the
 partition we have A, C, A1, B1, C1, and in the other side we have B and Z1.
 
-Z1 is still able to write to B, that will accept its writes. If the
+Z1 is still able to write to B, which will accept its writes. If the
 partition heals in a very short time, the cluster will continue normally.
-However if the partition lasts enough time for B1 to be promoted to master
-in the majority side of the partition, the writes that Z1 is sending to B
-will be lost.
+However, if the partition lasts enough time for B1 to be promoted to master
+on the majority side of the partition, the writes that Z1 has sent to B
+in the mean time will be lost.
 
 Note that there is a **maximum window** to the amount of writes Z1 will be able
 to send to B: if enough time has elapsed for the majority side of the
 partition to elect a slave as master, every master node in the minority
-side stops accepting writes.
+side will have stopped accepting writes.
 
 This amount of time is a very important configuration directive of Redis
 Cluster, and is called the **node timeout**.
 
 After node timeout has elapsed, a master node is considered to be failing,
 and can be replaced by one of its replicas.
-Similarly after node timeout has elapsed without a master node to be able
+Similarly, after node timeout has elapsed without a master node to be able
 to sense the majority of the other master nodes, it enters an error state
 and stops accepting writes.
 
@@ -218,12 +218,14 @@ let's introduce the configuration parameters that Redis Cluster introduces
 in the `redis.conf` file. Some will be obvious, others will be more clear
 as you continue reading.
 
-* **cluster-enabled `<yes/no>`**: If yes enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a stand alone instance as usual.
-* **cluster-config-file `<filename>`**: Note that despite the name of this option, this is not an user editable configuration file, but the file where a Redis Cluster node automatically persists the cluster configuration (the state, basically) every time there is a change, in order to be able to re-read it at startup. The file lists things like the other nodes in the cluster, their state, persistent variables, and so forth. Often this file is rewritten and flushed on disk as a result of some message reception.
+* **cluster-enabled `<yes/no>`**: If yes, enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a stand alone instance as usual.
+* **cluster-config-file `<filename>`**: Note that despite the name of this option, this is not a user editable configuration file, but the file where a Redis Cluster node automatically persists the cluster configuration (the state, basically) every time there is a change, in order to be able to re-read it at startup. The file lists things like the other nodes in the cluster, their state, persistent variables, and so forth. Often this file is rewritten and flushed on disk as a result of some message reception.
 * **cluster-node-timeout `<milliseconds>`**: The maximum amount of time a Redis Cluster node can be unavailable, without it being considered as failing. If a master node is not reachable for more than the specified amount of time, it will be failed over by its slaves. This parameter controls other important things in Redis Cluster. Notably, every node that can't reach the majority of master nodes for the specified amount of time, will stop accepting queries.
-* **cluster-slave-validity-factor `<factor>`**: If set to zero, a slave will always try to failover a master, regardless of the amount of time the link between the master and the slave remained disconnected. If the value is positive, a maximum disconnection time is calculated as the *node timeout* value multiplied by the factor provided with this option, and if the node is a slave, it will not try to start a failover if the master link was disconnected for more than the specified amount of time. For example if the node timeout is set to 5 seconds, and the validity factor is set to 10, a slave disconnected from the master for more than 50 seconds will not try to failover its master. Note that any value different than zero may result in Redis Cluster to be unavailable after a master failure if there is no slave able to failover it. In that case the cluster will return back available only when the original master rejoins the cluster.
+* **cluster-slave-validity-factor `<factor>`**: If set to zero, a slave will always consider itself valid, and will therefore always try to failover a master, regardless of the amount of time the link between the master and the slave remained disconnected. If the value is positive, a maximum disconnection time is calculated as the *node timeout* value multiplied by the factor provided with this option, and if the node is a slave, it will not try to start a failover if the master link was disconnected for more than the specified amount of time. For example, if the node timeout is set to 5 seconds and the validity factor is set to 10, a slave disconnected from the master for more than 50 seconds will not try to failover its master. Note that any value different than zero may result in Redis Cluster being unavailable after a master failure if there is no slave that is able to failover it. In that case the cluster will return to being available only when the original master rejoins the cluster.
 * **cluster-migration-barrier `<count>`**: Minimum number of slaves a master will remain connected with, for another slave to migrate to a master which is no longer covered by any slave. See the appropriate section about replica migration in this tutorial for more information.
 * **cluster-require-full-coverage `<yes/no>`**: If this is set to yes, as it is by default, the cluster stops accepting writes if some percentage of the key space is not covered by any node. If the option is set to no, the cluster will still serve queries even if only requests about a subset of keys can be processed.
+* **cluster-allow-reads-when-down `<yes/no>`**: If this is set to no, as it is by default, a node in a Redis Cluster will stop serving all traffic when the cluster is marked as failed, either when a node can't reach a quorum of masters or when full coverage is not met. This prevents reading potentially inconsistent data from a node that is unaware of changes in the cluster. This option can be set to yes to allow reads from a node during the fail state, which is useful for applications that want to prioritize read availability but still want to prevent inconsistent writes. It can also be used for when using Redis Cluster with only one or two shards, as it allows the nodes to continue serving writes when a master fails but automatic failover is impossible.
+
 
 Creating and using a Redis Cluster
 ===
@@ -300,7 +302,7 @@ Creating the cluster
 Now that we have a number of instances running, we need to create our
 cluster by writing some meaningful configuration to the nodes.
 
-If you are using Redis 5, this is very easy to accomplish as we are helped by the Redis Cluster command line utility embedded into `redis-cli`, that can be used to create new clusters, check or reshard an existing cluster, and so forth.
+If you are using Redis 5 or higher, this is very easy to accomplish as we are helped by the Redis Cluster command line utility embedded into `redis-cli`, that can be used to create new clusters, check or reshard an existing cluster, and so forth.
 
 For Redis version 3 or 4, there is the older tool called `redis-trib.rb` which is very similar. You can find it in the `src` directory of the Redis source code distribution. You need to install `redis` gem to be able to run `redis-trib`.
 
@@ -379,7 +381,8 @@ I'm aware of the following implementations:
 * [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis) offers support for C# (and should work fine with most .NET languages; VB, F#, etc)
 * [thunk-redis](https://github.com/thunks/thunk-redis) offers support for Node.js and io.js, it is a thunk/promise-based redis client with pipelining and cluster.
 * [redis-go-cluster](https://github.com/chasex/redis-go-cluster) is an implementation of Redis Cluster for the Go language using the [Redigo library client](https://github.com/garyburd/redigo) as the base client. Implements MGET/MSET via result aggregation.
-* The `redis-cli` utility in the unstable branch of the Redis repository at GitHub implements a very basic cluster support when started with the `-c` switch.
+* [ioredis](https://github.com/luin/ioredis) is a popular Node.js client, providing a robust support for Redis Cluster.
+* The `redis-cli` utility implements basic cluster support when started with the `-c` switch.
 
 An easy way to test Redis Cluster is either to try any of the above clients
 or simply the `redis-cli` command line utility. The following is an example
@@ -396,7 +399,7 @@ OK
 redis 127.0.0.1:7000> get foo
 -> Redirected to slot [12182] located at 127.0.0.1:7002
 "bar"
-redis 127.0.0.1:7000> get hello
+redis 127.0.0.1:7002> get hello
 -> Redirected to slot [866] located at 127.0.0.1:7000
 "world"
 ```
@@ -603,17 +606,22 @@ All the slots will be covered as usual, but this time the master at
 Scripting a resharding operation
 ---
 
-Reshardings can be performed automatically without the need to manually
+Resharding can be performed automatically without the need to manually
 enter the parameters in an interactive way. This is possible using a command
 line like the following:
 
-    redis-cli reshard <host>:<port> --cluster-from <node-id> --cluster-to <node-id> --cluster-slots <number of slots> --cluster-yes
+    redis-cli --cluster reshard <host>:<port> --cluster-from <node-id> --cluster-to <node-id> --cluster-slots <number of slots> --cluster-yes
 
 This allows to build some automatism if you are likely to reshard often,
 however currently there is no way for `redis-cli` to automatically
 rebalance the cluster checking the distribution of keys across the cluster
 nodes and intelligently moving slots as needed. This feature will be added
 in the future.
+
+The `--cluster-yes` option instructs the cluster manager to automatically answer
+"yes" to the command's prompts, allowing it to run in a non-interactive mode.
+Note that this option can also be activated by setting the
+`REDISCLI_CLUSTER_YES` environment variable.
 
 A more interesting example application
 ---
@@ -690,7 +698,7 @@ In order to trigger the failover, the simplest thing we can do (that is also
 the semantically simplest failure that can occur in a distributed system)
 is to crash a single process, in our case a single master.
 
-We can identify a cluster and crash it with the following command:
+We can identify a master and crash it with the following command:
 
 ```
 $ redis-cli -p 7000 cluster nodes | grep master
@@ -795,6 +803,12 @@ waits to reach the offset on its side. When the replication offset is reached,
 the failover starts, and the old master is informed about the configuration
 switch. When the clients are unblocked on the old master, they are redirected
 to the new master.
+
+Note:
+
+* To promote a replica to master, it must first be known as a replica by a majority of the masters in the cluster.
+  Otherwise, it cannot win the failover election.
+  If the replica has just been added to the cluster (see [Adding a new node as a replica](#adding-a-new-node-as-a-replica) below), you may need to wait a while before sending the `CLUSTER FAILOVER` command, to make sure the masters in cluster are aware of the new replica.
 
 Adding a new node
 ---
@@ -946,7 +960,7 @@ resistant to failures as the number of replicas attached to a given master.
 For example a cluster where every master has a single replica can't continue
 operations if the master and its replica fail at the same time, simply because
 there is no other instance to have a copy of the hash slots the master was
-serving. However while netsplits are likely to isolate a number of nodes
+serving. However while net-splits are likely to isolate a number of nodes
 at the same time, many other kind of failures, like hardware or software failures
 local to a single node, are a very notable class of failures that are unlikely
 to happen at the same time, so it is possible that in your cluster where
@@ -983,7 +997,8 @@ one is not available.
 
 Upgrading masters is a bit more complex, and the suggested procedure is:
 
-1. Use CLUSTER FAILOVER to trigger a manual failover of the master to one of its slaves (see the "Manual failover" section of this documentation).
+1. Use `CLUSTER FAILOVER` to trigger a manual failover of the master to one of its replicas.
+   (See the [Manual failover](#manual-failover) section in this document.)
 2. Wait for the master to turn into a slave.
 3. Finally upgrade the node as you do for slaves.
 4. If you want the master to be the node you just upgraded, trigger a new manual failover in order to turn back the upgraded node into a master.

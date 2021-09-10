@@ -15,7 +15,7 @@ isolated operation.
 transaction is also atomic. The `EXEC` command
 triggers the execution of all the commands in the transaction, so
 if a client loses the connection to the server in the context of a
-transaction before calling the `MULTI` command none of the operations
+transaction before calling the `EXEC` command none of the operations
 are performed, instead if the `EXEC` command is called, all the
 operations are performed. When using the
 [append-only file](/topics/persistence#append-only-file) Redis makes sure
@@ -85,8 +85,7 @@ command will fail when executed even if the syntax is right:
     Escape character is '^]'.
     MULTI
     +OK
-    SET a 3
-    abc
+    SET a abc
     +QUEUED
     LPOP a
     +QUEUED
@@ -195,13 +194,17 @@ there's no need to repeat the operation.
 
 So what is `WATCH` really about? It is a command that will
 make the `EXEC` conditional: we are asking Redis to perform
-the transaction only if none of the `WATCH`ed keys were modified.
-(But they might be changed by the same client inside the transaction
-without aborting it. [More on this](https://github.com/antirez/redis-doc/issues/734).)
-Otherwise the transaction is not entered at
-all. (Note that if you `WATCH` a volatile key and Redis expires
-the key after you `WATCH`ed it, `EXEC` will still work. [More on
-this](http://code.google.com/p/redis/issues/detail?id=270).)
+the transaction only if none of the `WATCH`ed keys were modified. This includes
+modifications made by the client, like write commands, and by Redis itself,
+like expiration or eviction. If keys were modified between when they were
+`WATCH`ed and when the `EXEC` was received, the entire transaction will be aborted
+instead.
+
+**NOTE**
+* In Redis versions before 6.0.9, an expired key would not cause a transaction
+to be aborted. [More on this](https://github.com/redis/redis/pull/7920)
+* Commands within a transaction wont trigger the `WATCH` condition since they
+are only queued until the `EXEC` is sent.
 
 `WATCH` can be called multiple times. Simply all the `WATCH` calls will
 have the effects to watch for changes starting from the call, up to
@@ -223,9 +226,11 @@ transactions.
 ### Using `WATCH` to implement ZPOP
 
 A good example to illustrate how `WATCH` can be used to create new
-atomic operations otherwise not supported by Redis is to implement ZPOP,
-that is a command that pops the element with the lower score from a
-sorted set in an atomic way. This is the simplest implementation:
+atomic operations otherwise not supported by Redis is to implement ZPOP
+(`ZPOPMIN`, `ZPOPMAX` and their blocking variants have only been added
+in version 5.0), that is a command that pops the element with the lower
+score from a sorted set in an atomic way. This is the simplest
+implementation:
 
     WATCH zset
     element = ZRANGE zset 0 0
@@ -243,7 +248,7 @@ usually the script will be both simpler and faster.
 
 This duplication is due to the fact that scripting was introduced in Redis 2.6
 while transactions already existed long before. However we are unlikely to
-remove the support for transactions in the short time because it seems
+remove the support for transactions in the short-term because it seems
 semantically opportune that even without resorting to Redis scripting it is
 still possible to avoid race conditions, especially since the implementation
 complexity of Redis transactions is minimal.
