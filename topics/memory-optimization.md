@@ -117,41 +117,41 @@ I used the following Ruby program to test how this works:
     require 'rubygems'
     require 'redis'
 
-    UseOptimization = true
+    USE_OPTIMIZATION = true
 
     def hash_get_key_field(key)
-        s = key.split(":")
-        if s[1].length > 2
-            {:key => s[0]+":"+s[1][0..-3], :field => s[1][-2..-1]}
-        else
-            {:key => s[0]+":", :field => s[1]}
-        end
+      s = key.split(':')
+      if s[1].length > 2
+        { key: s[0] + ':' + s[1][0..-3], field: s[1][-2..-1] }
+      else
+        { key: s[0] + ':', field: s[1] }
+      end
     end
 
-    def hash_set(r,key,value)
-        kf = hash_get_key_field(key)
-        r.hset(kf[:key],kf[:field],value)
+    def hash_set(r, key, value)
+      kf = hash_get_key_field(key)
+      r.hset(kf[:key], kf[:field], value)
     end
 
-    def hash_get(r,key,value)
-        kf = hash_get_key_field(key)
-        r.hget(kf[:key],kf[:field],value)
+    def hash_get(r, key, value)
+      kf = hash_get_key_field(key)
+      r.hget(kf[:key], kf[:field], value)
     end
 
     r = Redis.new
-    (0..100000).each{|id|
-        key = "object:#{id}"
-        if UseOptimization
-            hash_set(r,key,"val")
-        else
-            r.set(key,"val")
-        end
-    }
+    (0..100_000).each do |id|
+      key = "object:#{id}"
+      if USE_OPTIMIZATION
+        hash_set(r, key, 'val')
+      else
+        r.set(key, 'val')
+      end
+    end
 
 This is the result against a 64 bit instance of Redis 2.2:
 
- * UseOptimization set to true: 1.7 MB of used memory
- * UseOptimization set to false; 11 MB of used memory
+ * USE_OPTIMIZATION set to true: 1.7 MB of used memory
+ * USE_OPTIMIZATION set to false; 11 MB of used memory
 
 This is an order of magnitude, I think this makes Redis more or less the most
 memory efficient plain key value store out there.

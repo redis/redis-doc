@@ -89,33 +89,33 @@ In the following benchmark we'll use the Redis Ruby client, supporting pipelinin
     require 'redis'
 
     def bench(descr)
-        start = Time.now
-        yield
-        puts "#{descr} #{Time.now-start} seconds"
+      start = Time.now
+      yield
+      puts "#{descr} #{Time.now - start} seconds"
     end
 
     def without_pipelining
-        r = Redis.new
-        10000.times {
-            r.ping
-        }
+      r = Redis.new
+      10_000.times do
+        r.ping
+      end
     end
 
     def with_pipelining
-        r = Redis.new
-        r.pipelined {
-            10000.times {
-                r.ping
-            }
-        }
+      r = Redis.new
+      r.pipelined do
+        10_000.times do
+          r.ping
+        end
+      end
     end
 
-    bench("without pipelining") {
-        without_pipelining
-    }
-    bench("with pipelining") {
-        with_pipelining
-    }
+    bench('without pipelining') do
+      without_pipelining
+    end
+    bench('with pipelining') do
+      with_pipelining
+    end
 
 Running the above simple script yields the following figures on my Mac OS X system, running over the loopback interface, where pipelining will provide the smallest improvement as the RTT is already pretty low:
 
