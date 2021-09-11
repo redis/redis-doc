@@ -178,13 +178,26 @@
         "type": "key"
       },
       {
-        "name": [
-          "start",
-          "end"
-        ],
-        "type": [
-          "integer",
-          "integer"
+        "name": "index",
+        "type": "block",
+        "block": [
+          {
+            "name": "start",
+            "type": "integer"
+          },
+          {
+            "name": "end",
+            "type": "integer"
+          },
+          {
+            "name": "index_type",
+            "type": "enum",
+            "enum": [
+              "BYTE",
+              "BIT"
+            ],
+            "optional": true
+          }
         ],
         "optional": true
       }
@@ -297,9 +310,24 @@
             "type": "integer"
           },
           {
-            "name": "end",
-            "type": "integer",
-            "optional": true
+            "name": "end_index",
+            "type": "block",
+            "optional": true,
+            "block": [
+              {
+                "name": "end",
+                "type": "integer"
+              },
+              {
+                "name": "index_type",
+                "type": "enum",
+                "enum": [
+                  "BYTE",
+                  "BIT"
+                ],
+                "optional": true
+              }
+            ]
           }
         ]
       }
