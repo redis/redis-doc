@@ -10,10 +10,7 @@ byte, -2 is the penultimate, and so forth.
 
 Non-existent keys are treated as empty strings, so the command will return zero.
 
-By default the additional arguments _start_ and _end_ are byte index. We can use
-an additional argument `BIT` to specify bit index. So 0 is the first bit, 1 is
-the second bit, and so forth. For negative values, -1 is the last bit, -2 is the
-penultimate, and so forth.
+By default the additional arguments _start_ and _end_ are byte index. We can use an additional argument `BIT` to specify bit index. So 0 is the first bit, 1 is the second bit, and so forth. For negative values, -1 is the last bit, -2 is the penultimate, and so forth.
 
 @return
 

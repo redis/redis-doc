@@ -190,7 +190,7 @@
             "type": "integer"
           },
           {
-            "name": "index_type",
+            "name": "index_unit",
             "type": "enum",
             "enum": [
               "BYTE",
@@ -319,7 +319,7 @@
                 "type": "integer"
               },
               {
-                "name": "index_type",
+                "name": "index_unit",
                 "type": "enum",
                 "enum": [
                   "BYTE",
