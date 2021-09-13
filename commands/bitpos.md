@@ -9,7 +9,8 @@ The same bit position convention is followed by `GETBIT` and `SETBIT`.
 By default, all the bytes contained in the string are examined.
 It is possible to look for bits only in a specified interval passing the additional arguments _start_ and _end_ (it is possible to just pass _start_, the operation will assume that the end is the last byte of the string. However there are semantic differences as explained later). The range is interpreted as a range of bytes and not a range of bits, so `start=0` and `end=2` means to look at the first three bytes.
 
-You can use an addition argument `BIT` to specify the range is interpreted as a range of bits. so `start=0` and `end=2` means to look at the first three bits.
+You can use an addition argument `BIT` to specify the range is interpreted as a range of bits.
+So `start=0` and `end=2` means to look at the first three bits.
 
 Note that bit positions are returned always as absolute values starting from bit zero even when _start_ and _end_ are used to specify a range.
 
