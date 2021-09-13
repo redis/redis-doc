@@ -271,8 +271,7 @@
         "type": [
           "type",
           "integer"
-        ],
-        "multiple": true
+        ]
       }
     ],
     "since": "6.2.0",
