@@ -3756,9 +3756,19 @@
     "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
     "arguments": [
       {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
         "name": "key",
         "type": "key",
         "multiple": true
+      },
+      {
+        "command": "LIMIT",
+        "name": "limit",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "7.0.0",
@@ -4483,6 +4493,12 @@
         "name": "key",
         "type": "key",
         "multiple": true
+      },
+      {
+        "command": "LIMIT",
+        "name": "limit",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "7.0.0",
