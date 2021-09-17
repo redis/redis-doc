@@ -2,7 +2,7 @@
 
 Redis is **open source software** released under the terms of the **three clause BSD license**. Most of the Redis source code was written and is copyrighted by Salvatore Sanfilippo and Pieter Noordhuis. A list of other contributors can be found in the git history.
 
-The Redis trademark and logo are owned by Redis Labs and can be
+The Redis trademark and logo are owned by Redis Ltd. and can be
 used in accordance with the [Redis Trademark Guidelines](/topics/trademark).
 
 # Three clause BSD license

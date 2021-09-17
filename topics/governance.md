@@ -4,7 +4,7 @@
 
 Since 2009, the Redis open source project has become very successful and extremely popular.
 
-During this time, Salvatore Sanfillipo has led, managed, and maintained the project. While contributors from Redis Labs and others have made significant contributions, the project never adopted a formal governance structure and de-facto was operating as a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)-style project.
+During this time, Salvatore Sanfillipo has led, managed, and maintained the project. While contributors from Redis Ltd. and others have made significant contributions, the project never adopted a formal governance structure and de-facto was operating as a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)-style project.
 
 As Redis grows, matures, and continues to expand its user base, it becomes increasingly important to  form a sustainable structure for the ongoing development and maintenance of Redis. We want to ensure the project’s continuity and reflect its larger community.
 
@@ -16,13 +16,13 @@ Redis has adopted a _light governance_ model that matches the current size of th
 
 Salvatore Sanfilippo has stepped down as head of the project and named two successors to take over and lead the Redis project: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) and Oran Agra ([oranagra](https://github.com/oranagra))
 
-With the backing and blessing of Redis Labs, we wish to use this opportunity and create a more open, scalable, and community-driven “core team” structure to run the project. The core team will consist of members selected based on demonstrated, long-term personal involvement and contributions.
+With the backing and blessing of Redis Ltd., we wish to use this opportunity and create a more open, scalable, and community-driven “core team” structure to run the project. The core team will consist of members selected based on demonstrated, long-term personal involvement and contributions.
 
 The core team comprises of:
 
-* Project Lead: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) from Redis Labs
-* Project Lead: Oran Agra  ([oranagra](https://github.com/oranagra)) from Redis Labs
-* Community Lead: Itamar Haber ([itamarhaber](https://github.com/itamarhaber)) from Redis Labs
+* Project Lead: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) from Redis Ltd.
+* Project Lead: Oran Agra  ([oranagra](https://github.com/oranagra)) from Redis Ltd.
+* Community Lead: Itamar Haber ([itamarhaber](https://github.com/itamarhaber)) from Redis Ltd.
 * Member: Zhao Zhao ([soloestoy](https://github.com/soloestoy)) from Alibaba
 * Member: Madelyn Olson ([madolson](https://github.com/madolson)) from Amazon Web Services
 
@@ -61,8 +61,8 @@ The core team will aim to form and empower a community of contributors by furthe
 #### Core team membership
 
 * The core team is not expected to serve for life, however, long-term participation is desired to provide stability and consistency in the Redis programming style and the community.
-* If a core-team member whose work is funded by Redis Labs must be replaced, the replacement will be designated by Redis Labs after consultation with the remaining core-team members.
-* If a core-team member not funded by Redis Labs will no longer participate, for whatever reason, the other team members will select a replacement.
+* If a core-team member whose work is funded by Redis Ltd. must be replaced, the replacement will be designated by Redis Ltd. after consultation with the remaining core-team members.
+* If a core-team member not funded by Redis Ltd. will no longer participate, for whatever reason, the other team members will select a replacement.
 
 ## Community forums and communications
 
