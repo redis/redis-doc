@@ -1,4 +1,4 @@
-This command is similar to `SINTER`, but has a completely different syntax.
+This command is similar to `SINTER`, but instead of returning the result set, it returns just the cardinality of the result.
 Returns the cardinality of the set which would result from the intersection of all the given sets.
 
 Keys that do not exist are considered to be empty sets.
