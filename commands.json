@@ -631,7 +631,8 @@
         "type": "block",
         "block": [
           {
-            "command": "ID"
+            "command": "ID",
+            "type": "command"
           },
           {
             "name": "client-id",
@@ -5536,6 +5537,7 @@
           },
           {
             "command": "MKSTREAM",
+            "type": "command",
             "optional": true
           }
         ],
