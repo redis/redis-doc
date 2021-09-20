@@ -4,7 +4,7 @@
 
 Since 2009, the Redis open source project has become very successful and extremely popular.
 
-During this time, Salvatore Sanfillipo has led, managed, and maintained the project. While contributors from Redis Ltd. and others have made significant contributions, the project never adopted a formal governance structure and de-facto was operating as a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)-style project.
+During this time, Salvatore Sanfillipo has led, managed, and maintained the project. While contributors from [Redis Ltd.](https://redis.com) and others have made significant contributions, the project never adopted a formal governance structure and de-facto was operating as a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)-style project.
 
 As Redis grows, matures, and continues to expand its user base, it becomes increasingly important to  form a sustainable structure for the ongoing development and maintenance of Redis. We want to ensure the project’s continuity and reflect its larger community.
 
