@@ -55,7 +55,6 @@ A few other rules about keys:
 * Try to stick with a schema. For instance "object-type:id" is a good
   idea, as in "user:1000". Dots or dashes are often used for multi-word
   fields, as in "comment:1234:reply.to" or "comment:1234:reply-to".
-* The maximum allowed key size is 512 MB.
 
 <a name="strings"></a>
 Redis Strings
@@ -83,7 +82,7 @@ already stored into the key, in the case that the key already exists, even if
 the key is associated with a non-string value. So `SET` performs an assignment.
 
 Values can be strings (including binary data) of every kind, for instance you
-can store a jpeg image inside a value. A value can't be bigger than 512 MB.
+can store a jpeg image inside a value.
 
 The `SET` command has interesting options, that are provided as additional
 arguments. For example, I may ask `SET` to fail if the key already exists,
@@ -904,9 +903,7 @@ Bitmaps
 ---
 
 Bitmaps are not an actual data type, but a set of bit-oriented operations
-defined on the String type. Since strings are binary safe blobs and their
-maximum length is 512 MB, they are suitable to set up to 2^32 different
-bits.
+defined on the String type.
 
 Bit operations are divided into two groups: constant-time single bit
 operations, like setting a bit to 1 or 0, or getting its value, and
@@ -914,10 +911,7 @@ operations on groups of bits, for example counting the number of set
 bits in a given range of bits (e.g., population counting).
 
 One of the biggest advantages of bitmaps is that they often provide
-extreme space savings when storing information. For example in a system
-where different users are represented by incremental user IDs, it is possible
-to remember a single bit information (for example, knowing whether
-a user wants to receive a newsletter) of 4 billion of users using just 512 MB of memory.
+extreme space savings when storing information.
 
 Bits are set and retrieved using the `SETBIT` and `GETBIT` commands:
 
