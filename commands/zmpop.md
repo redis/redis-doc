@@ -1,4 +1,4 @@
-Pops one or more elements(member / score pair) from the first non-empty sorted set key from the list of provided key names.
+Pops one or more elements, that are member-score pairs, from the first non-empty sorted set in the provided list of key names.
 
 `ZMPOP` and `BZMPOP` are similar to the following, more limited, commands:
 - `ZPOPMIN` or `ZPOPMAX` which take only one key, and can return multiple elements.
@@ -6,20 +6,22 @@ Pops one or more elements(member / score pair) from the first non-empty sorted s
 
 See `BZMPOP` for the blocking variant of this command.
 
-Elements are popped from either the min or max of the first non-empty sorted set based on the passed argument.
-The number of returned elements is limited to the lower between the non-empty sorted set's length, and the count argument (which defaults to 1).
+When the `MIN` modifier is used, the elements popped are those with the lowest scores from the first non-empty sorted set. The `MAX` modifier causes elements with the highest scores to be popped.
+The optional `COUNT` can be used to specify the number of elements to pop, and is set to 1 by default.
+
+The number of popped elements is the minimum from the sorted set's cardinality and `COUNT`'s value.
 
 @return
 
 @array-reply: specifically:
 
 * A `nil` when no element could be popped.
-* A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of elements, and each element is also an array that contains the member and score.
+* A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of the popped elements. Every entry in the elements array is also an array that contains the member and its score.
 
 @examples
 
 ```cli
-ZMPOP 2 non1 non2 MIN COUNT 10
+ZMPOP 1 notsuchkey MIN
 ZADD myzset 1 "one" 2 "two" 3 "three"
 ZMPOP 1 myzset MIN
 ZRANGE myzset 0 -1 WITHSCORES
