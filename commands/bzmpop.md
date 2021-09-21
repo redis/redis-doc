@@ -22,9 +22,9 @@ ZADD myzset 1 "one" 2 "two" 3 "three"
 BZMPOP 1 1 myzset MIN COUNT 2
 ZRANGE myzset 0 -1 WITHSCORES
 ZADD myzset2 4 "four" 5 "five" 6 "six"
-ZMPOP 2 myzset myzset2 MIN COUNT 1
+BZMPOP 1 2 myzset myzset2 MIN COUNT 1
 ZRANGE myzset 0 -1 WITHSCORES
-ZMPOP 2 myzset myzset2 MAX count 10
+BZMPOP 1 2 myzset myzset2 MAX count 10
 ZRANGE myzset2 0 -1 WITHSCORES
 EXISTS myzset myzset2
 ```
