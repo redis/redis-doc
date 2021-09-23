@@ -780,7 +780,7 @@ since they are not guaranteed to mix well.
 However this is not the only option. It's also possible to exactly tell
 Redis what commands to replicate as the effect of the command execution, using
 an API similar to `RedisModule_Call()` but that instead of calling the command
-sends it to the AOF / slaves stream. Example:
+sends it to the AOF / replicas stream. Example:
 
     RedisModule_Replicate(ctx,"INCRBY","cl","foo",my_increment);
 
