@@ -2,7 +2,7 @@
 Redis instances. The command is suitable to be used by Redis Cluster client
 libraries implementations in order to retrieve (or update when a redirection
 is received) the map associating cluster *hash slots* with actual nodes
-network coordinates (composed of an IP address and a TCP port), so that when
+network coordinates (composed of an IP address, a TCP port, and the node ID), so that when
 a command is received, it can be sent to what is likely the right instance
 for the keys specified in the command.
 
@@ -11,7 +11,7 @@ Each nested result is:
 
   - Start slot range
   - End slot range
-  - Master for slot range represented as nested IP/Port array 
+  - Master for slot range represented as nested IP/Port/ID array
   - First replica of master for slot range
   - Second replica
   - ...continues until all replicas for this master are returned.
@@ -19,54 +19,23 @@ Each nested result is:
 Each result includes all active replicas of the master instance
 for the listed slot range.  Failed replicas are not returned.
 
-The third nested reply is guaranteed to be the IP/Port pair of
+The third nested reply is guaranteed to be the IP/Port/ID array of
 the master instance for the slot range.
-All IP/Port pairs after the third nested reply are replicas
+All IP/Port/ID arrays after the third nested reply are replicas
 of the master.
 
 If a cluster instance has non-contiguous slots (e.g. 1-400,900,1800-6000) then
-master and replica IP/Port results will be duplicated for each top-level
+master and replica IP/Port/ID results will be duplicated for each top-level
 slot range reply.
-
-**Warning:** Newer versions of Redis Cluster will output, for each Redis instance, not just the IP and port, but also the node ID as third element of the array. In future versions there could be more elements describing the node better. In general a client implementation should just rely on the fact that certain parameters are at fixed positions as specified, but more parameters may follow and should be ignored. Similarly a client library should try if possible to cope with the fact that older versions may just have the IP and port parameter.
 
 @return
 
-@array-reply: nested list of slot ranges with IP/Port mappings.
+@array-reply: nested list of slot ranges with IP/Port/ID mappings.
 
-### Sample Output (old version)
-```
-127.0.0.1:7001> cluster slots
-1) 1) (integer) 0
-   2) (integer) 4095
-   3) 1) "127.0.0.1"
-      2) (integer) 7000
-   4) 1) "127.0.0.1"
-      2) (integer) 7004
-2) 1) (integer) 12288
-   2) (integer) 16383
-   3) 1) "127.0.0.1"
-      2) (integer) 7003
-   4) 1) "127.0.0.1"
-      2) (integer) 7007
-3) 1) (integer) 4096
-   2) (integer) 8191
-   3) 1) "127.0.0.1"
-      2) (integer) 7001
-   4) 1) "127.0.0.1"
-      2) (integer) 7005
-4) 1) (integer) 8192
-   2) (integer) 12287
-   3) 1) "127.0.0.1"
-      2) (integer) 7002
-   4) 1) "127.0.0.1"
-      2) (integer) 7006
-```
+@examples
 
-
-### Sample Output (new version, includes IDs)
 ```
-127.0.0.1:30001> cluster slots
+> CLUSTER SLOTS
 1) 1) (integer) 0
    2) (integer) 5460
    3) 1) "127.0.0.1"
@@ -93,3 +62,8 @@ slot range reply.
       3) "58e6e48d41228013e5d9c1c37c5060693925e97e"
 ```
 
+@history
+
+* `>= 4.0`: Added node IDs.
+
+**Warning:** In future versions there could be more elements describing the node better. In general a client implementation should just rely on the fact that certain parameters are at fixed positions as specified, but more parameters may follow and should be ignored. Similarly a client library should try if possible to cope with the fact that older versions may just have the IP and port parameter.
