@@ -104,7 +104,7 @@ Different kind of clients have different default limits:
 
 * **Normal clients** have a default limit of 0, that means, no limit at all, because most normal clients use blocking implementations sending a single command and waiting for the reply to be completely read before sending the next command, so it is always not desirable to close the connection in case of a normal client.
 * **Pub/Sub clients** have a default hard limit of 32 megabytes and a soft limit of 8 megabytes per 60 seconds.
-* **Slaves** have a default hard limit of 256 megabytes and a soft limit of 64 megabyte per 60 second.
+* **Replicas** have a default hard limit of 256 megabytes and a soft limit of 64 megabyte per 60 second.
 
 It is possible to change the limit at runtime using the `CONFIG SET` command or in a permanent way using the Redis configuration file `redis.conf`. See the example `redis.conf` in the Redis distribution for more information about how to set the limit.
 

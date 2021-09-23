@@ -75,10 +75,10 @@ In this way as your data storage needs increase and you need more Redis servers,
 Using Redis replication you will likely be able to do the move with minimal or no downtime for your users:
 
 * Start empty instances in your new server.
-* Move data configuring these new instances as slaves for your source instances.
+* Move data configuring these new instances as replicas for your source instances.
 * Stop your clients.
 * Update the configuration of the moved instances with the new server IP address.
-* Send the `SLAVEOF NO ONE` command to the slaves in the new server.
+* Send the `REPLICAOF NO ONE` command to the replicas in the new server.
 * Restart your clients with the new updated configuration.
 * Finally shut down the no longer used instances in the old server.
 

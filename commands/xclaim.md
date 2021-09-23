@@ -18,7 +18,7 @@ Moreover, as a side effect, `XCLAIM` will increment the count of attempted deliv
 
 The command has multiple options, however most are mainly for internal use in
 order to transfer the effects of `XCLAIM` or other commands to the AOF file
-and to propagate the same effects to the slaves, and are unlikely to be
+and to propagate the same effects to the replicas, and are unlikely to be
 useful to normal users:
 
 1. `IDLE <ms>`: Set the idle time (last time it was delivered) of the message. If IDLE is not specified, an IDLE of 0 is assumed, that is, the time count is reset because the message has now a new owner trying to process it.
