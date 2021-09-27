@@ -126,7 +126,7 @@ The mechanism first attempts to disconnect clients that use the most memory.
 It disconnects the minimal number of clients needed to return below the `maxmemroy-clients` threshold.
 
 `maxmemroy-clients` defines the maximum aggregate memory usage of all clients connected to Redis.
-In its calculation it takes into account all the memory used by the client connections: both the [query buffer](#query-buffer-hard-limit), the output buffer and various other intermediate buffers.
+The aggregation takes into account all the memory used by the client connections: the [query buffer](#query-buffer-hard-limit), the output buffer, and other intermediate buffers.
 
 Note that the replica and master connections aren't part of the client eviction mechanism. These connections will never be evicted.
 
