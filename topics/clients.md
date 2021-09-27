@@ -149,7 +149,7 @@ And you can revert that with:
 
 `CLIENT NO-EVICT` `off`
 
-See the example `redis.conf` in the Redis distribution for more information about how to configure `maxmemory-clients`.
+For more information and an example refer to the `maxmemory-clients` section in the default `redis.conf` file.
 
 Client timeouts
 ---
