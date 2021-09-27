@@ -135,7 +135,7 @@ This setting can either be 0 (meaning no limit), a size in bytes (possibly with 
 or a percentage of `maxmemory` by using the `%` suffix (e.g. setting it to `10%` would mean 10% of the `maxmemory` configuration).
 
 The default setting it 0, meaning client eviction is turned off by default.
-But for any large production deployment it is highly recommended to configure some non zero `maxmemory-clients` value.
+However, for any large production deployment, it is highly recommended to configure some non-zero `maxmemory-clients` value.
 A value `5%`, for example, can be a good place to start.
 
 It is possible to flag a specific client connection to be excluded from the client eviction mechanism.
