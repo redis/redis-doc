@@ -140,7 +140,7 @@ A value `5%`, for example, can be a good place to start.
 
 It is possible to flag a specific client connection to be excluded from the client eviction mechanism.
 This is useful for control path connections.
-If, for example, you have some management app monitoring the server via `INFO` command and sending notifications in case of some problem, you might want to make sure this connection isn't evicted.
+If, for example, you have an application that monitors the server via the `INFO` command and alerts you in case of a problem, you might want to make sure this connection isn't evicted.
 You can do so using the following command (from the relevant client's connection):
 
 `CLIENT NO-EVICT` `on`
