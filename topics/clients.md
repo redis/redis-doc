@@ -122,8 +122,8 @@ These cases can be mitigated to an extent using [output buffer limits](#output-b
 
 
 This mechanism is called **client eviction**, and it's essentially a safety mechanism that will disconnect clients once the aggregate memory usage of all clients is above a threshold.
-The mechanism attempts to disconnect the clients using the most memory first.
-It disconnects the minimum number of clients needed to go back below the configured `maxmemroy-clients` threshold.
+The mechanism first attempts to disconnect clients that use the most memory.
+It disconnects the minimal number of clients needed to return below the `maxmemroy-clients` threshold.
 
 `maxmemroy-clients` defines the maximum aggregate memory usage of all clients connected to redis.
 In its calculation it takes into account all the memory used by the client connections: both the [query buffer](#query-buffer-hard-limit), the output buffer and various other intermediate buffers.
