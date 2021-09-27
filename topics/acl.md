@@ -270,38 +270,38 @@ to.
 
 The following is a list of command categories and their meanings:
 
-* keyspace - Writing or reading from keys, databases, or their metadata 
+* **admin** - Administrative commands. Normal applications will never need to use
+  these. Includes `REPLICAOF`, `CONFIG`, `DEBUG`, `SAVE`, `MONITOR`, `ACL`, `SHUTDOWN`, etc.
+* **bitmap** - Data type: bitmaps related.
+* **blocking** - Potentially blocking the connection until released by another
+  command.
+* **connection** - Commands affecting the connection or other connections.
+  This includes `AUTH`, `SELECT`, `COMMAND`, `CLIENT`, `ECHO`, `PING`, etc.
+* **dangerous** - Potentially dangerous commands (each should be considered with care for
+  various reasons). This includes `FLUSHALL`, `MIGRATE`, `RESTORE`, `SORT`, `KEYS`,
+  `CLIENT`, `DEBUG`, `INFO`, `CONFIG`, `SAVE`, `REPLICAOF`, etc.
+* **geo** - Data type: geospatial indexes related.
+* **hash** - Data type: hashes related.
+* **hyperloglog** - Data type: hyperloglog related.
+* **fast** - Fast O(1) commands. May loop on the number of arguments, but not the
+  number of elements in the key.
+* **keyspace** - Writing or reading from keys, databases, or their metadata 
   in a type agnostic way. Includes `DEL`, `RESTORE`, `DUMP`, `RENAME`, `EXISTS`, `DBSIZE`,
   `KEYS`, `EXPIRE`, `TTL`, `FLUSHALL`, etc. Commands that may modify the keyspace,
   key or metadata will also have `write` category. Commands that only read
   the keyspace, key or metadata will have the `read` category.
-* read - Reading from keys (values or metadata). Note that commands that don't
+* **list** - Data type: lists related.
+* **pubsub** - PubSub-related commands.
+* **read** - Reading from keys (values or metadata). Note that commands that don't
   interact with keys, will not have either `read` or `write`.
-* write - Writing to keys (values or metadata).
-* admin - Administrative commands. Normal applications will never need to use
-  these. Includes `REPLICAOF`, `CONFIG`, `DEBUG`, `SAVE`, `MONITOR`, `ACL`, `SHUTDOWN`, etc.
-* dangerous - Potentially dangerous commands (each should be considered with care for
-  various reasons). This includes `FLUSHALL`, `MIGRATE`, `RESTORE`, `SORT`, `KEYS`,
-  `CLIENT`, `DEBUG`, `INFO`, `CONFIG`, `SAVE`, `REPLICAOF`, etc.
-* connection - Commands affecting the connection or other connections.
-  This includes `AUTH`, `SELECT`, `COMMAND`, `CLIENT`, `ECHO`, `PING`, etc.
-* blocking - Potentially blocking the connection until released by another
-  command.
-* fast - Fast O(1) commands. May loop on the number of arguments, but not the
-  number of elements in the key.
-* slow - All commands that are not `fast`.
-* pubsub - PubSub-related commands.
-* transaction - `WATCH` / `MULTI` / `EXEC` related commands.
-* scripting - Scripting related.
-* set - Data type: sets related.
-* sortedset - Data type: sorted sets related.
-* list - Data type: lists related.
-* hash - Data type: hashes related.
-* string - Data type: strings related.
-* bitmap - Data type: bitmaps related.
-* hyperloglog - Data type: hyperloglog related.
-* geo - Data type: geospatial indexes related.
-* stream - Data type: streams related.
+* **scripting** - Scripting related.
+* **set** - Data type: sets related.
+* **sortedset** - Data type: sorted sets related.
+* **slow** - All commands that are not `fast`.
+* **stream** - Data type: streams related.
+* **string** - Data type: strings related.
+* **transaction** - `WATCH` / `MULTI` / `EXEC` related commands.
+* **write** - Writing to keys (values or metadata).
 
 Redis can also show you a list of all categories, and the exact commands each category includes using the redis `ACL` command's `CAT` subcommand that can be used in two forms:
 
@@ -421,9 +421,9 @@ However ACL *passwords* are not really passwords: they are shared secrets
 between the server and the client, because in that case the password is
 not an authentication token used by a human being. For instance:
 
-    * There are no length limits, the password will just be memorized in some client software, there is no human that need to recall a password in this context.
-    * The ACL password does not protect any other thing: it will never be, for instance, the password for some email account.
-    * Often when you are able to access the hashed password itself, by having full access to the Redis commands of a given server, or corrupting the system itself, you have already access to what such password is protecting: the Redis instance stability and the data it contains.
+* There are no length limits, the password will just be memorized in some client software, there is no human that need to recall a password in this context.
+* The ACL password does not protect any other thing: it will never be, for instance, the password for some email account.
+* Often when you are able to access the hashed password itself, by having full access to the Redis commands of a given server, or corrupting the system itself, you have already access to what such password is protecting: the Redis instance stability and the data it contains.
 
 For this reason to slowdown the password authentication in order to use an
 algorithm that uses time and space, in order to make password cracking hard,
@@ -445,8 +445,8 @@ you should use in order to generate Redis passwords.
 
 There are two ways in order to store users inside the Redis configuration.
 
-    1. Users can be specified directly inside the `redis.conf` file.
-    2. It is possible to specify an external ACL file.
+1. Users can be specified directly inside the `redis.conf` file.
+2. It is possible to specify an external ACL file.
 
 The two methods are *mutually incompatible*, Redis will ask you to use one
 or the other. To specify users inside `redis.conf` is a very simple way
@@ -474,8 +474,8 @@ inside the file by rewriting it.
 
 The external ACL file however is more powerful. You can do the following:
 
-    * Use `ACL LOAD` if you modified the ACL file manually and you want Redis to reload the new configuration. Note that this command is able to load the file *only if all the users are correctly specified*, otherwise an error is reported to the user, and the old configuration will remain valid.
-    * USE `ACL SAVE` in order to save the current ACL configuration to the ACL file.
+* Use `ACL LOAD` if you modified the ACL file manually and you want Redis to reload the new configuration. Note that this command is able to load the file *only if all the users are correctly specified*, otherwise an error is reported to the user, and the old configuration will remain valid.
+* USE `ACL SAVE` in order to save the current ACL configuration to the ACL file.
 
 Note that `CONFIG REWRITE` does not also trigger `ACL SAVE`: when you use
 an ACL file the configuration and the ACLs are handled separately.
