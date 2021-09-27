@@ -802,7 +802,7 @@
     "group": "connection"
   },
   "CLIENT NO-EVICT": {
-    "summary": "Disable client eviction on the current connection",
+    "summary": "Set client eviction mode for the current connection",
     "complexity": "O(1)",
     "since": "7.0.0",
     "arguments": [
