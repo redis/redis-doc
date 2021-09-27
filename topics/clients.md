@@ -128,7 +128,7 @@ It disconnects the minimal number of clients needed to return below the `maxmemr
 `maxmemroy-clients` defines the maximum aggregate memory usage of all clients connected to Redis.
 The aggregation takes into account all the memory used by the client connections: the [query buffer](#query-buffer-hard-limit), the output buffer, and other intermediate buffers.
 
-Note that the replica and master connections aren't part of the client eviction mechanism. These connections will never be evicted.
+Note that replica and master connections aren't affected by the client eviction mechanism. Therefore, such connections are never evicted.
 
 `maxmemory-clients` can be set permanently in the configuration file (`redis.conf`) or via the `CONFIG SET` command.
 This setting can either be 0 (meaning no limit), a size in bytes (possibly with `mb`/`gb` suffix),
