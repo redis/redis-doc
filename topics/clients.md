@@ -145,7 +145,7 @@ You can do so using the following command (from the relevant client's connection
 
 `CLIENT NO-EVICT` `on`
 
-disable with:
+And you can revert that with:
 
 `CLIENT NO-EVICT` `off`
 
