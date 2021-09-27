@@ -130,7 +130,7 @@ In its calculation it takes into account all the memory used by the client conne
 
 Note that the replica and master connections aren't part of the client eviction mechanism. These connections will never be evicted.
 
-`maxmemory-clients` can be configured permanently in the redis configuration file (`redis.conf`) or via `CONFIG SET` command.
+`maxmemory-clients` can be set permanently in the configuration file (`redis.conf`) or via the `CONFIG SET` command.
 This setting can either be 0 (meaning no limit), a size in bytes (possibly with `mb`/`gb` suffix),
 or a percentage of `maxmemory` by using the `%` suffix (e.g. setting it to `10%` would mean 10% of the `maxmemory` configuration).
 
