@@ -1,4 +1,4 @@
-The `CLIENT NO-EVICT` command disables [client eviction](/topics/clients#client-eviction) for the current connection.
+The `CLIENT NO-EVICT` command sets the [client eviction](/topics/clients#client-eviction) mode for the current connection.
 
 When turned on and client eviction is configured, the current connection will be excluded from the client eviction process even if we're above the configured client eviction threshold.
 
