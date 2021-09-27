@@ -801,6 +801,22 @@
     "since": "5.0.0",
     "group": "connection"
   },
+  "CLIENT NO-EVICT": {
+    "summary": "Disable client eviction on the current connection",
+    "complexity": "O(1)",
+    "since": "7.0.0",
+    "arguments": [
+      {
+        "name": "enabled",
+        "type": "enum",
+        "enum": [
+          "ON",
+          "OFF"
+        ]
+      }
+    ],
+    "group": "connection"
+  },
   "CLUSTER ADDSLOTS": {
     "summary": "Assign new hash slots to receiving node",
     "complexity": "O(N) where N is the total number of hash slot arguments",

@@ -113,6 +113,44 @@ Query buffer hard limit
 
 Every client is also subject to a query buffer limit. This is a non-configurable hard limit that will close the connection when the client query buffer (that is the buffer we use to accumulate commands from the client) reaches 1 GB, and is actually only an extreme limit to avoid a server crash in case of client or server software bugs.
 
+Client Eviction
+---
+
+Redis commonly handles a very large number of client connections.
+Client connections tend to consume memory and when there are many of them the aggregate memory consumption can be extremely high leading to data eviction or out-of-memory errors.
+These cases can be mitigated to an extent using [output buffer limits](#output-buffers-limits), but redis allows us a more robust configuration to limit the aggregate memory used by all clients connections.
+
+
+This mechanism is called **client eviction** and it's essentially a safety mechanism that will disconnect clients once the aggregate memory usage of all clients is above a threshold.
+The mechanism attempts to disconnect the clients using the most memory first.
+It disconnects the minimum number of clients needed to go back below the configured `maxmemroy-clients` threshold.
+
+`maxmemroy-clients` defines the maximum aggregate memory usage of all clients connected to redis.
+In its calculation it takes into account all the memory used by the client connections: both the [query buffer](#query-buffer-hard-limit), the output buffer and various other intermediate buffers.
+
+Note that the replica and master connections aren't part of the client eviction mechanism. These connections will never be evicted.
+
+`maxmemory-clients` can be configured permanently in the redis configuration file (`redis.conf`) or via `CONFIG SET` command.
+This setting can either be 0 (meaning no limit), a size in bytes (possibly with `mb`/`gb` suffix),
+or a percentage of `maxmemory` by using the `%` suffix (e.g. setting it to `10%` would mean 10% of the `maxmemory` configuration).
+
+The default setting it 0, meaning client eviction is turned off by default.
+But for any large production deployment it is highly recommended to configure some non zero `maxmemory-clients` value.
+A value `5%`, for example, can be a good place to start.
+
+It is possible to flag a specific client connection to be excluded from the client eviction mechanism.
+This is useful for control path connections.
+If, for example, you have some management app monitoring the server via `INFO` command and sending notifications in case of some problem, you might want to make sure this connection isn't evicted.
+You can do so using the following command (from the relevant client's connection):
+
+`CLIENT NO-EVICT` `on`
+
+disable with:
+
+`CLIENT NO-EVICT` `off`
+
+See the example `redis.conf` in the Redis distribution for more information about how to configure `maxmemory-clients`.
+
 Client timeouts
 ---
 
