@@ -151,6 +151,8 @@ And you can revert that with:
 
 For more information and an example refer to the `maxmemory-clients` section in the default `redis.conf` file.
 
+Client eviction is available since Redis 7.0.
+
 Client timeouts
 ---
 
