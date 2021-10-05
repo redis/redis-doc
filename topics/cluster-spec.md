@@ -740,7 +740,7 @@ A `PFAIL` condition is escalated to a `FAIL` condition when the following set of
 If all the above conditions are true, Node A will:
 
 * Mark the node as `FAIL`.
-* Send a `FAIL` message to all the reachable nodes.
+* Send a `FAIL` message (as opposted to a `FAIL` condition within a heartbeat message) to all the reachable nodes.
 
 The `FAIL` message will force every receiving node to mark the node in `FAIL` state, whether or not it already flagged the node in `PFAIL` state.
 
