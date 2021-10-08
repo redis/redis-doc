@@ -830,6 +830,25 @@
     "since": "3.0.0",
     "group": "cluster"
   },
+  "CLUSTER ADDSLOTSRANGE ": {
+    "summary": "Assign new hash slots to receiving node",
+    "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments. The complexity is ultimately determined by the sum of multiply slot ranges",
+    "arguments": [
+      {
+        "name": [
+          "start-slot",
+          "end-slot"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "cluster"
+  },
   "CLUSTER BUMPEPOCH": {
     "summary": "Advance the cluster config epoch",
     "complexity": "O(1)",
@@ -871,6 +890,25 @@
       }
     ],
     "since": "3.0.0",
+    "group": "cluster"
+  },
+  "CLUSTER DELSLOTSRANGE": {
+    "summary": "Set hash slots as unbound in receiving node",
+    "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments. The complexity is ultimately determined by the sum of multiply slot ranges",
+    "arguments": [
+      {
+        "name": [
+          "start-slot",
+          "end-slot"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "cluster"
   },
   "CLUSTER FAILOVER": {
