@@ -832,7 +832,7 @@
   },
   "CLUSTER ADDSLOTSRANGE ": {
     "summary": "Assign new hash slots to receiving node",
-    "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments. The complexity is ultimately determined by the sum of multiply slot ranges",
+    "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments.",
     "arguments": [
       {
         "name": [
@@ -894,7 +894,7 @@
   },
   "CLUSTER DELSLOTSRANGE": {
     "summary": "Set hash slots as unbound in receiving node",
-    "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments. The complexity is ultimately determined by the sum of multiply slot ranges",
+    "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments.",
     "arguments": [
       {
         "name": [
