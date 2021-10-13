@@ -1954,6 +1954,16 @@
     "repository": "https://github.com/SomajitDey/redis-client",
     "description": "extensible client library for Bash scripting or command-line + connection pooling + redis-cli",
     "active": true
+  },
+
+  {
+    "name": "dedis",
+    "language": "Dart",
+    "url": "https://pub.dev/packages/dedis",
+    "repository": "https://github.com/SiLeader/dedis",
+    "description": "Simple Redis Client for Dart",
+    "authors": ["SiLeader"],
+    "active": true
   }
 
 ]
