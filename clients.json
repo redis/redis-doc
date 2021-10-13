@@ -1962,7 +1962,7 @@
     "url": "https://pub.dev/packages/dedis",
     "repository": "https://github.com/SiLeader/dedis",
     "description": "Simple Redis Client for Dart",
-    "authors": ["SiLeader"]
+    "authors": ["cerussite127"]
   }
 
 ]
