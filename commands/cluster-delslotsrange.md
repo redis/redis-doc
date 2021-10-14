@@ -1,21 +1,27 @@
-The `DELSLOTSRANGE` command asks a particular Redis Cluster node to
-forget which master is serving the hash slots range ( between the start slot and end slot) 
+In function, the `DELSLOTSRANGE` command is very similar to `DELSLOTS`, both of them
+are to remove the passed hash slots from the node.
+
+The difference is that `DELSLOTS` remove the individual passed hash slot, and
+`DELSLOTSRANGE` command will remove the hash slots based on the range ( between the start slot and end slot) 
 specified as arguments.
 
-In the context of a node that has received a `DELSLOTSRANGE` command and
-has consequently removed the associations for the passed hash slots,
-we say those hash slots are *unbound*. Note that the existence of
-unbound hash slots occurs naturally when a node has not been
-configured to handle them (something that can be done with the
-[ADDSLOTS](/cluster-addslots)) and [ADDSLOTSRANGE](/cluster-addslotsrange)) and if it has not received any information about
-who owns those hash slots (something that it can learn from heartbeat
-or update messages).
+## Example
 
-If a node with unbound hash slots receives a heartbeat packet from
-another node that claims to be the owner of some of those hash
-slots, the association is established instantly. Moreover, if a
-heartbeat or update message is received with a configuration epoch
-greater than the node's own, the association is re-established.
+The following command removes the association for slots 5000 and
+5200 from the node receiving the command:
+
+    > CLUSTER DELSLOTS 5000 5001
+    OK
+
+Only 2 slots will be removed.
+
+The following command removes the association from slots 5000 to
+5200 from the node receiving the command:
+
+    > CLUSTER DELSLOTSRANGE 5000 5200
+    OK
+
+201 slots will be removed.
 
 However, note that:
 
@@ -24,14 +30,6 @@ associated with some node.
 2. The command fails if the same slot is specified multiple times.
 3. As a side effect of the command execution, the node may go into
 *down* state because not all hash slots are covered.
-
-## Example
-
-The following command removes the association from slots 5000 to
-5200 from the node receiving the command:
-
-    > CLUSTER DELSLOTSRANGE 5000 5200
-    OK
 
 ## Usage in Redis Cluster
 
