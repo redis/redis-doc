@@ -1,4 +1,4 @@
-In function, the `DELSLOTSRANGE` command is very similar to `DELSLOTS`, both of them
+In function side, the `DELSLOTSRANGE` command is very similar to `DELSLOTS`, both of them
 are to remove the passed hash slots from the node.
 
 The difference is that `DELSLOTS` remove the individual passed hash slot, and
