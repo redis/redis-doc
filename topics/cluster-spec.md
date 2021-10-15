@@ -291,12 +291,20 @@ The Cluster bus
 ---
 
 Every Redis Cluster node has an additional TCP port for receiving
-incoming connections from other Redis Cluster nodes. This port is at a fixed
-offset from the normal TCP port used to receive incoming connections
-from clients. To obtain the Redis Cluster port, 10000 should be added to
-the normal commands port. For example, if a Redis node is listening for
-client connections on port 6379, the Cluster bus port 16379 will also be
-opened.
+incoming connections from other Redis Cluster nodes. This port could be specified in redis.conf file, 
+or it could be obtained by adding 10000 to the data port.  
+
+Example 1:
+
+If a Redis node is listening for client connections on port 6379, 
+and you do not add cluster-port parameter in redis.conf,
+the Cluster bus port 16379 will be opened.
+
+Example 2:
+
+If a Redis node is listening for client connections on port 6379, 
+and you set cluster-port 20000 in redis.conf,
+the Cluster bus port 20000 will be opened.
 
 Node-to-node communication happens exclusively using the Cluster bus and
 the Cluster bus protocol: a binary protocol composed of frames
@@ -698,7 +706,8 @@ The common header has the following information:
 * The `currentEpoch` and `configEpoch` fields of the sending node that are used to mount the distributed algorithms used by Redis Cluster (this is explained in detail in the next sections). If the node is a replica the `configEpoch` is the last known `configEpoch` of its master.
 * The node flags, indicating if the node is a replica, a master, and other single-bit node information.
 * A bitmap of the hash slots served by the sending node, or if the node is a replica, a bitmap of the slots served by its master.
-* The sender TCP base port (that is, the port used by Redis to accept client commands; add 10000 to this to obtain the cluster bus port).
+* The sender TCP base port that is the port used by Redis to accept client commands.
+* The cluster port that is the port used by Redis to node-to-node communication.
 * The state of the cluster from the point of view of the sender (down or ok).
 * The master node ID of the sending node, if it is a replica.
 
