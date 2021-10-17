@@ -701,7 +701,7 @@ If it is non zero, an error occurred like in the following example:
     $ echo $?
     1
 
-## Replcia mode
+## Replica mode
 
 The replica mode of the CLI is an advanced feature useful for
 Redis developers and for debugging operations.
