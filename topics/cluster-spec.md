@@ -706,7 +706,7 @@ The common header has the following information:
 * The node flags, indicating if the node is a replica, a master, and other single-bit node information.
 * A bitmap of the hash slots served by the sending node, or if the node is a replica, a bitmap of the slots served by its master.
 * The sender TCP base port that is the port used by Redis to accept client commands.
-* The cluster port that is the port used by Redis to node-to-node communication.
+* The cluster port that is the port used by Redis for node-to-node communication.
 * The state of the cluster from the point of view of the sender (down or ok).
 * The master node ID of the sending node, if it is a replica.
 
