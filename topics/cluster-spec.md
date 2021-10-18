@@ -291,8 +291,7 @@ The Cluster bus
 ---
 
 Every Redis Cluster node has an additional TCP port for receiving
-incoming connections from other Redis Cluster nodes. This port could be specified in redis.conf file, 
-or it could be obtained by adding 10000 to the data port.  
+incoming connections from other Redis Cluster nodes. This port will be derived by adding 10000 to the data port or it can be specified with the cluster-port config. 
 
 Example 1:
 
