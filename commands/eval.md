@@ -19,11 +19,12 @@ keys (so `ARGV[1]`, `ARGV[2]`, ...).
 The following example should clarify what stated above:
 
 ```
-> eval "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}" 2 key1 key2 first second
+> eval "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2], ARGV[3]}" 2 key1 key2 first second third
 1) "key1"
 2) "key2"
 3) "first"
 4) "second"
+5) "third"
 ```
 
 Note: as you can see Lua arrays are returned as Redis multi bulk replies, that
