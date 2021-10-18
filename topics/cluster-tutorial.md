@@ -41,8 +41,7 @@ Redis Cluster TCP ports
 
 Every Redis Cluster node requires two TCP connections open. The normal Redis
 TCP port used to serve clients, for example 6379, plus the second port named 
-cluster bus port. The cluster bus port could be specified in redis.conf file, or it could
-be obtained by adding 10000 to the data port, so 16379 in the example.
+cluster bus port. The cluster bus port will be derived by adding 10000 to the data port, 16379 in this example, or by overiding it with the cluster-port config.
 
 This second *high* port is used for the Cluster bus, that is a node-to-node
 communication channel using a binary protocol. The Cluster bus is used by
