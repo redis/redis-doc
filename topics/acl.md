@@ -95,11 +95,11 @@ Enable and disallow users:
 
 Allow and disallow commands:
 
-* `+<command>`: Add the command to the list of commands the user can call.
-* `-<command>`: Remove the command to the list of commands the user can call.
+* `+<command>`: Add the command to the list of commands the user can call. Can be used with `|` for allowing subcommands (e.g "+config|get").
+* `-<command>`: Remove the command to the list of commands the user can call. Can be used with `|` for blocking subcommands (e.g "-config|set").
 * `+@<category>`: Add all the commands in such category to be called by the user, with valid categories being like @admin, @set, @sortedset, ... and so forth, see the full list by calling the `ACL CAT` command. The special category @all means all the commands, both the ones currently present in the server, and the ones that will be loaded in the future via modules.
 * `-@<category>`: Like `+@<category>` but removes the commands from the list of commands the client can call.
-* `+<command>|subcommand`: Allow a specific subcommand of an otherwise disabled command. Note that this form is not allowed as negative like `-DEBUG|SEGFAULT`, but only additive starting with "+". This ACL will cause an error if the command is already active as a whole.
+* `+<command>|first-arg`: Allow a specific first argument of an otherwise disabled command. Note that this form is not allowed as negative like `-SELECT|1`, but only additive starting with "+".
 * `allcommands`: Alias for +@all. Note that it implies the ability to execute all the future commands loaded via the modules system.
 * `nocommands`: Alias for -@all.
 
@@ -350,38 +350,46 @@ Note that commands may be part of multiple categories, so for instance an
 ACL rule like `+@geo -@read` will result in certain geo commands to be
 excluded because they are read-only commands.
 
-## Adding subcommands
+## Allowing/blocking subcommands
 
-Often the ability to exclude or include a command as a whole is not enough.
-Many Redis commands do multiple things based on the subcommand passed as
-argument. For example the `CLIENT` command can be used in order to do
-dangerous and non dangerous operations. Many deployments may not be happy to
-provide the ability to execute `CLIENT KILL` to non admin-level users, but may
-still want them to be able to run `CLIENT SETNAME`.
+Starting from Redis 7.0 subcommands can be allowed/blocked just like other
+commands (by using the seperator `|` between the command and subcommand, for
+example: `+config|get` or `-config|set`)
 
-_Note: the new RESP3 `HELLO` handshake command provides a `SETNAME` option, but this is still a good example for subcommand control._
+That is true to all commands except DEBUG. In order to allow/block specific
+DEBUG subcommands see next section.
+
+## Allowing the first-arg of an otherwise blocked command
+
+Often the ability to exclude or include a command or a subcommand as a whole is not enough.
+Many deployments may not be happy to provide the ability to execute `SELECT` to any DB, but may
+still want them to be able to run `SELECT 0`.
 
 In such case I could alter the ACL of a user in the following way:
 
-    ACL SETUSER myuser -client +client|setname +client|getname
+    ACL SETUSER myuser -select +select|0
 
-I started removing the `CLIENT` command, and later added the two allowed
-subcommands. Note that **it is not possible to do the reverse**, the subcommands
+I started removing the `SELECT` command, and later added the allowed
+first-arg. Note that **it is not possible to do the reverse**, first-args
 can be only added, and not excluded, because it is possible that in the future
-new subcommands may be added: it is a lot safer to specify all the subcommands
-that are valid for some user. Moreover, if you add a subcommand about a command
-that is not already disabled, an error is generated, because this can only
-be a bug in the ACL rules:
+new first-args may be added: it is a lot safer to specify all the first-args
+that are valid for some user.
 
-    > ACL SETUSER default +debug|segfault
-    (error) ERR Error in ACL SETUSER modifier '+debug|segfault': Adding a
-    subcommand of a command already fully added is not allowed. Remove the
-    command to start. Example: -DEBUG +DEBUG|DIGEST
+Another exmaple:
 
-Note that subcommand matching may add some performance penalty, however such
+    ACL SETUSER myuser -debug +debug|digest
+
+Note that first-arg matching may add some performance penalty, however such
 penalty is very hard to measure even with synthetic benchmarks, and the
 additional CPU cost is only payed when such command is called, and not when
 other commands are called.
+
+It is possible to use this mechanism in order to allow subcommands in Redis
+versions prior to 7.0 (see above section).
+Starting from Redis 7.0 it is possible to allow first-args of subcommands.
+Example:
+
+    ACL SETUSER myuser -config +config|get +config|set|loglevel
 
 ## +@all VS -@all
 
