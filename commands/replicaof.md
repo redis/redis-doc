@@ -13,7 +13,9 @@ The form `REPLICAOF` NO ONE will stop replication, turning the server into a MAS
 @examples
 
 ```
-REPLICAOF NO ONE
+> REPLICAOF NO ONE
+"OK"
 
-REPLICAOF 127.0.0.1 6799
+> REPLICAOF 127.0.0.1 6799
+"OK"
 ```
