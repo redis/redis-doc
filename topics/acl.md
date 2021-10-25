@@ -362,8 +362,8 @@ DEBUG subcommands see next section.
 ## Allowing the first-arg of an otherwise blocked command
 
 Often the ability to exclude or include a command or a subcommand as a whole is not enough.
-Many deployments may not be happy to provide the ability to execute `SELECT` to any DB, but may
-still want them to be able to run `SELECT 0`.
+Many deployments may not be happy providing the ability to execute a `SELECT` for any DB, but may
+still want to be able to run `SELECT 0`.
 
 In such case I could alter the ACL of a user in the following way:
 
