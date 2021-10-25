@@ -369,7 +369,7 @@ In such case I could alter the ACL of a user in the following way:
 
     ACL SETUSER myuser -select +select|0
 
-I started removing the `SELECT` command, and later added the allowed
+I started by removing the `SELECT` command, and later added the allowed
 first-arg. Note that **it is not possible to do the reverse**, first-args
 can be only added, and not excluded, because it is possible that in the future
 new first-args may be added: it is a lot safer to specify all the first-args
