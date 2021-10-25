@@ -356,7 +356,7 @@ Starting from Redis 7.0 subcommands can be allowed/blocked just like other
 commands (by using the seperator `|` between the command and subcommand, for
 example: `+config|get` or `-config|set`)
 
-That is true to all commands except DEBUG. In order to allow/block specific
+That is true for all commands except DEBUG. In order to allow/block specific
 DEBUG subcommands see next section.
 
 ## Allowing the first-arg of an otherwise blocked command
