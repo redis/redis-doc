@@ -136,6 +136,12 @@ Here is the meaning of all fields in the **memory** section:
 *   `allocator_allocated`: Total bytes allocated form the allocator, including internal-fragmentation. Normally the same as `used_memory`.
 *   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
 *   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting).
+*   `mem_not_counted_for_evict`: Number of bytes not counted for keys eviction
+*   `mem_clients_normal`: Number of bytes used by normal clients
+*   `mem_clients_slaves`: Number of bytes used by replica clients
+*   `mem_aof_buffer`: Total bytes of current AOF buffer and AOF rewrite buffer
+*   `mem_replication_backlog`: Number of bytes used by replication backlog
+*   `mem_total_replication_buffers`: Total bytes of replication buffers used
 *   `mem_allocator`: Memory allocator, chosen at compile time.
 *   `active_defrag_running`: When `activedefrag` is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize.
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
