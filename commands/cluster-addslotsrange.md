@@ -4,7 +4,7 @@ The difference between the two commands is that `ADDSLOTS` takes a list of slots
 
 ## Example
 
-If trying to assign slots 1 2 3 4 5 to the node, `ADDSLOTS` command is
+To assign slots 1 2 3 4 5 to the node, the `ADDSLOTS` command is:
 
     > CLUSTER ADDSLOTS 1 2 3 4 5
     OK
