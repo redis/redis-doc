@@ -1,8 +1,6 @@
 The `CLUSTER ADDSLOTSRANGE` is similar to the `CLUSTER ADDSLOTS` command in that they both assign hash slots to nodes.
 
-The difference is that `ADDSLOTS` assign the individual passed hash slot, and
-`ADDSLOTSRANGE` will assign the hash slots based on the range ( between the start slot and end slot) 
-specified as arguments.
+The difference between the two commands is that `ADDSLOTS` takes a list of slots to assign to the node, while `ADDSLOTSRANGE` takes a list of slot ranges (specified by start and end slots) to assign to the node.
 
 ## Example
 
