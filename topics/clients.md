@@ -123,9 +123,9 @@ These cases can be mitigated to an extent using [output buffer limits](#output-b
 
 This mechanism is called **client eviction**, and it's essentially a safety mechanism that will disconnect clients once the aggregate memory usage of all clients is above a threshold.
 The mechanism first attempts to disconnect clients that use the most memory.
-It disconnects the minimal number of clients needed to return below the `maxmemroy-clients` threshold.
+It disconnects the minimal number of clients needed to return below the `maxmemory-clients` threshold.
 
-`maxmemroy-clients` defines the maximum aggregate memory usage of all clients connected to Redis.
+`maxmemory-clients` defines the maximum aggregate memory usage of all clients connected to Redis.
 The aggregation takes into account all the memory used by the client connections: the [query buffer](#query-buffer-hard-limit), the output buffer, and other intermediate buffers.
 
 Note that replica and master connections aren't affected by the client eviction mechanism. Therefore, such connections are never evicted.
