@@ -9,7 +9,7 @@ To assign slots 1 2 3 4 5 to the node, the `ADDSLOTS` command is:
     > CLUSTER ADDSLOTS 1 2 3 4 5
     OK
 
-To finish the same operation, `ADDSLOTSRANGE` command is
+The same operation can be completed with the following `ADDSLOTSRANGE` command:
 
     > CLUSTER ADDSLOTSRANGE 1 5
     OK
