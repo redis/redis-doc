@@ -20,8 +20,7 @@ The following command removes the association from slots 5000 to
 
 However, note that:
 
-1. The command only works if all the specified slots are already
-associated with some node.
+1. The command only works if all the specified slots are already associated with the node.
 2. The command fails if the same slot is specified multiple times.
 3. As a side effect of the command execution, the node may go into
 *down* state because not all hash slots are covered.
