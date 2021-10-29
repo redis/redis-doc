@@ -2,21 +2,15 @@ The `CLUSTER DELSLOTSRANGE` command is similar to the `CLUSTER DELSLOTS` command
 
 ## Example
 
-The following command removes the association for slots 5000 and
-5200 from the node receiving the command:
+To remove slots 1 2 3 4 5 from the node, the `DELSLOTS` command is:
 
-    > CLUSTER DELSLOTS 5000 5001
+    > CLUSTER DELSLOTS 1 2 3 4 5
     OK
 
-Only 2 slots will be removed.
+The same operation can be completed with the following `DELSLOTSRANGE` command:
 
-The following command removes the association from slots 5000 to
-5200 from the node receiving the command:
-
-    > CLUSTER DELSLOTSRANGE 5000 5200
+    > CLUSTER DELSLOTSRANGE 1 5
     OK
-
-201 slots will be removed.
 
 However, note that:
 
