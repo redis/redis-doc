@@ -261,7 +261,7 @@ The string `127.0.0.1:6379>` is the prompt. It reminds you that you are
 connected to a given Redis instance.
 
 The prompt changes as the server you are connected to changes, or when you
-are operating on a database different than the database number zero:
+are operating on a database different from the database number zero:
 
     127.0.0.1:6379> select 2
     OK
@@ -354,7 +354,7 @@ There are two ways to customize the CLI's behavior. The file `.redisclirc`
 in your home directory is loaded by the CLI on startup. You can override the
 file's default location by setting the `REDISCLI_RCFILE` environment variable to
 an alternative path. Preferences can also be set during a CLI session, in which 
-case they will last only the the duration of the session.
+case they will last only the duration of the session.
 
 To set preferences, use the special `:set` command. The following preferences
 can be set, either by typing the command in the CLI or adding it to the
@@ -613,7 +613,7 @@ a very fast instance tends to be overestimated a bit because of the
 latency due to the kernel scheduler of the system running `redis-cli`
 itself, so the average latency of 0.19 above may easily be 0.01 or less.
 However this is usually not a big problem, since we are interested in
-events of a few millisecond or more.
+events of a few milliseconds or more.
 
 Sometimes it is useful to study how the maximum and average latencies
 evolve during time. The `--latency-history` option is used for that
@@ -739,7 +739,7 @@ This means that 20% of keys will be requested 80% of times, which is a
 common distribution in caching scenarios.
 
 Theoretically, given the distribution of the requests and the Redis memory
-overhead, it should be possible to compute the hit rate analytically with
+overhead, it should be possible to compute the hit rate analytically
 with a mathematical formula. However, Redis can be configured with
 different LRU settings (number of samples) and LRU's implementation, which
 is approximated in Redis, changes a lot between different versions. Similarly
@@ -784,7 +784,7 @@ the actual figure we can expect in the long time:
     127000 Gets/sec | Hits: 50870 (40.06%) | Misses: 76130 (59.94%)
     124250 Gets/sec | Hits: 50147 (40.36%) | Misses: 74103 (59.64%)
 
-A miss rage of 59% may not be acceptable for our use case. So we know that
+A miss rate of 59% may not be acceptable for our use case. So we know that
 100MB of memory is not enough. Let's try with half gigabyte. After a few
 minutes we'll see the output stabilize to the following figures:
 
