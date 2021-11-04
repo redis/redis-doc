@@ -3012,23 +3012,59 @@
     "since": "1.2.0",
     "group": "transactions"
   },
-  "OBJECT": {
-    "summary": "Inspect the internals of Redis objects",
-    "complexity": "O(1) for all the currently implemented subcommands.",
+  "OBJECT ENCODING": {
+    "summary": "Inspect the internal encoding of a Redis object",
+    "complexity": "O(1)",
     "since": "2.2.3",
     "group": "generic",
     "arguments": [
       {
-        "name": "subcommand",
-        "type": "string"
-      },
-      {
-        "name": "arguments",
-        "type": "string",
-        "optional": true,
-        "multiple": true
+        "name": "key",
+        "type": "key"
       }
     ]
+  },
+  "OBJECT FREQ": {
+    "summary": "Get the logarithmic access frequency counter of a Redis object",
+    "complexity": "O(1)",
+    "since": "4.0.0",
+    "group": "generic",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ]
+  },
+  "OBJECT IDLETIME": {
+    "summary": "Get the time since a Redis object was last accessed",
+    "complexity": "O(1)",
+    "since": "2.2.3",
+    "group": "generic",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ]
+  },
+  "OBJECT REFCOUNT": {
+    "summary": "Get the number of references to the value of the key",
+    "complexity": "O(1)",
+    "since": "2.2.3",
+    "group": "generic",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ]
+  },
+  "OBJECT HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.2.0",
+    "group": "generic"
   },
   "PERSIST": {
     "summary": "Remove the expiration from a key",
