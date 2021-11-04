@@ -3241,22 +3241,43 @@
     "since": "2.0.0",
     "group": "pubsub"
   },
-  "PUBSUB": {
-    "summary": "Inspect the state of the Pub/Sub subsystem",
-    "complexity": "O(N) for the CHANNELS subcommand, where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns). O(N) for the NUMSUB subcommand, where N is the number of requested channels. O(1) for the NUMPAT subcommand.",
+  "PUBSUB CHANNELS": {
+    "summary": "List active channels",
+    "complexity": "O(N) where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns)",
+    "since": "2.8.0",
+    "group": "pubsub",
     "arguments": [
       {
-        "name": "subcommand",
-        "type": "string"
-      },
+        "name": "pattern",
+        "type": "string",
+        "optional": true
+      }
+    ]
+  },
+  "PUBSUB NUMPAT": {
+    "summary": "Get the count of unique patterns pattern subscriptions",
+    "complexity": "O(1)",
+    "since": "2.8.0",
+    "group": "pubsub"
+  },
+  "PUBSUB NUMSUB": {
+    "summary": "Get the count of subscribers for channels",
+    "complexity": "O(N) for the NUMSUB subcommand, where N is the number of requested channels",
+    "since": "2.8.0",
+    "group": "pubsub",
+    "arguments": [
       {
-        "name": "argument",
+        "name": "channel",
         "type": "string",
         "optional": true,
         "multiple": true
       }
-    ],
-    "since": "2.8.0",
+    ]
+  },
+  "PUBSUB HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.2.0",
     "group": "pubsub"
   },
   "PTTL": {
