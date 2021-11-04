@@ -3917,20 +3917,35 @@
     "since": "5.0.0",
     "group": "server"
   },
-  "SLOWLOG": {
-    "summary": "Manages the Redis slow queries log",
+  "SLOWLOG GET": {
+    "summary": "Get the slow log's entries",
+    "complexity": "O(N) where N is the number of entries returned",
+    "since": "2.2.12",
+    "group": "server",
     "arguments": [
       {
-        "name": "subcommand",
-        "type": "string"
-      },
-      {
-        "name": "argument",
-        "type": "string",
+        "name": "count",
+        "type": "integer",
         "optional": true
       }
-    ],
+    ]
+  },
+  "SLOWLOG LEN": {
+    "summary": "Get the slow log's length",
+    "complexity": "O(1)",
     "since": "2.2.12",
+    "group": "server"
+  },
+  "SLOWLOG RESET": {
+    "summary": "Clear all entries from the slow log",
+    "complexity": "O(N) where N is the number of entries in the slowlog",
+    "since": "2.2.12",
+    "group": "server"
+  },
+  "SLOWLOG HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.2.0",
     "group": "server"
   },
   "SMEMBERS": {
@@ -5364,46 +5379,6 @@
   "XINFO HELP": {
     "summary": "Show helpful text about the different subcommands",
     "complexity": "O(1)",
-    "since": "5.0.0",
-    "group": "stream"
-  },
-  "XINFO": {
-    "summary": "Get information on streams and consumer groups",
-    "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
-    "arguments": [
-      {
-        "command": "CONSUMERS",
-        "name": [
-          "key",
-          "groupname"
-        ],
-        "type": [
-          "key",
-          "string"
-        ],
-        "optional": true
-      },
-      {
-        "command": "GROUPS",
-        "name": "key",
-        "type": "key",
-        "optional": true
-      },
-      {
-        "command": "STREAM",
-        "name": "key",
-        "type": "key",
-        "optional": true
-      },
-      {
-        "name": "help",
-        "type": "enum",
-        "enum": [
-          "HELP"
-        ],
-        "optional": true
-      }
-    ],
     "since": "5.0.0",
     "group": "stream"
   },
