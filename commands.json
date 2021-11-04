@@ -5248,6 +5248,68 @@
     "since": "2.8.0",
     "group": "sorted_set"
   },
+  "XINFO CONSUMERS": {
+    "summary": "List the consumers in a consumer group",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "groupname",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XINFO GROUPS": {
+    "summary": "List the consumer groups of a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XINFO STREAM": {
+    "summary": "Get information about a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "full",
+        "type": "block",
+        "block": [
+          {
+            "command": "FULL"
+          },
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer",
+            "optional": true
+          }
+        ],
+        "optional": true
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XINFO HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "5.0.0",
+    "group": "stream"
+  },
   "XINFO": {
     "summary": "Get information on streams and consumer groups",
     "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
