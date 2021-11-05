@@ -3,8 +3,8 @@ This command returns information about the stream stored at `<key>`.
 The informative details provided by this command are:
 
 * **length**: the number of entries in the stream (see `XLEN`)
-* **radix-tree-keys**: the number of keys in the underlying radix data strucuture
-* **radix-tree-nodes**: the number of nodes in the underlying radix data strucuture
+* **radix-tree-keys**: the number of keys in the underlying radix data structure
+* **radix-tree-nodes**: the number of nodes in the underlying radix data structure
 * **groups**: the number of consumer groups defined for the stream
 * **last-generated-id**: the ID of the least-recently entry that was added to the stream
 * **first-entry**: the ID and field-value tuples of the first entry in the stream
