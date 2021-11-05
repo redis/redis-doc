@@ -529,6 +529,41 @@
     "since": "5.0.0",
     "group": "sorted_set"
   },
+  "BZMPOP": {
+    "summary": "Remove and return members with scores in a sorted set or block until one is available",
+    "complexity": "O(K) + O(N*log(M)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "timeout",
+        "type": "double"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "MIN",
+          "MAX"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "sorted_set"
+  },
   "CLIENT CACHING": {
     "summary": "Instruct the server about tracking or not keys in the next request",
     "complexity": "O(1)",
@@ -4595,6 +4630,37 @@
       }
     ],
     "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "ZMPOP": {
+    "summary": "Remove and return members with scores in a sorted set",
+    "complexity": "O(K) + O(N*log(M)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "MIN",
+          "MAX"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "sorted_set"
   },
   "ZRANDMEMBER": {
