@@ -3077,23 +3077,59 @@
     "since": "1.2.0",
     "group": "transactions"
   },
-  "OBJECT": {
-    "summary": "Inspect the internals of Redis objects",
-    "complexity": "O(1) for all the currently implemented subcommands.",
+  "OBJECT ENCODING": {
+    "summary": "Inspect the internal encoding of a Redis object",
+    "complexity": "O(1)",
     "since": "2.2.3",
     "group": "generic",
     "arguments": [
       {
-        "name": "subcommand",
-        "type": "string"
-      },
-      {
-        "name": "arguments",
-        "type": "string",
-        "optional": true,
-        "multiple": true
+        "name": "key",
+        "type": "key"
       }
     ]
+  },
+  "OBJECT FREQ": {
+    "summary": "Get the logarithmic access frequency counter of a Redis object",
+    "complexity": "O(1)",
+    "since": "4.0.0",
+    "group": "generic",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ]
+  },
+  "OBJECT IDLETIME": {
+    "summary": "Get the time since a Redis object was last accessed",
+    "complexity": "O(1)",
+    "since": "2.2.3",
+    "group": "generic",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ]
+  },
+  "OBJECT REFCOUNT": {
+    "summary": "Get the number of references to the value of the key",
+    "complexity": "O(1)",
+    "since": "2.2.3",
+    "group": "generic",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ]
+  },
+  "OBJECT HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.2.0",
+    "group": "generic"
   },
   "PERSIST": {
     "summary": "Remove the expiration from a key",
@@ -3270,22 +3306,43 @@
     "since": "2.0.0",
     "group": "pubsub"
   },
-  "PUBSUB": {
-    "summary": "Inspect the state of the Pub/Sub subsystem",
-    "complexity": "O(N) for the CHANNELS subcommand, where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns). O(N) for the NUMSUB subcommand, where N is the number of requested channels. O(1) for the NUMPAT subcommand.",
+  "PUBSUB CHANNELS": {
+    "summary": "List active channels",
+    "complexity": "O(N) where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns)",
+    "since": "2.8.0",
+    "group": "pubsub",
     "arguments": [
       {
-        "name": "subcommand",
-        "type": "string"
-      },
+        "name": "pattern",
+        "type": "string",
+        "optional": true
+      }
+    ]
+  },
+  "PUBSUB NUMPAT": {
+    "summary": "Get the count of unique patterns pattern subscriptions",
+    "complexity": "O(1)",
+    "since": "2.8.0",
+    "group": "pubsub"
+  },
+  "PUBSUB NUMSUB": {
+    "summary": "Get the count of subscribers for channels",
+    "complexity": "O(N) for the NUMSUB subcommand, where N is the number of requested channels",
+    "since": "2.8.0",
+    "group": "pubsub",
+    "arguments": [
       {
-        "name": "argument",
+        "name": "channel",
         "type": "string",
         "optional": true,
         "multiple": true
       }
-    ],
-    "since": "2.8.0",
+    ]
+  },
+  "PUBSUB HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.2.0",
     "group": "pubsub"
   },
   "PTTL": {
@@ -3935,20 +3992,35 @@
     "since": "5.0.0",
     "group": "server"
   },
-  "SLOWLOG": {
-    "summary": "Manages the Redis slow queries log",
+  "SLOWLOG GET": {
+    "summary": "Get the slow log's entries",
+    "complexity": "O(N) where N is the number of entries returned",
+    "since": "2.2.12",
+    "group": "server",
     "arguments": [
       {
-        "name": "subcommand",
-        "type": "string"
-      },
-      {
-        "name": "argument",
-        "type": "string",
+        "name": "count",
+        "type": "integer",
         "optional": true
       }
-    ],
+    ]
+  },
+  "SLOWLOG LEN": {
+    "summary": "Get the slow log's length",
+    "complexity": "O(1)",
     "since": "2.2.12",
+    "group": "server"
+  },
+  "SLOWLOG RESET": {
+    "summary": "Clear all entries from the slow log",
+    "complexity": "O(N) where N is the number of entries in the slowlog",
+    "since": "2.2.12",
+    "group": "server"
+  },
+  "SLOWLOG HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
+    "since": "6.2.0",
     "group": "server"
   },
   "SMEMBERS": {
@@ -5360,43 +5432,65 @@
     "since": "2.8.0",
     "group": "sorted_set"
   },
-  "XINFO": {
-    "summary": "Get information on streams and consumer groups",
-    "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
+  "XINFO CONSUMERS": {
+    "summary": "List the consumers in a consumer group",
+    "complexity": "O(1)",
     "arguments": [
       {
-        "command": "CONSUMERS",
-        "name": [
-          "key",
-          "groupname"
-        ],
-        "type": [
-          "key",
-          "string"
-        ],
-        "optional": true
-      },
-      {
-        "command": "GROUPS",
         "name": "key",
-        "type": "key",
-        "optional": true
+        "type": "key"
       },
       {
-        "command": "STREAM",
+        "name": "groupname",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XINFO GROUPS": {
+    "summary": "List the consumer groups of a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
         "name": "key",
-        "type": "key",
-        "optional": true
+        "type": "key"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XINFO STREAM": {
+    "summary": "Get information about a stream",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
       },
       {
-        "name": "help",
-        "type": "enum",
-        "enum": [
-          "HELP"
+        "name": "full",
+        "type": "block",
+        "block": [
+          {
+            "command": "FULL"
+          },
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer",
+            "optional": true
+          }
         ],
         "optional": true
       }
     ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XINFO HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
     "since": "5.0.0",
     "group": "stream"
   },
@@ -5632,108 +5726,117 @@
     "since": "5.0.0",
     "group": "stream"
   },
-  "XGROUP": {
-    "summary": "Create, destroy, and manage consumer groups.",
-    "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
+  "XGROUP CREATE": {
+    "summary": "Create a consumer group.",
+    "complexity": "O(1)",
     "arguments": [
       {
-        "name": "create",
-        "type": "block",
-        "block": [
-          {
-            "command": "CREATE",
-            "name": [
-              "key",
-              "groupname"
-            ],
-            "type": [
-              "key",
-              "string"
-            ]
-          },
-          {
-            "name": "id",
-            "type": "enum",
-            "enum": [
-              "ID",
-              "$"
-            ]
-          },
-          {
-            "command": "MKSTREAM",
-            "type": "command",
-            "optional": true
-          }
-        ],
-        "optional": true
+        "name": "key",
+        "type": "key"
       },
       {
-        "name": "setid",
-        "type": "block",
-        "block": [
-          {
-            "command": "SETID",
-            "name": [
-              "key",
-              "groupname"
-            ],
-            "type": [
-              "key",
-              "string"
-            ]
-          },
-          {
-            "name": "id",
-            "type": "enum",
-            "enum": [
-              "ID",
-              "$"
-            ]
-          }
-        ],
-        "optional": true
+        "name": "groupname",
+        "type": "string"
       },
       {
-        "command": "DESTROY",
-        "name": [
-          "key",
-          "groupname"
-        ],
-        "type": [
-          "key",
-          "string"
-        ],
-        "optional": true
+        "name": "id",
+        "type": "enum",
+        "enum": [
+          "id",
+          "$"
+        ]
       },
       {
-        "command": "CREATECONSUMER",
-        "name": [
-          "key",
-          "groupname",
-          "consumername"
-        ],
-        "type": [
-          "key",
-          "string",
-          "string"
-        ],
-        "optional": true
-      },
-      {
-        "command": "DELCONSUMER",
-        "name": [
-          "key",
-          "groupname",
-          "consumername"
-        ],
-        "type": [
-          "key",
-          "string",
-          "string"
-        ],
+        "command": "MKSTREAM",
         "optional": true
       }
     ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XGROUP CREATECONSUMER": {
+    "summary": "Create a consumer in a consumer group.",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "groupname",
+        "type": "string"
+      },
+      {
+        "name": "consumername",
+        "type": "string"
+      }
+    ],
+    "since": "6.2.0",
+    "group": "stream"
+  },
+  "XGROUP DELCONSUMER": {
+    "summary": "Delete a consumer from a consumer group.",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "groupname",
+        "type": "string"
+      },
+      {
+        "name": "consumername",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XGROUP DESTROY": {
+    "summary": "Destroy a consumer group.",
+    "complexity": "O(N) where N is the number of entries in the group's pending entries list (PEL).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "groupname",
+        "type": "string"
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XGROUP SETID": {
+    "summary": "Set a consumer group to an arbitrary last delivered ID value.",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "groupname",
+        "type": "string"
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "enum": [
+          "id",
+          "$"
+        ]
+      }
+    ],
+    "since": "5.0.0",
+    "group": "stream"
+  },
+  "XGROUP HELP": {
+    "summary": "Show helpful text about the different subcommands",
+    "complexity": "O(1)",
     "since": "5.0.0",
     "group": "stream"
   },
