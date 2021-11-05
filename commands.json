@@ -185,13 +185,26 @@
         "type": "key"
       },
       {
-        "name": [
-          "start",
-          "end"
-        ],
-        "type": [
-          "integer",
-          "integer"
+        "name": "index",
+        "type": "block",
+        "block": [
+          {
+            "name": "start",
+            "type": "integer"
+          },
+          {
+            "name": "end",
+            "type": "integer"
+          },
+          {
+            "name": "index_unit",
+            "type": "enum",
+            "enum": [
+              "BYTE",
+              "BIT"
+            ],
+            "optional": true
+          }
         ],
         "optional": true
       }
@@ -327,9 +340,24 @@
             "type": "integer"
           },
           {
-            "name": "end",
-            "type": "integer",
-            "optional": true
+            "name": "end_index",
+            "type": "block",
+            "optional": true,
+            "block": [
+              {
+                "name": "end",
+                "type": "integer"
+              },
+              {
+                "name": "index_unit",
+                "type": "enum",
+                "enum": [
+                  "BYTE",
+                  "BIT"
+                ],
+                "optional": true
+              }
+            ]
           }
         ]
       }
@@ -438,7 +466,6 @@
       {
         "name": "key",
         "type": "key",
-        "optional": true,
         "multiple": true
       },
       {
@@ -474,7 +501,6 @@
       {
         "name": "key",
         "type": "key",
-        "optional": true,
         "multiple": true
       },
       {
@@ -527,6 +553,41 @@
       }
     ],
     "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "BZMPOP": {
+    "summary": "Remove and return members with scores in a sorted set or block until one is available",
+    "complexity": "O(K) + O(N*log(M)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "timeout",
+        "type": "double"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "MIN",
+          "MAX"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "sorted_set"
   },
   "CLIENT CACHING": {
@@ -631,7 +692,8 @@
         "type": "block",
         "block": [
           {
-            "command": "ID"
+            "command": "ID",
+            "type": "command"
           },
           {
             "name": "client-id",
@@ -1463,7 +1525,8 @@
         "optional": true,
         "block": [
           {
-            "command": "TO"
+            "command": "TO",
+            "type": "command"
           },
           {
             "name": "host",
@@ -1475,12 +1538,14 @@
           },
           {
             "command": "FORCE",
+            "type": "command",
             "optional": true
           }
         ]
       },
       {
         "command": "ABORT",
+        "type": "command",
         "optional": true
       },
       {
@@ -3829,9 +3894,19 @@
     "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
     "arguments": [
       {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
         "name": "key",
         "type": "key",
         "multiple": true
+      },
+      {
+        "command": "LIMIT",
+        "name": "limit",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "7.0.0",
@@ -4571,6 +4646,12 @@
         "name": "key",
         "type": "key",
         "multiple": true
+      },
+      {
+        "command": "LIMIT",
+        "name": "limit",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "7.0.0",
@@ -4667,6 +4748,37 @@
       }
     ],
     "since": "5.0.0",
+    "group": "sorted_set"
+  },
+  "ZMPOP": {
+    "summary": "Remove and return members with scores in a sorted set",
+    "complexity": "O(K) + O(N*log(M)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "MIN",
+          "MAX"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "sorted_set"
   },
   "ZRANDMEMBER": {
@@ -5392,6 +5504,7 @@
       },
       {
         "command": "NOMKSTREAM",
+        "type": "command",
         "optional": true
       },
       {
@@ -5849,6 +5962,7 @@
       },
       {
         "name": "force",
+        "type": "enum",
         "enum": [
           "FORCE"
         ],
@@ -5856,6 +5970,7 @@
       },
       {
         "name": "justid",
+        "type": "enum",
         "enum": [
           "JUSTID"
         ],
@@ -5897,6 +6012,7 @@
       },
       {
         "name": "justid",
+        "type": "enum",
         "enum": [
           "JUSTID"
         ],

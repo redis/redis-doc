@@ -10,7 +10,7 @@ described in the [Wikipedia article](https://en.wikipedia.org/wiki/Geohash) and 
 Geohash string properties
 ---
 
-The command returns 11 characters Geohash strings, so no precision is loss
+The command returns 11 characters Geohash strings, so no precision is lost
 compared to the Redis internal 52 bit representation. The returned Geohashes
 have the following properties:
 
