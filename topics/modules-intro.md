@@ -469,7 +469,7 @@ later produce the command reply, a better solution is to start an array
 reply where the length is not known, and set it later. This is accomplished
 with a special argument to `RedisModule_ReplyWithArray()`:
 
-    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_ARRAY_LEN);
+    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_LEN);
 
 The above call starts an array reply so we can use other `ReplyWith` calls
 in order to produce the array items. Finally in order to set the length,
@@ -480,7 +480,7 @@ use the following call:
 In the case of the FACTOR command, this translates to some code similar
 to this:
 
-    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_ARRAY_LEN);
+    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_LEN);
     number_of_factors = 0;
     while(still_factors) {
         RedisModule_ReplyWithLongLong(ctx, some_factor);
@@ -495,9 +495,9 @@ It is possible to have multiple nested arrays with postponed reply.
 Each call to `SetArray()` will set the length of the latest corresponding
 call to `ReplyWithArray()`:
 
-    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_ARRAY_LEN);
+    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_LEN);
     ... generate 100 elements ...
-    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_ARRAY_LEN);
+    RedisModule_ReplyWithArray(ctx, REDISMODULE_POSTPONED_LEN);
     ... generate 10 elements ...
     RedisModule_ReplySetArrayLength(ctx, 10);
     RedisModule_ReplySetArrayLength(ctx, 100);
