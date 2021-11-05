@@ -664,7 +664,8 @@
         "type": "block",
         "block": [
           {
-            "command": "ID"
+            "command": "ID",
+            "type": "command"
           },
           {
             "name": "client-id",
@@ -1496,7 +1497,8 @@
         "optional": true,
         "block": [
           {
-            "command": "TO"
+            "command": "TO",
+            "type": "command"
           },
           {
             "name": "host",
@@ -1508,12 +1510,14 @@
           },
           {
             "command": "FORCE",
+            "type": "command",
             "optional": true
           }
         ]
       },
       {
         "command": "ABORT",
+        "type": "command",
         "optional": true
       },
       {
@@ -5378,6 +5382,7 @@
       },
       {
         "command": "NOMKSTREAM",
+        "type": "command",
         "optional": true
       },
       {
@@ -5628,6 +5633,7 @@
           },
           {
             "command": "MKSTREAM",
+            "type": "command",
             "optional": true
           }
         ],
@@ -5825,6 +5831,7 @@
       },
       {
         "name": "force",
+        "type": "enum",
         "enum": [
           "FORCE"
         ],
@@ -5832,6 +5839,7 @@
       },
       {
         "name": "justid",
+        "type": "enum",
         "enum": [
           "JUSTID"
         ],
@@ -5873,6 +5881,7 @@
       },
       {
         "name": "justid",
+        "type": "enum",
         "enum": [
           "JUSTID"
         ],
