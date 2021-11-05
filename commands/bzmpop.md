@@ -14,17 +14,3 @@ See `ZMPOP` for more information.
 * A `nil` when no element could be popped.
 * A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of the popped elements. Every entry in the elements array is also an array that contains the member and its score.
 
-@examples
-
-```cli
-DEL myzset myzset2
-ZADD myzset 1 "one" 2 "two" 3 "three"
-BZMPOP 1 1 myzset MIN COUNT 2
-ZRANGE myzset 0 -1 WITHSCORES
-ZADD myzset2 4 "four" 5 "five" 6 "six"
-BZMPOP 1 2 myzset myzset2 MIN COUNT 1
-ZRANGE myzset 0 -1 WITHSCORES
-BZMPOP 1 2 myzset myzset2 MAX COUNT 10
-ZRANGE myzset2 0 -1 WITHSCORES
-EXISTS myzset myzset2
-```
