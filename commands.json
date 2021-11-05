@@ -544,7 +544,6 @@
       {
         "name": "key",
         "type": "key",
-        "optional": true,
         "multiple": true
       },
       {
@@ -4628,7 +4627,6 @@
       {
         "name": "key",
         "type": "key",
-        "optional": true,
         "multiple": true
       },
       {
