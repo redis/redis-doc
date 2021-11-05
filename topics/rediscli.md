@@ -462,8 +462,8 @@ and produces quite a verbose output:
     $ redis-cli --bigkeys
 
     # Scanning the entire keyspace to find biggest keys as well as
-    # average sizes per key type.  You can use -i 0.1 to sleep 0.1 sec
-    # per 100 SCAN commands (not usually needed).
+    # average sizes per key type.  You can use -i 0.01 to sleep 0.01 sec
+    # per SCAN command (not usually needed).
 
     [00.00%] Biggest string found so far 'key-419' with 3 bytes
     [05.14%] Biggest list   found so far 'mylist' with 100004 items
@@ -492,7 +492,7 @@ provides general stats about the data inside the Redis instance.
 The program uses the `SCAN` command, so it can be executed against a busy
 server without impacting the operations, however the `-i` option can be
 used in order to throttle the scanning process of the specified fraction
-of second for each 100 keys requested. For example, `-i 0.1` will slow down
+of second for each `SCAN` command. For example, `-i 0.01` will slow down
 the program execution a lot, but will also reduce the load on the server
 to a tiny amount.
 
@@ -546,6 +546,9 @@ kind of objects, by key name:
 
     $ redis-cli --scan --pattern 'user:*' | wc -l
     3829433
+
+You can use `-i 0.01` to add a delay between calls to the `SCAN` command.
+This will make the command slower but will significantly reduce load on the server.
 
 ## Pub/sub mode
 
