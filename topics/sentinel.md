@@ -8,7 +8,7 @@ without human intervention certain kinds of failures.
 Redis Sentinel also provides other collateral tasks such as monitoring,
 notifications and acts as a configuration provider for clients.
 
-This is the full list of Sentinel capabilities at a macroscopical level (i.e. the *big picture*):
+This is the full list of Sentinel capabilities at a macroscopic level (i.e. the *big picture*):
 
 * **Monitoring**. Sentinel constantly checks if your master and replica instances are working as expected.
 * **Notification**. Sentinel can notify the system administrator, or other computer programs, via an API, that something is wrong with one of the monitored Redis instances.
@@ -207,7 +207,7 @@ Network partitions are shown as interrupted lines using slashes:
 Also note that:
 
 * Masters are called M1, M2, M3, ..., Mn.
-* replicas are called R1, R2, R3, ..., Rn (R stands for *replica*).
+* Replicas are called R1, R2, R3, ..., Rn (R stands for *replica*).
 * Sentinels are called S1, S2, S3, ..., Sn.
 * Clients are called C1, C2, C3, ..., Cn.
 * When an instance changes role because of Sentinel actions, we put it inside square brackets, so [M1] means an instance that is now a master because of Sentinel intervention.
@@ -270,7 +270,7 @@ be able to authorize a failover, making clients able to continue.
 In every Sentinel setup, as Redis uses asynchronous replication, there is
 always the risk of losing some writes because a given acknowledged write
 may not be able to reach the replica which is promoted to master. However in
-the above setup there is an higher risk due to clients being partitioned away
+the above setup there is a higher risk due to clients being partitioned away
 with an old master, like in the following picture:
 
              +----+
@@ -617,7 +617,7 @@ The `SENTINEL` command is the main API for Sentinel. The following is the list o
 * **SENTINEL CONFIG GET `<name>`** (`>= 6.2`) Get the current value of a global Sentinel configuration parameter. The specified name may be a wildcard, similar to the Redis `CONFIG GET` command.
 * **SENTINEL CONFIG SET `<name>` `<value>`** (`>= 6.2`) Set the value of a global Sentinel configuration parameter.
 * **SENTINEL CKQUORUM `<master name>`** Check if the current Sentinel configuration is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
-* **SENTINEL FLUSHCONFIG** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
+* **SENTINEL FLUSHCONFIG** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
 * **SENTINEL FAILOVER `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
 * **SENTINEL GET-MASTER-ADDR-BY-NAME `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted replica.
 * **SENTINEL INFO-CACHE** (`>= 3.2`) Return cached `INFO` output from masters and replicas.
@@ -638,7 +638,7 @@ For connection management and administration purposes, Sentinel supports the fol
 
 * **ACL** (`>= 6.2`) This command manages the Sentinel Access Control List. For more information refer to the [ACL](/topics/acl) documentation page and the [_Sentinel Access Control List authentication_](#sentinel-access-control-list-authentication).
 * **AUTH** (`>= 5.0.1`) Authenticate a client connection. For more information refer to the `AUTH` command and the [_Configuring Sentinel instances with authentication_ section](#configuring-sentinel-instances-with-authentication).
-* **CLIENT** This command manages client connections. For more information refer to the its subcommands' pages.
+* **CLIENT** This command manages client connections. For more information refer to its subcommands' pages.
 * **COMMAND** (`>= 6.2`) This command returns information about commands. For more information refer to the `COMMAND` command and its various subcommands.
 * **HELLO** (`>= 6.0`) Switch the connection's protocol. For more information refer to the `HELLO` command.
 * **INFO** Return information and statistics about the Sentinel server. For more information see the `INFO` command.
@@ -651,11 +651,11 @@ Lastly, Sentinel also supports the `SUBSCRIBE`, `UNSUBSCRIBE`, `PSUBSCRIBE` and 
 Reconfiguring Sentinel at Runtime
 ---
 
-Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagates the changes to the other Sentinels in the network.
+Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagate the changes to the other Sentinels in the network.
 
 The following is a list of `SENTINEL` subcommands used in order to update the configuration of a Sentinel instance.
 
-* **SENTINEL MONITOR `<name>` `<ip>` `<port>` `<quorum>`** This command tells the Sentinel to start monitoring a new master with the specified name, ip, port, and quorum. It is identical to the `sentinel monitor` configuration directive in `sentinel.conf` configuration file, with the difference that you can't use an hostname in as `ip`, but you need to provide an IPv4 or IPv6 address.
+* **SENTINEL MONITOR `<name>` `<ip>` `<port>` `<quorum>`** This command tells the Sentinel to start monitoring a new master with the specified name, ip, port, and quorum. It is identical to the `sentinel monitor` configuration directive in `sentinel.conf` configuration file, with the difference that you can't use a hostname in as `ip`, but you need to provide an IPv4 or IPv6 address.
 * **SENTINEL REMOVE `<name>`** is used in order to remove the specified master: the master will no longer be monitored, and will totally be removed from the internal state of the Sentinel, so it will no longer listed by `SENTINEL masters` and so forth.
 * **SENTINEL SET `<name>` [`<option>` `<value>` ...]** The SET command is very similar to the `CONFIG SET` command of Redis, and is used in order to change configuration parameters of a specific master. Multiple option / value pairs can be specified (or none at all). All the configuration parameters that can be configured via `sentinel.conf` are also configurable using the SET command.
 
@@ -1087,7 +1087,7 @@ If instead the quorum is configured to 5, all the Sentinels must agree about the
 
 This means that the quorum can be used to tune Sentinel in two ways:
 
-1. If a the quorum is set to a value smaller than the majority of Sentinels we deploy, we are basically making Sentinel more sensitive to master failures, triggering a failover as soon as even just a minority of Sentinels is no longer able to talk with the master.
+1. If a quorum is set to a value smaller than the majority of Sentinels we deploy, we are basically making Sentinel more sensitive to master failures, triggering a failover as soon as even just a minority of Sentinels is no longer able to talk with the master.
 2. If a quorum is set to a value greater than the majority of Sentinels, we are making Sentinel able to failover only when there are a very large number (larger than majority) of well connected Sentinels which agree about the master being down.
 
 Configuration epochs
@@ -1194,7 +1194,7 @@ With the above configuration (please see the self-commented `redis.conf` example
 Using this configuration the Redis 3 in the above example will become unavailable after 10 seconds. When the partition heals, the Sentinel 3 configuration will converge to
 the new one, and Client B will be able to fetch a valid configuration and continue.
 
-In general Redis + Sentinel as a whole are a an **eventually consistent system** where the merge function is **last failover wins**, and the data from old masters are discarded to replicate the data of the current master, so there is always a window for losing acknowledged writes. This is due to Redis asynchronous
+In general Redis + Sentinel as a whole are an **eventually consistent system** where the merge function is **last failover wins**, and the data from old masters are discarded to replicate the data of the current master, so there is always a window for losing acknowledged writes. This is due to Redis asynchronous
 replication and the discarding nature of the "virtual" merge function of the system. Note that this is not a limitation of Sentinel itself, and if you orchestrate the failover with a strongly consistent replicated state machine, the same properties will still apply. There are only two ways to avoid losing acknowledged writes:
 
 1. Use synchronous replication (and a proper consensus algorithm to run a replicated state machine).
@@ -1258,7 +1258,7 @@ In the Sentinel TILT mode, if we send the INFO command, we could get the followi
 The field "sentinel_tilt_since_seconds" indicates how many seconds the Sentinel already is in the TILT mode.
 If it is not in TILT mode, the value will be -1.
 
-Note that in some way TILT mode could be replaced using the monotonic clock
+Note that in some ways TILT mode could be replaced using the monotonic clock
 API that many kernels offer. However it is not still clear if this is a good
 solution since the current system avoids issues in case the process is just
 suspended or not executed by the scheduler for a long time.
