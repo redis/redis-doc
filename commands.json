@@ -223,11 +223,11 @@
       {
         "command": "GET",
         "name": [
-          "type",
+          "encoding",
           "offset"
         ],
         "type": [
-          "type",
+          "string",
           "integer"
         ],
         "optional": true
@@ -235,12 +235,12 @@
       {
         "command": "SET",
         "name": [
-          "type",
+          "encoding",
           "offset",
           "value"
         ],
         "type": [
-          "type",
+          "string",
           "integer",
           "integer"
         ],
@@ -249,12 +249,12 @@
       {
         "command": "INCRBY",
         "name": [
-          "type",
+          "encoding",
           "offset",
           "increment"
         ],
         "type": [
-          "type",
+          "string",
           "integer",
           "integer"
         ],
@@ -285,11 +285,11 @@
       {
         "command": "GET",
         "name": [
-          "type",
+          "encoding",
           "offset"
         ],
         "type": [
-          "type",
+          "string",
           "integer"
         ]
       }
