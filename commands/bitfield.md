@@ -13,23 +13,23 @@ Note that:
 1. Addressing with `!GET` bits outside the current string length (including the case the key does not exist at all), results in the operation to be performed like the missing part all consists of bits set to 0.
 2. Addressing with `!SET` or `!INCRBY` bits outside the current string length will enlarge the string, zero-padding it, as needed, for the minimal length needed, according to the most far bit touched.
 
-## Supported subcommands and integer types
+## Supported subcommands and integer encodings
 
 The following is the list of supported commands.
 
-* **GET** `<type>` `<offset>` -- Returns the specified bit field.
-* **SET** `<type>` `<offset>` `<value>` -- Set the specified bit field and returns its old value.
-* **INCRBY** `<type>` `<offset>` `<increment>` -- Increments or decrements (if a negative increment is given) the specified bit field and returns the new value.
+* **GET** `<encoding>` `<offset>` -- Returns the specified bit field.
+* **SET** `<encoding>` `<offset>` `<value>` -- Set the specified bit field and returns its old value.
+* **INCRBY** `<encoding>` `<offset>` `<increment>` -- Increments or decrements (if a negative increment is given) the specified bit field and returns the new value.
 
 There is another subcommand that only changes the behavior of successive
 `!INCRBY` and `!SET` subcommands calls by setting the overflow behavior:
 
 * **OVERFLOW** `[WRAP|SAT|FAIL]`
 
-Where an integer type is expected, it can be composed by prefixing with `i` for signed integers and `u` for unsigned integers with the number of bits of our integer type. So for example `u8` is an unsigned integer of 8 bits and `i16` is a
+Where an integer encoding is expected, it can be composed by prefixing with `i` for signed integers and `u` for unsigned integers with the number of bits of our integer encoding. So for example `u8` is an unsigned integer of 8 bits and `i16` is a
 signed integer of 16 bits.
 
-The supported types are up to 64 bits for signed integers, and up to 63 bits for
+The supported encodings are up to 64 bits for signed integers, and up to 63 bits for
 unsigned integers. This limitation with unsigned integers is due to the fact
 that currently the Redis protocol is unable to return 64 bit unsigned integers
 as replies.
@@ -41,7 +41,7 @@ If a number without any prefix is specified, it is used just as a zero based
 bit offset inside the string.
 
 However if the offset is prefixed with a `#` character, the specified offset
-is multiplied by the integer type width, so for example:
+is multiplied by the integer encoding's width, so for example:
 
     BITFIELD mystring SET i8 #0 100 SET i8 #1 200
 
