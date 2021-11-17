@@ -733,5 +733,13 @@
     "repository": "https://github.com/trinodb/trino",
     "description": "Trino Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once",
     "authors": []
+  },
+  {
+    "name": "Cap-Redis",
+    "language": "Kotlin",
+    "url": "https://plugins.jetbrains.com/plugin/17785-cap-redis",
+    "repository": "https://github.com/Cap-Cloud/Cap-Redis",
+    "description": "A Plugin for IntelliJ-based IDEs. An advanced GUI client for Redis, Support Standalone/Sentinel/Cluster & SSH Tunnel, Support redis-cli & command wrap, almost all commands are supported, Support execution Lua script.",
+    "authors": ["cap_cloud"]
   }
 ]
