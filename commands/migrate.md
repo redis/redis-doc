@@ -7,7 +7,7 @@ The command is atomic and blocks the two instances for the time required to
 transfer the key, at any given time the key will appear to exist in a given
 instance or in the other instance, unless a timeout error occurs. In 3.2 and
 above, multiple keys can be pipelined in a single call to `MIGRATE` by passing
-the empty string ("") as key and adding the `KEYS` clause.
+the empty string ("") as key and adding the `!KEYS` clause.
 
 The command internally uses `DUMP` to generate the serialized version of the key
 value, and `RESTORE` in order to synthesize the key in the target instance.
