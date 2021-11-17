@@ -427,11 +427,13 @@ The following subcommands are available (among others not useful in this case):
 
 * `CLUSTER ADDSLOTS` slot1 [slot2] ... [slotN]
 * `CLUSTER DELSLOTS` slot1 [slot2] ... [slotN]
+* `CLUSTER ADDSLOTSRANGE` start-slot1 end-slot1 [start-slot2 end-slot2] ... [start-slotN end-slotN]
+* `CLUSTER DELSLOTSRANGE` start-slot1 end-slot1 [start-slot2 end-slot2] ... [start-slotN end-slotN]
 * `CLUSTER SETSLOT` slot NODE node
 * `CLUSTER SETSLOT` slot MIGRATING node
 * `CLUSTER SETSLOT` slot IMPORTING node
 
-The first two commands, `ADDSLOTS` and `DELSLOTS`, are simply used to assign
+The first four commands, `ADDSLOTS`, `DELSLOTS`, `ADDSLOTSRANGE` and `DELSLOTSRANGE`, are simply used to assign
 (or remove) slots to a Redis node. Assigning a slot means to tell a given
 master node that it will be in charge of storing and serving content for
 the specified hash slot.
@@ -440,11 +442,11 @@ After the hash slots are assigned they will propagate across the cluster
 using the gossip protocol, as specified later in the
 *configuration propagation* section.
 
-The `ADDSLOTS` command is usually used when a new cluster is created
+The `ADDSLOTS` and `ADDSLOTSRANGE` command are usually used when a new cluster is created
 from scratch to assign each master node a subset of all the 16384 hash
 slots available.
 
-The `DELSLOTS` is mainly used for manual modification of a cluster configuration
+The `DELSLOTS`  and `DELSLOTSRANGE` are mainly used for manual modification of a cluster configuration
 or for debugging tasks: in practice it is rarely used.
 
 The `SETSLOT` subcommand is used to assign a slot to a specific node ID if
