@@ -1964,5 +1964,14 @@
     "description": "Simple Redis Client for Dart",
     "authors": ["cerussite127"]
   }
+  
+  {
+    "name": "redli",
+    "language": "Go",
+    "url": "https://github.com/IBM-Cloud/redli",
+    "repository": "https://github.com/IBM-Cloud/redli",
+    "description": "A humane alternative to the Redis-cli and TLS",
+    "authors": ["IBM"]
+  }
 
 ]
