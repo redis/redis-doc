@@ -24,7 +24,7 @@ It is possible to provide strings containing spaces as arguments using
 
 Single-quoted string can contain characters escaped by backslashes, and
 double-quoted strings can additionally include any ASCII symbols encoded using
-backslashes hexadecimal notation "\\xff".
+backslashed hexadecimal notation "\\xff".
 
 The list of configuration directives, and their meaning and intended usage
 is available in the self documented example redis.conf shipped into the
