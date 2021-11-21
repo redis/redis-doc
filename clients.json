@@ -1955,7 +1955,14 @@
     "description": "extensible client library for Bash scripting or command-line + connection pooling + redis-cli",
     "active": true
   },
-
+  {
+    "name": "pyton-redis-orm",
+    "language": "Python",
+    "repository": "https://github.com/gh0st-work/python_redis_orm",
+    "description": "Python Redis ORM library that gives redis easy-to-use objects with fields and speeds a developmet up, inspired by Django ORM",
+    "authors": [],
+    "active": true
+  },
   {
     "name": "dedis",
     "language": "Dart",
