@@ -58,13 +58,13 @@ To understand what we want to improve, let’s analyze the current state of affa
 The simplest way to use Redis to lock a resource is to create a key in an instance. The key is usually created with a limited time to live, using the Redis expires feature, so that eventually it will get released (property 2 in our list). When the client needs to release the resource, it deletes the key.
 
 Superficially this works well, but there is a problem: this is a single point of failure in our architecture. What happens if the Redis master goes down?
-Well, let’s add a slave! And use it if the master is unavailable. This is unfortunately not viable. By doing so we can’t implement our safety property of mutual exclusion, because Redis replication is asynchronous.
+Well, let’s add a replica! And use it if the master is unavailable. This is unfortunately not viable. By doing so we can’t implement our safety property of mutual exclusion, because Redis replication is asynchronous.
 
 There is an obvious race condition with this model:
 
 1. Client A acquires the lock in the master.
-2. The master crashes before the write to the key is transmitted to the slave.
-3. The slave gets promoted to master.
+2. The master crashes before the write to the key is transmitted to the replica.
+3. The replica gets promoted to master.
 4. Client B acquires the lock to the same resource A already holds a lock for. **SAFETY VIOLATION!**
 
 Sometimes it is perfectly fine that under special circumstances, like during a failure, multiple clients can hold the lock at the same time.

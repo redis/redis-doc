@@ -213,6 +213,8 @@ diskless
 dormando
 earts
 else's
+encodings
+encoding's
 endian
 endianness
 epoll
@@ -395,6 +397,7 @@ trib
 tuple
 tuples
 unary
+unclaimable
 underflows
 unencrypted
 unguessable

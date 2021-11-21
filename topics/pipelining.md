@@ -89,33 +89,33 @@ In the following benchmark we'll use the Redis Ruby client, supporting pipelinin
     require 'redis'
 
     def bench(descr)
-        start = Time.now
-        yield
-        puts "#{descr} #{Time.now-start} seconds"
+      start = Time.now
+      yield
+      puts "#{descr} #{Time.now - start} seconds"
     end
 
     def without_pipelining
-        r = Redis.new
-        10000.times {
-            r.ping
-        }
+      r = Redis.new
+      10_000.times do
+        r.ping
+      end
     end
 
     def with_pipelining
-        r = Redis.new
-        r.pipelined {
-            10000.times {
-                r.ping
-            }
-        }
+      r = Redis.new
+      r.pipelined do
+        10_000.times do
+          r.ping
+        end
+      end
     end
 
-    bench("without pipelining") {
-        without_pipelining
-    }
-    bench("with pipelining") {
-        with_pipelining
-    }
+    bench('without pipelining') do
+      without_pipelining
+    end
+    bench('with pipelining') do
+      with_pipelining
+    end
 
 Running the above simple script yields the following figures on my Mac OS X system, running over the loopback interface, where pipelining will provide the smallest improvement as the RTT is already pretty low:
 
@@ -144,12 +144,12 @@ in the same physical machine:
     END
 
 After all if both the Redis process and the benchmark are running in the same
-box, isn't this just copying messages in memory from one place to another without
+box, isn't it just copying messages in memory from one place to another without
 any actual latency or networking involved?
 
 The reason is that processes in a system are not always running, actually it is
-the kernel scheduler that let the process run, so what happens is that, for
-instance, the benchmark is allowed to run, reads the reply from the Redis server
+the kernel scheduler that lets the process run. So, for
+instance, when the benchmark is allowed to run, it reads the reply from the Redis server
 (related to the last command executed), and writes a new command. The command is
 now in the loopback interface buffer, but in order to be read by the server, the
 kernel should schedule the server process (currently blocked in a system call)

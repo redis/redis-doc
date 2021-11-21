@@ -95,11 +95,11 @@ Enable and disallow users:
 
 Allow and disallow commands:
 
-* `+<command>`: Add the command to the list of commands the user can call.
-* `-<command>`: Remove the command to the list of commands the user can call.
+* `+<command>`: Add the command to the list of commands the user can call. Can be used with `|` for allowing subcommands (e.g "+config|get").
+* `-<command>`: Remove the command to the list of commands the user can call. Can be used with `|` for blocking subcommands (e.g "-config|set").
 * `+@<category>`: Add all the commands in such category to be called by the user, with valid categories being like @admin, @set, @sortedset, ... and so forth, see the full list by calling the `ACL CAT` command. The special category @all means all the commands, both the ones currently present in the server, and the ones that will be loaded in the future via modules.
 * `-@<category>`: Like `+@<category>` but removes the commands from the list of commands the client can call.
-* `+<command>|subcommand`: Allow a specific subcommand of an otherwise disabled command. Note that this form is not allowed as negative like `-DEBUG|SEGFAULT`, but only additive starting with "+". This ACL will cause an error if the command is already active as a whole.
+* `+<command>|first-arg`: Allow a specific first argument of an otherwise disabled command. Note that this form is not allowed as negative like `-SELECT|1`, but only additive starting with "+".
 * `allcommands`: Alias for +@all. Note that it implies the ability to execute all the future commands loaded via the modules system.
 * `nocommands`: Alias for -@all.
 
@@ -270,38 +270,38 @@ to.
 
 The following is a list of command categories and their meanings:
 
-* keyspace - Writing or reading from keys, databases, or their metadata 
+* **admin** - Administrative commands. Normal applications will never need to use
+  these. Includes `REPLICAOF`, `CONFIG`, `DEBUG`, `SAVE`, `MONITOR`, `ACL`, `SHUTDOWN`, etc.
+* **bitmap** - Data type: bitmaps related.
+* **blocking** - Potentially blocking the connection until released by another
+  command.
+* **connection** - Commands affecting the connection or other connections.
+  This includes `AUTH`, `SELECT`, `COMMAND`, `CLIENT`, `ECHO`, `PING`, etc.
+* **dangerous** - Potentially dangerous commands (each should be considered with care for
+  various reasons). This includes `FLUSHALL`, `MIGRATE`, `RESTORE`, `SORT`, `KEYS`,
+  `CLIENT`, `DEBUG`, `INFO`, `CONFIG`, `SAVE`, `REPLICAOF`, etc.
+* **geo** - Data type: geospatial indexes related.
+* **hash** - Data type: hashes related.
+* **hyperloglog** - Data type: hyperloglog related.
+* **fast** - Fast O(1) commands. May loop on the number of arguments, but not the
+  number of elements in the key.
+* **keyspace** - Writing or reading from keys, databases, or their metadata 
   in a type agnostic way. Includes `DEL`, `RESTORE`, `DUMP`, `RENAME`, `EXISTS`, `DBSIZE`,
   `KEYS`, `EXPIRE`, `TTL`, `FLUSHALL`, etc. Commands that may modify the keyspace,
   key or metadata will also have `write` category. Commands that only read
   the keyspace, key or metadata will have the `read` category.
-* read - Reading from keys (values or metadata). Note that commands that don't
+* **list** - Data type: lists related.
+* **pubsub** - PubSub-related commands.
+* **read** - Reading from keys (values or metadata). Note that commands that don't
   interact with keys, will not have either `read` or `write`.
-* write - Writing to keys (values or metadata).
-* admin - Administrative commands. Normal applications will never need to use
-  these. Includes `REPLICAOF`, `CONFIG`, `DEBUG`, `SAVE`, `MONITOR`, `ACL`, `SHUTDOWN`, etc.
-* dangerous - Potentially dangerous commands (each should be considered with care for
-  various reasons). This includes `FLUSHALL`, `MIGRATE`, `RESTORE`, `SORT`, `KEYS`,
-  `CLIENT`, `DEBUG`, `INFO`, `CONFIG`, `SAVE`, `REPLICAOF`, etc.
-* connection - Commands affecting the connection or other connections.
-  This includes `AUTH`, `SELECT`, `COMMAND`, `CLIENT`, `ECHO`, `PING`, etc.
-* blocking - Potentially blocking the connection until released by another
-  command.
-* fast - Fast O(1) commands. May loop on the number of arguments, but not the
-  number of elements in the key.
-* slow - All commands that are not `fast`.
-* pubsub - PubSub-related commands.
-* transaction - `WATCH` / `MULTI` / `EXEC` related commands.
-* scripting - Scripting related.
-* set - Data type: sets related.
-* sortedset - Data type: sorted sets related.
-* list - Data type: lists related.
-* hash - Data type: hashes related.
-* string - Data type: strings related.
-* bitmap - Data type: bitmaps related.
-* hyperloglog - Data type: hyperloglog related.
-* geo - Data type: geospatial indexes related.
-* stream - Data type: streams related.
+* **scripting** - Scripting related.
+* **set** - Data type: sets related.
+* **sortedset** - Data type: sorted sets related.
+* **slow** - All commands that are not `fast`.
+* **stream** - Data type: streams related.
+* **string** - Data type: strings related.
+* **transaction** - `WATCH` / `MULTI` / `EXEC` related commands.
+* **write** - Writing to keys (values or metadata).
 
 Redis can also show you a list of all categories, and the exact commands each category includes using the redis `ACL` command's `CAT` subcommand that can be used in two forms:
 
@@ -350,38 +350,46 @@ Note that commands may be part of multiple categories, so for instance an
 ACL rule like `+@geo -@read` will result in certain geo commands to be
 excluded because they are read-only commands.
 
-## Adding subcommands
+## Allowing/blocking subcommands
 
-Often the ability to exclude or include a command as a whole is not enough.
-Many Redis commands do multiple things based on the subcommand passed as
-argument. For example the `CLIENT` command can be used in order to do
-dangerous and non dangerous operations. Many deployments may not be happy to
-provide the ability to execute `CLIENT KILL` to non admin-level users, but may
-still want them to be able to run `CLIENT SETNAME`.
+Starting from Redis 7.0 subcommands can be allowed/blocked just like other
+commands (by using the seperator `|` between the command and subcommand, for
+example: `+config|get` or `-config|set`)
 
-_Note: the new RESP3 `HELLO` handshake command provides a `SETNAME` option, but this is still a good example for subcommand control._
+That is true for all commands except DEBUG. In order to allow/block specific
+DEBUG subcommands see next section.
+
+## Allowing the first-arg of an otherwise blocked command
+
+Often the ability to exclude or include a command or a subcommand as a whole is not enough.
+Many deployments may not be happy providing the ability to execute a `SELECT` for any DB, but may
+still want to be able to run `SELECT 0`.
 
 In such case I could alter the ACL of a user in the following way:
 
-    ACL SETUSER myuser -client +client|setname +client|getname
+    ACL SETUSER myuser -select +select|0
 
-I started removing the `CLIENT` command, and later added the two allowed
-subcommands. Note that **it is not possible to do the reverse**, the subcommands
+I started by removing the `SELECT` command, and later added the allowed
+first-arg. Note that **it is not possible to do the reverse**, first-args
 can be only added, and not excluded, because it is possible that in the future
-new subcommands may be added: it is a lot safer to specify all the subcommands
-that are valid for some user. Moreover, if you add a subcommand about a command
-that is not already disabled, an error is generated, because this can only
-be a bug in the ACL rules:
+new first-args may be added: it is a lot safer to specify all the first-args
+that are valid for some user.
 
-    > ACL SETUSER default +debug|segfault
-    (error) ERR Error in ACL SETUSER modifier '+debug|segfault': Adding a
-    subcommand of a command already fully added is not allowed. Remove the
-    command to start. Example: -DEBUG +DEBUG|DIGEST
+Another exmaple:
 
-Note that subcommand matching may add some performance penalty, however such
+    ACL SETUSER myuser -debug +debug|digest
+
+Note that first-arg matching may add some performance penalty, however such
 penalty is very hard to measure even with synthetic benchmarks, and the
 additional CPU cost is only payed when such command is called, and not when
 other commands are called.
+
+It is possible to use this mechanism in order to allow subcommands in Redis
+versions prior to 7.0 (see above section).
+Starting from Redis 7.0 it is possible to allow first-args of subcommands.
+Example:
+
+    ACL SETUSER myuser -config +config|get +config|set|loglevel
 
 ## +@all VS -@all
 
@@ -421,9 +429,9 @@ However ACL *passwords* are not really passwords: they are shared secrets
 between the server and the client, because in that case the password is
 not an authentication token used by a human being. For instance:
 
-    * There are no length limits, the password will just be memorized in some client software, there is no human that need to recall a password in this context.
-    * The ACL password does not protect any other thing: it will never be, for instance, the password for some email account.
-    * Often when you are able to access the hashed password itself, by having full access to the Redis commands of a given server, or corrupting the system itself, you have already access to what such password is protecting: the Redis instance stability and the data it contains.
+* There are no length limits, the password will just be memorized in some client software, there is no human that need to recall a password in this context.
+* The ACL password does not protect any other thing: it will never be, for instance, the password for some email account.
+* Often when you are able to access the hashed password itself, by having full access to the Redis commands of a given server, or corrupting the system itself, you have already access to what such password is protecting: the Redis instance stability and the data it contains.
 
 For this reason to slowdown the password authentication in order to use an
 algorithm that uses time and space, in order to make password cracking hard,
@@ -445,8 +453,8 @@ you should use in order to generate Redis passwords.
 
 There are two ways in order to store users inside the Redis configuration.
 
-    1. Users can be specified directly inside the `redis.conf` file.
-    2. It is possible to specify an external ACL file.
+1. Users can be specified directly inside the `redis.conf` file.
+2. It is possible to specify an external ACL file.
 
 The two methods are *mutually incompatible*, Redis will ask you to use one
 or the other. To specify users inside `redis.conf` is a very simple way
@@ -474,8 +482,8 @@ inside the file by rewriting it.
 
 The external ACL file however is more powerful. You can do the following:
 
-    * Use `ACL LOAD` if you modified the ACL file manually and you want Redis to reload the new configuration. Note that this command is able to load the file *only if all the users are correctly specified*, otherwise an error is reported to the user, and the old configuration will remain valid.
-    * USE `ACL SAVE` in order to save the current ACL configuration to the ACL file.
+* Use `ACL LOAD` if you modified the ACL file manually and you want Redis to reload the new configuration. Note that this command is able to load the file *only if all the users are correctly specified*, otherwise an error is reported to the user, and the old configuration will remain valid.
+* USE `ACL SAVE` in order to save the current ACL configuration to the ACL file.
 
 Note that `CONFIG REWRITE` does not also trigger `ACL SAVE`: when you use
 an ACL file the configuration and the ACLs are handled separately.

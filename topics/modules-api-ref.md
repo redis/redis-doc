@@ -682,7 +682,7 @@ of the array.
 
 When producing arrays with a number of element that is not known beforehand
 the function can be called with the special count
-`REDISMODULE_POSTPONED_ARRAY_LEN`, and the actual number of elements can be
+`REDISMODULE_POSTPONED_LEN`, and the actual number of elements can be
 later set with [`RedisModule_ReplySetArrayLength()`](#RedisModule_ReplySetArrayLength) (which will set the
 latest "open" count if there are multiple ones).
 
@@ -716,7 +716,7 @@ The function always returns `REDISMODULE_OK`.
     void RedisModule_ReplySetArrayLength(RedisModuleCtx *ctx, long len);
 
 When [`RedisModule_ReplyWithArray()`](#RedisModule_ReplyWithArray) is used with the argument
-`REDISMODULE_POSTPONED_ARRAY_LEN`, because we don't know beforehand the number
+`REDISMODULE_POSTPONED_LEN`, because we don't know beforehand the number
 of items we are going to output as elements of the array, this function
 will take care to set the array length.
 
@@ -727,9 +727,9 @@ that was created in a postponed way.
 For example in order to output an array like [1,[10,20,30]] we
 could write:
 
-     RedisModule_ReplyWithArray(ctx,REDISMODULE_POSTPONED_ARRAY_LEN);
+     RedisModule_ReplyWithArray(ctx,REDISMODULE_POSTPONED_LEN);
      RedisModule_ReplyWithLongLong(ctx,1);
-     RedisModule_ReplyWithArray(ctx,REDISMODULE_POSTPONED_ARRAY_LEN);
+     RedisModule_ReplyWithArray(ctx,REDISMODULE_POSTPONED_LEN);
      RedisModule_ReplyWithLongLong(ctx,10);
      RedisModule_ReplyWithLongLong(ctx,20);
      RedisModule_ReplyWithLongLong(ctx,30);
@@ -1348,7 +1348,7 @@ the string, and later call StringDMA() again to get the pointer.
 
     int RedisModule_StringTruncate(RedisModuleKey *key, size_t newlen);
 
-If the string is open for writing and is of string type, resize it, padding
+If the key is open for writing and is of string type, resize it, padding
 with zero bytes if the new length is greater than the old one.
 
 After this call, [`RedisModule_StringDMA()`](#RedisModule_StringDMA) must be called again to continue

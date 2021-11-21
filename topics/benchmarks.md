@@ -455,7 +455,7 @@ Another one using a 64-bit box, a Xeon L5420 clocked at 2.5 GHz:
 There are several third-party tools that can be used for benchmarking Redis. Refer to each tool's
 documentation for more information about its goals and capabilities.
 
-* [memtier_benchmark](https://github.com/redislabs/memtier_benchmark) from [Redis Labs](https://twitter.com/RedisLabs) is a NoSQL Redis and Memcache traffic generation and benchmarking tool.
+* [memtier_benchmark](https://github.com/redislabs/memtier_benchmark) from [Redis Ltd.](https://twitter.com/RedisInc) is a NoSQL Redis and Memcache traffic generation and benchmarking tool.
 * [rpc-perf](https://github.com/twitter/rpc-perf) from [Twitter](https://twitter.com/twitter) is a tool for benchmarking RPC services that supports Redis and Memcache.
 * [YCSB](https://github.com/brianfrankcooper/YCSB) from [Yahoo @Yahoo](https://twitter.com/Yahoo) is a benchmarking framework with clients to many databases, including Redis.
 

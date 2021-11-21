@@ -19,11 +19,12 @@ keys (so `ARGV[1]`, `ARGV[2]`, ...).
 The following example should clarify what stated above:
 
 ```
-> eval "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}" 2 key1 key2 first second
+> eval "return {KEYS[1],KEYS[2],ARGV[1],ARGV[2], ARGV[3]}" 2 key1 key2 first second third
 1) "key1"
 2) "key2"
 3) "first"
 4) "second"
+5) "third"
 ```
 
 Note: as you can see Lua arrays are returned as Redis multi bulk replies, that
@@ -647,7 +648,11 @@ At this point the new conversions are available, specifically:
 * Redis true reply -> Lua true boolean value.
 * Redis false reply -> Lua false boolean value.
 * Redis double reply -> Lua table with a single `score` field containing a Lua number representing the double value.
+* Redis big number reply -> Lua table with a single `big_number` field containing a Lua string representing the big number value.
+* Redis verbatim string reply -> Lua table with a single `verbatim_string` field containing a Lua table with two fields, `string` and `format`, representing the verbatim string and verbatim format respectively.
 * All the RESP2 old conversions still apply.
+
+Note: the big number and verbatim replies are only available in Redis 7 or greater. Also, presently RESP3 attributes are not supported in Lua.
 
 **Lua to Redis** conversion table specific for RESP3.
 

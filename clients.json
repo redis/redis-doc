@@ -1955,7 +1955,6 @@
     "description": "extensible client library for Bash scripting or command-line + connection pooling + redis-cli",
     "active": true
   },
-  
   {
     "name": "pyton-redis-orm",
     "language": "Python",
@@ -1963,6 +1962,14 @@
     "description": "Python Redis ORM library that gives redis easy-to-use objects with fields and speeds a developmet up, inspired by Django ORM",
     "authors": [],
     "active": true
+  },
+  {
+    "name": "dedis",
+    "language": "Dart",
+    "url": "https://pub.dev/packages/dedis",
+    "repository": "https://github.com/SiLeader/dedis",
+    "description": "Simple Redis Client for Dart",
+    "authors": ["cerussite127"]
   }
 
 ]

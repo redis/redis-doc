@@ -29,7 +29,7 @@ Redis 2.2 introduced new bit and byte level operations: `GETRANGE`, `SETRANGE`, 
 Use hashes when possible
 ------------------------
 
-Small hashes are encoded in a very small space, so you should try representing your data using hashes every time it is possible. For instance if you have objects representing users in a web application, instead of using different keys for name, surname, email, password, use a single hash with all the required fields.
+Small hashes are encoded in a very small space, so you should try representing your data using hashes whenever possible. For instance if you have objects representing users in a web application, instead of using different keys for name, surname, email, password, use a single hash with all the required fields.
 
 If you want to know more about this, read the next section.
 
@@ -42,7 +42,7 @@ Basically it is possible to model a plain key-value store using Redis
 where values can just be just strings, that is not just more memory efficient
 than Redis plain keys but also much more memory efficient than memcached.
 
-Let's start with some fact: a few keys use a lot more memory than a single key
+Let's start with some facts: a few keys use a lot more memory than a single key
 containing a hash with a few fields. How is this possible? We use a trick.
 In theory in order to guarantee that we perform lookups in constant time
 (also known as O(1) in big O notation) there is the need to use a data structure
@@ -117,41 +117,41 @@ I used the following Ruby program to test how this works:
     require 'rubygems'
     require 'redis'
 
-    UseOptimization = true
+    USE_OPTIMIZATION = true
 
     def hash_get_key_field(key)
-        s = key.split(":")
-        if s[1].length > 2
-            {:key => s[0]+":"+s[1][0..-3], :field => s[1][-2..-1]}
-        else
-            {:key => s[0]+":", :field => s[1]}
-        end
+      s = key.split(':')
+      if s[1].length > 2
+        { key: s[0] + ':' + s[1][0..-3], field: s[1][-2..-1] }
+      else
+        { key: s[0] + ':', field: s[1] }
+      end
     end
 
-    def hash_set(r,key,value)
-        kf = hash_get_key_field(key)
-        r.hset(kf[:key],kf[:field],value)
+    def hash_set(r, key, value)
+      kf = hash_get_key_field(key)
+      r.hset(kf[:key], kf[:field], value)
     end
 
-    def hash_get(r,key,value)
-        kf = hash_get_key_field(key)
-        r.hget(kf[:key],kf[:field],value)
+    def hash_get(r, key, value)
+      kf = hash_get_key_field(key)
+      r.hget(kf[:key], kf[:field], value)
     end
 
     r = Redis.new
-    (0..100000).each{|id|
-        key = "object:#{id}"
-        if UseOptimization
-            hash_set(r,key,"val")
-        else
-            r.set(key,"val")
-        end
-    }
+    (0..100_000).each do |id|
+      key = "object:#{id}"
+      if USE_OPTIMIZATION
+        hash_set(r, key, 'val')
+      else
+        r.set(key, 'val')
+      end
+    end
 
 This is the result against a 64 bit instance of Redis 2.2:
 
- * UseOptimization set to true: 1.7 MB of used memory
- * UseOptimization set to false; 11 MB of used memory
+ * USE_OPTIMIZATION set to true: 1.7 MB of used memory
+ * USE_OPTIMIZATION set to false; 11 MB of used memory
 
 This is an order of magnitude, I think this makes Redis more or less the most
 memory efficient plain key value store out there.
@@ -212,15 +212,10 @@ the allocations performed by Redis). Because the RSS reflects the peak memory,
 when the (virtually) used memory is low since a lot of keys / values were
 freed, but the RSS is high, the ratio `RSS / mem_used` will be very high.
 
-If `maxmemory` is not set Redis will keep allocating memory as it finds
+If `maxmemory` is not set Redis will keep allocating memory as it sees
 fit and thus it can (gradually) eat up all your free memory.
 Therefore it is generally advisable to configure some limit. You may also
 want to set `maxmemory-policy` to `noeviction` (which is *not* the default
 value in some older versions of Redis).
 
 It makes Redis return an out of memory error for write commands if and when it reaches the limit - which in turn may result in errors in the application but will not render the whole machine dead because of memory starvation.
-
-Work in progress
-----------------
-
-Work in progress... more tips will be added soon.
