@@ -191,21 +191,31 @@
     "name": "TairHash",
     "license": "Apache-2.0",
     "repository": "https://github.com/alibaba/TairHash",
-    "description": "A redis module, similar to redis hash, and you can set expire and version for the field",
+    "description": "A redis module, similar to redis hash, but you can set expiration and version for field",
     "authors": [
       "Alibaba"
     ],
-    "stars": 37
+    "stars": 105
   },
   {
     "name": "TairString",
     "license": "Apache-2.0",
     "repository": "https://github.com/alibaba/TairString",
-    "description": "A redis module, similar to redis string, and support CAS/CAD operations",
+    "description": "A redis module, similar to redis string, but you can set expire and version for the value. It also provides many very useful commands, such as cas/cad",
     "authors": [
       "Alibaba"
     ],
-    "stars": 28
+    "stars": 65
+  },
+  {
+    "name": "TairZset",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/alibaba/TairZset",
+    "description": "A redis module, similar to redis zset, but you can set multiple scores for each member to support multi-dimensional sorting",
+    "authors": [
+      "Alibaba"
+    ],
+    "stars": 18
   },
   {
     "name": "lqrm",
