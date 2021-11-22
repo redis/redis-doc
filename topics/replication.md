@@ -179,13 +179,18 @@ You may wonder why it is possible to revert the read-only setting
 and have replica instances that can be targeted by write operations.
 The answer is that writable replicas exist only for historical reasons.
 Using writable replicas can result in inconsistency between the master and the replica, so it is not recommended to use writable replicas.
-In particular, never use writable replicas in the following situations:
+To understand in which situations this can be a problem, we need to understand how replication works.
+Changes on the master is replicated by propagating regular Redis commands to the replica.
+When a key expires on the master, this is propagated as a DEL command.
+If a key which exists on the master but is deleted, expired or has a different type on the replica compared to the master will react differently to commands like DEL, INCR or RPOP propagated from the master than intended.
+The propagated command may fail on the replica or result in a different outcome.
+To minimize the risks (if you insist on using writable replicas) we suggest you follow these recommendations:
 
-* Never write to keys in a writable replica that are ever used on the master.
+* Don't write to keys in a writable replica that are also used on the master.
   (This can be hard to guarantee if you don't have control over all the clients that write to the master.)
 
-* Never configure an instance as a writable replica as an intermediary step when upgrading a set of instances in a running system.
-  In general, don't configure an instance as a writable replica if it can ever be promoted to a master.
+* Don't configure an instance as a writable replica as an intermediary step when upgrading a set of instances in a running system.
+  In general, don't configure an instance as a writable replica if it can ever be promoted to a master if you want to guarantee data consistency.
 
 Historically, there were some use cases that were considere legitimate for writable replicas.
 As of version 7.0, these use cases are now all obsolete and the same can be achieved by other means.
@@ -204,7 +209,11 @@ While writes to a replica will be discarded if the replica and the master resync
 
 Before version 4.0, writable replicas were incapable of expiring keys with a time to live set.
 This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory.
-Even after version 4.0, using `EXPIRE` on a key which has been replicated from the master can cause inconsistency between the replica and the master.
+Redis 4.0 RC3 and greater versions
+are able to evict keys with TTL as masters do, with the exceptions
+of keys written in DB numbers greater than 63 (but by default Redis instances
+only have 16 databases).
+Note though that even in versions greater than 4.0, using `EXPIRE` on a key which has been replicated from the master can cause inconsistency between the replica and the master.
 
 Also note that since Redis 4.0 replica writes are only local, and are not propagated to sub-replicas attached to the instance. Sub-replicas instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate replicas. So for example in the following setup:
 
