@@ -173,22 +173,38 @@ Read-only replica
 Since Redis 2.6, replicas support a read-only mode that is enabled by default.
 This behavior is controlled by the `replica-read-only` option in the redis.conf file, and can be enabled and disabled at runtime using `CONFIG SET`.
 
-Read-only replicas will reject all write commands, so that it is not possible to write to a replica because of a mistake. This does not mean that the feature is intended to expose a replica instance to the internet or more generally to a network where untrusted clients exist, because administrative commands like `DEBUG` or `CONFIG` are still enabled. However, security of read-only instances can be improved by disabling commands in redis.conf using the `rename-command` directive.
+Read-only replicas will reject all write commands, so that it is not possible to write to a replica because of a mistake. This does not mean that the feature is intended to expose a replica instance to the internet or more generally to a network where untrusted clients exist, because administrative commands like `DEBUG` or `CONFIG` are still enabled. The [Security](/topics/security) page describes how to secure a Redis instance.
 
 You may wonder why it is possible to revert the read-only setting
 and have replica instances that can be targeted by write operations.
-While those writes will be discarded if the replica and the master
-resynchronize or if the replica is restarted, there are a few legitimate
-use case for storing ephemeral data in writable replicas.
+The answer is that writable replicas exist only for historical reasons.
+Using writable replicas can result in inconsistency between the master and the replica, so it is not recommended to use writable replicas.
+In particular, never use writable replicas in the following situations:
 
-For example computing slow Set or Sorted set operations and storing them into local keys is an use case for writable replicas that was observed multiple times.
+* Never write to keys in a writable replica that are ever used on the master.
+  (This can be hard to guarantee if you don't have control over all the clients which write to the master.)
 
-However note that **writable replicas before version 4.0 were incapable of expiring keys with a time to live set**. This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory. So in general mixing writable replicas (previous version 4.0) and keys with TTL is going to create issues.
+* Never configure an instance as a writable replica as an intermediary step when upgrading a set of instances in a running system.
+  In general, don't configure an instance as a writable replica if it can ever be pronoted to a master.
 
-Redis 4.0 RC3 and greater versions totally solve this problem and now writable
-replicas are able to evict keys with TTL as masters do, with the exceptions
-of keys written in DB numbers greater than 63 (but by default Redis instances
-only have 16 databases).
+Historically, there were some use cases that were considere legitimate for storing temporary data in writable replicas.
+As of version 7.0, these use cases are now all obsolete and the same can be achieved by other means.
+For example:
+
+* Computing slow Set or Sorted set operations and storing them into local keys using commands like [SUNIONSTORE](/commands/sunionstore) and [ZINTERSTORE](/commands/zinterstore).
+  Instead, use commands which return the result without storing it, such as [SUNION](commands/sunion) and [ZINTER](/commands/zinter).
+
+* Using the [SORT](/commands/sort) command (which is not considered a read-only command because of the optional STORE option and therefore cannot be used on a read-only replica).
+  Instead, use [SORT_RO](/commands/sort_ro), which is a read-only command.
+
+* Using [EVAL](/commands/eval) and [EVALSHA](/commands/evalsha) are also not considered read-only commands, because the Lua script may call write commands.
+  Instead, use [EVAL_RO](/commands/eval_ro) and [EVALSHA_RO](/commands/evalsha_ro) where the Lua script can only call read-only commands.
+
+While writes to a replica will be discarded if the replica and the master resynchronize or if the replica is restarted, there is no guarantee that they will resyncronize automatically.
+
+Before version 4.0, writable replicas were incapable of expiring keys with a time to live set.
+This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory.
+Even after version 4.0, using `EXPIRE` on a key which has been replicated from the master can cause inconsistency between the replica and the master.
 
 Also note that since Redis 4.0 replica writes are only local, and are not propagated to sub-replicas attached to the instance. Sub-replicas instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate replicas. So for example in the following setup:
 
