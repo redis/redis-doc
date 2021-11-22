@@ -182,17 +182,17 @@ Using writable replicas can result in inconsistency between the master and the r
 In particular, never use writable replicas in the following situations:
 
 * Never write to keys in a writable replica that are ever used on the master.
-  (This can be hard to guarantee if you don't have control over all the clients which write to the master.)
+  (This can be hard to guarantee if you don't have control over all the clients that write to the master.)
 
 * Never configure an instance as a writable replica as an intermediary step when upgrading a set of instances in a running system.
-  In general, don't configure an instance as a writable replica if it can ever be pronoted to a master.
+  In general, don't configure an instance as a writable replica if it can ever be promoted to a master.
 
-Historically, there were some use cases that were considere legitimate for storing temporary data in writable replicas.
+Historically, there were some use cases that were considere legitimate for writable replicas.
 As of version 7.0, these use cases are now all obsolete and the same can be achieved by other means.
 For example:
 
-* Computing slow Set or Sorted set operations and storing them into local keys using commands like [SUNIONSTORE](/commands/sunionstore) and [ZINTERSTORE](/commands/zinterstore).
-  Instead, use commands which return the result without storing it, such as [SUNION](commands/sunion) and [ZINTER](/commands/zinter).
+* Computing slow Set or Sorted set operations and storing the result in temporary local keys using commands like [SUNIONSTORE](/commands/sunionstore) and [ZINTERSTORE](/commands/zinterstore).
+  Instead, use commands that return the result without storing it, such as [SUNION](commands/sunion) and [ZINTER](/commands/zinter).
 
 * Using the [SORT](/commands/sort) command (which is not considered a read-only command because of the optional STORE option and therefore cannot be used on a read-only replica).
   Instead, use [SORT_RO](/commands/sort_ro), which is a read-only command.
