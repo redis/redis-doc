@@ -210,7 +210,7 @@ While writes to a replica will be discarded if the replica and the master resync
 Before version 4.0, writable replicas were incapable of expiring keys with a time to live set.
 This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory.
 Redis 4.0 RC3 and greater versions are able to evict keys with TTL as masters do, with the exceptions of keys written in DB numbers greater than 63 (but by default Redis instances only have 16 databases).
-Note though that even in versions greater than 4.0, using `EXPIRE` on a key which has been replicated from the master can cause inconsistency between the replica and the master.
+Note though that even in versions greater than 4.0, using `EXPIRE` on a key that could ever exists on the master can cause inconsistency between the replica and the master.
 
 Also note that since Redis 4.0 replica writes are only local, and are not propagated to sub-replicas attached to the instance. Sub-replicas instead will always receive the replication stream identical to the one sent by the top-level master to the intermediate replicas. So for example in the following setup:
 
