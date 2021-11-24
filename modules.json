@@ -315,7 +315,7 @@
     "authors": [
       "starkdg"
      ],
-     "stars": 14
+     "stars": 22
     },
   {
     "name": "redismodule-ratelimit",
@@ -345,7 +345,7 @@
 	  "authors": [
 		  "starkdg"
 	  ],
-	  "stars":1
+	  "stars":9
 	},
   {
     "name": "redis_hnsw",
@@ -365,7 +365,7 @@
     "authors": [
 		"starkdg"
 	],
-	"stars":2
+	"stars":4
   },
   {
     "name":"redex",
