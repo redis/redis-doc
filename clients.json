@@ -203,6 +203,13 @@
   },
 
   {
+    "name": "rueidis",
+    "language": "Go",
+    "repository": "https://github.com/rueian/rueidis",
+    "description": "A Fast Golang Redis RESP3 client that does auto pipelining and supports client side caching."
+  },
+
+  {
     "name": "go-resp3",
     "language": "Go",
     "repository": "https://github.com/stfnmllr/go-resp3",
