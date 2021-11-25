@@ -15,7 +15,7 @@ format:
 
 This is an example of configuration directive:
 
-    slaveof 127.0.0.1 6380
+    replicaof 127.0.0.1 6380
 
 It is possible to provide strings containing spaces as arguments using
 (double or single) quotes, as in the following example:
@@ -30,6 +30,7 @@ The list of configuration directives, and their meaning and intended usage
 is available in the self documented example redis.conf shipped into the
 Redis distribution.
 
+* The self documented [redis.conf for Redis 6.2](https://raw.githubusercontent.com/redis/redis/6.2/redis.conf).
 * The self documented [redis.conf for Redis 6.0](https://raw.githubusercontent.com/redis/redis/6.0/redis.conf).
 * The self documented [redis.conf for Redis 5.0](https://raw.githubusercontent.com/redis/redis/5.0/redis.conf).
 * The self documented [redis.conf for Redis 4.0](https://raw.githubusercontent.com/redis/redis/4.0/redis.conf).
@@ -47,7 +48,7 @@ using the command line directly. This is very useful for testing purposes.
 The following is an example that starts a new Redis instance using port 6380
 as a replica of the instance running at 127.0.0.1 port 6379.
 
-    ./redis-server --port 6380 --slaveof 127.0.0.1 6379
+    ./redis-server --port 6380 --replicaof 127.0.0.1 6379
 
 The format of the arguments passed via the command line is exactly the same
 as the one used in the redis.conf file, with the exception that the keyword
