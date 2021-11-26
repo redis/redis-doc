@@ -105,40 +105,40 @@ Every hash can store up to 2^32 - 1 field-value pairs (more than 4 billion).
 Check the [full list of Hash commands](/commands#hash) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
 <a name="sorted-sets"></a>
-Sorted sets
+Sorted Sets
 ---
 
 Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of
 Strings. The difference is that every member of a Sorted Set is associated
-with score, that is used in order to take the sorted set ordered, from the
+with a score, that is used keep the Sorted Set in order, from the
 smallest to the greatest score.  While members are unique, scores may be
 repeated.
 
-With sorted sets you can add, remove, or update elements in a very fast way
+With Sorted Sets you can add, remove, or update elements in a very fast way
 (in a time proportional to the logarithm of the number of elements). Since
-elements are *taken in order* and not ordered afterwards, you can also get
+elements are *stored in order* and not ordered afterwards, you can also get
 ranges by score or by rank (position) in a very fast way.
-Accessing the middle of a sorted set is also very fast, so you can use
+Accessing the middle of a Sorted Set is also very fast, so you can use
 Sorted Sets as a smart list of non repeating elements where you can quickly access
 everything you need: elements in order, fast existence test, fast access
 to elements in the middle!
 
-In short with sorted sets you can do a lot of tasks with great performance
+In short with Sorted Sets you can do a lot of tasks with great performance
 that are really hard to model in other kind of databases.
 
 With Sorted Sets you can:
 
-* Take a leaderboard in a massive online game, where every time a new score
+* Build a leaderboard in a massive online game, where every time a new score
 is submitted you update it using [ZADD](/commands/zadd). You can easily
-take the top users using [ZRANGE](/commands/zrange), you can also, given a
+retrieve the top users using [ZRANGE](/commands/zrange), you can also, given a
 user name, return its rank in the listing using [ZRANK](/commands/zrank).
 Using ZRANK and ZRANGE together you can show users with a score similar to
 a given user. All very *quickly*.
 * Sorted Sets are often used in order to index data that is stored inside Redis.
-For instance if you have many hashes representing users, you can use a sorted set with elements having the age of the user as the score and the ID of the user as the value. So using [ZRANGEBYSCORE](/commands/zrangebyscore) it will be trivial and fast to retrieve all the users with a given interval of ages.
+For instance if you have many hashes representing users, you can use a Sorted Set with members having the age of the user as the score and the ID of the user as the value. So using [ZRANGEBYSCORE](/commands/zrangebyscore) it will be trivial and fast to retrieve all the users with a given age range.
 
 
-Sorted Sets are probably the most advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis! Also you may want to read the [introduction to Redis data types](/topics/data-types-intro).
+Sorted Sets are one of the more advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis! Also you may want to read the [Introduction to Redis Data Types](/topics/data-types-intro).
 
 Bitmaps and HyperLogLogs
 ---
