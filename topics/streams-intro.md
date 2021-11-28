@@ -524,20 +524,26 @@ This command uses subcommands in order to show different information about the s
 
 ```
 > XINFO STREAM mystream
- 1) length
- 2) (integer) 13
- 3) radix-tree-keys
+ 1) "length"
+ 2) (integer) 2
+ 3) "radix-tree-keys"
  4) (integer) 1
- 5) radix-tree-nodes
+ 5) "radix-tree-nodes"
  6) (integer) 2
- 7) groups
- 8) (integer) 2
- 9) first-entry
-10) 1) 1526569495631-0
+ 7) "last-generated-id"
+ 8) "1638125141232-0"
+ 9) "xdel-max-id"
+10) "0-0"
+11) "last-offset"
+12) (integer) 2
+13) "groups"
+14) (integer) 1
+15) "first-entry"
+16) 1) "1638125133432-0"
     2) 1) "message"
        2) "apple"
-11) last-entry
-12) 1) 1526569544280-0
+17) "last-entry"
+18) 1) "1638125141232-0"
     2) 1) "message"
        2) "banana"
 ```
@@ -546,22 +552,30 @@ The output shows information about how the stream is encoded internally, and als
 
 ```
 > XINFO GROUPS mystream
-1) 1) name
-   2) "mygroup"
-   3) consumers
-   4) (integer) 2
-   5) pending
-   6) (integer) 2
-   7) last-delivered-id
-   8) "1588152489012-0"
-2) 1) name
-   2) "some-other-group"
-   3) consumers
-   4) (integer) 1
-   5) pending
-   6) (integer) 0
-   7) last-delivered-id
-   8) "1588152498034-0"
+1)  1) "name"
+    2) "mygroup"
+    3) "consumers"
+    4) (integer) 2
+    5) "pending"
+    6) (integer) 2
+    7) "last-delivered-id"
+    8) "1638126030001-0"
+    9) "last-delivered-offset"
+   10) (integer) 2
+   11) "lag"
+   12) (integer) 0
+2)  1) "name"
+    2) "some-other-group"
+    3) "consumers"
+    4) (integer) 1
+    5) "pending"
+    6) (integer) 0
+    7) "last-delivered-id"
+    8) "1638126028070-0"
+    9) "last-delivered-offset"
+   10) (integer) 1
+   11) "lag"
+   12) (integer) 1
 ```
 
 As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported, and allows the command to report more information in the future by adding more fields without breaking compatibility with older clients. Other commands that must be more bandwidth efficient, like **XPENDING**, just report the information without the field names.

@@ -5787,6 +5787,12 @@
       {
         "command": "MKSTREAM",
         "optional": true
+      },
+      {
+        "command": "OFFSET",
+        "name": "offset",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "5.0.0",
@@ -5867,6 +5873,11 @@
           "id",
           "$"
         ]
+      },
+      {
+        "name": "offset",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "5.0.0",

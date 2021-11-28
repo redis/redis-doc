@@ -13,6 +13,15 @@ However, you can use the optional `MKSTREAM` subcommand as the last argument aft
 
     XGROUP CREATE mystream mygroup $ MKSTREAM
 
+The optional `offset` named argument can be specified to enable consumer group lag tracking for an arbitrary ID.
+An arbitrary ID is any ID that isn't the ID of the stream's first entry, its last entry or the zero ("0-0") ID.
+This can be useful you know exactly how many entries are between the arbitrary ID (excluding it) and the stream's last entry.
+In such cases, the `offset` can be set to the stream's `last-offset` subtracted with the number of entries.
+
 @return
 
 @simple-string-reply: `OK` on success.
+
+@history
+
+* `>= 7.0`: Added the optional `offset` named argument.
