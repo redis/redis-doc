@@ -32,7 +32,7 @@ the ID. The second part is just a sequence number and is used in order to
 distinguish IDs generated in the same millisecond.
 
 You can also specify an incomplete ID, that consists only of the milliseconds part, which is interpreted as a zero value for sequence part.
-To have only the sequence part automatically generated, specify the milliseconds part followed by the `-` seperator and the `*` character:
+To have only the sequence part automatically generated, specify the milliseconds part followed by the `-` separator and the `*` character:
 
 ```
 > XADD mystream 1526919030474-55 message "Hello,"
