@@ -5862,7 +5862,7 @@
       },
       {
         "name": "id",
-        "type": "string",
+        "type": "enum",
         "enum": [
           "id",
           "$"
