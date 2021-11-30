@@ -88,7 +88,7 @@ key doesn't exist.
 @history
 
 * `>= 6.2`: Added the `NOMKSTREAM` option, `MINID` trimming strategy and the `LIMIT` option.
-* `>= 7.0`: Added support for the '<ms>-*' explicit ID form.
+* `>= 7.0`: Added support for the `<ms>-*` explicit ID form.
 
 @examples
 
