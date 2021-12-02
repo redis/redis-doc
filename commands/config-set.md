@@ -11,30 +11,9 @@ All the configuration parameters set using `CONFIG SET` are immediately loaded
 by Redis and will take effect starting with the next command executed.
 
 All the supported parameters have the same meaning of the equivalent
-configuration parameter used in the [redis.conf][hgcarr22rc] file, with the
-following important differences:
+configuration parameter used in the [redis.conf][hgcarr22rc] file.
 
 [hgcarr22rc]: http://github.com/redis/redis/raw/6.0/redis.conf
-
-* In options where bytes or other quantities are specified, it is not
-  possible to use the `redis.conf` abbreviated form (`10k`, `2gb` ... and so forth),
-  everything should be specified as a well-formed 64-bit integer, in the base
-  unit of the configuration directive. However since Redis version 3.0 or
-  greater, it is possible to use `CONFIG SET` with memory units for
-  `maxmemory`, client output buffers, and replication backlog size.
-* The save parameter is a single string of space-separated integers.
-  Every pair of integers represent a seconds/modifications threshold.
-
-For instance what in `redis.conf` looks like:
-
-```
-save 900 1
-save 300 10
-```
-
-that means, save after 900 seconds if there is at least 1 change to the dataset,
-and after 300 seconds if there are at least 10 changes to the dataset, should
-be set using `CONFIG SET SAVE "900 1 300 10"`.
 
 It is possible to switch persistence from RDB snapshotting to append-only file
 (and the other way around) using the `CONFIG SET` command.
