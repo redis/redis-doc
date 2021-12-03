@@ -9,6 +9,7 @@ It is a list, where every element is a map with information about the argument.
 These map fields are:
  - `name`
  - `type`
+ - `key-spec-index`
  - `token`
  - `summary`
  - `since`
@@ -18,9 +19,11 @@ These map fields are:
 Only `name` and `type` are mandatory. At least one of `value` or `token` must exist.
 
 ## name
+
 The name of the argument (for for identification, not what's displayed in the command syntax)
 
 ## type
+
 The type of the argument
 
 The possible types are:
@@ -41,6 +44,12 @@ The trimming section of `XADD`, `[MAXLEN|MINID [=|~] threshold [LIMIT count]]` i
 2. trimming operator: this sub-argument is an optional `oneof`, with two sub-sub-arguments, each a `pure-token` (`=` and `~`)
 3. threshold: this sub-argument is a `string`
 4. count: this sub-argument is an optional `integer`, with a `token` (`LIMIT`)
+
+## key-spec-index
+
+If the command is of type `key` this fields must exist and it contains the index of the corresponding `key-spec` within the `key-specs` array, returned by `COMMAND`
+For more information please check the [key-specs page][tr].
+[tr]: /topics/key-specs
 
 ## token
 
