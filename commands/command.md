@@ -9,8 +9,13 @@ For more information please check the [key-specs page][tr].
 You can use `COMMAND` to cache a mapping between commands and key positions for
 each command to enable exact routing of commands to cluster instances.
 
-`COMMAND`'s reply is an @array-reply, where each element is an @array-reply by itself, containing the following elements:
+`COMMAND` has several subcommands:
+ - `COMMAND INFO`
+ - `COMMAND COUNT`
+ - `COMMAND GETKEYS`
+ - `COMMAND LIST`
 
+`COMMAND`'s reply is an @array-reply, where each element is an @array-reply by itself, containing the following elements:
  - command name
  - command arity specification
  - nested @array-reply of command flags
@@ -20,33 +25,35 @@ each command to enable exact routing of commands to cluster instances.
  - nested @array-reply of ACL categories
  - nested @map-reply of additional information
 
+The three elements responsible for determining the position of the keys are referred to as (`firstkey`, `lastkey`, `keystep`)
+
 ## Example
 ```
-1) 1) "mget"
-   2) (integer) -2
+1) 1) "get"
+   2) (integer) 2
    3) 1) readonly
       2) fast
    4) (integer) 1
-   5) (integer) -1
+   5) (integer) 1
    6) (integer) 1
    7) 1) @read
       2) @string
       3) @fast
    8)  1) "summary"
-       2) "Get the values of all the given keys"
+       2) "Get the value of a key"
        3) "since"
        4) "1.0.0"
        5) "group"
        6) "string"
        7) "complexity"
-       8) "O(N) where N is the number of keys to retrieve."
+       8) "O(1)"
        9) "arguments"
       10) 1) 1) "name"
              2) "key"
              3) "type"
              4) "key"
-             5) "flags"
-             6) 1) multiple
+             5) "key-spec-index"
+             6) (integer) 0
              7) "value"
              8) "key"
       11) "key-specs"
@@ -63,7 +70,7 @@ each command to enable exact routing of commands to cluster instances.
                 2) "range"
                 3) "spec"
                 4) 1) "lastkey"
-                   2) (integer) -1
+                   2) (integer) 0
                    3) "keystep"
                    4) (integer) 1
                    5) "limit"
@@ -94,8 +101,8 @@ Also note with `MGET`, the -1 value for "last key position" means the list
 of keys may have unlimited length.
 
 ## flags
-Command flags is @array-reply containing one or more status replies:
 
+Command flags is @array-reply containing one or more status replies:
   - `write`: command may result in modifications
   - `readonly`: command will never modify keys
   - `denyoom`: reject command if currently out of memory
@@ -109,7 +116,7 @@ Command flags is @array-reply containing one or more status replies:
   - `skip_monitor`: do not show this command in MONITOR
   - `asking`: cluster related - accept even if importing
   - `fast`: command operates in constant or log(N) time. Used for latency monitoring.
-  - `movablekeys`: keys have no pre-determined position. You must discover keys yourself or use `key-specs` (starting from Redis 7.0).
+  - `movablekeys`: The (`firstkey`, `lastkey`, `keystep`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or `key-specs` (starting from Redis 7.0).
 
 ### movablekeys
 
@@ -125,12 +132,12 @@ Command flags is @array-reply containing one or more status replies:
    ...
 ```
 
-Some Redis commands have no predetermined key locations. For those commands,
-flag `movablekeys` is added to the command flags @array-reply. Your Redis
-Cluster client needs to parse commands marked `movablekeys` to locate all relevant key positions.
+Some Redis commands have no predetermined key locations.
+For those commands, the `movablekeys` flag is added to the command flags @array-reply,
+which denotes that the (`firstkey`, `lastkey`, `keystep`) fields are insufficient to find all the keys,
+and Cluster clients needs to user other measures which are described below to locate them.
 
-Partial list of commands currently requiring key location parsing:
-
+Here are a few examples of commands that are marked with `movablekeys`:
   - `SORT` - optional `STORE` key, optional `BY` weights, optional `GET` keys
   - `ZUNION` -  keys stop after `numkeys` count arguments
   - `ZUNIONSTORE` -  keys stop after `numkeys` count arguments
@@ -165,7 +172,7 @@ last key position is the location of the last key in the argument list.
 
 If a command accepts an unlimited number of keys, the last key position is -1.
 
-## step
+## keystep
 
 <table style="width:50%">
 <tr><td>
@@ -213,97 +220,10 @@ For more information please check the [acl page][tr].
 
 Available starting from Redis 7.0
 
-The last element of each element in `COMMAND`s reply is a a map with the following fields:
+The element at index 7 (zero-based) of each element in `COMMAND`s reply is a a map with additional information.
 
- - `summary`
- - `since`
- - `group`
- - `complexity`
- - `doc-flags`
- - `deprecated-since`
- - `replaced-by`
- - `history`
- - `hints`
- - `arguments`
- - `key-specs`
- - `subcommands`
-
-Only `summary`, `since`, and `group` are mandatory, the rest may be absent.
-
-### summary
-
-Short command description
-
-### since
-
-Debut Redis version of the command
-
-### group
-
-Group of the command. Possible values:
- - generic
- - string
- - list
- - set
- - sorted-set
- - hash
- - pubsub
- - transactions
- - connection
- - server
- - scripting
- - hyperloglog
- - cluster
- - sentinel
- - geo
- - stream
- - bitmap
- - module
-
-### complexity
-
-A short explantion about the command's time complexity
-
-### doc-flags
-
-An @array-reply of flgas that are relevant for documentation purposes. Possible values:
- - deprecated: The command is deprecated
- - syscmd: System command, not meant to be executed by normal users
-
-### deprecated-since
-
-If deprecated, from which version?
-
-### replaced-by
-
-If deprecated, which command replaced it?
-
-### history
-
-An @array-reply, where each element is also an @array-reply with two elements:
-1. The version when something changed about the command interface
-2. A short description of the changes
-
-### hints
-
-An @array-reply of hints that are meant to help clients/proxies know how to behave with this command
-
-### arguments
-
-An @array-reply, where each element is a @map-reply describing a command argument.
-For more information please check the [command-arguments page][tr].
-[tr]: /topics/command-arguments
-
-### key-specs
-
-An @array-reply, where each element is a @map-reply describing a method to locate keys within the arguments.
-For more information please check the [key-specs page][tr].
-[tr]: /topics/key-specs
-
-### subcommands
-
-Some commands have subcommands (Example: `REWRITE` is a subcommand of `CONFIG`).
-This is an @array-reply, with the same format and specification of `COMMAND`'s reply.
+For the complete structure of that map please check the [command-info page][tr].
+[tr]: /topics/command-info
 
 @return
 
