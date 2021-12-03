@@ -25,7 +25,7 @@ each command to enable exact routing of commands to cluster instances.
  - nested @array-reply of ACL categories
  - nested @map-reply of additional information
 
-The three elements responsible for determining the position of the keys are referred to as (`firstkey`, `lastkey`, `keystep`)
+The three elements responsible for determining the position of the keys are referred to as (`first-key`, `last-key`, `key-step`)
 
 ## Example
 ```
@@ -69,9 +69,9 @@ The three elements responsible for determining the position of the keys are refe
              6) 1) "type"
                 2) "range"
                 3) "spec"
-                4) 1) "lastkey"
+                4) 1) "last-key"
                    2) (integer) 0
-                   3) "keystep"
+                   3) "key-step"
                    4) (integer) 1
                    5) "limit"
                    6) (integer) 0
@@ -116,7 +116,7 @@ Command flags is @array-reply containing one or more status replies:
   - `skip_monitor`: do not show this command in MONITOR
   - `asking`: cluster related - accept even if importing
   - `fast`: command operates in constant or log(N) time. Used for latency monitoring.
-  - `movablekeys`: The (`firstkey`, `lastkey`, `keystep`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or `key-specs` (starting from Redis 7.0).
+  - `movablekeys`: The (`first-key`, `last-key`, `key-step`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or `key-specs` (starting from Redis 7.0).
 
 ### movablekeys
 
@@ -134,7 +134,7 @@ Command flags is @array-reply containing one or more status replies:
 
 Some Redis commands have no predetermined key locations.
 For those commands, the `movablekeys` flag is added to the command flags @array-reply,
-which denotes that the (`firstkey`, `lastkey`, `keystep`) fields are insufficient to find all the keys,
+which denotes that the (`first-key`, `last-key`, `key-step`) fields are insufficient to find all the keys,
 and Cluster clients needs to user other measures which are described below to locate them.
 
 Here are a few examples of commands that are marked with `movablekeys`:
@@ -155,13 +155,13 @@ The only two commands which still require using `COMMAND GETKEYS` are `SORT` and
 For more information please check the [key-specs page][tr].
 [tr]: /topics/key-specs
 
-## firstkey
+## first-key
 
 For most commands the first key is position 1.  Position 0 is
 always the command name itself.
 
 
-## lastkey
+## last-key
 
 Redis commands usually accept one key, two keys, or an unlimited number of keys.
 
@@ -172,7 +172,7 @@ last key position is the location of the last key in the argument list.
 
 If a command accepts an unlimited number of keys, the last key position is -1.
 
-## keystep
+## key-step
 
 <table style="width:50%">
 <tr><td>
@@ -209,7 +209,7 @@ like `MSET` where the format is `MSET _key1_ _val1_ [key2] [val2] [key3] [val3].
 In the case of `MSET`, keys are every other position so the step value is 2.  Compare
 with `MGET` above where the step value is just 1.
 
-## acl categories
+## ACL categories
 
 Available starting from Redis 6.0
 
