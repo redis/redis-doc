@@ -13,7 +13,7 @@ by Redis and will take effect starting with the next command executed.
 All the supported parameters have the same meaning of the equivalent
 configuration parameter used in the [redis.conf][hgcarr22rc] file.
 
-[hgcarr22rc]: http://github.com/redis/redis/raw/6.0/redis.conf
+[hgcarr22rc]: http://github.com/redis/redis/raw/unstable/redis.conf
 
 It is possible to switch persistence from RDB snapshotting to append-only file
 (and the other way around) using the `CONFIG SET` command.
