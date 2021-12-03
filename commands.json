@@ -4259,8 +4259,8 @@
     "group": "set"
   },
   "LCS": {
-    "summary": "Run the LCS against string keys",
-    "complexity": "O(strlen(s1)*strlen(s2))",
+    "summary": "Find longest common substring",
+    "complexity": "O(N*M) where N and M are the lengths of s1 and s2, respectively",
     "arguments": [
       {
         "name": "key1",
