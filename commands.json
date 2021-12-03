@@ -1205,6 +1205,34 @@
     ],
     "group": "server"
   },
+  "COMMAND LIST": {
+    "summary": "Get an array of Redis command names",
+    "complexity": "O(N) where N is the total number of Redis commands",
+    "since": "7.0.0",
+    "arguments": [
+      {
+        "name": "filterby",
+        "type": "block",
+        "optional": true,
+        "block": [
+          {
+            "command": "FILTERBY",
+            "type": "command"
+          },
+          {
+            "name": "filter",
+            "type": "enum",
+            "enum": [
+              "MODULE module-name",
+              "ACLCAT cat",
+              "PATTERN pattern"
+            ]
+          }
+        ]
+      }
+    ],
+    "group": "server"
+  },
   "CONFIG GET": {
     "summary": "Get the value of a configuration parameter",
     "arguments": [
