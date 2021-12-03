@@ -213,7 +213,7 @@ with `MGET` above where the step value is just 1.
 
 Available starting from Redis 6.0
 
-For more information please check the [acl page][tr].
+For more information please check the [ACL page][tr].
 [tr]: /topics/acl
 
 ## additional information
