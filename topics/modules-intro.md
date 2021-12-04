@@ -187,7 +187,7 @@ file name:
 
     loadmodule mymodule.so foo bar 1234
 
-In the above example the strings `foo`, `bar` and `123` will be passed
+In the above example the strings `foo`, `bar` and `1234` will be passed
 to the module `OnLoad()` function in the `argv` argument as an array
 of RedisModuleString pointers. The number of arguments passed is into `argc`.
 
