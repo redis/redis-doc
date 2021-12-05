@@ -1,14 +1,15 @@
 # Command arguments
 
 `COMMAND` returns infromation about Redis commands.
-The last element of its reply is a map with aditional fields, one of which
-is the `arguments` field, which describes the arguments the command takes.
+The last element of its reply is a map with additional fields, one of which is the `arguments` field.
+It describes the arguments the command accepts.
 
-It is a list, where every element is a map with information about the argument.
+The value of `arguments` is a list, where every element is a map with information about the argument.
 
-These map fields are:
+This map's fields are:
+
  - `name`
- - `type`
+ - `!type`
  - `key-spec-index`
  - `token`
  - `summary`
@@ -20,64 +21,68 @@ Only `name` and `type` are mandatory. At least one of `value` or `token` must ex
 
 ## name
 
-The name of the argument (for for identification, not what's displayed in the command syntax)
+The name of the argument (for identification purposes only, this value isn't displayed in the command's syntax).
 
 ## type
 
-The type of the argument
+The type of the argument.
 
-The possible types are:
- - `string`: String argument
- - `integer`: Integer argument
- - `double`: Double-precision argument
- - `key`: String, but represents a key-name
- - `pattern`: String, but represents a regex pattern
- - `unix-time`: Integer, but represents a UNIX timestamp
- - `pure-token`: The argument is just a token, which can exist or not (not a free-text input from user)
- - `oneof`: The argument is a container of sub-arguments. Used when user can choose only one of a few sub-arguments (see example below)
- - `block`: The argument is a container of sub-arguments. Used when one wants to group together several sub-arguments, usually to apply something onall of them (like making the entire group "optional") (see example below)
+Possible argument types are:
+
+ - `string`: a string argument
+ - `integer`: an integer argument
+ - `double`: a double-precision argument
+ - `key`: a string that represents the name of a key
+ - `pattern`: a string that is interpreted as a glob-like pattern
+ - `unix-time`: an integer that represents a UNIX timestamp
+ - `pure-token`: the argument is just a token, which may or not be specified (not free-text user input)
+ - `oneof`: the argument is a container for nested arguments. This is used when there's a choice among several nested arguments (see example below).
+ - `block`: the argument is a container for nested arguments. This is used for grouping arguments together and applying a property such as `optional` on all of them (see example below).
 
 ### Example
 
 The trimming section of `XADD`, `[MAXLEN|MINID [=|~] threshold [LIMIT count]]` is a `block`, consisting of four sub-arguments:
-1. trimming startegy: this sub-argument is a `oneof`, with two sub-sub-arguments, each a `pure-token` (`MAXLEN` and `MINID`)
-2. trimming operator: this sub-argument is an optional `oneof`, with two sub-sub-arguments, each a `pure-token` (`=` and `~`)
-3. threshold: this sub-argument is a `string`
-4. count: this sub-argument is an optional `integer`, with a `token` (`LIMIT`)
+
+1. trimming strategy: this nested argument is a `oneof`, with two nested arguments, each a `pure-token` (`MAXLEN` and `MINID`)
+2. trimming operator: this nested argument is an optional `oneof`, with two nested arguments, each a `pure-token` (`=` and `~`)
+3. threshold: this nested argument is a `string`
+4. count: this nest argument is an optional `integer`, with a `token` (`LIMIT`)
 
 ## key-spec-index
 
-If the command is of type `key` this fields must exist and it contains the index of the corresponding `key-spec` within the `key-specs` array, returned by `COMMAND`
+When the command accepts arguments with type `key`, this field must exist and it holds the index of the corresponding `key-spec` within the `key-specs` array, returned by `COMMAND`.
+
 For more information please check the [key-specs page][tr].
 [tr]: /topics/key-specs
 
 ## token
 
-Some arguments have a contant literal before the user input (unless it's a `pure-token`, in which case there's no free-text user input)
+Some arguments have a constant literal preceding the user's input (unless it's a `pure-token`, in which case there's no free-text user input).
 
 ## summary
 
-A short description of the argument
+A short description of the argument.
 
 ## since
 
-The debut Redis version of this argument
+The debut Redis version of this argument.
 
 ## flags
 
-Nested @array-reply of argument flags:
+An @array-reply of argument flags:
 
 Possible flags are:
- - `optional`: Argument is optional (like `GET` in `SET` command)
- - `multiple`: Argument may be repeated (like `key` in `DEL`)
- - `multiple-token`: The argument may repeat itself, and so does its token (like `GET pattern` in `SORT`)
+
+ - `optional`: the argument is optional (for example, the `!GET` in the `SET` command)
+ - `multiple`: the argument can be repeated (such as the `key` with `DEL`)
+ - `multiple-token`: the argument can be repeated with its preceding token (see the `GET pattern` of `SORT`)
 
 ## value
 
-Can be either:
+The value can be one of the following:
 
-1. A string, in which case it is the placeholder of a user input. Used to be displayed when building the command syntax (along with `token`, if exists); or
-2. An array of maps, each representing a sub-argument (in case the `type` is `oneof` or `block`)
+1. A string, in which case it is the placeholder for the user's input. This is used when displaying the command's syntax (along with `token`, if it exists); or
+2. In case the argument's `!type` is either `oneof` or `block`, the value is n array of maps, where each represents a nested argument
 
 ## Example
 

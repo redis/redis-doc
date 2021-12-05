@@ -23,7 +23,7 @@ each command to enable exact routing of commands to cluster instances.
  - position of last key in argument list
  - step count for locating repeating keys
  - nested @array-reply of ACL categories
- - nested @map-reply of additional information
+ - nested @array-reply of additional information as a map
 
 The three elements responsible for determining the position of the keys are referred to as (`first-key`, `last-key`, `key-step`)
 
@@ -152,8 +152,8 @@ are in any given command.
 
 Starting from redis 7.0 clients can use the `key-specs` section in the additional information section in order to deduce key positions.
 The only two commands which still require using `COMMAND GETKEYS` are `SORT` and `MIGRATE` (assuming the client can parse and uses the `key-specs` section).
+
 For more information please check the [key-specs page][tr].
-[tr]: /topics/key-specs
 
 ## first-key
 
@@ -213,17 +213,17 @@ with `MGET` above where the step value is just 1.
 
 Available starting from Redis 6.0
 
-For more information please check the [ACL page][tr].
-[tr]: /topics/acl
+For more information please check the [ACL page][ta].
+[ta]: /topics/acl
 
-## additional information
+## Additional Information
 
 Available starting from Redis 7.0
 
 The element at index 7 (zero-based) of each element in `COMMAND`s reply is a a map with additional information.
 
-For the complete structure of that map please check the [command-info page][tr].
-[tr]: /topics/command-info
+For the complete structure of that map please check the [command-info page][tb].
+[tb]: /topics/command-info
 
 @return
 

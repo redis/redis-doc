@@ -1,13 +1,14 @@
 Returns @array-reply of command names in this Redis server.
 
 The list can be filtered in the following ways:
- - Get commands that belong to s specific module
- - Get commands with a specific ACL category
- - Get command to comply with a specific regex pattern
+
+ - **`MODULE module-name`**: get the commands that belong to a module
+ - **`ACLCAT category`**: get the commands in a specific ACL category
+ - **`PATTERN pattern`**: get the commands that match the given glob-like pattern
 
 @return
 
-@array-reply: a full or filtered list of just the command names returned by `COMMAND`
+@array-reply: a list of command names.
 
 @examples
 

@@ -1224,7 +1224,7 @@
             "type": "enum",
             "enum": [
               "MODULE module-name",
-              "ACLCAT cat",
+              "ACLCAT category",
               "PATTERN pattern"
             ]
           }
