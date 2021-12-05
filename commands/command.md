@@ -209,7 +209,7 @@ like `MSET` where the format is `MSET _key1_ _val1_ [key2] [val2] [key3] [val3].
 In the case of `MSET`, keys are every other position so the step value is 2.  Compare
 with `MGET` above where the step value is just 1.
 
-## ACL categories
+## ACL Categories
 
 Available starting from Redis 6.0
 
