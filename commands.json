@@ -1222,15 +1222,18 @@
     "group": "server"
   },
   "CONFIG SET": {
-    "summary": "Set a configuration parameter to the given value",
+    "summary": "Set configuration parameters to the given values",
     "arguments": [
       {
-        "name": "parameter",
-        "type": "string"
-      },
-      {
-        "name": "value",
-        "type": "string"
+        "name": [
+          "parameter",
+          "value"
+        ],
+        "type": [
+          "string",
+          "string"
+        ],
+        "multiple": true
       }
     ],
     "since": "2.0.0",
