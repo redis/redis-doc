@@ -190,8 +190,8 @@ Here is the meaning of all fields in the **persistence** section:
      if any
 *   `rdb_last_cow_size`: The size in bytes of copy-on-write memory during
      the last RDB save operation
-*   `rdb_last_load_keys_expired`: Number of expired keys when loading RDB. Added in Redis 7.0.
-*   `rdb_last_load_keys_loaded`: Number of loaded keys when loading RDB. Added in Redis 7.0.
+*   `rdb_last_load_keys_expired`: Number volatile keys deleted during last RDB loading. Added in Redis 7.0.
+*   `rdb_last_load_keys_loaded`: Number of keys loaded in the last RDB loading. Added in Redis 7.0.
 *   `aof_enabled`: Flag indicating AOF logging is activated
 *   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is
      on-going
