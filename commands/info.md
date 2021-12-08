@@ -177,6 +177,7 @@ Here is the meaning of all fields in the **persistence** section:
      while a child fork is running
 *   `current_cow_size`: The size in bytes of copy-on-write memory
      while a child fork is running
+*   `current_cow_size_age`: Last update time of `current_cow_size`, indicate the age of the size value, in seconds.
 *   `current_fork_perc`: The percentage of progress of the current fork process. For AOF and RDB forks it is the percentage of `current_save_keys_processed` out of `current_save_keys_total`.
 *   `current_save_keys_processed`: Number of keys processed by the current save operation
 *   `current_save_keys_total`: Number of keys at the beginning of the current save operation 
