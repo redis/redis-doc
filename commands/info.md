@@ -318,6 +318,7 @@ If the instance is a replica, these additional fields are provided:
 *   `master_last_io_seconds_ago`: Number of seconds since the last interaction
      with master
 *   `master_sync_in_progress`: Indicate the master is syncing to the replica
+*   `slave_read_repl_offset`: The read replication offset of the replica instance.
 *   `slave_repl_offset`: The replication offset of the replica instance
 *   `slave_priority`: The priority of the instance as a candidate for failover
 *   `slave_read_only`: Flag indicating if the replica is read-only
