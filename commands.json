@@ -1206,11 +1206,16 @@
     "group": "server"
   },
   "CONFIG GET": {
-    "summary": "Get the value of a configuration parameter",
+    "summary": "Get the values of configuration parameters",
     "arguments": [
       {
-        "name": "parameter",
-        "type": "string"
+        "name": [
+          "parameter"
+        ],
+        "type": [
+          "string"
+        ],
+        "multiple": true
       }
     ],
     "since": "2.0.0",
