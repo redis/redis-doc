@@ -1977,6 +1977,14 @@
     "repository": "https://github.com/SiLeader/dedis",
     "description": "Simple Redis Client for Dart",
     "authors": ["cerussite127"]
+  },
+  {
+    "name": "fpredis",
+    "language": "Pascal",
+    "url": "https://github.com/isyscore/fpredis",
+    "repository": "https://github.com/isyscore/fpredis",
+    "description": "FPREDIS is a FPC client library for the Redis database.",
+    "authors": ["ISysCore"]
   }
 
 ]
