@@ -1984,7 +1984,7 @@
     "url": "https://github.com/isyscore/fpredis",
     "repository": "https://github.com/isyscore/fpredis",
     "description": "FPREDIS is a FPC client library for the Redis database.",
-    "authors": ["ISysCore"]
+    "authors": []
   }
 
 ]
