@@ -4261,24 +4261,50 @@
     "since": "1.0.0",
     "group": "set"
   },
-  "STRALGO": {
-    "summary": "Run algorithms (currently LCS) against strings",
-    "complexity": "For LCS O(strlen(s1)*strlen(s2))",
+  "LCS": {
+    "summary": "Find longest common substring",
+    "complexity": "O(N*M) where N and M are the lengths of s1 and s2, respectively",
     "arguments": [
       {
-        "name": "algorithm",
-        "type": "enum",
-        "enum": [
-          "LCS"
-        ]
+        "name": "key1",
+        "type": "key"
       },
       {
-        "name": "algo-specific-argument",
-        "type": "string",
-        "multiple": true
+        "name": "key2",
+        "type": "key"
+      },
+      {
+        "name": "len",
+        "type": "enum",
+        "enum": [
+          "LEN"
+        ],
+        "optional": true
+      },
+      {
+        "name": "idx",
+        "type": "enum",
+        "enum": [
+          "IDX"
+        ],
+        "optional": true
+      },
+      {
+        "command": "MINMATCHLEN",
+        "name": "len",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "withmatchlen",
+        "type": "enum",
+        "enum": [
+          "WITHMATCHLEN"
+        ],
+        "optional": true
       }
     ],
-    "since": "6.0.0",
+    "since": "7.0.0",
     "group": "string"
   },
   "STRLEN": {
