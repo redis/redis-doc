@@ -16,7 +16,7 @@ configured, nor "save" directive) will not dump the RDB file on `SHUTDOWN`, as
 usually you don't want Redis instances used only for caching to block on when
 shutting down.
 
-Also note: If Redis receives one of the signals SIGTERM and SIGINT, the same shutdown sequence is performed.
+Also note: If Redis receives one of the signals `SIGTERM` and `SIGINT`, the same shutdown sequence is performed.
 See also [Signal Handling](/topics/signals).
 
 ## Modifiers
@@ -27,7 +27,7 @@ Specifically:
 * **SAVE** will force a DB saving operation even if no save points are configured.
 * **NOSAVE** will prevent a DB saving operation even if one or more save points are configured.
 * **NOW** skips waiting for lagging replicas, i.e. it bypasses the first step in the shutdown sequence.
-* **FORCE** ingores any errors that would normally prevent the server from exiting.
+* **FORCE** ignores any errors that would normally prevent the server from exiting.
 
 ## Conditions where a SHUTDOWN fails
 
@@ -59,7 +59,7 @@ The second command will not have any problem to execute since the AOF is no long
 Since Redis 7.0, the server waits for lagging replicas up to a configurable `shutdown-timeout`, by default 10 seconds, before shutting down.
 This provides a best effort minimizing the risk of data loss in a situation where no save points are configured and AOF is disabled.
 Before version 7.0, shutting down a heavily loaded master node in a diskless setup is more likely to result in data loss.
-To minimize the risk of data loss in such setups, it's adviced to trigger a manual `FAILOVER` (or `CLUSTER FAILOVER`) to demote the master to a replica and promote one of the replicas to be the new master, before shutting down a master node.
+To minimize the risk of data loss in such setups, it's advised to trigger a manual `FAILOVER` (or `CLUSTER FAILOVER`) to demote the master to a replica and promote one of the replicas to be the new master, before shutting down a master node.
 
 @return
 
