@@ -3912,6 +3912,22 @@
           "SAVE"
         ],
         "optional": true
+      },
+      {
+        "name": "now",
+        "type": "enum",
+        "enum": [
+          "NOW"
+        ],
+        "optional": true
+      },
+      {
+        "name": "force",
+        "type": "enum",
+        "enum": [
+          "FORCE"
+        ],
+        "optional": true
       }
     ],
     "since": "1.0.0",

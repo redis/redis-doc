@@ -33,7 +33,7 @@ Specifically:
 
 When a save point is configured or the **SAVE** modifier is specified, the shutdown may fail if the RDB file can't be saved.
 Then, the server continues to run in order to ensure no data loss.
-This may be bypassed using the **FORCE** modifier, casuing the server to exit anyway.
+This may be bypassed using the **FORCE** modifier, causing the server to exit anyway.
 
 When the Append Only File is enabled the shutdown may fail because the
 system is in a state that does not allow to safely immediately persist
@@ -49,8 +49,8 @@ instead. This happens when:
 * The **FORCE** modifier is *not* specified. If **FORCE** is specified, the server exits anyway.
 
 There are conditions when we want just to terminate a Redis instance ASAP, regardless of what its content is.
-In such a case, the right command to send is **SHUTDOWN NOW NOSAVE FORCE**.
-In versions before 7.0, when the **NOW** and **FORCE** flags were not available, the right combination of commands was to send a **CONFIG appendonly no** followed by a **SHUTDOWN NOSAVE**.
+In such a case, the command **SHUTDOWN NOW NOSAVE FORCE** can be used.
+In versions before 7.0, where the **NOW** and **FORCE** flags are not available, the right combination of commands is to send a **CONFIG appendonly no** followed by a **SHUTDOWN NOSAVE**.
 The first command will turn off the AOF if needed, and will terminate the AOF rewriting child if there is one active.
 The second command will not have any problem to execute since the AOF is no longer enabled.
 
@@ -59,7 +59,7 @@ The second command will not have any problem to execute since the AOF is no long
 Since Redis 7.0, the server waits for lagging replicas up to a configurable `shutdown-timeout`, by default 10 seconds, before shutting down.
 This provides a best effort minimizing the risk of data loss in a situation where no save points are configured and AOF is disabled.
 Before version 7.0, shutting down a heavily loaded master node in a diskless setup is more likely to result in data loss.
-To minimize the risk of data loss in such setups, it's adviced to trigger a manual `FAILOVER` (or `CLUSTER FAILOVER`) to demote the master to a replica and promote one of the replicas to new master, before shutting down a master node.
+To minimize the risk of data loss in such setups, it's adviced to trigger a manual `FAILOVER` (or `CLUSTER FAILOVER`) to demote the master to a replica and promote one of the replicas to be the new master, before shutting down a master node.
 
 @return
 

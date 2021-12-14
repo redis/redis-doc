@@ -24,7 +24,7 @@ The Shutdown performed in this condition includes the following actions:
 
 * If there are any replicas lagging behind in replication:
   * Pause clients attempting to write by performing a `CLIENT PAUSE` with the `WRITE` option.
-  * Wait up to the configured `shutdown-timeout` (default 10 seconds) for replicas to catch up the replication offset.
+  * Wait up to the configured `shutdown-timeout` (default 10 seconds) for replicas to catch up with the master's replication offset.
 * If there is a background child saving the RDB file or performing an AOF rewrite, the child is killed.
 * If the AOF is active, Redis calls the `fsync` system call on the AOF file descriptor in order to flush the buffers on disk.
 * If Redis is configured to persist on disk using RDB files, a synchronous (blocking) save is performed. Since the save is performed in a synchronous way no additional memory is used.
@@ -33,7 +33,7 @@ The Shutdown performed in this condition includes the following actions:
 * The server exits with an exit code of zero.
 
 In case the RDB file can't be saved, the shutdown fails, and the server continues to run in order to ensure no data loss.
-Likewise, if the user just turned on AOF, and the server triggered the first AOF rewrite in order to create the initial AOF file and this file can't be save, the shutdown fails and the server continues to run.
+Likewise, if the user just turned on AOF, and the server triggered the first AOF rewrite in order to create the initial AOF file and this file can't be saved, the shutdown fails and the server continues to run.
 Since Redis 2.6.11 no further attempt to shut down will be made unless a new `SIGTERM` is received or the `SHUTDOWN` command issued.
 
 Since Redis 7.0, the server waits for lagging replicas up to a configurable `shutdown-timeout`, by default 10 seconds, before shutting down.
