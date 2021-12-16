@@ -323,6 +323,7 @@ If the instance is a replica, these additional fields are provided:
 *   `slave_repl_offset`: The replication offset of the replica instance
 *   `slave_priority`: The priority of the instance as a candidate for failover
 *   `slave_read_only`: Flag indicating if the replica is read-only
+*   `replica_announced`: Flag indicating if the replica is announced by Sentinel.
 
 If a SYNC operation is on-going, these additional fields are provided:
 
