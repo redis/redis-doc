@@ -353,7 +353,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "value",
@@ -516,7 +516,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "index",
@@ -592,7 +592,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "encoding_offset",
@@ -716,7 +716,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "encoding_offset",
@@ -797,12 +797,12 @@
             {
                 "name": "destkey",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             }
         ],
@@ -854,7 +854,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "bit",
@@ -960,12 +960,12 @@
             {
                 "name": "source",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "wherefrom",
@@ -1056,7 +1056,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -1131,7 +1131,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -1188,7 +1188,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -1265,12 +1265,12 @@
             {
                 "name": "source",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "timeout",
@@ -1330,7 +1330,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -1405,7 +1405,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -1463,7 +1463,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -2015,7 +2015,7 @@
                 "token": "PREFIX",
                 "optional": true,
                 "multiple": true,
-                "multiple_token": true
+                "multiple-token": true
             },
             {
                 "name": "bcast",
@@ -2955,7 +2955,7 @@
         "history": [
             [
                 "7.0.0",
-                "Added the ability to pass multiple pattern parameters in one"
+                "Added the ability to pass multiple pattern parameters in one call"
             ]
         ],
         "acl_categories": [
@@ -2982,7 +2982,7 @@
             "loading",
             "stale"
         ],
-        "arity": 3,
+        "arity": -3,
         "first": 0,
         "last": 0,
         "step": 0
@@ -3137,12 +3137,12 @@
             {
                 "name": "source",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "destination-db",
@@ -3240,7 +3240,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -3286,7 +3286,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "decrement",
@@ -3336,7 +3336,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -3401,7 +3401,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -3477,7 +3477,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "optional": true,
                 "multiple": true
             },
@@ -3541,7 +3541,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "optional": true,
                 "multiple": true
             },
@@ -3604,7 +3604,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -3664,7 +3664,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -3737,7 +3737,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -3789,7 +3789,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "seconds",
@@ -3871,7 +3871,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "timestamp",
@@ -3947,7 +3947,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -4057,7 +4057,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -4118,7 +4118,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -4305,6 +4305,43 @@
         "last": 0,
         "step": 0
     },
+    "FUNCTION FLUSH": {
+        "summary": "PATCH__TBD__29__",
+        "since": "7.0.0",
+        "group": "scripting",
+        "complexity": "PATCH__TBD__28__",
+        "acl_categories": [
+            "@slow",
+            "@scripting"
+        ],
+        "arguments": [
+            {
+                "name": "async",
+                "type": "oneof",
+                "arguments": [
+                    {
+                        "name": "async",
+                        "type": "pure-token",
+                        "token": "ASYNC"
+                    },
+                    {
+                        "name": "sync",
+                        "type": "pure-token",
+                        "token": "SYNC"
+                    }
+                ],
+                "optional": true
+            }
+        ],
+        "command_flags": [
+            "noscript",
+            "may_replicate"
+        ],
+        "arity": -2,
+        "first": 0,
+        "last": 0,
+        "step": 0
+    },
     "FUNCTION HELP": {
         "summary": "Show helpful text about the different subcommands",
         "since": "7.0.0",
@@ -4442,7 +4479,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "condition",
@@ -4529,7 +4566,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member1",
@@ -4608,7 +4645,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -4657,7 +4694,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -4750,7 +4787,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "longitude",
@@ -4846,14 +4883,14 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "token": "STORE",
                 "optional": true
             },
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 2,
+                "key_spec_index": 2,
                 "token": "STOREDIST",
                 "optional": true
             }
@@ -4940,7 +4977,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -5032,14 +5069,14 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "token": "STORE",
                 "optional": true
             },
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 2,
+                "key_spec_index": 2,
                 "token": "STOREDIST",
                 "optional": true
             }
@@ -5090,7 +5127,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -5224,7 +5261,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "longitude",
@@ -5360,7 +5397,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -5576,12 +5613,12 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "source",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "member",
@@ -5769,7 +5806,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -5814,7 +5851,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "offset",
@@ -5863,7 +5900,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -5908,7 +5945,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "expiration",
@@ -5985,7 +6022,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "start",
@@ -6040,7 +6077,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "value",
@@ -6091,7 +6128,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6203,7 +6240,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6252,7 +6289,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6301,7 +6338,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -6346,7 +6383,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6400,7 +6437,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6454,7 +6491,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -6499,7 +6536,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -6544,7 +6581,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6596,7 +6633,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field_value",
@@ -6658,7 +6695,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "options",
@@ -6720,7 +6757,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "cursor",
@@ -6781,7 +6818,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field_value",
@@ -6842,7 +6879,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6896,7 +6933,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "field",
@@ -6945,7 +6982,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -6990,7 +7027,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -7036,7 +7073,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "increment",
@@ -7086,7 +7123,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "increment",
@@ -7364,12 +7401,12 @@
             {
                 "name": "key1",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "key2",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "len",
@@ -7437,7 +7474,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "index",
@@ -7485,7 +7522,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "where",
@@ -7554,7 +7591,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -7617,12 +7654,12 @@
             {
                 "name": "source",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "wherefrom",
@@ -7703,7 +7740,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -7802,7 +7839,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -7852,7 +7889,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "element",
@@ -7924,7 +7961,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "element",
@@ -7981,7 +8018,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "element",
@@ -8032,7 +8069,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "start",
@@ -8084,7 +8121,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -8136,7 +8173,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "index",
@@ -8189,7 +8226,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "start",
@@ -8331,7 +8368,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -8381,7 +8418,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -8477,7 +8514,7 @@
                     {
                         "name": "key",
                         "type": "key",
-                        "key_spec-index": 0
+                        "key_spec_index": 0
                     },
                     {
                         "name": "empty_string",
@@ -8531,7 +8568,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "token": "KEYS",
                 "optional": true,
                 "multiple": true
@@ -8719,7 +8756,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "db",
@@ -8772,7 +8809,7 @@
                     {
                         "name": "key",
                         "type": "key",
-                        "key_spec-index": 0
+                        "key_spec_index": 0
                     },
                     {
                         "name": "value",
@@ -8828,7 +8865,7 @@
                     {
                         "name": "key",
                         "type": "key",
-                        "key_spec-index": 0
+                        "key_spec_index": 0
                     },
                     {
                         "name": "value",
@@ -8913,7 +8950,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -8957,7 +8994,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -9020,7 +9057,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -9065,7 +9102,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -9109,7 +9146,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -9160,7 +9197,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "milliseconds",
@@ -9242,7 +9279,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "milliseconds-timestamp",
@@ -9318,7 +9355,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -9364,7 +9401,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "element",
@@ -9416,7 +9453,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -9522,12 +9559,12 @@
             {
                 "name": "destkey",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "sourcekey",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             }
         ],
@@ -9617,7 +9654,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "milliseconds",
@@ -9731,7 +9768,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -10012,12 +10049,12 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "newkey",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -10061,12 +10098,12 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "newkey",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -10185,7 +10222,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "ttl",
@@ -10330,7 +10367,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -10400,12 +10437,12 @@
             {
                 "name": "source",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             }
         ],
         "command_flags": [
@@ -10457,7 +10494,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "element",
@@ -10514,7 +10551,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "element",
@@ -10571,7 +10608,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -10684,7 +10721,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -10908,7 +10945,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -10971,12 +11008,12 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             }
         ],
@@ -11066,7 +11103,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "value",
@@ -11170,7 +11207,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "offset",
@@ -11223,7 +11260,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "seconds",
@@ -11276,7 +11313,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "value",
@@ -11326,7 +11363,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "offset",
@@ -11418,7 +11455,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -11468,7 +11505,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -11537,12 +11574,12 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             }
         ],
@@ -11588,7 +11625,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -11772,7 +11809,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -11817,7 +11854,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -11885,12 +11922,12 @@
             {
                 "name": "source",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "member",
@@ -11954,7 +11991,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "pattern",
@@ -11984,7 +12021,7 @@
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
-                "multiple_token": true
+                "multiple-token": true
             },
             {
                 "name": "order",
@@ -12012,7 +12049,7 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "token": "STORE",
                 "optional": true
             }
@@ -12063,7 +12100,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "pattern",
@@ -12093,7 +12130,7 @@
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
-                "multiple_token": true
+                "multiple-token": true
             },
             {
                 "name": "order",
@@ -12166,7 +12203,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -12223,7 +12260,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -12279,7 +12316,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -12329,7 +12366,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "cursor",
@@ -12390,7 +12427,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -12470,7 +12507,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "start",
@@ -12523,7 +12560,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -12586,12 +12623,12 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             }
         ],
@@ -12704,7 +12741,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -12750,7 +12787,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -12796,7 +12833,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -12841,7 +12878,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -12960,7 +12997,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             }
         ],
@@ -13008,7 +13045,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "group",
@@ -13073,7 +13110,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "nomkstream",
@@ -13209,7 +13246,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "group",
@@ -13283,7 +13320,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "group",
@@ -13376,7 +13413,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "id",
@@ -13439,7 +13476,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "groupname",
@@ -13509,7 +13546,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "groupname",
@@ -13562,7 +13599,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "groupname",
@@ -13614,7 +13651,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "groupname",
@@ -13680,7 +13717,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "groupname",
@@ -13756,7 +13793,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "groupname",
@@ -13805,7 +13842,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -13867,7 +13904,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "full",
@@ -13925,7 +13962,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -13976,7 +14013,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "group",
@@ -14055,7 +14092,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "start",
@@ -14132,7 +14169,7 @@
                     {
                         "name": "key",
                         "type": "key",
-                        "key_spec-index": 0,
+                        "key_spec_index": 0,
                         "multiple": true
                     },
                     {
@@ -14225,7 +14262,7 @@
                     {
                         "name": "key",
                         "type": "key",
-                        "key_spec-index": 0,
+                        "key_spec_index": 0,
                         "multiple": true
                     },
                     {
@@ -14278,7 +14315,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "end",
@@ -14336,7 +14373,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "last-id",
@@ -14392,7 +14429,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "trim",
@@ -14500,7 +14537,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "condition",
@@ -14607,7 +14644,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -14652,7 +14689,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "min",
@@ -14709,7 +14746,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -14778,7 +14815,7 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "numkeys",
@@ -14787,7 +14824,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             }
         ],
@@ -14834,7 +14871,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "increment",
@@ -14892,7 +14929,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -14978,7 +15015,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -15047,7 +15084,7 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "numkeys",
@@ -15056,7 +15093,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             },
             {
@@ -15133,7 +15170,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "min",
@@ -15190,7 +15227,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -15258,7 +15295,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -15308,7 +15345,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -15358,7 +15395,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "count",
@@ -15408,7 +15445,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "options",
@@ -15476,7 +15513,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "min",
@@ -15575,7 +15612,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "min",
@@ -15646,7 +15683,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "min",
@@ -15738,12 +15775,12 @@
             {
                 "name": "dst",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "src",
                 "type": "key",
-                "key_spec-index": 1
+                "key_spec_index": 1
             },
             {
                 "name": "min",
@@ -15835,7 +15872,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -15890,7 +15927,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -15940,7 +15977,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "min",
@@ -15992,7 +16029,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "start",
@@ -16044,7 +16081,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "min",
@@ -16098,7 +16135,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "start",
@@ -16159,7 +16196,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "max",
@@ -16230,7 +16267,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "max",
@@ -16305,7 +16342,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -16354,7 +16391,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "cursor",
@@ -16415,7 +16452,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "member",
@@ -16468,7 +16505,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 0,
+                "key_spec_index": 0,
                 "multiple": true
             },
             {
@@ -16567,7 +16604,7 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec-index": 0
+                "key_spec_index": 0
             },
             {
                 "name": "numkeys",
@@ -16576,7 +16613,7 @@
             {
                 "name": "key",
                 "type": "key",
-                "key_spec-index": 1,
+                "key_spec_index": 1,
                 "multiple": true
             },
             {
