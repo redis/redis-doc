@@ -7,10 +7,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "ACL CAT": {
         "summary": "List the ACL categories or the commands inside a category",
@@ -20,6 +17,7 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "categoryname",
@@ -31,11 +29,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL DELUSER": {
         "summary": "Remove the specified ACL users and the associated rules",
@@ -47,6 +41,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "username",
@@ -59,11 +54,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL GENPASS": {
         "summary": "Generate a pseudorandom secure password to use for ACL users",
@@ -73,6 +64,7 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "bits",
@@ -84,11 +76,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL GETUSER": {
         "summary": "Get the rules for a specific ACL user",
@@ -106,6 +94,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "username",
@@ -117,11 +106,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -131,14 +116,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL LIST": {
         "summary": "List the current ACL rules in ACL config file format",
@@ -150,16 +132,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL LOAD": {
         "summary": "Reload the ACLs from the configured ACL file",
@@ -171,16 +150,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL LOG": {
         "summary": "List latest events denied because of ACLs in place",
@@ -192,6 +168,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "operation",
@@ -215,11 +192,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL SAVE": {
         "summary": "Save the current ACL rules in the configured ACL file",
@@ -231,16 +204,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL SETUSER": {
         "summary": "Modify or create the rules for a specific ACL user",
@@ -258,6 +228,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "username",
@@ -275,11 +246,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL USERS": {
         "summary": "List the username of all the configured ACL rules",
@@ -291,16 +258,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ACL WHOAMI": {
         "summary": "Return the name of the user associated to the current connection",
@@ -310,15 +274,12 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "APPEND": {
         "summary": "Append a value to a key",
@@ -330,6 +291,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -364,11 +326,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ASKING": {
         "summary": "Sent by cluster clients after an -ASK redirect",
@@ -379,13 +337,10 @@
             "@fast",
             "@connection"
         ],
+        "arity": 1,
         "command_flags": [
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "AUTH": {
         "summary": "Authenticate to the server",
@@ -402,6 +357,7 @@
             "@fast",
             "@connection"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "username",
@@ -419,11 +375,7 @@
             "stale",
             "fast",
             "no_auth"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "BGREWRITEAOF": {
         "summary": "Asynchronously rewrite the append-only file",
@@ -435,14 +387,11 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 1,
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "BGSAVE": {
         "summary": "Asynchronously save the dataset to disk",
@@ -460,6 +409,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "schedule",
@@ -471,11 +421,7 @@
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "BITCOUNT": {
         "summary": "Count set bits in a string",
@@ -493,6 +439,7 @@
             "@bitmap",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -553,11 +500,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "BITFIELD": {
         "summary": "Perform arbitrary bitfield integer operations on strings",
@@ -569,6 +512,7 @@
             "@bitmap",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -677,11 +621,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "BITFIELD_RO": {
         "summary": "Perform arbitrary bitfield integer operations on strings. Read-only variant of BITFIELD",
@@ -693,6 +633,7 @@
             "@bitmap",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -737,11 +678,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "BITOP": {
         "summary": "Perform bitwise operations between strings",
@@ -753,6 +690,7 @@
             "@bitmap",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -809,11 +747,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -4,
-        "first": 2,
-        "last": -1,
-        "step": 1
+        ]
     },
     "BITPOS": {
         "summary": "Find first bit set or clear in a string",
@@ -831,6 +765,7 @@
             "@bitmap",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -902,11 +837,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "BLMOVE": {
         "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
@@ -919,6 +850,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": 6,
         "key_specs": [
             {
                 "begin_search": {
@@ -1008,11 +940,7 @@
             "write",
             "denyoom",
             "noscript"
-        ],
-        "arity": 6,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "BLMPOP": {
         "summary": "Pop elements from a list, or block until one is available",
@@ -1025,6 +953,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -1085,11 +1014,7 @@
         "command_flags": [
             "write",
             "movablekeys"
-        ],
-        "arity": -5,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "BLPOP": {
         "summary": "Remove and get the first element in a list, or block until one is available",
@@ -1108,6 +1033,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -1142,11 +1068,7 @@
         "command_flags": [
             "write",
             "noscript"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -2,
-        "step": 1
+        ]
     },
     "BRPOP": {
         "summary": "Remove and get the last element in a list, or block until one is available",
@@ -1165,6 +1087,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -1199,11 +1122,7 @@
         "command_flags": [
             "write",
             "noscript"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -2,
-        "step": 1
+        ]
     },
     "BRPOPLPUSH": {
         "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
@@ -1224,6 +1143,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -1282,10 +1202,6 @@
             "denyoom",
             "noscript"
         ],
-        "arity": 4,
-        "first": 1,
-        "last": 2,
-        "step": 1,
         "deprecated": true
     },
     "BZMPOP": {
@@ -1299,6 +1215,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -1359,11 +1276,7 @@
         "command_flags": [
             "write",
             "movablekeys"
-        ],
-        "arity": -5,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "BZPOPMAX": {
         "summary": "Remove and return the member with the highest score from one or more sorted sets, or block until one is available",
@@ -1382,6 +1295,7 @@
             "@fast",
             "@blocking"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -1417,11 +1331,7 @@
             "write",
             "noscript",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -2,
-        "step": 1
+        ]
     },
     "BZPOPMIN": {
         "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
@@ -1440,6 +1350,7 @@
             "@fast",
             "@blocking"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -1475,11 +1386,7 @@
             "write",
             "noscript",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -2,
-        "step": 1
+        ]
     },
     "CLIENT": {
         "summary": "A container for client connection commands",
@@ -1489,10 +1396,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "CLIENT CACHING": {
         "summary": "Instruct the server about tracking or not keys in the next request",
@@ -1503,6 +1407,7 @@
             "@slow",
             "@connection"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "mode",
@@ -1525,11 +1430,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT GETNAME": {
         "summary": "Get the current connection name",
@@ -1540,15 +1441,12 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT GETREDIR": {
         "summary": "Get tracking notifications redirection client ID if any",
@@ -1559,15 +1457,12 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -1578,14 +1473,11 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT ID": {
         "summary": "Returns the client ID for the current connection",
@@ -1596,15 +1488,12 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT INFO": {
         "summary": "Returns information about the current client connection.",
@@ -1615,16 +1504,13 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript",
             "random",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT KILL": {
         "summary": "Kill the connection of a client",
@@ -1659,6 +1545,7 @@
             "@dangerous",
             "@connection"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "ip:port",
@@ -1729,11 +1616,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT LIST": {
         "summary": "Get the list of client connections",
@@ -1760,6 +1643,7 @@
             "@dangerous",
             "@connection"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "normal_master_replica_pubsub",
@@ -1809,11 +1693,7 @@
             "random",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT NO-EVICT": {
         "summary": "Set client eviction mode for the current connection",
@@ -1826,6 +1706,7 @@
             "@dangerous",
             "@connection"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "enabled",
@@ -1849,11 +1730,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT PAUSE": {
         "summary": "Stop processing commands from clients for some time",
@@ -1876,6 +1753,7 @@
             "@dangerous",
             "@connection"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "timeout",
@@ -1904,11 +1782,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT REPLY": {
         "summary": "Instruct the server whether to reply to commands",
@@ -1919,6 +1793,7 @@
             "@slow",
             "@connection"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "on_off_skip",
@@ -1946,11 +1821,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT SETNAME": {
         "summary": "Set the current connection name",
@@ -1961,6 +1832,7 @@
             "@slow",
             "@connection"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "connection-name",
@@ -1971,11 +1843,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT TRACKING": {
         "summary": "Enable or disable server assisted client side caching support",
@@ -1986,6 +1854,7 @@
             "@slow",
             "@connection"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "status",
@@ -2046,11 +1915,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT TRACKINGINFO": {
         "summary": "Return information about server assisted client side caching for the current connection",
@@ -2061,15 +1926,12 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT UNBLOCK": {
         "summary": "Unblock a client blocked in a blocking command from a different connection",
@@ -2082,6 +1944,7 @@
             "@dangerous",
             "@connection"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "client-id",
@@ -2110,11 +1973,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLIENT UNPAUSE": {
         "summary": "Resume processing of clients that were paused",
@@ -2127,16 +1986,13 @@
             "@dangerous",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER": {
         "summary": "A container for cluster commands",
@@ -2146,10 +2002,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "CLUSTER ADDSLOTS": {
         "summary": "Assign new hash slots to receiving node",
@@ -2161,6 +2014,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "slot",
@@ -2172,11 +2026,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER ADDSLOTSRANGE": {
         "summary": "Assign new hash slots to receiving node",
@@ -2188,6 +2038,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -4,
         "arguments": [
             {
                 "name": "start-slot_end-slot",
@@ -2209,11 +2060,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER BUMPEPOCH": {
         "summary": "Advance the cluster config epoch",
@@ -2225,15 +2072,12 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER COUNT-FAILURE-REPORTS": {
         "summary": "Return the number of failure reports active for a given node",
@@ -2245,6 +2089,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "node-id",
@@ -2255,11 +2100,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER COUNTKEYSINSLOT": {
         "summary": "Return the number of local keys in the specified hash slot",
@@ -2269,6 +2110,7 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "slot",
@@ -2278,11 +2120,7 @@
         "command_flags": [
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER DELSLOTS": {
         "summary": "Set hash slots as unbound in receiving node",
@@ -2294,6 +2132,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "slot",
@@ -2305,11 +2144,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER DELSLOTSRANGE": {
         "summary": "Set hash slots as unbound in receiving node",
@@ -2321,6 +2156,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -4,
         "arguments": [
             {
                 "name": "start-slot_end-slot",
@@ -2342,11 +2178,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER FAILOVER": {
         "summary": "Forces a replica to perform a manual failover of its master.",
@@ -2358,6 +2190,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "options",
@@ -2381,11 +2214,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER FLUSHSLOTS": {
         "summary": "Delete a node's own slots information",
@@ -2397,15 +2226,12 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER FORGET": {
         "summary": "Remove a node from the nodes table",
@@ -2417,6 +2243,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "node-id",
@@ -2427,11 +2254,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER GETKEYSINSLOT": {
         "summary": "Return local key names in the specified hash slot",
@@ -2441,6 +2264,7 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 4,
         "arguments": [
             {
                 "name": "slot",
@@ -2454,11 +2278,7 @@
         "command_flags": [
             "random",
             "stale"
-        ],
-        "arity": 4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -2468,14 +2288,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER INFO": {
         "summary": "Provides info about Redis Cluster node state",
@@ -2485,14 +2302,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "random",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER KEYSLOT": {
         "summary": "Returns the hash slot of the specified key",
@@ -2502,6 +2316,7 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "key",
@@ -2511,11 +2326,7 @@
         "command_flags": [
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER MEET": {
         "summary": "Force a node cluster to handshake with another node",
@@ -2527,6 +2338,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -4,
         "arguments": [
             {
                 "name": "ip",
@@ -2541,11 +2353,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER MYID": {
         "summary": "Return the node id",
@@ -2555,14 +2363,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "random",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER NODES": {
         "summary": "Get Cluster config for the node",
@@ -2572,14 +2377,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "random",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER REPLICAS": {
         "summary": "List replica nodes of the specified master node",
@@ -2591,6 +2393,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "node-id",
@@ -2601,11 +2404,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER REPLICATE": {
         "summary": "Reconfigure a node as a replica of the specified master node",
@@ -2617,6 +2416,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "node-id",
@@ -2627,11 +2427,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER RESET": {
         "summary": "Reset a Redis Cluster node",
@@ -2643,6 +2439,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "hard_soft",
@@ -2666,11 +2463,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER SAVECONFIG": {
         "summary": "Forces the node to save cluster state on disk",
@@ -2682,15 +2475,12 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER SET-CONFIG-EPOCH": {
         "summary": "Set the configuration epoch in a new node",
@@ -2702,6 +2492,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "config-epoch",
@@ -2712,11 +2503,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER SETSLOT": {
         "summary": "Bind a hash slot to a specific node",
@@ -2728,6 +2515,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -4,
         "arguments": [
             {
                 "name": "slot",
@@ -2764,11 +2552,7 @@
             "admin",
             "random",
             "stale"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CLUSTER SLOTS": {
         "summary": "Get array of Cluster slot to node mappings",
@@ -2784,14 +2568,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "random",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "COMMAND": {
         "summary": "Get array of Redis command details",
@@ -2802,15 +2583,12 @@
             "@slow",
             "@connection"
         ],
+        "arity": -1,
         "command_flags": [
             "random",
             "loading",
             "stale"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "COMMAND COUNT": {
         "summary": "Get total number of Redis commands",
@@ -2821,14 +2599,11 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "COMMAND GETKEYS": {
         "summary": "Extract keys given a full Redis command",
@@ -2839,14 +2614,11 @@
             "@slow",
             "@connection"
         ],
+        "arity": -4,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "COMMAND HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -2857,14 +2629,11 @@
             "@slow",
             "@connection"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "COMMAND INFO": {
         "summary": "Get array of specific Redis command details",
@@ -2875,6 +2644,7 @@
             "@slow",
             "@connection"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "command-name",
@@ -2885,11 +2655,7 @@
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "COMMAND LIST": {
         "summary": "Get an array of Redis command names",
@@ -2900,6 +2666,7 @@
             "@slow",
             "@connection"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "filterby",
@@ -2928,11 +2695,7 @@
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CONFIG": {
         "summary": "A container for server configuration commands",
@@ -2942,10 +2705,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "CONFIG GET": {
         "summary": "Get the values of configuration parameters",
@@ -2963,6 +2723,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "parameter",
@@ -2981,11 +2742,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CONFIG HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -2995,14 +2752,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CONFIG RESETSTAT": {
         "summary": "Reset the stats returned by INFO",
@@ -3014,15 +2768,12 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CONFIG REWRITE": {
         "summary": "Rewrite the configuration file with the in memory configuration",
@@ -3034,15 +2785,12 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "CONFIG SET": {
         "summary": "Set configuration parameters to the given values",
@@ -3060,6 +2808,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -4,
         "arguments": [
             {
                 "name": "parameter_value",
@@ -3081,11 +2830,7 @@
             "admin",
             "noscript",
             "stale"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "COPY": {
         "summary": "Copy a key",
@@ -3097,6 +2842,7 @@
             "@write",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3160,11 +2906,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "DBSIZE": {
         "summary": "Return the number of keys in the selected database",
@@ -3176,14 +2918,11 @@
             "@read",
             "@fast"
         ],
+        "arity": 1,
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "DEBUG": {
         "summary": "A container for debugging commands",
@@ -3195,16 +2934,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0,
         "syscmd": true
     },
     "DECR": {
@@ -3217,6 +2953,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -3247,11 +2984,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "DECRBY": {
         "summary": "Decrement the integer value of a key by the given number",
@@ -3263,6 +2996,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3297,11 +3031,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "DEL": {
         "summary": "Delete a key",
@@ -3313,6 +3043,7 @@
             "@write",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -3342,11 +3073,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "DISCARD": {
         "summary": "Discard all commands issued after MULTI",
@@ -3357,16 +3084,13 @@
             "@fast",
             "@transaction"
         ],
+        "arity": 1,
         "command_flags": [
             "noscript",
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "DUMP": {
         "summary": "Return a serialized version of the value stored at the specified key.",
@@ -3378,6 +3102,7 @@
             "@read",
             "@slow"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -3407,11 +3132,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ECHO": {
         "summary": "Echo the given string",
@@ -3422,6 +3143,7 @@
             "@fast",
             "@connection"
         ],
+        "arity": 2,
         "arguments": [
             {
                 "name": "message",
@@ -3430,11 +3152,7 @@
         ],
         "command_flags": [
             "fast"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "EVAL": {
         "summary": "Execute a Lua script server side",
@@ -3445,6 +3163,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3494,11 +3213,7 @@
             "may_replicate",
             "no_mandatory_keys",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "EVALSHA": {
         "summary": "Execute a Lua script server side",
@@ -3509,6 +3224,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3558,11 +3274,7 @@
             "may_replicate",
             "no_mandatory_keys",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "EVALSHA_RO": {
         "summary": "Execute a read-only Lua script server side",
@@ -3573,6 +3285,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3618,11 +3331,7 @@
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "EVAL_RO": {
         "summary": "Execute a read-only Lua script server side",
@@ -3633,6 +3342,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3678,11 +3388,7 @@
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "EXEC": {
         "summary": "Execute all commands issued after MULTI",
@@ -3693,16 +3399,13 @@
             "@slow",
             "@transaction"
         ],
+        "arity": 1,
         "command_flags": [
             "noscript",
             "loading",
             "stale",
             "skip_slowlog"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "EXISTS": {
         "summary": "Determine if a key exists",
@@ -3714,6 +3417,7 @@
             "@read",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -3744,11 +3448,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "EXPIRE": {
         "summary": "Set a key's time to live in seconds",
@@ -3766,6 +3466,7 @@
             "@write",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3826,11 +3527,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "EXPIREAT": {
         "summary": "Set the expiration for a key as a UNIX timestamp",
@@ -3848,6 +3545,7 @@
             "@write",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -3908,11 +3606,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "EXPIRETIME": {
         "summary": "Get the expiration Unix timestamp for a key",
@@ -3924,6 +3618,7 @@
             "@read",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -3954,11 +3649,7 @@
             "readonly",
             "random",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "FAILOVER": {
         "summary": "Start a coordinated failover between this server and one of its replicas.",
@@ -3970,6 +3661,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "target",
@@ -4010,11 +3702,7 @@
             "admin",
             "noscript",
             "stale"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FCALL": {
         "summary": "PATCH__TBD__38__",
@@ -4025,6 +3713,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -4072,11 +3761,7 @@
             "may_replicate",
             "no_mandatory_keys",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FCALL_RO": {
         "summary": "PATCH__TBD__7__",
@@ -4087,6 +3772,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -4132,11 +3818,7 @@
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FLUSHALL": {
         "summary": "Remove all keys from all databases",
@@ -4159,6 +3841,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "async",
@@ -4180,11 +3863,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FLUSHDB": {
         "summary": "Remove all keys from the current database",
@@ -4197,6 +3876,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "async",
@@ -4218,11 +3898,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION": {
         "summary": "A container for function commands",
@@ -4232,10 +3908,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "FUNCTION CREATE": {
         "summary": "PATCH__TBD__15__",
@@ -4246,6 +3919,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -5,
         "arguments": [
             {
                 "name": "engine-name",
@@ -4275,11 +3949,7 @@
         "command_flags": [
             "noscript",
             "may_replicate"
-        ],
-        "arity": -5,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION DELETE": {
         "summary": "PATCH__TBD__23__",
@@ -4290,6 +3960,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "function-name",
@@ -4299,11 +3970,7 @@
         "command_flags": [
             "noscript",
             "may_replicate"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION FLUSH": {
         "summary": "PATCH__TBD__29__",
@@ -4314,6 +3981,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "async",
@@ -4336,11 +4004,7 @@
         "command_flags": [
             "noscript",
             "may_replicate"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -4351,14 +4015,11 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION INFO": {
         "summary": "PATCH__TBD__11__",
@@ -4369,6 +4030,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "function-name",
@@ -4383,11 +4045,7 @@
         ],
         "command_flags": [
             "noscript"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION KILL": {
         "summary": "PATCH__TBD__19__",
@@ -4398,13 +4056,10 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION LIST": {
         "summary": "PATCH__TBD__27__",
@@ -4415,13 +4070,10 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "FUNCTION STATS": {
         "summary": "PATCH__TBD__34__",
@@ -4432,13 +4084,10 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "GEOADD": {
         "summary": "Add one or more geospatial items in the geospatial index represented using a sorted set",
@@ -4456,6 +4105,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -4527,11 +4177,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -5,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GEODIST": {
         "summary": "Returns the distance between two members of a geospatial index",
@@ -4543,6 +4189,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -4606,11 +4253,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GEOHASH": {
         "summary": "Returns members of a geospatial index as standard geohash strings",
@@ -4622,6 +4265,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -4655,11 +4299,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GEOPOS": {
         "summary": "Returns longitude and latitude of members of a geospatial index",
@@ -4671,6 +4311,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -4704,11 +4345,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GEORADIUS": {
         "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
@@ -4728,6 +4365,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -6,
         "key_specs": [
             {
                 "begin_search": {
@@ -4900,10 +4538,6 @@
             "denyoom",
             "movablekeys"
         ],
-        "arity": -6,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "GEORADIUSBYMEMBER": {
@@ -4918,6 +4552,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -5086,10 +4721,6 @@
             "denyoom",
             "movablekeys"
         ],
-        "arity": -5,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "GEORADIUSBYMEMBER_RO": {
@@ -5104,6 +4735,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -5220,10 +4852,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": -5,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "GEORADIUS_RO": {
@@ -5238,6 +4866,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -6,
         "key_specs": [
             {
                 "begin_search": {
@@ -5358,10 +4987,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": -6,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "GEOSEARCH": {
@@ -5374,6 +4999,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -7,
         "key_specs": [
             {
                 "begin_search": {
@@ -5557,11 +5183,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -7,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GEOSEARCHSTORE": {
         "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
@@ -5573,6 +5195,7 @@
             "@geo",
             "@slow"
         ],
+        "arity": -8,
         "key_specs": [
             {
                 "begin_search": {
@@ -5767,11 +5390,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -8,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "GET": {
         "summary": "Get the value of a key",
@@ -5783,6 +5402,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -5812,11 +5432,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GETBIT": {
         "summary": "Returns the bit value at offset in the string value stored at key",
@@ -5828,6 +5444,7 @@
             "@bitmap",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -5861,11 +5478,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GETDEL": {
         "summary": "Get the value of a key and delete the key",
@@ -5877,6 +5490,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -5906,11 +5520,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GETEX": {
         "summary": "Get the value of a key and optionally set its expiration",
@@ -5922,6 +5532,7 @@
             "@string",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -5983,11 +5594,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GETRANGE": {
         "summary": "Get a substring of the string stored at a key",
@@ -5999,6 +5606,7 @@
             "@string",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -6035,11 +5643,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "GETSET": {
         "summary": "Set the string value of a key and return its old value",
@@ -6053,6 +5657,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -6089,10 +5694,6 @@
             "denyoom",
             "fast"
         ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "HDEL": {
@@ -6105,6 +5706,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -6139,11 +5741,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HELLO": {
         "summary": "Handshake with Redis",
@@ -6160,6 +5758,7 @@
             "@fast",
             "@connection"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "arguments",
@@ -6201,11 +5800,7 @@
             "stale",
             "fast",
             "no_auth"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "HEXISTS": {
         "summary": "Determine if a hash field exists",
@@ -6217,6 +5812,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -6250,11 +5846,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HGET": {
         "summary": "Get the value of a hash field",
@@ -6266,6 +5858,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -6299,11 +5892,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HGETALL": {
         "summary": "Get all the fields and values in a hash",
@@ -6315,6 +5904,7 @@
             "@hash",
             "@slow"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -6344,11 +5934,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HINCRBY": {
         "summary": "Increment the integer value of a hash field by the given number",
@@ -6360,6 +5946,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -6398,11 +5985,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HINCRBYFLOAT": {
         "summary": "Increment the float value of a hash field by the given amount",
@@ -6414,6 +5997,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -6452,11 +6036,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HKEYS": {
         "summary": "Get all the fields in a hash",
@@ -6468,6 +6048,7 @@
             "@hash",
             "@slow"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -6497,11 +6078,7 @@
         "command_flags": [
             "readonly",
             "sort_for_script"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HLEN": {
         "summary": "Get the number of fields in a hash",
@@ -6513,6 +6090,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -6542,11 +6120,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HMGET": {
         "summary": "Get the values of all the given hash fields",
@@ -6558,6 +6132,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -6592,11 +6167,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HMSET": {
         "summary": "Set multiple hash fields to multiple values",
@@ -6610,6 +6181,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -6656,10 +6228,6 @@
             "denyoom",
             "fast"
         ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "HRANDFIELD": {
@@ -6672,6 +6240,7 @@
             "@hash",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -6718,11 +6287,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HSCAN": {
         "summary": "Incrementally iterate hash fields and associated values",
@@ -6734,6 +6299,7 @@
             "@hash",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -6779,11 +6345,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HSET": {
         "summary": "Set the string value of a hash field",
@@ -6795,6 +6357,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -6840,11 +6403,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HSETNX": {
         "summary": "Set the value of a hash field, only if the field does not exist",
@@ -6856,6 +6415,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -6894,11 +6454,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HSTRLEN": {
         "summary": "Get the length of the value of a hash field",
@@ -6910,6 +6466,7 @@
             "@hash",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -6943,11 +6500,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "HVALS": {
         "summary": "Get all the values in a hash",
@@ -6959,6 +6512,7 @@
             "@hash",
             "@slow"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -6988,11 +6542,7 @@
         "command_flags": [
             "readonly",
             "sort_for_script"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "INCR": {
         "summary": "Increment the integer value of a key by one",
@@ -7004,6 +6554,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -7034,11 +6585,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "INCRBY": {
         "summary": "Increment the integer value of a key by the given amount",
@@ -7050,6 +6597,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -7084,11 +6632,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "INCRBYFLOAT": {
         "summary": "Increment the float value of a key by the given amount",
@@ -7100,6 +6644,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -7134,11 +6679,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "INFO": {
         "summary": "Get information and statistics about the server",
@@ -7149,6 +6690,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "section",
@@ -7160,11 +6702,7 @@
             "random",
             "loading",
             "stale"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "KEYS": {
         "summary": "Find all keys matching the given pattern",
@@ -7177,6 +6715,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "arguments": [
             {
                 "name": "pattern",
@@ -7186,11 +6725,7 @@
         "command_flags": [
             "readonly",
             "sort_for_script"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LASTSAVE": {
         "summary": "Get the UNIX time stamp of the last successful save to disk",
@@ -7202,16 +6737,13 @@
             "@fast",
             "@dangerous"
         ],
+        "arity": 1,
         "command_flags": [
             "random",
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LATENCY": {
         "summary": "A container for latency diagnostics commands",
@@ -7221,10 +6753,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "LATENCY DOCTOR": {
         "summary": "Return a human readable latency analysis report.",
@@ -7236,16 +6765,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LATENCY GRAPH": {
         "summary": "Return a latency graph for the event.",
@@ -7257,6 +6783,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "event",
@@ -7268,11 +6795,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LATENCY HELP": {
         "summary": "Show helpful text about the different subcommands.",
@@ -7282,14 +6805,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LATENCY HISTORY": {
         "summary": "Return timestamp-latency samples for the event.",
@@ -7301,6 +6821,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "event",
@@ -7312,11 +6833,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LATENCY LATEST": {
         "summary": "Return the latest latency samples for all events.",
@@ -7328,16 +6845,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LATENCY RESET": {
         "summary": "Reset latency data for one or more events.",
@@ -7349,6 +6863,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "event",
@@ -7362,11 +6877,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LCS": {
         "summary": "Find longest common substring",
@@ -7378,6 +6889,7 @@
             "@string",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -7435,11 +6947,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "LINDEX": {
         "summary": "Get an element from a list by its index",
@@ -7451,6 +6959,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -7483,11 +6992,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LINSERT": {
         "summary": "Insert an element before or after another element in a list",
@@ -7499,6 +7004,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 5,
         "key_specs": [
             {
                 "begin_search": {
@@ -7552,11 +7058,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 5,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LLEN": {
         "summary": "Get the length of a list",
@@ -7568,6 +7070,7 @@
             "@list",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -7597,11 +7100,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LMOVE": {
         "summary": "Pop an element from a list, push it to another list and return it",
@@ -7613,6 +7112,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 5,
         "key_specs": [
             {
                 "begin_search": {
@@ -7697,11 +7197,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 5,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "LMPOP": {
         "summary": "Pop elements from a list",
@@ -7713,6 +7209,7 @@
             "@list",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -7769,11 +7266,7 @@
         "command_flags": [
             "write",
             "movablekeys"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LOLWUT": {
         "summary": "Display some computer art and the Redis version",
@@ -7783,6 +7276,7 @@
             "@read",
             "@fast"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "version",
@@ -7794,11 +7288,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "LPOP": {
         "summary": "Remove and get the first elements in a list",
@@ -7816,6 +7306,7 @@
             "@list",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -7850,11 +7341,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LPOS": {
         "summary": "Return the index of matching elements on a list",
@@ -7866,6 +7353,7 @@
             "@list",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -7916,11 +7404,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LPUSH": {
         "summary": "Prepend one or multiple elements to a list",
@@ -7938,6 +7422,7 @@
             "@list",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -7973,11 +7458,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LPUSHX": {
         "summary": "Prepend an element to a list, only if the list exists",
@@ -7995,6 +7476,7 @@
             "@list",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -8030,11 +7512,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LRANGE": {
         "summary": "Get a range of elements from a list",
@@ -8046,6 +7524,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -8082,11 +7561,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LREM": {
         "summary": "Remove elements from a list",
@@ -8098,6 +7573,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -8134,11 +7610,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LSET": {
         "summary": "Set the value of an element in a list by its index",
@@ -8150,6 +7622,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -8187,11 +7660,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "LTRIM": {
         "summary": "Trim a list to the specified range",
@@ -8203,6 +7672,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -8239,11 +7709,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "MEMORY": {
         "summary": "A container for memory diagnostics commands",
@@ -8253,10 +7719,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "MEMORY DOCTOR": {
         "summary": "Outputs memory problems report",
@@ -8266,13 +7729,10 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "random"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MEMORY HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -8282,14 +7742,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MEMORY MALLOC-STATS": {
         "summary": "Show allocator internal stats",
@@ -8299,13 +7756,10 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "random"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MEMORY PURGE": {
         "summary": "Ask the allocator to release memory",
@@ -8315,10 +7769,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": 2
     },
     "MEMORY STATS": {
         "summary": "Show memory usage details",
@@ -8328,13 +7779,10 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "random"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MEMORY USAGE": {
         "summary": "Estimate the memory usage of a key",
@@ -8345,6 +7793,7 @@
             "@read",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -8379,11 +7828,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -3,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "MGET": {
         "summary": "Get the values of all the given keys",
@@ -8395,6 +7840,7 @@
             "@string",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -8425,11 +7871,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "MIGRATE": {
         "summary": "Atomically transfer a key from a Redis instance to another one.",
@@ -8460,6 +7902,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -6,
         "key_specs": [
             {
                 "begin_search": {
@@ -8578,11 +8021,7 @@
             "write",
             "random",
             "movablekeys"
-        ],
-        "arity": -6,
-        "first": 3,
-        "last": 3,
-        "step": 1
+        ]
     },
     "MODULE": {
         "summary": "A container for module commands",
@@ -8592,10 +8031,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "MODULE HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -8605,14 +8041,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MODULE LIST": {
         "summary": "List all modules loaded by the server",
@@ -8624,14 +8057,11 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MODULE LOAD": {
         "summary": "Load a module",
@@ -8643,6 +8073,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "path",
@@ -8658,11 +8089,7 @@
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MODULE UNLOAD": {
         "summary": "Unload a module",
@@ -8674,6 +8101,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "name",
@@ -8683,11 +8111,7 @@
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MONITOR": {
         "summary": "Listen for all requests received by the server in real time",
@@ -8712,16 +8136,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 1,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "MOVE": {
         "summary": "Move a key to another database",
@@ -8733,6 +8154,7 @@
             "@write",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -8766,11 +8188,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "MSET": {
         "summary": "Set multiple keys to multiple values",
@@ -8782,6 +8200,7 @@
             "@string",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -8822,11 +8241,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -1,
-        "step": 2
+        ]
     },
     "MSETNX": {
         "summary": "Set multiple keys to multiple values, only if none of the keys exist",
@@ -8838,6 +8253,7 @@
             "@string",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -8878,11 +8294,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -1,
-        "step": 2
+        ]
     },
     "MULTI": {
         "summary": "Mark the start of a transaction block",
@@ -8893,16 +8305,13 @@
             "@fast",
             "@transaction"
         ],
+        "arity": 1,
         "command_flags": [
             "noscript",
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "OBJECT": {
         "summary": "A container for object introspection commands",
@@ -8912,10 +8321,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "OBJECT ENCODING": {
         "summary": "Inspect the internal encoding of a Redis object",
@@ -8927,6 +8333,7 @@
             "@read",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -8955,11 +8362,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": 3,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "OBJECT FREQ": {
         "summary": "Get the logarithmic access frequency counter of a Redis object",
@@ -8971,6 +8374,7 @@
             "@read",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -9000,11 +8404,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": 3,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "OBJECT HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -9015,14 +8415,11 @@
             "@keyspace",
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "OBJECT IDLETIME": {
         "summary": "Get the time since a Redis object was last accessed",
@@ -9034,6 +8431,7 @@
             "@read",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -9063,11 +8461,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": 3,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "OBJECT REFCOUNT": {
         "summary": "Get the number of references to the value of the key",
@@ -9079,6 +8473,7 @@
             "@read",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -9107,11 +8502,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": 3,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "PERSIST": {
         "summary": "Remove the expiration from a key",
@@ -9123,6 +8514,7 @@
             "@write",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -9152,11 +8544,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "PEXPIRE": {
         "summary": "Set a key's time to live in milliseconds",
@@ -9174,6 +8562,7 @@
             "@write",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -9234,11 +8623,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "PEXPIREAT": {
         "summary": "Set the expiration for a key as a UNIX timestamp specified in milliseconds",
@@ -9256,6 +8641,7 @@
             "@write",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -9316,11 +8702,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "PEXPIRETIME": {
         "summary": "Get the expiration Unix timestamp for a key in milliseconds",
@@ -9332,6 +8714,7 @@
             "@read",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -9362,11 +8745,7 @@
             "readonly",
             "random",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "PFADD": {
         "summary": "Adds the specified elements to the specified HyperLogLog.",
@@ -9378,6 +8757,7 @@
             "@hyperloglog",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -9414,11 +8794,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "PFCOUNT": {
         "summary": "Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).",
@@ -9430,6 +8806,7 @@
             "@hyperloglog",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -9460,11 +8837,7 @@
         "command_flags": [
             "readonly",
             "may_replicate"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "PFDEBUG": {
         "summary": "Internal commands for debugging HyperLogLog values",
@@ -9478,6 +8851,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -9502,10 +8876,6 @@
             "denyoom",
             "admin"
         ],
-        "arity": -3,
-        "first": 2,
-        "last": 2,
-        "step": 1,
         "syscmd": true
     },
     "PFMERGE": {
@@ -9518,6 +8888,7 @@
             "@hyperloglog",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -9571,11 +8942,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "PFSELFTEST": {
         "summary": "An internal command for testing HyperLogLog values",
@@ -9588,13 +8955,10 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 1,
         "command_flags": [
             "admin"
         ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0,
         "syscmd": true
     },
     "PING": {
@@ -9606,6 +8970,7 @@
             "@fast",
             "@connection"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "message",
@@ -9615,11 +8980,7 @@
         ],
         "command_flags": [
             "fast"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PSETEX": {
         "summary": "Set the value and expiration in milliseconds of a key",
@@ -9631,6 +8992,7 @@
             "@string",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -9668,11 +9030,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "PSUBSCRIBE": {
         "summary": "Listen for messages published to channels matching the given patterns",
@@ -9683,6 +9041,7 @@
             "@pubsub",
             "@slow"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "pattern",
@@ -9701,11 +9060,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PSYNC": {
         "summary": "Internal command used for replication",
@@ -9716,6 +9071,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "replicationid",
@@ -9729,11 +9085,7 @@
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PTTL": {
         "summary": "Get the time to live for a key in milliseconds",
@@ -9745,6 +9097,7 @@
             "@read",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -9775,11 +9128,7 @@
             "readonly",
             "random",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "PUBLISH": {
         "summary": "Post a message to a channel",
@@ -9790,6 +9139,7 @@
             "@pubsub",
             "@fast"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "channel",
@@ -9806,11 +9156,7 @@
             "stale",
             "fast",
             "may_replicate"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PUBSUB": {
         "summary": "A container for Pub/Sun commands",
@@ -9820,10 +9166,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "PUBSUB CHANNELS": {
         "summary": "List active channels",
@@ -9834,6 +9177,7 @@
             "@pubsub",
             "@slow"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "pattern",
@@ -9845,11 +9189,7 @@
             "pubsub",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PUBSUB HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -9859,14 +9199,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PUBSUB NUMPAT": {
         "summary": "Get the count of unique patterns pattern subscriptions",
@@ -9877,15 +9214,12 @@
             "@pubsub",
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "pubsub",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PUBSUB NUMSUB": {
         "summary": "Get the count of subscribers for channels",
@@ -9896,6 +9230,7 @@
             "@pubsub",
             "@slow"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "channel",
@@ -9908,11 +9243,7 @@
             "pubsub",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "PUNSUBSCRIBE": {
         "summary": "Stop listening for messages posted to channels matching the given patterns",
@@ -9923,6 +9254,7 @@
             "@pubsub",
             "@slow"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "pattern",
@@ -9936,11 +9268,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "QUIT": {
         "summary": "Close the connection",
@@ -9951,17 +9279,14 @@
             "@fast",
             "@connection"
         ],
+        "arity": -1,
         "command_flags": [
             "noscript",
             "loading",
             "stale",
             "fast",
             "no_auth"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "RANDOMKEY": {
         "summary": "Return a random key from the keyspace",
@@ -9973,14 +9298,11 @@
             "@read",
             "@slow"
         ],
+        "arity": 1,
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "READONLY": {
         "summary": "Enables read queries for a connection to a cluster replica node",
@@ -9991,13 +9313,10 @@
             "@fast",
             "@connection"
         ],
+        "arity": 1,
         "command_flags": [
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "READWRITE": {
         "summary": "Disables read queries for a connection to a cluster replica node",
@@ -10008,13 +9327,10 @@
             "@fast",
             "@connection"
         ],
+        "arity": 1,
         "command_flags": [
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "RENAME": {
         "summary": "Rename a key",
@@ -10026,6 +9342,7 @@
             "@write",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -10059,11 +9376,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "RENAMENX": {
         "summary": "Rename a key, only if the new key does not exist",
@@ -10075,6 +9388,7 @@
             "@write",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -10109,11 +9423,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "REPLCONF": {
         "summary": "An internal command for configuring the replication stream",
@@ -10125,16 +9435,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -1,
         "command_flags": [
             "admin",
             "noscript",
             "loading",
             "stale"
         ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0,
         "syscmd": true
     },
     "REPLICAOF": {
@@ -10147,6 +9454,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "host",
@@ -10161,11 +9469,7 @@
             "admin",
             "noscript",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "RESET": {
         "summary": "Reset the connection",
@@ -10176,17 +9480,14 @@
             "@fast",
             "@connection"
         ],
+        "arity": 1,
         "command_flags": [
             "noscript",
             "loading",
             "stale",
             "fast",
             "no_auth"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "RESTORE": {
         "summary": "Create a key using the provided serialized value, previously obtained using DUMP.",
@@ -10199,6 +9500,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -10260,11 +9562,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "RESTORE-ASKING": {
         "summary": "An internal command for migrating keys in a cluster",
@@ -10277,6 +9575,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -10301,10 +9600,6 @@
             "denyoom",
             "asking"
         ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "syscmd": true
     },
     "ROLE": {
@@ -10317,16 +9612,13 @@
             "@fast",
             "@dangerous"
         ],
+        "arity": 1,
         "command_flags": [
             "noscript",
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "RPOP": {
         "summary": "Remove and get the last elements in a list",
@@ -10344,6 +9636,7 @@
             "@list",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -10378,11 +9671,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "RPOPLPUSH": {
         "summary": "Remove the last element in a list, prepend it to another list and return it",
@@ -10396,6 +9685,7 @@
             "@list",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -10449,10 +9739,6 @@
             "write",
             "denyoom"
         ],
-        "arity": 3,
-        "first": 1,
-        "last": 2,
-        "step": 1,
         "deprecated": true
     },
     "RPUSH": {
@@ -10471,6 +9757,7 @@
             "@list",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -10506,11 +9793,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "RPUSHX": {
         "summary": "Append an element to a list, only if the list exists",
@@ -10528,6 +9811,7 @@
             "@list",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -10563,11 +9847,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SADD": {
         "summary": "Add one or more members to a set",
@@ -10585,6 +9865,7 @@
             "@set",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -10620,11 +9901,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SAVE": {
         "summary": "Synchronously save the dataset to disk",
@@ -10636,14 +9913,11 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 1,
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SCAN": {
         "summary": "Incrementally iterate the keys space",
@@ -10655,6 +9929,7 @@
             "@read",
             "@slow"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "cursor",
@@ -10682,11 +9957,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SCARD": {
         "summary": "Get the number of members in a set",
@@ -10698,6 +9969,7 @@
             "@set",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -10727,11 +9999,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SCRIPT": {
         "summary": "A container for Lua scripts management commands",
@@ -10741,10 +10009,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "SCRIPT DEBUG": {
         "summary": "Set the debug mode for executed scripts.",
@@ -10755,6 +10020,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "mode",
@@ -10780,11 +10046,7 @@
         ],
         "command_flags": [
             "noscript"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SCRIPT EXISTS": {
         "summary": "Check existence of scripts in the script cache.",
@@ -10795,6 +10057,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -3,
         "arguments": [
             {
                 "name": "sha1",
@@ -10804,11 +10067,7 @@
         ],
         "command_flags": [
             "noscript"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SCRIPT FLUSH": {
         "summary": "Remove all the scripts from the script cache.",
@@ -10825,6 +10084,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "async",
@@ -10847,11 +10107,7 @@
         "command_flags": [
             "noscript",
             "may_replicate"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SCRIPT HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -10862,14 +10118,11 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SCRIPT KILL": {
         "summary": "Kill the script currently in execution.",
@@ -10880,13 +10133,10 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 2,
         "command_flags": [
             "noscript"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SCRIPT LOAD": {
         "summary": "Load the specified Lua script into the script cache.",
@@ -10897,6 +10147,7 @@
             "@slow",
             "@scripting"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "script",
@@ -10906,11 +10157,7 @@
         "command_flags": [
             "noscript",
             "may_replicate"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SDIFF": {
         "summary": "Subtract multiple sets",
@@ -10922,6 +10169,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -10952,11 +10200,7 @@
         "command_flags": [
             "readonly",
             "sort_for_script"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "SDIFFSTORE": {
         "summary": "Subtract multiple sets and store the resulting set in a key",
@@ -10968,6 +10212,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -11020,11 +10265,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "SELECT": {
         "summary": "Change the selected database for the current connection",
@@ -11035,6 +10276,7 @@
             "@fast",
             "@connection"
         ],
+        "arity": 2,
         "arguments": [
             {
                 "name": "index",
@@ -11045,11 +10287,7 @@
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SET": {
         "summary": "Set the string value of a key",
@@ -11079,6 +10317,7 @@
             "@string",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -11168,11 +10407,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SETBIT": {
         "summary": "Sets or clears the bit at offset in the string value stored at key",
@@ -11184,6 +10419,7 @@
             "@bitmap",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -11221,11 +10457,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SETEX": {
         "summary": "Set the value and expiration of a key",
@@ -11237,6 +10469,7 @@
             "@string",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -11274,11 +10507,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SETNX": {
         "summary": "Set the value of a key, only if the key does not exist",
@@ -11290,6 +10519,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -11324,11 +10554,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SETRANGE": {
         "summary": "Overwrite part of a string at key starting at the specified offset",
@@ -11340,6 +10566,7 @@
             "@string",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -11377,11 +10604,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SHUTDOWN": {
         "summary": "Synchronously save the dataset to disk and then shut down the server",
@@ -11392,6 +10615,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "nosave_save",
@@ -11416,11 +10640,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SINTER": {
         "summary": "Intersect multiple sets",
@@ -11432,6 +10652,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -11462,11 +10683,7 @@
         "command_flags": [
             "readonly",
             "sort_for_script"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "SINTERCARD": {
         "summary": "Intersect multiple sets and return the cardinality of the result",
@@ -11478,6 +10695,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -11518,11 +10736,7 @@
         "command_flags": [
             "readonly",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SINTERSTORE": {
         "summary": "Intersect multiple sets and store the resulting set in a key",
@@ -11534,6 +10748,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -11586,11 +10801,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "SISMEMBER": {
         "summary": "Determine if a given value is a member of a set",
@@ -11602,6 +10813,7 @@
             "@set",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -11635,11 +10847,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SLAVEOF": {
         "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
@@ -11651,6 +10859,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "host",
@@ -11665,11 +10874,7 @@
             "admin",
             "noscript",
             "stale"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SLOWLOG": {
         "summary": "A container for slow log commands",
@@ -11679,10 +10884,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "SLOWLOG GET": {
         "summary": "Get the slow log's entries",
@@ -11700,6 +10902,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "count",
@@ -11712,11 +10915,7 @@
             "random",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SLOWLOG HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -11726,14 +10925,11 @@
         "acl_categories": [
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SLOWLOG LEN": {
         "summary": "Get the slow log's length",
@@ -11745,16 +10941,13 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "random",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SLOWLOG RESET": {
         "summary": "Clear all entries from the slow log",
@@ -11766,15 +10959,12 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 2,
         "command_flags": [
             "admin",
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SMEMBERS": {
         "summary": "Get all the members in a set",
@@ -11786,6 +10976,7 @@
             "@set",
             "@slow"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -11815,11 +11006,7 @@
         "command_flags": [
             "readonly",
             "sort_for_script"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SMISMEMBER": {
         "summary": "Returns the membership associated with the given elements for a set",
@@ -11831,6 +11018,7 @@
             "@set",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -11865,11 +11053,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SMOVE": {
         "summary": "Move a member from one set to another",
@@ -11881,6 +11065,7 @@
             "@set",
             "@fast"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -11937,11 +11122,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "SORT": {
         "summary": "Sort the elements in a list, set or sorted set",
@@ -11956,6 +11137,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12058,11 +11240,7 @@
             "write",
             "denyoom",
             "movablekeys"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SORT_RO": {
         "summary": "Sort the elements in a list, set or sorted set. Read-only variant of SORT.",
@@ -12077,6 +11255,7 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12158,11 +11337,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SPOP": {
         "summary": "Remove and return one or multiple random members from a set",
@@ -12180,6 +11355,7 @@
             "@set",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12215,11 +11391,7 @@
             "write",
             "random",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SRANDMEMBER": {
         "summary": "Get one or multiple random members from a set",
@@ -12237,6 +11409,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12271,11 +11444,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SREM": {
         "summary": "Remove one or more members from a set",
@@ -12293,6 +11462,7 @@
             "@set",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -12327,11 +11497,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SSCAN": {
         "summary": "Incrementally iterate Set elements",
@@ -12343,6 +11509,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -12388,11 +11555,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "STRLEN": {
         "summary": "Get the length of the value stored in a key",
@@ -12404,6 +11567,7 @@
             "@string",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12433,11 +11597,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "SUBSCRIBE": {
         "summary": "Listen for messages published to the given channels",
@@ -12454,6 +11614,7 @@
             "@pubsub",
             "@slow"
         ],
+        "arity": -2,
         "arguments": [
             {
                 "name": "channel",
@@ -12466,11 +11627,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SUBSTR": {
         "summary": "Get a substring of the string stored at a key",
@@ -12484,6 +11641,7 @@
             "@string",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -12521,10 +11679,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "SUNION": {
@@ -12537,6 +11691,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12567,11 +11722,7 @@
         "command_flags": [
             "readonly",
             "sort_for_script"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "SUNIONSTORE": {
         "summary": "Add multiple sets and store the resulting set in a key",
@@ -12583,6 +11734,7 @@
             "@set",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -12635,11 +11787,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "SWAPDB": {
         "summary": "Swaps two Redis databases",
@@ -12652,6 +11800,7 @@
             "@fast",
             "@dangerous"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "index1",
@@ -12665,11 +11814,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "SYNC": {
         "summary": "Internal command used for replication",
@@ -12680,14 +11825,11 @@
             "@slow",
             "@dangerous"
         ],
+        "arity": 1,
         "command_flags": [
             "admin",
             "noscript"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "TIME": {
         "summary": "Return the current server time",
@@ -12697,16 +11839,13 @@
         "acl_categories": [
             "@fast"
         ],
+        "arity": 1,
         "command_flags": [
             "random",
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "TOUCH": {
         "summary": "Alters the last access time of a key(s). Returns the number of existing keys specified.",
@@ -12718,6 +11857,7 @@
             "@read",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12748,11 +11888,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "TTL": {
         "summary": "Get the time to live for a key in seconds",
@@ -12764,6 +11900,7 @@
             "@read",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12794,11 +11931,7 @@
             "readonly",
             "random",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "TYPE": {
         "summary": "Determine the type stored at key",
@@ -12810,6 +11943,7 @@
             "@read",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12839,11 +11973,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "UNLINK": {
         "summary": "Delete a key asynchronously in another thread. Otherwise it is just as DEL, but non blocking.",
@@ -12855,6 +11985,7 @@
             "@write",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -12885,11 +12016,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "UNSUBSCRIBE": {
         "summary": "Stop listening for messages posted to the given channels",
@@ -12900,6 +12027,7 @@
             "@pubsub",
             "@slow"
         ],
+        "arity": -1,
         "arguments": [
             {
                 "name": "channel",
@@ -12913,11 +12041,7 @@
             "noscript",
             "loading",
             "stale"
-        ],
-        "arity": -1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "UNWATCH": {
         "summary": "Forget about all watched keys",
@@ -12928,16 +12052,13 @@
             "@fast",
             "@transaction"
         ],
+        "arity": 1,
         "command_flags": [
             "noscript",
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": 1,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "WAIT": {
         "summary": "Wait for the synchronous replication of all the write commands sent in the context of the current connection",
@@ -12948,6 +12069,7 @@
             "@slow",
             "@connection"
         ],
+        "arity": 3,
         "arguments": [
             {
                 "name": "numreplicas",
@@ -12960,11 +12082,7 @@
         ],
         "command_flags": [
             "noscript"
-        ],
-        "arity": 3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "WATCH": {
         "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
@@ -12975,6 +12093,7 @@
             "@fast",
             "@transaction"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -13006,11 +12125,7 @@
             "loading",
             "stale",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": -1,
-        "step": 1
+        ]
     },
     "XACK": {
         "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
@@ -13022,6 +12137,7 @@
             "@stream",
             "@fast"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -13061,11 +12177,7 @@
             "write",
             "random",
             "fast"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XADD": {
         "summary": "Appends a new entry to a stream",
@@ -13087,6 +12199,7 @@
             "@stream",
             "@fast"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -13207,11 +12320,7 @@
             "denyoom",
             "random",
             "fast"
-        ],
-        "arity": -5,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XAUTOCLAIM": {
         "summary": "Changes (or acquires) ownership of messages in a consumer group, as if the messages were delivered to the specified consumer.",
@@ -13223,6 +12332,7 @@
             "@stream",
             "@fast"
         ],
+        "arity": -6,
         "key_specs": [
             {
                 "begin_search": {
@@ -13281,11 +12391,7 @@
             "write",
             "random",
             "fast"
-        ],
-        "arity": -6,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XCLAIM": {
         "summary": "Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.",
@@ -13297,6 +12403,7 @@
             "@stream",
             "@fast"
         ],
+        "arity": -6,
         "key_specs": [
             {
                 "begin_search": {
@@ -13374,11 +12481,7 @@
             "write",
             "random",
             "fast"
-        ],
-        "arity": -6,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XDEL": {
         "summary": "Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.",
@@ -13390,6 +12493,7 @@
             "@stream",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -13424,11 +12528,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XGROUP": {
         "summary": "A container for consumer groups commands",
@@ -13438,10 +12538,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "XGROUP CREATE": {
         "summary": "Create a consumer group.",
@@ -13453,6 +12550,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -13507,11 +12605,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -5,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XGROUP CREATECONSUMER": {
         "summary": "Create a consumer in a consumer group.",
@@ -13523,6 +12617,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": 5,
         "key_specs": [
             {
                 "begin_search": {
@@ -13560,11 +12655,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": 5,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XGROUP DELCONSUMER": {
         "summary": "Delete a consumer from a consumer group.",
@@ -13576,6 +12667,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": 5,
         "key_specs": [
             {
                 "begin_search": {
@@ -13612,11 +12704,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 5,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XGROUP DESTROY": {
         "summary": "Destroy a consumer group.",
@@ -13628,6 +12716,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -13660,11 +12749,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 4,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XGROUP HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -13675,14 +12760,11 @@
             "@stream",
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "XGROUP SETID": {
         "summary": "Set a consumer group to an arbitrary last delivered ID value.",
@@ -13694,6 +12776,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": 5,
         "key_specs": [
             {
                 "begin_search": {
@@ -13741,11 +12824,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 5,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XINFO": {
         "summary": "A container for stream introspection commands",
@@ -13755,10 +12834,7 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": -2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        "arity": -2
     },
     "XINFO CONSUMERS": {
         "summary": "List the consumers in a consumer group",
@@ -13770,6 +12846,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -13803,11 +12880,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": 4,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XINFO GROUPS": {
         "summary": "List the consumer groups of a stream",
@@ -13819,6 +12892,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -13847,11 +12921,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": 3,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XINFO HELP": {
         "summary": "Show helpful text about the different subcommands",
@@ -13862,14 +12932,11 @@
             "@stream",
             "@slow"
         ],
+        "arity": 2,
         "command_flags": [
             "loading",
             "stale"
-        ],
-        "arity": 2,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "XINFO STREAM": {
         "summary": "Get information about a stream",
@@ -13881,6 +12948,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -13923,11 +12991,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -3,
-        "first": 2,
-        "last": 2,
-        "step": 1
+        ]
     },
     "XLEN": {
         "summary": "Return the number of entries in a stream",
@@ -13939,6 +13003,7 @@
             "@stream",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -13968,11 +13033,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XPENDING": {
         "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
@@ -13990,6 +13051,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -14053,11 +13115,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XRANGE": {
         "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval",
@@ -14069,6 +13127,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14111,11 +13170,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XREAD": {
         "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
@@ -14128,6 +13183,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14183,11 +13239,7 @@
         "command_flags": [
             "readonly",
             "movablekeys"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "XREADGROUP": {
         "summary": "Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.",
@@ -14200,6 +13252,7 @@
             "@slow",
             "@blocking"
         ],
+        "arity": -7,
         "key_specs": [
             {
                 "begin_search": {
@@ -14276,11 +13329,7 @@
         "command_flags": [
             "write",
             "movablekeys"
-        ],
-        "arity": -7,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "XREVRANGE": {
         "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
@@ -14292,6 +13341,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14334,11 +13384,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XSETID": {
         "summary": "An internal command for replicating stream values",
@@ -14350,6 +13396,7 @@
             "@stream",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -14384,11 +13431,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "XTRIM": {
         "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
@@ -14406,6 +13449,7 @@
             "@stream",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14484,11 +13528,7 @@
         "command_flags": [
             "write",
             "random"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZADD": {
         "summary": "Add one or more members to a sorted set, or update its score if it already exists",
@@ -14514,6 +13554,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14605,11 +13646,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZCARD": {
         "summary": "Get the number of members in a sorted set",
@@ -14621,6 +13658,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": 2,
         "key_specs": [
             {
                 "begin_search": {
@@ -14650,11 +13688,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZCOUNT": {
         "summary": "Count the members in a sorted set with scores within the given values",
@@ -14666,6 +13700,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14703,11 +13738,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZDIFF": {
         "summary": "Subtract multiple sorted sets",
@@ -14719,6 +13750,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -14759,11 +13791,7 @@
         "command_flags": [
             "readonly",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ZDIFFSTORE": {
         "summary": "Subtract multiple sorted sets and store the resulting sorted set in a new key",
@@ -14775,6 +13803,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14832,11 +13861,7 @@
             "write",
             "denyoom",
             "movablekeys"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZINCRBY": {
         "summary": "Increment the score of a member in a sorted set",
@@ -14848,6 +13873,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -14886,11 +13912,7 @@
             "write",
             "denyoom",
             "fast"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZINTER": {
         "summary": "Intersect multiple sorted sets",
@@ -14902,6 +13924,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -14972,11 +13995,7 @@
         "command_flags": [
             "readonly",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ZINTERCARD": {
         "summary": "Intersect multiple sorted sets and return the cardinality of the result",
@@ -14988,6 +14007,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -15028,11 +14048,7 @@
         "command_flags": [
             "readonly",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ZINTERSTORE": {
         "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
@@ -15044,6 +14060,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -15131,11 +14148,7 @@
             "write",
             "denyoom",
             "movablekeys"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZLEXCOUNT": {
         "summary": "Count the number of members in a sorted set between a given lexicographical range",
@@ -15147,6 +14160,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -15184,11 +14198,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZMPOP": {
         "summary": "Remove and return members with scores in a sorted set",
@@ -15200,6 +14210,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -15256,11 +14267,7 @@
         "command_flags": [
             "write",
             "movablekeys"
-        ],
-        "arity": -4,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ZMSCORE": {
         "summary": "Get the score associated with the given members in a sorted set",
@@ -15272,6 +14279,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -15306,11 +14314,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZPOPMAX": {
         "summary": "Remove and return members with the highest scores in a sorted set",
@@ -15322,6 +14326,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -15356,11 +14361,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZPOPMIN": {
         "summary": "Remove and return members with the lowest scores in a sorted set",
@@ -15372,6 +14373,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -15406,11 +14408,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZRANDMEMBER": {
         "summary": "Get one or multiple random elements from a sorted set",
@@ -15422,6 +14420,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -2,
         "key_specs": [
             {
                 "begin_search": {
@@ -15468,11 +14467,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -2,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZRANGE": {
         "summary": "Return a range of members in a sorted set",
@@ -15490,6 +14485,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -15571,11 +14567,7 @@
         ],
         "command_flags": [
             "readonly"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZRANGEBYLEX": {
         "summary": "Return a range of members in a sorted set, by lexicographical range",
@@ -15589,6 +14581,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -15642,10 +14635,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "ZRANGEBYSCORE": {
@@ -15660,6 +14649,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -15719,10 +14709,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "ZRANGESTORE": {
@@ -15735,6 +14721,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -15833,11 +14820,7 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "arity": -5,
-        "first": 1,
-        "last": 2,
-        "step": 1
+        ]
     },
     "ZRANK": {
         "summary": "Determine the index of a member in a sorted set",
@@ -15849,6 +14832,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -15882,11 +14866,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZREM": {
         "summary": "Remove one or more members from a sorted set",
@@ -15904,6 +14884,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -15938,11 +14919,7 @@
         "command_flags": [
             "write",
             "fast"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZREMRANGEBYLEX": {
         "summary": "Remove all members in a sorted set between the given lexicographical range",
@@ -15954,6 +14931,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -15990,11 +14968,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZREMRANGEBYRANK": {
         "summary": "Remove all members in a sorted set within the given indexes",
@@ -16006,6 +14980,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -16042,11 +15017,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZREMRANGEBYSCORE": {
         "summary": "Remove all members in a sorted set within the given scores",
@@ -16058,6 +15029,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": 4,
         "key_specs": [
             {
                 "begin_search": {
@@ -16094,11 +15066,7 @@
         ],
         "command_flags": [
             "write"
-        ],
-        "arity": 4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZREVRANGE": {
         "summary": "Return a range of members in a sorted set, by index, with scores ordered from high to low",
@@ -16112,6 +15080,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -16155,10 +15124,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "ZREVRANGEBYLEX": {
@@ -16173,6 +15138,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -16226,10 +15192,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "ZREVRANGEBYSCORE": {
@@ -16244,6 +15206,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -16303,10 +15266,6 @@
         "command_flags": [
             "readonly"
         ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1,
         "deprecated": true
     },
     "ZREVRANK": {
@@ -16319,6 +15278,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -16352,11 +15312,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZSCAN": {
         "summary": "Incrementally iterate sorted sets elements and associated scores",
@@ -16368,6 +15324,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -16413,11 +15370,7 @@
         "command_flags": [
             "readonly",
             "random"
-        ],
-        "arity": -3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZSCORE": {
         "summary": "Get the score associated with the given member in a sorted set",
@@ -16429,6 +15382,7 @@
             "@sortedset",
             "@fast"
         ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -16462,11 +15416,7 @@
         "command_flags": [
             "readonly",
             "fast"
-        ],
-        "arity": 3,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     },
     "ZUNION": {
         "summary": "Add multiple sorted sets",
@@ -16478,6 +15428,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -16548,11 +15499,7 @@
         "command_flags": [
             "readonly",
             "movablekeys"
-        ],
-        "arity": -3,
-        "first": 0,
-        "last": 0,
-        "step": 0
+        ]
     },
     "ZUNIONSTORE": {
         "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
@@ -16564,6 +15511,7 @@
             "@sortedset",
             "@slow"
         ],
+        "arity": -4,
         "key_specs": [
             {
                 "begin_search": {
@@ -16651,10 +15599,6 @@
             "write",
             "denyoom",
             "movablekeys"
-        ],
-        "arity": -4,
-        "first": 1,
-        "last": 1,
-        "step": 1
+        ]
     }
 }
