@@ -28,6 +28,7 @@ Specifically:
 * **NOSAVE** will prevent a DB saving operation even if one or more save points are configured.
 * **NOW** skips waiting for lagging replicas, i.e. it bypasses the first step in the shutdown sequence.
 * **FORCE** ignores any errors that would normally prevent the server from exiting.
+  For details, see the following section.
 
 ## Conditions where a SHUTDOWN fails
 
@@ -40,7 +41,7 @@ system is in a state that does not allow to safely immediately persist
 on disk.
 
 Normally if there is an AOF child process performing an AOF rewrite, Redis
-will simply kill it and exit. However there are two conditions where it is
+will simply kill it and exit. However there are three conditions where it is
 unsafe to do so, and the **SHUTDOWN** command will be refused with an error
 instead. This happens when:
 
