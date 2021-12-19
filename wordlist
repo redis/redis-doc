@@ -134,6 +134,7 @@ SoundCloud
 SystemTimer
 TCP
 TLB
+TLS
 TODO
 Twemproxy
 Tx
@@ -167,6 +168,7 @@ auth
 backend
 backticks
 backtrace
+balancer
 benchmarked
 benchmarking
 bgsave
@@ -243,6 +245,7 @@ globals
 gmail
 hiredis
 hostname
+hostnames
 htop
 hyperloglogs
 hypervisor
