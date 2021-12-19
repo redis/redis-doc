@@ -38,7 +38,7 @@ Since Redis 2.6.11 no further attempt to shut down will be made unless a new `SI
 
 Since Redis 7.0, the server waits for lagging replicas up to a configurable `shutdown-timeout`, by default 10 seconds, before shutting down.
 This provides a best effort minimizing the risk of data loss in a situation where no save points are configured and AOF is disabled.
-Before version 7.0, shutting down a heavily loaded master node in a diskless setup is more likely to result in data loss.
+Before version 7.0, shutting down a heavily loaded master node in a diskless setup was more likely to result in data loss.
 To minimize the risk of data loss in such setups, it's adviced to trigger a manual `FAILOVER` (or `CLUSTER FAILOVER`) to demote the master to a replica and promote one of the replicas to new master, before shutting down a master node.
 
 Handling of SIGSEGV, SIGBUS, SIGFPE and SIGILL

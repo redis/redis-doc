@@ -72,7 +72,7 @@ Here is the meaning of all fields in the **server** section:
 *   `executable`: The path to the server's executable
 *   `config_file`: The path to the config file
 *   `io_threads_active`: Flag indicating if I/O threads are active
-*   `shutdown_in_seconds`: The maximum time remaining for replicas to catch up the replication before shutting completing the shutdown sequence.
+*   `shutdown_in_seconds`: The maximum time remaining for replicas to catch up the replication before completing the shutdown sequence.
     This field is only present during shutdown.
 
 Here is the meaning of all fields in the **clients** section:
