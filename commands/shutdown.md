@@ -41,15 +41,14 @@ system is in a state that does not allow to safely immediately persist
 on disk.
 
 Normally if there is an AOF child process performing an AOF rewrite, Redis
-will simply kill it and exit. However there are three conditions where it is
-unsafe to do so, and the **SHUTDOWN** command will be refused with an error
-instead. This happens when:
+will simply kill it and exit.
+However, there are situations where it is unsafe to do so and, unless the **FORCE** modifier is specified, the **SHUTDOWN** command will be refused with an error instead.
+This happens in the following situations:
 
 * The user just turned on AOF, and the server triggered the first AOF rewrite in order to create the initial AOF file. In this context, stopping will result in losing the dataset at all: once restarted, the server will potentially have AOF enabled without having any AOF file at all.
 * A replica with AOF enabled, reconnected with its master, performed a full resynchronization, and restarted the AOF file, triggering the initial AOF creation process. In this case not completing the AOF rewrite is dangerous because the latest dataset received from the master would be lost. The new master can actually be even a different instance (if the **REPLICAOF** or **SLAVEOF** command was used in order to reconfigure the replica), so it is important to finish the AOF rewrite and start with the correct data set representing the data set in memory when the server was terminated.
-* The **FORCE** modifier is *not* specified. If **FORCE** is specified, the server exits anyway.
 
-There are conditions when we want just to terminate a Redis instance ASAP, regardless of what its content is.
+There are situations when we want just to terminate a Redis instance ASAP, regardless of what its content is.
 In such a case, the command **SHUTDOWN NOW NOSAVE FORCE** can be used.
 In versions before 7.0, where the **NOW** and **FORCE** flags are not available, the right combination of commands is to send a **CONFIG appendonly no** followed by a **SHUTDOWN NOSAVE**.
 The first command will turn off the AOF if needed, and will terminate the AOF rewriting child if there is one active.
