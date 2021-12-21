@@ -70,5 +70,5 @@ closed.
 
 @history
 
-* `>= 7.0`: NOW and FORCE modifiers added.
+* `>= 7.0.0`: `NOW` and `FORCE `modifiers added.
   Waiting for lagging replicas before exiting added.
