@@ -95,12 +95,12 @@ so for example you may have a cluster with 3 nodes, where:
 * Node C contains hash slots from 11001 to 16383.
 
 This allows to add and remove nodes in the cluster easily. For example if
-I want to add a new node D, I need to move some hash slot from nodes A, B, C
+I want to add a new node D, I need to move some hash slots from nodes A, B, C
 to D. Similarly if I want to remove node A from the cluster I can just
 move the hash slots served by A to B and C. When the node A will be empty
 I can remove it from the cluster completely.
 
-Because moving hash slots from a node to another does not require to stop
+Because moving hash slots from a node to another does not require stopping
 operations, adding and removing nodes, or changing the percentage of hash
 slots hold by nodes, does not require any downtime.
 
@@ -192,7 +192,7 @@ Z1 is still able to write to B, which will accept its writes. If the
 partition heals in a very short time, the cluster will continue normally.
 However, if the partition lasts enough time for B1 to be promoted to master
 on the majority side of the partition, the writes that Z1 has sent to B
-in the mean time will be lost.
+in the meantime will be lost.
 
 Note that there is a **maximum window** to the amount of writes Z1 will be able
 to send to B: if enough time has elapsed for the majority side of the
@@ -216,7 +216,7 @@ let's introduce the configuration parameters that Redis Cluster introduces
 in the `redis.conf` file. Some will be obvious, others will be more clear
 as you continue reading.
 
-* **cluster-enabled `<yes/no>`**: If yes, enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a stand alone instance as usual.
+* **cluster-enabled `<yes/no>`**: If yes, enables Redis Cluster support in a specific Redis instance. Otherwise the instance starts as a standalone instance as usual.
 * **cluster-config-file `<filename>`**: Note that despite the name of this option, this is not a user editable configuration file, but the file where a Redis Cluster node automatically persists the cluster configuration (the state, basically) every time there is a change, in order to be able to re-read it at startup. The file lists things like the other nodes in the cluster, their state, persistent variables, and so forth. Often this file is rewritten and flushed on disk as a result of some message reception.
 * **cluster-node-timeout `<milliseconds>`**: The maximum amount of time a Redis Cluster node can be unavailable, without it being considered as failing. If a master node is not reachable for more than the specified amount of time, it will be failed over by its replicas. This parameter controls other important things in Redis Cluster. Notably, every node that can't reach the majority of master nodes for the specified amount of time, will stop accepting queries.
 * **cluster-slave-validity-factor `<factor>`**: If set to zero, a replica will always consider itself valid, and will therefore always try to failover a master, regardless of the amount of time the link between the master and the replica remained disconnected. If the value is positive, a maximum disconnection time is calculated as the *node timeout* value multiplied by the factor provided with this option, and if the node is a replica, it will not try to start a failover if the master link was disconnected for more than the specified amount of time. For example, if the node timeout is set to 5 seconds and the validity factor is set to 10, a replica disconnected from the master for more than 50 seconds will not try to failover its master. Note that any value different than zero may result in Redis Cluster being unavailable after a master failure if there is no replica that is able to failover it. In that case the cluster will return to being available only when the original master rejoins the cluster.
@@ -359,7 +359,7 @@ the cluster layout.
 You can now interact with the cluster, the first node will start at port 30001
 by default. When you are done, stop the cluster with:
 
-3. `create-cluster stop`.
+3. `create-cluster stop`
 
 Please read the `README` inside this directory for more information on how
 to run the script.
@@ -494,7 +494,7 @@ thing is that at least one node is reachable. Also note that redis-rb-cluster
 updates this list of startup nodes as soon as it is able to connect with the
 first node. You should expect such a behavior with any other serious client.
 
-Now that we have the Redis Cluster object instance stored in the **rc** variable
+Now that we have the Redis Cluster object instance stored in the **rc** variable,
 we are ready to use the object like if it was a normal Redis object instance.
 
 This is exactly what happens in **line 18 to 26**: when we restart the example
@@ -883,7 +883,7 @@ use redis-cli again, but with the --cluster-slave option, like this:
 Note that the command line here is exactly like the one we used to add
 a new master, so we are not specifying to which master we want to add
 the replica. In this case what happens is that redis-cli will add the new
-node as replica of a random master among the masters with less replicas.
+node as replica of a random master among the masters with fewer replicas.
 
 However you can specify exactly what master you want to target with your
 new replica with the following command line:
@@ -1017,8 +1017,8 @@ what is the most important detail is if multiple-keys operations are used
 by the application, and how. There are three different cases:
 
 1. Multiple keys operations, or transactions, or Lua scripts involving multiple keys, are not used. Keys are accessed independently (even if accessed via transactions or Lua scripts grouping multiple commands, about the same key, together).
-2. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used but only with keys having the same **hash tag**, which means that the keys used together all have a `{...}` sub-string that happens to be identical. For example the following multiple keys operation is defined in the context of the same hash tag: `SUNION {user:1000}.foo {user:1000}.bar`.
-3. Multiple keys operations, transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
+2. Multiple keys operations, or transactions, or Lua scripts involving multiple keys are used but only with keys having the same **hash tag**, which means that the keys used together all have a `{...}` sub-string that happens to be identical. For example the following multiple keys operation is defined in the context of the same hash tag: `SUNION {user:1000}.foo {user:1000}.bar`.
+3. Multiple keys operations, or transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
 
 The third case is not handled by Redis Cluster: the application requires to
 be modified in order to don't use multi keys operations or only use them in
@@ -1032,7 +1032,7 @@ N=1 if you have no preexisting sharding, the following steps are needed
 in order to migrate your data set to Redis Cluster:
 
 1. Stop your clients. No automatic live-migration to Redis Cluster is currently possible. You may be able to do it orchestrating a live migration in the context of your application / environment.
-2. Generate an append only file for all of your N masters using the BGREWRITEAOF command, and waiting for the AOF file to be completely generated.
+2. Generate an append only file for all of your N masters using the `BGREWRITEAOF` command, and waiting for the AOF file to be completely generated.
 3. Save your AOF files from aof-1 to aof-N somewhere. At this point you can stop your old instances if you wish (this is useful since in non-virtualized deployments you often need to reuse the same computers).
 4. Create a Redis Cluster composed of N masters and zero replicas. You'll add replicas later. Make sure all your nodes are using the append only file for persistence.
 5. Stop all the cluster nodes, substitute their append only file with your pre-existing append only files, aof-1 for the first node, aof-2 for the second node, up to aof-N.
