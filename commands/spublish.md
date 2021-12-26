@@ -1,8 +1,6 @@
 Posts a message to the given shard channel.
 
-In a Redis Cluster clients can publish to primary node (owner of the slot). The cluster makes sure
-that published messages are forwarded to all the node in the shard, clients can subscribe to any
-shard channel by connecting to any one of the nodes in the shard.
+In a Redis Cluster clients can publish to primary node (owner of the slot). The cluster makes sure that published messages are forwarded to all the node in the shard, clients can subscribe to any shard channel by connecting to any one of the nodes in the shard.
 
 @return
 
