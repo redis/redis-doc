@@ -173,6 +173,7 @@
             {
                 "name": "operation",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -183,8 +184,7 @@
                         "type": "pure-token",
                         "token": "RESET"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -468,6 +468,7 @@
             {
                 "name": "index",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "start",
@@ -480,6 +481,7 @@
                     {
                         "name": "index_unit",
                         "type": "oneof",
+                        "optional": true,
                         "arguments": [
                             {
                                 "name": "byte",
@@ -491,11 +493,9 @@
                                 "type": "pure-token",
                                 "token": "BIT"
                             }
-                        ],
-                        "optional": true
+                        ]
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -542,6 +542,7 @@
                 "name": "encoding_offset",
                 "type": "block",
                 "token": "GET",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "encoding",
@@ -551,13 +552,13 @@
                         "name": "offset",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "encoding_offset_value",
                 "type": "block",
                 "token": "SET",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "encoding",
@@ -571,13 +572,13 @@
                         "name": "value",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "encoding_offset_increment",
                 "type": "block",
                 "token": "INCRBY",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "encoding",
@@ -591,13 +592,13 @@
                         "name": "increment",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "wrap_sat_fail",
                 "type": "oneof",
                 "token": "OVERFLOW",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "wrap",
@@ -614,8 +615,7 @@
                         "type": "pure-token",
                         "token": "FAIL"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -798,6 +798,7 @@
             {
                 "name": "index",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "start",
@@ -806,6 +807,7 @@
                     {
                         "name": "end_index",
                         "type": "block",
+                        "optional": true,
                         "arguments": [
                             {
                                 "name": "end",
@@ -814,6 +816,7 @@
                             {
                                 "name": "index_unit",
                                 "type": "oneof",
+                                "optional": true,
                                 "arguments": [
                                     {
                                         "name": "byte",
@@ -825,14 +828,11 @@
                                         "type": "pure-token",
                                         "token": "BIT"
                                     }
-                                ],
-                                "optional": true
+                                ]
                             }
-                        ],
-                        "optional": true
+                        ]
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -1202,7 +1202,9 @@
             "denyoom",
             "noscript"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "BZMPOP": {
         "summary": "Remove and return members with scores in a sorted set or block until one is available",
@@ -1562,6 +1564,7 @@
                 "name": "normal_master_slave_pubsub",
                 "type": "oneof",
                 "token": "TYPE",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "normal",
@@ -1583,8 +1586,7 @@
                         "type": "pure-token",
                         "token": "PUBSUB"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "username",
@@ -1649,6 +1651,7 @@
                 "name": "normal_master_replica_pubsub",
                 "type": "oneof",
                 "token": "TYPE",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "normal",
@@ -1670,21 +1673,20 @@
                         "type": "pure-token",
                         "token": "PUBSUB"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "id",
                 "type": "block",
                 "token": "ID",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "client-id",
                         "type": "integer",
                         "multiple": true
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -1762,6 +1764,7 @@
             {
                 "name": "mode",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "write",
@@ -1773,8 +1776,7 @@
                         "type": "pure-token",
                         "token": "ALL"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -1884,7 +1886,7 @@
                 "token": "PREFIX",
                 "optional": true,
                 "multiple": true,
-                "multiple-token": true
+                "multiple_token": true
             },
             {
                 "name": "bcast",
@@ -1953,6 +1955,7 @@
             {
                 "name": "timeout_error",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "timeout",
@@ -1964,8 +1967,7 @@
                         "type": "pure-token",
                         "token": "ERROR"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -2043,6 +2045,7 @@
             {
                 "name": "start-slot_end-slot",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "start-slot",
@@ -2052,8 +2055,7 @@
                         "name": "end-slot",
                         "type": "integer"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -2161,6 +2163,7 @@
             {
                 "name": "start-slot_end-slot",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "start-slot",
@@ -2170,8 +2173,7 @@
                         "name": "end-slot",
                         "type": "integer"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -2195,6 +2197,7 @@
             {
                 "name": "options",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "force",
@@ -2206,8 +2209,7 @@
                         "type": "pure-token",
                         "token": "TAKEOVER"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -2323,6 +2325,20 @@
                 "type": "string"
             }
         ],
+        "command_flags": [
+            "random",
+            "stale"
+        ]
+    },
+    "CLUSTER LINKS": {
+        "summary": "Returns a list of all TCP links to and from peer nodes in cluster",
+        "since": "7.0.0",
+        "group": "cluster",
+        "complexity": "O(N) where N is the total number of Cluster nodes",
+        "acl_categories": [
+            "@slow"
+        ],
+        "arity": 2,
         "command_flags": [
             "random",
             "stale"
@@ -2444,6 +2460,7 @@
             {
                 "name": "hard_soft",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "hard",
@@ -2455,12 +2472,12 @@
                         "type": "pure-token",
                         "token": "SOFT"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
             "admin",
+            "noscript",
             "random",
             "stale"
         ]
@@ -2672,6 +2689,7 @@
                 "name": "filterby",
                 "type": "oneof",
                 "token": "FILTERBY",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "module-name",
@@ -2688,8 +2706,7 @@
                         "type": "pattern",
                         "token": "PATTERN"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -2728,13 +2745,13 @@
             {
                 "name": "parameter",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "parameter",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -2772,6 +2789,7 @@
         "command_flags": [
             "admin",
             "noscript",
+            "loading",
             "stale"
         ]
     },
@@ -2789,6 +2807,7 @@
         "command_flags": [
             "admin",
             "noscript",
+            "loading",
             "stale"
         ]
     },
@@ -2813,6 +2832,7 @@
             {
                 "name": "parameter_value",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "parameter",
@@ -2822,13 +2842,13 @@
                         "name": "value",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
             "admin",
             "noscript",
+            "loading",
             "stale"
         ]
     },
@@ -2941,7 +2961,9 @@
             "loading",
             "stale"
         ],
-        "syscmd": true
+        "doc_flags": [
+            "syscmd"
+        ]
     },
     "DECR": {
         "summary": "Decrement the integer value of a key by one",
@@ -3499,6 +3521,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nx",
@@ -3520,8 +3543,7 @@
                         "type": "pure-token",
                         "token": "LT"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -3578,6 +3600,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nx",
@@ -3599,8 +3622,7 @@
                         "type": "pure-token",
                         "token": "LT"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -3667,6 +3689,7 @@
                 "name": "target",
                 "type": "block",
                 "token": "TO",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "host",
@@ -3682,8 +3705,7 @@
                         "token": "FORCE",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "abort",
@@ -3846,6 +3868,7 @@
             {
                 "name": "async",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "async",
@@ -3857,8 +3880,7 @@
                         "type": "pure-token",
                         "token": "SYNC"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -3881,6 +3903,7 @@
             {
                 "name": "async",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "async",
@@ -3892,8 +3915,7 @@
                         "type": "pure-token",
                         "token": "SYNC"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -3911,11 +3933,12 @@
         "arity": -2
     },
     "FUNCTION CREATE": {
-        "summary": "PATCH__TBD__15__",
+        "summary": "Create a function with the given arguments (name, code, description)",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__14__",
+        "complexity": "O(1) (considering compilation time is redundant)",
         "acl_categories": [
+            "@write",
             "@slow",
             "@scripting"
         ],
@@ -3947,16 +3970,17 @@
             }
         ],
         "command_flags": [
-            "noscript",
-            "may_replicate"
+            "write",
+            "noscript"
         ]
     },
     "FUNCTION DELETE": {
-        "summary": "PATCH__TBD__23__",
+        "summary": "Delete a function by name",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__22__",
+        "complexity": "O(1)",
         "acl_categories": [
+            "@write",
             "@slow",
             "@scripting"
         ],
@@ -3968,16 +3992,17 @@
             }
         ],
         "command_flags": [
-            "noscript",
-            "may_replicate"
+            "write",
+            "noscript"
         ]
     },
     "FUNCTION FLUSH": {
-        "summary": "PATCH__TBD__29__",
+        "summary": "Deleting all functions",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__28__",
+        "complexity": "O(N) where N is the number of functions deleted",
         "acl_categories": [
+            "@write",
             "@slow",
             "@scripting"
         ],
@@ -3986,6 +4011,7 @@
             {
                 "name": "async",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "async",
@@ -3997,13 +4023,12 @@
                         "type": "pure-token",
                         "token": "SYNC"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
-            "noscript",
-            "may_replicate"
+            "write",
+            "noscript"
         ]
     },
     "FUNCTION HELP": {
@@ -4022,10 +4047,10 @@
         ]
     },
     "FUNCTION INFO": {
-        "summary": "PATCH__TBD__11__",
+        "summary": "Return information about a function by function name",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__10__",
+        "complexity": "O(1)",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4048,10 +4073,10 @@
         ]
     },
     "FUNCTION KILL": {
-        "summary": "PATCH__TBD__19__",
+        "summary": "Kill the function currently in execution.",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__18__",
+        "complexity": "O(1)",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4062,10 +4087,10 @@
         ]
     },
     "FUNCTION LIST": {
-        "summary": "PATCH__TBD__27__",
+        "summary": "List information about all the functions",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__26__",
+        "complexity": "O(N) where N is the number of functions",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4076,10 +4101,10 @@
         ]
     },
     "FUNCTION STATS": {
-        "summary": "PATCH__TBD__34__",
+        "summary": "Return information about the function currently running (name, description, duration)",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__33__",
+        "complexity": "O(1)",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4134,6 +4159,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nx",
@@ -4145,8 +4171,7 @@
                         "type": "pure-token",
                         "token": "XX"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "change",
@@ -4157,6 +4182,7 @@
             {
                 "name": "longitude_latitude_member",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "longitude",
@@ -4170,8 +4196,7 @@
                         "name": "member",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -4226,6 +4251,7 @@
             {
                 "name": "unit",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "m",
@@ -4247,8 +4273,7 @@
                         "type": "pure-token",
                         "token": "MI"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -4486,6 +4511,7 @@
             {
                 "name": "count",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -4498,12 +4524,12 @@
                         "token": "ANY",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -4515,8 +4541,7 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "key",
@@ -4538,7 +4563,9 @@
             "denyoom",
             "movablekeys"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "GEORADIUSBYMEMBER": {
         "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member",
@@ -4669,6 +4696,7 @@
             {
                 "name": "count",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -4681,12 +4709,12 @@
                         "token": "ANY",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -4698,8 +4726,7 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "key",
@@ -4721,7 +4748,9 @@
             "denyoom",
             "movablekeys"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "GEORADIUSBYMEMBER_RO": {
         "summary": "A read-only variant for GEORADIUSBYMEMBER",
@@ -4816,6 +4845,7 @@
             {
                 "name": "count",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -4828,12 +4858,12 @@
                         "token": "ANY",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -4845,14 +4875,15 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "GEORADIUS_RO": {
         "summary": "A read-only variant for GEORADIUS",
@@ -4951,6 +4982,7 @@
             {
                 "name": "count",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -4963,12 +4995,12 @@
                         "token": "ANY",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -4980,14 +5012,15 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "GEOSEARCH": {
         "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
@@ -5035,6 +5068,7 @@
                 "name": "longitude_latitude",
                 "type": "block",
                 "token": "FROMLONLAT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "longitude",
@@ -5044,12 +5078,12 @@
                         "name": "latitude",
                         "type": "double"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "circle",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "radius",
@@ -5082,12 +5116,12 @@
                             }
                         ]
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "box",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "width",
@@ -5124,12 +5158,12 @@
                             }
                         ]
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -5141,12 +5175,12 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "count",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -5159,8 +5193,7 @@
                         "token": "ANY",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "withcoord",
@@ -5253,6 +5286,7 @@
                 "name": "longitude_latitude",
                 "type": "block",
                 "token": "FROMLONLAT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "longitude",
@@ -5262,12 +5296,12 @@
                         "name": "latitude",
                         "type": "double"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "circle",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "radius",
@@ -5300,12 +5334,12 @@
                             }
                         ]
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "box",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "width",
@@ -5342,12 +5376,12 @@
                             }
                         ]
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -5359,12 +5393,12 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "count",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -5377,8 +5411,7 @@
                         "token": "ANY",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "storedist",
@@ -5561,6 +5594,7 @@
             {
                 "name": "expiration",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "seconds",
@@ -5587,8 +5621,7 @@
                         "type": "pure-token",
                         "token": "PERSIST"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -5694,7 +5727,9 @@
             "denyoom",
             "fast"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "HDEL": {
         "summary": "Delete one or more hash fields",
@@ -5763,6 +5798,7 @@
             {
                 "name": "arguments",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "protover",
@@ -5772,6 +5808,7 @@
                         "name": "username_password",
                         "type": "block",
                         "token": "AUTH",
+                        "optional": true,
                         "arguments": [
                             {
                                 "name": "username",
@@ -5781,8 +5818,7 @@
                                 "name": "password",
                                 "type": "string"
                             }
-                        ],
-                        "optional": true
+                        ]
                     },
                     {
                         "name": "clientname",
@@ -5790,8 +5826,7 @@
                         "token": "SETNAME",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -6210,6 +6245,7 @@
             {
                 "name": "field_value",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "field",
@@ -6219,8 +6255,7 @@
                         "name": "value",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -6228,7 +6263,9 @@
             "denyoom",
             "fast"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "HRANDFIELD": {
         "summary": "Get one or multiple random fields from a hash",
@@ -6269,6 +6306,7 @@
             {
                 "name": "options",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -6280,8 +6318,7 @@
                         "token": "WITHVALUES",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -6386,6 +6423,7 @@
             {
                 "name": "field_value",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "field",
@@ -6395,8 +6433,7 @@
                         "name": "value",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -7996,6 +8033,7 @@
                 "name": "username_password",
                 "type": "block",
                 "token": "AUTH2",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "username",
@@ -8005,8 +8043,7 @@
                         "name": "password",
                         "type": "string"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "key",
@@ -8224,6 +8261,7 @@
             {
                 "name": "key_value",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "key",
@@ -8234,8 +8272,7 @@
                         "name": "value",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -8277,6 +8314,7 @@
             {
                 "name": "key_value",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "key",
@@ -8287,8 +8325,7 @@
                         "name": "value",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -8595,6 +8632,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nx",
@@ -8616,8 +8654,7 @@
                         "type": "pure-token",
                         "token": "LT"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -8674,6 +8711,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nx",
@@ -8695,8 +8733,7 @@
                         "type": "pure-token",
                         "token": "LT"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -8876,7 +8913,9 @@
             "denyoom",
             "admin"
         ],
-        "syscmd": true
+        "doc_flags": [
+            "syscmd"
+        ]
     },
     "PFMERGE": {
         "summary": "Merge N different HyperLogLogs into a single one.",
@@ -8959,7 +8998,9 @@
         "command_flags": [
             "admin"
         ],
-        "syscmd": true
+        "doc_flags": [
+            "syscmd"
+        ]
     },
     "PING": {
         "summary": "Ping the server",
@@ -9046,13 +9087,13 @@
             {
                 "name": "pattern",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "pattern",
                         "type": "pattern"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -9442,7 +9483,9 @@
             "loading",
             "stale"
         ],
-        "syscmd": true
+        "doc_flags": [
+            "syscmd"
+        ]
     },
     "REPLICAOF": {
         "summary": "Make the server a replica of another instance, or promote it as master.",
@@ -9600,7 +9643,9 @@
             "denyoom",
             "asking"
         ],
-        "syscmd": true
+        "doc_flags": [
+            "syscmd"
+        ]
     },
     "ROLE": {
         "summary": "Return the role of the instance in the context of replication",
@@ -9739,7 +9784,9 @@
             "write",
             "denyoom"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "RPUSH": {
         "summary": "Append one or multiple elements to a list",
@@ -10089,6 +10136,7 @@
             {
                 "name": "async",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "async",
@@ -10100,13 +10148,11 @@
                         "type": "pure-token",
                         "token": "SYNC"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
-            "noscript",
-            "may_replicate"
+            "noscript"
         ]
     },
     "SCRIPT HELP": {
@@ -10155,8 +10201,7 @@
             }
         ],
         "command_flags": [
-            "noscript",
-            "may_replicate"
+            "noscript"
         ]
     },
     "SDIFF": {
@@ -10351,6 +10396,7 @@
             {
                 "name": "expiration",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "seconds",
@@ -10377,12 +10423,12 @@
                         "type": "pure-token",
                         "token": "KEEPTTL"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "condition",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nx",
@@ -10394,8 +10440,7 @@
                         "type": "pure-token",
                         "token": "XX"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "get",
@@ -10620,6 +10665,7 @@
             {
                 "name": "nosave_save",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nosave",
@@ -10631,8 +10677,7 @@
                         "type": "pure-token",
                         "token": "SAVE"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -11185,6 +11230,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -11194,8 +11240,7 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "pattern",
@@ -11203,11 +11248,12 @@
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
-                "multiple-token": true
+                "multiple_token": true
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -11219,8 +11265,7 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "sorting",
@@ -11291,6 +11336,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -11300,8 +11346,7 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "pattern",
@@ -11309,11 +11354,12 @@
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
-                "multiple-token": true
+                "multiple_token": true
             },
             {
                 "name": "order",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "asc",
@@ -11325,8 +11371,7 @@
                         "type": "pure-token",
                         "token": "DESC"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "sorting",
@@ -11679,7 +11724,9 @@
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "SUNION": {
         "summary": "Add multiple sets",
@@ -12235,6 +12282,7 @@
             {
                 "name": "trim",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "strategy",
@@ -12256,6 +12304,7 @@
                     {
                         "name": "operator",
                         "type": "oneof",
+                        "optional": true,
                         "arguments": [
                             {
                                 "name": "equal",
@@ -12267,8 +12316,7 @@
                                 "type": "pure-token",
                                 "token": "~"
                             }
-                        ],
-                        "optional": true
+                        ]
                     },
                     {
                         "name": "threshold",
@@ -12281,8 +12329,7 @@
                         "since": "6.2",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "id_or_auto",
@@ -12302,6 +12349,7 @@
             {
                 "name": "field_value",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "field",
@@ -12311,8 +12359,7 @@
                         "name": "value",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -12978,6 +13025,7 @@
                 "name": "full",
                 "type": "block",
                 "token": "FULL",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -12985,8 +13033,7 @@
                         "token": "COUNT",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -13084,6 +13131,7 @@
             {
                 "name": "filters",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "min-idle-time",
@@ -13108,8 +13156,7 @@
                         "type": "string",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -13498,6 +13545,7 @@
                     {
                         "name": "operator",
                         "type": "oneof",
+                        "optional": true,
                         "arguments": [
                             {
                                 "name": "equal",
@@ -13509,8 +13557,7 @@
                                 "type": "pure-token",
                                 "token": "~"
                             }
-                        ],
-                        "optional": true
+                        ]
                     },
                     {
                         "name": "threshold",
@@ -13583,6 +13630,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "nx",
@@ -13594,12 +13642,12 @@
                         "type": "pure-token",
                         "token": "XX"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "comparison",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "gt",
@@ -13611,8 +13659,7 @@
                         "type": "pure-token",
                         "token": "LT"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "change",
@@ -13629,6 +13676,7 @@
             {
                 "name": "score_member",
                 "type": "block",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "score",
@@ -13638,8 +13686,7 @@
                         "name": "member",
                         "type": "string"
                     }
-                ],
-                "multiple": true
+                ]
             }
         ],
         "command_flags": [
@@ -13966,6 +14013,7 @@
                 "name": "aggregate",
                 "type": "oneof",
                 "token": "AGGREGATE",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "sum",
@@ -13982,8 +14030,7 @@
                         "type": "pure-token",
                         "token": "MAX"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "withscores",
@@ -14124,6 +14171,7 @@
                 "name": "aggregate",
                 "type": "oneof",
                 "token": "AGGREGATE",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "sum",
@@ -14140,8 +14188,7 @@
                         "type": "pure-token",
                         "token": "MAX"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -14449,6 +14496,7 @@
             {
                 "name": "options",
                 "type": "block",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "count",
@@ -14460,8 +14508,7 @@
                         "token": "WITHSCORES",
                         "optional": true
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -14522,6 +14569,7 @@
             {
                 "name": "sortby",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "byscore",
@@ -14533,8 +14581,7 @@
                         "type": "pure-token",
                         "token": "BYLEX"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "rev",
@@ -14546,6 +14593,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -14555,8 +14603,7 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "withscores",
@@ -14619,6 +14666,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -14628,14 +14676,15 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "ZRANGEBYSCORE": {
         "summary": "Return a range of members in a sorted set, by score",
@@ -14693,6 +14742,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -14702,14 +14752,15 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "ZRANGESTORE": {
         "summary": "Store a range of members from sorted set into another key",
@@ -14780,6 +14831,7 @@
             {
                 "name": "sortby",
                 "type": "oneof",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "byscore",
@@ -14791,8 +14843,7 @@
                         "type": "pure-token",
                         "token": "BYLEX"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "rev",
@@ -14804,6 +14855,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -14813,8 +14865,7 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
@@ -15124,7 +15175,9 @@
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "ZREVRANGEBYLEX": {
         "summary": "Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.",
@@ -15176,6 +15229,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -15185,14 +15239,15 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "ZREVRANGEBYSCORE": {
         "summary": "Return a range of members in a sorted set, by score, with scores ordered from high to low",
@@ -15250,6 +15305,7 @@
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "offset",
@@ -15259,14 +15315,15 @@
                         "name": "count",
                         "type": "integer"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
             "readonly"
         ],
-        "deprecated": true
+        "doc_flags": [
+            "deprecated"
+        ]
     },
     "ZREVRANK": {
         "summary": "Determine the index of a member in a sorted set, with scores ordered from high to low",
@@ -15470,6 +15527,7 @@
                 "name": "aggregate",
                 "type": "oneof",
                 "token": "AGGREGATE",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "sum",
@@ -15486,8 +15544,7 @@
                         "type": "pure-token",
                         "token": "MAX"
                     }
-                ],
-                "optional": true
+                ]
             },
             {
                 "name": "withscores",
@@ -15575,6 +15632,7 @@
                 "name": "aggregate",
                 "type": "oneof",
                 "token": "AGGREGATE",
+                "optional": true,
                 "arguments": [
                     {
                         "name": "sum",
@@ -15591,8 +15649,7 @@
                         "type": "pure-token",
                         "token": "MAX"
                     }
-                ],
-                "optional": true
+                ]
             }
         ],
         "command_flags": [
