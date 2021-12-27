@@ -637,11 +637,11 @@ certain problems. For example in order to implement a web-based poker game,
 you may want to represent your deck with a set. Imagine we use a one-char
 prefix for (C)lubs, (D)iamonds, (H)earts, (S)pades:
 
-    >  sadd deck C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 CJ CQ CK
-       D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 DJ DQ DK H1 H2 H3
-       H4 H5 H6 H7 H8 H9 H10 HJ HQ HK S1 S2 S3 S4 S5 S6
-       S7 S8 S9 S10 SJ SQ SK
-       (integer) 52
+    > sadd deck C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 CJ CQ CK
+      D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 DJ DQ DK H1 H2 H3
+      H4 H5 H6 H7 H8 H9 H10 HJ HQ HK S1 S2 S3 S4 S5 S6
+      S7 S8 S9 S10 SJ SQ SK
+    (integer) 52
 
 Now we want to provide each player with 5 cards. The `SPOP` command
 removes a random element, returning it to the client, so it is the

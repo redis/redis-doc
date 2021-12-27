@@ -49,7 +49,7 @@
       "swilly22",
       "RedisLabs"
     ],
-    "stars": 1409
+    "stars": 1510
   },
   {
     "name": "redis-tdigest",
@@ -70,7 +70,7 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 1358
+    "stars": 2034
   },
   {
     "name": "RediSearch",
@@ -81,7 +81,7 @@
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 3051
+    "stars": 3390
   },
   {
     "name": "RedisBloom",
@@ -102,7 +102,7 @@
     "authors": [
       "antirez"
     ],
-    "stars": 2160
+    "stars": 2199
   },
   {
     "name": "RedisTimeSeries",
