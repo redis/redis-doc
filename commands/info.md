@@ -71,6 +71,7 @@ Here is the meaning of all fields in the **server** section:
 *   `lru_clock`: Clock incrementing every minute, for LRU management
 *   `executable`: The path to the server's executable
 *   `config_file`: The path to the config file
+*   `io_threads_active`: Flag indicating if I/O threads are active
 
 Here is the meaning of all fields in the **clients** section:
 
@@ -89,7 +90,6 @@ Here is the meaning of all fields in the **clients** section:
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
-*    `io_threads_active`: Flag indicating if I/O threads are active
 
 Here is the meaning of all fields in the **memory** section:
 
