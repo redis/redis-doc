@@ -2571,6 +2571,31 @@
             "stale"
         ]
     },
+    "CLUSTER SLAVES": {
+        "summary": "List replica nodes of the specified master node",
+        "since": "3.0.0",
+        "group": "cluster",
+        "complexity": "O(1)",
+        "deprecated_since": "5.0.0",
+        "replaced_by": "`CLUSTER REPLICAS`",
+        "acl_categories": [
+            "@admin",
+            "@slow",
+            "@dangerous"
+        ],
+        "arity": 3,
+        "arguments": [
+            {
+                "name": "node-id",
+                "type": "string"
+            }
+        ],
+        "command_flags": [
+            "admin",
+            "random",
+            "stale"
+        ]
+    },
     "CLUSTER SLOTS": {
         "summary": "Get array of Cluster slot to node mappings",
         "since": "3.0.0",
@@ -3996,6 +4021,20 @@
             "noscript"
         ]
     },
+    "FUNCTION DUMP": {
+        "summary": "Dump all functions into a serialized binary payload",
+        "since": "7.0.0",
+        "group": "scripting",
+        "complexity": "O(N) where N is the number of functions",
+        "acl_categories": [
+            "@slow",
+            "@scripting"
+        ],
+        "arity": 2,
+        "command_flags": [
+            "noscript"
+        ]
+    },
     "FUNCTION FLUSH": {
         "summary": "Deleting all functions",
         "since": "7.0.0",
@@ -4097,6 +4136,50 @@
         ],
         "arity": 2,
         "command_flags": [
+            "noscript"
+        ]
+    },
+    "FUNCTION RESTORE": {
+        "summary": "Restore all the functions on the given payload",
+        "since": "7.0.0",
+        "group": "scripting",
+        "complexity": "O(N) where N is the number of functions on the payload",
+        "acl_categories": [
+            "@write",
+            "@slow",
+            "@scripting"
+        ],
+        "arity": -3,
+        "arguments": [
+            {
+                "name": "serialized-value",
+                "type": "string"
+            },
+            {
+                "name": "policy",
+                "type": "oneof",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "flush",
+                        "type": "pure-token",
+                        "token": "FLUSH"
+                    },
+                    {
+                        "name": "append",
+                        "type": "pure-token",
+                        "token": "APPEND"
+                    },
+                    {
+                        "name": "replace",
+                        "type": "pure-token",
+                        "token": "REPLACE"
+                    }
+                ]
+            }
+        ],
+        "command_flags": [
+            "write",
             "noscript"
         ]
     },
