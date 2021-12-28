@@ -5,9 +5,6 @@ When `source` is empty, Redis will block the connection until another client
 pushes to it or until `timeout` is reached.
 A `timeout` of zero can be used to block indefinitely.
 
-As per Redis 6.2.0, BRPOPLPUSH is considered deprecated. Please prefer `BLMOVE` in
-new code.
-
 See `RPOPLPUSH` for more information.
 
 @return
