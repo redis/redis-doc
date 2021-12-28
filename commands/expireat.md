@@ -42,7 +42,3 @@ EXISTS mykey
 EXPIREAT mykey 1293840000
 EXISTS mykey
 ```
-
-@history
-
-* `>= 7.0`: Added options: `NX`, `XX`, `GT` and `LT`.

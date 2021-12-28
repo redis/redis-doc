@@ -81,10 +81,6 @@ EXPIRE mykey 10 NX
 TTL mykey
 ```
 
-@history
-
-* `>= 7.0`: Added options: `NX`, `XX`, `GT` and `LT`.
-
 ## Pattern: Navigation session
 
 Imagine you have a web service and you are interested in the latest N pages

@@ -15,10 +15,6 @@ See `RPOPLPUSH` for more information.
 @bulk-string-reply: the element being popped from `source` and pushed to `destination`.
 If `timeout` is reached, a @nil-reply is returned.
 
-@history
-
-* `>= 6.0`: `timeout` is interpreted as a double instead of an integer.
-
 ## Pattern: Reliable queue
 
 Please see the pattern description in the `RPOPLPUSH` documentation.

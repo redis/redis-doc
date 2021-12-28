@@ -70,10 +70,6 @@ This is a list of all the supported Redis ACL rules:
 
 If the rules contain errors, the error is returned.
 
-@history
-
-* `>= 6.2`: Added Pub/Sub channel patterns.
-
 @examples
 
 ```

@@ -74,9 +74,3 @@ New fields are regularly added for debugging purpose. Some could be removed
 in the future. A version safe Redis client using this command should parse
 the output accordingly (i.e. handling gracefully missing fields, skipping
 unknown fields).
-
-@history
-
-* `>= 2.8.12`: Added unique client `id` field.
-* `>= 5.0`: Added optional `TYPE` filter.
-* `>= 6.2`: Added `laddr` field and the optional `ID` filter.

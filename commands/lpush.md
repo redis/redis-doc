@@ -14,12 +14,6 @@ containing `c` as first element, `b` as second element and `a` as third element.
 
 @integer-reply: the length of the list after the push operations.
 
-@history
-
-* `>= 2.4`: Accepts multiple `element` arguments.
-  In Redis versions older than 2.4 it was possible to push a single value per
-  command.
-
 @examples
 
 ```cli

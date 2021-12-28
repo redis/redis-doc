@@ -203,10 +203,6 @@ Also note that this behavior is specific of `SSCAN`, `HSCAN` and `ZSCAN`. `SCAN`
 * `HSCAN` array of elements contain two elements, a field and a value, for every returned element of the Hash.
 * `ZSCAN` array of elements contain two elements, a member and its associated score, for every returned element of the sorted set.
 
-@history
-
-  * `>= 6.0`: Supports the `TYPE` subcommand.
-
 ## Additional examples
 
 Iteration of a Hash value.

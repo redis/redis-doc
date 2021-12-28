@@ -43,8 +43,3 @@ above is to the latest development version.
 @return
 
 The return type of the command is a @array-reply.
-
-@history
-
-* `>= 7.0.0`: Added the ability to pass multiple pattern parameters in one
-call.

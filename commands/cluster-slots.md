@@ -62,8 +62,4 @@ slot range reply.
       3) "58e6e48d41228013e5d9c1c37c5060693925e97e"
 ```
 
-@history
-
-* `>= 4.0`: Added node IDs.
-
 **Warning:** In future versions there could be more elements describing the node better. In general a client implementation should just rely on the fact that certain parameters are at fixed positions as specified, but more parameters may follow and should be ignored. Similarly a client library should try if possible to cope with the fact that older versions may just have the IP and port parameter.

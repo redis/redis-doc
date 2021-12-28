@@ -51,11 +51,3 @@ When called with the three arguments format:
 When called with the filter / value format:
 
 @integer-reply: the number of clients killed.
-
-@history
-
-* `>= 2.8.12`: Added new filter format. 
-* `>= 2.8.12`: `ID` option.
-* `>= 3.2`: Added `master` type in for `TYPE` option.
-* `>= 5`: Replaced `slave` `TYPE` with `replica`. `slave` still supported for backward compatibility.
-* `>= 6.2`: `LADDR` option.

@@ -135,7 +135,3 @@ command.
 The command returns data in different format depending on the way it is
 called, as previously explained in this page. However the reply is always
 an array of items.
-
-@history
-
-* `>= 6.2.0`: Added the `IDLE` option and exclusive range intervals.
