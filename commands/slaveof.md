@@ -1,4 +1,4 @@
-**A note about the word slave used in this man page and command name**: Starting with Redis 5 this command: starting with Redis version 5, if not for backward compatibility, the Redis project no longer uses the word slave. Please use the new command `REPLICAOF`. The command `SLAVEOF` will continue to work for backward compatibility.
+**A note about the word slave used in this man page and command name**: starting with Redis version 5, if not for backward compatibility, the Redis project no longer uses the word slave. Please use the new command `REPLICAOF`. The command `SLAVEOF` will continue to work for backward compatibility.
 
 The `SLAVEOF` command can change the replication settings of a replica on the fly.
 If a Redis server is already acting as replica, the command `SLAVEOF` NO ONE will
