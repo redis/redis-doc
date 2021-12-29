@@ -3459,6 +3459,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(N) where N is the number of keys to check.",
+        "history": [
+            [
+                "3.0.3",
+                "Accepts multiple `key` arguments."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -3917,6 +3923,16 @@
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of keys in the selected database",
+        "history": [
+            [
+                "4.0.0",
+                "Added the `ASYNC` flushing mode modifier."
+            ],
+            [
+                "6.2.0",
+                "Added the `SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -5819,6 +5835,12 @@
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the number of fields to be removed.",
+        "history": [
+            [
+                "2.4.0",
+                "Accepts multiple `field` arguments."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@hash",
@@ -6472,6 +6494,12 @@
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.",
+        "history": [
+            [
+                "4.0.0",
+                "Accepts multiple `field` and `value` arguments."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@hash",
@@ -9216,6 +9244,12 @@
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "2.8.0",
+                "Added the -2 reply."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -9461,6 +9495,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "3.2.0",
+                "The command no longer returns an error when source and destination names are the same."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9507,6 +9547,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "3.2.0",
+                "The command no longer returns an error when source and destination names are the same."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9620,6 +9666,20 @@
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
+        "history": [
+            [
+                "3.0.0",
+                "Added the `REPLACE` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `ABSTTL` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `IDLETIME` and `FREQ` options."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -10054,6 +10114,12 @@
         "since": "2.8.0",
         "group": "generic",
         "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
+        "history": [
+            [
+                "6.0",
+                "Added the `TYPE` subcommand."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -12025,6 +12091,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "2.8.0",
+                "Added the -2 reply."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -13252,6 +13324,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+        "history": [
+            [
+                "6.2",
+                "Added exclusive ranges."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -13466,6 +13544,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+        "history": [
+            [
+                "6.2",
+                "Added exclusive ranges."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -14776,6 +14860,12 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
         "deprecated_since": "6.2.0",
         "replaced_by": "`ZRANGE` with the `BYSCORE` argument",
+        "history": [
+            [
+                "2.0.0",
+                "Added the `WITHSCORES` modifier."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@sortedset",
@@ -15339,6 +15429,12 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
         "deprecated_since": "6.2.0",
         "replaced_by": "`ZRANGE` with the `REV` and `BYSCORE` arguments",
+        "history": [
+            [
+                "2.1.6",
+                "`min` and `max` can be exclusive."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@sortedset",
