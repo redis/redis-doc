@@ -107,7 +107,7 @@ a single consumer.
 
 ## Idle time filter
 
-Since version 6.2 it is possible to filter entries by their idle-time,
+It is also possible to filter pending stream entries by their idle-time,
 given in milliseconds (useful for `XCLAIM`ing entries that have not been
 processed for some time):
 

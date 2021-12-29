@@ -33,7 +33,7 @@ will be `del`, not `expired`).
 
 ## Options
 
-The `EXPIRE` command supports a set of options since Redis 7.0:
+The `EXPIRE` command supports a set of options:
 
 * `NX` -- Set expiry only when the key has no expiry
 * `XX` -- Set expiry only when the key has an existing expiry
