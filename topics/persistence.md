@@ -6,7 +6,10 @@ Redis Persistence
 Redis provides a different range of persistence options:
 
 * **RDB** (Redis Database): The RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
-* **AOF** (Append Only File):  The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to rewrite the log in the background when it gets too big.
+* **AOF** (Append Only File): The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to rewrite the log in the background when it gets too big.    
+
+  Since Redis 7.0.0, Redis supports the Multi Part AOF mechanism. That is, the original single AOF file is split into BASE file (at most one) and INCR file (there may be more than one). The BASE file represents an initial (RDB or AOF format) snapshot of the data present when the AOF is rewritten. The INCR file contains incremental commands since the last base AOF file was created. All these files are tracked by a manifest file.
+
 * **No persistence**: If you wish, you can disable persistence completely, if you want your data to just exist as long as the server is running.
 * **RDB + AOF**: It is possible to combine both AOF and RDB in the same instance. Notice that, in this case, when Redis restarts the AOF file will be used to reconstruct the original dataset since it is guaranteed to be the most complete.
 
@@ -34,6 +37,9 @@ AOF advantages
 * Using AOF Redis is much more durable: you can have different fsync policies: no fsync at all, fsync every second, fsync at every query. With the default policy of fsync every second write performances are still great (fsync is performed using a background thread and the main thread will try hard to perform writes when no fsync is in progress.) but you can only lose one second worth of writes.
 * The AOF log is an append only log, so there are no seeks, nor corruption problems if there is a power outage. Even if the log ends with an half-written command for some reason (disk full or other reasons) the redis-check-aof tool is able to fix it easily.
 * Redis is able to automatically rewrite the AOF in background when it gets too big. The rewrite is completely safe as while Redis continues appending to the old file, a completely new one is produced with the minimal set of operations needed to create the current data set, and once this second file is ready Redis switches the two and starts appending to the new one.
+
+  Since Redis 7.0.0, the rewrite is also completely safe. When an AOF rewrite is scheduled, Redis parent process opens a new INCR AOF file to continue writing. The child process will execute rewrite logic and generates a new BASE AOF. Redis will use a temporary manifest file to track the newly generated BASE file and INCR file. When they are ready, Redis will perform an atomic replacement operation to make this temporary manifest file take effect.At the same time, in order to avoid the problem of creating many INCR files due to the frequent failure and retries of AOF rewrite. Redis introduced an AOF rewrite limiting mechanism to ensure that AOF rewrite automatically retries at a slower and slower speed.
+
 * AOF contains a log of all the operations one after the other in an easy to understand and parse format. You can even easily export an AOF file. For instance even if you've accidentally flushed everything using the `FLUSHALL` command, as long as no rewrite of the log was performed in the meantime, you can still save your data set just by stopping the server, removing the latest command, and restarting Redis again.
 
 AOF disadvantages
@@ -59,6 +65,8 @@ RDB snapshot from time to time is a great idea for doing database backups,
 for faster restarts, and in the event of bugs in the AOF engine.
 
 Note: for all these reasons we'll likely end up unifying AOF and RDB into a single persistence model in the future (long term plan).
+
+Since Redis 7.0.0, when `aof-use-rdb-preamble` is set to yes, the BASE file uses RDB format.
 
 The following sections will illustrate a few more details about the two persistence models.
 
@@ -103,7 +111,7 @@ deal for some applications, there are use cases for full durability, and
 in these cases Redis was not a viable option.
 
 The _append-only file_ is an alternative, fully-durable strategy for
-Redis.  It became available in version 1.1.
+Redis. It became available in version 1.1.
 
 You can turn on the AOF in your configuration file:
 
@@ -116,7 +124,7 @@ Redis it will re-play the AOF to rebuild the state.
 ### Log rewriting
 
 As you can guess, the AOF gets bigger and bigger as write operations are
-performed.  For example, if you are incrementing a counter 100 times,
+performed. For example, if you are incrementing a counter 100 times,
 you'll end up with a single key in your dataset containing the final
 value, but 100 entries in your AOF. 99 of those entries are not needed
 to rebuild the current state.
@@ -168,6 +176,8 @@ cases if you want, but the default configuration is to continue regardless
 the fact the last command in the file is not well-formed, in order to guarantee
 availability after a restart.
 
+Since Redis 7.0.0, only the last AOF file (BASE or INCR) can be truncated. Otherwise redis will exit even if aof-load-truncated is enabled.
+
 Older versions of Redis may not recover, and may require the following steps:
 
 * Make a backup copy of your AOF file.
@@ -212,12 +222,18 @@ and a parent process.
 at the same time it writes the new changes in the old append-only file,
 so if the rewriting fails, we are safe).
 
+  Since Redis 7.0.0, the mechanism here has been changed. We have dropped in-memory buffer and open a new INCR AOF file to continue writing. If the rewriting fails finally, the old BASE and INCR files (if we have) plus this newly opened INCR file represents a full amount of data, so we are safe.
+  
 * When the child is done rewriting the file, the parent gets a signal,
 and appends the in-memory buffer at the end of the file generated by the
 child.
 
+  Since Redis 7.0.0, we don't need to append data in the in-memory buffer to the file generated by the child process. We only need to use a temporary manifest to track the newly opened INCR files and sub-process generated BASE files.
+
 * Profit! Now Redis atomically renames the old file into the new one,
 and starts appending new data into the new file.
+
+  Since Redis 7.0.0, we only need to do an atomic exchange to the manifest pointer in the memory, so that the result of this AOF rewrite is visible to Redis.
 
 ### How I can switch to AOF, if I'm currently using dump.rdb snapshots?
 
@@ -291,7 +307,9 @@ running. This is what we suggest:
 If you run a Redis instance with only AOF persistence enabled, you can still
 copy the AOF in order to create backups. The file may lack the final part
 but Redis will be still able to load it (see the previous sections about
-truncated AOF files).
+truncated AOF files).  
+
+Since Redis 7.0.0, Redis supports the Multi Part AOF mechanism. That is, the original single AOF file is split into BASE file (at most one) and INCR file (there may be more than one). All these files are tracked by a manifest file. At the same time, all of these files (include manifest file) will be placed in a file directory determined by the `appendddirname` configuration, so the best suggestion is to copy the entire directory directly when backup the AOF, instead of copying some of the files, because Redis will do strictly check when starts, once some files are lost or messy, Redis will refuse to start.
 
 Disaster recovery
 ---
