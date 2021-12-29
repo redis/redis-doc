@@ -309,7 +309,7 @@ copy the AOF in order to create backups. The file may lack the final part
 but Redis will be still able to load it (see the previous sections about
 truncated AOF files).  
 
-Since Redis 7.0.0, Redis supports the Multi Part AOF mechanism. That is, the original single AOF file is split into BASE file (at most one) and INCR file (there may be more than one). All these files are tracked by a manifest file. At the same time, all of these files (include manifest file) will be placed in a file directory determined by the `appendddirname` configuration, so the best suggestion is to copy the entire directory directly when backup the AOF, instead of copying some of the files, because Redis will do strictly check when starts, once some files are lost or messy, Redis will refuse to start.
+Since Redis 7.0.0, all the BASE, INCR and manifest files will be placed in a file directory determined by the `appendddirname` configuration, so the best suggestion is to copy the entire directory directly when backup the AOF, instead of copying some of the files, because Redis will do strictly check when starts, once some files are lost or messy, Redis will refuse to start.
 
 Disaster recovery
 ---
