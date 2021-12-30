@@ -14,6 +14,7 @@ cluster_current_epoch:6
 cluster_my_epoch:2
 cluster_stats_messages_sent:1483972
 cluster_stats_messages_received:1483968
+total_cluster_links_buffer_limit_exceeded:0
 ```
 
 * `cluster_state`: State is `ok` if the node is able to receive queries. `fail` if there is at least one hash slot which is unbound (no node associated), in error state (node serving it is flagged with FAIL flag), or if the majority of masters can't be reached by this node.
@@ -27,6 +28,7 @@ cluster_stats_messages_received:1483968
 * `cluster_my_epoch`: The `Config Epoch` of the node we are talking with. This is the current configuration version assigned to this node.
 * `cluster_stats_messages_sent`: Number of messages sent via the cluster node-to-node binary bus.
 * `cluster_stats_messages_received`: Number of messages received via the cluster node-to-node binary bus.
+* `total_cluster_links_buffer_limit_exceeded`: Accumulated count of cluster links freed due to exceeding the `cluster-link-sendbuf-limit` configuration.
 
 More information about the Current Epoch and Config Epoch variables are available in the Redis Cluster specification document.
 

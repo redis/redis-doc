@@ -139,8 +139,9 @@ Here is the meaning of all fields in the **memory** section:
 *   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
 *   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting).
 *   `mem_not_counted_for_evict`: Used memory that's not counted for key eviction. This is basically transient replica and AOF buffers.
-*   `mem_clients_normal`: Memory used by normal clients
 *   `mem_clients_slaves`: Memory used by replica clients - Starting Redis 7.0, replica buffers share memory with the replication backlog, so this field can show 0 when replicas don't trigger an increase of memory usage.
+*   `mem_clients_normal`: Memory used by normal clients
+*   `mem_cluster_links`: Memory used by links to peers on the cluster bus when cluster mode is enabled.
 *   `mem_aof_buffer`: Transient memory used for AOF and AOF rewrite buffers
 *   `mem_replication_backlog`: Memory used by replication backlog
 *   `mem_total_replication_buffers`: Total memory consumed for replication buffers - Added in Redis 7.0.
@@ -325,6 +326,7 @@ If the instance is a replica, these additional fields are provided:
 *   `slave_repl_offset`: The replication offset of the replica instance
 *   `slave_priority`: The priority of the instance as a candidate for failover
 *   `slave_read_only`: Flag indicating if the replica is read-only
+*   `replica_announced`: Flag indicating if the replica is announced by Sentinel.
 
 If a SYNC operation is on-going, these additional fields are provided:
 
