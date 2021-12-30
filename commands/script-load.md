@@ -9,7 +9,7 @@ FLUSH` is called).
 The command works in the same way even if the script was already present in the
 script cache.
 
-For more information about `EVAL` scripts please refer to [Inroduction to Eval Scripts](/topics/evalintro)
+For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/evalintro)
 
 @return
 

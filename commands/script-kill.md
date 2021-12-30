@@ -12,7 +12,7 @@ In such a case only `SHUTDOWN NOSAVE` is able to kill the script, killing
 the Redis process in an hard way preventing it to persist with half-written
 information.
 
-For more information about `EVAL` scripts please refer to [Inroduction to Eval Scripts](/topics/evalintro)
+For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/evalintro)
 
 @return
 
