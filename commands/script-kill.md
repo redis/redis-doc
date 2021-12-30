@@ -1,4 +1,4 @@
-Kills the currently executing Lua script, assuming no write operation was yet
+Kills the currently executing `EVAL` script, assuming no write operation was yet
 performed by the script.
 
 This command is mainly useful to kill a script that is running for too much
@@ -12,8 +12,7 @@ In such a case only `SHUTDOWN NOSAVE` is able to kill the script, killing
 the Redis process in an hard way preventing it to persist with half-written
 information.
 
-Please refer to the `EVAL` documentation for detailed information about Redis
-Lua scripting.
+For more information about `EVAL` scripts please refer to [Inroduction to Eval Scripts](/topics/evalintro)
 
 @return
 

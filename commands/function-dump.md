@@ -1,19 +1,17 @@
-Restore the libraries represented by the given payload, it is possible to give a restore policy to
-control how to handle existing libraries (default APPEND):
-
-* FLUSH: delete all existing libraries.
-* APPEND: appends the restored libraries to the existing libraries. On collision, abort.
-* REPLACE: appends the restored libraries to the existing libraries, On collision, replace the old
-libraries with the new libraries (notice that even on this option there is a change of failure
-in case of functions name collision with another library).
+Returns a serialized payload representing the current libraries.
+The serialized payload can later be restored using `FUNCTION RESTORE` command.
 
 For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
 
 @return
 
-@simple-string-reply
+@bulk-string-reply: the serialized payload
 
 @examples
+
+The following example dump the current libraries using `FUNCTION DUMP`, then flushes all the libraries
+using `FUNCTION FLUSH`, and then restore the original functions using `FUNCTION RESTORE`.
+
 ```
 > FUNCTION DUMP
 "\xf6\x05test3\x03LUA\x00@Fredis.register_function('f5', function(keys, args) while 1 do end end)\n\x00wY\xbb \xec\x0f\x91i"
