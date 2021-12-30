@@ -134,8 +134,8 @@ The rewrite is completely safe as while Redis continues appending to the old fil
 Since Redis 7.0.0, when an AOF rewrite is scheduled, The Redis parent process opens a new incremental AOF file to continue writing. The child process will execute rewrite logic and generates a new base AOF.
 Redis will use a temporary manifest file to track the newly generated base file and incremental file.
 When they are ready, Redis will perform an atomic replacement operation to make this temporary manifest file take effect.
-At the same time, in order to avoid the problem of creating many incr files in case of repeated failures and retries of an AOF rewrite.
-Redis introduces an AOF rewrite limiting mechanism to ensure that AOF rewrite automatically retries at a slower and slower speed.
+In order to avoid the problem of creating many incr files in case of repeated failures and retries of an AOF rewrite.
+Redis introduces an AOF rewrite limiting mechanism to ensure that AOF rewrite automatically retries at a slower and slower rate.
 
 So Redis supports an interesting feature: it is able to rebuild the AOF
 in the background without interrupting service to clients. Whenever
@@ -226,10 +226,13 @@ and a parent process.
 
 * The child starts writing the new AOF in a temporary file.
 
-* The parent open a new incr AOF file to continue writing. If the rewriting fails finally, the old base and incr files (if we have) plus this newly opened incr file represents a full amount of data, so we are safe.
+* The parent opens a new increments AOF file to continue writing updates.
+  If the rewriting fails, the old base and increments files (if we have) plus this newly opened increments file represents the complete updated dataset,
+  so we are safe.
   
 * When the child is done rewriting the file, the parent gets a signal,
-and use a temporary manifest to track the newly opened incr file and sub-process generated base files.
+and use newly opened increment file and child generated base file to build an temp manifest,
+and persist it.
 
 * Profit! Now Redis do an atomic exchange to the manifest pointer in the memory, so that the result of this AOF rewrite is visible to Redis.
 
@@ -326,8 +329,7 @@ but Redis will be still able to load it (see the previous sections about
 truncated AOF files).  
 
 Since Redis 7.0.0, all the base, incr and manifest files will be placed in a file directory determined by the `appendddirname` configuration.
-so the best suggestion is to copy the entire directory directly when backup the AOF, instead of copying some of the files, 
-because Redis will do strictly check when starts, once some files are lost or messy, Redis will refuse to start.
+so the best suggestion is to copy the entire directory when backing up AOF persistence. 
 
 Disaster recovery
 ---
