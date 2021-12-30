@@ -1,14 +1,12 @@
 Load a library into Redis.
 
-The library `code` is given to the specified `engine` for compiling and
-processing, this processing should result in creating one or more functions
-that can be later invoked using `FCALL` command. On Lua engine, it is possible
-to create function using `redis.register_function` API (see example bellow).
+The library `code` is given to the specified `engine` for compiling and processing,
+this processing should result in creating one or more functions that can be later invoked using `FCALL` command.
+On Lua engine, it is possible to create function using `redis.register_function` API (see example bellow).
 
-If the given `library-name` already exists, error is returns unless the `REPLACE`
-argument is given, in this case, replace the old library with the
-new one. Library description can also be given using the `DESCRIPTION`
-argument.
+If the given `library-name` already exists, error is returns unless the `REPLACE` argument is given,
+in this case, replace the old library with the new one.
+Library description can also be given using the `DESCRIPTION` argument.
 
 An error will occurred at the following cases:
 
@@ -26,7 +24,8 @@ For more information about functions please refer to [Introduction to Redis Func
 
 @examples
 
-The following example will create a library, `test`, using the Lua engine. The library have a single function, `f1`, that simply returns `hello`.
+The following example will create a library, `test`, using the Lua engine.
+The library have a single function, `f1`, that simply returns `hello`.
 
 ```
 > function load lua test "redis.register_function('f1', function(keys, args) return 'hello' end)"

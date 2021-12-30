@@ -1,8 +1,7 @@
 Kill the current running function.
 
-It is only possible to kill a function that did not yet
-modified the data (killing a function that already
-modified the data will break function atomicity and disallowed)
+It is only possible to kill a function that did not yet modified the data
+(killing a function that already modified the data will break function atomicity and disallowed)
 
 For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
 

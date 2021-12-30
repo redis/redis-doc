@@ -9,8 +9,9 @@ For more information about functions please refer to [Introduction to Redis Func
 
 @examples
 
-The following example dump the current libraries using `FUNCTION DUMP`, then flushes all the libraries
-using `FUNCTION FLUSH`, and then restore the original functions using `FUNCTION RESTORE`.
+The following example dump the current libraries using `FUNCTION DUMP`,
+then flushes all the libraries using `FUNCTION FLUSH`,
+and then restore the original functions using `FUNCTION RESTORE`.
 
 ```
 > FUNCTION DUMP

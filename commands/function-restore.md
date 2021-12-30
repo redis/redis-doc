@@ -1,11 +1,11 @@
-Restore the libraries represented by the given payload, it is possible to give a restore policy to
-control how to handle existing libraries (default APPEND):
+Restore the libraries represented by the given payload,
+it is possible to give a restore policy to control how to handle existing libraries (default APPEND):
 
 * FLUSH: delete all existing libraries.
 * APPEND: appends the restored libraries to the existing libraries. On collision, abort.
-* REPLACE: appends the restored libraries to the existing libraries, On collision, replace the old
-libraries with the new libraries (notice that even on this option there is a change of failure
-in case of functions name collision with another library).
+* REPLACE: appends the restored libraries to the existing libraries.
+On collision, replace the old libraries with the new libraries
+(notice that even on this option there is a chance of failure in case of functions name collision with another library).
 
 For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
 
@@ -23,14 +23,14 @@ OK
 OK
 127.0.0.1:6379> FUNCTION LIST
 1) 1) "library_name"
-   2) "test3"
-   3) "engine"
-   4) "LUA"
-   5) "description"
-   6) (nil)
-   7) "functions"
-   8) 1) 1) "name"
-         2) "f5"
-         3) "description"
-         4) (nil)
+   1) "test3"
+   2) "engine"
+   3) "LUA"
+   4) "description"
+   5) (nil)
+   6) "functions"
+   7) 1) 1) "name"
+         1) "f5"
+         2) "description"
+         3) (nil)
 ```

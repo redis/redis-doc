@@ -29,27 +29,23 @@ Here we will describe the Lua API spacifications provided by Redis.
 
 ## The Redis object
 
-When running Lua code inside Redis there is a singleton `redis` object that is
-embeded to the environment by default. All the inteructions with Redis is done
-using this object. We will list the API provided with explainations and examples:
+When running Lua code inside Redis there is a singleton `redis` object that is embeded to the environment by default.
+All the inteructions with Redis is done using this object. We will list the API provided with explainations and examples:
 
 redis.call/pcall
 ---
 
-It is possible to call Redis commands from a Lua script using two different Lua
-functions:
+It is possible to call Redis commands from a Lua script using two different Lua functions:
 
 * `redis.call()`
 * `redis.pcall()`
 
-`redis.call()` is similar to `redis.pcall()`, the only difference is that if a
-Redis command call will result in an error, `redis.call()` will raise a Lua
-error that in turn will force `EVAL` to return an error to the command caller,
-while `redis.pcall` will trap the error and return a Lua table representing the
-error.
+`redis.call()` is similar to `redis.pcall()`,
+the only difference is that if a Redis command call will result in an error,
+`redis.call()` will raise a Lua error that in turn will force `EVAL` to return an error to the command caller,
+while `redis.pcall` will trap the error and return a Lua table representing the error.
 
-The arguments of the `redis.call()` and `redis.pcall()` functions are all
-the arguments of a well formed Redis command:
+The arguments of the `redis.call()` and `redis.pcall()` functions are all the arguments of a well formed Redis command:
 
 ```
 redis.call('set','foo','bar')" 0
@@ -93,8 +89,7 @@ return redis.sha1hex('foo')'
 redis.log
 ---
 
-It is possible to write to the Redis log file from Lua scripts using the
-`redis.log` function.
+It is possible to write to the Redis log file from Lua scripts using the `redis.log` function.
 
 ```
 redis.log(loglevel,message)
@@ -108,8 +103,7 @@ redis.log(loglevel,message)
 * `redis.LOG_WARNING`
 
 They correspond directly to the normal Redis log levels.
-Only logs emitted by scripting using a log level that is equal or greater than
-the currently configured Redis instance log level will be emitted.
+Only logs emitted by scripting using a log level that is equal or greater than the currently configured Redis instance log level will be emitted.
 
 The `message` argument is simply a string.
 Example:
@@ -135,27 +129,24 @@ redis.set_repl
 ---
 
 It is possible to have more control over the way commands are propagated to replicas and the AOF.
-This is a very advanced feature since **a misuse can do damage** by breaking the contract that the master, replicas, and AOF must all contain the same logical content.
+This is a very advanced feature since **a misuse can do damage** by breaking the contract that the master,
+replicas, and AOF must all contain the same logical content.
 
-However this is a useful feature since, sometimes, we need to execute certain
-commands only in the master in order to create, for example, intermediate
-values.
+However this is a useful feature since, sometimes, 
+we need to execute certain commands only in the master in order to create,
+for example, intermediate values.
 
 Think of a Lua script where we perform an intersection between two sets.
-We then pick five random elements from the intersection and create a new set
-containing them.
-Finally, we delete the temporary key representing the intersection
-between the two original sets. What we want to replicate is only the creation
-of the new set with the five elements. It's not useful to also replicate the
-commands creating the temporary key.
+We then pick five random elements from the intersection and create a new set containing them.
+Finally, we delete the temporary key representing the intersection between the two original sets.
+What we want to replicate is only the creation of the new set with the five elements.
+It's not useful to also replicate the commands creating the temporary key.
 
-For this reason, Redis 3.2 introduces a new command that only works when
-script effects replication is enabled, and is able to control the scripting
-replication engine. The command is called `redis.set_repl()` and fails raising
-an error if called when script effects replication is disabled.
+For this reason, Redis 3.2 introduces a new command that only works when script effects replication is enabled,
+and is able to control the scripting replication engine.
+The command is called `redis.set_repl()` and fails raising an error if called when script effects replication is disabled.
 
-**Notice! On Redis 7 and above, script replication was drop and the only supported replication
-is effects replication.**
+**Notice! On Redis 7 and above, script replication was drop and the only supported replication is effects replication.**
 
 The command can be called with four different arguments:
 
@@ -189,15 +180,12 @@ For further reader, please refer to [`Replicating commands instead of scripts`](
 
 ## Conversion between Lua and Redis data types
 
-Redis return values are converted into Lua data types when Lua calls a Redis
-command using [`call()`](lua#rediscallpcall) or [`pcall()`](lua#rediscallpcall).
-Similarly, Lua data types are converted into the Redis protocol when calling
-a Redis command and when a Lua script returns a value, so that scripts can
-control what `EVAL` will return to the client.
+Redis return values are converted into Lua data types when Lua calls a Redis command using [`call()`](lua#rediscallpcall) or [`pcall()`](lua#rediscallpcall).
+Similarly, Lua data types are converted into the Redis protocol when calling a Redis command and when a Lua script returns a value,
+so that scripts can control what `EVAL` will return to the client.
 
-This conversion between data types is designed in a way that if a Redis type is
-converted into a Lua type, and then the result is converted back into a Redis
-type, the result is the same as the initial value.
+This conversion between data types is designed in a way that if a Redis type is converted into a Lua type,
+and then the result is converted back into a Redis type, the result is the same as the initial value.
 
 In other words there is a one-to-one conversion between Lua and Redis types.
 The following table shows you all the conversions rules:
@@ -220,15 +208,19 @@ The following table shows you all the conversions rules:
 * Lua table with a single `err` field -> Redis error reply
 * Lua boolean false -> Redis Nil bulk reply.
 
-There is an additional Lua-to-Redis conversion rule that has no corresponding
-Redis to Lua conversion rule:
+There is an additional Lua-to-Redis conversion rule that has no corresponding Redis to Lua conversion rule:
 
 * Lua boolean true -> Redis integer reply with value of 1.
 
 Lastly, there are three important rules to note:
 
-* Lua has a single numerical type, Lua numbers. There is no distinction between integers and floats. So we always convert Lua numbers into integer replies, removing the decimal part of the number if any. **If you want to return a float from Lua you should return it as a string**, exactly like Redis itself does (see for instance the `ZSCORE` command).
-* There is [no simple way to have nils inside Lua arrays](http://www.lua.org/pil/19.1.html), this is a result of Lua table semantics, so when Redis converts a Lua array into Redis protocol the conversion is stopped if a nil is encountered.
+* Lua has a single numerical type, Lua numbers. 
+  There is no distinction between integers and floats.
+  So we always convert Lua numbers into integer replies, removing the decimal part of the number if any.
+  **If you want to return a float from Lua you should return it as a string**,
+  exactly like Redis itself does (see for instance the `ZSCORE` command).
+* There is [no simple way to have nils inside Lua arrays](http://www.lua.org/pil/19.1.html),
+  this is a result of Lua table semantics, so when Redis converts a Lua array into Redis protocol the conversion is stopped if a nil is encountered.
 * When a Lua table contains keys (and their values), the converted Redis reply will **not** include them.
 
 Here are a few conversion examples:
@@ -241,14 +233,12 @@ Here are a few conversion examples:
 1) (integer) 1
 2) (integer) 2
 3) 1) (integer) 3
-   2) "Hello World!"
+   1) "Hello World!"
 
 > eval "return redis.call('get','foo')" 0
 "bar"
 ```
-The last example shows how it is possible to receive the exact return value of
-`redis.call()` or `redis.pcall()` from Lua that would be returned if the command
-was called directly.
+The last example shows how it is possible to receive the exact return value of `redis.call()` or `redis.pcall()` from Lua that would be returned if the command was called directly.
 
 In the following example we can see how floats and arrays containing nils and keys are handled:
 
@@ -265,34 +255,29 @@ As you can see 3.333 is converted into 3, *somekey* is excluded, and the *bar* s
 **RESP3 mode conversion rules**:
 
 Starting with Redis version 6, the server supports two different protocols.
-One is called RESP2, and is the old protocol: all the new connections to
-the server start in this mode. However clients are able to negotiate the
-new protocol using the `HELLO` command: this way the connection is put
-in RESP3 mode. In this mode certain commands, like for instance `HGETALL`,
-reply with a new data type (the Map data type in this specific case). The
-RESP3 protocol is semantically more powerful, however most scripts are OK
-with using just RESP2.
+One is called RESP2, and is the old protocol: all the new connections to the server start in this mode.
+However clients are able to negotiate the new protocol using the `HELLO` command:
+this way the connection is put in RESP3 mode.
+In this mode certain commands, like for instance `HGETALL`,
+reply with a new data type (the Map data type in this specific case).
+The RESP3 protocol is semantically more powerful, however most scripts are OK with using just RESP2.
 
 The Lua engine always assumes to run in RESP2 mode when talking with Redis,
 so whatever the connection that is invoking the script 
-(`FCALL` or `FCALL_RO`/`EVAL` or `EVALSHA` command
-is in RESP2 or RESP3 mode, Lua scripts will, by default, still see the
-same kind of replies they used to see in the past from Redis, when calling
-commands using the [`redis.call()`](lua#rediscallpcall) built-in function.
+(`FCALL` or `FCALL_RO`/`EVAL` or `EVALSHA` command is in RESP2 or RESP3 mode, Lua scripts will, by default,
+still see the same kind of replies they used to see in the past from Redis,
+when calling commands using the [`redis.call()`](lua#rediscallpcall) built-in function.
 
-However Lua scripts running in Redis 6 or greater, are able to switch to
-RESP3 mode, and get the replies using the new available types. Similarly
-Lua scripts are able to reply to clients using the new types. Please make
-sure to understand
-[the capabilities for RESP3](https://github.com/antirez/resp3)
-before continuing reading this section.
+However Lua scripts running in Redis 6 or greater, are able to switch to RESP3 mode,
+and get the replies using the new available types.
+Similarly Lua scripts are able to reply to clients using the new types.
+Please make sure to understand [the capabilities for RESP3](https://github.com/antirez/resp3) before continuing reading this section.
 
 In order to switch to RESP3 a script should call this function:
 
     redis.setresp(3)
 
-Note that a script can switch back and forth from RESP3 and RESP2 by
-calling the function with the argument '3' or '2'.
+Note that a script can switch back and forth from RESP3 and RESP2 by calling the function with the argument '3' or '2'.
 
 At this point the new conversions are available, specifically:
 
@@ -319,17 +304,18 @@ Note: the big number and verbatim replies are only available in Redis 7 or great
 * Lua null -> Redis RESP3 new null reply (protocol `"_\r\n"`).
 * All the RESP2 old conversions still apply unless specified above.
 
-There is one key thing to understand: in case Lua replies with RESP3 types, but the connection calling Lua is in RESP2 mode, Redis will automatically convert the RESP3 protocol to RESP2 compatible protocol, as it happens for normal commands. For instance returning a map type to a connection in RESP2 mode will have the effect of returning a flat array of fields and values.
+There is one key thing to understand: in case Lua replies with RESP3 types,
+but the connection calling Lua is in RESP2 mode,
+Redis will automatically convert the RESP3 protocol to RESP2 compatible protocol,
+as it happens for normal commands.
+For instance returning a map type to a connection in RESP2 mode will have the effect of returning a flat array of fields and values.
 
 ## Global variables protection
 
-Redis scripts are not allowed to create global variables, in order to avoid
-leaking data into the Lua state.
-If a script needs to maintain state between calls (a pretty uncommon need) it
-should use Redis keys instead.
+Redis scripts are not allowed to create global variables, in order to avoid leaking data into the Lua state.
+If a script needs to maintain state between calls (a pretty uncommon need) it should use Redis keys instead.
 
-When global variable access is attempted the script is terminated and
-returns with an error:
+When global variable access is attempted the script is terminated and returns with an error:
 
 ```
 redis 127.0.0.1:6379> eval 'a=10' 0
@@ -338,21 +324,16 @@ redis 127.0.0.1:6379> eval 'a=10' 0
 
 Accessing a _non existing_ global variable generates a similar error.
 
-Using Lua debugging functionality or other approaches like altering the meta
-table used to implement global protections in order to circumvent globals
-protection is not hard.
+Using Lua debugging functionality or other approaches like altering the meta table used to implement global protections in order to circumvent globals protection is not hard.
 However it is difficult to do it accidentally.
-If the user messes with the Lua global state, the consistency of AOF and
-replication is not guaranteed: don't do it.
+If the user messes with the Lua global state, the consistency of AOF and replication is not guaranteed: don't do it.
 
-Note for Lua newbies: in order to avoid using global variables in your scripts
-simply declare every variable you are going to use using the _local_ keyword.
+Note for Lua newbies: in order to avoid using global variables in your scripts simply declare every variable you are going to use using the _local_ keyword.
 
 ## Error handling
 
-As already stated, calls to [`redis.call()`](lua#rediscallpcall) resulting in a Redis command error
-will stop the execution of the script and return an error, in a way that
-makes it obvious that the error was generated by a script:
+As already stated, calls to [`redis.call()`](lua#rediscallpcall) resulting in a Redis command error will stop the execution of the script and return an error,
+in a way that makes it obvious that the error was generated by a script:
 
 ```
 > del foo
@@ -363,24 +344,19 @@ makes it obvious that the error was generated by a script:
 (error) ERR Error running script (call to f_6b1bf486c81ceb7edf3c093f4c48582e38c0e791): ERR Operation against a key holding the wrong kind of value
 ```
 
-Using [`redis.pcall()`](lua#rediscallpcall) no error is raised, but an error object is
-returned in the format specified above (as a Lua table with an `err` field).
-The script can pass the exact error to the user by returning the error object
-returned by [`redis.pcall()`](lua#rediscallpcall).
+Using [`redis.pcall()`](lua#rediscallpcall) no error is raised,
+but an error object is returned in the format specified above (as a Lua table with an `err` field).
+The script can pass the exact error to the user by returning the error object returned by [`redis.pcall()`](lua#rediscallpcall).
 
 ## Using SELECT inside scripts
 
 It is possible to call `SELECT` inside Lua scripts like with normal clients,
-However one subtle aspect of the behavior changes between Redis 2.8.11 and
-Redis 2.8.12. Before the 2.8.12 release the database selected by the Lua
-script was *transferred* to the calling script as current database.
-Starting from Redis 2.8.12 the database selected by the Lua script only
-affects the execution of the script itself, but does not modify the database
-selected by the client calling the script.
+However one subtle aspect of the behavior changes between Redis 2.8.11 and Redis 2.8.12.
+Before the 2.8.12 release the database selected by the Lua script was *transferred* to the calling script as current database.
+Starting from Redis 2.8.12 the database selected by the Lua script only affects the execution of the script itself,
+but does not modify the database selected by the client calling the script.
 
-The semantic change between patch level releases was needed since the old
-behavior was inherently incompatible with the Redis replication layer and
-was the cause of bugs.
+The semantic change between patch level releases was needed since the old behavior was inherently incompatible with the Redis replication layer and was the cause of bugs.
 
 ## Available libraries
 
@@ -397,11 +373,9 @@ The Redis Lua interpreter loads the following Lua libraries:
 * `redis.sha1hex` function.
 * `redis.breakpoint and redis.debug` function in the context of the [Redis Lua debugger](/topics/ldb).
 
-Every Redis instance is _guaranteed_ to have all the above libraries so you can
-be sure that the environment for your Redis scripts is always the same.
+Every Redis instance is _guaranteed_ to have all the above libraries so you can be sure that the environment for your Redis scripts is always the same.
 
-struct, CJSON and cmsgpack are external libraries, all the other libraries are standard
-Lua libraries.
+struct, CJSON and cmsgpack are external libraries, all the other libraries are standard Lua libraries.
 
 struct
 ---

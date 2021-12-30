@@ -9,8 +9,7 @@ The returned information:
 If no function is running, returns nil.
 In addition, returns a list of available engines.
 
-This command can be used see detect a long running function and decide
-whether or not to kill it using `FUNCTION KILL`.
+This command can be used see detect a long running function and decide whether or not to kill it using `FUNCTION KILL`.
 
 For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
 

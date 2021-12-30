@@ -1,12 +1,10 @@
 Invoke a function previously uploaded using `FUNCTION LOAD`.
 
-The second argument of `FCALL`/`FCALL_RO` is the number of keys follow by
-all the keys access by the function. All the additional arguments
-should not represent key names.
+The second argument of `FCALL`/`FCALL_RO` is the number of keys follow by all the keys access by the function.
+All the additional arguments should not represent key names.
 
-On Lua engine, keys are stored as a Lua table and given as the first
-argument to the called function. The rest of the values also stored
-as a Lua table and given as the second argument to the called function.
+On Lua engine, keys are stored as a Lua table and given as the first argument to the called function.
+The rest of the values also stored as a Lua table and given as the second argument to the called function.
 
 For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
 
