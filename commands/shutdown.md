@@ -29,6 +29,7 @@ Specifically:
 * **NOW** skips waiting for lagging replicas, i.e. it bypasses the first step in the shutdown sequence.
 * **FORCE** ignores any errors that would normally prevent the server from exiting.
   For details, see the following section.
+* **ABORT** cancels an ongoing shutdown and cannot be combined with other flags.
 
 ## Conditions where a SHUTDOWN fails
 
@@ -63,11 +64,11 @@ To minimize the risk of data loss in such setups, it's advised to trigger a manu
 
 @return
 
-@simple-string-reply on error.
-On success nothing is returned since the server quits and the connection is
-closed.
+@simple-string-reply: `OK` if `ABORT` was specified and shutdown was aborted.
+On successful shutdown, nothing is returned since the server quits and the connection is closed.
+On failure, an error is returned.
 
 @history
 
-* `>= 7.0.0`: `NOW` and `FORCE` modifiers added.
+* `>= 7.0.0`: `NOW`, `FORCE` and `ABORT` modifiers added.
   Waiting for lagging replicas before exiting added.
