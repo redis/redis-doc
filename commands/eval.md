@@ -4,7 +4,7 @@ The second argument of is the number of keys, follow by all the keys access by t
 
 On Lua engine, keys are stored as a Lua table and given as global variable named `!KEYS`. The rest of the values also stored as a Lua table and given as a global variable named `!ARGV`.
 
-For more information about `EVAL` scripts please refer to [Inroduction to Eval Scripts](/topics/evalintro)
+For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/evalintro)
 
 @examples
 

@@ -11,7 +11,7 @@ For more information about functions please refer to [Introduction to Redis Func
 
 @examples
 ```
-> function load lua test "redis.register_function('f1', function(keys, args) return 'hello' end)"
+> function load Lua test "redis.register_function('f1', function(keys, args) return 'hello' end)"
 OK
 > fcall f1 0
 "hello"
