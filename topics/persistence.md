@@ -46,9 +46,6 @@ AOF disadvantages
 
 * AOF files are usually bigger than the equivalent RDB files for the same dataset.
 * AOF can be slower than RDB depending on the exact fsync policy. In general with fsync set to *every second* performance is still very high, and with fsync disabled it should be exactly as fast as RDB even under high load. Still RDB is able to provide more guarantees about the maximum latency even in the case of an huge write load.
-* In the past we experienced rare bugs in specific commands (for instance there was one involving blocking commands like `BRPOPLPUSH`) causing the AOF produced to not reproduce exactly the same dataset on reloading. These bugs are rare and we have tests in the test suite creating random complex datasets automatically and reloading them to check everything is fine. However, these kind of bugs are almost impossible with RDB persistence. To make this point more clear: the Redis AOF works by incrementally updating an existing state, like MySQL or MongoDB does, while the RDB snapshotting creates everything from scratch again and again, that is conceptually more robust. However -
-  1) It should be noted that every time the AOF is rewritten by Redis it is recreated from scratch starting from the actual data contained in the data set, making resistance to bugs stronger compared to an always appending AOF file (or one rewritten reading the old AOF instead of reading the data in memory).
-  2) We have never had a single report from users about an AOF corruption that was detected in the real world.
 
 **Redis < 7.0**
 * Using a lot of memory if there are writes to the database during a rewrite (these are buffered in memory and written to the new AOF at the end).
@@ -131,9 +128,13 @@ you'll end up with a single key in your dataset containing the final
 value, but 100 entries in your AOF. 99 of those entries are not needed
 to rebuild the current state.
 
-The rewrite is completely safe as while Redis continues appending to the old file, a completely new one is produced with the minimal set of operations needed to create the current data set, and once this second file is ready Redis switches the two and starts appending to the new one.
+The rewrite is completely safe.
+While Redis continues appending to the old file,
+a completely new one is produced with the minimal set of operations needed to create the current data set,
+and once this second file is ready Redis switches the two and starts appending to the new one.
 
-Since Redis 7.0.0, when an AOF rewrite is scheduled, The Redis parent process opens a new incremental AOF file to continue writing. The child process will execute rewrite logic and generates a new base AOF.
+Since Redis 7.0.0, when an AOF rewrite is scheduled, The Redis parent process opens a new incremental AOF file to continue writing.
+The child process will execute rewrite logic and generates a new base AOF.
 Redis will use a temporary manifest file to track the newly generated base file and incremental file.
 When they are ready, Redis will perform an atomic replacement operation to make this temporary manifest file take effect.
 In order to avoid the problem of creating many incr files in case of repeated failures and retries of an AOF rewrite.
