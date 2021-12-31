@@ -56,8 +56,6 @@ Since `GEORADIUS` and `GEORADIUSBYMEMBER` have a `STORE` and `STOREDIST` option 
 
 Breaking the compatibility with the past was considered but rejected, at least for Redis 4.0, so instead two read-only variants of the commands were added. They are exactly like the original commands but refuse the `STORE` and `STOREDIST` options. The two variants are called `GEORADIUS_RO` and `GEORADIUSBYMEMBER_RO`, and can safely be used in replicas.
 
-Both commands were introduced in Redis 3.2.10 and Redis 4.0.0, respectively.
-
 @examples
 
 ```cli
