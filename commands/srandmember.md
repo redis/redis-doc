@@ -21,10 +21,6 @@ SRANDMEMBER myset 2
 SRANDMEMBER myset -5
 ```
 
-@history
-
-* `>= 2.6.0`: Added the optional `count` argument.
-
 ## Specification of the behavior when count is passed
 
 When the `count` argument is a positive value this command behaves as follows:

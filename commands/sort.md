@@ -1,7 +1,7 @@
 Returns or stores the elements contained in the [list][tdtl], [set][tdts] or
 [sorted set][tdtss] at `key`.
 
-Since Redis 7.0.0, there is also the `SORT_RO` read-only variant of this command.
+There is also the `SORT_RO` read-only variant of this command.
 
 By default, sorting is numeric and elements are compared by their value
 interpreted as double precision floating point number.

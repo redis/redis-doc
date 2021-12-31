@@ -2,7 +2,7 @@ Read-only variant of the `SORT` command. It is exactly like the original `SORT` 
 
 Since the original `SORT` has a `STORE` option it is technically flagged as a writing command in the Redis command table. For this reason read-only replicas in a Redis Cluster will redirect it to the master instance even if the connection is in read-only mode (see the `READONLY` command of Redis Cluster).
 
-Since Redis 7.0.0, the `SORT_RO` variant was introduced in order to allow `SORT` behavior in read-only replicas without breaking compatibility on command flags.
+The `SORT_RO` variant was introduced in order to allow `SORT` behavior in read-only replicas without breaking compatibility on command flags.
 
 See original `SORT` for more details.
 
