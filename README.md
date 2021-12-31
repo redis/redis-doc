@@ -35,8 +35,9 @@ For example:
 ## Commands
 
 Redis commands are described in the `commands.json` file that is auto generated
-from the redis repo based on the JSON files in the commands folder.
+from the Redis repo based on the JSON files in the commands folder.
 See: https://github.com/redis/redis/tree/unstable/src/commands
+See: https://github.com/redis/redis/tree/unstable/src/utils/generate-commands-json.py
 
 For each command there's a Markdown file with a complete, human-readable
 description.
