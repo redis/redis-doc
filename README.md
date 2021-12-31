@@ -34,7 +34,10 @@ For example:
 
 ## Commands
 
-Redis commands are described in the `commands.json` file.
+Redis commands are described in the `commands.json` file that is auto generated
+from the Redis repo based on the JSON files in the commands folder.
+See: https://github.com/redis/redis/tree/unstable/src/commands
+See: https://github.com/redis/redis/tree/unstable/src/utils/generate-commands-json.py
 
 For each command there's a Markdown file with a complete, human-readable
 description.
@@ -63,47 +66,14 @@ Returns all keys matching the given pattern.
 
 ## Styling guidelines
 
-Please use the following formatting rules:
+Please use the following formatting rules (aiming for smaller diffs that are easier to review):
 
-* No need for manual lines wrapping at any specific length, doing so usually
-  means that adding a word creates a cascade effect and changes other lines.
-* Please avoid writing lines that are too long, this makes the diff harder to
-  review when only one word is changed. 
+* No need for manual lines wrapping at any specific length,
+  doing so usually means that adding a word creates a cascade effect and changes other lines.
+* Please avoid writing lines that are too long,
+  this makes the diff harder to review when only one word is changed. 
 * Start every sentence on a new line.
 
-Luckily, this repository comes with an automated Markdown formatter.
-To only reformat the files you have modified, first stage them using `git add`
-(this makes sure that your changes won't be lost in case of an error), then run
-the formatter:
-
-```
-$ rake format:cached
-```
-
-The formatter has the following dependencies:
-
-* Redcarpet
-* Nokogiri
-* The `par` tool
-* batch
-
-Installation of the Ruby gems:
-
-```
-gem install redcarpet nokogiri batch
-```
-
-Installation of par (OSX):
-
-```
-brew install par
-```
-
-Installation of par (Ubuntu):
-
-```
-sudo apt-get install par
-```
 
 ## Checking your work
 
