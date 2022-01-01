@@ -10738,6 +10738,13 @@
         "summary": "Synchronously save the dataset to disk and then shut down the server",
         "since": "1.0.0",
         "group": "server",
+        "complexity": "O(N) when saving, where N is the total number of keys in all databases when saving data, otherwise O(1)",
+        "history": [
+            [
+                "7.0",
+                "Added the `NOW`, `FORCE` and `ABORT` modifiers. Introduced waiting for lagging replicas before exiting."
+            ]
+        ],
         "acl_categories": [
             "@admin",
             "@slow",
