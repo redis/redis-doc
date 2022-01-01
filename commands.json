@@ -85,7 +85,7 @@
         "complexity": "O(N). Where N is the number of password, command and pattern rules that the user has.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added Pub/Sub channel patterns."
             ]
         ],
@@ -219,7 +219,7 @@
         "complexity": "O(N). Where N is the number of rules provided.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added Pub/Sub channel patterns."
             ]
         ],
@@ -362,6 +362,7 @@
             {
                 "name": "username",
                 "type": "string",
+                "since": "6.0.0",
                 "optional": true
             },
             {
@@ -415,6 +416,7 @@
                 "name": "schedule",
                 "type": "pure-token",
                 "token": "SCHEDULE",
+                "since": "3.2.2",
                 "optional": true
             }
         ],
@@ -430,7 +432,7 @@
         "complexity": "O(N)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added the `BYTE|BIT` option."
             ]
         ],
@@ -481,6 +483,7 @@
                     {
                         "name": "index_unit",
                         "type": "oneof",
+                        "since": "7.0.0",
                         "optional": true,
                         "arguments": [
                             {
@@ -756,7 +759,7 @@
         "complexity": "O(N)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added the `BYTE|BIT` option."
             ]
         ],
@@ -816,6 +819,7 @@
                             {
                                 "name": "index_unit",
                                 "type": "oneof",
+                                "since": "7.0.0",
                                 "optional": true,
                                 "arguments": [
                                     {
@@ -1023,7 +1027,7 @@
         "complexity": "O(N) where N is the number of provided keys.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1077,7 +1081,7 @@
         "complexity": "O(N) where N is the number of provided keys.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1133,7 +1137,7 @@
         "replaced_by": "`BLMOVE` with the `RIGHT` and `LEFT` arguments",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1287,7 +1291,7 @@
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1342,7 +1346,7 @@
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1522,22 +1526,22 @@
         "history": [
             [
                 "2.8.12",
-                "Added new filter format. "
+                "Added new filter format."
             ],
             [
                 "2.8.12",
                 "`ID` option."
             ],
             [
-                "3.2",
+                "3.2.0",
                 "Added `master` type in for `TYPE` option."
             ],
             [
-                "5",
+                "5.0.0",
                 "Replaced `slave` `TYPE` with `replica`. `slave` still supported for backward compatibility."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "`LADDR` option."
             ]
         ],
@@ -1558,12 +1562,14 @@
                 "name": "client-id",
                 "type": "integer",
                 "token": "ID",
+                "since": "2.8.12",
                 "optional": true
             },
             {
                 "name": "normal_master_slave_pubsub",
                 "type": "oneof",
                 "token": "TYPE",
+                "since": "2.8.12",
                 "optional": true,
                 "arguments": [
                     {
@@ -1574,12 +1580,19 @@
                     {
                         "name": "master",
                         "type": "pure-token",
-                        "token": "MASTER"
+                        "token": "MASTER",
+                        "since": "3.2.0"
                     },
                     {
                         "name": "slave",
                         "type": "pure-token",
                         "token": "SLAVE"
+                    },
+                    {
+                        "name": "replica",
+                        "type": "pure-token",
+                        "token": "REPLICA",
+                        "since": "5.0.0"
                     },
                     {
                         "name": "pubsub",
@@ -1604,6 +1617,7 @@
                 "name": "ip:port",
                 "type": "string",
                 "token": "LADDR",
+                "since": "6.2.0",
                 "optional": true
             },
             {
@@ -1631,11 +1645,11 @@
                 "Added unique client `id` field."
             ],
             [
-                "5.0",
+                "5.0.0",
                 "Added optional `TYPE` filter."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "Added `laddr` field and the optional `ID` filter."
             ]
         ],
@@ -1651,6 +1665,7 @@
                 "name": "normal_master_replica_pubsub",
                 "type": "oneof",
                 "token": "TYPE",
+                "since": "5.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -1679,6 +1694,7 @@
                 "name": "id",
                 "type": "block",
                 "token": "ID",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -1745,8 +1761,8 @@
                 "Client pause prevents client pause and key eviction as well."
             ],
             [
-                "6.2",
-                "CLIENT PAUSE WRITE mode added along with the `mode` option."
+                "6.2.0",
+                "`CLIENT PAUSE WRITE` mode added along with the `mode` option."
             ]
         ],
         "acl_categories": [
@@ -1764,6 +1780,7 @@
             {
                 "name": "mode",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -2603,7 +2620,7 @@
         "complexity": "O(N) where N is the total number of Cluster nodes",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Added node IDs."
             ]
         ],
@@ -3459,6 +3476,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(N) where N is the number of keys to check.",
+        "history": [
+            [
+                "3.0.3",
+                "Accepts multiple `key` arguments."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -3504,7 +3527,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -3546,6 +3569,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -3583,7 +3607,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -3625,6 +3649,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -3898,12 +3923,14 @@
                     {
                         "name": "async",
                         "type": "pure-token",
-                        "token": "ASYNC"
+                        "token": "ASYNC",
+                        "since": "4.0.0"
                     },
                     {
                         "name": "sync",
                         "type": "pure-token",
-                        "token": "SYNC"
+                        "token": "SYNC",
+                        "since": "6.2.0"
                     }
                 ]
             }
@@ -3917,6 +3944,16 @@
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of keys in the selected database",
+        "history": [
+            [
+                "4.0.0",
+                "Added the `ASYNC` flushing mode modifier."
+            ],
+            [
+                "6.2.0",
+                "Added the `SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -3933,12 +3970,14 @@
                     {
                         "name": "async",
                         "type": "pure-token",
-                        "token": "ASYNC"
+                        "token": "ASYNC",
+                        "since": "4.0.0"
                     },
                     {
                         "name": "sync",
                         "type": "pure-token",
-                        "token": "SYNC"
+                        "token": "SYNC",
+                        "since": "6.2.0"
                     }
                 ]
             }
@@ -4204,7 +4243,7 @@
         "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `CH`, `NX` and `XX` options."
             ]
         ],
@@ -4242,6 +4281,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -4260,6 +4300,7 @@
                 "name": "change",
                 "type": "pure-token",
                 "token": "CH",
+                "since": "6.2.0",
                 "optional": true
             },
             {
@@ -4464,7 +4505,7 @@
         "replaced_by": "`GEOSEARCH` and `GEOSEARCHSTORE` with the `BYRADIUS` argument",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `ANY` option for `COUNT`."
             ]
         ],
@@ -4605,6 +4646,7 @@
                         "name": "any",
                         "type": "pure-token",
                         "token": "ANY",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
@@ -4837,7 +4879,7 @@
     },
     "GEORADIUSBYMEMBER_RO": {
         "summary": "A read-only variant for GEORADIUSBYMEMBER",
-        "since": "5.0.0",
+        "since": "3.2.10",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
         "deprecated_since": "6.2.0",
@@ -4970,7 +5012,7 @@
     },
     "GEORADIUS_RO": {
         "summary": "A read-only variant for GEORADIUS",
-        "since": "5.0.0",
+        "since": "3.2.10",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
         "deprecated_since": "6.2.0",
@@ -5107,7 +5149,7 @@
     },
     "GEOSEARCH": {
         "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
-        "since": "6.2",
+        "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
         "acl_categories": [
@@ -5303,7 +5345,7 @@
     },
     "GEOSEARCHSTORE": {
         "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
-        "since": "6.2",
+        "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
         "acl_categories": [
@@ -5819,6 +5861,12 @@
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the number of fields to be removed.",
+        "history": [
+            [
+                "2.4.0",
+                "Accepts multiple `field` arguments."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@hash",
@@ -5868,7 +5916,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "`protover` made optional; when called without arguments the command reports the current connection's context."
             ]
         ],
@@ -6472,6 +6520,12 @@
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.",
+        "history": [
+            [
+                "4.0.0",
+                "Accepts multiple `field` and `value` arguments."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@hash",
@@ -7417,7 +7471,7 @@
         "complexity": "O(N) where N is the number of elements returned",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `count` argument."
             ]
         ],
@@ -7455,6 +7509,7 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "6.2.0",
                 "optional": true
             }
         ],
@@ -7533,7 +7588,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -7587,7 +7642,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -8098,24 +8153,28 @@
                 "name": "copy",
                 "type": "pure-token",
                 "token": "COPY",
+                "since": "3.0.0",
                 "optional": true
             },
             {
                 "name": "replace",
                 "type": "pure-token",
                 "token": "REPLACE",
+                "since": "3.0.0",
                 "optional": true
             },
             {
                 "name": "password",
                 "type": "string",
                 "token": "AUTH",
+                "since": "4.0.7",
                 "optional": true
             },
             {
                 "name": "username_password",
                 "type": "block",
                 "token": "AUTH2",
+                "since": "6.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -8133,6 +8192,7 @@
                 "type": "key",
                 "key_spec_index": 1,
                 "token": "KEYS",
+                "since": "3.0.6",
                 "optional": true,
                 "multiple": true
             }
@@ -8239,11 +8299,11 @@
         "group": "server",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`AUTH` excluded from the command's output."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "`RESET` can be called to exit monitor mode."
             ],
             [
@@ -8673,7 +8733,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -8715,6 +8775,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -8752,7 +8813,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -8794,6 +8855,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -9216,6 +9278,12 @@
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "2.8.0",
+                "Added the -2 reply."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -9461,6 +9529,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "3.2.0",
+                "The command no longer returns an error when source and destination names are the same."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9507,6 +9581,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "3.2.0",
+                "The command no longer returns an error when source and destination names are the same."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9620,6 +9700,20 @@
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
+        "history": [
+            [
+                "3.0.0",
+                "Added the `REPLACE` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `ABSTTL` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `IDLETIME` and `FREQ` options."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9664,24 +9758,28 @@
                 "name": "replace",
                 "type": "pure-token",
                 "token": "REPLACE",
+                "since": "3.0.0",
                 "optional": true
             },
             {
                 "name": "absttl",
                 "type": "pure-token",
                 "token": "ABSTTL",
+                "since": "5.0.0",
                 "optional": true
             },
             {
                 "name": "seconds",
                 "type": "integer",
                 "token": "IDLETIME",
+                "since": "5.0.0",
                 "optional": true
             },
             {
                 "name": "frequency",
                 "type": "integer",
                 "token": "FREQ",
+                "since": "5.0.0",
                 "optional": true
             }
         ],
@@ -9755,7 +9853,7 @@
         "complexity": "O(N) where N is the number of elements returned",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `count` argument."
             ]
         ],
@@ -9793,6 +9891,7 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "6.2.0",
                 "optional": true
             }
         ],
@@ -9878,7 +9977,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -9932,7 +10031,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -9986,7 +10085,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `member` arguments."
             ]
         ],
@@ -10054,6 +10153,12 @@
         "since": "2.8.0",
         "group": "generic",
         "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
+        "history": [
+            [
+                "6.0.0",
+                "Added the `TYPE` subcommand."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -10081,6 +10186,7 @@
                 "name": "type",
                 "type": "string",
                 "token": "TYPE",
+                "since": "6.0.0",
                 "optional": true
             }
         ],
@@ -10219,6 +10325,7 @@
             {
                 "name": "async",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -10428,15 +10535,15 @@
                 "Added the `EX`, `PX`, `NX` and `XX` options."
             ],
             [
-                "6.0",
+                "6.0.0",
                 "Added the `KEEPTTL` option."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "Added the `GET`, `EXAT` and `PXAT` option."
             ],
             [
-                "7.0",
+                "7.0.0",
                 "Allowed the `NX` and `GET` options to be used together."
             ]
         ],
@@ -10484,33 +10591,39 @@
                     {
                         "name": "seconds",
                         "type": "integer",
-                        "token": "EX"
+                        "token": "EX",
+                        "since": "2.6.12"
                     },
                     {
                         "name": "milliseconds",
                         "type": "integer",
-                        "token": "PX"
+                        "token": "PX",
+                        "since": "2.6.12"
                     },
                     {
                         "name": "unix-time-seconds",
                         "type": "unix-time",
-                        "token": "EXAT"
+                        "token": "EXAT",
+                        "since": "6.2.0"
                     },
                     {
                         "name": "unix-time-milliseconds",
                         "type": "unix-time",
-                        "token": "PXAT"
+                        "token": "PXAT",
+                        "since": "6.2.0"
                     },
                     {
                         "name": "keepttl",
                         "type": "pure-token",
-                        "token": "KEEPTTL"
+                        "token": "KEEPTTL",
+                        "since": "6.0.0"
                     }
                 ]
             },
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "2.6.12",
                 "optional": true,
                 "arguments": [
                     {
@@ -11021,7 +11134,7 @@
         "complexity": "O(N) where N is the number of entries returned",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Added client IP address, port and name to the reply."
             ]
         ],
@@ -11474,7 +11587,7 @@
         "complexity": "Without the count argument O(1), otherwise O(N) where N is the value of the passed count.",
         "history": [
             [
-                "3.2",
+                "3.2.0",
                 "Added the `count` argument."
             ]
         ],
@@ -11512,6 +11625,7 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "3.2.0",
                 "optional": true
             }
         ],
@@ -11566,6 +11680,7 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "2.6.0",
                 "optional": true
             }
         ],
@@ -11581,7 +11696,7 @@
         "complexity": "O(N) where N is the number of members to be removed.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `member` arguments."
             ]
         ],
@@ -11734,7 +11849,7 @@
         "complexity": "O(N) where N is the number of channels to subscribe to.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "`RESET` can be called to exit subscribed state."
             ]
         ],
@@ -12025,6 +12140,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "2.8.0",
+                "Added the -2 reply."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -12316,11 +12437,11 @@
         "complexity": "O(1) when adding a new entry, O(N) when trimming where N being the number of entries evicted.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `NOMKSTREAM` option, `MINID` trimming strategy and the `LIMIT` option."
             ],
             [
-                "7.0",
+                "7.0.0",
                 "Added support for the `<ms>-*` explicit ID form."
             ]
         ],
@@ -12359,7 +12480,7 @@
                 "name": "nomkstream",
                 "type": "pure-token",
                 "token": "NOMKSTREAM",
-                "since": "6.2",
+                "since": "6.2.0",
                 "optional": true
             },
             {
@@ -12380,7 +12501,7 @@
                                 "name": "minid",
                                 "type": "pure-token",
                                 "token": "MINID",
-                                "since": "6.2"
+                                "since": "6.2.0"
                             }
                         ]
                     },
@@ -12409,7 +12530,7 @@
                         "name": "count",
                         "type": "integer",
                         "token": "LIMIT",
-                        "since": "6.2",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
@@ -13220,6 +13341,7 @@
                         "name": "min-idle-time",
                         "type": "integer",
                         "token": "IDLE",
+                        "since": "6.2.0",
                         "optional": true
                     },
                     {
@@ -13252,6 +13374,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+        "history": [
+            [
+                "6.2.0",
+                "Added exclusive ranges."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -13466,6 +13594,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+        "history": [
+            [
+                "6.2.0",
+                "Added exclusive ranges."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -13570,7 +13704,7 @@
         "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `MINID` trimming strategy and the `LIMIT` option."
             ]
         ],
@@ -13621,7 +13755,8 @@
                             {
                                 "name": "minid",
                                 "type": "pure-token",
-                                "token": "MINID"
+                                "token": "MINID",
+                                "since": "6.2.0"
                             }
                         ]
                     },
@@ -13650,6 +13785,7 @@
                         "name": "count",
                         "type": "integer",
                         "token": "LIMIT",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
@@ -13667,7 +13803,7 @@
         "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple elements."
             ],
             [
@@ -13675,7 +13811,7 @@
                 "Added the `XX`, `NX`, `CH` and `INCR` options."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "Added the `GT` and `LT` options."
             ]
         ],
@@ -13713,6 +13849,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -13730,6 +13867,7 @@
             {
                 "name": "comparison",
                 "type": "oneof",
+                "since": "3.0.2",
                 "optional": true,
                 "arguments": [
                     {
@@ -13748,12 +13886,14 @@
                 "name": "change",
                 "type": "pure-token",
                 "token": "CH",
+                "since": "3.0.2",
                 "optional": true
             },
             {
                 "name": "increment",
                 "type": "pure-token",
                 "token": "INCR",
+                "since": "3.0.2",
                 "optional": true
             },
             {
@@ -14606,7 +14746,7 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `REV`, `BYSCORE`, `BYLEX` and `LIMIT` options."
             ]
         ],
@@ -14652,6 +14792,7 @@
             {
                 "name": "sortby",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -14670,12 +14811,14 @@
                 "name": "rev",
                 "type": "pure-token",
                 "token": "REV",
+                "since": "6.2.0",
                 "optional": true
             },
             {
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -14776,6 +14919,12 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
         "deprecated_since": "6.2.0",
         "replaced_by": "`ZRANGE` with the `BYSCORE` argument",
+        "history": [
+            [
+                "2.0.0",
+                "Added the `WITHSCORES` modifier."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@sortedset",
@@ -14819,6 +14968,7 @@
                 "name": "withscores",
                 "type": "pure-token",
                 "token": "WITHSCORES",
+                "since": "2.0.0",
                 "optional": true
             },
             {
@@ -15009,7 +15159,7 @@
         "complexity": "O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple elements."
             ]
         ],
@@ -15339,6 +15489,12 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
         "deprecated_since": "6.2.0",
         "replaced_by": "`ZRANGE` with the `REV` and `BYSCORE` arguments",
+        "history": [
+            [
+                "2.1.6",
+                "`min` and `max` can be exclusive."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@sortedset",

@@ -9,7 +9,7 @@ is provided, like the rate at which the system forks processes.
 This is the output you should post in the Redis mailing list if you are
 looking for help about Latency related issues.
 
-@example
+@examples
 
 ```
 127.0.0.1:6379> latency doctor

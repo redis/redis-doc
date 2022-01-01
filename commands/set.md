@@ -29,14 +29,6 @@ If the command is issued with the `!GET` option, the above does not apply. It wi
 
 @nil-reply: `(nil)` if the key did not exist.
 
-
-@history
-
-* `>= 2.6.12`: Added the `EX`, `PX`, `NX` and `XX` options.
-* `>= 6.0`: Added the `KEEPTTL` option.
-* `>= 6.2`: Added the `!GET`, `EXAT` and `PXAT` option.
-* `>= 7.0`: Allowed the `NX` and `!GET` options to be used together.
-
 @examples
 
 ```cli

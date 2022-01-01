@@ -20,7 +20,7 @@ Valid values for `event` are:
 * `fork`
 * `rdb-unlink-temp-file`
 
-@example
+@examples
 
 ```
 127.0.0.1:6379> latency reset command

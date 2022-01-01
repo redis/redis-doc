@@ -32,7 +32,3 @@ TTL mykey
 PEXPIRE mykey 1000 NX
 TTL mykey
 ```
-
-@history
-
-* `>= 7.0`: Added options: `NX`, `XX`, `GT` and `LT`.

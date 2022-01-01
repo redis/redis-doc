@@ -14,8 +14,3 @@ Note: an asynchronous `FLUSHALL` command only deletes keys that were present at 
 @return
 
 @simple-string-reply
-
-@history
-
-* `>= 4.0.0`: Added the `ASYNC` flushing mode modifier.
-* `>= 6.2.0`: Added the `!SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive.

@@ -22,7 +22,3 @@ Please refer to the [persistence documentation][tp] for detailed information.
 @return
 
 @simple-string-reply: `Background saving started` if `BGSAVE` started correctly or `Background saving scheduled` when used with the `SCHEDULE` subcommand. 
-
-@history
-
-* `>= 3.2.2`: Added the `SCHEDULE` option.
