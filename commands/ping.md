@@ -10,7 +10,9 @@ of the argument.
 
 @return
 
-@simple-string-reply
+@simple-string-reply, if no argument is provided
+
+@bulk-string-reply, copy of the argument if provided
 
 @examples
 
