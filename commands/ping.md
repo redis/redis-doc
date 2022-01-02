@@ -10,7 +10,9 @@ of the argument.
 
 @return
 
-@simple-string-reply
+@simple-string-reply, and specifically `PONG`, when no argument is provided.
+
+@bulk-string-reply the argument provided, when applicable.
 
 @examples
 
