@@ -8,10 +8,10 @@ Redis provides a different range of persistence options:
 * **RDB** (Redis Database): The RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
 * **AOF** (Append Only File): The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to rewrite the log in the background when it gets too big.    
 
-  Since Redis 7.0.0, Redis supports the Multi Part AOF mechanism.
+  <br/>Since Redis 7.0.0, Redis supports the Multi Part AOF mechanism.
   That is, the original single AOF file is split into base file (at most one) and incremental files (there may be more than one).
   The base file represents an initial (RDB or AOF format) snapshot of the data present when the AOF is rewritten.
-  The incremental files contains incremental commands since the last base AOF file was created. All these files are put in a separate folder and are tracked by a manifest file.
+  The incremental files contains incremental commands since the last base AOF file was created. All these files are put in a separate directory and are tracked by a manifest file.
 
 * **No persistence**: If you wish, you can disable persistence completely, if you want your data to just exist as long as the server is running.
 * **RDB + AOF**: It is possible to combine both AOF and RDB in the same instance. Notice that, in this case, when Redis restarts the AOF file will be used to reconstruct the original dataset since it is guaranteed to be the most complete.
@@ -48,9 +48,10 @@ AOF disadvantages
 * AOF can be slower than RDB depending on the exact fsync policy. In general with fsync set to *every second* performance is still very high, and with fsync disabled it should be exactly as fast as RDB even under high load. Still RDB is able to provide more guarantees about the maximum latency even in the case of an huge write load.
 
 **Redis < 7.0**
-* Using a lot of memory if there are writes to the database during a rewrite (these are buffered in memory and written to the new AOF at the end).
-* All writes that arrive during rewrite are written twice.
-* Redis could freeze writing and fsyncing these writes to the new AOF file at the end.
+
+* AOF can use a lot of memory if there are writes to the database during a rewrite (these are buffered in memory and written to the new AOF at the end).
+* All write commands that arrive during rewrite are written twice.
+* Redis could freeze writing and fsyncing these write commands to the new AOF file at the end.
   
 Ok, so what should I use?
 ---
@@ -137,7 +138,7 @@ Since Redis 7.0.0, when an AOF rewrite is scheduled, The Redis parent process op
 The child process will execute rewrite logic and generates a new base AOF.
 Redis will use a temporary manifest file to track the newly generated base file and incremental file.
 When they are ready, Redis will perform an atomic replacement operation to make this temporary manifest file take effect.
-In order to avoid the problem of creating many incr files in case of repeated failures and retries of an AOF rewrite.
+In order to avoid the problem of creating many incremental files in case of repeated failures and retries of an AOF rewrite.
 Redis introduces an AOF rewrite limiting mechanism to ensure that AOF rewrite automatically retries at a slower and slower rate.
 
 So Redis supports an interesting feature: it is able to rebuild the AOF
@@ -230,14 +231,14 @@ and a parent process.
 * The child starts writing the new AOF in a temporary file.
 
 * The parent opens a new increments AOF file to continue writing updates.
-  If the rewriting fails, the old base and increments files (if we have) plus this newly opened increments file represents the complete updated dataset,
+  If the rewriting fails, the old base and increments files (if we have) plus this newly opened increments file represent the complete updated dataset,
   so we are safe.
   
-* When the child is done rewriting the file, the parent gets a signal,
-and use newly opened increment file and child generated base file to build an temp manifest,
+* When the child is done rewriting the base file, the parent gets a signal,
+and uses the newly opened increment file and child generated base file to build an temp manifest,
 and persist it.
 
-* Profit! Now Redis do an atomic exchange to the manifest pointer in the memory, so that the result of this AOF rewrite is visible to Redis.
+* Profit! Now Redis does an atomic exchange of the manifest files so that the result of this AOF rewrite takes effect. Redis also cleans up the old base file and any unused increment files.
 
 **Redis < 7.0**
 
@@ -331,7 +332,7 @@ copy the AOF in order to create backups. The file may lack the final part
 but Redis will be still able to load it (see the previous sections about
 truncated AOF files).  
 
-Since Redis 7.0.0, all the base, incr and manifest files will be placed in a file directory determined by the `appendddirname` configuration.
+Since Redis 7.0.0, all the base, increment and manifest files will be placed in a file directory determined by the `appendddirname` configuration.
 so the best suggestion is to copy the entire directory when backing up AOF persistence. 
 
 Disaster recovery
