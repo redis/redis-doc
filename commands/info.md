@@ -84,10 +84,8 @@ Here is the meaning of all fields in the **clients** section:
 *   `maxclients`: The value of the `maxclients` configuration directive. This is
     the upper limit for the sum of `connected_clients`, `connected_slaves` and
     `cluster_connections`.
-*   `client_longest_output_list`: Longest output list among current client
-     connections
-*   `client_biggest_input_buf`: Biggest input buffer among current client
-     connections
+*   `client_recent_max_input_buffer`: Biggest input buffer among current client connections
+*   `client_recent_max_output_buffer`: Biggest output buffer among current client connections
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
