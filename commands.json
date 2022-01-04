@@ -9360,6 +9360,29 @@
         ],
         "arity": -2
     },
+    "PUBSUB SHARDCHANNELS": {
+        "summary": "List active shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of active shard channels, and assuming constant time pattern matching (relatively short channels)",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "pattern",
+                "type": "string",
+                "optional": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
     "PUBSUB CHANNELS": {
         "summary": "List active channels",
         "since": "2.8.0",
@@ -9418,6 +9441,30 @@
         "since": "2.8.0",
         "group": "pubsub",
         "complexity": "O(N) for the NUMSUB subcommand, where N is the number of requested channels",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
+    "PUBSUB SHARDNUMSUB": {
+        "summary": "Get the count of subscribers for shardchannels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) for the SHARDNUMSUB subcommand, where N is the number of requested shard channels",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -11660,6 +11707,41 @@
             "fast"
         ]
     },
+    "SPUBLISH": {
+        "summary": "Publish a message to a shard channel",
+        "complexity": "O(N) where N is the number of clients subscribed to the receiving channel.",
+        "arity": 3,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "pos": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "step": 1,
+                        "limit": 0
+                    }
+                }
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string"
+            },
+            {
+                "name": "message",
+                "type": "string"
+            }
+        ],
+        "since": "7.0.0",
+        "group": "pubsub"
+    },
     "SRANDMEMBER": {
         "summary": "Get one or multiple random members from a set",
         "since": "1.0.0",
@@ -11824,6 +11906,38 @@
             "readonly",
             "random"
         ]
+    },
+    "SSUBSCRIBE": {
+        "summary": "Listen for messages published to the given shard channels",
+        "complexity": "O(N) where N is the number of channels to subscribe to.",
+        "arity": -2,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "pos": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "step": 1,
+                        "limit": 0
+                    }
+                }
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "multiple": true
+            }
+        ],
+        "since": "7.0.0",
+        "group": "pubsub"
     },
     "STRLEN": {
         "summary": "Get the length of the value stored in a key",
@@ -12058,6 +12172,39 @@
             "write",
             "denyoom"
         ]
+    },
+    "SUNSUBSCRIBE": {
+        "summary": "Stop listening for messages posted to the given channels",
+        "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+        "arity": -1,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "pos": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "step": 1,
+                        "limit": 0
+                    }
+                }
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "since": "7.0.0",
+        "group": "pubsub"
     },
     "SWAPDB": {
         "summary": "Swaps two Redis databases",
