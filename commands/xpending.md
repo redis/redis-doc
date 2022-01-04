@@ -107,7 +107,7 @@ a single consumer.
 
 ## Idle time filter
 
-Since version 6.2 it is possible to filter entries by their idle-time,
+It is also possible to filter pending stream entries by their idle-time,
 given in milliseconds (useful for `XCLAIM`ing entries that have not been
 processed for some time):
 
@@ -135,7 +135,3 @@ command.
 The command returns data in different format depending on the way it is
 called, as previously explained in this page. However the reply is always
 an array of items.
-
-@history
-
-* `>= 6.2.0`: Added the `IDLE` option and exclusive range intervals.

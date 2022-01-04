@@ -13,7 +13,3 @@ It is possible to use one of the following modifiers to dictate the flushing mod
 @return
 
 @simple-string-reply
-
-@history
-
-* `>= 6.2.0`: Added the `ASYNC` and `!SYNC` flushing mode modifiers, as well as the  **lazyfree-lazy-user-flush** configuration directive.

@@ -39,7 +39,3 @@ options are not mutually exclusive.
 
 @simple-string-reply: `OK` when the configuration was set properly.
 Otherwise an error is returned.
-
-@history
-
-* `>= 7.0.0`: Added the ability to set multiple parameters in one call.

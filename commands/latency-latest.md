@@ -10,7 +10,7 @@ Each reported event has the following fields:
 "All-time" means the maximum latency since the Redis instance was
 started, or the time that events were reset `LATENCY RESET`.
 
-@example:
+@examples
 
 ```
 127.0.0.1:6379> debug sleep 1

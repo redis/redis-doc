@@ -6,7 +6,7 @@ command argument. Normally this is what happens:
 2. Some consumer A reads a message via `XREADGROUP` from a stream, in the context of that consumer group.
 3. As a side effect a pending message entry is created in the Pending Entries List (PEL) of the consumer group: it means the message was delivered to a given consumer, but it was not yet acknowledged via `XACK`.
 4. Then suddenly that consumer fails forever.
-5. Other consumers may inspect the list of pending messages, that are stale for quite some time, using the `XPENDING` command. In order to continue processing such messages, they use `XCLAIM` to acquire the ownership of the message and continue. As of Redis 6.2, consumers can use the `XAUTOCLAIM` command to automatically scan and claim stale pending messages.
+5. Other consumers may inspect the list of pending messages, that are stale for quite some time, using the `XPENDING` command. In order to continue processing such messages, they use `XCLAIM` to acquire the ownership of the message and continue. Consumers can also use the `XAUTOCLAIM` command to automatically scan and claim stale pending messages.
 
 This dynamic is clearly explained in the [Stream intro documentation](/topics/streams-intro).
 

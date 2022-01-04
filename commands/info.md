@@ -71,6 +71,9 @@ Here is the meaning of all fields in the **server** section:
 *   `lru_clock`: Clock incrementing every minute, for LRU management
 *   `executable`: The path to the server's executable
 *   `config_file`: The path to the config file
+*   `io_threads_active`: Flag indicating if I/O threads are active
+*   `shutdown_in_seconds`: The maximum time remaining for replicas to catch up the replication before completing the shutdown sequence.
+    This field is only present during shutdown.
 
 Here is the meaning of all fields in the **clients** section:
 
@@ -81,15 +84,12 @@ Here is the meaning of all fields in the **clients** section:
 *   `maxclients`: The value of the `maxclients` configuration directive. This is
     the upper limit for the sum of `connected_clients`, `connected_slaves` and
     `cluster_connections`.
-*   `client_longest_output_list`: Longest output list among current client
-     connections
-*   `client_biggest_input_buf`: Biggest input buffer among current client
-     connections
+*   `client_recent_max_input_buffer`: Biggest input buffer among current client connections
+*   `client_recent_max_output_buffer`: Biggest output buffer among current client connections
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
-*    `io_threads_active`: Flag indicating if I/O threads are active
 
 Here is the meaning of all fields in the **memory** section:
 

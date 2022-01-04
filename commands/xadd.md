@@ -85,11 +85,6 @@ specified by the user during insertion.
 The command returns a @nil-reply when used with the `NOMKSTREAM` option and the
 key doesn't exist.
 
-@history
-
-* `>= 6.2`: Added the `NOMKSTREAM` option, `MINID` trimming strategy and the `LIMIT` option.
-* `>= 7.0`: Added support for the `<ms>-*` explicit ID form.
-
 @examples
 
 ```cli

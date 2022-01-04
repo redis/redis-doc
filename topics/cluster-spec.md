@@ -33,7 +33,7 @@ order to force certain keys to be stored in the same hash slot. However during
 manual resharding, multi-key operations may become unavailable for some time
 while single key operations are always available.
 
-Redis Cluster does not support multiple databases like the stand alone version
+Redis Cluster does not support multiple databases like the standalone version
 of Redis. There is just database 0 and the `SELECT` command is not allowed.
 
 Clients and Servers roles in the Redis Cluster protocol
@@ -190,7 +190,7 @@ possible that there are multiple occurrences of `{` or `}` the algorithm is
 well specified by the following rules:
 
 * IF the key contains a `{` character.
-* AND IF there is a `}` character to the right of `{`
+* AND IF there is a `}` character to the right of `{`.
 * AND IF there are one or more characters between the first occurrence of `{` and the first occurrence of `}`.
 
 Then instead of hashing the key, only what is between the first occurrence of `{` and the following first occurrence of `}` is hashed.
@@ -339,7 +339,7 @@ sending node is not considered part of the cluster.
 
 A node will accept another node as part of the cluster only in two ways:
 
-* If a node presents itself with a `MEET` message. A meet message is exactly
+* If a node presents itself with a `MEET` message (`CLUSTER MEET` command). A meet message is exactly
 like a `PING` message, but forces the receiver to accept the node as part of
 the cluster. Nodes will send `MEET` messages to other nodes **only if** the system administrator requests this via the following command:
 
@@ -442,7 +442,7 @@ After the hash slots are assigned they will propagate across the cluster
 using the gossip protocol, as specified later in the
 *configuration propagation* section.
 
-The `ADDSLOTS` and `ADDSLOTSRANGE` command are usually used when a new cluster is created
+The `ADDSLOTS` and `ADDSLOTSRANGE` commands are usually used when a new cluster is created
 from scratch to assign each master node a subset of all the 16384 hash
 slots available.
 
@@ -666,7 +666,7 @@ by the replica's master node. This may happen because:
 1. The client sent a command about hash slots never served by the master of this replica.
 2. The cluster was reconfigured (for example resharded) and the replica is no longer able to serve commands for a given hash slot.
 
-When this happens the client should update its hashslot map as explained in
+When this happens the client should update its hash slot map as explained in
 the previous sections.
 
 The readonly state of the connection can be cleared using the `READWRITE` command.
@@ -750,7 +750,7 @@ A `PFAIL` condition is escalated to a `FAIL` condition when the following set of
 If all the above conditions are true, Node A will:
 
 * Mark the node as `FAIL`.
-* Send a `FAIL` message (as opposted to a `FAIL` condition within a heartbeat message) to all the reachable nodes.
+* Send a `FAIL` message (as opposed to a `FAIL` condition within a heartbeat message) to all the reachable nodes.
 
 The `FAIL` message will force every receiving node to mark the node in `FAIL` state, whether or not it already flagged the node in `PFAIL` state.
 
@@ -817,7 +817,7 @@ are guaranteed to be new, incremental, and unique.
 Replica election and promotion
 ---
 
-replica election and promotion is handled by replica nodes, with the help of master nodes that vote for the replica to promote.
+Replica election and promotion is handled by replica nodes, with the help of master nodes that vote for the replica to promote.
 A replica election happens when a master is in `FAIL` state from the point of view of at least one of its replicas that has the prerequisites in order to become a master.
 
 In order for a replica to promote itself to master, it needs to start an election and win it. All the replicas for a given master can start an election if the master is in `FAIL` state, however only one replica will win the election and promote itself to master.
@@ -995,7 +995,7 @@ With the previous section in mind, it is easier to see how update messages
 work. Node A may rejoin the cluster after some time. It will send heartbeat
 packets where it claims it serves hash slots 1 and 2 with configuration epoch
 of 3. All the receivers with updated information will instead see that
-the same hash slots are associated with node B having an higher configuration
+the same hash slots are associated with node B having a higher configuration
 epoch. Because of this they'll send an `UPDATE` message to A with the new
 configuration for the slots. A will update its configuration because of the
 **rule 2** above.

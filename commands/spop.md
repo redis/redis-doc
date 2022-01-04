@@ -16,10 +16,6 @@ When called with the `count` argument:
 
 @array-reply: the removed members, or an empty array when `key` does not exist.
 
-@history
-
-* `>= 3.2`: Added the `count` argument.
-
 @examples
 
 ```cli

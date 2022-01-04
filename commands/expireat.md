@@ -17,7 +17,7 @@ a given time in the future.
 
 ## Options
 
-The `EXPIREAT` command supports a set of options since Redis 7.0:
+The `EXPIREAT` command supports a set of options:
 
 * `NX` -- Set expiry only when the key has no expiry
 * `XX` -- Set expiry only when the key has an existing expiry
@@ -42,7 +42,3 @@ EXISTS mykey
 EXPIREAT mykey 1293840000
 EXISTS mykey
 ```
-
-@history
-
-* `>= 7.0`: Added options: `NX`, `XX`, `GT` and `LT`.
