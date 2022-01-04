@@ -12,8 +12,8 @@ Cluster note: `PUBSUB`'s replies in a cluster only report information from the n
 
 ## Example
 
-        > 127.0.0.1:6379> PUBSUB SHARDCHANNELS
+        > PUBSUB SHARDCHANNELS
           1) "orders"
-          127.0.0.1:6379> PUBSUB SHARDCHANNELS o*
+          PUBSUB SHARDCHANNELS o*
           1) "orders"
 

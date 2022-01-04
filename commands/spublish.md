@@ -1,6 +1,6 @@
 Posts a message to the given shard channel.
 
-In a Redis Cluster clients can publish to primary node (owner of the slot). The cluster makes sure that published messages are forwarded to all the node in the shard, clients can subscribe to any shard channel by connecting to any one of the nodes in the shard.
+In Redis Cluster, shard channels are assigned to slots by the same algorithm used to assign keys to slots. A shard message must be sent to a node that own the slot the shard channel is hashed to. The cluster makes sure that published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
 
 @return
 
@@ -10,5 +10,5 @@ In a Redis Cluster clients can publish to primary node (owner of the slot). The 
 
 For example the following command publish to channel `orders` with a subscriber already waiting for message(s).
     
-        > 127.0.0.1:6379> spublish orders hello
+        > spublish orders hello
           (integer) 1
