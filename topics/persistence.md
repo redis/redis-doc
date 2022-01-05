@@ -227,7 +227,7 @@ snapshotting.  This is how it works:
 * Redis [forks](http://linux.die.net/man/2/fork), so now we have a child
 and a parent process.
 
-* The child starts writing the new AOF in a temporary file.
+* The child starts writing the new base AOF in a temporary file.
 
 * The parent opens a new increments AOF file to continue writing updates.
   If the rewriting fails, the old base and increments files (if we have) plus this newly opened increments file represent the complete updated dataset,
