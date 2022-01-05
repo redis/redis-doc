@@ -4,7 +4,7 @@ An active shard channel is a Pub/Sub shard channel with one or more subscribers.
 
 If no `pattern` is specified, all the channels are listed, otherwise if pattern is specified only channels matching the specified glob-style pattern are listed.
 
-Cluster note: `PUBSUB`'s replies in a cluster only report information from the node's Pub/Sub context, rather than the entire cluster.
+The information returned about the active shard channels are at the shard level and not at the cluster level.
 
 @return
 
