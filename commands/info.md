@@ -148,6 +148,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
      option)
+*   `lazyfreed_objects`: The number of objects that have been lazy freed since redis was started.
 
 Ideally, the `used_memory_rss` value should be only slightly higher than
 `used_memory`.
