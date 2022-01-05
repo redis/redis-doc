@@ -379,8 +379,7 @@ For each command type, the following line is added:
 
 *   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX,rejected_calls=XXX,failed_calls=XXX`
 
-The **latencystats** section provides latency percentile distribution statistics based
- on the command type.
+The **latencystats** section provides latency percentile distribution statistics based on the command type.
 
  By default, the exported latency percentiles are the p50, p99, and p999.
  If you need to change the exported percentiles, use 'CONFIG SET latency-tracking-info-percentiles "50.0 99.0 99.9"'.
