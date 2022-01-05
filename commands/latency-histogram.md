@@ -55,5 +55,5 @@ RESP3 reply
 
 @map-reply: specifically:
 
-The command returns an map where each key is a command name, and each value is a histogram element.
+The command returns a map where each key is a command name, and each value is a histogram element.
 In RESP 2 replies, the maps are converted to arrays.
