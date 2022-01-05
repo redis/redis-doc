@@ -18,28 +18,6 @@ If you need to enable it, use 'CONFIG SET latency-tracking yes'.
 
 @examples
 
-RESP2 reply
-```
-127.0.0.1:6379> LATENCY HISTOGRAM set
-1) "set"
-2) 1) "calls"
-   2) (integer) 100000
-   3) "histogram_usec"
-   4)  1) (integer) 1
-       2) (integer) 99583
-       3) (integer) 2
-       4) (integer) 99852
-       5) (integer) 4
-       6) (integer) 99914
-       7) (integer) 8
-       8) (integer) 99940
-       9) (integer) 16
-      10) (integer) 99968
-      11) (integer) 33
-      12) (integer) 100000
-```
-
-RESP3 reply
 ```
 127.0.0.1:6379> LATENCY HISTOGRAM set
 1# "set" => 1# "calls" => (integer) 100000
@@ -55,5 +33,5 @@ RESP3 reply
 
 @map-reply: specifically:
 
-The command returns an map where each key is a command name, and each value is a histogram element.
+The command returns an map where each key is a command name, and each value is a histogram object with the total calls, and time buckets inner map.
 In RESP 2 replies, the maps are converted to arrays.

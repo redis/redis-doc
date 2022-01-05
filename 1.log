@@ -1,0 +1,5 @@
+find tmp -name '*.spell' | xargs cat > tmp/spelling-errors
+cat tmp/spelling-errors
+commands/info.md latencystats
+test ! -s tmp/spelling-errors
+makefile:44: recipe for target 'spell' failed
