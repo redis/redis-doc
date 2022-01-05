@@ -11,6 +11,7 @@ The optional parameter can be used to select a specific section of information:
 *   `replication`: Master/replica replication information
 *   `cpu`: CPU consumption statistics
 *   `commandstats`: Redis command statistics
+*   `latencystats`: Redis command latency percentile distribution statistics
 *   `cluster`: Redis Cluster section
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
@@ -377,6 +378,19 @@ The **commandstats** section provides statistics based on the command type,
 For each command type, the following line is added:
 
 *   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX,rejected_calls=XXX,failed_calls=XXX`
+
+The **latencystats** section provides latency percentile distribution statistics based
+ on the command type.
+
+ By default, the exported latency percentiles are the p50, p99, and p999.
+ If you need to change the exported percentiles, use 'CONFIG SET latency-tracking-info-percentiles "50.0 99.0 99.9"'.
+
+ This section requires the extended latency monitoring feature to be enabled (by default is enabled).
+ If you need to enable it, use 'CONFIG SET latency-tracking yes'.
+
+For each command type, the following line is added:
+
+*   `latency_percentiles_usec_XXX`: `p<percentile 1>=<percentile 1 value>,p<percentile 2>=<percentile 2 value>,...`
 
 The **errorstats** section enables keeping track of the different errors that occurred within Redis, 
  based upon the reply error prefix ( The first word after the "-", up to the first space. Example: `ERR` ).
