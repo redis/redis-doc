@@ -230,11 +230,11 @@ and a parent process.
 * The child starts writing the new base AOF in a temporary file.
 
 * The parent opens a new increments AOF file to continue writing updates.
-  If the rewriting fails, the old base and increments files (if there are any) plus this newly opened increments file represent the complete updated dataset,
+  If the rewriting fails, the old base and increment files (if there are any) plus this newly opened increment file represent the complete updated dataset,
   so we are safe.
   
 * When the child is done rewriting the base file, the parent gets a signal,
-and uses the newly opened increment file and child generated base file to build an temp manifest,
+and uses the newly opened increment file and child generated base file to build a temp manifest,
 and persist it.
 
 * Profit! Now Redis does an atomic exchange of the manifest files so that the result of this AOF rewrite takes effect. Redis also cleans up the old base file and any unused increment files.
