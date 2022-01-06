@@ -1,4 +1,4 @@
-The `LATENCY HISTOGRAM` command reports a cumulative distribution of latencies in the format of an histogram for each of the specified command names. 
+The `LATENCY HISTOGRAM` command reports a cumulative distribution of latencies in the format of a histogram for each of the specified command names. 
 If no command names are specified then all commands that contain latency information will be replied.
 
 Each reported histogram has the following fields:
@@ -13,8 +13,8 @@ Each reported histogram has the following fields:
   * Everything above 1 sec is considered +Inf.
   * At max there will be log2(1000000000)=30 buckets.
 
-This command requires the extended latency monitoring feature to be enabled (by default is enabled).
-If you need to enable it, use 'CONFIG SET latency-tracking yes'.
+This command requires the extended latency monitoring feature to be enabled (by default it's enabled).
+If you need to enable it, use `CONFIG SET latency-tracking yes`.
 
 @examples
 
