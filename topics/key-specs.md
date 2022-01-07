@@ -1,7 +1,7 @@
 # Key specifications
 
-A key spec a a map, coanting information about the indices of keys within the argument array.
-It is a more flexible and powerful tool to descibe key postions than the old (first-key, last-key, key-step) schme.
+A key spec is a map, containing information about the indices of keys within the argument array.
+It is a more flexible and powerful tool to describe key potions than the old (first-key, last-key, key-step) scheme.
 Before key-specs, there was no way for a client library or application to know the key  indices for commands such as ZUNIONSTORE/EVAL and others with "numkeys", since COMMAND INFO returns no useful info for them.
 For cluster-aware redis clients, this requires to 'patch' the client library code specifically for each of these commands or to resolve each execution of these commands with COMMAND GETKEYS.
 
@@ -79,7 +79,7 @@ Examples:
 - `AI.DAGRUN` has `start_search` of type `keyword` with value `[“LOAD“,1]` and `find_keys` of type `keynum` with value `[0,1,1]` (see https://oss.redislabs.com/redisai/master/commands/#aidagrun)
 
 Note: this solution is not perfect as the module writers can come up with anything, but at least we will be able to find the key args of the vast majority of commands.
-If one of the above specs can’t describe the key positions, the module writer can always fall back to the `getkeys-api` option.
+If one of the above specs can’t describe the key positions, the module writer can always fall back to the `COMMAND GETKEYS` option.
 
 ## flags
 
