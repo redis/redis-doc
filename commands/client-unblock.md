@@ -28,7 +28,7 @@ will return and can be finally reissued.
 This example shows the application in the context of Redis streams, however
 the pattern is a general one and can be applied to other cases.
 
-@example
+@examples
 
 ```
 Connection A (blocking connection):

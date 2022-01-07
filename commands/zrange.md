@@ -82,10 +82,6 @@ The binary nature of the comparison allows to use sorted sets as a general purpo
 @array-reply: list of elements in the specified range (optionally with
 their scores, in case the `WITHSCORES` option is given).
 
-@history
-
-* `>= 6.2`: Added the `REV`, `BYSCORE`, `BYLEX` and `LIMIT` options.
-
 @examples
 
 ```cli

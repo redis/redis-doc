@@ -73,10 +73,6 @@ The sentinel output is composed of the following parts:
 
 @array-reply: where the first element is one of `master`, `slave`, `sentinel` and the additional elements are role-specific as illustrated above.
 
-@history
-
-* This command was introduced in the middle of a Redis stable release, specifically with Redis 2.8.12.
-
 @examples
 
 ```cli

@@ -71,6 +71,9 @@ Here is the meaning of all fields in the **server** section:
 *   `lru_clock`: Clock incrementing every minute, for LRU management
 *   `executable`: The path to the server's executable
 *   `config_file`: The path to the config file
+*   `io_threads_active`: Flag indicating if I/O threads are active
+*   `shutdown_in_seconds`: The maximum time remaining for replicas to catch up the replication before completing the shutdown sequence.
+    This field is only present during shutdown.
 
 Here is the meaning of all fields in the **clients** section:
 
@@ -81,15 +84,12 @@ Here is the meaning of all fields in the **clients** section:
 *   `maxclients`: The value of the `maxclients` configuration directive. This is
     the upper limit for the sum of `connected_clients`, `connected_slaves` and
     `cluster_connections`.
-*   `client_longest_output_list`: Longest output list among current client
-     connections
-*   `client_biggest_input_buf`: Biggest input buffer among current client
-     connections
+*   `client_recent_max_input_buffer`: Biggest input buffer among current client connections
+*   `client_recent_max_output_buffer`: Biggest output buffer among current client connections
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
-*    `io_threads_active`: Flag indicating if I/O threads are active
 
 Here is the meaning of all fields in the **memory** section:
 
@@ -137,8 +137,9 @@ Here is the meaning of all fields in the **memory** section:
 *   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
 *   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting).
 *   `mem_not_counted_for_evict`: Used memory that's not counted for key eviction. This is basically transient replica and AOF buffers.
-*   `mem_clients_normal`: Memory used by normal clients
 *   `mem_clients_slaves`: Memory used by replica clients - Starting Redis 7.0, replica buffers share memory with the replication backlog, so this field can show 0 when replicas don't trigger an increase of memory usage.
+*   `mem_clients_normal`: Memory used by normal clients
+*   `mem_cluster_links`: Memory used by links to peers on the cluster bus when cluster mode is enabled.
 *   `mem_aof_buffer`: Transient memory used for AOF and AOF rewrite buffers
 *   `mem_replication_backlog`: Memory used by replication backlog
 *   `mem_total_replication_buffers`: Total memory consumed for replication buffers - Added in Redis 7.0.
@@ -147,6 +148,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
      option)
+*   `lazyfreed_objects`: The number of objects that have been lazy freed.
 
 Ideally, the `used_memory_rss` value should be only slightly higher than
 `used_memory`.
@@ -177,6 +179,7 @@ Here is the meaning of all fields in the **persistence** section:
      while a child fork is running
 *   `current_cow_size`: The size in bytes of copy-on-write memory
      while a child fork is running
+*   `current_cow_size_age`: The age, in seconds, of the `current_cow_size` value.
 *   `current_fork_perc`: The percentage of progress of the current fork process. For AOF and RDB forks it is the percentage of `current_save_keys_processed` out of `current_save_keys_total`.
 *   `current_save_keys_processed`: Number of keys processed by the current save operation
 *   `current_save_keys_total`: Number of keys at the beginning of the current save operation 
@@ -190,6 +193,8 @@ Here is the meaning of all fields in the **persistence** section:
      if any
 *   `rdb_last_cow_size`: The size in bytes of copy-on-write memory during
      the last RDB save operation
+*   `rdb_last_load_keys_expired`: Number volatile keys deleted during the last RDB loading. Added in Redis 7.0.
+*   `rdb_last_load_keys_loaded`: Number of keys loaded during the last RDB loading. Added in Redis 7.0.
 *   `aof_enabled`: Flag indicating AOF logging is activated
 *   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is
      on-going
@@ -254,6 +259,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `expired_time_cap_reached_count`: The count of times that active expiry cycles have stopped early
 *   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spend on active expiry cycles
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
+*   `evicted_clients`: Number of evicted clients due to `maxmemory-clients` limit. Added in Redis 7.0.
 *   `total_eviction_exceeded_time`:  Total time `used_memory` was greater than `maxmemory` since server startup, in milliseconds
 *   `current_eviction_exceeded_time`: The time passed since `used_memory` last rose above `maxmemory`, in milliseconds
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
@@ -286,10 +292,11 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_error_replies`: Total number of issued error replies, that is the sum of
     rejected commands (errors prior command execution) and
     failed commands (errors within the command execution)
-*    `total_reads_processed`: Total number of read events processed
-*    `total_writes_processed`: Total number of write events processed
-*    `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
-*    `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `dump_payload_sanitizations`: Total number of dump payload deep integrity validations (see `sanitize-dump-payload` config).
+*   `total_reads_processed`: Total number of read events processed
+*   `total_writes_processed`: Total number of write events processed
+*   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
+*   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
 
 Here is the meaning of all fields in the **replication** section:
 
@@ -315,9 +322,11 @@ If the instance is a replica, these additional fields are provided:
 *   `master_last_io_seconds_ago`: Number of seconds since the last interaction
      with master
 *   `master_sync_in_progress`: Indicate the master is syncing to the replica
+*   `slave_read_repl_offset`: The read replication offset of the replica instance.
 *   `slave_repl_offset`: The replication offset of the replica instance
 *   `slave_priority`: The priority of the instance as a candidate for failover
 *   `slave_read_only`: Flag indicating if the replica is read-only
+*   `replica_announced`: Flag indicating if the replica is announced by Sentinel.
 
 If a SYNC operation is on-going, these additional fields are provided:
 

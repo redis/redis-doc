@@ -54,6 +54,13 @@ Note that in this case, the minimum ID is 0-1 and that the command will not acce
 (error) ERR The ID specified in XADD is equal or smaller than the target stream top item
 ```
 
+It is also possible to use an explicit ID that only consists of the milliseconds part, and have the sequence part be automatically generated for the entry:
+
+```
+> XADD somestream 0-* baz qux
+0-3
+```
+
 ## Getting data from Streams
 
 Now we are finally able to append entries in our stream via **XADD**. However, while appending data to a stream is quite obvious, the way streams can be queried in order to extract data is not so obvious. If we continue with the analogy of the log file, one obvious way is to mimic what we normally do with the Unix command `tail -f`, that is, we may start to listen in order to get the new messages that are appended to the stream. Note that unlike the blocking list operations of Redis, where a given element will reach a single client which is blocking in a *pop style* operation like **BLPOP**, with streams we want multiple consumers to see the new messages appended to the stream (the same way many `tail -f` processes can see what is added to a log). Using the traditional terminology we want the streams to be able to *fan out* messages to multiple clients.

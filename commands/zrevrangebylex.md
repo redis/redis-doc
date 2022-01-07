@@ -2,8 +2,6 @@ When all the elements in a sorted set are inserted with the same score, in order
 
 Apart from the reversed ordering, `ZREVRANGEBYLEX` is similar to `ZRANGEBYLEX`.
 
-As per Redis 6.2.0, this command is considered deprecated. Please prefer using the `ZRANGE` command with the `BYLEX` and `REV` arguments in new code.
-
 @return
 
 @array-reply: list of elements in the specified score range.

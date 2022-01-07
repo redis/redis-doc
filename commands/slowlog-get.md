@@ -24,7 +24,3 @@ restart will reset it.
 @reply
 
 @array-reply: a list of slow log entries.
-
-@history
-
-* `>= 4.0`: Added client IP address, port and name to the reply.
