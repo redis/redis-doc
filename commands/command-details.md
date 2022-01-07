@@ -1,6 +1,6 @@
-# Command information
-
-Starting from Redis 7.0 we include an additional map in `COMMAND`'s reply, which contains the following fields:
+Returns @array-reply (a flat representation of a map) of additional information
+about commands, mostly for documentation purposes.
+It contains the following fields:
 
  - `summary`
  - `since`
@@ -10,10 +10,7 @@ Starting from Redis 7.0 we include an additional map in `COMMAND`'s reply, which
  - `deprecated-since`
  - `replaced-by`
  - `history`
- - `hints`
  - `arguments`
- - `key-specs`
- - `subcommands`
 
 Only `summary`, `since`, and `group` are mandatory, the rest may be absent.
 
@@ -26,7 +23,6 @@ Short command description.
 The Redis version in which the command was added.
 
 ## group
-
 
 The functional group to which the command belongs. Possible values:
 
@@ -75,28 +71,10 @@ An @array-reply, where each element is also an @array-reply with two elements:
 1. The version when something changed about the command interface
 2. A short description of the change
 
-## hints
-
-An @array-reply of hints that are meant to help clients/proxies know how to handle the command.
-
-For more information please check the [command-hints page][tc].
-[tc]: /topics/command-hints
-
 ## arguments
 
 An @array-reply, where each element is a @map-reply describing a command argument.
 
 For more information please check the [command-arguments page][td].
 [td]: /topics/command-arguments
-
-## key-specs
-
-An @array-reply, where each element is a @map-reply describing a method to locate keys within the arguments.
-For more information please check the [key-specs page][tr].
-[tr]: /topics/key-specs
-
-## subcommands
-
-Some commands have subcommands (Example: `REWRITE` is a subcommand of `CONFIG`).
-This is an @array-reply, with the same format and specification of `COMMAND`'s reply.
 

@@ -2,7 +2,7 @@ Returns @array-reply of details about all Redis commands.
 
 Cluster clients must be aware of key positions in commands so commands can go to matching instances, but Redis commands vary between accepting one key, multiple keys, or even multiple keys separated by other data.
 
-Starting from Redis 7.0 a more flexible mechanism was introduced in order to help clients finding the key positions.
+Starting from Redis 7.0.0 a more flexible mechanism was introduced in order to help clients finding the key positions.
 For more information please check the [key-specs page][tr].
 [tr]: /topics/key-specs
 
@@ -10,71 +10,63 @@ You can use `COMMAND` to cache a mapping between commands and key positions for
 each command to enable exact routing of commands to cluster instances.
 
 `COMMAND` has several subcommands:
+
  - `COMMAND INFO`
  - `COMMAND COUNT`
  - `COMMAND GETKEYS`
  - `COMMAND LIST`
+ - `COMMAND DETAILS`
 
 `COMMAND`'s reply is an @array-reply, where each element is an @array-reply by itself, containing the following elements:
+
  - command name
  - command arity specification
  - nested @array-reply of command flags
  - position of first key in argument list
  - position of last key in argument list
  - step count for locating repeating keys
- - nested @array-reply of ACL categories
- - nested @array-reply of additional information as a map
+ - nested @array-reply of [ACL categories][ta]
+ - nested @array-reply of [command hints][tb]
+ - nested @array-reply of [key-specs][td]
+ - nested @array-reply of subcommands
+[ta]: /topics/acl
+[tb]: /topics/command-hints
+[td]: /topics/key-specs
 
 The three elements responsible for determining the position of the keys are referred to as (`first-key`, `last-key`, `key-step`)
 
 ## Example
 ```
-1) 1) "get"
-   2) (integer) 2
-   3) 1) readonly
-      2) fast
-   4) (integer) 1
-   5) (integer) 1
-   6) (integer) 1
-   7) 1) @read
-      2) @string
-      3) @fast
-   8)  1) "summary"
-       2) "Get the value of a key"
-       3) "since"
-       4) "1.0.0"
-       5) "group"
-       6) "string"
-       7) "complexity"
-       8) "O(1)"
-       9) "arguments"
-      10) 1) 1) "name"
-             2) "key"
-             3) "type"
-             4) "key"
-             5) "key-spec-index"
-             6) (integer) 0
-             7) "value"
-             8) "key"
-      11) "key-specs"
-      12) 1) 1) "flags"
-             2) 1) read
-             3) "begin-search"
-             4) 1) "type"
-                2) "index"
-                3) "spec"
-                4) 1) "index"
-                   2) (integer) 1
-             5) "find-keys"
-             6) 1) "type"
-                2) "range"
-                3) "spec"
-                4) 1) "last-key"
-                   2) (integer) 0
-                   3) "key-step"
-                   4) (integer) 1
-                   5) "limit"
-                   6) (integer) 0
+1)  1) "get"
+    2) (integer) 2
+    3) 1) readonly
+       2) fast
+    4) (integer) 1
+    5) (integer) 1
+    6) (integer) 1
+    7) 1) @read
+       2) @string
+       3) @fast
+    8) (empty array)
+    9) 1) 1) "flags"
+          2) 1) read
+          3) "begin_search"
+          4) 1) "type"
+             2) "index"
+             3) "spec"
+             4) 1) "index"
+                2) (integer) 1
+          5) "find_keys"
+          6) 1) "type"
+             2) "range"
+             3) "spec"
+             4) 1) "lastkey"
+                2) (integer) 0
+                3) "keystep"
+                4) (integer) 1
+                5) "limit"
+                6) (integer) 0
+   10) (empty array)
 ```
 
 ## name
@@ -92,10 +84,8 @@ Command arity _includes_ counting the command name itself.
 
 Examples:
 
-  - `GET` arity is 2 since the command only accepts one
-argument and always has the format `GET _key_`.
-  - `MGET` arity is -2 since the command accepts at a minimum
-one argument, but up to an unlimited number: `MGET _key1_ [key2] [key3] ...`.
+  - `GET` arity is 2 since the command only accepts one argument and always has the format `GET _key_`.
+  - `MGET` arity is -2 since the command accepts at a minimum one argument, but up to an unlimited number: `MGET _key1_ [key2] [key3] ...`.
 
 Also note with `MGET`, the -1 value for "last key position" means the list
 of keys may have unlimited length.
@@ -160,7 +150,6 @@ For more information please check the [key-specs page][tr].
 For most commands the first key is position 1.  Position 0 is
 always the command name itself.
 
-
 ## last-key
 
 Redis commands usually accept one key, two keys, or an unlimited number of keys.
@@ -211,19 +200,30 @@ with `MGET` above where the step value is just 1.
 
 ## ACL Categories
 
-Available starting from Redis 6.0
+Available starting from Redis 6.0.0
 
 For more information please check the [ACL page][ta].
-[ta]: /topics/acl
 
-## Additional Information
+## Command hints
 
-Available starting from Redis 7.0
+Available starting from Redis 7.0.0
 
-The element at index 7 (zero-based) of each element in `COMMAND`s reply is a a map with additional information.
+Helpful information about the command, to be used by clients/proxies.
 
-For the complete structure of that map please check the [command-info page][tb].
-[tb]: /topics/command-info
+For more information please check the [command hints page][tb].
+
+## Key specs
+
+Available starting from Redis 7.0.0
+
+An @array-reply, where each element is a @map-reply describing a method to locate keys within the arguments.
+
+For more information please check the [key-specs page][td].
+
+## Subcommands
+
+Some commands have subcommands (Example: `REWRITE` is a subcommand of `CONFIG`).
+This is an @array-reply, with the same format and specification of `COMMAND`'s reply.
 
 @return
 
