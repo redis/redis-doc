@@ -51,7 +51,7 @@ A short explanation about the command's time complexity.
 
 ## doc-flags
 
-An @array-reply of flgas that are relevant for documentation purposes. Possible values:
+An @array-reply of flags that are relevant for documentation purposes. Possible values:
 
  - deprecated: the command is deprecated
  - syscmd: a system command that isn't meant to be called by users

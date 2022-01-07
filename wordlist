@@ -244,6 +244,7 @@ gmail
 hiredis
 hostname
 htop
+hyperloglog
 hyperloglogs
 hypervisor
 iamonds
@@ -438,3 +439,4 @@ reauthenticate
 async
 lazyfree
 systemd
+syscmd

@@ -100,13 +100,18 @@ Command flags is @array-reply containing one or more status replies:
   - `pubsub`: pubsub-related command
   - `noscript`: deny this command from scripts
   - `random`: command has random results, dangerous for scripts
-  - `sort_for_script`: if called from script, sort output
+  - `sort_for_script`: if called from script, sort output (Deprecated since 7.0.0)
   - `loading`: allow command while database is loading
   - `stale`: allow command while replica has stale data
-  - `skip_monitor`: do not show this command in MONITOR
+  - `skip_monitor`: do not show this command in `MONITOR`
+  - `skip_monitor`: do not show this command in `SLOWLOG`
   - `asking`: cluster related - accept even if importing
   - `fast`: command operates in constant or log(N) time. Used for latency monitoring.
-  - `movablekeys`: The (`first-key`, `last-key`, `key-step`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or `key-specs` (starting from Redis 7.0).
+  - `no_auth`: command does not require authentication
+  - `may_replicate`: command may replicate to replicas/AOF
+  - `no_mandatory_keys`: command may take key arguments, but none of them is mandatory
+  - `no_multi`: command is not allowed inside `MULTI`/`EXEC`
+  - `movablekeys`: The (`first-key`, `last-key`, `key-step`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or [key-specs][td] (starting from Redis 7.0.0).
 
 ### movablekeys
 
