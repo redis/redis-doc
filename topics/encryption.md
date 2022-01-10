@@ -107,6 +107,10 @@ configuration, so all of the above applies to Sentinel as well.
 When connecting to master servers, Sentinel will use the `tls-replication`
 directive to determine if a TLS or non-TLS connection is required.
 
+In addition, the very same `tls-replication` directive will determine whether Sentinel's
+port, that accepts connections from other Sentinels, will support TLS as well. That is,
+Sentinel will be configured with `tls-port` if and only if `tls-replication` is enabled. 
+
 Additional Configuration
 ---
 
