@@ -52,22 +52,22 @@ following:
 
 In RESP, the type of some data depends on the first byte:
 
-* For **Simple Strings** the first byte of the reply is "+"
-* For **Errors** the first byte of the reply is "-"
-* For **Integers** the first byte of the reply is ":"
-* For **Bulk Strings** the first byte of the reply is "$"
+* For **Simple Strings** the first byte of the reply is "`+`"
+* For **Errors** the first byte of the reply is "`-`"
+* For **Integers** the first byte of the reply is "`:`"
+* For **Bulk Strings** the first byte of the reply is "`$`"
 * For **Arrays** the first byte of the reply is "`*`"
 
 Additionally RESP is able to represent a Null value using a special variation of Bulk Strings or Array as specified later.
 
-In RESP different parts of the protocol are always terminated with "\r\n" (CRLF).
+In RESP different parts of the protocol are always terminated with "`\r\n`" (CRLF).
 
 <a name="simple-string-reply"></a>
 
 RESP Simple Strings
 ---
 
-Simple Strings are encoded in the following way: a plus character, followed by a string that cannot contain a CR or LF character (no newlines are allowed), terminated by CRLF (that is "\r\n").
+Simple Strings are encoded in the following way: a plus character, followed by a string that cannot contain a CR or LF character (no newlines are allowed), terminated by CRLF (that is "`\r\n`").
 
 Simple Strings are used to transmit non binary safe strings with minimal overhead. For example many Redis commands reply with just "OK" on success, that as a RESP Simple String is encoded with the following 5 bytes:
 
@@ -76,7 +76,7 @@ Simple Strings are used to transmit non binary safe strings with minimal overhea
 In order to send binary-safe strings, RESP Bulk Strings are used instead.
 
 When Redis replies with a Simple String, a client library should return
-to the caller a string composed of the first character after the '+'
+to the caller a string composed of the first character after the "`+`"
 up to the end of the string, excluding the final CRLF bytes.
 
 <a name="error-reply"></a>
@@ -85,7 +85,7 @@ RESP Errors
 ---
 
 RESP has a specific data type for errors. Actually errors are exactly like
-RESP Simple Strings, but the first character is a minus '-' character instead
+RESP Simple Strings, but the first character is a minus "`-`" character instead
 of a plus. The real difference between Simple Strings and Errors in RESP is that
 errors are treated by clients as exceptions, and the string that composes
 the Error type is the error message itself.
@@ -126,7 +126,7 @@ RESP Integers
 -------------
 
 This type is just a CRLF terminated string representing an integer,
-prefixed by a ":" byte. For example ":0\r\n", or ":1000\r\n" are integer
+prefixed by a "`:`" byte. For example "`:0\r\n`", or "`:1000\r\n`" are integer
 replies.
 
 Many Redis commands return RESP Integers, like `INCR`, `LLEN` and `LASTSAVE`.
@@ -158,7 +158,7 @@ string up to 512 MB in length.
 
 Bulk Strings are encoded in the following way:
 
-* A "$" byte followed by the number of bytes composing the string (a prefixed length), terminated by CRLF.
+* A "`$`" byte followed by the number of bytes composing the string (a prefixed length), terminated by CRLF.
 * The actual string data.
 * A final CRLF.
 
@@ -180,8 +180,8 @@ This is called a **Null Bulk String**.
 
 The client library API should not return an empty string, but a nil object,
 when the server replies with a Null Bulk String.
-For example a Ruby library should return 'nil' while a C library should
-return NULL (or set a special flag in the reply object), and so forth.
+For example a Ruby library should return `nil` while a C library should
+return `NULL` (or set a special flag in the reply object), and so forth.
 
 <a name="array-reply"></a>
 
@@ -195,7 +195,7 @@ returns elements of a list.
 
 RESP Arrays are sent using the following format:
 
-* A `*` character as the first byte, followed by the number of elements in the array as a decimal number, followed by CRLF.
+* A "`*`" character as the first byte, followed by the number of elements in the array as a decimal number, followed by CRLF.
 * An additional RESP type for every element of the Array.
 
 So an empty Array is just the following:
@@ -206,7 +206,7 @@ While an array of two RESP Bulk Strings "foo" and "bar" is encoded as:
 
     "*2\r\n$3\r\nfoo\r\n$3\r\nbar\r\n"
 
-As you can see after the `*<count>CRLF` part prefixing the array, the other
+As you can see after the "`*<count>CRLF`" part prefixing the array, the other
 data types composing the array are just concatenated one after the other.
 For example an Array of three integers is encoded as follows:
 
@@ -226,7 +226,7 @@ integers and a bulk string can be encoded as the follows:
 
 (The reply was split into multiple lines for clarity).
 
-The first line the server sent is `*5\r\n` in order to specify that five
+The first line the server sent is "`*5\r\n`" in order to specify that five
 replies will follow. Then every reply constituting the items of the
 Multi Bulk reply are transmitted.
 
@@ -235,7 +235,7 @@ specify a Null value (usually the Null Bulk String is used, but for historical
 reasons we have two formats).
 
 For instance when the `BLPOP` command times out, it returns a Null Array
-that has a count of `-1` as in the following example:
+that has a count of -1 as in the following example:
 
     "*-1\r\n"
 
@@ -265,7 +265,7 @@ Null elements in Arrays
 
 Single elements of an Array may be Null. This is used in Redis replies in
 order to signal that these elements are missing and not empty strings. This
-can happen with the SORT command when used with the GET _pattern_ option
+can happen with the `SORT` command when used with the `GET pattern` option
 when the specified key is missing. Example of an Array reply containing a
 Null element:
 
@@ -306,7 +306,7 @@ The client sends the command **LLEN mylist** in order to get the length of the l
 
     S: :48293\r\n
 
-As usual we separate different parts of the protocol with newlines for simplicity, but the actual interaction is the client sending `*2\r\n$4\r\nLLEN\r\n$6\r\nmylist\r\n` as a whole.
+As usual, we separate different parts of the protocol with newlines for simplicity, but the actual interaction is the client sending "`*2\r\n$4\r\nLLEN\r\n$6\r\nmylist\r\n`" as a whole.
 
 Multiple commands and pipelining
 --------------------------------
@@ -340,7 +340,7 @@ The following is another example of an inline command returning an integer:
     S: :0
 
 Basically you simply write space-separated arguments in a telnet session.
-Since no command starts with `*` that is instead used in the unified request
+Since no command starts with "`*`" that is instead used in the unified request
 protocol, Redis is able to detect this condition and parse your command.
 
 High performance parser for the Redis protocol
