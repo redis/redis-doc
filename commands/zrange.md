@@ -51,6 +51,24 @@ ZRANGE zset (5 (10 BYSCORE
 
 Will return all the elements with `5 < score < 10` (5 and 10 excluded).
 
+## Rev ranges
+
+Using the `REV` option reverses the sorted set, with index 0 as the element with the highest score. In this case, `<start>` must be less than or equal to `<stop>` to return anything. However, if the `BYSCORE` option is selected, the `<start>` is the highest score to consider, and `<stop>` is the lowest score to consider, therefore `<start>` must be less than or equal to `<stop>`
+
+For example:
+
+```
+ZRANGE zset 5 10 REV
+```
+
+Will return the elements between index 5 and 10 in the reversed index.
+
+```
+ZRANGE zset 10 5 REV BYSCORE
+```
+
+Will return all elements with scores less than 10 and greater than 5.
+
 ## Lexicographical ranges
 
 When the `BYLEX` option is used, the command behaves like `ZRANGEBYLEX` and returns the range of elements from the sorted set between the `<start>` and `<stop>` lexicographical closed range intervals.
