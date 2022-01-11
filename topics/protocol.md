@@ -1,5 +1,10 @@
 # Redis Protocol specification
 
+**Note:**
+this page describes the RESP2 protocol.
+You can opt-in to use RESP3, which is available starting with Redis v6.0, with the `HELLO` command.
+Redis' RESP3 draft specification is currently being maintained at [redis-specifications](https://github.com/redis/redis-specifications/tree/master/protocol/RESP3.md).
+
 Redis clients communicate with the Redis server using a protocol called **RESP** (REdis Serialization Protocol). While the protocol was designed specifically for Redis, it can be used for other client-server software projects.
 
 RESP is a compromise between the following things:
