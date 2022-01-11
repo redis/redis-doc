@@ -78,7 +78,7 @@ Note that lexicographical ordering relies on all elements having the same score.
 Valid `<start>` and `<stop>` must start with `(` or `[`, in order to specify
 whether the range interval is exclusive or inclusive, respectively.
 
-The special values of `+` or `-` `<start>` and `<stop>` mean positive and negative infinite strings, respectively, so for instance the command **ZRANGEBYLEX myzset - +** is guaranteed to return all the elements in the sorted set, providing that all the elements have the same score.
+The special values of `+` or `-` for `<start>` and `<stop>` mean positive and negative infinite strings, respectively, so for instance the command **ZRANGEBYLEX myzset - +** is guaranteed to return all the elements in the sorted set, providing that all the elements have the same score.
 
 ### Lexicographical comparison of strings
 
