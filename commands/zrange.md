@@ -56,7 +56,6 @@ Will return all the elements with `5 < score < 10` (5 and 10 excluded).
 Using the `REV` option reverses the sorted set, with index 0 as the element with the highest score.
 
 By default, `<start>` must be less than or equal to `<stop>` to return anything.
-
 However, if the `BYSCORE`, or `BYLEX` options are selected, the `<start>` is the highest score to consider, and `<stop>` is the lowest score to consider, therefore `<start>` must be greater than or equal to `<stop>` in order to return anything.
 
 For example:
@@ -82,7 +81,7 @@ Note that lexicographical ordering relies on all elements having the same score.
 Valid `<start>` and `<stop>` must start with `(` or `[`, in order to specify
 whether the range interval is exclusive or inclusive, respectively.
 
-The special values of `+` or `-` for `<start>` and `<stop>` mean positive and negative infinite strings, respectively, so for instance the command **ZRANGE myzset - + BYLEX** is guaranteed to return all the elements in the sorted set, providing that all the elements have the same score.
+The special values of `+` or `-` for `<start>` and `<stop>` mean positive and negative infinite strings, respectively, so for instance the command `ZRANGE myzset - + BYLEX` is guaranteed to return all the elements in the sorted set, providing that all the elements have the same score.
 
 The `REV` options reverses the order of the `<start>` and `<stop>` elements, where `<start>` must be lexicographically greater than `<stop>` to produce a non-empty result.
 
