@@ -733,5 +733,13 @@
     "repository": "https://github.com/trinodb/trino",
     "description": "Trino Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once",
     "authors": []
+  },
+  {
+    "name": "Racompass",
+    "language": "Javascript",
+    "repository": "https://github.com/racompass/racompass",
+    "url":"https://racompass.com/",
+    "description": "An advanced GUI for Redis & Redis Modules(JSON, Bloom Filter, Time Series, Graph, Search, Gears, AI).",
+    "authors": ["appsnano"]
   }
 ]
