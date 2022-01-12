@@ -47,9 +47,8 @@ The default behavior (i.e. if the `request_policy` tip is absent) devides into t
 2. The command doesn't have key(s). In this case the command goes to an arbitrary shard (usually the one with the lowest hash slot).
 
 If the proxy/client need to behave differently we must specify an option for `request_policy`:
-- **ALL_SHARDS** - Forward to all shards (`PING`). Usualt used on key-less command. The operation is atomic on all shards.
-- **FEW_SHARDS** - Forward to several shards, used by multi-key commands (`MSET`, `MGET`, `DEL`, etc.). The operation is atomic on relevant shards only.
-
+- **all_shards** - Forward to all shards (`PING`). Usualt used on key-less command. The operation is atomic on all shards.
+- **few_shards** - Forward to several shards, used by multi-key commands (`MSET`, `MGET`, `DEL`, etc.). The operation is atomic on relevant shards only.
 
 ### reply_policy
 
@@ -59,11 +58,29 @@ The default behavior (i.e. if the `request_policy` tip is absent) applies only w
 2. The command doesn't have key(s).  In this case we append the array replies in the origianl order of the request's keys (e.g. `MGET`, but not `MSET` and `DEL` which don't return an array)
 
 If the reply is not a collection, or if the proxy/client need to behave differently we must specify an option for `reply_policy`:
-- **ALL_SUCCEEDED** - Return OK if all shards didn't reply with an error. All the replies should be identical and the proxy replies back to client with one of them. Examples: `CONFIG SET`, `SCRIPT FLUSH`, `SCRIPT LOAD`
-- **ONE_SUCCEEDED** - Return OK if at least one shard didn't reply with an error. The proxy should reply with the first reply it gets which isn't an error. Example: `SCRIPT KILL` (usually the script is loaded to all shards, but runs only on one. `SCRIPT KILL` is sent to all shards)
-- **AGG_LOGICAL_AND** - Preform a logical AND on the replies (replies must be numerical, usually just 0/1). Example: `SCRIPT EXISTS`, which returns an array of 0/1 indicating which of the provided scripts exist. The aggregated response will be 1 iff all shards have the script.
-- **AGG_LOGICAL_OR** - Preform a logical OR on the replies (replies must be numerical, usually just 0/1).
-- **AGG_MIN** - Perform a minimum on replies (replies must be numerical). Example: `WAIT` (returns the lowest number among the ones the shards` replies).
-- **AGG_MAX** - Perform a maximum on replies (replies must be numerical).
-- **AGG_SUM** - Sums the integer values returned by the shards. Example: `DBSIZE`
+- **all_succeeded** - Return OK if all shards didn't reply with an error. All the replies should be identical and the proxy replies back to client with one of them. Examples: `CONFIG SET`, `SCRIPT FLUSH`, `SCRIPT LOAD`
+- **one_succeeded** - Return OK if at least one shard didn't reply with an error. The proxy should reply with the first reply it gets which isn't an error. Example: `SCRIPT KILL` (usually the script is loaded to all shards, but runs only on one. `SCRIPT KILL` is sent to all shards)
+- **agg_logical_and** - Preform a logical AND on the replies (replies must be numerical, usually just 0/1). Example: `SCRIPT EXISTS`, which returns an array of 0/1 indicating which of the provided scripts exist. The aggregated response will be 1 iff all shards have the script.
+- **agg_logical_and** - Preform a logical OR on the replies (replies must be numerical, usually just 0/1).
+- **agg_min** - Perform a minimum on replies (replies must be numerical). Example: `WAIT` (returns the lowest number among the ones the shards` replies).
+- **agg_max** - Perform a maximum on replies (replies must be numerical).
+- **agg_sum** - Sums the integer values returned by the shards. Example: `DBSIZE`
 
+
+## Example
+
+```
+127.0.0.1:6379> command info ping
+1)  1) "ping"
+    2) (integer) -1
+    3) 1) fast
+    4) (integer) 0
+    5) (integer) 0
+    6) (integer) 0
+    7) 1) @fast
+       2) @connection
+    8) 1) "request_policy:all_shards"
+       2) "reply_policy:all_succeeded"
+    9) (empty array)
+   10) (empty array)
+```
