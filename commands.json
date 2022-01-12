@@ -391,7 +391,8 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "BGSAVE": {
@@ -422,7 +423,8 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "BITCOUNT": {
@@ -2044,7 +2046,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER ADDSLOTSRANGE": {
@@ -2078,7 +2081,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER BUMPEPOCH": {
@@ -2095,7 +2099,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER COUNT-FAILURE-REPORTS": {
@@ -2162,7 +2167,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER DELSLOTSRANGE": {
@@ -2196,7 +2202,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER FAILOVER": {
@@ -2232,7 +2239,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER FLUSHSLOTS": {
@@ -2249,7 +2257,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER FORGET": {
@@ -2272,7 +2281,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER GETKEYSINSLOT": {
@@ -2385,7 +2395,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER MYID": {
@@ -2459,7 +2470,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER RESET": {
@@ -2513,7 +2525,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER SET-CONFIG-EPOCH": {
@@ -2536,7 +2549,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER SETSLOT": {
@@ -2585,7 +2599,8 @@
         "command_flags": [
             "admin",
             "random",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "CLUSTER SLAVES": {
@@ -2664,6 +2679,29 @@
             "stale"
         ]
     },
+    "COMMAND DOCS": {
+        "summary": "Get array of specific Redis command documentation",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(N) where N is the number of commands to look up",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "command-name",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
     "COMMAND GETKEYS": {
         "summary": "Extract keys given a full Redis command",
         "since": "2.8.13",
@@ -2695,19 +2733,26 @@
         ]
     },
     "COMMAND INFO": {
-        "summary": "Get array of specific Redis command details",
+        "summary": "Get array of specific Redis command details, or all when no argument is given.",
         "since": "2.8.13",
         "group": "server",
-        "complexity": "O(N) when N is number of commands to look up",
+        "complexity": "O(N) where N is the number of commands to look up",
+        "history": [
+            [
+                "7.0.0",
+                "Allowed to be called with no argument to get info on all commands."
+            ]
+        ],
         "acl_categories": [
             "@slow",
             "@connection"
         ],
-        "arity": -3,
+        "arity": -2,
         "arguments": [
             {
                 "name": "command-name",
                 "type": "string",
+                "optional": true,
                 "multiple": true
             }
         ],
@@ -3001,7 +3046,8 @@
             "admin",
             "noscript",
             "loading",
-            "stale"
+            "stale",
+            "protected"
         ],
         "doc_flags": [
             "syscmd"
@@ -3996,48 +4042,6 @@
         ],
         "arity": -2
     },
-    "FUNCTION CREATE": {
-        "summary": "Create a function with the given arguments (name, code, description)",
-        "since": "7.0.0",
-        "group": "scripting",
-        "complexity": "O(1) (considering compilation time is redundant)",
-        "acl_categories": [
-            "@write",
-            "@slow",
-            "@scripting"
-        ],
-        "arity": -5,
-        "arguments": [
-            {
-                "name": "engine-name",
-                "type": "string"
-            },
-            {
-                "name": "function-name",
-                "type": "string"
-            },
-            {
-                "name": "replace",
-                "type": "pure-token",
-                "token": "REPLACE",
-                "optional": true
-            },
-            {
-                "name": "function-description",
-                "type": "string",
-                "token": "DESC",
-                "optional": true
-            },
-            {
-                "name": "function-code",
-                "type": "string"
-            }
-        ],
-        "command_flags": [
-            "write",
-            "noscript"
-        ]
-    },
     "FUNCTION DELETE": {
         "summary": "Delete a function by name",
         "since": "7.0.0",
@@ -4124,32 +4128,6 @@
             "stale"
         ]
     },
-    "FUNCTION INFO": {
-        "summary": "Return information about a function by function name",
-        "since": "7.0.0",
-        "group": "scripting",
-        "complexity": "O(1)",
-        "acl_categories": [
-            "@slow",
-            "@scripting"
-        ],
-        "arity": -3,
-        "arguments": [
-            {
-                "name": "function-name",
-                "type": "string"
-            },
-            {
-                "name": "withcode",
-                "type": "pure-token",
-                "token": "WITHCODE",
-                "optional": true
-            }
-        ],
-        "command_flags": [
-            "noscript"
-        ]
-    },
     "FUNCTION KILL": {
         "summary": "Kill the function currently in execution.",
         "since": "7.0.0",
@@ -4173,8 +4151,65 @@
             "@slow",
             "@scripting"
         ],
-        "arity": 2,
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "library-name-pattern",
+                "type": "string",
+                "token": "LIBRARYNAME",
+                "optional": true
+            },
+            {
+                "name": "withcode",
+                "type": "pure-token",
+                "token": "WITHCODE",
+                "optional": true
+            }
+        ],
         "command_flags": [
+            "noscript"
+        ]
+    },
+    "FUNCTION LOAD": {
+        "summary": "Create a function with the given arguments (name, code, description)",
+        "since": "7.0.0",
+        "group": "scripting",
+        "complexity": "O(1) (considering compilation time is redundant)",
+        "acl_categories": [
+            "@write",
+            "@slow",
+            "@scripting"
+        ],
+        "arity": -5,
+        "arguments": [
+            {
+                "name": "engine-name",
+                "type": "string"
+            },
+            {
+                "name": "library-name",
+                "type": "string"
+            },
+            {
+                "name": "replace",
+                "type": "pure-token",
+                "token": "REPLACE",
+                "optional": true
+            },
+            {
+                "name": "library-description",
+                "type": "string",
+                "token": "DESC",
+                "optional": true
+            },
+            {
+                "name": "function-code",
+                "type": "string"
+            }
+        ],
+        "command_flags": [
+            "write",
+            "denyoom",
             "noscript"
         ]
     },
@@ -4219,6 +4254,7 @@
         ],
         "command_flags": [
             "write",
+            "denyoom",
             "noscript"
         ]
     },
@@ -6985,6 +7021,32 @@
             "stale"
         ]
     },
+    "LATENCY HISTOGRAM": {
+        "summary": "Return the cumulative distribution of latencies of a subset of commands or all.",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(N) where N is the number of commands with latency information being retrieved.",
+        "acl_categories": [
+            "@admin",
+            "@slow",
+            "@dangerous"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "command",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "admin",
+            "noscript",
+            "loading",
+            "stale"
+        ]
+    },
     "LATENCY HISTORY": {
         "summary": "Return timestamp-latency samples for the event.",
         "since": "2.8.13",
@@ -8268,7 +8330,9 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "protected",
+            "no_async_loading"
         ]
     },
     "MODULE UNLOAD": {
@@ -8290,7 +8354,9 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "protected",
+            "no_async_loading"
         ]
     },
     "MONITOR": {
@@ -9270,7 +9336,9 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "PTTL": {
@@ -9437,6 +9505,45 @@
             "stale"
         ]
     },
+    "PUBSUB SHARDCHANNELS": {
+        "summary": "List active shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of active shard channels, and assuming constant time pattern matching (relatively short channels).",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "pattern",
+                "type": "string",
+                "optional": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
+    "PUBSUB SHARDNUMSUB": {
+        "summary": "Get the count of subscribers for shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) for the SHARDNUMSUB subcommand, where N is the number of requested channels",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
     "PUNSUBSCRIBE": {
         "summary": "Stop listening for messages posted to channels matching the given patterns",
         "since": "2.0.0",
@@ -9507,6 +9614,8 @@
         ],
         "arity": 1,
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -9521,6 +9630,8 @@
         ],
         "arity": 1,
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -9674,7 +9785,8 @@
         "command_flags": [
             "admin",
             "noscript",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "RESET": {
@@ -10145,7 +10257,9 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "SCAN": {
@@ -10905,7 +11019,8 @@
             "admin",
             "noscript",
             "loading",
-            "stale"
+            "stale",
+            "no_multi"
         ]
     },
     "SINTER": {
@@ -11139,7 +11254,8 @@
         "command_flags": [
             "admin",
             "noscript",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "SLOWLOG": {
@@ -11660,6 +11776,53 @@
             "fast"
         ]
     },
+    "SPUBLISH": {
+        "summary": "Post a message to a shard channel",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of clients subscribed to the receiving shard channel.",
+        "acl_categories": [
+            "@pubsub",
+            "@fast"
+        ],
+        "arity": 3,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "shard_channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string"
+            },
+            {
+                "name": "message",
+                "type": "string"
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale",
+            "fast",
+            "may_replicate"
+        ]
+    },
     "SRANDMEMBER": {
         "summary": "Get one or multiple random members from a set",
         "since": "1.0.0",
@@ -11823,6 +11986,49 @@
         "command_flags": [
             "readonly",
             "random"
+        ]
+    },
+    "SSUBSCRIBE": {
+        "summary": "Listen for messages published to the given shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of shard channels to subscribe to.",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "shard_channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "noscript",
+            "loading",
+            "stale"
         ]
     },
     "STRLEN": {
@@ -12059,6 +12265,50 @@
             "denyoom"
         ]
     },
+    "SUNSUBSCRIBE": {
+        "summary": "Stop listening for messages posted to the given shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -1,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "shard_channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "noscript",
+            "loading",
+            "stale"
+        ]
+    },
     "SWAPDB": {
         "summary": "Swaps two Redis databases",
         "since": "4.0.0",
@@ -12098,7 +12348,9 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "TIME": {

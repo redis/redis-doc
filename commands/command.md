@@ -26,11 +26,11 @@ each command to enable exact routing of commands to cluster instances.
  - position of last key in argument list
  - step count for locating repeating keys
  - nested @array-reply of [ACL categories][ta]
- - nested @array-reply of [command hints][tb]
+ - nested @array-reply of [command tips][tb]
  - nested @array-reply of [key-specs][td]
  - nested @array-reply of subcommands
 [ta]: /topics/acl
-[tb]: /topics/command-hints
+[tb]: /topics/command-tips
 [td]: /topics/key-specs
 
 The three elements responsible for determining the position of the keys are referred to as (`first-key`, `last-key`, `key-step`)
@@ -209,13 +209,13 @@ Available starting from Redis 6.0.0
 
 For more information please check the [ACL page][ta].
 
-## Command hints
+## Command tips
 
 Available starting from Redis 7.0.0
 
 Helpful information about the command, to be used by clients/proxies.
 
-For more information please check the [command hints page][tb].
+For more information please check the [command tips page][tb].
 
 ## Key specs
 

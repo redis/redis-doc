@@ -1,5 +1,5 @@
 Returns @array-reply (a flat representation of a map) of additional information
-about commands, mostly for documentation purposes.
+about commands, for documentation purposes.
 It contains the following fields:
 
  - `summary`
