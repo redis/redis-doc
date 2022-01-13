@@ -20,7 +20,7 @@ If present, this command has the potential to block (but not always, see `block_
 
 ### random-output
 
-The output of the command is random (e.g. `RANDOMKEY`, `SPOP`)
+The output is not deterministic, that is, the same command with the same arguments, with the same key-space, may have different results. (e.g. `RANDOMKEY`, `SPOP`)
 
 ### random-order-output
 
@@ -43,8 +43,8 @@ This could result in false-positive if that keyword is a keyname or some other f
 
 This tip should help proxies/client to determine to which shard(s) to send the command.
 The default behavior (i.e. if the `request_policy` tip is absent) devides into two cases:
-1. The command has key(s). In this case the command goes to a single shard, sdetemined by the hslot(s) of the key(s)
-2. The command doesn't have key(s). In this case the command goes to an arbitrary shard (usually the one with the lowest hash slot).
+1. The command has key(s). In this case the command goes to a single shard, determined by the hslot(s) of the key(s)
+2. The command doesn't have key(s). In this case the command goes to an arbitrary shard (usually the one with the lowest hash slot). Different key-less commands should always go to the same shard.
 
 If the proxy/client need to behave differently we must specify an option for `request_policy`:
 - **all_shards** - Forward to all shards (`CONFIG SET`). Usually used on key-less command. The operation is atomic on all shards.
@@ -65,6 +65,7 @@ If the reply is not a collection, or if the proxy/client need to behave differen
 - **agg_min** - Perform a minimum on replies (replies must be numerical). Example: `WAIT` (returns the lowest number among the ones the shards' replies).
 - **agg_max** - Perform a maximum on replies (replies must be numerical).
 - **agg_sum** - Sums the integer values returned by the shards. Example: `DBSIZE`
+- **agg_non_trivial** - Indicates a non-trivial form of aggregation. Example: `INFO`
 
 
 ## Example
