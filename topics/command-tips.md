@@ -1,18 +1,17 @@
 # Command tips
 
 An @array-reply of strings, command tips are meant to provide additional information about commands for clients and proxies.
-This infromation should help clients and proxies to determine how to handle this command when Redis is in clustering mode.
+This infromation should help clients to determine how to handle this command when Redis is in clustering mode.
 Unlike the command flags (the third element in `COMMAND`'s reply), which are internal in nature (Redis itself uses them internally), command tips are just exposed via `COMMAND` and Redis does not use them.
 
-The tips are arbirary strings, but in order to create some sort of concensus, here is a list of suggested tips:
-
-## Boolean tips
-
-Tips that either exist or not, no value is associated with them.
+The tips are arbitrary strings, but in order to create common conventions, here is a list of suggested tips:
 
 - **blocking**
 - **random-output**
 - **random-order-output**
+- **block_keyword:<word>**
+- **request_policy:<policy>**
+- **reply_policy:<policy>**
 
 ### blocking
 
@@ -26,14 +25,6 @@ The output is not deterministic, that is, the same command with the same argumen
 
 The output is deterministic, but comes in random order (e.g. `HGETALL`, `SMEMBERS`)
 
-## Key-value tips
-
-Tips that are associated with a value.
-
-- **block_keyword** 
-- **request_policy**
-- **reply_policy**
-
 ### block_keyword
 
 Identify commands which the potential to block, only is a specific arguement was given: For example, `XREAD` and `XREADGROUP` have the `blocking` tip, but they will only block if `BLOCK` was given. We will add the `block_keyword:<word>` tip, and the proxy should search `<word>` search in `argv` to determine if the command may indeed block.
@@ -41,10 +32,10 @@ This could result in false-positive if that keyword is a keyname or some other f
 
 ### request_policy
 
-This tip should help proxies/client to determine to which shard(s) to send the command.
+This tip should help clients to determine to which shard(s) to send the command in clustering mode.
 The default behavior (i.e. if the `request_policy` tip is absent) devides into two cases:
 1. The command has key(s). In this case the command goes to a single shard, determined by the hslot(s) of the key(s)
-2. The command doesn't have key(s). In this case the command goes to an arbitrary shard (usually the one with the lowest hash slot). Different key-less commands should always go to the same shard.
+2. The command doesn't have key(s). In this case the command can be sent to any arbitrary shard. In order to correctly process certain key-less commands, they should always go to the same shard (Example: Pub/Sub will not work properly if `SUBSCRIBE` and `PUBLISH` would reach different shards).
 
 If the proxy/client need to behave differently we must specify an option for `request_policy`:
 - **all_shards** - Forward to all shards (`CONFIG SET`). Usually used on key-less command. The operation is atomic on all shards.
@@ -53,7 +44,7 @@ If the proxy/client need to behave differently we must specify an option for `re
 
 ### reply_policy
 
-This tip should help clients/proxies to know how to aggregate the replies of a command that was sent to multiple shards.
+This tip should help clients to know how to aggregate the replies of a command that was sent to multiple shards in clustering mode.
 The default behavior (i.e. if the `request_policy` tip is absent) applies only when the reply is some sort of collection (array, set, map) and it devides into two cases:
 1. The command doesn't have key(s). In this case we append the array replies in random order (e.g. `KEYS`)
 2. The command has key(s).  In this case we append the array replies in the original order of the request's keys (e.g. `MGET`, but not `MSET` and `DEL` which don't return an array)

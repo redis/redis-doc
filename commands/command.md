@@ -15,7 +15,7 @@ each command to enable exact routing of commands to cluster instances.
  - `COMMAND COUNT`
  - `COMMAND GETKEYS`
  - `COMMAND LIST`
- - `COMMAND DETAILS`
+ - `COMMAND DOCS`
 
 `COMMAND`'s reply is an @array-reply, where each element is an @array-reply by itself, containing the following elements:
 
@@ -99,8 +99,8 @@ Command flags is @array-reply containing one or more status replies:
   - `admin`: server admin command
   - `pubsub`: pubsub-related command
   - `noscript`: deny this command from scripts
-  - `random`: command has random results, dangerous for scripts
-  - `sort_for_script`: if called from script, sort output (Deprecated since 7.0.0)
+  - `random`: command has random results, dangerous for scripts (converted to a [command tip][tb] since Redis 7.0)
+  - `sort_for_script`: if called from script, sort output (converted to a [command tip][tb] since Redis 7.0)
   - `loading`: allow command while database is loading
   - `stale`: allow command while replica has stale data
   - `skip_monitor`: do not show this command in `MONITOR`
@@ -110,6 +110,7 @@ Command flags is @array-reply containing one or more status replies:
   - `no_auth`: command does not require authentication
   - `may_replicate`: command may replicate to replicas/AOF
   - `no_mandatory_keys`: command may take key arguments, but none of them is mandatory
+  - `no_async_loading`: deny during async loading (when a replica uses diskless sync swapdb, and allows access to the old dataset)
   - `no_multi`: command is not allowed inside `MULTI`/`EXEC`
   - `movablekeys`: The (`first-key`, `last-key`, `key-step`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or [key-specs][td] (starting from Redis 7.0.0).
 
@@ -127,7 +128,7 @@ Command flags is @array-reply containing one or more status replies:
    ...
 ```
 
-Some Redis commands have no predetermined key locations.
+Some Redis commands have no predetermined key locations, or they are not easy to find.
 For those commands, the `movablekeys` flag is added to the command flags @array-reply,
 which denotes that the (`first-key`, `last-key`, `key-step`) fields are insufficient to find all the keys,
 and Cluster clients needs to user other measures which are described below to locate them.
@@ -145,7 +146,7 @@ Here are a few examples of commands that are marked with `movablekeys`:
 Also see `COMMAND GETKEYS` for getting your Redis server tell you where keys
 are in any given command.
 
-Starting from redis 7.0 clients can use the `key-specs` section in the additional information section in order to deduce key positions.
+Starting from Redis 7.0, clients can use the `key-specs` section in the additional information section in order to deduce key positions.
 The only two commands which still require using `COMMAND GETKEYS` are `SORT` and `MIGRATE` (assuming the client can parse and uses the `key-specs` section).
 
 For more information please check the [key-specs page][tr].

@@ -1,6 +1,6 @@
 # Command arguments
 
-`COMMAND` returns infromation about Redis commands.
+`COMMAND` returns information about Redis commands.
 The last element of its reply is a map with additional fields, one of which is the `arguments` field.
 It describes the arguments the command accepts.
 
