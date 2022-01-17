@@ -1,7 +1,7 @@
 `CLUSTER SLOTS` returns details about which cluster slots map to which Redis instances. 
 The command is suitable to be used by Redis Cluster client libraries implementations in order to retrieve (or update when a redirection is received) the map associating cluster *hash slots* with actual nodes network information, so that when a command is received, it can be sent to what is likely the right instance for the keys specified in the command. 
 
-The network information for each node is an array containing the following elements:
+The networking information for each node is an array containing the following elements:
 
 * Preferred endpoint (Either an IP address, hostname, or NULL)
 * Port number
@@ -39,7 +39,7 @@ If a cluster instance has non-contiguous slots (e.g. 1-400,900,1800-6000) then m
 
 @return
 
-@array-reply: nested list of slot ranges with preferred endpoint/Port/ID mappings.
+@array-reply: nested list of slot ranges with networking information.
 
 @examples
 
