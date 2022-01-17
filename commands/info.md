@@ -84,10 +84,8 @@ Here is the meaning of all fields in the **clients** section:
 *   `maxclients`: The value of the `maxclients` configuration directive. This is
     the upper limit for the sum of `connected_clients`, `connected_slaves` and
     `cluster_connections`.
-*   `client_longest_output_list`: Longest output list among current client
-     connections
-*   `client_biggest_input_buf`: Biggest input buffer among current client
-     connections
+*   `client_recent_max_input_buffer`: Biggest input buffer among current client connections
+*   `client_recent_max_output_buffer`: Biggest output buffer among current client connections
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
@@ -150,6 +148,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
      option)
+*   `lazyfreed_objects`: The number of objects that have been lazy freed.
 
 Ideally, the `used_memory_rss` value should be only slightly higher than
 `used_memory`.
@@ -293,10 +292,11 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_error_replies`: Total number of issued error replies, that is the sum of
     rejected commands (errors prior command execution) and
     failed commands (errors within the command execution)
-*    `total_reads_processed`: Total number of read events processed
-*    `total_writes_processed`: Total number of write events processed
-*    `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
-*    `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `dump_payload_sanitizations`: Total number of dump payload deep integrity validations (see `sanitize-dump-payload` config).
+*   `total_reads_processed`: Total number of read events processed
+*   `total_writes_processed`: Total number of write events processed
+*   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
+*   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
 
 Here is the meaning of all fields in the **replication** section:
 
