@@ -1192,7 +1192,15 @@
     "description": "A Redis client in pure Octave",
     "authors": ["markuman"]
   },
-
+  
+  {
+    "name": "MatlabRedis",
+    "language": "Matlab",
+    "repository": "https://github.com/GummyJum/MatlabRedis",
+    "description": "Pure Matlab Redis interface for Matlab>=2014B",
+    "active": true
+  },
+  
   {
     "name": "redisboost",
     "language": "C#",
