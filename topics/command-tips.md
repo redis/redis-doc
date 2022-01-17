@@ -49,6 +49,7 @@ The default behavior (i.e. if the `request_policy` tip is absent) devides into t
 If the proxy/client need to behave differently we must specify an option for `request_policy`:
 - **all_shards** - Forward to all shards (`CONFIG SET`). Usually used on key-less command. The operation is atomic on all shards.
 - **few_shards** - Forward to several shards, used by multi-key commands where each key is handled separately (`MSET`, `MGET`, `DEL`, etc.). i.e. unlike `SUNIONSTORE` which must be sent to one shard.
+- **non_trivial** - Indicates a non-trivial form of request policy. Example: `SCAN`
 
 ### reply_policy
 
@@ -65,7 +66,7 @@ If the reply is not a collection, or if the proxy/client need to behave differen
 - **agg_min** - Perform a minimum on replies (replies must be numerical). Example: `WAIT` (returns the lowest number among the ones the shards' replies).
 - **agg_max** - Perform a maximum on replies (replies must be numerical).
 - **agg_sum** - Sums the integer values returned by the shards. Example: `DBSIZE`
-- **agg_non_trivial** - Indicates a non-trivial form of aggregation. Example: `INFO`
+- **non_trivial** - Indicates a non-trivial form of reply policy. Example: `INFO`
 
 
 ## Example
