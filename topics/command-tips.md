@@ -27,7 +27,7 @@ The output is deterministic, but comes in random order (e.g. `HGETALL`, `SMEMBER
 
 ### block_keyword
 
-Identify commands which the potential to block, only is a specific arguement was given: For example, `XREAD` and `XREADGROUP` have the `blocking` tip, but they will only block if `BLOCK` was given. We will add the `block_keyword:<word>` tip, and the proxy should search `<word>` search in `argv` to determine if the command may indeed block.
+Identify commands which the potential to block, only is a specific arguement was given: For example, `XREAD` and `XREADGROUP` have the `blocking` tip, but they will only block if `BLOCK` was given. We will add the `block_keyword:<word>` tip, and the client should search `<word>` search in `argv` to determine if the command may indeed block.
 This could result in false-positive if that keyword is a keyname or some other form of free-text, but this tip best-effort: there's little harm in mistaking a non-blocking command with a blocking one (but mistaking in the other direction is unacceptable).
 
 ### request_policy
@@ -37,7 +37,7 @@ The default behavior (i.e. if the `request_policy` tip is absent) devides into t
 1. The command has key(s). In this case the command goes to a single shard, determined by the hslot(s) of the key(s)
 2. The command doesn't have key(s). In this case the command can be sent to any arbitrary shard. In order to correctly process certain key-less commands, they should always go to the same shard (Example: Pub/Sub will not work properly if `SUBSCRIBE` and `PUBLISH` would reach different shards).
 
-If the proxy/client need to behave differently we must specify an option for `request_policy`:
+If the client need to behave differently we must specify an option for `request_policy`:
 - **all_shards** - Forward to all shards (`CONFIG SET`). Usually used on key-less command. The operation is atomic on all shards.
 - **few_shards** - Forward to several shards, used by multi-key commands where each key is handled separately (`MSET`, `MGET`, `DEL`, etc.). i.e. unlike `SUNIONSTORE` which must be sent to one shard.
 - **non_trivial** - Indicates a non-trivial form of request policy. Example: `SCAN`
@@ -49,8 +49,8 @@ The default behavior (i.e. if the `request_policy` tip is absent) applies only w
 1. The command doesn't have key(s). In this case we append the array replies in random order (e.g. `KEYS`)
 2. The command has key(s).  In this case we append the array replies in the original order of the request's keys (e.g. `MGET`, but not `MSET` and `DEL` which don't return an array)
 
-If the reply is not a collection, or if the proxy/client need to behave differently we must specify an option for `reply_policy`:
-- **one_succeeded** - Return success if at least one shard didn't reply with an error. The client/proxy should reply with the first reply it gets which isn't an error, or with any of the errors, if they all responded with errors. Example: `SCRIPT KILL` (usually the script is loaded to all shards, but runs only on one. `SCRIPT KILL` is sent to all shards)
+If the reply is not a collection, or if the client need to behave differently we must specify an option for `reply_policy`:
+- **one_succeeded** - Return success if at least one shard didn't reply with an error. The client should reply with the first reply it gets which isn't an error, or with any of the errors, if they all responded with errors. Example: `SCRIPT KILL` (usually the script is loaded to all shards, but runs only on one. `SCRIPT KILL` is sent to all shards)
 - **all_succeeded** - Return success if none of the shards replied with an error. if one replied with an error, return that error (either one of the errors), if they all succeeded, return the successful reply (either one). Examples: `CONFIG SET`, `SCRIPT FLUSH`, `SCRIPT LOAD`
 - **agg_logical_and** - Preform a logical AND on the replies (replies must be numerical, usually just 0/1). Example: `SCRIPT EXISTS`, which returns an array of 0/1 indicating which of the provided scripts exist. The aggregated response will be 1 iff all shards have the script.
 - **agg_logical_or** - Preform a logical OR on the replies (replies must be numerical, usually just 0/1).
