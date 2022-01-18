@@ -83,10 +83,38 @@ If one of the above specs can’t describe the key positions, the module writer 
 
 ## flags
 
-Additional information regarding the keys found using a key-spec.
+Each key-spec provides some flags that provide additional infomration about the keys found by that key-spec.
+These flags can be split into 3 grouops.
 
- - `write`: Keys may be modified.
- - `read`: Key will not be modified.
+### How the Redis command is handling these keys
+
+The following refer what the command actually does with the value or metadata of the key,
+and not necessarily the user data or how it affects it.
+Each key-spec may must have exaclty one of these.
+Any operation that's not distinctly deletion, overwrite or read-only would be marked as RW.
+
+ - `RO`: Read-Only - Reads the value of the key, but doesn't necessarily returns it.
+ - `RW`: Read-Write - Modifies the data stored in the value of the key or its metadata.
+ - `OW`: Overwrite - Overwrites the data stored in the value of the key.
+ - `RM`: Deletes the key.
+ 
+### The logical user operation done on the key
+
+The follwing refer to user data inside the value of the key, not the metadata like LRU, type,
+cardinality. It refers to the logical operation on the user's data (actual input strings / TTL),
+being used / returned / copied / changed.
+It doesn't refer to modification or returning of metadata (like type, count, presence of data).
+Any write that's not INSERT or DELETE, would be an UPADTE.
+Each key-spec may have one of the writes with or without access, or none:
+
+ - `access`: Returns, copies or uses the user data from the value of the key.
+ - `update`: Updates data to the value, new value may depend on the old value.
+ - `insert`: Adds data to the value with no chance of modification or deletion of existing data.
+ - `delete`: Explicitly deletes some content from the value of the key.
+								  
+### Other flags
+
+ - `channel`: This key-spec is actually not about keys, but rather about shard publish channel, see `SPUBLISH`.
  - `incomplete`: Explained below.
 
 ### The `incomplete` flag
@@ -104,8 +132,9 @@ The only commands with `incomplete` specs are `SORT` and `MIGRATE`
 
 ```
   1) 1) "flags"
-     2) 1) write
-        2) read
+     2) 1) RW
+        2) access
+        3) update
      3) "begin-search"
      4) 1) "type"
         2) "index"
@@ -128,7 +157,8 @@ The only commands with `incomplete` specs are `SORT` and `MIGRATE`
 
 ```
   1) 1) "flags"
-     2) 1) read
+     2) 1) RO
+        2) access
      3) "begin-search"
      4) 1) "type"
         2) "index"
@@ -151,7 +181,8 @@ The only commands with `incomplete` specs are `SORT` and `MIGRATE`
 
 ```
   1) 1) "flags"
-     2) 1) read
+     2) 1) RO
+        2) access
      3) "begin-search"
      4) 1) "type"
         2) "index"
@@ -169,7 +200,8 @@ The only commands with `incomplete` specs are `SORT` and `MIGRATE`
            5) "limit"
            6) (integer) 0
   2) 1) "flags"
-     2) 1) write
+     2) 1) OW
+        2) update
      3) "begin-search"
      4) 1) "type"
         2) "keyword"
@@ -189,7 +221,8 @@ The only commands with `incomplete` specs are `SORT` and `MIGRATE`
            5) "limit"
            6) (integer) 0
   3) 1) "flags"
-     2) 1) write
+     2) 1) OW
+        2) update
      3) "begin-search"
      4) 1) "type"
         2) "keyword"
