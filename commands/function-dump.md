@@ -1,7 +1,7 @@
-Returns a serialized payload representing the current libraries.
-The serialized payload can later be restored using `FUNCTION RESTORE` command.
+Return the serialized payload of loaded libraries.
+You can restore the serialized payload later with the `FUNCTION RESTORE` command.
 
-For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
+For more information please refer to [Introduction to Redis Functions](/topics/function)
 
 @return
 
@@ -9,27 +9,26 @@ For more information about functions please refer to [Introduction to Redis Func
 
 @examples
 
-The following example dump the current libraries using `FUNCTION DUMP`,
-then flushes all the libraries using `FUNCTION FLUSH`,
-and then restore the original functions using `FUNCTION RESTORE`.
+The following example shows how to dump loaded libraries using and then it calls `FUNCTION FLUSH`.It then restores the library from the serialized payload,
+Then, it restores the original libraries from the serialized payload with `FUNCTION RESTORE`.
 
 ```
-> FUNCTION DUMP
-"\xf6\x05test3\x03LUA\x00@Fredis.register_function('f5', function(keys, args) while 1 do end end)\n\x00wY\xbb \xec\x0f\x91i"
-> FUNCTION FLUSH
+redis> FUNCTION DUMP
+"\xf6\x05mylib\x03LUA\x00\xc3@D@J\x1aredis.register_function('my@\x0b\x02', @\x06`\x12\x11keys, args) return`\x0c\a[1] end)\n\x00@\n)\x11\xc8|\x9b\xe4"
+redis> FUNCTION FLUSH
 OK
-> FUNCTION RESTORE "\xf6\x05test3\x03LUA\x00@Fredis.register_function('f5', function(keys, args) while 1 do end end)\n\x00wY\xbb \xec\x0f\x91i"
+redis> FUNCTION RESTORE "\xf6\x05mylib\x03LUA\x00\xc3@D@J\x1aredis.register_function('my@\x0b\x02', @\x06`\x12\x11keys, args) return`\x0c\a[1] end)\n\x00@\n)\x11\xc8|\x9b\xe4"
 OK
-127.0.0.1:6379> FUNCTION LIST
+redis> FUNCTION LIST
 1) 1) "library_name"
-   2) "test3"
+   2) "mylib"
    3) "engine"
    4) "LUA"
    5) "description"
    6) (nil)
    7) "functions"
    8) 1) 1) "name"
-         2) "f5"
+         2) "myfunc"
          3) "description"
          4) (nil)
 ```

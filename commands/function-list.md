@@ -1,55 +1,17 @@
 Return information about the function and libraries.
 
-It is possible to list only libraries that match a pattern using `LIBRARYNAME` argument.
-It is also possible to retrieve the library code using `WITHCODE` argument.
+You can use the optional `LIBRARYNAME` argument to specify a pattern for matching library names.
+The optional `WITHCODE` modifier will cause the server to include the libraries source implementation in the reply.
 
-Information given for each library:
+The following information is provided for each of the libraries in the response:
 
-* Library name
-* Engine used to create the library
-* Library description
-* Function list
-  * Function name
-  * Function description
-* Library code (with `WITHCODE` was requested)
+* **library_name:** the name of the library.
+* **engine:** the engine of the library.
+* **description:** the library's description.
+* **functions:** the list of functions in the llbrary.
+  Each function has the following fields:
+  * **name:** the name of the function.
+  * **description:** the function's description.
+* **library_code:** the library's source code (when given the `WITHCODE` modifier).
 
-For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
-
-@examples
-
-The following example shows a list of 2 libraries each has 2 functions.
-
-```
-> function list
-1) 1) "library_name"
-   2) "test1"
-   3) "engine"
-   4) "LUA"
-   5) "description"
-   6) (nil)
-   7) "functions"
-   8) 1) 1) "name"
-         2) "f3"
-         3) "description"
-         4) (nil)
-      2) 1) "name"
-         2) "f4"
-         3) "description"
-         4) (nil)
-2) 1) "library_name"
-   2) "test"
-   3) "engine"
-   4) "LUA"
-   5) "description"
-   6) (nil)
-   7) "functions"
-   8) 1) 1) "name"
-         2) "f2"
-         3) "description"
-         4) (nil)
-      2) 1) "name"
-         2) "f1"
-         3) "description"
-         4) (nil)
-
-```
+For more information please refer to [Introduction to Redis Functions](/topics/function)

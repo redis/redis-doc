@@ -1,0 +1,86 @@
+# Redis Programmability
+
+Redis is, by [defition](https://github.com/redis/redis/blob/unstable/MANIFESTO#L7), a _"domain-specific language for abstract data types"_.
+The language that Redis speaks consists of its [commands](/commands).
+Most the commands specialize at manipulating core [data types](/topics/data-types-intro) in different ways.
+In many cases, these commands provide all the functionality that a developer requires for managing application data in Redis.
+
+The term **programmability** in Redis means having the ability to execute arbitrary user-defined logic by the server.
+We refer to such pieces of logic as **scripts**.
+In our case, scripts enable processing the data where it lives, a.k.a _data locality_.
+Furthermore, the responsible embedding of programmatic workflows in the Redis server can help in reducing network traffic and improving overall performance.
+Developers can use this capability for implementing robust, application-specific APIs.
+Such APIs can encapsulate business and maintain a data model across multiple keys and different data structures.
+
+User scripts are executed in Redis by an embedded, sandboxed scripting engine.
+Presently, Redis supports a single scripting engine, the [Lua 5.1](https://www.lua.org/) interpreter.
+Please refer to the [Redis Lua API Reference](/topics/lua-api) page for complete documentation.
+
+## Running scripts
+
+Redis provides two means for running scripts.
+
+Firstly, and ever since Redis 2.6.0, the `EVAL` command enables running server-side scripts. 
+Eval scripts provide a quick and straightforward way to have Redis run your scripts ad-hoc.
+However, using them means that the scripted logic is part of your application because the scripts are merely cached by server and are therefore volatile and ephemeral. As your application grows, this approach becomes harder to maintain.
+
+Secondly, added in v7.0.0, Redis Functions are essentially scripts that are first-class database citizens. As such, functions decouple scripting from application logic and enable independent development, testing, and deployment of scripts.
+To use functions, they need first to be declared once, and then they are available for use by all connected clients.
+
+Please refer to the following pages for more information:
+
+* [Redis Eval Scripts](/topics/eval-intro)
+* [Redis Functions](/topics/functions-intro)
+
+When running a script or a function, Redis guarantees its atomic execution.
+The script's execution blocks all server activities during its entire time, similarly to the semantics of [transactions](/topics/transactions).
+These semantics mean that all of the script's effects either have yet to happen or had already happened.
+The blocking semantics of an executed script apply to all connected clients at all times.
+
+Note that the potential downside of this blocking approach is that executing slow scripts is not a good idea.
+It is not hard to create fast scripts because scripting's overhead is very low.
+However, if you intend to use a slow script in your application, be aware that all other clients are blocked and can't execute any command while it is running.
+
+## Sandboxed script context
+
+Redis places the engine that executes user scripts inside a sandbox.
+The sandbox attempts to prevent accidental misuse and reduce potential threats from the server's environment.
+
+Scripts should never try to access the Redis server's underlying host systems, such as the file system, network, or attempt to perform any other system call other than those supported by the API.
+
+Scripts should operate solely on data stored in Redis and data provided as arguments to their execution.
+
+## Maximum execution time
+
+Scripts are subject to a maximum execution time (set by default to five seconds).
+This default timeout is enormous since a script usually runs in less than a millisecond.
+The limit is in place to handle accidental infinite loops created during development.
+
+It is possible to modify the maximum time a script can be executed with millisecond precision,
+either via `redis.conf` or by using the `CONFIG SET` command.
+The configuration parameter affecting max execution time is called `script-time-limit`.
+
+When a script reaches the timeout threshold, it isn't terminated by Redis automatically.
+Doing so would violate the contract between Redis and the scripting engine that ensures that scripts are atomic.
+Interrupting the execution of a script has the potential of leaving the dataset with half-written changes.
+
+Therefore, when a script executes longer than than the configured timeout, the following happens:
+
+* Redis logs that a script is running for too long.
+* It starts accepting commands again from other clients but will reply with a BUSY error to all the clients sending normal commands. The only commands allowed in this state are `SCRIPT KILL`, `FUNCTION KILL`, and `SHUTDOWN NOSAVE`.
+* It is possible to terminate a script that only executes read-only commands using the `SCRIPT KILL` and `FUNCTION KILL` commands. These commands do not violate the scripting semantic as no data was written to the dataset by the script yet.
+* If the script had already performed even a single write operation, the only command allowed is `SHUTDOWN NOSAVE` that stops the server without saving the current data set on disk (basically, the server is aborted).
+
+## Execution under low memory conditions
+
+When memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the script that uses additional memory will cause the script to abort (unless [`redis.pcall`](/topics/lua-api#rediscallpcall) was used).
+
+However, an exception to the above is when the script's first write command does not use additional memory, as is the case with  (for example, `DEL` and `LREM`).
+In this case, Redis will allow all commands in the script to run to ensure atomicity.
+If subsequent writes in the script consume additional memory, Redis' memory usage can exceed the threshold set by the `maxmemory` configuration directive.
+
+Another scenario in which a script can cause memory usage to cross the `maxmemory` threshold is when the execution begins when Redis is slightly below `maxmemory`, so the script's first write command is allowed.
+As the script executes, subsequent write commands consume more memory leading to the server using more RAM than the configured `maxmemory` directive.
+
+In those scenarios, you should consider setting the `maxmemory-policy` configuration directive to any values other than `noeviction`.
+In addition, Lua scripts should be as fast as possible so that eviction can kick in between executions.

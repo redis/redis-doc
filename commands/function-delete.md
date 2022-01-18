@@ -1,22 +1,23 @@
-Delete a function previously uploaded using `FUNCTION LOAD`.
+Delete a library.
 
-This operation deletes all the functions registered by the library.
-If the library does not exists, error is returned.
+This command deletes the library called _library-name_ and all functions in it.
+If the library doesn't exist, the server returns an error.
 
-For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
+For more information please refer to [Introduction to Redis Functions](/topics/function)
 
 @return
 
 @simple-string-reply
 
 @examples
+
 ```
-> function load Lua test "redis.register_function('f1', function(keys, args) return 'hello' end)"
+redis> FUNCTION LOAD Lua mylib "redis.register_function('myfunc', function(keys, args) return 'hello' end)"
 OK
-> fcall f1 0
+redis> FCALL myfunc 0
 "hello"
-> function delete test
+redis> FUNCTION DELETE mylib
 OK
-127.0.0.1:6379> fcall f1 0
+redis> FCALL myfunc 0
 (error) ERR Function not found
 ```

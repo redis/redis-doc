@@ -1,39 +1,15 @@
-Return information about the function currently running.
+Return information about the function that's currently running.
 
-The returned information:
+The reply consists of the following information about the running script:
 
-* Function name
-* Command used to invoke the function
-* Duration in MS that the function is running
+* **name:** the name of the function.
+* **command:** the command and arguments used for invoking the function.
+* **duration_ms:** the function's runtime duration in milliseconds.
 
-If no function is running, returns nil.
-In addition, returns a list of available engines.
+If there's no in-flight function, the server replies with a _nil_.
 
-This command can be used see detect a long running function and decide whether or not to kill it using `FUNCTION KILL`.
+In addition, the reply also includes returns the list of the function execution engines that are available.
 
-For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
+You can use this command to inspect the invocation of a long-running function and decide whether kill it with the `FUNCTION KILL` command.
 
-@examples
-The following example detects a long running script.
-
-```
-> function stats
-1) "running_script"
-2) 1) "name"
-   2) "f5"
-   3) "command"
-   4) 1) "fcall"
-      2) "f5"
-      3) "0"
-   5) "duration_ms"
-   6) (integer) 18935
-3) "engines"
-4) 1) "LUA"
-> function kill
-OK
-> function stats
-1) "running_script"
-2) (nil)
-3) "engines"
-4) 1) "LUA"
-```
+For more information please refer to [Introduction to Redis Functions](/topics/function)

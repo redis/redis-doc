@@ -1,22 +1,27 @@
-Load a library into Redis.
+Load a library to Redis.
 
-The library `code` is given to the specified `engine` for compiling and processing,
-this processing should result in creating one or more functions that can be later invoked using `FCALL` command.
-On Lua engine, it is possible to create function using `redis.register_function` API (see example bellow).
+The command's first argument, _enginie-name_, is the name of the execution engine for the library.
+Presently, Redis only supports the _Lua_ engine.
 
-If the given `library-name` already exists, error is returns unless the `REPLACE` argument is given,
-in this case, replace the old library with the new one.
-Library description can also be given using the `DESCRIPTION` argument.
+The _library-name_ argument is the unique name of the library.
+Following it is the source code that implements the library.
+For the Lua engine, the implementation should declare one or more entry points to the library with the [`redis.register_function()` API](/topics/lua-api#redis.register_function()).
+Once loaded, you can call the functions in the library with the `FCALL` (or `FCALL_RO` when applicable) command.
 
-An error will occurred at the following cases:
+When attempting to load a library with a name that already exists, the Redis server returns an error.
+The `REPLACE` modifier changes this behavior, and overwrites the existing library with the new contents.
 
-* Given `engine` does not exists
-* Library name already exists and `REPLACE` was not used
-* Function name already exists on another library (notice that this may happened even if `REPLACE` was used)
-* The engine failed to create functions from the given `code` (usually this happens because of compilation error).
-* The engine did not created any functions from the give `code`
+You can also use the optional `DESCRIPTION` argument to attach a description to the library.
 
-For more information about functions please refer to [Introduction to Redis Functions](/topics/function)
+The command will return an error in the following circumstances:
+
+* An invalid _engine-name_ was provided.
+* The library's name already exists without the `REPLACE` modifier.
+* A function in the library is created with a name that already exists in another library (even when `REPLACE` is specified).
+* The engine failed in creating library's functions (due to a compilation error, for example).
+* No functions were declared by the library.
+
+For more information please refer to [Introduction to Redis Functions](/topics/function)
 
 @return
 
@@ -24,12 +29,11 @@ For more information about functions please refer to [Introduction to Redis Func
 
 @examples
 
-The following example will create a library, `test`, using the Lua engine.
-The library have a single function, `f1`, that simply returns `hello`.
+The following example will create a library named _mylib_ with a single function, _myfunc_, that returns the first argument it gets.
 
 ```
-> function load lua test "redis.register_function('f1', function(keys, args) return 'hello' end)"
+redis> FUNCTION LOAD Lua mylib "redis.register_function('myfunc', function(keys, args) return args[1] end)"
 OK
-> fcall f1 0
+redis> FCALL myfunc 0 hello
 "hello"
 ```
