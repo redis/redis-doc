@@ -110,7 +110,6 @@
     "repository": "https://github.com/mediocregopher/radix",
     "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
     "authors": ["fzzbt", "mediocre_gopher"],
-    "recommended": true,
     "active": true
   },
 
