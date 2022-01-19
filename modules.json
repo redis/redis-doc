@@ -416,5 +416,15 @@
       "Clement-Jean"
     ],
     "stars": 0
+  },
+  {
+    "name": "redismodule_qxiu",
+    "license": "MIT",
+    "repository": "https://github.com/fuxingye/redismodule_qxiu",
+    "description": "三个新数据结构, zmap(比原zset多存个value), hnset, looparr, 例如:xlq.zmrevrangebyscore key1 -100 100 withscores withvalues limit 0 100.",
+    "authors": [
+      "付兴烨 方超"
+    ],
+    "stars": 0
   }
 ]
