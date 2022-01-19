@@ -128,6 +128,14 @@
     "authors": ["paulasmuth"]
   },
   {
+    "name": "redli",
+    "language": "Go",
+    "url": "https://github.com/IBM-Cloud/redli",
+    "repository": "https://github.com/IBM-Cloud/redli",
+    "description": "A humane alternative to the Redis-cli and TLS",
+    "authors": ["IBM"]
+  },
+  {
     "name": "Redis-store",
     "language": "Ruby",
     "repository": "https://github.com/redis-store/redis-store",
