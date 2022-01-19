@@ -112,6 +112,7 @@ Command flags is @array-reply containing one or more status replies:
   - `no_mandatory_keys`: command may take key arguments, but none of them is mandatory
   - `no_async_loading`: deny during async loading (when a replica uses diskless sync swapdb, and allows access to the old dataset)
   - `no_multi`: command is not allowed inside `MULTI`/`EXEC`
+  - `blocking`: command may block the client
   - `movablekeys`: The (`first-key`, `last-key`, `key-step`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or [key-specs][td] (starting from Redis 7.0.0).
 
 ### movablekeys
