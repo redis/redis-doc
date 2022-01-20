@@ -376,7 +376,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "BGREWRITEAOF": {
@@ -3125,7 +3126,7 @@
             "fast"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:agg_sum"
         ]
     },
@@ -3305,7 +3306,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "DUMP": {
@@ -4108,7 +4110,7 @@
             "write"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:all_succeeded"
         ]
     },
@@ -4159,7 +4161,7 @@
             "write"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:all_succeeded"
         ]
     },
@@ -4195,7 +4197,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:all_succeeded"
         ]
     },
@@ -4248,7 +4250,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:all_succeeded"
         ]
     },
@@ -4278,10 +4280,11 @@
         ],
         "arity": 2,
         "command_flags": [
-            "noscript"
+            "noscript",
+            "allow_busy"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:one_succeeded"
         ]
     },
@@ -4356,7 +4359,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:all_succeeded"
         ]
     },
@@ -4405,7 +4408,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:all_succeeded"
         ]
     },
@@ -4420,10 +4423,11 @@
         ],
         "arity": 2,
         "command_flags": [
-            "noscript"
+            "noscript",
+            "allow_busy"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:one_succeeded"
         ]
     },
@@ -6180,7 +6184,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "HEXISTS": {
@@ -7123,7 +7128,7 @@
         ],
         "hints": [
             "nondeterministic_output",
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:special"
         ]
     },
@@ -7149,7 +7154,7 @@
             "readonly"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "nondeterministic_output_order"
         ]
     },
@@ -8806,7 +8811,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "OBJECT": {
@@ -9498,7 +9504,7 @@
             "fast"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:all_succeeded"
         ]
     },
@@ -9856,7 +9862,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "RANDOMKEY": {
@@ -9874,7 +9881,7 @@
             "readonly"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "nondeterministic_output"
         ]
     },
@@ -10010,7 +10017,7 @@
                 "find_keys": {
                     "type": "range",
                     "spec": {
-                        "lastkey": 1,
+                        "lastkey": 0,
                         "keystep": 1,
                         "limit": 0
                     }
@@ -10023,19 +10030,19 @@
                 "begin_search": {
                     "type": "index",
                     "spec": {
-                        "index": 1
+                        "index": 2
                     }
                 },
                 "find_keys": {
                     "type": "range",
                     "spec": {
-                        "lastkey": 1,
+                        "lastkey": 0,
                         "keystep": 1,
                         "limit": 0
                     }
                 },
                 "OW": true,
-                "update": true
+                "insert": true
             }
         ],
         "arguments": [
@@ -10101,7 +10108,8 @@
             "admin",
             "noscript",
             "stale",
-            "no_async_loading"
+            "no_async_loading",
+            "allow_busy"
         ]
     },
     "RESET": {
@@ -10119,7 +10127,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "RESTORE": {
@@ -10746,7 +10755,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:agg_logical_and"
         ]
     },
@@ -10790,7 +10799,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_nodes",
             "response_policy:all_succeeded"
         ]
     },
@@ -10820,10 +10829,11 @@
         ],
         "arity": 2,
         "command_flags": [
-            "noscript"
+            "noscript",
+            "allow_busy"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:one_succeeded"
         ]
     },
@@ -10847,7 +10857,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_nodes",
             "response_policy:all_succeeded"
         ]
     },
@@ -11374,7 +11384,8 @@
             "noscript",
             "loading",
             "stale",
-            "no_multi"
+            "no_multi",
+            "allow_busy"
         ]
     },
     "SINTER": {
@@ -11658,7 +11669,7 @@
             "stale"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_nodes",
             "nondeterministic_output"
         ]
     },
@@ -11693,7 +11704,7 @@
             "stale"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_nodes",
             "response_policy:agg_sum",
             "nondeterministic_output"
         ]
@@ -11715,7 +11726,7 @@
             "stale"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_nodes",
             "response_policy:all_succeeded"
         ]
     },
@@ -12998,7 +13009,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "WAIT": {
@@ -13025,7 +13037,7 @@
             "noscript"
         ],
         "hints": [
-            "request_policy:all_masters",
+            "request_policy:all_shards",
             "response_policy:agg_min"
         ]
     },
@@ -13069,7 +13081,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "XACK": {

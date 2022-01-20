@@ -32,7 +32,7 @@ The default behavior (i.e. if the `request_policy` tip is absent) devides into t
 2. The command doesn't have key(s). In this case the command can be sent to any arbitrary shard.
 
 If the client needs to behave differently we must specify an option for `request_policy`:
-- **all_masters** - Forward to all master shards (e.g. `DBSIZE`). Usually used on key-less command. The operation is atomic on all shards.
+- **all_shards** - Forward to all master shards (e.g. `DBSIZE`). Usually used on key-less command. The operation is atomic on all shards.
 - **all_nodes** - Forward to all nodes, masters and replicas, (e.g. `CONFIG SET`). Usually used on key-less command. The operation is atomic on all shards.
 - **multi_shard** - Forward to several shards, used by multi-key commands where each key is handled separately (`MSET`, `MGET`, `DEL`, etc.). i.e. unlike `SUNIONSTORE` which must be sent to one shard.
 - **special** - Indicates a non-trivial form of request policy. Example: `SCAN`
@@ -67,7 +67,7 @@ If the reply is not a collection, or if the client need to behave differently we
     6) (integer) 0
     7) 1) @fast
        2) @connection
-    8) 1) "request_policy:all_masters"
+    8) 1) "request_policy:all_shards"
        2) "response_policy:all_succeeded"
     9) (empty array)
    10) (empty array)
