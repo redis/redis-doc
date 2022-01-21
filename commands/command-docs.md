@@ -1,80 +1,52 @@
-Returns @array-reply (a flat representation of a map) of additional information
-about commands, for documentation purposes.
-It contains the following fields:
+Return documentary information about commands.
 
- - `summary`
- - `since`
- - `group`
- - `complexity`
- - `doc-flags`
- - `deprecated-since`
- - `replaced-by`
- - `history`
- - `arguments`
+By default, the reply includes all of the server's commands.
+You can use the optional _command-name_ argument to specify the names of one or more commands.
 
-Only `summary`, `since`, and `group` are mandatory, the rest may be absent.
+The reply includes a map for each returned command.
+The following keys are always present in the reply:
 
-## summary
+* **summary:** short command description (always present).
+* **since:** the Redis version that added the command (always present).
+* **group:** the functional group to which the command belongs (always present).
+  Possible values are:
+  - _bitmap_
+  - _cluster_
+  - _connection_
+  - _generic_
+  - _geo_
+  - _hash_
+  - _hyperloglog_
+  - _list_
+  - _module_
+  - _pubsub_
+  - _scripting_
+  - _sentinel_
+  - _server_
+  - _set_
+  - _sorted-set_
+  - _stream_
+  - _string_
+  - _transactions_
 
-Short command description.
+The following keys may be included in the map as well:
 
-## since
+* **complexity:** a short explanation about the command's time complexity.
+* **doc-flags:** an array of documentation flags.
+  Possible values are:
+  - _deprecated:_ the command is deprecated.
+  - _syscmd:_ a system command that isn't meant to be called by users.
+* **deprecated-since:** the Redis version that deprecated the command.
+* **replaced-by:** the alternative for a deprecated command.
+* **history:** an array of historical notes describing changes to the command's behavior or arguments.
+  Each entry is an array itself, made up of two elements:
+  1. The Redis version that the entry applies to.
+  2. The description of the change.
+* **arguments:** an array of maps that describe the command's arguments.
+  Please refer to the [Redis command arguments][td] page for more information.
 
-The Redis version in which the command was added.
-
-## group
-
-The functional group to which the command belongs. Possible values:
-
- - generic
- - string
- - list
- - set
- - sorted-set
- - hash
- - pubsub
- - transactions
- - connection
- - server
- - scripting
- - hyperloglog
- - cluster
- - sentinel
- - geo
- - stream
- - bitmap
- - module
-
-## complexity
-
-A short explanation about the command's time complexity.
-
-## doc-flags
-
-An @array-reply of flags that are relevant for documentation purposes. Possible values:
-
- - deprecated: the command is deprecated
- - syscmd: a system command that isn't meant to be called by users
-
-## deprecated-since
-
-For deprecated commands, this is the Redis version from which the command is deprecated.
-
-## replaced-by
-
-For deprecated commands, this is the alternative for the deprecated command.
-
-## history
-
-An @array-reply, where each element is also an @array-reply with two elements:
-
-1. The version when something changed about the command interface
-2. A short description of the change
-
-## arguments
-
-An @array-reply, where each element is a @map-reply describing a command argument.
-
-For more information please check the [command-arguments page][td].
 [td]: /topics/command-arguments
 
+@reply
+
+@array-reply: a map as a flattened array as described above.

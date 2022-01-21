@@ -1,41 +1,209 @@
-Returns @array-reply of details about all Redis commands.
+Return an array with details about all Redis commands.
 
-Cluster clients must be aware of key positions in commands so commands can go to matching instances, but Redis commands vary between accepting one key, multiple keys, or even multiple keys separated by other data.
+Redis Cluster clients must identify the names of keys in commands to route requests to the correct shard.
+Although many commands accept a single key as their first argument, there are exceptions to that rule. 
+You can call `COMMAND` and then keep the mapping between commands and their respective key position rules cached in the client.
 
-Starting from Redis 7.0.0 a more flexible mechanism was introduced in order to help clients finding the key positions.
-For more information please check the [key-specs page][tr].
+Until Redis 6.2, each command had up to a single keys' positions rule defined by the _first key_, _last key_, and _step_ values.
+Redis 7.0 introduced the [Command key specifications][tr], which offers a robust mechanism to help clients identify the command's keys.
+
 [tr]: /topics/key-specs
 
-You can use `COMMAND` to cache a mapping between commands and key positions for
-each command to enable exact routing of commands to cluster instances.
+`COMMAND` also has several subcommands.
+Please refer to its related subcommands for further details.
 
-`COMMAND` has several subcommands:
+The reply is an array with an element per command.
+Each element that describes a Redis command is an array by itself.
+That array consists of a fixed number of elements: 7 for versions less than Redis 7.0 and 10 for higher.
+These are follows:
 
- - `COMMAND INFO`
- - `COMMAND COUNT`
- - `COMMAND GETKEYS`
- - `COMMAND LIST`
- - `COMMAND DOCS`
+1. Name
+1. Arity
+1. Flags
+1. First key
+1. Last key
+1. Step
+1. [ACL categories][ta]
+1. [Tips][tb]
+1. [Key specifications][td]
+1. Subcommands
 
-`COMMAND`'s reply is an @array-reply, where each element is an @array-reply by itself, containing the following elements:
-
- - command name
- - command arity specification
- - nested @array-reply of command flags
- - position of first key in argument list
- - position of last key in argument list
- - step count for locating repeating keys
- - nested @array-reply of [ACL categories][ta]
- - nested @array-reply of [command tips][tb]
- - nested @array-reply of [key-specs][td]
- - nested @array-reply of subcommands
 [ta]: /topics/acl
 [tb]: /topics/command-tips
 [td]: /topics/key-specs
 
-The three elements responsible for determining the position of the keys are referred to as (`first-key`, `last-key`, `key-step`)
+## Name
 
-## Example
+This is the command's name in lowercase.
+
+**Note:**
+Redis command names are case-insensitive.
+
+## Arity
+
+Arity is the number of arguments a command expects.
+It follows a simple pattern:
+
+* A positive integer means a fixed number of arguments.
+* A negative integer means a minimal number of arguments.
+
+Command arity _always includes_ the command's name itself (and the subcommand when applicable).
+
+Examples:
+
+* `GET`'s arity is _2_ since the command only accepts one argument and always has the format `GET _key_`.
+* `MGET`'s arity is _-2_ since the command accepts at least one argument, but possibly multiple ones: `MGET _key1_ [key2] [key3] ...`.
+
+## Flags
+
+Command flags are an array. It can contain the following simple strings (status reply):
+
+* **admin:** the command is an administrative command.
+* **asking:** the command is allowed even during hash slot migration.
+  This flag is relevant in Redis Cluster deployments.
+* **blocking:** the command may block the requesting client.
+* **denyoom**: the command is rejected if the server's memory usage is too high (see the _maxmemory_ configuration directive).
+* **fast:** the command operates in constant or log(N) time.
+  This flag is used for monitoring latency with the `LATENCY` command.
+* **loading:** the command is allowed while the database is loading.
+* **may_replicate:** the command may be replicated to replicas and the AOF.
+* **movablekeys:** the _first key_, _last key_, and _step_ values don't determine all key positions.
+  Clients need to use `COMMAND GETKEYS` or [key specifications][td] in this case.
+  See below for more details.
+* **no_auth:** executing the command doesn't require authentication.
+* **no_async_loading:** the command is denied during asynchronous loading (that is when a replica uses disk-less `SWAPDB SYNC`, and allows access to the old dataset).
+* **no_mandatory_keys:** the command may accept key name arguments, but these aren't mandatory.
+* **no_multi:** the command isn't allowed inside the context of a [transaction](/topics/transactions).
+* **noscript:** the command can't be called from [scripts](/topics/eval-intro) or [functions](/topics/functions-intro).
+* **pubsub:** the command is related to [Redis Pub/Sub](/topics/pubsub).
+* **random**: the command returns random results, which is a concern with verbatim script replication.
+  As of Redis 7.0, this flag is a [command tip][tb].
+* **readonly:** the command doesn't modify data.
+* **sort_for_script:** the command's output is sorted when called from a script.
+* **skip_monitor:** the command is not shown in `MONITOR`'s output.
+* **skip_slowlog:** the command is not shown in `SLOWLOG`'s output.
+  As of Redis 7.0, this flag is a [command tip][tb].
+* **stale:** the command is allowed while a replica has stale data.
+* **write:** the command may modify data.
+
+### Movablekeys
+
+Consider `SORT`:
+
+```
+1) 1) "sort"
+   2) (integer) -2
+   3) 1) write
+      2) denyoom
+      3) movablekeys
+   4) (integer) 1
+   5) (integer) 1
+   6) (integer) 1
+   ...
+```
+
+Some Redis commands have no predetermined key locations or are not easy to find.
+For those commands, the _movablekeys_ flag indicates that the _first key_, _last key_, and _step_ values are insufficient to find all the keys.
+
+Here are several examples of commands that have the _movablekeys_ flag:
+
+* `SORT`: the optional _STORE_, _BY_ and _GET_ modifers are followed by names of keys.
+* `ZUNION`: the _numkeys_ argument specifies the number key name arguments.
+* `MIGRATE`: the keys appear _KEYS_ keyword and only when the second argument is the empty string.
+
+Redis Cluster clients need to use other measures, as follows, to locate the keys for such commands.
+
+You can use the `COMMAND GETKEYS` command and have your Redis server report all keys of a given command's invocation.
+
+As of Redis 7.0, clients can use the [key specifications](#key-specifications) to identify the positions of key names.
+The only commands that require using `COMMAND GETKEYS` are `SORT` and `MIGRATE` for clients that parse keys' specifications.
+
+For more information please refer to the [key specifications page][tr].
+
+## First key
+
+This value identifies the position of the command's first key name argument.
+For most commands, the first key's position is 1.
+Position 0 is always the command name itself.
+
+## last-key
+
+This value identifies the position of the command's last key name argument.
+Redis commands usually accept one, two or multiple number of keys.
+
+Commands that accept a single key have both _first key_ and _last key_ set to 1.
+
+Commands that accept two key name arguments, e.g. `BRPOPLPUSH`, `SMOVE` and `RENAME`, have this value set to the position of their second key.
+
+Multi-key commands that accept an arbitrary number of keys, such as `MSET`, use the value -1.
+
+## Step
+
+This value is the step, or increment, between the _first key_ and _last key_ values where the keys are.
+
+Consider the following two examples:
+
+```
+1) 1) "mset"
+   2) (integer) -3
+   3) 1) write
+      2) denyoom
+   4) (integer) 1
+   5) (integer) -1
+   6) (integer) 2
+   ...
+```
+
+```
+1) 1) "mget"
+   2) (integer) -2
+   3) 1) readonly
+      2) fast
+   4) (integer) 1
+   5) (integer) -1
+   6) (integer) 1
+   ...
+```
+
+The step count allows us to find keys' positions for commands like `MSET`.
+Its syntax is `MSET _key1_ _val1_ [key2] [val2] [key3] [val3]...`, and the keys are at every other position.
+Therefore, unlike `MGET`, which uses a step value of _1_, `MSET` uses _2_.
+
+## ACL categories
+
+This is an array of simple strings that are the ACL categories to which the command belongs.
+Please refer to the [Access Control List][ta] page for more information.
+
+## Command tips
+
+Helpful information about the command.
+To be used by clients/proxies.
+
+Please check the [Command tips][tb] page for more information.
+
+## Key specifications
+
+This is an array consisting of the command's key specifications.
+Each element in the array is a map describing a method for locating keys in the command's arguments.
+
+For more information please check the [key specifications page][td].
+
+## Subcommands
+
+This is an array containing all of the command's subcommands, if any.
+Some Redis commands have subcommands (e.g., the `REWRITE` subcommand of `CONFIG`).
+Each element in the array represents one subcommand and follows the same specifications as those of `COMMAND`'s reply.
+
+@return
+
+@array-reply: a nested list of command details.
+
+The order of commands in the array is random.
+
+@examples
+
+The following is `COMMAND`'s output for the `GET` command:
+
 ```
 1)  1) "get"
     2) (integer) 2
@@ -67,178 +235,5 @@ The three elements responsible for determining the position of the keys are refe
                 5) "limit"
                 6) (integer) 0
    10) (empty array)
-```
-
-## name
-
-Command name is the command returned as a lowercase string.
-
-## arity
-
-Command arity follows a simple pattern:
-
-  - positive if command has fixed number of required arguments.
-  - negative if command has minimum number of required arguments, but may have more.
-
-Command arity _includes_ counting the command name itself.
-
-Examples:
-
-  - `GET` arity is 2 since the command only accepts one argument and always has the format `GET _key_`.
-  - `MGET` arity is -2 since the command accepts at a minimum one argument, but up to an unlimited number: `MGET _key1_ [key2] [key3] ...`.
-
-Also note with `MGET`, the -1 value for "last key position" means the list
-of keys may have unlimited length.
-
-## flags
-
-Command flags is @array-reply containing one or more status replies:
-  - `write`: command may result in modifications
-  - `readonly`: command will never modify keys
-  - `denyoom`: reject command if currently out of memory
-  - `admin`: server admin command
-  - `pubsub`: pubsub-related command
-  - `noscript`: deny this command from scripts
-  - `random`: command has random results, dangerous for scripts (converted to a [command tip][tb] since Redis 7.0)
-  - `sort_for_script`: if called from script, sort output (converted to a [command tip][tb] since Redis 7.0)
-  - `loading`: allow command while database is loading
-  - `stale`: allow command while replica has stale data
-  - `skip_monitor`: do not show this command in `MONITOR`
-  - `skip_monitor`: do not show this command in `SLOWLOG`
-  - `asking`: cluster related - accept even if importing
-  - `fast`: command operates in constant or log(N) time. Used for latency monitoring.
-  - `no_auth`: command does not require authentication
-  - `may_replicate`: command may replicate to replicas/AOF
-  - `no_mandatory_keys`: command may take key arguments, but none of them is mandatory
-  - `no_async_loading`: deny during async loading (when a replica uses diskless sync swapdb, and allows access to the old dataset)
-  - `no_multi`: command is not allowed inside `MULTI`/`EXEC`
-  - `blocking`: command may block the client
-  - `movablekeys`: The (`first-key`, `last-key`, `key-step`) scheme cannot determine all key positions. Client needs to use `COMMAND GETKEYS` or [key-specs][td] (starting from Redis 7.0.0).
-
-### movablekeys
-
-```
-1) 1) "sort"
-   2) (integer) -2
-   3) 1) write
-      2) denyoom
-      3) movablekeys
-   4) (integer) 1
-   5) (integer) 1
-   6) (integer) 1
-   ...
-```
-
-Some Redis commands have no predetermined key locations, or they are not easy to find.
-For those commands, the `movablekeys` flag is added to the command flags @array-reply,
-which denotes that the (`first-key`, `last-key`, `key-step`) fields are insufficient to find all the keys,
-and Cluster clients needs to user other measures which are described below to locate them.
-
-Here are a few examples of commands that are marked with `movablekeys`:
-  - `SORT` - optional `STORE` key, optional `BY` weights, optional `GET` keys
-  - `ZUNION` -  keys stop after `numkeys` count arguments
-  - `ZUNIONSTORE` -  keys stop after `numkeys` count arguments
-  - `ZINTER` - keys stop after `numkeys` count arguments
-  - `ZINTERSTORE` -  keys stop after `numkeys` count arguments
-  - `MIGRATE` - keys start after the `KEYS` keyword (if the second argument is en empty string)
-  - `EVAL` - keys stop after `numkeys` count arguments
-  - `EVALSHA` - keys stop after `numkeys` count arguments
-
-Also see `COMMAND GETKEYS` for getting your Redis server tell you where keys
-are in any given command.
-
-Starting from Redis 7.0, clients can use the `key-specs` section in the additional information section in order to deduce key positions.
-The only two commands which still require using `COMMAND GETKEYS` are `SORT` and `MIGRATE` (assuming the client can parse and uses the `key-specs` section).
-
-For more information please check the [key-specs page][tr].
-
-## first-key
-
-For most commands the first key is position 1.  Position 0 is
-always the command name itself.
-
-## last-key
-
-Redis commands usually accept one key, two keys, or an unlimited number of keys.
-
-If a command accepts one key, the first key and last key positions is 1.
-
-If a command accepts two keys (e.g. `BRPOPLPUSH`, `SMOVE`, `RENAME`, ...) then the
-last key position is the location of the last key in the argument list.
-
-If a command accepts an unlimited number of keys, the last key position is -1.
-
-## key-step
-
-<table style="width:50%">
-<tr><td>
-<pre>
-<code>1) 1) "mset"
-   2) (integer) -3
-   3) 1) write
-      2) denyoom
-   4) (integer) 1
-   5) (integer) -1
-   6) (integer) 2
-   ...
-</code>
-</pre>
-</td>
-<td>
-<pre>
-<code>1) 1) "mget"
-   2) (integer) -2
-   3) 1) readonly
-      2) fast
-   4) (integer) 1
-   5) (integer) -1
-   6) (integer) 1
-   ...
-</code>
-</pre>
-</td></tr>
-</table>
-
-Key step count allows us to find key positions in commands
-like `MSET` where the format is `MSET _key1_ _val1_ [key2] [val2] [key3] [val3]...`.
-
-In the case of `MSET`, keys are every other position so the step value is 2.  Compare
-with `MGET` above where the step value is just 1.
-
-## ACL Categories
-
-Available starting from Redis 6.0.0
-
-For more information please check the [ACL page][ta].
-
-## Command tips
-
-Available starting from Redis 7.0.0
-
-Helpful information about the command, to be used by clients/proxies.
-
-For more information please check the [command tips page][tb].
-
-## Key specs
-
-Available starting from Redis 7.0.0
-
-An @array-reply, where each element is a @map-reply describing a method to locate keys within the arguments.
-
-For more information please check the [key-specs page][td].
-
-## Subcommands
-
-Some commands have subcommands (Example: `REWRITE` is a subcommand of `CONFIG`).
-This is an @array-reply, with the same format and specification of `COMMAND`'s reply.
-
-@return
-
-@array-reply: nested list of command details. Commands are returned
-in random order.
-
-@examples
-
-```cli
-COMMAND
+...
 ```

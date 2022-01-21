@@ -1,64 +1,94 @@
-# Command tips
+# Redis command tips
 
-An @array-reply of strings, command tips are meant to provide additional information about commands for clients and proxies.
-This infromation should help clients to determine how to handle this command when Redis is in clustering mode.
-Unlike the command flags (the third element in `COMMAND`'s reply), which are internal in nature (Redis itself uses them internally), command tips are just exposed via `COMMAND` and Redis does not use them.
+Command tips are an array of strings.
+These provide Redis clients with additional information about the command.
+The information can instruct Redis Cluster clients as to how the command should be executed and its output processed in a clustered deployment.
 
-The tips are arbitrary strings, but in order to create common conventions, here is a list of suggested tips:
+Unlike the command's flags (see the 3rd element in `COMMAND`'s reply), which are strictly internal to the server's operation, tips don't serve any purpose other than being reported to clients.
 
-- **nondeterministic-output**
-- **nondeterministic-output-order**
-- **request_policy:<policy>**
-- **response_policy:<policy>**
+Command tips are arbitrary strings.
+However, the following sections describe proposed tips and demonstrate the conventions they are likely to adhere to.
 
-### nondeterministic-output
+## nondeterministic-output
 
-The output is not deterministic, that is, the same command with the same arguments, with the same key-space, may have different results.
-The different results may be caused by the random nature of the command  (e.g. `RANDOMKEY`, `SPOP`), timing of the command (e.g. `TTL`) or general non-keyspace differences in the server state (e.g. `INFO`, `CLIENT LIST`).
+This tip indicates that the command's output isn't deterministic.
+That means that calls to the command may yield different results with the same arguments and data.
+That difference could be the result of the command's random nature (e.g., `RANDOMKEY` and `SPOP`);the call's timing (e.g. `TTL`); or generic differences that aren't key-space related of the server state (e.g. `INFO` and `CLIENT LIST`).
 
-Before Redis 7.0 this tip was the command flag `random`.
+**Note:**
+prior to Redis 7.0, this tip was the _random_ command flag.
 
-### nondeterministic-output-order
+## nondeterministic-output-order
 
-The output is deterministic, but comes in nondeterministic order (e.g. `HGETALL`, `SMEMBERS`)
+The existence of this tip indicates that the command's output is deterministic, but its ordering is random (e.g. `HGETALL` and `SMEMBERS`).
 
-Before Redis 7.0 this tip was the command flag `sort_for_script`.
+**Note:**
+prior to Redis 7.0, this tip was the _sort_for_script_ flag.
 
-### request_policy
+## request_policy
 
-This tip should help clients to determine to which shard(s) to send the command in clustering mode.
-The default behavior (i.e. if the `request_policy` tip is absent) devides into two cases:
-1. The command has key(s). In this case the command goes to a single shard, determined by the hslot(s) of the key(s)
-2. The command doesn't have key(s). In this case the command can be sent to any arbitrary shard.
+This tip can help clients determine the shard(s) to send the command in clustering mode.
+The default behavior a client should implement for commands without the _request_policy_ tip is as follows:
 
-If the client needs to behave differently we must specify an option for `request_policy`:
-- **all_shards** - Forward to all master shards (e.g. `DBSIZE`). Usually used on key-less command. The operation is atomic on all shards.
-- **all_nodes** - Forward to all nodes, masters and replicas, (e.g. `CONFIG SET`). Usually used on key-less command. The operation is atomic on all shards.
-- **multi_shard** - Forward to several shards, used by multi-key commands where each key is handled separately (`MSET`, `MGET`, `DEL`, etc.). i.e. unlike `SUNIONSTORE` which must be sent to one shard.
-- **special** - Indicates a non-trivial form of request policy. Example: `SCAN`
+1. The command doesn't accept key name arguments: the client can execute the command on an arbitrary shard.
+1. For commands that accept one or more key name arguments: the client should route the command to a single shard, as determined by the hash slot of the input keys.
 
-### response_policy
+In cases where the client should adopt a behavior different than the default, the _request_policy_ tip can be one of:
 
-This tip should help clients to know how to aggregate the replies of a command that was sent to multiple shards in clustering mode.
-The default behavior (i.e. if the `request_policy` tip is absent) applies only when the reply is some sort of collection (array, set, map) and it devides into two cases:
-1. The command doesn't have key(s). In this case we append the array replies in random order (e.g. `KEYS`)
-2. The command has key(s).  In this case we append the array replies in the original order of the request's keys (e.g. `MGET`, but not `MSET` and `DEL` which don't return an array)
+- **all_nodes:** the client should execute the command on all nodes - masters and replicas alike.
+  An example is the `CONFIG SET` command. 
+  This tip is in-use by commands that don't accept key name arguments.
+  The command operates atomically per shard.
+* **all_shards:** the client should execute the command on all master shards (e.g., the `DBSIZE` command).
+  This tip is in-use by commands that don't accept key name arguments.
+  The command operates atomically per shard.
+- **multi_shard:** the client should execute the command on several shards.
+  The shards that execute the command are determined by the hash slots of its input key name arguments.
+  Examples for such commands include `MSET`, `MGET` and `DEL`.
+  However, note that `SUNIONSTORE` isn't considered as _multi_shard_ because all of its keys must belong to the same hash slot.
+- **special:** indicates a non-trivial form of the client's request policy, such as the `SCAN` command.
 
-If the reply is not a collection, or if the client need to behave differently we must specify an option for `response_policy`:
-- **one_succeeded** - Return success if at least one shard didn't reply with an error. The client should reply with the first reply it gets which isn't an error, or with any of the errors, if they all responded with errors. Example: `SCRIPT KILL` (usually the script is loaded to all shards, but runs only on one. `SCRIPT KILL` is sent to all shards)
-- **all_succeeded** - Return success if none of the shards replied with an error. if one replied with an error, return that error (either one of the errors), if they all succeeded, return the successful reply (either one). Examples: `CONFIG SET`, `SCRIPT FLUSH`, `SCRIPT LOAD`
-- **agg_logical_and** - Preform a logical AND on the replies (replies must be numerical, usually just 0/1). Example: `SCRIPT EXISTS`, which returns an array of 0/1 indicating which of the provided scripts exist. The aggregated response will be 1 iff all shards have the script.
-- **agg_logical_or** - Preform a logical OR on the replies (replies must be numerical, usually just 0/1).
-- **agg_min** - Perform a minimum on replies (replies must be numerical). Example: `WAIT` (returns the lowest number among the ones the shards' replies).
-- **agg_max** - Perform a maximum on replies (replies must be numerical).
-- **agg_sum** - Sums the integer values returned by the shards. Example: `DBSIZE`
-- **spceial** - Indicates a non-trivial form of reply policy. Example: `INFO`
+## response_policy
 
+This tip can help clients determine the aggregate they need to compute from the replies of multiple shards in a cluster.
+The default behavior for commands without a _request_policy_ tip only applies to replies with of nested types (i.e., an array, a set, or a map).
+The client's implementation for the default behavior should be as follows:
+
+1. The command doesn't accept key name arguments: the client can aggregate all replies within a single nested data structure.
+For example, the array replies we get from calling `KEYS` against all shards.
+These should be packed in a single in no particular order.
+1. For commands that accept one or more key name arguments: the client needs to retain the same order of replies as the input key names.
+For example, `MGET`'s aggregated reply.
+
+The _response_policy_ tip is set for commands that reply with scalar data types, or when it's expected that clients implement a non-default aggregate.
+This tip can be one of:
+
+* **one_succeeded:** the clients should return success if at least one shard didn't reply with an error.
+  The client should reply with the first non-error reply it obtains.
+  If all shards return an error, the client can reply with any one of these.
+  For example, consider a `SCRIPT KILL` command that's sent to all shards.
+  Although the script should be loaded in all of the cluster's shards, the `SCRIPT KILL` will typically run only on one at a given time.
+* **all_succeeded:** the client should return successfully only if there are no error replies.
+  Even a single error reply should disqualify the aggregate and be returned.
+  Otherwise, the client should return one of the non-error replies.
+  As an example, consider the `CONFIG SET`, `SCRIPT FLUSH` and `SCRIPT LOAD` commands.
+* **agg_logical_and:** the client should return the result of a logical _AND_ operation on all replies (only applies to integer replies, usually from commands that return either _0_ or _1_).
+  Consider the `SCRIPT EXISTS` command as an example.
+  It returns an array of _0_'s and _1_'s that denote the existence of its given SHA1 sums in the script cache.
+  The aggregated response should be _1_ only when all shards had reported that a given script SHA1 sum is in their respective cache.
+* **agg_logical_or:** the client should return the result of a logical _AND_ operation on all replies (only applies to integer replies, usually from commands that return either _0_ or _1_).
+* **agg_min:** the client should return the minimal value from the replies (only applies to numerical replies).
+  The aggregate reply from a cluster-wide `WAIT` command, for example, should be the minimal value (number of synchronized replicas) from all shards.
+* **agg_max:** the client should return the maximal value from the replies (only applies to numerical replies).
+* **agg_sum:** the client should return the sum of replies (only applies to numerical replies).
+  Example: `DBSIZE`.
+* **special:** this type of tip indicates a non-trivial form of reply policy.
+  `INFO` is an excellent example of that.
 
 ## Example
 
 ```
-127.0.0.1:6379> command info ping
+redis> command info ping
 1)  1) "ping"
     2) (integer) -1
     3) 1) fast
@@ -71,5 +101,4 @@ If the reply is not a collection, or if the client need to behave differently we
        2) "response_policy:all_succeeded"
     9) (empty array)
    10) (empty array)
-
 ```

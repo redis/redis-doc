@@ -1,134 +1,181 @@
-# Key specifications
+# Command key specifications
 
-A key spec is a map, containing information about the indices of keys within the argument array.
-It is a more flexible and powerful tool to describe key potions than the old (first-key, last-key, key-step) scheme.
-Before key-specs, there was no way for a client library or application to know the key  indices for commands such as ZUNIONSTORE/EVAL and others with "numkeys", since COMMAND INFO returns no useful info for them.
-For cluster-aware redis clients, this requires to 'patch' the client library code specifically for each of these commands or to resolve each execution of these commands with COMMAND GETKEYS.
+Many of the commands in Redis accept key names as input arguments.
+The 8th element in the reply of `COMMAND` (and `COMMAND INFO`) is an array that consists of the command's key specifications.
 
-The field "key-specs", found inside the 8th element of the command info array, if exists, holds an array of key specs. The array may be empty, which indicates the command doesn't take any key arguments. Otherwise, it contains one or more key-specs, each one may leads to the discovery of 0 or more key arguments.
+A _key specification_ describes a rule for extracting the names of one or more keys from the arguments of a given command.
+Key specifications provide a robust and flexible mechanism, compared to the _first key_, _last key_ and _step_ scheme employed until Redis 7.0.
+Before introducing these specifications, Redis clients had no trivial programmatic means to extract key names for all commands.
+Cluster-aware Redis clients had to have the keys' extraction logic hard-coded in the cases of commands such as `EVAL` and `ZUNIONSTORE` that rely on a _numkeys_ argument or `SORT` and its many clauses.
+Alternatively, the `COMMAND GETKEYS` can be used to achieve a similar extraction effect but at a higher latency.
 
-A client library that doesn't support this feature will keep using the (first-key, last-key, key-step) and `movablekeys` flag which remain unchanged.
+A Redis client isn't obligated to support key specifications.
+It can continue using the legacy _first key_, _last key_ and _step_ scheme along with the [_movablekeys_ flag](/commands/command#flags) that remain unchanged.
 
-A client library that supports this feature needs only to look at the key-specs array. If it finds an unrecognized spec, it must resort to using COMMAND GETKEYS if it wishes to get all key name arguments, but if all it needs is one key in order to know which cluster node to use, then maybe another spec (if the command has several) can supply that, and there's no need to use GETKEYS.
+However, a Redis client that implements key specifications support can consolidate most of its keys' extraction logic.
+Even if the client encounters an unfamiliar type of key specification, it can always revert to the `COMMAND GETKEYS` command.
+That said, most cluster-aware clients only require a single key name to perform correct command routing, so it is possible that although a command features one unfamiliar specification, its other specification may still be usable by the client.
 
-There are two steps to retrieve the key arguments:
- - `begin_search` (BS): in which index should we start seacrhing for keys?
- - `find_keys` (FK): relative to the output of BS, how can we will which args are keys?
+Key specifications are maps with three keys:
 
-In addition to the two steps, each key-spec has a list of flags.
+1. **begin_search:**: the starting index for keys' extraction.
+2. **find_keys:** the rule for identifying the keys relative to the BS.
+3. **flags**: indicate the type of data access.
 
-## begin_search (BS)
+## begin_search
 
-There are two types of BS:
+The _begin_search_ value of a specification informs the client of the extraction's beginning.
+The value is a map.
+There are three types of _begin_search_:
 
- - `index`: key args start at a constant index
- - `keyword`: key args start just after a specific keyword
-
-Each has one or more nested fields
+1. **index:** key name arguments begin at a constant index.
+2. **keyword:** key names start after a specific keyword (token).
+3. **unknown:** an unknown type of specification - see the [incomplete flag section](#incomplete-flag) for more details.
 
 ### index
 
-`index` has only one nested field, called `index` as well.
- - `index`: The index from which we start the search for keys.
+The _index_ type of _begin_search_ indicates that input keys appear at a constant index.
+It is a map under the _spec_ key with a single key:
+
+1. **index:** the 0-based index from which the client should start extracting key names.
 
 ### keyword
 
-`keyword` has two nested fields.
- - `keyword`: The keyword that indicates the beginning of key args.
- - `startfrom`: An index in argv from which to start searching. 
-                Can be negative, which means start search from the end, in reverse
-                (Example: -2 means to start in reverse from the panultimate arg)
+The _keyword_ type of _begin_search_ means a literal token precedes key name arguments.
+It is a map under the _spec_ with two keys:
 
-Examples:
-- `SET` has start_search of type `index` with value `1`
-- `XREAD` has start_search of type `keyword` with value `[“STREAMS”,1]`
-- `MIGRATE` has start_search of type `keyword` with value `[“KEYS”,-2]`
+1. *keyword:** the keyword (token) that marks the beginning of key name arguments.
+2. *startfrom:** an index to the arguments array from which the client should begin searching. 
+  This can be a negative value, which means the search should start from the end of the arguments' array, in reverse order.
+  For example, _-2_'s meaning is to search reverse from the penultimate argument.
 
-## find_keys (FK)
+More examples of the _keyword_ search type include:
 
-There are two kinds of FK:
+* `SET` has a _begin_search_ specification of type _index_ with a value of _1_.
+* `XREAD` has a _begin_search_ specification of type _keyword_ with the values _"STREAMS"_ and _1_ as _keyword_ and _startfrom_, respectively.
+* `MIGRATE` has a _start_search_ specification of type _keyword_ with the values of _"KEYS"_ and _-2_.
 
- - `range`: keys end at a specific index (or relative to the last argument)
- - `keynum`: there's an arg that contains the number of key args somewhere before the keys themselves
+## find_keys
+
+The _find_keys_ value of a key specification tells the client how to continue the search for key names.
+_find_keys_ has three possible types:
+
+1. **range:** keys stop at a specific index or relative to the last argument.
+2. **keynum:** an additional argument specifies the number of input keys.
+3. **unknown:** an unknown type of specification - see the [incomplete flag section](#incomplete-flag) for more details.
 
 ### range
 
-`range` has three nested fields:
- - `lastkey`: Relative index (to the result of the `begin_search` step) where the last key is.
-              Can be negative, in which case it's not relative. -1 indicating till the last argument,
-              -2 one before the last and so on.
- - `keystep`: Amount of arguments should we skip after finding a key, in order to find the next one.
- - `limit`: If lastkey is -1, we use limit to stop the search by a factor. 0 and 1 mean no limit.
-            2 means 1/2 of the remaining args, 3 means 1/3, and so on.
+The _range_ type of _find_keys_ is a map under the _spec_ key with three keys:
+
+1. **lastkey:** the index, relative to _begin_search_, of the last key argument.
+  This can be a negative value, in which case it isn't relative.
+  For example, _-1_ indicates to keep extracting keys until the last argument, _-2_ until one before the last, and so on.
+2. **keystep:** the number of arguments that should be skipped, after finding a key, to find the next one.
+3. **limit:** if _lastkey_ is has the value of _-1_, we use the _limit_ to stop the search by a factor.
+  _0_ and _1_ mean no limit.
+  _2_ means half of the remaining arguments, 3 means a third, and so on.
 
 ### keynum
 
-`keynum` has three nested fields:
+The _keynum_ type of _find_keys_ is a map under the _spec_ key with three keys:
 
- - `keynumidx`: Relative index (to the result of the begin_search step) where the arguments that
-                contains the number of keys is.
- - `firstkey`: Relative index (to the result of the begin_search step) where the first key is
-               found (Usually it's just after keynumidx, so it should be keynumidx+1)
- - `keystep`: How many args should we skip after finding a key, in order to find the next one.
+* **keynumidx:** the index, relative to _begin_search_, of the argument containing the number of keys.
+* **firstkey:** the index, relative to _begin_search_, of the first key.
+  This is usually the next argument after _keynumidx_, and its value, in this case, is greater by one.
+* **keystep:** Tthe number of arguments that should be skipped, after finding a key, to find the next one.
 
 Examples:
-- `SET` has `range` of `[0,1,0]`
-- `MSET` has `range` of `[-1,2,0]`
-- `XREAD` has `range` of `[-1,1,2]`
-- `ZUNION` has `start_search` of type `index` with value `1` and `find_keys` of type `keynum` with value `[0,1,1]`
-- `AI.DAGRUN` has `start_search` of type `keyword` with value `[“LOAD“,1]` and `find_keys` of type `keynum` with value `[0,1,1]` (see https://oss.redislabs.com/redisai/master/commands/#aidagrun)
 
-Note: this solution is not perfect as the module writers can come up with anything, but at least we will be able to find the key args of the vast majority of commands.
-If one of the above specs can’t describe the key positions, the module writer can always fall back to the `COMMAND GETKEYS` option.
+* The `SET` command has a _range_ of _0_, _1_ and _0_.
+* The `MSET` command has a _range_ of _-1_, _2_ and _0_.
+* The `XREAD` command has a _range_ of _-1_, _1_ and _2_.
+* The `ZUNION` command has a _start_search_ type _index_ with the value _1_, and _find_keys_ of type _keynum_ with values of _0_, _1_ and _1_.
+* The [`AI.DAGRUN`](https://oss.redislabs.com/redisai/master/commands/#aidagrun) command has a _start_search_ of type _keyword_ with values of _"LOAD"_ and _1_, and _find_keys_ of type _keynum_ with values of _0_, _1_ and _1_.
+
+**Note:**
+this isn't a perfect solution as the module writers can come up with anything.
+However, this mechanism should allow the extraction of key name arguments for the vast majority of commands.
 
 ## flags
 
-Each key-spec provides some flags that provide additional infomration about the keys found by that key-spec.
-These flags can be split into 3 grouops.
+A key specification can have additional flags that provide more details about the key.
+These flags are divided into three groups, as described below.
 
-### How the Redis command is handling these keys
+### Access type flags
 
-The following refer what the command actually does with the value or metadata of the key,
-and not necessarily the user data or how it affects it.
-Each key-spec may must have exaclty one of these.
-Any operation that's not distinctly deletion, overwrite or read-only would be marked as RW.
+The following flags declare the type of access the command uses to a key's value or its metadata.
+A key's metadata includes its LRU/LFU counters, type, and cardinality.
+These flags do not relate to the reply sent back to the client.
 
- - `RO`: Read-Only - Reads the value of the key, but doesn't necessarily returns it.
- - `RW`: Read-Write - Modifies the data stored in the value of the key or its metadata.
- - `OW`: Overwrite - Overwrites the data stored in the value of the key.
- - `RM`: Deletes the key.
+Every key specification has precisely one of the following flags:
+
+* **RW:** the read-write flag.
+  The command modifies the data stored in the value of the key or its metadata.
+  This flag marks every operation that isn't distinctly a delete, an overwrite, or read-only.
+* **RO:** the read-only flag.
+  The command only reads the value of the key (although it doesn't necessarily return it).
+* **OW:** the overwrite flag.
+  The command overwrites the data stored in the value of the key.
+* **RM:** the remove flag.
+  The command deletes the key.
  
-### The logical user operation done on the key
+### Logical operation flags
 
-The follwing refer to user data inside the value of the key, not the metadata like LRU, type,
-cardinality. It refers to the logical operation on the user's data (actual input strings / TTL),
-being used / returned / copied / changed.
-It doesn't refer to modification or returning of metadata (like type, count, presence of data).
-Any write that's not INSERT or DELETE, would be an UPADTE.
-Each key-spec may have one of the writes with or without access, or none:
+The following flags declare the type of operations performed on the data stored as the key's value and its TTL (if any), not the metadata.
+These flags describe the logical operation that the command executes on data, driven by the input arguments.
+The flags do not relate to modifying or returning metadata (such as a key's type, cardinality, or existence).
 
- - `access`: Returns, copies or uses the user data from the value of the key.
- - `update`: Updates data to the value, new value may depend on the old value.
- - `insert`: Adds data to the value with no chance of modification or deletion of existing data.
- - `delete`: Explicitly deletes some content from the value of the key.
-								  
-### Other flags
+Every key specification may include the following flag:
 
- - `channel`: This key-spec is actually not about keys, but rather about shard publish channel, see `SPUBLISH`.
- - `incomplete`: Explained below.
+* **access:** the access flag.
+  This flag indicates that the command returns, copies, or somehow uses the user's data that's stored in the key.
 
-### The `incomplete` flag
+In addition, the specification may include precisely one of the following:
 
-Some keys cannot be found easily (`KEYS` in `MIGRATE`: Imagine the argument for `AUTH` is the string "KEYS" - we will start searching in the wrong index). 
-Key-specs may be incomplete (`incomplete` flag) but we never report false information (assuming the command syntax is correct). 
-For `MIGRATE` we start searching from the end - `startfrom=-1` - and if one of the keys is actually called "keys" we will report only a subset of all keys - hence the `incomplete` flag.
-Some `incomplete` specs can be completely empty (i.e. UNKNOWN `begin_search`) which should tell the client that `COMMAND GETKEYS` (or any other way to get the keys) must be used (Example: For `SORT` there is no way to describe the `STORE` keyword spec, because the word "STORE" can appear anywhere in the command).
+* **update:** the update flag.
+  The command updates the data stored in the key's value.
+  The new value may depend on the old value.
+  This flag marks every operation that isn't distinctly an insert or a delete.
+* **insert:** the insert flag.
+  The command only adds data to the value; existing data isn't modified or deleted.
+* **delete:** the delete flag.
+  The command explicitly deletes data from the value stored at the key.
 
-The only commands with `incomplete` specs are `SORT` and `MIGRATE`
+### Miscellaneous flags
+
+Key specifications may have the following flags:
+
+* **channel:** this flag indicates that the specification isn't about keys at all.
+  Instead, the specification relates to the name of a sharded Pub/Sub channel.
+  Please refer to the `SPUBLISH` command for further details about sharded Pub/Sub.
+* **incomplete:** this flag is explained in the following section.
+
+### incomplete
+
+Some commands feature exotic approaches when it comes to specifying their keys, which makes extraction difficult.
+Consider, for example, what would happen with a call to `MIGRATE` that includes the literal string _"KEYS"_ as an argument to its _AUTH_ clause.
+Our key specifications would miss the mark, and extraction would begin at the wrong index.
+
+Thus, we recognize that key specifications are incomplete and may fail to extract all keys.
+However, we assure that even incomplete specifications never yield the wrong names of keys, providing that the command is syntactically correct.
+
+In the case of `MIGRATE`, the search begins at the end (_startfrom_ has the value of _-1_).
+If and when we encounter a key named _"KEYS"_, we'll only extract the subset of the key name arguments after it.
+That's why `MIGRATE` has the _incomplete_ flag in its key specification.
+
+Another case of incompleteness is the `SORT` command.
+Here, the _begin_search_ and _find_keys_ are of type _unknown_.
+The client should revert to calling the `COMMAND GETKEYS` command to extract key names from the arguments, short of implementing it natively.
+The difficulty arises, for example, because the string _"STORE"_ is both a keyword (token) and a valid literal argument for `SORT`.
+
+**Note:**
+the only commands with _incomplete_ key specifications are `SORT` and `MIGRATE`.
+We don't expect the addition of such commands in the future.
 
 ## Examples
 
-### SET
+### `SET`'s key specifications
 
 ```
   1) 1) "flags"
@@ -153,7 +200,7 @@ The only commands with `incomplete` specs are `SORT` and `MIGRATE`
            6) (integer) 0
 ```
 
-### ZUNION
+### `ZUNION`'s key specifications
 
 ```
   1) 1) "flags"
@@ -176,70 +223,3 @@ The only commands with `incomplete` specs are `SORT` and `MIGRATE`
            5) "keystep"
            6) (integer) 1
 ```
-
-### GEORADIUS
-
-```
-  1) 1) "flags"
-     2) 1) RO
-        2) access
-     3) "begin-search"
-     4) 1) "type"
-        2) "index"
-        3) "spec"
-        4) 1) "index"
-           2) (integer) 1
-     5) "find-keys"
-     6) 1) "type"
-        2) "range"
-        3) "spec"
-        4) 1) "lastkey"
-           2) (integer) 0
-           3) "keystep"
-           4) (integer) 1
-           5) "limit"
-           6) (integer) 0
-  2) 1) "flags"
-     2) 1) OW
-        2) update
-     3) "begin-search"
-     4) 1) "type"
-        2) "keyword"
-        3) "spec"
-        4) 1) "keyword"
-           2) "STORE"
-           3) "startfrom"
-           4) (integer) 6
-     5) "find-keys"
-     6) 1) "type"
-        2) "range"
-        3) "spec"
-        4) 1) "lastkey"
-           2) (integer) 0
-           3) "keystep"
-           4) (integer) 1
-           5) "limit"
-           6) (integer) 0
-  3) 1) "flags"
-     2) 1) OW
-        2) update
-     3) "begin-search"
-     4) 1) "type"
-        2) "keyword"
-        3) "spec"
-        4) 1) "keyword"
-           2) "STOREDIST"
-           3) "startfrom"
-           4) (integer) 6
-     5) "find-keys"
-     6) 1) "type"
-        2) "range"
-        3) "spec"
-        4) 1) "lastkey"
-           2) (integer) 0
-           3) "keystep"
-           4) (integer) 1
-           5) "limit"
-           6) (integer) 0
-```
-

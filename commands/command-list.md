@@ -1,10 +1,10 @@
-Returns @array-reply of command names in this Redis server.
+Return an array of the server's command names.
 
-The list can be filtered in the following ways:
+You can use the optional _FILTERBY_ modifier to choose one of the following filters:
 
- - **`MODULE module-name`**: get the commands that belong to a module
- - **`ACLCAT category`**: get the commands in a specific ACL category
- - **`PATTERN pattern`**: get the commands that match the given glob-like pattern
+ - **MODULE module-name**: get the commands that belong to the module specified by _module-name_.
+ - **ACLCAT category**: get the commands in the ACL category specified by _category_.
+ - **PATTERN pattern**: get the commands that match the given glob-like _pattern_.
 
 @return
 
