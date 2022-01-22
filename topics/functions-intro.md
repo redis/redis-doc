@@ -351,3 +351,67 @@ And your Redis log file should have lines in it that are similar to:
 20075:M 1 Jan 2022 16:54:01.309 # Only one key name is allowed
 ```
 
+## Function Flags
+
+Looking at the example above, the library introduces 3 functions, `my_hset`, `my_hgetall`, and `my_hlastmodified`. The last 2 function are not perforning any writes, so we should be able to run them using `FCALL_RO` on a `readonly` replica. But if we try to invoke them we will get the following error:
+
+```
+> FCALL_RO my_hgetall 1 myhash
+(error) ERR Can not execute a function with write flag using fcall_ro.
+```
+
+This is happened because, by default, a function can perfrom read and writes commands, and Redis has no way to know what a function might try to do. So Redis assumes the wrost and not allow running the function on the following cases:
+
+1. On readonly replica
+2. Using `EVAL_RO`
+3. If a disc error detacted
+
+It is possible to tell Redis that a function do not perform any writes, is such case Redis will allow running using `FCALL_RO` or on `readonly` replica and enforce no writes are performed (any attempt to call a `write` command will result in an error). This is done using the `no-writes` function flag. In order to specify function flags we need to use the [named arguments](lua-api#redis.register_function_named_args) version of [`redis.register_function`](lua-api#redis.register_function()). We only need to change the function registration part of our code:
+
+```lua
+redis.register_function('my_hset', my_hset)
+redis.register_function{
+  function_name='my_hgetall',
+  callback=my_hgetall,
+  flags={'no-writes'}
+}
+redis.register_function{
+  function_name='my_hlastmodified',
+  callback=my_hlastmodified,
+  flags={'no-writes'}
+}
+```
+
+Now Redis will allows us to run both, `my_hgetall` and `my_hlastmodified`, using `FCALL_RO` and on `readonly` replica:
+
+```
+redis> FCALL_RO my_hgetall 1 myhash
+1) "myfield"
+2) "some value"
+3) "another_field"
+4) "another value"
+redis> FCALL_RO my_hlastmodified 1 myhash
+"1640772721"
+```
+
+### Default behaviure of functions (if no flags is given):
+
+1. Allow functions to read and write
+2. Do not run functions on OOM
+3. Do not run functions on stale replica
+4. Allow functions on cluster
+
+### Supported Function Flags:
+
+* `no-writes` - indicating the function perform no writes which means that it is OK to run it on:
+   * read-only replica
+   * Using FCALL_RO
+   * If disk error detected
+   
+   It will not be possible to run a function in those situations unless the function turns on the `no-writes` flag
+
+* `allow-oom` - indicate that its OK to run the function even if Redis is in OOM state, if the function will not turn on this flag it will not be possible to run it if OOM reached (even if the function declares `no-writes` and even if `fcall_ro` is used). If this flag is set, any command will be allow on OOM (even those that is marked with CMD_DENYOOM). The assumption is that this flag is for advance users that knows its meaning and understand what they are doing, and Redis trust them to not increase the memory usage. (e.g. it could be an INCR or a modification on an existing key, or a DEL command)
+
+* `allow-state` - indicate that its OK to run the function on stale replica, in this case we will also make sure the function is only perform `stale` commands and raise an error if not.
+
+* `no-cluster` - indicate to disallow running the function if cluster is enabled.

@@ -375,7 +375,7 @@ This function triggers a breakpoint when using the Redis Lua debugger](/topics/l
 
 This function prints its argument in the [Redis Lua debugger](/topics/ldb) console.
 
-### <a name="redis.register_function()"></a> `redis.register_function(name, callback)`
+### <a name="redis.register_function()"></a> `redis.register_function`
 
 * Since version: 7.0.0
 * Available in scripts: no
@@ -383,13 +383,71 @@ This function prints its argument in the [Redis Lua debugger](/topics/ldb) conso
 
 This function is only available from the context of the `FUNCTION LOAD` command.
 When called, it registers a function to the loaded library.
-The function expects two input arguments: the function's registered name and its callback.
+The function can be called either with positional argument or with named arguments.
 
-Usage example:
+#### <a name="redis.register_function_pos_args"></a> positional arguments: `redis.register_functio(name, callback)`
+
+The first argument to `redis.register_functio` is a Lua string representing the function name.
+The second argument to `redis.register_functio` is a Lua function.
+
+Error raise on the following cases:
+
+* Wrong number of arguments
+* Wrong argument type
+* Another function with the same name already registered on the current library
+
+Usage Example:
 
 ```
 redis> FUNCTION LOAD Lua mylib "redis.register_function('noop', function() end)"
 ```
+
+#### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_functio{function_name=name, callback=callback, flags={flag1, flag2, ..}. description=description}`
+
+The named argument version except the following named arguments:
+
+* _function\_name_ - Lua string representing the function name
+* _callback_ - Lua function
+* _flags_ - Lua array of strings representing function flags
+* _description_ - Lua string representing the function description
+
+_function\_name_ and _callback_ are mandatory, the other named arguments are option. Error raise on the following cases:
+
+* Missing mandatory arguments
+* Unkown named argument
+* Wrong argument type
+* Unknows flag
+* Another function with the same name already registered on the current library
+
+Usage Example:
+
+```
+redis> FUNCTION LOAD Lua mylib "redis.register_function{function_name='noop', callback=function() end, function, flags={'no-writes'}, description='some desc')"
+```
+
+For more information about function flags refer to [Function Flags](functions-intro#function-flags)
+
+### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
+* Since version: 7.0.0
+* Available in scripts: yes
+* Available in functions: yes
+
+Returns the current redis version as a Lua string in the format `MM.mm.PP` where:
+
+* MM - Redis major version
+* mm - Redis minor version
+* PP - Redis patch version
+
+### <a name="redis.redis_version_num"></a> `redis.REDIS_VERSION_NUM`
+* Since version: 7.0.0
+* Available in scripts: yes
+* Available in functions: yes
+
+Returns the current redis version as a number in the format `0x00MMmmPP` where:
+
+* MM - Redis major version
+* mm - Redis minor version
+* PP - Redis patch version
 
 ## Data type conversion
 
