@@ -76,7 +76,7 @@ The _redis_ singleton is an object instance that's accessible from all scripts.
 It provides the API to interact with Redis from scripts.
 Its description follows [below](#redis_object).
 
-### The _KEYS_ global variable
+### <a name="the-keys-global-variable"></a>The _KEYS_ global variable
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -90,7 +90,7 @@ Scripts **should never** access keys with programmatically-generated names or ba
 The _KEYS_ global variable is available only for [ephemeral scripts](/topics/eval-intro).
 It is pre-populated with all key name input arguments.
 
-### The _ARGV_ global variable
+### <a name="the-argv-global-variable"></a>The _ARGV_ global variable
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -99,7 +99,7 @@ It is pre-populated with all key name input arguments.
 The _ARGV_ global variable is available only in [ephemeral scripts](/topics/eval-intro).
 It is pre-populated with all regular input arguments.
 
-## _redis_ object
+## <a name="redis_object"></a>_redis_ object
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -109,8 +109,7 @@ The Redis Lua execution context always provides a singleton instance of an objec
 The _redis_ instance enables the script to interact with the Redis server that's running it.
 Following is the API provided by the _redis_ object instance.
 
-### `redis.call(command [,arg...])`
-<a href="redis.call()"></a>
+### <a name="redis.call()"></a> `redis.call(command [,arg...])`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -135,8 +134,7 @@ redis> EVAL "return redis.call('ECHO', 'Echo,', 'echo... ', 'eco... ', 'o...')" 
 
 To handle Redis runtime errors use `redis.pcall() instead.
 
-### `redis.pcall(command [,arg...])`
-<a href="redis.pcall()"></a>
+### <a name="redis.pcall()"></a> `redis.pcall(command [,arg...])`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -146,7 +144,7 @@ This function enables handling runtime erros raised by the Redis server.
 The `redis.pcall()` function  behaves exactly like [`redis.call()`](#redis.call()), except that it:
 
 * Always returns a reply.
-* Never throws a runtime exeption, and returns in its stead a [`redis.error_reply`](#redis.error_reply) in case that a runtime exception is thrown by the server.
+* Never throws a runtime exeption, and returns in its stead a [`redis.error_reply`](#redis.error_reply()) in case that a runtime exception is thrown by the server.
 
 The following demonstrates how to use `redis.pcall()` to intercept and handle runtime exceptions from within the context of an ephemeral script.
 
@@ -167,7 +165,7 @@ redis> EVAL "..." 0 hello world
 (error) Something is wrong, but no worries, everything is under control
 ```
 
-### `redis.error_reply(x)`
+### <a name="redis.error_reply()"></a> `redis.error_reply(x)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -194,9 +192,9 @@ redis> EVAL "return redis.error_reply('My very special reply error')" 0
 ```
 
 For returing Redis status replies refer to [`redis.status_reply()`](#redis.status_reply()).
-Refer to the [Lua to Redis type conversions](#lua-to-redis-type-conversions) for returning other response types.
+Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
-### `redis.status_reply(x)`
+### <a name="redis.status_reply()"></a> `redis.status_reply(x)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -224,9 +222,9 @@ TOCK
 ```
 
 For returing Redis error replies refer to [`redis.error_reply()`](#redis.error_reply()).
-Refer to the [Lua to Redis type conversion](#lua-to-redis-type-conversion) for returning other response types.
+Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
-### `redis.sha1hex(x)`
+### <a name="redis.sha1hex()"></a> `redis.sha1hex(x)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -241,7 +239,7 @@ redis> EVAL "return redis.sha1hex('')" 0
 "da39a3ee5e6b4b0d3255bfef95601890afd80709"
 ```
 
-### `redis.log(level, message)`
+### <a name="redis.log()"></a> `redis.log(level, message)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -273,7 +271,7 @@ will produce a line similar to the following in your server's log:
 [32343] 22 Mar 15:21:39 # Something is terribly wrong
 ```
 
-### `redis.setresp(x)`
+### <a name="redis.setresp()"></a> `redis.setresp(x)`
 
 * Since version: 6.0.0
 * Available in scripts: yes
@@ -289,9 +287,9 @@ Here's an example of switching to RESP3 replies:
 redis.setresp(3)
 ```
 
-Please refer to the [Lua to Redis type conversion](#lua-to-redis-type-conversion) for more information about type conversions.
+Please refer to the [Data type conversion](#data-type-conversion) for more information about type conversions.
 
-### `redis.set_repl(x)`
+### <a name="redis.set_repl()"></a> `redis.set_repl(x)`
 
 * Since version: 3.2.0
 * Available in scripts: yes
@@ -346,7 +344,7 @@ redis.call('SET', KEYS[3], ARGV[3])
 
 If you'll run this script by calling `EVAL "..." 3 A B C 1 2 3`, the result will be that only the keys _A_ and _C_ are be created on the replicas and AOF.
 
-### `redis.replicate_commands()`
+### <a name="redis.replicate_commands()"></a> `redis.replicate_commands()`
 
 * Since version: 3.2.0
 * Until version: 7.0.0
@@ -361,7 +359,7 @@ as of Redis v7.0, verbatim script replication is no longer supported.
 The default, and only script replication mode supported, is script effects' replication.
 For more information, please refer to [`Replicating commands instead of scripts`](eval-intro#replicating-commands-instead-of-scripts)
 
-### `redis.breakpoint()`
+### <a name="redis.breakpoint()"></a>  `redis.breakpoint()`
 
 * Since version: 3.2.0
 * Available in scripts: yes
@@ -369,7 +367,7 @@ For more information, please refer to [`Replicating commands instead of scripts`
 
 This function triggers a breakpoint when using the Redis Lua debugger](/topics/ldb).
 
-### `redis.debug(x)`
+### <a name="redis.debug()"></a> `redis.debug(x)`
 
 * Since version: 3.2.0
 * Available in scripts: yes
@@ -377,8 +375,7 @@ This function triggers a breakpoint when using the Redis Lua debugger](/topics/l
 
 This function prints its argument in the [Redis Lua debugger](/topics/ldb) console.
 
-### `redis.register_function(name, callback [,description])`
-<a href="redis.register_function()"></a>
+### <a name="redis.register_function()"></a> `redis.register_function(name, callback)`
 
 * Since version: 7.0.0
 * Available in scripts: no
@@ -486,7 +483,7 @@ As you can see, the float value of _3.333_ gets converted to an integer _3_, the
 [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md) is a newer version of the [Redis Serialization Protocol](/topics/protocol).
 It is available as an opt-in choice as of Redis v6.0.
 
-An executing script may call the [`redis.setresp()` function](#redis.setresp()) during its execution and switch the protocol version that's used for returning replies from Redis' commands (that can be invoked via [`redis.call()`](#redis.call()) or [`redis.pcall()`](#redis.pcalll())).
+An executing script may call the [`redis.setresp()`](#redis.setresp()) function during its execution and switch the protocol version that's used for returning replies from Redis' commands (that can be invoked via [`redis.call()`](#redis.call()) or [`redis.pcall()`](#redis.pcall())).
 
 Once Redis' replies are in RESP3 protocol, all of the [RESP2 to Lua conversion](#resp2-to-lua-type-conversion) rules apply, with the following additions:
 
@@ -544,7 +541,7 @@ In addition, the following external libraries are loaded and accessible to scrip
 * The [_cmsgpack_ library](#cmsgpack-library)
 * The [_bitop_ library](#bitop-library)
 
-### _struct_ library
+### <a name="struct-library"></a> _struct_ library
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -554,12 +551,12 @@ _struct_ is a library for packing and unpacking C-like structures in Lua.
 It provides the following functions:
 
 * [`struct.pack()`](#struct.pack())
-* [`struct.unpack()`](struct.unpack())
-* [`struct.size()`](struct.size())
+* [`struct.unpack()`](#struct.unpack())
+* [`struct.size()`](#struct.size())
 
 All of _struct_'s functions expect their first argument to be a [format string](#struct-formats).
 
-#### _struct_ formats
+#### <a name="struct-formats"></a> _struct_ formats
 
 The following are valid format strings for _struct_'s functions:
 
@@ -580,7 +577,7 @@ The following are valid format strings for _struct_'s functions:
 * `d`: double
 * ` ` (space): ignored
 
-#### `struct.pack(x)`
+#### <a name="struct.pack()"></a> `struct.pack(x)`
 
 This function returns a struct-encoded string from values.
 It accepts a [_struct_ format string](#struct-formats) as its first argument, followed by the values that are to be encoded.
@@ -592,7 +589,7 @@ redis> EVAL "return struct.pack('HH', 1, 2)" 0
 "\x01\x00\x02\x00"
 ```
 
-#### `struct.unpack(x)`
+#### <a name="struct.unpack()"></a> `struct.unpack(x)`
 
 This function returns the decoded values from a struct.
 It accepts a [_struct_ format string](#struct-formats) as its first argument, followed by encoded struct's string.
@@ -606,7 +603,7 @@ redis> EVAL "return { struct.unpack('HH', ARGV[1]) }" 0 "\x01\x00\x02\x00"
 3) (integer) 5
 ```
 
-#### `struct.size(x)`
+#### <a name="struct.size()"></a> `struct.size(x)`
 
 This function returns the size, in bytes, of a struct.
 It accepts a [_struct_ format string](#struct-formats) as its only argument.
@@ -618,7 +615,7 @@ redis> EVAL "return struct.size('HH')" 0
 (integer) 4
 ```
 
-### _cjson_ library
+### <a name="cjson-library"></a> _cjson_ library
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -627,7 +624,7 @@ redis> EVAL "return struct.size('HH')" 0
 The _cjson_ library provides fast [JSON](https://json.org) encoding and decoding from Lua.
 It provides these functions.
 
-#### `cjson.encode(x)`
+#### <a name="cjson.encode()"></a> `cjson.encode(x)`
 
 This function returns a JSON-encoded string for the Lua data type provided as its argument.
 
@@ -638,7 +635,7 @@ redis> EVAL "return cjson.encode({ ['foo'] = 'bar' })" 0
 "{\"foo\":\"bar\"}"
 ```
 
-#### `cjson.decode(x)`
+#### <a name="cjson.decode()"></a> `cjson.decode(x)`
 
 This function returns a Lua data type from the JSON-encoded string provided as its argument.
 
@@ -649,7 +646,7 @@ redis> EVAL "return cjson.decode(ARGV[1])['foo']" 0 '{"foo":"bar"}'
 "bar"
 ```
 
-### _cmsgpack_ library
+### <a name="cmsgpack-library"></a> _cmsgpack_ library
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -658,7 +655,7 @@ redis> EVAL "return cjson.decode(ARGV[1])['foo']" 0 '{"foo":"bar"}'
 The _cmsgpack_ library provides fast [MessagePack](https://msgpack.org/index.html) encoding and decoding from Lua.
 It provides these functions.
 
-#### `cmsgpack.pack(x)`
+#### <a name="cmsgpack.pack()"></a> `cmsgpack.pack(x)`
 
 This function returns the packed string encoding of the Lua data type it is given as an argument.
 
@@ -669,7 +666,7 @@ redis> EVAL "return cmsgpack.pack({'foo', 'bar', 'baz'})" 0
 "\x93\xa3foo\xa3bar\xa3baz"
 ```
 
-#### `cmsgpack.unpack(x)`
+#### <a name="cmsgpack.unpack()"></a> `cmsgpack.unpack(x)`
 
 This function returns the unpacked values from decocoding its input string argument.
 
@@ -682,7 +679,7 @@ redis> EVAL "return cmsgpack.unpack(ARGV[1])" 0 "\x93\xa3foo\xa3bar\xa3baz"
 3) "baz"
 ```
 
-### _bit_ library
+### <a name="bitop-library"></a> _bit_ library
 
 * Since version: 2.8.18
 * Available in scripts: yes
@@ -692,7 +689,7 @@ The _bit_ library provides bitwise operations on numbers.
 Its documentation resides at [Lua BitOp documentation](http://bitop.luajit.org/api.html)
 It provides the following functions.
 
-#### `bit.tobit(x)`
+#### <a name="bit.tobit()"></a> `bit.tobit(x)`
 
 Normalizes a number to the numeric range for bit operations and returns it.
 
@@ -703,7 +700,7 @@ redis> EVAL 'return bit.tobit(1)' 0
 (integer) 1
 ```
 
-#### `bit.tohex(x [,n])`
+#### <a name="bit.tohex()"></a> `bit.tohex(x [,n])`
 
 Converts its first argument to a hex string. The number of hex digits is given by the absolute value of the optional second argument.
 
@@ -714,11 +711,11 @@ redis> EVAL 'return bit.tohex(422342)' 0
 "000671c6"
 ```
 
-#### `bit.bnot(x)`
+#### <a name="bit.bnot()"></a> `bit.bnot(x)`
 
 Returns the bitwise **not** of its argument.
 
-#### `bit.bor(x1 [,x2...])`, `bit.band(x1 [,x2...])` and `bit.bxor(x1 [,x2...])`
+#### <a name="bit.ops"></a> `bit.bnot(x)` `bit.bor(x1 [,x2...])`, `bit.band(x1 [,x2...])` and `bit.bxor(x1 [,x2...])`
 
 Returns either the bitwise **or**, bitwise **and**, or bitwise **xor** of all of its arguments.
 Note that more than two arguments are allowed.
@@ -730,16 +727,16 @@ redis> EVAL 'return bit.bor(1,2,4,8,16,32,64,128)' 0
 (integer) 255
 ```
 
-#### `bit.lshift(x, n)`, `bit.rshift(x, n)` and `bit.arshift(x, n)`
+#### <a name="bit.shifts"></a> `bit.lshift(x, n)`, `bit.rshift(x, n)` and `bit.arshift(x, n)`
 
 Returns either the bitwise logical **left-shift**, bitwise logical **right-shift**, or bitwise **arithmetic right-shift** of its first argument by the number of bits given by the second argument.
 
-#### `bit.rol(x, n)` and `bit.ror(x, n)`
+#### <a name="bit.ro"></a> `bit.rol(x, n)` and `bit.ror(x, n)`
 
 Returns either the bitwise **left rotation**, or bitwise **right rotation** of its first argument by the number of bits given by the second argument.
 Bits shifted out on one side are shifted back in on the other side.
 
-#### `bit.bswap(x)`
+#### <a name="bit.bswap()"></a> `bit.bswap(x)`
 
 Swaps the bytes of its argument and returns it.
 This can be used to convert little-endian 32-bit numbers to big-endian 32-bit numbers and vice versa.

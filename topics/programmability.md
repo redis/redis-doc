@@ -73,7 +73,7 @@ Therefore, when a script executes longer than than the configured timeout, the f
 
 ## Execution under low memory conditions
 
-When memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the script that uses additional memory will cause the script to abort (unless [`redis.pcall`](/topics/lua-api#rediscallpcall) was used).
+When memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the script that uses additional memory will cause the script to abort (unless [`redis.pcall`](/topics/lua-api#redis.pcall()) was used).
 
 However, an exception to the above is when the script's first write command does not use additional memory, as is the case with  (for example, `DEL` and `LREM`).
 In this case, Redis will allow all commands in the script to run to ensure atomicity.

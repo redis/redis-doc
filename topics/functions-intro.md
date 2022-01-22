@@ -133,7 +133,7 @@ to ensure the correct execution of Redis Functions, both in standalone and clust
 Any input to the function that isn't the name of a key is a regular input argument.
 
 Now, let's pretend that our application stores some of its data in Redis Hashes.
-We want an `HSET`-like way to set and update fields in said Hashes and store the last modification time in a new field named _\_last_update\__.
+We want an `HSET`-like way to set and update fields in said Hashes and store the last modification time in a new field named _\_last\_update\__.
 We can implement a function to do all that.
 
 Our function will call `TIME` to get the server's clock reading and update the target Hash with the new fields' values and the modification's timestamp.
@@ -190,7 +190,7 @@ On the other hand, we do want to provide the means to obtain the modification ti
 
 We'll add two new functions to our library to accomplish these objectives:
 
-1. The `my_hgetall` Redis Function will return all fields and their respective values from a given Hash key name, excluding the metadata (i.e., the _\_last_updated\__ field).
+1. The `my_hgetall` Redis Function will return all fields and their respective values from a given Hash key name, excluding the metadata (i.e., the _\_last\_updated\__ field).
 1. The `my_hlastmodified` Redis Function will return the modification timestamp for a given Hash key name.
 
 The library's source code could look something like the following:
@@ -220,7 +220,7 @@ redis.register_function('my_hgetall', my_hgetall)
 redis.register_function('my_hlastmodified', my_hlastmodified)
 ```
 
-While all of the above should straightforward, note that the `my_hgetall` also calls [`redis.setresp(3)`](/topics/lua-api#redis.setresp).
+While all of the above should straightforward, note that the `my_hgetall` also calls [`redis.setresp(3)`](/topics/lua-api#redis.setresp()).
 That means that the function expects [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3) replies after calling `redis.call()`, which, unlike the default RESP2 protocol, provides dictionary (associative arrays) replies.
 Doing so allows the function to delete (or set to `nil` as is the case with Lua tables) specific fields from the reply, and in our case, the _\_last_modified\__ field.
 

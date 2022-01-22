@@ -85,7 +85,7 @@ Any input to the function that isn't the name of a key is a regular input argume
 
 In the example above, both _Hello_ and _Parameterization!_ regular input arguments for the script.
 Because the script doesn't touch any keys, we use the numerical argument _0_ to specify there are no key name arguments.
-The execution context makes arguments available to the script through [_KEYS_](/lua-api#the-keys-global-variable) and [_ARGV_](/lua-api#the-keys-global-variable) global runtime variables.
+The execution context makes arguments available to the script through [_KEYS_](lua-api#the-keys-global-variable) and [_ARGV_](lua-api#the-argv-global-variable) global runtime variables.
 The _KEYS_ table is pre-populated with all key name arguments provided to the script before its execution, whereas the _ARGV_ table serves a similar purpose but for regular arguments.
 
 The following attempts to demonstrate the distribution of input arguments between the scripts _KEYS_ and _ARGV_ runtime global variables:
@@ -102,7 +102,7 @@ redis> EVAL "return { KEYS[1], KEYS[2], ARGV[1], ARGV[2], ARGV[3] }" 2 key1 key2
 
 **Note:**
 as can been seen above, Lua's table arrays are returned as [RESP2 array replies](/topics/protocol#resp-arrays), so it is likely that your client's library will convert it to the native array data type in your programming language.
-Please refer to the rules that govern [ata type conversion](/topics/lua-api#data-type-conversion) for more pertinent information.
+Please refer to the rules that govern [data type conversion](/topics/lua-api#data-type-conversion) for more pertinent information.
 
 ## Interacting with Redis from a script
 
@@ -317,7 +317,7 @@ and undergo a silent lexicographical sorting filter before returning data to Lua
   However, starting with Redis 5.0, this ordering is no longer performed because replicating effects circumvents this type of non-determinism.
   In general, even when developing for Redis 4.0, never assume that certain commands in Lua will be ordered, but instead rely on the documentation of the original command you call to see the properties it provides.
 * Lua's pseudo-random number generation function `math.random` is modified and always uses the same seed for every execution.
-  This means that calling [`math.random`](/topics/lau-api#runtime-libraries) will always generate the same sequence of numbers every time a script is executed (unless `math.randomseed` is used).
+  This means that calling [`math.random`](lua-api#runtime-libraries) will always generate the same sequence of numbers every time a script is executed (unless `math.randomseed` is used).
 
 All that said, you can still use commands that write and random behavior with a simple trick.
 Imagine that you want to write a Redis script that will populate a list with N random integers.
