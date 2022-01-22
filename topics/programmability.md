@@ -70,17 +70,3 @@ Therefore, when a script executes longer than than the configured timeout, the f
 * It starts accepting commands again from other clients but will reply with a BUSY error to all the clients sending normal commands. The only commands allowed in this state are `SCRIPT KILL`, `FUNCTION KILL`, and `SHUTDOWN NOSAVE`.
 * It is possible to terminate a script that only executes read-only commands using the `SCRIPT KILL` and `FUNCTION KILL` commands. These commands do not violate the scripting semantic as no data was written to the dataset by the script yet.
 * If the script had already performed even a single write operation, the only command allowed is `SHUTDOWN NOSAVE` that stops the server without saving the current data set on disk (basically, the server is aborted).
-
-## Execution under low memory conditions
-
-When memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the script that uses additional memory will cause the script to abort (unless [`redis.pcall`](/topics/lua-api#redis.pcall()) was used).
-
-However, an exception to the above is when the script's first write command does not use additional memory, as is the case with  (for example, `DEL` and `LREM`).
-In this case, Redis will allow all commands in the script to run to ensure atomicity.
-If subsequent writes in the script consume additional memory, Redis' memory usage can exceed the threshold set by the `maxmemory` configuration directive.
-
-Another scenario in which a script can cause memory usage to cross the `maxmemory` threshold is when the execution begins when Redis is slightly below `maxmemory`, so the script's first write command is allowed.
-As the script executes, subsequent write commands consume more memory leading to the server using more RAM than the configured `maxmemory` directive.
-
-In those scenarios, you should consider setting the `maxmemory-policy` configuration directive to any values other than `noeviction`.
-In addition, Lua scripts should be as fast as possible so that eviction can kick in between executions.

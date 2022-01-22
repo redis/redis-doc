@@ -396,3 +396,17 @@ Starting with Redis 3.2, Redis has support for native Lua debugging.
 The Redis Lua debugger is a remote debugger consisting of a server, which is Redis itself, and a client, which is by default [`redis-cli`](/topics/rediscli).
 
 The Lua debugger is described in the [Lua scripts debugging](/topics/ldb) section of the Redis documentation.
+
+## Execution under low memory conditions
+
+When memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the script that uses additional memory will cause the script to abort (unless [`redis.pcall`](/topics/lua-api#redis.pcall()) was used).
+
+However, an exception to the above is when the script's first write command does not use additional memory, as is the case with  (for example, `DEL` and `LREM`).
+In this case, Redis will allow all commands in the script to run to ensure atomicity.
+If subsequent writes in the script consume additional memory, Redis' memory usage can exceed the threshold set by the `maxmemory` configuration directive.
+
+Another scenario in which a script can cause memory usage to cross the `maxmemory` threshold is when the execution begins when Redis is slightly below `maxmemory`, so the script's first write command is allowed.
+As the script executes, subsequent write commands consume more memory leading to the server using more RAM than the configured `maxmemory` directive.
+
+In those scenarios, you should consider setting the `maxmemory-policy` configuration directive to any values other than `noeviction`.
+In addition, Lua scripts should be as fast as possible so that eviction can kick in between executions.
