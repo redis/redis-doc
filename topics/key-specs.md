@@ -6,6 +6,7 @@ The 8th element in the reply of `COMMAND` (and `COMMAND INFO`) is an array that 
 A _key specification_ describes a rule for extracting the names of one or more keys from the arguments of a given command.
 Key specifications provide a robust and flexible mechanism, compared to the _first key_, _last key_ and _step_ scheme employed until Redis 7.0.
 Before introducing these specifications, Redis clients had no trivial programmatic means to extract key names for all commands.
+
 Cluster-aware Redis clients had to have the keys' extraction logic hard-coded in the cases of commands such as `EVAL` and `ZUNIONSTORE` that rely on a _numkeys_ argument or `SORT` and its many clauses.
 Alternatively, the `COMMAND GETKEYS` can be used to achieve a similar extraction effect but at a higher latency.
 
@@ -14,6 +15,7 @@ It can continue using the legacy _first key_, _last key_ and _step_ scheme along
 
 However, a Redis client that implements key specifications support can consolidate most of its keys' extraction logic.
 Even if the client encounters an unfamiliar type of key specification, it can always revert to the `COMMAND GETKEYS` command.
+
 That said, most cluster-aware clients only require a single key name to perform correct command routing, so it is possible that although a command features one unfamiliar specification, its other specification may still be usable by the client.
 
 Key specifications are maps with three keys:
@@ -24,9 +26,9 @@ Key specifications are maps with three keys:
 
 ## begin_search
 
-The _begin_search_ value of a specification informs the client of the extraction's beginning.
+The _begin\_search_ value of a specification informs the client of the extraction's beginning.
 The value is a map.
-There are three types of _begin_search_:
+There are three types of `begin_search`:
 
 1. **index:** key name arguments begin at a constant index.
 2. **keyword:** key names start after a specific keyword (token).
@@ -34,31 +36,31 @@ There are three types of _begin_search_:
 
 ### index
 
-The _index_ type of _begin_search_ indicates that input keys appear at a constant index.
+The _index_ type of `begin_search` indicates that input keys appear at a constant index.
 It is a map under the _spec_ key with a single key:
 
 1. **index:** the 0-based index from which the client should start extracting key names.
 
 ### keyword
 
-The _keyword_ type of _begin_search_ means a literal token precedes key name arguments.
+The _keyword_ type of `begin_search` means a literal token precedes key name arguments.
 It is a map under the _spec_ with two keys:
 
-1. *keyword:** the keyword (token) that marks the beginning of key name arguments.
-2. *startfrom:** an index to the arguments array from which the client should begin searching. 
+1. **keyword:** the keyword (token) that marks the beginning of key name arguments.
+2. **startfrom:** an index to the arguments array from which the client should begin searching. 
   This can be a negative value, which means the search should start from the end of the arguments' array, in reverse order.
   For example, _-2_'s meaning is to search reverse from the penultimate argument.
 
 More examples of the _keyword_ search type include:
 
-* `SET` has a _begin_search_ specification of type _index_ with a value of _1_.
-* `XREAD` has a _begin_search_ specification of type _keyword_ with the values _"STREAMS"_ and _1_ as _keyword_ and _startfrom_, respectively.
+* `SET` has a `begin_search` specification of type _index_ with a value of _1_.
+* `XREAD` has a `begin_search` specification of type _keyword_ with the values _"STREAMS"_ and _1_ as _keyword_ and _startfrom_, respectively.
 * `MIGRATE` has a _start_search_ specification of type _keyword_ with the values of _"KEYS"_ and _-2_.
 
 ## find_keys
 
-The _find_keys_ value of a key specification tells the client how to continue the search for key names.
-_find_keys_ has three possible types:
+The `find_keys` value of a key specification tells the client how to continue the search for key names.
+`find_keys` has three possible types:
 
 1. **range:** keys stop at a specific index or relative to the last argument.
 2. **keynum:** an additional argument specifies the number of input keys.
@@ -66,9 +68,9 @@ _find_keys_ has three possible types:
 
 ### range
 
-The _range_ type of _find_keys_ is a map under the _spec_ key with three keys:
+The _range_ type of `find_keys` is a map under the _spec_ key with three keys:
 
-1. **lastkey:** the index, relative to _begin_search_, of the last key argument.
+1. **lastkey:** the index, relative to `begin_search`, of the last key argument.
   This can be a negative value, in which case it isn't relative.
   For example, _-1_ indicates to keep extracting keys until the last argument, _-2_ until one before the last, and so on.
 2. **keystep:** the number of arguments that should be skipped, after finding a key, to find the next one.
@@ -78,10 +80,10 @@ The _range_ type of _find_keys_ is a map under the _spec_ key with three keys:
 
 ### keynum
 
-The _keynum_ type of _find_keys_ is a map under the _spec_ key with three keys:
+The _keynum_ type of `find_keys` is a map under the _spec_ key with three keys:
 
-* **keynumidx:** the index, relative to _begin_search_, of the argument containing the number of keys.
-* **firstkey:** the index, relative to _begin_search_, of the first key.
+* **keynumidx:** the index, relative to `begin_search`, of the argument containing the number of keys.
+* **firstkey:** the index, relative to `begin_search`, of the first key.
   This is usually the next argument after _keynumidx_, and its value, in this case, is greater by one.
 * **keystep:** Tthe number of arguments that should be skipped, after finding a key, to find the next one.
 
@@ -90,8 +92,8 @@ Examples:
 * The `SET` command has a _range_ of _0_, _1_ and _0_.
 * The `MSET` command has a _range_ of _-1_, _2_ and _0_.
 * The `XREAD` command has a _range_ of _-1_, _1_ and _2_.
-* The `ZUNION` command has a _start_search_ type _index_ with the value _1_, and _find_keys_ of type _keynum_ with values of _0_, _1_ and _1_.
-* The [`AI.DAGRUN`](https://oss.redislabs.com/redisai/master/commands/#aidagrun) command has a _start_search_ of type _keyword_ with values of _"LOAD"_ and _1_, and _find_keys_ of type _keynum_ with values of _0_, _1_ and _1_.
+* The `ZUNION` command has a _start_search_ type _index_ with the value _1_, and `find_keys` of type _keynum_ with values of _0_, _1_ and _1_.
+* The [`AI.DAGRUN`](https://oss.redislabs.com/redisai/master/commands/#aidagrun) command has a _start_search_ of type _keyword_ with values of _"LOAD"_ and _1_, and `find_keys` of type _keynum_ with values of _0_, _1_ and _1_.
 
 **Note:**
 this isn't a perfect solution as the module writers can come up with anything.
@@ -105,7 +107,7 @@ These flags are divided into three groups, as described below.
 ### Access type flags
 
 The following flags declare the type of access the command uses to a key's value or its metadata.
-A key's metadata includes its LRU/LFU counters, type, and cardinality.
+A key's metadata includes LRU/LFU counters, type, and cardinality.
 These flags do not relate to the reply sent back to the client.
 
 Every key specification has precisely one of the following flags:
@@ -165,7 +167,7 @@ If and when we encounter a key named _"KEYS"_, we'll only extract the subset of 
 That's why `MIGRATE` has the _incomplete_ flag in its key specification.
 
 Another case of incompleteness is the `SORT` command.
-Here, the _begin_search_ and _find_keys_ are of type _unknown_.
+Here, the `begin_search` and `find_keys` are of type _unknown_.
 The client should revert to calling the `COMMAND GETKEYS` command to extract key names from the arguments, short of implementing it natively.
 The difficulty arises, for example, because the string _"STORE"_ is both a keyword (token) and a valid literal argument for `SORT`.
 

@@ -29,7 +29,7 @@ The following keys are always present in the reply:
   - _string_
   - _transactions_
 
-The following keys may be included in the map as well:
+The following keys may be included in the mapped reply as well:
 
 * **complexity:** a short explanation about the command's time complexity.
 * **doc-flags:** an array of documentation flags.
@@ -47,6 +47,6 @@ The following keys may be included in the map as well:
 
 [td]: /topics/command-arguments
 
-@reply
+@return
 
 @array-reply: a map as a flattened array as described above.

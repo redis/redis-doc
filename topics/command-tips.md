@@ -4,7 +4,7 @@ Command tips are an array of strings.
 These provide Redis clients with additional information about the command.
 The information can instruct Redis Cluster clients as to how the command should be executed and its output processed in a clustered deployment.
 
-Unlike the command's flags (see the 3rd element in `COMMAND`'s reply), which are strictly internal to the server's operation, tips don't serve any purpose other than being reported to clients.
+Unlike the command's flags (see the 3rd element of `COMMAND`'s reply), which are strictly internal to the server's operation, tips don't serve any purpose other than being reported to clients.
 
 Command tips are arbitrary strings.
 However, the following sections describe proposed tips and demonstrate the conventions they are likely to adhere to.
@@ -13,7 +13,7 @@ However, the following sections describe proposed tips and demonstrate the conve
 
 This tip indicates that the command's output isn't deterministic.
 That means that calls to the command may yield different results with the same arguments and data.
-That difference could be the result of the command's random nature (e.g., `RANDOMKEY` and `SPOP`);the call's timing (e.g. `TTL`); or generic differences that aren't key-space related of the server state (e.g. `INFO` and `CLIENT LIST`).
+That difference could be the result of the command's random nature (e.g., `RANDOMKEY` and `SPOP`); the call's timing (e.g. `TTL`); or generic differences that relate to the server's state (e.g. `INFO` and `CLIENT LIST`).
 
 **Note:**
 prior to Redis 7.0, this tip was the _random_ command flag.
@@ -23,7 +23,7 @@ prior to Redis 7.0, this tip was the _random_ command flag.
 The existence of this tip indicates that the command's output is deterministic, but its ordering is random (e.g. `HGETALL` and `SMEMBERS`).
 
 **Note:**
-prior to Redis 7.0, this tip was the _sort_for_script_ flag.
+prior to Redis 7.0, this tip was the _sort_\__for_\__script_ flag.
 
 ## request_policy
 

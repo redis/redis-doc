@@ -3,6 +3,7 @@
 The `COMMAND DOCS` command returns documentation-focused information about available Redis commands.
 The map reply that the command returns includes the _arguments_ key.
 This key stores an array that describes the command's arguments.
+
 Every element in the _arguments_ array is a map with the following fields:
 
 * **name:** the argument's name, always present.
@@ -41,6 +42,7 @@ Every element in the _arguments_ array is a map with the following fields:
 ## Example
 
 The trimming clause of `XADD`, i.e., `[MAXLEN|MINID [=|~] threshold [LIMIT count]]`, is represented at the top-level as _block_-typed argument.
+
 It consists of four nested arguments:
 
 1. **trimming strategy:** this nested argument has a _oneof_ type with two nested arguments.

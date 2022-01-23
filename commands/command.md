@@ -1,21 +1,23 @@
-Return an array with details about all Redis commands.
+Return an array with details about every Redis command.
 
-Redis Cluster clients must identify the names of keys in commands to route requests to the correct shard.
-Although many commands accept a single key as their first argument, there are exceptions to that rule. 
-You can call `COMMAND` and then keep the mapping between commands and their respective key position rules cached in the client.
-
-Until Redis 6.2, each command had up to a single keys' positions rule defined by the _first key_, _last key_, and _step_ values.
-Redis 7.0 introduced the [Command key specifications][tr], which offers a robust mechanism to help clients identify the command's keys.
-
-[tr]: /topics/key-specs
+The `COMMAND` command is introspective.
+Its reply describes all commands that the server can process.
+Redis clients can call it to obtain the server's runtime capabilities during the handshake.
 
 `COMMAND` also has several subcommands.
-Please refer to its related subcommands for further details.
+Please refer to its subcommands for further details.
 
-The reply is an array with an element per command.
-Each element that describes a Redis command is an array by itself.
-That array consists of a fixed number of elements: 7 for versions less than Redis 7.0 and 10 for higher.
-These are follows:
+**Cluster note:**
+this command is especially beneficial for cluster-aware clients.
+Such clients must identify the names of keys in commands to route requests to the correct shard.
+Although most commands accept a single key as their first argument, there are manu exceptions to this rule. 
+You can call `COMMAND` and then keep the mapping between commands and their respective key specification rules cached in the client.
+
+The reply it returns is an array with an element per command.
+Each element that describes a Redis command is represented as an array by itself.
+
+The command's array consists of a fixed number of elements.
+The exact number of elements in the array depends on the server's version.
 
 1. Name
 1. Arity
@@ -23,14 +25,10 @@ These are follows:
 1. First key
 1. Last key
 1. Step
-1. [ACL categories][ta]
-1. [Tips][tb]
-1. [Key specifications][td]
-1. Subcommands
-
-[ta]: /topics/acl
-[tb]: /topics/command-tips
-[td]: /topics/key-specs
+1. [ACL categories][ta] (as of Redis 6.0)
+1. [Tips][tb] (as of Redis 7.0)
+1. [Key specifications][td] (as of Redis 7.0)
+1. Subcommands (as of Redis 7.0)
 
 ## Name
 
@@ -107,7 +105,7 @@ For those commands, the _movablekeys_ flag indicates that the _first key_, _last
 
 Here are several examples of commands that have the _movablekeys_ flag:
 
-* `SORT`: the optional _STORE_, _BY_ and _GET_ modifers are followed by names of keys.
+* `SORT`: the optional _STORE_, _BY_, and _GET_ modifiers are followed by names of keys.
 * `ZUNION`: the _numkeys_ argument specifies the number key name arguments.
 * `MIGRATE`: the keys appear _KEYS_ keyword and only when the second argument is the empty string.
 
@@ -118,7 +116,7 @@ You can use the `COMMAND GETKEYS` command and have your Redis server report all 
 As of Redis 7.0, clients can use the [key specifications](#key-specifications) to identify the positions of key names.
 The only commands that require using `COMMAND GETKEYS` are `SORT` and `MIGRATE` for clients that parse keys' specifications.
 
-For more information please refer to the [key specifications page][tr].
+For more information, please refer to the [key specifications page][tr].
 
 ## First key
 
@@ -126,7 +124,7 @@ This value identifies the position of the command's first key name argument.
 For most commands, the first key's position is 1.
 Position 0 is always the command name itself.
 
-## last-key
+## Last key
 
 This value identifies the position of the command's last key name argument.
 Redis commands usually accept one, two or multiple number of keys.
@@ -193,6 +191,11 @@ For more information please check the [key specifications page][td].
 This is an array containing all of the command's subcommands, if any.
 Some Redis commands have subcommands (e.g., the `REWRITE` subcommand of `CONFIG`).
 Each element in the array represents one subcommand and follows the same specifications as those of `COMMAND`'s reply.
+
+[ta]: /topics/acl
+[tb]: /topics/command-tips
+[td]: /topics/key-specs
+[tr]: /topics/key-specs
 
 @return
 

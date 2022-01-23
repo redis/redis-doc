@@ -1,3 +1,4 @@
+ACLCAT
 ASYNC
 ACLs
 AMD
@@ -26,6 +27,7 @@ EP
 EPSG
 Erlang
 EventMachine
+FILTERBY
 Facebook
 Fsyncing
 GCC
@@ -70,6 +72,7 @@ MERCHANTABILITY
 MX
 MacBook
 Maxmemory
+maxmemory
 Memcached
 MessagePack
 MongoDB
@@ -307,6 +310,7 @@ noeviction
 nopass
 noscript
 numactl
+numkeys
 online
 overcommit
 pades
