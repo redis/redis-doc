@@ -353,7 +353,7 @@ And your Redis log file should have lines in it that are similar to:
 
 ## Function Flags
 
-Looking at the example above, the library introduces 3 functions, `my_hset`, `my_hgetall`, and `my_hlastmodified`. The last 2 function are not perforning any writes, so we should be able to run them using `FCALL_RO` on a `readonly` replica. But if we try to invoke them we will get the following error:
+Looking at the example above, the library introduces 3 functions, `my_hset`, `my_hgetall`, and `my_hlastmodified`. The last 2 functions are not perforning any writes, so we should be able to run them using `FCALL_RO` on a `readonly` replica. But if we try to invoke them we will get the following error:
 
 ```
 > FCALL_RO my_hgetall 1 myhash
@@ -401,17 +401,4 @@ redis> FCALL_RO my_hlastmodified 1 myhash
 3. Do not run functions on stale replica
 4. Allow functions on cluster
 
-### Supported Function Flags:
-
-* `no-writes` - indicating the function perform no writes which means that it is OK to run it on:
-   * read-only replica
-   * Using FCALL_RO
-   * If disk error detected
-   
-   It will not be possible to run a function in those situations unless the function turns on the `no-writes` flag
-
-* `allow-oom` - indicate that its OK to run the function even if Redis is in OOM state, if the function will not turn on this flag it will not be possible to run it if OOM reached (even if the function declares `no-writes` and even if `fcall_ro` is used). If this flag is set, any command will be allow on OOM (even those that is marked with CMD_DENYOOM). The assumption is that this flag is for advance users that knows its meaning and understand what they are doing, and Redis trust them to not increase the memory usage. (e.g. it could be an INCR or a modification on an existing key, or a DEL command)
-
-* `allow-state` - indicate that its OK to run the function on stale replica, in this case we will also make sure the function is only perform `stale` commands and raise an error if not.
-
-* `no-cluster` - indicate to disallow running the function if cluster is enabled.
+For full documentation of the supported flags refer to [Script Flags](lua-api#script_flags)

@@ -390,12 +390,6 @@ The function can be called either with positional argument or with named argumen
 The first argument to `redis.register_functio` is a Lua string representing the function name.
 The second argument to `redis.register_functio` is a Lua function.
 
-Error raise on the following cases:
-
-* Wrong number of arguments
-* Wrong argument type
-* Another function with the same name already registered on the current library
-
 Usage Example:
 
 ```
@@ -411,13 +405,7 @@ The named argument version except the following named arguments:
 * _flags_ - Lua array of strings representing function flags
 * _description_ - Lua string representing the function description
 
-_function\_name_ and _callback_ are mandatory, the other named arguments are option. Error raise on the following cases:
-
-* Missing mandatory arguments
-* Unkown named argument
-* Wrong argument type
-* Unknows flag
-* Another function with the same name already registered on the current library
+_function\_name_ and _callback_ are mandatory, the other named arguments are option.
 
 Usage Example:
 
@@ -425,7 +413,24 @@ Usage Example:
 redis> FUNCTION LOAD Lua mylib "redis.register_function{function_name='noop', callback=function() end, function, flags={'no-writes'}, description='some desc')"
 ```
 
-For more information about function flags refer to [Function Flags](functions-intro#function-flags)
+#### <a name="script_flags"></a> Script Flags
+
+The following is a list of supported script flags:
+
+* `no-writes` - indicating the function perform no writes which means that it is OK to run it on:
+   * read-only replica
+   * Using FCALL_RO
+   * If disc error detected
+   
+   It will not be possible to run a function in those situations unless the function turns on the `no-writes` flag, in this case Redis will inforce the function is doing not writes and will raise an error if it does.
+
+* `allow-oom` - indicate that its OK to run the function even if Redis is in OOM (out of memory) state, if the function will not turn on this flag it will not be possible to run it if OOM reached (even if the function declares `no-writes` and even if `fcall_ro` is used). If this flag is set, any command will be allowed on OOM (even ones that are normally not allowed in that state).
+
+* `allow-state` - indicate that its OK to run the function on stale replica, in this case calls to Redis commands that are not allowed in this state will error when the script is executed on a stale replica.
+
+* `no-cluster` - indicate to disallow running the function on Redis cluster. 
+
+Refer to [Function Flags](functions-intro#function-flags) for full example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
 * Since version: 7.0.0
