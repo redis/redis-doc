@@ -10,7 +10,7 @@ Please refer to its subcommands for further details.
 **Cluster note:**
 this command is especially beneficial for cluster-aware clients.
 Such clients must identify the names of keys in commands to route requests to the correct shard.
-Although most commands accept a single key as their first argument, there are manu exceptions to this rule. 
+Although most commands accept a single key as their first argument, there are many exceptions to this rule. 
 You can call `COMMAND` and then keep the mapping between commands and their respective key specification rules cached in the client.
 
 The reply it returns is an array with an element per command.
