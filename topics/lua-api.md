@@ -417,18 +417,18 @@ redis> FUNCTION LOAD Lua mylib "redis.register_function{function_name='noop', ca
 
 The following is a list of supported script flags:
 
-* `no-writes` - indicating the function perform no writes which means that it is OK to run it on:
+* `no-writes` - indicating the script perform no writes which means that it is OK to run it on:
    * read-only replica
-   * Using FCALL_RO
-   * If disc error detected
+   * Using FCALL_RO / EVAL_RO
+   * If disk error detected (Redis is unable to persist so it rejects writes)
    
-   It will not be possible to run a function in those situations unless the function turns on the `no-writes` flag, in this case Redis will inforce the function is doing not writes and will raise an error if it does.
+   It will not be possible to run a function in those situations unless the script turns on the `no-writes` flag, in this case Redis will enforce the script is doing not writes and will raise an error if it does.
 
-* `allow-oom` - indicate that its OK to run the function even if Redis is in OOM (out of memory) state, if the function will not turn on this flag it will not be possible to run it if OOM reached (even if the function declares `no-writes` and even if `fcall_ro` is used). If this flag is set, any command will be allowed on OOM (even ones that are normally not allowed in that state).
+* `allow-oom` - indicate that it's OK to run the script even if Redis is in OOM (out of memory) state, if the script will not turn on this flag it will not be possible to run it if OOM reached (even if the script declares `no-writes` and even if `fcall_ro` / `eval_ro` is used). If this flag is set, any command will be allowed on OOM (even ones that are normally not allowed in that state).
 
-* `allow-state` - indicate that its OK to run the function on stale replica, in this case calls to Redis commands that are not allowed in this state will error when the script is executed on a stale replica.
+* `allow-state` - indicate that it's OK to run the script on stale replica, in this case calls to Redis commands that are not allowed in that state will error when the script is executed on a stale replica.
 
-* `no-cluster` - indicate to disallow running the function on Redis cluster. 
+* `no-cluster` - indicate to disallow running the script on Redis cluster. 
 
 Refer to [Function Flags](functions-intro#function-flags) for full example.
 
