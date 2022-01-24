@@ -1,3 +1,11 @@
-Work in progress.
+Return an array of the server's command names.
 
-Please refer to [the Refresh COMMAND issue](https://github.com/redis/redis-doc/pull/1697) for the time being.
+You can use the optional _FILTERBY_ modifier to apply one of the following filters:
+
+ - **MODULE module-name**: get the commands that belong to the module specified by _module-name_.
+ - **ACLCAT category**: get the commands in the [ACL category](/topics/acl) specified by _category_.
+ - **PATTERN pattern**: get the commands that match the given glob-like _pattern_.
+
+@return
+
+@array-reply: a list of command names.
