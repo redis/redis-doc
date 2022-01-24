@@ -629,6 +629,15 @@
   },
 
   {
+    "name": "LettuceF",
+    "language": "Scala",
+    "repository": "https://github.com/naoh87/lettucef",
+    "description": "Scala FP wrapper for Lettuce with Cats Effect",
+    "authors": ["naoh87"],
+    "active": true
+  },
+
+  {
     "name": "scala-redis",
     "language": "Scala",
     "repository": "https://github.com/acrosa/scala-redis",
