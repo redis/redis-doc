@@ -1,6 +1,8 @@
 Posts a message to the given shard channel.
 
-In Redis Cluster, shard channels are assigned to slots by the same algorithm used to assign keys to slots. A shard message must be sent to a node that own the slot the shard channel is hashed to. The cluster makes sure that published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
+In Redis Cluster, shard channels are assigned to slots by the same algorithm used to assign keys to slots.
+A shard message must be sent to a node that own the slot the shard channel is hashed to. 
+The cluster makes sure that published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
 
 @return
 
