@@ -1228,7 +1228,7 @@ It will simply broadcast each published message to all other nodes.
 
 From 7.0, shard pubsub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
 A shard message must be sent to a node that own the slot the shard channel is hashed to. 
-The cluster makes sure that published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
+The cluster makes sure the published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
 
 
 

@@ -27,7 +27,7 @@ The replies to subscription and unsubscription operations are sent in
 the form of messages, so that the client can just read a coherent
 stream of messages where the first element indicates the type of
 message. The commands that are allowed in the context of a subscribed
-client are `SUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`,
+client are `SUBSCRIBE`, `SUNSUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`,
 `PING` and `QUIT`.
 
 Please note that `redis-cli` will not accept any commands once in
@@ -168,6 +168,13 @@ active. This number is actually the total number of channels and
 patterns the client is still subscribed to. So the client will exit
 the Pub/Sub state only when this count drops to zero as a result of
 unsubscribing from all the channels and patterns.
+
+## Shard pubsub
+
+From 7.0, shard pubsub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
+A shard message must be sent to a node that own the slot the shard channel is hashed to. 
+The cluster makes sure the published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
+`SSUBSCRIBE`, `SUNSUBSCRIBE` and `SPUBLISH` are used to implement shard pubsub.
 
 ## Programming example
 
