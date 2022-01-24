@@ -1,3 +1,4 @@
+ACLCAT
 ASYNC
 ACLs
 AMD
@@ -26,6 +27,7 @@ EP
 EPSG
 Erlang
 EventMachine
+FILTERBY
 Facebook
 Fsyncing
 GCC
@@ -70,6 +72,7 @@ MERCHANTABILITY
 MX
 MacBook
 Maxmemory
+maxmemory
 Memcached
 MessagePack
 MongoDB
@@ -247,6 +250,7 @@ hiredis
 hostname
 hostnames
 htop
+hyperloglog
 hyperloglogs
 hypervisor
 iamonds
@@ -309,6 +313,7 @@ noeviction
 nopass
 noscript
 numactl
+numkeys
 online
 overcommit
 pades
@@ -441,3 +446,5 @@ reauthenticate
 async
 lazyfree
 systemd
+syscmd
+swapdb
