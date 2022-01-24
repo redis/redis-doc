@@ -370,9 +370,11 @@ to the client with a MOVED error, like in the following example:
     GET x
     -MOVED 3999 127.0.0.1:6381
 
-The error includes the hash slot of the key (3999) and the ip:port of the
-instance that can serve the query. The client needs to reissue the query
-to the specified node's IP address and port.
+The error includes the hash slot of the key (3999) and the endpoint:port of the instance that can serve the query.
+The client needs to reissue the query to the specified node's endpoint address and port. 
+The endpoint can be either an IP address, a hostname, or it can be empty (e.g. `-MOVED 3999 :6380`). 
+An empty endpoint indicates that the server node has an an unknown endpoint, and the client should send the next request to the same endpoint as the current request but with the provided port. 
+
 Note that even if the client waits a long time before reissuing the query,
 and in the meantime the cluster configuration changed, the destination node
 will reply again with a MOVED error if the hash slot 3999 is now served by
@@ -380,7 +382,7 @@ another node. The same happens if the contacted node had no updated information.
 
 So while from the point of view of the cluster nodes are identified by
 IDs we try to simplify our interface with the client just exposing a map
-between hash slots and Redis nodes identified by IP:port pairs.
+between hash slots and Redis nodes identified by endpoint:port pairs.
 
 The client is not required to, but should try to memorize that hash slot
 3999 is served by 127.0.0.1:6381. This way once a new command needs to
@@ -388,7 +390,7 @@ be issued it can compute the hash slot of the target key and have a
 greater chance of choosing the right node.
 
 An alternative is to just refresh the whole client-side cluster layout
-using the `CLUSTER NODES` or `CLUSTER SLOTS` commands
+using the `CLUSTER SLOTS` commands
 when a MOVED redirection is received. When a redirection is encountered, it
 is likely multiple slots were reconfigured rather than just one, so updating
 the client configuration as soon as possible is often the best strategy.
@@ -541,7 +543,7 @@ The full semantics of ASK redirection from the point of view of the client is as
 * Don't yet update local client tables to map hash slot 8 to B.
 
 Once hash slot 8 migration is completed, A will send a MOVED message and
-the client may permanently map hash slot 8 to the new IP and port pair.
+the client may permanently map hash slot 8 to the new endpoint and port pair.
 Note that if a buggy client performs the map earlier this is not
 a problem since it will not send the ASKING command before issuing the query,
 so B will redirect the client to A using a MOVED redirection error.
