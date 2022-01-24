@@ -56,40 +56,6 @@
             "stale"
         ]
     },
-    "ACL DRYRUN": {
-        "summary": "Returns whether the user can execute the given command without executing the command.",
-        "since": "7.0.0",
-        "group": "server",
-        "complexity": "O(1).",
-        "acl_categories": [
-            "@admin",
-            "@slow",
-            "@dangerous"
-        ],
-        "arity": -4,
-        "arguments": [
-            {
-                "name": "username",
-                "type": "string"
-            },
-            {
-                "name": "command",
-                "type": "string"
-            },
-            {
-                "name": "arg",
-                "type": "string",
-                "optional": true,
-                "multiple": true
-            }
-        ],
-        "command_flags": [
-            "admin",
-            "noscript",
-            "loading",
-            "stale"
-        ]
-    },
     "ACL GENPASS": {
         "summary": "Generate a pseudorandom secure password to use for ACL users",
         "since": "6.0.0",
@@ -255,10 +221,6 @@
             [
                 "6.2.0",
                 "Added Pub/Sub channel patterns."
-            ],
-            [
-                "7.0.0",
-                "Added selectors and key based permissions."
             ]
         ],
         "acl_categories": [
@@ -3469,7 +3431,6 @@
         ],
         "command_flags": [
             "noscript",
-            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3532,7 +3493,6 @@
         ],
         "command_flags": [
             "noscript",
-            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3592,7 +3552,6 @@
         ],
         "command_flags": [
             "noscript",
-            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -3651,7 +3610,6 @@
         ],
         "command_flags": [
             "noscript",
-            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -10896,8 +10854,7 @@
             }
         ],
         "command_flags": [
-            "noscript",
-            "stale"
+            "noscript"
         ],
         "hints": [
             "request_policy:all_nodes",
@@ -11968,18 +11925,6 @@
                     }
                 },
                 "RO": true,
-                "access": true
-            },
-            {
-                "begin_search": {
-                    "type": "unknown",
-                    "spec": {}
-                },
-                "find_keys": {
-                    "type": "unknown",
-                    "spec": {}
-                },
-                "RO": true,
                 "access": true,
                 "incomplete": true
             },
@@ -12101,18 +12046,6 @@
                     }
                 },
                 "RO": true,
-                "access": true
-            },
-            {
-                "begin_search": {
-                    "type": "unknown",
-                    "spec": {}
-                },
-                "find_keys": {
-                    "type": "unknown",
-                    "spec": {}
-                },
-                "RO": true,
                 "access": true,
                 "incomplete": true
             }
@@ -12178,8 +12111,7 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "movablekeys"
+            "readonly"
         ]
     },
     "SPOP": {
@@ -15611,11 +15543,11 @@
                 "key_spec_index": 0
             },
             {
-                "name": "min",
+                "name": "start",
                 "type": "string"
             },
             {
-                "name": "max",
+                "name": "stop",
                 "type": "string"
             },
             {
