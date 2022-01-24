@@ -197,7 +197,7 @@ As of version 7.0, these use cases are now all obsolete and the same can be achi
 For example:
 
 * Computing slow Set or Sorted set operations and storing the result in temporary local keys using commands like [SUNIONSTORE](/commands/sunionstore) and [ZINTERSTORE](/commands/zinterstore).
-  Instead, use commands that return the result without storing it, such as [SUNION](commands/sunion) and [ZINTER](/commands/zinter).
+  Instead, use commands that return the result without storing it, such as [SUNION](/commands/sunion) and [ZINTER](/commands/zinter).
 
 * Using the [SORT](/commands/sort) command (which is not considered a read-only command because of the optional STORE option and therefore cannot be used on a read-only replica).
   Instead, use [SORT_RO](/commands/sort_ro), which is a read-only command.
