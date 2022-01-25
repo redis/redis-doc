@@ -1,11 +1,17 @@
-Redis Administration
-===
+---
+title: Redis administration
+linkTitle: Administration
+weight: 1
+description: Topics related to the administration of Redis instances.
+aliases: [
+    /topics/admin,
+    /topics/admin.md,
+    /manual/admin,
+    /manual/admin.md,
+]
+---
 
-This page contains topics related to the administration of Redis instances.
-Every topic is self contained in form of a FAQ. New topics will be created in the future.
-
-Redis setup hints
------------------
+## Redis setup hints
 
 + We suggest deploying Redis using the **Linux operating system**. Redis is also tested heavily on OS X, and tested from time to time on FreeBSD and OpenBSD systems. However Linux is where we do all the major stress testing, and where most production deployments are running.
 + Make sure to set the Linux kernel **overcommit memory setting to 1**. Add `vm.overcommit_memory = 1` to `/etc/sysctl.conf` and then reboot or run the command `sysctl vm.overcommit_memory=1` for this to take effect immediately.
@@ -19,16 +25,14 @@ Redis setup hints
 + By default Redis does not require **any authentication and listens to all the network interfaces**. This is a big security issue if you leave Redis exposed on the internet or other places where attackers can reach it. See for example [this attack](http://antirez.com/news/96) to see how dangerous it can be. Please check our [security page](/topics/security) and the [quick start](/topics/quickstart) for information about how to secure Redis.
 + `LATENCY DOCTOR` and `MEMORY DOCTOR` are your friends.
 
-Running Redis on EC2
---------------------
+## Running Redis on EC2
 
 + Use HVM based instances, not PV based instances.
 + Don't use old instances families, for example: use m3.medium with HVM instead of m1.medium with PV.
 + The use of Redis persistence with **EC2 EBS volumes** needs to be handled with care since sometimes EBS volumes have high latency characteristics.
 + You may want to try the new **diskless replication** if you have issues when replicas are synchronizing with the master.
 
-Upgrading or restarting a Redis instance without downtime
--------------------------------------------------------
+## Upgrading or restarting a Redis instance without downtime
 
 Redis is designed to be a very long running process in your server.
 For instance many configuration options can be modified without any kind of restart using the [CONFIG SET command](/commands/config-set).
