@@ -4,3 +4,5 @@ When no shard channels are specified, the client is unsubscribed from all the pr
 In this case a message for every unsubscribed shard channel will be sent to the client. 
 
 Note: The global channels and shard channels needs to be unsubscribed from separately.
+
+For more information about sharded pubsub, see [Sharded Pubsub](topics/pubsub#sharded-pubsub).

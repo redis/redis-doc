@@ -1,7 +1,9 @@
 Subscribes the client to the specified shard channels.
 
 In a Redis cluster, shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
-Client(s) can subscribe to a node covering a slot (primary/replica) to receive the messages published. 
+Client(s) can subscribe to a node covering a slot (primary/replica) to receive the messages published.
+
+For more information about sharded pubsub, see [Sharded Pubsub](topics/pubsub#sharded-pubsub). 
 
 ## Example
 
