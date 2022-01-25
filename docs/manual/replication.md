@@ -11,11 +11,11 @@ aliases: [
 ]
 ---
 
-At the base of Redis replication (excluding the high availability features provided as an additional layer by Redis Cluster or Redis Sentinel) there is a very simple to use and configure *leader follower* (master-replica) replication: it allows replica Redis instances to be exact copies of master instances. The replica will automatically reconnect to the master every time the link breaks, and will attempt to be an exact copy of it *regardless* of what happens to the master.
+At the base of Redis replication (excluding the high availability features provided as an additional layer by Redis Cluster or Redis Sentinel) there is a *leader follower* (master-replica) replication that is to use and configure. It allows replica Redis instances to be exact copies of master instances. The replica will automatically reconnect to the master every time the link breaks, and will attempt to be an exact copy of it *regardless* of what happens to the master.
 
 This system works using three main mechanisms:
 
-1. When a master and a replica instances are well-connected, the master keeps the replica updated by sending a stream of commands to the replica, in order to replicate the effects on the dataset happening in the master side due to: client writes, keys expired or evicted, any other action changing the master dataset.
+1. When a master and a replica instances are well-connected, the master keeps the replica updated by sending a stream of commands to the replica to replicate the effects on the dataset happening in the master side due to: client writes, keys expired or evicted, any other action changing the master dataset.
 2. When the link between the master and the replica breaks, for network issues or because a timeout is sensed in the master or the replica, the replica reconnects and attempts to proceed with a partial resynchronization: it means that it will try to just obtain the part of the stream of commands it missed during the disconnection.
 3. When a partial resynchronization is not possible, the replica will ask for a full resynchronization. This will involve a more complex process in which the master needs to create a snapshot of all its data, send it to the replica, and then continue sending the stream of commands as the dataset changes.
 
@@ -27,7 +27,7 @@ for a command to be processed by the replicas, however it knows, if needed, what
 replica already processed what command. This allows having optional synchronous replication.
 
 Synchronous replication of certain data can be requested by the clients using
-the `WAIT` command. However `WAIT` is only able to ensure that there are the
+the `WAIT` command. However `WAIT` is only able to ensure there are the
 specified number of acknowledged copies in the other Redis instances, it does not
 turn a set of Redis instances into a CP system with strong consistency: acknowledged
 writes can still be lost during a failover, depending on the exact configuration
@@ -35,18 +35,18 @@ of the Redis persistence. However with `WAIT` the probability of losing a write
 after a failure event is greatly reduced to certain hard to trigger failure
 modes.
 
-You could check the Sentinel or Redis Cluster documentation for more information
-about high availability and failover. The rest of this document mainly describe the basic characteristics of Redis basic replication.
+You can check the Redis Sentinel or Redis Cluster documentation for more information
+about high availability and failover. The rest of this document mainly describes the basic characteristics of Redis basic replication.
 
-The following are some very important facts about Redis replication:
+### Important facts about Redis replication
 
 * Redis uses asynchronous replication, with asynchronous replica-to-master acknowledges of the amount of data processed.
 * A master can have multiple replicas.
 * Replicas are able to accept connections from other replicas. Aside from connecting a number of replicas to the same master, replicas can also be connected to other replicas in a cascading-like structure. Since Redis 4.0, all the sub-replicas will receive exactly the same replication stream from the master.
 * Redis replication is non-blocking on the master side. This means that the master will continue to handle queries when one or more replicas perform the initial synchronization or a partial resynchronization.
-* Replication is also largely non-blocking on the replica side. While the replica is performing the initial synchronization, it can handle queries using the old version of the dataset, assuming you configured Redis to do so in redis.conf.  Otherwise, you can configure Redis replicas to return an error to clients if the replication stream is down. However, after the initial sync, the old dataset must be deleted and the new one must be loaded. The replica will block incoming connections during this brief window (that can be as long as many seconds for very large datasets). Since Redis 4.0 it is possible to configure Redis so that the deletion of the old data set happens in a different thread, however loading the new initial dataset will still happen in the main thread and block the replica.
-* Replication can be used both for scalability, in order to have multiple replicas for read-only queries (for example, slow O(N) operations can be offloaded to replicas), or simply for improving data safety and high availability.
-* It is possible to use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a replica configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the replica tries to synchronize with it, the replica will be emptied as well.
+* Replication is also largely non-blocking on the replica side. While the replica is performing the initial synchronization, it can handle queries using the old version of the dataset, assuming you configured Redis to do so in redis.conf.  Otherwise, you can configure Redis replicas to return an error to clients if the replication stream is down. However, after the initial sync, the old dataset must be deleted and the new one must be loaded. The replica will block incoming connections during this brief window (that can be as long as many seconds for very large datasets). Since Redis 4.0 you can configure Redis so that the deletion of the old data set happens in a different thread, however loading the new initial dataset will still happen in the main thread and block the replica.
+* Replication can be used both for scalability, to have multiple replicas for read-only queries (for example, slow O(N) operations can be offloaded to replicas), or simply for improving data safety and high availability.
+* You can use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a replica configured to save from time to time, or with AOF enabled. However, this setup must be handled with care, since a restarting master will start with an empty dataset: if the replica tries to sync with it, the replica will be emptied as well.
 
 ## Safety of replication when master has persistence turned off
 
@@ -73,7 +73,7 @@ Every time data safety is important, and replication is used with master configu
 Every Redis master has a replication ID: it is a large pseudo random string
 that marks a given story of the dataset. Each master also takes an offset that
 increments for every byte of replication stream that it is produced to be
-sent to replicas, in order to update the state of the replicas with the new changes
+sent to replicas, to update the state of the replicas with the new changes
 modifying the dataset. The replication offset is incremented even if no replica
 is actually connected, so basically every given pair of:
 
@@ -81,7 +81,7 @@ is actually connected, so basically every given pair of:
 
 Identifies an exact version of the dataset of a master.
 
-When replicas connect to masters, they use the `PSYNC` command in order to send
+When replicas connect to masters, they use the `PSYNC` command to send
 their old master replication ID and the offsets they processed so far. This way
 the master can send just the incremental part needed. However if there is not
 enough *backlog* in the master buffers, or if the replica is referring to an
@@ -90,7 +90,7 @@ happens: in this case the replica will get a full copy of the dataset, from scra
 
 This is how a full synchronization works in more details:
 
-The master starts a background saving process in order to produce an RDB file. At the same time it starts to buffer all new write commands received from the clients. When the background saving is complete, the master transfers the database file to the replica, which saves it on disk, and then loads it into memory. The master will then send all buffered commands to the replica. This is done as a stream of commands and is in the same format of the Redis protocol itself.
+The master starts a background saving process to produce an RDB file. At the same time it starts to buffer all new write commands received from the clients. When the background saving is complete, the master transfers the database file to the replica, which saves it on disk, and then loads it into memory. The master will then send all buffered commands to the replica. This is done as a stream of commands and is in the same format of the Redis protocol itself.
 
 You can try it yourself via telnet. Connect to the Redis port while the
 server is doing some work and issue the `SYNC` command. You'll see a bulk
@@ -99,7 +99,7 @@ in the telnet session. Actually `SYNC` is an old protocol no longer used by
 newer Redis instances, but is still there for backward compatibility: it does
 not allow partial resynchronizations, so now `PSYNC` is used instead.
 
-As already said, replicas are able to automatically reconnect when the master-replica link goes down for some reason. If the master receives multiple concurrent replica synchronization requests, it performs a single background save in order to serve all of them.
+As already said, replicas are able to automatically reconnect when the master-replica link goes down for some reason. If the master receives multiple concurrent replica synchronization requests, it performs a single background save in to serve all of them.
 
 ## Replication ID explained
 
@@ -125,7 +125,7 @@ commands, may reach exactly the same state of B.
 The reason why Redis instances have two replication IDs is because of replicas
 that are promoted to masters. After a failover, the promoted replica requires
 to still remember what was its past replication ID, because such replication ID
-was the one of the former master. In this way, when other replicas will synchronize
+was the one of the former master. In this way, when other replicas will sync
 with the new master, they will try to perform a partial resynchronization using the
 old master replication ID. This will work as expected, because when the replica
 is promoted to master it sets its secondary ID to its main ID, remembering what
@@ -145,7 +145,7 @@ two random instances mean they have the same data set.
 ## Diskless replication
 
 Normally a full resynchronization requires creating an RDB file on disk,
-then reloading the same RDB from disk in order to feed the replicas with the data.
+then reloading the same RDB from disk to feed the replicas with the data.
 
 With slow disks this can be a very stressing operation for the master.
 Redis version 2.8.18 is the first version to have support for diskless
@@ -167,7 +167,7 @@ in memory by the master to perform the partial resynchronization. See the exampl
 `redis.conf` shipped with the Redis distribution for more information.
 
 Diskless replication can be enabled using the `repl-diskless-sync` configuration
-parameter. The delay to start the transfer in order to wait for more replicas to
+parameter. The delay to start the transfer to wait for more replicas to
 arrive after the first one is controlled by the `repl-diskless-sync-delay`
 parameter. Please refer to the example `redis.conf` file in the Redis distribution
 for more details.
@@ -209,7 +209,7 @@ For example:
 * Using [EVAL](/commands/eval) and [EVALSHA](/commands/evalsha) are also not considered read-only commands, because the Lua script may call write commands.
   Instead, use [EVAL_RO](/commands/eval_ro) and [EVALSHA_RO](/commands/evalsha_ro) where the Lua script can only call read-only commands.
 
-While writes to a replica will be discarded if the replica and the master resynchronize or if the replica is restarted, there is no guarantee that they will sync automatically.
+While writes to a replica will be discarded if the replica and the master resync or if the replica is restarted, there is no guarantee that they will sync automatically.
 
 Before version 4.0, writable replicas were incapable of expiring keys with a time to live set.
 This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory.
@@ -237,7 +237,7 @@ To set it permanently, add this to your config file:
 
 ## Allow writes only with N attached replicas
 
-Starting with Redis 2.8, it is possible to configure a Redis master to
+Starting with Redis 2.8, you can configure a Redis master to
 accept write queries only if at least N replicas are currently connected to the
 master.
 
@@ -273,20 +273,20 @@ replicate keys with expires, even when such keys are altered using Lua
 scripts.
 
 To implement such a feature Redis cannot rely on the ability of the master and
-replica to have synchronized clocks, since this is a problem that cannot be solved
+replica to have syncd clocks, since this is a problem that cannot be solved
 and would result in race conditions and diverging data sets, so Redis
-uses three main techniques in order to make the replication of expired keys
+uses three main techniques to make the replication of expired keys
 able to work:
 
 1. Replicas don't expire keys, instead they wait for masters to expire the keys. When a master expires a key (or evict it because of LRU), it synthesizes a `DEL` command which is transmitted to all the replicas.
-2. However because of master-driven expire, sometimes replicas may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In order to deal with that the replica uses its logical clock in order to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way replicas avoid reporting logically expired keys are still existing. In practical terms, an HTML fragments cache that uses replicas to scale will avoid returning items that are already older than the desired time to live.
-3. During Lua scripts executions no key expiries are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys expiring in the middle of a script, and is needed in order to send the same script to the replica in a way that is guaranteed to have the same effects in the data set.
+2. However because of master-driven expire, sometimes replicas may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In to deal with that the replica uses its logical clock to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way replicas avoid reporting logically expired keys are still existing. In practical terms, an HTML fragments cache that uses replicas to scale will avoid returning items that are already older than the desired time to live.
+3. During Lua scripts executions no key expiries are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys expiring in the middle of a script, and is needed to send the same script to the replica in a way that is guaranteed to have the same effects in the data set.
 
 Once a replica is promoted to a master it will start to expire keys independently, and will not require any help from its old master.
 
 ## Configuring replication in Docker and NAT
 
-When Docker, or other types of containers using port forwarding, or Network Address Translation is used, Redis replication needs some extra care, especially when using Redis Sentinel or other systems where the master `INFO` or `ROLE` commands output is scanned in order to discover replicas' addresses.
+When Docker, or other types of containers using port forwarding, or Network Address Translation is used, Redis replication needs some extra care, especially when using Redis Sentinel or other systems where the master `INFO` or `ROLE` commands output is scanned to discover replicas' addresses.
 
 The problem is that the `ROLE` command, and the replication section of
 the `INFO` output, when issued into a master instance, will show replicas
@@ -298,7 +298,7 @@ Similarly the replicas will be listed with the listening port configured
 into `redis.conf`, that may be different from the forwarded port in case
 the port is remapped.
 
-In order to fix both issues, it is possible, since Redis 3.2.2, to force
+To fix both issues, it is possible, since Redis 3.2.2, to force
 a replica to announce an arbitrary pair of IP and port to the master.
 The two configurations directives to use are:
 
@@ -332,26 +332,26 @@ same replication ID in the promoted replica would violate the rule that a
 of replication ID and offset pair identifies only a single data set.
 
 Moreover, replicas - when powered off gently and restarted - are able to store
-in the `RDB` file the information needed in order to resynchronize with their
+in the `RDB` file the information needed to resync with their
 master. This is useful in case of upgrades. When this is needed, it is better to
 use the `SHUTDOWN` command in order to perform a `save & quit` operation on the
 replica.
 
-It is not possible to partially resynchronize a replica that restarted via the
+It is not possible to partially sync a replica that restarted via the
 AOF file. However the instance may be turned to RDB persistence before shutting
 down it, than can be restarted, and finally AOF can be enabled again.
 
-## Maxmemory on replicas
+## `Maxmemory` on replicas
 
-Replicas don't honor `maxmemory` because by default a replica will ignore this setting (unless it is promoted to master after a failover or manually).
-It means that the eviction of keys will just be handled by the master, sending the DEL commands to the replica as keys evict in the master side.
+By default, a replica will ignore `maxmemory` (unless it is promoted to master after a failover or manually).
+It means that the eviction of keys will be handled by the master, sending the DEL commands to the replica as keys evict in the master side.
 
 This behavior ensures that masters and replicas stay consistent, which is usually what you want.
 However, if your replica is writable, or you want the replica to have a different memory setting, and you are sure all the writes performed to the replica are idempotent, then you may change this default (but be sure to understand what you are doing).
 
 Note that since the replica by default does not evict, it may end up using more memory than what is set via `maxmemory` (since there are certain buffers that may be larger on the replica, or data structures may sometimes take more memory and so forth).
-So make sure you monitor your replicas and make sure they have enough memory to never hit a real out-of-memory condition before the master hits the configured `maxmemory` setting.
+Make sure you monitor your replicas, and make sure they have enough memory to never hit a real out-of-memory condition before the master hits the configured `maxmemory` setting.
 
-In order to change this behavior, it is possible to allow a replica to not ignore the `maxmemory`. The configuration directives to use is:
+To change this behavior, you can allow a replica to not ignore the `maxmemory`. The configuration directives to use is:
 
     replica-ignore-maxmemory no
