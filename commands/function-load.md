@@ -21,7 +21,7 @@ The command will return an error in the following circumstances:
 * The engine failed in creating the library's functions (due to a compilation error, for example).
 * No functions were declared by the library.
 
-For more information please refer to [Introduction to Redis Functions](/topics/function)
+For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).
 
 @return
 

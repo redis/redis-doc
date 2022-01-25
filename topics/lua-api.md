@@ -19,13 +19,13 @@ The blocking of global variables is in place to ensure that scripts and function
 In the (somewhat uncommon) use case that a context needs to be maintain betweem executions,
 you should store the context in Redis' keyspace.
 
-Redis will return a "Script attempted to create global variable 'my_global_variable" error when trying to execute following snippet:
+Redis will return a "Script attempted to create global variable 'my_global_variable" error when trying to execute the following snippet:
 
 ```lua
 my_global_variable = 'some value'
 ```
 
-And similarly for tbe following global function declaration:
+And similarly for the following global function declaration:
 
 ```lua
 function my_global_funcion()
@@ -33,15 +33,15 @@ function my_global_funcion()
 end
 ```
 
-You'll also get a similar error when your script attempts to access any global variables that's undefined in the runtime's context:
+You'll also get a similar error when your script attempts to access any global variables that are undefined in the runtime's context:
 
 ```lua
 -- The following will surely raise an error
 return an_undefined_global_variable
 ```
 
-Instead, all variable and function definitions are required to declared as local.
-To do so, you'll need to prepend the _local_ keyword to your declarations.
+Instead, all variable and function definitions are required to be declared as local.
+To do so, you'll need to prepend the [_local_](https://www.lua.org/manual/5.1/manual.html#2.4.7) keyword to your declarations.
 For example, the following snippet will be considered perfectly valid by Redis:
 
 ```lua
@@ -52,7 +52,7 @@ local function my_local_function()
 end
 ```
 
-**Note:***
+**Note:**
 the sandbox attempts to prevent the use of globals.
 Using Lua's debugging functionality or other approaches such as altering the meta table used for implementing the globals' protection to circumvent the sandbox isn't hard.
 However, it is difficult to circumvent the protection by accident.
@@ -140,7 +140,7 @@ To handle Redis runtime errors use `redis.pcall() instead.
 * Available in scripts: yes
 * Available in functions: yes
 
-This function enables handling runtime erros raised by the Redis server.
+This function enables handling runtime errors raised by the Redis server.
 The `redis.pcall()` function  behaves exactly like [`redis.call()`](#redis.call()), except that it:
 
 * Always returns a reply.
@@ -201,8 +201,8 @@ Refer to the [Data type conversion](#data-type-conversion) for returning other r
 * Available in functions: yes
 
 This is a helper function that returns a [simple string reply](/topics/protocol#resp-simple-strings).
-"OK" is an example of a common Redis status reply.
-The Lua API represents status replies as tables with a single field, _ok_, set with simple status string.
+"OK" is an example of a standard Redis status reply.
+The Lua API represents status replies as tables with a single field, _ok_, set with a simple status string.
 
 The outcome of the following code is that _status1_ and _status2_ are identical for all intents and purposes:
 
@@ -212,7 +212,7 @@ local status1 = { ok = text }
 local status2 = redis.status_reply(text)
 ```
 
-Therefore, both forms are valid as means for returning status reply from scripts:
+Therefore, both forms are valid as means for returning status replies from scripts:
 
 ```
 redis> EVAL "return { ok = 'TICK' }" 0
@@ -279,7 +279,7 @@ will produce a line similar to the following in your server's log:
 
 This function allows the executing script to switch between [Redis Serialization Protocol (RESP)](/topics/protocol) versions for the replies returned by [`redis.call()](#redis.call()) and [`redis.pall()](#redis.pcall()).
 It expects a single numerical argument as the protocol's version.
-The default protocol version is _2_, but it can be switch to version _3_.
+The default protocol version is _2_, but it can be switched to version _3_.
 
 Here's an example of switching to RESP3 replies:
 
@@ -342,7 +342,7 @@ redis.set_repl(redis.REPL_ALL)
 redis.call('SET', KEYS[3], ARGV[3])
 ```
 
-If you'll run this script by calling `EVAL "..." 3 A B C 1 2 3`, the result will be that only the keys _A_ and _C_ are be created on the replicas and AOF.
+If you run this script by calling `EVAL "..." 3 A B C 1 2 3`, the result will be that only the keys _A_ and _C_ are created on the replicas and AOF.
 
 ### <a name="redis.replicate_commands()"></a> `redis.replicate_commands()`
 
@@ -383,14 +383,14 @@ This function prints its argument in the [Redis Lua debugger](/topics/ldb) conso
 
 This function is only available from the context of the `FUNCTION LOAD` command.
 When called, it registers a function to the loaded library.
-The function can be called either with positional argument or with named arguments.
+The function can be called either with positional or named arguments.
 
 #### <a name="redis.register_function_pos_args"></a> positional arguments: `redis.register_functio(name, callback)`
 
-The first argument to `redis.register_functio` is a Lua string representing the function name.
-The second argument to `redis.register_functio` is a Lua function.
+The first argument to `redis.register_function` is a Lua string representing the function name.
+The second argument to `redis.register_function` is a Lua function.
 
-Usage Example:
+Usage example:
 
 ```
 redis> FUNCTION LOAD Lua mylib "redis.register_function('noop', function() end)"
@@ -398,71 +398,101 @@ redis> FUNCTION LOAD Lua mylib "redis.register_function('noop', function() end)"
 
 #### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_functio{function_name=name, callback=callback, flags={flag1, flag2, ..}. description=description}`
 
-The named argument version except the following named arguments:
+The named arguments variant accepts the following arguments:
 
-* _function\_name_ - Lua string representing the function name
-* _callback_ - Lua function
-* _flags_ - Lua array of strings representing function flags
-* _description_ - Lua string representing the function description
+* _function\_name_: the function's name.
+* _callback_: the function's callback.
+* _flags_: an array of strings, each a function flag (optional).
+* _description_: function's description (optional).
 
-_function\_name_ and _callback_ are mandatory, the other named arguments are option.
+Both _function\_name_ and _callback_ are mandatory.
 
-Usage Example:
+Usage example:
 
 ```
-redis> FUNCTION LOAD Lua mylib "redis.register_function{function_name='noop', callback=function() end, function, flags={'no-writes'}, description='some desc')"
+redis> FUNCTION LOAD Lua mylib "redis.register_function(function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing')"
 ```
 
-#### <a name="script_flags"></a> Script Flags
+#### <a name="function_flags"></a> Function flags
 
-The following is a list of supported script flags:
+**Important:**
+use function flags with care, which may negatively impact if misused.
 
-* `no-writes` - indicating the script perform no writes which means that it is OK to run it on:
-   * read-only replica
-   * Using FCALL_RO / EVAL_RO
-   * If disk error detected (Redis is unable to persist so it rejects writes)
-   
-   It will not be possible to run a function in those situations unless the script turns on the `no-writes` flag, in this case Redis will enforce the script is doing not writes and will raise an error if it does.
+When you register a function, the server does not know how it accesses the database.
+By default, Redis assumes that all functions read and write data.
+This results in the following behavior:
 
-* `allow-oom` - indicate that it's OK to run the script even if Redis is in OOM (out of memory) state, if the script will not turn on this flag it will not be possible to run it if OOM reached (even if the script declares `no-writes` and even if `fcall_ro` / `eval_ro` is used). If this flag is set, any command will be allowed on OOM (even ones that are normally not allowed in that state).
+1. Functions can read and write data.
+1. Functions can run in cluster mode.
+1. Execution against a stale replica is denied to avoid inconsistent reads.
+1. Execution under low memory is denied to avoid exceeding the configured threshold.
 
-* `allow-state` - indicate that it's OK to run the script on stale replica, in this case calls to Redis commands that are not allowed in that state will error when the script is executed on a stale replica.
+You can use the following flags and instruct the server to treat the function's execution differently:
 
-* `no-cluster` - indicate to disallow running the script on Redis cluster. 
+* `no-writes`: this flag indicates that the function only reads data but never writes.
 
-Refer to [Function Flags](functions-intro#function-flags) for full example.
+    By default, Redis will deny the execution of functions against read-only replicas, as they may attempt to perform writes.
+    Similarly, the server will not allow calling functions with `FCALL_RO`.
+    Lastly, when data persistence is at risk due to a disk error, execution is blocked as well.
+    
+    Using this flag allows executing the function:
+    1. With `FCALL_RO` against masters and read-only replicas.
+    2. Even if there's a disk error.
+
+    However, note that the server will return an error if the function attempts to call a write command.
+
+* `allow-oom`: use this flag to allow a function to execute when the server is out of memory (OOM).
+  
+    Unless used, Redis will deny the execution of functions when in an OOM state, regardless of the `no-write` flag and method of calling.
+    Furthermore, when you use this flag, the function can call any Redis command, including commands that aren't usually allowed in this state.
+
+* `allow-stale`: a flag that enables running the function against a stale replica.
+
+    By default, Redis prevents data consistency problems from using old data by having stale replicas return a runtime error.
+    In cases where the consistency is a lesser concern, this flag allows stale Redis replicas to run the function.
+
+* `no-cluster`: the flag causes the function to return an error in Redis cluster mode.
+
+    Redis allows functions to be executed both in standalone and cluster modes.
+    Setting this flag prevents executing the function against nodes in the cluster.
+
+Please refer to [Function Flags](functions-intro#function-flags) for a detailed example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
+
 * Since version: 7.0.0
 * Available in scripts: yes
 * Available in functions: yes
 
-Returns the current redis version as a Lua string in the format `MM.mm.PP` where:
+Returns the current Redis server version as a Lua string.
+The reply's format is `MM.mm.PP`, where:
 
-* MM - Redis major version
-* mm - Redis minor version
-* PP - Redis patch version
+* **MM:** is the major version.
+* **mm:** is the minor version.
+* **PP:** is the patch level.
 
 ### <a name="redis.redis_version_num"></a> `redis.REDIS_VERSION_NUM`
+
 * Since version: 7.0.0
 * Available in scripts: yes
 * Available in functions: yes
 
-Returns the current redis version as a number in the format `0x00MMmmPP` where:
+Returns the current Redis server version as a number.
+The reply is a hexadecimal value structured as `0x00MMmmPP`, where:
 
-* MM - Redis major version
-* mm - Redis minor version
-* PP - Redis patch version
+* **MM:** is the major version.
+* **mm:** is the minor version.
+* **PP:** is the patch level.
 
 ## Data type conversion
 
-Unless a runtime exception is raised, `redis.call()` and `redis.pcall()` return the reply from the executed to command to the Lua script.
+Unless a runtime exception is raised, `redis.call()` and `redis.pcall()` return the reply from the executed command to the Lua script.
 Redis' replies from these functions are converted automatically into Lua's native data types.
 
 Similarly, when a Lua script returns a reply with the `return` keyword,
 that reply is automatically converted to Redis' protocol.
 
-Put differently, there's a one-to-one mapping between Redis' replies and Lua's data types and a one-to-one mapping between Lua's data types and the [Redis Protocol](/topics/protocol) data types.
+Put differently; there's a one-to-one mapping between Redis' replies and Lua's data types and a one-to-one mapping between Lua's data types and the [Redis Protocol](/topics/protocol) data types.
 The underlying design is such that if a Redis type is converted into a Lua type and converted back into a Redis type, the result is the same as the initial value.
 
 Type conversion from Redis protocol replies (i.e., the replies from `redis.call()` and `redis.pcall()` to Lua data types depends on the Redis Serialization Protocol version used by the script.

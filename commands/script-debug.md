@@ -19,7 +19,7 @@ is active and retains all changes to the data set once it ends.
 * `!SYNC`. Enable blocking synchronous debugging of Lua scripts (saves changes to data).
 * `NO`. Disables scripts debug mode.
 
-For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/evalintro)
+For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
 
 @return
 

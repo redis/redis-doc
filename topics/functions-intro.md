@@ -133,7 +133,7 @@ to ensure the correct execution of Redis Functions, both in standalone and clust
 Any input to the function that isn't the name of a key is a regular input argument.
 
 Now, let's pretend that our application stores some of its data in Redis Hashes.
-We want an `HSET`-like way to set and update fields in said Hashes and store the last modification time in a new field named _\_last\_update\__.
+We want an `HSET`-like way to set and update fields in said Hashes and store the last modification time in a new field named `_last_modified_`.
 We can implement a function to do all that.
 
 Our function will call `TIME` to get the server's clock reading and update the target Hash with the new fields' values and the modification's timestamp.
@@ -190,7 +190,7 @@ On the other hand, we do want to provide the means to obtain the modification ti
 
 We'll add two new functions to our library to accomplish these objectives:
 
-1. The `my_hgetall` Redis Function will return all fields and their respective values from a given Hash key name, excluding the metadata (i.e., the _\_last\_updated\__ field).
+1. The `my_hgetall` Redis Function will return all fields and their respective values from a given Hash key name, excluding the metadata (i.e., the `_last_modified_` field).
 1. The `my_hlastmodified` Redis Function will return the modification timestamp for a given Hash key name.
 
 The library's source code could look something like the following:
@@ -221,8 +221,8 @@ redis.register_function('my_hlastmodified', my_hlastmodified)
 ```
 
 While all of the above should straightforward, note that the `my_hgetall` also calls [`redis.setresp(3)`](/topics/lua-api#redis.setresp()).
-That means that the function expects [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3) replies after calling `redis.call()`, which, unlike the default RESP2 protocol, provides dictionary (associative arrays) replies.
-Doing so allows the function to delete (or set to `nil` as is the case with Lua tables) specific fields from the reply, and in our case, the _\_last_modified\__ field.
+That means that the function expects [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md) replies after calling `redis.call()`, which, unlike the default RESP2 protocol, provides dictionary (associative arrays) replies.
+Doing so allows the function to delete (or set to `nil` as is the case with Lua tables) specific fields from the reply, and in our case, the `_last_modified_` field.
 
 Assuming you've saved the library's implementation in the _mylib.lua_ file, you can replace it with its (optional) description with:
 
@@ -351,38 +351,52 @@ And your Redis log file should have lines in it that are similar to:
 20075:M 1 Jan 2022 16:54:01.309 # Only one key name is allowed
 ```
 
-## Function Flags
+## Function flags
 
-Looking at the example above, the library introduces 3 functions, `my_hset`, `my_hgetall`, and `my_hlastmodified`. The last 2 functions are not perforning any writes, so we should be able to run them using `FCALL_RO` on a `readonly` replica. But if we try to invoke them we will get the following error:
+When you register a function, the server does not know how it accesses the database.
+On the other hand, the server must also enforce resource usage policies and maintain data consistency for functions.
+By default, and unless instructed differently, Redis assumes that all functions read and write data.
+
+Function flags tell the server that its assumptions are wrong.
+They allow you to inform Redis that your function is an exception.
+Use care when registering a function with flags, which may negatively impact if misused.
+
+Let's see how flags work.
+Our example had two functions that only read data, so we can try running them using `FCALL_RO` against a read-only replica. 
 
 ```
-> FCALL_RO my_hgetall 1 myhash
+redis > FCALL_RO my_hgetall 1 myhash
 (error) ERR Can not execute a function with write flag using fcall_ro.
 ```
 
-This is happened because, by default, a function can perfrom read and writes commands, and Redis has no way to know what a function might try to do. So Redis assumes the wrost and not allow running the function on the following cases:
+Redis returns this error because a function can, in theory, perform both read and write operations on the database.
+As a safeguard and by default, Redis assumes that the function does both, so it blocks its execution.
+The server will reply with this error in the following cases:
 
-1. On readonly replica
-2. Using `EVAL_RO`
-3. If a disc error detacted
+1. Executing a function with `FCALL` against a read-only replica.
+2. Using `FCALL_RO` to execute a function.
+3. A disk error was detected.
 
-It is possible to tell Redis that a function do not perform any writes, is such case Redis will allow running using `FCALL_RO` or on `readonly` replica and enforce no writes are performed (any attempt to call a `write` command will result in an error). This is done using the `no-writes` function flag. In order to specify function flags we need to use the [named arguments](lua-api#redis.register_function_named_args) version of [`redis.register_function`](lua-api#redis.register_function()). We only need to change the function registration part of our code:
+In these cases, you can add the `no-writes` flag to the function's registration, disable the safeguard and allow them to run.
+To register a function with flags use the [named arguments](lua-api#redis.register_function_named_args) variant of `redis.register_function`.
+
+The updated registration code snippet from the library looks like this:
 
 ```lua
 redis.register_function('my_hset', my_hset)
 redis.register_function{
   function_name='my_hgetall',
   callback=my_hgetall,
-  flags={'no-writes'}
+  flags={ 'no-writes' }
 }
 redis.register_function{
   function_name='my_hlastmodified',
   callback=my_hlastmodified,
-  flags={'no-writes'}
+  flags={ 'no-writes' }
 }
 ```
 
-Now Redis will allows us to run both, `my_hgetall` and `my_hlastmodified`, using `FCALL_RO` and on `readonly` replica:
+Once we've replaced the library, Redis allows running both `my_hgetall` and `my_hlastmodified` with `FCALL_RO` against a read-only replica:
 
 ```
 redis> FCALL_RO my_hgetall 1 myhash
@@ -394,11 +408,4 @@ redis> FCALL_RO my_hlastmodified 1 myhash
 "1640772721"
 ```
 
-### Default behaviure of functions (if no flags is given):
-
-1. Allow functions to read and write
-2. Do not run functions on OOM
-3. Do not run functions on stale replica
-4. Allow functions on cluster
-
-For full documentation of the supported flags refer to [Script Flags](lua-api#script_flags)
+For the complete documentation flags, please refer to [Function flags](lua-api#function_flags).

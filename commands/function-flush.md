@@ -5,7 +5,7 @@ Unless called with the optional mode argument, the `lazyfree-lazy-user-flush` co
 * `ASYNC`: Asynchronously flush the libraries.
 * `SYNC`: Synchronously flush the libraries.
 
-For more information please refer to [Introduction to Redis Functions](/topics/function)
+For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).
 
 @return
 

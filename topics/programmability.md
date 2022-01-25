@@ -14,6 +14,7 @@ Such APIs can encapsulate business and maintain a data model across multiple key
 
 User scripts are executed in Redis by an embedded, sandboxed scripting engine.
 Presently, Redis supports a single scripting engine, the [Lua 5.1](https://www.lua.org/) interpreter.
+
 Please refer to the [Redis Lua API Reference](/topics/lua-api) page for complete documentation.
 
 ## Running scripts
@@ -22,10 +23,15 @@ Redis provides two means for running scripts.
 
 Firstly, and ever since Redis 2.6.0, the `EVAL` command enables running server-side scripts. 
 Eval scripts provide a quick and straightforward way to have Redis run your scripts ad-hoc.
-However, using them means that the scripted logic is part of your application because the scripts are merely cached by server and are therefore volatile and ephemeral. As your application grows, this approach becomes harder to maintain.
+However, using them means that the scripted logic becomes a part of your application.
+Every applicative instance that runs a script must have the script's source code readily available for loading at any time.
+That is because scripts are only cached by the server and are volatile.
+As your application grows, this approach can become harder to develop and maintain.
 
-Secondly, added in v7.0.0, Redis Functions are essentially scripts that are first-class database citizens. As such, functions decouple scripting from application logic and enable independent development, testing, and deployment of scripts.
-To use functions, they need first to be declared once, and then they are available for use by all connected clients.
+Secondly, added in v7.0.0, Redis Functions are essentially scripts that are first-class database citizens.
+As such, functions decouple scripting from application logic and enable independent development, testing, and deployment of scripts.
+To use functions, they need to be loaded first, and then they are available for use by all connected clients.
+In this case, loading a function to the database becomes an administrative deployment task (such as loading a Redis module, for example), which separates the script from the application.
 
 Please refer to the following pages for more information:
 

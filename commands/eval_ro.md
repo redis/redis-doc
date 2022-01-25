@@ -3,7 +3,7 @@ This is a read-only variant of the `EVAL` command that cannot execute commands t
 Unlike `EVAL`, scripts executed with this command can always be killed and never affect the replication stream.
 Because the script can only read data, this command can always be executed on a master or a replica.
 
-For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/evalintro)
+For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
 
 @examples
 
