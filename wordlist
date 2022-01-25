@@ -193,6 +193,7 @@ cli
 cmsgpack
 codename
 commandstats
+latencystats
 errorstats
 conf
 config
