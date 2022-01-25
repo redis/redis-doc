@@ -1,5 +1,15 @@
-Using Redis as an LRU cache
-===
+---
+title: Eviction
+linkTitle: Eviction
+weight: 1
+description: Using Redis as a cache with eviction policies.
+aliases: [
+    /topics/lru_cache,
+    /topics/lru_cache.md,
+    /manual/eviction,
+    /manual/eviction.md,
+]
+---
 
 When Redis is used as a cache, often it is handy to let it automatically
 evict old data as you add new data. This behavior is very well known in the
@@ -15,8 +25,7 @@ the exact LRU.
 Starting with Redis version 4.0, a new LFU (Least Frequently Used) eviction
 policy was introduced. This is covered in a separated section of this documentation.
 
-Maxmemory configuration directive
----
+## Maxmemory configuration directive
 
 The `maxmemory` configuration directive is used in order to configure Redis
 to use a specified amount of memory for the data set. It is possible to
@@ -38,8 +47,7 @@ Redis can just return errors for commands that could result in more memory
 being used, or it can evict some old data in order to return back to the
 specified limit every time new data is added.
 
-Eviction policies
----
+## Eviction policies
 
 The exact behavior Redis follows when the `maxmemory` limit is reached is
 configured using the `maxmemory-policy` configuration directive.
@@ -70,8 +78,7 @@ The **volatile-lru** and **volatile-random** policies are mainly useful when you
 
 It is also worth noting that setting an expire to a key costs memory, so using a policy like **allkeys-lru** is more memory efficient since there is no need to set an expire for the key to be evicted under memory pressure.
 
-How the eviction process works
----
+## How the eviction process works
 
 It is important to understand that the eviction process works like this:
 
@@ -83,8 +90,7 @@ So we continuously cross the boundaries of the memory limit, by going over it, a
 
 If a command results in a lot of memory being used (like a big set intersection stored into a new key) for some time the memory limit can be surpassed by a noticeable amount.
 
-Approximated LRU algorithm
----
+## Approximated LRU algorithm
 
 Redis LRU algorithm is not an exact implementation. This means that Redis is
 not able to pick the *best candidate* for eviction, that is, the access that
@@ -132,8 +138,7 @@ difference in your cache misses rate.
 To experiment in production with different values for the sample size by using
 the `CONFIG SET maxmemory-samples <count>` command, is very simple.
 
-The new LFU mode
----
+## The new LFU mode
 
 Starting with Redis 4.0, a new [Least Frequently Used eviction mode](http://antirez.com/news/109) is available. This mode may work better (provide a better
 hits/misses ratio) in certain cases, since using LFU Redis will try to track
@@ -149,7 +154,7 @@ To configure the LFU mode, the following policies are available:
 
 LFU is approximated like LRU: it uses a probabilistic counter, called a [Morris counter](https://en.wikipedia.org/wiki/Approximate_counting_algorithm) in order to estimate the object access frequency using just a few bits per object, combined with a decay period so that the counter is reduced over time: at some point we no longer want to consider keys as frequently accessed, even if they were in the past, so that the algorithm can adapt to a shift in the access pattern.
 
-Those informations are sampled similarly to what happens for LRU (as explained in the previous section of this documentation) in order to select a candidate for eviction.
+That information is sampled similarly to what happens for LRU (as explained in the previous section of this documentation) in order to select a candidate for eviction.
 
 However unlike LRU, LFU has certain tunable parameters: for instance, how fast
 should a frequent item lower in rank if it gets no longer accessed? It is also possible to tune the Morris counters range in order to better adapt the algorithm to specific use cases.
@@ -188,4 +193,3 @@ The counter *logarithm factor* changes how many hits are needed in order to satu
 
 So basically the factor is a trade off between better distinguishing items with low accesses VS distinguishing items with high accesses. More informations are available in the example `redis.conf` file self documenting comments.
 
-Since LFU is a new feature, we'll appreciate any feedback about how it performs in your use case compared to LRU.
