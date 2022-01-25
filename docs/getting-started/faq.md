@@ -1,5 +1,12 @@
-# FAQ
-
+---
+title: "Frequently Asked Questions"
+linkTitle: "Frequently Asked Questions"
+weight: 1
+description: >
+    These are the most commonly asked questions when beginning with Redis.
+aliases:
+    - /docs/getting-started/faq
+---
 ## Why is Redis different compared to other key-value stores?
 
 There are two main reasons.

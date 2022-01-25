@@ -1,5 +1,12 @@
-﻿Redis Quick Start
-===
+﻿---
+title: "Redis Quick Start"
+linkTitle: "Redis Quick Start"
+weight: 1
+description: >
+    How to get up and running with Redis
+aliases:
+    - /docs/getting-started/tutorial
+---
 
 This is a quick start document that targets people without prior experience
 with Redis. Reading this document will help you:

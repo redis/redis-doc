@@ -1,4 +1,12 @@
-# Redis on ARM
+---
+title: "Redis on ARM"
+linkTitle: "Redis on ARM"
+weight: 1
+description: >
+    Exploring Redis on the ARM Computer Architecture
+aliases:
+    - /docs/reference/ARM
+---
 
 Both Redis 4 and Redis 5 versions supports the ARM processor in general, and
 the Raspberry Pi specifically, as a main platform, exactly like it happens

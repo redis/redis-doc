@@ -1,5 +1,12 @@
-Redis configuration
-===
+---
+title: "Redis configuration"
+linkTitle: "Redis configuration"
+weight: 1
+description: >
+    The Redis configuration file overview
+aliases:
+    - /docs/manual/config
+---
 
 Redis is able to start without a configuration file using a built-in default
 configuration, however this setup is only recommended for testing and
