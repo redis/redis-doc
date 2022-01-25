@@ -20,8 +20,10 @@ If you need to enable it, use `CONFIG SET latency-tracking yes`.
 
 ```
 127.0.0.1:6379> LATENCY HISTOGRAM set
-1# "set" => 1# "calls" => (integer) 100000
-   2# "histogram_usec" => 1# (integer) 1 => (integer) 99583
+1# "set" =>
+   1# "calls" => (integer) 100000
+   2# "histogram_usec" =>
+      1# (integer) 1 => (integer) 99583
       2# (integer) 2 => (integer) 99852
       3# (integer) 4 => (integer) 99914
       4# (integer) 8 => (integer) 99940
