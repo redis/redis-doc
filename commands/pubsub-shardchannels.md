@@ -10,10 +10,10 @@ The information returned about the active shard channels are at the shard level 
 
 @array-reply: a list of active channels, optionally matching the specified pattern.
 
-## Example
-
-        > PUBSUB SHARDCHANNELS
-          1) "orders"
-          PUBSUB SHARDCHANNELS o*
-          1) "orders"
-
+@examples
+```
+> PUBSUB SHARDCHANNELS
+1) "orders"
+PUBSUB SHARDCHANNELS o*
+1) "orders"
+```

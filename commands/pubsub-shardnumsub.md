@@ -10,7 +10,9 @@ Cluster note: in a Redis Cluster, `PUBSUB`'s replies in a cluster only report in
 
 The format is channel, count, channel, count, ..., so the list is flat. The order in which the channels are listed is the same as the order of the shard channels specified in the command call.
 
-        > PUBSUB SHARDNUMSUB orders
-          1) "orders"
-          2) (integer) 1
-
+@examples
+```
+> PUBSUB SHARDNUMSUB orders
+1) "orders"
+2) (integer) 1
+```

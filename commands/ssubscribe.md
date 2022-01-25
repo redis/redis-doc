@@ -5,14 +5,14 @@ Client(s) can subscribe to a node covering a slot (primary/replica) to receive t
 
 For more information about sharded pubsub, see [Sharded Pubsub](topics/pubsub#sharded-pubsub). 
 
-## Example
-
-        > ssubscribe orders
-          Reading messages... (press Ctrl-C to quit)
-          1) "ssubscribe"
-          2) "orders"
-          3) (integer) 1
-          1) "message"
-          2) "orders"
-          3) "hello"
-
+@examples
+```
+> ssubscribe orders
+Reading messages... (press Ctrl-C to quit)
+1) "ssubscribe"
+2) "orders"
+3) (integer) 1
+1) "message"
+2) "orders"
+3) "hello"
+```

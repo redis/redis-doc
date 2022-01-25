@@ -10,9 +10,11 @@ For more information about sharded pubsub, see [Sharded Pubsub](topics/pubsub#sh
 
 @integer-reply: the number of clients that received the message.
 
-## Example
+@examples
 
 For example the following command publish to channel `orders` with a subscriber already waiting for message(s).
     
-        > spublish orders hello
-          (integer) 1
+```
+> spublish orders hello
+(integer) 1
+```
