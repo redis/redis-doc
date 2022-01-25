@@ -1,5 +1,15 @@
-Replication
-===
+---
+title: Replication
+linkTitle: Replication
+weight: 1
+description: A technical description of Redis replication.
+aliases: [
+    /topics/replication,
+    /topics/replication.md,
+    /manual/replication,
+    /manual/replication.md,
+]
+---
 
 At the base of Redis replication (excluding the high availability features provided as an additional layer by Redis Cluster or Redis Sentinel) there is a very simple to use and configure *leader follower* (master-replica) replication: it allows replica Redis instances to be exact copies of master instances. The replica will automatically reconnect to the master every time the link breaks, and will attempt to be an exact copy of it *regardless* of what happens to the master.
 
@@ -38,8 +48,7 @@ The following are some very important facts about Redis replication:
 * Replication can be used both for scalability, in order to have multiple replicas for read-only queries (for example, slow O(N) operations can be offloaded to replicas), or simply for improving data safety and high availability.
 * It is possible to use replication to avoid the cost of having the master writing the full dataset to disk: a typical technique involves configuring your master `redis.conf` to avoid persisting to disk at all, then connect a replica configured to save from time to time, or with AOF enabled. However this setup must be handled with care, since a restarting master will start with an empty dataset: if the replica tries to synchronize with it, the replica will be emptied as well.
 
-Safety of replication when master has persistence turned off
----
+## Safety of replication when master has persistence turned off
 
 In setups where Redis replication is used, it is strongly advised to have
 persistence turned on in the master and in the replicas. When this is not possible,
@@ -59,8 +68,7 @@ on the master, together with auto restart of the process, is dangerous. For exam
 
 Every time data safety is important, and replication is used with master configured without persistence, auto restart of instances should be disabled.
 
-How Redis replication works
----
+## How Redis replication works
 
 Every Redis master has a replication ID: it is a large pseudo random string
 that marks a given story of the dataset. Each master also takes an offset that
@@ -93,8 +101,7 @@ not allow partial resynchronizations, so now `PSYNC` is used instead.
 
 As already said, replicas are able to automatically reconnect when the master-replica link goes down for some reason. If the master receives multiple concurrent replica synchronization requests, it performs a single background save in order to serve all of them.
 
-Replication ID explained
----
+## Replication ID explained
 
 In the previous section we said that if two instances have the same replication
 ID and replication offset, they have exactly the same data. However it is useful
@@ -135,8 +142,7 @@ working as a master because of some network partition: retaining the same
 replication ID would violate the fact that the same ID and same offset of any
 two random instances mean they have the same data set.
 
-Diskless replication
----
+## Diskless replication
 
 Normally a full resynchronization requires creating an RDB file on disk,
 then reloading the same RDB from disk in order to feed the replicas with the data.
@@ -146,8 +152,7 @@ Redis version 2.8.18 is the first version to have support for diskless
 replication. In this setup the child process directly sends the
 RDB over the wire to replicas, without using the disk as intermediate storage.
 
-Configuration
----
+## Configuration
 
 To configure basic Redis replication is trivial: just add the following line to the replica configuration file:
 
@@ -167,8 +172,7 @@ arrive after the first one is controlled by the `repl-diskless-sync-delay`
 parameter. Please refer to the example `redis.conf` file in the Redis distribution
 for more details.
 
-Read-only replica
----
+## Read-only replica
 
 Since Redis 2.6, replicas support a read-only mode that is enabled by default.
 This behavior is controlled by the `replica-read-only` option in the redis.conf file, and can be enabled and disabled at runtime using `CONFIG SET`.
@@ -192,7 +196,7 @@ To minimize the risks (if you insist on using writable replicas) we suggest you 
 * Don't configure an instance as a writable replica as an intermediary step when upgrading a set of instances in a running system.
   In general, don't configure an instance as a writable replica if it can ever be promoted to a master if you want to guarantee data consistency.
 
-Historically, there were some use cases that were considere legitimate for writable replicas.
+Historically, there were some use cases that were consider legitimate for writable replicas.
 As of version 7.0, these use cases are now all obsolete and the same can be achieved by other means.
 For example:
 
@@ -205,7 +209,7 @@ For example:
 * Using [EVAL](/commands/eval) and [EVALSHA](/commands/evalsha) are also not considered read-only commands, because the Lua script may call write commands.
   Instead, use [EVAL_RO](/commands/eval_ro) and [EVALSHA_RO](/commands/evalsha_ro) where the Lua script can only call read-only commands.
 
-While writes to a replica will be discarded if the replica and the master resynchronize or if the replica is restarted, there is no guarantee that they will resyncronize automatically.
+While writes to a replica will be discarded if the replica and the master resynchronize or if the replica is restarted, there is no guarantee that they will sync automatically.
 
 Before version 4.0, writable replicas were incapable of expiring keys with a time to live set.
 This means that if you use `EXPIRE` or other commands that set a maximum TTL for a key, the key will leak, and while you may no longer see it while accessing it with read commands, you will see it in the count of keys and it will still use memory.
@@ -218,8 +222,7 @@ Also note that since Redis 4.0 replica writes are only local, and are not propag
 
 Even if `B` is writable, C will not see `B` writes and will instead have identical dataset as the master instance `A`.
 
-Setting a replica to authenticate to a master
----
+## Setting a replica to authenticate to a master
 
 If your master has a password via `requirepass`, it's trivial to configure the
 replica to use that password in all sync operations.
@@ -232,8 +235,7 @@ To set it permanently, add this to your config file:
 
     masterauth <password>
 
-Allow writes only with N attached replicas
----
+## Allow writes only with N attached replicas
 
 Starting with Redis 2.8, it is possible to configure a Redis master to
 accept write queries only if at least N replicas are currently connected to the
@@ -263,8 +265,7 @@ There are two configuration parameters for this feature:
 For more information, please check the example `redis.conf` file shipped with the
 Redis source distribution.
 
-How Redis replication deals with expires on keys
----
+## How Redis replication deals with expires on keys
 
 Redis expires allow keys to have a limited time to live (TTL). Such a feature depends
 on the ability of an instance to count the time, however Redis replicas correctly
@@ -283,8 +284,7 @@ able to work:
 
 Once a replica is promoted to a master it will start to expire keys independently, and will not require any help from its old master.
 
-Configuring replication in Docker and NAT
----
+## Configuring replication in Docker and NAT
 
 When Docker, or other types of containers using port forwarding, or Network Address Translation is used, Redis replication needs some extra care, especially when using Redis Sentinel or other systems where the master `INFO` or `ROLE` commands output is scanned in order to discover replicas' addresses.
 
@@ -307,8 +307,7 @@ The two configurations directives to use are:
 
 And are documented in the example `redis.conf` of recent Redis distributions.
 
-The INFO and ROLE command
----
+## The INFO and ROLE command
 
 There are two Redis commands that provide a lot of information on the current
 replication parameters of master and replica instances. One is `INFO`. If the
@@ -318,8 +317,7 @@ computer-friendly command is `ROLE`, that provides the replication status of
 masters and replicas together with their replication offsets, list of connected
 replicas and so forth.
 
-Partial resynchronizations after restarts and failovers
----
+## Partial sync after restarts and failovers
 
 Since Redis 4.0, when an instance is promoted to master after a failover,
 it will be still able to perform a partial resynchronization with the replicas
@@ -343,8 +341,7 @@ It is not possible to partially resynchronize a replica that restarted via the
 AOF file. However the instance may be turned to RDB persistence before shutting
 down it, than can be restarted, and finally AOF can be enabled again.
 
-Maxmemory on replicas
----
+## Maxmemory on replicas
 
 Replicas don't honor `maxmemory` because by default a replica will ignore this setting (unless it is promoted to master after a failover or manually).
 It means that the eviction of keys will just be handled by the master, sending the DEL commands to the replica as keys evict in the master side.
@@ -355,6 +352,6 @@ However, if your replica is writable, or you want the replica to have a differen
 Note that since the replica by default does not evict, it may end up using more memory than what is set via `maxmemory` (since there are certain buffers that may be larger on the replica, or data structures may sometimes take more memory and so forth).
 So make sure you monitor your replicas and make sure they have enough memory to never hit a real out-of-memory condition before the master hits the configured `maxmemory` setting.
 
-In order to change this behavior, it is possible to allow a replica to not ignore the maxmemory. The configuration directives to use is:
+In order to change this behavior, it is possible to allow a replica to not ignore the `maxmemory`. The configuration directives to use is:
 
     replica-ignore-maxmemory no
