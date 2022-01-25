@@ -1,4 +1,4 @@
-Return information about the function that's currently running and available execution engines.
+Return information about the function that's currently running and information about the available execution engines.
 
 The reply is map with two keys:
 
@@ -8,8 +8,8 @@ The reply is map with two keys:
   * **name:** the name of the function.
   * **command:** the command and arguments used for invoking the function.
   * **duration_ms:** the function's runtime duration in milliseconds.
-2. `engines`: this is an array of simple strings.
-  Each is a name of an execution engine.
+2. `engines`: this is an array of maps. Each map contains information about a single engine.
+   Map contians the engine name and additional statistics about the engine like number of funcionts and number of libraries.
 
 
 You can use this command to inspect the invocation of a long-running function and decide whether kill it with the `FUNCTION KILL` command.
