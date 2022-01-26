@@ -1225,9 +1225,14 @@ In a Redis Cluster clients can subscribe to every node, and can also
 publish to every other node. The cluster will make sure that published
 messages are forwarded as needed.
 
-The current implementation will simply broadcast each published message
-to all other nodes, but at some point this will be optimized either
-using Bloom filters or other algorithms.
+The clients can send SUBSCRIBE to any node and can also send PUBLISH to any node. 
+It will simply broadcast each published message to all other nodes.
+
+From 7.0, sharded pubsub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
+A shard message must be sent to a node that owns the slot the shard channel is hashed to. 
+The cluster makes sure the published shard messages are forwarded to all nodes in the shard, so clients can subscribe to a shard channel by connecting to either the master responsible for the slot, or to any of its replicas.
+
+
 
 Appendix
 ===
