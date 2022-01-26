@@ -141,7 +141,7 @@ start thinking of some way to shard earlier.
 
 You can find more information about using multiple Redis instances in the [Partitioning page](/topics/partitioning).
 
-As of Redis 4.0 Redis has started implementing threaded actions. For now this is limited to deleting objects in the background and blocking commands implemented via Redis modules. For subsequent releases, the plan is to make Redis more and more threaded.
+As of version 4.0 Redis has started implementing threaded actions. For now this is limited to deleting objects in the background and blocking commands implemented via Redis modules. For subsequent releases, the plan is to make Redis more and more threaded.
 
 ## What is the maximum number of keys a single Redis instance can hold? What is the max number of elements in a Hash, List, Set, Sorted Set?
 
