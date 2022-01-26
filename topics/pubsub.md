@@ -173,7 +173,7 @@ unsubscribing from all the channels and patterns.
 
 From 7.0, sharded pubsub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
 A shard message must be sent to a node that own the slot the shard channel is hashed to. 
-The cluster makes sure the published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
+The cluster makes sure the published shard messages are forwarded to all nodes in the shard, so clients can subscribe to a shard channel by connecting to either the master responsible for the slot, or to any of its replicas.
 `SSUBSCRIBE`, `SUNSUBSCRIBE` and `SPUBLISH` are used to implement sharded pubsub.
 
 Sharded pubsub helps to scale the usage of pubsub in cluster mode. 
