@@ -66,7 +66,7 @@ To start the Redis server, run the **redis-server** binary with no arguments.
 In the above example Redis was started without any explicit configuration file, so all of the parameters will use the internal default.
 This is perfectly fine if you are starting Redis just to learn or for development, but for production environments you should use a configuration file.
 
-In order to start Redis with a configuration file use the full path of the configuration file as first argument, like in the following example: 
+To start Redis with a configuration file, use the full path of the configuration file as the first argument to `redis-server`, as in the following example: 
 
     $ redis-server /etc/redis.conf
 
