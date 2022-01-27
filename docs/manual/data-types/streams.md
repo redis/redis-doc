@@ -740,20 +740,19 @@ However latency becomes an interesting parameter if we want to understand the de
 
 Before providing the results of performed tests, it is interesting to understand what model Redis uses in order to route stream messages (and in general actually how any blocking operation waiting for data is managed).
 
-* The blocked client is referenced in an hash table that maps keys for which there is at least one blocking consumer, to a list of consumers that are waiting for such key. This way, given a key that received data, we can resolve all the clients that are waiting for such data.
+* The blocked client is referenced in a hash table that maps keys for which there is at least one blocking consumer, to a list of consumers that are waiting for such key. This way, given a key that received data, we can resolve all the clients that are waiting for such data.
 * When a write happens, in this case when the `XADD` command is called, it calls the `signalKeyAsReady()` function. This function will put the key into a list of keys that need to be processed, because such keys may have new data for blocked consumers. Note that such *ready keys* will be processed later, so in the course of the same event loop cycle, it is possible that the key will receive other writes.
 * Finally, before returning into the event loop, the *ready keys* are finally processed. For each key the list of clients waiting for data is scanned, and if applicable, such clients will receive the new data that arrived. In the case of streams the data is the messages in the applicable range requested by the consumer.
 
-As you can see, basically, before returning to the event loop both the client calling `XADD` and the clients blocked to consume messages, will have their reply in the output buffers, so the caller of `XADD` should receive the reply from Redis about at the same time the consumers will receive the new messages.
+As you can see, basically, before returning to the event loop both the client calling `XADD` and the clients blocked to consume messages, will have their reply in the output buffers, so the caller of `XADD` should receive the reply from Redis at about the same time the consumers will receive the new messages.
 
-This model is *push based*, since adding data to the consumers buffers will be performed directly by the action of calling `XADD`, so the latency tends to be quite predictable.
+This model is *push-based*, since adding data to the consumers buffers will be performed directly by the action of calling `XADD`, so the latency tends to be quite predictable.
 
 ## Latency tests results
 
-In order to check this latency characteristics a test was performed using multiple instances of Ruby programs pushing messages having as an additional field the computer millisecond time, and Ruby programs reading the messages from the consumer group and processing them. The message processing step consisted in comparing the current computer time with the message timestamp, in order to understand the total latency.
+In order to check these latency characteristics a test was performed using multiple instances of Ruby programs pushing messages having as an additional field the computer millisecond time, and Ruby programs reading the messages from the consumer group and processing them. The message processing step consisted of comparing the current computer time with the message timestamp, in order to understand the total latency.
 
-Such programs were not optimized and were executed in a small two core instance also running Redis, in order to try to provide the latency figures you could expect in non optimal conditions. Messages were produced at a rate of 10k per second, with ten simultaneous consumers consuming and acknowledging the messages from the same Redis stream and consumer group.
-
+Such programs were not optimized and were executed in a small two core instance also running Redis, in order to try to provide the latency figures you could expect in non-optimal conditions. Messages were produced at a rate of 10k per second, with ten simultaneous consumers consuming and acknowledging the messages from the same Redis stream and consumer group.
 
 Results obtained:
 
