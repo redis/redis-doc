@@ -47,7 +47,7 @@ to split your data set into multiple Redis instances, please read the
 [Partitioning page](/topics/partitioning) in this documentation for more info.
 
 Recently Redis LLC, the company sponsoring Redis developments, developed a
-"Redis on Flash" solution that is able to use a mixed RAM/flash approach for
+"Redis on Flash" solution that uses a mixed RAM/flash approach for
 larger data sets with a biased access pattern. You may check their offering
 for more information, however this feature is not part of the open source Redis
 code base.
