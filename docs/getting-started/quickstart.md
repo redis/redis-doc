@@ -55,7 +55,7 @@ In the following documentation we assume that `/usr/local/bin` is in your `PATH`
 Starting Redis
 ===
 
-The simplest way to start the Redis server is executing the **redis-server** binary without any argument.
+To start the Redis server, run the **redis-server** binary with no arguments.
 
     $ redis-server
     [28550] 01 Aug 19:29:28 # Warning: no config file specified, using the default config. In order to specify a config file use 'redis-server /path/to/redis.conf'
