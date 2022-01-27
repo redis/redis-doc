@@ -139,7 +139,7 @@ Note that the `XREVRANGE` command takes the *start* and *stop* arguments in reve
 
 ## Listening for new items with XREAD
 
-When we do not want to access items by a range in a stream, usually what we want instead is to *subscribe* the new items arriving to the stream. This concept may appear related to Redis Pub/Sub, where you subscribe to a channel, or to Redis blocking lists, where you wait for a key to get new elements to fetch, but there are fundamental differences in the way you consume a stream:
+When we do not want to access items by a range in a stream, usually what we want instead is to *subscribe* to new items arriving to the stream. This concept may appear related to Redis Pub/Sub, where you subscribe to a channel, or to Redis blocking lists, where you wait for a key to get new elements to fetch, but there are fundamental differences in the way you consume a stream:
 
 1. A stream can have multiple clients (consumers) waiting for data. Every new item, by default, will be delivered to *every consumer* that is waiting for data in a given stream. This behavior is different than blocking lists, where each consumer will get a different element. However, the ability to *fan out* to multiple consumers is similar to Pub/Sub.
 2. While in Pub/Sub messages are *fire and forget* and are never stored anyway, and while when using blocking lists, when a message is received by the client it is *popped* (effectively removed) from the list, streams work in a fundamentally different way. All the messages are appended in the stream indefinitely (unless the user explicitly asks to delete entries): different consumers will know what is a new message from its point of view by remembering the ID of the last message received.
@@ -519,7 +519,7 @@ That doesn't mean that there are no new idle pending messages, so the process co
 
 The counter that you observe in the `XPENDING` output is the number of deliveries of each message. The counter is incremented in two ways: when a message is successfully claimed via `XCLAIM` or when an `XREADGROUP` call is used in order to access the history of pending messages.
 
-When there are failures, it is normal that messages will be delivered multiple times, but eventually they usually get processed and acknowledged. However there might be a problem processing some specific message, because it is corrupted or crafted in a way that triggers a bug in the processing code. In such a case what happens is that consumers will continuously fail to process this particular message. Because we have the counter of the delivery attempts, we can use that counter to detect messages that for some reasons are not processable. So once the deliveries counter reaches a given large number that you chose, it is probably wiser to put such messages in another stream and send a notification to the system administrator. This is basically the way that Redis Streams implements the *dead letter* concept.
+When there are failures, it is normal that messages will be delivered multiple times, but eventually they usually get processed and acknowledged. However there might be a problem processing some specific message, because it is corrupted or crafted in a way that triggers a bug in the processing code. In such a case what happens is that consumers will continuously fail to process this particular message. Because we have the counter of the delivery attempts, we can use that counter to detect messages that for some reason are not processable. So once the deliveries counter reaches a given large number that you chose, it is probably wiser to put such messages in another stream and send a notification to the system administrator. This is basically the way that Redis Streams implements the *dead letter* concept.
 
 ## Streams observability
 
@@ -686,7 +686,7 @@ Another special ID is `>`, that is a special meaning only related to consumer gr
 
 Finally the special ID `*`, that can be used only with the `XADD` command, means to auto select an ID for us for the new entry.
 
-So we have `-`, `+`, `$`, `>` and `*`, and all have a different meaning, and most of the time, can be used in different contexts.
+So we have `-`, `+`, `$`, `>` and `*`, and all have a different meaning, and most of the times, can be used in different contexts.
 
 ## Persistence, replication and message safety
 
