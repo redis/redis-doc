@@ -153,7 +153,7 @@ Reading the [persistence page](https://redis.io/topics/persistence) is strongly 
 Installing Redis more properly
 ==============================
 
-Running Redis from the command line is fine just to hack a bit or for development. However at some point you'll have some actual application to run on a real server. For this kind of usage you have two different choices:
+Running Redis from the command line is fine just to hack a bit or for development. However, at some point you'll have some actual application to run on a real server. For this kind of usage you have two different choices:
 
 * Run Redis using screen.
 * Install Redis in your Linux box in a proper way using an init script, so that after a restart everything will start again properly.
