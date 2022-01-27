@@ -686,7 +686,7 @@ Another special ID is `>`, that is a special meaning only related to consumer gr
 
 Finally the special ID `*`, that can be used only with the `XADD` command, means to auto select an ID for us for the new entry.
 
-So we have `-`, `+`, `$`, `>` and `*`, and all have a different meaning, and most of the times, can be used in different contexts.
+So we have `-`, `+`, `$`, `>` and `*`, and all have a different meaning, and most of the time, can be used in different contexts.
 
 ## Persistence, replication and message safety
 
