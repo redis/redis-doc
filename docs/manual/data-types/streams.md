@@ -1,9 +1,9 @@
 ﻿---
-title: "Introduction to Redis Streams"
-linkTitle: "Introduction to Redis Streams"
+title: "Redis Streams"
+linkTitle: "Redis Streams"
 weight: 1
 description: >
-    Introduction to Redis Streams
+    An introduction to Redis Streams
 aliases:
     - /topics/streams-intro
 ---

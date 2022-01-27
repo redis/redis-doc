@@ -1,6 +1,6 @@
 ---
-title: "Redis server-assisted client-side caching"
-linkTitle: "Redis server-assisted client-side caching"
+title: "Client-side caching"
+linkTitle: "Client-side caching"
 weight: 1
 description: >
     Redis server-assisted client-side caching
