@@ -98,7 +98,7 @@ Short answer: `echo 1 > /proc/sys/vm/overcommit_memory` :)
 
 And now the long one:
 
-The Redis background saving schema relies on the copy-on-write semantic of fork in
+The Redis background saving schema relies on the copy-on-write semantic of the `fork` system call in
 modern operating systems: Redis forks (creates a child process) that is an
 exact copy of the parent. The child process dumps the DB on disk and finally
 exits. In theory the child should use as much memory as the parent being a
