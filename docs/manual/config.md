@@ -50,7 +50,7 @@ Redis distribution.
 Passing arguments via the command line
 ---
 
-It is possible to also pass Redis configuration parameters
+You can also pass Redis configuration parameters
 using the command line directly. This is very useful for testing purposes.
 The following is an example that starts a new Redis instance using port 6380
 as a replica of the instance running at 127.0.0.1 port 6379.
