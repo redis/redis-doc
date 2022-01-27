@@ -91,7 +91,7 @@ Another interesting way to run `redis-cli` is without arguments: the program wil
     PONG
     redis 127.0.0.1:6379> SET mykey somevalue
     OK
-    redis 127.0.0.1:6379> GET mykey
+    redis 127.0.0.1:6379> get mykey
     "somevalue"
 
 At this point you are able to talk with Redis. It is the right time to pause a bit with this tutorial and start the [fifteen minutes introduction to Redis data types](https://redis.io/topics/data-types-intro) in order to learn a few Redis commands. Otherwise if you already know a few basic Redis commands you can keep reading.
