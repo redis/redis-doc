@@ -79,7 +79,7 @@ External programs talk to Redis using a TCP socket and a Redis specific protocol
 
 The first thing to do in order to check if Redis is working properly is sending a **PING** command using redis-cli:
 
-    $ redis-cli PING
+    $ redis-cli ping
     PONG
 
 Running **redis-cli** followed by a command name and its arguments will send this command to the Redis instance running on localhost at port 6379. You can change the host and port used by `redis-cli` - just try the `--help` option to check the usage information.
