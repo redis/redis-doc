@@ -53,7 +53,7 @@ The following documentation is a reference manual about the capabilities of this
 
 ## List of rules
 
-Redis ACL rules are split into two categories, rules that define command permissions, "Command rules", and rules that define user state, "User Management rules".
+Redis ACL rules are split into two categories, rules that define command permissions, "Command rules", and rules that define user state, "User management rules".
 This is a list of all the supported Redis ACL rules:
 
 ### Command rules
@@ -74,7 +74,7 @@ This is a list of all the supported Redis ACL rules:
 * `-@<category>`: Like `+@<category>` but removes all the commands in the category instead of adding them.
 * `nocommands`: alias for `-@all`. Removes all the commands, the user will no longer be able to execute anything.
 
-### User Management rules
+### User management rules
 
 * `on`: set the user as active, it will be possible to authenticate as this user using `AUTH <username> <password>`.
 * `off`: set user as not active, it will be impossible to log as this user. Please note that if a user gets disabled (set to off) after there are connections already authenticated with such a user, the connections will continue to work as expected. To also kill the old connections you can use `CLIENT KILL` with the user option. An alternative is to delete the user with `ACL DELUSER`, that will result in all the connections authenticated as the deleted user to be disconnected.

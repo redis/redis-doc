@@ -129,6 +129,7 @@ Configure valid passwords for the user:
 *Note: an use that is not flagged with nopass, and has no list of valid passwords, is effectively impossible to use, because there will be no way to log in as such user.*
 
 Configure selectors for the user:
+
 * `(<rule list>)`: Create a new selector to match rules against. Selectors are evaluated after the user permissions, and are evaluated according to the order they are defined. If a command matches either the user permissions or any selector, it is allowed.
 * `clearselectors`: Delete all of the selectors attached to the user.
 
