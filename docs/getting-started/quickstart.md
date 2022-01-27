@@ -89,7 +89,7 @@ Another interesting way to run `redis-cli` is without arguments: the program wil
     $ redis-cli
     redis 127.0.0.1:6379> PING
     PONG
-    redis 127.0.0.1:6379> SET mykey somevalue
+    redis 127.0.0.1:6379> set mykey somevalue
     OK
     redis 127.0.0.1:6379> get mykey
     "somevalue"
