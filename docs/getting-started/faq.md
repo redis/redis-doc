@@ -143,7 +143,7 @@ You can find more information about using multiple Redis instances in the [Parti
 
 As of version 4.0 Redis has started implementing threaded actions. For now this is limited to deleting objects in the background and blocking commands implemented via Redis modules. For subsequent releases, the plan is to make Redis more and more threaded.
 
-## What is the maximum number of keys a single Redis instance can hold? What is the max number of elements in a Hash, List, Set, Sorted Set?
+## What is the maximum number of keys a single Redis instance can hold? What is the maximum number of elements in a Hash, List, Set, and Sorted Set?
 
 Redis can handle up to 2^32 keys, and was tested in practice to
 handle at least 250 million keys per instance.
