@@ -50,7 +50,7 @@ It is a good idea to copy both the Redis server and the command line interface i
 
 Or just using `sudo make install`.
 
-In the following documentation we assume that `/usr/local/bin` is in your `PATH` environment variable so that you can execute both the binaries without specifying the full path.
+In the following documentation we assume that `/usr/local/bin` is in your `PATH` environment variable so that you can execute both of the binaries without specifying the full path.
 
 Starting Redis
 ===
