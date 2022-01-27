@@ -103,11 +103,13 @@ Allow and disallow commands:
 * `allcommands`: Alias for +@all. Note that it implies the ability to execute all the future commands loaded via the modules system.
 * `nocommands`: Alias for -@all.
 
-Allow and disallow certain keys:
+Allow and disallow certain keys and key permissions:
 
 * `~<pattern>`: Add a pattern of keys that can be mentioned as part of commands. For instance `~*` allows all the keys. The pattern is a glob-style pattern like the one of `KEYS`. It is possible to specify multiple patterns.
 * `allkeys`: Alias for `~*`.
 * `resetkeys`: Flush the list of allowed keys patterns. For instance the ACL `~foo:* ~bar:* resetkeys ~objects:*`, will result in the client only be able to access keys matching the pattern `objects:*`.
+* `%R~<pattern>`: Add the specified read key pattern. This behaves similar to the regular key pattern but only grants permission to read from keys that match the given pattern. See [key permissions](#key-permissions) for more information.
+* `%W~<pattern>`: Add the specified write key pattern. This behaves similar to the regular key pattern but only grants permission to write to keys that match the given pattern. See [key permissions](#key-permissions) for more information.
 
 Allow and disallow Pub/Sub channels:
 
@@ -125,6 +127,10 @@ Configure valid passwords for the user:
 * `resetpass`: Flush the list of allowed passwords. Moreover removes the *nopass* status. After *resetpass* the user has no associated passwords and there is no way to authenticate without adding some password (or setting it as *nopass* later).
 
 *Note: an use that is not flagged with nopass, and has no list of valid passwords, is effectively impossible to use, because there will be no way to log in as such user.*
+
+Configure selectors for the user:
+* `(<rule list>)`: Create a new selector to match rules against. Selectors are evaluated after the user permissions, and are evaluated according to the order they are defined. If a command matches either the user permissions or any selector, it is allowed.
+* `clearselectors`: Delete all of the selectors attached to the user.
 
 Reset the user:
 
@@ -200,9 +206,16 @@ computers to read, while `ACL LIST` is more biased towards humans.
     5) "commands"
     6) "-@all +get"
     7) "keys"
-    8) 1) "cached:*"
+    8) "~cached:*"
     9) "channels"
-    10) 1) "*"
+    10) "&*"
+    11) "selectors"
+    12) 1) 1) "commands"
+           2) "-@all +set"
+           3) "keys"
+           4) "~*"
+           5) "channels"
+           6) "&*"
 
 The `ACL GETUSER` returns a field-value array describing the user in more parsable terms. The output includes the set of flags, a list of key patterns, passwords and so forth. The output is probably more readable if we use RESP3, so that it is returned as as map reply:
 
@@ -211,8 +224,11 @@ The `ACL GETUSER` returns a field-value array describing the user in more parsab
        2~ "allchannels"
     2# "passwords" => 1) "2d9c75273d72b32df726fb545c8a4edc719f0a95a6fd993950b10c474ad9c927"
     3# "commands" => "-@all +get"
-    4# "keys" => 1) "cached:*"
-    5# "channels" => 1) "*"
+    4# "keys" => "~cached:*"
+    5# "channels" => "&*"
+    6# "selectors" => 1) 1# "commands" => "-@all +set"
+        2# "keys" => "~*"
+        3# "channels" => "&*"
 
 *Note: from now on we'll continue using the Redis default protocol, version 2, because it will take some time for the community to switch to the new one.*
 
@@ -375,7 +391,7 @@ can be only added, and not excluded, because it is possible that in the future
 new first-args may be added: it is a lot safer to specify all the first-args
 that are valid for some user.
 
-Another exmaple:
+Another example:
 
     ACL SETUSER myuser -debug +debug|digest
 
@@ -396,6 +412,51 @@ Example:
 In the previous section it was observed how it is possible to define commands
 ACLs based on adding/removing single commands.
 
+## Selectors
+
+Redis supports additional sets of rules that are evaluated independently of the main user permissions.
+These secondary sets of permissions are called selectors and added by wrapping a set of rules within parentheses.
+Selectors are evaluated after the main user permissions are checked and are evaluated in the order they are added to the user. 
+A command is allowed if either the root user permissions or any selectors matches a command.
+
+For example, consider a user with the ACL rules `+GET ~key1 (+SET ~key2)`.
+This user is able to execute `GET key1` and `SET key2 hello`, but not `GET key2` or `SET key1 world`.
+
+Unlike the root user permissions, selectors can not be modified after they are added.
+Selectors can be removed with the `clearselectors` keyword, which removes all of the added selectors.
+Note that `clearselectors` does not remove the root user permissions.
+
+## Key permissions
+
+Redis key patterns can also be used to define how a command is able to touch a key.
+This is achieved through rules that define key permissions.
+The key permission rules take the form of `%(<permission>)~<pattern>`.
+Permissions are defined as individual characters that map to the following key permissions:
+
+* W (Write): The data stored within the key may be updated or deleted. 
+* R (Read): User supplied data from the key is processed, copied or returned. Note that this does not include metadata such as size information (example `STRLEN`), type information (example `TYPE`) or information about whether a value exists within a collection (example `SISMEMBER`). 
+
+Permissions can be composed together by specifying multiple characters. 
+Specifying the permission as 'RW' is considered full access and is analogous to just passing in `~<pattern>`.
+
+For a concrete example, consider a user with ACL rules `+@all ~app1:* (+@readonly ~app2:*)`.
+This user has full access on `app1:*` and readonly access on `app2:*`.
+However, some commands support reading data from one key, doing some transformation, and storing it into another key.
+One such command is the `COPY` command, which copies the data from the source key into the destination key.
+The example set of ACL rules is unable to handle a request copying data from `app2:user` into `app1:user`, since neither the root permission or the selector fully matches the command.
+However, using key selectors you can define a set of ACL rules that can handle this request `+@all ~app1:* %R~app2:*`.
+The first pattern is able to match `app1:user` and the second pattern is able to match `app2:user`.
+
+Which type of permission is required for a command is documented through [key specifications](/topics/key-specs#logical-operation-flags).
+The type of permission is based off the keys logical operation flags. 
+The insert, update, and delete flags map to the write key permission. 
+The access flag flag maps to the read key permission.
+
+Note: Side channels are ignored when it comes to evaluating read permissions.
+Many write commands return metadata about the modified key, for example `LPUSH` returns the size of the resulting list.
+Considering any metadata to be a read would limit the utility of the write key permissions.
+If an application needs to make sure no data is accessed from a key, it's recommended to not provide any access to the key.
+
 ## How passwords are stored internally
 
 Redis internally stores passwords hashed with SHA256, if you set a password
@@ -414,9 +475,11 @@ examples, for the sake of brevity, the long hex string was trimmed:
     5) "commands"
     6) "+@all"
     7) "keys"
-    8) 1) "*"
+    8) "~*"
     9) "channels"
-    10) 1) "*"
+    10) "&*"
+    11) "selectors"
+    12) (empty array)
 
 Also, starting with Redis 6, the old command `CONFIG GET requirepass` will
 no longer return the clear text password, but instead the hashed password.

@@ -17,6 +17,19 @@ set command (+set rule). Then another SETUSER call can modify the user rules:
 
 The above rule will not apply the new rule to the user virginia, so other than `SET`, the user virginia will now be able to also use the `GET` command.
 
+ACL rules can also be grouped into multiple distinct sets of rules, called selectors.
+Selectors are added by wrapping the rules in parentheses and providing them just like any other rule.
+To verify that a user can execute a command, first the root permissions are checked, and then all of its selectors are checked.
+If any of these rule sets match the command, the command can be executed.
+For example:
+
+    ACL SETUSER virginia on +GET allkeys (+SET ~app1*)
+
+This sets a user with two sets of permission, one defined on the user and one defined with a selector.
+The root user permissions only allows executing the get command, but can be executed on any keys.
+The selector then grants a secondary set of permissions, access to the SET command that be executed on any key that start with app1.
+Using multiple selectors allows you to grant permissions that are different depending on what keys are being accessed.
+
 When we want to be sure to define an user from scratch, without caring if
 it had previously defined rules associated, we can use the special rule
 `reset` as first rule, in order to flush all the other existing rules:
@@ -40,11 +53,14 @@ The following documentation is a reference manual about the capabilities of this
 
 ## List of rules
 
+Redis ACL rules are split into two categories, rules that define command permissions, "Command rules", and rules that define user state, "User Management rules".
 This is a list of all the supported Redis ACL rules:
 
-* `on`: set the user as active, it will be possible to authenticate as this user using `AUTH <username> <password>`.
-* `off`: set user as not active, it will be impossible to log as this user. Please note that if a user gets disabled (set to off) after there are connections already authenticated with such a user, the connections will continue to work as expected. To also kill the old connections you can use `CLIENT KILL` with the user option. An alternative is to delete the user with `ACL DELUSER`, that will result in all the connections authenticated as the deleted user to be disconnected.
+### Command rules
+
 * `~<pattern>`: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. You can add multiple key patterns to the same user. Example: `~objects:*`
+* `%R~<pattern>`: Add the specified read key pattern. This behaves similar to the regular key pattern but only grants permission to read from keys that match the given pattern.
+* `%W~<pattern>`: Add the specified write key pattern. This behaves similar to the regular key pattern but only grants permission to write to keys that match the given pattern.
 * `allkeys`: alias for `~*`, it allows the user to access all the keys.
 * `resetkeys`: removes all the key patterns from the list of key patterns the user can access.
 * `&<pattern>`: add the specified glob style pattern to the list of Pub/Sub channel patterns accessible by the user. You can add multiple channel patterns to the same user. Example: `&chatroom:*`
@@ -57,12 +73,19 @@ This is a list of all the supported Redis ACL rules:
 * `-<command>`. Like `+<command>` but removes the command instead of adding it.
 * `-@<category>`: Like `+@<category>` but removes all the commands in the category instead of adding them.
 * `nocommands`: alias for `-@all`. Removes all the commands, the user will no longer be able to execute anything.
+
+### User Management rules
+
+* `on`: set the user as active, it will be possible to authenticate as this user using `AUTH <username> <password>`.
+* `off`: set user as not active, it will be impossible to log as this user. Please note that if a user gets disabled (set to off) after there are connections already authenticated with such a user, the connections will continue to work as expected. To also kill the old connections you can use `CLIENT KILL` with the user option. An alternative is to delete the user with `ACL DELUSER`, that will result in all the connections authenticated as the deleted user to be disconnected.
 * `nopass`: the user is set as a "no password" user. It means that it will be possible to authenticate as such user with any password. By default, the `default` special user is set as "nopass". The `nopass` rule will also reset all the configured passwords for the user.
 * `>password`: Add the specified clear text password as an hashed password in the list of the users passwords. Every user can have many active passwords, so that password rotation will be simpler. The specified password is not stored as clear text inside the server. Example: `>mypassword`.
 * `#<hashedpassword>`: Add the specified hashed password to the list of user passwords. A Redis hashed password is hashed with SHA256 and translated into a hexadecimal string. Example: `#c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2`.
 * `<password`: Like `>password` but removes the password instead of adding it.
 * `!<hashedpassword>`: Like `#<hashedpassword>` but removes the password instead of adding it.
-* reset: Remove any capability from the user. It is set to off, without passwords, unable to execute any command, unable to access any key.
+* `(<rule list>)`: Create a new selector to match rules against. Selectors are evaluated after the user permissions, and are evaluated according to the order they are defined. If a command matches either the user permissions or any selector, it is allowed.
+* `clearselectors`: Delete all of the selectors attached to the user.
+* `reset`: Remove any capability from the user. It is set to off, without passwords, unable to execute any command, unable to access any key.
 
 @return
 
