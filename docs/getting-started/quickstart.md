@@ -87,7 +87,7 @@ Running **redis-cli** followed by a command name and its arguments will send thi
 Another interesting way to run `redis-cli` is without arguments: the program will start in interactive mode. You can type different commands and see their replies.
 
     $ redis-cli
-    redis 127.0.0.1:6379> PING
+    redis 127.0.0.1:6379> ping
     PONG
     redis 127.0.0.1:6379> set mykey somevalue
     OK
