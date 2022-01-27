@@ -26,7 +26,7 @@ Redis has no dependencies other than a working GCC compiler and `libc`.
 Installing it using the package manager of your Linux distribution is somewhat
 discouraged as usually the available version is not the latest.
 
-You can either download the latest Redis tar ball from the [redis.io](https://redis.io) web site, or you can alternatively use this special URL that always points to the latest stable Redis version; that is, [http://download.redis.io/redis-stable.tar.gz](http://download.redis.io/redis-stable.tar.gz).
+You can either download the latest Redis tar ball from the [redis.io](https://redis.io/download), or you can alternatively use [the URL that always points to the latest stable Redis version](http://download.redis.io/redis-stable.tar.gz).
 
 In order to compile Redis follow these simple steps:
 
