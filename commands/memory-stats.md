@@ -18,7 +18,7 @@ values. The following metrics are reported:
      and query buffers, connection contexts)
 *   `aof.buffer`: The summed size in bytes of the current and rewrite AOF
      buffers (see `INFO`'s `aof_buffer_length` and `aof_rewrite_buffer_length`,
-     respectively)
+     respectively). Note that `aof_rewrite_buffer_length` is not included since Redis 7.0
 *    `lua.caches`: the summed size in bytes of the overheads of the Lua scripts'
      caches
 *   `dbXXX`: For each of the server's databases, the overheads of the main and
