@@ -11,8 +11,8 @@ This command can be used to test the permissions of a given user without having 
 ```
 > ACL SETUSER VIRGINIA +SET ~*
 "OK"
-> ACL DRYRUN USER VIRGINIA SET FOO BAR
+> ACL DRYRUN VIRGINIA SET foo bar
 "OK"
-> ACL DRYRUN USER VIRGINIA GET FOO
+> ACL DRYRUN VIRGINIA GET foo bar
 "This user has no permissions to run the 'GET' command"
 ```

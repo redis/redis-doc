@@ -424,9 +424,9 @@ Internally, the root permissions are checked first followed by selectors in the 
 For example, consider a user with the ACL rules `+GET ~key1 (+SET ~key2)`.
 This user is able to execute `GET key1` and `SET key2 hello`, but not `GET key2` or `SET key1 world`.
 
-Unlike the root user permissions, selectors cannot be modified after they are added.
+Unlike the user's root permissions, selectors cannot be modified after they are added.
 Instead, selectors can be removed with the `clearselectors` keyword, which removes all of the added selectors.
-Note that `clearselectors` does not remove the root user permissions.
+Note that `clearselectors` does not remove the root permissions.
 
 ## Key permissions
 
