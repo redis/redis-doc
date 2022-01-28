@@ -5,7 +5,6 @@ Additional information may be returned in the future if more metadata is added t
 
 Command rules are always returned in the same format as the one used in the `ACL SETUSER` command.
 Before version 7.0, keys and channels were returned as an array of patterns, however in version 7.0 later they are now also returned in same format as the one used in the `ACL SETUSER` command.
-Selectors are 
 Note: This description of command rules reflects the user's effective permissions, so while it may not be identical to the set of rules used to configure the user, it is still functionally identical.
 
 Selectors are listed in the order they were applied to the user, and include information about commands, key patterns, and channel patterns.
