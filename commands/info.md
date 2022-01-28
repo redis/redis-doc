@@ -212,6 +212,8 @@ Here is the meaning of all fields in the **persistence** section:
 *   `module_fork_in_progress`: Flag indicating a module fork is on-going
 *   `module_fork_last_cow_size`: The size in bytes of copy-on-write memory
      during the last module fork operation
+*   `aof_rewrites`: Number of AOF rewrites performed since startup
+*   `rdb_saves`: Number of RDB snapshots performed since startup
 
 `rdb_changes_since_last_save` refers to the number of operations that produced
 some kind of changes in the dataset since the last time either `SAVE` or
