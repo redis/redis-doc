@@ -1,4 +1,10 @@
-﻿# Redis TRADEMARK GUIDELINES
+﻿---
+title: "Redis Trademark Guidelines"
+linkTitle: "Redis Trademark Guidelines"
+weight: 1
+aliases:
+    - /topics/trademark 
+---
 
 1. **OPEN SOURCE LICENSE VS. TRADEMARKS.** The three-clause BSD license gives you the right to redistribute and use the software in source and binary forms, with or without modification, under certain conditions. However, open source licenses like the three-clause BSD license do not address trademarks. Redis trademarks and brands need to be used in a way consistent with trademark law, and that is why we have prepared this policy – to help you understand what branding is allowed or required when using our software.
 
