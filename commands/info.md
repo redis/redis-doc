@@ -64,7 +64,7 @@ Here is the meaning of all fields in the **server** section:
 *   `run_id`: Random value identifying the Redis server (to be used by Sentinel
      and Cluster)
 *   `tcp_port`: TCP/IP listen port
-*   `server_time_in_usec`: Epoch-based system time with microsecond precision
+*   `server_time_usec`: Epoch-based system time with microsecond precision
 *   `uptime_in_seconds`: Number of seconds since Redis server start
 *   `uptime_in_days`: Same value expressed in days
 *   `hz`: The server's current frequency setting
