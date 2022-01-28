@@ -17,17 +17,16 @@ set command (+set rule). Then another SETUSER call can modify the user rules:
 
 The above rule will not apply the new rule to the user virginia, so other than `SET`, the user virginia will now be able to also use the `GET` command.
 
-ACL rules can also be grouped into multiple distinct sets of rules, called selectors.
+Starting from Redis 7.0, ACL rules can also be grouped into multiple distinct sets of rules, called selectors.
 Selectors are added by wrapping the rules in parentheses and providing them just like any other rule.
-To verify that a user can execute a command, first the root permissions are checked, and then all of its selectors are checked.
-If any of these rule sets match the command, the command can be executed.
+In order to execute a command, either the root permissions (rules defined outside of parenthesis) or any of the selectors (rules defined inside parenthesis) must match the given command.
 For example:
 
     ACL SETUSER virginia on +GET allkeys (+SET ~app1*)
 
 This sets a user with two sets of permission, one defined on the user and one defined with a selector.
 The root user permissions only allows executing the get command, but can be executed on any keys.
-The selector then grants a secondary set of permissions, access to the SET command that be executed on any key that start with app1.
+The selector then grants a secondary set of permissions: access to the `SET` command to be executed on any key that starts with "app1".
 Using multiple selectors allows you to grant permissions that are different depending on what keys are being accessed.
 
 When we want to be sure to define an user from scratch, without caring if
@@ -53,17 +52,18 @@ The following documentation is a reference manual about the capabilities of this
 
 ## List of rules
 
-Redis ACL rules are split into two categories, rules that define command permissions, "Command rules", and rules that define user state, "User management rules".
+Redis ACL rules are split into two categories: rules that define command permissions, "Command rules", and rules that define user state, "User management rules".
 This is a list of all the supported Redis ACL rules:
 
 ### Command rules
 
-* `~<pattern>`: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. You can add multiple key patterns to the same user. Example: `~objects:*`
-* `%R~<pattern>`: Add the specified read key pattern. This behaves similar to the regular key pattern but only grants permission to read from keys that match the given pattern.
-* `%W~<pattern>`: Add the specified write key pattern. This behaves similar to the regular key pattern but only grants permission to write to keys that match the given pattern.
+* `~<pattern>`: add the specified key pattern (glob style pattern, like in the `KEYS` command), to the list of key patterns accessible by the user. This grants both read and write permissions to keys that match the pattern. You can add multiple key patterns to the same user. Example: `~objects:*`
+* `%R~<pattern>`: (Available in Redis 7.0 and later) Add the specified read key pattern. This behaves similar to the regular key pattern but only grants permission to read from keys that match the given pattern. See [key permissions](/topics/acl#key-permissions) for more information.
+* `%W~<pattern>`: (Available in Redis 7.0 and later) Add the specified write key pattern. This behaves similar to the regular key pattern but only grants permission to write to keys that match the given pattern. See [key permissions](/topics/acl#key-permissions) for more information.
+* `%RW~<pattern>`: (Available in Redis 7.0 and later) Alias for `~<pattern>`.
 * `allkeys`: alias for `~*`, it allows the user to access all the keys.
 * `resetkeys`: removes all the key patterns from the list of key patterns the user can access.
-* `&<pattern>`: add the specified glob style pattern to the list of Pub/Sub channel patterns accessible by the user. You can add multiple channel patterns to the same user. Example: `&chatroom:*`
+* `&<pattern>`: (Available in Redis 6.2 and later) add the specified glob style pattern to the list of Pub/Sub channel patterns accessible by the user. You can add multiple channel patterns to the same user. Example: `&chatroom:*`
 * `allchannels`: alias for `&*`, it allows the user to access all Pub/Sub channels.
 * `resetchannels`: removes all channel patterns from the list of Pub/Sub channel patterns the user can access.
 * `+<command>`: add this command to the list of the commands the user can call. Example: `+zadd`.
@@ -83,8 +83,8 @@ This is a list of all the supported Redis ACL rules:
 * `#<hashedpassword>`: Add the specified hashed password to the list of user passwords. A Redis hashed password is hashed with SHA256 and translated into a hexadecimal string. Example: `#c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2`.
 * `<password`: Like `>password` but removes the password instead of adding it.
 * `!<hashedpassword>`: Like `#<hashedpassword>` but removes the password instead of adding it.
-* `(<rule list>)`: Create a new selector to match rules against. Selectors are evaluated after the user permissions, and are evaluated according to the order they are defined. If a command matches either the user permissions or any selector, it is allowed.
-* `clearselectors`: Delete all of the selectors attached to the user.
+* `(<rule list>)`: (Available in Redis 7.0 and later) Create a new selector to match rules against. Selectors are evaluated after the user permissions, and are evaluated according to the order they are defined. If a command matches either the user permissions or any selector, it is allowed. See [selectors](/topics/acl#selectors) for more information.
+* `clearselectors`: (Available in Redis 7.0 and later) Delete all of the selectors attached to the user.
 * `reset`: Remove any capability from the user. It is set to off, without passwords, unable to execute any command, unable to access any key.
 
 @return

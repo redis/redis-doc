@@ -9,10 +9,10 @@ This command can be used to test the permissions of a given user without having 
 @examples
 
 ```
-> ACL SETUSER FOO +SET ~*
+> ACL SETUSER VIRGINIA +SET ~*
 "OK"
-> ACL DRYRUN USER SET FOO BAR
+> ACL DRYRUN USER VIRGINIA SET FOO BAR
 "OK"
-> ACL DRYRUN USER GET FOO BAR
+> ACL DRYRUN USER VIRGINIA GET FOO
 "This user has no permissions to run the 'GET' command"
 ```
