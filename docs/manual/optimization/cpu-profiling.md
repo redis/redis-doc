@@ -1,6 +1,6 @@
 ---
 title: "Redis CPU Profiling"
-linkTitle: "Users"
+linkTitle: "Redis CPU Profiling"
 weight: 1
 description: >
     Redis performance engineering guide for on-CPU profiling and tracing
