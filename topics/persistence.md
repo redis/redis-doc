@@ -326,13 +326,27 @@ running. This is what we suggest:
 * Every time the cron script runs, make sure to call the `find` command to make sure too old snapshots are deleted: for instance you can take hourly snapshots for the latest 48 hours, and daily snapshots for one or two months. Make sure to name the snapshots with date and time information.
 * At least one time every day make sure to transfer an RDB snapshot *outside your data center* or at least *outside the physical machine* running your Redis instance.
 
-If you run a Redis instance with only AOF persistence enabled, you can still
-copy the AOF in order to create backups. The file may lack the final part
-but Redis will be still able to load it (see the previous sections about
-truncated AOF files).  
+### Backing up AOF persistence
 
-Since Redis 7.0.0, all the base, increment and manifest files will be placed in a directory determined by the `appendddirname` configuration.
-So the best suggestion is to copy the entire directory when backing up AOF persistence.
+If you run a Redis instance with only AOF persistence enabled, you can still perform backups.
+Since Redis 7.0.0, AOF files are split into multiple files which reside in a single directory determined by the `appendddirname` configuration.
+Backing up the AOF data is tricky since you need a point-in-time snapshot of this directory. The simplest way to handle this is using the [`aof_backup.sh`](http://github.com/redis/redis/raw/unstable/utils/aof_backup.sh) script.
+You may use this script as a basis for your own backup script, or it might suffice as is.
+
+Running the script is as simple as `./aof_backup.sh mybackup.tar.gz`.
+
+Following is a low level description of the script works:
+
+1. Verify the server isn't performing a rewrite.
+2. Create hard links to files in the `appenddirname` directory.
+3. Verify no rewrite started or happened since 1 above.
+   If it did, delete the hard links and go back to 1.
+4. tar-gzip the hard links.
+5. Delete the hard links.
+
+Prior to version 7.0.0 backing up the AOF file can be done simply by copying the aof file (like backing up the RDB snapshot). The file may lack the final part
+but Redis will still be able to load it (see the previous sections about truncated AOF files).
+
 
 Disaster recovery
 ---
