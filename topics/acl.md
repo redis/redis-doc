@@ -99,7 +99,7 @@ Allow and disallow commands:
 * `-<command>`: Remove the command to the list of commands the user can call. Can be used with `|` for blocking subcommands (e.g "-config|set").
 * `+@<category>`: Add all the commands in such category to be called by the user, with valid categories being like @admin, @set, @sortedset, ... and so forth, see the full list by calling the `ACL CAT` command. The special category @all means all the commands, both the ones currently present in the server, and the ones that will be loaded in the future via modules.
 * `-@<category>`: Like `+@<category>` but removes the commands from the list of commands the client can call.
-* `+<command>|first-arg`: Allow a specific first argument of an otherwise disabled command. Note that this form is not allowed as negative like `-SELECT|1`, but only additive starting with "+".
+* `+<command>|first-arg`: Allow a specific first argument of an otherwise disabled command. It is only supported on commands with no sub-commands, and is not allowed as negative form like -SELECT|1, only additive starting with "+". This feature is deprecated and may be removed in the future.
 * `allcommands`: Alias for +@all. Note that it implies the ability to execute all the future commands loaded via the modules system.
 * `nocommands`: Alias for -@all.
 
