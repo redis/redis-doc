@@ -460,7 +460,7 @@ This means that some write commands that return metadata about the modified key 
 For example, consider the following two commands:
 
 * `LPUSH key1 data`: modifies "key1" but only returns metadata about it, the size of the list after the push, so the command only requires write permission on "key1" to execute.
-* `LPOP key2`: modifies "key2" but also returns data from it, the left most item in the list, so the command requires both read and write permissions on "key2" to execute.
+* `LPOP key2`: modifies "key2" but also returns data from it, the left most item in the list, so the command requires both read and write permission on "key2" to execute.
 
 If an application needs to make sure no data is accessed from a key, including side channels, it's recommended to not provide any access to the key.
 
