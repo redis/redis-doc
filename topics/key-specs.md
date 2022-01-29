@@ -22,7 +22,8 @@ Key specifications are maps with three keys:
 
 1. **begin_search:**: the starting index for keys' extraction.
 2. **find_keys:** the rule for identifying the keys relative to the BS.
-3. **flags**: indicate the type of data access.
+3. **notes**: notes about this key spec, if there are any.
+4. **flags**: indicate the type of data access.
 
 ## begin_search
 
@@ -98,6 +99,10 @@ Examples:
 **Note:**
 this isn't a perfect solution as the module writers can come up with anything.
 However, this mechanism should allow the extraction of key name arguments for the vast majority of commands.
+
+## notes
+
+Notes about non-obvious key specs considerations, if applicable.
 
 ## flags
 

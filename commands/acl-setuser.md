@@ -66,11 +66,11 @@ This is a list of all the supported Redis ACL rules:
 * `&<pattern>`: (Available in Redis 6.2 and later) add the specified glob style pattern to the list of Pub/Sub channel patterns accessible by the user. You can add multiple channel patterns to the same user. Example: `&chatroom:*`
 * `allchannels`: alias for `&*`, it allows the user to access all Pub/Sub channels.
 * `resetchannels`: removes all channel patterns from the list of Pub/Sub channel patterns the user can access.
-* `+<command>`: add this command to the list of the commands the user can call. Example: `+zadd`.
+* `+<command>`: Add the command to the list of commands the user can call. Can be used with `|` for allowing subcommands (e.g "+config|get").
 * `+@<category>`: add all the commands in the specified category to the list of commands the user is able to execute. Example: `+@string` (adds all the string commands). For a list of categories check the `ACL CAT` command.
-* `+<command>|<subcommand>`: add the specified command to the list of the commands the user can execute, but only for the specified subcommand. Example: `+config|get`. Generates an error if the specified command is already allowed in its full version for the specified user. Note: there is no symmetrical command to remove subcommands, you need to remove the whole command and re-add the subcommands you want to allow. This is much safer than removing subcommands, in the future Redis may add new dangerous subcommands, so configuring by subtraction is not good.
+* `+<command>|first-arg`: Allow a specific first argument of an otherwise disabled command. It is only supported on commands with no sub-commands, and is not allowed as negative form like -SELECT|1, only additive starting with "+". This feature is deprecated and may be removed in the future.
 * `allcommands`: alias of `+@all`. Adds all the commands there are in the server, including *future commands* loaded via module, to be executed by this user.
-* `-<command>`. Like `+<command>` but removes the command instead of adding it.
+* `-<command>`: Remove the command to the list of commands the user can call. Starting Redis 7.0, it can be used with `|` for blocking subcommands (e.g "-config|set").
 * `-@<category>`: Like `+@<category>` but removes all the commands in the category instead of adding them.
 * `nocommands`: alias for `-@all`. Removes all the commands, the user will no longer be able to execute anything.
 
