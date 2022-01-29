@@ -102,7 +102,7 @@ However, this mechanism should allow the extraction of key name arguments for th
 
 ## notes
 
-Some key specs have some non-obvious considerations, in which case they'l contain a short text describing them.
+Notes about non-obvious key specs considerations, if applicable.
 
 ## flags
 
