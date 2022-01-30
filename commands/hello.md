@@ -59,7 +59,3 @@ protocol to the specified version and also accepts the following options:
 @return
 
 @array-reply: a list of server properties. The reply is a map instead of an array when RESP3 is selected. The command returns an error if the `protover` requested does not exist.
-
-@history
-
-* `>= 6.2`: `protover` made optional; when called without arguments the command reports the current connection's context.

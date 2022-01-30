@@ -14,10 +14,6 @@ When called with the `count` argument:
 
 @array-reply: list of popped elements, or `nil` when `key` does not exist.
 
-@history
-
-* `>= 6.2`: Added the `count` argument.
-
 @examples
 
 ```cli

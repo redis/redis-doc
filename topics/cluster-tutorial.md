@@ -559,7 +559,7 @@ automatically.
 Currently redis-cli is only able to reshard with the administrator support,
 you can't just say move 5% of slots from this node to the other one (but
 this is pretty trivial to implement). So it starts with questions. The first
-is how much a big resharding do you want to do:
+is how much of a resharding do you want to do:
 
     How many slots do you want to move (from 1 to 16384)?
 

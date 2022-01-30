@@ -1,5 +1,3 @@
-**Note**: as of Redis 2.0, this command was renamed to `GETRANGE`.
-
 Returns the substring of the string value stored at `key`, determined by the
 offsets `start` and `end` (both are inclusive).
 Negative offsets can be used in order to provide an offset starting from the end

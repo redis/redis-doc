@@ -13,7 +13,3 @@ For more information about `EVAL` scripts please refer to [Introduction to Eval 
 @return
 
 @simple-string-reply
-
-@history
-
-* `>= 6.2.0`: Added the `ASYNC` and `!SYNC` flushing mode modifiers, as well as the  **lazyfree-lazy-user-flush** configuration directive.

@@ -1,3 +1,4 @@
+ACLCAT
 ASYNC
 ACLs
 AMD
@@ -26,6 +27,7 @@ EP
 EPSG
 Erlang
 EventMachine
+FILTERBY
 Facebook
 Fsyncing
 GCC
@@ -70,6 +72,7 @@ MERCHANTABILITY
 MX
 MacBook
 Maxmemory
+maxmemory
 Memcached
 MessagePack
 MongoDB
@@ -135,6 +138,7 @@ SoundCloud
 SystemTimer
 TCP
 TLB
+TLS
 TODO
 Twemproxy
 Tx
@@ -168,6 +172,7 @@ auth
 backend
 backticks
 backtrace
+balancer
 benchmarked
 benchmarking
 bgsave
@@ -189,6 +194,7 @@ cli
 cmsgpack
 codename
 commandstats
+latencystats
 errorstats
 conf
 config
@@ -244,7 +250,9 @@ globals
 gmail
 hiredis
 hostname
+hostnames
 htop
+hyperloglog
 hyperloglogs
 hypervisor
 iamonds
@@ -307,6 +315,7 @@ noeviction
 nopass
 noscript
 numactl
+numkeys
 online
 overcommit
 pades
@@ -442,3 +451,5 @@ systemd
 Eval
 args
 fcall
+syscmd
+swapdb

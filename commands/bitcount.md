@@ -21,10 +21,6 @@ For negative values, -1 is the last bit, -2 is the penultimate, and so forth.
 
 The number of bits set to 1.
 
-@history
-
-* `>= 7.0`: Added the `BYTE|BIT` option.
-
 @examples
 
 ```cli

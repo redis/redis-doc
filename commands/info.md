@@ -11,6 +11,7 @@ The optional parameter can be used to select a specific section of information:
 *   `replication`: Master/replica replication information
 *   `cpu`: CPU consumption statistics
 *   `commandstats`: Redis command statistics
+*   `latencystats`: Redis command latency percentile distribution statistics
 *   `cluster`: Redis Cluster section
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
@@ -72,6 +73,8 @@ Here is the meaning of all fields in the **server** section:
 *   `executable`: The path to the server's executable
 *   `config_file`: The path to the config file
 *   `io_threads_active`: Flag indicating if I/O threads are active
+*   `shutdown_in_milliseconds`: The maximum time remaining for replicas to catch up the replication before completing the shutdown sequence.
+    This field is only present during shutdown.
 
 Here is the meaning of all fields in the **clients** section:
 
@@ -82,10 +85,8 @@ Here is the meaning of all fields in the **clients** section:
 *   `maxclients`: The value of the `maxclients` configuration directive. This is
     the upper limit for the sum of `connected_clients`, `connected_slaves` and
     `cluster_connections`.
-*   `client_longest_output_list`: Longest output list among current client
-     connections
-*   `client_biggest_input_buf`: Biggest input buffer among current client
-     connections
+*   `client_recent_max_input_buffer`: Biggest input buffer among current client connections
+*   `client_recent_max_output_buffer`: Biggest output buffer among current client connections
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
@@ -148,6 +149,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
      option)
+*   `lazyfreed_objects`: The number of objects that have been lazy freed.
 
 Ideally, the `used_memory_rss` value should be only slightly higher than
 `used_memory`.
@@ -222,7 +224,7 @@ If AOF is activated, these additional fields will be added:
 *   `aof_pending_rewrite`: Flag indicating an AOF rewrite operation
      will be scheduled once the on-going RDB save is complete.
 *   `aof_buffer_length`: Size of the AOF buffer
-*   `aof_rewrite_buffer_length`: Size of the AOF rewrite buffer
+*   `aof_rewrite_buffer_length`: Size of the AOF rewrite buffer. Note this field was removed in Redis 7.0
 *   `aof_pending_bio_fsync`: Number of fsync pending jobs in background I/O
      queue
 *   `aof_delayed_fsync`: Delayed fsync counter
@@ -291,10 +293,11 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_error_replies`: Total number of issued error replies, that is the sum of
     rejected commands (errors prior command execution) and
     failed commands (errors within the command execution)
-*    `total_reads_processed`: Total number of read events processed
-*    `total_writes_processed`: Total number of write events processed
-*    `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
-*    `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `dump_payload_sanitizations`: Total number of dump payload deep integrity validations (see `sanitize-dump-payload` config).
+*   `total_reads_processed`: Total number of read events processed
+*   `total_writes_processed`: Total number of write events processed
+*   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
+*   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
 
 Here is the meaning of all fields in the **replication** section:
 
@@ -375,6 +378,18 @@ The **commandstats** section provides statistics based on the command type,
 For each command type, the following line is added:
 
 *   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX,rejected_calls=XXX,failed_calls=XXX`
+
+The **latencystats** section provides latency percentile distribution statistics based on the command type.
+
+ By default, the exported latency percentiles are the p50, p99, and p999.
+ If you need to change the exported percentiles, use `CONFIG SET latency-tracking-info-percentiles "50.0 99.0 99.9"`.
+
+ This section requires the extended latency monitoring feature to be enabled (by default it's enabled).
+ If you need to enable it, use `CONFIG SET latency-tracking yes`.
+
+For each command type, the following line is added:
+
+*   `latency_percentiles_usec_XXX: p<percentile 1>=<percentile 1 value>,p<percentile 2>=<percentile 2 value>,...`
 
 The **errorstats** section enables keeping track of the different errors that occurred within Redis, 
  based upon the reply error prefix ( The first word after the "-", up to the first space. Example: `ERR` ).

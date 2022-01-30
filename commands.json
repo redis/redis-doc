@@ -85,7 +85,7 @@
         "complexity": "O(N). Where N is the number of password, command and pattern rules that the user has.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added Pub/Sub channel patterns."
             ]
         ],
@@ -219,7 +219,7 @@
         "complexity": "O(N). Where N is the number of rules provided.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added Pub/Sub channel patterns."
             ]
         ],
@@ -308,7 +308,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -362,6 +363,7 @@
             {
                 "name": "username",
                 "type": "string",
+                "since": "6.0.0",
                 "optional": true
             },
             {
@@ -374,7 +376,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "BGREWRITEAOF": {
@@ -390,7 +393,8 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "BGSAVE": {
@@ -415,12 +419,14 @@
                 "name": "schedule",
                 "type": "pure-token",
                 "token": "SCHEDULE",
+                "since": "3.2.2",
                 "optional": true
             }
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "BITCOUNT": {
@@ -430,7 +436,7 @@
         "complexity": "O(N)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added the `BYTE|BIT` option."
             ]
         ],
@@ -456,7 +462,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -481,6 +488,7 @@
                     {
                         "name": "index_unit",
                         "type": "oneof",
+                        "since": "7.0.0",
                         "optional": true,
                         "arguments": [
                             {
@@ -529,7 +537,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -650,7 +660,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -707,7 +718,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -724,7 +736,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -756,7 +769,7 @@
         "complexity": "O(N)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added the `BYTE|BIT` option."
             ]
         ],
@@ -782,7 +795,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -816,6 +830,7 @@
                             {
                                 "name": "index_unit",
                                 "type": "oneof",
+                                "since": "7.0.0",
                                 "optional": true,
                                 "arguments": [
                                     {
@@ -867,8 +882,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -885,7 +901,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -939,7 +956,8 @@
         "command_flags": [
             "write",
             "denyoom",
-            "noscript"
+            "noscript",
+            "blocking"
         ]
     },
     "BLMPOP": {
@@ -970,7 +988,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1013,6 +1033,7 @@
         ],
         "command_flags": [
             "write",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -1023,7 +1044,7 @@
         "complexity": "O(N) where N is the number of provided keys.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1050,7 +1071,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1067,7 +1090,8 @@
         ],
         "command_flags": [
             "write",
-            "noscript"
+            "noscript",
+            "blocking"
         ]
     },
     "BRPOP": {
@@ -1077,7 +1101,7 @@
         "complexity": "O(N) where N is the number of provided keys.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1104,7 +1128,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1121,7 +1147,8 @@
         ],
         "command_flags": [
             "write",
-            "noscript"
+            "noscript",
+            "blocking"
         ]
     },
     "BRPOPLPUSH": {
@@ -1133,7 +1160,7 @@
         "replaced_by": "`BLMOVE` with the `RIGHT` and `LEFT` arguments",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1160,8 +1187,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -1178,7 +1206,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -1200,7 +1229,8 @@
         "command_flags": [
             "write",
             "denyoom",
-            "noscript"
+            "noscript",
+            "blocking"
         ],
         "doc_flags": [
             "deprecated"
@@ -1234,7 +1264,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1277,6 +1309,7 @@
         ],
         "command_flags": [
             "write",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -1287,7 +1320,7 @@
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1314,7 +1347,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1332,6 +1367,7 @@
         "command_flags": [
             "write",
             "noscript",
+            "blocking",
             "fast"
         ]
     },
@@ -1342,7 +1378,7 @@
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`timeout` is interpreted as a double instead of an integer."
             ]
         ],
@@ -1369,7 +1405,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1387,6 +1425,7 @@
         "command_flags": [
             "write",
             "noscript",
+            "blocking",
             "fast"
         ]
     },
@@ -1509,9 +1548,11 @@
         "arity": 2,
         "command_flags": [
             "noscript",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLIENT KILL": {
@@ -1522,22 +1563,22 @@
         "history": [
             [
                 "2.8.12",
-                "Added new filter format. "
+                "Added new filter format."
             ],
             [
                 "2.8.12",
                 "`ID` option."
             ],
             [
-                "3.2",
+                "3.2.0",
                 "Added `master` type in for `TYPE` option."
             ],
             [
-                "5",
+                "5.0.0",
                 "Replaced `slave` `TYPE` with `replica`. `slave` still supported for backward compatibility."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "`LADDR` option."
             ]
         ],
@@ -1558,12 +1599,14 @@
                 "name": "client-id",
                 "type": "integer",
                 "token": "ID",
+                "since": "2.8.12",
                 "optional": true
             },
             {
                 "name": "normal_master_slave_pubsub",
                 "type": "oneof",
                 "token": "TYPE",
+                "since": "2.8.12",
                 "optional": true,
                 "arguments": [
                     {
@@ -1574,12 +1617,19 @@
                     {
                         "name": "master",
                         "type": "pure-token",
-                        "token": "MASTER"
+                        "token": "MASTER",
+                        "since": "3.2.0"
                     },
                     {
                         "name": "slave",
                         "type": "pure-token",
                         "token": "SLAVE"
+                    },
+                    {
+                        "name": "replica",
+                        "type": "pure-token",
+                        "token": "REPLICA",
+                        "since": "5.0.0"
                     },
                     {
                         "name": "pubsub",
@@ -1604,6 +1654,7 @@
                 "name": "ip:port",
                 "type": "string",
                 "token": "LADDR",
+                "since": "6.2.0",
                 "optional": true
             },
             {
@@ -1631,11 +1682,11 @@
                 "Added unique client `id` field."
             ],
             [
-                "5.0",
+                "5.0.0",
                 "Added optional `TYPE` filter."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "Added `laddr` field and the optional `ID` filter."
             ]
         ],
@@ -1651,6 +1702,7 @@
                 "name": "normal_master_replica_pubsub",
                 "type": "oneof",
                 "token": "TYPE",
+                "since": "5.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -1679,6 +1731,7 @@
                 "name": "id",
                 "type": "block",
                 "token": "ID",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -1692,9 +1745,11 @@
         "command_flags": [
             "admin",
             "noscript",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLIENT NO-EVICT": {
@@ -1745,8 +1800,8 @@
                 "Client pause prevents client pause and key eviction as well."
             ],
             [
-                "6.2",
-                "CLIENT PAUSE WRITE mode added along with the `mode` option."
+                "6.2.0",
+                "`CLIENT PAUSE WRITE` mode added along with the `mode` option."
             ]
         ],
         "acl_categories": [
@@ -1764,6 +1819,7 @@
             {
                 "name": "mode",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -2026,8 +2082,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER ADDSLOTSRANGE": {
@@ -2060,8 +2119,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER BUMPEPOCH": {
@@ -2077,8 +2139,11 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER COUNT-FAILURE-REPORTS": {
@@ -2100,8 +2165,10 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER COUNTKEYSINSLOT": {
@@ -2120,8 +2187,10 @@
             }
         ],
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER DELSLOTS": {
@@ -2144,8 +2213,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER DELSLOTSRANGE": {
@@ -2178,8 +2250,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER FAILOVER": {
@@ -2214,8 +2289,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER FLUSHSLOTS": {
@@ -2231,8 +2309,11 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER FORGET": {
@@ -2254,8 +2335,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER GETKEYSINSLOT": {
@@ -2278,8 +2362,10 @@
             }
         ],
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER HELP": {
@@ -2306,8 +2392,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER KEYSLOT": {
@@ -2326,8 +2414,10 @@
             }
         ],
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER LINKS": {
@@ -2340,8 +2430,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER MEET": {
@@ -2367,8 +2459,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER MYID": {
@@ -2381,8 +2476,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER NODES": {
@@ -2395,8 +2492,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER REPLICAS": {
@@ -2418,8 +2517,10 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER REPLICATE": {
@@ -2441,8 +2542,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER RESET": {
@@ -2478,8 +2582,10 @@
         "command_flags": [
             "admin",
             "noscript",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SAVECONFIG": {
@@ -2495,8 +2601,11 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SET-CONFIG-EPOCH": {
@@ -2518,8 +2627,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SETSLOT": {
@@ -2567,8 +2679,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SLAVES": {
@@ -2592,8 +2707,10 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SLOTS": {
@@ -2603,7 +2720,7 @@
         "complexity": "O(N) where N is the total number of Cluster nodes",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Added node IDs."
             ]
         ],
@@ -2612,8 +2729,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "COMMAND": {
@@ -2627,9 +2746,11 @@
         ],
         "arity": -1,
         "command_flags": [
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "COMMAND COUNT": {
@@ -2642,6 +2763,29 @@
             "@connection"
         ],
         "arity": 2,
+        "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
+    "COMMAND DOCS": {
+        "summary": "Get array of specific Redis command documentation",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(N) where N is the number of commands to look up",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "command-name",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
         "command_flags": [
             "loading",
             "stale"
@@ -2678,19 +2822,26 @@
         ]
     },
     "COMMAND INFO": {
-        "summary": "Get array of specific Redis command details",
+        "summary": "Get array of specific Redis command details, or all when no argument is given.",
         "since": "2.8.13",
         "group": "server",
-        "complexity": "O(N) when N is number of commands to look up",
+        "complexity": "O(N) where N is the number of commands to look up",
+        "history": [
+            [
+                "7.0.0",
+                "Allowed to be called with no argument to get info on all commands."
+            ]
+        ],
         "acl_categories": [
             "@slow",
             "@connection"
         ],
-        "arity": -3,
+        "arity": -2,
         "arguments": [
             {
                 "name": "command-name",
                 "type": "string",
+                "optional": true,
                 "multiple": true
             }
         ],
@@ -2875,6 +3026,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "COPY": {
@@ -2904,7 +3059,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             },
             {
                 "begin_search": {
@@ -2921,7 +3077,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -2967,6 +3124,10 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:agg_sum"
         ]
     },
     "DEBUG": {
@@ -3017,7 +3178,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3060,7 +3223,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3107,7 +3272,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RM": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -3120,6 +3286,10 @@
         ],
         "command_flags": [
             "write"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "DISCARD": {
@@ -3136,7 +3306,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "DUMP": {
@@ -3166,7 +3337,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3177,8 +3349,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ECHO": {
@@ -3227,8 +3401,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3288,8 +3463,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3349,7 +3525,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3406,7 +3583,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3459,6 +3637,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(N) where N is the number of keys to check.",
+        "history": [
+            [
+                "3.0.3",
+                "Accepts multiple `key` arguments."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -3481,7 +3665,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -3495,6 +3679,10 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "EXPIRE": {
@@ -3504,7 +3692,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -3530,7 +3718,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3546,6 +3735,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -3583,7 +3773,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -3609,7 +3799,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3625,6 +3816,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -3682,7 +3874,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3694,7 +3887,6 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
         ]
     },
@@ -3777,8 +3969,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3804,6 +3997,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3836,7 +4030,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3862,6 +4057,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -3898,18 +4094,24 @@
                     {
                         "name": "async",
                         "type": "pure-token",
-                        "token": "ASYNC"
+                        "token": "ASYNC",
+                        "since": "4.0.0"
                     },
                     {
                         "name": "sync",
                         "type": "pure-token",
-                        "token": "SYNC"
+                        "token": "SYNC",
+                        "since": "6.2.0"
                     }
                 ]
             }
         ],
         "command_flags": [
             "write"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FLUSHDB": {
@@ -3917,6 +4119,16 @@
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of keys in the selected database",
+        "history": [
+            [
+                "4.0.0",
+                "Added the `ASYNC` flushing mode modifier."
+            ],
+            [
+                "6.2.0",
+                "Added the `SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -3933,18 +4145,24 @@
                     {
                         "name": "async",
                         "type": "pure-token",
-                        "token": "ASYNC"
+                        "token": "ASYNC",
+                        "since": "4.0.0"
                     },
                     {
                         "name": "sync",
                         "type": "pure-token",
-                        "token": "SYNC"
+                        "token": "SYNC",
+                        "since": "6.2.0"
                     }
                 ]
             }
         ],
         "command_flags": [
             "write"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION": {
@@ -3956,48 +4174,6 @@
             "@slow"
         ],
         "arity": -2
-    },
-    "FUNCTION CREATE": {
-        "summary": "Create a function with the given arguments (name, code, description)",
-        "since": "7.0.0",
-        "group": "scripting",
-        "complexity": "O(1) (considering compilation time is redundant)",
-        "acl_categories": [
-            "@write",
-            "@slow",
-            "@scripting"
-        ],
-        "arity": -5,
-        "arguments": [
-            {
-                "name": "engine-name",
-                "type": "string"
-            },
-            {
-                "name": "function-name",
-                "type": "string"
-            },
-            {
-                "name": "replace",
-                "type": "pure-token",
-                "token": "REPLACE",
-                "optional": true
-            },
-            {
-                "name": "function-description",
-                "type": "string",
-                "token": "DESC",
-                "optional": true
-            },
-            {
-                "name": "function-code",
-                "type": "string"
-            }
-        ],
-        "command_flags": [
-            "write",
-            "noscript"
-        ]
     },
     "FUNCTION DELETE": {
         "summary": "Delete a function by name",
@@ -4019,6 +4195,10 @@
         "command_flags": [
             "write",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION DUMP": {
@@ -4068,6 +4248,10 @@
         "command_flags": [
             "write",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION HELP": {
@@ -4085,8 +4269,8 @@
             "stale"
         ]
     },
-    "FUNCTION INFO": {
-        "summary": "Return information about a function by function name",
+    "FUNCTION KILL": {
+        "summary": "Kill the function currently in execution.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -4094,11 +4278,32 @@
             "@slow",
             "@scripting"
         ],
-        "arity": -3,
+        "arity": 2,
+        "command_flags": [
+            "noscript",
+            "allow_busy"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:one_succeeded"
+        ]
+    },
+    "FUNCTION LIST": {
+        "summary": "List information about all the functions",
+        "since": "7.0.0",
+        "group": "scripting",
+        "complexity": "O(N) where N is the number of functions",
+        "acl_categories": [
+            "@slow",
+            "@scripting"
+        ],
+        "arity": -2,
         "arguments": [
             {
-                "name": "function-name",
-                "type": "string"
+                "name": "library-name-pattern",
+                "type": "string",
+                "token": "LIBRARYNAME",
+                "optional": true
             },
             {
                 "name": "withcode",
@@ -4111,32 +4316,51 @@
             "noscript"
         ]
     },
-    "FUNCTION KILL": {
-        "summary": "Kill the function currently in execution.",
+    "FUNCTION LOAD": {
+        "summary": "Create a function with the given arguments (name, code, description)",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "O(1)",
+        "complexity": "O(1) (considering compilation time is redundant)",
         "acl_categories": [
+            "@write",
             "@slow",
             "@scripting"
         ],
-        "arity": 2,
-        "command_flags": [
-            "noscript"
-        ]
-    },
-    "FUNCTION LIST": {
-        "summary": "List information about all the functions",
-        "since": "7.0.0",
-        "group": "scripting",
-        "complexity": "O(N) where N is the number of functions",
-        "acl_categories": [
-            "@slow",
-            "@scripting"
+        "arity": -5,
+        "arguments": [
+            {
+                "name": "engine-name",
+                "type": "string"
+            },
+            {
+                "name": "library-name",
+                "type": "string"
+            },
+            {
+                "name": "replace",
+                "type": "pure-token",
+                "token": "REPLACE",
+                "optional": true
+            },
+            {
+                "name": "library-description",
+                "type": "string",
+                "token": "DESC",
+                "optional": true
+            },
+            {
+                "name": "function-code",
+                "type": "string"
+            }
         ],
-        "arity": 2,
         "command_flags": [
+            "write",
+            "denyoom",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION RESTORE": {
@@ -4180,7 +4404,12 @@
         ],
         "command_flags": [
             "write",
+            "denyoom",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION STATS": {
@@ -4194,7 +4423,12 @@
         ],
         "arity": 2,
         "command_flags": [
-            "noscript"
+            "noscript",
+            "allow_busy"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:one_succeeded"
         ]
     },
     "GEOADD": {
@@ -4204,7 +4438,7 @@
         "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `CH`, `NX` and `XX` options."
             ]
         ],
@@ -4230,7 +4464,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -4242,6 +4477,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -4260,6 +4496,7 @@
                 "name": "change",
                 "type": "pure-token",
                 "token": "CH",
+                "since": "6.2.0",
                 "optional": true
             },
             {
@@ -4314,7 +4551,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -4390,7 +4628,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -4436,7 +4675,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -4464,7 +4704,7 @@
         "replaced_by": "`GEOSEARCH` and `GEOSEARCHSTORE` with the `BYRADIUS` argument",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `ANY` option for `COUNT`."
             ]
         ],
@@ -4490,7 +4730,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             },
             {
                 "begin_search": {
@@ -4508,7 +4749,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -4526,7 +4768,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -4605,6 +4848,7 @@
                         "name": "any",
                         "type": "pure-token",
                         "token": "ANY",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
@@ -4679,7 +4923,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             },
             {
                 "begin_search": {
@@ -4697,7 +4942,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -4715,7 +4961,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -4837,7 +5084,7 @@
     },
     "GEORADIUSBYMEMBER_RO": {
         "summary": "A read-only variant for GEORADIUSBYMEMBER",
-        "since": "5.0.0",
+        "since": "3.2.10",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
         "deprecated_since": "6.2.0",
@@ -4864,7 +5111,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -4970,7 +5218,7 @@
     },
     "GEORADIUS_RO": {
         "summary": "A read-only variant for GEORADIUS",
-        "since": "5.0.0",
+        "since": "3.2.10",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
         "deprecated_since": "6.2.0",
@@ -4997,7 +5245,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5107,7 +5356,7 @@
     },
     "GEOSEARCH": {
         "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
-        "since": "6.2",
+        "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
         "acl_categories": [
@@ -5132,7 +5381,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5303,7 +5553,7 @@
     },
     "GEOSEARCHSTORE": {
         "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
-        "since": "6.2",
+        "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
         "acl_categories": [
@@ -5328,7 +5578,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -5345,7 +5596,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5535,7 +5787,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5577,7 +5830,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5623,7 +5877,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -5665,7 +5921,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -5739,7 +5997,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5790,8 +6049,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -5819,6 +6079,12 @@
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the number of fields to be removed.",
+        "history": [
+            [
+                "2.4.0",
+                "Accepts multiple `field` arguments."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@hash",
@@ -5841,7 +6107,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -5868,7 +6135,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "`protover` made optional; when called without arguments the command reports the current connection's context."
             ]
         ],
@@ -5917,7 +6184,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "HEXISTS": {
@@ -5947,7 +6215,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -5993,7 +6261,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6039,7 +6308,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6050,8 +6320,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "HINCRBY": {
@@ -6081,7 +6353,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6132,7 +6406,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6183,7 +6459,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6194,8 +6471,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "HLEN": {
@@ -6225,7 +6504,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -6267,7 +6546,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6316,7 +6596,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6377,7 +6658,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6405,8 +6687,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "HSCAN": {
@@ -6436,7 +6720,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6463,8 +6748,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "HSET": {
@@ -6472,6 +6759,12 @@
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.",
+        "history": [
+            [
+                "4.0.0",
+                "Accepts multiple `field` and `value` arguments."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@hash",
@@ -6494,7 +6787,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6552,7 +6846,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -6603,7 +6898,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -6649,7 +6944,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6660,8 +6956,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "INCR": {
@@ -6691,7 +6989,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6734,7 +7034,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6781,7 +7083,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6819,9 +7123,13 @@
             }
         ],
         "command_flags": [
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:all_shards",
+            "response_policy:special"
         ]
     },
     "KEYS": {
@@ -6843,8 +7151,11 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "nondeterministic_output_order"
         ]
     },
     "LASTSAVE": {
@@ -6859,10 +7170,12 @@
         ],
         "arity": 1,
         "command_flags": [
-            "random",
             "loading",
             "stale",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "LATENCY": {
@@ -6927,6 +7240,32 @@
         ],
         "arity": 2,
         "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
+    "LATENCY HISTOGRAM": {
+        "summary": "Return the cumulative distribution of latencies of a subset of commands or all.",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(N) where N is the number of commands with latency information being retrieved.",
+        "acl_categories": [
+            "@admin",
+            "@slow",
+            "@dangerous"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "command",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "admin",
+            "noscript",
             "loading",
             "stale"
         ]
@@ -7026,7 +7365,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7096,7 +7436,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7141,7 +7482,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7207,7 +7549,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -7249,8 +7591,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -7267,7 +7610,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7346,7 +7690,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7417,7 +7763,7 @@
         "complexity": "O(N) where N is the number of elements returned",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `count` argument."
             ]
         ],
@@ -7443,7 +7789,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7455,6 +7803,7 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "6.2.0",
                 "optional": true
             }
         ],
@@ -7490,7 +7839,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7533,7 +7883,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -7559,7 +7909,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7587,7 +7938,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -7613,7 +7964,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7661,7 +8013,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7710,7 +8063,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7759,7 +8113,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -7809,7 +8164,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7850,8 +8206,8 @@
             "@slow"
         ],
         "arity": 2,
-        "command_flags": [
-            "random"
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MEMORY HELP": {
@@ -7877,8 +8233,8 @@
             "@slow"
         ],
         "arity": 2,
-        "command_flags": [
-            "random"
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MEMORY PURGE": {
@@ -7900,8 +8256,8 @@
             "@slow"
         ],
         "arity": 2,
-        "command_flags": [
-            "random"
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MEMORY USAGE": {
@@ -7930,7 +8286,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -7977,7 +8333,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7991,6 +8348,9 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard"
         ]
     },
     "MIGRATE": {
@@ -8039,7 +8399,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -8057,7 +8419,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
+                "RW": true,
+                "access": true,
+                "delete": true,
                 "incomplete": true
             }
         ],
@@ -8098,24 +8462,28 @@
                 "name": "copy",
                 "type": "pure-token",
                 "token": "COPY",
+                "since": "3.0.0",
                 "optional": true
             },
             {
                 "name": "replace",
                 "type": "pure-token",
                 "token": "REPLACE",
+                "since": "3.0.0",
                 "optional": true
             },
             {
                 "name": "password",
                 "type": "string",
                 "token": "AUTH",
+                "since": "4.0.7",
                 "optional": true
             },
             {
                 "name": "username_password",
                 "type": "block",
                 "token": "AUTH2",
+                "since": "6.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -8133,14 +8501,17 @@
                 "type": "key",
                 "key_spec_index": 1,
                 "token": "KEYS",
+                "since": "3.0.6",
                 "optional": true,
                 "multiple": true
             }
         ],
         "command_flags": [
             "write",
-            "random",
             "movablekeys"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MODULE": {
@@ -8208,7 +8579,8 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "MODULE UNLOAD": {
@@ -8230,7 +8602,8 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "MONITOR": {
@@ -8239,11 +8612,11 @@
         "group": "server",
         "history": [
             [
-                "6.0",
+                "6.0.0",
                 "`AUTH` excluded from the command's output."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "`RESET` can be called to exit monitor mode."
             ],
             [
@@ -8291,7 +8664,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8337,7 +8712,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8361,6 +8737,10 @@
         "command_flags": [
             "write",
             "denyoom"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:all_succeeded"
         ]
     },
     "MSETNX": {
@@ -8390,7 +8770,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -8430,7 +8811,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "OBJECT": {
@@ -8470,7 +8852,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8482,6 +8864,9 @@
         ],
         "command_flags": [
             "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "OBJECT FREQ": {
@@ -8511,7 +8896,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8522,8 +8907,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "OBJECT HELP": {
@@ -8568,7 +8955,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8579,8 +8966,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "OBJECT REFCOUNT": {
@@ -8610,7 +8999,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8651,7 +9040,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8673,7 +9063,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -8699,7 +9089,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8715,6 +9106,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -8752,7 +9144,7 @@
         "complexity": "O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added options: `NX`, `XX`, `GT` and `LT`."
             ]
         ],
@@ -8778,7 +9170,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8794,6 +9187,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "7.0.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -8851,7 +9245,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -8863,7 +9258,6 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
         ]
     },
@@ -8894,7 +9288,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -8943,7 +9338,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RW": true
             }
         ],
         "arguments": [
@@ -8988,7 +9383,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true
             }
         ],
         "command_flags": [
@@ -9027,8 +9423,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "insert": true
             },
             {
                 "begin_search": {
@@ -9045,7 +9442,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -9104,6 +9502,10 @@
         ],
         "command_flags": [
             "fast"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "PSETEX": {
@@ -9133,7 +9535,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -9208,7 +9611,9 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "PTTL": {
@@ -9216,6 +9621,12 @@
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "2.8.0",
+                "Added the -2 reply."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -9238,7 +9649,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -9250,8 +9662,10 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "PUBLISH": {
@@ -9283,7 +9697,7 @@
         ]
     },
     "PUBSUB": {
-        "summary": "A container for Pub/Sun commands",
+        "summary": "A container for Pub/Sub commands",
         "since": "2.8.0",
         "group": "pubsub",
         "complexity": "Depends on subcommand.",
@@ -9369,6 +9783,45 @@
             "stale"
         ]
     },
+    "PUBSUB SHARDCHANNELS": {
+        "summary": "List active shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of active shard channels, and assuming constant time pattern matching (relatively short channels).",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "pattern",
+                "type": "string",
+                "optional": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
+    "PUBSUB SHARDNUMSUB": {
+        "summary": "Get the count of subscribers for shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) for the SHARDNUMSUB subcommand, where N is the number of requested channels",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
     "PUNSUBSCRIBE": {
         "summary": "Stop listening for messages posted to channels matching the given patterns",
         "since": "2.0.0",
@@ -9409,7 +9862,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "RANDOMKEY": {
@@ -9424,8 +9878,11 @@
         ],
         "arity": 1,
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "nondeterministic_output"
         ]
     },
     "READONLY": {
@@ -9439,6 +9896,8 @@
         ],
         "arity": 1,
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -9453,6 +9912,8 @@
         ],
         "arity": 1,
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -9461,6 +9922,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "3.2.0",
+                "The command no longer returns an error when source and destination names are the same."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9478,12 +9945,32 @@
                 "find_keys": {
                     "type": "range",
                     "spec": {
-                        "lastkey": 1,
+                        "lastkey": 0,
                         "keystep": 1,
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
+            },
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 2
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -9507,6 +9994,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "3.2.0",
+                "The command no longer returns an error when source and destination names are the same."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9524,12 +10017,32 @@
                 "find_keys": {
                     "type": "range",
                     "spec": {
-                        "lastkey": 1,
+                        "lastkey": 0,
                         "keystep": 1,
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
+            },
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 2
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "OW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -9594,7 +10107,9 @@
         "command_flags": [
             "admin",
             "noscript",
-            "stale"
+            "stale",
+            "no_async_loading",
+            "allow_busy"
         ]
     },
     "RESET": {
@@ -9612,7 +10127,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "RESTORE": {
@@ -9620,6 +10136,20 @@
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
+        "history": [
+            [
+                "3.0.0",
+                "Added the `REPLACE` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `ABSTTL` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `IDLETIME` and `FREQ` options."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -9643,7 +10173,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -9664,24 +10195,28 @@
                 "name": "replace",
                 "type": "pure-token",
                 "token": "REPLACE",
+                "since": "3.0.0",
                 "optional": true
             },
             {
                 "name": "absttl",
                 "type": "pure-token",
                 "token": "ABSTTL",
+                "since": "5.0.0",
                 "optional": true
             },
             {
                 "name": "seconds",
                 "type": "integer",
                 "token": "IDLETIME",
+                "since": "5.0.0",
                 "optional": true
             },
             {
                 "name": "frequency",
                 "type": "integer",
                 "token": "FREQ",
+                "since": "5.0.0",
                 "optional": true
             }
         ],
@@ -9718,7 +10253,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "command_flags": [
@@ -9755,7 +10291,7 @@
         "complexity": "O(N) where N is the number of elements returned",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `count` argument."
             ]
         ],
@@ -9781,7 +10317,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -9793,6 +10331,7 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "6.2.0",
                 "optional": true
             }
         ],
@@ -9830,8 +10369,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -9848,7 +10388,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -9878,7 +10419,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -9904,7 +10445,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -9932,7 +10474,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Accepts multiple `element` arguments."
             ]
         ],
@@ -9958,7 +10500,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -9986,7 +10529,7 @@
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `member` arguments."
             ]
         ],
@@ -10012,7 +10555,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -10046,7 +10590,9 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "SCAN": {
@@ -10054,6 +10600,12 @@
         "since": "2.8.0",
         "group": "generic",
         "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
+        "history": [
+            [
+                "6.0.0",
+                "Added the `TYPE` subcommand."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -10081,12 +10633,16 @@
                 "name": "type",
                 "type": "string",
                 "token": "TYPE",
+                "since": "6.0.0",
                 "optional": true
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:special"
         ]
     },
     "SCARD": {
@@ -10116,7 +10672,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -10197,6 +10753,10 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:agg_logical_and"
         ]
     },
     "SCRIPT FLUSH": {
@@ -10219,6 +10779,7 @@
             {
                 "name": "async",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -10236,6 +10797,10 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "SCRIPT HELP": {
@@ -10264,7 +10829,12 @@
         ],
         "arity": 2,
         "command_flags": [
-            "noscript"
+            "noscript",
+            "allow_busy"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:one_succeeded"
         ]
     },
     "SCRIPT LOAD": {
@@ -10285,6 +10855,10 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "SDIFF": {
@@ -10314,7 +10888,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10326,8 +10901,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SDIFFSTORE": {
@@ -10357,7 +10934,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -10374,7 +10952,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10428,15 +11007,15 @@
                 "Added the `EX`, `PX`, `NX` and `XX` options."
             ],
             [
-                "6.0",
+                "6.0.0",
                 "Added the `KEEPTTL` option."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "Added the `GET`, `EXAT` and `PXAT` option."
             ],
             [
-                "7.0",
+                "7.0.0",
                 "Allowed the `NX` and `GET` options to be used together."
             ]
         ],
@@ -10462,8 +11041,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -10484,33 +11064,39 @@
                     {
                         "name": "seconds",
                         "type": "integer",
-                        "token": "EX"
+                        "token": "EX",
+                        "since": "2.6.12"
                     },
                     {
                         "name": "milliseconds",
                         "type": "integer",
-                        "token": "PX"
+                        "token": "PX",
+                        "since": "2.6.12"
                     },
                     {
                         "name": "unix-time-seconds",
                         "type": "unix-time",
-                        "token": "EXAT"
+                        "token": "EXAT",
+                        "since": "6.2.0"
                     },
                     {
                         "name": "unix-time-milliseconds",
                         "type": "unix-time",
-                        "token": "PXAT"
+                        "token": "PXAT",
+                        "since": "6.2.0"
                     },
                     {
                         "name": "keepttl",
                         "type": "pure-token",
-                        "token": "KEEPTTL"
+                        "token": "KEEPTTL",
+                        "since": "6.0.0"
                     }
                 ]
             },
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "2.6.12",
                 "optional": true,
                 "arguments": [
                     {
@@ -10564,7 +11150,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -10614,7 +11202,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -10664,7 +11253,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -10711,7 +11301,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -10738,6 +11329,13 @@
         "summary": "Synchronously save the dataset to disk and then shut down the server",
         "since": "1.0.0",
         "group": "server",
+        "complexity": "O(N) when saving, where N is the total number of keys in all databases when saving data, otherwise O(1)",
+        "history": [
+            [
+                "7.0",
+                "Added the `NOW`, `FORCE` and `ABORT` modifiers. Introduced waiting for lagging replicas before exiting."
+            ]
+        ],
         "acl_categories": [
             "@admin",
             "@slow",
@@ -10761,13 +11359,33 @@
                         "token": "SAVE"
                     }
                 ]
+            },
+            {
+                "name": "now",
+                "type": "pure-token",
+                "token": "NOW",
+                "optional": true
+            },
+            {
+                "name": "force",
+                "type": "pure-token",
+                "token": "FORCE",
+                "optional": true
+            },
+            {
+                "name": "abort",
+                "type": "pure-token",
+                "token": "ABORT",
+                "optional": true
             }
         ],
         "command_flags": [
             "admin",
             "noscript",
             "loading",
-            "stale"
+            "stale",
+            "no_multi",
+            "allow_busy"
         ]
     },
     "SINTER": {
@@ -10797,7 +11415,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10809,8 +11428,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SINTERCARD": {
@@ -10840,7 +11461,7 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -10893,7 +11514,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -10910,7 +11532,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10958,7 +11581,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11001,7 +11625,8 @@
         "command_flags": [
             "admin",
             "noscript",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "SLOWLOG": {
@@ -11021,7 +11646,7 @@
         "complexity": "O(N) where N is the number of entries returned",
         "history": [
             [
-                "4.0",
+                "4.0.0",
                 "Added client IP address, port and name to the reply."
             ]
         ],
@@ -11040,9 +11665,12 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "nondeterministic_output"
         ]
     },
     "SLOWLOG HELP": {
@@ -11072,9 +11700,13 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:agg_sum",
+            "nondeterministic_output"
         ]
     },
     "SLOWLOG RESET": {
@@ -11092,6 +11724,10 @@
             "admin",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "SMEMBERS": {
@@ -11121,7 +11757,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11132,8 +11769,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SMISMEMBER": {
@@ -11163,7 +11802,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11210,8 +11850,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -11228,7 +11869,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -11282,7 +11924,9 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true,
+                "incomplete": true
             },
             {
                 "begin_search": {
@@ -11293,7 +11937,8 @@
                     "type": "unknown",
                     "spec": {}
                 },
-                "write": true,
+                "OW": true,
+                "update": true,
                 "incomplete": true
             }
         ],
@@ -11400,7 +12045,9 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true,
+                "incomplete": true
             }
         ],
         "arguments": [
@@ -11474,7 +12121,7 @@
         "complexity": "Without the count argument O(1), otherwise O(N) where N is the value of the passed count.",
         "history": [
             [
-                "3.2",
+                "3.2.0",
                 "Added the `count` argument."
             ]
         ],
@@ -11500,7 +12147,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -11512,13 +12161,63 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "3.2.0",
                 "optional": true
             }
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
+        ]
+    },
+    "SPUBLISH": {
+        "summary": "Post a message to a shard channel",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of clients subscribed to the receiving shard channel.",
+        "acl_categories": [
+            "@pubsub",
+            "@fast"
+        ],
+        "arity": 3,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string"
+            },
+            {
+                "name": "message",
+                "type": "string"
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale",
+            "fast",
+            "may_replicate"
         ]
     },
     "SRANDMEMBER": {
@@ -11554,7 +12253,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11566,12 +12266,15 @@
             {
                 "name": "count",
                 "type": "integer",
+                "since": "2.6.0",
                 "optional": true
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "SREM": {
@@ -11581,7 +12284,7 @@
         "complexity": "O(N) where N is the number of members to be removed.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple `member` arguments."
             ]
         ],
@@ -11607,7 +12310,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -11654,7 +12358,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11681,8 +12386,53 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
+        ]
+    },
+    "SSUBSCRIBE": {
+        "summary": "Listen for messages published to the given shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of shard channels to subscribe to.",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "noscript",
+            "loading",
+            "stale"
         ]
     },
     "STRLEN": {
@@ -11712,7 +12462,7 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -11734,7 +12484,7 @@
         "complexity": "O(N) where N is the number of channels to subscribe to.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "`RESET` can be called to exit subscribed state."
             ]
         ],
@@ -11786,7 +12536,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11838,7 +12589,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11850,8 +12602,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SUNIONSTORE": {
@@ -11881,7 +12635,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -11898,7 +12653,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11917,6 +12673,50 @@
         "command_flags": [
             "write",
             "denyoom"
+        ]
+    },
+    "SUNSUBSCRIBE": {
+        "summary": "Stop listening for messages posted to the given shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -1,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "noscript",
+            "loading",
+            "stale"
         ]
     },
     "SWAPDB": {
@@ -11958,7 +12758,9 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "TIME": {
@@ -11971,10 +12773,12 @@
         ],
         "arity": 1,
         "command_flags": [
-            "random",
             "loading",
             "stale",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "TOUCH": {
@@ -12004,7 +12808,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -12018,6 +12822,10 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "TTL": {
@@ -12025,6 +12833,12 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
+        "history": [
+            [
+                "2.8.0",
+                "Added the -2 reply."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@read",
@@ -12047,7 +12861,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -12059,8 +12874,10 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "TYPE": {
@@ -12090,7 +12907,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -12132,7 +12949,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RM": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12146,6 +12964,10 @@
         "command_flags": [
             "write",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "UNSUBSCRIBE": {
@@ -12187,7 +13009,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "WAIT": {
@@ -12212,6 +13035,10 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:agg_min"
         ]
     },
     "WATCH": {
@@ -12254,7 +13081,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "XACK": {
@@ -12284,7 +13112,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -12305,7 +13134,6 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
         ]
     },
@@ -12316,11 +13144,11 @@
         "complexity": "O(1) when adding a new entry, O(N) when trimming where N being the number of entries evicted.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `NOMKSTREAM` option, `MINID` trimming strategy and the `LIMIT` option."
             ],
             [
-                "7.0",
+                "7.0.0",
                 "Added support for the `<ms>-*` explicit ID form."
             ]
         ],
@@ -12346,7 +13174,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -12359,7 +13188,7 @@
                 "name": "nomkstream",
                 "type": "pure-token",
                 "token": "NOMKSTREAM",
-                "since": "6.2",
+                "since": "6.2.0",
                 "optional": true
             },
             {
@@ -12380,7 +13209,7 @@
                                 "name": "minid",
                                 "type": "pure-token",
                                 "token": "MINID",
-                                "since": "6.2"
+                                "since": "6.2.0"
                             }
                         ]
                     },
@@ -12409,7 +13238,7 @@
                         "name": "count",
                         "type": "integer",
                         "token": "LIMIT",
-                        "since": "6.2",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
@@ -12448,8 +13277,10 @@
         "command_flags": [
             "write",
             "denyoom",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XAUTOCLAIM": {
@@ -12479,7 +13310,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12519,8 +13351,10 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XCLAIM": {
@@ -12550,7 +13384,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -12609,8 +13444,10 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XDEL": {
@@ -12640,7 +13477,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12697,7 +13535,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -12764,7 +13603,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -12814,7 +13654,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12863,7 +13704,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12923,7 +13765,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -12993,7 +13836,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13008,8 +13852,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XINFO GROUPS": {
@@ -13039,7 +13885,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13095,7 +13942,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13150,7 +13998,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -13198,7 +14046,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13220,6 +14069,7 @@
                         "name": "min-idle-time",
                         "type": "integer",
                         "token": "IDLE",
+                        "since": "6.2.0",
                         "optional": true
                     },
                     {
@@ -13243,8 +14093,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XRANGE": {
@@ -13252,6 +14104,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+        "history": [
+            [
+                "6.2.0",
+                "Added exclusive ranges."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -13274,7 +14132,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13331,7 +14190,8 @@
                         "limit": 2
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13368,6 +14228,7 @@
         ],
         "command_flags": [
             "readonly",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -13400,7 +14261,8 @@
                         "limit": 2
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13458,6 +14320,7 @@
         ],
         "command_flags": [
             "write",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -13466,6 +14329,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
+        "history": [
+            [
+                "6.2.0",
+                "Added exclusive ranges."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -13488,7 +14357,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13543,7 +14413,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -13570,7 +14441,7 @@
         "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `MINID` trimming strategy and the `LIMIT` option."
             ]
         ],
@@ -13596,7 +14467,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -13621,7 +14493,8 @@
                             {
                                 "name": "minid",
                                 "type": "pure-token",
-                                "token": "MINID"
+                                "token": "MINID",
+                                "since": "6.2.0"
                             }
                         ]
                     },
@@ -13650,14 +14523,17 @@
                         "name": "count",
                         "type": "integer",
                         "token": "LIMIT",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
             }
         ],
         "command_flags": [
-            "write",
-            "random"
+            "write"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ZADD": {
@@ -13667,7 +14543,7 @@
         "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple elements."
             ],
             [
@@ -13675,7 +14551,7 @@
                 "Added the `XX`, `NX`, `CH` and `INCR` options."
             ],
             [
-                "6.2",
+                "6.2.0",
                 "Added the `GT` and `LT` options."
             ]
         ],
@@ -13701,7 +14577,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -13713,6 +14590,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -13730,6 +14608,7 @@
             {
                 "name": "comparison",
                 "type": "oneof",
+                "since": "3.0.2",
                 "optional": true,
                 "arguments": [
                     {
@@ -13748,12 +14627,14 @@
                 "name": "change",
                 "type": "pure-token",
                 "token": "CH",
+                "since": "3.0.2",
                 "optional": true
             },
             {
                 "name": "increment",
                 "type": "pure-token",
                 "token": "INCR",
+                "since": "3.0.2",
                 "optional": true
             },
             {
@@ -13805,7 +14686,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -13847,7 +14728,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -13897,7 +14778,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13950,7 +14832,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -13967,7 +14850,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14020,7 +14904,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -14071,7 +14957,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14154,7 +15041,7 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -14207,7 +15094,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -14224,7 +15112,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14307,7 +15196,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14357,7 +15247,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -14426,7 +15318,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14473,7 +15366,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -14520,7 +15415,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -14567,7 +15464,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14595,8 +15493,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ZRANGE": {
@@ -14606,7 +15506,7 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
         "history": [
             [
-                "6.2",
+                "6.2.0",
                 "Added the `REV`, `BYSCORE`, `BYLEX` and `LIMIT` options."
             ]
         ],
@@ -14632,7 +15532,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14642,16 +15543,17 @@
                 "key_spec_index": 0
             },
             {
-                "name": "min",
+                "name": "start",
                 "type": "string"
             },
             {
-                "name": "max",
+                "name": "stop",
                 "type": "string"
             },
             {
                 "name": "sortby",
                 "type": "oneof",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -14670,12 +15572,14 @@
                 "name": "rev",
                 "type": "pure-token",
                 "token": "REV",
+                "since": "6.2.0",
                 "optional": true
             },
             {
                 "name": "offset_count",
                 "type": "block",
                 "token": "LIMIT",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -14728,7 +15632,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14776,6 +15681,12 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
         "deprecated_since": "6.2.0",
         "replaced_by": "`ZRANGE` with the `BYSCORE` argument",
+        "history": [
+            [
+                "2.0.0",
+                "Added the `WITHSCORES` modifier."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@sortedset",
@@ -14798,7 +15709,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14819,6 +15731,7 @@
                 "name": "withscores",
                 "type": "pure-token",
                 "token": "WITHSCORES",
+                "since": "2.0.0",
                 "optional": true
             },
             {
@@ -14872,7 +15785,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -14889,7 +15803,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14983,7 +15898,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15009,7 +15925,7 @@
         "complexity": "O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.",
         "history": [
             [
-                "2.4",
+                "2.4.0",
                 "Accepts multiple elements."
             ]
         ],
@@ -15035,7 +15951,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15082,7 +15999,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15131,7 +16049,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15180,7 +16099,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15231,7 +16151,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15291,7 +16212,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15339,6 +16261,12 @@
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
         "deprecated_since": "6.2.0",
         "replaced_by": "`ZRANGE` with the `REV` and `BYSCORE` arguments",
+        "history": [
+            [
+                "2.1.6",
+                "`min` and `max` can be exclusive."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@sortedset",
@@ -15361,7 +16289,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15435,7 +16364,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15481,7 +16411,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15508,8 +16439,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ZSCORE": {
@@ -15539,7 +16472,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15585,7 +16519,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15668,7 +16603,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -15685,7 +16621,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [

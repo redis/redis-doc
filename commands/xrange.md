@@ -210,10 +210,6 @@ The returned entries are complete, that means that the ID and all the fields
 they are composed are returned. Moreover, the entries are returned with
 their fields and values in the exact same order as `XADD` added them.
 
-@history
-
-* `>= 6.2` Added exclusive ranges.
-
 @examples
 
 ```cli

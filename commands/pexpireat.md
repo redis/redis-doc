@@ -28,7 +28,3 @@ PEXPIREAT mykey 1555555555005
 TTL mykey
 PTTL mykey
 ```
-
-@history
-
-* `>= 7.0`: Added options: `NX`, `XX`, `GT` and `LT`.

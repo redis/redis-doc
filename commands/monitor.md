@@ -84,9 +84,3 @@ Running more `MONITOR` clients will reduce throughput even more.
 
 **Non standard return value**, just dumps the received commands in an infinite
 flow.
-
-@history
-
-* `>= 6.0`: `AUTH` excluded from the command's output.
-* `>= 6.2`: `RESET` can be called to exit monitor mode.
-* `>= 6.2.4`: `AUTH`, `HELLO`, `EVAL`, `EVAL_RO`, `EVALSHA` and `EVALSHA_RO` included in the command's output.
