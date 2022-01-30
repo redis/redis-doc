@@ -8,8 +8,8 @@ You can skip the following prologue if you're new to Redis or want to jump right
 ## Prologue (or what's wrong with Eval Scripts?)
 
 Prior versions of Redis made scripting available only via the `EVAL` command, which allows a Lua script to be sent for execution by the server.
-One of the core use cases for [Eval Scripts](/topics/eval-intro) is implementing and exposing a richer API composed of core Redis commands and workflow logic.
-Such APIs can perform conditional updates across multiple keys, possibly combining several different data types, to maintain a consistent view of entities (e.g., user profiles) somewhat like schemas in traditional databases.
+The core use cases for [Eval Scripts](/topics/eval-intro) is executing part of your application logic inside Redis, atomically.
+Such script can perform conditional updates across multiple keys, possibly combining several different data types.
 
 Using `EVAL` requires that the application sends the entire script for execution every time.
 Because this modus operandi results in network and script compilation overheads, Redis provides the `EVALSHA` command that avoids that. By first calling `SCRIPT LOAD` to obtain the script's SHA1, the application can invoke it repeatedly afterward with its digest alone.
@@ -39,6 +39,7 @@ Because functions are part of the database and therefore declared before use, ap
 An application that uses functions depends only on their APIs rather than on the embedded script logic in the database.
 
 Whereas ephemeral scripts are considered a part of the application's domain, functions extend the database server itself with user-provided logic.
+They can be used to expose a richer API composed of core Redis commands, similar to modules, developed once, loaded at startup, and used repeatedly by various applications / clients.
 Every function has a unique user-provided name, making it much easier to call and trace its execution.
 
 The design of Redis Functions also attempts to demarcate between the programming language used for writing functions and their management by the server.
@@ -58,9 +59,9 @@ Functions also simplify development by enabling code sharing.
 Every function belongs to a single library, and any given library can consist of multiple functions.
 The library's contents are immutable, and selective updates of its functions aren't allowed.
 Instead, libraries are updated as a whole with all of their functions together in one operation.
-This allows calling functions from other functions within the same library.
+This allows calling functions from other functions within the same library, or sharing code between functions by using a common code in library-internal methods, that can also take language native arguments.
 
-Functions are intended to support better the use case of maintaining a consistent view for data entities through a logical schema, as mentioned above.
+Functions are intended to better support the use case of maintaining a consistent view for data entities through a logical schema, as mentioned above.
 As such, functions are stored alongside the data itself.
 Functions are also persisted to the AOF file and synchronized from master to replicas.
 Because of that, data loss also implies losing functions stored in the database, so using functions without data persistence or high availability requires special handling that will be presented later on.
@@ -351,6 +352,21 @@ And your Redis log file should have lines in it that are similar to:
 20075:M 1 Jan 2022 16:54:01.309 # Only one key name is allowed
 ```
 
+## Functions in cluster
+
+As noted above, loading a function is already automatically propagated to replicas, but it is not (yet) automatically propagated to other cluster nodes.
+Currently an administration act is required in order to load the functions to all cluster nodes (similarly to how modules should be loaded).
+It is not intended to be the responsibility of the client application, or the client library cluster support to do that.
+
+This can be achieved by using `redis cli --cluster call`
+
+Note however that `redis-cli --cluster add-node` automatically takes care to propagate the loaded functions from one of the existing nodes to the new node.
+
+## Functoins and ephemeral use case
+
+In some cases there's a need to spin up an empty Redis with functions preloaded into it, so that they're available before Redis starts serving clients.
+For these cases, it is possible to use `redis-cli --functoins-rdb` to extract the functions from an existing server, and place that RDB file to be loaded by Redis at startup.
+
 ## Function flags
 
 When you register a function, the server does not know how it accesses the database.
@@ -375,7 +391,7 @@ The server will reply with this error in the following cases:
 
 1. Executing a function with `FCALL` against a read-only replica.
 2. Using `FCALL_RO` to execute a function.
-3. A disk error was detected.
+3. A disk error was detected (Redis is unable to persist so it rejects writes).
 
 In these cases, you can add the `no-writes` flag to the function's registration, disable the safeguard and allow them to run.
 To register a function with flags use the [named arguments](lua-api#redis.register_function_named_args) variant of `redis.register_function`.
@@ -408,4 +424,4 @@ redis> FCALL_RO my_hlastmodified 1 myhash
 "1640772721"
 ```
 
-For the complete documentation flags, please refer to [Function flags](lua-api#function_flags).
+For the complete documentation flags, please refer to [Script flags](lua-api#script-flags).

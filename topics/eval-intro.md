@@ -1,4 +1,4 @@
-# Inroduction to Eval Scripts
+# Introduction to Eval Scripts
 
 Starting with Redis 2.6, users can execute scripted logic in the server.
 This feature enables the composition of workflows that clients can instruct the server to execute.
@@ -16,21 +16,20 @@ These include:
 * Blocking semantics that ensure the script's atomic execution.
 * Enabling the composition of simple capabilities that are either missing from Redis or are too niche to a part of it.
 
-One of the core use cases for [Eval Scripts](/topics/eval-intro) is implementing and exposing a richer API composed of core Redis commands and workflow logic.
-Such APIs can perform conditional updates across multiple keys, possibly combining several different data types, to maintain a consistent view of entities (e.g., user profiles).
+The core use cases for [Eval Scripts](/topics/eval-intro) is running part of your application logic inside Redis.
+Such script can perform conditional updates across multiple keys, possibly combining several different data types atomically.
 
 Scripts are executed in Redis by an embedded execution engine.
 Presently, Redis supports a single scripting engine, the [Lua 5.1](https://www.lua.org/) interpreter.
 Please refer to the [Redis Lua API Reference](/topics/lua-api) page for complete documentation.
 
-Although the server executes them, scripts are regarded as a part of the application's domain.
-The server itself doesn't store scripts, so all scripts may need to be reloaded by the application at any time (after a restart, for example).
+Although the server executes them, Eval scripts are regarded as a part of the application's domain, which is why they're not named, versioned, or persisted.
+So all scripts may need to be reloaded by the application at any time if missing (after a restart, for example).
 As of version 7.0, [Redis Functions](/topics/functions-intro) offer an alternative approach to programmability.
 
 ## Getting started
 
 We'll start scripting with Redis by using the `EVAL` command.
-Note that `EVAL` is intended for **development purposes only**, so after we cover basic scripting, we'll introduce `EVALSHA` that's the recommended way to use scripts in your application.
 
 Here's our first example:
 
@@ -125,10 +124,10 @@ When executed, the script calls the `SET` command to set the input key, _foo_, w
 
 ## Script cache
 
-Until this point, we've used the `EVAL` command to run our scripts, with the emphasis that `EVAL` is a developer's command.
+Until this point, we've used the `EVAL` command to run our script.
 
 Whenever we call `EVAL`, we also include the script's source code with the request.
-Repeatedly calling `EVAL` to execute the same set of parameterized scripts, wastes both network bandwidth and forces Redis to recompile the scripts every time.
+Repeatedly calling `EVAL` to execute the same set of parameterized scripts, wastes both network bandwidth and also has some overheads in Redis.
 Naturally, saving on network and compute resources is key, so, instead, Redid provides a caching mechanism for scripts.
 
 Every script you execute with `EVAL` is stored in a dedicated cache that the server keeps.
@@ -176,7 +175,7 @@ Please consult your client's documentation regarding the specific details.
 
 ### `EVALSHA` in the context of pipelining
 
-Special care should be givenexecuting `EVALSHA` in the context of a [pipelined request](/topics/pipelining).
+Special care should be given executing `EVALSHA` in the context of a [pipelined request](/topics/pipelining).
 The commands in a pipelined request run in the order they are sent, but other clients' commands may be interleaved for execution between these.
 Because of that, the `NOSCRIPT` error can return from a pipelined request but can't be handled.
 
@@ -410,3 +409,24 @@ As the script executes, subsequent write commands consume more memory leading to
 
 In those scenarios, you should consider setting the `maxmemory-policy` configuration directive to any values other than `noeviction`.
 In addition, Lua scripts should be as fast as possible so that eviction can kick in between executions.
+
+Note that you can change this behaviour by using [flags](#eval-flags)
+
+## Eval Flags
+
+Normally, when you run an Eval script, the server does not know how it accesses the database.
+By default, Redis assumes that all scripts read and write data.
+However, starting with Redis 7.0, there's a way to declare flags when creating a script in order to tell Redis how it should behave.
+
+The way to do that us using a Shebang statement on the first line of the script like so:
+
+```
+#!lua flags=no-writes,allow-stale
+local x = redis.call('get','x')
+return x
+```
+
+Note that as soon as Redis sees the `#!` comment, it'll treat the script as if it declares flags, even if no flags are defined,
+it still has a different set of defaults compared to a script without a `#!` line.
+
+Please refer to [Script flags](lua-api#script-flags) to learn about the various scripts and the defaults.

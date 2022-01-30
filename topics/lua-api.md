@@ -132,6 +132,8 @@ redis> EVAL "return redis.call('ECHO', 'Echo,', 'echo... ', 'eco... ', 'o...')" 
 (error) ERR Error running script (call to b0345693f4b77517a711221050e76d24ae60b7f7): @user_script:1: @user_script: 1: Wrong number of args calling Redis command from script
 ```
 
+Note that the call can fail due to various reasons, see [Execution under low memory conditions](/topics/eval-intro#execution-under-low-memory-conditions) and [Script flags](#script-flags)
+
 To handle Redis runtime errors use `redis.pcall() instead.
 
 ### <a name="redis.pcall()"></a> `redis.pcall(command [,arg...])`
@@ -413,50 +415,51 @@ Usage example:
 redis> FUNCTION LOAD Lua mylib "redis.register_function(function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing')"
 ```
 
-#### <a name="function_flags"></a> Function flags
+#### <a name="script_flags"></a> Script flags
 
 **Important:**
-use function flags with care, which may negatively impact if misused.
+Use script flags with care, which may negatively impact if misused.
+Note that the default for Eval scripts are different than the default for functions that are mentioned below, see [Eval Flags](/topics/eval-intro#eval-flags)
 
-When you register a function, the server does not know how it accesses the database.
-By default, Redis assumes that all functions read and write data.
+When you register a function or load an Eval script, the server does not know how it accesses the database.
+By default, Redis assumes that all scripts read and write data.
 This results in the following behavior:
 
-1. Functions can read and write data.
-1. Functions can run in cluster mode.
+1. They can read and write data.
+1. They can run in cluster mode.
 1. Execution against a stale replica is denied to avoid inconsistent reads.
 1. Execution under low memory is denied to avoid exceeding the configured threshold.
 
-You can use the following flags and instruct the server to treat the function's execution differently:
+You can use the following flags and instruct the server to treat the scripts' execution differently:
 
-* `no-writes`: this flag indicates that the function only reads data but never writes.
+* `no-writes`: this flag indicates that the script only reads data but never writes.
 
-    By default, Redis will deny the execution of functions against read-only replicas, as they may attempt to perform writes.
-    Similarly, the server will not allow calling functions with `FCALL_RO`.
+    By default, Redis will deny the execution of scripts against read-only replicas, as they may attempt to perform writes.
+    Similarly, the server will not allow calling scripts with `FCALL_RO` / `EVAL_RO`.
     Lastly, when data persistence is at risk due to a disk error, execution is blocked as well.
-    
-    Using this flag allows executing the function:
-    1. With `FCALL_RO` against masters and read-only replicas.
-    2. Even if there's a disk error.
 
-    However, note that the server will return an error if the function attempts to call a write command.
+    Using this flag allows executing the script:
+    1. With `FCALL_RO` / `EVAL_RO` against masters and read-only replicas.
+    2. Even if there's a disk error (Redis is unable to persist so it rejects writes).
 
-* `allow-oom`: use this flag to allow a function to execute when the server is out of memory (OOM).
-  
-    Unless used, Redis will deny the execution of functions when in an OOM state, regardless of the `no-write` flag and method of calling.
-    Furthermore, when you use this flag, the function can call any Redis command, including commands that aren't usually allowed in this state.
+    However, note that the server will return an error if the script attempts to call a write command.
 
-* `allow-stale`: a flag that enables running the function against a stale replica.
+* `allow-oom`: use this flag to allow a script to execute when the server is out of memory (OOM).
+
+    Unless used, Redis will deny the execution of scripts when in an OOM state, regardless of the `no-write` flag and method of calling.
+    Furthermore, when you use this flag, the script can call any Redis command, including commands that aren't usually allowed in this state.
+
+* `allow-stale`: a flag that enables running the script against a stale replica.
 
     By default, Redis prevents data consistency problems from using old data by having stale replicas return a runtime error.
-    In cases where the consistency is a lesser concern, this flag allows stale Redis replicas to run the function.
+    In cases where the consistency is a lesser concern, this flag allows stale Redis replicas to run the script.
 
-* `no-cluster`: the flag causes the function to return an error in Redis cluster mode.
+* `no-cluster`: the flag causes the script to return an error in Redis cluster mode.
 
-    Redis allows functions to be executed both in standalone and cluster modes.
-    Setting this flag prevents executing the function against nodes in the cluster.
+    Redis allows scripts to be executed both in standalone and cluster modes.
+    Setting this flag prevents executing the script against nodes in the cluster.
 
-Please refer to [Function Flags](functions-intro#function-flags) for a detailed example.
+Please refer to [Function Flags](functions-intro#function-flags) and [Eval Flags](eval-intro#eval-flags) for a detailed example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
 

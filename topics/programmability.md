@@ -21,9 +21,9 @@ Please refer to the [Redis Lua API Reference](/topics/lua-api) page for complete
 
 Redis provides two means for running scripts.
 
-Firstly, and ever since Redis 2.6.0, the `EVAL` command enables running server-side scripts. 
+Firstly, and ever since Redis 2.6.0, the `EVAL` command enables running server-side scripts.
 Eval scripts provide a quick and straightforward way to have Redis run your scripts ad-hoc.
-However, using them means that the scripted logic becomes a part of your application.
+However, using them means that the scripted logic is a part of your application (not an extension of the Redis server).
 Every applicative instance that runs a script must have the script's source code readily available for loading at any time.
 That is because scripts are only cached by the server and are volatile.
 As your application grows, this approach can become harder to develop and maintain.
@@ -64,7 +64,7 @@ The limit is in place to handle accidental infinite loops created during develop
 
 It is possible to modify the maximum time a script can be executed with millisecond precision,
 either via `redis.conf` or by using the `CONFIG SET` command.
-The configuration parameter affecting max execution time is called `script-time-limit`.
+The configuration parameter affecting max execution time is called `busy-reply-threshold`.
 
 When a script reaches the timeout threshold, it isn't terminated by Redis automatically.
 Doing so would violate the contract between Redis and the scripting engine that ensures that scripts are atomic.
