@@ -56,6 +56,40 @@
             "stale"
         ]
     },
+    "ACL DRYRUN": {
+        "summary": "Returns whether the user can execute the given command without executing the command.",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(1).",
+        "acl_categories": [
+            "@admin",
+            "@slow",
+            "@dangerous"
+        ],
+        "arity": -4,
+        "arguments": [
+            {
+                "name": "username",
+                "type": "string"
+            },
+            {
+                "name": "command",
+                "type": "string"
+            },
+            {
+                "name": "arg",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "admin",
+            "noscript",
+            "loading",
+            "stale"
+        ]
+    },
     "ACL GENPASS": {
         "summary": "Generate a pseudorandom secure password to use for ACL users",
         "since": "6.0.0",
@@ -87,6 +121,10 @@
             [
                 "6.2.0",
                 "Added Pub/Sub channel patterns."
+            ],
+            [
+                "7.0.0",
+                "Added selectors and changed the format of key and channel patterns from a list to their rule representation."
             ]
         ],
         "acl_categories": [
@@ -221,6 +259,10 @@
             [
                 "6.2.0",
                 "Added Pub/Sub channel patterns."
+            ],
+            [
+                "7.0.0",
+                "Added selectors and key based permissions."
             ]
         ],
         "acl_categories": [
@@ -523,6 +565,7 @@
         "arity": -2,
         "key_specs": [
             {
+                "notes": "This command allows both access and modification of the key",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -630,7 +673,8 @@
         ],
         "command_flags": [
             "write",
-            "denyoom"
+            "denyoom",
+            "movablekeys"
         ]
     },
     "BITFIELD_RO": {
@@ -3387,6 +3431,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RW and UPDATE",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -3431,6 +3476,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3493,6 +3539,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3552,6 +3599,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -3569,6 +3617,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RO and ACCESS",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -3610,6 +3659,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -3810,7 +3860,7 @@
                 "key_spec_index": 0
             },
             {
-                "name": "timestamp",
+                "name": "unix-time-seconds",
                 "type": "unix-time"
             },
             {
@@ -3955,6 +4005,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RW and UPDATE",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -4016,6 +4067,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RO and ACCESS",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -5223,6 +5275,12 @@
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
         "deprecated_since": "6.2.0",
         "replaced_by": "`GEOSEARCH` with the `BYRADIUS` argument",
+        "history": [
+            [
+                "6.2.0",
+                "Added the `ANY` option for `COUNT`."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@geo",
@@ -5325,6 +5383,7 @@
                         "name": "any",
                         "type": "pure-token",
                         "token": "ANY",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
@@ -5907,6 +5966,7 @@
         "arity": -2,
         "key_specs": [
             {
+                "notes": "RW and UPDATE because it changes the TTL",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -5948,13 +6008,13 @@
                         "token": "PX"
                     },
                     {
-                        "name": "unix-time",
-                        "type": "integer",
+                        "name": "unix-time-seconds",
+                        "type": "unix-time",
                         "token": "EXAT"
                     },
                     {
-                        "name": "unix-time",
-                        "type": "integer",
+                        "name": "unix-time-milliseconds",
+                        "type": "unix-time",
                         "token": "PXAT"
                     },
                     {
@@ -9181,7 +9241,7 @@
                 "key_spec_index": 0
             },
             {
-                "name": "milliseconds-timestamp",
+                "name": "unix-time-milliseconds",
                 "type": "unix-time"
             },
             {
@@ -9324,6 +9384,7 @@
         "arity": -2,
         "key_specs": [
             {
+                "notes": "RW because it may change the internal representation of the key, and propagate to replicas",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -9338,7 +9399,8 @@
                         "limit": 0
                     }
                 },
-                "RW": true
+                "RW": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10854,7 +10916,8 @@
             }
         ],
         "command_flags": [
-            "noscript"
+            "noscript",
+            "stale"
         ],
         "hints": [
             "request_policy:all_nodes",
@@ -11027,6 +11090,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "RW and ACCESS due to the optional `GET` argument",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -11115,12 +11179,14 @@
                 "name": "get",
                 "type": "pure-token",
                 "token": "GET",
+                "since": "6.2.0",
                 "optional": true
             }
         ],
         "command_flags": [
             "write",
-            "denyoom"
+            "denyoom",
+            "movablekeys"
         ]
     },
     "SETBIT": {
@@ -11332,7 +11398,7 @@
         "complexity": "O(N) when saving, where N is the total number of keys in all databases when saving data, otherwise O(1)",
         "history": [
             [
-                "7.0",
+                "7.0.0",
                 "Added the `NOW`, `FORCE` and `ABORT` modifiers. Introduced waiting for lagging replicas before exiting."
             ]
         ],
@@ -11364,18 +11430,21 @@
                 "name": "now",
                 "type": "pure-token",
                 "token": "NOW",
+                "since": "7.0.0",
                 "optional": true
             },
             {
                 "name": "force",
                 "type": "pure-token",
                 "token": "FORCE",
+                "since": "7.0.0",
                 "optional": true
             },
             {
                 "name": "abort",
                 "type": "pure-token",
                 "token": "ABORT",
+                "since": "7.0.0",
                 "optional": true
             }
         ],
@@ -11461,7 +11530,8 @@
                         "keystep": 1
                     }
                 },
-                "RO": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11581,8 +11651,7 @@
                         "limit": 0
                     }
                 },
-                "RO": true,
-                "access": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -11925,10 +11994,23 @@
                     }
                 },
                 "RO": true,
-                "access": true,
-                "incomplete": true
+                "access": true
             },
             {
+                "notes": "For the optional BY/GET keyword. It is marked 'unknown' because the key names derive from the content of the key we sort",
+                "begin_search": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "find_keys": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "RO": true,
+                "access": true
+            },
+            {
+                "notes": "For the optional STORE keyword. It is marked 'unknown' because the keyword can appear anywhere in the argument array",
                 "begin_search": {
                     "type": "unknown",
                     "spec": {}
@@ -11938,8 +12020,7 @@
                     "spec": {}
                 },
                 "OW": true,
-                "update": true,
-                "incomplete": true
+                "update": true
             }
         ],
         "arguments": [
@@ -11951,6 +12032,7 @@
             {
                 "name": "pattern",
                 "type": "pattern",
+                "key_spec_index": 1,
                 "token": "BY",
                 "optional": true
             },
@@ -11973,6 +12055,7 @@
             {
                 "name": "pattern",
                 "type": "string",
+                "key_spec_index": 1,
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
@@ -12004,7 +12087,7 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec_index": 1,
+                "key_spec_index": 2,
                 "token": "STORE",
                 "optional": true
             }
@@ -12046,8 +12129,20 @@
                     }
                 },
                 "RO": true,
-                "access": true,
-                "incomplete": true
+                "access": true
+            },
+            {
+                "notes": "For the optional BY/GET keyword. It is marked 'unknown' because the key names derive from the content of the key we sort",
+                "begin_search": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "find_keys": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -12059,6 +12154,7 @@
             {
                 "name": "pattern",
                 "type": "pattern",
+                "key_spec_index": 1,
                 "token": "BY",
                 "optional": true
             },
@@ -12081,6 +12177,7 @@
             {
                 "name": "pattern",
                 "type": "string",
+                "key_spec_index": 1,
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
@@ -12111,7 +12208,8 @@
             }
         ],
         "command_flags": [
-            "readonly"
+            "readonly",
+            "movablekeys"
         ]
     },
     "SPOP": {
@@ -13160,6 +13258,7 @@
         "arity": -5,
         "key_specs": [
             {
+                "notes": "UPDATE instead of INSERT because of the optional trimming feature",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -13418,8 +13517,8 @@
                 "optional": true
             },
             {
-                "name": "ms-unix-time",
-                "type": "integer",
+                "name": "unix-time-milliseconds",
+                "type": "unix-time",
                 "token": "TIME",
                 "optional": true
             },
@@ -14590,7 +14689,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
-                "since": "6.2.0",
+                "since": "3.0.2",
                 "optional": true,
                 "arguments": [
                     {
@@ -14608,7 +14707,7 @@
             {
                 "name": "comparison",
                 "type": "oneof",
-                "since": "3.0.2",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -14728,7 +14827,8 @@
                         "limit": 0
                     }
                 },
-                "RO": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15041,7 +15141,8 @@
                         "keystep": 1
                     }
                 },
-                "RO": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15543,11 +15644,11 @@
                 "key_spec_index": 0
             },
             {
-                "name": "start",
+                "name": "min",
                 "type": "string"
             },
             {
-                "name": "stop",
+                "name": "max",
                 "type": "string"
             },
             {
