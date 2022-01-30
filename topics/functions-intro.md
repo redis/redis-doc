@@ -5,21 +5,21 @@ Functions have evolved from the [Eval Scripts](/topics/eval-intro) feature that 
 
 You can skip the following prologue if you're new to Redis or want to jump right into the action.
 
-## Prologue (or what's wrong with Eval Scripts?)
+## Prologue (or, what's wrong with Eval Scripts?)
 
 Prior versions of Redis made scripting available only via the `EVAL` command, which allows a Lua script to be sent for execution by the server.
-The core use cases for [Eval Scripts](/topics/eval-intro) is executing part of your application logic inside Redis, atomically.
+The core use cases for [Eval Scripts](/topics/eval-intro) is executing part of your application logic inside Redis, efficiently and atomically.
 Such script can perform conditional updates across multiple keys, possibly combining several different data types.
 
 Using `EVAL` requires that the application sends the entire script for execution every time.
-Because this modus operandi results in network and script compilation overheads, Redis provides the `EVALSHA` command that avoids that. By first calling `SCRIPT LOAD` to obtain the script's SHA1, the application can invoke it repeatedly afterward with its digest alone.
+Because this results in network and script compilation overheads, Redis provides an optimization in the form of the `EVALSHA` command. By first calling `SCRIPT LOAD` to obtain the script's SHA1, the application can invoke it repeatedly afterward with its digest alone.
 
 By design, Redis only caches the loaded scripts.
-That means that the script cache can become lost at any time, such as after calling `SCRIPT FLUSH` or a server restart.
+That means that the script cache can become lost at any time, such as after calling `SCRIPT FLUSH`, after restarting the server, or when failing over to a replica.
 The application is responsible for reloading scripts during runtime if any are missing.
 The underlying assumption is that scripts are a part of the application and not maintained by the Redis server.
 
-This approach suits many light-weight scripting use cases but introduces several difficulties once an application becomes complex and relies more heavily on scripting, namely:
+This approach suits many light-weight scripting use cases, but introduces several difficulties once an application becomes complex and relies more heavily on scripting, namely:
 
 1. All client application instances must maintain a copy of all scripts. That means having some mechanism that applies script updates to all of the application's instances.
 1. Calling cached scripts within the context of a [transaction](/topics/transactions) increases the probability of the transaction failing because of a missing script. Being more likely to fail makes using cached scripts as building blocks of workflows less attractive.
@@ -33,22 +33,22 @@ To address these needs while avoiding breaking changes to already-established an
 
 Redis functions are an evolutionary step from ephemeral scripting.
 
-Functions provide the same core functionality as scripts but are first-class software artifacts citizens of the database.
+Functions provide the same core functionality as scripts but are first-class software artifacts of the database.
 Redis manages functions as an integral part of the database and ensures their availability via data persistence and replication.
 Because functions are part of the database and therefore declared before use, applications aren't required to load them during runtime nor risk aborted transactions.
 An application that uses functions depends only on their APIs rather than on the embedded script logic in the database.
 
 Whereas ephemeral scripts are considered a part of the application's domain, functions extend the database server itself with user-provided logic.
 They can be used to expose a richer API composed of core Redis commands, similar to modules, developed once, loaded at startup, and used repeatedly by various applications / clients.
-Every function has a unique user-provided name, making it much easier to call and trace its execution.
+Every function has a unique user-defined name, making it much easier to call and trace its execution.
 
 The design of Redis Functions also attempts to demarcate between the programming language used for writing functions and their management by the server.
 Lua, the only language interpreter that Redis presently support as an embedded execution engine, is meant to be simple and easy to learn.
-However, the choice of Lua as a language still presents many Redis users with an obstacle. 
+However, the choice of Lua as a language still presents many Redis users with a challenge.
 
-The Redis Functions feature makes no assumptions regarding the implementation's language.
+The Redis Functions feature makes no assumptions about the implementation's language.
 An execution engine that is part of the definition of the function handles running it.
-An engine can theoretically execute functions in any language as long as it respects several rules (such as the ability to terminate an inflight function's execution).
+An engine can theoretically execute functions in any language as long as it respects several rules (such as the ability to terminate an executing function).
 
 Presently, as noted above, Redis ships with a single embedded [Lua 5.1](/topics/lua-api) engine.
 There are plans to support additional engines in the future.
@@ -63,18 +63,19 @@ This allows calling functions from other functions within the same library, or s
 
 Functions are intended to better support the use case of maintaining a consistent view for data entities through a logical schema, as mentioned above.
 As such, functions are stored alongside the data itself.
-Functions are also persisted to the AOF file and synchronized from master to replicas.
-Because of that, data loss also implies losing functions stored in the database, so using functions without data persistence or high availability requires special handling that will be presented later on.
+Functions are also persisted to the AOF file and replicated from master to replicas, so they are as durable as the data itself.
+When Redis is used as an ephemeral cache, additional mechanisms (described below) are required to make functions more durable.
 
 Like all other operations in Redis, the execution of a function is atomic.
 A function's execution blocks all server activities during its entire time, similarly to the semantics of [transactions](/topics/transactions).
 These semantics mean that all of the script's effects either have yet to happen or had already happened.
 The blocking semantics of an executed function apply to all connected clients at all times.
-Because running a function block the Redis server, functions are meant to finish executing quickly, so you should avoid using long-running functions.
+Because running a function blocks the Redis server, functions are meant to finish executing quickly, so you should avoid using long-running functions.
 
 ## Loading libraries and functions
 
-Let's explore Redis Functions via tangible examples and Lua snippets.
+Let's explore Redis Functions via some tangible examples and Lua snippets.
+
 At this point, if you're unfamiliar with Lua in general and specifically in Redis, you may benefit from reviewing some of the examples in [Introduction to Eval Scripts](/topics/eval-intro) and [Lua API](/topics/lua-api) pages for a better grasp of the language.
 
 Every Redis function belongs to a single library that's loaded to Redis.
@@ -86,17 +87,16 @@ redis> FUNCTION LOAD Lua mylib ""
 (error) ERR No functions registered
 ```
 
-The error is by design, and it complains that there are no functions in the library.
+The error is expected, as there are no functions in the loaded library.
 Despite the error, we can see that the basic form of invoking `FUNCTION LOAD` requires three arguments: the engine's identifier (_Lua_), the library's name (_mylib_), and the library's source code.
 
 Every library needs to include at least one registered function to load successfully.
 A registered function is named and acts as an entry point to the library.
 When the target execution engine handles the `FUNCTION LOAD` command, it registers the library's functions.
-The Lua engine registers the functions in a library by running its source code upon loading it.
-You need instruct the Lua engine explicity about registered functions to the `redis.register_function()` API.
 
-The following snippet demonstrates a simple library.
-It registers a single Redis function named _knockknock_ that returns a string reply:
+The Lua engine compiles and evaluates the library source cod when loaded, and expects functions to be registered by calling the `redis.register_function()` API.
+
+The following snippet demonstrates a simple library registering a single function named _knockknock_, returning a string reply:
 
 ```lua
 redis.register_function(
@@ -105,9 +105,9 @@ redis.register_function(
 )
 ```
 
-In the example above, we provide two arguments about the function to Lua's `redis.register_function()` API: its registered name and callback.
+In the example above, we provide two arguments about the function to Lua's `redis.register_function()` API: its registered name and a callback.
 
-We can load our now library and use `FCALL` to call the function.
+We can load our library and use `FCALL` to call the registered function.
 Because _redis-cli_ doesn't play nicely with newlines, we'll just strip these from the code:
 
 ```
@@ -117,9 +117,9 @@ redis> FCALL knockknock 0
 "Who's there?"
 ```
 
-Note that we've provided `FCALL`  with two arguments: the function's registered name and the numerical value of 0.
-While the first argument's purpose is obvious, the cryptic numerical value tells Redis the number of key names that follow it.
-We'll explain immediately how key names and additional arguments are made accessible to the function. Still, this synthetic example doesn't touch any keys, so simply use 0 to run it.
+Note that we've provided `FCALL` with two arguments: the function's registered name and the numeric value `0`. This numeric value indicates the number of key names that follow it (the same way `EVAL` and `EVALSHA` work).
+
+We'll explain immediately how key names and additional arguments are available to the function. As this simple example doesn't involve keys, we simply use 0 for now.
 
 ## Input keys and regular arguments
 
@@ -129,7 +129,7 @@ While key names in Redis are just strings, unlike any other string values, these
 The name of a key is a fundamental concept in Redis and is the basis for operating the Redis Cluster.
 
 **Important:**
-to ensure the correct execution of Redis Functions, both in standalone and clustered deployments, all names of keys that a function accesses must be explicitly provided as input key arguments.
+To ensure the correct execution of Redis Functions, both in standalone and clustered deployments, all names of keys that a function accesses must be explicitly provided as input key arguments.
 
 Any input to the function that isn't the name of a key is a regular input argument.
 
@@ -221,7 +221,7 @@ redis.register_function('my_hgetall', my_hgetall)
 redis.register_function('my_hlastmodified', my_hlastmodified)
 ```
 
-While all of the above should straightforward, note that the `my_hgetall` also calls [`redis.setresp(3)`](/topics/lua-api#redis.setresp).
+While all of the above should be straightforward, note that the `my_hgetall` also calls [`redis.setresp(3)`](/topics/lua-api#redis.setresp).
 That means that the function expects [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md) replies after calling `redis.call()`, which, unlike the default RESP2 protocol, provides dictionary (associative arrays) replies.
 Doing so allows the function to delete (or set to `nil` as is the case with Lua tables) specific fields from the reply, and in our case, the `_last_modified_` field.
 
@@ -301,12 +301,12 @@ local function my_hset(keys, args)
   if error ~= nil then
     return error
   end
-  
+
   local hash = keys[1]
   local time = redis.call('TIME')[1]
   return redis.call('HSET', hash, '_last_modified_', time, unpack(args))
 end
-  
+
 local function my_hgetall(keys, args)
   local error = check_keys(keys)
   if error ~= nil then
@@ -329,7 +329,7 @@ local function my_hlastmodified(keys, args)
   local hash = keys[1]
   return redis.call('HGET', keys[1], '_last_modified_')
 end
-  
+
 redis.register_function('my_hset', my_hset)
 redis.register_function('my_hgetall', my_hgetall)
 redis.register_function('my_hlastmodified', my_hlastmodified)
@@ -354,31 +354,33 @@ And your Redis log file should have lines in it that are similar to:
 
 ## Functions in cluster
 
-As noted above, loading a function is already automatically propagated to replicas, but it is not (yet) automatically propagated to other cluster nodes.
-Currently an administration act is required in order to load the functions to all cluster nodes (similarly to how modules should be loaded).
-It is not intended to be the responsibility of the client application, or the client library cluster support to do that.
+As noted above, Redis automatically handles propagation of loaded functions to replicas.
+In a Redis Cluster, it is also necessary to load functions to all cluster nodes. This is not handled automatically by Redis Cluster, and needs to be handled by the cluster administrator (like module loading, configuration setting, etc.).
 
-This can be achieved by using `redis cli --cluster call`
+As one of the goals of functions is to live separately from the client application, this should not be part of the Redis client library responsibilities. Instead, `redis-cli --cluster call` can be used to execute the load command on all nodes.
 
-Note however that `redis-cli --cluster add-node` automatically takes care to propagate the loaded functions from one of the existing nodes to the new node.
+Also, note that `redis-cli --cluster add-node` automatically takes care to propagate the loaded functions from one of the existing nodes to the new node.
 
-## Functoins and ephemeral use case
+## Functions and ephemeral Redis instances
 
-In some cases there's a need to spin up an empty Redis with functions preloaded into it, so that they're available before Redis starts serving clients.
-For these cases, it is possible to use `redis-cli --functoins-rdb` to extract the functions from an existing server, and place that RDB file to be loaded by Redis at startup.
+In some cases there may be a need to start a fresh Redis server with a set of functions pre-loaded. Common reasons for that could be:
+
+* Starting Redis in a new environment
+* Re-starting an ephemeral (cache-only) Redis, that uses functions
+
+In such cases, we need to make sure that the pre-loaded functions are available before Redis accepts inbound user connections and commands.
+
+To do that, it is possible to use `redis-cli --functions-rdb` to extract the functions from an existing server. This generates an RDB file that can be loaded by Redis at startup.
 
 ## Function flags
 
-When you register a function, the server does not know how it accesses the database.
-On the other hand, the server must also enforce resource usage policies and maintain data consistency for functions.
-By default, and unless instructed differently, Redis assumes that all functions read and write data.
+Redis needs to have some information about how a function is going to behave when executed, in order to properly enforce resource usage policies and maintain data consistency.
 
-Function flags tell the server that its assumptions are wrong.
-They allow you to inform Redis that your function is an exception.
-Use care when registering a function with flags, which may negatively impact if misused.
+For example, Redis needs to know that a certain function is read-only before permitting it to execute using `FCALL_RO` on a read-only replica.
 
-Let's see how flags work.
-Our example had two functions that only read data, so we can try running them using `FCALL_RO` against a read-only replica. 
+By default, Redis assumes that all functions may perform arbitrary read or write operations. Function Flags make it possible to declare more specific function behavior at the time of registration. Let's see how this works.
+
+In our previous example, we defined two functions that only read data. We can try executing them using `FCALL_RO` against a read-only replica.
 
 ```
 redis > FCALL_RO my_hgetall 1 myhash

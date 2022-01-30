@@ -7,11 +7,11 @@ The second argument is the number of input key name arguments, followed by all t
 In Lua, these names of input keys are available to the function as a table that is the callback's first argument.
 
 **Important:**
-to ensure the correct execution of functions, both in standalone and clustered deployments, all names of keys that a function accesses must be explicitly provided as input key arguments.
-The script **should only** access keys whose names are given as input arguments.
-Scripts **should never** access keys with programmatically-generated names or based on the contents of data structures stored in the database.
+To ensure the correct execution of functions, both in standalone and clustered deployments, all names of keys that a function accesses must be explicitly provided as input key arguments.
+The function **should only** access keys whose names are given as input arguments.
+Functions **should never** access keys with programmatically-generated names or based on the contents of data structures stored in the database.
 
-Any additional input arguments **should not** represent names of keys.
+Any additional input argument **should not** represent names of keys.
 These are regular arguments and are passed in a Lua table as the callback's second argument.
 
 For more information please refer to the [Redis Programmability](/topics/programmability) and [Introduction to Redis Functions](/topics/functions-intro) pages.

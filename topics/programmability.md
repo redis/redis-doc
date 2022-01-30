@@ -10,7 +10,7 @@ We refer to such pieces of logic as **scripts**.
 In our case, scripts enable processing the data where it lives, a.k.a _data locality_.
 Furthermore, the responsible embedding of programmatic workflows in the Redis server can help in reducing network traffic and improving overall performance.
 Developers can use this capability for implementing robust, application-specific APIs.
-Such APIs can encapsulate business and maintain a data model across multiple keys and different data structures.
+Such APIs can encapsulate business logic and maintain a data model across multiple keys and different data structures.
 
 User scripts are executed in Redis by an embedded, sandboxed scripting engine.
 Presently, Redis supports a single scripting engine, the [Lua 5.1](https://www.lua.org/) interpreter.
@@ -28,7 +28,7 @@ Every applicative instance that runs a script must have the script's source code
 That is because scripts are only cached by the server and are volatile.
 As your application grows, this approach can become harder to develop and maintain.
 
-Secondly, added in v7.0.0, Redis Functions are essentially scripts that are first-class database citizens.
+Secondly, added in v7.0, Redis Functions are essentially scripts that are first-class database elements.
 As such, functions decouple scripting from application logic and enable independent development, testing, and deployment of scripts.
 To use functions, they need to be loaded first, and then they are available for use by all connected clients.
 In this case, loading a function to the database becomes an administrative deployment task (such as loading a Redis module, for example), which separates the script from the application.

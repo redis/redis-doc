@@ -9,7 +9,7 @@ the command returning with an error.
 If the script has already performed write operations, it can not be killed in this
 way because it would violate Lua's script atomicity contract.
 In such a case, only `SHUTDOWN NOSAVE` can kill the script, killing
-the Redis process in a hard way preventing it from persisting with half-written
+the Redis process in a hard way and preventing it from persisting with half-written
 information.
 
 For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).

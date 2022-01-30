@@ -23,9 +23,9 @@ Scripts are executed in Redis by an embedded execution engine.
 Presently, Redis supports a single scripting engine, the [Lua 5.1](https://www.lua.org/) interpreter.
 Please refer to the [Redis Lua API Reference](/topics/lua-api) page for complete documentation.
 
-Although the server executes them, Eval scripts are regarded as a part of the application's domain, which is why they're not named, versioned, or persisted.
-So all scripts may need to be reloaded by the application at any time if missing (after a restart, for example).
-As of version 7.0, [Redis Functions](/topics/functions-intro) offer an alternative approach to programmability.
+Although the server executes them, Eval scripts are regarded as a part of the client-side application, which is why they're not named, versioned, or persisted.
+So all scripts may need to be reloaded by the application at any time if missing (after a server restart, fail-over to a replica, etc.).
+As of version 7.0, [Redis Functions](/topics/functions-intro) offer an alternative approach to programmability which allow the server itself to be extended with additional programmed logic.
 
 ## Getting started
 
@@ -156,8 +156,7 @@ redis> EVALSHA c664a3bf70bd1d45c4284ffebb65a6f2299bfc9f 0
 
 The Redis script cache is **always volatile**.
 It isn't considered as a part of the database and is **not persisted**.
-Restarting the server always clears it.
-It can also be cleared with the `SCRIPT FLUSH` command.
+The cache may be cleared when the server restarts, during fail-over when a replica assumes the master role, or explicitly by `SCRIPT FLUSH`.
 That means that cached scripts are ephemeral, and the cache's contents can be lost at any time.
 
 Applications that use scripts should always call `EVALSHA` to execute them.

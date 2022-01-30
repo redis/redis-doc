@@ -70,7 +70,7 @@ The only libraries that Redis ships with and that you can use in scripts are lis
 
 While the sandbox prevents users from declaring globals, the execution context is pre-populated with several of these.
 
-###cThe _redis_ singleton
+### The _redis_ singleton
 
 The _redis_ singleton is an object instance that's accessible from all scripts.
 It provides the API to interact with Redis from scripts.
