@@ -357,7 +357,7 @@ And your Redis log file should have lines in it that are similar to:
 As noted above, Redis automatically handles propagation of loaded functions to replicas.
 In a Redis Cluster, it is also necessary to load functions to all cluster nodes. This is not handled automatically by Redis Cluster, and needs to be handled by the cluster administrator (like module loading, configuration setting, etc.).
 
-As one of the goals of functions is to live separately from the client application, this should not be part of the Redis client library responsibilities. Instead, `redis-cli --cluster call` can be used to execute the load command on all nodes.
+As one of the goals of functions is to live separately from the client application, this should not be part of the Redis client library responsibilities. Instead, `redis-cli --cluster-only-masters --cluster call host:port FUNCTION LOAD ...` can be used to execute the load command on all master nodes.
 
 Also, note that `redis-cli --cluster add-node` automatically takes care to propagate the loaded functions from one of the existing nodes to the new node.
 
