@@ -109,7 +109,7 @@ The Redis Lua execution context always provides a singleton instance of an objec
 The _redis_ instance enables the script to interact with the Redis server that's running it.
 Following is the API provided by the _redis_ object instance.
 
-### <a name="redis.call()"></a> `redis.call(command [,arg...])`
+### <a name="redis.call"></a> `redis.call(command [,arg...])`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -132,21 +132,21 @@ redis> EVAL "return redis.call('ECHO', 'Echo,', 'echo... ', 'eco... ', 'o...')" 
 (error) ERR Error running script (call to b0345693f4b77517a711221050e76d24ae60b7f7): @user_script:1: @user_script: 1: Wrong number of args calling Redis command from script
 ```
 
-Note that the call can fail due to various reasons, see [Execution under low memory conditions](/topics/eval-intro#execution-under-low-memory-conditions) and [Script flags](#script-flags)
+Note that the call can fail due to various reasons, see [Execution under low memory conditions](/topics/eval-intro#execution-under-low-memory-conditions) and [Script flags](#script_flags)
 
 To handle Redis runtime errors use `redis.pcall() instead.
 
-### <a name="redis.pcall()"></a> `redis.pcall(command [,arg...])`
+### <a name="redis.pcall"></a> `redis.pcall(command [,arg...])`
 
 * Since version: 2.6.0
 * Available in scripts: yes
 * Available in functions: yes
 
 This function enables handling runtime errors raised by the Redis server.
-The `redis.pcall()` function  behaves exactly like [`redis.call()`](#redis.call()), except that it:
+The `redis.pcall()` function  behaves exactly like [`redis.call()`](#redis.call), except that it:
 
 * Always returns a reply.
-* Never throws a runtime exeption, and returns in its stead a [`redis.error_reply`](#redis.error_reply()) in case that a runtime exception is thrown by the server.
+* Never throws a runtime exeption, and returns in its stead a [`redis.error_reply`](#redis.error_reply) in case that a runtime exception is thrown by the server.
 
 The following demonstrates how to use `redis.pcall()` to intercept and handle runtime exceptions from within the context of an ephemeral script.
 
@@ -167,7 +167,7 @@ redis> EVAL "..." 0 hello world
 (error) Something is wrong, but no worries, everything is under control
 ```
 
-### <a name="redis.error_reply()"></a> `redis.error_reply(x)`
+### <a name="redis.error_reply"></a> `redis.error_reply(x)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -193,10 +193,10 @@ redis> EVAL "return redis.error_reply('My very special reply error')" 0
 (error) My very special reply error
 ```
 
-For returing Redis status replies refer to [`redis.status_reply()`](#redis.status_reply()).
+For returing Redis status replies refer to [`redis.status_reply()`](#redis.status_reply).
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
-### <a name="redis.status_reply()"></a> `redis.status_reply(x)`
+### <a name="redis.status_reply"></a> `redis.status_reply(x)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -223,10 +223,10 @@ redis> EVAL "return redis.status_reply('TOCK')" 0
 TOCK
 ```
 
-For returing Redis error replies refer to [`redis.error_reply()`](#redis.error_reply()).
+For returing Redis error replies refer to [`redis.error_reply()`](#redis.error_reply).
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
-### <a name="redis.sha1hex()"></a> `redis.sha1hex(x)`
+### <a name="redis.sha1hex"></a> `redis.sha1hex(x)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -241,7 +241,7 @@ redis> EVAL "return redis.sha1hex('')" 0
 "da39a3ee5e6b4b0d3255bfef95601890afd80709"
 ```
 
-### <a name="redis.log()"></a> `redis.log(level, message)`
+### <a name="redis.log"></a> `redis.log(level, message)`
 
 * Since version: 2.6.0
 * Available in scripts: yes
@@ -273,13 +273,13 @@ will produce a line similar to the following in your server's log:
 [32343] 22 Mar 15:21:39 # Something is terribly wrong
 ```
 
-### <a name="redis.setresp()"></a> `redis.setresp(x)`
+### <a name="redis.setresp"></a> `redis.setresp(x)`
 
 * Since version: 6.0.0
 * Available in scripts: yes
 * Available in functions: yes
 
-This function allows the executing script to switch between [Redis Serialization Protocol (RESP)](/topics/protocol) versions for the replies returned by [`redis.call()](#redis.call()) and [`redis.pall()](#redis.pcall()).
+This function allows the executing script to switch between [Redis Serialization Protocol (RESP)](/topics/protocol) versions for the replies returned by [`redis.call()](#redis.call) and [`redis.pall()](#redis.pcall).
 It expects a single numerical argument as the protocol's version.
 The default protocol version is _2_, but it can be switched to version _3_.
 
@@ -291,7 +291,7 @@ redis.setresp(3)
 
 Please refer to the [Data type conversion](#data-type-conversion) for more information about type conversions.
 
-### <a name="redis.set_repl()"></a> `redis.set_repl(x)`
+### <a name="redis.set_repl"></a> `redis.set_repl(x)`
 
 * Since version: 3.2.0
 * Available in scripts: yes
@@ -346,7 +346,7 @@ redis.call('SET', KEYS[3], ARGV[3])
 
 If you run this script by calling `EVAL "..." 3 A B C 1 2 3`, the result will be that only the keys _A_ and _C_ are created on the replicas and AOF.
 
-### <a name="redis.replicate_commands()"></a> `redis.replicate_commands()`
+### <a name="redis.replicate_commands"></a> `redis.replicate_commands()`
 
 * Since version: 3.2.0
 * Until version: 7.0.0
@@ -361,7 +361,7 @@ as of Redis v7.0, verbatim script replication is no longer supported.
 The default, and only script replication mode supported, is script effects' replication.
 For more information, please refer to [`Replicating commands instead of scripts`](eval-intro#replicating-commands-instead-of-scripts)
 
-### <a name="redis.breakpoint()"></a>  `redis.breakpoint()`
+### <a name="redis.breakpoint"></a>  `redis.breakpoint()`
 
 * Since version: 3.2.0
 * Available in scripts: yes
@@ -369,7 +369,7 @@ For more information, please refer to [`Replicating commands instead of scripts`
 
 This function triggers a breakpoint when using the Redis Lua debugger](/topics/ldb).
 
-### <a name="redis.debug()"></a> `redis.debug(x)`
+### <a name="redis.debug"></a> `redis.debug(x)`
 
 * Since version: 3.2.0
 * Available in scripts: yes
@@ -377,7 +377,7 @@ This function triggers a breakpoint when using the Redis Lua debugger](/topics/l
 
 This function prints its argument in the [Redis Lua debugger](/topics/ldb) console.
 
-### <a name="redis.register_function()"></a> `redis.register_function`
+### <a name="redis.register_function"></a> `redis.register_function`
 
 * Since version: 7.0.0
 * Available in scripts: no
@@ -514,7 +514,7 @@ The following type conversion rules apply to the execution's context by default 
 * [RESP2 bulk string reply](/topics/protocol#resp-bulk-strings) -> Lua string
 * [RESP2 array reply](/topics/protocol#resp-arrays) -> Lua table (may have other Redis data types nested)
 * [RESP2 status reply](/topics/protocol#resp-simple-strings) -> Lua table with a single _ok_ field containing the status string
-* [RESP2 error reply](/topics/protocol#resp-errorss) -> Lua table with a single _err_ field containing the error string
+* [RESP2 error reply](/topics/protocol#resp-errors) -> Lua table with a single _err_ field containing the error string
 * [RESP2 null bulk reply](/topics/protocol#null-elements-in-arrays) and [null multi bulk reply](/topics/protocol#resp-arrays) -> Lua false boolean type
 
 ## Lua to RESP2 type conversion
@@ -525,7 +525,7 @@ The following type conversion rules apply by default as well as after the user h
 * Lua string -> [RESP bulk string reply](/topics/protocol#resp-bulk-strings)
 * Lua table (indexed, non-associative array) -> [RESP2 array reply](/topics/protocol#resp-arrays) (truncated at the first Lua `nil` value encountered in the table, if any)
 * Lua table with a single _ok_ field -> [RESP2 status reply](/topics/protocol#resp-simple-strings)
-* Lua table with a single _err_ field -> [RESP2 error reply](/topics/protocol#resp-errorss)
+* Lua table with a single _err_ field -> [RESP2 error reply](/topics/protocol#resp-errors)
 * Lua boolean false -> [RESP2 null bulk reply](/topics/protocol#null-elements-in-arrays)
 
 There is an additional Lua-to-Redis conversion rule that has no corresponding Redis-to-Lua conversion rule:
@@ -579,7 +579,7 @@ As you can see, the float value of _3.333_ gets converted to an integer _3_, the
 [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md) is a newer version of the [Redis Serialization Protocol](/topics/protocol).
 It is available as an opt-in choice as of Redis v6.0.
 
-An executing script may call the [`redis.setresp()`](#redis.setresp()) function during its execution and switch the protocol version that's used for returning replies from Redis' commands (that can be invoked via [`redis.call()`](#redis.call()) or [`redis.pcall()`](#redis.pcall())).
+An executing script may call the [`redis.setresp`](#redis.setresp) function during its execution and switch the protocol version that's used for returning replies from Redis' commands (that can be invoked via [`redis.call()`](#redis.call) or [`redis.pcall()`](#redis.pcall)).
 
 Once Redis' replies are in RESP3 protocol, all of the [RESP2 to Lua conversion](#resp2-to-lua-type-conversion) rules apply, with the following additions:
 
@@ -646,9 +646,9 @@ In addition, the following external libraries are loaded and accessible to scrip
 _struct_ is a library for packing and unpacking C-like structures in Lua.
 It provides the following functions:
 
-* [`struct.pack()`](#struct.pack())
-* [`struct.unpack()`](#struct.unpack())
-* [`struct.size()`](#struct.size())
+* [`struct.pack()`](#struct.pack)
+* [`struct.unpack()`](#struct.unpack)
+* [`struct.size()`](#struct.size)
 
 All of _struct_'s functions expect their first argument to be a [format string](#struct-formats).
 
@@ -673,7 +673,7 @@ The following are valid format strings for _struct_'s functions:
 * `d`: double
 * ` ` (space): ignored
 
-#### <a name="struct.pack()"></a> `struct.pack(x)`
+#### <a name="struct.pack"></a> `struct.pack(x)`
 
 This function returns a struct-encoded string from values.
 It accepts a [_struct_ format string](#struct-formats) as its first argument, followed by the values that are to be encoded.
@@ -685,7 +685,7 @@ redis> EVAL "return struct.pack('HH', 1, 2)" 0
 "\x01\x00\x02\x00"
 ```
 
-#### <a name="struct.unpack()"></a> `struct.unpack(x)`
+#### <a name="struct.unpack"></a> `struct.unpack(x)`
 
 This function returns the decoded values from a struct.
 It accepts a [_struct_ format string](#struct-formats) as its first argument, followed by encoded struct's string.
@@ -699,7 +699,7 @@ redis> EVAL "return { struct.unpack('HH', ARGV[1]) }" 0 "\x01\x00\x02\x00"
 3) (integer) 5
 ```
 
-#### <a name="struct.size()"></a> `struct.size(x)`
+#### <a name="struct.size"></a> `struct.size(x)`
 
 This function returns the size, in bytes, of a struct.
 It accepts a [_struct_ format string](#struct-formats) as its only argument.

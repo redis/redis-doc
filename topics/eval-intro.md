@@ -105,7 +105,7 @@ Please refer to the rules that govern [data type conversion](/topics/lua-api#dat
 
 ## Interacting with Redis from a script
 
-It is possible to call Redis commands from a Lua script either via [`redis.call()`](/topics/lua-api#redis.call()) or [`redis.pcall()`](/topics/lua-api#redis.pcall()).
+It is possible to call Redis commands from a Lua script either via [`redis.call()`](/topics/lua-api#redis.call) or [`redis.pcall()`](/topics/lua-api#redis.pcall).
 
 The two are nearly identical.
 Both execute a Redis command along with its provided arguments, if these represent a well-formed command.
@@ -240,7 +240,7 @@ There are two conceptual approaches when it comes to script replication:
    While potentially more lengthy in terms of network traffic, this replication mode is deterministic by definition and therefore doesn't require special consideration.
 
 Verbatim script replication was the only mode supported until Redis 3.2, in which effects replication was added.
-The _lua-replicate-commands_ configuration directive and [`redis.replicate_commands()`](/topics/lua-api#redis.replicate_commands()) Lua API can be used to enable it.
+The _lua-replicate-commands_ configuration directive and [`redis.replicate_commands()`](/topics/lua-api#redis.replicate_commands) Lua API can be used to enable it.
 
 In Redis 5.0, effects replication became the default mode.
 As of Redis 7.0, verbatim replication is no longer supported.
@@ -271,7 +271,7 @@ Unless already enabled by the server's configuration or defaults (before Redis 7
 redis.replicate_commands()
 ```
 
-The [`redis.replicate_commands()`](/topics/lua-api#redis.replicate_commands()) function returns _true) if script effects replication was enabled;
+The [`redis.replicate_commands()`](/topics/lua-api#redis.replicate_commands) function returns _true) if script effects replication was enabled;
 otherwise, if the function was called after the script already called a write command,
 it returns _false_, and normal whole script replication is used.
 
@@ -398,7 +398,7 @@ The Lua debugger is described in the [Lua scripts debugging](/topics/ldb) sectio
 
 ## Execution under low memory conditions
 
-When memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the script that uses additional memory will cause the script to abort (unless [`redis.pcall`](/topics/lua-api#redis.pcall()) was used).
+When memory usage in Redis exceeds the `maxmemory` limit, the first write command encountered in the script that uses additional memory will cause the script to abort (unless [`redis.pcall`](/topics/lua-api#redis.pcall) was used).
 
 However, an exception to the above is when the script's first write command does not use additional memory, as is the case with  (for example, `DEL` and `LREM`).
 In this case, Redis will allow all commands in the script to run to ensure atomicity.
@@ -429,4 +429,4 @@ return x
 Note that as soon as Redis sees the `#!` comment, it'll treat the script as if it declares flags, even if no flags are defined,
 it still has a different set of defaults compared to a script without a `#!` line.
 
-Please refer to [Script flags](lua-api#script-flags) to learn about the various scripts and the defaults.
+Please refer to [Script flags](lua-api#script_flags) to learn about the various scripts and the defaults.

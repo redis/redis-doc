@@ -9,7 +9,7 @@ The reply is map with two keys:
   * **command:** the command and arguments used for invoking the function.
   * **duration_ms:** the function's runtime duration in milliseconds.
 2. `engines`: this is a map of maps. Each entry in the map represent a single engine.
-   Engine map contians statistics about the engine like number of funcionts and number of libraries.
+   Engine map contains statistics about the engine like number of functions and number of libraries.
 
 
 You can use this command to inspect the invocation of a long-running function and decide whether kill it with the `FUNCTION KILL` command.

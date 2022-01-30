@@ -221,7 +221,7 @@ redis.register_function('my_hgetall', my_hgetall)
 redis.register_function('my_hlastmodified', my_hlastmodified)
 ```
 
-While all of the above should straightforward, note that the `my_hgetall` also calls [`redis.setresp(3)`](/topics/lua-api#redis.setresp()).
+While all of the above should straightforward, note that the `my_hgetall` also calls [`redis.setresp(3)`](/topics/lua-api#redis.setresp).
 That means that the function expects [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md) replies after calling `redis.call()`, which, unlike the default RESP2 protocol, provides dictionary (associative arrays) replies.
 Doing so allows the function to delete (or set to `nil` as is the case with Lua tables) specific fields from the reply, and in our case, the `_last_modified_` field.
 
@@ -424,4 +424,4 @@ redis> FCALL_RO my_hlastmodified 1 myhash
 "1640772721"
 ```
 
-For the complete documentation flags, please refer to [Script flags](lua-api#script-flags).
+For the complete documentation flags, please refer to [Script flags](lua-api#script_flags).
