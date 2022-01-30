@@ -224,7 +224,7 @@ If AOF is activated, these additional fields will be added:
 *   `aof_pending_rewrite`: Flag indicating an AOF rewrite operation
      will be scheduled once the on-going RDB save is complete.
 *   `aof_buffer_length`: Size of the AOF buffer
-*   `aof_rewrite_buffer_length`: Size of the AOF rewrite buffer
+*   `aof_rewrite_buffer_length`: Size of the AOF rewrite buffer. Note this field was removed in Redis 7.0
 *   `aof_pending_bio_fsync`: Number of fsync pending jobs in background I/O
      queue
 *   `aof_delayed_fsync`: Delayed fsync counter
