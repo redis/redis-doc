@@ -101,6 +101,7 @@ POSIX
 PRNG
 PostgreSQL
 Presharding
+Programmability
 RDB
 RDD
 RDDs
@@ -447,5 +448,8 @@ reauthenticate
 async
 lazyfree
 systemd
+Eval
+args
+fcall
 syscmd
 swapdb
