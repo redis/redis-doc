@@ -43,9 +43,7 @@ To start a new debugging session using `redis-cli` do the following:
 1. Create your script in some file with your preferred editor. Let's assume you are editing your Redis Lua script located at `/tmp/script.lua`.
 2. Start a debugging session with:
 
-```
-./redis-cli --ldb --eval /tmp/script.lua
-```
+    ./redis-cli --ldb --eval /tmp/script.lua
 
 Note that with the `--eval` option of `redis-cli` you can pass key names and arguments to the script, separated by a comma, like in the following example:
 
