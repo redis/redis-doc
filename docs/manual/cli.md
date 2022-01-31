@@ -709,7 +709,7 @@ is approximated in Redis, changes a lot between different versions. Similarly
 the amount of memory per key may change between versions. That is why this
 tool was built: its main motivation was for testing the quality of Redis' LRU
 implementation, but now is also useful for testing how a given version
-behaves with the settings originally intended deployment.
+behaves with the settings originally intended for deployment.
 
 To use this mode, specify the amount of keys in the test and configure a sensible `maxmemory` setting as a first attempt.
 
