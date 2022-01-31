@@ -132,7 +132,8 @@ in RAM is also atomic from the point of view of the disk snapshot.
 
 ## Redis is single threaded. How can I exploit multiple CPU / cores?
 
-It's not very frequent that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound. For instance, when using pipelining a Redis instance running on an average Linux system can deliver 1 million requests per second, so if your application mainly uses O(N) or O(log(N)) commands, it is hardly going to use too much CPU.
+It's not very frequent that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound.
+For instance, when using pipelining a Redis instance running on an average Linux system can deliver 1 million requests per second, so if your application mainly uses O(N) or O(log(N)) commands, it is hardly going to use too much CPU.
 
 However, to maximize CPU usage you can start multiple instances of Redis in
 the same box and treat them as different servers. At some point a single
