@@ -10,7 +10,7 @@ aliases:
 
 ## Introduction
 
-The Redis open source project has become very successful and extremely popular sine the original release in 2009.
+The Redis open source project has become very successful and extremely popular since its original release in 2009.
 
 From 2009-2020, Salvatore Sanfillipo led, managed, and maintained the project. While contributors from [Redis Ltd.](https://redis.com) and others have made significant contributions, the project never adopted a formal governance structure and de-facto was operating as a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)-style project.
 
