@@ -85,7 +85,7 @@ redis.conf file. It should be long enough to prevent brute force attacks
 for two reasons:
 
 * Redis is very fast at serving queries. Many passwords per second can be tested by an external client.
-* The Redis password is stored inside the **redis.conf** file and inside the client configuration. Since the system administrator does not need to remember it, the password can be very long.
+* The Redis password is stored in the **redis.conf** file and inside the client configuration. Since the system administrator does not need to remember it, the password can be very long.
 
 The goal of the authentication layer is to optionally provide a layer of
 redundancy. If firewalling or any other system implemented to protect Redis
