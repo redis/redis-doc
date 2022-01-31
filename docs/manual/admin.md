@@ -33,7 +33,7 @@ aliases: [
 
 + By default, Redis does not require **any authentication and listens to all the network interfaces**. This is a big security issue if you leave Redis exposed on the internet or other places where attackers can reach it. See for example [this attack](http://antirez.com/news/96) to see how dangerous it can be. Please check our [security page](/topics/security) and the [quick start](/topics/quickstart) for information about how to secure Redis.
 
-+ `LATENCY DOCTOR` and `MEMORY DOCTOR` are your friends.
++ See the `LATENCY DOCTOR` and `MEMORY DOCTOR` commands to assist in troubleshooting.
 
 ## Running Redis on EC2
 
@@ -45,6 +45,7 @@ aliases: [
 ## Upgrading or restarting a Redis instance without downtime
 
 Redis is designed to be a very long running process in your server.
+
 Many configuration options can be modified without any kind of restart using the [CONFIG SET command](/commands/config-set).
 
 You can also switch from AOF to RDB snapshots persistence, or the other way around, without restarting Redis. Check the output of the `CONFIG GET *` command for more information.
@@ -69,4 +70,4 @@ The following steps provide a way that is commonly used to avoid any downtime.
 
 If you are using [Redis Sentinel](/topics/sentinel) or [Redis Cluster](/topics/cluster-tutorial), the simplest way to upgrade to newer versions is to upgrade one replica after the other. Then you can perform a manual failover to promote one of the upgraded replicas to master, and finally promote the last replica.
 
-Note that Redis Cluster 4.0 is not compatible with Redis Cluster 3.2 at cluster bus protocol level, so a mass restart is needed in this case. However Redis 5 cluster bus is backward compatible with Redis 4.
+**Note that Redis Cluster 4.0 is not compatible with Redis Cluster 3.2 at cluster bus protocol level, so a mass restart is needed in this case. However Redis 5 cluster bus is backward compatible with Redis 4.**

@@ -1,5 +1,10 @@
-Pub/Sub
-=======
+---
+title: Pub/Sub
+linkTitle: "Pub/Sub"
+weight: 1
+aliases:
+  - /topics/pubsub
+---
 
 `SUBSCRIBE`, `UNSUBSCRIBE` and `PUBLISH`
 implement the [Publish/Subscribe messaging
@@ -16,14 +21,16 @@ dynamic network topology.
 For instance in order to subscribe to channels `foo` and `bar` the
 client issues a `SUBSCRIBE` providing the names of the channels:
 
-    SUBSCRIBE foo bar
+```bash
+SUBSCRIBE foo bar
+```
 
 Messages sent by other clients to these channels will be pushed by Redis
 to all the subscribed clients.
 
 A client subscribed to one or more channels should not issue commands,
 although it can subscribe and unsubscribe to and from other channels.
-The replies to subscription and unsubscription operations are sent in
+The replies to subscription and unsubscribing operations are sent in
 the form of messages, so that the client can just read a coherent
 stream of messages where the first element indicates the type of
 message. The commands that are allowed in the context of a subscribed
@@ -35,7 +42,7 @@ subscribed mode and can only quit the mode with `Ctrl-C`.
 
 ## Format of pushed messages
 
-A message is a @array-reply with three elements.
+A message is a [array-reply](/topics/protocol#array-reply) with three elements.
 
 The first element is the kind of message:
 
@@ -57,61 +64,69 @@ payload.
 
 ## Database & Scoping
 
-Pub/Sub has no relation to the key space.  It was made to not interfere with
-it on any level, including database numbers.
+Pub/Sub has no relation to the key space.
+It was made to not interfere with it on any level, including database numbers.
 
 Publishing on db 10, will be heard by a subscriber on db 1.
 
 If you need scoping of some kind, prefix the channels with the name of the
-environment (test, staging, production, ...).
+environment (test, staging, production...).
 
 ## Wire protocol example
 
-    SUBSCRIBE first second
-    *3
-    $9
-    subscribe
-    $5
-    first
-    :1
-    *3
-    $9
-    subscribe
-    $6
-    second
-    :2
+```
+SUBSCRIBE first second
+*3
+$9
+subscribe
+$5
+first
+:1
+*3
+$9
+subscribe
+$6
+second
+:2
+```
 
 At this point, from another client we issue a `PUBLISH` operation
 against the channel named `second`:
 
-    > PUBLISH second Hello
+```
+> PUBLISH second Hello
+```
 
 This is what the first client receives:
 
-    *3
-    $7
-    message
-    $6
-    second
-    $5
-    Hello
+```
+*3
+$7
+message
+$6
+second
+$5
+Hello
+```
 
 Now the client unsubscribes itself from all the channels using the
 `UNSUBSCRIBE` command without additional arguments:
 
-    UNSUBSCRIBE
-    *3
-    $11
-    unsubscribe
-    $6
-    second
-    :1
-    *3
-    $11
-    unsubscribe
-    $5
-    first
-    :0
+```
+UNSUBSCRIBE
+*3
+$11
+unsubscribe
+$6
+second
+:1
+*3
+$11
+unsubscribe
+$5
+first
+:0
+```
 
 ## Pattern-matching subscriptions
 
@@ -121,16 +136,20 @@ sent to channel names matching a given pattern.
 
 For instance:
 
-    PSUBSCRIBE news.*
+```
+PSUBSCRIBE news.*
+```
 
 Will receive all the messages sent to the channel `news.art.figurative`,
-`news.music.jazz`, etc.  All the glob-style patterns are valid, so
-multiple wildcards are supported.
+`news.music.jazz`, etc.
+All the glob-style patterns are valid, so multiple wildcards are supported.
 
-    PUNSUBSCRIBE news.*
+```
+PUNSUBSCRIBE news.*
+```
 
-Will then unsubscribe the client from that pattern.  No other subscriptions
-will be affected by this call.
+Will then unsubscribe the client from that pattern.
+No other subscriptions will be affected by this call.
 
 Messages received as a result of pattern matching are sent in a
 different format:
@@ -153,8 +172,10 @@ to multiple patterns matching a published message, or if it is
 subscribed to both patterns and channels matching the message. Like in
 the following example:
 
-    SUBSCRIBE foo
-    PSUBSCRIBE f*
+```
+SUBSCRIBE foo
+PSUBSCRIBE f*
+```
 
 In the above example, if a message is sent to channel `foo`, the client
 will receive two messages: one of type `message` and one of type
