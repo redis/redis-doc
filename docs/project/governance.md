@@ -16,7 +16,7 @@ From 2009-2020, Salvatore Sanfillipo led, managed, and maintained the project. W
 
 As Redis grew, matured, and expanded its user base, it became increasingly important to form a sustainable structure for its ongoing development and maintenance. We wanted to ensure the project’s continuity and reflect its larger community.  With this in mind, a new governance structure was adopted.
 
-## The New Governance Structure, Applicable from June 30, 2020
+## Current Governance Structure
 
 Redis has adopted a _light governance_ model that matches the current size of the project and minimizes the changes from its earlier model. The governance model is intended to be a meritocracy, aiming to empower individuals who demonstrate a long-term commitment and make significant contributions.
 
