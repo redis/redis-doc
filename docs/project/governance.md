@@ -22,7 +22,7 @@ Starting on June 30, 2020, Redis adopted a _light governance_ model that matches
 
 ## The Redis Core Team
 
-Salvatore Sanfilippo stepped down as the head of the project and named two successors to take over and lead the Redis project: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) and Oran Agra ([oranagra](https://github.com/oranagra))
+Salvatore Sanfilippo named two successors to take over and lead the Redis project: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) and Oran Agra ([oranagra](https://github.com/oranagra))
 
 With the backing and blessing of Redis Ltd., we took this opportunity to create a more open, scalable, and community-driven “core team” structure to run the project. The core team consists of members selected based on demonstrated, long-term personal involvement and contributions.
 
