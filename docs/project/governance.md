@@ -18,7 +18,7 @@ As Redis grew, matured, and expanded its user base, it became increasingly impor
 
 ## Current Governance Structure
 
-Redis has adopted a _light governance_ model that matches the current size of the project and minimizes the changes from its earlier model. The governance model is intended to be a meritocracy, aiming to empower individuals who demonstrate a long-term commitment and make significant contributions.
+Starting on June 30, 2020, Redis adopted a _light governance_ model that matches the current size of the project and minimizes the changes from its earlier model. The governance model is intended to be a meritocracy, aiming to empower individuals who demonstrate a long-term commitment and make significant contributions.
 
 ## The Redis Core Team
 
