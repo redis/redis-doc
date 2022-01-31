@@ -342,6 +342,7 @@ name by a number:
 
 `redis-cli` provides online help for most Redis [commands](/commands), using the `HELP` command. The command can be used
 in two forms:
+
 * `HELP @<category>` shows all the commands about a given category. The
 categories are: 
     - `@generic`
