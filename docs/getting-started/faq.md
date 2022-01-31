@@ -1,14 +1,21 @@
-# FAQ
-
+---
+title: "Frequently Asked Questions"
+linkTitle: "Frequently Asked Questions"
+weight: 1
+description: >
+    These are the most commonly asked questions when beginning with Redis.
+aliases:
+    - /docs/getting-started/faq
+---
 ## Why is Redis different compared to other key-value stores?
 
 There are two main reasons.
 
-* Redis is a different evolution path in the key-value DBs where values can contain more complex data types, with atomic operations defined on those data types. Redis data types are closely related to fundamental data structures and are exposed to the programmer as such, without additional abstraction layers.
+* Redis has a different evolution path in the key-value DBs where values can contain more complex data types, with atomic operations defined on those data types. Redis data types are closely related to fundamental data structures and are exposed to the programmer as such, without additional abstraction layers.
 * Redis is an in-memory but persistent on disk database, so it represents a different trade off where very high write and read speed is achieved with the limitation of data sets that can't be larger than memory. Another advantage of
-in memory databases is that the memory representation of complex data structures
+in-memory databases is that the memory representation of complex data structures
 is much simpler to manipulate compared to the same data structures on disk, so
-Redis can do a lot, with little internal complexity. At the same time the
+Redis can do a lot with little internal complexity. At the same time the
 two on-disk storage formats (RDB and AOF) don't need to be suitable for random
 access, so they are compact and always generated in an append-only fashion
 (Even the AOF log rotation is an append-only operation, since the new version
@@ -33,14 +40,14 @@ have a lot of memory in 64-bit systems, so in order to run large Redis servers a
 ## I like Redis's high level operations and features, but I don't like that it keeps everything in memory and I can't have a dataset larger than memory. Are there any plans to change this?
 
 In the past the Redis developers experimented with Virtual Memory and other systems in order to allow larger than RAM datasets, but after all we are very happy if we can do one thing well: data served from memory, disk used for storage. So for now there are no plans to create an on disk backend for Redis. Most of what
-Redis is, after all, is a direct result of its current design.
+Redis is, after all, a direct result of its current design.
 
 If your real problem is not the total RAM needed, but the fact that you need
 to split your data set into multiple Redis instances, please read the
 [Partitioning page](/topics/partitioning) in this documentation for more info.
 
-Recently Redis Ltd., the company sponsoring Redis developments, developed a
-"Redis on flash" solution that is able to use a mixed RAM/flash approach for
+Redis Ltd., the company sponsoring Redis development, has developed a
+"Redis on Flash" solution that uses a mixed RAM/flash approach for
 larger data sets with a biased access pattern. You may check their offering
 for more information, however this feature is not part of the open source Redis
 code base.
@@ -91,7 +98,7 @@ Short answer: `echo 1 > /proc/sys/vm/overcommit_memory` :)
 
 And now the long one:
 
-Redis background saving schema relies on the copy-on-write semantic of fork in
+The Redis background saving schema relies on the copy-on-write semantic of the `fork` system call in
 modern operating systems: Redis forks (creates a child process) that is an
 exact copy of the parent. The child process dumps the DB on disk and finally
 exits. In theory the child should use as much memory as the parent being a
@@ -100,16 +107,16 @@ modern operating systems the parent and child process will _share_ the common
 memory pages. A page will be duplicated only when it changes in the child or in
 the parent. Since in theory all the pages may change while the child process is
 saving, Linux can't tell in advance how much memory the child will take, so if
-the `overcommit_memory` setting is set to zero fork will fail unless there is
-as much free RAM as required to really duplicate all the parent memory pages,
-with the result that if you have a Redis dataset of 3 GB and just 2 GB of free
+the `overcommit_memory` setting is set to zero the fork will fail unless there is
+as much free RAM as required to really duplicate all the parent memory pages.
+If you have a Redis dataset of 3 GB and just 2 GB of free
 memory it will fail.
 
 Setting `overcommit_memory` to 1 tells Linux to relax and perform the fork in a
 more optimistic allocation fashion, and this is indeed what you want for Redis.
 
 A good source to understand how Linux Virtual Memory works and other
-alternatives for `overcommit_memory` and `overcommit_ratio` is this classic
+alternatives for `overcommit_memory` and `overcommit_ratio` is this classic article
 from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
 You can also refer to the [proc(5)][proc5] man page for explanations of the
 available values.
@@ -119,16 +126,14 @@ available values.
 
 ## Are Redis on-disk-snapshots atomic?
 
-Yes, Redis background saving process is always forked when the server is
+Yes, the Redis background saving process is always forked when the server is
 outside of the execution of a command, so every command reported to be atomic
 in RAM is also atomic from the point of view of the disk snapshot.
 
 ## Redis is single threaded. How can I exploit multiple CPU / cores?
 
-It's not very frequent that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound. For instance, using pipelining Redis running
-on an average Linux system can deliver even 1 million requests per second, so
-if your application mainly uses O(N) or O(log(N)) commands, it is hardly
-going to use too much CPU.
+It's not very frequent that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound.
+For instance, when using pipelining a Redis instance running on an average Linux system can deliver 1 million requests per second, so if your application mainly uses O(N) or O(log(N)) commands, it is hardly going to use too much CPU.
 
 However, to maximize CPU usage you can start multiple instances of Redis in
 the same box and treat them as different servers. At some point a single
@@ -137,12 +142,9 @@ start thinking of some way to shard earlier.
 
 You can find more information about using multiple Redis instances in the [Partitioning page](/topics/partitioning).
 
-However with Redis 4.0 we started to make Redis more threaded. For now this is
-limited to deleting objects in the background, and to blocking commands
-implemented via Redis modules. For future releases, the plan is to make Redis
-more and more threaded.
+As of version 4.0, Redis has started implementing threaded actions. For now this is limited to deleting objects in the background and blocking commands implemented via Redis modules. For subsequent releases, the plan is to make Redis more and more threaded.
 
-## What is the maximum number of keys a single Redis instance can hold? and what is the max number of elements in a Hash, List, Set, Sorted Set?
+## What is the maximum number of keys a single Redis instance can hold? What is the maximum number of elements in a Hash, List, Set, and Sorted Set?
 
 Redis can handle up to 2^32 keys, and was tested in practice to
 handle at least 250 million keys per instance.
@@ -155,12 +157,12 @@ In other words your limit is likely the available memory in your system.
 
 If you use keys with limited time to live (Redis expires) this is normal behavior. This is what happens:
 
-* The master generates an RDB file on the first synchronization with the replica.
-* The RDB file will not include keys already expired in the master, but that are still in memory.
-* However these keys are still in the memory of the Redis master, even if logically expired. They'll not be considered as existing, but the memory will be reclaimed later, both incrementally and explicitly on access. However while these keys are not logical part of the dataset, they are advertised in `INFO` output and by the `DBSIZE` command.
-* When the replica reads the RDB file generated by the master, this set of keys will not be loaded.
+* The primary generates an RDB file on the first synchronization with the replica.
+* The RDB file will not include keys already expired in the primary but which are still in memory.
+* These keys are still in the memory of the Redis primary, even if logically expired. They'll be considered non-existent, and their memory will be reclaimed later, either incrementally or explicitly on access. While these keys are not logically part of the dataset, they are accounted for in the `INFO` output and in the `DBSIZE` command.
+* When the replica reads the RDB file generated by the primary, this set of keys will not be loaded.
 
-As a result of this, it is common for users with many keys with an expire set to see less keys in the replicas, because of this artifact, but there is no actual logical difference in the instances content.
+Because of this, it's common for users with many expired keys to see fewer keys in the replicas. However, logically, the primary and replica will have the same content.
 
 ## What does Redis actually mean?
 
