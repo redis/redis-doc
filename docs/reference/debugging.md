@@ -8,17 +8,16 @@ aliases:
     - /topics/debugging
 ---
 
-Redis is developed with a great stress on stability. We do our best with
-every release to make sure you'll experience a very stable product and no
-crashes. However even with our best efforts it is impossible to avoid all
-the critical bugs with 100% success.
+Redis is developed with an emphasis on stability. We do our best with
+every release to make sure you'll experience a stable product with no
+crashes. However, if you ever need to debug the Redis process itself, read on.
 
-When Redis crashes it produces a detailed report of what happened, however
+When Redis crashes, it produces a detailed report of what happened. However,
 sometimes looking at the crash report is not enough, nor is it possible for
-the Redis core team to reproduce the issue independently. In this scenario we
-need help from the user that is able to reproduce the issue.
+the Redis core team to reproduce the issue independently. In this scenario, we
+need help from the user who can reproduce the issue.
 
-This little guide shows how to use GDB to provide all the information the
+This guide shows how to use GDB to provide the information the
 Redis developers will need to track the bug more easily.
 
 ## What is GDB?
