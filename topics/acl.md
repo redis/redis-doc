@@ -176,6 +176,9 @@ The just created user "alice" is:
 
 New users are created with restrictive permissions by default. Starting with Redis 6.2, ACL provides Pub/Sub channels access management as well. To ensure backwards compatability with version 6.0 when upgrading to Redis 6.2, new users are granted the 'allchannels' permission by default. The default can be set to `resetchannels` via the `acl-pubsub-default` configuration directive.
 
+From 7.0, The `acl-pubsub-default` value is set to `resetchannels` to restrict the channels access by default to provide better security.
+The default can be set to `allchannels` via the `acl-pubsub-default` configuration directive to be compatible with previous versions.
+
 Such user is completely useless. Let's try to define the user so that
 it is active, has a password, and can access with only the `GET` command
 to key names starting with the string "cached:".
