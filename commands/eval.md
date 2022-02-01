@@ -19,6 +19,6 @@ Please refer to the [Redis Programmability](/topics/programmability) and [Introd
 The following example will run a script that returns the first argument that it gets.
 
 ```
-> EVAL "return args[1]" 0 hello
+> EVAL "return ARGV[1]" 0 hello
 "hello"
 ```
