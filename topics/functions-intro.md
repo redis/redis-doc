@@ -94,7 +94,7 @@ Every library needs to include at least one registered function to load successf
 A registered function is named and acts as an entry point to the library.
 When the target execution engine handles the `FUNCTION LOAD` command, it registers the library's functions.
 
-The Lua engine compiles and evaluates the library source cod when loaded, and expects functions to be registered by calling the `redis.register_function()` API.
+The Lua engine compiles and evaluates the library source code when loaded, and expects functions to be registered by calling the `redis.register_function()` API.
 
 The following snippet demonstrates a simple library registering a single function named _knockknock_, returning a string reply:
 
