@@ -1,16 +1,24 @@
-﻿# Introduction to Redis Streams
+﻿---
+title: "Redis Streams"
+linkTitle: "Redis Streams"
+weight: 1
+description: >
+    An introduction to Redis Streams
+aliases:
+    - /topics/streams-intro
+---
 
-The Stream is a new data type introduced with Redis 5.0, which models a *log data structure* in a more abstract way. However the essence of a log is still intact: like a log file, often implemented as a file open in append only mode, Redis Streams are primarily an append only data structure. At least conceptually, because being an abstract data type represented in memory, Redis Streams implement powerful operations to overcome the limitations of a log file.
+The Stream is a new data type introduced with Redis 5.0, which models a *log data structure* in a more abstract way. However the essence of a log is still intact: like a log file, often implemented as a file open in append-only mode, Redis Streams are primarily an append-only data structure. At least conceptually, because being an abstract data type represented in memory, Redis Streams implement powerful operations to overcome the limitations of a log file.
 
-What makes Redis streams the most complex type of Redis, despite the data structure itself being quite simple, is the fact that it implements additional, non mandatory features: a set of blocking operations allowing consumers to wait for new data added to a stream by producers, and in addition to that a concept called **Consumer Groups**.
+What makes Redis streams the most complex type of Redis, despite the data structure itself being quite simple, is the fact that it implements additional, non-mandatory features: a set of blocking operations allowing consumers to wait for new data added to a stream by producers, and in addition to that a concept called **Consumer Groups**.
 
-Consumer groups were initially introduced by the popular messaging system Kafka (TM). Redis reimplements a similar idea in completely different terms, but the goal is the same: to allow a group of clients to cooperate consuming a different portion of the same stream of messages.
+Consumer groups were initially introduced by the popular messaging system Kafka (TM). Redis reimplements a similar idea in completely different terms, but the goal is the same: to allow a group of clients to cooperate in consuming a different portion of the same stream of messages.
 
 ## Streams basics
 
 For the goal of understanding what Redis Streams are and how to use them, we will ignore all the advanced features, and instead focus on the data structure itself, in terms of commands used to manipulate and access it. This is, basically, the part which is common to most of the other Redis data types, like Lists, Sets, Sorted Sets and so forth. However, note that lists also have an optional more complex blocking API, exported by commands like **BLPOP** and similar. So streams are not much different than lists in this regard, it's just that the additional API is more complex and more powerful.
 
-Because Streams are an append only data structure, the fundamental write command, called **XADD**, appends a new entry into the specified stream. A stream entry is not just a string, but is instead composed of one or multiple field-value pairs. This way, each entry of a stream is already structured, like an append only file written in CSV format where multiple separated fields are present in each line.
+Because Streams are an append-only data structure, the fundamental write command, called **XADD**, appends a new entry into the specified stream. A stream entry is not just a string, but is instead composed of one or multiple field-value pairs. This way, each entry of a stream is already structured, like an append-only file written in CSV format where multiple separated fields are present in each line.
 
 ```
 > XADD mystream * sensor-id 1234 temperature 19.8
@@ -34,7 +42,7 @@ The entry ID returned by the **XADD** command, and identifying univocally each e
 <millisecondsTime>-<sequenceNumber>
 ```
 
-The milliseconds time part is actually the local time in the local Redis node generating the stream ID, however if the current milliseconds time happens to be smaller than the previous entry time, then the previous entry time is used instead, so if a clock jumps backward the monotonically incrementing ID property still holds. The sequence number is used for entries created in the same millisecond. Since the sequence number is 64 bit wide, in practical terms there are no limits to the number of entries that can be generated within the same millisecond.
+The milliseconds time part is actually the local time in the local Redis node generating the stream ID, however if the current milliseconds time happens to be smaller than the previous entry time, then the previous entry time is used instead, so if a clock jumps backward the monotonically incrementing ID property still holds. The sequence number is used for entries created in the same millisecond. Since the sequence number is 64 bit wide, in practical terms there is no limit to the number of entries that can be generated within the same millisecond.
 
 The format of such IDs may look strange at first, and the gentle reader may wonder why the time is part of the ID. The reason is that Redis streams support range queries by ID. Because the ID is related to the time the entry is generated, this gives the ability to query for time ranges basically for free. We will see this soon while covering the **XRANGE** command.
 
@@ -69,7 +77,7 @@ However, this is just one potential access mode. We could also see a stream in q
 
 Finally, if we see a stream from the point of view of consumers, we may want to access the stream in yet another way, that is, as a stream of messages that can be partitioned to multiple consumers that are processing such messages, so that groups of consumers can only see a subset of the messages arriving in a single stream. In this way, it is possible to scale the message processing across different consumers, without single consumers having to process all the messages: each consumer will just get different messages to process. This is basically what Kafka (TM) does with consumer groups. Reading messages via consumer groups is yet another interesting mode of reading from a Redis Stream.
 
-Redis Streams support all the three query modes described above via different commands. The next sections will show them all, starting from the simplest and more direct to use: range queries.
+Redis Streams support all three of the query modes described above via different commands. The next sections will show them all, starting from the simplest and most direct to use: range queries.
 
 ### Querying by range: XRANGE and XREVRANGE
 
@@ -100,7 +108,7 @@ Each entry returned is an array of two items: the ID and the list of field-value
       4) "19.8"
 ```
 
-I have only a single entry in this range, however in real data sets, I could query for ranges of hours, or there could be many items in just two milliseconds, and the result returned could be huge. For this reason, **XRANGE** supports an optional **COUNT** option at the end. By specifying a count, I can just get the first *N* items. If I want more, I can get the last ID returned, increment the sequence part by one, and query again. Let's see this in the following example. We start adding 10 items with **XADD** (I won't show that, lets assume that the stream `mystream` was populated with 10 items). To start my iteration, getting 2 items per command, I start with the full range, but with a count of 2.
+I have only a single entry in this range, however in real data sets, I could query for ranges of hours, or there could be many items in just two milliseconds, and the result returned could be huge. For this reason, **XRANGE** supports a **COUNT** option at the end. By specifying a count, I can just get the first *N* items. If I want more, I can get the last ID returned, increment the sequence part by one, and query again. Let's see this in the following example. We start adding 10 items with **XADD** (I won't show that, lets assume that the stream `mystream` was populated with 10 items). To start my iteration, getting 2 items per command, I start with the full range, but with a count of 2.
 
 ```
 > XRANGE mystream - + COUNT 2
@@ -124,7 +132,7 @@ In order to continue the iteration with the next two items, I have to pick the l
       2) "value_4"
 ```
 
-And so forth. Since **XRANGE** complexity is *O(log(N))* to seek, and then *O(M)* to return M elements, with a small count the command has a logarithmic time complexity, which means that each step of the iteration is fast. So **XRANGE** is also the de facto *streams iterator* and does not require an **XSCAN** command.
+And so forth. Since **XRANGE**'s complexity is *O(log(N))* to seek, and then *O(M)* to return M elements, with a small count the command has a logarithmic time complexity, which means that each step of the iteration is fast. So **XRANGE** is also the de facto *streams iterator* and there is not need for an **XSCAN** command.
 
 The command **XREVRANGE** is the equivalent of **XRANGE** but returning the elements in inverted order, so a practical use for **XREVRANGE** is to check what is the last item in a Stream:
 
@@ -168,7 +176,7 @@ Apart from the fact that **XREAD** can access multiple streams at once, and that
 > XREAD BLOCK 0 STREAMS mystream $
 ```
 
-Note that in the example above, other than removing **COUNT**, I specified the new **BLOCK** option with a timeout of 0 milliseconds (that means to never timeout). Moreover, instead of passing a normal ID for the stream `mystream` I passed the special ID `$`. This special ID means that **XREAD** should use as last ID the maximum ID already stored in the stream `mystream`, so that we will receive only *new* messages, starting from the time we started listening. This is similar to the `tail -f` Unix command in some way.
+Note that in the example above, other than removing **COUNT**, I specified the new **BLOCK** option with a timeout of 0 milliseconds (that means to never timeout). Moreover, instead of passing a normal ID for the stream `mystream` I passed the special ID `$`. This special ID means that **XREAD** should use as last ID the maximum ID already stored in the stream `mystream`, so that we will receive only *new* messages, starting from the time we started listening. This is similar to the `tail -f` Unix command.
 
 Note that when the **BLOCK** option is used, we do not have to use the special ID `$`. We can use any valid ID. If the command is able to serve our request immediately without blocking, it will do so, otherwise it will block. Normally if we want to consume the stream starting from new entries, we start with the ID `$`, and after that we continue using the ID of the last message received to make the next call, and so forth.
 
@@ -176,7 +184,7 @@ The blocking form of **XREAD** is also able to listen to multiple Streams, just 
 
 Similarly to blocking list operations, blocking stream reads are *fair* from the point of view of clients waiting for data, since the semantics is FIFO style. The first client that blocked for a given stream will be the first to be unblocked when new items are available.
 
-**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or multiple streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
+**XREAD** has no other options than **COUNT** and **BLOCK**, so it's a pretty basic command with a specific purpose to attach consumers to one or more streams. More powerful features to consume streams are available using the consumer groups API, however reading via consumer groups is implemented by a different command called **XREADGROUP**, covered in the next section of this guide.
 
 ## Consumer groups
 
@@ -391,7 +399,7 @@ end
 
 As you can see the idea here is to start by consuming the history, that is, our list of pending messages. This is useful because the consumer may have crashed before, so in the event of a restart we want to re-read messages that were delivered to us without getting acknowledged. Note that we might process a message multiple times or one time (at least in the case of consumer failures, but there are also the limits of Redis persistence and replication involved, see the specific section about this topic).
 
-Once the history was consumed, and we get an empty list of messages, we can switch to use the `>` special ID in order to consume new messages.
+Once the history was consumed, and we get an empty list of messages, we can switch to using the `>` special ID in order to consume new messages.
 
 ## Recovering from permanent failures
 
@@ -571,7 +579,7 @@ The output shows information about how the stream is encoded internally, and als
    8) "1588152498034-0"
 ```
 
-As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported, and allows the command to report more information in the future by adding more fields without breaking compatibility with older clients. Other commands that must be more bandwidth efficient, like **XPENDING**, just report the information without the field names.
+As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported. Other commands that must be more bandwidth efficient, like **XPENDING**, just report the information without the field names.
 
 The output of the example above, where the **GROUPS** subcommand is used, should be clear observing the field names. We can check in more detail the state of a specific consumer group by checking the consumers that are registered in the group.
 
@@ -666,8 +674,6 @@ However, **XTRIM** is designed to accept different trimming strategies. Another 
 
 As **XTRIM** is an explicit command, the user is expected to know about the possible shortcomings of different trimming strategies.
 
-Another useful eviction strategy that may be added to **XTRIM** in the future, is to remove by a range of IDs to ease use of **XRANGE** and **XTRIM** to move data from Redis to other storage systems if needed.
-
 ## Special IDs in the streams API
 
 You may have noticed that there are several special IDs that can be used in the Redis API. Here is a short recap, so that they can make more sense in the future.
@@ -722,32 +728,31 @@ However in the current implementation, memory is not really reclaimed until a ma
 
 A difference between streams and other Redis data structures is that when the other data structures no longer have any elements, as a side effect of calling commands that remove elements, the key itself will be removed. So for instance, a sorted set will be completely removed when a call to **ZREM** will remove the last element in the sorted set. Streams, on the other hand, are allowed to stay at zero elements, both as a result of using a **MAXLEN** option with a count of zero (**XADD** and **XTRIM** commands), or because **XDEL** was called.
 
-The reason why such an asymmetry exists is because Streams may have associated consumer groups, and we do not want to lose the state that the consumer groups defined just because there are no longer any items in the stream. Currently the stream is not deleted even when it has no associated consumer groups, but this may change in the future.
+The reason why such an asymmetry exists is because Streams may have associated consumer groups, and we do not want to lose the state that the consumer groups defined just because there are no longer any items in the stream. Currently the stream is not deleted even when it has no associated consumer groups.
 
 ## Total latency of consuming a message
 
-Non blocking stream commands like XRANGE and XREAD or XREADGROUP without the BLOCK option are served synchronously like any other Redis command, so to discuss latency of such commands is meaningless: it is more interesting to check the time complexity of the commands in the Redis documentation. It should be enough to say that stream commands are at least as fast as sorted set commands when extracting ranges, and that `XADD` is very fast and can easily insert from half a million to one million items per second in an average machine if pipelining is used.
+Non-blocking stream commands like `XRANGE` and `XREAD` or `XREADGROUP` without the `BLOCK` option are served synchronously like any other Redis command, so to discuss latency of such commands is meaningless: it is more interesting to check the time complexity of the commands in the Redis documentation. It should be enough to say that stream commands are at least as fast as sorted set commands when extracting ranges, and that `XADD` is very fast and can easily insert from half a million to one million items per second in an average machine if pipelining is used.
 
 However latency becomes an interesting parameter if we want to understand the delay of processing a message, in the context of blocking consumers in a consumer group, from the moment the message is produced via `XADD`, to the moment the message is obtained by the consumer because `XREADGROUP` returned with the message.
 
-## How serving blocked consumers work
+## How serving blocked consumers works
 
 Before providing the results of performed tests, it is interesting to understand what model Redis uses in order to route stream messages (and in general actually how any blocking operation waiting for data is managed).
 
-* The blocked client is referenced in an hash table that maps keys for which there is at least one blocking consumer, to a list of consumers that are waiting for such key. This way, given a key that received data, we can resolve all the clients that are waiting for such data.
+* The blocked client is referenced in a hash table that maps keys for which there is at least one blocking consumer, to a list of consumers that are waiting for such key. This way, given a key that received data, we can resolve all the clients that are waiting for such data.
 * When a write happens, in this case when the `XADD` command is called, it calls the `signalKeyAsReady()` function. This function will put the key into a list of keys that need to be processed, because such keys may have new data for blocked consumers. Note that such *ready keys* will be processed later, so in the course of the same event loop cycle, it is possible that the key will receive other writes.
 * Finally, before returning into the event loop, the *ready keys* are finally processed. For each key the list of clients waiting for data is scanned, and if applicable, such clients will receive the new data that arrived. In the case of streams the data is the messages in the applicable range requested by the consumer.
 
-As you can see, basically, before returning to the event loop both the client calling `XADD` and the clients blocked to consume messages, will have their reply in the output buffers, so the caller of `XADD` should receive the reply from Redis about at the same time the consumers will receive the new messages.
+As you can see, basically, before returning to the event loop both the client calling `XADD` and the clients blocked to consume messages, will have their reply in the output buffers, so the caller of `XADD` should receive the reply from Redis at about the same time the consumers will receive the new messages.
 
-This model is *push based*, since adding data to the consumers buffers will be performed directly by the action of calling `XADD`, so the latency tends to be quite predictable.
+This model is *push-based*, since adding data to the consumers buffers will be performed directly by the action of calling `XADD`, so the latency tends to be quite predictable.
 
 ## Latency tests results
 
-In order to check this latency characteristics a test was performed using multiple instances of Ruby programs pushing messages having as an additional field the computer millisecond time, and Ruby programs reading the messages from the consumer group and processing them. The message processing step consisted in comparing the current computer time with the message timestamp, in order to understand the total latency.
+In order to check these latency characteristics a test was performed using multiple instances of Ruby programs pushing messages having as an additional field the computer millisecond time, and Ruby programs reading the messages from the consumer group and processing them. The message processing step consisted of comparing the current computer time with the message timestamp, in order to understand the total latency.
 
-Such programs were not optimized and were executed in a small two core instance also running Redis, in order to try to provide the latency figures you could expect in non optimal conditions. Messages were produced at a rate of 10k per second, with ten simultaneous consumers consuming and acknowledging the messages from the same Redis stream and consumer group.
-
+Such programs were not optimized and were executed in a small two core instance also running Redis, in order to try to provide the latency figures you could expect in non-optimal conditions. Messages were produced at a rate of 10k per second, with ten simultaneous consumers consuming and acknowledging the messages from the same Redis stream and consumer group.
 
 Results obtained:
 
