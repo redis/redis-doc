@@ -27,8 +27,7 @@ The replies to subscription and unsubscription operations are sent in
 the form of messages, so that the client can just read a coherent
 stream of messages where the first element indicates the type of
 message. The commands that are allowed in the context of a subscribed
-client are `SUBSCRIBE`, `SSUBSCRIBE`, `SUNSUBSCRIBE`, `PSUBSCRIBE`,
-`UNSUBSCRIBE`, `PUNSUBSCRIBE`, `PING`, `RESET`, and `QUIT`.
+client are `SUBSCRIBE`, `SSUBSCRIBE`, `SUNSUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`, `PING`, `RESET`, and `QUIT`.
 
 Please note that `redis-cli` will not accept any commands once in
 subscribed mode and can only quit the mode with `Ctrl-C`.
