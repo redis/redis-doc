@@ -1,6 +1,6 @@
 ---
-title: "Users"
-linkTitle: "Users"
+title: "Who uses Redis?"
+linkTitle: "Who uses Redis?"
 weight: 1
 description: >
     Who's using Redis?

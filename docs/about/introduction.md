@@ -1,6 +1,6 @@
 ---
 title: Introduction to Redis
-linkTitle: Redis Intro
+linkTitle: Introduction to Redis
 weight: 1
 aliases:
   - /topics/introduction
