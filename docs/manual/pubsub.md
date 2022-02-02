@@ -34,8 +34,7 @@ The replies to subscription and unsubscribing operations are sent in
 the form of messages, so that the client can just read a coherent
 stream of messages where the first element indicates the type of
 message. The commands that are allowed in the context of a subscribed
-client are `SUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`,
-`PING` and `QUIT`.
+client are `SUBSCRIBE`, `SSUBSCRIBE`, `SUNSUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`, `PING`, `RESET`, and `QUIT`.
 
 Please note that `redis-cli` will not accept any commands once in
 subscribed mode and can only quit the mode with `Ctrl-C`.
@@ -189,6 +188,19 @@ active. This number is actually the total number of channels and
 patterns the client is still subscribed to. So the client will exit
 the Pub/Sub state only when this count drops to zero as a result of
 unsubscribing from all the channels and patterns.
+
+## Sharded pubsub
+
+From 7.0, sharded pubsub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
+A shard message must be sent to a node that own the slot the shard channel is hashed to. 
+The cluster makes sure the published shard messages are forwarded to all nodes in the shard, so clients can subscribe to a shard channel by connecting to either the master responsible for the slot, or to any of its replicas.
+`SSUBSCRIBE`, `SUNSUBSCRIBE` and `SPUBLISH` are used to implement sharded pubsub.
+
+Sharded pubsub helps to scale the usage of pubsub in cluster mode. 
+It restricts the propagation of message to be within the shard of a cluster. 
+Hence, the amount of data passing through the cluster bus is limited in comparison to global pubsub where each message propagates to each node in the cluster.
+This allows users to horizontally scale the pubsub usage by adding more shards.
+ 
 
 ## Programming example
 

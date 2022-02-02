@@ -16,25 +16,25 @@ This page provides a technical description of Redis persistence. For a wider ove
 Redis provides a range of persistence options:
 
 * **RDB** (Redis Database): The RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
-* **AOF** (Append Only File):  The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to rewrite the log in the background when it gets too big.
-* **No persistence**: If you wish, you can disable persistence completely. This will mean your data only exists as long as the server is running.
-* **RDB + AOF**: It is possible to combine both AOF and RDB in the same instance. In this case, when Redis restarts the AOF file that will be used to reconstruct the original dataset, since it is guaranteed to be the most complete.
+* **AOF** (Append Only File): The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to [rewrite](#log-rewriting) the log in the background when it gets too big.
+* **No persistence**: If you wish, you can disable persistence completely, if you want your data to just exist as long as the server is running.
+* **RDB + AOF**: It is possible to combine both AOF and RDB in the same instance. Notice that, in this case, when Redis restarts the AOF file will be used to reconstruct the original dataset since it is guaranteed to be the most complete.
 
 The most important thing to understand is the different trade-offs between the
 RDB and AOF persistence.
 
 ## RDB advantages
 
-* RDB is a very compact single-file point-in-time representation of your Redis data. RDB files are perfect for backups. For example, you may want to archive your RDB files every hour for the latest 24 hours, and save an RDB snapshot every day for 30 days. This allows you to easily restore different versions of the data set in case of disasters.
-* RDB is good for disaster recovery, being a single compact file that can be transferred to far data centers, or onto the cloud.
-* RDB maximizes Redis performance, since the only work the Redis parent process needs to do to persist is fork a child that will do all the rest. The parent instance will never perform disk I/O or alike.
-* RDB allows faster restarts with big data sets compared to AOF.
+* RDB is a very compact single-file point-in-time representation of your Redis data. RDB files are perfect for backups. For instance you may want to archive your RDB files every hour for the latest 24 hours, and to save an RDB snapshot every day for 30 days. This allows you to easily restore different versions of the data set in case of disasters.
+* RDB is very good for disaster recovery, being a single compact file that can be transferred to far data centers, or onto Amazon S3 (possibly encrypted).
+* RDB maximizes Redis performances since the only work the Redis parent process needs to do in order to persist is forking a child that will do all the rest. The parent process will never perform disk I/O or alike.
+* RDB allows faster restarts with big datasets compared to AOF.
 * On replicas, RDB supports [partial resynchronizations after restarts and failovers](https://redis.io/topics/replication#partial-resynchronizations-after-restarts-and-failovers).
 
 ## RDB disadvantages
 
-* RDB is NOT good if you need to minimize the chance of data loss in case Redis stops working (for example after a power outage). You can configure different *save points* where an RDB is produced (for instance after at least five minutes and 100 writes against the data set, but you can have multiple save points). However you'll usually create an RDB snapshot every five minutes or more, so in case of Redis stopping working without a correct shutdown for any reason you should be prepared to lose the latest few minutes of data.
-* RDB needs to fork() often in order to persist on disk using a child process. Fork() can be time consuming if the dataset is big, and may result in Redis to stop serving clients for some millisecond or even for one second if the dataset is very big and the CPU performance not great. AOF also needs to fork() but you can tune how often you want to rewrite your logs without any trade-off on durability.
+* RDB is NOT good if you need to minimize the chance of data loss in case Redis stops working (for example after a power outage). You can configure different *save points* where an RDB is produced (for instance after at least five minutes and 100 writes against the data set, you can have multiple save points). However you'll usually create an RDB snapshot every five minutes or more, so in case of Redis stopping working without a correct shutdown for any reason you should be prepared to lose the latest minutes of data.
+* RDB needs to fork() often in order to persist on disk using a child process. fork() can be time consuming if the dataset is big, and may result in Redis stopping serving clients for some milliseconds or even for one second if the dataset is very big and the CPU performance is not great. AOF also needs to fork() but less frequently and you can tune how often you want to rewrite your logs without any trade-off on durability.
 
 ## AOF advantages
 
@@ -46,12 +46,16 @@ RDB and AOF persistence.
 ## AOF disadvantages
 
 * AOF files are usually bigger than the equivalent RDB files for the same dataset.
-* AOF can be slower than RDB depending on the exact fsync policy. In general with fsync set to *every second* performance is still very high, and with fsync disabled it should be exactly as fast as RDB even under high load. Still RDB is able to provide more guarantees about the maximum latency even in the case of an huge write load.
-* The Redis AOF works by incrementally updating an existing state, like MySQL or MongoDB does, while the RDB snapshotting creates everything from scratch again and again, that is conceptually more robust. However -
-  1) It should be noted that every time the AOF is rewritten by Redis it is recreated from scratch starting from the actual data contained in the data set, making resistance to bugs stronger compared to an always appending AOF file (or one rewritten reading the old AOF instead of reading the data in memory).
-  2) We have never had a single report from users about an AOF corruption that was detected in the real world.
+* AOF can be slower than RDB depending on the exact fsync policy. In general with fsync set to *every second* performance is still very high, and with fsync disabled it should be exactly as fast as RDB even under high load. Still RDB is able to provide more guarantees about the maximum latency even in the case of a huge write load.
 
-## Ok, so what should I use?
+**Redis < 7.0**
+
+* AOF can use a lot of memory if there are writes to the database during a rewrite (these are buffered in memory and written to the new AOF at the end).
+* All write commands that arrive during rewrite are written to disk twice.
+* Redis could freeze writing and fsyncing these write commands to the new AOF file at the end of the rewrite.
+  
+Ok, so what should I use?
+---
 
 The general indication you should use both persistence methods is if
 you want a degree of data safety comparable to what PostgreSQL can provide you.
@@ -97,9 +101,9 @@ This method allows Redis to benefit from copy-on-write semantics.
 
 Snapshotting is not very durable. If your computer running Redis stops,
 your power line fails, or you accidentally `kill -9` your instance, the
-latest data written on Redis will get lost.  While this may not be a big
+latest data written to Redis will be lost.  While this may not be a big
 deal for some applications, there are use cases for full durability, and
-in these cases Redis was not a viable option.
+in these cases Redis snapshotting alone is not a viable option.
 
 The _append-only file_ is an alternative, fully-durable strategy for
 Redis.  It became available in version 1.1.
@@ -112,6 +116,11 @@ From now on, every time Redis receives a command that changes the
 dataset (e.g. `SET`) it will append it to the AOF.  When you restart
 Redis it will re-play the AOF to rebuild the state.
 
+Since Redis 7.0.0, Redis uses a multi part AOF mechanism.
+That is, the original single AOF file is split into base file (at most one) and incremental files (there may be more than one).
+The base file represents an initial (RDB or AOF format) snapshot of the data present when the AOF is [rewritten](#log-rewriting).
+The incremental files contains incremental changes since the last base AOF file was created. All these files are put in a separate directory and are tracked by a manifest file.
+
 ### Log rewriting
 
 The AOF gets bigger and bigger as write operations are
@@ -120,13 +129,25 @@ you'll end up with a single key in your dataset containing the final
 value, but 100 entries in your AOF. 99 of those entries are not needed
 to rebuild the current state.
 
-Redis supports a feature to rebuild the AOF
+The rewrite is completely safe.
+While Redis continues appending to the old file,
+a completely new one is produced with the minimal set of operations needed to create the current data set,
+and once this second file is ready Redis switches the two and starts appending to the new one.
+
+So Redis supports an interesting feature: it is able to rebuild the AOF
 in the background without interrupting service to clients. Whenever
 you issue a `BGREWRITEAOF`, Redis will write the shortest sequence of
 commands needed to rebuild the current dataset in memory.  If you're
 using the AOF with Redis 2.2 you'll need to run `BGREWRITEAOF` from time to
-time. Redis 2.4 is able to trigger log rewriting automatically (see the
-2.4 example configuration file for more information).
+time. Since Redis 2.4 is able to trigger log rewriting automatically (see the
+example configuration file for more information).
+
+Since Redis 7.0.0, when an AOF rewrite is scheduled, The Redis parent process opens a new incremental AOF file to continue writing.
+The child process executes the rewrite logic and generates a new base AOF.
+Redis will use a temporary manifest file to track the newly generated base file and incremental file.
+When they are ready, Redis will perform an atomic replacement operation to make this temporary manifest file take effect.
+In order to avoid the problem of creating many incremental files in case of repeated failures and retries of an AOF rewrite,
+Redis introduces an AOF rewrite limiting mechanism to ensure that failed AOF rewrites are retried at a slower and slower rate.
 
 ### How durable is the append only file?
 
@@ -134,9 +155,9 @@ You can configure how many times Redis will
 [`fsync`](http://linux.die.net/man/2/fsync) data on disk. There are
 three options:
 
-* `appendfsync always`: `fsync` every time new commands are appended to the AOF. Very very slow, very safe. Note the commands are appended to the AOF after a batch of commands from multiple clients or a pipeline are executed, so it means a single write and a single fsync (before sending the replies).
-* `appendfsync everysec`: `fsync` every second. Fast enough (in 2.4 likely to be as fast as snapshotting), and you can lose 1 second of data if there is a disaster.
-* `appendfsync no`: Never `fsync`, just put your data in the hands of the operating system. The faster and less safe method. Normally Linux will flush data every 30 seconds with this configuration, but it's up to the kernel exact tuning.
+* `appendfsync always`: `fsync` every time new commands are appended to the AOF. Very very slow, very safe. Note that the commands are apended to the AOF after a batch of commands from multiple clients or a pipeline are executed, so it means a single write and a single fsync (before sending the replies).
+* `appendfsync everysec`: `fsync` every second. Fast enough (since version 2.4 likely to be as fast as snapshotting), and you may lose 1 second of data if there is a disaster.
+* `appendfsync no`: Never `fsync`, just put your data in the hands of the Operating System. The faster and less safe method. Normally Linux will flush data every 30 seconds with this configuration, but it's up to the kernel's exact tuning.
 
 The suggested (and default) policy is to `fsync` every second. It is
 both fast and relatively safe. The `always` policy is very slow in
@@ -163,7 +184,7 @@ server will emit a log like the following:
 ```
 
 You can change the default configuration to force Redis to stop in such
-cases if you want, but the default configuration is to continue regardless
+cases if you want, but the default configuration is to continue regardless of
 the fact the last command in the file is not well-formed, in order to guarantee
 availability after a restart.
 
@@ -189,11 +210,11 @@ at startup and will abort:
 ```
 
 The best thing to do is to run the `redis-check-aof` utility, initially without
-the `--fix` option. Then understand the problem, jump at the given
-offset in the file, and see if it is possible to manually repair the file.
+the `--fix` option, then understand the problem, jump to the given
+offset in the file, and see if it is possible to manually repair the file:
 The AOF uses the same format of the Redis protocol and is quite simple to fix
-manually. Otherwise, it is possible to let the utility fix the file for us, but
-in that case, all the AOF portion from the invalid part to the end of the
+manually. Otherwise it is possible to let the utility fix the file for us, but
+in that case all the AOF portion from the invalid part to the end of the
 file may be discarded, leading to a massive amount of data loss if the
 corruption happened to be in the initial part of the file.
 
@@ -201,6 +222,25 @@ corruption happened to be in the initial part of the file.
 
 Log rewriting uses the same copy-on-write trick already in use for
 snapshotting.  This is how it works:
+
+**Redis >= 7.0**
+
+* Redis [forks](http://linux.die.net/man/2/fork), so now we have a child
+and a parent process.
+
+* The child starts writing the new base AOF in a temporary file.
+
+* The parent opens a new increments AOF file to continue writing updates.
+  If the rewriting fails, the old base and increment files (if there are any) plus this newly opened increment file represent the complete updated dataset,
+  so we are safe.
+  
+* When the child is done rewriting the base file, the parent gets a signal,
+and uses the newly opened increment file and child generated base file to build a temp manifest,
+and persist it.
+
+* Profit! Now Redis does an atomic exchange of the manifest files so that the result of this AOF rewrite takes effect. Redis also cleans up the old base file and any unused increment files.
+
+**Redis < 7.0**
 
 * Redis [forks](http://linux.die.net/man/2/fork), so now we have a child
 and a parent process.
@@ -220,20 +260,20 @@ and starts appending new data into the new file.
 
 ### How I can switch to AOF, if I'm currently using dump.rdb snapshots?
 
-There is a different procedure to do this in Redis 2.0 and Redis 2.2, as you
-can guess it's simpler in Redis 2.2 and does not require a restart at all.
+There is a different procedure to do this in version 2.0 and later versions, as you
+can guess it's simpler since Redis 2.2 and does not require a restart at all.
 
 **Redis >= 2.2**
 
 * Make a backup of your latest dump.rdb file.
-* Transfer this backup into a safe place.
+* Transfer this backup to a safe place.
 * Issue the following two commands:
 * `redis-cli config set appendonly yes`
 * `redis-cli config set save ""`
 * Make sure your database contains the same number of keys it contained.
 * Make sure writes are appended to the append only file correctly.
 
-The first CONFIG command enables the Append Only File. In order to do so **Redis will block** to generate the initial dump, then will open the file for writing, and will start appending all the next write queries.
+The first CONFIG command enables the Append Only File persistence.
 
 The second CONFIG command is used to turn off snapshotting persistence. This is optional, if you wish you can take both the persistence methods enabled.
 
@@ -250,7 +290,7 @@ server will start again with the old configuration.
 * Stop the server when Redis finished generating the AOF dump.
 * Edit redis.conf end enable append only file persistence.
 * Restart the server.
-* Make sure that your database contains the same number of keys it contained.
+* Make sure that your database contains the same number of keys it contained before the switch.
 * Make sure that writes are appended to the append only file correctly.
 
 ## Interactions between AOF and RDB persistence
@@ -283,13 +323,16 @@ This means that copying the RDB file is completely safe while the server is
 running. This is what we suggest:
 
 * Create a cron job in your server creating hourly snapshots of the RDB file in one directory, and daily snapshots in a different directory.
-* Every time the cron script runs, make sure to call the `find` command to make sure too old snapshots are deleted: for instance you can take hourly snapshots for the latest 48 hours, and daily snapshots for one or two months. Make sure to name the snapshots with data and time information.
+* Every time the cron script runs, make sure to call the `find` command to make sure too old snapshots are deleted: for instance you can take hourly snapshots for the latest 48 hours, and daily snapshots for one or two months. Make sure to name the snapshots with date and time information.
 * At least one time every day make sure to transfer an RDB snapshot *outside your data center* or at least *outside the physical machine* running your Redis instance.
 
 If you run a Redis instance with only AOF persistence enabled, you can still
 copy the AOF in order to create backups. The file may lack the final part
 but Redis will be still able to load it (see the previous sections about
-truncated AOF files).
+truncated AOF files).  
+
+Since Redis 7.0.0, all the base, increment and manifest files will be placed in a directory determined by the `appendddirname` configuration.
+So the best suggestion is to copy the entire directory when backing up AOF persistence.
 
 ## Disaster recovery
 

@@ -9,7 +9,7 @@ aliases:
 Starting with version 3.2 Redis includes a complete Lua debugger, that can be
 used in order to make the task of writing complex Redis scripts much simpler.
 
-The Redis Lua debugger, codenamed **LDB**, has the following important features:
+The Redis Lua debugger, codenamed LDB, has the following important features:
 
 * It uses a server-client model, so it's a remote debugger.
 The Redis server acts as the debugging server, while the default client is `redis-cli`. 
