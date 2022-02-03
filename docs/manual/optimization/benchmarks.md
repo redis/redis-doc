@@ -56,7 +56,7 @@ as in the following example:
     SET: 74239.05 requests per second
     LPUSH: 79239.30 requests per second
 
-This example runs the tests for the SET and LPUSH commands and uses quiet mode (see the `-q` switch).
+This example runs the tests for the `SET` and `LPUSH` commands and uses quiet mode (see the `-q` switch).
 
 You can even benchmark a specfic command:
 
