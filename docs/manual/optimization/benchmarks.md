@@ -162,7 +162,7 @@ connections, the comparison is actually meaningful.
 
 When you're benchmarking a high-performance, in-memory database like Redis,
 it may be difficult to saturate
-the server. Sometimes, the performance bottleneck is on client side,
+the server. Sometimes, the performance bottleneck is on the client side,
 and not the server-side. In that case, the client (i.e., the benchmarking program itself)
 must be fixed, or perhaps scaled out, to reach the maximum throughput.
 
