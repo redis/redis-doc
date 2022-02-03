@@ -3,7 +3,7 @@ title: "Redis Benchmark"
 linkTitle: "Redis Benchmark"
 weight: 1
 description: >
-    Benchmarking Redis Operation
+    Benchmarking Redis Operations
 aliases:
     - /topics/benchmarks
 ---
