@@ -42,31 +42,30 @@ The following options are supported:
      -I                 Idle mode. Just open N idle connections and wait.
 
 You need to have a running Redis instance before launching the benchmark.
-A typical example would be:
+You can run the benchmarking utility like so:
 
     redis-benchmark -q -n 100000
 
 ### Running only a subset of the tests
 
-You don't need to run all the default tests every time you execute redis-benchmark.
-The simplest thing to select only a subset of tests is to use the `-t` option
-like in the following example:
+You don't need to run all the default tests every time you execute `redis-benchmark`.
+For example, to select only a subset of tests, use the `-t` option
+as in the following example:
 
     $ redis-benchmark -t set,lpush -n 100000 -q
     SET: 74239.05 requests per second
     LPUSH: 79239.30 requests per second
 
-In the prior example runs the test for the SET and LPUSH commands,
-in quiet mode (see the `-q` switch).
+This example runs the tests for the SET and LPUSH commands and uses quiet mode (see the `-q` switch).
 
-It is also possible to specify the command to benchmark a specific call:
+You can even benchmark a specfic command:
 
     $ redis-benchmark -n 100000 -q script load "redis.call('set','foo','bar')"
     script load redis.call('set','foo','bar'): 69881.20 requests per second
 
 ### Selecting the size of the key space
 
-By default the benchmark runs against a single key. In Redis the difference
+By default, the benchmark runs against a single key. In Redis the difference
 between such a synthetic benchmark and a real one is not huge since it is an
 in-memory system, however it is possible to stress cache misses and in general
 to simulate a more real-world work load by using a large key space.
