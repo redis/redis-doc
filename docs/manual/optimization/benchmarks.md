@@ -1,9 +1,18 @@
-# How fast is Redis?
+---
+title: "Redis Benchmark"
+linkTitle: "Redis Benchmark"
+weight: 1
+description: >
+    Benchmarking Redis Operation
+aliases:
+    - /topics/benchmarks
+---
+
+## Redis Benchmark
 
 Redis includes the `redis-benchmark` utility that simulates running commands done
-by N clients at the same time sending M total queries (it is similar to the
-Apache's `ab` utility). Below you'll find the full output of a benchmark executed
-against a Linux box.
+by N clients at the same time sending M total queries. The utility provides
+a default set of tests, or a custom set of tests can be supplied.
 
 The following options are supported:
 
@@ -37,11 +46,7 @@ A typical example would be:
 
     redis-benchmark -q -n 100000
 
-Using this tool is quite easy, and you can also write your own benchmark,
-but as with any benchmarking activity, there are some pitfalls to avoid.
-
-Running only a subset of the tests
----
+### Running only a subset of the tests
 
 You don't need to run all the default tests every time you execute redis-benchmark.
 The simplest thing to select only a subset of tests is to use the `-t` option
@@ -51,17 +56,15 @@ like in the following example:
     SET: 74239.05 requests per second
     LPUSH: 79239.30 requests per second
 
-In the above example we asked to just run test the SET and LPUSH commands,
+In the prior example runs the test for the SET and LPUSH commands,
 in quiet mode (see the `-q` switch).
 
-It is also possible to specify the command to benchmark directly like in the
-following example:
+It is also possible to specify the command to benchmark a specific call:
 
     $ redis-benchmark -n 100000 -q script load "redis.call('set','foo','bar')"
     script load redis.call('set','foo','bar'): 69881.20 requests per second
 
-Selecting the size of the key space
----
+### Selecting the size of the key space
 
 By default the benchmark runs against a single key. In Redis the difference
 between such a synthetic benchmark and a real one is not huge since it is an
@@ -91,8 +94,7 @@ one million SET operations, using a random key for every operation out of
     $ redis-cli dbsize
     (integer) 99993
 
-Using pipelining
----
+### Using pipelining
 
 By default every client (the benchmark simulates 50 clients if not otherwise
 specified with `-c`) sends the next command only when the reply of the previous
@@ -113,8 +115,7 @@ pipelining of 16 commands:
 
 Using pipelining results in a significant increase in performance.
 
-Pitfalls and misconceptions
----------------------------
+### Pitfalls and misconceptions
 
 The first point is obvious: the golden rule of a useful benchmark is to
 only compare apples and apples. Different versions of Redis can be compared
@@ -123,16 +124,11 @@ different options. If you plan to compare Redis to something else, then it is
 important to evaluate the functional and technical differences, and take them
 in account.
 
-+ Redis is a server: all commands involve network or IPC round trips. It is meaningless to compare it to embedded data stores such as SQLite, Berkeley DB, Tokyo/Kyoto Cabinet, etc ... because the cost of most operations is primarily in network/protocol management.
++ Redis is a server: all commands involve network or IPC round trips. It is meaningless to compare it to embedded data stores, because the cost of most operations is primarily in network/protocol management.
 + Redis commands return an acknowledgment for all usual commands. Some other data stores do not. Comparing Redis to stores involving one-way queries is only mildly useful.
 + Naively iterating on synchronous Redis commands does not benchmark Redis itself, but rather measure your network (or IPC) latency and the client library intrinsic latency. To really test Redis, you need multiple connections (like redis-benchmark) and/or to use pipelining to aggregate several commands and/or multiple threads or processes.
 + Redis is an in-memory data store with some optional persistence options. If you plan to compare it to transactional servers (MySQL, PostgreSQL, etc ...), then you should consider activating AOF and decide on a suitable fsync policy.
 + Redis is, mostly, a single-threaded server from the POV of commands execution (actually modern versions of Redis use threads for different things). It is not designed to benefit from multiple CPU cores. People are supposed to launch several Redis instances to scale out on several cores if needed. It is not really fair to compare one single Redis instance to a multi-threaded data store.
-
-A common misconception is that redis-benchmark is designed to make Redis
-performances look stellar, the throughput achieved by redis-benchmark being
-somewhat artificial, and not achievable by a real application. This is
-actually not true.
 
 The `redis-benchmark` program is a quick and useful way to get some figures and
 evaluate the performance of a Redis instance on a given hardware. However,
@@ -154,7 +150,7 @@ pipelining to improve performance. However you should use a pipeline size that
 is more or less the average pipeline length you'll be able to use in your
 application in order to get realistic numbers.
 
-Finally, the benchmark should apply the same operations, and work in the same way
+The benchmark should apply the same operations, and work in the same way
 with the multiple data stores you want to compare. It is absolutely pointless to
 compare the result of redis-benchmark to the result of another benchmark
 program and extrapolate.
@@ -165,27 +161,13 @@ way at the protocol level. Provided their respective benchmark application is
 aggregating queries in the same way (pipelining) and use a similar number of
 connections, the comparison is actually meaningful.
 
-This perfect example is illustrated by the dialog between Redis (antirez) and
-memcached (dormando) developers.
-
-[antirez 1 - On Redis, Memcached, Speed, Benchmarks and The Toilet](http://antirez.com/post/redis-memcached-benchmark.html)
-
-[dormando - Redis VS Memcached (slightly better bench)](http://dormando.livejournal.com/525147.html)
-
-[antirez 2 - An update on the Memcached/Redis benchmark](http://antirez.com/post/update-on-memcached-redis-benchmark.html)
-
-You can see that in the end, the difference between the two solutions is not
-so staggering, once all technical aspects are considered. Please note both
-Redis and memcached have been optimized further after these benchmarks.
-
-Finally, when very efficient servers are benchmarked (and stores like Redis
+When very efficient servers are benchmarked (and stores like Redis
 or memcached definitely fall in this category), it may be difficult to saturate
 the server. Sometimes, the performance bottleneck is on client side,
 and not server-side. In that case, the client (i.e. the benchmark program itself)
 must be fixed, or perhaps scaled out, in order to reach the maximum throughput.
 
-Factors impacting Redis performance
------------------------------------
+### Factors impacting Redis performance
 
 There are multiple factors having direct consequences on Redis performance.
 We mention them here, since they can alter the result of any benchmarks.
@@ -274,8 +256,7 @@ the `mem_allocator` field. Please note most benchmarks do not run long enough to
 generate significant external fragmentation (contrary to production Redis
 instances).
 
-Other things to consider
-------------------------
+### Other things to consider
 
 One important goal of any benchmark is to get reproducible results, so they
 can be compared to the results of other tests.
@@ -303,154 +284,7 @@ the generated log file on a remote filesystem.
 instance using INFO at regular interval to gather statistics is probably fine,
 but MONITOR will impact the measured performance significantly.
 
-# Benchmark results on different virtualized and bare-metal servers.
-
-WARNING: Note that most of the following benchmarks are a few years old and are obtained using old hardware compared to today's standards. This page should be updated, but in many cases you can expect twice the numbers you are seeing here using state of hard hardware. Moreover Redis 4.0 is faster than 2.6 in many workloads.
-
-* The test was done with 50 simultaneous clients performing 2 million requests.
-* Redis 2.6.14 is used for all the tests.
-* Test was executed using the loopback interface.
-* Test was executed using a key space of 1 million keys.
-* Test was executed with and without pipelining (16 commands pipeline).
-
-**Intel(R) Xeon(R) CPU E5520  @ 2.27GHz (with pipelining)**
-
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -P 16 -q
-    SET: 552028.75 requests per second
-    GET: 707463.75 requests per second
-    LPUSH: 767459.75 requests per second
-    LPOP: 770119.38 requests per second
-
-**Intel(R) Xeon(R) CPU E5520  @ 2.27GHz (without pipelining)**
-
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q
-    SET: 122556.53 requests per second
-    GET: 123601.76 requests per second
-    LPUSH: 136752.14 requests per second
-    LPOP: 132424.03 requests per second
-
-**Linode 2048 instance (with pipelining)**
-
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q -P 16
-    SET: 195503.42 requests per second
-    GET: 250187.64 requests per second
-    LPUSH: 230547.55 requests per second
-    LPOP: 250815.16 requests per second
-
-**Linode 2048 instance (without pipelining)**
-
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q
-    SET: 35001.75 requests per second
-    GET: 37481.26 requests per second
-    LPUSH: 36968.58 requests per second
-    LPOP: 35186.49 requests per second
-
-## More detailed tests without pipelining
-
-    $ redis-benchmark -n 100000
-
-    ====== SET ======
-      100007 requests completed in 0.88 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    58.50% <= 0 milliseconds
-    99.17% <= 1 milliseconds
-    99.58% <= 2 milliseconds
-    99.85% <= 3 milliseconds
-    99.90% <= 6 milliseconds
-    100.00% <= 9 milliseconds
-    114293.71 requests per second
-
-    ====== GET ======
-      100000 requests completed in 1.23 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    43.12% <= 0 milliseconds
-    96.82% <= 1 milliseconds
-    98.62% <= 2 milliseconds
-    100.00% <= 3 milliseconds
-    81234.77 requests per second
-
-    ====== INCR ======
-      100018 requests completed in 1.46 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    32.32% <= 0 milliseconds
-    96.67% <= 1 milliseconds
-    99.14% <= 2 milliseconds
-    99.83% <= 3 milliseconds
-    99.88% <= 4 milliseconds
-    99.89% <= 5 milliseconds
-    99.96% <= 9 milliseconds
-    100.00% <= 18 milliseconds
-    68458.59 requests per second
-
-    ====== LPUSH ======
-      100004 requests completed in 1.14 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    62.27% <= 0 milliseconds
-    99.74% <= 1 milliseconds
-    99.85% <= 2 milliseconds
-    99.86% <= 3 milliseconds
-    99.89% <= 5 milliseconds
-    99.93% <= 7 milliseconds
-    99.96% <= 9 milliseconds
-    100.00% <= 22 milliseconds
-    100.00% <= 208 milliseconds
-    88109.25 requests per second
-
-    ====== LPOP ======
-      100001 requests completed in 1.39 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    54.83% <= 0 milliseconds
-    97.34% <= 1 milliseconds
-    99.95% <= 2 milliseconds
-    99.96% <= 3 milliseconds
-    99.96% <= 4 milliseconds
-    100.00% <= 9 milliseconds
-    100.00% <= 208 milliseconds
-    71994.96 requests per second
-
-Notes: changing the payload from 256 to 1024 or 4096 bytes does not change the
-numbers significantly (but reply packets are glued together up to 1024 bytes so
-GETs may be slower with big payloads). The same for the number of clients, from
-50 to 256 clients I got the same numbers. With only 10 clients it starts to get
-a bit slower.
-
-You can expect different results from different boxes. For example a low
-profile box like *Intel core duo T5500 clocked at 1.66 GHz running Linux 2.6*
-will output the following:
-
-    $ ./redis-benchmark -q -n 100000
-    SET: 53684.38 requests per second
-    GET: 45497.73 requests per second
-    INCR: 39370.47 requests per second
-    LPUSH: 34803.41 requests per second
-    LPOP: 37367.20 requests per second
-
-Another one using a 64-bit box, a Xeon L5420 clocked at 2.5 GHz:
-
-    $ ./redis-benchmark -q -n 100000
-    PING: 111731.84 requests per second
-    SET: 108114.59 requests per second
-    GET: 98717.67 requests per second
-    INCR: 95241.91 requests per second
-    LPUSH: 104712.05 requests per second
-    LPOP: 93722.59 requests per second
-
-# Other Redis benchmarking tools
+### Other Redis benchmarking tools
 
 There are several third-party tools that can be used for benchmarking Redis. Refer to each tool's
 documentation for more information about its goals and capabilities.
@@ -458,48 +292,3 @@ documentation for more information about its goals and capabilities.
 * [memtier_benchmark](https://github.com/redislabs/memtier_benchmark) from [Redis Ltd.](https://twitter.com/RedisInc) is a NoSQL Redis and Memcache traffic generation and benchmarking tool.
 * [rpc-perf](https://github.com/twitter/rpc-perf) from [Twitter](https://twitter.com/twitter) is a tool for benchmarking RPC services that supports Redis and Memcache.
 * [YCSB](https://github.com/brianfrankcooper/YCSB) from [Yahoo @Yahoo](https://twitter.com/Yahoo) is a benchmarking framework with clients to many databases, including Redis.
-
-# Example of redis-benchmark results with optimized high-end server hardware
-
-* Redis version **2.4.2**
-* Default number of connections, payload size = 256
-* The Linux box is running *SLES10 SP3 2.6.16.60-0.54.5-smp*, CPU is 2 x *Intel X5670 @ 2.93 GHz*.
-* Test executed while running Redis server and benchmark client on the same CPU, but different cores.
-
-Using a unix domain socket:
-
-    $ numactl -C 6 ./redis-benchmark -q -n 100000 -s /tmp/redis.sock -d 256
-    PING (inline): 200803.22 requests per second
-    PING: 200803.22 requests per second
-    MSET (10 keys): 78064.01 requests per second
-    SET: 198412.69 requests per second
-    GET: 198019.80 requests per second
-    INCR: 200400.80 requests per second
-    LPUSH: 200000.00 requests per second
-    LPOP: 198019.80 requests per second
-    SADD: 203665.98 requests per second
-    SPOP: 200803.22 requests per second
-    LPUSH (again, in order to bench LRANGE): 200000.00 requests per second
-    LRANGE (first 100 elements): 42123.00 requests per second
-    LRANGE (first 300 elements): 15015.02 requests per second
-    LRANGE (first 450 elements): 10159.50 requests per second
-    LRANGE (first 600 elements): 7548.31 requests per second
-
-Using the TCP loopback:
-
-    $ numactl -C 6 ./redis-benchmark -q -n 100000 -d 256
-    PING (inline): 145137.88 requests per second
-    PING: 144717.80 requests per second
-    MSET (10 keys): 65487.89 requests per second
-    SET: 142653.36 requests per second
-    GET: 142450.14 requests per second
-    INCR: 143061.52 requests per second
-    LPUSH: 144092.22 requests per second
-    LPOP: 142247.52 requests per second
-    SADD: 144717.80 requests per second
-    SPOP: 143678.17 requests per second
-    LPUSH (again, in order to bench LRANGE): 143061.52 requests per second
-    LRANGE (first 100 elements): 29577.05 requests per second
-    LRANGE (first 300 elements): 10431.88 requests per second
-    LRANGE (first 450 elements): 7010.66 requests per second
-    LRANGE (first 600 elements): 5296.61 requests per second
