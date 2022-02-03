@@ -160,11 +160,11 @@ way at the protocol level. Provided their respective benchmark application is
 aggregating queries in the same way (pipelining) and use a similar number of
 connections, the comparison is actually meaningful.
 
-When very efficient servers are benchmarked (and stores like Redis
-or memcached definitely fall in this category), it may be difficult to saturate
+When you're benchmarking a high-performance, in-memory database like Redis,
+it may be difficult to saturate
 the server. Sometimes, the performance bottleneck is on client side,
-and not server-side. In that case, the client (i.e. the benchmark program itself)
-must be fixed, or perhaps scaled out, in order to reach the maximum throughput.
+and not the server-side. In that case, the client (i.e., the benchmarking program itself)
+must be fixed, or perhaps scaled out, to reach the maximum throughput.
 
 ### Factors impacting Redis performance
 
