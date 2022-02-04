@@ -1,20 +1,19 @@
-Redis Mass Insertion
-===
+---
+title: "Bulk loading"
+linkTitle: "Bulk loading"
+weight: 1
+aliases:
+    - /topics/mass-insertion
+---
 
-Sometimes Redis instances need to be loaded with a big amount of preexisting
-or user generated data in a short amount of time, so that millions of keys
-will be created as fast as possible.
+Bulk loading is the process of loading Redis with a large amount of pre-existing data. Ideally, you want to perform this operation quickly and efficiently. This document describes some strategies for bulk loading data in Redis.
 
-This is called a *mass insertion*, and the goal of this document is to
-provide information about how to feed Redis with data as fast as possible.
+## Bulk loading using the Redis protocol
 
-Use the protocol, Luke
-----------------------
-
-Using a normal Redis client to perform mass insertion is not a good idea
+Using a normal Redis client to perform bulk loading is not a good idea
 for a few reasons: the naive approach of sending one command after the other
 is slow because you have to pay for the round trip time for every command.
-It is possible to use pipelining, but for mass insertion of many records
+It is possible to use pipelining, but for bulk loading of many records
 you need to write new commands while you read replies at the same time to
 make sure you are inserting as fast as possible.
 
@@ -43,7 +42,7 @@ However this is not a very reliable way to perform mass import because netcat
 does not really know when all the data was transferred and can't check for
 errors. In 2.6 or later versions of Redis the `redis-cli` utility
 supports a new mode called **pipe mode** that was designed in order to perform
-mass insertion.
+bulk loading.
 
 Using the pipe mode the command to run looks like the following:
 
@@ -58,12 +57,11 @@ That will produce an output similar to this:
 The redis-cli utility will also make sure to only redirect errors received
 from the Redis instance to the standard output.
 
-Generating Redis Protocol
--------------------------
+### Generating Redis Protocol
 
 The Redis protocol is extremely simple to generate and parse, and is
 [Documented here](/topics/protocol). However in order to generate protocol for
-the goal of mass insertion you don't need to understand every detail of the
+the goal of bulk loading you don't need to understand every detail of the
 protocol, but just that every command is represented in the following way:
 
     *<args><cr><lf>
@@ -89,7 +87,7 @@ Or represented as a quoted string:
 
     "*3\r\n$3\r\nSET\r\n$3\r\nkey\r\n$5\r\nvalue\r\n"
 
-The file you need to generate for mass insertion is just composed of commands
+The file you need to generate for bulk loading is just composed of commands
 represented in the above way, one after the other.
 
 The following Ruby function generates valid protocol:
@@ -121,8 +119,7 @@ first mass import session.
     Last reply received from server.
     errors: 0, replies: 1000
 
-How the pipe mode works under the hood
---------------------------------------
+### How the pipe mode works under the hood
 
 The magic needed inside the pipe mode of redis-cli is to be as fast as netcat
 and still be able to understand when the last reply was sent by the server
