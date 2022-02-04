@@ -1,8 +1,7 @@
-
 ---
 title: "Data types"
 linkTitle: "Data types"
-weight: 0
+weight: 1
 ---
 
 {{% pageinfo %}}
