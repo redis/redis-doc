@@ -1,5 +1,12 @@
-Native types in Redis modules
-===
+---
+title: "Modules API for native types"
+linkTitle: "Modules API for native types"
+weight: 1
+description: >
+    How to use native Redis types in a module
+aliases:
+    - /topics/modules-native-types
+---
 
 Redis modules can access Redis built-in data structures both at high level,
 by calling Redis commands, and at low level, by manipulating the data structures

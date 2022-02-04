@@ -1,4 +1,12 @@
-# Modules API reference
+---
+title: "Modules API reference"
+linkTitle: "Modules API reference"
+weight: 1
+description: >
+    Auto-generated reference for the Redis Modules API
+aliases:
+    - /topics/modules-api-ref
+---
 
 <!-- This file is generated from module.c using gendoc.rb -->
 

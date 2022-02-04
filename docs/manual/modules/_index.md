@@ -1,5 +1,12 @@
-Redis Modules: an introduction to the API
-===
+---
+title: "Redis Modules API"
+linkTitle: "Redis Modules API"
+weight: 1
+description: >
+    Introduction to writing Redis modules
+aliases:
+    - /topics/streams-intro
+---
 
 The modules documentation is composed of the following pages:
 
@@ -27,7 +34,7 @@ version is "1".
 This document is about an alpha version of Redis modules. API, functionalities
 and other details may change in the future.
 
-# Loading modules
+## Loading modules
 
 In order to test the module you are developing, you can load the module
 using the following `redis.conf` configuration directive:
@@ -53,7 +60,7 @@ The name can be obtained using `MODULE LIST`. However it is good practice
 that the filename of the dynamic library is the same as the name the module
 uses to register itself into the Redis core.
 
-# The simplest module you can write
+## The simplest module you can write
 
 In order to show the different parts of a module, here we'll show a very
 simple module that implements a command that outputs a random number.
@@ -95,7 +102,7 @@ able to work in Redis at the same time, since the function
 `RedisModule_CreateCommand` will fail in one of the modules, so the module
 loading will abort returning an error condition.
 
-# Module initialization
+## Module initialization
 
 The above example shows the usage of the function `RedisModule_Init()`.
 It should be the first function called by the module `OnLoad` function.
@@ -149,7 +156,7 @@ Zooming into the example command implementation, we can find another call:
 This function returns an integer to the client that invoked the command,
 exactly like other Redis commands do, like for example `INCR` or `SCARD`.
 
-# Module cleanup
+## Module cleanup
 
 In most cases, there is no need for special cleanup.
 When a module is unloaded, Redis will automatically unregister commands and
@@ -167,7 +174,7 @@ The `OnUnload` function may prevent module unloading by returning
 `REDISMODULE_ERR`.
 Otherwise, `REDISMODULE_OK` should be returned.
 
-# Setup and dependencies of a Redis module
+## Setup and dependencies of a Redis module
 
 Redis modules don't depend on Redis or some other library, nor they
 need to be compiled with a specific `redismodule.h` file. In order
@@ -178,7 +185,7 @@ exported.
 
 The module will be able to load into different versions of Redis.
 
-# Passing configuration parameters to Redis modules
+## Passing configuration parameters to Redis modules
 
 When the module is loaded with the `MODULE LOAD` command, or using the
 `loadmodule` directive in the `redis.conf` file, the user is able to pass
@@ -196,7 +203,7 @@ document. Normally the module will store the module configuration parameters
 in some `static` global variable that can be accessed module wide, so that
 the configuration can change the behavior of different commands.
 
-# Working with RedisModuleString objects
+## Working with RedisModuleString objects
 
 The command argument vector `argv` passed to module commands, and the
 return value of other module APIs functions, are of type `RedisModuleString`.
@@ -268,7 +275,7 @@ data and not accessing it.
 Also note that sometimes using the low level API is not harder compared to
 the higher level one.
 
-# Calling Redis commands
+## Calling Redis commands
 
 The high level API to access Redis is the sum of the `RedisModule_Call()`
 function, together with the functions needed in order to access the
@@ -390,7 +397,7 @@ The returned string object should be released with `RedisModule_FreeString()`
 as usually, or by enabling automatic memory management (see corresponding
 section).
 
-# Releasing call reply objects
+## Releasing call reply objects
 
 Reply objects must be freed using `RedisModule_FreeCallReply`. For arrays,
 you need to free only the top level reply, not the nested replies.
@@ -504,7 +511,7 @@ call to `ReplyWithArray()`:
 
 This creates a 100 items array having as last element a 10 items array.
 
-# Arity and type checks
+## Arity and type checks
 
 Often commands need to check that the number of arguments and type of the key
 is correct. In order to report a wrong arity, there is a specific function
@@ -749,7 +756,7 @@ for the following functions:
 
 Work in progress.
 
-# Replicating commands
+## Replicating commands
 
 If you want to use module commands exactly like normal Redis commands, in the
 context of replicated Redis instances, or using the AOF file for persistence,
@@ -795,7 +802,7 @@ idea if there are simpler approaches). Commands replicated with `Call()`
 are always the first emitted in the final `MULTI/EXEC` block, while all
 the commands emitted with `Replicate()` will follow.
 
-# Automatic memory management
+## Automatic memory management
 
 Normally when writing programs in the C language, programmers need to manage
 memory manually. This is why the Redis modules API has functions to release
@@ -825,7 +832,7 @@ Automatic memory management is usually the way to go, however experienced
 C programmers may not use it in order to gain some speed and memory usage
 benefit.
 
-# Allocating memory into modules
+## Allocating memory into modules
 
 Normal C programs use `malloc()` and `free()` in order to allocate and
 release memory dynamically. While in Redis modules the use of malloc is
@@ -872,7 +879,7 @@ is automatically released when the command returns.
 So in general short living allocations are a good candidates for the pool
 allocator.
 
-# Writing commands compatible with Redis Cluster
+## Writing commands compatible with Redis Cluster
 
 Documentation missing, please check the following functions inside `module.c`:
 

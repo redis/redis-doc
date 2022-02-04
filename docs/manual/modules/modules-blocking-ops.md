@@ -1,5 +1,12 @@
-Blocking commands in Redis modules
-===
+---
+title: "Redis Modules and blocking commands"
+linkTitle: "Redis Modules and blocking commands"
+weight: 1
+description: >
+    How to implement blocking commands in Redis modules
+aliases:
+    - /topics/modules-blocking-ops
+---
 
 Redis has a few blocking commands among the built-in set of commands.
 One of the most used is `BLPOP` (or the symmetric `BRPOP`) which blocks
