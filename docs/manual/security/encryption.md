@@ -1,11 +1,16 @@
-TLS Support
-===
+---
+title: "TLS"
+linkTitle: "TLS"
+weight: 1
+description: Redis TLS support
+aliases:
+    - /topics/acl
+---
 
 SSL/TLS is supported by Redis starting with version 6 as an optional feature
 that needs to be enabled at compile time.
 
-Getting Started
----
+## Getting Started
 
 ### Building
 
@@ -42,8 +47,7 @@ To connect to this Redis server with `redis-cli`:
         --key ./tests/tls/redis.key \
         --cacert ./tests/tls/ca.crt
 
-Certificate Configuration
----
+### Certificate configuration
 
 In order to support TLS, Redis must be configured with a X.509 certificate and a
 private key. In addition, it is necessary to specify a CA certificate bundle
@@ -57,8 +61,7 @@ tls-ca-cert-file /path/to/ca.crt
 tls-dh-params-file /path/to/redis.dh
 ```
 
-TLS Listening Port
----
+### TLS listening port
 
 The `tls-port` configuration directive enables accepting SSL/TLS connections on
 the specified port. This is **in addition** to listening on `port` for TCP
@@ -73,8 +76,7 @@ port 0
 tls-port 6379
 ```
 
-Client Certificate Authentication
----
+### Client certificate authentication
 
 By default, Redis uses mutual TLS and requires clients to authenticate with a
 valid certificate (authenticated against trusted root CAs specified by
@@ -82,8 +84,7 @@ valid certificate (authenticated against trusted root CAs specified by
 
 You may use `tls-auth-clients no` to disable client authentication.
 
-Replication
----
+### Replication
 
 A Redis master server handles connecting clients and replica servers in the same
 way, so the above `tls-port` and `tls-auth-clients` directives apply to
@@ -92,14 +93,12 @@ replication links as well.
 On the replica server side, it is necessary to specify `tls-replication yes` to
 use TLS for outgoing connections to the master.
 
-Cluster
----
+### Cluster
 
 When Redis Cluster is used, use `tls-cluster yes` in order to enable TLS for the
 cluster bus and cross-node connections.
 
-Sentinel
----
+### Sentinel
 
 Sentinel inherits its networking configuration from the common Redis
 configuration, so all of the above applies to Sentinel as well.
@@ -111,19 +110,16 @@ In addition, the very same `tls-replication` directive will determine whether Se
 port, that accepts connections from other Sentinels, will support TLS as well. That is,
 Sentinel will be configured with `tls-port` if and only if `tls-replication` is enabled. 
 
-Additional Configuration
----
+### Additional configuration
 
 Additional TLS configuration is available to control the choice of TLS protocol
 versions, ciphers and cipher suites, etc. Please consult the self documented
 `redis.conf` for more information.
 
-Performance Considerations
----
+### Performance considerations
 
 TLS adds a layer to the communication stack with overheads due to writing/reading to/from an SSL connection, encryption/decryption and integrity checks. Consequently, using TLS results in a decrease of the achievable throughput per Redis instance (for more information refer to this [discussion](https://github.com/redis/redis/issues/7595)). 
 
-Limitations
----
+### Limitations
 
 I/O threading is currently not supported with TLS.

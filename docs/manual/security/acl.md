@@ -2,7 +2,7 @@
 title: "ACL"
 linkTitle: "ACL"
 weight: 1
-description: 
+description: Redis access control list
 aliases:
     - /topics/acl
 ---
