@@ -1,5 +1,10 @@
-An introduction to Redis data types and abstractions
-===
+---
+title: "Data types tutorial"
+linkTitle: "Data types tutorial"
+weight: 1
+aliases:
+    - /topics/data-types-intro
+---
 
 Redis is not a *plain* key-value store, it is actually a *data structures server*, supporting different kinds of values. What this means is that, while in
 traditional key-value stores you associate string keys to string values, in
@@ -35,8 +40,7 @@ document is a crash course in Redis data types and their most common patterns.
 For all the examples we'll use the `redis-cli` utility, a simple but
 handy command-line utility, to issue commands against the Redis server.
 
-Redis keys
----
+## Keys
 
 Redis keys are binary safe, this means that you can use any binary sequence as a
 key, from a string like "foo" to the content of a JPEG file.
@@ -61,8 +65,7 @@ A few other rules about keys:
 * The maximum allowed key size is 512 MB.
 
 <a name="strings"></a>
-Redis Strings
----
+## Strings
 
 The Redis String type is the simplest type of value you can associate with
 a Redis key. It is the only data type in Memcached, so it is also very natural
@@ -145,8 +148,7 @@ the `MSET` and `MGET` commands:
 
 When `MGET` is used, Redis returns an array of values.
 
-Altering and querying the key space
----
+## Altering and querying the key space
 
 There are commands that are not defined on particular types, but are useful
 in order to interact with the space of keys, and thus, can be used with
@@ -182,23 +184,17 @@ of value stored at the specified key:
     > type mykey
     none
 
-Redis expires: keys with limited time to live
----
+## Key expiration
 
-Before continuing with more complex data structures, we need to discuss
-another feature which works regardless of the value type, and is
-called **Redis expires**. Basically you can set a timeout for a key, which
-is a limited time to live. When the time to live elapses, the key is
-automatically destroyed, exactly as if the user called the `DEL` command
-with the key.
+Before moving on, we should look at an important Redis feature that works regardless of the type of value you're storing: key expiration. Key expiration lets you set a timeout for a key, also known as a "time to live", or "TTL". When the time to live elapses, the key is automatically destroyed. 
 
-A few quick info about Redis expires:
+A few important notes about key expiration:
 
 * They can be set both using seconds or milliseconds precision.
 * However the expire time resolution is always 1 millisecond.
 * Information about expires are replicated and persisted on disk, the time virtually passes when your Redis server remains stopped (this means that Redis saves the date at which a key will expire).
 
-Setting an expire is trivial:
+Use the `EXPIRE` command to set a key's expiration:
 
     > set key some-value
     OK
@@ -230,8 +226,7 @@ In order to set and check expires in milliseconds, check the `PEXPIRE` and
 the `PTTL` commands, and the full list of `SET` options.
 
 <a name="lists"></a>
-Redis Lists
----
+## Lists
 
 To explain the List data type it's better to start with a little bit of theory,
 as the term *List* is often used in an improper way by information technology
@@ -265,8 +260,7 @@ When fast access to the middle of a large collection of elements is important,
 there is a different data structure that can be used, called sorted sets.
 Sorted sets will be covered later in this tutorial.
 
-First steps with Redis Lists
----
+### First steps with Redis Lists
 
 The `LPUSH` command adds a new element into a list, on the
 left (at the head), while the `RPUSH` command adds a new
@@ -333,8 +327,7 @@ pop. If we try to pop yet another element, this is the result we get:
 Redis returned a NULL value to signal that there are no elements in the
 list.
 
-Common use cases for lists
----
+### Common use cases for lists
 
 Lists are useful for a number of tasks, two very representative use cases
 are the following:
@@ -355,8 +348,7 @@ photos published in a photo sharing social network and you want to speedup acces
 * Every time a user posts a new photo, we add its ID into a list with `LPUSH`.
 * When users visit the home page, we use `LRANGE 0 9` in order to get the latest 10 posted items.
 
-Capped lists
----
+### Capped lists
 
 In many use cases we just want to use lists to store the *latest items*,
 whatever they are: social network updates, logs, or anything else.
@@ -448,8 +440,7 @@ suggest that you read more on the following:
 * It is possible to build safer queues or rotating queues using `LMOVE`.
 * There is also a blocking variant of the command, called `BLMOVE`.
 
-Automatic creation and removal of keys
----
+## Automatic creation and removal of keys
 
 So far in our examples we never had to create empty lists before pushing
 elements, or removing empty lists when they no longer have elements inside.
@@ -509,8 +500,7 @@ Example of rule 3:
     (nil)
 
 <a name="hashes"></a>
-Redis Hashes
----
+## Hashes
 
 Redis hashes look exactly how one might expect a "hash" to look, with field-value pairs:
 
@@ -554,8 +544,7 @@ It is worth noting that small hashes (i.e., a few elements with small values) ar
 encoded in special way in memory that make them very memory efficient.
 
 <a name="sets"></a>
-Redis Sets
----
+## Sets
 
 Redis Sets are unordered collections of strings. The
 `SADD` command adds new elements to a set. It's also possible
@@ -689,8 +678,7 @@ set, there is the `SRANDMEMBER` command suitable for the task. It also features
 the ability to return both repeating and non-repeating elements.
 
 <a name="sorted-sets"></a>
-Redis Sorted sets
----
+## Sorted sets
 
 Sorted sets are a data type which is similar to a mix between a Set and
 a Hash. Like sets, sorted sets are composed of unique, non-repeating
@@ -795,8 +783,7 @@ It is possible to return scores as well, using the `WITHSCORES` argument:
     17) "Linus Torvalds"
     18) "1969"
 
-Operating on ranges
----
+### Operating on ranges
 
 Sorted sets are more powerful than this. They can operate on ranges.
 Let's get all the individuals that were born up to 1950 inclusive. We
@@ -831,8 +818,7 @@ position of an element in the set of the ordered elements.
 The `ZREVRANK` command is also available in order to get the rank, considering
 the elements sorted a descending way.
 
-Lexicographical scores
----
+### Lexicographical scores
 
 With recent versions of Redis 2.8, a new feature was introduced that allows
 getting ranges lexicographically, assuming elements in a sorted set are all
@@ -903,8 +889,7 @@ to show the top-N users, and the user rank in the leader board (e.g., "you are
 the #4932 best score here").
 
 <a name="bitmaps"></a>
-Bitmaps
----
+## Bitmaps
 
 Bitmaps are not an actual data type, but a set of bit-oriented operations
 defined on the String type. Since strings are binary safe blobs and their
@@ -1026,8 +1011,7 @@ performed by users in a search form every day.
 Redis is also able to perform the union of HLLs, please check the
 [full documentation](/commands#hyperloglog) for more information.
 
-Other notable features
----
+## Other notable features
 
 There are other important things in the Redis API that can't be explored
 in the context of this document, but are worth your attention:
@@ -1036,8 +1020,7 @@ in the context of this document, but are worth your attention:
 * It is possible to run [Lua scripts server side](/commands/eval) to improve latency and bandwidth.
 * Redis is also a [Pub-Sub server](/topics/pubsub).
 
-Learn more
----
+## Learn more
 
 This tutorial is in no way complete and has covered just the basics of the API.
 Read the [command reference](/commands) to discover a lot more.
