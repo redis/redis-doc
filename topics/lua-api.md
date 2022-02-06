@@ -383,11 +383,11 @@ This function prints its argument in the [Redis Lua debugger](/topics/ldb) conso
 * Available in scripts: yes
 * Available in functions: yes
 
-This function is used to check if the current user running the script has [ACL](/topics/acl) permissions to execute the given command with the given arguments.
+This function is used for checking if the current user running the script has [ACL](/topics/acl) permissions to execute the given command with the given arguments.
 
-The return value is a boolean `true` in case the current user has permissions to execute the command (via a call to [reids.call](#redis.call) or [redis.pcall](#redis.pcall)) or `false` in case they don't.
+The return value is a boolean `true` in case the current user has permissions to execute the command (via a call to [redis.call](#redis.call) or [redis.pcall](#redis.pcall)) or `false` in case they don't.
 
-The function will raise an error if the passes command or its arguments are not a valid Redis command.
+The function will raise an error if the passed command or its arguments are invalid.
 
 ### <a name="redis.register_function"></a> `redis.register_function`
 
