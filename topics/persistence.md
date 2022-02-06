@@ -335,7 +335,7 @@ You may use this script as a basis for your own backup script, or it might suffi
 
 Running the script is as simple as `./aof_backup.sh mybackup.tar.gz`.
 
-Following is a low level description of the script works:
+Following is a description of the script works:
 
 1. Verify the server isn't performing a rewrite.
 2. Create hard links to files in the `appenddirname` directory.
@@ -345,7 +345,7 @@ Following is a low level description of the script works:
 5. Delete the hard links.
 
 Prior to version 7.0.0 backing up the AOF file can be done simply by copying the aof file (like backing up the RDB snapshot). The file may lack the final part
-but Redis will still be able to load it (see the previous sections about truncated AOF files).
+but Redis will still be able to load it (see the previous sections about [truncated AOF files](#what-should-i-do-if-my-aof-gets-truncated)).
 
 
 Disaster recovery
