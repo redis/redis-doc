@@ -2766,6 +2766,10 @@
             [
                 "4.0.0",
                 "Added node IDs."
+            ],
+            [
+                "7.0.0",
+                "Added additional networking metadata and added support for hostnames and unknown endpoints."
             ]
         ],
         "acl_categories": [
@@ -3994,10 +3998,10 @@
         ]
     },
     "FCALL": {
-        "summary": "PATCH__TBD__38__",
+        "summary": "Invoke a function",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__37__",
+        "complexity": "Depends on the function that is executed.",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4056,10 +4060,10 @@
         ]
     },
     "FCALL_RO": {
-        "summary": "PATCH__TBD__7__",
+        "summary": "Invoke a read-only function",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__6__",
+        "complexity": "Depends on the function that is executed.",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4397,7 +4401,7 @@
             {
                 "name": "library-description",
                 "type": "string",
-                "token": "DESC",
+                "token": "DESCRIPTION",
                 "optional": true
             },
             {
