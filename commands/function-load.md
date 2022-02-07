@@ -5,7 +5,7 @@ Presently, Redis only supports the _Lua_ engine.
 
 The _library-name_ argument is the unique name of the library.
 Following it is the source code that implements the library.
-For the Lua engine, the implementation should declare one or more entry points to the library with the [`redis.register_function()` API](/topics/lua-api#redis.register_function()).
+For the Lua engine, the implementation should declare one or more entry points to the library with the [`redis.register_function()` API](/topics/lua-api#redis.register_function).
 Once loaded, you can call the functions in the library with the `FCALL` (or `FCALL_RO` when applicable) command.
 
 When attempting to load a library with a name that already exists, the Redis server returns an error.
