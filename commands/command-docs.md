@@ -6,8 +6,8 @@ You can use the optional _command-name_ argument to specify the names of one or 
 The reply includes a map for each returned command.
 The following keys are always present in the reply:
 
-* **summary:** short command description (always present).
-* **since:** the Redis version that added the command (always present).
+* **summary:** short command description.
+* **since:** the Redis version that added the command.
 * **group:** the functional group to which the command belongs (always present).
   Possible values are:
   - _bitmap_
@@ -50,3 +50,9 @@ The following keys may be included in the mapped reply as well:
 @return
 
 @array-reply: a map as a flattened array as described above.
+
+@examples
+
+```cli
+COMMAND DOCS SET
+```
