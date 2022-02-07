@@ -8,7 +8,7 @@ The following keys are always present in the reply:
 
 * **summary:** short command description.
 * **since:** the Redis version that added the command.
-* **group:** the functional group to which the command belongs (always present).
+* **group:** the functional group to which the command belongs.
   Possible values are:
   - _bitmap_
   - _cluster_
