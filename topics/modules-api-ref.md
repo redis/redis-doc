@@ -152,6 +152,31 @@ Return non-zero if a module command, that was declared with the
 flag "getkeys-api", is called in a special way to get the keys positions
 and not to get executed. Otherwise zero is returned.
 
+<span id="RedisModule_KeyAtPosWithFlags"></span>
+
+### `RedisModule_KeyAtPosWithFlags`
+
+    void RedisModule_KeyAtPosWithFlags(RedisModuleCtx *ctx, int pos, int flags);
+
+When a module command is called in order to obtain the position of
+keys, since it was flagged as "getkeys-api" during the registration,
+the command implementation checks for this special call using the
+[`RedisModule_IsKeysPositionRequest()`](#RedisModule_IsKeysPositionRequest) API and uses this function in
+order to report keys.
+
+The supported flags are the ones used by [`RedisModule_SetCommandInfo`](#RedisModule_SetCommandInfo), see `REDISMODULE_CMD_KEY_`*.
+
+
+The following is an example of how it could be used:
+
+    if (RedisModule_IsKeysPositionRequest(ctx)) {
+        RedisModule_KeyAtPosWithFlags(ctx, 2, REDISMODULE_CMD_KEY_RO | REDISMODULE_CMD_KEY_ACCESS);
+        RedisModule_KeyAtPosWithFlags(ctx, 1, REDISMODULE_CMD_KEY_RW | REDISMODULE_CMD_KEY_UPDATE | REDISMODULE_CMD_KEY_ACCESS);
+    }
+
+ Note: in the example above the get keys API could have been handled by key-specs (preferred).
+ Implementing the getkeys-api is required only when is it not possible to declare key-specs that cover all keys.
+
 <span id="RedisModule_KeyAtPos"></span>
 
 ### `RedisModule_KeyAtPos`
@@ -160,20 +185,9 @@ and not to get executed. Otherwise zero is returned.
 
 **Available since:** 4.0.0
 
-When a module command is called in order to obtain the position of
-keys, since it was flagged as "getkeys-api" during the registration,
-the command implementation checks for this special call using the
-[`RedisModule_IsKeysPositionRequest()`](#RedisModule_IsKeysPositionRequest) API and uses this function in
-order to report keys, like in the following example:
-
-    if (RedisModule_IsKeysPositionRequest(ctx)) {
-        RedisModule_KeyAtPos(ctx,1);
-        RedisModule_KeyAtPos(ctx,2);
-    }
-
- Note: in the example below the get keys API would not be needed since
- keys are at fixed positions. This interface is only used for commands
- with a more complex structure.
+This API existed before [`RedisModule_KeyAtPosWithFlags`](#RedisModule_KeyAtPosWithFlags) was added, now deprecated and
+can be used for compatibility with older versions, before key-specs and flags
+were introduced.
 
 <span id="RedisModule_CreateCommand"></span>
 
@@ -408,8 +422,9 @@ All fields except `version` are optional. Explanation of the fields:
     versions where RM_SetCommandInfo is not available.
 
     Note that key-specs don't fully replace the "getkeys-api" (see
-    RM_CreateCommand, RM_IsKeysPositionRequest and RM_KeyAtPos) so it may be
-    a good idea to supply both key-specs and a implement the getkeys-api.
+    RM_CreateCommand, RM_IsKeysPositionRequest and RM_KeyAtPosWithFlags) so
+    it may be a good idea to supply both key-specs and implement the
+    getkeys-api.
 
     A key-spec has the following structure:
 
@@ -6472,6 +6487,36 @@ such as:
 
 If `old_value` is non-NULL, the old value is returned by reference.
 
+<span id="RedisModule_GetCommandKeysWithFlags"></span>
+
+### `RedisModule_GetCommandKeysWithFlags`
+
+    int *RedisModule_GetCommandKeysWithFlags(RedisModuleCtx *ctx,
+                                             RedisModuleString **argv,
+                                             int argc,
+                                             int *num_keys,
+                                             int **out_flags);
+
+For a specified command, parse its arguments and return an array that
+contains the indexes of all key name arguments. This function is
+essentially a more efficient way to do `COMMAND GETKEYS`.
+
+The `out_flags` argument is optional, and can be set to NULL.
+When provided it is filled with `REDISMODULE_CMD_KEY_` flags in matching
+indexes with the key indexes of the returned array.
+
+A NULL return value indicates the specified command has no keys, or
+an error condition. Error conditions are indicated by setting errno
+as follows:
+
+* ENOENT: Specified command does not exist.
+* EINVAL: Invalid command arity specified.
+
+NOTE: The returned array is not a Redis Module object so it does not
+get automatically freed even when auto-memory is used. The caller
+must explicitly call [`RedisModule_Free()`](#RedisModule_Free) to free it, same as the `out_flags` pointer if
+used.
+
 <span id="RedisModule_GetCommandKeys"></span>
 
 ### `RedisModule_GetCommandKeys`
@@ -6483,20 +6528,7 @@ If `old_value` is non-NULL, the old value is returned by reference.
 
 **Available since:** 6.0.9
 
-For a specified command, parse its arguments and return an array that
-contains the indexes of all key name arguments. This function is
-essentially a more efficient way to do `COMMAND GETKEYS`.
-
-A NULL return value indicates the specified command has no keys, or
-an error condition. Error conditions are indicated by setting errno
-as follows:
-
-* ENOENT: Specified command does not exist.
-* EINVAL: Invalid command arity specified.
-
-NOTE: The returned array is not a Redis Module object so it does not
-get automatically freed even when auto-memory is used. The caller
-must explicitly call [`RedisModule_Free()`](#RedisModule_Free) to free it.
+Identinal to [`RedisModule_GetCommandKeysWithFlags`](#RedisModule_GetCommandKeysWithFlags) when flags are not needed.
 
 <span id="RedisModule_GetCurrentCommandName"></span>
 
@@ -6762,6 +6794,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_GetClusterSize`](#RedisModule_GetClusterSize)
 * [`RedisModule_GetCommand`](#RedisModule_GetCommand)
 * [`RedisModule_GetCommandKeys`](#RedisModule_GetCommandKeys)
+* [`RedisModule_GetCommandKeysWithFlags`](#RedisModule_GetCommandKeysWithFlags)
 * [`RedisModule_GetContextFlags`](#RedisModule_GetContextFlags)
 * [`RedisModule_GetContextFlagsAll`](#RedisModule_GetContextFlagsAll)
 * [`RedisModule_GetCurrentCommandName`](#RedisModule_GetCurrentCommandName)
@@ -6814,6 +6847,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_IsModuleNameBusy`](#RedisModule_IsModuleNameBusy)
 * [`RedisModule_IsSubEventSupported`](#RedisModule_IsSubEventSupported)
 * [`RedisModule_KeyAtPos`](#RedisModule_KeyAtPos)
+* [`RedisModule_KeyAtPosWithFlags`](#RedisModule_KeyAtPosWithFlags)
 * [`RedisModule_KeyExists`](#RedisModule_KeyExists)
 * [`RedisModule_KeyType`](#RedisModule_KeyType)
 * [`RedisModule_KillForkChild`](#RedisModule_KillForkChild)
