@@ -4,7 +4,7 @@ By default, the reply includes all of the server's commands.
 You can use the optional _command-name_ argument to specify the names of one or more commands.
 
 The reply includes a map for each returned command.
-The following keys are always present in the reply:
+The following keys may be included in the mapped reply:
 
 * **summary:** short command description.
 * **since:** the Redis version that added the command.
@@ -28,9 +28,6 @@ The following keys are always present in the reply:
   - _stream_
   - _string_
   - _transactions_
-
-The following keys may be included in the mapped reply as well:
-
 * **complexity:** a short explanation about the command's time complexity.
 * **doc-flags:** an array of documentation flags.
   Possible values are:
