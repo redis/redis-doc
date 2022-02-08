@@ -582,7 +582,8 @@
                 },
                 "RW": true,
                 "access": true,
-                "update": true
+                "update": true,
+                "variable_flags": true
             }
         ],
         "arguments": [
@@ -2854,6 +2855,21 @@
             "stale"
         ]
     },
+    "COMMAND GETKEYSANDFLAGS": {
+        "summary": "Extract keys given a full Redis command",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(N) where N is the number of arguments to the command",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": -4,
+        "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
     "COMMAND HELP": {
         "summary": "Show helpful text about the different subcommands",
         "since": "5.0.0",
@@ -4244,7 +4260,7 @@
         "arity": 3,
         "arguments": [
             {
-                "name": "function-name",
+                "name": "library-name",
                 "type": "string"
             }
         ],
@@ -11111,7 +11127,8 @@
                 },
                 "RW": true,
                 "access": true,
-                "update": true
+                "update": true,
+                "variable_flags": true
             }
         ],
         "arguments": [
