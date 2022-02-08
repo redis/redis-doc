@@ -183,9 +183,10 @@ We don't expect the addition of such commands in the future.
 
 ### variable_flags
 
-In some commands the flags for the same key name argument can depend on other arguments.
-For example the SET command has a GET argument, without the GET argument, SET is a write-only command, but with it, it becomes read+write.
-When this flag is present, it means that the flags in the key-spec will cover all options, but depending on some arguments, some flags can be removed or changed.
+In some commands, the flags for the same key name argument can depend on other arguments.
+For example, consider the `SET` command and its optional  _GET_ argument.
+Without the _GET_ argument, `SET` is write-only, but it becomes a read and write command with it.
+When this flag is present, it means that the key specification flags cover all possible options, but the effective flags depend on other arguments.
 
 ## Examples
 
