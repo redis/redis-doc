@@ -429,7 +429,6 @@ virtualized
 vmstat
 vtype
 wildcards
-xdel
 ziplist
 ziplists
 zset

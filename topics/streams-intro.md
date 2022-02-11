@@ -532,9 +532,9 @@ This command uses subcommands in order to show different information about the s
  6) (integer) 2
  7) "last-generated-id"
  8) "1638125141232-0"
- 9) "xdel-max-id"
+ 9) "max-deleted-entryid"
 10) "0-0"
-11) "last-offset"
+11) "entries-added"
 12) (integer) 2
 13) "groups"
 14) (integer) 1
@@ -560,7 +560,7 @@ The output shows information about how the stream is encoded internally, and als
     6) (integer) 2
     7) "last-delivered-id"
     8) "1638126030001-0"
-    9) "last-delivered-offset"
+    9) "entries-read"
    10) (integer) 2
    11) "lag"
    12) (integer) 0
@@ -572,7 +572,7 @@ The output shows information about how the stream is encoded internally, and als
     6) (integer) 0
     7) "last-delivered-id"
     8) "1638126028070-0"
-    9) "last-delivered-offset"
+    9) "entries-read"
    10) (integer) 1
    11) "lag"
    12) (integer) 1

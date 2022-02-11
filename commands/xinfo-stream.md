@@ -7,8 +7,8 @@ The informative details provided by this command are:
 * **radix-tree-nodes**: the number of nodes in the underlying radix data structure
 * **groups**: the number of consumer groups defined for the stream
 * **last-generated-id**: the ID of the least-recently entry that was added to the stream
-* **xdel-max-id**: the maximal entry ID that was deleted from the stream
-* **last-offset**: the count of all entries added to the stream during its lifetime
+* **max-deleted-entry-id**: the maximal entry ID that was deleted from the stream
+* **entries-added**: the count of all entries added to the stream during its lifetime
 * **first-entry**: the ID and field-value tuples of the first entry in the stream
 * **last-entry**: the ID and field-value tuples of the last entry in the stream
 
@@ -22,10 +22,6 @@ The default `COUNT` is 10 and a `COUNT` of 0 means that all entries will be retu
 @return
 
 @array-reply: a list of informational bits
-
-@history
-
-* `>= 7.0`: Added the `xdel-max-id`, `last-offset`, `last-delivered-offset` and `lag` fields.
 
 @examples
 
@@ -41,9 +37,9 @@ Default reply:
  6) (integer) 2
  7) "last-generated-id"
  8) "1638125141232-0"
- 9) "xdel-max-id"
+ 9) "max-deleted-entry-id"
 10) "0-0"
-11) "last-offset"
+11) "entries-added"
 12) (integer) 2
 13) "groups"
 14) (integer) 1
@@ -80,9 +76,9 @@ OK
  6) (integer) 2
  7) "last-generated-id"
  8) "1638125141232-0"
- 9) "xdel-max-id"
+ 9) "max-deleted-entry-id"
 10) "0-0"
-11) "last-offset"
+11) "entries-added"
 12) (integer) 2
 13) "entries"
 14) 1) 1) "1638125133432-0"
@@ -96,7 +92,7 @@ OK
         2) "mygroup"
         3) "last-delivered-id"
         4) "1638125133432-0"
-        5) "last-delivered-offset"
+        5) "entries-read"
         6) (integer) 1
         7) "lag"
         8) (integer) 1
