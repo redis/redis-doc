@@ -56,6 +56,40 @@
             "stale"
         ]
     },
+    "ACL DRYRUN": {
+        "summary": "Returns whether the user can execute the given command without executing the command.",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(1).",
+        "acl_categories": [
+            "@admin",
+            "@slow",
+            "@dangerous"
+        ],
+        "arity": -4,
+        "arguments": [
+            {
+                "name": "username",
+                "type": "string"
+            },
+            {
+                "name": "command",
+                "type": "string"
+            },
+            {
+                "name": "arg",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "admin",
+            "noscript",
+            "loading",
+            "stale"
+        ]
+    },
     "ACL GENPASS": {
         "summary": "Generate a pseudorandom secure password to use for ACL users",
         "since": "6.0.0",
@@ -87,6 +121,10 @@
             [
                 "6.2.0",
                 "Added Pub/Sub channel patterns."
+            ],
+            [
+                "7.0.0",
+                "Added selectors and changed the format of key and channel patterns from a list to their rule representation."
             ]
         ],
         "acl_categories": [
@@ -221,6 +259,10 @@
             [
                 "6.2.0",
                 "Added Pub/Sub channel patterns."
+            ],
+            [
+                "7.0.0",
+                "Added selectors and key based permissions."
             ]
         ],
         "acl_categories": [
@@ -308,7 +350,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -375,7 +418,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "BGREWRITEAOF": {
@@ -391,7 +435,8 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "BGSAVE": {
@@ -422,7 +467,8 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "BITCOUNT": {
@@ -458,7 +504,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -518,6 +565,7 @@
         "arity": -2,
         "key_specs": [
             {
+                "notes": "This command allows both access and modification of the key",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -532,7 +580,10 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true,
+                "variable_flags": true
             }
         ],
         "arguments": [
@@ -623,7 +674,8 @@
         ],
         "command_flags": [
             "write",
-            "denyoom"
+            "denyoom",
+            "movablekeys"
         ]
     },
     "BITFIELD_RO": {
@@ -653,7 +705,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -710,7 +763,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -727,7 +781,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -785,7 +840,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -871,8 +927,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -889,7 +946,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -943,7 +1001,8 @@
         "command_flags": [
             "write",
             "denyoom",
-            "noscript"
+            "noscript",
+            "blocking"
         ]
     },
     "BLMPOP": {
@@ -974,7 +1033,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1017,6 +1078,7 @@
         ],
         "command_flags": [
             "write",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -1054,7 +1116,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1071,7 +1135,8 @@
         ],
         "command_flags": [
             "write",
-            "noscript"
+            "noscript",
+            "blocking"
         ]
     },
     "BRPOP": {
@@ -1108,7 +1173,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1125,7 +1192,8 @@
         ],
         "command_flags": [
             "write",
-            "noscript"
+            "noscript",
+            "blocking"
         ]
     },
     "BRPOPLPUSH": {
@@ -1164,8 +1232,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -1182,7 +1251,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -1204,7 +1274,8 @@
         "command_flags": [
             "write",
             "denyoom",
-            "noscript"
+            "noscript",
+            "blocking"
         ],
         "doc_flags": [
             "deprecated"
@@ -1238,7 +1309,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1281,6 +1354,7 @@
         ],
         "command_flags": [
             "write",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -1318,7 +1392,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1336,6 +1412,7 @@
         "command_flags": [
             "write",
             "noscript",
+            "blocking",
             "fast"
         ]
     },
@@ -1373,7 +1450,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -1391,6 +1470,7 @@
         "command_flags": [
             "write",
             "noscript",
+            "blocking",
             "fast"
         ]
     },
@@ -1513,9 +1593,11 @@
         "arity": 2,
         "command_flags": [
             "noscript",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLIENT KILL": {
@@ -1708,9 +1790,11 @@
         "command_flags": [
             "admin",
             "noscript",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLIENT NO-EVICT": {
@@ -2043,8 +2127,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER ADDSLOTSRANGE": {
@@ -2077,8 +2164,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER BUMPEPOCH": {
@@ -2094,8 +2184,11 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER COUNT-FAILURE-REPORTS": {
@@ -2117,8 +2210,10 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER COUNTKEYSINSLOT": {
@@ -2137,8 +2232,10 @@
             }
         ],
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER DELSLOTS": {
@@ -2161,8 +2258,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER DELSLOTSRANGE": {
@@ -2195,8 +2295,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER FAILOVER": {
@@ -2231,8 +2334,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER FLUSHSLOTS": {
@@ -2248,8 +2354,11 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER FORGET": {
@@ -2271,8 +2380,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER GETKEYSINSLOT": {
@@ -2295,8 +2407,10 @@
             }
         ],
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER HELP": {
@@ -2323,8 +2437,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER KEYSLOT": {
@@ -2343,8 +2459,10 @@
             }
         ],
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER LINKS": {
@@ -2357,8 +2475,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER MEET": {
@@ -2384,8 +2504,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER MYID": {
@@ -2398,8 +2521,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER NODES": {
@@ -2412,8 +2537,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER REPLICAS": {
@@ -2435,8 +2562,10 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER REPLICATE": {
@@ -2458,8 +2587,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER RESET": {
@@ -2495,8 +2627,10 @@
         "command_flags": [
             "admin",
             "noscript",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SAVECONFIG": {
@@ -2512,8 +2646,11 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SET-CONFIG-EPOCH": {
@@ -2535,8 +2672,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SETSLOT": {
@@ -2584,8 +2724,11 @@
         ],
         "command_flags": [
             "admin",
-            "random",
-            "stale"
+            "stale",
+            "no_async_loading"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SLAVES": {
@@ -2609,8 +2752,10 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "CLUSTER SLOTS": {
@@ -2622,6 +2767,10 @@
             [
                 "4.0.0",
                 "Added node IDs."
+            ],
+            [
+                "7.0.0",
+                "Added additional networking metadata and added support for hostnames and unknown endpoints."
             ]
         ],
         "acl_categories": [
@@ -2629,8 +2778,10 @@
         ],
         "arity": 2,
         "command_flags": [
-            "random",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "COMMAND": {
@@ -2644,9 +2795,11 @@
         ],
         "arity": -1,
         "command_flags": [
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "COMMAND COUNT": {
@@ -2664,9 +2817,47 @@
             "stale"
         ]
     },
+    "COMMAND DOCS": {
+        "summary": "Get array of specific Redis command documentation",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(N) where N is the number of commands to look up",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "command-name",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
     "COMMAND GETKEYS": {
         "summary": "Extract keys given a full Redis command",
         "since": "2.8.13",
+        "group": "server",
+        "complexity": "O(N) where N is the number of arguments to the command",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": -4,
+        "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
+    "COMMAND GETKEYSANDFLAGS": {
+        "summary": "Extract keys given a full Redis command",
+        "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of arguments to the command",
         "acl_categories": [
@@ -2695,19 +2886,26 @@
         ]
     },
     "COMMAND INFO": {
-        "summary": "Get array of specific Redis command details",
+        "summary": "Get array of specific Redis command details, or all when no argument is given.",
         "since": "2.8.13",
         "group": "server",
-        "complexity": "O(N) when N is number of commands to look up",
+        "complexity": "O(N) where N is the number of commands to look up",
+        "history": [
+            [
+                "7.0.0",
+                "Allowed to be called with no argument to get info on all commands."
+            ]
+        ],
         "acl_categories": [
             "@slow",
             "@connection"
         ],
-        "arity": -3,
+        "arity": -2,
         "arguments": [
             {
                 "name": "command-name",
                 "type": "string",
+                "optional": true,
                 "multiple": true
             }
         ],
@@ -2892,6 +3090,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "COPY": {
@@ -2921,7 +3123,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             },
             {
                 "begin_search": {
@@ -2938,7 +3141,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -2984,6 +3188,10 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:agg_sum"
         ]
     },
     "DEBUG": {
@@ -3034,7 +3242,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3077,7 +3287,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3124,7 +3336,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RM": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -3137,6 +3350,10 @@
         ],
         "command_flags": [
             "write"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "DISCARD": {
@@ -3153,7 +3370,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "DUMP": {
@@ -3183,7 +3401,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3194,8 +3413,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ECHO": {
@@ -3230,6 +3451,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RW and UPDATE",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -3244,8 +3466,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3273,6 +3496,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3305,8 +3529,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3334,6 +3559,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3366,7 +3592,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3392,6 +3619,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -3409,6 +3637,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RO and ACCESS",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -3423,7 +3652,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3449,6 +3679,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -3504,7 +3735,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -3518,6 +3749,10 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "EXPIRE": {
@@ -3553,7 +3788,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3633,7 +3869,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3643,7 +3880,7 @@
                 "key_spec_index": 0
             },
             {
-                "name": "timestamp",
+                "name": "unix-time-seconds",
                 "type": "unix-time"
             },
             {
@@ -3707,7 +3944,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3719,7 +3957,6 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
         ]
     },
@@ -3777,10 +4014,10 @@
         ]
     },
     "FCALL": {
-        "summary": "PATCH__TBD__38__",
+        "summary": "Invoke a function",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__37__",
+        "complexity": "Depends on the function that is executed.",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -3788,6 +4025,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RW and UPDATE",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -3802,8 +4040,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -3829,6 +4068,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "may_replicate",
             "no_mandatory_keys",
@@ -3836,10 +4076,10 @@
         ]
     },
     "FCALL_RO": {
-        "summary": "PATCH__TBD__7__",
+        "summary": "Invoke a read-only function",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__6__",
+        "complexity": "Depends on the function that is executed.",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -3847,6 +4087,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "We cannot tell how the keys will be used so we assume the worst, RO and ACCESS",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -3861,7 +4102,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -3887,6 +4129,7 @@
         ],
         "command_flags": [
             "noscript",
+            "stale",
             "skip_monitor",
             "no_mandatory_keys",
             "movablekeys"
@@ -3937,6 +4180,10 @@
         ],
         "command_flags": [
             "write"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FLUSHDB": {
@@ -3984,6 +4231,10 @@
         ],
         "command_flags": [
             "write"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION": {
@@ -3995,48 +4246,6 @@
             "@slow"
         ],
         "arity": -2
-    },
-    "FUNCTION CREATE": {
-        "summary": "Create a function with the given arguments (name, code, description)",
-        "since": "7.0.0",
-        "group": "scripting",
-        "complexity": "O(1) (considering compilation time is redundant)",
-        "acl_categories": [
-            "@write",
-            "@slow",
-            "@scripting"
-        ],
-        "arity": -5,
-        "arguments": [
-            {
-                "name": "engine-name",
-                "type": "string"
-            },
-            {
-                "name": "function-name",
-                "type": "string"
-            },
-            {
-                "name": "replace",
-                "type": "pure-token",
-                "token": "REPLACE",
-                "optional": true
-            },
-            {
-                "name": "function-description",
-                "type": "string",
-                "token": "DESC",
-                "optional": true
-            },
-            {
-                "name": "function-code",
-                "type": "string"
-            }
-        ],
-        "command_flags": [
-            "write",
-            "noscript"
-        ]
     },
     "FUNCTION DELETE": {
         "summary": "Delete a function by name",
@@ -4051,13 +4260,17 @@
         "arity": 3,
         "arguments": [
             {
-                "name": "function-name",
+                "name": "library-name",
                 "type": "string"
             }
         ],
         "command_flags": [
             "write",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION DUMP": {
@@ -4107,6 +4320,10 @@
         "command_flags": [
             "write",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION HELP": {
@@ -4124,8 +4341,8 @@
             "stale"
         ]
     },
-    "FUNCTION INFO": {
-        "summary": "Return information about a function by function name",
+    "FUNCTION KILL": {
+        "summary": "Kill the function currently in execution.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -4133,11 +4350,32 @@
             "@slow",
             "@scripting"
         ],
-        "arity": -3,
+        "arity": 2,
+        "command_flags": [
+            "noscript",
+            "allow_busy"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:one_succeeded"
+        ]
+    },
+    "FUNCTION LIST": {
+        "summary": "List information about all the functions",
+        "since": "7.0.0",
+        "group": "scripting",
+        "complexity": "O(N) where N is the number of functions",
+        "acl_categories": [
+            "@slow",
+            "@scripting"
+        ],
+        "arity": -2,
         "arguments": [
             {
-                "name": "function-name",
-                "type": "string"
+                "name": "library-name-pattern",
+                "type": "string",
+                "token": "LIBRARYNAME",
+                "optional": true
             },
             {
                 "name": "withcode",
@@ -4150,32 +4388,51 @@
             "noscript"
         ]
     },
-    "FUNCTION KILL": {
-        "summary": "Kill the function currently in execution.",
+    "FUNCTION LOAD": {
+        "summary": "Create a function with the given arguments (name, code, description)",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "O(1)",
+        "complexity": "O(1) (considering compilation time is redundant)",
         "acl_categories": [
+            "@write",
             "@slow",
             "@scripting"
         ],
-        "arity": 2,
-        "command_flags": [
-            "noscript"
-        ]
-    },
-    "FUNCTION LIST": {
-        "summary": "List information about all the functions",
-        "since": "7.0.0",
-        "group": "scripting",
-        "complexity": "O(N) where N is the number of functions",
-        "acl_categories": [
-            "@slow",
-            "@scripting"
+        "arity": -5,
+        "arguments": [
+            {
+                "name": "engine-name",
+                "type": "string"
+            },
+            {
+                "name": "library-name",
+                "type": "string"
+            },
+            {
+                "name": "replace",
+                "type": "pure-token",
+                "token": "REPLACE",
+                "optional": true
+            },
+            {
+                "name": "library-description",
+                "type": "string",
+                "token": "DESCRIPTION",
+                "optional": true
+            },
+            {
+                "name": "function-code",
+                "type": "string"
+            }
         ],
-        "arity": 2,
         "command_flags": [
+            "write",
+            "denyoom",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION RESTORE": {
@@ -4219,7 +4476,12 @@
         ],
         "command_flags": [
             "write",
+            "denyoom",
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "FUNCTION STATS": {
@@ -4233,7 +4495,12 @@
         ],
         "arity": 2,
         "command_flags": [
-            "noscript"
+            "noscript",
+            "allow_busy"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:one_succeeded"
         ]
     },
     "GEOADD": {
@@ -4269,7 +4536,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -4355,7 +4623,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -4431,7 +4700,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -4477,7 +4747,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -4531,7 +4802,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             },
             {
                 "begin_search": {
@@ -4549,7 +4821,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -4567,7 +4840,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -4721,7 +4995,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             },
             {
                 "begin_search": {
@@ -4739,7 +5014,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -4757,7 +5033,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -4906,7 +5183,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5017,6 +5295,12 @@
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
         "deprecated_since": "6.2.0",
         "replaced_by": "`GEOSEARCH` with the `BYRADIUS` argument",
+        "history": [
+            [
+                "6.2.0",
+                "Added the `ANY` option for `COUNT`."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@geo",
@@ -5039,7 +5323,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5118,6 +5403,7 @@
                         "name": "any",
                         "type": "pure-token",
                         "token": "ANY",
+                        "since": "6.2.0",
                         "optional": true
                     }
                 ]
@@ -5174,7 +5460,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5370,7 +5657,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -5387,7 +5675,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5577,7 +5866,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5619,7 +5909,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5665,7 +5956,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -5693,6 +5986,7 @@
         "arity": -2,
         "key_specs": [
             {
+                "notes": "RW and UPDATE because it changes the TTL",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -5707,7 +6001,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -5732,13 +6028,13 @@
                         "token": "PX"
                     },
                     {
-                        "name": "unix-time",
-                        "type": "integer",
+                        "name": "unix-time-seconds",
+                        "type": "unix-time",
                         "token": "EXAT"
                     },
                     {
-                        "name": "unix-time",
-                        "type": "integer",
+                        "name": "unix-time-milliseconds",
+                        "type": "unix-time",
                         "token": "PXAT"
                     },
                     {
@@ -5781,7 +6077,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -5832,8 +6129,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -5889,7 +6187,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -5965,7 +6264,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "HEXISTS": {
@@ -5995,7 +6295,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -6041,7 +6341,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6087,7 +6388,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6098,8 +6400,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "HINCRBY": {
@@ -6129,7 +6433,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6180,7 +6486,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6231,7 +6539,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6242,8 +6551,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "HLEN": {
@@ -6273,7 +6584,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -6315,7 +6626,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6364,7 +6676,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6425,7 +6738,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6453,8 +6767,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "HSCAN": {
@@ -6484,7 +6800,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6511,8 +6828,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "HSET": {
@@ -6548,7 +6867,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6606,7 +6926,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -6657,7 +6978,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -6703,7 +7024,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -6714,8 +7036,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "INCR": {
@@ -6745,7 +7069,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6788,7 +7114,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6835,7 +7163,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -6873,9 +7203,13 @@
             }
         ],
         "command_flags": [
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:all_shards",
+            "response_policy:special"
         ]
     },
     "KEYS": {
@@ -6897,8 +7231,11 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "nondeterministic_output_order"
         ]
     },
     "LASTSAVE": {
@@ -6913,10 +7250,12 @@
         ],
         "arity": 1,
         "command_flags": [
-            "random",
             "loading",
             "stale",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "LATENCY": {
@@ -6981,6 +7320,32 @@
         ],
         "arity": 2,
         "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
+    "LATENCY HISTOGRAM": {
+        "summary": "Return the cumulative distribution of latencies of a subset of commands or all.",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(N) where N is the number of commands with latency information being retrieved.",
+        "acl_categories": [
+            "@admin",
+            "@slow",
+            "@dangerous"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "command",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "admin",
+            "noscript",
             "loading",
             "stale"
         ]
@@ -7080,7 +7445,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7150,7 +7516,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7195,7 +7562,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7261,7 +7629,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -7303,8 +7671,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -7321,7 +7690,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7400,7 +7770,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7497,7 +7869,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7545,7 +7919,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7614,7 +7989,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7668,7 +8044,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -7716,7 +8093,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -7765,7 +8143,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7814,7 +8193,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -7864,7 +8244,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -7905,8 +8286,8 @@
             "@slow"
         ],
         "arity": 2,
-        "command_flags": [
-            "random"
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MEMORY HELP": {
@@ -7932,8 +8313,8 @@
             "@slow"
         ],
         "arity": 2,
-        "command_flags": [
-            "random"
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MEMORY PURGE": {
@@ -7955,8 +8336,8 @@
             "@slow"
         ],
         "arity": 2,
-        "command_flags": [
-            "random"
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MEMORY USAGE": {
@@ -7985,7 +8366,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8032,7 +8413,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -8046,6 +8428,9 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard"
         ]
     },
     "MIGRATE": {
@@ -8094,7 +8479,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -8112,7 +8499,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
+                "RW": true,
+                "access": true,
+                "delete": true,
                 "incomplete": true
             }
         ],
@@ -8199,8 +8588,10 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "movablekeys"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "MODULE": {
@@ -8268,7 +8659,8 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "MODULE UNLOAD": {
@@ -8290,7 +8682,8 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading"
         ]
     },
     "MONITOR": {
@@ -8351,7 +8744,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8397,7 +8792,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8421,6 +8817,10 @@
         "command_flags": [
             "write",
             "denyoom"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:all_succeeded"
         ]
     },
     "MSETNX": {
@@ -8450,7 +8850,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -8490,7 +8891,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "OBJECT": {
@@ -8530,7 +8932,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8542,6 +8944,9 @@
         ],
         "command_flags": [
             "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "OBJECT FREQ": {
@@ -8571,7 +8976,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8582,8 +8987,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "OBJECT HELP": {
@@ -8628,7 +9035,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8639,8 +9046,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "OBJECT REFCOUNT": {
@@ -8670,7 +9079,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -8711,7 +9120,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8759,7 +9169,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8839,7 +9250,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -8849,7 +9261,7 @@
                 "key_spec_index": 0
             },
             {
-                "name": "milliseconds-timestamp",
+                "name": "unix-time-milliseconds",
                 "type": "unix-time"
             },
             {
@@ -8913,7 +9325,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -8925,7 +9338,6 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
         ]
     },
@@ -8956,7 +9368,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -8991,6 +9404,7 @@
         "arity": -2,
         "key_specs": [
             {
+                "notes": "RW because it may change the internal representation of the key, and propagate to replicas",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -9005,7 +9419,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RW": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -9050,7 +9465,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true
             }
         ],
         "command_flags": [
@@ -9089,8 +9505,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "insert": true
             },
             {
                 "begin_search": {
@@ -9107,7 +9524,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -9166,6 +9584,10 @@
         ],
         "command_flags": [
             "fast"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
         ]
     },
     "PSETEX": {
@@ -9195,7 +9617,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -9270,7 +9693,9 @@
         ],
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "PTTL": {
@@ -9306,7 +9731,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -9318,8 +9744,10 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "PUBLISH": {
@@ -9351,7 +9779,7 @@
         ]
     },
     "PUBSUB": {
-        "summary": "A container for Pub/Sun commands",
+        "summary": "A container for Pub/Sub commands",
         "since": "2.8.0",
         "group": "pubsub",
         "complexity": "Depends on subcommand.",
@@ -9437,6 +9865,45 @@
             "stale"
         ]
     },
+    "PUBSUB SHARDCHANNELS": {
+        "summary": "List active shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of active shard channels, and assuming constant time pattern matching (relatively short channels).",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "arguments": [
+            {
+                "name": "pattern",
+                "type": "string",
+                "optional": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
+    "PUBSUB SHARDNUMSUB": {
+        "summary": "Get the count of subscribers for shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) for the SHARDNUMSUB subcommand, where N is the number of requested channels",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale"
+        ]
+    },
     "PUNSUBSCRIBE": {
         "summary": "Stop listening for messages posted to channels matching the given patterns",
         "since": "2.0.0",
@@ -9477,7 +9944,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "RANDOMKEY": {
@@ -9492,8 +9960,11 @@
         ],
         "arity": 1,
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "nondeterministic_output"
         ]
     },
     "READONLY": {
@@ -9507,6 +9978,8 @@
         ],
         "arity": 1,
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -9521,6 +9994,8 @@
         ],
         "arity": 1,
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -9552,12 +10027,32 @@
                 "find_keys": {
                     "type": "range",
                     "spec": {
-                        "lastkey": 1,
+                        "lastkey": 0,
                         "keystep": 1,
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
+            },
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 2
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -9604,12 +10099,32 @@
                 "find_keys": {
                     "type": "range",
                     "spec": {
-                        "lastkey": 1,
+                        "lastkey": 0,
                         "keystep": 1,
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
+            },
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 2
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "OW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -9674,7 +10189,9 @@
         "command_flags": [
             "admin",
             "noscript",
-            "stale"
+            "stale",
+            "no_async_loading",
+            "allow_busy"
         ]
     },
     "RESET": {
@@ -9692,7 +10209,8 @@
             "loading",
             "stale",
             "fast",
-            "no_auth"
+            "no_auth",
+            "allow_busy"
         ]
     },
     "RESTORE": {
@@ -9737,7 +10255,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -9816,7 +10335,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "command_flags": [
@@ -9879,7 +10399,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -9929,8 +10451,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -9947,7 +10470,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -10003,7 +10527,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -10057,7 +10582,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -10111,7 +10637,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -10145,7 +10672,9 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "SCAN": {
@@ -10191,8 +10720,11 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:special"
         ]
     },
     "SCARD": {
@@ -10222,7 +10754,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -10303,6 +10835,10 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:agg_logical_and"
         ]
     },
     "SCRIPT FLUSH": {
@@ -10343,6 +10879,10 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "SCRIPT HELP": {
@@ -10371,7 +10911,12 @@
         ],
         "arity": 2,
         "command_flags": [
-            "noscript"
+            "noscript",
+            "allow_busy"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:one_succeeded"
         ]
     },
     "SCRIPT LOAD": {
@@ -10391,7 +10936,12 @@
             }
         ],
         "command_flags": [
-            "noscript"
+            "noscript",
+            "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "SDIFF": {
@@ -10421,7 +10971,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10433,8 +10984,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SDIFFSTORE": {
@@ -10464,7 +11017,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -10481,7 +11035,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10555,6 +11110,7 @@
         "arity": -3,
         "key_specs": [
             {
+                "notes": "RW and ACCESS due to the optional `GET` argument",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -10569,8 +11125,10 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "update": true,
+                "variable_flags": true
             }
         ],
         "arguments": [
@@ -10642,12 +11200,14 @@
                 "name": "get",
                 "type": "pure-token",
                 "token": "GET",
+                "since": "6.2.0",
                 "optional": true
             }
         ],
         "command_flags": [
             "write",
-            "denyoom"
+            "denyoom",
+            "movablekeys"
         ]
     },
     "SETBIT": {
@@ -10677,7 +11237,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -10727,7 +11289,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -10777,7 +11340,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -10824,7 +11388,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -10851,6 +11416,13 @@
         "summary": "Synchronously save the dataset to disk and then shut down the server",
         "since": "1.0.0",
         "group": "server",
+        "complexity": "O(N) when saving, where N is the total number of keys in all databases when saving data, otherwise O(1)",
+        "history": [
+            [
+                "7.0.0",
+                "Added the `NOW`, `FORCE` and `ABORT` modifiers. Introduced waiting for lagging replicas before exiting."
+            ]
+        ],
         "acl_categories": [
             "@admin",
             "@slow",
@@ -10874,13 +11446,36 @@
                         "token": "SAVE"
                     }
                 ]
+            },
+            {
+                "name": "now",
+                "type": "pure-token",
+                "token": "NOW",
+                "since": "7.0.0",
+                "optional": true
+            },
+            {
+                "name": "force",
+                "type": "pure-token",
+                "token": "FORCE",
+                "since": "7.0.0",
+                "optional": true
+            },
+            {
+                "name": "abort",
+                "type": "pure-token",
+                "token": "ABORT",
+                "since": "7.0.0",
+                "optional": true
             }
         ],
         "command_flags": [
             "admin",
             "noscript",
             "loading",
-            "stale"
+            "stale",
+            "no_multi",
+            "allow_busy"
         ]
     },
     "SINTER": {
@@ -10910,7 +11505,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -10922,8 +11518,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SINTERCARD": {
@@ -10953,7 +11551,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11006,7 +11605,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -11023,7 +11623,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11071,7 +11672,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -11114,7 +11715,8 @@
         "command_flags": [
             "admin",
             "noscript",
-            "stale"
+            "stale",
+            "no_async_loading"
         ]
     },
     "SLOWLOG": {
@@ -11153,9 +11755,12 @@
         ],
         "command_flags": [
             "admin",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "nondeterministic_output"
         ]
     },
     "SLOWLOG HELP": {
@@ -11185,9 +11790,13 @@
         "arity": 2,
         "command_flags": [
             "admin",
-            "random",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:agg_sum",
+            "nondeterministic_output"
         ]
     },
     "SLOWLOG RESET": {
@@ -11205,6 +11814,10 @@
             "admin",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "SMEMBERS": {
@@ -11234,7 +11847,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11245,8 +11859,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SMISMEMBER": {
@@ -11276,7 +11892,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11323,8 +11940,9 @@
                         "limit": 0
                     }
                 },
-                "write": true,
-                "read": true
+                "RW": true,
+                "access": true,
+                "delete": true
             },
             {
                 "begin_search": {
@@ -11341,7 +11959,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -11395,9 +12014,11 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             },
             {
+                "notes": "For the optional BY/GET keyword. It is marked 'unknown' because the key names derive from the content of the key we sort",
                 "begin_search": {
                     "type": "unknown",
                     "spec": {}
@@ -11406,8 +12027,21 @@
                     "type": "unknown",
                     "spec": {}
                 },
-                "write": true,
-                "incomplete": true
+                "RO": true,
+                "access": true
+            },
+            {
+                "notes": "For the optional STORE keyword. It is marked 'unknown' because the keyword can appear anywhere in the argument array",
+                "begin_search": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "find_keys": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "OW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -11419,6 +12053,7 @@
             {
                 "name": "pattern",
                 "type": "pattern",
+                "key_spec_index": 1,
                 "token": "BY",
                 "optional": true
             },
@@ -11441,6 +12076,7 @@
             {
                 "name": "pattern",
                 "type": "string",
+                "key_spec_index": 1,
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
@@ -11472,7 +12108,7 @@
             {
                 "name": "destination",
                 "type": "key",
-                "key_spec_index": 1,
+                "key_spec_index": 2,
                 "token": "STORE",
                 "optional": true
             }
@@ -11513,7 +12149,21 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
+            },
+            {
+                "notes": "For the optional BY/GET keyword. It is marked 'unknown' because the key names derive from the content of the key we sort",
+                "begin_search": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "find_keys": {
+                    "type": "unknown",
+                    "spec": {}
+                },
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11525,6 +12175,7 @@
             {
                 "name": "pattern",
                 "type": "pattern",
+                "key_spec_index": 1,
                 "token": "BY",
                 "optional": true
             },
@@ -11547,6 +12198,7 @@
             {
                 "name": "pattern",
                 "type": "string",
+                "key_spec_index": 1,
                 "token": "GET",
                 "optional": true,
                 "multiple": true,
@@ -11577,7 +12229,8 @@
             }
         ],
         "command_flags": [
-            "readonly"
+            "readonly",
+            "movablekeys"
         ]
     },
     "SPOP": {
@@ -11613,7 +12266,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -11631,8 +12286,57 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
+        ]
+    },
+    "SPUBLISH": {
+        "summary": "Post a message to a shard channel",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of clients subscribed to the receiving shard channel.",
+        "acl_categories": [
+            "@pubsub",
+            "@fast"
+        ],
+        "arity": 3,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": 0,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string"
+            },
+            {
+                "name": "message",
+                "type": "string"
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "loading",
+            "stale",
+            "fast",
+            "may_replicate"
         ]
     },
     "SRANDMEMBER": {
@@ -11668,7 +12372,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11685,8 +12390,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "SREM": {
@@ -11722,7 +12429,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -11769,7 +12477,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11796,8 +12505,53 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
+        ]
+    },
+    "SSUBSCRIBE": {
+        "summary": "Listen for messages published to the given shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of shard channels to subscribe to.",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -2,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "noscript",
+            "loading",
+            "stale"
         ]
     },
     "STRLEN": {
@@ -11827,7 +12581,7 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -11901,7 +12655,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11953,7 +12708,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -11965,8 +12721,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "sort_for_script"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "SUNIONSTORE": {
@@ -11996,7 +12754,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -12013,7 +12772,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -12032,6 +12792,50 @@
         "command_flags": [
             "write",
             "denyoom"
+        ]
+    },
+    "SUNSUBSCRIBE": {
+        "summary": "Stop listening for messages posted to the given shard channels",
+        "since": "7.0.0",
+        "group": "pubsub",
+        "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+        "acl_categories": [
+            "@pubsub",
+            "@slow"
+        ],
+        "arity": -1,
+        "key_specs": [
+            {
+                "begin_search": {
+                    "type": "index",
+                    "spec": {
+                        "index": 1
+                    }
+                },
+                "find_keys": {
+                    "type": "range",
+                    "spec": {
+                        "lastkey": -1,
+                        "keystep": 1,
+                        "limit": 0
+                    }
+                },
+                "channel": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
+        "command_flags": [
+            "pubsub",
+            "noscript",
+            "loading",
+            "stale"
         ]
     },
     "SWAPDB": {
@@ -12073,7 +12877,9 @@
         "arity": 1,
         "command_flags": [
             "admin",
-            "noscript"
+            "noscript",
+            "no_async_loading",
+            "no_multi"
         ]
     },
     "TIME": {
@@ -12086,10 +12892,12 @@
         ],
         "arity": 1,
         "command_flags": [
-            "random",
             "loading",
             "stale",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "TOUCH": {
@@ -12119,7 +12927,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -12133,6 +12941,10 @@
         "command_flags": [
             "readonly",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "TTL": {
@@ -12168,7 +12980,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -12180,8 +12993,10 @@
         ],
         "command_flags": [
             "readonly",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "TYPE": {
@@ -12211,7 +13026,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -12253,7 +13068,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RM": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12267,6 +13083,10 @@
         "command_flags": [
             "write",
             "fast"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_sum"
         ]
     },
     "UNSUBSCRIBE": {
@@ -12308,7 +13128,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "WAIT": {
@@ -12333,6 +13154,10 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:agg_min"
         ]
     },
     "WATCH": {
@@ -12375,7 +13200,8 @@
             "noscript",
             "loading",
             "stale",
-            "fast"
+            "fast",
+            "allow_busy"
         ]
     },
     "XACK": {
@@ -12405,7 +13231,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -12426,7 +13253,6 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
         ]
     },
@@ -12453,6 +13279,7 @@
         "arity": -5,
         "key_specs": [
             {
+                "notes": "UPDATE instead of INSERT because of the optional trimming feature",
                 "begin_search": {
                     "type": "index",
                     "spec": {
@@ -12467,7 +13294,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -12569,8 +13397,10 @@
         "command_flags": [
             "write",
             "denyoom",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XAUTOCLAIM": {
@@ -12600,7 +13430,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12640,8 +13471,10 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XCLAIM": {
@@ -12671,7 +13504,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -12704,8 +13538,8 @@
                 "optional": true
             },
             {
-                "name": "ms-unix-time",
-                "type": "integer",
+                "name": "unix-time-milliseconds",
+                "type": "unix-time",
                 "token": "TIME",
                 "optional": true
             },
@@ -12730,8 +13564,10 @@
         ],
         "command_flags": [
             "write",
-            "random",
             "fast"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XDEL": {
@@ -12761,7 +13597,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12818,7 +13655,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -12885,7 +13723,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "insert": true
             }
         ],
         "arguments": [
@@ -12935,7 +13774,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -12984,7 +13824,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -13044,7 +13885,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -13114,7 +13956,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13129,8 +13972,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XINFO GROUPS": {
@@ -13160,7 +14005,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13216,7 +14062,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13271,7 +14118,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -13319,7 +14166,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13365,8 +14213,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "XRANGE": {
@@ -13402,7 +14252,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13459,7 +14310,8 @@
                         "limit": 2
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13496,6 +14348,7 @@
         ],
         "command_flags": [
             "readonly",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -13528,7 +14381,8 @@
                         "limit": 2
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13586,6 +14440,7 @@
         ],
         "command_flags": [
             "write",
+            "blocking",
             "movablekeys"
         ]
     },
@@ -13622,7 +14477,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -13677,7 +14533,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -13730,7 +14587,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -13792,8 +14650,10 @@
             }
         ],
         "command_flags": [
-            "write",
-            "random"
+            "write"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ZADD": {
@@ -13837,7 +14697,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -13849,7 +14710,7 @@
             {
                 "name": "condition",
                 "type": "oneof",
-                "since": "6.2.0",
+                "since": "3.0.2",
                 "optional": true,
                 "arguments": [
                     {
@@ -13867,7 +14728,7 @@
             {
                 "name": "comparison",
                 "type": "oneof",
-                "since": "3.0.2",
+                "since": "6.2.0",
                 "optional": true,
                 "arguments": [
                     {
@@ -13945,7 +14806,7 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true
             }
         ],
         "arguments": [
@@ -13987,7 +14848,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14037,7 +14899,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14090,7 +14953,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -14107,7 +14971,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14160,7 +15025,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "update": true
             }
         ],
         "arguments": [
@@ -14211,7 +15078,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14294,7 +15162,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14347,7 +15216,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -14364,7 +15234,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14447,7 +15318,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14497,7 +15369,9 @@
                         "keystep": 1
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -14566,7 +15440,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14613,7 +15488,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -14660,7 +15537,9 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "access": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -14707,7 +15586,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14735,8 +15615,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ZRANGE": {
@@ -14772,7 +15654,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14871,7 +15754,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -14947,7 +15831,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15022,7 +15907,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -15039,7 +15925,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15133,7 +16020,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15185,7 +16073,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15232,7 +16121,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15281,7 +16171,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15330,7 +16221,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "RW": true,
+                "delete": true
             }
         ],
         "arguments": [
@@ -15381,7 +16273,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15441,7 +16334,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15517,7 +16411,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15591,7 +16486,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15637,7 +16533,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15664,8 +16561,10 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "random"
+            "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "ZSCORE": {
@@ -15695,7 +16594,8 @@
                         "limit": 0
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15741,7 +16641,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [
@@ -15824,7 +16725,8 @@
                         "limit": 0
                     }
                 },
-                "write": true
+                "OW": true,
+                "update": true
             },
             {
                 "begin_search": {
@@ -15841,7 +16743,8 @@
                         "keystep": 1
                     }
                 },
-                "read": true
+                "RO": true,
+                "access": true
             }
         ],
         "arguments": [

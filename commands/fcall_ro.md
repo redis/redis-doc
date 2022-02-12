@@ -1,3 +1,3 @@
-Work in progress.
+This is a read-only variant of the `FCALL` command that cannot execute commands that modify data.
 
-Please refer to [the Redis Functions issue](https://github.com/redis/redis/pull/9780) and related pull requests for the time being.
+For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).

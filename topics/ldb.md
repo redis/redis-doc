@@ -3,7 +3,7 @@
 Starting with version 3.2 Redis includes a complete Lua debugger, that can be
 used in order to make the task of writing complex Redis scripts much simpler.
 
-The Redis Lua debugger, codename LDB, has the following important features:
+The Redis Lua debugger, codenamed LDB, has the following important features:
 
 * It uses a server-client model, so it's a remote debugger. The Redis server acts as the debugging server, while the default client is `redis-cli`. However other clients can be developed by following the simple protocol implemented by the server.
 * By default every new debugging session is a forked session. It means that while the Redis Lua script is being debugged, the server does not block and is usable for development or in order to execute multiple debugging sessions in parallel. This also means that changes are **rolled back** after the script debugging session finished, so that's possible to restart a new debugging session again, using exactly the same Redis data set as the previous debugging session.

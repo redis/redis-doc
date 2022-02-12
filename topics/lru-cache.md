@@ -88,7 +88,7 @@ Approximated LRU algorithm
 
 Redis LRU algorithm is not an exact implementation. This means that Redis is
 not able to pick the *best candidate* for eviction, that is, the access that
-was accessed the most in the past. Instead it will try to run an approximation
+was accessed the furthest in the past. Instead it will try to run an approximation
 of the LRU algorithm, by sampling a small number of keys, and evicting the
 one that is the best (with the oldest access time) among the sampled keys.
 
