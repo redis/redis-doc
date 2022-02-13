@@ -3,8 +3,8 @@
 Virtual Memory
 ===
 
-Redis Virtual Memory is a feature that was available since Redis 2.0 till
-Redis 2.4 and is now deprecated.
+Redis Virtual Memory is a feature that was available since Redis 2.0.
+It has been deprecated as of Redis 2.4.
 
 [redissrc]: http://github.com/redis/redis
 
