@@ -314,7 +314,7 @@
     "language": "Kotlin",
     "repository": "https://github.com/crackthecodeabhi/kreds",
     "description": "A thread-safe, non-blocking, coroutine-based Redis client for Kotlin/JVM",
-    "authors": ["@abhi_19t"],
+    "authors": ["abhi_19t"],
     "active": true
   },
 
