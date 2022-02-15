@@ -308,7 +308,7 @@
     "authors": ["pmlopes"],
     "active": true
   },
-  
+
   {
     "name": "Kreds",
     "language": "Kotlin",
@@ -521,7 +521,7 @@
     "recommended": true,
     "active": true
   },
-  
+
   {
     "name": "redis-py-cluster",
     "language": "Python",
@@ -897,7 +897,7 @@
     "recommended": true,
     "active": true
   },
-  
+
   {
     "name": "@camaro/redis",
     "language": "Node.js",
@@ -1210,7 +1210,7 @@
     "description": "A Redis client in pure Octave",
     "authors": ["markuman"]
   },
-  
+
   {
     "name": "MatlabRedis",
     "language": "Matlab",
@@ -1218,7 +1218,7 @@
     "description": "Pure Matlab Redis interface for Matlab>=2014B",
     "active": true
   },
-  
+
   {
     "name": "redisboost",
     "language": "C#",
@@ -1458,7 +1458,7 @@
     "authors": ["jkaye2012"],
     "active": true
   },
-  
+
   {
     "name": "Jedis.jl",
     "language": "Julia",
@@ -1971,7 +1971,7 @@
     "description": "Prolog redis client that exploits SWI-Prolog's extensions such as strings for compact replies and threads to deal with publish/subscribe.",
     "active": true
   },
-  
+
   {
     "name": "FreeRedis",
     "language": "C#",
@@ -1980,7 +1980,7 @@
     "authors": [],
     "active": true
   },
-  
+
   {
     "name": "redis-client",
     "language": "Bash",
@@ -2011,6 +2011,13 @@
     "repository": "https://github.com/isyscore/fpredis",
     "description": "FPREDIS is a FPC client library for the Redis database.",
     "authors": []
+  },
+  {
+    "name": "redis-streams",
+    "language": "Python",
+    "repository": "https://github.com/KissPeter/redis-streams",
+    "description": "This library provides an easy to use interface for batch collection and processing. Simplifies the consumer group and consumers management. Designed for a highly available, scalable and distributed environment, it thus offers, in addition to the main functionality, monitoring and scaling capabilities.",
+    "authors": [],
+    "active": true
   }
-
 ]
