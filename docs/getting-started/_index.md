@@ -1,6 +1,6 @@
 ﻿---
-title: "Redis Quick Start"
-linkTitle: "Redis Quick Start"
+title: "Getting started with Redis"
+linkTitle: "Getting started"
 weight: 1
 description: >
     How to get up and running with Redis
