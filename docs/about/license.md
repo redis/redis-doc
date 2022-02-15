@@ -1,7 +1,7 @@
 ---
-title: "Redis License"
-linkTitle: "Redis License"
-weight: 1
+title: "Redis license"
+linkTitle: "License"
+weight: 5
 description: >
     Redis license and trademark information
 aliases:

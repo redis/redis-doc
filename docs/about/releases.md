@@ -1,7 +1,7 @@
 ---
-title: "Redis Release Cycle"
-linkTitle: "Redis Release Cycle"
-weight: 1
+title: "Redis release cycle"
+linkTitle: "Release cycle"
+weight: 4
 aliases:
     - /topics/releases
 ---
@@ -17,7 +17,7 @@ and are also available for [download](/download). Announcements are sent to the
 [Redis mailing list](http://groups.google.com/group/redis-db) and by
 [@redisfeed on Twitter](https://twitter.com/redisfeed).
 
-## Release Cycle
+## Release cycle
 
 A given version of Redis can be at three different levels of stability:
 
@@ -25,7 +25,7 @@ A given version of Redis can be at three different levels of stability:
 * Release Candidate
 * Stable
 
-### Unstable Tree
+### Unstable tree
 
 The unstable version of Redis is located in the `unstable` branch in the
 [Redis GitHub repository](http://github.com/redis/redis).
@@ -37,7 +37,7 @@ critical bugs, incomplete features, and is potentially unstable.
 However, we try hard to make sure that even the unstable branch is usable most
 of the time in a development environment without significant issues.
 
-### Release Candidate
+### Release candidate
 
 New minor and major versions of Redis begin as forks of the `unstable` branch.
 The forked branch's name is the target release
@@ -61,7 +61,7 @@ for fixing bugs. These may also add new features and introduce changes, but at
 a decreasing rate and decreasing potential risk towards the final release
 candidate.
 
-### Stable Tree
+### Stable tree
 
 Once development has ended and the frequency of critical bug reports for the
 release candidate wanes, it is ready for the final release. At this point, the
@@ -74,7 +74,7 @@ Stable releases liberally follow the usual `major.minor.patch` semantic
 versioning schema. The primary goal is to provide explicit guarantees regarding
 backward compatibility.
 
-### Patch-Level Versions
+### Patch-Level versions
 
 Patches primarily consist of bug fixes and very rarely introduce any
 compatibility issues.
@@ -86,7 +86,7 @@ New features and configuration directives may be added, or default values
 changed, as long as these don’t carry significant impacts or introduce
 operations-related issues.
 
-### Minor Versions
+### Minor versions
 
 Minor versions usually deliver maturity and extended functionality.
 
@@ -97,13 +97,13 @@ Minor releases may include new commands and data types that introduce
 operations-related incompatibilities, including changes in data persistence
 format and replication protocol.
 
-### Major Versions
+### Major versions
 
 Major versions introduce new capabilities and significant changes.
 
 Ideally, these don't introduce application-level compatibility issues.
 
-## Release Schedule
+## Release schedule
 
 A new major version is planned for release once a year.
 

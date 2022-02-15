@@ -1,9 +1,9 @@
 ---
-title: "Redis Open Source Governance"
-linkTitle: "Redis Open Source Governance"
-weight: 1
+title: "Redis open source governance"
+linkTitle: "Governance"
+weight: 3
 description: >
-    The governance model used to manage the Redis open source project.
+    Governance model the Redis open source project
 aliases:
     - /topics/governance
 ---
@@ -16,11 +16,11 @@ From 2009-2020, Salvatore Sanfillipo led, managed, and maintained the project. W
 
 As Redis grew, matured, and expanded its user base, it became increasingly important to form a sustainable structure for its ongoing development and maintenance. We wanted to ensure the project’s continuity and reflect its larger community.  With this in mind, a new governance structure was adopted.
 
-## Current Governance Structure
+## Current governance structure
 
 Starting on June 30, 2020, Redis adopted a _light governance_ model that matches the current size of the project and minimizes the changes from its earlier model. The governance model is intended to be a meritocracy, aiming to empower individuals who demonstrate a long-term commitment and make significant contributions.
 
-## The Redis Core Team
+## The Redis core team
 
 Salvatore Sanfilippo named two successors to take over and lead the Redis project: Yossi Gottlieb ([yossigo](https://github.com/yossigo)) and Oran Agra ([oranagra](https://github.com/oranagra))
 
@@ -38,7 +38,9 @@ The Redis core team members serve the Redis open source project and community. T
 
 The core team will be responsible for the Redis core project, which is the part of Redis that is hosted in the main Redis repository and is BSD licensed. It will also aim to maintain coordination and collaboration with other projects that make up the Redis ecosystem, including Redis clients, satellite projects, major middleware that relies on Redis, etc.
 
-#### Roles and Responsibilities of the Core Team
+#### Roles and responsibilities
+
+The core team has the following remit:
 
 * Managing the core Redis code and documentation
 * Managing new Redis releases
@@ -66,13 +68,13 @@ The core team aims to form and empower a community of contributors by further de
     *   Adding or changing core team members
 * Project leads have a right to veto major decisions
 
-#### Core Team Membership
+#### Core team membership
 
 * The core team is not expected to serve for life, however, long-term participation is desired to provide stability and consistency in the Redis programming style and the community.
 * If a core-team member whose work is funded by Redis Ltd. must be replaced, the replacement will be designated by Redis Ltd. after consultation with the remaining core-team members.
 * If a core-team member not funded by Redis Ltd. will no longer participate, for whatever reason, the other team members will select a replacement.
 
-## Community Forums and Communications
+## Community forums and communications
 
 We want the Redis community to be as welcoming and inclusive as possible. To that end, we have adopted a [Code of Conduct](https://www.contributor-covenant.org/) that we ask all community members to read and observe.
 
@@ -80,14 +82,14 @@ We encourage that all significant communications will be public, asynchronous, a
 
 To contact the core team about sensitive matters, such as misconduct or security issues, please email [redis@redis.io](mailto:redis@redis.io).
 
-## New Redis Repository and Commits Approval Process
+## New Redis repository and commits approval process
 
 The Redis core source repository is hosted under [https://github.com/redis/redis](https://github.com/redis/redis). Our target is to eventually host everything (the Redis core source and other ecosystem projects) under the Redis GitHub organization ([https://github.com/redis](https://github.com/redis)). Commits to the Redis source repository will require code review, approval of at least one core-team member who is not the author of the commit, and no objections.
 
-## Project and Development Updates
+## Project and development updates
 
 Stay connected to the project and the community! For project and community updates, follow the project [channels](https://redis.io/community). Development announcements will be made via [the Redis mailing list](https://groups.google.com/forum/#!forum/redis-db).
 
-## Updates to these Governance Rules
+## Updates to these governance rules
 
 Any substantial changes to these rules will be treated as a major decision. Minor changes or ministerial corrections will be treated as normal decisions.

@@ -1,7 +1,7 @@
 ﻿---
-title: "Redis Trademark Guidelines"
-linkTitle: "Redis Trademark Guidelines"
-weight: 1
+title: "Redis trademark guidelines"
+linkTitle: "Trademark"
+weight: 6
 aliases:
     - /topics/trademark 
 ---
