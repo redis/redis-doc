@@ -2,7 +2,7 @@
 title: "Redis security"
 linkTitle: "Security"
 weight: 1
-description: Redis security overview
+description: Security model and features in Redis
 aliases:
     - /topics/security
 ---
@@ -16,7 +16,7 @@ For security-related contacts, open an issue on GitHub, or when you feel it
 is really important to preserve the security of the communication, use the
 GPG key at the end of this document.
 
-## Redis general security model
+## Security model
 
 Redis is designed to be accessed by trusted clients inside trusted environments.
 This means that usually it is not a good idea to expose the Redis instance
@@ -70,7 +70,7 @@ by unprotected Redis instances executed without proper administration. However,
 the system administrator can still ignore the error given by Redis and
 disable protected mode or manually bind all the interfaces.
 
-## Authentication feature
+## Authentication
 
 While Redis does not try to implement Access Control, it provides
 a tiny layer of optional authentication that is turned on by editing the
@@ -101,7 +101,7 @@ perform eavesdropping.
 Redis has optional support for TLS on all communication channels, including
 client connections, replication links, and the Redis Cluster bus protocol.
 
-## Disallow specific commands
+## Disallowing specific commands
 
 It is possible to disallow commands in Redis or to rename them as an unguessable
 name, so that normal clients are limited to a specified set of commands.

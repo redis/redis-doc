@@ -1,5 +1,5 @@
 ---
-title: "Redis Modules API"
+title: "Redis modules API"
 linkTitle: "Modules API"
 weight: 1
 description: >

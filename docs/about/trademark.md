@@ -2,6 +2,7 @@
 title: "Redis trademark guidelines"
 linkTitle: "Trademark"
 weight: 6
+description: How can the Redis trademarks be used?
 aliases:
     - /topics/trademark 
 ---

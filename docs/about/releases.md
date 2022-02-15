@@ -2,6 +2,7 @@
 title: "Redis release cycle"
 linkTitle: "Release cycle"
 weight: 4
+description: How are new versions of Redis released?
 aliases:
     - /topics/releases
 ---

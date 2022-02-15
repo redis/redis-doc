@@ -1,9 +1,9 @@
 ---
-title: "Client-side caching"
+title: "Client-side caching in Redis"
 linkTitle: "Client-side caching"
 weight: 1
 description: >
-    Redis server-assisted client-side caching
+    Server-assisted, client-side caching in Redis
 aliases:
     - /topics/client-side-caching
 ---

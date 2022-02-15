@@ -3,7 +3,7 @@ title: "Redis open source governance"
 linkTitle: "Governance"
 weight: 3
 description: >
-    Governance model the Redis open source project
+    Governance model for the Redis open source project
 aliases:
     - /topics/governance
 ---

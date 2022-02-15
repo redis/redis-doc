@@ -1,5 +1,5 @@
 ---
-title: "Redis Modules and blocking commands"
+title: "Redis modules and blocking commands"
 linkTitle: "Blocking commands"
 weight: 1
 description: >

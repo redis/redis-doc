@@ -3,7 +3,7 @@ title: "Redis FAQ"
 linkTitle: "FAQ"
 weight: 1
 description: >
-    Some of the most commonly asked questions when beginning with Redis
+    Commonly asked questions when getting started with Redis
 aliases:
     - /docs/getting-started/faq
 ---
