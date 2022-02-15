@@ -1,9 +1,9 @@
 ---
 title: "Modules API for native types"
-linkTitle: "Modules API for native types"
+linkTitle: "Native types API"
 weight: 1
 description: >
-    How to use native Redis types in a module
+    How to use native types in a Redis module
 aliases:
     - /topics/modules-native-types
 ---

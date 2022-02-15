@@ -1,9 +1,9 @@
 ---
 title: "Redis Modules and blocking commands"
-linkTitle: "Redis Modules and blocking commands"
+linkTitle: "Blocking commands"
 weight: 1
 description: >
-    How to implement blocking commands in Redis modules
+    How to implement blocking commands in a Redis module
 aliases:
     - /topics/modules-blocking-ops
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Modules API reference"
-linkTitle: "Modules API reference"
+linkTitle: "API reference"
 weight: 1
 description: >
     Auto-generated reference for the Redis Modules API
