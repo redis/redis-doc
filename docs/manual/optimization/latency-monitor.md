@@ -1,8 +1,8 @@
 ---
-title: "Redis latency monitoring framework"
-linkTitle: "Redis latency monitoring framework"
+title: "Redis latency monitoring"
+linkTitle: "Latency monitoring"
 weight: 1
-description: 
+description: Discovering slow server events in Redis
 aliases:
     - /topics/latency-monitor
 ---

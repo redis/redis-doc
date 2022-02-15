@@ -1,16 +1,12 @@
 ---
-title: "Redis Keyspace Notifications"
-linkTitle: "Redis Keyspace Notifications"
+title: "Redis keyspace notifications"
+linkTitle: "Keyspace notifications"
 weight: 1
 description: >
-    Redis Keyspace Notifications
+    Monitor changes to Redis keys and values in real time
 aliases:
     - /topics/notifications
 ---
-
-**IMPORTANT** Keyspace notifications is a feature available since 2.8.0
-
-## Keyspace Notifications
 
 Keyspace notifications allow clients to subscribe to Pub/Sub channels in order
 to receive events affecting the Redis data set in some way.

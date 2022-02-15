@@ -1,6 +1,7 @@
 ---
 title: "Data types tutorial"
 linkTitle: "Data types tutorial"
+description: Walthrough of the Redis key/value data model and supported data types
 weight: 1
 aliases:
     - /topics/data-types-intro

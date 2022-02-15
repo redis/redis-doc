@@ -1,6 +1,7 @@
 ---
 title: "Redis data types"
 linkTitle: "Data types"
+description: Overview of the many data types supported by Redis
 weight: 1
 ---
 
