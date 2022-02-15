@@ -1,10 +1,15 @@
-UPDATE: Virtual Memory is deprecated since Redis 2.6, so this documentation
-is here only for historical reasons.
+---
+title: "Virtual memory (deprecated)"
+linkTitle: "Virtual memory"
+weight: 1
+aliases:
+  - /topics/internals-vm
+---
 
-Virtual Memory technical specification
-===
+**Note: this document was written by the creator of Redis, Salvatore Sanfilippo, early in the development of Redis (c. 2010). Virtual Memory has been deprecated since Redis 2.6, so this documentation
+is here only for historical interest.**
 
-This document details the internals of the Redis Virtual Memory subsystem. The intended audience is not the final user but programmers willing to understand or modify the Virtual Memory implementation.
+This document details the internals of the Redis Virtual Memory subsystem prior to Redis 2.6. The intended audience is not the final user but programmers willing to understand or modify the Virtual Memory implementation.
 
 Keys vs Values: what is swapped out?
 ---

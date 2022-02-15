@@ -1,12 +1,9 @@
 ---
 title: "Example applications"
-linkTitle: "Examples"
+linkTitle: ""
 weight: 20
-menu:
-  main:
-    weight: 20
 ---
 
 {{% pageinfo %}}
-Examples
+Reference
 {{% /pageinfo %}}
