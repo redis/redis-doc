@@ -1,8 +1,8 @@
 ---
-title: Redis Persistence
+title: Redis persistence
 linkTitle: Persistence
 weight: 1
-description: A technical description of Redis persistence.
+description: How Redis writes data to disk (append-only files, snapshots, etc.)
 aliases: [
     /topics/persistence,
     /topics/persistence.md,
@@ -11,9 +11,7 @@ aliases: [
 ]
 ---
 
-This page provides a technical description of Redis persistence. For a wider overview of Redis persistence and the durability guarantees it provides, see [Redis persistence demystified](http://antirez.com/post/redis-persistence-demystified.html).
-
-Redis provides a range of persistence options:
+Persistence refers to the writing of data to durable storage, such as a solid-state disk (SSD). Redis itself provides a range of persistence options:
 
 * **RDB** (Redis Database): The RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
 * **AOF** (Append Only File): The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to [rewrite](#log-rewriting) the log in the background when it gets too big.

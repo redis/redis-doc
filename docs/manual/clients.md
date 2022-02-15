@@ -3,7 +3,7 @@ title: "Redis Client Management"
 linkTitle: "Redis Client Management"
 weight: 1
 description: >
-    How the Redis server manages client connections.
+    How the Redis server manages client connections
 aliases:
     - /topics/clients
 ---

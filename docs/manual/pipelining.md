@@ -1,12 +1,15 @@
 ---
-title: "Using pipelining to speedup Redis queries"
+title: "Redis pipelining"
 linkTitle: "Pipelining"
 weight: 1
+description: How to optimize round-trip times by batching Redis commands
 aliases:
   - /topics/pipelining
 ---
 
-## Request/Response protocols and RTT
+Redis pipelining is a technique for improving performance by issuing multiple commands at once without waiting for the response to each individual command. Pipelining is supported by most Redis clients. This document describes the problem that pipelining is designed to solve and how pipelining works in Redis.
+
+## Request/Response protocols and round-trip time (RTT)
 
 Redis is a TCP server using the client-server model and what is called a *Request/Response* protocol.
 

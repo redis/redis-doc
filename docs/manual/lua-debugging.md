@@ -1,6 +1,7 @@
 ---
-title: Redis Lua scripts debugger
-linkTitle: "Debugging Lua"
+title: Debugging Lua scripts in Redis
+linkTitle: Debbugging Lua
+description: How to use the built-in Lua debugger
 weight: 1
 aliases:
   - /topics/ldb

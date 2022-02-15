@@ -1,12 +1,11 @@
 ---
-title: Memory Optimization
-linkTitle: "Memory Optimization"
+title: Memory optimization
+linkTitle: Memory optimization
+description: Strategies for optimizing memory usage in Redis
 weight: 1
 aliases:
   - /topics/memory-optimization
 ---
-
-> Note: This page is a work in progress. Currently it is just a list of things you should check if you have problems with memory.
 
 ## Special encoding of small aggregate data types
 

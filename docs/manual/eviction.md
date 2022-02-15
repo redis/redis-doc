@@ -1,8 +1,8 @@
 ---
-title: Eviction
+title: Key eviction
 linkTitle: Eviction
 weight: 1
-description: Using Redis as a cache with eviction policies.
+description: Overview of Redis key eviction policies (LRU, LFU, etc.)
 aliases: [
     /topics/lru_cache,
     /topics/lru_cache.md,

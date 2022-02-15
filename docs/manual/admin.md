@@ -2,7 +2,7 @@
 title: Redis administration
 linkTitle: Administration
 weight: 1
-description: Topics related to the administration of Redis instances.
+description: Advice for configuring and managing Redis in production
 aliases: [
     /topics/admin,
     /topics/admin.md,

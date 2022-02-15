@@ -1,14 +1,12 @@
 ---
-title: "Redis Benchmark"
-linkTitle: "Redis Benchmark"
+title: "Redis benchmark"
+linkTitle: "Benchmarking"
 weight: 1
 description: >
-    Benchmarking Redis Operations
+    Using the redis-benchmark utility to benchmark a Redis server
 aliases:
     - /topics/benchmarks
 ---
-
-## Redis Benchmark
 
 Redis includes the `redis-benchmark` utility that simulates running commands done
 by N clients at the same time sending M total queries. The utility provides
