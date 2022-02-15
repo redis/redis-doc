@@ -1,6 +1,6 @@
 ---
 title: "Redis Modules API"
-linkTitle: "Modules"
+linkTitle: "Modules API"
 weight: 1
 description: >
     Introduction to writing Redis modules
