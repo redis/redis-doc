@@ -1,8 +1,8 @@
 ---
 title: "Redis security"
-linkTitle: "Redis security"
+linkTitle: "Security"
 weight: 1
-description: 
+description: Redis security overview
 aliases:
     - /topics/security
 ---

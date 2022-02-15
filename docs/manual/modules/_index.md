@@ -1,11 +1,11 @@
 ---
 title: "Redis Modules API"
-linkTitle: "Redis Modules API"
+linkTitle: "Modules"
 weight: 1
 description: >
     Introduction to writing Redis modules
 aliases:
-    - /topics/streams-intro
+    - /topics/modules-intro
 ---
 
 The modules documentation is composed of the following pages:

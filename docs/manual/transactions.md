@@ -2,6 +2,7 @@
 title: Transactions
 linkTitle: Transactions
 weight: 1
+description: How transactions work in Redis
 aliases:
   - /topics/transactions
 ---

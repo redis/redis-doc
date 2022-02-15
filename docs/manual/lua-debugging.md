@@ -1,6 +1,6 @@
 ---
 title: Debugging Lua scripts in Redis
-linkTitle: Debbugging Lua
+linkTitle: Debugging Lua
 description: How to use the built-in Lua debugger
 weight: 1
 aliases:
