@@ -1,11 +1,11 @@
 ---
-title: "Redis on ARM"
-linkTitle: "Redis on ARM"
+title: "ARM support"
+linkTitle: "ARM support"
 weight: 1
 description: >
-    Exploring Redis on the ARM Computer Architecture
+    Exploring Redis on the ARM CPU Architecture
 aliases:
-    - /docs/reference/ARM
+    - /topics/ARM
 ---
 
 Redis versions 4.0 and above support the ARM processor in general, and

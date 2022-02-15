@@ -1,7 +1,9 @@
 ---
-title: Redis cluster spec
+title: Redis cluster specification
 linkTitle: Cluster spec
 weight: 1
+description: >
+    Detailed specification for Redis cluster
 aliases:
   - /topics/cluster-spec
 ---

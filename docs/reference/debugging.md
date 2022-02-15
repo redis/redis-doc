@@ -1,9 +1,9 @@
 ---
-title: "Debugging Redis"
-linkTitle: "Debugging Redis"
+title: "Debugging"
+linkTitle: "Debugging"
 weight: 1
 description: >
-    Redis debugging guide
+    A guide to debugging Redis server processes
 aliases:
     - /topics/debugging
 ---

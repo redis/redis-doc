@@ -2,6 +2,8 @@
 title: "Bulk loading"
 linkTitle: "Bulk loading"
 weight: 1
+description: >
+    Writing data in bulk using the Redis protocol
 aliases:
     - /topics/mass-insertion
 ---

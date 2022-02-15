@@ -2,6 +2,8 @@
 title: Secondary indexing
 linkTitle: Secondary indexing
 weight: 1
+description: >
+    Building secondary indexes in Redis
 aliases:
   - /topics/indexing
 ---

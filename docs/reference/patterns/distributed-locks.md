@@ -1,6 +1,6 @@
 ---
 title: "Distributed Locks with Redis"
-linkTitle: "Distributed Locks"
+linkTitle: "Distributed locks"
 weight: 1
 description: >
     A Distributed Lock Pattern with Redis

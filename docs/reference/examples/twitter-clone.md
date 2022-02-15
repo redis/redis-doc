@@ -1,6 +1,6 @@
 ---
 title: "Building a Twitter clone"
-linkTitle: "Building a Twitter clone"
+linkTitle: "Twitter clone"
 weight: 20
 menu:
   main:

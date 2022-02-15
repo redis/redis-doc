@@ -1,13 +1,11 @@
-
 ---
-title: "Patterns"
+title: "Redis programming patterns"
 linkTitle: "Patterns"
+description: Novel patterns for working with Redis data structures
 weight: 20
 menu:
   main:
     weight: 20
 ---
 
-{{% pageinfo %}}
-Patterns
-{{% /pageinfo %}}
+The following documents describe some novel development patterns you can use with Redis.

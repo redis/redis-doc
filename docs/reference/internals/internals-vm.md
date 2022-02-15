@@ -2,6 +2,7 @@
 title: "Virtual memory (deprecated)"
 linkTitle: "Virtual memory"
 weight: 1
+description: A description of the Redis virtual memory system that was deprecated in 2.6. This document exists for historial interest.
 aliases:
   - /topics/internals-vm
 ---

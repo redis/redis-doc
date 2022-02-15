@@ -2,6 +2,7 @@
 title: "Event library"
 linkTitle: "Event library"
 weight: 1
+description: What's an event library, and how was the original Redis event library implemented?
 aliases:
   - /topics/internals-eventlib
   - /topics/internals-rediseventlib

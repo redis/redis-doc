@@ -2,6 +2,7 @@
 title: "String internals"
 linkTitle: "String internals"
 weight: 1
+description: Guide to the original implementation of Redis strings
 aliases:
   - /topics/internals-sds
 ---

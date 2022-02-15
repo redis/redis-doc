@@ -1,9 +1,6 @@
 ---
-title: "Example applications"
-linkTitle: ""
+title: "Example apps"
+linkTitle: "Example apps"
+description: Redis example applications
 weight: 20
 ---
-
-{{% pageinfo %}}
-Reference
-{{% /pageinfo %}}
