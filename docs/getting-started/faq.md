@@ -1,15 +1,13 @@
 ---
-title: "Frequently Asked Questions"
-linkTitle: "Frequently Asked Questions"
+title: "Redis FAQ"
+linkTitle: "FAQ"
 weight: 1
 description: >
-    These are the most commonly asked questions when beginning with Redis.
+    Some of the most commonly asked questions when beginning with Redis
 aliases:
     - /docs/getting-started/faq
 ---
-## Why is Redis different compared to other key-value stores?
-
-There are two main reasons.
+## How is Redis different from other key-value stores?
 
 * Redis has a different evolution path in the key-value DBs where values can contain more complex data types, with atomic operations defined on those data types. Redis data types are closely related to fundamental data structures and are exposed to the programmer as such, without additional abstraction layers.
 * Redis is an in-memory but persistent on disk database, so it represents a different trade off where very high write and read speed is achieved with the limitation of data sets that can't be larger than memory. Another advantage of
@@ -37,14 +35,14 @@ Testing your use case is trivial. Use the `redis-benchmark` utility to generate 
 64-bit systems will use considerably more memory than 32-bit systems to store the same keys, especially if the keys and values are small. This is because pointers take 8 bytes in 64-bit systems. But of course the advantage is that you can
 have a lot of memory in 64-bit systems, so in order to run large Redis servers a 64-bit system is more or less required. The alternative is sharding.
 
-## I like Redis's high level operations and features, but I don't like that it keeps everything in memory and I can't have a dataset larger than memory. Are there any plans to change this?
+## Why does Redis keep its entire dataset in memory?
 
 In the past the Redis developers experimented with Virtual Memory and other systems in order to allow larger than RAM datasets, but after all we are very happy if we can do one thing well: data served from memory, disk used for storage. So for now there are no plans to create an on disk backend for Redis. Most of what
 Redis is, after all, a direct result of its current design.
 
 If your real problem is not the total RAM needed, but the fact that you need
 to split your data set into multiple Redis instances, please read the
-[Partitioning page](/topics/partitioning) in this documentation for more info.
+[partitioning page](/topics/partitioning) in this documentation for more info.
 
 Redis Ltd., the company sponsoring Redis development, has developed a
 "Redis on Flash" solution that uses a mixed RAM/flash approach for
@@ -52,7 +50,7 @@ larger data sets with a biased access pattern. You may check their offering
 for more information, however this feature is not part of the open source Redis
 code base.
 
-## Is using Redis together with an on-disk database a good idea?
+## Can you use Redis with a disk-based database?
 
 Yes, a common design pattern involves taking very write-heavy small data
 in Redis (and data you need the Redis data structures to model your problem
@@ -63,7 +61,7 @@ database. This may look similar to caching, but actually is a more advanced mode
 since normally the Redis dataset is updated together with the on-disk DB dataset,
 and not refreshed on cache misses.
 
-## Is there something I can do to lower the Redis memory usage?
+## How can I reduce Redis' overall memory usage?
 
 If you can, use Redis 32 bit instances. Also make good use of small hashes,
 lists, sorted sets, and sets of integers, since Redis is able to represent
@@ -72,27 +70,16 @@ way. There is more info in the [Memory Optimization page](/topics/memory-optimiz
 
 ## What happens if Redis runs out of memory?
 
-Redis will either be killed by the Linux kernel OOM killer,
-crash with an error, or will start to slow down.
-With modern operating systems malloc() returning NULL is not common, usually
-the server will start swapping (if some swap space is configured), and Redis
-performance will start to degrade, so you'll probably notice there is something
-wrong.
-
-Redis has built-in protections allowing the user to set a max limit to memory
+Redis has built-in protections allowing the users to set a max limit on memory
 usage, using the `maxmemory` option in the configuration file to put a limit
-to the memory Redis can use. If this limit is reached Redis will start to reply
+to the memory Redis can use. If this limit is reached, Redis will start to reply
 with an error to write commands (but will continue to accept read-only
-commands), or you can configure it to evict keys when the max memory limit
-is reached in the case where you are using Redis for caching.
+commands).
 
-We have detailed documentation in case you plan to use [Redis as an LRU cache](/topics/lru-cache).
+You can also configure Redis to evict keys when the max memory limit
+is reached. See the [eviction policy docs] for more information on this.
 
-The `INFO` command reports the amount of memory Redis is using so you can
-write scripts that monitor your Redis servers checking for critical conditions
-before they are reached.
-
-## Background saving fails with a fork() error under Linux even if I have a lot of free RAM!
+## Background saving fails with a fork() error on Linux?
 
 Short answer: `echo 1 > /proc/sys/vm/overcommit_memory` :)
 
@@ -124,13 +111,13 @@ available values.
 [redhatvm]: https://people.redhat.com/nhorman/papers/rhel3_vm.pdf
 [proc5]: http://man7.org/linux/man-pages/man5/proc.5.html
 
-## Are Redis on-disk-snapshots atomic?
+## Are Redis on-disk snapshots atomic?
 
 Yes, the Redis background saving process is always forked when the server is
 outside of the execution of a command, so every command reported to be atomic
 in RAM is also atomic from the point of view of the disk snapshot.
 
-## Redis is single threaded. How can I exploit multiple CPU / cores?
+## How can Redis use multiple CPUs or cores?
 
 It's not very frequent that CPU becomes your bottleneck with Redis, as usually Redis is either memory or network bound.
 For instance, when using pipelining a Redis instance running on an average Linux system can deliver 1 million requests per second, so if your application mainly uses O(N) or O(log(N)) commands, it is hardly going to use too much CPU.
@@ -153,7 +140,7 @@ Every hash, list, set, and sorted set, can hold 2^32 elements.
 
 In other words your limit is likely the available memory in your system.
 
-## My replica claims to have a different number of keys compared to its master, why?
+## Why does my replica have a different number of keys its master instance?
 
 If you use keys with limited time to live (Redis expires) this is normal behavior. This is what happens:
 
@@ -164,16 +151,14 @@ If you use keys with limited time to live (Redis expires) this is normal behavio
 
 Because of this, it's common for users with many expired keys to see fewer keys in the replicas. However, logically, the primary and replica will have the same content.
 
-## What does Redis actually mean?
+## Where does the name "Redis" come from?
 
-It means REmote DIctionary Server.
+Redis is an acronym that stands for **RE**mote **DI**ctionary **S**erver.
 
-## Why did you start the Redis project?
+## Why did Salvatore Sanfilippo start the Redis project?
 
-Originally Redis was started in order to scale [LLOOGG][lloogg]. But after I got the basic server working I liked the idea to share the work with other people, and Redis was turned into an open source project.
-
-[lloogg]: https://github.com/antirez/lloogg
+Salvatore originally created Redis to scale [LLOOGG](https://github.com/antirez/lloogg), a real-time log analysis tool. But after getting the basic Redis server working, he decided to share the work with other people and turn Redis into an open source project.
 
 ## How is Redis pronounced?
 
-It's "red" like the color, then "iss".
+"Redis" (/ˈrɛd-ɪs/) is pronounced like the word "red" plus the word "kiss" without the "k".
