@@ -2,7 +2,7 @@
 title: "Redis internals"
 linkTitle: "Internals"
 weight: 1
-description: Documents describing internals in early Redis implementations.
+description: Documents describing internals in early Redis implementations
 aliases:
   - /topics/internals
 ---
