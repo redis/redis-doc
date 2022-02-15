@@ -1,10 +1,5 @@
-
 ---
-title: "Manual"
+title: "The Redis manual"
 linkTitle: "Manual"
 weight: 20
 ---
-
-{{% pageinfo %}}
-The Redis Manual
-{{% /pageinfo %}}
