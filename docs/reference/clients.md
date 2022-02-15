@@ -1,6 +1,6 @@
 ---
-title: "Redis Client Management"
-linkTitle: "Redis Client Management"
+title: "Redis client handling"
+linkTitle: "Client handling"
 weight: 1
 description: >
     How the Redis server manages client connections
