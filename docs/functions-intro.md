@@ -163,7 +163,7 @@ $ cat mylib.lua | redis-cli -x FUNCTION LOAD Lua mylib REPLACE
 ```
 
 We've added the `REPLACE` modifier to the call to `FUNCTION LOAD` to tell Redis that we want to overwrite the existing library definition.
-Otherwise, we would have gotten an error from Redis complaining that the library already exists).
+Otherwise, we would have gotten an error from Redis complaining that the library already exists.
 
 Now that the library's updated code is loaded to Redis, we can proceed and call our function:
 

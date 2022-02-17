@@ -582,7 +582,8 @@
                 },
                 "RW": true,
                 "access": true,
-                "update": true
+                "update": true,
+                "variable_flags": true
             }
         ],
         "arguments": [
@@ -2766,6 +2767,10 @@
             [
                 "4.0.0",
                 "Added node IDs."
+            ],
+            [
+                "7.0.0",
+                "Added additional networking metadata and added support for hostnames and unknown endpoints."
             ]
         ],
         "acl_categories": [
@@ -2838,6 +2843,21 @@
     "COMMAND GETKEYS": {
         "summary": "Extract keys given a full Redis command",
         "since": "2.8.13",
+        "group": "server",
+        "complexity": "O(N) where N is the number of arguments to the command",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": -4,
+        "command_flags": [
+            "loading",
+            "stale"
+        ]
+    },
+    "COMMAND GETKEYSANDFLAGS": {
+        "summary": "Extract keys given a full Redis command",
+        "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of arguments to the command",
         "acl_categories": [
@@ -3994,10 +4014,10 @@
         ]
     },
     "FCALL": {
-        "summary": "PATCH__TBD__38__",
+        "summary": "Invoke a function",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__37__",
+        "complexity": "Depends on the function that is executed.",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4056,10 +4076,10 @@
         ]
     },
     "FCALL_RO": {
-        "summary": "PATCH__TBD__7__",
+        "summary": "Invoke a read-only function",
         "since": "7.0.0",
         "group": "scripting",
-        "complexity": "PATCH__TBD__6__",
+        "complexity": "Depends on the function that is executed.",
         "acl_categories": [
             "@slow",
             "@scripting"
@@ -4240,7 +4260,7 @@
         "arity": 3,
         "arguments": [
             {
-                "name": "function-name",
+                "name": "library-name",
                 "type": "string"
             }
         ],
@@ -4397,7 +4417,7 @@
             {
                 "name": "library-description",
                 "type": "string",
-                "token": "DESC",
+                "token": "DESCRIPTION",
                 "optional": true
             },
             {
@@ -11107,7 +11127,8 @@
                 },
                 "RW": true,
                 "access": true,
-                "update": true
+                "update": true,
+                "variable_flags": true
             }
         ],
         "arguments": [

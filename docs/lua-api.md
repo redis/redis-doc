@@ -377,6 +377,18 @@ This function triggers a breakpoint when using the Redis Lua debugger](/topics/l
 
 This function prints its argument in the [Redis Lua debugger](/topics/ldb) console.
 
+### <a name="redis.acl_check_cmd"></a> `redis.acl_check_cmd(command [,arg...])`
+
+* Since version: 7.0.0
+* Available in scripts: yes
+* Available in functions: yes
+
+This function is used for checking if the current user running the script has [ACL](/topics/acl) permissions to execute the given command with the given arguments.
+
+The return value is a boolean `true` in case the current user has permissions to execute the command (via a call to [redis.call](#redis.call) or [redis.pcall](#redis.pcall)) or `false` in case they don't.
+
+The function will raise an error if the passed command or its arguments are invalid.
+
 ### <a name="redis.register_function"></a> `redis.register_function`
 
 * Since version: 7.0.0
@@ -387,7 +399,7 @@ This function is only available from the context of the `FUNCTION LOAD` command.
 When called, it registers a function to the loaded library.
 The function can be called either with positional or named arguments.
 
-#### <a name="redis.register_function_pos_args"></a> positional arguments: `redis.register_functio(name, callback)`
+#### <a name="redis.register_function_pos_args"></a> positional arguments: `redis.register_function(name, callback)`
 
 The first argument to `redis.register_function` is a Lua string representing the function name.
 The second argument to `redis.register_function` is a Lua function.
@@ -398,7 +410,7 @@ Usage example:
 redis> FUNCTION LOAD Lua mylib "redis.register_function('noop', function() end)"
 ```
 
-#### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_functio{function_name=name, callback=callback, flags={flag1, flag2, ..}. description=description}`
+#### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_function{function_name=name, callback=callback, flags={flag1, flag2, ..}. description=description}`
 
 The named arguments variant accepts the following arguments:
 

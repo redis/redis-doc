@@ -9,7 +9,7 @@ For more information please refer to [Introduction to Redis Functions](/topics/f
 
 @examples
 
-The following example shows how to dump loaded libraries using and then it calls `FUNCTION FLUSH`.It then restores the library from the serialized payload,
+The following example shows how to dump loaded libraries using `FUNCTION DUMP` and then it calls `FUNCTION FLUSH` deletes all the libraries.
 Then, it restores the original libraries from the serialized payload with `FUNCTION RESTORE`.
 
 ```

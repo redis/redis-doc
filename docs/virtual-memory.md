@@ -3,10 +3,8 @@
 Virtual Memory
 ===
 
-Redis Virtual Memory is a feature that will appear for the first time in a
-stable Redis distribution in Redis 2.0. However Virtual Memory (called VM
-starting from now) is already available and stable enough to be tests in the
-unstable branch of Redis available [on Git][redissrc].
+Redis Virtual Memory is a feature that was available since Redis 2.0.
+It has been deprecated as of Redis 2.4.
 
 [redissrc]: http://github.com/redis/redis
 
