@@ -1,4 +1,11 @@
-# Redis Gopher support
+---
+title: "Redis and the Gopher protocol"
+linkTitle: "Gopher protocol"
+weight: 1
+description: The Redis Gopher protocol implementation
+aliases:
+  - /topics/gopher
+---
 
 Redis contains an implementation of the Gopher protocol, as specified in
 the [RFC 1436](https://www.ietf.org/rfc/rfc1436.txt).
@@ -15,10 +22,10 @@ internet, others believe that the mainstream internet became too much
 controlled, and it's cool to create an alternative space for people that
 want a bit of fresh air.
 
-Anyway for the 10nth birthday of the Redis, we gave it the Gopher protocol
+Anyway, for the 10th birthday of the Redis, we gave it the Gopher protocol
 as a gift.
 
-## How it works?
+## How it works
 
 The Redis Gopher support uses the inline protocol of Redis, and specifically
 two kind of inline requests that were anyway illegal: an empty request
