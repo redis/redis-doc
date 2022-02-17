@@ -1,3 +1,14 @@
+---
+title: "Redis design draft #2 (historical)"
+linkTitle: "Redis design draft"
+weight: 2
+description: A design for the RDB format written in the early days of Redis
+aliases:
+  - /topics/rdd-2
+---
+
+**Note: this document was written by the creator of Redis, Salvatore Sanfilippo, early in the development of Redis (c. 2013), as part of a series of design drafts. This is preserved for historical interest.**
+
 # Redis Design Draft 2 -- RDB version 7 info fields
 
 * Author: Salvatore Sanfilippo `antirez@gmail.com`
