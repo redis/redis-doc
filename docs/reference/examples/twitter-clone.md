@@ -1,10 +1,8 @@
 ---
-title: "Building a Twitter clone"
-linkTitle: "Twitter clone"
+title: "Redis patterns example"
+linkTitle: "Patterns example"
+description: Learn several Redis patterns by building a Twitter clone
 weight: 20
-menu:
-  main:
-    weight: 20
 ---
 
 This article describes the design and implementation of a [very simple Twitter clone](https://github.com/antirez/retwis) written using PHP with Redis as the only database. The programming community has traditionally considered key-value stores as a special purpose database that couldn't be used as a drop-in replacement for a relational database for the development of web applications. This article will try to show that Redis data structures on top of a key-value layer are an effective data model to implement many kinds of applications.
