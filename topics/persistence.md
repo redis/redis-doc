@@ -333,7 +333,7 @@ Since Redis 7.0.0, AOF files are split into multiple files which reside in a sin
 During normal operation all you need to do is copy/tar the files in this directory to achieve a backup. However, if this is done during a [rewrite](#log-rewriting), you might end up with an invalid backup.
 To work around this you must disable AOF rewrites during the backup:
 
-1. Turn of automatic rewrites with<br/>
+1. Turn off automatic rewrites with<br/>
    `CONFIG SET` `auto-aof-rewrite-percentage 0`<br/>
    Make sure you don't manually start a rewrite (using `BGREWRITEAOF`) during this time.
 2. Check there's no current rewrite in progress using<br/>
