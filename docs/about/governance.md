@@ -8,11 +8,9 @@ aliases:
     - /topics/governance
 ---
 
-The Redis open source project has become very successful and extremely popular since its original release in 2009.
+From 2009-2020, Salvatore Sanfilippo built, led, and maintained the Redis open source project. During this time, Redis had no formal governance structure, operating primarily as a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)-style project.
 
-From 2009-2020, Salvatore Sanfillipo led, managed, and maintained the project. While contributors from [Redis Ltd.](https://redis.com) and others have made significant contributions, the project never adopted a formal governance structure and de-facto was operating as a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)-style project.
-
-As Redis grew, matured, and expanded its user base, it became increasingly important to form a sustainable structure for its ongoing development and maintenance. We wanted to ensure the project’s continuity and reflect its larger community.  With this in mind, a new governance structure was adopted.
+As Redis grew, matured, and expanded its user base, it became increasingly important to form a sustainable structure for its ongoing development and maintenance. Salvatore and the core Redis contributors wanted to ensure the project’s continuity and reflect its larger community.  With this in mind, a new governance structure was adopted.
 
 ## Current governance structure
 
