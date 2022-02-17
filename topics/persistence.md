@@ -344,7 +344,9 @@ To work around this you must disable AOF rewrites during the backup:
    `CONFIG SET` `auto-aof-rewrite-percentage <prev-value>`
 
 **Note:** If you want to minimize the time AOF rewrites are disabled you may create hard links to the files in `appenddirname` (in step 3 above) and then re-enable rewites (step 4) after the hard links are created.
-Now you can copy/tar the hardlinks and delete them when done.
+Now you can copy/tar the hardlinks and delete them when done. This works because Redis guarantees that it
+only appends to files in this directory, or completely replaces them if necessary, so the content should be
+consistent at any given point in time.
 
 
 **Note:** If you want to handle the case of the server being restarted during the backup and make sure no rewrite will automatically start after the restart you can change step 1 above to also persist the updated configuration via `CONFIG REWRITE`.
