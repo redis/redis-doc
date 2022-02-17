@@ -4,6 +4,8 @@ linkTitle: "Redis design draft"
 weight: 2
 description: A design for the RDB format written in the early days of Redis
 aliases:
+  - /topics/rdd
+  - /topics/rdd-1
   - /topics/rdd-2
 ---
 
