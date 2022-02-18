@@ -2011,6 +2011,14 @@
     "repository": "https://github.com/isyscore/fpredis",
     "description": "FPREDIS is a FPC client library for the Redis database.",
     "authors": []
+  },
+  {
+    "name": "redis-streams",
+    "language": "Python",
+    "repository": "https://github.com/KissPeter/redis-streams",
+    "description": "Redis-Streams Python library provides an easy to use interface for batch collection and processing. Simplifies the consumer group and consumers management. Designed for a highly available, scalable and distributed environment, it thus offers, in addition to the main functionality, monitoring and scaling capabilities.",
+    "authors": [],
+    "active": true
   }
 
 ]
