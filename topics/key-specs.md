@@ -153,9 +153,9 @@ In addition, the specification may include precisely one of the following:
 
 Key specifications may have the following flags:
 
-* **channel:** this flag indicates that the specification isn't about keys at all.
-  Instead, the specification relates to the name of a sharded Pub/Sub channel.
-  Please refer to the `SPUBLISH` command for further details about sharded Pub/Sub.
+* **not_key:** this flag indicates that the specified argument isn't a key.
+  This argument is treated the same as a key when computing which slot a command should be assigned to for Redis cluster. 
+  For all other purposes this argument should not be considered a key.
 * **incomplete:** this flag is explained below.
 * **variable_flags:** this flag is explained below.
 
