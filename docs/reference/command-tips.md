@@ -1,4 +1,11 @@
-# Redis command tips
+---
+title: "Redis command tips"
+linkTitle: "Command tips"
+weight: 4
+description: Programm
+aliases:
+    - /topics/command-tips
+---
 
 Command tips are an array of strings.
 These provide Redis clients with additional information about the command.

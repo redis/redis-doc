@@ -1,4 +1,11 @@
-# Redis command arguments
+---
+title: "Redis command arguments"
+linkTitle: "Command arguments"
+weight: 4
+description: How Redis commands expose their documentation programmatically
+aliases:
+    - /topics/command-arguments
+---
 
 The `COMMAND DOCS` command returns documentation-focused information about available Redis commands.
 The map reply that the command returns includes the _arguments_ key.
