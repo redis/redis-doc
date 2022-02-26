@@ -16,6 +16,7 @@ values. The following metrics are reported:
      and query buffers, connection contexts)
 *   `clients.normal`: The total size in bytes of all clients overheads (output
      and query buffers, connection contexts)
+*   `cluster.links`: Memory usage by cluster links (Added in Redis 7.0, see `INFO`'s `mem_cluster_links`).
 *   `aof.buffer`: The summed size in bytes of AOF related buffers.
 *   `lua.caches`: the summed size in bytes of the overheads of the Lua scripts'
      caches
