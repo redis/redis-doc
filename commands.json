@@ -9905,6 +9905,14 @@
             "@slow"
         ],
         "arity": -2,
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
         "command_flags": [
             "pubsub",
             "loading",
@@ -10166,7 +10174,8 @@
             "admin",
             "noscript",
             "loading",
-            "stale"
+            "stale",
+            "allow_busy"
         ],
         "doc_flags": [
             "syscmd"
@@ -10197,8 +10206,7 @@
             "admin",
             "noscript",
             "stale",
-            "no_async_loading",
-            "allow_busy"
+            "no_async_loading"
         ]
     },
     "RESET": {
@@ -11699,10 +11707,12 @@
         ]
     },
     "SLAVEOF": {
-        "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
+        "summary": "Make the server a replica of another instance, or promote it as master.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
+        "deprecated_since": "5.0.0",
+        "replaced_by": "`REPLICAOF`",
         "acl_categories": [
             "@admin",
             "@slow",
@@ -11724,6 +11734,9 @@
             "noscript",
             "stale",
             "no_async_loading"
+        ],
+        "doc_flags": [
+            "deprecated"
         ]
     },
     "SLOWLOG": {
@@ -12325,7 +12338,7 @@
                         "limit": 0
                     }
                 },
-                "channel": true
+                "not_key": true
             }
         ],
         "arguments": [
@@ -12544,7 +12557,7 @@
                         "limit": 0
                     }
                 },
-                "channel": true
+                "not_key": true
             }
         ],
         "arguments": [
@@ -12827,7 +12840,7 @@
                         "limit": 0
                     }
                 },
-                "channel": true
+                "not_key": true
             }
         ],
         "arguments": [
@@ -13948,6 +13961,7 @@
             {
                 "name": "entries_read",
                 "type": "integer",
+                "token": "ENTRIESREAD",
                 "optional": true
             }
         ],
@@ -14022,7 +14036,7 @@
         "history": [
             [
                 "7.0.0",
-                "Added the `enries-read` and `lag` fields"
+                "Added the `entries-read` and `lag` fields"
             ]
         ],
         "acl_categories": [
@@ -14085,7 +14099,7 @@
         "history": [
             [
                 "7.0.0",
-                "Added the `max-deleted-entry-id`, `entries-added`, `entries-read` and `lag` fields"
+                "Added the `max-deleted-entry-id`, `entries-added`, `recorded-first-entry-id`, `entries-read` and `lag` fields"
             ]
         ],
         "acl_categories": [
@@ -14602,19 +14616,16 @@
                 "type": "string"
             },
             {
-                "name": "extended_form",
-                "type": "block",
-                "optional": true,
-                "arguments": [
-                    {
-                        "name": "entries_added",
-                        "type": "integer"
-                    },
-                    {
-                        "name": "max_deleted_entry_id",
-                        "type": "string"
-                    }
-                ]
+                "name": "entries_added",
+                "type": "integer",
+                "token": "ENTRIESADDED",
+                "optional": true
+            },
+            {
+                "name": "max_deleted_entry_id",
+                "type": "string",
+                "token": "MAXDELETEDID",
+                "optional": true
             }
         ],
         "command_flags": [
