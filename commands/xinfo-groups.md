@@ -17,7 +17,7 @@ Put differently, it is the number of entries that are yet to be delivered to the
 The values and trends of this metric are helpful in making scaling decisions about the consumer group.
 You can address high lag values by adding more consumers to the group, whereas low values may indicate that you can remove consumers from the group to scale it down.
 
-Redis reports the lag of a consumer group by keeping two counters: the number of all entries added to the stream and the number of logical reads made bythe consumer group.
+Redis reports the lag of a consumer group by keeping two counters: the number of all entries added to the stream and the number of logical reads made by the consumer group.
 The lag is the difference between these two.
 
 The stream's counter (the `entries_added` field of the `XINFO STREAM` command) is incremented by one with every `XADD` and counts all of the entries added to the stream during its lifetime.
