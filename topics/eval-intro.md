@@ -58,7 +58,7 @@ redis> EVAL "return 'Scripting!'" 0
 "Scripting!"
 ```
 
-Although this mode of operation isn't blocked by Redis, it an anti-pattern due to script cache considerations (more on the topic below).
+Although this mode of operation isn't blocked by Redis, it is an anti-pattern due to script cache considerations (more on the topic below).
 Instead of having your application generate subtle variations of the same scripts, you can parametrize them and pass any arguments needed for to execute them.
 
 The following example demonstrates how to achieve the same effects as above, but via parameterization:
