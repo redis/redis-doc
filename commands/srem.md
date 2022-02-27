@@ -10,11 +10,6 @@ An error is returned when the value stored at `key` is not a set.
 @integer-reply: the number of members that were removed from the set, not
 including non existing members.
 
-@history
-
-* `>= 2.4`: Accepts multiple `member` arguments.
-  Redis versions older than 2.4 can only remove a set member per call.
-
 @examples
 
 ```cli

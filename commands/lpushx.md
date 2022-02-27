@@ -7,12 +7,6 @@ exist.
 
 @integer-reply: the length of the list after the push operation.
 
-@history
-
-* `>= 4.0`: Accepts multiple `element` arguments.
-  In Redis versions older than 4.0 it was possible to push a single value per
-  command.
-
 @examples
 
 ```cli

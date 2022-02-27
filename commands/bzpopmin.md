@@ -23,10 +23,6 @@ popped from.
   where a member was popped, the second element is the popped member itself,
   and the third element is the score of the popped element.
 
-@history
-
-* `>= 6.0`: `timeout` is interpreted as a double instead of an integer.
-
 @examples
 
 ```

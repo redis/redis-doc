@@ -308,6 +308,15 @@
     "authors": ["pmlopes"],
     "active": true
   },
+  
+  {
+    "name": "Kreds",
+    "language": "Kotlin",
+    "repository": "https://github.com/crackthecodeabhi/kreds",
+    "description": "A thread-safe, non-blocking, coroutine-based Redis client for Kotlin/JVM",
+    "authors": ["abhi_19t"],
+    "active": true
+  },
 
   {
     "name": "redis-lua",
@@ -625,6 +634,15 @@
     "repository": "https://github.com/profunktor/redis4cats",
     "description": "Purely functional Redis client for Cats Effect & Fs2",
     "authors": ["volpegabriel87"],
+    "active": true
+  },
+
+  {
+    "name": "LettuceF",
+    "language": "Scala",
+    "repository": "https://github.com/naoh87/lettucef",
+    "description": "Scala FP wrapper for Lettuce with Cats Effect",
+    "authors": ["naoh87"],
     "active": true
   },
 
@@ -1192,7 +1210,15 @@
     "description": "A Redis client in pure Octave",
     "authors": ["markuman"]
   },
-
+  
+  {
+    "name": "MatlabRedis",
+    "language": "Matlab",
+    "repository": "https://github.com/GummyJum/MatlabRedis",
+    "description": "Pure Matlab Redis interface for Matlab>=2014B",
+    "active": true
+  },
+  
   {
     "name": "redisboost",
     "language": "C#",
@@ -1977,6 +2003,22 @@
     "repository": "https://github.com/SiLeader/dedis",
     "description": "Simple Redis Client for Dart",
     "authors": ["cerussite127"]
+  },
+  {
+    "name": "fpredis",
+    "language": "Pascal",
+    "url": "https://github.com/isyscore/fpredis",
+    "repository": "https://github.com/isyscore/fpredis",
+    "description": "FPREDIS is a FPC client library for the Redis database.",
+    "authors": []
+  },
+  {
+    "name": "redis-streams",
+    "language": "Python",
+    "repository": "https://github.com/KissPeter/redis-streams",
+    "description": "Redis-Streams Python library provides an easy to use interface for batch collection and processing. Simplifies the consumer group and consumers management. Designed for a highly available, scalable and distributed environment, it thus offers, in addition to the main functionality, monitoring and scaling capabilities.",
+    "authors": [],
+    "active": true
   }
 
 ]

@@ -178,6 +178,17 @@ exported.
 
 The module will be able to load into different versions of Redis.
 
+A module can be designed to support both newer and older Redis versions where certain API functions are not available in all versions.
+If an API function is not implemented in the currently running Redis version, the function pointer is set to NULL.
+This allows the module to check if a function exists before using it:
+
+    if (RedisModule_SetCommandInfo != NULL) {
+        RedisModule_SetCommandInfo(cmd, &info);
+    }
+
+In recent versions of `redismodule.h`, a convenience macro `RMAPI_FUNC_SUPPORTED(funcname)` is defined.
+Using the macro or just comparing with NULL is a matter of personal preference.
+
 # Passing configuration parameters to Redis modules
 
 When the module is loaded with the `MODULE LOAD` command, or using the
@@ -187,7 +198,7 @@ file name:
 
     loadmodule mymodule.so foo bar 1234
 
-In the above example the strings `foo`, `bar` and `123` will be passed
+In the above example the strings `foo`, `bar` and `1234` will be passed
 to the module `OnLoad()` function in the `argv` argument as an array
 of RedisModuleString pointers. The number of arguments passed is into `argc`.
 

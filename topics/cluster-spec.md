@@ -33,7 +33,7 @@ order to force certain keys to be stored in the same hash slot. However during
 manual resharding, multi-key operations may become unavailable for some time
 while single key operations are always available.
 
-Redis Cluster does not support multiple databases like the stand alone version
+Redis Cluster does not support multiple databases like the standalone version
 of Redis. There is just database 0 and the `SELECT` command is not allowed.
 
 Clients and Servers roles in the Redis Cluster protocol
@@ -190,7 +190,7 @@ possible that there are multiple occurrences of `{` or `}` the algorithm is
 well specified by the following rules:
 
 * IF the key contains a `{` character.
-* AND IF there is a `}` character to the right of `{`
+* AND IF there is a `}` character to the right of `{`.
 * AND IF there are one or more characters between the first occurrence of `{` and the first occurrence of `}`.
 
 Then instead of hashing the key, only what is between the first occurrence of `{` and the following first occurrence of `}` is hashed.
@@ -339,7 +339,7 @@ sending node is not considered part of the cluster.
 
 A node will accept another node as part of the cluster only in two ways:
 
-* If a node presents itself with a `MEET` message. A meet message is exactly
+* If a node presents itself with a `MEET` message (`CLUSTER MEET` command). A meet message is exactly
 like a `PING` message, but forces the receiver to accept the node as part of
 the cluster. Nodes will send `MEET` messages to other nodes **only if** the system administrator requests this via the following command:
 
@@ -370,9 +370,11 @@ to the client with a MOVED error, like in the following example:
     GET x
     -MOVED 3999 127.0.0.1:6381
 
-The error includes the hash slot of the key (3999) and the ip:port of the
-instance that can serve the query. The client needs to reissue the query
-to the specified node's IP address and port.
+The error includes the hash slot of the key (3999) and the endpoint:port of the instance that can serve the query.
+The client needs to reissue the query to the specified node's endpoint address and port. 
+The endpoint can be either an IP address, a hostname, or it can be empty (e.g. `-MOVED 3999 :6380`). 
+An empty endpoint indicates that the server node has an an unknown endpoint, and the client should send the next request to the same endpoint as the current request but with the provided port. 
+
 Note that even if the client waits a long time before reissuing the query,
 and in the meantime the cluster configuration changed, the destination node
 will reply again with a MOVED error if the hash slot 3999 is now served by
@@ -380,7 +382,7 @@ another node. The same happens if the contacted node had no updated information.
 
 So while from the point of view of the cluster nodes are identified by
 IDs we try to simplify our interface with the client just exposing a map
-between hash slots and Redis nodes identified by IP:port pairs.
+between hash slots and Redis nodes identified by endpoint:port pairs.
 
 The client is not required to, but should try to memorize that hash slot
 3999 is served by 127.0.0.1:6381. This way once a new command needs to
@@ -388,7 +390,7 @@ be issued it can compute the hash slot of the target key and have a
 greater chance of choosing the right node.
 
 An alternative is to just refresh the whole client-side cluster layout
-using the `CLUSTER NODES` or `CLUSTER SLOTS` commands
+using the `CLUSTER SLOTS` commands
 when a MOVED redirection is received. When a redirection is encountered, it
 is likely multiple slots were reconfigured rather than just one, so updating
 the client configuration as soon as possible is often the best strategy.
@@ -442,7 +444,7 @@ After the hash slots are assigned they will propagate across the cluster
 using the gossip protocol, as specified later in the
 *configuration propagation* section.
 
-The `ADDSLOTS` and `ADDSLOTSRANGE` command are usually used when a new cluster is created
+The `ADDSLOTS` and `ADDSLOTSRANGE` commands are usually used when a new cluster is created
 from scratch to assign each master node a subset of all the 16384 hash
 slots available.
 
@@ -541,7 +543,7 @@ The full semantics of ASK redirection from the point of view of the client is as
 * Don't yet update local client tables to map hash slot 8 to B.
 
 Once hash slot 8 migration is completed, A will send a MOVED message and
-the client may permanently map hash slot 8 to the new IP and port pair.
+the client may permanently map hash slot 8 to the new endpoint and port pair.
 Note that if a buggy client performs the map earlier this is not
 a problem since it will not send the ASKING command before issuing the query,
 so B will redirect the client to A using a MOVED redirection error.
@@ -666,7 +668,7 @@ by the replica's master node. This may happen because:
 1. The client sent a command about hash slots never served by the master of this replica.
 2. The cluster was reconfigured (for example resharded) and the replica is no longer able to serve commands for a given hash slot.
 
-When this happens the client should update its hashslot map as explained in
+When this happens the client should update its hash slot map as explained in
 the previous sections.
 
 The readonly state of the connection can be cleared using the `READWRITE` command.
@@ -750,7 +752,7 @@ A `PFAIL` condition is escalated to a `FAIL` condition when the following set of
 If all the above conditions are true, Node A will:
 
 * Mark the node as `FAIL`.
-* Send a `FAIL` message (as opposted to a `FAIL` condition within a heartbeat message) to all the reachable nodes.
+* Send a `FAIL` message (as opposed to a `FAIL` condition within a heartbeat message) to all the reachable nodes.
 
 The `FAIL` message will force every receiving node to mark the node in `FAIL` state, whether or not it already flagged the node in `PFAIL` state.
 
@@ -817,7 +819,7 @@ are guaranteed to be new, incremental, and unique.
 Replica election and promotion
 ---
 
-replica election and promotion is handled by replica nodes, with the help of master nodes that vote for the replica to promote.
+Replica election and promotion is handled by replica nodes, with the help of master nodes that vote for the replica to promote.
 A replica election happens when a master is in `FAIL` state from the point of view of at least one of its replicas that has the prerequisites in order to become a master.
 
 In order for a replica to promote itself to master, it needs to start an election and win it. All the replicas for a given master can start an election if the master is in `FAIL` state, however only one replica will win the election and promote itself to master.
@@ -995,7 +997,7 @@ With the previous section in mind, it is easier to see how update messages
 work. Node A may rejoin the cluster after some time. It will send heartbeat
 packets where it claims it serves hash slots 1 and 2 with configuration epoch
 of 3. All the receivers with updated information will instead see that
-the same hash slots are associated with node B having an higher configuration
+the same hash slots are associated with node B having a higher configuration
 epoch. Because of this they'll send an `UPDATE` message to A with the new
 configuration for the slots. A will update its configuration because of the
 **rule 2** above.
@@ -1223,9 +1225,14 @@ In a Redis Cluster clients can subscribe to every node, and can also
 publish to every other node. The cluster will make sure that published
 messages are forwarded as needed.
 
-The current implementation will simply broadcast each published message
-to all other nodes, but at some point this will be optimized either
-using Bloom filters or other algorithms.
+The clients can send SUBSCRIBE to any node and can also send PUBLISH to any node. 
+It will simply broadcast each published message to all other nodes.
+
+From 7.0, sharded pubsub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
+A shard message must be sent to a node that owns the slot the shard channel is hashed to. 
+The cluster makes sure the published shard messages are forwarded to all nodes in the shard, so clients can subscribe to a shard channel by connecting to either the master responsible for the slot, or to any of its replicas.
+
+
 
 Appendix
 ===

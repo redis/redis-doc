@@ -48,10 +48,6 @@ Specifying the value 0 as `count` disables the limiting mechanism entirely.
 
 @integer-reply: The number of entries deleted from the stream.
 
-@history
-
-* `>= 6.2`: Added the `MINID` trimming strategy and the `LIMIT` option.
-
 @examples
 
 ```cli

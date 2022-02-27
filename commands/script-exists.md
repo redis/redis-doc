@@ -8,8 +8,7 @@ loaded (and if not, to load them using `SCRIPT LOAD`) so that the pipelining
 operation can be performed solely using `EVALSHA` instead of `EVAL` to save
 bandwidth.
 
-Please refer to the `EVAL` documentation for detailed information about Redis
-Lua scripting.
+For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
 
 @return
 

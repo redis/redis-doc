@@ -1,20 +1,5 @@
-The STRALGO implements complex algorithms that operate on strings.
-Right now the only algorithm implemented is the LCS algorithm (longest common
-substring). However new algorithms could be implemented in the future.
-The goal of this command is to provide to Redis users algorithms that need
-fast implementations and are normally not provided in the standard library of
-most programming languages.
 
-The first argument of the command selects the algorithm to use, right now
-the argument must be "LCS", since this is the only implemented one.
-
-## LCS algorithm
-
-```
-STRALGO LCS STRINGS <string_a> <string_b> | KEYS <key_a> <key_b> [LEN] [IDX] [MINMATCHLEN <len>] [WITHMATCHLEN]
-```
-
-The LCS subcommand implements the longest common subsequence algorithm. Note that this is different than the longest common string algorithm, since matching characters in the string does not need to be contiguous.
+The LCS command implements the longest common subsequence algorithm. Note that this is different than the longest common string algorithm, since matching characters in the string does not need to be contiguous.
 
 For instance the LCS between "foo" and "fao" is "fo", since scanning the two strings from left to right, the longest common set of characters is composed of the first "f" and then the "o".
 
@@ -22,33 +7,24 @@ LCS is very useful in order to evaluate how similar two strings are. Strings can
 
 Note that this algorithm runs in `O(N*M)` time, where N is the length of the first string and M is the length of the second string. So either spin a different Redis instance in order to run this algorithm, or make sure to run it against very small strings.
 
-The basic usage is the following:
-
-```
-> STRALGO LCS STRINGS ohmytext mynewtext
-"mytext"
-```
-
-It is also possible to compute the LCS between the content of two keys:
-
 ```
 > MSET key1 ohmytext key2 mynewtext
 OK
-> STRALGO LCS KEYS key1 key2
+> LCS key1 key2
 "mytext"
 ```
 
 Sometimes we need just the length of the match:
 
 ```
-> STRALGO LCS STRINGS ohmytext mynewtext LEN
+> LCS key1 key2 LEN
 6
 ```
 
 However what is often very useful, is to know the match position in each strings:
 
 ```
-> STRALGO LCS KEYS key1 key2 IDX
+> LCS key1 key2 IDX
 1) "matches"
 2) 1) 1) 1) (integer) 4
          2) (integer) 7
@@ -71,7 +47,7 @@ Then there is another match between 4-7 and 5-8.
 To restrict the list of matches to the ones of a given minimal length:
 
 ```
-> STRALGO LCS KEYS key1 key2 IDX MINMATCHLEN 4
+> LCS key1 key2 IDX MINMATCHLEN 4
 1) "matches"
 2) 1) 1) 1) (integer) 4
          2) (integer) 7
@@ -84,7 +60,7 @@ To restrict the list of matches to the ones of a given minimal length:
 Finally to also have the match len:
 
 ```
-> STRALGO LCS KEYS key1 key2 IDX MINMATCHLEN 4 WITHMATCHLEN
+> LCS key1 key2 IDX MINMATCHLEN 4 WITHMATCHLEN
 1) "matches"
 2) 1) 1) 1) (integer) 4
          2) (integer) 7
@@ -97,8 +73,7 @@ Finally to also have the match len:
 
 @return
 
-For the LCS algorithm:
-
 * Without modifiers the string representing the longest common substring is returned.
 * When `LEN` is given the command returns the length of the longest common substring.
 * When `IDX` is given the command returns an array with the LCS length and all the ranges in both the strings, start and end offset for each string, where there are matches. When `WITHMATCHLEN` is given each array representing a match will also have the length of the match (see examples).
+

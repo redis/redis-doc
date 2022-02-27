@@ -31,6 +31,16 @@ first part is the Unix time in milliseconds of the Redis instance generating
 the ID. The second part is just a sequence number and is used in order to
 distinguish IDs generated in the same millisecond.
 
+You can also specify an incomplete ID, that consists only of the milliseconds part, which is interpreted as a zero value for sequence part.
+To have only the sequence part automatically generated, specify the milliseconds part followed by the `-` separator and the `*` character:
+
+```
+> XADD mystream 1526919030474-55 message "Hello,"
+"1526919030474-55"
+> XADD mystream 1526919030474-* message " World!"
+"1526919030474-56"
+```
+
 IDs are guaranteed to be always incremental: If you compare the ID of the
 entry just inserted it will be greater than any other past ID, so entries
 are totally ordered inside a stream. In order to guarantee this property,
@@ -74,10 +84,6 @@ specified by the user during insertion.
 
 The command returns a @nil-reply when used with the `NOMKSTREAM` option and the
 key doesn't exist.
-
-@history
-
-* `>= 6.2`: Added the `NOMKSTREAM` option, `MINID` trimming strategy and the `LIMIT` option.
 
 @examples
 

@@ -69,14 +69,6 @@ If the `INCR` option is specified, the return value will be @bulk-string-reply:
 
 * The new score of `member` (a double precision floating point number) represented as string, or `nil` if the operation was aborted (when called with either the `XX` or the `NX` option).
 
-@history
-
-* `>= 2.4`: Accepts multiple elements.
-  In Redis versions older than 2.4 it was possible to add or update a single
-  member per call.
-* `>= 3.0.2`: Added the `XX`, `NX`, `CH` and `INCR` options.
-* `>= 6.2`: Added the `GT` and `LT` options.
-
 @examples
 
 ```cli

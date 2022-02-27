@@ -17,23 +17,23 @@ The optional `WITHSCORES` argument supplements the command's reply with the scor
 
 ## Index ranges
 
-By default, the command performs an index range query. The `<min>` and `<max>` arguments represent zero-based indexes, where `0` is the first element, `1` is the next element, and so on. These arguments specify an **inclusive range**, so for example, `ZRANGE myzset 0 1` will return both the first and the second element of the sorted set.
+By default, the command performs an index range query. The `<start>` and `<stop>` arguments represent zero-based indexes, where `0` is the first element, `1` is the next element, and so on. These arguments specify an **inclusive range**, so for example, `ZRANGE myzset 0 1` will return both the first and the second element of the sorted set.
 
 The indexes can also be negative numbers indicating offsets from the end of the sorted set, with `-1` being the last element of the sorted set, `-2` the penultimate element, and so on.
 
 Out of range indexes do not produce an error.
 
-If `<min>` is greater than either the end index of the sorted set or `<max>`, an empty list is returned.
+If `<start>` is greater than either the end index of the sorted set or `<stop>`, an empty list is returned.
 
-If `<max>` is greater than the end index of the sorted set, Redis will use the last element of the sorted set.
+If `<stop>` is greater than the end index of the sorted set, Redis will use the last element of the sorted set.
 
 ## Score ranges
 
-When the `BYSCORE` option is provided, the command behaves like `ZRANGEBYSCORE` and returns the range of elements from the sorted set having scores equal or between `<min>` and `<max>`.
+When the `BYSCORE` option is provided, the command behaves like `ZRANGEBYSCORE` and returns the range of elements from the sorted set having scores equal or between `<start>` and `<stop>`.
 
-`<min>` and `<max>` can be `-inf` and `+inf`, denoting the negative and positive infinities, respectively. This means that you are not required to know the highest or lowest score in the sorted set to get all elements from or up to a certain score.
+`<start>` and `<stop>` can be `-inf` and `+inf`, denoting the negative and positive infinities, respectively. This means that you are not required to know the highest or lowest score in the sorted set to get all elements from or up to a certain score.
 
-By default, the score intervals specified by `<min>` and `<max>` are closed (inclusive).
+By default, the score intervals specified by `<start>` and `<stop>` are closed (inclusive).
 It is possible to specify an open interval (exclusive) by prefixing the score
 with the character `(`.
 
@@ -51,16 +51,39 @@ ZRANGE zset (5 (10 BYSCORE
 
 Will return all the elements with `5 < score < 10` (5 and 10 excluded).
 
+## Reverse ranges
+
+Using the `REV` option reverses the sorted set, with index 0 as the element with the highest score.
+
+By default, `<start>` must be less than or equal to `<stop>` to return anything.
+However, if the `BYSCORE`, or `BYLEX` options are selected, the `<start>` is the highest score to consider, and `<stop>` is the lowest score to consider, therefore `<start>` must be greater than or equal to `<stop>` in order to return anything.
+
+For example:
+
+```
+ZRANGE zset 5 10 REV
+```
+
+Will return the elements between index 5 and 10 in the reversed index.
+
+```
+ZRANGE zset 10 5 REV BYSCORE
+```
+
+Will return all elements with scores less than 10 and greater than 5.
+
 ## Lexicographical ranges
 
-When the `BYLEX` option is used, the command behaves like `ZRANGEBYLEX` and returns the range of elements from the sorted set between the `<min>` and `<max>` lexicographical closed range intervals.
+When the `BYLEX` option is used, the command behaves like `ZRANGEBYLEX` and returns the range of elements from the sorted set between the `<start>` and `<stop>` lexicographical closed range intervals.
 
 Note that lexicographical ordering relies on all elements having the same score. The reply is unspecified when the elements have different scores.
 
-Valid `<min>` and `<max>` must start with `(` or `[`, in order to specify
+Valid `<start>` and `<stop>` must start with `(` or `[`, in order to specify
 whether the range interval is exclusive or inclusive, respectively.
 
-The special values of `+` or `-` `<min>` and `<max>` mean positive and negative infinite strings, respectively, so for instance the command **ZRANGEBYLEX myzset - +** is guaranteed to return all the elements in the sorted set, providing that all the elements have the same score.
+The special values of `+` or `-` for `<start>` and `<stop>` mean positive and negative infinite strings, respectively, so for instance the command `ZRANGE myzset - + BYLEX` is guaranteed to return all the elements in the sorted set, providing that all the elements have the same score.
+
+The `REV` options reverses the order of the `<start>` and `<stop>` elements, where `<start>` must be lexicographically greater than `<stop>` to produce a non-empty result.
 
 ### Lexicographical comparison of strings
 
@@ -81,10 +104,6 @@ The binary nature of the comparison allows to use sorted sets as a general purpo
 
 @array-reply: list of elements in the specified range (optionally with
 their scores, in case the `WITHSCORES` option is given).
-
-@history
-
-* `>= 6.2`: Added the `REV`, `BYSCORE`, `BYLEX` and `LIMIT` options.
 
 @examples
 

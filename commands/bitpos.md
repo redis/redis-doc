@@ -36,10 +36,6 @@ Basically, the function considers the right of the string as padded with zeros i
 
 However, this behavior changes if you are looking for clear bits and specify a range with both __start__ and __end__. If no clear bit is found in the specified range, the function returns -1 as the user specified a clear range and there are no 0 bits in that range.
 
-@history
-
-* `>= 7.0`: Added the `BYTE|BIT` option.
-
 @examples
 
 ```cli

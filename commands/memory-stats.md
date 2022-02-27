@@ -16,10 +16,8 @@ values. The following metrics are reported:
      and query buffers, connection contexts)
 *   `clients.normal`: The total size in bytes of all clients overheads (output
      and query buffers, connection contexts)
-*   `aof.buffer`: The summed size in bytes of the current and rewrite AOF
-     buffers (see `INFO`'s `aof_buffer_length` and `aof_rewrite_buffer_length`,
-     respectively)
-*    `lua.caches`: the summed size in bytes of the overheads of the Lua scripts'
+*   `aof.buffer`: The summed size in bytes of AOF related buffers.
+*   `lua.caches`: the summed size in bytes of the overheads of the Lua scripts'
      caches
 *   `dbXXX`: For each of the server's databases, the overheads of the main and
      expiry dictionaries (`overhead.hashtable.main` and

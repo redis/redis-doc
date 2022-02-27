@@ -49,7 +49,7 @@
       "swilly22",
       "RedisLabs"
     ],
-    "stars": 1409
+    "stars": 1510
   },
   {
     "name": "redis-tdigest",
@@ -70,7 +70,7 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 1358
+    "stars": 2034
   },
   {
     "name": "RediSearch",
@@ -81,7 +81,7 @@
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 3051
+    "stars": 3390
   },
   {
     "name": "RedisBloom",
@@ -102,7 +102,7 @@
     "authors": [
       "antirez"
     ],
-    "stars": 2160
+    "stars": 2199
   },
   {
     "name": "RedisTimeSeries",
@@ -315,7 +315,7 @@
     "authors": [
       "starkdg"
      ],
-     "stars": 14
+     "stars": 22
     },
   {
     "name": "redismodule-ratelimit",
@@ -345,7 +345,7 @@
 	  "authors": [
 		  "starkdg"
 	  ],
-	  "stars":1
+	  "stars":9
 	},
   {
     "name": "redis_hnsw",
@@ -365,7 +365,7 @@
     "authors": [
 		"starkdg"
 	],
-	"stars":2
+	"stars":4
   },
   {
     "name":"redex",
@@ -416,5 +416,15 @@
       "Clement-Jean"
     ],
     "stars": 0
+  },
+  {
+    "name": "redis-s2geo",
+    "license": "MIT",
+    "repository": "https://github.com/sulewicz/redis-s2geo",
+    "description": "Simple Redis Module for geospatial queries, which utilizes S2 Region Coverer algorithm for indexing. Allows point with polygon and polygon with polygon overlap tests in constant time.",
+    "authors": [
+      "sulewicz"
+    ],
+    "stars": 2
   }
 ]
