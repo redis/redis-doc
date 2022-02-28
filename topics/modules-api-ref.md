@@ -189,6 +189,51 @@ This API existed before [`RedisModule_KeyAtPosWithFlags`](#RedisModule_KeyAtPosW
 can be used for compatibility with older versions, before key-specs and flags
 were introduced.
 
+<span id="RedisModule_IsChannelsPositionRequest"></span>
+
+### `RedisModule_IsChannelsPositionRequest`
+
+    int RedisModule_IsChannelsPositionRequest(RedisModuleCtx *ctx);
+
+Return non-zero if a module command, that was declared with the
+flag "getchannels-api", is called in a special way to get the channel positions
+and not to get executed. Otherwise zero is returned.
+
+<span id="RedisModule_ChannelAtPosWithFlags"></span>
+
+### `RedisModule_ChannelAtPosWithFlags`
+
+    void RedisModule_ChannelAtPosWithFlags(RedisModuleCtx *ctx,
+                                           int pos,
+                                           int flags);
+
+When a module command is called in order to obtain the position of
+channels, since it was flagged as "getchannels-api" during the
+registration, the command implementation checks for this special call
+using the [`RedisModule_IsChannelsPositionRequest()`](#RedisModule_IsChannelsPositionRequest) API and uses this
+function in order to report the channels.
+
+The supported flags are:
+* `REDISMODULE_CMD_CHANNEL_SUBSCRIBE`: This command will subscribe to the channel.
+* `REDISMODULE_CMD_CHANNEL_UNSUBSCRIBE`: This command will unsubscribe from this channel.
+* `REDISMODULE_CMD_CHANNEL_PUBLISH`: This command will publish to this channel.
+* `REDISMODULE_CMD_CHANNEL_PATTERN`: Instead of acting on a specific channel, will act on any 
+                                   channel specified by the pattern. This is the same access
+                                   used by the PSUBSCRIBE and PUNSUBSCRIBE commands available 
+                                   in Redis. Not intended to be used with PUBLISH permissions.
+
+The following is an example of how it could be used:
+
+    if (RedisModule_IsChannelsPositionRequest(ctx)) {
+        RedisModule_ChannelAtPosWithFlags(ctx, 1, REDISMODULE_CMD_CHANNEL_SUBSCRIBE | REDISMODULE_CMD_CHANNEL_PATTERN);
+        RedisModule_ChannelAtPosWithFlags(ctx, 1, REDISMODULE_CMD_CHANNEL_PUBLISH);
+    }
+
+Note: One usage of declaring channels is for evaluating ACL permissions. In this context,
+unsubscribing is always allowed, so commands will only be checked against subscribe and
+publish permissions. This is preferred over using [`RedisModule_ACLCheckChannelPermissions`](#RedisModule_ACLCheckChannelPermissions), since
+it allows the ACLs to be checked before the command is executed.
+
 <span id="RedisModule_CreateCommand"></span>
 
 ### `RedisModule_CreateCommand`
@@ -270,6 +315,8 @@ example "write deny-oom". The set of flags are:
 * **"allow-busy"**: Permit the command while the server is blocked either by
                     a script or by a slow module command, see
                     RM_Yield.
+* **"getchannels-api"**: The command implements the interface to return
+                         the arguments that are channels.
 
 The last three parameters specify which arguments of the new command are
 Redis keys. See [https://redis.io/commands/command](https://redis.io/commands/command) for more information.
@@ -570,9 +617,8 @@ All fields except `version` are optional. Explanation of the fields:
 
     Other flags:
 
-    * `REDISMODULE_CMD_KEY_CHANNEL`: The key is not actually a key, but a
-      shard channel as used by sharded pubsub commands like `SSUBSCRIBE` and
-      `SPUBLISH` commands.
+    * `REDISMODULE_CMD_KEY_NOT_KEY`: The key is not actually a key, but 
+      should be routed in cluster mode as if it was a key.
 
     * `REDISMODULE_CMD_KEY_INCOMPLETE`: The keyspec might not point out all
       the keys it should cover.
@@ -4859,14 +4905,17 @@ On success a `REDISMODULE_OK` is returned, otherwise
                                            RedisModuleString *key,
                                            int flags);
 
-Check if the key can be accessed by the user, according to the ACLs associated with it
-and the flags used. The supported flags are:
+Check if the key can be accessed by the user according to the ACLs attached to the user
+and the flags representing the key access. The flags are the same that are used in the
+keyspec for logical operations. These flags are documented in [`RedisModule_SetCommandInfo`](#RedisModule_SetCommandInfo) as
+the `REDISMODULE_CMD_KEY_ACCESS`, `REDISMODULE_CMD_KEY_UPDATE`, `REDISMODULE_CMD_KEY_INSERT`,
+and `REDISMODULE_CMD_KEY_DELETE` flags.
 
-`REDISMODULE_KEY_PERMISSION_READ`: Can the module read data from the key.
-`REDISMODULE_KEY_PERMISSION_WRITE`: Can the module write data to the key.
+If no flags are supplied, the user is still required to have some access to the key for
+this command to return successfully.
 
-On success a `REDISMODULE_OK` is returned, otherwise
-`REDISMODULE_ERR` is returned and errno is set to the following values:
+If the user is able to access the key then `REDISMODULE_OK` is returned, otherwise
+`REDISMODULE_ERR` is returned and errno is set to one of the following values:
 
 * EINVAL: The provided flags are invalid.
 * EACCESS: The user does not have permission to access the key.
@@ -4877,14 +4926,17 @@ On success a `REDISMODULE_OK` is returned, otherwise
 
     int RedisModule_ACLCheckChannelPermissions(RedisModuleUser *user,
                                                RedisModuleString *ch,
-                                               int literal);
+                                               int flags);
 
-Check if the pubsub channel can be accessed by the user, according to the ACLs associated with it.
-Glob-style pattern matching is employed, unless the literal flag is
-set.
+Check if the pubsub channel can be accessed by the user based off of the given
+access flags. See [`RedisModule_ChannelAtPosWithFlags`](#RedisModule_ChannelAtPosWithFlags) for more information about the
+possible flags that can be passed in.
 
-If the user can access the pubsub channel, `REDISMODULE_OK` is returned, otherwise
-`REDISMODULE_ERR` is returned.
+If the user is able to acecss the pubsub channel then `REDISMODULE_OK` is returned, otherwise
+`REDISMODULE_ERR` is returned and errno is set to one of the following values:
+
+* EINVAL: The provided flags are invalid.
+* EACCESS: The user does not have permission to access the pubsub channel.
 
 <span id="RedisModule_ACLAddLogEntry"></span>
 
@@ -6715,6 +6767,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_CallReplyType`](#RedisModule_CallReplyType)
 * [`RedisModule_CallReplyVerbatim`](#RedisModule_CallReplyVerbatim)
 * [`RedisModule_Calloc`](#RedisModule_Calloc)
+* [`RedisModule_ChannelAtPosWithFlags`](#RedisModule_ChannelAtPosWithFlags)
 * [`RedisModule_CloseKey`](#RedisModule_CloseKey)
 * [`RedisModule_CommandFilterArgDelete`](#RedisModule_CommandFilterArgDelete)
 * [`RedisModule_CommandFilterArgGet`](#RedisModule_CommandFilterArgGet)
@@ -6842,6 +6895,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_InfoEndDictField`](#RedisModule_InfoEndDictField)
 * [`RedisModule_IsBlockedReplyRequest`](#RedisModule_IsBlockedReplyRequest)
 * [`RedisModule_IsBlockedTimeoutRequest`](#RedisModule_IsBlockedTimeoutRequest)
+* [`RedisModule_IsChannelsPositionRequest`](#RedisModule_IsChannelsPositionRequest)
 * [`RedisModule_IsIOError`](#RedisModule_IsIOError)
 * [`RedisModule_IsKeysPositionRequest`](#RedisModule_IsKeysPositionRequest)
 * [`RedisModule_IsModuleNameBusy`](#RedisModule_IsModuleNameBusy)
