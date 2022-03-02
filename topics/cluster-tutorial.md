@@ -106,7 +106,10 @@ slots hold by nodes, does not require any downtime.
 
 Redis Cluster supports multiple key operations as long as all the keys involved
 into a single command execution (or whole transaction, or Lua script
-execution) all belong to the same hash slot. The user can force multiple keys
+execution) all belong to the same hash slot. For Lua script, if there are 
+multiple master nodes, and the user wants to execute the operations on multiply keys 
+which belong to different nodes in a script, the user should load and execute the script 
+individually on each master node, and the results aggregated. The user can force multiple keys
 to be part of the same hash slot by using a concept called *hash tags*.
 
 Hash tags are documented in the Redis Cluster specification, but the gist is
