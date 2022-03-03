@@ -1,9 +1,13 @@
-Redis Sentinel Documentation
-===
+---
+title: "High availability with Redis Sentinel"
+linkTitle: "High availability with Sentinel"
+weight: 1
+description: High availability for non-clustered Redis
+aliases:
+  - /topics/sentinel
+---
 
-Redis Sentinel provides high availability for Redis. In practical terms this
-means that using Sentinel you can create a Redis deployment that resists
-without human intervention certain kinds of failures.
+Redis Sentinel provides high availability for Redis when not using [Redis Cluster](/docs/manual/scaling). 
 
 Redis Sentinel also provides other collateral tasks such as monitoring,
 notifications and acts as a configuration provider for clients.
@@ -15,8 +19,7 @@ This is the full list of Sentinel capabilities at a macroscopic level (i.e. the 
 * **Automatic failover**. If a master is not working as expected, Sentinel can start a failover process where a replica is promoted to master, the other additional replicas are reconfigured to use the new master, and the applications using the Redis server are informed about the new address to use when connecting.
 * **Configuration provider**. Sentinel acts as a source of authority for clients service discovery: clients connect to Sentinels in order to ask for the address of the current Redis master responsible for a given service. If a failover occurs, Sentinels will report the new address.
 
-Distributed nature of Sentinel
----
+## Sentinel as a distributed system
 
 Redis Sentinel is a distributed system:
 
@@ -32,11 +35,9 @@ starting from basic information needed in order to understand the basic
 properties of Sentinel, to more complex information (that are optional) in
 order to understand how exactly Sentinel works.
 
-Quick Start
-===
+## Sentinel quick start
 
-Obtaining Sentinel
----
+### Obtaining Sentinel
 
 The current version of Sentinel is called **Sentinel 2**. It is a rewrite of
 the initial Sentinel implementation using stronger and simpler-to-predict
@@ -50,8 +51,7 @@ considered to be stable.
 
 Redis Sentinel version 1, shipped with Redis 2.6, is deprecated and should not be used.
 
-Running Sentinel
----
+### Running Sentinel
 
 If you are using the `redis-sentinel` executable (or if you have a symbolic
 link with that name to the `redis-server` executable) you can run Sentinel
@@ -74,8 +74,7 @@ connections from the IP addresses of the other Sentinel instances.
 Otherwise Sentinels can't talk and can't agree about what to do, so failover
 will never be performed.
 
-Fundamental things to know about Sentinel before deploying
----
+### Fundamental things to know about Sentinel before deploying
 
 1. You need at least three Sentinel instances for a robust deployment.
 2. The three Sentinel instances should be placed into computers or virtual machines that are believed to fail in an independent way. So for example different physical servers or Virtual Machines executed on different availability zones.
@@ -84,8 +83,7 @@ Fundamental things to know about Sentinel before deploying
 5. There is no HA setup which is safe if you don't test from time to time in development environments, or even better if you can, in production environments, if they work. You may have a misconfiguration that will become apparent only when it's too late (at 3am when your master stops working).
 6. **Sentinel, Docker, or other forms of Network Address Translation or Port Mapping should be mixed with care**: Docker performs port remapping, breaking Sentinel auto discovery of other Sentinel processes and the list of replicas for a master. Check the [section about _Sentinel and Docker_](#sentinel-docker-nat-and-possible-issues) later in this document for more information.
 
-Configuring Sentinel
----
+### Configuring Sentinel
 
 The Redis source distribution contains a file called `sentinel.conf`
 that is a self-documented example configuration file you can use to
@@ -136,8 +134,7 @@ master set to the value of 2, this is what happens:
 
 In practical terms this means during failures **Sentinel never starts a failover if the majority of Sentinel processes are unable to talk** (aka no failover in the minority partition).
 
-Other Sentinel options
----
+### Other Sentinel options
 
 The other options are almost always in the form:
 
@@ -168,8 +165,7 @@ Configuration parameters can be modified at runtime:
 
 See the [_Reconfiguring Sentinel at runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
 
-Example Sentinel deployments
----
+### Example Sentinel deployments
 
 Now that you know the basic information about Sentinel, you may wonder where
 you should place your Sentinel processes, how many Sentinel processes you need
@@ -216,8 +212,7 @@ Note that we will never show **setups where just two Sentinels are used**, since
 Sentinels always need **to talk with the majority** in order to start a
 failover.
 
-Example 1: just two Sentinels, DON'T DO THIS
----
+#### Example 1: just two Sentinels, DON'T DO THIS
 
     +----+         +----+
     | M1 |---------| R1 |
@@ -244,8 +239,7 @@ a *permanent split brain condition*.
 
 So please **deploy at least three Sentinels in three different boxes** always.
 
-Example 2: basic setup with three boxes
----
+#### Example 2: basic setup with three boxes
 
 This is a very simple setup, that has the advantage to be simple to tune
 for additional safety. It is based on three boxes, each box running both
@@ -306,8 +300,7 @@ Using this configuration, the old Redis master M1 in the above example, will bec
 However there is no free lunch. With this refinement, if the two replicas are
 down, the master will stop accepting writes. It's a trade off.
 
-Example 3: Sentinel in the client boxes
----
+#### Example 3: Sentinel in the client boxes
 
 Sometimes we have only two Redis boxes available, one for the master and
 one for the replica. The configuration in the example 2 is not viable in
@@ -354,8 +347,7 @@ such as the HA system of Redis running in the same boxes as Redis itself
 which may be simpler to manage, and the ability to put a bound on the amount
 of time a master in the minority partition can receive writes.
 
-Example 4: Sentinel client side with less than three clients
----
+#### Example 4: Sentinel client side with less than three clients
 
 The setup described in the Example 3 cannot be used if there are less than
 three boxes in the client side (for example three web servers). In this
@@ -384,8 +376,7 @@ In theory this setup works removing the box where C2 and S4 are running, and
 setting the quorum to 2. However it is unlikely that we want HA in the
 Redis side without having high availability in our application layer.
 
-Sentinel, Docker, NAT, and possible issues
----
+### Sentinel, Docker, NAT, and possible issues
 
 Docker uses a technique called port mapping: programs running inside Docker
 containers may be exposed with a different port compared to the one the
@@ -418,8 +409,7 @@ in order to force Sentinel to announce a specific set of IP and port:
 
 Note that Docker has the ability to run in *host networking mode* (check the `--net=host` option for more information). This should create no issues since ports are not remapped in this setup.
 
-IP Addresses and DNS names
----
+### IP Addresses and DNS names
 
 Older versions of Sentinel did not support host names and required IP addresses to be specified everywhere.
 Starting with version 6.2, Sentinel has *optional* support for host names.
@@ -442,8 +432,7 @@ This behavior may not be compatible with all Sentinel clients, that may explicit
 
 Using host names may be useful when clients use TLS to connect to instances and require a name rather than an IP address in order to perform certificate ASN matching.
 
-A quick tutorial
-===
+## A quick tutorial
 
 In the next sections of this document, all the details about [_Sentinel API_](#sentinel-api),
 configuration and semantics will be covered incrementally. However for people
@@ -561,8 +550,7 @@ an API to ask this question:
     1) "127.0.0.1"
     2) "6379"
 
-Testing the failover
----
+### Testing the failover
 
 At this point our toy Sentinel deployment is ready to be tested. We can
 just kill our master and check if the configuration changes. To do so
@@ -590,8 +578,7 @@ we should get a different reply this time:
 So far so good... At this point you may jump to create your Sentinel deployment
 or can read more to understand all the Sentinel commands and internals.
 
-Sentinel API
-===
+## Sentinel API
 
 Sentinel provides an API in order to inspect its state, check the health
 of monitored masters and replicas, subscribe in order to receive specific
@@ -609,8 +596,7 @@ to receive *push style* notifications from Sentinels, every time some event
 happens, like a failover, or an instance entering an error condition, and
 so forth.
 
-Sentinel commands
----
+### Sentinel commands
 
 The `SENTINEL` command is the main API for Sentinel. The following is the list of its subcommands (minimal version is noted for where applicable):
 
@@ -648,8 +634,7 @@ For connection management and administration purposes, Sentinel supports the fol
 
 Lastly, Sentinel also supports the `SUBSCRIBE`, `UNSUBSCRIBE`, `PSUBSCRIBE` and `PUNSUBSCRIBE` commands. Refer to the [_Pub/Sub Messages_ section](#pubsub-messages) for more details.
 
-Reconfiguring Sentinel at Runtime
----
+### Reconfiguring Sentinel at Runtime
 
 Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagate the changes to the other Sentinels in the network.
 
@@ -680,8 +665,7 @@ Global parameters that can be manipulated include:
 * `announce-ip`, `announce-port`. See [_Sentinel, Docker, NAT, and possible issues_](#sentinel-docker-nat-and-possible-issues).
 * `sentinel-user`, `sentinel-pass`. See [_Configuring Sentinel instances with authentication_](#configuring-sentinel-instances-with-authentication).
 
-Adding or removing Sentinels
----
+### Adding or removing Sentinels
 
 Adding a new Sentinel to your deployment is a simple process because of the
 auto-discover mechanism implemented by Sentinel. All you need to do is to
@@ -711,8 +695,7 @@ the following steps should be performed in absence of network partitions:
 2. Send a `SENTINEL RESET *` command to all the other Sentinel instances (instead of `*` you can use the exact master name if you want to reset just a single master). One after the other, waiting at least 30 seconds between instances.
 3. Check that all the Sentinels agree about the number of Sentinels currently active, by inspecting the output of `SENTINEL MASTER mastername` of every Sentinel.
 
-Removing the old master or unreachable replicas
----
+### Removing the old master or unreachable replicas
 
 Sentinels never forget about replicas of a given master, even when they are
 unreachable for a long time. This is useful, because Sentinels should be able
@@ -731,8 +714,7 @@ to all the Sentinels: they'll refresh the list of replicas within the next
 10 seconds, only adding the ones listed as correctly replicating from the
 current master `INFO` output.
 
-Pub/Sub Messages
----
+### Pub/Sub messages
 
 A client can use a Sentinel as a Redis-compatible Pub/Sub server
 (but you can't use `PUBLISH`) in order to `SUBSCRIBE` or `PSUBSCRIBE` to
@@ -781,8 +763,7 @@ and is only specified if the instance is not a master itself.
 * **+tilt** -- Tilt mode entered.
 * **-tilt** -- Tilt mode exited.
 
-Handling of -BUSY state
----
+### Handling of -BUSY state
 
 The -BUSY error is returned by a Redis instance when a Lua script is running for
 more time than the configured Lua script time limit. When this happens before
@@ -810,8 +791,7 @@ fails and both S1 and S2 are available, S1 will be preferred.
 
 For more information about the way replicas are selected, please check the [_Replica selection and priority_ section](#replica-selection-and-priority) of this documentation.
 
-Sentinel and Redis authentication
----
+### Sentinel and Redis authentication
 
 When the master is configured to require authentication from clients,
 as a security measure, replicas need to also be aware of the credentials in
@@ -905,20 +885,18 @@ This means that **you will have to configure the same `requirepass` password in 
 
 Before using this configuration, make sure your client library can send the `AUTH` command to Sentinel instances.
 
-Sentinel clients implementation
+### Sentinel clients implementation
 ---
 
 Sentinel requires explicit client support, unless the system is configured to execute a script that performs a transparent redirection of all the requests to the new master instance (virtual IP or other similar systems). The topic of client libraries implementation is covered in the document [Sentinel clients guidelines](/topics/sentinel-clients).
 
-More advanced concepts
-===
+## More advanced concepts
 
 In the following sections we'll cover a few details about how Sentinel works,
 without resorting to implementation details and algorithms that will be
 covered in the final part of this document.
 
-SDOWN and ODOWN failure state
----
+### SDOWN and ODOWN failure state
 
 Redis Sentinel has two different concepts of *being down*, one is called
 a *Subjectively Down* condition (SDOWN) and is a down condition that is
@@ -1009,8 +987,7 @@ Also note how the semantics of always trying to impose the current configuration
 
 The important lesson to remember about this section is: **Sentinel is a system where each process will always try to impose the last logical configuration to the set of monitored instances**.
 
-Replica selection and priority
----
+### Replica selection and priority
 
 When a Sentinel instance is ready to perform a failover, since the master
 is in `ODOWN` state and the Sentinel received the authorization to failover
@@ -1056,16 +1033,14 @@ However a replica configured in this way will still be reconfigured by
 Sentinels in order to replicate with the new master after a failover, the
 only difference is that it will never become a master itself.
 
-Algorithms and internals
-===
+## Algorithms and internals
 
 In the following sections we will explore the details of Sentinel behavior.
 It is not strictly needed for users to be aware of all the details, but a
 deep understanding of Sentinel may help to deploy and operate Sentinel in
 a more effective way.
 
-Quorum
----
+### Quorum
 
 The previous sections showed that every master monitored by Sentinel is associated to a configured **quorum**. It specifies the number of Sentinel processes
 that need to agree about the unreachability or error condition of the master in
@@ -1090,8 +1065,7 @@ This means that the quorum can be used to tune Sentinel in two ways:
 1. If a quorum is set to a value smaller than the majority of Sentinels we deploy, we are basically making Sentinel more sensitive to master failures, triggering a failover as soon as even just a minority of Sentinels is no longer able to talk with the master.
 2. If a quorum is set to a value greater than the majority of Sentinels, we are making Sentinel able to failover only when there are a very large number (larger than majority) of well connected Sentinels which agree about the master being down.
 
-Configuration epochs
----
+### Configuration epochs
 
 Sentinels require to get authorizations from a majority in order to start a
 failover for a few important reasons:
@@ -1104,8 +1078,7 @@ Redis Sentinel guarantees the *liveness* property that if a majority of Sentinel
 
 Redis Sentinel also guarantees the *safety* property that every Sentinel will failover the same master using a different *configuration epoch*.
 
-Configuration propagation
----
+### Configuration propagation
 
 Once a Sentinel is able to failover a master successfully, it will start to broadcast the new configuration so that the other Sentinels will update their information about a given master.
 
@@ -1135,8 +1108,7 @@ Basically if the net is partitioned, every partition will converge to the higher
 local configuration. In the special case of no partitions, there is a single
 partition and every Sentinel will agree about the configuration.
 
-Consistency under partitions
----
+### Consistency under partitions
 
 Redis Sentinel configurations are eventually consistent, so every partition will
 converge to the higher configuration available.
@@ -1210,8 +1182,7 @@ every time a new configuration is received, or created (leader Sentinels), for
 a master, the configuration is persisted on disk together with the configuration
 epoch. This means that it is safe to stop and restart Sentinel processes.
 
-TILT mode
----
+### TILT mode
 
 Redis Sentinel is heavily dependent on the computer time: for instance in
 order to understand if an instance is available it remembers the time of the

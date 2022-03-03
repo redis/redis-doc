@@ -1,7 +1,11 @@
-**WARNING:** This document is a draft and the guidelines that it contains may change in the future as the Sentinel project evolves.
-
-Guidelines for Redis clients with support for Redis Sentinel
-===
+---
+title: "Sentinel client spec"
+linkTitle: "Sentinel clients"
+weight: 2
+description: How to build clients for Redis Sentinel
+aliases:
+  - /topics/sentinel-clients
+---
 
 Redis Sentinel is a monitoring solution for Redis instances that handles
 automatic failover of Redis masters and service discovery (who is the current
@@ -17,8 +21,7 @@ This document is targeted at Redis clients developers that want to support Senti
 
 For details about how Redis Sentinel works, please check the [Redis Documentation](/topics/sentinel), as this document only contains information needed for Redis client developers, and it is expected that readers are familiar with the way Redis Sentinel works.
 
-Redis service discovery via Sentinel
-===
+## Redis service discovery via Sentinel
 
 Redis Sentinel identifies every master with a name like "stats" or "cache".
 Every name actually identifies a *group of instances*, composed of a master
