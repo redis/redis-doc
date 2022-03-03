@@ -2,6 +2,7 @@
 title: Introduction to Redis
 linkTitle: "About"
 weight: 1
+description: Learn about the Redis open source project
 aliases:
   - /topics/introduction
 ---
