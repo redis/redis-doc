@@ -1,7 +1,14 @@
-# Introduction to Eval Scripts
+---
+title: "Scripting with Lua"
+linkTitle: "Lua scripting"
+weight: 2
+description: >
+   Executing Lua in Redis
+aliases:
+    - /topics/eval-intro
+---
 
-Starting with Redis 2.6, users can execute scripted logic in the server.
-This feature enables the composition of workflows that clients can instruct the server to execute.
+Redis lets users upload and execute Lua scripts on the server.
 Scripts can employ programmatic control structures and use most of the [commands](/commands) while executing to access the database.
 Because scripts execute in the server, reading and writing data from scripts is very efficient.
 
@@ -16,8 +23,8 @@ These include:
 * Blocking semantics that ensure the script's atomic execution.
 * Enabling the composition of simple capabilities that are either missing from Redis or are too niche to a part of it.
 
-The core use cases for [Eval Scripts](/topics/eval-intro) is running part of your application logic inside Redis.
-Such script can perform conditional updates across multiple keys, possibly combining several different data types atomically.
+Lua lets you run part of your application logic inside Redis.
+Such scripts can perform conditional updates across multiple keys, possibly combining several different data types atomically.
 
 Scripts are executed in Redis by an embedded execution engine.
 Presently, Redis supports a single scripting engine, the [Lua 5.1](https://www.lua.org/) interpreter.
@@ -411,7 +418,7 @@ In addition, Lua scripts should be as fast as possible so that eviction can kick
 
 Note that you can change this behaviour by using [flags](#eval-flags)
 
-## Eval Flags
+## Eval flags
 
 Normally, when you run an Eval script, the server does not know how it accesses the database.
 By default, Redis assumes that all scripts read and write data.

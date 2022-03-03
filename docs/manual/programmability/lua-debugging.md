@@ -2,7 +2,7 @@
 title: Debugging Lua scripts in Redis
 linkTitle: Debugging Lua
 description: How to use the built-in Lua debugger
-weight: 1
+weight: 4
 aliases:
   - /topics/ldb
 ---

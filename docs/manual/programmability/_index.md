@@ -1,6 +1,18 @@
-# Redis Programmability
+---
+title: "Redis programmability"
+linkTitle: "Programmability"
+weight: 1
+description: >
+   Extending Redis with Lua and Redis Functions
+aliases:
+    - /topics/programmability
+---
 
-Redis is, by [defition](https://github.com/redis/redis/blob/unstable/MANIFESTO#L7), a _"domain-specific language for abstract data types"_.
+Redis provides a programming interface that lets you execute custom scripts on the server itself. In Redis 7 and beyond, you can use [Redis Functions](/docs/manual/programmability/functions-intro) to manage and run your scripts. In Redis 6.2 and below, you use [Lua scripting with the EVAL command](/docs/manual/programmability/eval-intro) to program the server.
+
+## Background
+
+Redis is, by [definition](https://github.com/redis/redis/blob/unstable/MANIFESTO#L7), a _"domain-specific language for abstract data types"_.
 The language that Redis speaks consists of its [commands](/commands).
 Most the commands specialize at manipulating core [data types](/topics/data-types-intro) in different ways.
 In many cases, these commands provide all the functionality that a developer requires for managing application data in Redis.

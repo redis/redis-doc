@@ -1,4 +1,12 @@
-# Redis Lua API Reference
+---
+title: "Redis Lua API reference"
+linkTitle: "Lua API"
+weight: 3
+description: >
+   Executing Lua in Redis
+aliases:
+    - /topics/lua-api
+---
 
 Redis includes an embedded [Lua 5.1](https://www.lua.org/) interpreter.
 The interpreter runs user-defined [ephemeral scripts](/topics/eval-intro) and [/topics/functions-intro]. Scripts run in a sandboxed context and can only access specific Lua packages. This page describes the packages and APIs available inside the execution's context.

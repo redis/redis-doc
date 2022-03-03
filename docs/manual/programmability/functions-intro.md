@@ -1,9 +1,14 @@
-# Introduction to Redis Functions
- 
-As of Redis 7.0, functions offer a new programmability approach.
-Functions have evolved from the [Eval Scripts](/topics/eval-intro) feature that was, in turn, added in version 2.6.
+---
+title: "Redis functions"
+linkTitle: "Functions"
+weight: 1
+description: >
+   Scripting with Redis 7 and beyond
+aliases:
+    - /topics/functions-intro
+---
 
-You can skip the following prologue if you're new to Redis or want to jump right into the action.
+Redis Functions is an API for managing code to be executed on the server. This feature, which became available in Redis 7, supersedes the use of [EVAL](/docs/manual/programmability/eval-intro) in prior versions of Redis.
 
 ## Prologue (or, what's wrong with Eval Scripts?)
 
