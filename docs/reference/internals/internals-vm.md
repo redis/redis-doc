@@ -5,6 +5,7 @@ weight: 1
 description: A description of the Redis virtual memory system that was deprecated in 2.6. This document exists for historial interest.
 aliases:
   - /topics/internals-vm
+  - /topics/virtual-memory
 ---
 
 **Note: this document was written by the creator of Redis, Salvatore Sanfilippo, early in the development of Redis (c. 2010). Virtual Memory has been deprecated since Redis 2.6, so this documentation
