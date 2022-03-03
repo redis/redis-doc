@@ -328,19 +328,27 @@ running. This is what we suggest:
 
 If you run a Redis instance with only AOF persistence enabled, you can still perform backups.
 Since Redis 7.0.0, AOF files are split into multiple files which reside in a single directory determined by the `appendddirname` configuration.
-Backing up the AOF data is tricky since you need a point-in-time snapshot of this directory. The simplest way to handle this is using the [`aof_backup.sh`](http://github.com/redis/redis/raw/unstable/utils/aof_backup.sh) script.
-You may use this script as a basis for your own backup script, or it might suffice as is.
+During normal operation all you need to do is copy/tar the files in this directory to achieve a backup. However, if this is done during a [rewrite](#log-rewriting), you might end up with an invalid backup.
+To work around this you must disable AOF rewrites during the backup:
 
-Running the script is as simple as `./aof_backup.sh mybackup.tar.gz`.
+1. Turn off automatic rewrites with<br/>
+   `CONFIG SET` `auto-aof-rewrite-percentage 0`<br/>
+   Make sure you don't manually start a rewrite (using `BGREWRITEAOF`) during this time.
+2. Check there's no current rewrite in progress using<br/>
+   `INFO` `persistence`<br/>
+   and verifying `aof_rewrite_in_progress` is 0. If it's 1, then you'll need to wait for the rewrite to complete.
+3. Now you can safely copy the files in the `appenddirname` directory.
+4. Re-enable rewrites when done:<br/>
+   `CONFIG SET` `auto-aof-rewrite-percentage <prev-value>`
 
-Following is a description of the script works:
+**Note:** If you want to minimize the time AOF rewrites are disabled you may create hard links to the files in `appenddirname` (in step 3 above) and then re-enable rewites (step 4) after the hard links are created.
+Now you can copy/tar the hardlinks and delete them when done. This works because Redis guarantees that it
+only appends to files in this directory, or completely replaces them if necessary, so the content should be
+consistent at any given point in time.
 
-1. Verify the server isn't performing a rewrite.
-2. Create hard links to files in the `appenddirname` directory.
-3. Verify no rewrite started or happened since 1 above.
-   If it did, delete the hard links and go back to 1.
-4. tar-gzip the hard links.
-5. Delete the hard links.
+
+**Note:** If you want to handle the case of the server being restarted during the backup and make sure no rewrite will automatically start after the restart you can change step 1 above to also persist the updated configuration via `CONFIG REWRITE`.
+Just make sure to re-enable automatic rewrites when done (step 4) and persist it with another `CONFIG REWRITE`.
 
 Prior to version 7.0.0 backing up the AOF file can be done simply by copying the aof file (like backing up the RDB snapshot). The file may lack the final part
 but Redis will still be able to load it (see the previous sections about [truncated AOF files](#what-should-i-do-if-my-aof-gets-truncated)).

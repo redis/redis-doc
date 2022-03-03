@@ -418,7 +418,7 @@ Usage example:
 redis> FUNCTION LOAD Lua mylib "redis.register_function('noop', function() end)"
 ```
 
-#### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_function{function_name=name, callback=callback, flags={flag1, flag2, ..}. description=description}`
+#### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_function{function_name=name, callback=callback, flags={flag1, flag2, ..}, description=description}`
 
 The named arguments variant accepts the following arguments:
 
@@ -432,7 +432,7 @@ Both _function\_name_ and _callback_ are mandatory.
 Usage example:
 
 ```
-redis> FUNCTION LOAD Lua mylib "redis.register_function(function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing')"
+redis> FUNCTION LOAD Lua mylib "redis.register_function{function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing'}"
 ```
 
 #### <a name="script_flags"></a> Script flags
