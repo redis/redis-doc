@@ -1165,7 +1165,7 @@ If there are any set of nodes with the same `configEpoch`, all the nodes but the
 
 This mechanism also guarantees that after a fresh cluster is created, all
 nodes start with a different `configEpoch` (even if this is not actually
-used) since `redis-cli` makes sure to use `CONFIG SET-CONFIG-EPOCH` at startup.
+used) since `redis-cli` makes sure to use `CLUSTER SET-CONFIG-EPOCH` at startup.
 However if for some reason a node is left misconfigured, it will update
 its configuration to a different configuration epoch automatically.
 
