@@ -1,8 +1,8 @@
 ---
-title: Redis Persistence
+title: Redis persistence
 linkTitle: Persistence
 weight: 1
-description: A technical description of Redis persistence.
+description: How Redis writes data to disk (append-only files, snapshots, etc.)
 aliases: [
     /topics/persistence,
     /topics/persistence.md,
@@ -11,9 +11,7 @@ aliases: [
 ]
 ---
 
-This page provides a technical description of Redis persistence. For a wider overview of Redis persistence and the durability guarantees it provides, see [Redis persistence demystified](http://antirez.com/post/redis-persistence-demystified.html).
-
-Redis provides a range of persistence options:
+Persistence refers to the writing of data to durable storage, such as a solid-state disk (SSD). Redis itself provides a range of persistence options:
 
 * **RDB** (Redis Database): The RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
 * **AOF** (Append Only File): The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to [rewrite](#log-rewriting) the log in the background when it gets too big.
@@ -326,13 +324,35 @@ running. This is what we suggest:
 * Every time the cron script runs, make sure to call the `find` command to make sure too old snapshots are deleted: for instance you can take hourly snapshots for the latest 48 hours, and daily snapshots for one or two months. Make sure to name the snapshots with date and time information.
 * At least one time every day make sure to transfer an RDB snapshot *outside your data center* or at least *outside the physical machine* running your Redis instance.
 
-If you run a Redis instance with only AOF persistence enabled, you can still
-copy the AOF in order to create backups. The file may lack the final part
-but Redis will be still able to load it (see the previous sections about
-truncated AOF files).  
+### Backing up AOF persistence
 
-Since Redis 7.0.0, all the base, increment and manifest files will be placed in a directory determined by the `appendddirname` configuration.
-So the best suggestion is to copy the entire directory when backing up AOF persistence.
+If you run a Redis instance with only AOF persistence enabled, you can still perform backups.
+Since Redis 7.0.0, AOF files are split into multiple files which reside in a single directory determined by the `appendddirname` configuration.
+During normal operation all you need to do is copy/tar the files in this directory to achieve a backup. However, if this is done during a [rewrite](#log-rewriting), you might end up with an invalid backup.
+To work around this you must disable AOF rewrites during the backup:
+
+1. Turn off automatic rewrites with<br/>
+   `CONFIG SET` `auto-aof-rewrite-percentage 0`<br/>
+   Make sure you don't manually start a rewrite (using `BGREWRITEAOF`) during this time.
+2. Check there's no current rewrite in progress using<br/>
+   `INFO` `persistence`<br/>
+   and verifying `aof_rewrite_in_progress` is 0. If it's 1, then you'll need to wait for the rewrite to complete.
+3. Now you can safely copy the files in the `appenddirname` directory.
+4. Re-enable rewrites when done:<br/>
+   `CONFIG SET` `auto-aof-rewrite-percentage <prev-value>`
+
+**Note:** If you want to minimize the time AOF rewrites are disabled you may create hard links to the files in `appenddirname` (in step 3 above) and then re-enable rewites (step 4) after the hard links are created.
+Now you can copy/tar the hardlinks and delete them when done. This works because Redis guarantees that it
+only appends to files in this directory, or completely replaces them if necessary, so the content should be
+consistent at any given point in time.
+
+
+**Note:** If you want to handle the case of the server being restarted during the backup and make sure no rewrite will automatically start after the restart you can change step 1 above to also persist the updated configuration via `CONFIG REWRITE`.
+Just make sure to re-enable automatic rewrites when done (step 4) and persist it with another `CONFIG REWRITE`.
+
+Prior to version 7.0.0 backing up the AOF file can be done simply by copying the aof file (like backing up the RDB snapshot). The file may lack the final part
+but Redis will still be able to load it (see the previous sections about [truncated AOF files](#what-should-i-do-if-my-aof-gets-truncated)).
+
 
 ## Disaster recovery
 

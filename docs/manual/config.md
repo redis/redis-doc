@@ -1,9 +1,9 @@
 ---
 title: "Redis configuration"
-linkTitle: "Redis configuration"
+linkTitle: "Configuration"
 weight: 1
 description: >
-    The Redis configuration file overview
+    Overview of redis.conf, the Redis configuration file
 aliases:
     - /docs/manual/config
 ---

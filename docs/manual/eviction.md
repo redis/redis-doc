@@ -1,8 +1,8 @@
 ---
-title: Eviction
+title: Key eviction
 linkTitle: Eviction
 weight: 1
-description: Using Redis as a cache with eviction policies.
+description: Overview of Redis key eviction policies (LRU, LFU, etc.)
 aliases: [
     /topics/lru_cache,
     /topics/lru_cache.md,
@@ -92,7 +92,7 @@ If a command results in a lot of memory being used (like a big set intersection 
 
 Redis LRU algorithm is not an exact implementation. This means that Redis is
 not able to pick the *best candidate* for eviction, that is, the access that
-was accessed the most in the past. Instead it will try to run an approximation
+was accessed the furthest in the past. Instead it will try to run an approximation
 of the LRU algorithm, by sampling a small number of keys, and evicting the
 one that is the best (with the oldest access time) among the sampled keys.
 

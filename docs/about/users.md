@@ -1,9 +1,9 @@
 ---
-title: "Users"
-linkTitle: "Users"
-weight: 1
+title: "Who's using Redis?"
+linkTitle: "Who's using Redis?"
+weight: 2
 description: >
-    Who's using Redis?
+    Select list of organizations running Redis in production
 aliases:
     - /topics/whos-using-redis
 ---

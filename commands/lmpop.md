@@ -1,6 +1,6 @@
 Pops one or more elements from the first non-empty list key from the list of provided key names.
 
-LMPOP and BLMPOP are similar to the following, more limited, commands:
+`LMPOP` and `BLMPOP` are similar to the following, more limited, commands:
 
 - `LPOP` or `RPOP` which take only one key, and can return multiple elements.
 - `BLPOP` or `BRPOP` which take multiple keys, but return only one element from just one key.
