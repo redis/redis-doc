@@ -1,7 +1,7 @@
 ---
 title: "Redis command tips"
 linkTitle: "Command tips"
-weight: 4
+weight: 1
 description: Programm
 aliases:
     - /topics/command-tips
