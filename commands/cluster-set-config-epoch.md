@@ -16,7 +16,7 @@ the exception, only to make sure that whatever happens, two more
 nodes eventually always move away from the state of having the same
 configuration epoch.
 
-So, using `CONFIG SET-CONFIG-EPOCH`, when a new cluster is created, we can
+So, using `CLUSTER SET-CONFIG-EPOCH`, when a new cluster is created, we can
 assign a different progressive configuration epoch to each node before
 joining the cluster together.
 
