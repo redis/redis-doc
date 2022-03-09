@@ -103,21 +103,14 @@ It is also possible to `!GET` the element itself using the special pattern `#`:
 SORT mylist BY weight_* GET object_* GET #
 ```
 
-## Restrictions for using external keys with Sort command
+## Restrictions for using external keys
 
-When enabling `Redis cluster-mode` there is no way to garantee the exsistence of
-the external keys on the node which the command is processed on. In case the 
-`cluster-enabled` configuration is set to `yes` any use of `GET` or `BY`
-which reference external key pattern will cause the command to fail with error.
+When enabling `Redis cluster-mode` there is no way to guarantee the existence of the external keys on the node which the command is processed on.
+In this case, any use of `GET` or `BY` which reference external key pattern will cause the command to fail with an error.
 
-Starting from Redis 7.0,  any use of `GET` or `BY` which reference external key pattern
-will only be allowed in case the current user running the command has full key read permissions.
-Full key read permissions can be set for the user by, for example, specifing `'%R~*'` or `'~*` 
-with the relvant command access rules. You can check the `ACL SETUSER` command mannual for 
-more information on setting ACL access rules.
-
-In case of no full key read permission the `SORT` and `SORT_RO` commands might fail 
-with error. For example:
+Starting from Redis 7.0, any use of `GET` or `BY` which reference external key pattern will only be allowed in case the current user running the command has full key read permissions.
+Full key read permissions can be set for the user by, for example, specifying `'%R~*'` or `'~*` with the relevant command access rules. You can check the `ACL SETUSER` command manual for more information on setting ACL access rules.
+If full key read permissions aren't set, the command will fail with an error.
 
     > ACL SETUSER alice on NOPASS +sort ~weight_* ~mylist
         OK    
