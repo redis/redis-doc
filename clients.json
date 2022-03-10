@@ -319,6 +319,15 @@
   },
 
   {
+    "name": "rekt",
+    "language": "Kotlin",
+    "repository": "https://github.com/devrawr/rekt",
+    "description": "A simple, lightweight, non-bloated redis client for kotlin and other JVM languages",
+    "authors": ["rawrdev"],
+    "active": true
+  },
+  
+  {
     "name": "redis-lua",
     "language": "Lua",
     "repository": "https://github.com/nrk/redis-lua",
