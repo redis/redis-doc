@@ -1,7 +1,7 @@
 # Redis Lua API Reference
 
 Redis includes an embedded [Lua 5.1](https://www.lua.org/) interpreter.
-The interpreter runs user-defined [ephemeral scripts](/topics/eval-intro) and [/topics/functions-intro]. Scripts run in a sandboxed context and can only access specific Lua packages. This page describes the packages and APIs available inside the execution's context.
+The interpreter runs user-defined [ephemeral scripts](/topics/eval-intro) and [functions](/topics/functions-intro). Scripts run in a sandboxed context and can only access specific Lua packages. This page describes the packages and APIs available inside the execution's context.
 
 ## Sandbox context
 
@@ -410,7 +410,7 @@ Usage example:
 redis> FUNCTION LOAD Lua mylib "redis.register_function('noop', function() end)"
 ```
 
-#### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_function{function_name=name, callback=callback, flags={flag1, flag2, ..}. description=description}`
+#### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_function{function_name=name, callback=callback, flags={flag1, flag2, ..}, description=description}`
 
 The named arguments variant accepts the following arguments:
 
@@ -424,7 +424,7 @@ Both _function\_name_ and _callback_ are mandatory.
 Usage example:
 
 ```
-redis> FUNCTION LOAD Lua mylib "redis.register_function(function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing')"
+redis> FUNCTION LOAD Lua mylib "redis.register_function{function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing'}"
 ```
 
 #### <a name="script_flags"></a> Script flags

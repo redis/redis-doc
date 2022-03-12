@@ -2701,17 +2701,17 @@
                 "arguments": [
                     {
                         "name": "node-id",
-                        "type": "integer",
+                        "type": "string",
                         "token": "IMPORTING"
                     },
                     {
                         "name": "node-id",
-                        "type": "integer",
+                        "type": "string",
                         "token": "MIGRATING"
                     },
                     {
                         "name": "node-id",
-                        "type": "integer",
+                        "type": "string",
                         "token": "NODE"
                     },
                     {
@@ -7190,6 +7190,12 @@
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
+        "history": [
+            [
+                "7.0.0",
+                "Added support for taking multiple section arguments."
+            ]
+        ],
         "acl_categories": [
             "@slow",
             "@dangerous"
@@ -7199,7 +7205,8 @@
             {
                 "name": "section",
                 "type": "string",
-                "optional": true
+                "optional": true,
+                "multiple": true
             }
         ],
         "command_flags": [
@@ -9898,6 +9905,14 @@
             "@slow"
         ],
         "arity": -2,
+        "arguments": [
+            {
+                "name": "channel",
+                "type": "string",
+                "optional": true,
+                "multiple": true
+            }
+        ],
         "command_flags": [
             "pubsub",
             "loading",
@@ -10159,7 +10174,8 @@
             "admin",
             "noscript",
             "loading",
-            "stale"
+            "stale",
+            "allow_busy"
         ],
         "doc_flags": [
             "syscmd"
@@ -10190,8 +10206,7 @@
             "admin",
             "noscript",
             "stale",
-            "no_async_loading",
-            "allow_busy"
+            "no_async_loading"
         ]
     },
     "RESET": {
@@ -11692,10 +11707,12 @@
         ]
     },
     "SLAVEOF": {
-        "summary": "Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.",
+        "summary": "Make the server a replica of another instance, or promote it as master.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
+        "deprecated_since": "5.0.0",
+        "replaced_by": "`REPLICAOF`",
         "acl_categories": [
             "@admin",
             "@slow",
@@ -11717,6 +11734,9 @@
             "noscript",
             "stale",
             "no_async_loading"
+        ],
+        "doc_flags": [
+            "deprecated"
         ]
     },
     "SLOWLOG": {
@@ -12318,7 +12338,7 @@
                         "limit": 0
                     }
                 },
-                "channel": true
+                "not_key": true
             }
         ],
         "arguments": [
@@ -12537,7 +12557,7 @@
                         "limit": 0
                     }
                 },
-                "channel": true
+                "not_key": true
             }
         ],
         "arguments": [
@@ -12820,7 +12840,7 @@
                         "limit": 0
                     }
                 },
-                "channel": true
+                "not_key": true
             }
         ],
         "arguments": [
@@ -13408,6 +13428,12 @@
         "since": "6.2.0",
         "group": "stream",
         "complexity": "O(1) if COUNT is small.",
+        "history": [
+            [
+                "7.0.0",
+                "Added an element to the reply array, containing deleted entries the command cleared from the PEL"
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@stream",
@@ -13633,6 +13659,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
+        "history": [
+            [
+                "7.0.0",
+                "Added the `entries_read` named argument."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@stream",
@@ -13688,6 +13720,12 @@
                 "name": "mkstream",
                 "type": "pure-token",
                 "token": "MKSTREAM",
+                "optional": true
+            },
+            {
+                "name": "entries_read",
+                "type": "integer",
+                "token": "ENTRIESREAD",
                 "optional": true
             }
         ],
@@ -13863,12 +13901,18 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
+        "history": [
+            [
+                "7.0.0",
+                "Added the optional `entries_read` argument."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@stream",
             "@slow"
         ],
-        "arity": 5,
+        "arity": -5,
         "key_specs": [
             {
                 "begin_search": {
@@ -13913,6 +13957,12 @@
                         "token": "$"
                     }
                 ]
+            },
+            {
+                "name": "entries_read",
+                "type": "integer",
+                "token": "ENTRIESREAD",
+                "optional": true
             }
         ],
         "command_flags": [
@@ -13983,6 +14033,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
+        "history": [
+            [
+                "7.0.0",
+                "Added the `entries-read` and `lag` fields"
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -14040,6 +14096,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
+        "history": [
+            [
+                "7.0.0",
+                "Added the `max-deleted-entry-id`, `entries-added`, `recorded-first-entry-id`, `entries-read` and `lag` fields"
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -14511,12 +14573,18 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
+        "history": [
+            [
+                "7.0.0",
+                "Added the `entries_added` and `max_deleted_entry_id` arguments."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@stream",
             "@fast"
         ],
-        "arity": 3,
+        "arity": -3,
         "key_specs": [
             {
                 "begin_search": {
@@ -14546,6 +14614,18 @@
             {
                 "name": "last-id",
                 "type": "string"
+            },
+            {
+                "name": "entries_added",
+                "type": "integer",
+                "token": "ENTRIESADDED",
+                "optional": true
+            },
+            {
+                "name": "max_deleted_entry_id",
+                "type": "string",
+                "token": "MAXDELETEDID",
+                "optional": true
             }
         ],
         "command_flags": [
