@@ -29,48 +29,21 @@ total_cluster_links_buffer_limit_exceeded:0
 * `cluster_stats_messages_received`: Number of messages received via the cluster node-to-node binary bus.
 * `total_cluster_links_buffer_limit_exceeded`: Accumulated count of cluster links freed due to exceeding the `cluster-link-sendbuf-limit` configuration.
 
-The following message-related fields may be included in the mapped reply if the value is not equal 0:
-
-```
-cluster_stats_messages_ping_sent:0
-cluster_stats_messages_pong_sent:0
-cluster_stats_messages_meet_sent:0
-cluster_stats_messages_fail_sent:0
-cluster_stats_messages_publish_sent:0
-cluster_stats_messages_auth-req_sent:0
-cluster_stats_messages_auth-ack_sent:0
-cluster_stats_messages_update_sent:0
-cluster_stats_messages_mfstart_sent:0
-cluster_stats_messages_module_sent:0
-cluster_stats_messages_publishshard_sent:0
-
-cluster_stats_messages_ping_received:0
-cluster_stats_messages_pong_received:0
-cluster_stats_messages_meet_received:0
-cluster_stats_messages_fail_received:0
-cluster_stats_messages_publish_received:0
-cluster_stats_messages_auth-req_received:0
-cluster_stats_messages_auth-ack_received:0
-cluster_stats_messages_update_received:0
-cluster_stats_messages_mfstart_received:0
-cluster_stats_messages_module_received:0
-cluster_stats_messages_publishshard_received:0
-```
-
+The following message-related fields may be included in the reply if the value is not 0:
 Each message type includes statistics on the number of messages sent and received.
-Here are the explanation of these message types:
+Here are the explanation of these fields:
 
-* `ping`: PING
-* `pong`: PONG (reply to PING)
-* `meet`: Meet "let's join" message
-* `fail`: Mark node xxx as failing
-* `publish`: Pub/Sub Publish propagation
-* `auth-req`: May I failover?
-* `auth-ack`: Yes, you have my vote
-* `update`: Another node slots configuration
-* `mfstart`: Pause clients for manual failover
-* `module`: Module cluster API message
-* `publishshard`: Pub/Sub Publish shard propagation. Added in Redis 7.0
+* `cluster_stats_messages_ping_sent` and `cluster_stats_messages_ping_received`: Cluster bus PING (not to be confused with the client command `PING`).
+* `cluster_stats_messages_pong_sent` and `cluster_stats_messages_pong_received`: PONG (reply to PING).
+* `cluster_stats_messages_meet_sent` and `cluster_stats_messages_meet_received`: Handshake message sent to a new node, either through gossip or `CLUSTER MEET`.
+* `cluster_stats_messages_fail_sent` and `cluster_stats_messages_fail_received`: Mark node xxx as failing.
+* `cluster_stats_messages_publish_sent` and `cluster_stats_messages_publish_received`: Pub/Sub Publish propagation, see [Pubsub](/topics/pubsub#pubsub).
+* `cluster_stats_messages_auth-req_sent` and `cluster_stats_messages_auth-req_received`: Replica initiated leader election to replace its master.
+* `cluster_stats_messages_auth-ack_sent` and `cluster_stats_messages_auth-ack_received`: Message indicating a vote during leader election.
+* `cluster_stats_messages_update_sent` and `cluster_stats_messages_update_received`: Another node slots configuration.
+* `cluster_stats_messages_mfstart_sent` and `cluster_stats_messages_mfstart_received`: Pause clients for manual failover.
+* `cluster_stats_messages_module_sent` and `cluster_stats_messages_module_received`: Module cluster API message.
+* `cluster_stats_messages_publishshard_sent` and `cluster_stats_messages_publishshard_received`: Pub/Sub Publish shard propagation, see [Sharded Pubsub](/topics/pubsub#sharded-pubsub).
 
 More information about the Current Epoch and Config Epoch variables are available in the [Redis Cluster specification document](/topics/cluster-spec#cluster-current-epoch).
 
