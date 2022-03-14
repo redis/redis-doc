@@ -623,13 +623,13 @@ The `SENTINEL` command is the main API for Sentinel. The following is the list o
 * **SENTINEL INFO-CACHE** (`>= 3.2`) Return cached `INFO` output from masters and replicas.
 * **SENTINEL IS-MASTER-DOWN-BY-ADDR <ip> <port> <current-epoch> <runid>** Check if the master specified by ip:port is down from current Sentinel's point of view. This command is mostly for internal use.
 * **SENTINEL MASTER `<master name>` [`<param>` ...]** Show the state and info of the specified master. In Redis 7.0, one or more parameters can be specified (or none at all).
-* **SENTINEL MASTERS [`<param>` ...]** Show a list of monitored masters and their state.In Redis 7.0, one or more parameters can be specified (or none at all).
+* **SENTINEL MASTERS [`<param>` ...]** Show a list of monitored masters and their state. In Redis 7.0, one or more parameters can be specified (or none at all).
 * **SENTINEL MONITOR** Start Sentinel's monitoring. Refer to the [_Reconfiguring Sentinel at Runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
 * **SENTINEL MYID** (`>= 6.2`) Return the ID of the Sentinel instance.
 * **SENTINEL PENDING-SCRIPTS** This command returns information about pending scripts.
 * **SENTINEL REMOVE** Stop Sentinel's monitoring. Refer to the [_Reconfiguring Sentinel at Runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
-* **SENTINEL REPLICAS `<master name>` [`<param>` ...]** (`>= 5.0`) Show a list of replicas for this master, and their state.In Redis 7.0, one or more parameters can be specified (or none at all).
-* **SENTINEL SENTINELS `<master name>` [`<param>` ...]** Show a list of sentinel instances for this master, and their state.In Redis 7.0, one or more parameters can be specified (or none at all).
+* **SENTINEL REPLICAS `<master name>` [`<param>` ...]** (`>= 5.0`) Show a list of replicas for this master, and their state. In Redis 7.0, one or more parameters can be specified (or none at all).
+* **SENTINEL SENTINELS `<master name>` [`<param>` ...]** Show a list of sentinel instances for this master, and their state. In Redis 7.0, one or more parameters can be specified (or none at all).
 * **SENTINEL SET** Set Sentinel's monitoring configuration. Refer to the [_Reconfiguring Sentinel at Runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
 * **SENTINEL SIMULATE-FAILURE (crash-after-election|crash-after-promotion|help)** (`>= 3.2`) This command simulates different Sentinel crash scenarios.
 * **SENTINEL RESET `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every replica and sentinel already discovered and associated with the master.
