@@ -3,8 +3,8 @@ A shard is defined as a collection of nodes that serve the same set of slots and
 A shard may only have a single master at a given time, but may have multiple replicas.
 It is possible for a shard to not be serving any slots while still having replicas.
 
-The command is suitable to be used by Redis Cluster client libraries implementations in order to understand the topology of the cluster.
-A client should issue this command on startup in order to retrieve the map associating cluster *hash slots* with actual node network information.
+The command is suitable to be used by Redis Cluster client libraries in order to understand the topology of the cluster.
+A client should issue this command on startup in order to retrieve the map associating cluster *hash slots* with actual node information.
 This map should be used to direct commands to the node that is likely serving the slot associated with a given command.
 In the event the command is sent to the wrong node, this command can then be used to update the topology of the cluster.
 
@@ -31,7 +31,7 @@ The current list of attributes:
 * id: The unique node id for this particular node.
 * endpoint: The preferred endpoint to reach the node, see below for more information about the possible values of this field.
 * ip: The IP address to send requests to for this node.
-* hostname (optional): The announced FQDN hostname to send requests to for this node.
+* hostname (optional): The announced hostname to send requests to for this node.
 * port (optional): The TCP port number of the node.
 * tls-port (optional): The TLS port of the node.
 * role: The replication role of this node.
@@ -39,7 +39,7 @@ The current list of attributes:
 * health: Either `online`, `failed`, or `loading`. This information should be used to determine which nodes should be sent traffic. The `loading` health state should be used to know that a node is not currently eligible to serve traffic, but may be eligible in the future. 
 
 The endpoint, along with the port, defines the location that clients should use to send requests for a given slot.
-A NULL value for the endpoint indicates the node has an unknown endpoint and the client should connect to the same endpoint it used to send the `CLUSTER SLOTS` command but with the port returned from the command.
+A NULL value for the endpoint indicates the node has an unknown endpoint and the client should connect to the same endpoint it used to send the `CLUSTER SHARDS` command but with the port returned from the command.
 This unknown endpoint configuration is useful when the Redis nodes are behind a load balancer that Redis doesn't know the endpoint of.
 Which endpoint is set is determined by the `cluster-preferred-endpoint-type` config.
 
