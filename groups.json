@@ -1,0 +1,70 @@
+{
+  "bitmap": {
+    "display": "Bitmap",
+    "description": "Operations on the Bitmap data type"
+  },
+  "cluster": {
+    "display": "Cluster",
+    "description": "Redis Cluster management"
+  },
+  "connection": {
+    "display": "Connection",
+    "description": "Client connections management"
+  },
+  "generic": {
+    "display": "Generic",
+    "description": "Generic commands"
+  },
+  "geo": {
+    "display": "Geospatial indices",
+    "description": "Operations on the Geospatial Index data type"
+  },
+  "hash": {
+    "display": "Hash",
+    "description": "Operations on the Hash data type"
+  },
+  "hyperloglog": {
+    "display": "HyperLogLog",
+    "description": "Operations on the HyperLogLog data type"
+  },
+  "list": {
+    "display": "List",
+    "description": "Operations on the List data type"
+  },
+  "pubsub": {
+    "display": "Pub/Sub",
+    "description": "Pub/Sub commands"
+  },
+  "scripting": {
+    "display": "Scripting and Functions",
+    "description": "Redis server-side scripting and functions"
+  },
+  "sentinel": {
+    "display": "Sentinel",
+    "description": "Redis Sentinel commands"
+  },
+  "server": {
+    "display": "Server",
+    "description": "Server management commands"
+  },
+  "set": {
+    "display": "Set",
+    "description": "Operations on the Set data type"
+  },
+  "sorted-set": {
+    "display": "Sorted Set",
+    "description": "Operations on the Sorted Set data type"
+  },
+  "stream": {
+    "display": "Stream",
+    "description": "Operations on the Stream data type"
+  },
+  "string": {
+    "display": "String",
+    "description": "Operations on the String data type"
+  },
+  "transactions": {
+    "display": "Transactions",
+    "description": "Redis Transaction management"
+  }
+}
