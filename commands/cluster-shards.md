@@ -1,17 +1,20 @@
 `CLUSTER SHARDS` returns details about the shards of the cluster.
 A shard is defined as a collection of nodes that serve the same set of slots and that replicate from each other.
-A shard may only have a single master at a given time, but may have multiple replicas.
+A shard may only have a single master at a given time, but may have multiple or no replicas.
 It is possible for a shard to not be serving any slots while still having replicas.
+
+This command replaces the `CLUSTER SLOTS` command, by providing a more efficient and extensible representation of the cluster. 
 
 The command is suitable to be used by Redis Cluster client libraries in order to understand the topology of the cluster.
 A client should issue this command on startup in order to retrieve the map associating cluster *hash slots* with actual node information.
 This map should be used to direct commands to the node that is likely serving the slot associated with a given command.
-In the event the command is sent to the wrong node, this command can then be used to update the topology of the cluster.
+In the event the command is sent to the wrong node, in that it received a '-MOVED' redirect, this command can then be used to update the topology of the cluster.
 
 The command returns an array of shards, with each shard containing two fields, 'slots' and 'nodes'. 
 
-The 'slots' field is a list of slot ranges served by this shard, stored as pair of integers storing the start and end slots of the ranges.
-For example, if a node owns the slots 1, 2, 3, 5, 7, 8, 9, the slots field would store the ranges like:
+The 'slots' field is a list of slot ranges served by this shard, stored as pair of integers representing the inclusive start and end slots of the ranges.
+For example, if a node owns the slots 1, 2, 3, 5, 7, 8 and 9, the slots ranges would be stored as [1-3], [5-5], [7-9].
+The slots field would therefor be represented by the following list of integers.
 
 ```
 1) 1) "slots"
@@ -32,8 +35,8 @@ The current list of attributes:
 * endpoint: The preferred endpoint to reach the node, see below for more information about the possible values of this field.
 * ip: The IP address to send requests to for this node.
 * hostname (optional): The announced hostname to send requests to for this node.
-* port (optional): The TCP port number of the node.
-* tls-port (optional): The TLS port of the node.
+* port (optional): The TCP (non-TLS) port of the node. At least one of port or tls-port will be present.
+* tls-port (optional): The TLS port of the node. At least one of port or tls-port will be present.
 * role: The replication role of this node.
 * replication-offset: The replication offset of this node. This information can be used to send commands to the most up to date replicas.
 * health: Either `online`, `failed`, or `loading`. This information should be used to determine which nodes should be sent traffic. The `loading` health state should be used to know that a node is not currently eligible to serve traffic, but may be eligible in the future. 
