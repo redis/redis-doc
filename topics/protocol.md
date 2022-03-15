@@ -195,7 +195,7 @@ RESP Arrays
 
 Clients send commands to the Redis server using RESP Arrays. Similarly
 certain Redis commands returning collections of elements to the client
-use RESP Arrays as reply type. An example is the `LRANGE` command that
+use RESP Arrays as the reply type. An example is the `LRANGE` command that
 returns elements of a list.
 
 RESP Arrays are sent using the following format:
