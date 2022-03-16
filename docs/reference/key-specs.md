@@ -1,3 +1,12 @@
+---
+ title: "Command key specifications"
+ linkTitle: "Command key specifications"
+ weight: 1
+ description: What are command key specification and how to use them in your client
+ aliases:
+   - /topics/key-specs
+---
+
 # Command key specifications
 
 Many of the commands in Redis accept key names as input arguments.
