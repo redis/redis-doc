@@ -390,7 +390,7 @@ be issued it can compute the hash slot of the target key and have a
 greater chance of choosing the right node.
 
 An alternative is to just refresh the whole client-side cluster layout
-using the `CLUSTER SLOTS` commands
+using the `CLUSTER SHARDS`, or the deprecated `CLUSTER SLOTS`, command
 when a MOVED redirection is received. When a redirection is encountered, it
 is likely multiple slots were reconfigured rather than just one, so updating
 the client configuration as soon as possible is often the best strategy.
