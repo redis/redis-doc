@@ -19,7 +19,7 @@ How you install Redis depends on your operating system. See the guide below that
 * [Install Redis on macOS]({{< ref "/docs/getting-started/installation/install-redis-on-mac-os.md" >}})
 * [Install Redis on Windows]({{< ref "/docs/getting-started/installation/install-redis-on-windows.md" >}})
 
-On you have Redis up and running, and can connect using `redis-cli`, you can continue with the steps below.
+Once you have Redis up and running, and can connect using `redis-cli`, you can continue with the steps below.
 
 ## Exploring Redis with the CLI
 
