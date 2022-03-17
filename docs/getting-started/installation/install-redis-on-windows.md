@@ -26,7 +26,7 @@ Then start the Redis server like so:
 
 {{< highlight bash  >}}
 sudo service redis-server start
-{{< highlight bash  >}}
+{{< / highlight  >}}
 
 ## Connect to Redis
 
