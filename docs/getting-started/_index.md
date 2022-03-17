@@ -8,72 +8,20 @@ aliases:
     - /docs/getting-started/tutorial
 ---
 
-This is a quick start document created for people without prior Redis experience. 
-Reading this document will help you:
+This is a guide to getting started with Redis. You'll learn how to install, run, and experiment with the Redis server process.
 
-* Download and compile Redis to start hacking.
-* Use **redis-cli** to access the server.
-* Use Redis from your application.
-* Understand how Redis persistence works.
-* Install Redis more properly.
-* Find out what to read next to understand more about Redis.
+## Install Redis
 
-Installing Redis
-===
+How you install Redis depends on your operating system. See the guide below that best fits your needs:
 
-The suggested way of installing Redis is compiling it from sources as
-Redis has no dependencies other than a working GCC compiler and `libc`.
-Installing it using the package manager of your Linux distribution is somewhat
-discouraged as usually the available version is not the latest.
+* [Install Redis from Source]({{< ref "/docs/getting-started/installation/install-redis-from-source.md" >}})
+* [Install Redis on Linux]({{< ref "/docs/getting-started/installation/install-redis-on-linux.md" >}})
+* [Install Redis on macOS]({{< ref "/docs/getting-started/installation/install-redis-on-mac-os.md" >}})
+* [Install Redis on Windows]({{< ref "/docs/getting-started/installation/install-redis-on-windows.md" >}})
 
-You can either download the latest Redis tar ball from the [redis.io](https://redis.io/download), or you can alternatively use [the URL that always points to the latest stable Redis version](http://download.redis.io/redis-stable.tar.gz).
+Once you have Redis up and running, and can connect using `redis-cli`, you can continue with the steps below.
 
-In order to compile Redis follow these simple steps:
-
-    wget http://download.redis.io/redis-stable.tar.gz
-    tar xvzf redis-stable.tar.gz
-    cd redis-stable
-    make
-
-At this point you can test if your build has worked correctly by typing **make test**, but this is an optional step. After compilation the **src** directory inside the Redis distribution is populated with the different executables that are part of Redis:
-
-* **redis-server** is the Redis Server itself.
-* **redis-sentinel** is the Redis Sentinel executable (monitoring and failover).
-* **redis-cli** is the command line interface utility to talk with Redis.
-* **redis-benchmark** is used to check Redis performances.
-* **redis-check-aof** and **redis-check-rdb** (**redis-check-dump** in version 3.0 and below) are useful in the rare event of corrupted data files.
-
-It is a good idea to copy both the Redis server and the command line interface into the proper places, either manually using the following commands:
-
-    sudo cp src/redis-server /usr/local/bin/
-    sudo cp src/redis-cli /usr/local/bin/
-
-Or just using `sudo make install`.
-
-In the following documentation we assume that `/usr/local/bin` is in your `PATH` environment variable so that you can execute both of the binaries without specifying the full path.
-
-Starting Redis
-===
-
-To start the Redis server, run the **redis-server** binary with no arguments.
-
-    $ redis-server
-    [28550] 01 Aug 19:29:28 # Warning: no config file specified, using the default config. In order to specify a config file use 'redis-server /path/to/redis.conf'
-    [28550] 01 Aug 19:29:28 * Server started, Redis version 6.2.6
-    [28550] 01 Aug 19:29:28 * The server is now ready to accept connections on port 6379
-    ... more logs ...
-
-In the above example Redis was started without any explicit configuration file, so all of the parameters will use the internal default.
-This is perfectly fine if you are starting Redis just to learn or for development, but for production environments you should use a configuration file.
-
-To start Redis with a configuration file, use the full path of the configuration file as the first argument to `redis-server`, as in the following example: 
-
-    $ redis-server /etc/redis.conf
-
-You should use the `redis.conf` file included in the root directory of the Redis source code distribution as a template to write your configuration file.
-
-Check if Redis is working
-=========================
+## Exploring Redis with the CLI
 
 External programs talk to Redis using a TCP socket and a Redis specific protocol. This protocol is implemented in the Redis client libraries for the different programming languages. However to make hacking with Redis simpler Redis provides a command line utility that can be used to send commands to Redis. This program is called **redis-cli**.
 

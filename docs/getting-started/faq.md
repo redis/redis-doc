@@ -1,7 +1,7 @@
 ---
 title: "Redis FAQ"
 linkTitle: "FAQ"
-weight: 1
+weight: 100
 description: >
     Commonly asked questions when getting started with Redis
 aliases:
