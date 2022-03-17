@@ -2,7 +2,7 @@
 title: "Install Redis on Windows"
 linkTitle: "Install on Windows"
 weight: 1
-description: Use Homebrew to install and start Redis on macOS
+description: Use Homebrew to install and start Redis on Windows
 ---
 
 To install Redis on Windows, you'll first need to enable [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux). WSL2 lets you run Linux binaries natively on Windows. For this method to work, you'll need to be running Windows 10 version 2004 and higher or Windows 11.
