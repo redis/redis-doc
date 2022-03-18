@@ -1,9 +1,6 @@
 ---
 title: Community
 linkTitle: Community
-menu:
-  main:
-    weight: 40
 ---
 
 Since 2009, the Redis open source project has inspired an enthusiastic and active community of users and contributors. We continue to be committed to fostering an open, welcoming, diverse, inclusive, and healthy community.
