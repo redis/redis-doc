@@ -1,0 +1,4 @@
+{
+    "name": "handy-redis",
+    "description": "A wrapper around node_redis with Promise and TypeScript support."
+}

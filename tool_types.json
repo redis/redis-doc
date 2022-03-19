@@ -1,0 +1,5 @@
+{
+    "cli": "CLI",
+    "gui": "GUI",
+    "proxy": "Proxy"
+}

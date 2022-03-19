@@ -1,0 +1,9 @@
+{
+    "name": "phpredis",
+    "description": "This is a client written in C as a PHP module.",
+    "twitter": [
+        "grumi78",
+        "yowgi",
+        "yatsukhnenko"
+    ]
+}

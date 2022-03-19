@@ -1,0 +1,8 @@
+{
+    "name": "Redis-AudioScout",
+    "license": "pHash Source Available License",
+    "description": "Redis module for Audio Track Recognition",
+    "github": [
+        "starkdg"
+    ]
+}

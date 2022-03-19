@@ -1,0 +1,4 @@
+{
+    "name": "eredis_cluster (Nordix fork)",
+    "description": "An updated fork of eredis_cluster (providing cluster support and connection pooling), with added TLS support, ASK redirects, various corrections and testing"
+}

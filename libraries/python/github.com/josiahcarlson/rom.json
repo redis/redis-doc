@@ -1,0 +1,8 @@
+{
+    "name": "rom",
+    "description": "Redis object mapper for Python using declarative models, with search over numeric, full text, prefix, and suffix indexes",
+    "homepage": "https://pypi.python.org/pypi/rom",
+    "twitter": [
+        "josiahcarlson"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Eredis",
+    "description": "Redis client with a focus on performance",
+    "twitter": [
+        "wooga"
+    ]
+}

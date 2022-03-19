@@ -1,0 +1,9 @@
+{
+    "name": "spark-redis",
+    "description": "A connector between Apache Spark and Redis.",
+    "twitter": [
+        "redislabs",
+        "sunheehnus",
+        "dvirsky"
+    ]
+}

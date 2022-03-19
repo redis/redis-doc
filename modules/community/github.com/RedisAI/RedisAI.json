@@ -1,0 +1,9 @@
+{
+    "name": "RedisAI",
+    "license": "Redis Source Available License",
+    "description": "A Redis module for serving tensors and executing deep learning graphs",
+    "github": [
+        "lantiga",
+        "RedisLabs"
+    ]
+}

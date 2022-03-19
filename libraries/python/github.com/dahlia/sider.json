@@ -1,0 +1,7 @@
+{
+    "name": "Sider",
+    "description": "Python persistent object library based on Redis.",
+    "twitter": [
+        "hongminhee"
+    ]
+}

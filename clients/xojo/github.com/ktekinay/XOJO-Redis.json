@@ -1,0 +1,7 @@
+{
+    "name": "Redis_MTC",
+    "description": "A Xojo library to connect to a Redis server.",
+    "twitter": [
+        "kemtekinay"
+    ]
+}

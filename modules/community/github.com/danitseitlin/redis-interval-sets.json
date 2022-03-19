@@ -1,0 +1,8 @@
+{
+    "name": "Redis Interval Sets",
+    "license": "BSD-3-Clause",
+    "description": "A Redis module for creating interval sets",
+    "github": [
+        "danitseitlin"
+    ]
+}

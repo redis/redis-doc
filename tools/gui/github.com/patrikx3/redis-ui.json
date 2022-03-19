@@ -1,0 +1,8 @@
+{
+    "name": "p3x-redis-ui",
+    "description": "\ud83d\udce1 P3X Redis UI that uses Socket.IO, AngularJs Material and IORedis with statistics, console - terminal, tree, dark mode, internationalization, multiple connections, web and desktop by Electron. Works as an app without Node.JS GUI or with the latest Node.Js version. Can test it at https://p3x.redis.patrikx3.com/.",
+    "homepage": "https://www.corifeus.com/redis-ui/",
+    "twitter": [
+        "patrikx3"
+    ]
+}

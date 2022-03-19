@@ -1,0 +1,4 @@
+{
+    "name": "pyres",
+    "description": "Python library inspired by Resque for creating background jobs and workers"
+}

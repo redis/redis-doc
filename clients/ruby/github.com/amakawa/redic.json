@@ -1,0 +1,8 @@
+{
+    "name": "redic",
+    "description": "Lightweight Redis Client",
+    "twitter": [
+        "soveran",
+        "cyx"
+    ]
+}

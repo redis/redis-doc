@@ -1,0 +1,5 @@
+{
+    "name": "RedisKeychain",
+    "description": "A Node.js library for streamlining the configuration and maintenance of your Redis namespace",
+    "homepage": "https://github.com/adriano-di-giovanni/node-redis-keychain"
+}

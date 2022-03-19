@@ -1,0 +1,9 @@
+{
+    "name": "redis-async",
+    "description": "A Redis client for OCaml Async applications with a strongly-typed API and client tracking support.",
+    "homepage": "https://github.com/janestreet/redis-async",
+    "twitter": [
+        "janestreet",
+        "lukepalmer"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "AnyEvent::RipeRedis",
+    "description": "Flexible non-blocking Redis client",
+    "homepage": "http://search.cpan.org/dist/AnyEvent-RipeRedis/",
+    "twitter": [
+        "iph0"
+    ]
+}

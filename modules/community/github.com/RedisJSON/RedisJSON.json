@@ -1,0 +1,9 @@
+{
+    "name": "RedisJSON",
+    "license": "Redis Source Available License",
+    "description": "A JSON data type for Redis",
+    "github": [
+        "itamarhaber",
+        "RedisLabs"
+    ]
+}

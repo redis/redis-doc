@@ -1,0 +1,4 @@
+{
+    "name": "aredis",
+    "description": "Asynchronous, pipelined client based on the Java 7 NIO Channel API"
+}

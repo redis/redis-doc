@@ -1,0 +1,8 @@
+{
+    "name": "dbx",
+    "license": "MIT",
+    "description": "Redis module for maintaining hash by simple SQL",
+    "github": [
+        "cscan"
+    ]
+}

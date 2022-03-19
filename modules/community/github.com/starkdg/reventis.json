@@ -1,0 +1,8 @@
+{
+    "name": "Reventis",
+    "license": "Redis Source Available License",
+    "description": "Redis module for storing and querying spatio-temporal event data",
+    "github": [
+        "starkdg"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "DartRedisClient",
+    "description": "A high-performance async/non-blocking Redis client for Dart",
+    "twitter": [
+        "demisbellot"
+    ]
+}

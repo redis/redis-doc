@@ -1,0 +1,8 @@
+{
+    "name": "cthulhu",
+    "license": "BSD",
+    "description": "Extend Redis with JavaScript modules",
+    "github": [
+        "sklivvz"
+    ]
+}

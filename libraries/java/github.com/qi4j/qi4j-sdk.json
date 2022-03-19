@@ -1,0 +1,7 @@
+{
+    "name": "Redis Qi4j EntityStore",
+    "description": "Qi4j EntityStore backed by Redis",
+    "twitter": [
+        "eskatos"
+    ]
+}

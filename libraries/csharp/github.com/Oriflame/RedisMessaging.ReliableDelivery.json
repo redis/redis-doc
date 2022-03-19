@@ -1,0 +1,7 @@
+{
+    "name": "Reliable Message Delivery",
+    "description": "This library provides reliability to delivering messages via Redis. By design Redis pub/sub message delivery is not reliable so it can happen that some messages can be lost due to network issues or they can be delivered more than once in case of Redis replication failure.",
+    "twitter": [
+        "PetrKozelek"
+    ]
+}

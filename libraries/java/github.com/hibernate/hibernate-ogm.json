@@ -1,0 +1,9 @@
+{
+    "name": "Hibernate OGM",
+    "description": "Hibernate OGM is the JPA integration for Redis",
+    "homepage": "http://hibernate.org/ogm/",
+    "twitter": [
+        "mp911de",
+        "gunnarmorling"
+    ]
+}

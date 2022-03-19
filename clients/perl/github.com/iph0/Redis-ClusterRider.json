@@ -1,0 +1,8 @@
+{
+    "name": "Redis::ClusterRider",
+    "description": "Daring Redis Cluster client",
+    "homepage": "http://search.cpan.org/dist/Redis-ClusterRider/",
+    "twitter": [
+        "iph0"
+    ]
+}

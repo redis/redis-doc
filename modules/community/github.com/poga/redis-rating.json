@@ -1,0 +1,8 @@
+{
+    "name": "redis-rating",
+    "license": "MIT",
+    "description": "Estimate actual rating from postive/negative ratings",
+    "github": [
+        "devpoga"
+    ]
+}

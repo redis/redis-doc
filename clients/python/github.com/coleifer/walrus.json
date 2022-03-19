@@ -1,0 +1,4 @@
+{
+    "name": "walrus",
+    "description": "Lightweight Python utilities for working with Redis."
+}

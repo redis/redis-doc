@@ -1,0 +1,7 @@
+{
+    "name": "Redmon",
+    "description": "A web interface for managing Redis: cli, admin, and live monitoring.",
+    "twitter": [
+        "steel_thread"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "SwiftRedis",
+    "description": "Basic async client for Redis in Swift (iOS)",
+    "twitter": [
+        "ronp001"
+    ]
+}

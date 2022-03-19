@@ -1,0 +1,7 @@
+{
+    "name": "tinywebdis",
+    "description": "Webdis replacement using TurboLua.",
+    "twitter": [
+        "yowgi"
+    ]
+}

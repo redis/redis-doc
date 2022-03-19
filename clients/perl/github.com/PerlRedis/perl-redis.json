@@ -1,0 +1,8 @@
+{
+    "name": "Redis",
+    "description": "Perl binding for Redis database",
+    "homepage": "http://search.cpan.org/dist/Redis/",
+    "twitter": [
+        "damsieboy"
+    ]
+}

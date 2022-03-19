@@ -1,0 +1,8 @@
+{
+    "name": "Spring Data Redis",
+    "description": "Spring integration for Redis promoting POJO programming, portability and productivity",
+    "homepage": "http://projects.spring.io/spring-data-redis/",
+    "twitter": [
+        "costinl"
+    ]
+}

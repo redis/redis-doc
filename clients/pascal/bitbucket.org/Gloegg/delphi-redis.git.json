@@ -1,0 +1,8 @@
+{
+    "name": "delphi-redis",
+    "description": "A lightweight Redis client written in Delphi",
+    "homepage": "https://bitbucket.org/Gloegg/delphi-redis",
+    "twitter": [
+        "Gloegg"
+    ]
+}

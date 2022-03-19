@@ -1,0 +1,9 @@
+{
+    "name": "hiredis",
+    "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
+    "twitter": [
+        "antirez",
+        "pnoordhuis",
+        "badboy_"
+    ]
+}

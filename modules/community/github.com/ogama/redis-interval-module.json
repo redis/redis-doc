@@ -1,0 +1,8 @@
+{
+    "name": "redis-interval-module",
+    "license": "MIT",
+    "description": "Redis module for creation and manipulation of interval set.",
+    "github": [
+        "ogama"
+    ]
+}

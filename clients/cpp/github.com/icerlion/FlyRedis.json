@@ -1,0 +1,4 @@
+{
+    "name": "FlyRedis",
+    "description": "C++ Redis Client, base on Boost.asio, Easy To Use"
+}

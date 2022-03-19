@@ -1,0 +1,9 @@
+{
+    "name": "lettuce",
+    "description": "Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.",
+    "homepage": "https://lettuce.io/",
+    "twitter": [
+        "ar3te",
+        "mp911de"
+    ]
+}

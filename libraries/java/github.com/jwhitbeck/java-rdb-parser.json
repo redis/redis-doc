@@ -1,0 +1,4 @@
+{
+    "name": "rdb-parser",
+    "description": "A simple Redis RDB file parser for Java"
+}

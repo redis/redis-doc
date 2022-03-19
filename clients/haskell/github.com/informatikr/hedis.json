@@ -1,0 +1,5 @@
+{
+    "name": "hedis",
+    "description": "Supports the complete command set and cluster. Commands are automatically pipelined for high performance.",
+    "homepage": "http://hackage.haskell.org/package/hedis"
+}

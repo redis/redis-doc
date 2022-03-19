@@ -1,0 +1,7 @@
+{
+    "name": "eredis_cluster",
+    "description": "Eredis wrapper providing cluster support and connection pooling",
+    "twitter": [
+        "adrienmo"
+    ]
+}

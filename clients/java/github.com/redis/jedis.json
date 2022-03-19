@@ -1,0 +1,8 @@
+{
+    "name": "Jedis",
+    "description": "A blazingly small and sane Redis Java client",
+    "twitter": [
+        "xetorthio",
+        "g_korland"
+    ]
+}

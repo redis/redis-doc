@@ -1,0 +1,8 @@
+{
+    "name": "gosexy/redis",
+    "description": "Redis client library for Go that maps the full redis command list into equivalent Go functions.",
+    "homepage": "https://menteslibres.net/gosexy/redis",
+    "twitter": [
+        "xiam"
+    ]
+}

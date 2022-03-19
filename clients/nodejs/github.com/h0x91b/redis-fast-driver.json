@@ -1,0 +1,7 @@
+{
+    "name": "redis-fast-driver",
+    "description": "Driver based on hiredis async lib, can do PUBSUB and MONITOR, simple and really fast, written with NaN so works fine with node >=0.8",
+    "twitter": [
+        "h0x91b"
+    ]
+}

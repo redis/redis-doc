@@ -1,0 +1,8 @@
+{
+    "name": "redis-percentile",
+    "license": "MIT",
+    "description": "Redis module for efficient percentile estimation of streaming or distributed data with t-digest algorithm.",
+    "github": [
+        "devpoga"
+    ]
+}

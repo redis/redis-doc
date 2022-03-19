@@ -1,0 +1,7 @@
+{
+    "name": "leaderboard",
+    "description": "Leaderboards backed by Redis.",
+    "twitter": [
+        "czarneckid"
+    ]
+}

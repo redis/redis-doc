@@ -1,0 +1,8 @@
+{
+    "name": "tedis",
+    "description": "Tedis is a redis client developed for Node.js . Its name was inspired by the Jedis and TypeScript.",
+    "homepage": "https://tedis.silkjs.org",
+    "twitter": [
+        "dasoncheng"
+    ]
+}

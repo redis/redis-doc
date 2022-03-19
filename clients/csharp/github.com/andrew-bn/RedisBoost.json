@@ -1,0 +1,5 @@
+{
+    "name": "redisboost",
+    "description": "Thread-safe async Redis client. Offers high performance and simple api",
+    "homepage": "http://andrew-bn.github.io/RedisBoost/"
+}

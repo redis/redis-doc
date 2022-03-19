@@ -1,0 +1,8 @@
+{
+    "name": "redis-client",
+    "description": "A Redis client for Chicken Scheme 4.7",
+    "homepage": "http://wiki.call-cc.org/eggref/4/redis-client",
+    "twitter": [
+        "carld"
+    ]
+}

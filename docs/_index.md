@@ -1,4 +1,3 @@
-
 ---
 title: "Documentation"
 linkTitle: "Documentation"
@@ -9,5 +8,3 @@ menu:
 ---
 
 Welcome to the Redis documentation.
-
-

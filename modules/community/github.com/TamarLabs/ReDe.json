@@ -1,0 +1,8 @@
+{
+    "name": "ReDe",
+    "license": "MIT",
+    "description": "Low Latency timed queues (Dehydrators) as Redis data types.",
+    "github": [
+        "daTokenizer"
+    ]
+}

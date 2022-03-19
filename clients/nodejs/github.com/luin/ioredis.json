@@ -1,0 +1,7 @@
+{
+    "name": "ioredis",
+    "description": "A delightful, performance-focused and full-featured Redis client. Supports Cluster, Sentinel, Pipelining and Lua Scripting",
+    "twitter": [
+        "luinlee"
+    ]
+}

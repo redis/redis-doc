@@ -1,0 +1,7 @@
+{
+    "name": "Redis::hiredis",
+    "description": "Perl binding for the hiredis C client",
+    "twitter": [
+        "neophenix"
+    ]
+}

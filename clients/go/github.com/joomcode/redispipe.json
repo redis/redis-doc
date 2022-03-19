@@ -1,0 +1,7 @@
+{
+    "name": "RedisPipe",
+    "description": "RedisPipe is the high-throughput Go client with implicit pipelining and robust Cluster support.",
+    "twitter": [
+        "funny_falcon"
+    ]
+}

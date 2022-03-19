@@ -1,0 +1,7 @@
+{
+    "name": "Redigo",
+    "description": "Redigo is a Go client for the Redis database with support for Print-alike API, Pipelining (including transactions), Pub/Sub, Connection pooling, scripting.",
+    "twitter": [
+        "gburd"
+    ]
+}

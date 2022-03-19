@@ -1,0 +1,7 @@
+{
+    "name": "Soulmate",
+    "description": "Redis-backed service for fast autocompleting.",
+    "twitter": [
+        "seatgeek"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Lua Redis Admin",
+    "description": "Redis client tool, Redis web client, Redis web UI, openresty lor Lua ",
+    "twitter": [
+        "nbdanny"
+    ]
+}

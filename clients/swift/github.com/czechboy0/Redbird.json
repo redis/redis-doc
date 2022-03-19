@@ -1,0 +1,7 @@
+{
+    "name": "Redbird",
+    "description": "Pure-Swift implementation of a Redis client from the original protocol spec (OS X + Linux compatible)",
+    "twitter": [
+        "czechboy0"
+    ]
+}

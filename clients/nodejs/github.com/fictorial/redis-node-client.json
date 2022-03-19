@@ -1,0 +1,4 @@
+{
+    "name": "redis-node-client",
+    "description": "No longer maintained, does not work with node 0.3."
+}

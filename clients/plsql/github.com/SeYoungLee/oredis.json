@@ -1,0 +1,7 @@
+{
+    "name": "oredis",
+    "description": "Redis client library for Oracle PL/SQL. This support Redis cluster and asynchronous execution",
+    "twitter": [
+        "SeyoungLee"
+    ]
+}

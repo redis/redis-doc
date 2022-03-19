@@ -1,0 +1,7 @@
+{
+    "name": "Amico",
+    "description": "Relationships (e.g. friendships) backed by Redis.",
+    "twitter": [
+        "czarneckid"
+    ]
+}

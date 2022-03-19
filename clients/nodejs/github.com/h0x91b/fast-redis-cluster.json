@@ -1,0 +1,7 @@
+{
+    "name": "fast-redis-cluster",
+    "description": "Simple and fast cluster driver with error handling, uses redis-fast-driver as main adapter and node_redis as backup for windows",
+    "twitter": [
+        "h0x91b"
+    ]
+}

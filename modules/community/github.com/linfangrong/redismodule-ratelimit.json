@@ -1,0 +1,8 @@
+{
+    "name": "redismodule-ratelimit",
+    "license": "MIT",
+    "description": "Redis module that provides ratelimit",
+    "github": [
+        "linfangrong"
+    ]
+}

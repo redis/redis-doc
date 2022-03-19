@@ -1,0 +1,5 @@
+{
+    "name": "NewLife.Redis",
+    "description": "The high-performance redis client supports .NETCORE/.NET4.0/.NET4.5, which is specially optimized for big data and message queuing. The average daily call volume of single online application is 10 billion",
+    "homepage": "https://github.com/NewLifeX/NewLife.Redis"
+}

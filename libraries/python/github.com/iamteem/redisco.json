@@ -1,0 +1,7 @@
+{
+    "name": "Redisco",
+    "description": "Loose implementation of Ohm in Python (see above for Ohm project) - Warning: Not actively maintained at the moment.",
+    "twitter": [
+        "iamteem"
+    ]
+}

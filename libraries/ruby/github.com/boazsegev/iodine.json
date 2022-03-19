@@ -1,0 +1,7 @@
+{
+    "name": "iodine",
+    "description": "Iodine is an HTTP / Websocket server with native pub/sub support. Iodine includes an integrated Redis client that provides Pub/Sub scaling beyond machine boundaries.",
+    "twitter": [
+        "bowildmusic"
+    ]
+}

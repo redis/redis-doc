@@ -1,0 +1,7 @@
+{
+    "name": "scala-redis",
+    "description": "Apparently a fork of the original client from @alejandrocrosa",
+    "twitter": [
+        "debasishg"
+    ]
+}

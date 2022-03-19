@@ -1,0 +1,4 @@
+{
+    "name": "MatlabRedis",
+    "description": "Pure Matlab Redis interface for Matlab>=2014B"
+}

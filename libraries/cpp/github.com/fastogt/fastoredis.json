@@ -1,0 +1,8 @@
+{
+    "name": "FastoRedis",
+    "description": "Cross-platform Redis, Memcached management tool.",
+    "homepage": "http://fastoredis.com",
+    "twitter": [
+        "topilski"
+    ]
+}

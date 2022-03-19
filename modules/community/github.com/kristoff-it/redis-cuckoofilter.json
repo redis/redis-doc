@@ -1,0 +1,8 @@
+{
+    "name": "redis-cuckoofilter",
+    "license": "MIT",
+    "description": "Hashing-function agnostic Cuckoo filters.",
+    "github": [
+        "kristoff-it"
+    ]
+}

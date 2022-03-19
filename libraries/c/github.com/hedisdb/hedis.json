@@ -1,0 +1,8 @@
+{
+    "name": "Hedis",
+    "description": "Hedis can retrieve data from **ANY** database directly via Redis",
+    "homepage": "http://hedis.io/",
+    "twitter": [
+        "kewang"
+    ]
+}

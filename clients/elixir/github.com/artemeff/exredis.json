@@ -1,0 +1,7 @@
+{
+    "name": "exredis",
+    "description": "Redis client for Elixir.",
+    "twitter": [
+        "artemeff"
+    ]
+}

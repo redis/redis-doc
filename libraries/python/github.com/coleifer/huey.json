@@ -1,0 +1,4 @@
+{
+    "name": "huey",
+    "description": "Simple multi-threaded Python task queue. Supports Redis."
+}

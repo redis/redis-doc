@@ -1,0 +1,7 @@
+{
+    "name": "redis-browser",
+    "description": "Cross platform GUI tool for redis that includes support for ReJSON",
+    "twitter": [
+        "anandtrex"
+    ]
+}

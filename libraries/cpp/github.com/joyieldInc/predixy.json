@@ -1,0 +1,4 @@
+{
+    "name": "predixy",
+    "description": "A high performance and full features proxy for redis, supports redis sentinel and redis cluster."
+}

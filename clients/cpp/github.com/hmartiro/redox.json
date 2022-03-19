@@ -1,0 +1,7 @@
+{
+    "name": "redox",
+    "description": "Modern, asynchronous, and fast C++11 client for Redis",
+    "twitter": [
+        "hmartiros"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Redis tool",
+    "description": "Redis-tool - Little helpers for Redis (ztrim, del-all, rename)",
+    "twitter": [
+        "fgribreau"
+    ]
+}

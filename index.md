@@ -1,4 +1,0 @@
----
-title: Redis
-linkTitle: Redis
----

@@ -1,0 +1,7 @@
+{
+    "name": "redis-rs",
+    "description": "A high and low level client library for Redis tracking Rust nightly.",
+    "twitter": [
+        "mitsuhiko"
+    ]
+}

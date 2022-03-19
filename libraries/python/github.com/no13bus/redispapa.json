@@ -1,0 +1,8 @@
+{
+    "name": "redispapa",
+    "description": "RedisPAPA is a Redis monitor which watches `INFO` by using flask, angular, socket.io",
+    "homepage": "https://github.com/no13bus/redispapa",
+    "twitter": [
+        "no13bus"
+    ]
+}

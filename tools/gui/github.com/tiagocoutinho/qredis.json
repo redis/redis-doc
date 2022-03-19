@@ -1,0 +1,7 @@
+{
+    "name": "QRedis",
+    "description": "Python, Qt based redis GUI",
+    "twitter": [
+        "tiagocoutinho"
+    ]
+}

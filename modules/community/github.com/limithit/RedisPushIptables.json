@@ -1,0 +1,8 @@
+{
+    "name": "RedisPushIptables",
+    "license": "GPL-3.0",
+    "description": "RedisPushIptables is used to update firewall rules to reject the IP addresses for a specified amount of time or forever reject.",
+    "github": [
+        "Gandalf"
+    ]
+}

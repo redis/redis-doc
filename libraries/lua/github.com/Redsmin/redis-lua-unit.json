@@ -1,0 +1,7 @@
+{
+    "name": "Redis LUA Unit",
+    "description": "Framework agnostic unit-testing for Redis Lua scripts",
+    "twitter": [
+        "redsmin"
+    ]
+}

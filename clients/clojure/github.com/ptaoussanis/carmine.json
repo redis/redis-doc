@@ -1,0 +1,7 @@
+{
+    "name": "carmine",
+    "description": "Simple, high-performance Redis (2.0+) client for Clojure.",
+    "twitter": [
+        "ptaoussanis"
+    ]
+}

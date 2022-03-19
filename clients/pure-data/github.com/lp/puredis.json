@@ -1,0 +1,7 @@
+{
+    "name": "Puredis",
+    "description": "Pure Data Redis sync, async and subscriber client",
+    "twitter": [
+        "loopole"
+    ]
+}
