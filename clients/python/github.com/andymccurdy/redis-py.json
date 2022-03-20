@@ -1,6 +1,7 @@
 {
     "name": "redis-py",
     "description": "Mature and supported. Currently the way to go for Python.",
+    "recommended": true,
     "twitter": [
         "andymccurdy"
     ]

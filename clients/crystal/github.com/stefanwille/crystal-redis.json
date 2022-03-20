@@ -1,6 +1,7 @@
 {
     "name": "crystal-redis",
     "description": "Full featured, high performance Redis client for Crystal",
+    "recommended": true,
     "homepage": "http://www.stefanwille.com/projects/crystal-redis/",
     "twitter": [
         "stefanwille"

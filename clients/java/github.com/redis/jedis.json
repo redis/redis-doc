@@ -1,6 +1,7 @@
 {
     "name": "Jedis",
     "description": "A blazingly small and sane Redis Java client",
+    "recommended": true,
     "twitter": [
         "xetorthio",
         "g_korland"

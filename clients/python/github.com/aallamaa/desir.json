@@ -1,6 +1,6 @@
 {
     "name": "desir",
-    "description": "",
+    "description": "Attempt to make a minimalist redis python client.",
     "twitter": [
         "aallamaa"
     ]

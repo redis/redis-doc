@@ -1,6 +1,7 @@
 {
     "name": "redis-plus-plus",
     "description": "This is a Redis client, based on hiredis and written in C++11. It supports scritpting, pub/sub, pipeline, transaction, Redis Cluster, Redis Sentinel, connection pool, ACL, SSL and thread safety.",
+    "recommended": true,
     "twitter": [
         "sewenew"
     ]

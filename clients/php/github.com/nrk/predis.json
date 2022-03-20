@@ -1,6 +1,7 @@
 {
     "name": "Predis",
     "description": "Mature and supported",
+    "recommended": true,
     "twitter": [
         "JoL1hAHN"
     ]

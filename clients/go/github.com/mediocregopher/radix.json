@@ -1,6 +1,7 @@
 {
     "name": "Radix",
     "description": "MIT licensed Redis client which supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.",
+    "recommended": true,
     "twitter": [
         "fzzbt",
         "mediocre_gopher"

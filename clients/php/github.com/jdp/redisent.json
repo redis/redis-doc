@@ -1,6 +1,6 @@
 {
     "name": "Redisent",
-    "description": "",
+    "description": "A Redis client.",
     "twitter": [
         "justinpoliey"
     ]

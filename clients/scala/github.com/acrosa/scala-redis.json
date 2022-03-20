@@ -1,6 +1,7 @@
 {
     "name": "scala-redis",
-    "description": "",
+    "description": "A Redis client.",
+    "recommended": true,
     "twitter": [
         "alejandrocrosa"
     ]

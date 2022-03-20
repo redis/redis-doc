@@ -1,4 +1,4 @@
 {
     "name": "credis",
-    "description": ""
+    "description": "A Redis client."
 }

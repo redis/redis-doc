@@ -1,6 +1,6 @@
 {
     "name": "redis-sharp",
-    "description": "",
+    "description": "A Redis client.",
     "twitter": [
         "migueldeicaza"
     ]

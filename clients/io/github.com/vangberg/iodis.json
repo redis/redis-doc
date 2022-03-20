@@ -1,6 +1,6 @@
 {
     "name": "iodis",
-    "description": "",
+    "description": "A redis client library for io.",
     "twitter": [
         "ichverstehe"
     ]

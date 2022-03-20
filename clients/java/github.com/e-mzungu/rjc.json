@@ -1,6 +1,6 @@
 {
     "name": "RJC",
-    "description": "",
+    "description": "A Java Client that provides connection pooling in Apache DBCP style, sharding, pipelines, transactions and messages.",
     "twitter": [
         "e_mzungu"
     ]

@@ -1,6 +1,7 @@
 {
     "name": "hiredis",
     "description": "This is the official C client. Support for the whole command set, pipelining, event driven programming.",
+    "recommended": true,
     "twitter": [
         "antirez",
         "pnoordhuis",

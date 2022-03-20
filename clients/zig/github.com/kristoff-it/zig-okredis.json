@@ -1,6 +1,7 @@
 {
     "name": "OkRedis",
     "description": "OkRedis is a zero-allocation client for Redis 6+ ",
+    "recommended": true,
     "homepage": "https://github.com/kristoff-it/zig-okredis",
     "twitter": [
         "croloris"

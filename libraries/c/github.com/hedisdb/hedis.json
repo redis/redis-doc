@@ -1,6 +1,7 @@
 {
     "name": "Hedis",
     "description": "Hedis can retrieve data from **ANY** database directly via Redis",
+    "recommended": true,
     "homepage": "http://hedis.io/",
     "twitter": [
         "kewang"
