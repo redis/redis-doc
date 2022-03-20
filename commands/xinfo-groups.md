@@ -6,7 +6,7 @@ By default, only the following information is provided for each of the groups:
 * **consumers**: the number of consumers in the group
 * **pending**: the length of the group's pending entries list (PEL), which are messages that were delivered but are yet to be acknowledged
 * **last-delivered-id**: the ID of the last entry delivered the group's consumers
-* **entries_read**: the logical "read counter" of the last entry delivered to group's consumers
+* **entries-read**: the logical "read counter" of the last entry delivered to group's consumers
 * **lag**: the number of entries in the stream that are still waiting to be delivered to the group's consumers, or a NULL when that number can't be determined.
 
 ### Consumer group lag
@@ -55,7 +55,7 @@ Once the consumer group delivers the last message in the stream to its members, 
     6) (integer) 2
     7) "last-delivered-id"
     8) "1638126030001-0"
-    9) "entries_read"
+    9) "entries-read"
    10) (integer) 2
    11) "lag"
    12) (integer) 0
@@ -67,7 +67,7 @@ Once the consumer group delivers the last message in the stream to its members, 
     6) (integer) 0
     7) "last-delivered-id"
     8) "1638126028070-0"
-    9) "entries_read"
+    9) "entries-read"
    10) (integer) 1
    11) "lag"
    12) (integer) 1
