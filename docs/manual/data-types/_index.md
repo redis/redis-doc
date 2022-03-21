@@ -150,4 +150,4 @@ Bitmaps and HyperLogLogs
 Redis also supports Bitmaps and HyperLogLogs which are actually data types
 based on the String base type, but having their own semantics.
 
-Please refer to the [introduction to Redis data types](/topics/data-types-intro) for information about those types.
+Please refer to the [data types tutorial](/topics/data-types-tutorial) for information about those types.
