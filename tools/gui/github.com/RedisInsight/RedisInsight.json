@@ -1,4 +1,5 @@
 {
     "name": "RedisInsight",
-    "description": "Developer GUI for Redis, by Redis."
+    "description": "Developer GUI for Redis, by Redis.",
+    "recommended": true
 }

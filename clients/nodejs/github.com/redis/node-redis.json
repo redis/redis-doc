@@ -1,8 +1,5 @@
 {
     "name": "node-redis",
     "description": "Recommended client for node.",
-    "recommended": true,
-    "twitter": [
-        "mranney"
-    ]
+    "recommended": true
 }

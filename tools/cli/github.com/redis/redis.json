@@ -1,5 +1,6 @@
 {
     "name": "redis-cli",
     "description": "The default CLI shipped with Redis.",
+    "recommended": true,
     "homepage": "https://redis.io/topics/rediscli"
 }

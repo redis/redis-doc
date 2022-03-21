@@ -1,0 +1,5 @@
+{
+    "name": "Redis OM for Spring",
+    "description": "Object mapping, and more, for Redis and Spring.",
+    "recommended": true
+}
