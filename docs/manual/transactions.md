@@ -18,8 +18,7 @@ served **in the middle** of the execution of a Redis Transaction.
 This guarantees that the commands are executed as a single
 isolated operation.
 
-* Either all of the commands or none are processed, so a Redis
-transaction is also atomic. The `EXEC` command
+* The `EXEC` command
 triggers the execution of all the commands in the transaction, so
 if a client loses the connection to the server in the context of a
 transaction before calling the `EXEC` command none of the operations

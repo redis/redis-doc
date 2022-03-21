@@ -108,11 +108,7 @@ Each entry returned is an array of two items: the ID and the list of field-value
       4) "19.8"
 ```
 
-<<<<<<< HEAD:docs/manual/data-types/streams.md
-I have only a single entry in this range, however in real data sets, I could query for ranges of hours, or there could be many items in just two milliseconds, and the result returned could be huge. For this reason, **XRANGE** supports a **COUNT** option at the end. By specifying a count, I can just get the first *N* items. If I want more, I can get the last ID returned, increment the sequence part by one, and query again. Let's see this in the following example. We start adding 10 items with **XADD** (I won't show that, lets assume that the stream `mystream` was populated with 10 items). To start my iteration, getting 2 items per command, I start with the full range, but with a count of 2.
-=======
 I have only a single entry in this range, however in real data sets, I could query for ranges of hours, or there could be many items in just two milliseconds, and the result returned could be huge. For this reason, `XRANGE` supports an optional **COUNT** option at the end. By specifying a count, I can just get the first *N* items. If I want more, I can get the last ID returned, increment the sequence part by one, and query again. Let's see this in the following example. We start adding 10 items with `XADD` (I won't show that, lets assume that the stream `mystream` was populated with 10 items). To start my iteration, getting 2 items per command, I start with the full range, but with a count of 2.
->>>>>>> master:topics/streams-intro.md
 
 ```
 > XRANGE mystream - + COUNT 2
@@ -136,11 +132,7 @@ In order to continue the iteration with the next two items, I have to pick the l
       2) "value_4"
 ```
 
-<<<<<<< HEAD:docs/manual/data-types/streams.md
-And so forth. Since **XRANGE**'s complexity is *O(log(N))* to seek, and then *O(M)* to return M elements, with a small count the command has a logarithmic time complexity, which means that each step of the iteration is fast. So **XRANGE** is also the de facto *streams iterator* and there is not need for an **XSCAN** command.
-=======
 And so forth. Since `XRANGE` complexity is *O(log(N))* to seek, and then *O(M)* to return M elements, with a small count the command has a logarithmic time complexity, which means that each step of the iteration is fast. So `XRANGE` is also the de facto *streams iterator* and does not require an **XSCAN** command.
->>>>>>> master:topics/streams-intro.md
 
 The command `XREVRANGE` is the equivalent of `XRANGE` but returning the elements in inverted order, so a practical use for `XREVRANGE` is to check what is the last item in a Stream:
 
