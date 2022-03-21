@@ -13,14 +13,13 @@ Most major Linux distributions provide packages for Redis.
 You can install the latest stable version of Redis from the `redislabs/redis` package repository. Add the repository to your `apt` index, update the index, and then install:
 
 {{< highlight bash  >}}
-sudo add-apt-repository ppa:redislabs/redis
 sudo apt-get update
 sudo apt-get install redis
 {{< / highlight  >}}
 
 ## Install from Snapcraft
 
-The [Snapcraft store](https://snapcraft.io/store) provides [Redis installation packages](https://snapcraft.io/redis) for a dozen Linux distributions. For example, here's how to install Redis on CentOS using Snapcraft:
+The [Snapcraft store](https://snapcraft.io/store) provides [Redis installation packages](https://snapcraft.io/redis) for dozens of Linux distributions. For example, here's how to install Redis on CentOS using Snapcraft:
 
 {{< highlight bash  >}}
 sudo yum install epel-release

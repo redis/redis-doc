@@ -1,7 +1,7 @@
 ---
 title: "Install Redis from Source"
 linkTitle: "Install from Source"
-weight: 1
+weight: 5
 description: >
     Compile and install Redis from source
 ---
