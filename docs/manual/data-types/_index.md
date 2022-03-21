@@ -151,3 +151,8 @@ Redis also supports Bitmaps and HyperLogLogs which are actually data types
 based on the String base type, but having their own semantics.
 
 Please refer to the [data types tutorial](/topics/data-types-tutorial) for information about those types.
+
+Streams
+---
+
+A Redis stream is a data structure that acts like an append-only log. Streams are useful for recording events in the order they occur. See the [Redis streams docs](/docs/manual/data-types/streams) for details and usage.
