@@ -78,6 +78,13 @@
     "authors": ["srithedabbler"]
   },
   {
+    "name": "QuickRedis",
+    "language": "Javascript",
+    "repository": "https://github.com/quick123official/quick_redis_blog",
+    "description": "QuickRedis is a free forever Redis Desktop manager. It supports direct connection, sentinel, and cluster mode.",
+    "authors": ["QuickRedis"]
+  },
+  {
     "name": "AnotherRedisDesktopManager",
     "language": "Javascript",
     "repository": "https://github.com/qishibo/AnotherRedisDesktopManager",
