@@ -7,7 +7,7 @@ aliases:
     - /topics/sponsors
 ---
 
-Between 2015 to June 2020, the work Salvatore Sanfilippo was doing to develop Redis was sponsored by [Redis Ltd.](https://redis.com) Since June 2020, Redis Ltd. has sponsored the [Redis project governance](/topics/governance).
+From 2015 to 2020, Salvatore Sanfilippo's work on Redis was sponsored by [Redis Ltd.](https://redis.com) Since June 2020, Redis Ltd. has sponsored the [governance of Redis](/topics/governance). Redis Ltd. also sponsors the hosting and maintenance of [redis.io](https://redis.io). 
 
 Past sponsorships:
 
