@@ -593,7 +593,7 @@ The output shows information about how the stream is encoded internally, and als
    12) (integer) 1
 ```
 
-As you can see in this and in the previous output, the **XINFO** command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported. Other commands that must be more bandwidth efficient, like **XPENDING**, just report the information without the field names.
+As you can see in this and in the previous output, the `XINFO` command outputs a sequence of field-value items. Because it is an observability command this allows the human user to immediately understand what information is reported, and allows the command to report more information in the future by adding more fields without breaking compatibility with older clients. Other commands that must be more bandwidth efficient, like `XPENDING`, just report the information without the field names.
 
 The output of the example above, where the **GROUPS** subcommand is used, should be clear observing the field names. We can check in more detail the state of a specific consumer group by checking the consumers that are registered in the group.
 

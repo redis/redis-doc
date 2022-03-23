@@ -380,7 +380,7 @@ be issued it can compute the hash slot of the target key and have a
 greater chance of choosing the right node.
 
 An alternative is to just refresh the whole client-side cluster layout
-using the `CLUSTER SLOTS` commands
+using the `CLUSTER SHARDS`, or the deprecated `CLUSTER SLOTS`, command
 when a MOVED redirection is received. When a redirection is encountered, it
 is likely multiple slots were reconfigured rather than just one, so updating
 the client configuration as soon as possible is often the best strategy.
@@ -1124,7 +1124,7 @@ If there are any set of nodes with the same `configEpoch`, all the nodes but the
 
 This mechanism also guarantees that after a fresh cluster is created, all
 nodes start with a different `configEpoch` (even if this is not actually
-used) since `redis-cli` makes sure to use `CONFIG SET-CONFIG-EPOCH` at startup.
+used) since `redis-cli` makes sure to use `CLUSTER SET-CONFIG-EPOCH` at startup.
 However if for some reason a node is left misconfigured, it will update
 its configuration to a different configuration epoch automatically.
 
