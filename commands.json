@@ -2731,6 +2731,22 @@
             "nondeterministic_output"
         ]
     },
+    "CLUSTER SHARDS": {
+        "summary": "Get array of cluster slots to node mappings",
+        "complexity": "O(N) where N is the total number of cluster nodes",
+        "group": "cluster",
+        "since": "7.0.0",
+        "arity": 2,
+        "container": "CLUSTER",
+        "function": "clusterCommand",
+        "history": [],
+        "command_flags": [
+          "STALE"
+        ],
+        "command_tips": [
+          "NONDETERMINISTIC_OUTPUT"
+        ]
+    },
     "CLUSTER SLAVES": {
         "summary": "List replica nodes of the specified master node",
         "since": "3.0.0",
