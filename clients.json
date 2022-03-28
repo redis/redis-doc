@@ -322,7 +322,7 @@
     "name": "rekt",
     "language": "Kotlin",
     "repository": "https://github.com/devrawr/rekt",
-    "description": "A simple, lightweight, non-bloated redis client for kotlin and other JVM languages",
+    "description": "A simple, lightweight, non-bloated redis client for Kotlin/Multi Platform",
     "authors": ["rawrdev"],
     "active": true
   },
