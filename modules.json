@@ -426,5 +426,15 @@
       "sulewicz"
     ],
     "stars": 2
+  },
+  {
+    "name": "inventory",
+    "license": "MIT",
+    "repository": "https://github.com/gengteng/inventory",
+    "description": "A Redis module that provides a type for deducting inventory in flash sales.",
+    "authors": [
+      "gengteng"
+    ],
+    "stars": 2
   }
 ]
