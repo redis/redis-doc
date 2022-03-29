@@ -9,7 +9,7 @@ aliases:
 ---
 
 Redis is an open source (BSD licensed), in-memory **data structure store** used as a database, cache, message broker, and streaming engine. Redis provides data structures such as
-[strings](/topics/data-types-intro#strings), [hashes](/topics/data-types-intro#hashes), [lists](/topics/data-types-intro#lists), [sets](/topics/data-types-intro#sets), [sorted sets](/topics/data-types-intro#sorted-sets) with range queries, [bitmaps](/topics/data-types-intro#bitmaps), [hyperloglogs](/topics/data-types-intro#hyperloglogs), [geospatial indexes](/commands/geoadd), and [streams](/topics/streams-intro). Redis has built-in [replication](/topics/replication), [Lua scripting](/commands/eval), [LRU eviction](/topics/lru-cache), [transactions](/topics/transactions), and different levels of [on-disk persistence](/topics/persistence), and provides high availability via [Redis Sentinel](/topics/sentinel) and automatic partitioning with [Redis Cluster](/topics/cluster-tutorial).
+[strings](/manual/data-types#strings), [hashes](/manual/data-types#hashes), [lists](/manual/data-types#lists), [sets](/manual/data-types#sets), [sorted sets](/manual/data-types#sorted-sets) with range queries, [bitmaps](/manual/data-types#bitmaps), [hyperloglogs](/manual/data-types/#hyperloglogs), [geospatial indexes](/commands/geoadd), and [streams](/manual/data-types/streams). Redis has built-in [replication](/manual/replication), [Lua scripting](/commands/eval), [LRU eviction](/manual/eviction), [transactions](/manual/transactions), and different levels of [on-disk persistence](/manual/persistence), and provides high availability via [Redis Sentinel](/manual/sentinel) and automatic partitioning with [Redis Cluster](/manual/scaling).
 
 You can run **atomic operations**
 on these types, like [appending to a string](/commands/append);
@@ -20,19 +20,19 @@ or [getting the member with highest ranking in a sorted set](/commands/zrangebys
 
 To achieve top performance, Redis works with an
 **in-memory dataset**. Depending on your use case, Redis can persist your data either
-by periodically [dumping the dataset to disk](/topics/persistence#snapshotting)
-or by [appending each command to a disk-based log](/topics/persistence#append-only-file). You can also disable persistence if you just need a feature-rich, networked, in-memory cache.
+by periodically [dumping the dataset to disk](/manual/persistence#snapshotting)
+or by [appending each command to a disk-based log](/manual/persistence#append-only-file). You can also disable persistence if you just need a feature-rich, networked, in-memory cache.
 
-Redis supports [asynchronous replication](/topics/replication), with fast non-blocking synchronization and auto-reconnection with partial resynchronization on net split.
+Redis supports [asynchronous replication](/manual/replication), with fast non-blocking synchronization and auto-reconnection with partial resynchronization on net split.
 
 Redis also includes:
 
-* [Transactions](/topics/transactions)
-* [Pub/Sub](/topics/pubsub)
+* [Transactions](/manual/transactions)
+* [Pub/Sub](/manual/pubsub)
 * [Lua scripting](/commands/eval)
 * [Keys with a limited time-to-live](/commands/expire)
-* [LRU eviction of keys](/topics/lru-cache)
-* [Automatic failover](/topics/sentinel)
+* [LRU eviction of keys](/manual/eviction)
+* [Automatic failover](/manual/sentinel)
 
 You can use Redis from [most programming languages](/clients).
 
