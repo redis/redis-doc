@@ -5,6 +5,7 @@ weight: 1
 description: How to use pub/sub channels in Redis
 aliases:
   - /topics/pubsub
+  - /docs/manual/pub-sub
 ---
 
 `SUBSCRIBE`, `UNSUBSCRIBE` and `PUBLISH`
