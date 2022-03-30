@@ -68,39 +68,43 @@ by unprotected Redis instances executed without proper administration, however
 the system administrator can still ignore the error given by Redis and
 just disable protected mode or manually bind all the interfaces.
 
-Authentication feature
+Authentication & Authorization Features
 ---
 
-While Redis does not try to implement Access Control, it provides
-a tiny layer of authentication that is optionally turned on editing the
-**redis.conf** file.
+Starting in Redis 6, Access control lists allow you to control what level of access each user has in Redis. 
+With ACLs, you can specify which commands specific users can execute and which keys they can access. 
+This allows you to ensure your servers are configured to the principle of least privledge.
 
-When the authorization layer is enabled, Redis will refuse any query by
-unauthenticated clients. A client can authenticate itself by sending the
-**AUTH** command followed by the password.
+Redis allows users to specify users are runtime and in an external ACL file. ACL files allow you to
+predefine users and the permissions and passwords they have. Passwords may be set in cleartext or in a 
+SHA256 hashed format.
 
-The password is set by the system administrator in clear text inside the
-redis.conf file. It should be long enough to prevent brute force attacks
-for two reasons:
+The security industry generally reccomends that passwords be stored in hashed format within your ACL file and that the default user be disabled if you are not using it and are configuring unique ACL users.
 
-* Redis is very fast at serving queries. Many passwords per second can be tested by an external client.
-* The Redis password is stored inside the **redis.conf** file and inside the client configuration, so it does not need to be remembered by the system administrator, and thus it can be very long.
+To learn more about ACLs and their configuration, visit the [Redis ACL documentation.](https://redis.io/topics/acl)
 
-The goal of the authentication layer is to optionally provide a layer of
-redundancy. If firewalling or any other system implemented to protect Redis
-from external attackers fail, an external client will still not be able to
-access the Redis instance without knowledge of the authentication password.
+**Backwards compatibility for AUTH**
+Prior to Redis 6 Redis allowed password based authentication with a shared secret. For backwards compatibility 
+you can enable this with the requirepass directive in the redis.conf file. 
 
-The AUTH command, like every other Redis command, is sent unencrypted, so it
-does not protect against an attacker that has enough access to the network to
-perform eavesdropping.
+When using Redis its reccomended that you leverage strong passwords to reduce the risk of a brute force attacks.
 
-TLS support
+TLS & Data Protection Features
 ---
 
-Redis has optional support for TLS on all communication channels, including
+Starting in Redis 6.0, Redis has optional support for TLS on all communication channels, including
 client connections, replication links and the Redis Cluster bus protocol.
 
+If you intend to enable TLS support, Redis must be built specifically for TLS.
+This requires you to install Redis with the 'make BUILD_TLS=yes' flag as well as 
+to install the OpenSSL development libraries. 
+
+To find out more about configuring TLS, visit the [Redis TLS documentation.](https://redis.io/topics/encryption)
+
+The configuration of cipher suites, protocols and client authentication is supported within Redis.
+To find out more about configuration best practices, visit the [Mozilla SSL configuration generator.](https://ssl-config.mozilla.org/#server=redis&version=6.0&config=intermediate&openssl=1.1.1d&guideline=5.4)
+
+    
 Disabling of specific commands
 ---
 
