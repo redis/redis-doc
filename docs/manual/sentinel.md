@@ -5,7 +5,7 @@ weight: 1
 description: High availability for non-clustered Redis
 aliases: [
     /topics/sentinel,
-    /manual/high-availability,
+    /docs/manual/high-availability,
 ]
 ---
 
