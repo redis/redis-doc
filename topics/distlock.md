@@ -204,6 +204,18 @@ lock by sending a Lua script to all the instances that extends the TTL of the ke
 if the key exists and its value is still the random value the client assigned
 when the lock was acquired.
 
+```lua
+if redis.call( "get", KEYS[1] ) == ARGV[1] then
+  if redis.call( "set", KEYS[1], ARGV[1], "XX", "PX", ARGV[2] ) then
+    return "OK"
+  end
+else
+  return redis.call( "set", KEYS[1], ARGV[1], "NX", "PX", ARGV[2] )
+end
+```
+
+(Source: [@sbertrang's PERL client](https://github.com/sbertrang/redis-distlock/blob/master/lib/Redis/DistLock.pm) and [@biancalana's issue about value-checking](https://github.com/sbertrang/redis-distlock/issues/2))
+
 The client should only consider the lock re-acquired if it was able to extend
 the lock into the majority of instances, and within the validity time
 (basically the algorithm to use is very similar to the one used when acquiring
