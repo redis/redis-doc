@@ -16,7 +16,7 @@ a DLM (Distributed Lock Manager) with Redis, but every library uses a different
 approach, and many use a simple approach with lower guarantees compared to
 what can be achieved with slightly more complex designs.
 
-This page desceibes a more canonical algorithm to implement
+This page describes a more canonical algorithm to implement
 distributed locks with Redis. We propose an algorithm, called **Redlock**,
 which implements a DLM which we believe to be safer than the vanilla single
 instance approach. We hope that the community will analyze it, provide
