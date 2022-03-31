@@ -33,7 +33,6 @@ If you need to enable it, use `CONFIG SET latency-tracking yes`.
 
 @return
 
-map-reply: specifically:
+@array-reply: specifically:
 
 The command returns a map where each key is a command name, and each value is a map with the total calls, and an inner map of the histogram time buckets.
-In RESP 2 replies, the maps are converted to [arrays](/topics/protocol#array-reply).

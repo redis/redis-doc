@@ -1,5 +1,5 @@
 ---
-title: Redis pub/sub
+title: Redis Pub/Sub
 linkTitle: "Pub/sub"
 weight: 1
 description: How to use pub/sub channels in Redis
@@ -190,17 +190,17 @@ patterns the client is still subscribed to. So the client will exit
 the Pub/Sub state only when this count drops to zero as a result of
 unsubscribing from all the channels and patterns.
 
-## Sharded pubsub
+## Sharded Pub/Sub
 
-From 7.0, sharded pubsub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
+From 7.0, sharded Pub/Sub is introduced in which shard channels are assigned to slots by the same algorithm used to assign keys to slots. 
 A shard message must be sent to a node that own the slot the shard channel is hashed to. 
 The cluster makes sure the published shard messages are forwarded to all nodes in the shard, so clients can subscribe to a shard channel by connecting to either the master responsible for the slot, or to any of its replicas.
-`SSUBSCRIBE`, `SUNSUBSCRIBE` and `SPUBLISH` are used to implement sharded pubsub.
+`SSUBSCRIBE`, `SUNSUBSCRIBE` and `SPUBLISH` are used to implement sharded Pub/Sub.
 
-Sharded pubsub helps to scale the usage of pubsub in cluster mode. 
+Sharded Pub/Sub helps to scale the usage of Pub/Sub in cluster mode. 
 It restricts the propagation of message to be within the shard of a cluster. 
-Hence, the amount of data passing through the cluster bus is limited in comparison to global pubsub where each message propagates to each node in the cluster.
-This allows users to horizontally scale the pubsub usage by adding more shards.
+Hence, the amount of data passing through the cluster bus is limited in comparison to global Pub/Sub where each message propagates to each node in the cluster.
+This allows users to horizontally scale the Pub/Sub usage by adding more shards.
  
 
 ## Programming example
