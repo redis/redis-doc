@@ -13,7 +13,7 @@ Redis is **open source software** released under the terms of the **three clause
 The Redis trademark and logo are owned by Redis Ltd. and can be
 used in accordance with the [Redis Trademark Guidelines](/docs/project/trademark).
 
-# Three clause BSD license
+## Three clause BSD license
 
 Every file in the Redis distribution, with the exceptions of third party files specified in the list below, contain the following license:
 
@@ -43,7 +43,7 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
-# Third-party files and licenses
+## Third-party files and licenses
 
 Redis uses source code from third parties. All this code contains a BSD or BSD-compatible license. The following is a list of third-party files and information about their copyright.
 
