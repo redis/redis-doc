@@ -23,7 +23,7 @@ To run a Redis command and receive its reply as standard output to the terminal,
     $ redis-cli INCR mycounter
     (integer) 7
 
-The reply of the command is "7". Since Redis replies are typed (strings, arrays, integers, nil, errors, etc.), you see the type of the reply between praenthesis. This additional information may not be ideal when the output of `redis-cli` must be used as input of another command or redirected into a file.
+The reply of the command is "7". Since Redis replies are typed (strings, arrays, integers, nil, errors, etc.), you see the type of the reply between parentheses. This additional information may not be ideal when the output of `redis-cli` must be used as input of another command or redirected into a file.
 
 `redis-cli` only shows additional information for human readibility when it detects the standard output is a tty, or terminal. For all other outputs it will auto-enable the *raw output mode*, as in the following example:
 
