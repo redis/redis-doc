@@ -7,9 +7,7 @@ aliases:
     - /topics/data-types
 ---
 
-<a name="strings"></a>
-Strings
----
+## Strings
 
 Strings are the most basic kind of Redis value. Redis Strings are binary safe, this means that a Redis string can contain any kind of data, for instance a
 JPEG image or a serialized Ruby object.
@@ -25,9 +23,7 @@ You can do a number of interesting things using strings in Redis, for instance y
 
 Check all the [available string commands](/commands/#string) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
-<a name="lists"></a>
-Lists
----
+## Lists
 
 Redis Lists are simply lists of strings, sorted by insertion order.
 It is possible to add elements to a Redis List pushing new elements on the head  (on the left) or on the tail (on the right) of the list.
@@ -64,8 +60,7 @@ You can do many interesting things with Redis Lists, for instance you can:
 
 Please check all the [available commands operating on lists](/commands#list) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
-<a name="sets"></a>
-Sets
+## Sets
 ---
 
 Redis Sets are an unordered collection of Strings. It is possible to add,
@@ -89,9 +84,7 @@ You can do many interesting things using Redis Sets, for instance you can:
 
 As usual, check the [full list of Set commands](/commands#set) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
-<a name="hashes"></a>
-Hashes
----
+## Hashes
 
 Redis Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (e.g. A User with a number of fields like name, surname, age, and so forth):
 
@@ -110,9 +103,7 @@ Every hash can store up to 2^32 - 1 field-value pairs (more than 4 billion).
 
 Check the [full list of Hash commands](/commands#hash) for more information, or read the [introduction to Redis data types](/topics/data-types-intro).
 
-<a name="sorted-sets"></a>
-Sorted Sets
----
+## Sorted Sets
 
 Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of
 Strings. The difference is that every member of a Sorted Set is associated
@@ -146,21 +137,18 @@ For instance if you have many hashes representing users, you can use a Sorted Se
 
 Sorted Sets are one of the more advanced Redis data types, so take some time to check the [full list of Sorted Set commands](/commands#sorted_set) to discover what you can do with Redis! Also you may want to read the [Introduction to Redis Data Types](/topics/data-types-intro).
 
-Bitmaps and HyperLogLogs
----
+## Bitmaps and HyperLogLogs
 
 Redis also supports Bitmaps and HyperLogLogs which are actually data types
 based on the String base type, but having their own semantics.
 
 Please refer to the [data types tutorial](/topics/data-types-tutorial) for information about those types.
 
-Streams
----
+## Streams
 
 A Redis stream is a data structure that acts like an append-only log. Streams are useful for recording events in the order they occur. See the [Redis streams docs](/docs/manual/data-types/streams) for details and usage.
 
-Geospatial indexes
----
+## Geospatial indexes
 
 Redis provides geospatial indexes, which are useful for finding locations within a given geographic radius. You can add locations to a geospatial index using the [GEOADD](/commands/geoadd) command. You then search for locations within a given radius using the [GEORADIUS](/commands/georadius) command.
 

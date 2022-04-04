@@ -16,8 +16,7 @@ There are several options you can use to launch the program in special modes. Yo
 
 This guide will cover the different aspects of `redis-cli`, starting from the simplest and ending with the more advanced features.
 
-Command line usage
-===
+## Command line usage
 
 To run a Redis command and receive its reply as standard output to the terminal, include the command to execute as separate arguments of `redis-cli`:
 
