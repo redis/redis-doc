@@ -7,10 +7,6 @@ weight: 20
 
 This article describes the design and implementation of a [very simple Twitter clone](https://github.com/antirez/retwis) written using PHP with Redis as the only database. The programming community has traditionally considered key-value stores as a special purpose database that couldn't be used as a drop-in replacement for a relational database for the development of web applications. This article will try to show that Redis data structures on top of a key-value layer are an effective data model to implement many kinds of applications.
 
-Before continuing, you may want to spend a few seconds playing with [the Retwis online demo](http://retwis.redis.io), to check what we are going to actually
-model. Long story short: it is a toy, but complex enough to be a foundation
-in order to learn how to create more complex applications.
-
 Note: the original version of this article was written in 2009 when Redis was
 released. It was not exactly clear at that time that the Redis data model was
 suitable to write entire applications. Now after 5 years there are many cases of
