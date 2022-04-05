@@ -7,7 +7,6 @@ The following information is provided for each of the libraries in the response:
 
 * **library_name:** the name of the library.
 * **engine:** the engine of the library.
-* **description:** the library's description.
 * **functions:** the list of functions in the library.
   Each function has the following fields:
   * **name:** the name of the function.
