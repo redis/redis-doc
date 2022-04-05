@@ -407,6 +407,9 @@ penalty is very hard to measure even with synthetic benchmarks, and the
 additional CPU cost is only payed when such command is called, and not when
 other commands are called.
 
+It is possible to use this mechanism in order to allow subcommands in Redis
+versions prior to 7.0 (see above section).
+
 ## +@all VS -@all
 
 In the previous section it was observed how it is possible to define commands
