@@ -121,7 +121,7 @@ redis> FCALL knockknock 0
 "Who's there?"
 ```
 
-Notice that the `FUNCTION LOAD` command returns the name of the loaded library, this name can later be used to delete the library or to get information about the library.
+Notice that the `FUNCTION LOAD` command returns the name of the loaded library, this name can later be used `FUNCTION LIST` and `FUNCTION DELETE`.
 
 We've provided `FCALL` with two arguments: the function's registered name and the numeric value `0`. This numeric value indicates the number of key names that follow it (the same way `EVAL` and `EVALSHA` work).
 
