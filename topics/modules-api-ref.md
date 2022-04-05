@@ -41,6 +41,7 @@
 * [Scanning keyspace and hashes](#section-scanning-keyspace-and-hashes)
 * [Module fork API](#section-module-fork-api)
 * [Server hooks implementation](#section-server-hooks-implementation)
+* [Module Configurations API](#section-module-configurations-api)
 * [Key eviction API](#section-key-eviction-api)
 * [Miscellaneous APIs](#section-miscellaneous-apis)
 * [Defrag API](#section-defrag-api)
@@ -1461,6 +1462,8 @@ Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/
 
 Very similar to [`RedisModule_ReplySetMapLength`](#RedisModule_ReplySetMapLength)
 Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md) for more info about RESP3.
+
+Must not be called if [`RedisModule_ReplyWithAttribute`](#RedisModule_ReplyWithAttribute) returned an error.
 
 <span id="RedisModule_ReplyWithStringBuffer"></span>
 
@@ -3325,6 +3328,17 @@ Exported API to call any Redis command from modules.
              same as the client attached to the given RedisModuleCtx. This will
              probably used when you want to pass the reply directly to the client.
     * `C` -- Check if command can be executed according to ACL rules.
+    * 'S' -- Run the command in a script mode, this means that it will raise
+             an error if a command which are not allowed inside a script
+             (flagged with the `deny-script` flag) is invoked (like SHUTDOWN).
+             In addition, on script mode, write commands are not allowed if there are
+             not enough good replicas (as configured with `min-replicas-to-write`)
+             or when the server is unable to persist to the disk.
+    * 'W' -- Do not allow to run any write command (flagged with the `write` flag).
+    * 'E' -- Return error as RedisModuleCallReply. If there is an error before
+             invoking the command, the error is returned using errno mechanism.
+             This flag allows to get the error also as an error CallReply with
+             relevant error message.
 * **...**: The actual arguments to the Redis command.
 
 On success a `RedisModuleCallReply` object is returned, otherwise
@@ -3339,6 +3353,8 @@ NULL is returned and errno is set to the following values:
 * ENETDOWN: operation in Cluster instance when cluster is down.
 * ENOTSUP: No ACL user for the specified module context
 * EACCES: Command cannot be executed, according to ACL rules
+* ENOSPC: Write command is not allowed
+* ESPIPE: Command not allowed on script mode
 
 Example code fragment:
 
@@ -4598,8 +4614,9 @@ cluster mode, zero is returned.
 **Available since:** 5.0.0
 
 Populate the specified info for the node having as ID the specified 'id',
-then returns `REDISMODULE_OK`. Otherwise if the node ID does not exist from
-the POV of this local node, `REDISMODULE_ERR` is returned.
+then returns `REDISMODULE_OK`. Otherwise if the format of node ID is invalid
+or the node ID does not exist from the POV of this local node, `REDISMODULE_ERR`
+is returned.
 
 The arguments `ip`, `master_id`, `port` and `flags` can be NULL in case we don't
 need to populate back certain info. If an `ip` and `master_id` (only populated
@@ -5009,6 +5026,23 @@ the CLIENT api or through server events.
 
 This function is not thread safe, and must be executed within the context
 of a command or thread safe context.
+
+<span id="RedisModule_RedactClientCommandArgument"></span>
+
+### `RedisModule_RedactClientCommandArgument`
+
+    int RedisModule_RedactClientCommandArgument(RedisModuleCtx *ctx, int pos);
+
+Redact the client command argument specified at the given position. Redacted arguments 
+are obfuscated in user facing commands such as SLOWLOG or MONITOR, as well as
+never being written to server logs. This command may be called multiple times on the
+same position.
+
+Note that the command name, position 0, can not be redacted. 
+
+Returns `REDISMODULE_OK` if the argument was redacted and `REDISMODULE_ERR` if there 
+was an invalid parameter passed in or the position is outside the client 
+argument range.
 
 <span id="RedisModule_GetClientCertificate"></span>
 
@@ -6329,7 +6363,7 @@ Here is a list of events you can use as 'eid' and related sub events:
     are now triggered when repl-diskless-load is set to swapdb.
 
     Called when repl-diskless-load config is set to swapdb,
-    And redis needs to backup the the current database for the
+    And redis needs to backup the current database for the
     possibility to be restored later. A module with global data and
     maybe with aux_load and aux_save callbacks may need to use this
     notification to backup / restore / discard its globals.
@@ -6369,6 +6403,20 @@ Here is a list of events you can use as 'eid' and related sub events:
     * `REDISMODULE_SUBEVENT_EVENTLOOP_BEFORE_SLEEP`
     * `REDISMODULE_SUBEVENT_EVENTLOOP_AFTER_SLEEP`
 
+* `RedisModule_Event_Config`
+
+    Called when a configuration event happens
+    The following sub events are available:
+
+    * `REDISMODULE_SUBEVENT_CONFIG_CHANGE`
+
+    The data pointer can be casted to a RedisModuleConfigChange
+    structure with the following fields:
+
+        const char **config_names; // An array of C string pointers containing the
+                                   // name of each modified configuration item 
+        uint32_t num_changes;      // The number of elements in the config_names array
+
 The function returns `REDISMODULE_OK` if the module was successfully subscribed
 for the specified event. If the API is called from a wrong context or unsupported event
 is given then `REDISMODULE_ERR` is returned.
@@ -6384,6 +6432,187 @@ is given then `REDISMODULE_ERR` is returned.
 
 For a given server event and subevent, return zero if the
 subevent is not supported and non-zero otherwise.
+
+<span id="section-module-configurations-api"></span>
+
+## Module Configurations API
+
+<span id="RedisModule_RegisterStringConfig"></span>
+
+### `RedisModule_RegisterStringConfig`
+
+    int RedisModule_RegisterStringConfig(RedisModuleCtx *ctx,
+                                         const char *name,
+                                         const char *default_val,
+                                         unsigned int flags,
+                                         RedisModuleConfigGetStringFunc getfn,
+                                         RedisModuleConfigSetStringFunc setfn,
+                                         RedisModuleConfigApplyFunc applyfn,
+                                         void *privdata);
+
+Create a string config that Redis users can interact with via the Redis config file,
+`CONFIG SET`, `CONFIG GET`, and `CONFIG REWRITE` commands.
+
+The actual config value is owned by the module, and the `getfn`, `setfn` and optional
+`applyfn` callbacks that are provided to Redis in order to access or manipulate the
+value. The `getfn` callback retrieves the value from the module, while the `setfn`
+callback provides a value to be stored into the module config.
+The optional `applyfn` callback is called after a `CONFIG SET` command modified one or
+more configs using the `setfn` callback and can be used to atomically apply a config
+after several configs were changed together.
+If there are multiple configs with `applyfn` callbacks set by a single `CONFIG SET`
+command, they will be deduplicated if their `applyfn` function and `privdata` pointers
+are identical, and the callback will only be run once.
+Both the `setfn` and `applyfn` can return an error if the provided value is invalid or
+cannot be used.
+The config also declares a type for the value that is validated by Redis and
+provided to the module. The config system provides the following types:
+
+* Redis String: Binary safe string data.
+* Enum: One of a finite number of string tokens, provided during registration.
+* Numeric: 64 bit signed integer, which also supports min and max values.
+* Bool: Yes or no value.
+
+The `setfn` callback is expected to return `REDISMODULE_OK` when the value is successfully
+applied. It can also return `REDISMODULE_ERR` if the value can't be applied, and the
+*err pointer can be set with a `RedisModuleString` error message to provide to the client.
+This `RedisModuleString` will be freed by redis after returning from the set callback.
+
+All configs are registered with a name, a type, a default value, private data that is made
+available in the callbacks, as well as several flags that modify the behavior of the config.
+The name must only contain alphanumeric characters or dashes. The supported flags are:
+
+* `REDISMODULE_CONFIG_DEFAULT`: The default flags for a config. This creates a config that can be modified after startup.
+* `REDISMODULE_CONFIG_IMMUTABLE`: This config can only be provided loading time.
+* `REDISMODULE_CONFIG_SENSITIVE`: The value stored in this config is redacted from all logging.
+* `REDISMODULE_CONFIG_HIDDEN`: The name is hidden from `CONFIG GET` with pattern matching.
+* `REDISMODULE_CONFIG_PROTECTED`: This config will be only be modifiable based off the value of enable-protected-configs.
+* `REDISMODULE_CONFIG_DENY_LOADING`: This config is not modifiable while the server is loading data.
+* `REDISMODULE_CONFIG_MEMORY`: For numeric configs, this config will convert data unit notations into their byte equivalent.
+
+Default values are used on startup to set the value if it is not provided via the config file
+or command line. Default values are also used to compare to on a config rewrite.
+
+Notes:
+
+ 1. On string config sets that the string passed to the set callback will be freed after execution and the module must retain it.
+ 2. On string config gets the string will not be consumed and will be valid after execution.
+
+Example implementation:
+
+    RedisModuleString *strval;
+    int adjustable = 1;
+    RedisModuleString *getStringConfigCommand(const char *name, void *privdata) {
+        return strval;
+    }
+
+    int setStringConfigCommand(const char *name, RedisModuleString *new, void *privdata, RedisModuleString **err) {
+       if (adjustable) {
+           RedisModule_Free(strval);
+           RedisModule_RetainString(NULL, new);
+           strval = new;
+           return REDISMODULE_OK;
+       }
+       *err = RedisModule_CreateString(NULL, "Not adjustable.", 15);
+       return REDISMODULE_ERR;
+    }
+    ...
+    RedisModule_RegisterStringConfig(ctx, "string", NULL, REDISMODULE_CONFIG_DEFAULT, getStringConfigCommand, setStringConfigCommand, NULL, NULL);
+
+If the registration fails, `REDISMODULE_ERR` is returned and one of the following
+errno is set:
+* EINVAL: The provided flags are invalid for the registration or the name of the config contains invalid characters.
+* EALREADY: The provided configuration name is already used.
+
+<span id="RedisModule_RegisterBoolConfig"></span>
+
+### `RedisModule_RegisterBoolConfig`
+
+    int RedisModule_RegisterBoolConfig(RedisModuleCtx *ctx,
+                                       const char *name,
+                                       int default_val,
+                                       unsigned int flags,
+                                       RedisModuleConfigGetBoolFunc getfn,
+                                       RedisModuleConfigSetBoolFunc setfn,
+                                       RedisModuleConfigApplyFunc applyfn,
+                                       void *privdata);
+
+Create a bool config that server clients can interact with via the 
+`CONFIG SET`, `CONFIG GET`, and `CONFIG REWRITE` commands. See 
+[`RedisModule_RegisterStringConfig`](#RedisModule_RegisterStringConfig) for detailed information about configs.
+
+<span id="RedisModule_RegisterEnumConfig"></span>
+
+### `RedisModule_RegisterEnumConfig`
+
+    int RedisModule_RegisterEnumConfig(RedisModuleCtx *ctx,
+                                       const char *name,
+                                       int default_val,
+                                       unsigned int flags,
+                                       const char **enum_values,
+                                       const int *int_values,
+                                       int num_enum_vals,
+                                       RedisModuleConfigGetEnumFunc getfn,
+                                       RedisModuleConfigSetEnumFunc setfn,
+                                       RedisModuleConfigApplyFunc applyfn,
+                                       void *privdata);
+
+
+Create an enum config that server clients can interact with via the 
+`CONFIG SET`, `CONFIG GET`, and `CONFIG REWRITE` commands. 
+Enum configs are a set of string tokens to corresponding integer values, where 
+the string value is exposed to Redis clients but the value passed Redis and the
+module is the integer value. These values are defined in `enum_values`, an array
+of null-terminated c strings, and `int_vals`, an array of enum values who has an
+index partner in `enum_values`.
+Example Implementation:
+     const char *enum_vals[3] = {"first", "second", "third"};
+     const int int_vals[3] = {0, 2, 4};
+     int enum_val = 0;
+
+     int getEnumConfigCommand(const char *name, void *privdata) {
+         return enum_val;
+     }
+      
+     int setEnumConfigCommand(const char *name, int val, void *privdata, const char **err) {
+         enum_val = val;
+         return REDISMODULE_OK;
+     }
+     ...
+     RedisModule_RegisterEnumConfig(ctx, "enum", 0, REDISMODULE_CONFIG_DEFAULT, enum_vals, int_vals, 3, getEnumConfigCommand, setEnumConfigCommand, NULL, NULL);
+
+See [`RedisModule_RegisterStringConfig`](#RedisModule_RegisterStringConfig) for detailed general information about configs.
+
+<span id="RedisModule_RegisterNumericConfig"></span>
+
+### `RedisModule_RegisterNumericConfig`
+
+    int RedisModule_RegisterNumericConfig(RedisModuleCtx *ctx,
+                                          const char *name,
+                                          long long default_val,
+                                          unsigned int flags,
+                                          long long min,
+                                          long long max,
+                                          RedisModuleConfigGetNumericFunc getfn,
+                                          RedisModuleConfigSetNumericFunc setfn,
+                                          RedisModuleConfigApplyFunc applyfn,
+                                          void *privdata);
+
+
+Create an integer config that server clients can interact with via the 
+`CONFIG SET`, `CONFIG GET`, and `CONFIG REWRITE` commands. See 
+[`RedisModule_RegisterStringConfig`](#RedisModule_RegisterStringConfig) for detailed information about configs.
+
+<span id="RedisModule_LoadConfigs"></span>
+
+### `RedisModule_LoadConfigs`
+
+    int RedisModule_LoadConfigs(RedisModuleCtx *ctx);
+
+Applies all pending configurations on the module load. This should be called
+after all of the configurations have been registered for the module inside of `RedisModule_OnLoad`.
+This API needs to be called when configurations are provided in either `MODULE LOADEX`
+or provided as startup arguments.
 
 <span id="section-key-eviction-api"></span>
 
@@ -6912,6 +7141,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_ListPop`](#RedisModule_ListPop)
 * [`RedisModule_ListPush`](#RedisModule_ListPush)
 * [`RedisModule_ListSet`](#RedisModule_ListSet)
+* [`RedisModule_LoadConfigs`](#RedisModule_LoadConfigs)
 * [`RedisModule_LoadDataTypeFromString`](#RedisModule_LoadDataTypeFromString)
 * [`RedisModule_LoadDataTypeFromStringEncver`](#RedisModule_LoadDataTypeFromStringEncver)
 * [`RedisModule_LoadDouble`](#RedisModule_LoadDouble)
@@ -6936,10 +7166,15 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_PublishMessage`](#RedisModule_PublishMessage)
 * [`RedisModule_RandomKey`](#RedisModule_RandomKey)
 * [`RedisModule_Realloc`](#RedisModule_Realloc)
+* [`RedisModule_RedactClientCommandArgument`](#RedisModule_RedactClientCommandArgument)
+* [`RedisModule_RegisterBoolConfig`](#RedisModule_RegisterBoolConfig)
 * [`RedisModule_RegisterClusterMessageReceiver`](#RedisModule_RegisterClusterMessageReceiver)
 * [`RedisModule_RegisterCommandFilter`](#RedisModule_RegisterCommandFilter)
 * [`RedisModule_RegisterDefragFunc`](#RedisModule_RegisterDefragFunc)
+* [`RedisModule_RegisterEnumConfig`](#RedisModule_RegisterEnumConfig)
 * [`RedisModule_RegisterInfoFunc`](#RedisModule_RegisterInfoFunc)
+* [`RedisModule_RegisterNumericConfig`](#RedisModule_RegisterNumericConfig)
+* [`RedisModule_RegisterStringConfig`](#RedisModule_RegisterStringConfig)
 * [`RedisModule_Replicate`](#RedisModule_Replicate)
 * [`RedisModule_ReplicateVerbatim`](#RedisModule_ReplicateVerbatim)
 * [`RedisModule_ReplySetArrayLength`](#RedisModule_ReplySetArrayLength)
