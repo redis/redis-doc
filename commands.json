@@ -1841,10 +1841,6 @@
         "complexity": "O(1)",
         "history": [
             [
-                "3.2.10",
-                "Client pause prevents client pause and key eviction as well."
-            ],
-            [
                 "6.2.0",
                 "`CLIENT PAUSE WRITE` mode added along with the `mode` option."
             ]
@@ -2731,6 +2727,22 @@
             "nondeterministic_output"
         ]
     },
+    "CLUSTER SHARDS": {
+        "summary": "Get array of cluster slots to node mappings",
+        "since": "7.0.0",
+        "group": "cluster",
+        "complexity": "O(N) where N is the total number of cluster nodes",
+        "acl_categories": [
+            "@slow"
+        ],
+        "arity": 2,
+        "command_flags": [
+            "stale"
+        ],
+        "hints": [
+            "nondeterministic_output"
+        ]
+    },
     "CLUSTER SLAVES": {
         "summary": "List replica nodes of the specified master node",
         "since": "3.0.0",
@@ -2754,6 +2766,9 @@
             "admin",
             "stale"
         ],
+        "doc_flags": [
+            "deprecated"
+        ],
         "hints": [
             "nondeterministic_output"
         ]
@@ -2763,6 +2778,8 @@
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of Cluster nodes",
+        "deprecated_since": "7.0.0",
+        "replaced_by": "`CLUSTER SHARDS`",
         "history": [
             [
                 "4.0.0",
@@ -2770,7 +2787,7 @@
             ],
             [
                 "7.0.0",
-                "Added additional networking metadata and added support for hostnames and unknown endpoints."
+                "Added additional networking metadata field."
             ]
         ],
         "acl_categories": [
@@ -2779,6 +2796,9 @@
         "arity": 2,
         "command_flags": [
             "stale"
+        ],
+        "doc_flags": [
+            "deprecated"
         ],
         "hints": [
             "nondeterministic_output"
@@ -2799,7 +2819,7 @@
             "stale"
         ],
         "hints": [
-            "nondeterministic_output"
+            "nondeterministic_output_order"
         ]
     },
     "COMMAND COUNT": {
@@ -2838,6 +2858,9 @@
         "command_flags": [
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "COMMAND GETKEYS": {
@@ -2856,7 +2879,7 @@
         ]
     },
     "COMMAND GETKEYSANDFLAGS": {
-        "summary": "Extract keys given a full Redis command",
+        "summary": "Extract keys and access flags given a full Redis command",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of arguments to the command",
@@ -2912,6 +2935,9 @@
         "command_flags": [
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "COMMAND LIST": {
@@ -2952,6 +2978,9 @@
         "command_flags": [
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "CONFIG": {
@@ -4147,7 +4176,7 @@
             ],
             [
                 "6.2.0",
-                "Added the `SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive."
+                "Added the `SYNC` flushing mode modifier."
             ]
         ],
         "acl_categories": [
@@ -4198,7 +4227,7 @@
             ],
             [
                 "6.2.0",
-                "Added the `SYNC` flushing mode modifier and the **lazyfree-lazy-user-flush** configuration directive."
+                "Added the `SYNC` flushing mode modifier."
             ]
         ],
         "acl_categories": [
@@ -4386,6 +4415,9 @@
         ],
         "command_flags": [
             "noscript"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "FUNCTION LOAD": {
@@ -4398,26 +4430,12 @@
             "@slow",
             "@scripting"
         ],
-        "arity": -5,
+        "arity": -3,
         "arguments": [
-            {
-                "name": "engine-name",
-                "type": "string"
-            },
-            {
-                "name": "library-name",
-                "type": "string"
-            },
             {
                 "name": "replace",
                 "type": "pure-token",
                 "token": "REPLACE",
-                "optional": true
-            },
-            {
-                "name": "library-description",
-                "type": "string",
-                "token": "DESCRIPTION",
                 "optional": true
             },
             {
@@ -4499,8 +4517,9 @@
             "allow_busy"
         ],
         "hints": [
+            "nondeterministic_output",
             "request_policy:all_shards",
-            "response_policy:one_succeeded"
+            "response_policy:special"
         ]
     },
     "GEOADD": {
@@ -7291,6 +7310,11 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:all_nodes",
+            "response_policy:special"
         ]
     },
     "LATENCY GRAPH": {
@@ -7315,6 +7339,11 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:all_nodes",
+            "response_policy:special"
         ]
     },
     "LATENCY HELP": {
@@ -7355,6 +7384,11 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:all_nodes",
+            "response_policy:special"
         ]
     },
     "LATENCY HISTORY": {
@@ -7379,6 +7413,11 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:all_nodes",
+            "response_policy:special"
         ]
     },
     "LATENCY LATEST": {
@@ -7397,6 +7436,11 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "nondeterministic_output",
+            "request_policy:all_nodes",
+            "response_policy:special"
         ]
     },
     "LATENCY RESET": {
@@ -7423,6 +7467,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "LCS": {
@@ -8294,7 +8342,9 @@
         ],
         "arity": 2,
         "hints": [
-            "nondeterministic_output"
+            "nondeterministic_output",
+            "request_policy:all_shards",
+            "response_policy:special"
         ]
     },
     "MEMORY HELP": {
@@ -8321,7 +8371,9 @@
         ],
         "arity": 2,
         "hints": [
-            "nondeterministic_output"
+            "nondeterministic_output",
+            "request_policy:all_shards",
+            "response_policy:special"
         ]
     },
     "MEMORY PURGE": {
@@ -8332,7 +8384,11 @@
         "acl_categories": [
             "@slow"
         ],
-        "arity": 2
+        "arity": 2,
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:all_succeeded"
+        ]
     },
     "MEMORY STATS": {
         "summary": "Show memory usage details",
@@ -8344,7 +8400,9 @@
         ],
         "arity": 2,
         "hints": [
-            "nondeterministic_output"
+            "nondeterministic_output",
+            "request_policy:all_shards",
+            "response_policy:special"
         ]
     },
     "MEMORY USAGE": {
@@ -8519,7 +8577,7 @@
             },
             {
                 "name": "port",
-                "type": "string"
+                "type": "integer"
             },
             {
                 "name": "key_or_empty_string",
@@ -8639,6 +8697,9 @@
         "command_flags": [
             "admin",
             "noscript"
+        ],
+        "hints": [
+            "nondeterministic_output_order"
         ]
     },
     "MODULE LOAD": {
@@ -8662,6 +8723,59 @@
                 "type": "string",
                 "optional": true,
                 "multiple": true
+            }
+        ],
+        "command_flags": [
+            "admin",
+            "noscript",
+            "no_async_loading"
+        ]
+    },
+    "MODULE LOADEX": {
+        "summary": "Load a module with extended parameters",
+        "since": "7.0.0",
+        "group": "server",
+        "complexity": "O(1)",
+        "acl_categories": [
+            "@admin",
+            "@slow",
+            "@dangerous"
+        ],
+        "arity": -3,
+        "arguments": [
+            {
+                "name": "path",
+                "type": "string"
+            },
+            {
+                "name": "configs",
+                "type": "block",
+                "token": "CONFIG",
+                "optional": true,
+                "multiple": true,
+                "arguments": [
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "value",
+                        "type": "string"
+                    }
+                ]
+            },
+            {
+                "name": "args",
+                "type": "block",
+                "token": "ARGS",
+                "optional": true,
+                "multiple": true,
+                "arguments": [
+                    {
+                        "name": "arg",
+                        "type": "string"
+                    }
+                ]
             }
         ],
         "command_flags": [
@@ -8697,20 +8811,6 @@
         "summary": "Listen for all requests received by the server in real time",
         "since": "1.0.0",
         "group": "server",
-        "history": [
-            [
-                "6.0.0",
-                "`AUTH` excluded from the command's output."
-            ],
-            [
-                "6.2.0",
-                "`RESET` can be called to exit monitor mode."
-            ],
-            [
-                "6.2.4",
-                "`AUTH`, `HELLO`, `EVAL`, `EVAL_RO`, `EVALSHA` and `EVALSHA_RO` included in the command's output."
-            ]
-        ],
         "acl_categories": [
             "@admin",
             "@slow",
@@ -8882,6 +8982,10 @@
         "command_flags": [
             "write",
             "denyoom"
+        ],
+        "hints": [
+            "request_policy:multi_shard",
+            "response_policy:agg_min"
         ]
     },
     "MULTI": {
@@ -9098,6 +9202,9 @@
         ],
         "command_flags": [
             "readonly"
+        ],
+        "hints": [
+            "nondeterministic_output"
         ]
     },
     "PERSIST": {
@@ -9691,7 +9798,7 @@
         "arguments": [
             {
                 "name": "replicationid",
-                "type": "integer"
+                "type": "string"
             },
             {
                 "name": "offset",
@@ -9808,7 +9915,7 @@
         "arguments": [
             {
                 "name": "pattern",
-                "type": "string",
+                "type": "pattern",
                 "optional": true
             }
         ],
@@ -9885,7 +9992,7 @@
         "arguments": [
             {
                 "name": "pattern",
-                "type": "string",
+                "type": "pattern",
                 "optional": true
             }
         ],
@@ -10019,12 +10126,6 @@
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
-        "history": [
-            [
-                "3.2.0",
-                "The command no longer returns an error when source and destination names are the same."
-            ]
-        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -10199,7 +10300,7 @@
             },
             {
                 "name": "port",
-                "type": "string"
+                "type": "integer"
             }
         ],
         "command_flags": [
@@ -10864,7 +10965,7 @@
         "history": [
             [
                 "6.2.0",
-                "Added the `ASYNC` and `SYNC` flushing mode modifiers, as well as the  **lazyfree-lazy-user-flush** configuration directive."
+                "Added the `ASYNC` and `SYNC` flushing mode modifiers."
             ]
         ],
         "acl_categories": [
@@ -11435,7 +11536,7 @@
         "history": [
             [
                 "7.0.0",
-                "Added the `NOW`, `FORCE` and `ABORT` modifiers. Introduced waiting for lagging replicas before exiting."
+                "Added the `NOW`, `FORCE` and `ABORT` modifiers."
             ]
         ],
         "acl_categories": [
@@ -11726,7 +11827,7 @@
             },
             {
                 "name": "port",
-                "type": "string"
+                "type": "integer"
             }
         ],
         "command_flags": [
@@ -12095,7 +12196,7 @@
             },
             {
                 "name": "pattern",
-                "type": "string",
+                "type": "pattern",
                 "key_spec_index": 1,
                 "token": "GET",
                 "optional": true,
@@ -12217,7 +12318,7 @@
             },
             {
                 "name": "pattern",
-                "type": "string",
+                "type": "pattern",
                 "key_spec_index": 1,
                 "token": "GET",
                 "optional": true,
@@ -12621,12 +12722,6 @@
         "since": "2.0.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of channels to subscribe to.",
-        "history": [
-            [
-                "6.2.0",
-                "`RESET` can be called to exit subscribed state."
-            ]
-        ],
         "acl_categories": [
             "@pubsub",
             "@slow"
