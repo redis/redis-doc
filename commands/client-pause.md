@@ -38,3 +38,7 @@ to be static not just from the point of view of clients not being able to write,
 @return
 
 @simple-string-reply: The command returns OK or an error if the timeout is invalid.
+
+## Behavior change history
+
+*   `>= 3.2.0`: Client pause prevents client pause and key eviction as well.

@@ -14,3 +14,7 @@ Note: an asynchronous `FLUSHALL` command only deletes keys that were present at 
 @return
 
 @simple-string-reply
+
+## Behavior change history
+
+*   `>= 6.2.0`: Default flush behavior now configurable by the **lazyfree-lazy-user-flush** configuration directive. 

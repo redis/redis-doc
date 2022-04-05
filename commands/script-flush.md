@@ -13,3 +13,7 @@ For more information about `EVAL` scripts please refer to [Introduction to Eval 
 @return
 
 @simple-string-reply
+
+## Behavior change history
+
+*   `>= 6.2.0`: Default flush behavior now configurable by the **lazyfree-lazy-user-flush** configuration directive. 
