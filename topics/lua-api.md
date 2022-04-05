@@ -407,7 +407,7 @@ The second argument to `redis.register_function` is a Lua function.
 Usage example:
 
 ```
-redis> FUNCTION LOAD Lua mylib "redis.register_function('noop', function() end)"
+redis> FUNCTION LOAD "#!lua name=mylib\n redis.register_function('noop', function() end)"
 ```
 
 #### <a name="redis.register_function_named_args"></a> Named arguments:  `redis.register_function{function_name=name, callback=callback, flags={flag1, flag2, ..}, description=description}`
@@ -424,7 +424,7 @@ Both _function\_name_ and _callback_ are mandatory.
 Usage example:
 
 ```
-redis> FUNCTION LOAD Lua mylib "redis.register_function{function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing'}"
+redis> FUNCTION LOAD "#!lua name=mylib\n redis.register_function{function_name='noop', callback=function() end, flags={ 'no-writes' }, description='Does nothing'}"
 ```
 
 #### <a name="script_flags"></a> Script flags

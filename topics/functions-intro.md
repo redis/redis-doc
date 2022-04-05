@@ -80,17 +80,21 @@ At this point, if you're unfamiliar with Lua in general and specifically in Redi
 
 Every Redis function belongs to a single library that's loaded to Redis.
 Loading a library to the database is done with the `FUNCTION LOAD` command.
+The command gets the library payload as input,
+the library payload must start with Shebang statement that provides a metadata about the library (like the engine to use and the library name).
+The Shebang format is:
+```
+#!<engine name> name=<library name>
+```
+
 Let's try loading an empty library:
 
 ```
-redis> FUNCTION LOAD Lua mylib ""
+redis> FUNCTION LOAD "#!lua name=mylib\n"
 (error) ERR No functions registered
 ```
 
-The error is expected, as there are no functions in the loaded library.
-Despite the error, we can see that the basic form of invoking `FUNCTION LOAD` requires three arguments: the engine's identifier (_Lua_), the library's name (_mylib_), and the library's source code.
-
-Every library needs to include at least one registered function to load successfully.
+The error is expected, as there are no functions in the loaded library. Every library needs to include at least one registered function to load successfully.
 A registered function is named and acts as an entry point to the library.
 When the target execution engine handles the `FUNCTION LOAD` command, it registers the library's functions.
 
@@ -99,6 +103,7 @@ The Lua engine compiles and evaluates the library source code when loaded, and e
 The following snippet demonstrates a simple library registering a single function named _knockknock_, returning a string reply:
 
 ```lua
+#!lua name=mylib
 redis.register_function(
   'knockknock',
   function() return 'Who\'s there?' end
@@ -107,11 +112,10 @@ redis.register_function(
 
 In the example above, we provide two arguments about the function to Lua's `redis.register_function()` API: its registered name and a callback.
 
-We can load our library and use `FCALL` to call the registered function.
-Because _redis-cli_ doesn't play nicely with newlines, we'll just strip these from the code:
+We can load our library and use `FCALL` to call the registered function:
 
 ```
-redis> FUNCTION LOAD Lua mylib "redis.register_function('knockknock', function() return 'Who\\'s there?' end)"
+redis> FUNCTION LOAD "#!lua name=mylib\nredis.register_function('knockknock', function() return 'Who\\'s there?' end)"
 OK
 redis> FCALL knockknock 0
 "Who's there?"
@@ -147,6 +151,8 @@ Similarly, the callback's second argument consists of all regular arguments.
 The following is a possible implementation for our function and its library registration:
 
 ```lua
+#!lua name=mylib
+
 local function my_hset(keys, args)
   local hash = keys[1]
   local time = redis.call('TIME')[1]
@@ -159,7 +165,7 @@ redis.register_function('my_hset', my_hset)
 If we create a new file named _mylib.lua_ that consists of the library's definition, we can load it like so (without stripping the source code of helpful whitespaces):
 
 ```bash
-$ cat mylib.lua | redis-cli -x FUNCTION LOAD Lua mylib REPLACE
+$ cat mylib.lua | redis-cli -x FUNCTION LOAD REPLACE
 ```
 
 We've added the `REPLACE` modifier to the call to `FUNCTION LOAD` to tell Redis that we want to overwrite the existing library definition.
@@ -197,6 +203,8 @@ We'll add two new functions to our library to accomplish these objectives:
 The library's source code could look something like the following:
 
 ```lua
+#!lua name=mylib
+
 local function my_hset(keys, args)
   local hash = keys[1]
   local time = redis.call('TIME')[1]
@@ -225,10 +233,10 @@ While all of the above should be straightforward, note that the `my_hgetall` als
 That means that the function expects [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md) replies after calling `redis.call()`, which, unlike the default RESP2 protocol, provides dictionary (associative arrays) replies.
 Doing so allows the function to delete (or set to `nil` as is the case with Lua tables) specific fields from the reply, and in our case, the `_last_modified_` field.
 
-Assuming you've saved the library's implementation in the _mylib.lua_ file, you can replace it with its (optional) description with:
+Assuming you've saved the library's implementation in the _mylib.lua_ file, you can replace it with:
 
 ```bash
-$ cat mylib.lua | redis-cli -x FUNCTION LOAD Lua mylib REPLACE DESCRIPTION "My application's Hash data type enhancements"
+$ cat mylib.lua | redis-cli -x FUNCTION LOAD REPLACE
 ```
 
 Once loaded, you can call the library's functions with `FCALL`:
@@ -251,10 +259,8 @@ redis> FUNCTION LIST
    2) "mylib"
    3) "engine"
    4) "LUA"
-   5) "description"
-   6) "My application's Hash data type enhancements"
-   7) "functions"
-   8) 1) 1) "name"
+   5) "functions"
+   6) 1) 1) "name"
          2) "my_hset"
          3) "description"
          4) (nil)
@@ -280,6 +286,8 @@ Upon success it returns `nil`, otherwise it returns an [error reply](/topics/lua
 The updated library's source code would be:
 
 ```lua
+#!lua name=mylib
+
 local function check_keys(keys)
   local error = nil
   local nkeys = table.getn(keys)
