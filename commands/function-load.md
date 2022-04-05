@@ -30,7 +30,7 @@ The following example will create a library named `mylib` with a single function
 
 ```
 redis> FUNCTION LOAD "#!lua name=mylib \n redis.register_function('myfunc', function(keys, args) return args[1] end)"
-OK
+mylib
 redis> FCALL myfunc 0 hello
 "hello"
 ```

@@ -116,12 +116,14 @@ We can load our library and use `FCALL` to call the registered function:
 
 ```
 redis> FUNCTION LOAD "#!lua name=mylib\nredis.register_function('knockknock', function() return 'Who\\'s there?' end)"
-OK
+mylib
 redis> FCALL knockknock 0
 "Who's there?"
 ```
 
-Note that we've provided `FCALL` with two arguments: the function's registered name and the numeric value `0`. This numeric value indicates the number of key names that follow it (the same way `EVAL` and `EVALSHA` work).
+Notice that the `FUNCTION LOAD` command returns the name of the loaded library, this name can later be used to delete the library or to get information about the library.
+
+We've provided `FCALL` with two arguments: the function's registered name and the numeric value `0`. This numeric value indicates the number of key names that follow it (the same way `EVAL` and `EVALSHA` work).
 
 We'll explain immediately how key names and additional arguments are available to the function. As this simple example doesn't involve keys, we simply use 0 for now.
 
