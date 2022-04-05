@@ -2,7 +2,7 @@ name: Trigger master website deploy
 on:
   push:
     branches:
-      - new-structure
+      - master
 
 jobs:
   trigger:
