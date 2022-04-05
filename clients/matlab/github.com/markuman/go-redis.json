@@ -1,0 +1,7 @@
+{
+    "name": "redis-octave",
+    "description": "A Redis client in pure Octave",
+    "twitter": [
+        "markuman"
+    ]
+}

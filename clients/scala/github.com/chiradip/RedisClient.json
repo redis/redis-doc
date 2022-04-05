@@ -1,0 +1,7 @@
+{
+    "name": "RedisClient",
+    "description": "A no nonsense Redis Client using pure scala. Preserves elegant Redis style without any need to learn any special API",
+    "twitter": [
+        "chiradip"
+    ]
+}

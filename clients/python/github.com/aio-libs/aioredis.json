@@ -1,0 +1,5 @@
+{
+    "name": "aioredis",
+    "description": "Asyncio (PEP 3156) Redis client",
+    "homepage": "http://aioredis.readthedocs.org/"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Nydus",
+    "description": "Connection clustering and routing for Redis and Python.",
+    "homepage": "https://pypi.python.org/pypi/nydus",
+    "twitter": [
+        "zeeg"
+    ]
+}

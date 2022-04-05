@@ -1,0 +1,7 @@
+{
+    "name": "RedisPlugin for Phalcon",
+    "description": "RedisPlugin for Phalcon (The correspondence of MySQL sharding.)",
+    "twitter": [
+        "ienagatoshiyuki"
+    ]
+}

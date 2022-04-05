@@ -1,0 +1,9 @@
+{
+    "name": "RedisGraph",
+    "license": "Redis Source Available License",
+    "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
+    "github": [
+        "swilly22",
+        "RedisLabs"
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "name": "Trino (formerly Presto SQL) Redis Connector",
+    "description": "Trino Redis connector allows querying Redis data with ANSI SQL, with queries spanning Redis and other services such as Hive, relational databases, Cassandra, Kafka, cloud object storage, or leveraging multiple Redis instances at once",
+    "homepage": "https://trino.io/docs/current/connector/redis.html"
+}

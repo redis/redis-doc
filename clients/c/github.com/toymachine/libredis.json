@@ -1,0 +1,4 @@
+{
+    "name": "libredis",
+    "description": "Support for executing commands on multiple servers in parallel via poll(2), ketama hashing. Includes PHP bindings."
+}

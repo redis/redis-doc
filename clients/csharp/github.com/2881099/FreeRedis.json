@@ -1,0 +1,4 @@
+{
+    "name": "FreeRedis",
+    "description": "This .NET client supports redis6.0+, cluster, sentinel, pipeline, And simple api."
+}

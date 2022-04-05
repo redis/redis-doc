@@ -1,0 +1,7 @@
+{
+    "name": "Rol",
+    "description": "A library that makes storing and working with data in redis as easy as declaring an interface.",
+    "twitter": [
+        "jasonpunyon"
+    ]
+}

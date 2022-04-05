@@ -1,0 +1,7 @@
+{
+    "name": "Rq",
+    "description": "Minimalistic Python task queue. Supports only Redis.",
+    "twitter": [
+        "nvie"
+    ]
+}

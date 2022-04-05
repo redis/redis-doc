@@ -1,0 +1,8 @@
+{
+    "name": "redis-tcl",
+    "description": "Tcl library largely copied from the Redis test tree, modified for minor bug fixes and expanded pub/sub capabilities",
+    "twitter": [
+        "bradvoth",
+        "antirez"
+    ]
+}

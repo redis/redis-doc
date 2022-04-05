@@ -1,0 +1,5 @@
+{
+    "name": "Redis OM for Python",
+    "description": "Object mapping, and more, for Redis and Node.js.",
+    "recommended": true
+}

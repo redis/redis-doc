@@ -1,0 +1,4 @@
+{
+    "name": "redis-client",
+    "description": "extensible client library for Bash scripting or command-line + connection pooling + redis-cli"
+}

@@ -1,0 +1,4 @@
+{
+    "name": "Redback",
+    "description": "Higher-level Redis constructs - social graph, full text search, rate limiting, key pairs."
+}

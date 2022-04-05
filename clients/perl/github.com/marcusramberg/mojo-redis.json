@@ -1,0 +1,10 @@
+{
+    "name": "Mojo::Redis",
+    "description": "asynchronous Redis client for Mojolicious",
+    "homepage": "http://search.cpan.org/dist/Mojo-Redis/",
+    "twitter": [
+        "und3f",
+        "marcusramberg",
+        "jhthorsen"
+    ]
+}

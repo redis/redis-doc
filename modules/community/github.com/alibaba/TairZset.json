@@ -1,0 +1,8 @@
+{
+    "name": "TairZset",
+    "license": "Apache-2.0",
+    "description": "A redis module, similar to redis zset, but you can set multiple scores for each member to support multi-dimensional sorting",
+    "github": [
+        "Alibaba"
+    ]
+}

@@ -1,0 +1,4 @@
+{
+    "name": "go-resp3",
+    "description": "A Redis Go client implementation based on the Redis RESP3 protocol."
+}

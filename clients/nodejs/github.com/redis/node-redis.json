@@ -1,0 +1,5 @@
+{
+    "name": "node-redis",
+    "description": "Recommended client for node.",
+    "recommended": true
+}

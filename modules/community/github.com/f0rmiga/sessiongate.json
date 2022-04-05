@@ -1,0 +1,8 @@
+{
+    "name": "Session Gate",
+    "license": "MIT",
+    "description": "Session management with multiple payloads using cryptographically signed tokens.",
+    "github": [
+        "f0rmiga"
+    ]
+}

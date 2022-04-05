@@ -1,0 +1,7 @@
+{
+    "name": "then-redis",
+    "description": "A small, promise-based Redis client for node",
+    "twitter": [
+        "mjackson"
+    ]
+}

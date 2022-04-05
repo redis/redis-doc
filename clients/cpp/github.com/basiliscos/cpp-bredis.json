@@ -1,0 +1,4 @@
+{
+    "name": "bredis",
+    "description": "Boost::ASIO low-level redis client"
+}

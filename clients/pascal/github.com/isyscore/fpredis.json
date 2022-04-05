@@ -1,0 +1,5 @@
+{
+    "name": "fpredis",
+    "description": "FPREDIS is a FPC client library for the Redis database.",
+    "homepage": "https://github.com/isyscore/fpredis"
+}

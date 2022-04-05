@@ -1,0 +1,8 @@
+{
+    "name": "StackExchange.Redis",
+    "description": "This .NET client was developed by Stack Exchange for very high performance needs (replacement to the earlier BookSleeve).",
+    "recommended": true,
+    "twitter": [
+        "marcgravell"
+    ]
+}

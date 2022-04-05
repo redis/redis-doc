@@ -1,0 +1,7 @@
+{
+    "name": "redisca2",
+    "description": "Lightweight ORM for Redis",
+    "twitter": [
+        "vitaliykhamin"
+    ]
+}

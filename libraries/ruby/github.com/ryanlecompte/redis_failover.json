@@ -1,0 +1,7 @@
+{
+    "name": "Redis_failover",
+    "description": "Redis Failover is a ZooKeeper-based automatic master/replica failover solution for Ruby.",
+    "twitter": [
+        "ryanlecompte"
+    ]
+}

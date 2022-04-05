@@ -1,0 +1,7 @@
+{
+    "name": "PHP-Resque",
+    "description": "Port of Resque to PHP.",
+    "twitter": [
+        "surfichris"
+    ]
+}

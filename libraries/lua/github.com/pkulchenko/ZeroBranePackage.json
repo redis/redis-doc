@@ -1,0 +1,7 @@
+{
+    "name": "Redis plugin for ZeroBrane Studio Lua IDE",
+    "description": "Enables support for the Redis Lua API, provides remote script execution and debugging",
+    "twitter": [
+        "zerobrane"
+    ]
+}

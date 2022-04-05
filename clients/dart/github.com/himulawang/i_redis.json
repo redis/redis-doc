@@ -1,0 +1,7 @@
+{
+    "name": "IRedis",
+    "description": "A redis client for Dart",
+    "twitter": [
+        "ila"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Redis",
+    "description": "Redis client for Swift. OpenSwift C7 Compliant, OS X and Linux compatible.",
+    "twitter": [
+        "rabc"
+    ]
+}

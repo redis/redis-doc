@@ -1,0 +1,7 @@
+{
+    "name": "r3c",
+    "description": "Redis Cluster C++ Client, based on hiredis, support password and standalone, it's easy to make and use, not depends on C++11 or later.",
+    "twitter": [
+        "eyjian"
+    ]
+}

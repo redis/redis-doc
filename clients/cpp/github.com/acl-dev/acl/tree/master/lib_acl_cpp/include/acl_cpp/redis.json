@@ -1,0 +1,8 @@
+{
+    "name": "acl-redis",
+    "description": "Standard C++ Redis Client with high performance and stl-like interface, supporting Redis Cluster, thread safety",
+    "homepage": "https://github.com/acl-dev/acl/tree/master/lib_acl_cpp/samples/redis",
+    "twitter": [
+        "zhengshuxin"
+    ]
+}

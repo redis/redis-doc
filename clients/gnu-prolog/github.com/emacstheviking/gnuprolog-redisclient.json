@@ -1,0 +1,7 @@
+{
+    "name": "gnuprolog-redisclient",
+    "description": "Simple Redis client for GNU Prolog in native Prolog, no FFI, libraries etc.",
+    "twitter": [
+        "seancharles"
+    ]
+}

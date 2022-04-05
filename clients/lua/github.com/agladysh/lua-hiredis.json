@@ -1,0 +1,7 @@
+{
+    "name": "lua-hiredis",
+    "description": "Lua bindings for the hiredis library",
+    "twitter": [
+        "agladysh"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "redlock",
+    "license": "MIT",
+    "description": "Redis module for distributed lock without using LUA script,safe unlock for different redis client.",
+    "github": [
+        "wujunwei"
+    ]
+}

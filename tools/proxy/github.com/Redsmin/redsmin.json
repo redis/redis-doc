@@ -1,0 +1,8 @@
+{
+    "name": "Redsmin Proxy",
+    "homepage": "https://redsmin.com/",
+    "description": "Proxy for a fully featured Redis GUI for managing and monitoring Redis.",
+    "twitter": [
+        "fgribreau"
+    ]
+}

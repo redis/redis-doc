@@ -1,0 +1,7 @@
+{
+    "name": "Redis-rdb",
+    "description": "A set of utilities to handle Redis .rdb files with Ruby.",
+    "twitter": [
+        "JoL1hAHN"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "AnotherRedisDesktopManager",
+    "description": "\ud83d\ude80\ud83d\ude80\ud83d\ude80A faster, better and more stable redis desktop manager. What's more, it won't crash when loading a large number of keys.",
+    "twitter": [
+        "qii404"
+    ]
+}

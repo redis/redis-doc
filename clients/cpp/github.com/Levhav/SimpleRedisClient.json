@@ -1,0 +1,7 @@
+{
+    "name": "SimpleRedisClient",
+    "description": "Simple Redis client for C++",
+    "twitter": [
+        "Levhav"
+    ]
+}

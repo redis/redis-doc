@@ -1,0 +1,4 @@
+{
+    "name": "RedisWebManager",
+    "description": "Web interface that allows you to manage easily your Redis instance (see keys, memory used, connected client, etc...)."
+}

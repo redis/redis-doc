@@ -1,0 +1,11 @@
+{
+    "name": "redis-rb",
+    "description": "Very stable and mature client. Install and require the hiredis gem before redis-rb for maximum performance.",
+    "recommended": true,
+    "twitter": [
+        "ezmobius",
+        "soveran",
+        "djanowski",
+        "pnoordhuis"
+    ]
+}

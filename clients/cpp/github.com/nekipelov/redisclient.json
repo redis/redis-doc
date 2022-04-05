@@ -1,0 +1,7 @@
+{
+    "name": "redisclient",
+    "description": "A C++ asynchronous client based on boost::asio",
+    "twitter": [
+        "nekipelov"
+    ]
+}

@@ -1,0 +1,4 @@
+{
+    "name": "River",
+    "description": "A structured streaming framework built atop Redis Streams with built-in support for persistence and indefinitely long streams."
+}

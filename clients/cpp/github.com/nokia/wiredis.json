@@ -1,0 +1,5 @@
+{
+    "name": "wiredis",
+    "description": "Standalone, asynchronous Redis client library based on ::boost::asio and c++11 standard",
+    "homepage": "https://github.com/nokia/wiredis"
+}

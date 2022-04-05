@@ -1,0 +1,7 @@
+{
+    "name": "Rollout",
+    "description": "Conditionally roll out features with Redis.",
+    "twitter": [
+        "jamesgolick"
+    ]
+}

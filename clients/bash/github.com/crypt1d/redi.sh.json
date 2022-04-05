@@ -1,0 +1,7 @@
+{
+    "name": "Redi.sh",
+    "description": "Simple, Bash-based, Redis client to store your script's variables",
+    "twitter": [
+        "nkrzalic"
+    ]
+}

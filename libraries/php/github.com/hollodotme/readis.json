@@ -1,0 +1,8 @@
+{
+    "name": "readis",
+    "description": "Lightweight web frontend in PHP for reading data, stats and config from multiple Redis servers.",
+    "homepage": "https://readis.hollo.me",
+    "twitter": [
+        "hollodotme"
+    ]
+}

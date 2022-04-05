@@ -1,0 +1,7 @@
+{
+    "name": "Stdnet",
+    "description": "Redis data manager with advanced query and search API.",
+    "twitter": [
+        "lsbardel"
+    ]
+}

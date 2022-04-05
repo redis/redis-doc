@@ -1,0 +1,4 @@
+{
+    "name": "hiredispool",
+    "description": "Provides connection pooling and auto-reconnect for hiredis. It is also minimalistic and easy to do customization."
+}

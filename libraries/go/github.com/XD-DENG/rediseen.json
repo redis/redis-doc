@@ -1,0 +1,8 @@
+{
+    "name": "Rediseen",
+    "description": "Start a REST-like API service for your Redis database, without writing a single line of code.",
+    "homepage": "https://github.com/XD-DENG/rediseen",
+    "twitter": [
+        "XiaodongDENG1"
+    ]
+}

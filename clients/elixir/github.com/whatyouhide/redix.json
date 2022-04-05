@@ -1,0 +1,7 @@
+{
+    "name": "redix",
+    "description": "Superfast, pipelined, resilient Redis client written in pure Elixir.",
+    "twitter": [
+        "whatyouhide"
+    ]
+}

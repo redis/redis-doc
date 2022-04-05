@@ -1,0 +1,8 @@
+{
+    "name": "redex",
+    "license": "AGPL-3.0",
+    "description": "Extension modules to Redis' native data types and commands",
+    "github": [
+        "itamarhaber"
+    ]
+}

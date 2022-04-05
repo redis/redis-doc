@@ -1,0 +1,7 @@
+{
+    "name": "mruby-redis",
+    "description": "Redis class for mruby based on Hiredis",
+    "twitter": [
+        "matsumotory"
+    ]
+}

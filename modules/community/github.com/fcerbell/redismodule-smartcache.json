@@ -1,0 +1,8 @@
+{
+    "name": "smartcache",
+    "license": "AGPL-3.0",
+    "description": "A redis module that provides a pass-through cache",
+    "github": [
+        "fcerbell"
+    ]
+}

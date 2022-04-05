@@ -1,0 +1,7 @@
+{
+    "name": "cheprasov/php-redis-client",
+    "description": "Supported PHP client for Redis. PHP ver 5.5 - 7.4 / REDIS ver 2.6 - 6.0",
+    "twitter": [
+        "cheprasov84"
+    ]
+}

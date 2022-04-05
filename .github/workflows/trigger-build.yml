@@ -15,4 +15,4 @@ jobs:
           -d
         env:
           NETLIFY_BUILD_HOOK_ID: ${{ secrets.NETLIFY_BUILD_HOOK_ID }}
-          DATA: '{"type": "docs", "id": "redis_docs", "repository":"${{ github.repository }}", "sha":"${{ github.sha }}", "ref":"${{ github.ref }}"}}'
+          DATA: '{"type": "core", "id": "redis_docs", "repository":"${{ github.repository }}", "sha":"${{ github.sha }}", "ref":"${{ github.ref }}"}}'

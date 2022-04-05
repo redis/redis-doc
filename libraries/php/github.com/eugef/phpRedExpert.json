@@ -1,0 +1,8 @@
+{
+    "name": "phpRedExpert",
+    "description": "phpRedExpert ia simple and powerful web UI for Redis databases and servers management, written in PHP and JavaScript.",
+    "homepage": "https://github.com/eugef/phpRedExpert",
+    "twitter": [
+        "EugeneFidelin"
+    ]
+}

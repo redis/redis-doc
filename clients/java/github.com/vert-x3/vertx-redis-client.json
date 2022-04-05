@@ -1,0 +1,7 @@
+{
+    "name": "vertx-redis-client",
+    "description": "The Vert.x Redis client provides an asynchronous API to interact with a Redis data-structure server.",
+    "twitter": [
+        "pmlopes"
+    ]
+}

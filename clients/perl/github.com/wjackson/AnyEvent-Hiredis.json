@@ -1,0 +1,5 @@
+{
+    "name": "AnyEvent::Hiredis",
+    "description": "Non-blocking client using the hiredis C library",
+    "homepage": "http://search.cpan.org/dist/AnyEvent-Hiredis/"
+}

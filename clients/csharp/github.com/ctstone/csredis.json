@@ -1,0 +1,7 @@
+{
+    "name": "csredis",
+    "description": "Async (and sync) client for Redis and Sentinel",
+    "twitter": [
+        "ctnstone"
+    ]
+}

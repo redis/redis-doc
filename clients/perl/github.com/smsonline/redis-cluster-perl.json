@@ -1,0 +1,8 @@
+{
+    "name": "Redis::Cluster",
+    "description": "Redis Cluster client for Perl",
+    "homepage": "http://search.cpan.org/dist/Redis-Cluster/",
+    "twitter": [
+        "smsonline"
+    ]
+}

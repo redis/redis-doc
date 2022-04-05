@@ -1,0 +1,7 @@
+{
+    "name": "cpp_redis",
+    "description": "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform.",
+    "twitter": [
+        "simon_ninon"
+    ]
+}

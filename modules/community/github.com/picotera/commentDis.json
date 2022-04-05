@@ -1,0 +1,8 @@
+{
+    "name": "commentDis",
+    "license": "MIT",
+    "description": "Add comment syntax to your redis-cli scripts.",
+    "github": [
+        "daTokenizer"
+    ]
+}

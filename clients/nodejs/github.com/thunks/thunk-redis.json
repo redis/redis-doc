@@ -1,0 +1,7 @@
+{
+    "name": "thunk-redis",
+    "description": "A thunk/promise-based redis client with pipelining and cluster.",
+    "twitter": [
+        "izensh"
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "name": "Eredis (Nordix fork)",
+    "description": "An updated fork of eredis, adding TLS and various corrections and testing",
+    "recommended": true
+}

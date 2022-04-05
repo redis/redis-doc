@@ -55,7 +55,11 @@ Once the consumer group delivers the last message in the stream to its members, 
     6) (integer) 2
     7) "last-delivered-id"
     8) "1638126030001-0"
+<<<<<<< HEAD
+    9) "entries_read"
+=======
     9) "entries-read"
+>>>>>>> master
    10) (integer) 2
    11) "lag"
    12) (integer) 0
@@ -67,7 +71,11 @@ Once the consumer group delivers the last message in the stream to its members, 
     6) (integer) 0
     7) "last-delivered-id"
     8) "1638126028070-0"
+<<<<<<< HEAD
+    9) "entries_read"
+=======
     9) "entries-read"
+>>>>>>> master
    10) (integer) 1
    11) "lag"
    12) (integer) 1

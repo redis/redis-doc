@@ -1,0 +1,7 @@
+{
+    "name": "Omhiredis",
+    "description": "Redis output plugin for rsyslog (rsyslog dev, and rsyslog head).",
+    "twitter": [
+        "taotetek"
+    ]
+}

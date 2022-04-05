@@ -1,0 +1,8 @@
+{
+    "name": "ServiceStack.Redis",
+    "description": "This is a fork and improvement of the original C# client written by Miguel De Icaza.",
+    "recommended": true,
+    "twitter": [
+        "demisbellot"
+    ]
+}

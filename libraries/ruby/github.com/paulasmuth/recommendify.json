@@ -1,0 +1,7 @@
+{
+    "name": "Recommendify",
+    "description": "Ruby/Redis based recommendation engine (collaborative filtering).",
+    "twitter": [
+        "paulasmuth"
+    ]
+}

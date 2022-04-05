@@ -1,0 +1,8 @@
+{
+    "name": "Redisson",
+    "description": "distributed and scalable Java data structures on top of Redis server",
+    "recommended": true,
+    "twitter": [
+        "mrniko"
+    ]
+}

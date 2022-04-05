@@ -1,0 +1,7 @@
+{
+    "name": "redli",
+    "description": "A humane alternative to the redis-cli and TLS",
+    "twitter": [
+        "IBM"
+    ]
+}

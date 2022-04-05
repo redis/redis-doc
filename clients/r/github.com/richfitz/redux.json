@@ -1,0 +1,8 @@
+{
+    "name": "Redux",
+    "description": "Provides a low-level interface to Redis, allowing execution of arbitrary Redis commands with almost no interface.",
+    "homepage": "http://richfitz.github.io/redux/",
+    "twitter": [
+        "rgfitzjohn"
+    ]
+}

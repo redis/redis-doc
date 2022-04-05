@@ -1,0 +1,4 @@
+{
+    "name": "Redis-RdbParser",
+    "description": "Redis-RdbParser is a streaming parser for Redis RDB database dumps."
+}

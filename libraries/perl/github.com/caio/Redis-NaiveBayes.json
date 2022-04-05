@@ -1,0 +1,7 @@
+{
+    "name": "Redis-NaiveBayes",
+    "description": "A generic Redis-backed NaiveBayes implementation",
+    "twitter": [
+        "caio"
+    ]
+}

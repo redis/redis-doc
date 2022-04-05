@@ -1,0 +1,9 @@
+{
+    "name": "rediSQL",
+    "license": "AGPL-3.0",
+    "description": "A redis module that provides a full SQL capabilities embedding SQLite",
+    "github": [
+        "siscia",
+        "RedBeardLab"
+    ]
+}

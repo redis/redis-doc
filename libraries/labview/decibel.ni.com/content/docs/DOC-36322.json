@@ -1,0 +1,7 @@
+{
+    "name": "redis-in-labview",
+    "description": "LabVIEW toolkit for Redis",
+    "twitter": [
+        "iwac"
+    ]
+}
