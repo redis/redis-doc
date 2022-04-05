@@ -67,3 +67,7 @@ To minimize the risk of data loss in such setups, it's advised to trigger a manu
 @simple-string-reply: `OK` if `ABORT` was specified and shutdown was aborted.
 On successful shutdown, nothing is returned since the server quits and the connection is closed.
 On failure, an error is returned.
+
+## Behavior change history
+
+*   `>= 7.0.0`: Introduced waiting for lagging replicas before exiting.
