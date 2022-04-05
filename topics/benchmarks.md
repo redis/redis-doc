@@ -13,24 +13,35 @@ The following options are supported:
      -p <port>          Server port (default 6379)
      -s <socket>        Server socket (overrides host and port)
      -a <password>      Password for Redis Auth
+     --user <username>  Used to send ACL style 'AUTH username pass'. Needs -a.
      -c <clients>       Number of parallel connections (default 50)
      -n <requests>      Total number of requests (default 100000)
-     -d <size>          Data size of SET/GET value in bytes (default 2)
+     -d <size>          Data size of SET/GET value in bytes (default 3)
      --dbnum <db>       SELECT the specified db number (default 0)
+     --threads <num>    Enable multi-thread mode.
+     --cluster          Enable cluster mode.
+     --enable-tracking  Send CLIENT TRACKING on before starting benchmark.
      -k <boolean>       1=keep alive 0=reconnect (default 1)
-     -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
-      Using this option the benchmark will expand the string __rand_int__
-      inside an argument with a 12 digits number in the specified range
-      from 0 to keyspacelen-1. The substitution changes every time a command
-      is executed. Default tests use this to hit random keys in the
-      specified range.
+     -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for
+                        SADD, random members and scores for ZADD.
+                        Using this option the benchmark will expand the string
+                        __rand_int__ inside an argument with a 12 digits number
+                        in the specified range from 0 to keyspacelen-1. The
+                        substitution changes every time a command is executed.
+                        Default tests use this to hit random keys in the
+                        specified range.
      -P <numreq>        Pipeline <numreq> requests. Default 1 (no pipeline).
+     -e                 If server replies with errors, show them on stdout.
+                        (No more than 1 error per second is displayed.)
      -q                 Quiet. Just show query/sec values
+     --precision        Number of decimal places to display in latency output (default 0)
      --csv              Output in CSV format
      -l                 Loop. Run the tests forever
      -t <tests>         Only run the comma separated list of tests. The test
                         names are the same as the ones produced as output.
      -I                 Idle mode. Just open N idle connections and wait.
+     --help             Output this help and exit.
+     --version          Output version and exit.
 
 You need to have a running Redis instance before launching the benchmark.
 A typical example would be:
@@ -48,8 +59,8 @@ The simplest thing to select only a subset of tests is to use the `-t` option
 like in the following example:
 
     $ redis-benchmark -t set,lpush -n 100000 -q
-    SET: 74239.05 requests per second
-    LPUSH: 79239.30 requests per second
+    SET: 180180.17 requests per second, p50=0.143 msec                    
+    LPUSH: 188323.91 requests per second, p50=0.135 msec
 
 In the above example we asked to just run test the SET and LPUSH commands,
 in quiet mode (see the `-q` switch).
@@ -108,8 +119,8 @@ This is an example of running the benchmark in a MacBook Air 11" using a
 pipelining of 16 commands:
 
     $ redis-benchmark -n 1000000 -t set,get -P 16 -q
-    SET: 403063.28 requests per second
-    GET: 508388.41 requests per second
+    SET: 1536098.25 requests per second, p50=0.479 msec                     
+    GET: 1811594.25 requests per second, p50=0.391 msec
 
 Using pipelining results in a significant increase in performance.
 
@@ -303,153 +314,38 @@ the generated log file on a remote filesystem.
 instance using INFO at regular interval to gather statistics is probably fine,
 but MONITOR will impact the measured performance significantly.
 
-# Benchmark results on different virtualized and bare-metal servers.
+# Benchmark results on bare-metal servers across different Redis versions.
 
-WARNING: Note that most of the following benchmarks are a few years old and are obtained using old hardware compared to today's standards. This page should be updated, but in many cases you can expect twice the numbers you are seeing here using state of hard hardware. Moreover Redis 4.0 is faster than 2.6 in many workloads.
+It is critically important that Redis performance is retained or improved seamlessly on every released version. 
 
-* The test was done with 50 simultaneous clients performing 2 million requests.
-* Redis 2.6.14 is used for all the tests.
-* Test was executed using the loopback interface.
-* Test was executed using a key space of 1 million keys.
-* Test was executed with and without pipelining (16 commands pipeline).
+To assess it, we've conducted benchmarks on the released versions of Redis (starting on v2.6.0) using `redis-benchmark` on a series of command types over a standalone redis-server, repeating the same benchmark multiple times, ensuring its statistical significance, and measuring the run-to-run variance.
 
-**Intel(R) Xeon(R) CPU E5520  @ 2.27GHz (with pipelining)**
+The used hardware platform was a stable bare-metal HPE ProLiant DL380 Gen10 Server, with one Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz, disabling Intel HT Technology, disabling CPU Frequency scaling, with all configurable BIOS and CPU system settings set to performance. 
 
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -P 16 -q
-    SET: 552028.75 requests per second
-    GET: 707463.75 requests per second
-    LPUSH: 767459.75 requests per second
-    LPOP: 770119.38 requests per second
+The box was running Ubuntu 18.04 Linux release 4.15.0-123, and Redis was compiled with gcc 7.5.0.
+The used benchmark client (`redis-benchmark`) was kept stable across all tests, with version `redis-benchmark 6.2.0 (git:445aa844)`.
+Both the redis-server and redis-benchmark processes were pinned to specific physical cores.
 
-**Intel(R) Xeon(R) CPU E5520  @ 2.27GHz (without pipelining)**
+The following benchmark options were used across tests:
 
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q
-    SET: 122556.53 requests per second
-    GET: 123601.76 requests per second
-    LPUSH: 136752.14 requests per second
-    LPOP: 132424.03 requests per second
 
-**Linode 2048 instance (with pipelining)**
+* The tests were done with 50 simultaneous clients performing 5 million requests.
+* Tests were executed using the loopback interface.
+* Tests were executed without pipelining.
+* The used payload size was 256 Bytes.
+* For each redis-benchmark process, 2 threads were used to ensure that the benchmark client was not the bottleneck.
+* Strings, Hashes, Sets, and Sorted Sets data types were benchmarked.
 
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q -P 16
-    SET: 195503.42 requests per second
-    GET: 250187.64 requests per second
-    LPUSH: 230547.55 requests per second
-    LPOP: 250815.16 requests per second
+Below we present the obtained results, broken by data type.
 
-**Linode 2048 instance (without pipelining)**
 
-    $ ./redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -q
-    SET: 35001.75 requests per second
-    GET: 37481.26 requests per second
-    LPUSH: 36968.58 requests per second
-    LPOP: 35186.49 requests per second
+![Strings performance over versions](./performance-strings.png)
 
-## More detailed tests without pipelining
+![Hashes performance over versions](./performance-hashes.png)
 
-    $ redis-benchmark -n 100000
+![Sets performance over versions](./performance-sets.png)
 
-    ====== SET ======
-      100007 requests completed in 0.88 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    58.50% <= 0 milliseconds
-    99.17% <= 1 milliseconds
-    99.58% <= 2 milliseconds
-    99.85% <= 3 milliseconds
-    99.90% <= 6 milliseconds
-    100.00% <= 9 milliseconds
-    114293.71 requests per second
-
-    ====== GET ======
-      100000 requests completed in 1.23 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    43.12% <= 0 milliseconds
-    96.82% <= 1 milliseconds
-    98.62% <= 2 milliseconds
-    100.00% <= 3 milliseconds
-    81234.77 requests per second
-
-    ====== INCR ======
-      100018 requests completed in 1.46 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    32.32% <= 0 milliseconds
-    96.67% <= 1 milliseconds
-    99.14% <= 2 milliseconds
-    99.83% <= 3 milliseconds
-    99.88% <= 4 milliseconds
-    99.89% <= 5 milliseconds
-    99.96% <= 9 milliseconds
-    100.00% <= 18 milliseconds
-    68458.59 requests per second
-
-    ====== LPUSH ======
-      100004 requests completed in 1.14 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    62.27% <= 0 milliseconds
-    99.74% <= 1 milliseconds
-    99.85% <= 2 milliseconds
-    99.86% <= 3 milliseconds
-    99.89% <= 5 milliseconds
-    99.93% <= 7 milliseconds
-    99.96% <= 9 milliseconds
-    100.00% <= 22 milliseconds
-    100.00% <= 208 milliseconds
-    88109.25 requests per second
-
-    ====== LPOP ======
-      100001 requests completed in 1.39 seconds
-      50 parallel clients
-      3 bytes payload
-      keep alive: 1
-
-    54.83% <= 0 milliseconds
-    97.34% <= 1 milliseconds
-    99.95% <= 2 milliseconds
-    99.96% <= 3 milliseconds
-    99.96% <= 4 milliseconds
-    100.00% <= 9 milliseconds
-    100.00% <= 208 milliseconds
-    71994.96 requests per second
-
-Notes: changing the payload from 256 to 1024 or 4096 bytes does not change the
-numbers significantly (but reply packets are glued together up to 1024 bytes so
-GETs may be slower with big payloads). The same for the number of clients, from
-50 to 256 clients I got the same numbers. With only 10 clients it starts to get
-a bit slower.
-
-You can expect different results from different boxes. For example a low
-profile box like *Intel core duo T5500 clocked at 1.66 GHz running Linux 2.6*
-will output the following:
-
-    $ ./redis-benchmark -q -n 100000
-    SET: 53684.38 requests per second
-    GET: 45497.73 requests per second
-    INCR: 39370.47 requests per second
-    LPUSH: 34803.41 requests per second
-    LPOP: 37367.20 requests per second
-
-Another one using a 64-bit box, a Xeon L5420 clocked at 2.5 GHz:
-
-    $ ./redis-benchmark -q -n 100000
-    PING: 111731.84 requests per second
-    SET: 108114.59 requests per second
-    GET: 98717.67 requests per second
-    INCR: 95241.91 requests per second
-    LPUSH: 104712.05 requests per second
-    LPOP: 93722.59 requests per second
-
+![Sorted sets performance over versions](./performance-sorted-sets.png)
 # Other Redis benchmarking tools
 
 There are several third-party tools that can be used for benchmarking Redis. Refer to each tool's
@@ -458,48 +354,3 @@ documentation for more information about its goals and capabilities.
 * [memtier_benchmark](https://github.com/redislabs/memtier_benchmark) from [Redis Ltd.](https://twitter.com/RedisInc) is a NoSQL Redis and Memcache traffic generation and benchmarking tool.
 * [rpc-perf](https://github.com/twitter/rpc-perf) from [Twitter](https://twitter.com/twitter) is a tool for benchmarking RPC services that supports Redis and Memcache.
 * [YCSB](https://github.com/brianfrankcooper/YCSB) from [Yahoo @Yahoo](https://twitter.com/Yahoo) is a benchmarking framework with clients to many databases, including Redis.
-
-# Example of redis-benchmark results with optimized high-end server hardware
-
-* Redis version **2.4.2**
-* Default number of connections, payload size = 256
-* The Linux box is running *SLES10 SP3 2.6.16.60-0.54.5-smp*, CPU is 2 x *Intel X5670 @ 2.93 GHz*.
-* Test executed while running Redis server and benchmark client on the same CPU, but different cores.
-
-Using a unix domain socket:
-
-    $ numactl -C 6 ./redis-benchmark -q -n 100000 -s /tmp/redis.sock -d 256
-    PING (inline): 200803.22 requests per second
-    PING: 200803.22 requests per second
-    MSET (10 keys): 78064.01 requests per second
-    SET: 198412.69 requests per second
-    GET: 198019.80 requests per second
-    INCR: 200400.80 requests per second
-    LPUSH: 200000.00 requests per second
-    LPOP: 198019.80 requests per second
-    SADD: 203665.98 requests per second
-    SPOP: 200803.22 requests per second
-    LPUSH (again, in order to bench LRANGE): 200000.00 requests per second
-    LRANGE (first 100 elements): 42123.00 requests per second
-    LRANGE (first 300 elements): 15015.02 requests per second
-    LRANGE (first 450 elements): 10159.50 requests per second
-    LRANGE (first 600 elements): 7548.31 requests per second
-
-Using the TCP loopback:
-
-    $ numactl -C 6 ./redis-benchmark -q -n 100000 -d 256
-    PING (inline): 145137.88 requests per second
-    PING: 144717.80 requests per second
-    MSET (10 keys): 65487.89 requests per second
-    SET: 142653.36 requests per second
-    GET: 142450.14 requests per second
-    INCR: 143061.52 requests per second
-    LPUSH: 144092.22 requests per second
-    LPOP: 142247.52 requests per second
-    SADD: 144717.80 requests per second
-    SPOP: 143678.17 requests per second
-    LPUSH (again, in order to bench LRANGE): 143061.52 requests per second
-    LRANGE (first 100 elements): 29577.05 requests per second
-    LRANGE (first 300 elements): 10431.88 requests per second
-    LRANGE (first 450 elements): 7010.66 requests per second
-    LRANGE (first 600 elements): 5296.61 requests per second
