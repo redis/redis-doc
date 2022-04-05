@@ -382,15 +382,17 @@ DEBUG subcommands see next section.
 
 ## Allowing the first-arg of an otherwise blocked command
 
-Often the ability to exclude or include a command or a subcommand as a whole is not enough.
+**Note: This feature is deprecated since Redis 7.0 and may be removed in the future.**
+
+Sometimes the ability to exclude or include a command or a subcommand as a whole is not enough.
 Many deployments may not be happy providing the ability to execute a `SELECT` for any DB, but may
 still want to be able to run `SELECT 0`.
 
-In such case I could alter the ACL of a user in the following way:
+In such case we could alter the ACL of a user in the following way:
 
     ACL SETUSER myuser -select +select|0
 
-I started by removing the `SELECT` command, and later added the allowed
+We started by removing the `SELECT` command, and later added the allowed
 first-arg. Note that **it is not possible to do the reverse**, first-args
 can be only added, and not excluded, because it is possible that in the future
 new first-args may be added: it is a lot safer to specify all the first-args
