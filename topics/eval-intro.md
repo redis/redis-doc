@@ -128,7 +128,7 @@ Until this point, we've used the `EVAL` command to run our script.
 
 Whenever we call `EVAL`, we also include the script's source code with the request.
 Repeatedly calling `EVAL` to execute the same set of parameterized scripts, wastes both network bandwidth and also has some overheads in Redis.
-Naturally, saving on network and compute resources is key, so, instead, Redid provides a caching mechanism for scripts.
+Naturally, saving on network and compute resources is key, so, instead, Redis provides a caching mechanism for scripts.
 
 Every script you execute with `EVAL` is stored in a dedicated cache that the server keeps.
 The cache's contents are organized by the scripts' SHA1 digest sums, so the SHA1 digest sum of a script uniquely identifies it in the cache.
