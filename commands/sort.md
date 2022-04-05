@@ -112,6 +112,7 @@ Starting from Redis 7.0, any use of `GET` or `BY` which reference external key p
 Full key read permissions can be set for the user by, for example, specifying `'%R~*'` or `'~*` with the relevant command access rules.
 You can check the `ACL SETUSER` command manual for more information on setting ACL access rules.
 If full key read permissions aren't set, the command will fail with an error.
+
 ## Storing the result of a SORT operation
 
 By default, `SORT` returns the sorted elements to the client.
