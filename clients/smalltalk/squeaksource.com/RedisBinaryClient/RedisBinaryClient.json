@@ -1,0 +1,6 @@
+{
+  "name": "RedisBinaryClient",
+  "language": "Smalltalk",
+  "repository": "http://www.squeaksource.com/RedisBinaryClient/",
+  "description": "A fork of the RedisConnection from Redis Client."
+}

@@ -1,0 +1,9 @@
+{
+  "name": "RediStick",
+  "language": "Smalltalk",
+  "repository": "https://github.com/mumez/RediStick",
+  "description": "A Redis client for Pharo using Stick auto-reconnection layer.",
+  "authors": [
+    "umejava"
+  ]
+}

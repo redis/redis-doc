@@ -1,0 +1,10 @@
+{
+  "name": "SimpleRedisClient",
+  "language": "Smalltalk",
+  "repository": "https://github.com/svenvc/SimpleRedisClient",
+  "description": "A minimal Redis client for Pharo.",
+  "homepage": "https://medium.com/concerning-pharo/quick-write-me-a-redis-client-5fbe4ddfb13d",
+  "authors": [
+    "SvenVC"
+  ]
+}
