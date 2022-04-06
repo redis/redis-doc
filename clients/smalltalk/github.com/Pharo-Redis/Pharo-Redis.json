@@ -1,0 +1,9 @@
+{
+  "name": "Pharo-Redis",
+  "language": "Smalltalk",
+  "repository": "https://github.com/tblanchard/Pharo-Redis",
+  "description": "A full featured Redis client for Pharo. This was forked from svenvc/SimpleRedisClient and that simple client is still at the center of this.",
+  "authors": [
+    "ToddBlanchard10"
+  ]
+}
