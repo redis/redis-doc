@@ -16,6 +16,6 @@ Note: the command has a complexity of just O(log(N)) because it uses elements ra
 ZADD myzset 1 "one"
 ZADD myzset 2 "two"
 ZADD myzset 3 "three"
-ZCOUNT myzset -inf +inf
+ZCOUNT myzset -inf +inf  // -inf +inf : The meaning of this sentence is infinity.
 ZCOUNT myzset (1 3
 ```
