@@ -159,7 +159,7 @@ Bulk Strings are encoded in the following way:
 
 So the string "hello" is encoded as follows:
 
-    "$6\r\nhello\r\n"
+    "$5\r\nhello\r\n"
 
 An empty string is encoded as:
 
