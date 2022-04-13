@@ -73,6 +73,7 @@ following table:
     x     Expired events (events generated every time a key expires)
     e     Evicted events (events generated when a key is evicted for maxmemory)
     m     Key miss events (events generated when a key that doesn't exist is accessed)
+    n     New key events (Note: not included in the 'A' class)
     A     Alias for "g$lshztxed", so that the "AKE" string means all the events except "m".
 
 At least `K` or `E` should be present in the string, otherwise no event
@@ -138,6 +139,7 @@ Different commands generate different kind of events according to the following 
 * `PERSIST` generates a `persist` event if the expiry time associated with key has been successfully deleted.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
+* Every time a new key is added to the data set a `new` event is generated.
 
 **IMPORTANT** all the commands generate events only if the target key is really modified. For instance an `SREM` deleting a non-existing element from a Set will not actually change the value of the key, so no event will be generated.
 
@@ -176,4 +178,5 @@ Every node of a Redis cluster generates events about its own subset of the keysp
 @history
 
 *   `>= 6.0`: Key miss events were added.
+*   `>= 7.0`: New event were added
 
