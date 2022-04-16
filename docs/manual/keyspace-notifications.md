@@ -178,5 +178,5 @@ Every node of a Redis cluster generates events about its own subset of the keysp
 @history
 
 *   `>= 6.0`: Key miss events were added.
-*   `>= 7.0`: New event were added
+*   `>= 7.0`: Event type `new` added
 
