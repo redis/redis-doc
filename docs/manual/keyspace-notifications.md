@@ -139,7 +139,7 @@ Different commands generate different kind of events according to the following 
 * `PERSIST` generates a `persist` event if the expiry time associated with key has been successfully deleted.
 * Every time a key with a time to live associated is removed from the data set because it expired, an `expired` event is generated.
 * Every time a key is evicted from the data set in order to free memory as a result of the `maxmemory` policy, an `evicted` event is generated.
-* Every time a new key is added to the data set a `new` event is generated.
+* Every time a new key is added to the data set, a `new` event is generated.
 
 **IMPORTANT** all the commands generate events only if the target key is really modified. For instance an `SREM` deleting a non-existing element from a Set will not actually change the value of the key, so no event will be generated.
 
