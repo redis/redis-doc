@@ -22,7 +22,7 @@ By default, or when provided with the optional `=` argument, the command perform
 Depending on the strategy, exact trimming means:
 
 * `MAXLEN`: the trimmed stream's length will be exactly the minimum between its original length and the specified `threshold`.
-* `MINID`: the oldest ID in the stream will be exactly the minimum between its original oldest ID and the specified `threshold`.
+* `MINID`: the oldest ID in the stream will be exactly the maximum between its original oldest ID and the specified `threshold`.
 
 Nearly exact trimming
 ---
