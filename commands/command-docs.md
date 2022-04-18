@@ -7,7 +7,7 @@ The reply includes a map for each returned command.
 The following keys may be included in the mapped reply:
 
 * **summary:** short command description.
-* **since:** the Redis/module version that added the command.
+* **since:** the Redis version that added the command (or for module commands, the module version).
 * **group:** the functional group to which the command belongs.
   Possible values are:
   - _bitmap_
