@@ -34,8 +34,8 @@ Every element in the _arguments_ array is a map with the following fields:
   It is a 0-based index of the specification in the command's [key specifications][tr] that corresponds to the argument.
 * **token**: a constant literal that precedes the argument (user input) itself.
 * **summary:** a short description of the argument.
-* **since:** the debut Redis/module version of the argument.
-* **deprecated_since:** the Redis/module version that deprecated the command.
+* **since:** the debut Redis version of the argument (or for module commands, the module version).
+* **deprecated_since:** the Redis version that deprecated the command (or for module commands, the module version).
 * **flags:** an array of argument flags.
   Possible flags are:
   - **optional**: denotes that the argument is optional (for example, the _GET_ clause of the  `SET` command).
