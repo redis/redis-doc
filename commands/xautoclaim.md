@@ -19,7 +19,7 @@ However, note that you may want to continue calling `XAUTOCLAIM` even after the 
 Note that only messages that are idle longer than `<min-idle-time>` are claimed, and claiming a message resets its idle time.
 This ensures that only a single consumer can successfully claim a given pending message at a specific instant of time and trivially reduces the probability of processing the same message multiple times.
 
-While iterating the PEL, if `XAUTOCLAIM` stumbles upon a message which doesn't exist in the stream anymore (either trimmed or deleted by `XDEL`) it does not claim it, and deletes it from the PEL in which it was found. This feature was introduced in Redis 7.0.
+While iterating PEL, if `XAUTOCLAIM` stumbles upon a message which doesn't exist in the stream anymore (either trimmed or deleted by `XDEL`) it does not claim it, and deletes it from the PEL in which it was found. This feature was introduced in Redis 7.0.
 These message IDs are returned to the caller as a part of `XAUTOCLAIM`s reply.
 
 Lastly, claiming a message with `XAUTOCLAIM` also increments the attempted deliveries count for that message, unless the `JUSTID` option has been specified (which only delivers the message ID, not the message itself).
@@ -33,7 +33,7 @@ An array with three elements:
 
 1. A stream ID to be used as the `<start>` argument for the next call to `XAUTOCLAIM`
 2. An array containing all the successfully claimed messages in the same format as `XRANGE`.
-3. An array containing stream IDs which no longer exist in the stream, and where deleted from the PEL in which they were found
+3. An array containing messages IDs which no longer exist in the stream, and were deleted from the PEL in which they were found
 
 @examples
 
