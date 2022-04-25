@@ -30,11 +30,12 @@ Every element in the _arguments_ array is a map with the following fields:
     This type enables choice among several nested arguments (see the `XADD` example below).
   - **block:** the argument is a container for nested arguments.
     This type enables grouping arguments and applying a property (such as _optional_) to all (see the `XADD` example below).
-* **key-spec-index:** this value is available for every argument of the _key_ type.
+* **key_spec_index:** this value is available for every argument of the _key_ type.
   It is a 0-based index of the specification in the command's [key specifications][tr] that corresponds to the argument.
 * **token**: a constant literal that precedes the argument (user input) itself.
 * **summary:** a short description of the argument.
-* **since:** the debut Redis version of the argument.
+* **since:** the debut Redis version of the argument (or for module commands, the module version).
+* **deprecated_since:** the Redis version that deprecated the command (or for module commands, the module version).
 * **flags:** an array of argument flags.
   Possible flags are:
   - **optional**: denotes that the argument is optional (for example, the _GET_ clause of the  `SET` command).

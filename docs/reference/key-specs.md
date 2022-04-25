@@ -206,13 +206,13 @@ When this flag is present, it means that the key specification flags cover all p
      2) 1) RW
         2) access
         3) update
-     3) "begin-search"
+     3) "begin_search"
      4) 1) "type"
         2) "index"
         3) "spec"
         4) 1) "index"
            2) (integer) 1
-     5) "find-keys"
+     5) "find_keys"
      6) 1) "type"
         2) "range"
         3) "spec"
@@ -230,13 +230,13 @@ When this flag is present, it means that the key specification flags cover all p
   1) 1) "flags"
      2) 1) RO
         2) access
-     3) "begin-search"
+     3) "begin_search"
      4) 1) "type"
         2) "index"
         3) "spec"
         4) 1) "index"
            2) (integer) 1
-     5) "find-keys"
+     5) "find_keys"
      6) 1) "type"
         2) "keynum"
         3) "spec"
