@@ -435,4 +435,6 @@ return x
 Note that as soon as Redis sees the `#!` comment, it'll treat the script as if it declares flags, even if no flags are defined,
 it still has a different set of defaults compared to a script without a `#!` line.
 
+Another difference is that scripts without `#!` can run commands that access keys belonging to different cluster hash slots, but ones with `#!` inherit the default flags, so they cannot.
+
 Please refer to [Script flags](lua-api#script_flags) to learn about the various scripts and the defaults.

@@ -446,7 +446,7 @@ By default, Redis assumes that all scripts read and write data.
 This results in the following behavior:
 
 1. They can read and write data.
-1. They can run in cluster mode.
+1. They can run in cluster mode, and are not able to run commands accessing keys of different hash slots.
 1. Execution against a stale replica is denied to avoid inconsistent reads.
 1. Execution under low memory is denied to avoid exceeding the configured threshold.
 
