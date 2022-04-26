@@ -479,6 +479,15 @@ You can use the following flags and instruct the server to treat the scripts' ex
     Redis allows scripts to be executed both in standalone and cluster modes.
     Setting this flag prevents executing the script against nodes in the cluster.
 
+* `allow-cross-slot-keys`: The flag that allows a script to access keys from multiple slots.
+
+    Redis typically prevents any single command from accessing keys that hash to multiple slots.
+    This flag allows scripts to break this rule and access keys within the script that access multiple slots.
+    Declared keys to the script are still always required to hash to a single slot.
+    Accessing keys from multiple slots is discouraged as applications should be designed to only access keys from a single slot at a time, allowing slots to move between Redis servers.
+    
+    This flag has no effect when cluster mode is disabled.
+
 Please refer to [Function Flags](functions-intro#function-flags) and [Eval Flags](eval-intro#eval-flags) for a detailed example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
