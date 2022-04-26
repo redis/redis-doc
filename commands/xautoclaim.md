@@ -31,9 +31,9 @@ Messages that cannot be processed for some reason - for example, because consume
 
 An array with three elements:
 
-1. A stream ID to be used as the `<start>` argument for the next call to `XAUTOCLAIM`
+1. A stream ID to be used as the `<start>` argument for the next call to `XAUTOCLAIM`.
 2. An array containing all the successfully claimed messages in the same format as `XRANGE`.
-3. An array containing message IDs that no longer exist in the stream, and were deleted from the PEL in which they were found
+3. An array containing message IDs that no longer exist in the stream, and were deleted from the PEL in which they were found.
 
 @examples
 
