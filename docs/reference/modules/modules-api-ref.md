@@ -1,12 +1,4 @@
----
-title: "Modules API reference"
-linkTitle: "API reference"
-weight: 1
-description: >
-    Auto-generated reference for the Redis Modules API
-aliases:
-    - /topics/modules-api-ref
----
+# Modules API reference
 
 <!-- This file is generated from module.c using
      utils/generate-module-api-doc.rb -->
@@ -74,6 +66,16 @@ Use like `malloc()`. Memory allocated with this function is reported in
 Redis INFO memory, used for keys eviction according to maxmemory settings
 and in general is taken into account as memory allocated by Redis.
 You should avoid using `malloc()`.
+This function panics if unable to allocate enough memory.
+
+<span id="RedisModule_TryAlloc"></span>
+
+### `RedisModule_TryAlloc`
+
+    void *RedisModule_TryAlloc(size_t bytes);
+
+Similar to [`RedisModule_Alloc`](#RedisModule_Alloc), but returns NULL in case of allocation failure, instead
+of panicking.
 
 <span id="RedisModule_Calloc"></span>
 
@@ -299,9 +301,9 @@ example "write deny-oom". The set of flags are:
                      serve stale data. Don't use if you don't know what
                      this means.
 * **"no-monitor"**: Don't propagate the command on monitor. Use this if
-                    the command has sensible data among the arguments.
+                    the command has sensitive data among the arguments.
 * **"no-slowlog"**: Don't log this command in the slowlog. Use this if
-                    the command has sensible data among the arguments.
+                    the command has sensitive data among the arguments.
 * **"fast"**:      The command time complexity is not greater
                    than O(log(N)) where N is the size of the collection or
                    anything else representing the normal scalability
@@ -1837,6 +1839,16 @@ returned:
 
 Publish a message to subscribers (see PUBLISH command).
 
+<span id="RedisModule_PublishMessageShard"></span>
+
+### `RedisModule_PublishMessageShard`
+
+    int RedisModule_PublishMessageShard(RedisModuleCtx *ctx,
+                                        RedisModuleString *channel,
+                                        RedisModuleString *message);
+
+Publish a message to shard-subscribers (see SPUBLISH command).
+
 <span id="RedisModule_GetSelectedDb"></span>
 
 ### `RedisModule_GetSelectedDb`
@@ -1985,7 +1997,9 @@ calling [`RedisModule_CloseKey`](#RedisModule_CloseKey) on the opened key.
 
 ### `RedisModule_OpenKey`
 
-    void *RedisModule_OpenKey(RedisModuleCtx *ctx, robj *keyname, int mode);
+    RedisModuleKey *RedisModule_OpenKey(RedisModuleCtx *ctx,
+                                        robj *keyname,
+                                        int mode);
 
 **Available since:** 4.0.0
 
@@ -4967,9 +4981,10 @@ If the user is able to acecss the pubsub channel then `REDISMODULE_OK` is return
 
 ### `RedisModule_ACLAddLogEntry`
 
-    void RedisModule_ACLAddLogEntry(RedisModuleCtx *ctx,
-                                    RedisModuleUser *user,
-                                    RedisModuleString *object);
+    int RedisModule_ACLAddLogEntry(RedisModuleCtx *ctx,
+                                   RedisModuleUser *user,
+                                   RedisModuleString *object,
+                                   RedisModuleACLLogEntryReason reason);
 
 Adds a new entry in the ACL log.
 Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on error.
@@ -5903,6 +5918,24 @@ Note that this may be different (larger) than the memory we allocated
 with the allocation calls, since sometimes the underlying allocator
 will allocate more memory.
 
+<span id="RedisModule_MallocSizeString"></span>
+
+### `RedisModule_MallocSizeString`
+
+    size_t RedisModule_MallocSizeString(RedisModuleString* str);
+
+Same as [`RedisModule_MallocSize`](#RedisModule_MallocSize), except it works on `RedisModuleString` pointers.
+
+<span id="RedisModule_MallocSizeDict"></span>
+
+### `RedisModule_MallocSizeDict`
+
+    size_t RedisModule_MallocSizeDict(RedisModuleDict* dict);
+
+Same as [`RedisModule_MallocSize`](#RedisModule_MallocSize), except it works on `RedisModuleDict` pointers.
+Note that the returned value is only the overhead of the underlying structures,
+it does not include the allocation size of the keys and values.
+
 <span id="RedisModule_GetUsedMemoryRatio"></span>
 
 ### `RedisModule_GetUsedMemoryRatio`
@@ -6497,6 +6530,7 @@ The name must only contain alphanumeric characters or dashes. The supported flag
 * `REDISMODULE_CONFIG_PROTECTED`: This config will be only be modifiable based off the value of enable-protected-configs.
 * `REDISMODULE_CONFIG_DENY_LOADING`: This config is not modifiable while the server is loading data.
 * `REDISMODULE_CONFIG_MEMORY`: For numeric configs, this config will convert data unit notations into their byte equivalent.
+* `REDISMODULE_CONFIG_BITFLAGS`: For enum configs, this config will allow multiple entries to be combined as bit flags.
 
 Default values are used on startup to set the value if it is not provided via the config file
 or command line. Default values are also used to compare to on a config rewrite.
@@ -7162,6 +7196,8 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_Log`](#RedisModule_Log)
 * [`RedisModule_LogIOError`](#RedisModule_LogIOError)
 * [`RedisModule_MallocSize`](#RedisModule_MallocSize)
+* [`RedisModule_MallocSizeDict`](#RedisModule_MallocSizeDict)
+* [`RedisModule_MallocSizeString`](#RedisModule_MallocSizeString)
 * [`RedisModule_Milliseconds`](#RedisModule_Milliseconds)
 * [`RedisModule_ModuleTypeGetType`](#RedisModule_ModuleTypeGetType)
 * [`RedisModule_ModuleTypeGetValue`](#RedisModule_ModuleTypeGetValue)
@@ -7172,6 +7208,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_OpenKey`](#RedisModule_OpenKey)
 * [`RedisModule_PoolAlloc`](#RedisModule_PoolAlloc)
 * [`RedisModule_PublishMessage`](#RedisModule_PublishMessage)
+* [`RedisModule_PublishMessageShard`](#RedisModule_PublishMessageShard)
 * [`RedisModule_RandomKey`](#RedisModule_RandomKey)
 * [`RedisModule_Realloc`](#RedisModule_Realloc)
 * [`RedisModule_RedactClientCommandArgument`](#RedisModule_RedactClientCommandArgument)
@@ -7271,6 +7308,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_ThreadSafeContextTryLock`](#RedisModule_ThreadSafeContextTryLock)
 * [`RedisModule_ThreadSafeContextUnlock`](#RedisModule_ThreadSafeContextUnlock)
 * [`RedisModule_TrimStringAllocation`](#RedisModule_TrimStringAllocation)
+* [`RedisModule_TryAlloc`](#RedisModule_TryAlloc)
 * [`RedisModule_UnblockClient`](#RedisModule_UnblockClient)
 * [`RedisModule_UnlinkKey`](#RedisModule_UnlinkKey)
 * [`RedisModule_UnregisterCommandFilter`](#RedisModule_UnregisterCommandFilter)
