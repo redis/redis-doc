@@ -327,7 +327,7 @@ running. This is what we suggest:
 ### Backing up AOF persistence
 
 If you run a Redis instance with only AOF persistence enabled, you can still perform backups.
-Since Redis 7.0.0, AOF files are split into multiple files which reside in a single directory determined by the `appendddirname` configuration.
+Since Redis 7.0.0, AOF files are split into multiple files which reside in a single directory determined by the `appenddirname` configuration.
 During normal operation all you need to do is copy/tar the files in this directory to achieve a backup. However, if this is done during a [rewrite](#log-rewriting), you might end up with an invalid backup.
 To work around this you must disable AOF rewrites during the backup:
 
