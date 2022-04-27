@@ -593,81 +593,97 @@
                 "key_spec_index": 0
             },
             {
-                "name": "encoding_offset",
-                "type": "block",
-                "token": "GET",
-                "optional": true,
-                "arguments": [
-                    {
-                        "name": "encoding",
-                        "type": "string"
-                    },
-                    {
-                        "name": "offset",
-                        "type": "integer"
-                    }
-                ]
-            },
-            {
-                "name": "encoding_offset_value",
-                "type": "block",
-                "token": "SET",
-                "optional": true,
-                "arguments": [
-                    {
-                        "name": "encoding",
-                        "type": "string"
-                    },
-                    {
-                        "name": "offset",
-                        "type": "integer"
-                    },
-                    {
-                        "name": "value",
-                        "type": "integer"
-                    }
-                ]
-            },
-            {
-                "name": "encoding_offset_increment",
-                "type": "block",
-                "token": "INCRBY",
-                "optional": true,
-                "arguments": [
-                    {
-                        "name": "encoding",
-                        "type": "string"
-                    },
-                    {
-                        "name": "offset",
-                        "type": "integer"
-                    },
-                    {
-                        "name": "increment",
-                        "type": "integer"
-                    }
-                ]
-            },
-            {
-                "name": "wrap_sat_fail",
+                "name": "operation",
                 "type": "oneof",
-                "token": "OVERFLOW",
-                "optional": true,
+                "multiple": true,
                 "arguments": [
                     {
-                        "name": "wrap",
-                        "type": "pure-token",
-                        "token": "WRAP"
+                        "name": "encoding_offset",
+                        "type": "block",
+                        "token": "GET",
+                        "arguments": [
+                            {
+                                "name": "encoding",
+                                "type": "string"
+                            },
+                            {
+                                "name": "offset",
+                                "type": "integer"
+                            }
+                        ]
                     },
                     {
-                        "name": "sat",
-                        "type": "pure-token",
-                        "token": "SAT"
-                    },
-                    {
-                        "name": "fail",
-                        "type": "pure-token",
-                        "token": "FAIL"
+                        "name": "write",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "wrap_sat_fail",
+                                "type": "oneof",
+                                "token": "OVERFLOW",
+                                "optional": true,
+                                "arguments": [
+                                    {
+                                        "name": "wrap",
+                                        "type": "pure-token",
+                                        "token": "WRAP"
+                                    },
+                                    {
+                                        "name": "sat",
+                                        "type": "pure-token",
+                                        "token": "SAT"
+                                    },
+                                    {
+                                        "name": "fail",
+                                        "type": "pure-token",
+                                        "token": "FAIL"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "write_operation",
+                                "type": "oneof",
+                                "arguments": [
+                                    {
+                                        "name": "encoding_offset_value",
+                                        "type": "block",
+                                        "token": "SET",
+                                        "arguments": [
+                                            {
+                                                "name": "encoding",
+                                                "type": "string"
+                                            },
+                                            {
+                                                "name": "offset",
+                                                "type": "integer"
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "integer"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "encoding_offset_increment",
+                                        "type": "block",
+                                        "token": "INCRBY",
+                                        "arguments": [
+                                            {
+                                                "name": "encoding",
+                                                "type": "string"
+                                            },
+                                            {
+                                                "name": "offset",
+                                                "type": "integer"
+                                            },
+                                            {
+                                                "name": "increment",
+                                                "type": "integer"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             }
@@ -719,6 +735,7 @@
                 "name": "encoding_offset",
                 "type": "block",
                 "token": "GET",
+                "multiple": true,
                 "arguments": [
                     {
                         "name": "encoding",
@@ -5490,102 +5507,110 @@
                 "key_spec_index": 0
             },
             {
-                "name": "member",
-                "type": "string",
-                "token": "FROMMEMBER",
-                "optional": true
-            },
-            {
-                "name": "longitude_latitude",
-                "type": "block",
-                "token": "FROMLONLAT",
-                "optional": true,
+                "name": "from",
+                "type": "oneof",
                 "arguments": [
                     {
-                        "name": "longitude",
-                        "type": "double"
+                        "name": "member",
+                        "type": "string",
+                        "token": "FROMMEMBER"
                     },
                     {
-                        "name": "latitude",
-                        "type": "double"
-                    }
-                ]
-            },
-            {
-                "name": "circle",
-                "type": "block",
-                "optional": true,
-                "arguments": [
-                    {
-                        "name": "radius",
-                        "type": "double",
-                        "token": "BYRADIUS"
-                    },
-                    {
-                        "name": "unit",
-                        "type": "oneof",
+                        "name": "longitude_latitude",
+                        "type": "block",
+                        "token": "FROMLONLAT",
                         "arguments": [
                             {
-                                "name": "m",
-                                "type": "pure-token",
-                                "token": "M"
+                                "name": "longitude",
+                                "type": "double"
                             },
                             {
-                                "name": "km",
-                                "type": "pure-token",
-                                "token": "KM"
-                            },
-                            {
-                                "name": "ft",
-                                "type": "pure-token",
-                                "token": "FT"
-                            },
-                            {
-                                "name": "mi",
-                                "type": "pure-token",
-                                "token": "MI"
+                                "name": "latitude",
+                                "type": "double"
                             }
                         ]
                     }
                 ]
             },
             {
-                "name": "box",
-                "type": "block",
-                "optional": true,
+                "name": "by",
+                "type": "oneof",
                 "arguments": [
                     {
-                        "name": "width",
-                        "type": "double",
-                        "token": "BYBOX"
-                    },
-                    {
-                        "name": "height",
-                        "type": "double"
-                    },
-                    {
-                        "name": "unit",
-                        "type": "oneof",
+                        "name": "circle",
+                        "type": "block",
                         "arguments": [
                             {
-                                "name": "m",
-                                "type": "pure-token",
-                                "token": "M"
+                                "name": "radius",
+                                "type": "double",
+                                "token": "BYRADIUS"
                             },
                             {
-                                "name": "km",
-                                "type": "pure-token",
-                                "token": "KM"
+                                "name": "unit",
+                                "type": "oneof",
+                                "arguments": [
+                                    {
+                                        "name": "m",
+                                        "type": "pure-token",
+                                        "token": "M"
+                                    },
+                                    {
+                                        "name": "km",
+                                        "type": "pure-token",
+                                        "token": "KM"
+                                    },
+                                    {
+                                        "name": "ft",
+                                        "type": "pure-token",
+                                        "token": "FT"
+                                    },
+                                    {
+                                        "name": "mi",
+                                        "type": "pure-token",
+                                        "token": "MI"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "box",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "width",
+                                "type": "double",
+                                "token": "BYBOX"
                             },
                             {
-                                "name": "ft",
-                                "type": "pure-token",
-                                "token": "FT"
+                                "name": "height",
+                                "type": "double"
                             },
                             {
-                                "name": "mi",
-                                "type": "pure-token",
-                                "token": "MI"
+                                "name": "unit",
+                                "type": "oneof",
+                                "arguments": [
+                                    {
+                                        "name": "m",
+                                        "type": "pure-token",
+                                        "token": "M"
+                                    },
+                                    {
+                                        "name": "km",
+                                        "type": "pure-token",
+                                        "token": "KM"
+                                    },
+                                    {
+                                        "name": "ft",
+                                        "type": "pure-token",
+                                        "token": "FT"
+                                    },
+                                    {
+                                        "name": "mi",
+                                        "type": "pure-token",
+                                        "token": "MI"
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -5710,102 +5735,110 @@
                 "key_spec_index": 1
             },
             {
-                "name": "member",
-                "type": "string",
-                "token": "FROMMEMBER",
-                "optional": true
-            },
-            {
-                "name": "longitude_latitude",
-                "type": "block",
-                "token": "FROMLONLAT",
-                "optional": true,
+                "name": "from",
+                "type": "oneof",
                 "arguments": [
                     {
-                        "name": "longitude",
-                        "type": "double"
+                        "name": "member",
+                        "type": "string",
+                        "token": "FROMMEMBER"
                     },
                     {
-                        "name": "latitude",
-                        "type": "double"
-                    }
-                ]
-            },
-            {
-                "name": "circle",
-                "type": "block",
-                "optional": true,
-                "arguments": [
-                    {
-                        "name": "radius",
-                        "type": "double",
-                        "token": "BYRADIUS"
-                    },
-                    {
-                        "name": "unit",
-                        "type": "oneof",
+                        "name": "longitude_latitude",
+                        "type": "block",
+                        "token": "FROMLONLAT",
                         "arguments": [
                             {
-                                "name": "m",
-                                "type": "pure-token",
-                                "token": "M"
+                                "name": "longitude",
+                                "type": "double"
                             },
                             {
-                                "name": "km",
-                                "type": "pure-token",
-                                "token": "KM"
-                            },
-                            {
-                                "name": "ft",
-                                "type": "pure-token",
-                                "token": "FT"
-                            },
-                            {
-                                "name": "mi",
-                                "type": "pure-token",
-                                "token": "MI"
+                                "name": "latitude",
+                                "type": "double"
                             }
                         ]
                     }
                 ]
             },
             {
-                "name": "box",
-                "type": "block",
-                "optional": true,
+                "name": "by",
+                "type": "oneof",
                 "arguments": [
                     {
-                        "name": "width",
-                        "type": "double",
-                        "token": "BYBOX"
-                    },
-                    {
-                        "name": "height",
-                        "type": "double"
-                    },
-                    {
-                        "name": "unit",
-                        "type": "oneof",
+                        "name": "circle",
+                        "type": "block",
                         "arguments": [
                             {
-                                "name": "m",
-                                "type": "pure-token",
-                                "token": "M"
+                                "name": "radius",
+                                "type": "double",
+                                "token": "BYRADIUS"
                             },
                             {
-                                "name": "km",
-                                "type": "pure-token",
-                                "token": "KM"
+                                "name": "unit",
+                                "type": "oneof",
+                                "arguments": [
+                                    {
+                                        "name": "m",
+                                        "type": "pure-token",
+                                        "token": "M"
+                                    },
+                                    {
+                                        "name": "km",
+                                        "type": "pure-token",
+                                        "token": "KM"
+                                    },
+                                    {
+                                        "name": "ft",
+                                        "type": "pure-token",
+                                        "token": "FT"
+                                    },
+                                    {
+                                        "name": "mi",
+                                        "type": "pure-token",
+                                        "token": "MI"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "box",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "width",
+                                "type": "double",
+                                "token": "BYBOX"
                             },
                             {
-                                "name": "ft",
-                                "type": "pure-token",
-                                "token": "FT"
+                                "name": "height",
+                                "type": "double"
                             },
                             {
-                                "name": "mi",
-                                "type": "pure-token",
-                                "token": "MI"
+                                "name": "unit",
+                                "type": "oneof",
+                                "arguments": [
+                                    {
+                                        "name": "m",
+                                        "type": "pure-token",
+                                        "token": "M"
+                                    },
+                                    {
+                                        "name": "km",
+                                        "type": "pure-token",
+                                        "token": "KM"
+                                    },
+                                    {
+                                        "name": "ft",
+                                        "type": "pure-token",
+                                        "token": "FT"
+                                    },
+                                    {
+                                        "name": "mi",
+                                        "type": "pure-token",
+                                        "token": "MI"
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -8618,26 +8651,33 @@
                 "optional": true
             },
             {
-                "name": "password",
-                "type": "string",
-                "token": "AUTH",
-                "since": "4.0.7",
-                "optional": true
-            },
-            {
-                "name": "username_password",
-                "type": "block",
-                "token": "AUTH2",
-                "since": "6.0.0",
+                "name": "authentication",
+                "type": "oneof",
                 "optional": true,
                 "arguments": [
                     {
-                        "name": "username",
-                        "type": "string"
+                        "name": "password",
+                        "type": "string",
+                        "token": "AUTH",
+                        "since": "4.0.7",
+                        "optional": true
                     },
                     {
-                        "name": "password",
-                        "type": "string"
+                        "name": "username_password",
+                        "type": "block",
+                        "token": "AUTH2",
+                        "since": "6.0.0",
+                        "optional": true,
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "string"
+                            },
+                            {
+                                "name": "password",
+                                "type": "string"
+                            }
+                        ]
                     }
                 ]
             },
@@ -8753,6 +8793,7 @@
                 "token": "CONFIG",
                 "optional": true,
                 "multiple": true,
+                "multiple_token": true,
                 "arguments": [
                     {
                         "name": "name",
@@ -11258,6 +11299,31 @@
                 "type": "string"
             },
             {
+                "name": "condition",
+                "type": "oneof",
+                "since": "2.6.12",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "nx",
+                        "type": "pure-token",
+                        "token": "NX"
+                    },
+                    {
+                        "name": "xx",
+                        "type": "pure-token",
+                        "token": "XX"
+                    }
+                ]
+            },
+            {
+                "name": "get",
+                "type": "pure-token",
+                "token": "GET",
+                "since": "6.2.0",
+                "optional": true
+            },
+            {
                 "name": "expiration",
                 "type": "oneof",
                 "optional": true,
@@ -11293,31 +11359,6 @@
                         "since": "6.0.0"
                     }
                 ]
-            },
-            {
-                "name": "condition",
-                "type": "oneof",
-                "since": "2.6.12",
-                "optional": true,
-                "arguments": [
-                    {
-                        "name": "nx",
-                        "type": "pure-token",
-                        "token": "NX"
-                    },
-                    {
-                        "name": "xx",
-                        "type": "pure-token",
-                        "token": "XX"
-                    }
-                ]
-            },
-            {
-                "name": "get",
-                "type": "pure-token",
-                "token": "GET",
-                "since": "6.2.0",
-                "optional": true
             }
         ],
         "command_flags": [
@@ -15906,7 +15947,7 @@
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
         "deprecated_since": "6.2.0",
-        "replaced_by": "`ZRANGE` with the `BYSCORE` argument",
+        "replaced_by": "`ZRANGE` with the `BYLEX` argument",
         "acl_categories": [
             "@read",
             "@sortedset",
