@@ -367,7 +367,7 @@ You can use it to override the default verbatim script replication mode used by 
 **Note:**
 as of Redis v7.0, verbatim script replication is no longer supported.
 The default, and only script replication mode supported, is script effects' replication.
-For more information, please refer to [`Replicating commands instead of scripts`](eval-intro#replicating-commands-instead-of-scripts)
+For more information, please refer to [`Replicating commands instead of scripts`](/topics/eval-intro#replicating-commands-instead-of-scripts)
 
 ### <a name="redis.breakpoint"></a>  `redis.breakpoint()`
 
@@ -479,7 +479,7 @@ You can use the following flags and instruct the server to treat the scripts' ex
     Redis allows scripts to be executed both in standalone and cluster modes.
     Setting this flag prevents executing the script against nodes in the cluster.
 
-Please refer to [Function Flags](functions-intro#function-flags) and [Eval Flags](eval-intro#eval-flags) for a detailed example.
+Please refer to [Function Flags](/topics/functions-intro#function-flags) and [Eval Flags](/topics/eval-intro#eval-flags) for a detailed example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
 

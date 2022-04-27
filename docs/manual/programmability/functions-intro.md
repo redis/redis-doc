@@ -411,7 +411,7 @@ The server will reply with this error in the following cases:
 3. A disk error was detected (Redis is unable to persist so it rejects writes).
 
 In these cases, you can add the `no-writes` flag to the function's registration, disable the safeguard and allow them to run.
-To register a function with flags use the [named arguments](lua-api#redis.register_function_named_args) variant of `redis.register_function`.
+To register a function with flags use the [named arguments](/topics/lua-api#redis.register_function_named_args) variant of `redis.register_function`.
 
 The updated registration code snippet from the library looks like this:
 
@@ -441,4 +441,4 @@ redis> FCALL_RO my_hlastmodified 1 myhash
 "1640772721"
 ```
 
-For the complete documentation flags, please refer to [Script flags](lua-api#script_flags).
+For the complete documentation flags, please refer to [Script flags](/topics/lua-api#script_flags).
