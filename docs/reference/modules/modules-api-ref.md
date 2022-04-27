@@ -1,4 +1,12 @@
-# Modules API reference
+---
+title: "Modules API reference"
+linkTitle: "API reference"
+weight: 1
+description: >
+    Auto-generated reference for the Redis Modules API
+aliases:
+    - /topics/modules-api-ref
+---
 
 <!-- This file is generated from module.c using
      utils/generate-module-api-doc.rb -->
@@ -73,6 +81,8 @@ This function panics if unable to allocate enough memory.
 ### `RedisModule_TryAlloc`
 
     void *RedisModule_TryAlloc(size_t bytes);
+
+**Available since:** 7.0.0
 
 Similar to [`RedisModule_Alloc`](#RedisModule_Alloc), but returns NULL in case of allocation failure, instead
 of panicking.
@@ -169,6 +179,8 @@ and not to get executed. Otherwise zero is returned.
 
     void RedisModule_KeyAtPosWithFlags(RedisModuleCtx *ctx, int pos, int flags);
 
+**Available since:** 7.0.0
+
 When a module command is called in order to obtain the position of
 keys, since it was flagged as "getkeys-api" during the registration,
 the command implementation checks for this special call using the
@@ -206,6 +218,8 @@ were introduced.
 
     int RedisModule_IsChannelsPositionRequest(RedisModuleCtx *ctx);
 
+**Available since:** 7.0.0
+
 Return non-zero if a module command, that was declared with the
 flag "getchannels-api", is called in a special way to get the channel positions
 and not to get executed. Otherwise zero is returned.
@@ -217,6 +231,8 @@ and not to get executed. Otherwise zero is returned.
     void RedisModule_ChannelAtPosWithFlags(RedisModuleCtx *ctx,
                                            int pos,
                                            int flags);
+
+**Available since:** 7.0.0
 
 When a module command is called in order to obtain the position of
 channels, since it was flagged as "getchannels-api" during the
@@ -356,6 +372,8 @@ For non-trivial key arguments, you may pass 0,0,0 and use
     RedisModuleCommand *RedisModule_GetCommand(RedisModuleCtx *ctx,
                                                const char *name);
 
+**Available since:** 7.0.0
+
 Get an opaque structure, representing a module command, by command name.
 This structure is used in some of the command-related APIs.
 
@@ -376,6 +394,8 @@ NULL is returned in case of the following errors:
                                      int firstkey,
                                      int lastkey,
                                      int keystep);
+
+**Available since:** 7.0.0
 
 Very similar to [`RedisModule_CreateCommand`](#RedisModule_CreateCommand) except that it is used to create
 a subcommand, associated with another, container, command.
@@ -409,6 +429,8 @@ Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` in case of the followi
 
     int RedisModule_SetCommandInfo(RedisModuleCommand *command,
                                    const RedisModuleCommandInfo *info);
+
+**Available since:** 7.0.0
 
 Set additional command information.
 
@@ -743,6 +765,8 @@ Return the current UNIX time in milliseconds.
 
     uint64_t RedisModule_MonotonicMicroseconds(void);
 
+**Available since:** 7.0.0
+
 Return counter of micro-seconds relative to an arbitrary point in time.
 
 <span id="RedisModule_BlockedClientMeasureTimeStart"></span>
@@ -779,6 +803,8 @@ previously defined ( meaning [`RedisModule_BlockedClientMeasureTimeStart`](#Redi
 ### `RedisModule_Yield`
 
     void RedisModule_Yield(RedisModuleCtx *ctx, int flags, const char *busy_reply);
+
+**Available since:** 7.0.0
 
 This API allows modules to let Redis process background tasks, and some
 commands during long blocking execution of a module command.
@@ -1196,6 +1222,8 @@ string created by the user that is referenced only a single time, otherwise
 
     void RedisModule_TrimStringAllocation(RedisModuleString *str);
 
+**Available since:** 7.0.0
+
 Trim possible excess memory allocated for a `RedisModuleString`.
 
 Sometimes a `RedisModuleString` may have more memory allocated for
@@ -1329,6 +1357,8 @@ The function always returns `REDISMODULE_OK`.
 
     int RedisModule_ReplyWithMap(RedisModuleCtx *ctx, long len);
 
+**Available since:** 7.0.0
+
 Reply with a RESP3 Map type of 'len' pairs.
 Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md) for more info about RESP3.
 
@@ -1349,6 +1379,8 @@ The function always returns `REDISMODULE_OK`.
 
     int RedisModule_ReplyWithSet(RedisModuleCtx *ctx, long len);
 
+**Available since:** 7.0.0
+
 Reply with a RESP3 Set type of 'len' elements.
 Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md) for more info about RESP3.
 
@@ -1368,6 +1400,8 @@ The function always returns `REDISMODULE_OK`.
 ### `RedisModule_ReplyWithAttribute`
 
     int RedisModule_ReplyWithAttribute(RedisModuleCtx *ctx, long len);
+
+**Available since:** 7.0.0
 
 Add attributes (metadata) to the reply. Should be done before adding the
 actual reply. see [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md)#attribute-type
@@ -1450,6 +1484,8 @@ that is not easy to calculate in advance the number of elements.
 
     void RedisModule_ReplySetMapLength(RedisModuleCtx *ctx, long len);
 
+**Available since:** 7.0.0
+
 Very similar to [`RedisModule_ReplySetArrayLength`](#RedisModule_ReplySetArrayLength) except `len` should
 exactly half of the number of `ReplyWith*` functions called in the
 context of the map.
@@ -1461,6 +1497,8 @@ Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/
 
     void RedisModule_ReplySetSetLength(RedisModuleCtx *ctx, long len);
 
+**Available since:** 7.0.0
+
 Very similar to [`RedisModule_ReplySetArrayLength`](#RedisModule_ReplySetArrayLength)
 Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md) for more info about RESP3.
 
@@ -1469,6 +1507,8 @@ Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/
 ### `RedisModule_ReplySetAttributeLength`
 
     void RedisModule_ReplySetAttributeLength(RedisModuleCtx *ctx, long len);
+
+**Available since:** 7.0.0
 
 Very similar to [`RedisModule_ReplySetMapLength`](#RedisModule_ReplySetMapLength)
 Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md) for more info about RESP3.
@@ -1535,6 +1575,8 @@ The function always returns `REDISMODULE_OK`.
                                                 size_t len,
                                                 const char *ext);
 
+**Available since:** 7.0.0
+
 Reply with a binary safe string, which should not be escaped or filtered
 taking in input a C buffer pointer, length and a 3 character type/extension.
 
@@ -1572,6 +1614,8 @@ The function always returns `REDISMODULE_OK`.
 ### `RedisModule_ReplyWithBool`
 
     int RedisModule_ReplyWithBool(RedisModuleCtx *ctx, int b);
+
+**Available since:** 7.0.0
 
 Reply with a RESP3 Boolean type.
 Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md) for more info about RESP3.
@@ -1632,6 +1676,8 @@ The function always returns `REDISMODULE_OK`.
     int RedisModule_ReplyWithBigNumber(RedisModuleCtx *ctx,
                                        const char *bignum,
                                        size_t len);
+
+**Available since:** 7.0.0
 
 Reply with a RESP3 BigNumber type.
 Visit [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md) for more info about RESP3.
@@ -1847,6 +1893,8 @@ Publish a message to subscribers (see PUBLISH command).
                                         RedisModuleString *channel,
                                         RedisModuleString *message);
 
+**Available since:** 7.0.0
+
 Publish a message to shard-subscribers (see SPUBLISH command).
 
 <span id="RedisModule_GetSelectedDb"></span>
@@ -1986,6 +2034,8 @@ before in order to restore the old DB number before returning.
 ### `RedisModule_KeyExists`
 
     int RedisModule_KeyExists(RedisModuleCtx *ctx, robj *keyname);
+
+**Available since:** 7.0.0
 
 Check if a key exists, without affecting its last access time.
 
@@ -2179,6 +2229,8 @@ Returns a name of a random key, or NULL if current db is empty.
 
     const RedisModuleString *RedisModule_GetKeyNameFromOptCtx(RedisModuleKeyOptCtx *ctx);
 
+**Available since:** 7.0.0
+
 Returns the name of the key currently being processed.
 
 <span id="RedisModule_GetToKeyNameFromOptCtx"></span>
@@ -2186,6 +2238,8 @@ Returns the name of the key currently being processed.
 ### `RedisModule_GetToKeyNameFromOptCtx`
 
     const RedisModuleString *RedisModule_GetToKeyNameFromOptCtx(RedisModuleKeyOptCtx *ctx);
+
+**Available since:** 7.0.0
 
 Returns the name of the target key currently being processed.
 
@@ -2195,6 +2249,8 @@ Returns the name of the target key currently being processed.
 
     int RedisModule_GetDbIdFromOptCtx(RedisModuleKeyOptCtx *ctx);
 
+**Available since:** 7.0.0
+
 Returns the dbid currently being processed.
 
 <span id="RedisModule_GetToDbIdFromOptCtx"></span>
@@ -2202,6 +2258,8 @@ Returns the dbid currently being processed.
 ### `RedisModule_GetToDbIdFromOptCtx`
 
     int RedisModule_GetToDbIdFromOptCtx(RedisModuleKeyOptCtx *ctx);
+
+**Available since:** 7.0.0
 
 Returns the target dbid currently being processed.
 
@@ -2359,6 +2417,8 @@ Note: Before Redis 7.0, `errno` was not set by this function.
 
     RedisModuleString *RedisModule_ListGet(RedisModuleKey *key, long index);
 
+**Available since:** 7.0.0
+
 Returns the element at index `index` in the list stored at `key`, like the
 LINDEX command. The element should be free'd using [`RedisModule_FreeString()`](#RedisModule_FreeString) or using
 automatic memory management.
@@ -2384,6 +2444,8 @@ When no value is found at the given key and index, NULL is returned and
                             long index,
                             RedisModuleString *value);
 
+**Available since:** 7.0.0
+
 Replaces the element at index `index` in the list stored at `key`.
 
 The index is zero-based, so 0 means the first element, 1 the second element
@@ -2407,6 +2469,8 @@ returned and `errno` is set as follows:
                                long index,
                                RedisModuleString *value);
 
+**Available since:** 7.0.0
+
 Inserts an element at the given index.
 
 The index is zero-based, so 0 means the first element, 1 the second element
@@ -2427,6 +2491,8 @@ returned and `errno` is set as follows:
 ### `RedisModule_ListDelete`
 
     int RedisModule_ListDelete(RedisModuleKey *key, long index);
+
+**Available since:** 7.0.0
 
 Removes an element at the given index. The index is 0-based. A negative index
 can also be used, counting from the end of the list.
@@ -3210,6 +3276,8 @@ Return the long long of an integer reply.
 
     double RedisModule_CallReplyDouble(RedisModuleCallReply *reply);
 
+**Available since:** 7.0.0
+
 Return the double value of a double reply.
 
 <span id="RedisModule_CallReplyBigNumber"></span>
@@ -3218,6 +3286,8 @@ Return the double value of a double reply.
 
     const char *RedisModule_CallReplyBigNumber(RedisModuleCallReply *reply,
                                                size_t *len);
+
+**Available since:** 7.0.0
 
 Return the big number value of a big number reply.
 
@@ -3229,6 +3299,8 @@ Return the big number value of a big number reply.
                                               size_t *len,
                                               const char **format);
 
+**Available since:** 7.0.0
+
 Return the value of an verbatim string reply,
 An optional output argument can be given to get verbatim reply format.
 
@@ -3238,6 +3310,8 @@ An optional output argument can be given to get verbatim reply format.
 
     int RedisModule_CallReplyBool(RedisModuleCallReply *reply);
 
+**Available since:** 7.0.0
+
 Return the Boolean value of a Boolean reply.
 
 <span id="RedisModule_CallReplySetElement"></span>
@@ -3246,6 +3320,8 @@ Return the Boolean value of a Boolean reply.
 
     RedisModuleCallReply *RedisModule_CallReplySetElement(RedisModuleCallReply *reply,
                                                           size_t idx);
+
+**Available since:** 7.0.0
 
 Return the 'idx'-th nested call reply element of a set reply, or NULL
 if the reply type is wrong or the index is out of range.
@@ -3258,6 +3334,8 @@ if the reply type is wrong or the index is out of range.
                                         size_t idx,
                                         RedisModuleCallReply **key,
                                         RedisModuleCallReply **val);
+
+**Available since:** 7.0.0
 
 Retrieve the 'idx'-th key and value of a map reply.
 
@@ -3274,6 +3352,8 @@ NULL if not required.
 
     RedisModuleCallReply *RedisModule_CallReplyAttribute(RedisModuleCallReply *reply);
 
+**Available since:** 7.0.0
+
 Return the attribute of the given reply, or NULL if no attribute exists.
 
 <span id="RedisModule_CallReplyAttributeElement"></span>
@@ -3284,6 +3364,8 @@ Return the attribute of the given reply, or NULL if no attribute exists.
                                               size_t idx,
                                               RedisModuleCallReply **key,
                                               RedisModuleCallReply **val);
+
+**Available since:** 7.0.0
 
 Retrieve the 'idx'-th key and value of a attribute reply.
 
@@ -3853,6 +3935,8 @@ See the documentation for `RedisModule_DigestAddElement()`.
                                                    const moduleType *mt,
                                                    int encver);
 
+**Available since:** 7.0.0
+
 Decode a serialized representation of a module data type 'mt', in a specific encoding version 'encver'
 from string 'str' and return a newly allocated value, or NULL if decoding failed.
 
@@ -3902,6 +3986,8 @@ keys, similar to how the Redis 'DUMP' and 'RESTORE' commands are implemented.
 
     const RedisModuleString *RedisModule_GetKeyNameFromDigest(RedisModuleDigest *dig);
 
+**Available since:** 7.0.0
+
 Returns the name of the key currently being processed.
 
 <span id="RedisModule_GetDbIdFromDigest"></span>
@@ -3909,6 +3995,8 @@ Returns the name of the key currently being processed.
 ### `RedisModule_GetDbIdFromDigest`
 
     int RedisModule_GetDbIdFromDigest(RedisModuleDigest *dig);
+
+**Available since:** 7.0.0
 
 Returns the database id of the key currently being processed.
 
@@ -3964,6 +4052,8 @@ Returns a `RedisModuleString` with the name of the key from `RedisModuleKey`.
 
     int RedisModule_GetDbIdFromModuleKey(RedisModuleKey *key);
 
+**Available since:** 7.0.0
+
 Returns a database id of the key from `RedisModuleKey`.
 
 <span id="RedisModule_GetDbIdFromIO"></span>
@@ -3971,6 +4061,8 @@ Returns a database id of the key from `RedisModuleKey`.
 ### `RedisModule_GetDbIdFromIO`
 
     int RedisModule_GetDbIdFromIO(RedisModuleIO *io);
+
+**Available since:** 7.0.0
 
 Returns the database id of the key currently being processed.
 There is no guarantee that this info is always available, so this may return -1.
@@ -4771,6 +4863,8 @@ the caller does not need certain information.
                                  RedisModuleEventLoopFunc func,
                                  void *user_data);
 
+**Available since:** 7.0.0
+
 Add a pipe / socket event to the event loop.
 
 * `mask` must be one of the following values:
@@ -4802,6 +4896,8 @@ Example:
 
     int RedisModule_EventLoopDel(int fd, int mask);
 
+**Available since:** 7.0.0
+
 Delete a pipe / socket event from the event loop.
 
 * `mask` must be one of the following values:
@@ -4822,6 +4918,8 @@ On success `REDISMODULE_OK` is returned, otherwise
 
     int RedisModule_EventLoopAddOneShot(RedisModuleEventLoopOneShotFunc func,
                                         void *user_data);
+
+**Available since:** 7.0.0
 
 This function can be called from other threads to trigger callback on Redis
 main thread. On success `REDISMODULE_OK` is returned. If `func` is NULL
@@ -4895,6 +4993,8 @@ and will set an errno describing why the operation failed.
 
     RedisModuleString *RedisModule_GetCurrentUserName(RedisModuleCtx *ctx);
 
+**Available since:** 7.0.0
+
 Retrieve the user name of the client connection behind the current context.
 The user name can be used later, in order to get a `RedisModuleUser`.
 See more information in [`RedisModule_GetModuleUserFromUserName`](#RedisModule_GetModuleUserFromUserName).
@@ -4907,6 +5007,8 @@ enabling automatic memory management.
 ### `RedisModule_GetModuleUserFromUserName`
 
     RedisModuleUser *RedisModule_GetModuleUserFromUserName(RedisModuleString *name);
+
+**Available since:** 7.0.0
 
 A `RedisModuleUser` can be used to check if command, key or channel can be executed or
 accessed according to the ACLs rules associated with that user.
@@ -4928,6 +5030,8 @@ The caller should later free the user using the function [`RedisModule_FreeModul
                                                RedisModuleString **argv,
                                                int argc);
 
+**Available since:** 7.0.0
+
 Checks if the command can be executed by the user, according to the ACLs associated with it.
 
 On success a `REDISMODULE_OK` is returned, otherwise
@@ -4943,6 +5047,8 @@ On success a `REDISMODULE_OK` is returned, otherwise
     int RedisModule_ACLCheckKeyPermissions(RedisModuleUser *user,
                                            RedisModuleString *key,
                                            int flags);
+
+**Available since:** 7.0.0
 
 Check if the key can be accessed by the user according to the ACLs attached to the user
 and the flags representing the key access. The flags are the same that are used in the
@@ -4967,6 +5073,8 @@ If the user is able to access the key then `REDISMODULE_OK` is returned, otherwi
                                                RedisModuleString *ch,
                                                int flags);
 
+**Available since:** 7.0.0
+
 Check if the pubsub channel can be accessed by the user based off of the given
 access flags. See [`RedisModule_ChannelAtPosWithFlags`](#RedisModule_ChannelAtPosWithFlags) for more information about the
 possible flags that can be passed in.
@@ -4985,6 +5093,8 @@ If the user is able to acecss the pubsub channel then `REDISMODULE_OK` is return
                                    RedisModuleUser *user,
                                    RedisModuleString *object,
                                    RedisModuleACLLogEntryReason reason);
+
+**Available since:** 7.0.0
 
 Adds a new entry in the ACL log.
 Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on error.
@@ -5055,6 +5165,8 @@ of a command or thread safe context.
 ### `RedisModule_RedactClientCommandArgument`
 
     int RedisModule_RedactClientCommandArgument(RedisModuleCtx *ctx, int pos);
+
+**Available since:** 7.0.0
 
 Redact the client command argument specified at the given position. Redacted arguments 
 are obfuscated in user facing commands such as SLOWLOG or MONITOR, as well as
@@ -5924,6 +6036,8 @@ will allocate more memory.
 
     size_t RedisModule_MallocSizeString(RedisModuleString* str);
 
+**Available since:** 7.0.0
+
 Same as [`RedisModule_MallocSize`](#RedisModule_MallocSize), except it works on `RedisModuleString` pointers.
 
 <span id="RedisModule_MallocSizeDict"></span>
@@ -5931,6 +6045,8 @@ Same as [`RedisModule_MallocSize`](#RedisModule_MallocSize), except it works on 
 ### `RedisModule_MallocSizeDict`
 
     size_t RedisModule_MallocSizeDict(RedisModuleDict* dict);
+
+**Available since:** 7.0.0
 
 Same as [`RedisModule_MallocSize`](#RedisModule_MallocSize), except it works on `RedisModuleDict` pointers.
 Note that the returned value is only the overhead of the underlying structures,
@@ -6491,6 +6607,8 @@ subevent is not supported and non-zero otherwise.
                                          RedisModuleConfigApplyFunc applyfn,
                                          void *privdata);
 
+**Available since:** 7.0.0
+
 Create a string config that Redis users can interact with via the Redis config file,
 `CONFIG SET`, `CONFIG GET`, and `CONFIG REWRITE` commands.
 
@@ -6579,6 +6697,8 @@ errno is set:
                                        RedisModuleConfigApplyFunc applyfn,
                                        void *privdata);
 
+**Available since:** 7.0.0
+
 Create a bool config that server clients can interact with via the 
 `CONFIG SET`, `CONFIG GET`, and `CONFIG REWRITE` commands. See 
 [`RedisModule_RegisterStringConfig`](#RedisModule_RegisterStringConfig) for detailed information about configs.
@@ -6598,6 +6718,8 @@ Create a bool config that server clients can interact with via the
                                        RedisModuleConfigSetEnumFunc setfn,
                                        RedisModuleConfigApplyFunc applyfn,
                                        void *privdata);
+
+**Available since:** 7.0.0
 
 
 Create an enum config that server clients can interact with via the 
@@ -6640,6 +6762,8 @@ See [`RedisModule_RegisterStringConfig`](#RedisModule_RegisterStringConfig) for 
                                           RedisModuleConfigApplyFunc applyfn,
                                           void *privdata);
 
+**Available since:** 7.0.0
+
 
 Create an integer config that server clients can interact with via the 
 `CONFIG SET`, `CONFIG GET`, and `CONFIG REWRITE` commands. See 
@@ -6650,6 +6774,8 @@ Create an integer config that server clients can interact with via the
 ### `RedisModule_LoadConfigs`
 
     int RedisModule_LoadConfigs(RedisModuleCtx *ctx);
+
+**Available since:** 7.0.0
 
 Applies all pending configurations on the module load. This should be called
 after all of the configurations have been registered for the module inside of `RedisModule_OnLoad`.
@@ -6819,6 +6945,8 @@ If `old_value` is non-NULL, the old value is returned by reference.
                                              int argc,
                                              int *num_keys,
                                              int **out_flags);
+
+**Available since:** 7.0.0
 
 For a specified command, parse its arguments and return an array that
 contains the indexes of all key name arguments. This function is
@@ -6991,6 +7119,8 @@ on the Redis side is dropped as soon as the command callback returns).
 
     const RedisModuleString *RedisModule_GetKeyNameFromDefragCtx(RedisModuleDefragCtx *ctx);
 
+**Available since:** 7.0.0
+
 Returns the name of the key currently being processed.
 There is no guarantee that the key name is always available, so this may return NULL.
 
@@ -6999,6 +7129,8 @@ There is no guarantee that the key name is always available, so this may return 
 ### `RedisModule_GetDbIdFromDefragCtx`
 
     int RedisModule_GetDbIdFromDefragCtx(RedisModuleDefragCtx *ctx);
+
+**Available since:** 7.0.0
 
 Returns the database id of the key currently being processed.
 There is no guarantee that this info is always available, so this may return -1.
