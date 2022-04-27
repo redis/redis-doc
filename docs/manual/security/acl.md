@@ -126,7 +126,7 @@ Configure valid passwords for the user:
 * `><password>`: Add this password to the list of valid passwords for the user. For example `>mypass` will add "mypass" to the list of valid passwords.  This directive clears the *nopass* flag (see later). Every user can have any number of passwords.
 * `<<password>`: Remove this password from the list of valid passwords. Emits an error in case the password you are trying to remove is actually not set.
 * `#<hash>`: Add this SHA-256 hash value to the list of valid passwords for the user. This hash value will be compared to the hash of a password entered for an ACL user. This allows users to store hashes in the `acl.conf` file rather than storing cleartext passwords. Only SHA-256 hash values are accepted as the password hash must be 64 characters and only contain lowercase hexadecimal characters.
-* `!<hash>`: Remove this hash value from from the list of valid passwords. This is useful when you do not know the password specified by the hash value but would like to remove the password from the user.
+* `!<hash>`: Remove this hash value from the list of valid passwords. This is useful when you do not know the password specified by the hash value but would like to remove the password from the user.
 * `nopass`: All the set passwords of the user are removed, and the user is flagged as requiring no password: it means that every password will work against this user. If this directive is used for the default user, every new connection will be immediately authenticated with the default user without any explicit AUTH command required. Note that the *resetpass* directive will clear this condition.
 * `resetpass`: Flushes the list of allowed passwords and removes the *nopass* status. After *resetpass*, the user has no associated passwords and there is no way to authenticate without adding some password (or setting it as *nopass* later).
 
@@ -158,7 +158,7 @@ To start, try the simplest `ACL SETUSER` command call:
     > ACL SETUSER alice
     OK
 
-The `SETUSER` command takes the username and a list of ACL rules to apply
+The `ACL SETUSER` command takes the username and a list of ACL rules to apply
 to the user. However the above example did not specify any rule at all.
 This will just create the user if it did not exist, using the defaults for new
 users. If the user already exists, the command above will do nothing at all.
@@ -171,7 +171,7 @@ Check the default user status:
 
 The new user "alice" is:
 
-* In the off status, so AUTH will not work for the user "alice".
+* In the off status, so `AUTH` will not work for the user "alice".
 * The user also has no passwords set.
 * Cannot access any command. Note that the user is created by default without the ability to access any command, so the `-@all` in the output above could be omitted; however, `ACL LIST` attempts to be explicit rather than implicit.
 * There are no key patterns that the user can access.
@@ -198,7 +198,7 @@ Now the user can do something, but will refuse to do other things:
     > GET cached:1234
     (nil)
     > SET cached:1234 zap
-    (error) NOPERM this user has no permissions to run the 'set' command or its subcommand
+    (error) NOPERM this user has no permissions to run the 'set' command
 
 Things are working as expected. In order to inspect the configuration of the
 user alice (remember that user names are case sensitive), it is possible to
@@ -252,8 +252,8 @@ The user representation in memory is now as we expect it to be.
 
 ## Multiple calls to ACL SETUSER
 
-It is very important to understand what happens when ACL SETUSER is called
-multiple times. What is critical to know is that every `SETUSER` call will
+It is very important to understand what happens when `ACL SETUSER` is called
+multiple times. What is critical to know is that every `ACL SETUSER` call will
 NOT reset the user, but will just apply the ACL rules to the existing user.
 The user is reset only if it was not known before. In that case, a brand new
 user is created with zeroed-ACLs. The user cannot do anything, is
@@ -406,7 +406,7 @@ Another example:
     ACL SETUSER myuser -debug +debug|digest
 
 Note that first-arg matching may add some performance penalty; however, it is hard to measure even with synthetic benchmarks. The
-additional CPU cost is only payed when such commands are called, and not when
+additional CPU cost is only paid when such commands are called, and not when
 other commands are called.
 
 It is possible to use this mechanism in order to allow subcommands in Redis
@@ -470,7 +470,7 @@ If an application needs to make sure no data is accessed from a key, including s
 ## How passwords are stored internally
 
 Redis internally stores passwords hashed with SHA256. If you set a password
-and check the output of `ACL LIST` or `GETUSER`, you'll see a long hex
+and check the output of `ACL LIST` or `ACL GETUSER`, you'll see a long hex
 string that looks pseudo random. Here is an example, because in the previous
 examples, for the sake of brevity, the long hex string was trimmed:
 
@@ -511,7 +511,7 @@ algorithm that uses time and space to make password cracking hard,
 is a very poor choice. What we suggest instead is to generate strong
 passwords, so that nobody will be able to crack it using a
 dictionary or a brute force attack even if they have the hash. To do so, there is a special ACL
-command that generates passwords using the system cryptographic pseudorandom
+command `ACL GENPASS` that generates passwords using the system cryptographic pseudorandom
 generator:
 
     > ACL GENPASS
@@ -571,7 +571,7 @@ For Sentinel, allow the user to access the following commands both in the master
 
 * AUTH, CLIENT, SUBSCRIBE, SCRIPT, PUBLISH, PING, INFO, MULTI, SLAVEOF, CONFIG, CLIENT, EXEC.
 
-Sentinel does not need to access any key in the database but does use Pub/Sub, so the ACL rule would be the following (note: AUTH is not needed since it is always allowed):
+Sentinel does not need to access any key in the database but does use Pub/Sub, so the ACL rule would be the following (note: `AUTH` is not needed since it is always allowed):
 
     ACL SETUSER sentinel-user on >somepassword allchannels +multi +slaveof +ping +exec +subscribe +config|rewrite +role +publish +info +client|setname +client|kill +script|kill
 

@@ -24,7 +24,7 @@ if a client loses the connection to the server in the context of a
 transaction before calling the `EXEC` command none of the operations
 are performed, instead if the `EXEC` command is called, all the
 operations are performed. When using the
-[append-only file](persistence#append-only-file) Redis makes sure
+[append-only file](/topics/persistence#append-only-file) Redis makes sure
 to use a single write(2) syscall to write the transaction on disk.
 However if the Redis server crashes or is killed by the system administrator
 in some hard way it is possible that only a partial number of operations

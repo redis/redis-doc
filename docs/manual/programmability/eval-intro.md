@@ -91,7 +91,7 @@ Any input to the function that isn't the name of a key is a regular input argume
 
 In the example above, both _Hello_ and _Parameterization!_ regular input arguments for the script.
 Because the script doesn't touch any keys, we use the numerical argument _0_ to specify there are no key name arguments.
-The execution context makes arguments available to the script through [_KEYS_](lua-api#the-keys-global-variable) and [_ARGV_](lua-api#the-argv-global-variable) global runtime variables.
+The execution context makes arguments available to the script through [_KEYS_](/topics/lua-api#the-keys-global-variable) and [_ARGV_](/topics/lua-api#the-argv-global-variable) global runtime variables.
 The _KEYS_ table is pre-populated with all key name arguments provided to the script before its execution, whereas the _ARGV_ table serves a similar purpose but for regular arguments.
 
 The following attempts to demonstrate the distribution of input arguments between the scripts _KEYS_ and _ARGV_ runtime global variables:
@@ -322,7 +322,7 @@ and undergo a silent lexicographical sorting filter before returning data to Lua
   However, starting with Redis 5.0, this ordering is no longer performed because replicating effects circumvents this type of non-determinism.
   In general, even when developing for Redis 4.0, never assume that certain commands in Lua will be ordered, but instead rely on the documentation of the original command you call to see the properties it provides.
 * Lua's pseudo-random number generation function `math.random` is modified and always uses the same seed for every execution.
-  This means that calling [`math.random`](lua-api#runtime-libraries) will always generate the same sequence of numbers every time a script is executed (unless `math.randomseed` is used).
+  This means that calling [`math.random`](/topics/lua-api#runtime-libraries) will always generate the same sequence of numbers every time a script is executed (unless `math.randomseed` is used).
 
 All that said, you can still use commands that write and random behavior with a simple trick.
 Imagine that you want to write a Redis script that will populate a list with N random integers.
@@ -437,4 +437,4 @@ it still has a different set of defaults compared to a script without a `#!` lin
 
 Another difference is that scripts without `#!` can run commands that access keys belonging to different cluster hash slots, but ones with `#!` inherit the default flags, so they cannot.
 
-Please refer to [Script flags](lua-api#script_flags) to learn about the various scripts and the defaults.
+Please refer to [Script flags](/topics/lua-api#script_flags) to learn about the various scripts and the defaults.
