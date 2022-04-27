@@ -446,7 +446,7 @@ By default, Redis assumes that all scripts read and write data.
 This results in the following behavior:
 
 1. They can read and write data.
-1. They can run in cluster mode.
+1. They can run in cluster mode, and are not able to run commands accessing keys of different hash slots.
 1. Execution against a stale replica is denied to avoid inconsistent reads.
 1. Execution under low memory is denied to avoid exceeding the configured threshold.
 
@@ -478,6 +478,15 @@ You can use the following flags and instruct the server to treat the scripts' ex
 
     Redis allows scripts to be executed both in standalone and cluster modes.
     Setting this flag prevents executing the script against nodes in the cluster.
+
+* `allow-cross-slot-keys`: The flag that allows a script to access keys from multiple slots.
+
+    Redis typically prevents any single command from accessing keys that hash to multiple slots.
+    This flag allows scripts to break this rule and access keys within the script that access multiple slots.
+    Declared keys to the script are still always required to hash to a single slot.
+    Accessing keys from multiple slots is discouraged as applications should be designed to only access keys from a single slot at a time, allowing slots to move between Redis servers.
+    
+    This flag has no effect when cluster mode is disabled.
 
 Please refer to [Function Flags](/topics/functions-intro#function-flags) and [Eval Flags](/topics/eval-intro#eval-flags) for a detailed example.
 
