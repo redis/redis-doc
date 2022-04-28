@@ -30,6 +30,6 @@ The [Snapcraft store](https://snapcraft.io/store) provides [Redis installation p
 sudo yum install epel-release
 sudo yum install snapd
 sudo systemctl enable --now snapd.socket
-sudo ln -s /var/lib/snapd/snap /snap
+sudo ln -s /var/lib/snapd/snap/snap
 sudo snap install redis
 {{< / highlight  >}}
