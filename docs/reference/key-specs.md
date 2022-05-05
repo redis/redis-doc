@@ -10,7 +10,7 @@
 # Command key specifications
 
 Many of the commands in Redis accept key names as input arguments.
-The 8th element in the reply of `COMMAND` (and `COMMAND INFO`) is an array that consists of the command's key specifications.
+The 9th element in the reply of `COMMAND` (and `COMMAND INFO`) is an array that consists of the command's key specifications.
 
 A _key specification_ describes a rule for extracting the names of one or more keys from the arguments of a given command.
 Key specifications provide a robust and flexible mechanism, compared to the _first key_, _last key_ and _step_ scheme employed until Redis 7.0.
