@@ -1,0 +1,6 @@
+{
+  "name": "Medis",
+  "description": "Medis is a beautiful, easy-to-use Mac database management application for Redis.",
+  "homepage": "https://github.com/luin/medis",
+  "twitter": ["medisclient"]
+}
