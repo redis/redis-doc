@@ -439,7 +439,7 @@ redis> FUNCTION LOAD "#!lua name=mylib\n redis.register_function{function_name='
 
 **Important:**
 Use script flags with care, which may negatively impact if misused.
-Note that the default for Eval scripts are different than the default for functions that are mentioned below, see [Eval Flags](/topics/eval-intro#eval-flags)
+Note that the default for Eval scripts are different than the default for functions that are mentioned below, see [Eval Flags](/docs/manual/programmability/eval-intro/#eval-flags)
 
 When you register a function or load an Eval script, the server does not know how it accesses the database.
 By default, Redis assumes that all scripts read and write data.
@@ -488,7 +488,7 @@ You can use the following flags and instruct the server to treat the scripts' ex
     
     This flag has no effect when cluster mode is disabled.
 
-Please refer to [Function Flags](/topics/functions-intro#function-flags) and [Eval Flags](/topics/eval-intro#eval-flags) for a detailed example.
+Please refer to [Function Flags](/docs/manual/programmability/functions-intro/#function-flags) and [Eval Flags](/docs/manual/programmability/eval-intro/#eval-flags) for a detailed example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
 
