@@ -142,7 +142,7 @@ Sorted Sets are one of the more advanced Redis data types, so take some time to 
 Redis also supports Bitmaps and HyperLogLogs which are actually data types
 based on the String base type, but having their own semantics.
 
-Please refer to the [data types tutorial]/docs/manual/data-types/data-types-tutorial) for information about those types.
+Please refer to the [data types tutorial](/docs/manual/data-types/data-types-tutorial) for information about those types.
 
 ## Streams
 
