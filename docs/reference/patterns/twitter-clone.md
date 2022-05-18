@@ -14,15 +14,15 @@ applications using Redis as their main store, so the goal of the article today
 is to be a tutorial for Redis newcomers. You'll learn how to design a simple
 data layout using Redis, and how to apply different data structures.
 
-Our Twitter clone, called [Retwis](http://retwis.antirez.com), is structurally simple, has very good performance, and can be distributed among any number of web and Redis servers with little efforts. You can find the source code [here](http://code.google.com/p/redis/downloads/list).
+Our Twitter clone, called Retwis, is structurally simple, has very good performance, and can be distributed among any number of web and Redis servers with little efforts. You can find the source code [here](http://code.google.com/p/redis/downloads/list).
 
 I used PHP for the example since it can be read by everybody. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
 A few clones exist (however not all the clones use the same data layout as the
 current version of this tutorial, so please, stick with the official PHP
 implementation for the sake of following the article better).
 
-* [Retwis-RB](http://retwisrb.danlucraft.com/) is a port of Retwis to Ruby and Sinatra written by Daniel Lucraft! Full source code is included of course, and a link to its Git repository appears in the footer of this article. The rest of this article targets PHP, but Ruby programmers can also check the Retwis-RB source code since it's conceptually very similar.
-* [Retwis-J](http://retwisj.cloudfoundry.com/) is a port of Retwis to Java, using the Spring Data Framework, written by [Costin Leau](http://twitter.com/costinl). Its source code can be found on [GitHub](https://github.com/SpringSource/spring-data-keyvalue-examples), and there is comprehensive documentation available at [springsource.org](http://j.mp/eo6z6I).
+* [Retwis-RB](https://github.com/danlucraft/retwis-rb) is a port of Retwis to Ruby and Sinatra written by Daniel Lucraft.
+* [Retwis-J](https://docs.spring.io/spring-data/data-keyvalue/examples/retwisj/current/) is a port of Retwis to Java, using the Spring Data Framework, written by [Costin Leau](http://twitter.com/costinl). Its source code can be found on [GitHub](https://github.com/SpringSource/spring-data-keyvalue-examples), and there is comprehensive documentation available at [springsource.org](http://j.mp/eo6z6I).
 
 What is a key-value store?
 ---

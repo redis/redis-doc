@@ -152,4 +152,4 @@ A Redis stream is a data structure that acts like an append-only log. Streams ar
 
 Redis provides geospatial indexes, which are useful for finding locations within a given geographic radius. You can add locations to a geospatial index using the [GEOADD](/commands/geoadd) command. You then search for locations within a given radius using the [GEORADIUS](/commands/georadius) command.
 
-See the [complete geospatial index command reference](commands/?group=geo) for all of the details.
+See the [complete geospatial index command reference](https://redis.io/commands/?group=geo) for all of the details.

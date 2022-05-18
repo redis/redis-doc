@@ -27,7 +27,7 @@ Q: I guess I have to do many such non-blocking operations on the socket to see w
 A: Yes. That is what an event library does for you. Now you get it.
 
 Q: How do Event Libraries do what they do?<br/>
-A: They use the operating system's [polling](http://www.devshed.com/c/a/BrainDump/Linux-Files-and-the-Event-Poll-Interface/) facility along with timers.
+A: They use the operating system's polling facility along with timers.
 
 Q: So are there any open source event libraries that do what you just described? <br/>
 A: Yes. `libevent` and `libev` are two such event libraries that I can recall off the top of my head.
