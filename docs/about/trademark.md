@@ -44,7 +44,7 @@ or Logo other than as expressly described as permitted herein is not permitted b
 6. **GENERAL USE INFORMATION.**
     * a. Attribution. Any permitted use of the Mark or Logo, as indicated above, should comply with the following provisions:
         * i. You should add the R mark (®) and an asterisk (`*`) to the first mention of the word "Redis" as part of or in connection with a product name;
-        * ii. Whenever "Redis®`*`" is shown - add the following legend (with an asterisk) in a noticeable and readable format: "`*` Redis is a trademark of Redis Ltd. Any rights therein are reserved to Redis Ltd.  Any use by `<`company XYZ`>` is for referential purposes only and does not indicate any sponsorship, endorsement or affiliation between Redis and `<`company XYZ`>`"; and
+        * ii. Whenever "Redis®`*`" is shown - add the following legend (with an asterisk) in a noticeable and readable format: "`*` Redis is a registered trademark of Redis Ltd. Any rights therein are reserved to Redis Ltd.  Any use by `<`company XYZ`>` is for referential purposes only and does not indicate any sponsorship, endorsement or affiliation between Redis and `<`company XYZ`>`"; and
         * iii. Sections i. and ii. above apply to any appearance of the word "Redis" in: (a) any web page, gated or un-gated; (b) any marketing collateral, white paper, or other promotional material, whether printed or electronic; and (c) any advertisement, in any format.
     * b. Capitalization. Always distinguish the Mark from surrounding text with at least initial capital letters or in all capital letters, (e.g., as Redis or REDIS).
     * c. Adjective. Always use the Mark as an adjective modifying a noun, such as “the Redis software.”
