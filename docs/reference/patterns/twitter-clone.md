@@ -14,7 +14,7 @@ applications using Redis as their main store, so the goal of the article today
 is to be a tutorial for Redis newcomers. You'll learn how to design a simple
 data layout using Redis, and how to apply different data structures.
 
-Our Twitter clone, called Retwis, is structurally simple, has very good performance, and can be distributed among any number of web and Redis servers with little efforts. You can find the source code [here](http://code.google.com/p/redis/downloads/list).
+Our Twitter clone, called Retwis, is structurally simple, has very good performance, and can be distributed among any number of web and Redis servers with little efforts. [View the Retwis source code](https://github.com/antirez/retwis).
 
 I used PHP for the example since it can be read by everybody. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
 A few clones exist (however not all the clones use the same data layout as the
