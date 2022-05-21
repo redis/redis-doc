@@ -441,9 +441,10 @@ Please refer to [Script flags](/topics/lua-api#script_flags) to learn about the 
 
 ## Read-only scripts
 A read-only script is a script that only executes commands that don't modify any keys within Redis.
-Read-only scripts are useful because they can always be executed on replicas and can always be killed by the script kill command. 
-Read-only scripts can be executed either by: adding the `no-writes` flag to the script or by executing the script with one of the read-only script command variants: `EVAL_RO`, `EVALSHA_RO`, and `FCALL_RO`.
-In addition to the benefits provided by all read-only scripts, the read-only script commands are also not blocked during write pauses, such as those that occur during coordinated failovers, and can be be used to configure an ACL user to only be able to execute read-only scripts.
+Read-only scripts are useful because they can always be executed on replicas and can always be killed by the `SCRIPT KILL` command. 
+Read-only scripts can be executed either by adding the `no-writes` flag to the script or by executing the script with one of the read-only script command variants: `EVAL_RO`, `EVALSHA_RO`, or `FCALL_RO`.
+In addition to the benefits provided by all read-only scripts, the read-only script commands are also not blocked during write pauses, such as those that occur during coordinated failovers, and can be used to configure an ACL user to only be able to execute read-only scripts.
 Many clients also better support routing the read-only script commands to replicas for applications that want to use replicas for read scaling.
 
-In future versions of Redis, these additional benefits may become available to all scripts that declare the `no-writes` flag.
+The recommended approach is to use the standard scripting commands with the `no-writes` flag unless you need one of the previously mentioned features.
+In future versions of Redis, this extra functionality may become available to all scripts that declare the `no-writes` flag.
