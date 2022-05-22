@@ -16,7 +16,7 @@ Unlike the command's flags (see the 3rd element of `COMMAND`'s reply), which are
 Command tips are arbitrary strings.
 However, the following sections describe proposed tips and demonstrate the conventions they are likely to adhere to.
 
-## nondeterministic-output
+## nondeterministic_output
 
 This tip indicates that the command's output isn't deterministic.
 That means that calls to the command may yield different results with the same arguments and data.
@@ -25,7 +25,7 @@ That difference could be the result of the command's random nature (e.g., `RANDO
 **Note:**
 prior to Redis 7.0, this tip was the _random_ command flag.
 
-## nondeterministic-output-order
+## nondeterministic_output_order
 
 The existence of this tip indicates that the command's output is deterministic, but its ordering is random (e.g. `HGETALL` and `SMEMBERS`).
 
