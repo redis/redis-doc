@@ -126,7 +126,7 @@ This way, the system can continue if node B fails.
 Node B1 replicates B, and B fails, the cluster will promote node B1 as the new
 master and will continue to operate correctly.
 
-However, note that if nodes B and B1 fail at the same time, Redis Cluster will not be to continue to operate.
+However, note that if nodes B and B1 fail at the same time, Redis Cluster will not be able to continue to operate.
 
 ### Redis Cluster consistency guarantees
 
