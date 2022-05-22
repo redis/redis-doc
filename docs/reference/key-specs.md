@@ -7,8 +7,6 @@
    - /topics/key-specs
 ---
 
-# Command key specifications
-
 Many of the commands in Redis accept key names as input arguments.
 The 9th element in the reply of `COMMAND` (and `COMMAND INFO`) is an array that consists of the command's key specifications.
 
