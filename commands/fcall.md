@@ -21,8 +21,8 @@ For more information please refer to the [Redis Programmability](/topics/program
 The following example will create a library named `mylib` with a single function, `myfunc`, that returns the first argument it gets.
 
 ```
-redis> FUNCTION LOAD Lua mylib "redis.register_function('myfunc', function(keys, args) return args[1] end)"
-OK
+redis> FUNCTION LOAD "#!lua name=mylib \n redis.register_function('myfunc', function(keys, args) return args[1] end)"
+"mylib"
 redis> FCALL myfunc 0 hello
 "hello"
 ```
