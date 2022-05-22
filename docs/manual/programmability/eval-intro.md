@@ -56,7 +56,7 @@ In this example, we used the value _0_ because we didn't provide the script with
 ## Script parameterization
 
 It is possible, although highly ill-advised, to have the application dynamically generate script source code per its needs.
-For example, the application could send these two entirely different, but in the same time perfectly identical scripts:
+For example, the application could send these two entirely different, but at the same time perfectly identical scripts:
 
 ```
 redis> EVAL "return 'Hello'" 0
@@ -143,11 +143,11 @@ You can verify this behavior by running `EVAL` and calling `INFO` afterward.
 You'll notice that the _used_memory_scripts_eval_ and _number_of_cached_scripts_ metrics grow with every new script that's executed.
 
 As mentioned above, dynamically-generated scripts are an anti-pattern.
-Generating scripts during the applicaiton's runtime may, and probably will, exhaust the host's memory resources for caching them.
+Generating scripts during the application's runtime may, and probably will, exhaust the host's memory resources for caching them.
 Instead, scripts should be as generic as possible and provide customized execution via their arguments.
 
 A script is loaded to the server's cache by calling the `SCRIPT LOAD` command and providing its source code.
-The server doesn't executed the script, but instead just compiles and loads it to the server's cache.
+The server doesn't execute the script, but instead just compiles and loads it to the server's cache.
 Once loaded, you can execute the cached script with the SHA1 digest returned from the server.
 
 Here's an example of loading and then executing a cached script:
@@ -191,7 +191,7 @@ Therefore, a client library's implementation should revert to using plain `EVAL`
 
 During normal operation, an application's scripts are meant to stay indefintely in the cache (that is, until the server is restarted or the cache being flushed).
 The underlying reasoning is that the script cache contents of a well-written application are unlikely to grow continuously.
-Even large applications that use hundereds of cached scripts shouldn't be and issue in terms of cache memory usage. 
+Even large applications that use hundreds of cached scripts shouldn't be an issue in terms of cache memory usage. 
 
 The only way to flush the script cache is by explicitly calling the `SCRIPT FLUSH` command.
 Running the command will _completely flush_ the scripts cache, removing all the scripts executed so far.
@@ -243,7 +243,7 @@ There are two conceptual approaches when it comes to script replication:
    More importantly, it also requires [all write scripts to be deterministic](#scripts-with-deterministic-writes).
 1. Effects replication: only the script's data-modifying commands are replicated.
    Replicas then run the commands without executing any scripts.
-   While potentially more lengthy in terms of network traffic, this replication mode is deterministic by definition and therefore doesn't require special consideration.
+   While potentially lengthier in terms of network traffic, this replication mode is deterministic by definition and therefore doesn't require special consideration.
 
 Verbatim script replication was the only mode supported until Redis 3.2, in which effects replication was added.
 The _lua-replicate-commands_ configuration directive and [`redis.replicate_commands()`](/topics/lua-api#redis.replicate_commands) Lua API can be used to enable it.
@@ -424,7 +424,7 @@ Normally, when you run an Eval script, the server does not know how it accesses 
 By default, Redis assumes that all scripts read and write data.
 However, starting with Redis 7.0, there's a way to declare flags when creating a script in order to tell Redis how it should behave.
 
-The way to do that us using a Shebang statement on the first line of the script like so:
+The way to do that is by using a Shebang statement on the first line of the script like so:
 
 ```
 #!lua flags=no-writes,allow-stale
