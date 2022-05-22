@@ -46,8 +46,8 @@ communication channel using a binary protocol. The cluster bus is used by
 nodes for failure detection, configuration update, failover authorization,
 and so forth. Clients should never try to communicate with the cluster bus
 port, but always with the normal Redis command port, however make sure you
-open both ports in your firewall, otherwise Redis cluster nodes will not
-be able to communicate.
+open both ports in your firewall, otherwise Redis cluster nodes will be
+unable to communicate.
 
 Note that for a Redis Cluster to work properly you need, for each node:
 
@@ -126,7 +126,7 @@ This way, the system can continue if node B fails.
 Node B1 replicates B, and B fails, the cluster will promote node B1 as the new
 master and will continue to operate correctly.
 
-However, note that if nodes B and B1 fail at the same time, Redis Cluster will be unable to continue to operate.
+However, note that if nodes B and B1 fail at the same time, Redis Cluster will not be to continue to operate.
 
 ### Redis Cluster consistency guarantees
 
