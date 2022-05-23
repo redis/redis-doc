@@ -105,7 +105,7 @@ to be part of the same hash slot by using a feature called *hash tags*.
 
 Hash tags are documented in the Redis Cluster specification, but the gist is
 that if there is a substring between {} brackets in a key, only what is
-inside the string is hashed. For example, they keys `user:{123}:profile` and `user:{123}:account` are guaranteed to be in the same hash slot because they share the same hash tag. As a result, you can operate on these two keys in the same multi-key operation.
+inside the string is hashed. For example, the keys `user:{123}:profile` and `user:{123}:account` are guaranteed to be in the same hash slot because they share the same hash tag. As a result, you can operate on these two keys in the same multi-key operation.
 
 ### Redis Cluster master-replica model
 
