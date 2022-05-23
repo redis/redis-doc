@@ -127,7 +127,7 @@ the on-CPU flame graph with:
     $ flamegraph.pl redis.folded.stacks > redis.svg
 
 By default, perf script will generate a perf.data file in the current working
-directory. See the [perf script](https://linux.die.net/man/1/perf-script.html)
+directory. See the [perf script](https://linux.die.net/man/1/perf-script)
 documentation for advanced usage.
 
 See [FlameGraph usage options](https://github.com/brendangregg/FlameGraph#options)

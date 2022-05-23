@@ -47,7 +47,7 @@ nodes for failure detection, configuration update, failover authorization,
 and so forth. Clients should never try to communicate with the cluster bus
 port, but always with the normal Redis command port, however make sure you
 open both ports in your firewall, otherwise Redis cluster nodes will be
-not able to communicate.
+unable to communicate.
 
 Note that for a Redis Cluster to work properly you need, for each node:
 

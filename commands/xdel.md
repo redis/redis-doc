@@ -7,7 +7,7 @@ however Redis streams are represented in memory, so we are also able to
 delete entries. This may be useful, for instance, in order to comply with
 certain privacy policies.
 
-# Understanding the low level details of entries deletion
+## Understanding the low level details of entries deletion
 
 Redis streams are represented in a way that makes them memory efficient:
 a radix tree is used in order to index macro-nodes that pack linearly tens
