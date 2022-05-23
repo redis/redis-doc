@@ -159,7 +159,7 @@ Bulk Strings are encoded in the following way:
 
 So the string "hello" is encoded as follows:
 
-    "$6\r\nhello\r\n"
+    "$5\r\nhello\r\n"
 
 An empty string is encoded as:
 
@@ -198,7 +198,7 @@ So an empty Array is just the following:
 
 While an array of two RESP Bulk Strings "hello" and "world" is encoded as:
 
-    "*2\r\n$3\r\nhello\r\n$3\r\nworld\r\n"
+    "*2\r\n$5\r\nhello\r\n$5\r\nworld\r\n"
 
 As you can see after the `*<count>CRLF` part prefixing the array, the other
 data types composing the array are just concatenated one after the other.
