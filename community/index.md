@@ -53,7 +53,7 @@ There are many ways to contribute to Redis, starting with documentation all the 
 
 ### Contributing to docs
 
-The [Redis docs(https://github.com/redis/redis-doc) are open source], and we'd love to incorporate your contributions. For small changes and typos, we recommend creating a pull request against [redis-doc repo](https://github.com/redis/redis-doc/pulls).
+The [Redis docs](https://github.com/redis/redis-doc) are open source, and we'd love to incorporate your contributions. For small changes and typos, we recommend creating a pull request against [redis-doc repo](https://github.com/redis/redis-doc/pulls).
 
 ### Reporting bugs
 
