@@ -5,7 +5,7 @@
 All clients are listed under language specific subfolders of [clients](./clients)
 
 The path follows the pattern: ``clients/{language}/github.com/{owner}/{repository}.json``.
-Note that the ``{language}`` component of the above path is the path-safe representation
+The ``{language}`` component of the path is the path-safe representation
 of the full language name which is mapped in [languages.json](./languages.json).
 
 Each client's JSON object represents the details displayed on the [clients documentation page](https://redis.io/docs/clients).
