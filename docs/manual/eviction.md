@@ -141,7 +141,7 @@ the `CONFIG SET maxmemory-samples <count>` command, is very simple.
 Starting with Redis 4.0, the [Least Frequently Used eviction mode](http://antirez.com/news/109) is available. This mode may work better (provide a better
 hits/misses ratio) in certain cases. In LFU mode, Redis will try to track
 the frequency of access of items, so the ones used rarely are evicted. This means
-the keys used often have an higher chance of remaining in memory.
+the keys used often have a higher chance of remaining in memory.
 
 To configure the LFU mode, the following policies are available:
 

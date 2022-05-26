@@ -29,13 +29,13 @@ The root user permissions only allows executing the get command, but can be exec
 The selector then grants a secondary set of permissions: access to the `SET` command to be executed on any key that starts with "app1".
 Using multiple selectors allows you to grant permissions that are different depending on what keys are being accessed.
 
-When we want to be sure to define an user from scratch, without caring if
+When we want to be sure to define a user from scratch, without caring if
 it had previously defined rules associated, we can use the special rule
 `reset` as first rule, in order to flush all the other existing rules:
 
     ACL SETUSER antirez reset [... other rules ...]
 
-After resetting an user, it returns back to the status it has when it
+After resetting a user, it returns back to the status it has when it
 was just created: non active (off rule), can't execute any command, can't
 access any key:
 
@@ -79,7 +79,7 @@ This is a list of all the supported Redis ACL rules:
 * `on`: set the user as active, it will be possible to authenticate as this user using `AUTH <username> <password>`.
 * `off`: set user as not active, it will be impossible to log as this user. Please note that if a user gets disabled (set to off) after there are connections already authenticated with such a user, the connections will continue to work as expected. To also kill the old connections you can use `CLIENT KILL` with the user option. An alternative is to delete the user with `ACL DELUSER`, that will result in all the connections authenticated as the deleted user to be disconnected.
 * `nopass`: the user is set as a "no password" user. It means that it will be possible to authenticate as such user with any password. By default, the `default` special user is set as "nopass". The `nopass` rule will also reset all the configured passwords for the user.
-* `>password`: Add the specified clear text password as an hashed password in the list of the users passwords. Every user can have many active passwords, so that password rotation will be simpler. The specified password is not stored as clear text inside the server. Example: `>mypassword`.
+* `>password`: Add the specified clear text password as a hashed password in the list of the users passwords. Every user can have many active passwords, so that password rotation will be simpler. The specified password is not stored as clear text inside the server. Example: `>mypassword`.
 * `#<hashedpassword>`: Add the specified hashed password to the list of user passwords. A Redis hashed password is hashed with SHA256 and translated into a hexadecimal string. Example: `#c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2`.
 * `<password`: Like `>password` but removes the password instead of adding it.
 * `!<hashedpassword>`: Like `#<hashedpassword>` but removes the password instead of adding it.

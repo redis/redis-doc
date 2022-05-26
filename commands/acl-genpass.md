@@ -17,7 +17,7 @@ create more random bytes as needed. This means that the application developer
 should be feel free to abuse `ACL GENPASS` to create as many secure
 pseudorandom strings as needed.
 
-The command output is an hexadecimal representation of a binary string.
+The command output is a hexadecimal representation of a binary string.
 By default it emits 256 bits (so 64 hex characters). The user can provide
 an argument in form of number of bits to emit from 1 to 1024 to change
 the output length. Note that the number of bits provided is always

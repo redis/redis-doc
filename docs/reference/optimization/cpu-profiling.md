@@ -109,7 +109,7 @@ with a minimum call graph inclusion threshold of 0.5%, with:
     $ perf report -g "graph,0.5,caller"
 
 See the [perf report](https://man7.org/linux/man-pages/man1/perf-report.1.html)
-documention for advanced filtering, sorting and aggregation capabilities.
+documentation for advanced filtering, sorting and aggregation capabilities.
 
 #### Visualizing the recorded profile information using Flame Graphs
 
@@ -228,7 +228,7 @@ duration of 60s, specifically for redis process:
       60.002765665 seconds time elapsed
 
 It's important to know that there are two very different ways in which PMCs can
-be used (couting and sampling), and we've focused solely on PMCs counting for
+be used (counting and sampling), and we've focused solely on PMCs counting for
 the sake of this analysis. Brendan Greg clearly explains it on the following
 [link](http://www.brendangregg.com/blog/2017-05-04/the-pmcs-of-ec2.html).
 

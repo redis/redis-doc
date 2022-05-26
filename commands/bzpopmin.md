@@ -5,7 +5,7 @@ members to pop from any of the given sorted sets.
 A member with the lowest score is popped from first sorted set that is
 non-empty, with the given keys being checked in the order that they are given.
 
-The `timeout` argument is interpreted as an double value specifying the maximum
+The `timeout` argument is interpreted as a double value specifying the maximum
 number of seconds to block. A timeout of zero can be used to block indefinitely.
 
 See the [BLPOP documentation][cl] for the exact semantics, since `BZPOPMIN` is

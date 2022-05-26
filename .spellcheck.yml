@@ -1,0 +1,6 @@
+files:
+  - '**/*.md'  
+dictionaries:
+  - wordlist
+no-suggestions: true
+quiet: true

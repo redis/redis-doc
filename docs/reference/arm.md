@@ -19,7 +19,7 @@ reasons:
 * Redis has a very small memory footprint and CPU requirements. It can run in small devices like the Raspberry Pi Zero without impacting the overall performance, using a small amount of memory while delivering good performance for many use cases.
 * The data structures of Redis are often an ideal way to model IoT/embedded use cases. Some examples include accumulating time series data, receiving or queuing commands to execute or respond to send back to the remote servers, and so forth.
 * Modeling data inside Redis can be very useful in order to make in-device decisions for appliances that must respond very quickly or when the remote servers are offline.
-* Redis can be used as an communication system between the processes running in the device.
+* Redis can be used as a communication system between the processes running in the device.
 * The append-only file storage of Redis is well suited for SSD cards.
 * The stream data structure included in Redis versions 5.0 and higher was specifically designed for time series applications and has a very low memory overhead.
 
