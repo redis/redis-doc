@@ -11,7 +11,7 @@ process doing persistence.
 
 Specifically:
 
-* If a Redis child is creating a snapshot on disk, the AOF rewrite is _scheduled_ but not started until the saving child producing the RDB file terminates. In this case the `BGREWRITEAOF` will still return an positive status reply, but with an appropriate message.  You can check if an AOF rewrite is scheduled looking at the `INFO` command as of Redis 2.6 or successive versions.
+* If a Redis child is creating a snapshot on disk, the AOF rewrite is _scheduled_ but not started until the saving child producing the RDB file terminates. In this case the `BGREWRITEAOF` will still return a positive status reply, but with an appropriate message.  You can check if an AOF rewrite is scheduled looking at the `INFO` command as of Redis 2.6 or successive versions.
 * If an AOF rewrite is already in progress the command returns an error and no
   AOF rewrite will be scheduled for a later time.
 * If the AOF rewrite could start, but the attempt at starting it fails (for instance because of an error in creating the child process), an error is returned to the caller.

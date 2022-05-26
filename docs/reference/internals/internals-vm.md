@@ -2,7 +2,7 @@
 title: "Virtual memory (deprecated)"
 linkTitle: "Virtual memory"
 weight: 1
-description: A description of the Redis virtual memory system that was deprecated in 2.6. This document exists for historial interest.
+description: A description of the Redis virtual memory system that was deprecated in 2.6. This document exists for historical interest.
 aliases:
   - /topics/internals-vm
   - /topics/virtual-memory
@@ -95,7 +95,7 @@ The swap file is composed of a given number of pages, where every page size is a
     vm-page-size 32
     vm-pages 134217728
 
-Redis takes a "bitmap" (an contiguous array of bits set to zero or one) in memory, every bit represent a page of the swap file on disk: if a given bit is set to 1, it represents a page that is already used (there is some Redis Object stored there), while if the corresponding bit is zero, the page is free.
+Redis takes a "bitmap" (a contiguous array of bits set to zero or one) in memory, every bit represent a page of the swap file on disk: if a given bit is set to 1, it represents a page that is already used (there is some Redis Object stored there), while if the corresponding bit is zero, the page is free.
 
 Taking this bitmap (that will call the page table) in memory is a huge win in terms of performances, and the memory used is small: we just need 1 bit for every page on disk. For instance in the example below 134217728 pages of 32 bytes each (4GB swap file) is using just 16 MB of RAM for the page table.
 

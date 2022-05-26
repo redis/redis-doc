@@ -24,7 +24,7 @@ Scripts should operate solely on data stored in Redis and data provided as argum
 
 The sandboxed Lua execution context blocks the declaration of global variables and functions.
 The blocking of global variables is in place to ensure that scripts and functions don't attempt to maintain any runtime context other than the data stored in Redis.
-In the (somewhat uncommon) use case that a context needs to be maintain betweem executions,
+In the (somewhat uncommon) use case that a context needs to be maintain between executions,
 you should store the context in Redis' keyspace.
 
 Redis will return a "Script attempted to create global variable 'my_global_variable" error when trying to execute the following snippet:
@@ -154,7 +154,7 @@ This function enables handling runtime errors raised by the Redis server.
 The `redis.pcall()` function  behaves exactly like [`redis.call()`](#redis.call), except that it:
 
 * Always returns a reply.
-* Never throws a runtime exeption, and returns in its stead a [`redis.error_reply`](#redis.error_reply) in case that a runtime exception is thrown by the server.
+* Never throws a runtime exception, and returns in its stead a [`redis.error_reply`](#redis.error_reply) in case that a runtime exception is thrown by the server.
 
 The following demonstrates how to use `redis.pcall()` to intercept and handle runtime exceptions from within the context of an ephemeral script.
 
@@ -636,7 +636,7 @@ Although the default protocol for incoming client connections is RESP2, the scri
 * Lua table with a single _double_ field to an associative Lua table -> [RESP3 double reply](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#double-type).
 * Lua nil -> [RESP3 null](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#null-reply).
 
-However, if the connection is set use the RESP2 protocol, and even if the script replies with RESP3-typed responses, Redis will automatically perform a RESP3 to RESP2 convertion of the reply as is the case for regular commands.
+However, if the connection is set use the RESP2 protocol, and even if the script replies with RESP3-typed responses, Redis will automatically perform a RESP3 to RESP2 conversion of the reply as is the case for regular commands.
 That means, for example, that returning the RESP3 map type to a RESP2 connection will result in the repy being converted to a flat RESP2 array that consists of alternating field names and their values, rather than a RESP3 map.
 
 ## Additional notes about scripting
@@ -793,7 +793,7 @@ redis> EVAL "return cmsgpack.pack({'foo', 'bar', 'baz'})" 0
 
 #### <a name="cmsgpack.unpack()"></a> `cmsgpack.unpack(x)`
 
-This function returns the unpacked values from decocoding its input string argument.
+This function returns the unpacked values from decoding its input string argument.
 
 Usage example:
 

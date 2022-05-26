@@ -606,7 +606,7 @@ All fields except `version` are optional. Explanation of the fields:
               begin search step. (Usually it's just after `keynumidx`, in
               which case it should be set to `keynumidx + 1`.)
 
-            * `keystep`: How many argumentss should we skip after finding a
+            * `keystep`: How many arguments should we skip after finding a
               key, in order to find the next one?
 
     Key-spec flags:
@@ -949,7 +949,7 @@ The passed context 'ctx' may be NULL if necessary, see the
 
 **Available since:** 4.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from a long long
+Like `RedisModule_CreatString()`, but creates a string starting from a `long long`
 integer instead of taking a buffer and its length.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -1145,9 +1145,9 @@ be used for read only accesses and never modified.
 
 **Available since:** 4.0.0
 
-Convert the string into a long long integer, storing it at `*ll`.
+Convert the string into a `long long` integer, storing it at `*ll`.
 Returns `REDISMODULE_OK` on success. If the string can't be parsed
-as a valid, strict long long (no spaces before/after), `REDISMODULE_ERR`
+as a valid, strict `long long` (no spaces before/after), `REDISMODULE_ERR`
 is returned.
 
 <span id="RedisModule_StringToDouble"></span>
@@ -1294,7 +1294,7 @@ Example:
 
 **Available since:** 4.0.0
 
-Send an integer reply to the client, with the specified long long value.
+Send an integer reply to the client, with the specified `long long` value.
 The function always returns `REDISMODULE_OK`.
 
 <span id="RedisModule_ReplyWithError"></span>
@@ -1407,7 +1407,7 @@ Add attributes (metadata) to the reply. Should be done before adding the
 actual reply. see [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md)#attribute-type
 
 After starting an attributes reply, the module must make `len*2` calls to other
-`ReplyWith*` style functions in order to emit the elements of the attribtute map.
+`ReplyWith*` style functions in order to emit the elements of the attribute map.
 See Reply APIs section for more details.
 
 Use [`RedisModule_ReplySetAttributeLength()`](#RedisModule_ReplySetAttributeLength) to set deferred length.
@@ -2053,7 +2053,7 @@ calling [`RedisModule_CloseKey`](#RedisModule_CloseKey) on the opened key.
 
 **Available since:** 4.0.0
 
-Return an handle representing a Redis key, so that it is possible
+Return a handle representing a Redis key, so that it is possible
 to call other APIs with the key handle as argument to perform
 operations on the key.
 
@@ -2362,7 +2362,7 @@ Note that after modifying a list using [`RedisModule_ListPop`](#RedisModule_List
 [`RedisModule_ListInsert`](#RedisModule_ListInsert), the internal iterator is invalidated so the next operation
 will require a linear seek.
 
-Modifying a list in any another way, for examle using [`RedisModule_Call()`](#RedisModule_Call), while a key
+Modifying a list in any another way, for example using [`RedisModule_Call()`](#RedisModule_Call), while a key
 is open will confuse the internal iterator and may cause trouble if the key
 is used after such modifications. The key must be reopened in this case.
 
@@ -2856,7 +2856,7 @@ the Redis version and handle it accordingly.
 
 **Available since:** 4.0.0
 
-Get fields from an hash value. This function is called using a variable
+Get fields from a hash value. This function is called using a variable
 number of arguments, alternating a field name (as a `RedisModuleString`
 pointer) with a pointer to a `RedisModuleString` pointer, that is set to the
 value of the field if the field exists, or NULL if the field does not exist.
@@ -2890,7 +2890,7 @@ Example of `REDISMODULE_HASH_EXISTS`:
      RedisModule_HashGet(mykey,REDISMODULE_HASH_EXISTS,argv[1],&exists,NULL);
 
 The function returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` if
-the key is not an hash value.
+the key is not a hash value.
 
 Memory management:
 
@@ -3268,7 +3268,7 @@ if the reply type is wrong or the index is out of range.
 
 **Available since:** 4.0.0
 
-Return the long long of an integer reply.
+Return the `long long` of an integer reply.
 
 <span id="RedisModule_CallReplyDouble"></span>
 
@@ -3301,7 +3301,7 @@ Return the big number value of a big number reply.
 
 **Available since:** 7.0.0
 
-Return the value of an verbatim string reply,
+Return the value of a verbatim string reply,
 An optional output argument can be given to get verbatim reply format.
 
 <span id="RedisModule_CallReplyBool"></span>
@@ -3367,7 +3367,7 @@ Return the attribute of the given reply, or NULL if no attribute exists.
 
 **Available since:** 7.0.0
 
-Retrieve the 'idx'-th key and value of a attribute reply.
+Retrieve the 'idx'-th key and value of an attribute reply.
 
 Returns:
 - `REDISMODULE_OK` on success.
@@ -3420,7 +3420,7 @@ Exported API to call any Redis command from modules.
     * `b` -- The argument is a buffer and is immediately followed by another
              argument that is the buffer's length.
     * `c` -- The argument is a pointer to a plain C string (null-terminated).
-    * `l` -- The argument is long long integer.
+    * `l` -- The argument is `long long` integer.
     * `s` -- The argument is a RedisModuleString.
     * `v` -- The argument(s) is a vector of RedisModuleString.
     * `!` -- Sends the Redis command and its arguments to replicas and AOF.
@@ -3778,7 +3778,7 @@ the similar function [`RedisModule_LoadStringBuffer()`](#RedisModule_LoadStringB
 
 **Available since:** 4.0.0
 
-Like [`RedisModule_LoadString()`](#RedisModule_LoadString) but returns an heap allocated string that
+Like [`RedisModule_LoadString()`](#RedisModule_LoadString) but returns a heap allocated string that
 was allocated with [`RedisModule_Alloc()`](#RedisModule_Alloc), and can be resized or freed with
 [`RedisModule_Realloc()`](#RedisModule_Realloc) or [`RedisModule_Free()`](#RedisModule_Free).
 
@@ -3914,7 +3914,7 @@ A list of ordered elements would be implemented with:
 
 **Available since:** 4.0.0
 
-Like [`RedisModule_DigestAddStringBuffer()`](#RedisModule_DigestAddStringBuffer) but takes a long long as input
+Like [`RedisModule_DigestAddStringBuffer()`](#RedisModule_DigestAddStringBuffer) but takes a `long long` as input
 that gets converted into a string before adding it to the digest.
 
 <span id="RedisModule_DigestEndSequence"></span>
@@ -4164,7 +4164,7 @@ For a guide about blocking commands in modules, see
 
 **Available since:** 4.0.0
 
-Block a client in the context of a blocking command, returning an handle
+Block a client in the context of a blocking command, returning a handle
 which will be used, later, in order to unblock the client with a call to
 [`RedisModule_UnblockClient()`](#RedisModule_UnblockClient). The arguments specify callback functions
 and a timeout after which the client is unblocked.
@@ -4778,7 +4778,7 @@ With the following effects:
 
 ## Modules Timers API
 
-Module timers are an high precision "green timers" abstraction where
+Module timers are a high precision "green timers" abstraction where
 every module can register even millions of timers without problems, even if
 the actual event loop will just have a single timer that is used to awake the
 module timers subsystem in order to process the next event.
@@ -5079,7 +5079,7 @@ Check if the pubsub channel can be accessed by the user based off of the given
 access flags. See [`RedisModule_ChannelAtPosWithFlags`](#RedisModule_ChannelAtPosWithFlags) for more information about the
 possible flags that can be passed in.
 
-If the user is able to acecss the pubsub channel then `REDISMODULE_OK` is returned, otherwise
+If the user is able to access the pubsub channel then `REDISMODULE_OK` is returned, otherwise
 `REDISMODULE_ERR` is returned and errno is set to one of the following values:
 
 * EINVAL: The provided flags are invalid.
@@ -5147,7 +5147,7 @@ and general usage for authentication.
 
 **Available since:** 6.0.0
 
-Deauthenticate and close the client. The client resources will not be
+Deauthenticate and close the client. The client resources will not
 be immediately freed, but will be cleaned up in a background job. This is
 the recommended way to deauthenticate a client since most clients can't
 handle users becoming deauthenticated. Returns `REDISMODULE_ERR` when the
@@ -5447,7 +5447,7 @@ element. It is possible to reseek an iterator as many times as you want.
 
 **Available since:** 5.0.0
 
-Like [`RedisModule_DictIteratorReseekC()`](#RedisModule_DictIteratorReseekC) but takes the key as as a
+Like [`RedisModule_DictIteratorReseekC()`](#RedisModule_DictIteratorReseekC) but takes the key as a
 `RedisModuleString`.
 
 <span id="RedisModule_DictNextC"></span>
@@ -5900,7 +5900,7 @@ filter applies in all execution paths including:
 
 1. Invocation by a client.
 2. Invocation through [`RedisModule_Call()`](#RedisModule_Call) by any module.
-3. Invocation through Lua 'redis.`call()``.
+3. Invocation through Lua `redis.call()`.
 4. Replication of a command from a master.
 
 The filter executes in a special filter context, which is different and more
