@@ -198,7 +198,7 @@ So an empty Array is just the following:
 
 While an array of two RESP Bulk Strings "hello" and "world" is encoded as:
 
-    "*2\r\n$3\r\nhello\r\n$3\r\nworld\r\n"
+    "*2\r\n$5\r\nhello\r\n$5\r\nworld\r\n"
 
 As you can see after the `*<count>CRLF` part prefixing the array, the other
 data types composing the array are just concatenated one after the other.
@@ -262,10 +262,10 @@ if the specified key is missing. Example of an Array reply containing a
 Null element:
 
     *3\r\n
-    $3\r\n
+    $5\r\n
     hello\r\n
     $-1\r\n
-    $3\r\n
+    $5\r\n
     world\r\n
 
 The second element is a Null. The client library should return something

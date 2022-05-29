@@ -1,7 +1,6 @@
 This is a read-only variant of the `EVAL` command that cannot execute commands that modify data.
 
-Unlike `EVAL`, scripts executed with this command can always be killed and never affect the replication stream.
-Because the script can only read data, this command can always be executed on a master or a replica.
+For more information about when to use this command vs `EVAL`, please refer to [Read-only scripts](/docs/manual/programmability/#Read-only_scripts).
 
 For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
 

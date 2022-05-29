@@ -47,7 +47,7 @@ nodes for failure detection, configuration update, failover authorization,
 and so forth. Clients should never try to communicate with the cluster bus
 port, but always with the normal Redis command port, however make sure you
 open both ports in your firewall, otherwise Redis cluster nodes will be
-not able to communicate.
+unable to communicate.
 
 Note that for a Redis Cluster to work properly you need, for each node:
 
@@ -105,7 +105,7 @@ to be part of the same hash slot by using a feature called *hash tags*.
 
 Hash tags are documented in the Redis Cluster specification, but the gist is
 that if there is a substring between {} brackets in a key, only what is
-inside the string is hashed. For example, they keys `user:{123}:profile` and `user:{123}:account` are guaranteed to be in the same hash slot because they share the same hash tag. As a result, you can operate on these two keys in the same multi-key operation.
+inside the string is hashed. For example, the keys `user:{123}:profile` and `user:{123}:account` are guaranteed to be in the same hash slot because they share the same hash tag. As a result, you can operate on these two keys in the same multi-key operation.
 
 ### Redis Cluster master-replica model
 

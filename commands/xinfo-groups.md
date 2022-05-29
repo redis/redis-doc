@@ -24,7 +24,7 @@ The stream's counter (the `entries_added` field of the `XINFO STREAM` command) i
 
 The consumer group's counter, `entries_read`, is the logical counter of entries that the group had read.
 It is important to note that this counter is only a heuristic rather than an accurate counter, and therefore the use of the term "logical".
-The counter attempts to reflect the number of entries that the group **should have read** to get to its current `last-delivered-id`
+The counter attempts to reflect the number of entries that the group **should have read** to get to its current `last-delivered-id`.
 The `entries_read` counter is accurate only in a perfect world, where a consumer group starts at the stream's first entry and processes all of its entries (i.e., no entries deleted before processing).
 
 There are two special cases in which this mechanism is unable to report the lag:

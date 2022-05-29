@@ -1,0 +1,4 @@
+{
+  "name": "coredis",
+  "description": "Async redis client with support for redis server, cluster & sentinel"
+}
