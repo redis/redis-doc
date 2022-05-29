@@ -467,16 +467,19 @@ You can use the following flags and instruct the server to treat the scripts' ex
     However, note that the server will return an error if the script attempts to call a write command.
     Also note that currently `PUBLISH`, `SPUBLISH` and `PFCOUNT` are also considered write commands in scripts, because they could attempt to propagate commands to replicas and AOF file.
 
+    For more information please refer to [Read-only scripts](/docs/manual/programmability/#read-only_scripts)
+
 * `allow-oom`: use this flag to allow a script to execute when the server is out of memory (OOM).
 
-    Unless used, Redis will deny the execution of scripts when in an OOM state.
+    Unless used, Redis will deny the execution of flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) when in an OOM state.
     Furthermore, when you use this flag, the script can call any Redis command, including commands that aren't usually allowed in this state.
     Specifying `no-writes` or using `FCALL_RO` / `EVAL_RO` also implies the script can run in OOM state (without specifying `allow-oom`)
 
-* `allow-stale`: a flag that enables running the script against a stale replica when the `replica-serve-stale-data` config is set to `no` .
+* `allow-stale`: a flag that enables running the flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) against a stale replica when the `replica-serve-stale-data` config is set to `no` .
 
     Redis can be set to prevent data consistency problems from using old data by having stale replicas return a runtime error.
-    In cases where the consistency is a lesser concern, this flag allows stale Redis replicas to run the script anyway.
+    For scripts that do not access the data, this flag can be set to allow stale Redis replicas to run the script.
+    Note however that the script will still be unable to execute any command that accesses stale data.
 
 * `no-cluster`: the flag causes the script to return an error in Redis cluster mode.
 
