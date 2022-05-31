@@ -550,7 +550,7 @@ To exit the Pub/Sub mode just process `CTRL-C`.
 ## Monitoring commands executed in Redis
 
 Similarly to the Pub/Sub mode, the monitoring mode is entered automatically
-once you use the `MONITOR` commnad. All commands received by the active Redis instance will be printed to the standard output:
+once you use the `MONITOR` command. All commands received by the active Redis instance will be printed to the standard output:
 
     $ redis-cli MONITOR
     OK
