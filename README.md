@@ -2,7 +2,7 @@
 
 ## Clients
 
-All clients are listed under language specific subfolders of [clients](./clients)
+All clients are listed under language specific sub-folders of [clients](./clients)
 
 The path follows the pattern: ``clients/{language}/github.com/{owner}/{repository}.json``.
 The ``{language}`` component of the path is the path-safe representation
@@ -74,7 +74,7 @@ npm install --global spellchecker-cli
 You can than validate your spelling by running the following
 
 ```
-spellchecker --no-suggestions -f '**/*.md' -l en-US -q -d dictionary.txt
+spellchecker --no-suggestions -f '**/*.md' -l en-US -q -d wordlist
 ```
 
 Any exceptions you need for spelling can be added to the `wordlist` file.

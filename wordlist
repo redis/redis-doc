@@ -310,6 +310,7 @@ Programm
 Programmability
 PubSub-related
 Pubsub
+Pubsub.
 R1
 R2
 RC1
@@ -634,6 +635,7 @@ expiries
 facto
 factorializing
 failover
+failover.
 failover-detected
 failover-end
 failover-end-for-timeout
