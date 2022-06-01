@@ -12,5 +12,5 @@ jobs:
       - name: Spellcheck
         uses: redis-stack/github-actions/spellcheck@main
         env:
-          DICTIONARY: dictionary.txt
+          DICTIONARY: wordlist
           DOCS_DIRECTORY: .
