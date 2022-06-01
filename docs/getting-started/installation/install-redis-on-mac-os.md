@@ -47,7 +47,7 @@ As an alternative to running Redis in the foreground, you can also use `launchd`
 brew services start redis
 {{< / highlight >}}
 
-This launch Redis and restart it at login. You can check the status of a `launchd` managed Redis by running the following:
+This launches Redis and restarts it at login. You can check the status of a `launchd` managed Redis by running the following:
 
 {{< highlight bash  >}}
 brew services info redis

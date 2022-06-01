@@ -2,33 +2,21 @@
 
 ## Clients
 
-All clients are listed in the `clients.json` file.
-Each key in the JSON object represents a single client library.
-For example:
+All clients are listed under language specific subfolders of [clients](./clients)
+
+The path follows the pattern: ``clients/{language}/github.com/{owner}/{repository}.json``.
+The ``{language}`` component of the path is the path-safe representation
+of the full language name which is mapped in [languages.json](./languages.json).
+
+Each client's JSON object represents the details displayed on the [clients documentation page](https://redis.io/docs/clients).
+
+For example [clients/python/github.com/redis](./clients/python/github.com/redis/redis-py.json):
 
 ```
-"Rediska": {
-
-  # A programming language should be specified.
-  "language": "PHP",
-
-  # If the project has a website of its own, put it here.
-  # Otherwise, lose the "url" key.
-  "url": "http://rediska.geometria-lab.net",
-
-  # A URL pointing to the repository where users can
-  # find the code.
-  "repository": "http://github.com/Shumkov/Rediska",
-
-  # A short, free-text description of the client.
-  # Should be objective. The goal is to help users
-  # choose the correct client they need.
-  "description": "A PHP client",
-
-  # An array of Twitter usernames for the authors
-  # and maintainers of the library.
-  "authors": ["shumkov"]
-
+{
+    "name": "redis-py",
+    "description": "Mature and supported. Currently the way to go for Python.",
+    "recommended": true
 }
 ```
 

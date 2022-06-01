@@ -64,7 +64,6 @@ Command flags are an array. It can contain the following simple strings (status 
 * **fast:** the command operates in constant or log(N) time.
   This flag is used for monitoring latency with the `LATENCY` command.
 * **loading:** the command is allowed while the database is loading.
-* **may_replicate:** the command may be replicated to replicas and the AOF.
 * **movablekeys:** the _first key_, _last key_, and _step_ values don't determine all key positions.
   Clients need to use `COMMAND GETKEYS` or [key specifications][td] in this case.
   See below for more details.

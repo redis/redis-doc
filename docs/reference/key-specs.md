@@ -40,7 +40,7 @@ There are three types of `begin_search`:
 
 1. **index:** key name arguments begin at a constant index.
 2. **keyword:** key names start after a specific keyword (token).
-3. **unknown:** an unknown type of specification - see the [incomplete flag section](#incomplete-flag) for more details.
+3. **unknown:** an unknown type of specification - see the [incomplete flag section](#incomplete) for more details.
 
 ### index
 
@@ -72,7 +72,7 @@ The `find_keys` value of a key specification tells the client how to continue th
 
 1. **range:** keys stop at a specific index or relative to the last argument.
 2. **keynum:** an additional argument specifies the number of input keys.
-3. **unknown:** an unknown type of specification - see the [incomplete flag section](#incomplete-flag) for more details.
+3. **unknown:** an unknown type of specification - see the [incomplete flag section](#incomplete) for more details.
 
 ### range
 

@@ -59,6 +59,35 @@ Note that the potential downside of this blocking approach is that executing slo
 It is not hard to create fast scripts because scripting's overhead is very low.
 However, if you intend to use a slow script in your application, be aware that all other clients are blocked and can't execute any command while it is running.
 
+## Read-only scripts
+
+A read-only script is a script that only executes commands that don't modify any keys within Redis.
+Read-only scripts can be executed either by adding the `no-writes` [flag](/topics/lua-api#script_flags) to the script or by executing the script with one of the read-only script command variants: `EVAL_RO`, `EVALSHA_RO`, or `FCALL_RO`.
+They have the following properties:
+
+* They can always be executed on replicas.
+* They can always be killed by the `SCRIPT KILL` command. 
+* They never fail with OOM error when redis is over the memory limit.
+* They are not blocked during write pauses, such as those that occur during coordinated failovers.
+* They cannot execute any command that may modify the data set.
+* Currently `PUBLISH`, `SPUBLISH` and `PFCOUNT` are also considered write commands in scripts, because they could attempt to propagate commands to replicas and AOF file.
+
+In addition to the benefits provided by all read-only scripts, the read-only script commands have the following advantages:
+
+* They can be used to configure an ACL user to only be able to execute read-only scripts.
+* Many clients also better support routing the read-only script commands to replicas for applications that want to use replicas for read scaling.
+
+#### Read-only script history
+
+Read-only scripts and read-only script commands were introduced in Redis 7.0
+
+* Before Redis 7.0.1 `PUBLISH`, `SPUBLISH` and `PFCOUNT` were not considered write commands in scripts
+* Before Redis 7.0.1 the `no-writes` [flag](/topics/lua-api#script_flags) did not imply `allow-oom`
+* Before Redis 7.0.1 the `no-writes` flag did not permit the script to run during write pauses.
+
+
+The recommended approach is to use the standard scripting commands with the `no-writes` flag unless you need one of the previously mentioned features.
+
 ## Sandboxed script context
 
 Redis places the engine that executes user scripts inside a sandbox.

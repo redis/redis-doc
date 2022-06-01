@@ -439,7 +439,7 @@ redis> FUNCTION LOAD "#!lua name=mylib\n redis.register_function{function_name='
 
 **Important:**
 Use script flags with care, which may negatively impact if misused.
-Note that the default for Eval scripts are different than the default for functions that are mentioned below, see [Eval Flags](/topics/eval-intro#eval-flags)
+Note that the default for Eval scripts are different than the default for functions that are mentioned below, see [Eval Flags](/docs/manual/programmability/eval-intro/#eval-flags)
 
 When you register a function or load an Eval script, the server does not know how it accesses the database.
 By default, Redis assumes that all scripts read and write data.
@@ -454,25 +454,32 @@ You can use the following flags and instruct the server to treat the scripts' ex
 
 * `no-writes`: this flag indicates that the script only reads data but never writes.
 
-    By default, Redis will deny the execution of scripts against read-only replicas, as they may attempt to perform writes.
+    By default, Redis will deny the execution of flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) against read-only replicas, as they may attempt to perform writes.
     Similarly, the server will not allow calling scripts with `FCALL_RO` / `EVAL_RO`.
     Lastly, when data persistence is at risk due to a disk error, execution is blocked as well.
 
     Using this flag allows executing the script:
-    1. With `FCALL_RO` / `EVAL_RO` against masters and read-only replicas.
-    2. Even if there's a disk error (Redis is unable to persist so it rejects writes).
+    1. With `FCALL_RO` / `EVAL_RO`
+    2. On read-only replicas.
+    3. Even if there's a disk error (Redis is unable to persist so it rejects writes).
+    4. When over the memory limit since it implies the script doesn't increase memory consumption (see `allow-oom` below)
 
     However, note that the server will return an error if the script attempts to call a write command.
+    Also note that currently `PUBLISH`, `SPUBLISH` and `PFCOUNT` are also considered write commands in scripts, because they could attempt to propagate commands to replicas and AOF file.
+
+    For more information please refer to [Read-only scripts](/docs/manual/programmability/#read-only_scripts)
 
 * `allow-oom`: use this flag to allow a script to execute when the server is out of memory (OOM).
 
-    Unless used, Redis will deny the execution of scripts when in an OOM state, regardless of the `no-write` flag and method of calling.
+    Unless used, Redis will deny the execution of flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) when in an OOM state.
     Furthermore, when you use this flag, the script can call any Redis command, including commands that aren't usually allowed in this state.
+    Specifying `no-writes` or using `FCALL_RO` / `EVAL_RO` also implies the script can run in OOM state (without specifying `allow-oom`)
 
-* `allow-stale`: a flag that enables running the script against a stale replica.
+* `allow-stale`: a flag that enables running the flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) against a stale replica when the `replica-serve-stale-data` config is set to `no` .
 
-    By default, Redis prevents data consistency problems from using old data by having stale replicas return a runtime error.
-    In cases where the consistency is a lesser concern, this flag allows stale Redis replicas to run the script.
+    Redis can be set to prevent data consistency problems from using old data by having stale replicas return a runtime error.
+    For scripts that do not access the data, this flag can be set to allow stale Redis replicas to run the script.
+    Note however that the script will still be unable to execute any command that accesses stale data.
 
 * `no-cluster`: the flag causes the script to return an error in Redis cluster mode.
 
@@ -488,7 +495,7 @@ You can use the following flags and instruct the server to treat the scripts' ex
     
     This flag has no effect when cluster mode is disabled.
 
-Please refer to [Function Flags](/topics/functions-intro#function-flags) and [Eval Flags](/topics/eval-intro#eval-flags) for a detailed example.
+Please refer to [Function Flags](/docs/manual/programmability/functions-intro/#function-flags) and [Eval Flags](/docs/manual/programmability/eval-intro/#eval-flags) for a detailed example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
 
