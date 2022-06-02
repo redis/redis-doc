@@ -254,7 +254,8 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_net_repl_output_bytes`: The total number of bytes written to the network for replication purposes
 *   `instantaneous_input_kbps`: The network's read rate per second in KB/sec
 *   `instantaneous_output_kbps`: The network's write rate per second in KB/sec
-*   `instantaneous_repl_total_kbps`: The network's total rate per second in KB/sec for replication purposes
+*   `instantaneous_input_repl_kbps`: The network's read rate per second in KB/sec for replication purposes
+*   `instantaneous_output_repl_kbps`: The network's write rate per second in KB/sec for replication purposes
 *   `rejected_connections`: Number of connections rejected because of
      `maxclients` limit
 *   `sync_full`: The number of full resyncs with replicas
