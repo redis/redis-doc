@@ -45,6 +45,7 @@ already available that can be used for reference.
 * [ScarletLock](https://github.com/psibernetic/scarletlock) (C# .NET implementation with configurable datastore).
 * [Redlock4Net](https://github.com/LiZhenNet/Redlock4Net) (C# .NET implementation).
 * [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
+* [Deno DLM](https://github.com/oslabs-beta/Deno-Redlock) (Deno implementation)
 
 ## Safety and Liveness Guarantees
 
