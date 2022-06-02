@@ -4,7 +4,8 @@ linkTitle: "ACL"
 weight: 1
 description: Redis access control list
 aliases:
-    - /topics/acl
+    docs/manual/security/acl/
+    docs/manual/security/acl.md
 ---
 
 The Redis ACL, short for Access Control List, is the feature that allows certain
