@@ -25,6 +25,7 @@ Also thanks to the following people or organizations that donated to the Project
 
 * Emil Vladev
 * [Brad Jasper](http://bradjasper.com/)
+* [Mrkris](https://www.mrkris.com/)
 
 The Redis community is grateful to [Redis Ltd.](http://redis.com), [Pivotal](http://gopivotal.com), [VMware](http://vmware.com) and to the other companies and people who have donated to the Redis project. Thank you.
 
