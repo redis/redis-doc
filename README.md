@@ -2,7 +2,7 @@
 
 ## Clients
 
-All clients are listed under language specific subfolders of [clients](./clients)
+All clients are listed under language specific sub-folders of [clients](./clients)
 
 The path follows the pattern: ``clients/{language}/github.com/{owner}/{repository}.json``.
 The ``{language}`` component of the path is the path-safe representation
@@ -65,23 +65,16 @@ Please use the following formatting rules (aiming for smaller diffs that are eas
 
 ## Checking your work
 
-You should check your changes using Make:
+After making changes to the documentation, you can use the [spellchecker-cli package](https://www.npmjs.com/package/spellchecker-cli) to validate your spelling as well as some minor grammatical errors. You can install the spellchecker locally by running:
 
-```
-$ make
-```
-
-This will make sure that JSON and Markdown files compile and that all
-text files have no typos.
-
-You need to install a few Ruby gems and [Aspell][aspell] to run these checks.
-The gems are listed in the `.gems` file. Install them with the
-following command:
-
-```
-$ gem install $(sed -e 's/ -v /:/' .gems)
+```bash
+npm install --global spellchecker-cli
 ```
 
-The spell checking exceptions should be added to `./wordlist`.
+You can than validate your spelling by running the following
 
-[aspell]: http://aspell.net/
+```
+spellchecker --no-suggestions -f '**/*.md' -l en-US -q -d wordlist
+```
+
+Any exceptions you need for spelling can be added to the `wordlist` file.

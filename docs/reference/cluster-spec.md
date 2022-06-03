@@ -363,7 +363,7 @@ to the client with a MOVED error, like in the following example:
 The error includes the hash slot of the key (3999) and the endpoint:port of the instance that can serve the query.
 The client needs to reissue the query to the specified node's endpoint address and port. 
 The endpoint can be either an IP address, a hostname, or it can be empty (e.g. `-MOVED 3999 :6380`). 
-An empty endpoint indicates that the server node has an an unknown endpoint, and the client should send the next request to the same endpoint as the current request but with the provided port. 
+An empty endpoint indicates that the server node has an unknown endpoint, and the client should send the next request to the same endpoint as the current request but with the provided port. 
 
 Note that even if the client waits a long time before reissuing the query,
 and in the meantime the cluster configuration changed, the destination node
@@ -1089,7 +1089,7 @@ epoch), without requiring agreement from other nodes.
 Usually a real world resharding involves moving several hundred hash slots
 (especially in small clusters). Requiring an agreement to generate new
 configuration epochs during resharding, for each hash slot moved, is
-inefficient. Moreover it requires an fsync in each of the cluster nodes
+inefficient. Moreover it requires a fsync in each of the cluster nodes
 every time in order to store the new configuration. Because of the way it is
 performed instead, we only need a new config epoch when the first hash slot is moved,
 making it much more efficient in production environments.

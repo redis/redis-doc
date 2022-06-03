@@ -111,7 +111,7 @@ When a script reaches the timeout threshold, it isn't terminated by Redis automa
 Doing so would violate the contract between Redis and the scripting engine that ensures that scripts are atomic.
 Interrupting the execution of a script has the potential of leaving the dataset with half-written changes.
 
-Therefore, when a script executes longer than than the configured timeout, the following happens:
+Therefore, when a script executes longer than the configured timeout, the following happens:
 
 * Redis logs that a script is running for too long.
 * It starts accepting commands again from other clients but will reply with a BUSY error to all the clients sending normal commands. The only commands allowed in this state are `SCRIPT KILL`, `FUNCTION KILL`, and `SHUTDOWN NOSAVE`.

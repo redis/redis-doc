@@ -384,7 +384,7 @@ The above function returns NULL if you try to access out of range elements.
 
 Strings and errors (which are like strings but with a different type) can
 be accessed using in the following way, making sure to never write to
-the resulting pointer (that is returned as as `const` pointer so that
+the resulting pointer (that is returned as a `const` pointer so that
 misusing must be pretty explicit):
 
     size_t len;
@@ -446,7 +446,7 @@ Example usage:
 
     RedisModule_ReplyWithError(ctx,"ERR invalid arguments");
 
-We already saw how to reply with a long long in the examples above:
+We already saw how to reply with a `long long` in the examples above:
 
     RedisModule_ReplyWithLongLong(ctx,12345);
 
