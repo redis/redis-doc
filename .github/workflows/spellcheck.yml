@@ -17,3 +17,4 @@ jobs:
           DOCS_DIRECTORY: .
           CONFIGURATION_FILE: .spellcheck.yml
           COMMANDS_FILE: commands.json
+          
