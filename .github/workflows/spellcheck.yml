@@ -3,8 +3,7 @@ on:
   push:
     branches: [master]
   pull_request:
-    branches: [master]
-  workflow_dispatch:
+    branches: [master]  
 jobs:
   spellcheck:
     runs-on: ubuntu-latest
