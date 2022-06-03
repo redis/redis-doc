@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Spellcheck
-        uses: redis-stack/github-actions/spellcheck@main
+        uses: redis-stack/github-actions/spellcheck@debug
         env:
           DICTIONARY: wordlist
           DOCS_DIRECTORY: .
