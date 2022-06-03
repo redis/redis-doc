@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Spellcheck
-        uses: redis-stack/github-actions/spellcheck@debug
+        uses: redis-stack/github-actions/spellcheck@main
         env:
           DICTIONARY: wordlist
           DOCS_DIRECTORY: .
