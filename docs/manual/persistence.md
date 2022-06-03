@@ -140,7 +140,7 @@ using the AOF with Redis 2.2 you'll need to run `BGREWRITEAOF` from time to
 time. Since Redis 2.4 is able to trigger log rewriting automatically (see the
 example configuration file for more information).
 
-Since Redis 7.0.0, when an AOF rewrite is scheduled, The Redis parent process opens a new incremental AOF file to continue writing.
+Since Redis 7.0.0, when an AOF rewrite is scheduled, the Redis parent process opens a new incremental AOF file to continue writing.
 The child process executes the rewrite logic and generates a new base AOF.
 Redis will use a temporary manifest file to track the newly generated base file and incremental file.
 When they are ready, Redis will perform an atomic replacement operation to make this temporary manifest file take effect.
