@@ -106,10 +106,10 @@ What is important about the Redis LRU algorithm is that you **are able to tune**
 
 The reason Redis does not use a true LRU implementation is because it
 costs more memory. However, the approximation is virtually equivalent for an
-application using Redis. The following is a graphical comparison of how
-the LRU approximation used by Redis compares with true LRU.
+application using Redis. This figure compares
+the LRU approximation used by Redis with true LRU.
 
-![LRU comparison](https://redis.io/images/redisdoc/lru_comparison.png)
+![LRU comparison](../../images/lru_comparison.png)
 
 The test to generate the above graphs filled a Redis server with a given number of keys. The keys were accessed from the first to the last. The first keys are the best candidates for eviction using an LRU algorithm. Later more 50% of keys are added, in order to force half of the old keys to be evicted.
 

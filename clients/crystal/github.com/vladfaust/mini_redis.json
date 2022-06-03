@@ -1,8 +1,0 @@
-{
-    "name": "mini_redis",
-    "description": "A light-weight low-level Redis client for Crystal",
-    "homepage": "https://github.com/vladfaust/mini_redis/",
-    "twitter": [
-        "vladfaust"
-    ]
-}
