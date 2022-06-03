@@ -53,7 +53,7 @@ Redis uses source code from third parties. All this code contains a BSD or BSD-c
 
 * When compiled on Linux, Redis uses the [Jemalloc allocator](https://github.com/jemalloc/jemalloc), which is copyrighted by Jason Evans, Mozilla Foundation, and Facebook, Inc and released under the **two-clause BSD license**.
 
-* Inside Jemalloc, the file `pprof` is copyright by Google Inc and released under the **three-clause BSD license**.
+* Inside Jemalloc, the file `pprof` is copyrighted by Google Inc. and released under the **three-clause BSD license**.
 
 * Inside Jemalloc the files `inttypes.h`, `stdbool.h`, `stdint.h`, `strings.h` under the `msvc_compat` directory are copyright Alexander Chemeris and released under the **three-clause BSD license**.
 
