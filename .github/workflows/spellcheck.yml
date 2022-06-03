@@ -4,6 +4,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  workflow_dispatch:
 jobs:
   spellcheck:
     runs-on: ubuntu-latest
