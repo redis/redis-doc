@@ -1,4 +1,0 @@
-{
-    "name": "aredis",
-    "description": "An efficient and user-friendly async redis client ported from redis-py."
-}

@@ -1,7 +1,0 @@
-{
-    "name": "redis-py-cluster",
-    "description": "Python cluster client for the official redis cluster. Redis 3.0+.",
-    "twitter": [
-        "grokzen"
-    ]
-}
