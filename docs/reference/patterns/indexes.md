@@ -547,7 +547,7 @@ sometimes used. Here we'll describe a different way to index data into
 multiple dimensions, using a representation trick that allows us to perform
 the query in a very efficient way using Redis lexicographical ranges.
 
-Let's say we have points in the space, which represent our data samples, where `x` and `y` are our coordinates. Max valie of both variables is 400.
+Let's say we have points in the space, which represent our data samples, where `x` and `y` are our coordinates. The max value of both variables is 400.
 
 In the next figure, the blue box represents our query. We want all the points where `x` is between 50 and 100, and where `y` is between 100 and 300.
 
