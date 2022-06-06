@@ -489,7 +489,7 @@ in a different thread since Redis 2.4.
 We'll see how configuration can affect the amount and source of latency
 when using the AOF file.
 
-The AOF can be configured to perform an fsync on disk in three different
+The AOF can be configured to perform a fsync on disk in three different
 ways using the **appendfsync** configuration option (this setting can be
 modified at runtime using the **CONFIG SET** command).
 
@@ -500,15 +500,15 @@ cope with the speed at which Redis is receiving data, however this is
 uncommon if the disk is not seriously slowed down by other processes doing
 I/O.
 
-* When appendfsync is set to the value of **everysec** Redis performs an
+* When appendfsync is set to the value of **everysec** Redis performs a
 fsync every second. It uses a different thread, and if the fsync is still
 in progress Redis uses a buffer to delay the write(2) call up to two seconds
-(since write would block on Linux if an fsync is in progress against the
+(since write would block on Linux if a fsync is in progress against the
 same file). However if the fsync is taking too long Redis will eventually
 perform the write(2) call even if the fsync is still in progress, and this
 can be a source of latency.
 
-* When appendfsync is set to the value of **always** an fsync is performed
+* When appendfsync is set to the value of **always** a fsync is performed
 at every write operation before replying back to the client with an OK code
 (actually Redis will try to cluster many commands executed at the same time
 into a single fsync). In this mode performances are very low in general and
@@ -562,7 +562,7 @@ Given that `ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP` is set to 20 by default, and t
 
 However the algorithm is adaptive and will loop if it finds more than 25% of keys already expired in the set of sampled keys. But given that we run the algorithm ten times per second, this means that the unlucky event of more than 25% of the keys in our random sample are expiring at least *in the same second*.
 
-Basically this means that **if the database has many many keys expiring in the same second, and these make up at least 25% of the current population of keys with an expire set**, Redis can block in order to get the percentage of keys already expired below 25%.
+Basically this means that **if the database has many, many keys expiring in the same second, and these make up at least 25% of the current population of keys with an expire set**, Redis can block in order to get the percentage of keys already expired below 25%.
 
 This approach is needed in order to avoid using too much memory for keys that are already expired, and usually is absolutely harmless since it's strange that a big number of keys are going to expire in the same exact second, but it is not impossible that the user used `EXPIREAT` extensively with the same Unix time.
 

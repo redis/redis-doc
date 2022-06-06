@@ -3,7 +3,7 @@ Sets the given keys to their respective values.
 exists.
 
 Because of this semantic `MSETNX` can be used in order to set different keys
-representing different fields of an unique logic object in a way that ensures
+representing different fields of a unique logic object in a way that ensures
 that either all the fields or none at all are set.
 
 `MSETNX` is atomic, so all given keys are set at once.

@@ -252,7 +252,7 @@ Adding frequency into the mix
 
 The above approach is a bit naive, because all the user searches are the same
 in this way. In a real system we want to complete strings according to their
-frequency: very popular searches will be proposed with an higher probability
+frequency: very popular searches will be proposed with a higher probability
 compared to search strings typed very rarely.
 
 In order to implement something which depends on the frequency, and at the
@@ -472,7 +472,7 @@ ID 90, regardless of the *current* fields values of the object, we just
 have to retrieve the hash value by object ID and `ZREM` it in the sorted
 set view.
 
-Representing and querying graphs using an hexastore
+Representing and querying graphs using a hexastore
 ===
 
 One cool thing about composite indexes is that they are handy in order
@@ -636,7 +636,7 @@ search boxes of side `2^(N/2)`.
 
 So what we do is check the dimension where our search box is smaller,
 and check the nearest power of two to this number. Our search box
-was 50,100 to 100,300, so it has a width of 50 and an height of 200.
+was 50,100 to 100,300, so it has a width of 50 and a height of 200.
 We take the smaller of the two, 50, and check the nearest power of two
 which is 64. 64 is 2^6, so we would work with indexes obtained replacing
 the latest 12 bits from the interleaved representation (so that we end

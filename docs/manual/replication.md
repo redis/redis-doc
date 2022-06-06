@@ -329,7 +329,7 @@ However the new replication ID of the promoted replica will be different, since 
 constitutes a different history of the data set. For example, the master can
 return available and can continue accepting writes for some time, so using the
 same replication ID in the promoted replica would violate the rule that a
-of replication ID and offset pair identifies only a single data set.
+replication ID and offset pair identifies only a single data set.
 
 Moreover, replicas - when powered off gently and restarted - are able to store
 in the `RDB` file the information needed to resync with their

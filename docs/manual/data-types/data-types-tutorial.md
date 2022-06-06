@@ -694,8 +694,8 @@ Moreover, elements in a sorted sets are *taken in order* (so they are not
 ordered on request, order is a peculiarity of the data structure used to
 represent sorted sets). They are ordered according to the following rule:
 
-* If A and B are two elements with a different score, then A > B if A.score is > B.score.
-* If A and B have exactly the same score, then A > B if the A string is lexicographically greater than the B string. A and B strings can't be equal since sorted sets only have unique elements.
+* If B and A are two elements with a different score, then A > B if A.score is > B.score.
+* If B and A have exactly the same score, then A > B if the A string is lexicographically greater than the B string. B and A strings can't be equal since sorted sets only have unique elements.
 
 Let's start with a simple example, adding a few selected hackers names as
 sorted set elements, with their year of birth as "score".
@@ -865,7 +865,7 @@ the `+` and `-` strings. See the documentation for more information.
 This feature is important because it allows us to use sorted sets as a generic
 index. For example, if you want to index elements by a 128-bit unsigned
 integer argument, all you need to do is to add elements into a sorted
-set with the same score (for example 0) but with an 16 byte prefix
+set with the same score (for example 0) but with a 16 byte prefix
 consisting of **the 128 bit number in big endian**. Since numbers in big
 endian, when ordered lexicographically (in raw bytes order) are actually
 ordered numerically as well, you can ask for ranges in the 128 bit space,

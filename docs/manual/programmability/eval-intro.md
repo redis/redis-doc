@@ -189,7 +189,7 @@ Therefore, a client library's implementation should revert to using plain `EVAL`
 
 ### Script cache semantics
 
-During normal operation, an application's scripts are meant to stay indefintely in the cache (that is, until the server is restarted or the cache being flushed).
+During normal operation, an application's scripts are meant to stay indefinitely in the cache (that is, until the server is restarted or the cache being flushed).
 The underlying reasoning is that the script cache contents of a well-written application are unlikely to grow continuously.
 Even large applications that use hundreds of cached scripts shouldn't be an issue in terms of cache memory usage. 
 

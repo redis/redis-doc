@@ -37,7 +37,7 @@ RDB and AOF persistence.
 ## AOF advantages
 
 * Using AOF Redis is much more durable: you can have different fsync policies: no fsync at all, fsync every second, fsync at every query. With the default policy of fsync every second, write performance is still great. fsync is performed using a background thread and the main thread will try hard to perform writes when no fsync is in progress, so you can only lose one second worth of writes.
-* The AOF log is an append-only log, so there are no seeks, nor corruption problems if there is a power outage. Even if the log ends with an half-written command for some reason (disk full or other reasons) the redis-check-aof tool is able to fix it easily.
+* The AOF log is an append-only log, so there are no seeks, nor corruption problems if there is a power outage. Even if the log ends with a half-written command for some reason (disk full or other reasons) the redis-check-aof tool is able to fix it easily.
 * Redis is able to automatically rewrite the AOF in background when it gets too big. The rewrite is completely safe as while Redis continues appending to the old file, a completely new one is produced with the minimal set of operations needed to create the current data set, and once this second file is ready Redis switches the two and starts appending to the new one.
 * AOF contains a log of all the operations one after the other in an easy to understand and parse format. You can even easily export an AOF file. For instance even if you've accidentally flushed everything using the `FLUSHALL` command, as long as no rewrite of the log was performed in the meantime, you can still save your data set just by stopping the server, removing the latest command, and restarting Redis again.
 
@@ -153,7 +153,7 @@ You can configure how many times Redis will
 [`fsync`](http://linux.die.net/man/2/fsync) data on disk. There are
 three options:
 
-* `appendfsync always`: `fsync` every time new commands are appended to the AOF. Very very slow, very safe. Note that the commands are apended to the AOF after a batch of commands from multiple clients or a pipeline are executed, so it means a single write and a single fsync (before sending the replies).
+* `appendfsync always`: `fsync` every time new commands are appended to the AOF. Very very slow, very safe. Note that the commands are appended to the AOF after a batch of commands from multiple clients or a pipeline are executed, so it means a single write and a single fsync (before sending the replies).
 * `appendfsync everysec`: `fsync` every second. Fast enough (since version 2.4 likely to be as fast as snapshotting), and you may lose 1 second of data if there is a disaster.
 * `appendfsync no`: Never `fsync`, just put your data in the hands of the Operating System. The faster and less safe method. Normally Linux will flush data every 30 seconds with this configuration, but it's up to the kernel's exact tuning.
 
@@ -341,7 +341,7 @@ To work around this you must disable AOF rewrites during the backup:
 4. Re-enable rewrites when done:<br/>
    `CONFIG SET` `auto-aof-rewrite-percentage <prev-value>`
 
-**Note:** If you want to minimize the time AOF rewrites are disabled you may create hard links to the files in `appenddirname` (in step 3 above) and then re-enable rewites (step 4) after the hard links are created.
+**Note:** If you want to minimize the time AOF rewrites are disabled you may create hard links to the files in `appenddirname` (in step 3 above) and then re-enable rewrites (step 4) after the hard links are created.
 Now you can copy/tar the hardlinks and delete them when done. This works because Redis guarantees that it
 only appends to files in this directory, or completely replaces them if necessary, so the content should be
 consistent at any given point in time.
@@ -364,7 +364,7 @@ but Redis will still be able to load it (see the previous sections about [trunca
 4. Re-enable rewrites when done:<br/>
    `CONFIG SET` `auto-aof-rewrite-percentage <prev-value>`
 
-**Note:** If you want to minimize the time AOF rewrites are disabled you may create hard links to the files in `appenddirname` (in step 3 above) and then re-enable rewites (step 4) after the hard links are created.
+**Note:** If you want to minimize the time AOF rewrites are disabled you may create hard links to the files in `appenddirname` (in step 3 above) and then re-enable rewrites (step 4) after the hard links are created.
 Now you can copy/tar the hardlinks and delete them when done. This works because Redis guarantees that it
 only appends to files in this directory, or completely replaces them if necessary, so the content should be
 consistent at any given point in time.
@@ -389,7 +389,7 @@ We'll review the most interesting disaster recovery techniques
 that don't have too high costs.
 
 * Amazon S3 and other similar services are a good way for implementing your disaster recovery system. Simply transfer your daily or hourly RDB snapshot to S3 in an encrypted form. You can encrypt your data using `gpg -c` (in symmetric encryption mode). Make sure to store your password in many different safe places (for instance give a copy to the most important people of your organization). It is recommended to use multiple storage services for improved data safety.
-* Transfer your snapshots using SCP (part of SSH) to far servers. This is a fairly simple and safe route: get a small VPS in a place that is very far from you, install ssh there, and generate an ssh client key without passphrase, then add it in the `authorized_keys` file of your small VPS. You are ready to transfer backups in an automated fashion. Get at least two VPS in two different providers
+* Transfer your snapshots using SCP (part of SSH) to far servers. This is a fairly simple and safe route: get a small VPS in a place that is very far from you, install ssh there, and generate a ssh client key without passphrase, then add it in the `authorized_keys` file of your small VPS. You are ready to transfer backups in an automated fashion. Get at least two VPS in two different providers
 for best results.
 
 It is important to understand that this system can easily fail if not
