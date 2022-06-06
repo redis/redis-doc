@@ -577,7 +577,7 @@ There are three additional rules to note about converting Lua to Redis data type
   exactly like Redis itself does (see, for instance, the `ZSCORE` command).
 * There's [no simple way to have nils inside Lua arrays](http://www.lua.org/pil/19.1.html) due 
   to Lua's table semantics.
-  Therefore, who;e Redis converts a Lua array to RESP, the conversion stops when it encounters a Lua `nil` value.
+  Therefore, when Redis converts a Lua array to RESP, the conversion stops when it encounters a Lua `nil` value.
 * When a Lua table is an associative array that contains keys and their respective values, the converted Redis reply will **not** include them.
 
 Lua to RESP2 type conversion examples:
