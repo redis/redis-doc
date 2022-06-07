@@ -130,7 +130,7 @@ arguments with spaces, newlines, or other special characters:
 
 ## Continuously run the same command
 
-It is possible to execute a signle command a specified number of times
+It is possible to execute a single command a specified number of times
 with a user-selected pause between executions. This is useful in
 different contexts - for example when we want to continuously monitor some
 key content or `INFO` field output, or when we want to simulate some
