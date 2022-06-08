@@ -3,8 +3,7 @@ If the key does not exist, as a side effect of running this command the
 key is created with a stream value. The creation of stream's key can be
 disabled with the `NOMKSTREAM` option.
 
-An entry is composed of a set of field-value pairs, it is basically a
-small dictionary. The field-value pairs are stored in the same order
+An entry is composed of a list of field-value pairs. The field-value pairs are stored in the same order
 they are given by the user, and commands to read the stream such as
 `XRANGE` or `XREAD` are guaranteed to return the fields and values
 exactly in the same order they were added by `XADD`.
