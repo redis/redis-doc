@@ -5901,7 +5901,7 @@ filter applies in all execution paths including:
 
 1. Invocation by a client.
 2. Invocation through [`RedisModule_Call()`](#RedisModule_Call) by any module.
-3. Invocation through Lua `redis.`call()``.
+3. Invocation through Lua `redis.call()`.
 4. Replication of a command from a master.
 
 The filter executes in a special filter context, which is different and more
