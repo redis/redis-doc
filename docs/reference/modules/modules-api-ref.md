@@ -3,7 +3,7 @@ title: "Modules API reference"
 linkTitle: "API reference"
 weight: 1
 description: >
-    Auto-generated reference for the Redis Modules API
+    Reference for the Redis Modules API
 aliases:
     - /topics/modules-api-ref
 ---
@@ -1406,7 +1406,7 @@ The function always returns `REDISMODULE_OK`.
 Add attributes (metadata) to the reply. Should be done before adding the
 actual reply. see [https://github.com/antirez/RESP3/blob/master/spec.md](https://github.com/antirez/RESP3/blob/master/spec.md)#attribute-type
 
-After starting an attributes reply, the module must make `len*2` calls to other
+After starting an attribute's reply, the module must make `len*2` calls to other
 `ReplyWith*` style functions in order to emit the elements of the attribute map.
 See Reply APIs section for more details.
 
@@ -3420,7 +3420,7 @@ Exported API to call any Redis command from modules.
     * `b` -- The argument is a buffer and is immediately followed by another
              argument that is the buffer's length.
     * `c` -- The argument is a pointer to a plain C string (null-terminated).
-    * `l` -- The argument is `long long` integer.
+    * `l` -- The argument is a `long long` integer.
     * `s` -- The argument is a RedisModuleString.
     * `v` -- The argument(s) is a vector of RedisModuleString.
     * `!` -- Sends the Redis command and its arguments to replicas and AOF.
@@ -3432,14 +3432,15 @@ Exported API to call any Redis command from modules.
              same as the client attached to the given RedisModuleCtx. This will
              probably used when you want to pass the reply directly to the client.
     * `C` -- Check if command can be executed according to ACL rules.
-    * 'S' -- Run the command in a script mode, this means that it will raise
+    * `S` -- Run the command in a script mode, this means that it will raise
              an error if a command which are not allowed inside a script
              (flagged with the `deny-script` flag) is invoked (like SHUTDOWN).
              In addition, on script mode, write commands are not allowed if there are
              not enough good replicas (as configured with `min-replicas-to-write`)
              or when the server is unable to persist to the disk.
-    * 'W' -- Do not allow to run any write command (flagged with the `write` flag).
-    * 'E' -- Return error as RedisModuleCallReply. If there is an error before
+    * `W` -- Do not allow to run any write command (flagged with the `write` flag).
+    * `M` -- Do not allow `deny-oom` flagged commands when over the memory limit.
+    * `E` -- Return error as RedisModuleCallReply. If there is an error before
              invoking the command, the error is returned using errno mechanism.
              This flag allows to get the error also as an error CallReply with
              relevant error message.
@@ -3457,7 +3458,7 @@ NULL is returned and errno is set to the following values:
 * ENETDOWN: operation in Cluster instance when cluster is down.
 * ENOTSUP: No ACL user for the specified module context
 * EACCES: Command cannot be executed, according to ACL rules
-* ENOSPC: Write command is not allowed
+* ENOSPC: Write or deny-oom command is not allowed
 * ESPIPE: Command not allowed on script mode
 
 Example code fragment:
@@ -3887,7 +3888,7 @@ Set), the pattern to use is:
 
 Because Sets are not ordered, so every element added has a position that
 does not depend from the other. However if instead our elements are
-ordered in pairs, like field-value pairs of an Hash, then one should
+ordered in pairs, like field-value pairs of a Hash, then one should
 use:
 
     foreach key,value {
@@ -5147,8 +5148,8 @@ and general usage for authentication.
 
 **Available since:** 6.0.0
 
-Deauthenticate and close the client. The client resources will not
-be immediately freed, but will be cleaned up in a background job. This is
+Deauthenticate and close the client. The client resources will not be
+immediately freed, but will be cleaned up in a background job. This is
 the recommended way to deauthenticate a client since most clients can't
 handle users becoming deauthenticated. Returns `REDISMODULE_ERR` when the
 client doesn't exist and `REDISMODULE_OK` when the operation was successful.
@@ -5900,7 +5901,7 @@ filter applies in all execution paths including:
 
 1. Invocation by a client.
 2. Invocation through [`RedisModule_Call()`](#RedisModule_Call) by any module.
-3. Invocation through Lua `redis.call()`.
+3. Invocation through Lua `redis.`call()``.
 4. Replication of a command from a master.
 
 The filter executes in a special filter context, which is different and more
@@ -6030,6 +6031,17 @@ Note that this may be different (larger) than the memory we allocated
 with the allocation calls, since sometimes the underlying allocator
 will allocate more memory.
 
+<span id="RedisModule_MallocUsableSize"></span>
+
+### `RedisModule_MallocUsableSize`
+
+    size_t RedisModule_MallocUsableSize(void *ptr);
+
+**Available since:** 7.0.1
+
+Similar to [`RedisModule_MallocSize`](#RedisModule_MallocSize), the difference is that [`RedisModule_MallocUsableSize`](#RedisModule_MallocUsableSize)
+returns the usable size of memory by the module.
+
 <span id="RedisModule_MallocSizeString"></span>
 
 ### `RedisModule_MallocSizeString`
@@ -6133,14 +6145,14 @@ Callback for scan implementation.
 
 The way it should be used:
 
-     RedisModuleCursor *c = RedisModule_ScanCursorCreate();
+     RedisModuleScanCursor *c = RedisModule_ScanCursorCreate();
      while(RedisModule_Scan(ctx, c, callback, privateData));
      RedisModule_ScanCursorDestroy(c);
 
 It is also possible to use this API from another thread while the lock
 is acquired during the actual call to [`RedisModule_Scan`](#RedisModule_Scan):
 
-     RedisModuleCursor *c = RedisModule_ScanCursorCreate();
+     RedisModuleScanCursor *c = RedisModule_ScanCursorCreate();
      RedisModule_ThreadSafeContextLock(ctx);
      while(RedisModule_Scan(ctx, c, callback, privateData)){
          RedisModule_ThreadSafeContextUnlock(ctx);
@@ -6196,7 +6208,7 @@ Callback for scan implementation.
 
 The way it should be used:
 
-     RedisModuleCursor *c = RedisModule_ScanCursorCreate();
+     RedisModuleScanCursor *c = RedisModule_ScanCursorCreate();
      RedisModuleKey *key = RedisModule_OpenKey(...)
      while(RedisModule_ScanKey(key, c, callback, privateData));
      RedisModule_CloseKey(key);
@@ -6205,7 +6217,7 @@ The way it should be used:
 It is also possible to use this API from another thread while the lock is acquired during
 the actual call to [`RedisModule_ScanKey`](#RedisModule_ScanKey), and re-opening the key each time:
 
-     RedisModuleCursor *c = RedisModule_ScanCursorCreate();
+     RedisModuleScanCursor *c = RedisModule_ScanCursorCreate();
      RedisModule_ThreadSafeContextLock(ctx);
      RedisModuleKey *key = RedisModule_OpenKey(...)
      while(RedisModule_ScanKey(ctx, c, callback, privateData)){
@@ -6745,6 +6757,10 @@ Example Implementation:
      ...
      RedisModule_RegisterEnumConfig(ctx, "enum", 0, REDISMODULE_CONFIG_DEFAULT, enum_vals, int_vals, 3, getEnumConfigCommand, setEnumConfigCommand, NULL, NULL);
 
+Note that you can use `REDISMODULE_CONFIG_BITFLAGS` so that multiple enum string
+can be combined into one integer as bit flags, in which case you may want to
+sort your enums so that the preferred combinations are present first.
+
 See [`RedisModule_RegisterStringConfig`](#RedisModule_RegisterStringConfig) for detailed general information about configs.
 
 <span id="RedisModule_RegisterNumericConfig"></span>
@@ -6979,7 +6995,7 @@ used.
 
 **Available since:** 6.0.9
 
-Identinal to [`RedisModule_GetCommandKeysWithFlags`](#RedisModule_GetCommandKeysWithFlags) when flags are not needed.
+Identical to [`RedisModule_GetCommandKeysWithFlags`](#RedisModule_GetCommandKeysWithFlags) when flags are not needed.
 
 <span id="RedisModule_GetCurrentCommandName"></span>
 
@@ -7330,6 +7346,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_MallocSize`](#RedisModule_MallocSize)
 * [`RedisModule_MallocSizeDict`](#RedisModule_MallocSizeDict)
 * [`RedisModule_MallocSizeString`](#RedisModule_MallocSizeString)
+* [`RedisModule_MallocUsableSize`](#RedisModule_MallocUsableSize)
 * [`RedisModule_Milliseconds`](#RedisModule_Milliseconds)
 * [`RedisModule_ModuleTypeGetType`](#RedisModule_ModuleTypeGetType)
 * [`RedisModule_ModuleTypeGetValue`](#RedisModule_ModuleTypeGetValue)
