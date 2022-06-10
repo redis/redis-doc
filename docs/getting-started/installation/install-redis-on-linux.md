@@ -10,8 +10,8 @@ Most major Linux distributions provide packages for Redis.
 
 ## Install on Ubuntu/Debian
 
- You can install recent stable versions of Redis from the official
- `packages.redis.io` APT repository. Add the repository to the <code>apt</code> index, update it, and then install:
+You can install recent stable versions of Redis from the official `packages.redis.io` APT repository.
+Add the repository to the <code>apt</code> index, update it, and then install:
 
 {{< highlight bash  >}}
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
