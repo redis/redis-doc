@@ -3,10 +3,9 @@ If the key does not exist, as a side effect of running this command the
 key is created with a stream value. The creation of stream's key can be
 disabled with the `NOMKSTREAM` option.
 
-An entry is composed of a list of field-value pairs. The field-value pairs are stored in the same order
-they are given by the user, and commands to read the stream such as
-`XRANGE` or `XREAD` are guaranteed to return the fields and values
-exactly in the same order they were added by `XADD`.
+An entry is composed of a list of field-value pairs.
+The field-value pairs are stored in the same order they are given by the user.
+Commands that read the stream, such as `XRANGE` or `XREAD`, are guaranteed to return the fields and values exactly in the same order they were added by `XADD`.
 
 `XADD` is the *only Redis command* that can add data to a stream, but 
 there are other commands, such as `XDEL` and `XTRIM`, that are able to
