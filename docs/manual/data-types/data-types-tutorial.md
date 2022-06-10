@@ -62,7 +62,7 @@ A few other rules about keys:
   consume a bit less memory, your job is to find the right balance.
 * Try to stick with a schema. For instance "object-type:id" is a good
   idea, as in "user:1000". Dots or dashes are often used for multi-word
-  fields, as in "comment:1234:reply.to" or "comment:1234:reply-to".
+  fields, as in "comment:4321:reply.to" or "comment:4321:reply-to".
 * The maximum allowed key size is 512 MB.
 
 <a name="strings"></a>
