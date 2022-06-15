@@ -136,7 +136,7 @@ Multi-key commands that accept an arbitrary number of keys, such as `MSET`, use 
 
 ## Step
 
-The step, or increment, between the _first key_ and the postion of the next key.
+The step, or increment, between the _first key_ and the position of the next key.
 
 Consider the following two examples:
 
