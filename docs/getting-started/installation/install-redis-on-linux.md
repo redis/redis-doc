@@ -41,7 +41,11 @@ Red Hat Enterprise Linux (RHEL), Fedora 22+, and CentOS 8 have the default packa
 
 {{< highlight bash  >}}
  dnf module install redis
- OR
+ {{< highlight bash  >}}
+
+Or
+
+{{< highlight bash  >}}
  dnf install @redis
  {{< / highlight  >}}
 
