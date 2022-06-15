@@ -40,9 +40,9 @@ If your Linux does not currently have snap installed, install it using the instr
 Red Hat Enterprise Linux (RHEL), Fedora 22+, and CentOS 8 have the default package manager DNF, an updated YUM. Using DNF, Redis can be installed as follows.
 
 {{< highlight bash  >}}
- # dnf module install redis
+ dnf module install redis
  OR
- # dnf install @redis
+ dnf install @redis
  {{< / highlight  >}}
 
 ## Install on CentOS 7
