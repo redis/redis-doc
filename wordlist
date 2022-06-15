@@ -155,6 +155,7 @@ HLLs
 HMAC-SHA256
 HVM
 HW
+Hardcoded
 Haversine
 Hexastore
 Hitmeister
@@ -371,6 +372,7 @@ Twemproxy
 URI
 USD
 UTF-8
+Unmodifiable
 Unregister
 Untrusted
 Unwatches
