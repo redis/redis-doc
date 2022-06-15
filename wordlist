@@ -105,6 +105,8 @@ DBs
 DEL'ition
 DLM
 DMA
+dnf
+DNF
 DNS
 DSL
 Deauthenticate
@@ -125,6 +127,7 @@ ENOENT
 ENOTSUP
 EOF
 EP
+EPEL
 EPSG:3785
 EPSG:900913
 ERANGE
@@ -272,6 +275,7 @@ RESP3's
 RESP3-typed
 RESP3.
 REdis
+RHEL
 RM_CreateCommand
 RM_CreateStringFromString
 RM_IsKeysPositionRequest
