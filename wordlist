@@ -156,6 +156,7 @@ HLLs
 HMAC-SHA256
 HVM
 HW
+Hardcoded
 Haversine
 Hexastore
 Hitmeister
@@ -372,6 +373,7 @@ Twemproxy
 URI
 USD
 UTF-8
+Unmodifiable
 Unregister
 Untrusted
 Unwatches
@@ -578,6 +580,7 @@ github
 globals
 gpg
 handleClientsWithPendingWrites
+hardcoded
 hardlinks
 hexastore
 hiredis
@@ -891,6 +894,7 @@ unix
 unlink
 unlinked
 unlinks
+unmodifiable
 unpause
 unreachability
 unregister
