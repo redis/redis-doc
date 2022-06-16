@@ -3,7 +3,7 @@ title: "Install Redis on Linux"
 linkTitle: "Install on Linux"
 weight: 1
 description: >
-    How to install Redis on Ubuntu, RHEL, and CentOS
+    How to install Redis on Linux
 ---
 
 Most major Linux distributions provide packages for Redis.
@@ -34,23 +34,3 @@ sudo snap install redis
 {{< / highlight  >}}
 
 If your Linux does not currently have snap installed, install it using the instructions described in [Installing snapd](https://snapcraft.io/docs/installing-snapd).
-
-## Install on RHEL/Fedora/CentOS 8
-
-Red Hat Enterprise Linux (RHEL), Fedora 22+, and CentOS 8 have the default package manager DNF, an updated YUM. Using DNF, Redis can be installed as follows.
-
-``` bash
-dnf module install redis
-```
-
-Or
-
-``` bash
-dnf install @redis
-```
-
-## Install on CentOS 7
-
-To avoid having to download the extra packages for enterprise Linux (EPEL) library, CentOS 7 is supported by snap. 
-
-However, if your installation requires the EPEL library, to install Redis along with the other packages see [Install and configure Redis on CentOS 7](https://www.linode.com/docs/guides/install-and-configure-redis-on-centos-7/).
