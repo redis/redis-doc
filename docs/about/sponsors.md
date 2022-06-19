@@ -15,7 +15,7 @@ Past sponsorships:
 * From May 2013 to June 2015, the work [Salvatore Sanfilippo](http://twitter.com/antirez) did to develop Redis was sponsored by [Pivotal](http://gopivotal.com).
 * Before May 2013, the project was sponsored by VMware with the work of [Salvatore Sanfilippo](http://twitter.com/antirez) and [Pieter Noordhuis](http://twitter.com/pnoordhuis).
 * [VMware](http://vmware.com) and later [Pivotal](http://pivotal.io) provided a 24 GB RAM workstation for Salvatore to run the Redis CI test and other long running tests. Later, Salvatore equipped the server with an SSD drive in order to test in the same hardware with rotating and flash drives.
-* [Linode](http://linode.com), in January 2010, provided virtual machines for Redis testing in a virtualized environment.
+* [Linode](https://linode.com), in January 2010, provided virtual machines for Redis testing in a virtualized environment.
 * Slicehost, January 2010, provided Virtual Machines for Redis testing in a virtualized environment.
 * [Citrusbyte](http://citrusbyte.com), in December 2009, contributed part of Virtual Memory implementation.
 * [Hitmeister](http://www.hitmeister.de/), in December 2009, contributed part of Redis Cluster.
