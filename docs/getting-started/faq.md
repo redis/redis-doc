@@ -102,13 +102,9 @@ memory it will fail.
 Setting `overcommit_memory` to 1 tells Linux to relax and perform the fork in a
 more optimistic allocation fashion, and this is indeed what you want for Redis.
 
-A good source to understand how Linux Virtual Memory works and other
-alternatives for `overcommit_memory` and `overcommit_ratio` is this classic article
-from Red Hat Magazine, ["Understanding Virtual Memory"][redhatvm].
-You can also refer to the [proc(5)][proc5] man page for explanations of the
+You can refer to the [proc(5)][proc5] man page for explanations of the
 available values.
 
-[redhatvm]: https://people.redhat.com/nhorman/papers/rhel3_vm.pdf
 [proc5]: http://man7.org/linux/man-pages/man5/proc.5.html
 
 ## Are Redis on-disk snapshots atomic?
