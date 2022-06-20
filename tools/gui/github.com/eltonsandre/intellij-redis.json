@@ -1,0 +1,5 @@
+{
+  "name": "Redis Client(Intellij)",
+  "description": "Redis client connection management and data manipulation for IntelliJ IDEs. An advanced GUI client for Redis, Support Standalone, Sentinel, Cluster & SSH, Support redis-cli, command wrap.",
+  "homepage": "https://plugins.jetbrains.com/plugin/19360-redis-client"
+}
