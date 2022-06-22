@@ -208,7 +208,7 @@ new race. This form of locking is called _optimistic locking_.
 In many use cases, multiple clients will be accessing different keys,
 so collisions are unlikely – usually there's no need to repeat the operation.
 
-## `WATCH` explained
+## WATCH explained
 
 So what is `WATCH` really about? It is a command that will
 make the `EXEC` conditional: we are asking Redis to perform
@@ -241,7 +241,7 @@ of the keys we don't want to proceed.  When this happens we just call
 `UNWATCH` so that the connection can already be used freely for new
 transactions.
 
-### Using `WATCH` to implement ZPOP
+### Using WATCH to implement ZPOP
 
 A good example to illustrate how `WATCH` can be used to create new
 atomic operations otherwise not supported by Redis is to implement ZPOP
