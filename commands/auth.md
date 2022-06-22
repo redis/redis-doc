@@ -24,6 +24,10 @@ defined in the ACL list (see `ACL SETUSER`) and the official [ACL guide](/topics
 
 When ACLs are used, the single argument form of the command, where only the password is specified, assumes that the implicit username is "default".
 
+> **NOTE:** If your password contains a quotation mark, the cli will try to parse a quoted string. Escape the string, like so: 
+
+    `AUTH some_admin_user ">^8T>6Na{u|jp>+v\"55\@_;OU(OR]7mbAYGqsfyu48(j'%hQH7;v*f1H${*gD(Se'"`
+
 ## Security notice
 
 Because of the high performance nature of Redis, it is possible to try

@@ -8,13 +8,19 @@ aliases:
     - /docs/manual/cli
 ---
 
-The `redis-cli` (Redis command line interface) is a terminal program used to send commands to and read replies from the Redis server. It has two main modes: an interactive REPL (Read Eval Print Loop) mode where the user types Redis commands and receives replies, and a command mode where `redis-cli` is executed with additional arguments and the reply is printed to the standard output.
+The Redis command line interface (`redis-cli`) is a terminal program used to send commands to and read replies from the Redis server. It has two main modes: an interactive Read Eval Print Loop (REPL) mode where the user types Redis commands and receives replies, and a command mode where `redis-cli` is executed with additional arguments and the reply is printed to the standard output.
 
 In interactive mode, `redis-cli` has basic line editing capabilities to provide a familiar tyPING experience.
 
-There are several options you can use to launch the program in special modes. You can simulate a replica and print the replication stream it receives from the primary, check the latency of a Redis server and display statistics, or request ASCII-art spectrogram of latency samples and frequencies, among many other things.
+To launch the program in special modes, you can use several options, including:
 
-This guide will cover the different aspects of `redis-cli`, starting from the simplest and ending with the more advanced features.
+* Simulate a replica and print the replication stream it receives from the primary.
+
+* Check the latency of a Redis server and display statistics. 
+
+* Request ASCII-art spectrogram of latency samples and frequencies.
+
+This topic covers the different aspects of `redis-cli`, starting from the simplest and ending with the more advanced features.
 
 ## Command line usage
 
@@ -41,10 +47,10 @@ even on the terminal with the `--raw` option:
 You can force human readable output when writing to a file or in
 pipe to other commands by using `--no-raw`.
 
-## Host, port, password and database
+## Host, port, password, and database
 
-By default `redis-cli` connects to the server at the address 127.0.0.1 with port 6379.
-You can change this using several command line options. To specify a different host name or an IP address, use the `-h` option. In order to set a different port, use `-p`.
+By default, `redis-cli` connects to the server at the address 127.0.0.1 with port 6379.
+You can change the port using several command line options. To specify a different host name or an IP address, use the `-h` option. In order to set a different port, use `-p`.
 
     $ redis-cli -h redis15.localnet.org -p 6390 PING
     PONG
@@ -55,8 +61,16 @@ preform authentication saving the need of explicitly using the `AUTH` command:
     $ redis-cli -a myUnguessablePazzzzzword123 PING
     PONG
 
-For safety it is strongly advised to provide the password to `redis-cli` automatically via the
+---
+**NOTES**
+
+* For security reasons, provide the password to `redis-cli` automatically via the
 `REDISCLI_AUTH` environment variable.
+* If your password contains a quotation mark, the cli will try to parse a quoted string. Escape the string, like so: 
+
+    `AUTH some_admin_user ">^8T>6Na{u|jp>+v\"55\@_;OU(OR]7mbAYGqsfyu48(j'%hQH7;v*f1H${*gD(Se'"`
+
+---
 
 Finally, it's possible to send a command that operates on a database number
 other than the default number zero by using the `-n <dbnum>` option:
