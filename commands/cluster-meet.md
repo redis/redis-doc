@@ -26,6 +26,8 @@ As a side effect of `A` knowing and being known by all the other nodes, it will 
 
 Moreover `CLUSTER MEET` does not need to be reciprocal. If I send the command to A in order to join B, I don't need to also send it to B in order to join A.
 
+If  `cport` is not used, then cluster port of this node wil be port + 10000.
+
 ## Implementation details: MEET and PING packets
 
 When a given node receives a `CLUSTER MEET` message, the node specified in the
