@@ -24,7 +24,7 @@ This topic covers the different aspects of `redis-cli`, starting from the simple
 
 ## Command line usage
 
-To run a Redis command and receive its reply as standard output to the terminal, include the command to execute as separate arguments of `redis-cli`:
+To run a Redis command and return a standard output at the terminal, include the command to execute as separate arguments of `redis-cli`:
 
     $ redis-cli INCR mycounter
     (integer) 7
@@ -37,8 +37,8 @@ The reply of the command is "7". Since Redis replies are typed (strings, arrays,
     $ cat /tmp/output.txt
     8
 
-Notice that `(integer)` was omitted from the output since `redis-cli` detected
-the output was no longer written to the terminal. You can force raw output
+Note that `(integer)` is omitted from the output because `redis-cli` detects
+the output is no longer written to the terminal. You can force raw output
 even on the terminal with the `--raw` option:
 
     $ redis-cli --raw INCR mycounter
@@ -46,6 +46,31 @@ even on the terminal with the `--raw` option:
 
 You can force human readable output when writing to a file or in
 pipe to other commands by using `--no-raw`.
+
+When entering multiple strings, ensure that you enclose them in double (`"`) or single (`'`) quotatation marks. Double quotes allow for incorporating escape sequences using `\`, while single quotes assume the string is literal. Escape sequences can include:
+
+* `\n` - newline
+* `\r` - carriage return
+* `\t` - horizontal tab
+* `\b` - backspace
+* `\a` - alert
+* `\x_hh_` - any ASCII character represented by a hexadecimal number (_hh_)
+
+For example, to return `Hello World` on two lines:
+
+```
+127.0.0.1:6379> SET mykey "Hello\nWorld"
+OK
+127.0.0.1:6379> GET mykey
+Hello
+World
+```
+
+When you input strings that contain single or double quotes, as you might in passwords, for example, escape the string, like so: 
+
+```
+ AUTH some_admin_user ">^8T>6Na{u|jp>+v\"55\@_;OU(OR]7mbAYGqsfyu48(j'%hQH7;v*f1H${*gD(Se'"
+ ```
 
 ## Host, port, password, and database
 
@@ -61,16 +86,8 @@ preform authentication saving the need of explicitly using the `AUTH` command:
     $ redis-cli -a myUnguessablePazzzzzword123 PING
     PONG
 
----
-**NOTES**
-
-* For security reasons, provide the password to `redis-cli` automatically via the
+> **NOTE:** For security reasons, provide the password to `redis-cli` automatically via the
 `REDISCLI_AUTH` environment variable.
-* If your password contains a quotation mark, the cli will try to parse a quoted string. Escape the string, like so: 
-
-    `AUTH some_admin_user ">^8T>6Na{u|jp>+v\"55\@_;OU(OR]7mbAYGqsfyu48(j'%hQH7;v*f1H${*gD(Se'"`
-
----
 
 Finally, it's possible to send a command that operates on a database number
 other than the default number zero by using the `-n <dbnum>` option:
