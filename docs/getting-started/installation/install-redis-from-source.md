@@ -10,7 +10,7 @@ You can compile and install Redis from source on variety of platforms and operat
 
 ## Downloading the source files
 
-The Redis source files are available on [this site's Download page]. You can verify the integrity of these downloads by checking them against the digests in the [redis-hashes git repository](https://github.com/redis/redis-hashes).
+The Redis source files are available from the [Download page](https://redis.io/download/). You can verify the integrity of these downloads by checking them against the digests in the [redis-hashes git repository](https://github.com/redis/redis-hashes).
 
 To obtain the source files for the latest stable version of Redis from the Redis downloads site, run:
 
