@@ -47,7 +47,7 @@ even on the terminal with the `--raw` option:
 You can force human readable output when writing to a file or in
 pipe to other commands by using `--no-raw`.
 
-When entering multiple strings, ensure that you enclose them in double (`"`) or single (`'`) quotatation marks. Double quotes allow for incorporating escape sequences using `\`, while single quotes assume the string is literal. Escape sequences can include:
+When entering multiple strings, ensure that you enclose them in double (`"`) or single (`'`) quotation marks. Double quotes allow for incorporating escape sequences using `\`, while single quotes assume the string is literal. Escape sequences can include:
 
 * `\n` - newline
 * `\r` - carriage return
