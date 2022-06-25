@@ -587,7 +587,7 @@ redis> EVAL "return 10" 0
 (integer) 10
 
 redis> EVAL "return { 1, 2, { 3, 'Hello World!' } }" 0
-1) (integer) 1s
+1) (integer) 1
 2) (integer) 2
 3) 1) (integer) 3
    1) "Hello World!"
