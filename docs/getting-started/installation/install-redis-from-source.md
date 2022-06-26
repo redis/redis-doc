@@ -18,6 +18,12 @@ To obtain the source files for the latest stable version of Redis from the Redis
 wget https://download.redis.io/redis-stable.tar.gz
 {{< / highlight >}}
 
+## Install needed dependencies
+
+{{< highlight bash >}}
+apt install gcc -y
+{{< / highlight >}}
+
 ## Compiling Redis
 
 To compile Redis, first the tarball, change to the root directory, and then run `make`:
@@ -30,12 +36,13 @@ make
 
 If the compile succeeds, you'll find several Redis binaries in the `src` directory, including:
 
-* **redis-server**: the Redis Server itself
-* **redis-cli** is the command line interface utility to talk with Redis.
+* **redis-server**: The Redis Server itself
+* **redis-cli** : The command line interface utility to talk with Redis.
+* **redis-benchmark**: The command line tool for benchmarks
 
 To install these binaries in `/usr/local/bin`, run:
 
-{{< highlight bash  >}}
+{{< highlight bash >}}
 make install
 {{< / highlight >}}
 
@@ -47,6 +54,14 @@ Once installed, you can start Redis by running
 redis-server
 {{< / highlight >}}
 
-If successful, you'll see the startup logs for Redis, and Redis will be running in the foreground.
+If successful, you'll see the startup logs for Redis. Redis will be running in the foreground.
+
+Or
+
+{{< highlight bash  >}}
+screen -S Redis redis-server
+{{< / highlight >}}
+
+if you want to run redis in the background
 
 To stop Redis, enter `Ctrl-C`.
