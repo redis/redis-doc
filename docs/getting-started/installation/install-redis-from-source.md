@@ -37,7 +37,7 @@ make
 If the compile succeeds, you'll find several Redis binaries in the `src` directory, including:
 
 * **redis-server**: The Redis Server itself
-* **redis-cli** : The command line interface utility to talk with Redis.
+* **redis-cli**: The command line interface utility to talk with Redis.
 * **redis-benchmark**: The command line tool for benchmarks
 
 To install these binaries in `/usr/local/bin`, run:
