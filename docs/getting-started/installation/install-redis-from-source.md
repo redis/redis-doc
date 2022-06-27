@@ -24,6 +24,12 @@ wget https://download.redis.io/redis-stable.tar.gz
 apt install gcc -y
 {{< / highlight >}}
 
+or
+
+{{< highlight bash >}}
+apt install build-essential tcl8.5 -y
+{{< / highlight >}}
+
 ## Compiling Redis
 
 To compile Redis, first the tarball, change to the root directory, and then run `make`:
@@ -40,15 +46,21 @@ If the compile succeeds, you'll find several Redis binaries in the `src` directo
 * **redis-cli**: The command line interface utility to talk with Redis.
 * **redis-benchmark**: The command line tool for benchmarks
 
-To install these binaries in `/usr/local/bin`, run:
+### Starting and stopping Redis in the foreground
+
+Once installed, you can start Redis by running
+
+{{< highlight bash  >}}
+src/redis-server
+{{< / highlight >}}
+
+To install the binaries above in `/usr/local/bin`, run:
 
 {{< highlight bash >}}
 make install
 {{< / highlight >}}
 
-### Starting and stopping Redis in the foreground
-
-Once installed, you can start Redis by running
+Then Redis can also be started like this:
 
 {{< highlight bash  >}}
 redis-server
@@ -56,12 +68,18 @@ redis-server
 
 If successful, you'll see the startup logs for Redis. Redis will be running in the foreground.
 
-Or
+Check if screen exists with the following command, if not, it will be installed directly:
+
+{{< highlight bash  >}}
+if ! command -v screen > /dev/null; then
+    apt install screen -y
+fi
+{{< / highlight >}}
+
+If you want to run redis in the background
 
 {{< highlight bash  >}}
 screen -S Redis redis-server
 {{< / highlight >}}
-
-if you want to run redis in the background
 
 To stop Redis, enter `Ctrl-C`.
