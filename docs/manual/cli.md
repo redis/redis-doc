@@ -84,7 +84,7 @@ preform authentication saving the need of explicitly using the `AUTH` command:
     $ redis-cli -a myUnguessablePazzzzzword123 PING
     PONG
 
-> **NOTE:** For security reasons, provide the password to `redis-cli` automatically via the
+**NOTE:** For security reasons, provide the password to `redis-cli` automatically via the
 `REDISCLI_AUTH` environment variable.
 
 Finally, it's possible to send a command that operates on a database number
