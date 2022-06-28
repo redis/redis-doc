@@ -15,9 +15,7 @@ In interactive mode, `redis-cli` has basic line editing capabilities to provide 
 To launch the program in special modes, you can use several options, including:
 
 * Simulate a replica and print the replication stream it receives from the primary.
-
 * Check the latency of a Redis server and display statistics. 
-
 * Request ASCII-art spectrogram of latency samples and frequencies.
 
 This topic covers the different aspects of `redis-cli`, starting from the simplest and ending with the more advanced features.
