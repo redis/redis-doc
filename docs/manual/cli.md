@@ -45,14 +45,24 @@ even on the terminal with the `--raw` option:
 You can force human readable output when writing to a file or in
 pipe to other commands by using `--no-raw`.
 
-When entering multiple strings, ensure that you enclose them in double (`"`) or single (`'`) quotation marks. Double quotes allow for incorporating escape sequences using `\`, while single quotes assume the string is literal. Escape sequences can include:
+## String escaping
+
+When using escape sequences, ensure that you enclose them in double (`"`) or single (`'`) quotation marks. Escape sequences are used to put nonprintable characters in character and string literals. Examples of using escape sequences to display characters include tab, carriage return, backspace, and many more.
+
+An escape sequence contains a backslash (`\`) symbol followed by one of the escape sequence characters or an octal or hexadecimal number. 
+A hexadecimal escape sequence contains an `x` followed by one or more hexadecimal digits (0-9, A-F, a-f). An octal escape sequence uses up to three octal digits (0-7). 
+
+Escape sequences can include:
 
 * `\n` - newline
 * `\r` - carriage return
 * `\t` - horizontal tab
 * `\b` - backspace
 * `\a` - alert
-* `\x_hh_` - any ASCII character represented by a hexadecimal number (_hh_)
+* `\\` - backslash
+* `\xhh` - any ASCII character represented by a hexadecimal number (_hh_)
+
+Double quotes allow you to incorporate escape sequences using `\`. Single quotes assume the string is literal.
 
 For example, to return `Hello World` on two lines:
 
