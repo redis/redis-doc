@@ -201,7 +201,7 @@ Also, as already mentioned, restarting a Redis instance flushes the non-persiste
 However, from the point of view of the Redis client, there are only two ways to make sure that a Redis instance was not restarted between two different commands:
 
 * The connection we have with the server is persistent and was never closed so far.
-* The client explicitly checks the `runid` field in the `INFO` command to ensure the server was not restarted and is still the same process.
+* The client explicitly checks the `run_id` field in the `INFO` command to ensure the server was not restarted and is still the same process.
 
 Practically speaking, it is much simpler for the client to assume that in the context of a given connection, cached scripts are guaranteed to be there unless the administrator explicitly invoked the `SCRIPT FLUSH` command.
 The fact that the user can count on Redis to retain cached scripts is semantically helpful in the context of pipelining.
