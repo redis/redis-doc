@@ -55,7 +55,7 @@ The following policies are available:
 * **volatile-lfu**: Removes least frequently used keys with the `expire` field set to `true`.
 * **allkeys-random**: Randomly removes keys to make space for the new data added.
 * **volatile-random**: Randomly removes keys with `expire` field set to `true`.
-* **volatile-ttl**: Removes least frequently used keys with `expire` field set to `true` and the shortest remaining time-to-live (TTL) value.
+* **volatile-ttl**: Removes keys with `expire` field set to `true` and the shortest remaining time-to-live (TTL) value.
 
 The policies **volatile-lru**, **volatile-lfu**, **volatile-random**, and **volatile-ttl** behave like **noeviction** if there are no keys to evict matching the prerequisites.
 
