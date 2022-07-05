@@ -969,8 +969,7 @@ to store M bits per key and obtain the key name with `bit-number/M` and
 the Nth bit to address inside the key with `bit-number MOD M`.
 
 <a name="hyperloglogs"></a>
-HyperLogLogs
----
+## HyperLogLogs
 
 A HyperLogLog is a probabilistic data structure used in order to count
 unique things (technically this is referred to estimating the cardinality
