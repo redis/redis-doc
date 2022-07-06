@@ -107,7 +107,7 @@ Check the [full list of Hash commands](/commands#hash) for more information, or 
 
 Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of
 Strings. The difference is that every member of a Sorted Set is associated
-with a score, that is used keep the Sorted Set in order, from the
+with a score, that is used to keep the Sorted Set in order, from the
 smallest to the greatest score.  While members are unique, scores may be
 repeated.
 
