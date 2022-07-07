@@ -275,6 +275,7 @@ Here is the meaning of all fields in the **stats** section:
      subscriptions
 *   `pubsub_patterns`: Global number of pub/sub pattern with client
      subscriptions
+*   `pubsubshard_channels`: Global number of pub/sub shard channels with client subscriptions. Added in Redis 7.0.3
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
 *   `total_forks`: Total number of fork operations since the server start
 *   `migrate_cached_sockets`: The number of sockets open for `MIGRATE` purposes
