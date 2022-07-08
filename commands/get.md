@@ -9,8 +9,3 @@ only handles string values.
 
 @examples
 
-```cli
-GET nonexisting
-SET mykey "Hello"
-GET mykey
-```
