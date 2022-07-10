@@ -26,6 +26,7 @@ Here is the meaning of the fields:
 * `db`: current database ID
 * `sub`: number of channel subscriptions
 * `psub`: number of pattern matching subscriptions
+* `ssub`: number of shard channel subscriptions. Added in Redis 7.0.3
 * `multi`: number of commands in a MULTI/EXEC context
 * `qbuf`: query buffer length (0 means no query pending)
 * `qbuf-free`: free space of the query buffer (0 means the buffer is full)
