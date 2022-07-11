@@ -49,7 +49,7 @@ pipe to other commands by using `--no-raw`.
 
 When using escape sequences, ensure that you enclose them in double (`"`) or single (`'`) quotation marks. Escape sequences are used to put nonprintable characters in character and string literals. Examples of using escape sequences to display characters include tab, carriage return, backspace, and many more.
 
-An escape sequence contains a backslash (`\`) symbol followed by one of the escape sequence characters or an octal or hexadecimal number. 
+An escape sequence contains a backslash (`\`) symbol followed by one of the escape sequence characters.
 A hexadecimal escape sequence contains an `x` followed by one or more hexadecimal digits (0-9, A-F, a-f). An octal escape sequence uses up to three octal digits (0-7). 
 
 Escape sequences can include:
