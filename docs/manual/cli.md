@@ -56,7 +56,7 @@ Escape sequences are used to put nonprintable characters in character and string
 
 An escape sequence contains a backslash (`\`) symbol followed by one of the escape sequence characters.
 
-Escape sequences can include:
+Doubly-quoted strings support the following escape sequences:
 
 * `\n` - newline
 * `\r` - carriage return
