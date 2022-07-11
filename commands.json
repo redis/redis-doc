@@ -690,13 +690,12 @@
         ],
         "command_flags": [
             "write",
-            "denyoom",
-            "movablekeys"
+            "denyoom"
         ]
     },
     "BITFIELD_RO": {
         "summary": "Perform arbitrary bitfield integer operations on strings. Read-only variant of BITFIELD",
-        "since": "6.2.0",
+        "since": "6.0.0",
         "group": "bitmap",
         "complexity": "O(1) for each subcommand specified",
         "acl_categories": [
@@ -736,6 +735,7 @@
                 "type": "block",
                 "token": "GET",
                 "multiple": true,
+                "multiple_token": true,
                 "arguments": [
                     {
                         "name": "encoding",
@@ -2499,6 +2499,12 @@
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
+        "history": [
+            [
+                "4.0.0",
+                "Added the optional `cluster_bus_port` argument."
+            ]
+        ],
         "acl_categories": [
             "@admin",
             "@slow",
@@ -2513,6 +2519,12 @@
             {
                 "name": "port",
                 "type": "integer"
+            },
+            {
+                "name": "cluster_bus_port",
+                "type": "integer",
+                "since": "4.0.0",
+                "optional": true
             }
         ],
         "command_flags": [
@@ -2617,7 +2629,7 @@
             "@slow",
             "@dangerous"
         ],
-        "arity": 3,
+        "arity": -2,
         "arguments": [
             {
                 "name": "hard_soft",
@@ -3482,6 +3494,8 @@
             }
         ],
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -11429,8 +11443,7 @@
         ],
         "command_flags": [
             "write",
-            "denyoom",
-            "movablekeys"
+            "denyoom"
         ]
     },
     "SETBIT": {
@@ -14300,6 +14313,10 @@
         "complexity": "O(1)",
         "history": [
             [
+                "6.0.0",
+                "Added the `FULL` modifier."
+            ],
+            [
                 "7.0.0",
                 "Added the `max-deleted-entry-id`, `entries-added`, `recorded-first-entry-id`, `entries-read` and `lag` fields"
             ]
@@ -15947,11 +15964,11 @@
                 "key_spec_index": 0
             },
             {
-                "name": "min",
+                "name": "start",
                 "type": "string"
             },
             {
-                "name": "max",
+                "name": "stop",
                 "type": "string"
             },
             {
