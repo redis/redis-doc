@@ -84,7 +84,7 @@ World
 When you input strings that contain single or double quotes, as you might in passwords, for example, escape the string, like so: 
 
 ```
- AUTH some_admin_user ">^8T>6Na{u|jp>+v\"55\@_;OU(OR]7mbAYGqsfyu48(j'%hQH7;v*f1H${*gD(Se'"
+127.0.0.1:6379> AUTH some_admin_user ">^8T>6Na{u|jp>+v\"55\@_;OU(OR]7mbAYGqsfyu48(j'%hQH7;v*f1H${*gD(Se'"
  ```
 
 ## Host, port, password, and database
