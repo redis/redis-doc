@@ -58,6 +58,7 @@ An escape sequence contains a backslash (`\`) symbol followed by one of the esca
 
 Doubly-quoted strings support the following escape sequences:
 
+* `\"` - double-quote
 * `\n` - newline
 * `\r` - carriage return
 * `\t` - horizontal tab
