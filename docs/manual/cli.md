@@ -67,7 +67,9 @@ Doubly-quoted strings support the following escape sequences:
 * `\\` - backslash
 * `\xhh` - any ASCII character represented by a hexadecimal number (_hh_)
 
-Double quotes allow you to incorporate escape sequences using `\`. Single quotes assume the string is literal.
+Single quotes assume the string is literal, and allow only the following escape sequences:
+* `\'` - single quote
+* `\\` - backslash
 
 For example, to return `Hello World` on two lines:
 
