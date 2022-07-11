@@ -47,7 +47,12 @@ pipe to other commands by using `--no-raw`.
 
 ## String quoting and escaping
 
-When using escape sequences, ensure that you enclose them in double (`"`) or single (`'`) quotation marks. Escape sequences are used to put nonprintable characters in character and string literals. Examples of using escape sequences to display characters include tab, carriage return, backspace, and many more.
+When `redis-cli` parses a command, whitespace characters automatically delimit the arguments.
+In interactive mode, a newline sends the command for parsing and execution.
+To input string values that contain whitespaces or non-printable characters, you can use quoted and escaped strings.
+
+Quoted string values are enclosed in double (`"`) or single (`'`) quotation marks.
+Escape sequences are used to put nonprintable characters in character and string literals.
 
 An escape sequence contains a backslash (`\`) symbol followed by one of the escape sequence characters.
 
