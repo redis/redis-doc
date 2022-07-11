@@ -45,7 +45,7 @@ even on the terminal with the `--raw` option:
 You can force human readable output when writing to a file or in
 pipe to other commands by using `--no-raw`.
 
-## String escaping
+## String quoting and escaping
 
 When using escape sequences, ensure that you enclose them in double (`"`) or single (`'`) quotation marks. Escape sequences are used to put nonprintable characters in character and string literals. Examples of using escape sequences to display characters include tab, carriage return, backspace, and many more.
 
