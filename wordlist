@@ -222,6 +222,7 @@ NaN
 Nehalem
 NoSQL
 NodeJS
+nonprintable
 Noordhuis
 NullArray
 ODOWN
@@ -902,6 +903,7 @@ volatile-ttl
 vtype
 wget
 wherefrom
+whitespace
 whitespaces
 whos-using-redis
 xff
