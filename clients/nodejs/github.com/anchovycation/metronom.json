@@ -1,0 +1,9 @@
+{
+    "name": "metronom",
+    "description": "User friendly Redis ORM for Node.js with asynchronous and TypeScript support.",
+    "homepage": "https://anchovycation.github.io/metronom/",
+    "recommended": true,
+    "twitter": [
+        "saracaIihan"
+    ]
+}
