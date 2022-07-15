@@ -6,7 +6,7 @@ description: >
     Introduction to the Redis String data type
 ---
 
-Redis lists are lists of string values. Lists are versatile, but in Redis, they're frequenty used to:
+Redis lists are lists of string values. Redis lists are frequenty used to:
 
 * implement stacks and queues.
 * build queue management for background worker systems.
