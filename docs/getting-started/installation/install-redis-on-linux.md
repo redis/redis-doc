@@ -8,10 +8,10 @@ description: >
 
 Most major Linux distributions provide packages for Redis.
 
-## Install on Ubuntu
+## Install on Ubuntu/Debian
 
- You can install recent stable versions of Redis from the official
- `packages.redis.io` APT repository. Add the repository to the <code>apt</code> index, update it, and then install:
+You can install recent stable versions of Redis from the official `packages.redis.io` APT repository.
+Add the repository to the <code>apt</code> index, update it, and then install:
 
 {{< highlight bash  >}}
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
@@ -24,12 +24,12 @@ sudo apt-get install redis
 
 ## Install from Snapcraft
 
-The [Snapcraft store](https://snapcraft.io/store) provides [Redis installation packages](https://snapcraft.io/redis) for dozens of Linux distributions. For example, here's how to install Redis on CentOS using Snapcraft:
+The [Snapcraft store](https://snapcraft.io/store) provides [Redis packages](https://snapcraft.io/redis) that can be installed on platforms that support snap.
+
+To install via snap, run:
 
 {{< highlight bash  >}}
-sudo yum install epel-release
-sudo yum install snapd
-sudo systemctl enable --now snapd.socket
-sudo ln -s /var/lib/snapd/snap /snap
 sudo snap install redis
 {{< / highlight  >}}
+
+If your Linux does not currently have snap installed, you may install it by following the instructions described in [Installing snapd](https://snapcraft.io/docs/installing-snapd).

@@ -1,0 +1,5 @@
+{
+    "name": "godis",
+    "description": "A Golang implemented Redis Server and Cluster",
+    "homepage": "https://github.com/hdt3213/godis"
+}

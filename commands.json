@@ -690,13 +690,12 @@
         ],
         "command_flags": [
             "write",
-            "denyoom",
-            "movablekeys"
+            "denyoom"
         ]
     },
     "BITFIELD_RO": {
         "summary": "Perform arbitrary bitfield integer operations on strings. Read-only variant of BITFIELD",
-        "since": "6.2.0",
+        "since": "6.0.0",
         "group": "bitmap",
         "complexity": "O(1) for each subcommand specified",
         "acl_categories": [
@@ -736,6 +735,7 @@
                 "type": "block",
                 "token": "GET",
                 "multiple": true,
+                "multiple_token": true,
                 "arguments": [
                     {
                         "name": "encoding",
@@ -2499,6 +2499,12 @@
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
+        "history": [
+            [
+                "4.0.0",
+                "Added the optional `cluster_bus_port` argument."
+            ]
+        ],
         "acl_categories": [
             "@admin",
             "@slow",
@@ -2513,6 +2519,12 @@
             {
                 "name": "port",
                 "type": "integer"
+            },
+            {
+                "name": "cluster_bus_port",
+                "type": "integer",
+                "since": "4.0.0",
+                "optional": true
             }
         ],
         "command_flags": [
@@ -2617,7 +2629,7 @@
             "@slow",
             "@dangerous"
         ],
-        "arity": 3,
+        "arity": -2,
         "arguments": [
             {
                 "name": "hard_soft",
@@ -3482,6 +3494,8 @@
             }
         ],
         "command_flags": [
+            "loading",
+            "stale",
             "fast"
         ]
     },
@@ -3544,7 +3558,6 @@
             "noscript",
             "stale",
             "skip_monitor",
-            "may_replicate",
             "no_mandatory_keys",
             "movablekeys"
         ]
@@ -3607,7 +3620,6 @@
             "noscript",
             "stale",
             "skip_monitor",
-            "may_replicate",
             "no_mandatory_keys",
             "movablekeys"
         ]
@@ -3664,6 +3676,7 @@
             }
         ],
         "command_flags": [
+            "readonly",
             "noscript",
             "stale",
             "skip_monitor",
@@ -3724,6 +3737,7 @@
             }
         ],
         "command_flags": [
+            "readonly",
             "noscript",
             "stale",
             "skip_monitor",
@@ -4116,7 +4130,6 @@
             "noscript",
             "stale",
             "skip_monitor",
-            "may_replicate",
             "no_mandatory_keys",
             "movablekeys"
         ]
@@ -4174,6 +4187,7 @@
             }
         ],
         "command_flags": [
+            "readonly",
             "noscript",
             "stale",
             "skip_monitor",
@@ -7546,7 +7560,7 @@
             {
                 "name": "key2",
                 "type": "key",
-                "key_spec_index": 1
+                "key_spec_index": 0
             },
             {
                 "name": "len",
@@ -9587,8 +9601,7 @@
             }
         ],
         "command_flags": [
-            "readonly",
-            "may_replicate"
+            "readonly"
         ]
     },
     "PFDEBUG": {
@@ -9603,7 +9616,7 @@
             "@slow",
             "@dangerous"
         ],
-        "arity": -3,
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -9622,6 +9635,17 @@
                 },
                 "RW": true,
                 "access": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "subcommand",
+                "type": "string"
+            },
+            {
+                "name": "key",
+                "type": "key",
+                "key_spec_index": 0
             }
         ],
         "command_flags": [
@@ -9929,8 +9953,7 @@
             "pubsub",
             "loading",
             "stale",
-            "fast",
-            "may_replicate"
+            "fast"
         ]
     },
     "PUBSUB": {
@@ -10024,7 +10047,7 @@
         "summary": "List active shard channels",
         "since": "7.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of active shard channels, and assuming constant time pattern matching (relatively short channels).",
+        "complexity": "O(N) where N is the number of active shard channels, and assuming constant time pattern matching (relatively short shard channels).",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -10047,7 +10070,7 @@
         "summary": "Get the count of subscribers for shard channels",
         "since": "7.0.0",
         "group": "pubsub",
-        "complexity": "O(N) for the SHARDNUMSUB subcommand, where N is the number of requested channels",
+        "complexity": "O(N) for the SHARDNUMSUB subcommand, where N is the number of requested shard channels",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -10055,7 +10078,7 @@
         "arity": -2,
         "arguments": [
             {
-                "name": "channel",
+                "name": "shardchannel",
                 "type": "string",
                 "optional": true,
                 "multiple": true
@@ -10221,7 +10244,7 @@
             {
                 "name": "newkey",
                 "type": "key",
-                "key_spec_index": 0
+                "key_spec_index": 1
             }
         ],
         "command_flags": [
@@ -10293,7 +10316,7 @@
             {
                 "name": "newkey",
                 "type": "key",
-                "key_spec_index": 0
+                "key_spec_index": 1
             }
         ],
         "command_flags": [
@@ -10469,6 +10492,20 @@
         "since": "3.0.0",
         "group": "server",
         "complexity": "O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
+        "history": [
+            [
+                "3.0.0",
+                "Added the `REPLACE` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `ABSTTL` modifier."
+            ],
+            [
+                "5.0.0",
+                "Added the `IDLETIME` and `FREQ` options."
+            ]
+        ],
         "acl_categories": [
             "@keyspace",
             "@write",
@@ -10494,6 +10531,49 @@
                 },
                 "OW": true,
                 "update": true
+            }
+        ],
+        "arguments": [
+            {
+                "name": "key",
+                "type": "key",
+                "key_spec_index": 0
+            },
+            {
+                "name": "ttl",
+                "type": "integer"
+            },
+            {
+                "name": "serialized-value",
+                "type": "string"
+            },
+            {
+                "name": "replace",
+                "type": "pure-token",
+                "token": "REPLACE",
+                "since": "3.0.0",
+                "optional": true
+            },
+            {
+                "name": "absttl",
+                "type": "pure-token",
+                "token": "ABSTTL",
+                "since": "5.0.0",
+                "optional": true
+            },
+            {
+                "name": "seconds",
+                "type": "integer",
+                "token": "IDLETIME",
+                "since": "5.0.0",
+                "optional": true
+            },
+            {
+                "name": "frequency",
+                "type": "integer",
+                "token": "FREQ",
+                "since": "5.0.0",
+                "optional": true
             }
         ],
         "command_flags": [
@@ -11363,8 +11443,7 @@
         ],
         "command_flags": [
             "write",
-            "denyoom",
-            "movablekeys"
+            "denyoom"
         ]
     },
     "SETBIT": {
@@ -12485,7 +12564,7 @@
         ],
         "arguments": [
             {
-                "name": "channel",
+                "name": "shardchannel",
                 "type": "string"
             },
             {
@@ -12497,8 +12576,7 @@
             "pubsub",
             "loading",
             "stale",
-            "fast",
-            "may_replicate"
+            "fast"
         ]
     },
     "SRANDMEMBER": {
@@ -12704,7 +12782,7 @@
         ],
         "arguments": [
             {
-                "name": "channel",
+                "name": "shardchannel",
                 "type": "string",
                 "multiple": true
             }
@@ -12954,7 +13032,7 @@
         "summary": "Stop listening for messages posted to the given shard channels",
         "since": "7.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+        "complexity": "O(N) where N is the number of clients already subscribed to a shard channel.",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -12981,7 +13059,7 @@
         ],
         "arguments": [
             {
-                "name": "channel",
+                "name": "shardchannel",
                 "type": "string",
                 "optional": true,
                 "multiple": true
@@ -13341,7 +13419,8 @@
                         "keystep": 1,
                         "limit": 0
                     }
-                }
+                },
+                "RO": true
             }
         ],
         "arguments": [
@@ -14233,6 +14312,10 @@
         "group": "stream",
         "complexity": "O(1)",
         "history": [
+            [
+                "6.0.0",
+                "Added the `FULL` modifier."
+            ],
             [
                 "7.0.0",
                 "Added the `max-deleted-entry-id`, `entries-added`, `recorded-first-entry-id`, `entries-read` and `lag` fields"
@@ -15881,11 +15964,11 @@
                 "key_spec_index": 0
             },
             {
-                "name": "min",
+                "name": "start",
                 "type": "string"
             },
             {
-                "name": "max",
+                "name": "stop",
                 "type": "string"
             },
             {

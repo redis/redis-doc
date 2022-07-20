@@ -88,13 +88,11 @@ The context switch is a huge speed penalty.
 
 When pipelining is used, many commands are usually read with a single `read()`
 system call, and multiple replies are delivered with a single `write()` system
-call.
-Because of this, the number of total queries performed per second
+call. Consequently, the number of total queries performed per second
 initially increases almost linearly with longer pipelines, and eventually
-reaches 10 times the baseline obtained without pipelining, as you can
-see from the following graph:
+reaches 10 times the baseline obtained without pipelining, as shown in this figure.
 
-![Pipeline size and IOPs](https://redis.io/images/redisdoc/pipeline_iops.png)
+![Pipeline size and IOPs](../../images/pipeline_iops.png)
 
 ## A real world code example
 

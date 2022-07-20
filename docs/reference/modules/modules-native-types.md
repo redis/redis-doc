@@ -143,7 +143,7 @@ course this is not enough, we need the information needed to link a specific
 value with a specific module type that is able to load and handle it.
 
 So when we save a `type specific value` about a module, we prefix it with
-a 64 bit integer. 64 bits is large enough to store the informations needed
+a 64 bit integer. 64 bits is large enough to store the information needed
 in order to lookup the module that can handle that specific type, but is
 short enough that we can prefix each module value we store inside the RDB
 without making the final RDB file too big. At the same time, this solution
@@ -269,7 +269,7 @@ RDB load and save methods
 ---
 
 The RDB saving and loading callbacks need to create (and load back) a
-representation of the data type on disk. Redis offers an high level API
+representation of the data type on disk. Redis offers a high level API
 that can automatically store inside the RDB file the following types:
 
 * Unsigned 64 bit integers.
@@ -362,7 +362,7 @@ in order to allocate, reallocate and release heap memory used to implement the n
 This is not just useful in order for Redis to be able to account for the memory used by the module, but there are also more advantages:
 
 * Redis uses the `jemalloc` allocator, that often prevents fragmentation problems that could be caused by using the libc allocator.
-* When loading strings from the RDB file, the native types API is able to return strings allocated directly with `RedisModule_Alloc()`, so that the module can directly link this memory into the data structure representation, avoiding an useless copy of the data.
+* When loading strings from the RDB file, the native types API is able to return strings allocated directly with `RedisModule_Alloc()`, so that the module can directly link this memory into the data structure representation, avoiding a useless copy of the data.
 
 Even if you are using external libraries implementing your data structures, the
 allocation functions provided by the module API is exactly compatible with

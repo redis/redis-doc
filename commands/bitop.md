@@ -11,7 +11,7 @@ and **NOT**, thus the valid forms to call the command are:
 * `BITOP NOT destkey srckey`
 
 As you can see **NOT** is special as it only takes an input key, because it
-performs inversion of bits so it only makes sense as an unary operator.
+performs inversion of bits so it only makes sense as a unary operator.
 
 The result of the operation is always stored at `destkey`.
 
@@ -48,7 +48,7 @@ Different bitmaps can be combined in order to obtain a target bitmap where
 the population counting operation is performed.
 
 See the article called "[Fast easy realtime metrics using Redis
-bitmaps][hbgc212fermurb]" for a interesting use cases.
+bitmaps][hbgc212fermurb]" for an interesting use cases.
 
 [hbgc212fermurb]: http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps
 

@@ -55,7 +55,7 @@ The following policies are available:
 * **volatile-lfu**: Removes least frequently used keys with the `expire` field set to `true`.
 * **allkeys-random**: Randomly removes keys to make space for the new data added.
 * **volatile-random**: Randomly removes keys with `expire` field set to `true`.
-* **volatile-ttl**: Removes least frequently used keys with `expire` field set to `true` and the shortest remaining time-to-live (TTL) value.
+* **volatile-ttl**: Removes keys with `expire` field set to `true` and the shortest remaining time-to-live (TTL) value.
 
 The policies **volatile-lru**, **volatile-lfu**, **volatile-random**, and **volatile-ttl** behave like **noeviction** if there are no keys to evict matching the prerequisites.
 
@@ -106,10 +106,10 @@ What is important about the Redis LRU algorithm is that you **are able to tune**
 
 The reason Redis does not use a true LRU implementation is because it
 costs more memory. However, the approximation is virtually equivalent for an
-application using Redis. The following is a graphical comparison of how
-the LRU approximation used by Redis compares with true LRU.
+application using Redis. This figure compares
+the LRU approximation used by Redis with true LRU.
 
-![LRU comparison](https://redis.io/images/redisdoc/lru_comparison.png)
+![LRU comparison](../../images/lru_comparison.png)
 
 The test to generate the above graphs filled a Redis server with a given number of keys. The keys were accessed from the first to the last. The first keys are the best candidates for eviction using an LRU algorithm. Later more 50% of keys are added, in order to force half of the old keys to be evicted.
 
@@ -141,7 +141,7 @@ the `CONFIG SET maxmemory-samples <count>` command, is very simple.
 Starting with Redis 4.0, the [Least Frequently Used eviction mode](http://antirez.com/news/109) is available. This mode may work better (provide a better
 hits/misses ratio) in certain cases. In LFU mode, Redis will try to track
 the frequency of access of items, so the ones used rarely are evicted. This means
-the keys used often have an higher chance of remaining in memory.
+the keys used often have a higher chance of remaining in memory.
 
 To configure the LFU mode, the following policies are available:
 

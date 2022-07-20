@@ -64,7 +64,6 @@ Command flags are an array. It can contain the following simple strings (status 
 * **fast:** the command operates in constant or log(N) time.
   This flag is used for monitoring latency with the `LATENCY` command.
 * **loading:** the command is allowed while the database is loading.
-* **may_replicate:** the command may be replicated to replicas and the AOF.
 * **movablekeys:** the _first key_, _last key_, and _step_ values don't determine all key positions.
   Clients need to use `COMMAND GETKEYS` or [key specifications][td] in this case.
   See below for more details.
@@ -120,13 +119,13 @@ For more information, please refer to the [key specifications page][tr].
 
 ## First key
 
-This value identifies the position of the command's first key name argument.
+The position of the command's first key name argument.
 For most commands, the first key's position is 1.
 Position 0 is always the command name itself.
 
 ## Last key
 
-This value identifies the position of the command's last key name argument.
+The position of the command's last key name argument.
 Redis commands usually accept one, two or multiple number of keys.
 
 Commands that accept a single key have both _first key_ and _last key_ set to 1.
@@ -137,7 +136,7 @@ Multi-key commands that accept an arbitrary number of keys, such as `MSET`, use 
 
 ## Step
 
-This value is the step, or increment, between the _first key_ and _last key_ values where the keys are.
+The step, or increment, between the _first key_ and the position of the next key.
 
 Consider the following two examples:
 
@@ -163,9 +162,9 @@ Consider the following two examples:
    ...
 ```
 
-The step count allows us to find keys' positions for commands like `MSET`.
-Its syntax is `MSET _key1_ _val1_ [key2] [val2] [key3] [val3]...`, and the keys are at every other position.
-Therefore, unlike `MGET`, which uses a step value of _1_, `MSET` uses _2_.
+The step count allows us to find keys' positions. 
+For example `MSET`: Its syntax is `MSET _key1_ _val1_ [key2] [val2] [key3] [val3]...`, so the keys are at every other position (step value of _2_).
+Unlike `MGET`, which uses a step value of _1_.
 
 ## ACL categories
 

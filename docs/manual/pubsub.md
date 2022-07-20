@@ -43,7 +43,7 @@ subscribed mode and can only quit the mode with `Ctrl-C`.
 
 ## Format of pushed messages
 
-A message is a [array-reply](/topics/protocol#array-reply) with three elements.
+A message is an [array-reply](/topics/protocol#array-reply) with three elements.
 
 The first element is the kind of message:
 

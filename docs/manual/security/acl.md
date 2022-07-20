@@ -203,7 +203,7 @@ Now the user can do something, but will refuse to do other things:
 Things are working as expected. In order to inspect the configuration of the
 user alice (remember that user names are case sensitive), it is possible to
 use an alternative to `ACL LIST` which is designed to be more suitable for
-computers to read, while `ACL LIST` is more human readable.
+computers to read, while `ACL GETUSER` is more human readable.
 
     > ACL GETUSER alice
     1) "flags"

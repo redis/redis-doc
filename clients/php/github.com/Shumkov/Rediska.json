@@ -1,8 +1,0 @@
-{
-    "name": "Rediska",
-    "description": "A Redis client.",
-    "homepage": "http://rediska.geometria-lab.net",
-    "twitter": [
-        "shumkov"
-    ]
-}

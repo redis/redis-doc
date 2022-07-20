@@ -11,7 +11,7 @@ aliases:
 Redis is **open source software** released under the terms of the **three clause BSD license**. Most of the Redis source code was written and is copyrighted by Salvatore Sanfilippo and Pieter Noordhuis. A list of other contributors can be found in the git history.
 
 The Redis trademark and logo are owned by Redis Ltd. and can be
-used in accordance with the [Redis Trademark Guidelines](/docs/project/trademark).
+used in accordance with the [Redis Trademark Guidelines](/docs/about/trademark).
 
 ## Three clause BSD license
 
@@ -51,9 +51,9 @@ Redis uses source code from third parties. All this code contains a BSD or BSD-c
 
 * Redis uses the `sha1.c` file that is copyright by Steve Reid and released under the **public domain**. This file is extremely popular and used among open source and proprietary code.
 
-* When compiled on Linux Redis uses the [Jemalloc allocator](http://www.canonware.com/jemalloc/), that is copyright by Jason Evans, Mozilla Foundation and Facebook, Inc and is released under the **two-clause BSD license**.
+* When compiled on Linux, Redis uses the [Jemalloc allocator](https://github.com/jemalloc/jemalloc), which is copyrighted by Jason Evans, Mozilla Foundation, and Facebook, Inc and released under the **two-clause BSD license**.
 
-* Inside Jemalloc the file `pprof` is copyright Google Inc and released under the **three-clause BSD license**.
+* Inside Jemalloc, the file `pprof` is copyrighted by Google Inc. and released under the **three-clause BSD license**.
 
 * Inside Jemalloc the files `inttypes.h`, `stdbool.h`, `stdint.h`, `strings.h` under the `msvc_compat` directory are copyright Alexander Chemeris and released under the **three-clause BSD license**.
 

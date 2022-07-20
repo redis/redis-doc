@@ -252,7 +252,7 @@ Adding frequency into the mix
 
 The above approach is a bit naive, because all the user searches are the same
 in this way. In a real system we want to complete strings according to their
-frequency: very popular searches will be proposed with an higher probability
+frequency: very popular searches will be proposed with a higher probability
 compared to search strings typed very rarely.
 
 In order to implement something which depends on the frequency, and at the
@@ -472,7 +472,7 @@ ID 90, regardless of the *current* fields values of the object, we just
 have to retrieve the hash value by object ID and `ZREM` it in the sorted
 set view.
 
-Representing and querying graphs using an hexastore
+Representing and querying graphs using a hexastore
 ===
 
 One cool thing about composite indexes is that they are handy in order
@@ -547,14 +547,11 @@ sometimes used. Here we'll describe a different way to index data into
 multiple dimensions, using a representation trick that allows us to perform
 the query in a very efficient way using Redis lexicographical ranges.
 
-Let's start by visualizing the problem. In this picture we have points
-in the space, which represent our data samples, where `x` and `y` are
-our coordinates. Both variables max value is 400.
+Let's say we have points in the space, which represent our data samples, where `x` and `y` are our coordinates. The max value of both variables is 400.
 
-The blue box in the picture represents our query. We want all the points
-where `x` is between 50 and 100, and where `y` is between 100 and 300.
+In the next figure, the blue box represents our query. We want all the points where `x` is between 50 and 100, and where `y` is between 100 and 300.
 
-![Points in the space](https://redis.io/images/redisdoc/2idx_0.png)
+![Points in the space](../../../images/2idx_0.png)
 
 In order to represent data that makes these kinds of queries fast to perform,
 we start by padding our numbers with 0. So for example imagine we want to
@@ -590,10 +587,9 @@ We obtain a range which is lexicographically continuous:
 
 What this maps to is to a square representing all values where the `x`
 variable is between 70 and 79, and the `y` variable is between 200 and 209.
-We can write random points in this interval, in order to identify this
-specific area:
+To identify this specific area, we can write random points in that interval.
 
-![Small area](https://redis.io/images/redisdoc/2idx_1.png)
+![Small area](../../../images/2idx_1.png)
 
 So the above lexicographic query allows us to easily query for points in
 a specific square in the picture. However the square may be too small for
@@ -606,11 +602,11 @@ range:
 
 This time the range represents all the points where `x` is between 0 and 99
 and `y` is between 200 and 299. Drawing random points in this interval
-shows us this larger area:
+shows us this larger area.
 
-![Large area](https://redis.io/images/redisdoc/2idx_2.png)
+![Large area](../../../images/2idx_2.png)
 
-Oops now our area is ways too big for our query, and still our search box is
+So now our area is too big for our query, and still our search box is
 not completely included. We need more granularity, but we can easily obtain
 it by representing our numbers in binary form. This time, when we replace
 digits instead of getting squares which are ten times bigger, we get squares
@@ -640,7 +636,7 @@ search boxes of side `2^(N/2)`.
 
 So what we do is check the dimension where our search box is smaller,
 and check the nearest power of two to this number. Our search box
-was 50,100 to 100,300, so it has a width of 50 and an height of 200.
+was 50,100 to 100,300, so it has a width of 50 and a height of 200.
 We take the smaller of the two, 50, and check the nearest power of two
 which is 64. 64 is 2^6, so we would work with indexes obtained replacing
 the latest 12 bits from the interleaved representation (so that we end

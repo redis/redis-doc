@@ -18,7 +18,7 @@ Sometimes we need just the length of the match:
 
 ```
 > LCS key1 key2 LEN
-6
+(integer) 6
 ```
 
 However what is often very useful, is to know the match position in each strings:

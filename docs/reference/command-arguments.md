@@ -53,7 +53,7 @@ The trimming clause of `XADD`, i.e., `[MAXLEN|MINID [=|~] threshold [LIMIT count
 
 It consists of four nested arguments:
 
-1. **trimming strategy:** this nested argument has a _oneof_ type with two nested arguments.
+1. **trimming strategy:** this nested argument has an _oneof_ type with two nested arguments.
   Each of the nested arguments, _MAXLEN_ and _MINID_, is typed as _pure-token_.
 2. **trimming operator:** this nested argument is an optional _oneof_ type with two nested arguments.
   Each of the nested arguments, _=_ and _~_, is a _pure-token_.

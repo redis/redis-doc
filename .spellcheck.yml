@@ -1,0 +1,11 @@
+files:
+  - '**/*.md'  
+  - '!docs/clients/index.md'
+  - '!docs/libraries/index.md'
+  - '!docs/modules/index.md'
+  - '!docs/tools/index.md'
+  - '!docs/reference/modules/modules-api-ref.md'
+dictionaries:
+  - wordlist
+no-suggestions: true
+quiet: true

@@ -27,7 +27,7 @@ end with just a three nodes cluster A, B, C we may follow these steps:
 2. D is now empty, but still listed in the nodes table of A, B and C.
 3. We contact A, and send `CLUSTER FORGET D`.
 4. B sends node A a heartbeat packet, where node D is listed.
-5. A does no longer known node D (see step 3), so it starts an handshake with D.
+5. A does no longer known node D (see step 3), so it starts a handshake with D.
 6. D ends re-added in the nodes table of A.
 
 As you can see in this way removing a node is fragile, we need to send

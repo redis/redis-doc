@@ -1,6 +1,6 @@
 {
     "name": "redis-py-cluster",
-    "description": "Python cluster client for the official redis cluster. Redis 3.0+.",
+    "description": "Adds cluster support to redis-py < 4.1.0. Obsolete for 4.1.0 and above.",
     "twitter": [
         "grokzen"
     ]

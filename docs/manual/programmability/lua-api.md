@@ -24,7 +24,7 @@ Scripts should operate solely on data stored in Redis and data provided as argum
 
 The sandboxed Lua execution context blocks the declaration of global variables and functions.
 The blocking of global variables is in place to ensure that scripts and functions don't attempt to maintain any runtime context other than the data stored in Redis.
-In the (somewhat uncommon) use case that a context needs to be maintain betweem executions,
+In the (somewhat uncommon) use case that a context needs to be maintain between executions,
 you should store the context in Redis' keyspace.
 
 Redis will return a "Script attempted to create global variable 'my_global_variable" error when trying to execute the following snippet:
@@ -154,7 +154,7 @@ This function enables handling runtime errors raised by the Redis server.
 The `redis.pcall()` function  behaves exactly like [`redis.call()`](#redis.call), except that it:
 
 * Always returns a reply.
-* Never throws a runtime exeption, and returns in its stead a [`redis.error_reply`](#redis.error_reply) in case that a runtime exception is thrown by the server.
+* Never throws a runtime exception, and returns in its stead a [`redis.error_reply`](#redis.error_reply) in case that a runtime exception is thrown by the server.
 
 The following demonstrates how to use `redis.pcall()` to intercept and handle runtime exceptions from within the context of an ephemeral script.
 
@@ -439,7 +439,7 @@ redis> FUNCTION LOAD "#!lua name=mylib\n redis.register_function{function_name='
 
 **Important:**
 Use script flags with care, which may negatively impact if misused.
-Note that the default for Eval scripts are different than the default for functions that are mentioned below, see [Eval Flags](/topics/eval-intro#eval-flags)
+Note that the default for Eval scripts are different than the default for functions that are mentioned below, see [Eval Flags](/docs/manual/programmability/eval-intro/#eval-flags)
 
 When you register a function or load an Eval script, the server does not know how it accesses the database.
 By default, Redis assumes that all scripts read and write data.
@@ -454,25 +454,32 @@ You can use the following flags and instruct the server to treat the scripts' ex
 
 * `no-writes`: this flag indicates that the script only reads data but never writes.
 
-    By default, Redis will deny the execution of scripts against read-only replicas, as they may attempt to perform writes.
+    By default, Redis will deny the execution of flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) against read-only replicas, as they may attempt to perform writes.
     Similarly, the server will not allow calling scripts with `FCALL_RO` / `EVAL_RO`.
     Lastly, when data persistence is at risk due to a disk error, execution is blocked as well.
 
     Using this flag allows executing the script:
-    1. With `FCALL_RO` / `EVAL_RO` against masters and read-only replicas.
-    2. Even if there's a disk error (Redis is unable to persist so it rejects writes).
+    1. With `FCALL_RO` / `EVAL_RO`
+    2. On read-only replicas.
+    3. Even if there's a disk error (Redis is unable to persist so it rejects writes).
+    4. When over the memory limit since it implies the script doesn't increase memory consumption (see `allow-oom` below)
 
     However, note that the server will return an error if the script attempts to call a write command.
+    Also note that currently `PUBLISH`, `SPUBLISH` and `PFCOUNT` are also considered write commands in scripts, because they could attempt to propagate commands to replicas and AOF file.
+
+    For more information please refer to [Read-only scripts](/docs/manual/programmability/#read-only_scripts)
 
 * `allow-oom`: use this flag to allow a script to execute when the server is out of memory (OOM).
 
-    Unless used, Redis will deny the execution of scripts when in an OOM state, regardless of the `no-write` flag and method of calling.
+    Unless used, Redis will deny the execution of flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) when in an OOM state.
     Furthermore, when you use this flag, the script can call any Redis command, including commands that aren't usually allowed in this state.
+    Specifying `no-writes` or using `FCALL_RO` / `EVAL_RO` also implies the script can run in OOM state (without specifying `allow-oom`)
 
-* `allow-stale`: a flag that enables running the script against a stale replica.
+* `allow-stale`: a flag that enables running the flagged scripts (Functions and Eval scripts with [shebang](/topics/eval-intro#eval-flags)) against a stale replica when the `replica-serve-stale-data` config is set to `no` .
 
-    By default, Redis prevents data consistency problems from using old data by having stale replicas return a runtime error.
-    In cases where the consistency is a lesser concern, this flag allows stale Redis replicas to run the script.
+    Redis can be set to prevent data consistency problems from using old data by having stale replicas return a runtime error.
+    For scripts that do not access the data, this flag can be set to allow stale Redis replicas to run the script.
+    Note however that the script will still be unable to execute any command that accesses stale data.
 
 * `no-cluster`: the flag causes the script to return an error in Redis cluster mode.
 
@@ -488,7 +495,7 @@ You can use the following flags and instruct the server to treat the scripts' ex
     
     This flag has no effect when cluster mode is disabled.
 
-Please refer to [Function Flags](/topics/functions-intro#function-flags) and [Eval Flags](/topics/eval-intro#eval-flags) for a detailed example.
+Please refer to [Function Flags](/docs/manual/programmability/functions-intro/#function-flags) and [Eval Flags](/docs/manual/programmability/eval-intro/#eval-flags) for a detailed example.
 
 ### <a name="redis.redis_version"></a> `redis.REDIS_VERSION`
 
@@ -570,7 +577,7 @@ There are three additional rules to note about converting Lua to Redis data type
   exactly like Redis itself does (see, for instance, the `ZSCORE` command).
 * There's [no simple way to have nils inside Lua arrays](http://www.lua.org/pil/19.1.html) due 
   to Lua's table semantics.
-  Therefore, who;e Redis converts a Lua array to RESP, the conversion stops when it encounters a Lua `nil` value.
+  Therefore, when Redis converts a Lua array to RESP, the conversion stops when it encounters a Lua `nil` value.
 * When a Lua table is an associative array that contains keys and their respective values, the converted Redis reply will **not** include them.
 
 Lua to RESP2 type conversion examples:
@@ -580,7 +587,7 @@ redis> EVAL "return 10" 0
 (integer) 10
 
 redis> EVAL "return { 1, 2, { 3, 'Hello World!' } }" 0
-1) (integer) 1s
+1) (integer) 1
 2) (integer) 2
 3) 1) (integer) 3
    1) "Hello World!"
@@ -636,7 +643,7 @@ Although the default protocol for incoming client connections is RESP2, the scri
 * Lua table with a single _double_ field to an associative Lua table -> [RESP3 double reply](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#double-type).
 * Lua nil -> [RESP3 null](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#null-reply).
 
-However, if the connection is set use the RESP2 protocol, and even if the script replies with RESP3-typed responses, Redis will automatically perform a RESP3 to RESP2 convertion of the reply as is the case for regular commands.
+However, if the connection is set use the RESP2 protocol, and even if the script replies with RESP3-typed responses, Redis will automatically perform a RESP3 to RESP2 conversion of the reply as is the case for regular commands.
 That means, for example, that returning the RESP3 map type to a RESP2 connection will result in the repy being converted to a flat RESP2 array that consists of alternating field names and their values, rather than a RESP3 map.
 
 ## Additional notes about scripting
@@ -793,7 +800,7 @@ redis> EVAL "return cmsgpack.pack({'foo', 'bar', 'baz'})" 0
 
 #### <a name="cmsgpack.unpack()"></a> `cmsgpack.unpack(x)`
 
-This function returns the unpacked values from decocoding its input string argument.
+This function returns the unpacked values from decoding its input string argument.
 
 Usage example:
 
