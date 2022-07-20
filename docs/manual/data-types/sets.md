@@ -1,6 +1,6 @@
 ﻿---
 title: "Redis Set Type"
-linkTitle: "Strings"
+linkTitle: "Sets"
 weight: 1
 description: >
     Introduction to the Redis Set data type

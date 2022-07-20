@@ -1,6 +1,6 @@
 ﻿---
 title: "Redis Hyperloglog Type"
-linkTitle: "Hyperloglog"
+linkTitle: "Hyperloglogs"
 weight: 1
 description: >
     Introduction to the Redis Hyperloglog data type
