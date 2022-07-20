@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis Bitmaps"
 linkTitle: "Bitmaps"
-weight: 2
+weight: 1
 description: >
     Introduction to the Redis Bitmaps data type
 ---

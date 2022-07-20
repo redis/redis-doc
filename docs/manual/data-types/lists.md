@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis String Type"
 linkTitle: "Strings"
-weight: 2
+weight: 1
 description: >
     Introduction to the Redis String data type
 ---
@@ -14,7 +14,6 @@ Redis lists are lists of string values. Redis lists are frequenty used to:
 ## Examples
 
 * Treat a list like a queue (first in, first out):
-
 ```
 redis:6379> LPUSH work:queue:ids 101
 (integer) 1
@@ -39,8 +38,10 @@ redis:6379> LPOP work:queue:ids
 ```
 
 * Check the length of a list:
+```
 redis:6379> LLEN work:queue:ids
 (integer) 0
+```
 
 * Atomically pop an element from one list and push to another:
 ```
@@ -56,18 +57,40 @@ redis:6379> LRANGE board:in-progress:ids 0 -1
 1) "273"
 ```
 
+* To create a capped list that never grows beyond 100 elements, you can call [LTRIM] after each call to [LPUSH]:
+```
+redis:6379> LPUSH notifications:user:1 "You've got mail!"
+(integer) 1
+redis:6379> LTRIM notifications:user:1 0 99
+OK
+redis:6379> LPUSH notifications:user:1 "Your package will be delivered at 12:01 today."
+(integer) 2
+redis:6379> LTRIM notifications:user:1 0 99
+OK
+```
+
 ## Limits
 
 The max length of a Redis list is 2^32 - 1 (4,294,967,295) elements.
 
 ## Commands
 
+### Basic commands
+
 * [LPUSH](/commands/lpush) adds a new element on the head of a list; [RPUSH](/commands/rpush) adds to the tail. 
 * [LPOP](/commands/lpush) removes and returns an element from the head of a list; [RPOP](/commands/rpush) does the same but from the tails of a list. 
 * [LLEN](/commands/llen) returns the length of a list.
 * [LMOVE](/commands/lmove) atomically moves an elements from one list to another.
+* [LTRIM](/commands/ltrim) reduces a list to the specified range of elements.
 
-See the [complete list of list commands](https://redis.io/commands/?group=list).
+### Blocking commands
+
+Lists supports several blocking commands. For example:
+
+* [BLPOP](/commands/blpush) removes and returns an element from the head of a list. If the list is empty, the command blocks until an element becomes available or until the specified timeout is reached.
+* [BLMOVE](/commands/blmove) atomically moves an elements from a source list to a target list. If the source list is empty, the the command will block until a elements becomes available.
+
+See the [complete series of list commands](https://redis.io/commands/?group=list).
 
 ## Performance
 

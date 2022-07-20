@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis Set Type"
 linkTitle: "Strings"
-weight: 2
+weight: 1
 description: >
     Introduction to the Redis Set data type
 ---
@@ -70,7 +70,7 @@ For large sets, with hundreds of thousands of members or more, you should exerci
 
 Sets membership checks on large datasets (or on streaming data) can use a lot of memory. If you're concerned about memory usage, and don't need perfect precision, consider a [Bloom filter or Cuckoo filter](/docs/stack/bloom) as an alternative to a set.
 
-Redis sets are frequently used as a kind of index. If you need to index and query your data, consider [RediSearch](/docs/stack/search) and [RedisJSON](/docs/stack/json).
+Redis sets are frequently used as a kind of index. If you need to index and query your data, consider also [RediSearch](/docs/stack/search) and [RedisJSON](/docs/stack/json).
 
 ## Learn more
 

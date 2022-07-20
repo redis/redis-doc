@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis Geospatial Type"
 linkTitle: "Geospatial"
-weight: 2
+weight: 1
 description: >
     Introduction to the Redis Geospatial data type
 ---

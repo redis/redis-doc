@@ -2,7 +2,7 @@
 title: "Data types tutorial"
 linkTitle: "Tutorial"
 description: Learning the basic Redis data types and how to use them
-weight: 1
+weight: 10
 aliases:
     - /topics/data-types-intro
 ---

@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis String Type"
 linkTitle: "Strings"
-weight: 2
+weight: 1
 description: >
     Introduction to the Redis String data type
 ---
@@ -68,5 +68,5 @@ If you're storing structured data a string, you may also want to consider [Redis
 
 ## Learn more
 
-* [Redis Strings Explained](https://www.youtube.com/watch?v=7CUt4yWeRQE): a short, comprehensive video explainer on Redis Strings.
+* [Redis Strings Explained](https://www.youtube.com/watch?v=7CUt4yWeRQE) is a short, comprehensive video explainer on Redis Strings.
 * [Redis University's RU101](https://university.redis.com/courses/ru101/) covers Redis strings in detail.

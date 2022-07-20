@@ -1,24 +1,25 @@
 ﻿---
-title: "Redis streams"
-linkTitle: "Streams"
+title: "Redis streams tutorial"
+linkTitle: "Streams tutorial"
 weight: 2
 description: >
-    An introduction to the Redis stream data type
+    A comprehensive tutorial on Redis streams
 aliases:
     - /topics/streams-intro
+    - /docs/manual/data-types/streams
 ---
 
-The Stream is a new data type introduced with Redis 5.0, which models a *log data structure* in a more abstract way. However the essence of a log is still intact: like a log file, often implemented as a file open in append-only mode, Redis Streams are primarily an append-only data structure. At least conceptually, because being an abstract data type represented in memory, Redis Streams implement powerful operations to overcome the limitations of a log file.
+Redis Streams is a data structure that acts like an append-only log. If you're new to streams, see the [Overview of Redis Streams](/docs/manual/data-types/stream.md). For a more comprehensive tutorial, read on.
 
-What makes Redis streams the most complex type of Redis, despite the data structure itself being quite simple, is the fact that it implements additional, non-mandatory features: a set of blocking operations allowing consumers to wait for new data added to a stream by producers, and in addition to that a concept called **Consumer Groups**.
+## Introduction
 
-Consumer groups were initially introduced by the popular messaging system Kafka (TM). Redis reimplements a similar idea in completely different terms, but the goal is the same: to allow a group of clients to cooperate in consuming a different portion of the same stream of messages.
+The Redis stream data type was introduced in Redis 5.0. Streams model a log data structure but also implement several operations to overcome some of the limits of a typical append-only log. These include random access in O(1) time and complex consumption strategies, such as consumer groups.
 
 ## Streams basics
 
-For the goal of understanding what Redis Streams are and how to use them, we will ignore all the advanced features, and instead focus on the data structure itself, in terms of commands used to manipulate and access it. This is, basically, the part which is common to most of the other Redis data types, like Lists, Sets, Sorted Sets and so forth. However, note that Lists also have an optional more complex blocking API, exported by commands like `BLPOP` and similar. So Streams are not much different than Lists in this regard, it's just that the additional API is more complex and more powerful.
+Streams are an append-only data structure, the fundamental write command, called [XADD](/commands/xadd), appends a new entry to the specified stream.
 
-Because Streams are an append only data structure, the fundamental write command, called `XADD`, appends a new entry into the specified stream. A stream entry is not just a string, but is instead composed of one or more field-value pairs. This way, each entry of a stream is already structured, like an append only file written in CSV format where multiple separated fields are present in each line.
+Each stream entry consists of one or more field-value pairs, somewhat like a record or a Redis hash:
 
 ```
 > XADD mystream * sensor-id 1234 temperature 19.8
