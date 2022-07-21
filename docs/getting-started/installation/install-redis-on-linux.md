@@ -18,7 +18,6 @@ If you're running a very minimal distribution (such as a Docker container) you m
 {{< highlight bash  >}}
 sudo apt install lsb-release first"
 {{< / highlight  >}}
-
 {{% /alert  %}}
 
 Add the repository to the <code>apt</code> index, update it, and then install:
