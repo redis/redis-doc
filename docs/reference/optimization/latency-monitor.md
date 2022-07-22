@@ -55,7 +55,7 @@ event. This is how the time series work:
 * Every time a latency spike happens, it is logged in the appropriate time series.
 * Every time series is composed of 160 elements.
 * Each element is a pair made of a Unix timestamp of the time the latency spike was measured and the number of milliseconds the event took to execute.
-* Latency spikes for the same event that occur in the same second are merged by taking the maximum latency. Even if continuous latency spikes are measured for a given event, which could happen with a low threshold, at least 180 seconds of history are available.
+* Latency spikes for the same event that occur in the same second are merged by taking the maximum latency. Even if continuous latency spikes are measured for a given event, which could happen with a low threshold, at least 160 seconds of history are available.
 * Records the all-time maximum latency for every element.
 
 The framework monitors and logs latency spikes in the execution time of these events:
