@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis Hash Type"
 linkTitle: "Hashes"
-weight: 1
+weight: 3
 description: >
     Introduction to the Redis Hash data type
 ---

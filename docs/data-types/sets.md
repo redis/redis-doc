@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis Set Type"
 linkTitle: "Sets"
-weight: 1
+weight: 4
 description: >
     Introduction to the Redis Set data type
 ---

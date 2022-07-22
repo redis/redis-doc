@@ -1,7 +1,7 @@
 ---
 title: "Redis Stream Type"
 linkTitle: "Streams"
-weight: 2
+weight: 6
 description: >
     Introduction to Redis Streams
 ---

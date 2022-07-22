@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis Sorted Set Type"
 linkTitle: "Sorted sets"
-weight: 1
+weight: 5
 description: >
     Introduction to the Redis Sorted Set data type
 ---

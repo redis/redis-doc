@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis String Type"
 linkTitle: "Lists"
-weight: 1
+weight: 2
 description: >
     Introduction to the Redis String data type
 ---
