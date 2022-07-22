@@ -1,9 +1,9 @@
 ﻿---
-title: "Redis String Type"
+title: "Redis Strings"
 linkTitle: "Lists"
-weight: 2
+weight: 3
 description: >
-    Introduction to the Redis String data type
+    Introduction to Redis Lists
 ---
 
 Redis lists are lists of string values. Redis lists are frequenty used to:

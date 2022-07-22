@@ -1,7 +1,7 @@
 ﻿---
-title: "Redis Hyperloglog Type"
+title: "Redis Hyperloglog"
 linkTitle: "Hyperloglogs"
-weight: 1
+weight: 10
 description: >
     Introduction to the Redis Hyperloglog data type
 ---
@@ -35,5 +35,5 @@ See the [complete list of hyperloglog commands](https://redis.io/commands/?group
 
 ## Learn more
 
-* [Redis HyperLogLog Explained](https://www.youtube.com/watch?v=MunL8nnwscQ) shows you how to use the Redis hyperloglog to build a traffic heat map.
+* [Redis HyperLogLog Explained](https://www.youtube.com/watch?v=MunL8nnwscQ) shows you how to use Redis hyperloglogs to build a traffic heat map.
 

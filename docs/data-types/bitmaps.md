@@ -1,9 +1,9 @@
 ﻿---
 title: "Redis Bitmaps"
 linkTitle: "Bitmaps"
-weight: 1
+weight: 11
 description: >
-    Introduction to the Redis Bitmaps data type
+    Introduction to Redis Bitmaps
 ---
 
 Redis bitmaps are an extension of the string data type that let you treat a string like a bit vector. You can also perform bitwise operations on one or more strings. Some examples of bitmap use cases include:
@@ -50,3 +50,4 @@ See the [complete list of bitmap commands](https://redis.io/commands/?group=bitm
 ## Learn more
 
 * [Redis Bitmaps Explained](https://www.youtube.com/watch?v=oj8LdJQjhJo) is an entertaining video explainer that teaches you how you might use bitmaps for map exploration in an online game. 
+* [Redis University's RU101](https://university.redis.com/courses/ru101/) covers Redis bitmaps in detail.

@@ -1,12 +1,12 @@
 ﻿---
-title: "Redis Set Type"
+title: "Redis Sets"
 linkTitle: "Sets"
 weight: 4
 description: >
-    Introduction to the Redis Set data type
+    Introduction to Redis Sets
 ---
 
-A Redis Set is an unordered collection of unique strings. You can use Redis sets to efficiently:
+A Redis set is an unordered collection of unique strings. You can use Redis sets to efficiently:
 
 * Track unique items (e.g., track all unique IP addresses accessing a given blog post)
 * Represent relations (e.g., the set of all users with a given role)

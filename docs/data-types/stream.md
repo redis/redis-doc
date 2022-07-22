@@ -1,7 +1,7 @@
 ---
-title: "Redis Stream Type"
+title: "Redis Streams"
 linkTitle: "Streams"
-weight: 6
+weight: 7
 description: >
     Introduction to Redis Streams
 ---
@@ -70,6 +70,6 @@ Simply put, Redis streams provide highly efficient inserts and reads. See each c
 
 ## Learn more
 
-* The [Redis Streams Tutorial](/docs/manual/data-types/streams-tutorial.md) explains Redis streams with many examples
-* [Redis Streams Explained](https://www.youtube.com/watch?v=Z8qcpXyMAiA) is an entertaining introduction to sorted sets in Redis.
+* The [Redis Streams Tutorial](/docs/manual/data-types/streams-tutorial.md) explains Redis streams with many examples.
+* [Redis Streams Explained](https://www.youtube.com/watch?v=Z8qcpXyMAiA) is an entertaining introduction to streams in Redis.
 * [Redis University's RU102](https://university.redis.com/courses/ru101/) is a free, online course dedicated to Redis Streams.

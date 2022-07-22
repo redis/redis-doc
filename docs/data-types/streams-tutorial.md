@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis streams tutorial"
 linkTitle: "Streams tutorial"
-weight: 7
+weight: 8
 description: >
     A comprehensive tutorial on Redis streams
 aliases:
@@ -9,7 +9,7 @@ aliases:
     - /docs/manual/data-types/streams
 ---
 
-Redis Streams is a data structure that acts like an append-only log. If you're new to streams, see the [Overview of Redis Streams](/docs/manual/data-types/stream.md). For a more comprehensive tutorial, read on.
+Redis Streams is a data structure that acts like an append-only log. If you're new to streams, see the [Redis Streams introduction](/docs/data-types/stream/). For a more comprehensive tutorial, read on.
 
 ## Introduction
 

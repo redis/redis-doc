@@ -1,12 +1,12 @@
 ﻿---
-title: "Redis Hash Type"
+title: "Redis Hashes"
 linkTitle: "Hashes"
-weight: 3
+weight: 5
 description: >
-    Introduction to the Redis Hash data type
+    Introduction to Redis Hashes
 ---
 
-Redis hashes are record types structured as a set of field-value pairs. You can uses hashes to represent basic objects and to store a collections of counters, among other things.
+Redis hashes are record types structured as collections of field-value pairs. You can uses hashes to represent basic objects and to store groupings of counters, among other things.
 
 ## Examples
 
