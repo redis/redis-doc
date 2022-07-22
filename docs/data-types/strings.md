@@ -54,7 +54,7 @@ A single Redis string can be a maximum of 512 MB.
 
 ### Bitfields
 
-To perform bitwise operations on a string, see the [bitmaps data type](/docs/manual/data-types/bitmaps) docs.
+To perform bitwise operations on a string, see the [bitmaps data type](/docs/data-types/bitmaps) docs.
 
 See the [complete list of string commands](/commands/?group=string).
 
@@ -64,7 +64,7 @@ Most string operations are O(1), which means they're highly efficient. However, 
 
 ## Alternatives
 
-If you're storing structured data a string, you may also want to consider [Redis hashes](/docs/manual/data-types/hashes) or [RedisJSON](/docs/stack/json).
+If you're storing structured data a string, you may also want to consider [Redis hashes](/docs/data-types/hashes) or [RedisJSON](/docs/stack/json).
 
 ## Learn more
 

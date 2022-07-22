@@ -98,7 +98,7 @@ Most list operations are O(1), which means they're highly efficient. However, co
 
 ## Alternatives
 
-Consider [Redis streams](/docs/manual/data-types/streams) as an alternative to lists when you need to store and process an indeterminate series of events.
+Consider [Redis streams](/docs/data-types/streams) as an alternative to lists when you need to store and process an indeterminate series of events.
 
 ## Learn more
 

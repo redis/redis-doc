@@ -6,6 +6,7 @@ weight: 2
 aliases:
     - /topics/data-types
     - /docs/manual/data-types
+    - /docs/manual/data-types/
 ---
 
 Redis is a data structure server. At its core, Redis provides a collection of native data types that help you solve a wide variety of problems, from caching to queuing to event processing. Below is a short description of each data type, with links to broader overviews and command references.
