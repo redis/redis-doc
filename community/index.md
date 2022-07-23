@@ -7,7 +7,7 @@ Since 2009, the Redis open source project has inspired an enthusiastic and activ
 
 ## Code of Conduct
 
-Redis has adopted the [Contributor Covenant Code of Conduct](https://github.com/redis/redis/blob/unstable/CONDUCT).
+Redis has adopted the [Contributor Covenant Code of Conduct](https://github.com/redis/redis/blob/unstable/CODE_OF_CONDUCT.md).
 
 ## Getting help
 
