@@ -52,7 +52,7 @@ A single Redis string can be a maximum of 512 MB.
 * [INCR](/commands/incr), [INCRBY](/commands/incrby), [DECR](/commands/decr), and [DECRBY](/commands/decrby) atomically increment and decrement counters stored at a given key.
 * Another command exists for floating point counters: [INCRBYFLOAT](/commands/incrbyfloat). Note that you can use this command to decrement a float by passing in a negative number.
 
-### Bitfields
+### Bitwise operations
 
 To perform bitwise operations on a string, see the [bitmaps data type](/docs/data-types/bitmaps) docs.
 
