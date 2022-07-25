@@ -30,14 +30,14 @@ If you'd like a rich tutorial, see the classic [Redis data types tutorial](/docs
 
 ### Sets
 
-[Redis sets](/docs/data-types/sets). are unordered collections of unique strings that act a lot like the sets from your favorite programming language (e.g., [Java HashSet](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html)s, [Python sets](https://docs.python.org/3.10/library/stdtypes.html#set-types-set-frozenset), etc.). You can add remove, and test for existence O(1) time (i.e., regardless of the number of set elements).
+[Redis sets](/docs/data-types/sets) are unordered collections of unique strings that act a lot like the sets from your favorite programming language (e.g., [Java HashSets](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html), [Python sets](https://docs.python.org/3.10/library/stdtypes.html#set-types-set-frozenset), etc.). With a Redis set, you can add remove, and test for existence O(1) time (i.e., regardless of the number of set elements).
 
 * See an [overview of Redis sets](/docs/data-types/sets/)
 * View the [Redis set command reference](/commands/?group=set)
 
 ### Hashes
 
-[Redis hashes](/docs/data-types/hashes) are record types modeled as a collections of field-value pairs. As such, Redis Hashes resemble [Python dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries), [Java HashMaps](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html), and [Ruby hashes](https://ruby-doc.org/core-3.1.2/Hash.html).
+[Redis hashes](/docs/data-types/hashes) are record types modeled as collections of field-value pairs. As such, Redis Hashes resemble [Python dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries), [Java HashMaps](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html), and [Ruby hashes](https://ruby-doc.org/core-3.1.2/Hash.html).
 
 * See an [overview of Redis hashes](/docs/data-types/hashes/)
 * View the [Redis hashes command reference](/commands/?group=hash)
@@ -59,7 +59,7 @@ A [Redis stream](/docs/data-types/stream) is a data structure that acts like an 
 
 ### Geospatial indexes
 
-[Redis geospatial indexes](/docs/data-types/geospatial) are useful for finding locations within a given geographic radius.
+[Redis geospatial indexes](/docs/data-types/geospatial) are useful for finding locations within a given geographic radius or bounding box.
 
 * See an [overview of Redis geospatial indexes](/docs/data-types/geospatial/)
 * View the [Redis geospatial indexes command reference](/commands/?group=geo)
@@ -71,16 +71,16 @@ A [Redis stream](/docs/data-types/stream) is a data structure that acts like an 
 * See an [overview of Redis bitmaps](/docs/data-types/bitmaps/)
 * View the [Redis bitmap command reference](/commands/?group=bitmap)
 
-### Hyperloglogs
+### Hyperloglog
 
-[Redis hyperloglogs](/docs/data-types/hyperloglogs) provide probabilistic estimates of the cardiality (i.e., number of elements) of large sets.
+[Redis HyperLogLog](/docs/data-types/hyperloglogs) data structures provide probabilistic estimates of the cardinality (i.e., number of elements) of large sets.
 
-* [Overview of Redis hyperloglogs](/docs/data-types/hyperloglogs)
-* View the [Redis hyperloglog command reference](/commands/?group=bitmap)
+* [Overview of Redis HyperLogLog](/docs/data-types/hyperloglogs)
+* View the [Redis HyperLogLog command reference](/commands/?group=hyperloglog)
 
 ## Extensions
 
-If you to extend the features provided by the included data types, you have several options:
+If you need to extend the features provided by the included data types, you have several options:
 
 1. Consider writing your own custom, [server-side functions in Lua](/docs/manual/programmability/).
 2. Use the [JSON](/docs/stack/json/), [querying](/docs/stack/search/), [time series](/docs/stack/timeseries/), and other capabilities provided by [Redis Stack](/docs/stack/).

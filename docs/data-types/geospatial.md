@@ -33,7 +33,7 @@ redis:6379> GEOSEARCH locations:ca FROMLONLAT -122.2612767 37.7936847 BYRADIUS 5
    2) "2.2441"
 ```
 
-## Commands
+## Basic commands
 
 [GEOADD](/commands/geoadd) add a location to a given geospatial index. Note that longitude comes before latitude with this command.
 [GEOSEARCH](/commands/geosearch) returns locations with a given radius or rectangular box.

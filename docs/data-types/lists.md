@@ -1,12 +1,12 @@
 ﻿---
-title: "Redis Strings"
+title: "Redis Lists"
 linkTitle: "Lists"
 weight: 3
 description: >
     Introduction to Redis Lists
 ---
 
-Redis lists are lists of string values. Redis lists are frequenty used to:
+Redis lists are lists of string values. Redis lists are frequently used to:
 
 * implement stacks and queues.
 * build queue management for background worker systems.
@@ -73,9 +73,7 @@ OK
 
 The max length of a Redis list is 2^32 - 1 (4,294,967,295) elements.
 
-## Commands
-
-### Basic commands
+## Basic commands
 
 * [LPUSH](/commands/lpush) adds a new element on the head of a list; [RPUSH](/commands/rpush) adds to the tail. 
 * [LPOP](/commands/lpush) removes and returns an element from the head of a list; [RPOP](/commands/rpush) does the same but from the tails of a list. 
@@ -88,7 +86,7 @@ The max length of a Redis list is 2^32 - 1 (4,294,967,295) elements.
 Lists supports several blocking commands. For example:
 
 * [BLPOP](/commands/blpush) removes and returns an element from the head of a list. If the list is empty, the command blocks until an element becomes available or until the specified timeout is reached.
-* [BLMOVE](/commands/blmove) atomically moves an elements from a source list to a target list. If the source list is empty, the the command will block until a elements becomes available.
+* [BLMOVE](/commands/blmove) atomically moves an elements from a source list to a target list. If the source list is empty, the command will block until a new element becomes available.
 
 See the [complete series of list commands](https://redis.io/commands/?group=list).
 

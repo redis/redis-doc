@@ -9,7 +9,7 @@ description: >
 Redis bitmaps are an extension of the string data type that let you treat a string like a bit vector. You can also perform bitwise operations on one or more strings. Some examples of bitmap use cases include:
 
 * Efficient set representations for cases where the members of a set correspond to the integers 0-N.
-* Object permissions, where each bit represents a particular permission, similar to the way that filesystems store permissions.
+* Object permissions, where each bit represents a particular permission, similar to the way that file systems store permissions.
 
 ## Examples
 
@@ -35,7 +35,7 @@ redis:6379> SETBIT pings:2024-01-01-00:00 456
 0
 ```
 
-## Commands
+## Basic commands
 
 [SETBIT](/commands/setbit) sets a bit at the provided offset to 0 or 1.
 [GETBIT](/commands/getbit) returns the value of a bit at a given offset.

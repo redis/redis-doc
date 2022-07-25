@@ -14,7 +14,7 @@ A Redis stream is a data structure that acts like an append-only log. You can us
 
 Redis generates a unique ID for each stream entry. You can use these IDs to later retrieve their associated entries or to read and process all subsequent entries in the stream.
 
-Redis streams support several trimming strategies (to prevent streams from growing unbouded) and more than one consumption strategy (see [XREAD](/commands/xread), [XREADGROUP](/commands/xreadgroup), and [XRANGE](/commands/xrange)).
+Redis streams support several trimming strategies (to prevent streams from growing unbounded) and more than one consumption strategy (see [XREAD](/commands/xread), [XREADGROUP](/commands/xreadgroup), and [XRANGE](/commands/xrange)).
 
 ## Examples
 
@@ -53,18 +53,18 @@ redis:6379> XREAD COUNT 100 BLOCK 300 STREAMS tempertures:us-ny:10007 $
 (nil)
 ```
 
-## Commands
+## Basic commands
 
-* [XADD](/commands/xadd)
-* [XREAD](/commands/xread)
-* [XRANGE](/commands/xrange) 
-* [XLEN](/commands/xlen)
+* [XADD](/commands/xadd) adds a new entry to a stream.
+* [XREAD](/commands/xread) reads one or more entries, starting at a given position and moving forward in time.
+* [XRANGE](/commands/xrange) returns a range of entries between two supplied entry IDs.
+* [XLEN](/commands/xlen) returns the length of a stream.
  
 See the [complete list of stream commands](https://redis.io/commands/?group=stream).
 
 ## Performance
 
-Adding an entry to a streams is O(1). Accessing any single entry is O(n), where n is the length of the ID. Since stream IDs are typically short and of a fixed length, this effectively reduces to a constant time lookup. For details on why, note that streams are implented as [radix trees](https://en.wikipedia.org/wiki/Radix_tree).
+Adding an entry to a streams is O(1). Accessing any single entry is O(n), where n is the length of the ID. Since stream IDs are typically short and of a fixed length, this effectively reduces to a constant time lookup. For details on why, note that streams are implemented as [radix trees](https://en.wikipedia.org/wiki/Radix_tree).
 
 Simply put, Redis streams provide highly efficient inserts and reads. See each command's time complexity for the details.
 

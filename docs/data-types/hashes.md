@@ -45,7 +45,7 @@ redis:6379> HGET device:777:stats pings
 "3"
 ```
 
-## Commands
+## Basic commands
 
 [HSET](/commands/hset) sets the value of one or more fields on a hash.
 [HGET](/commands/hset) returns the value at a given field. 

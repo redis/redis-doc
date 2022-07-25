@@ -48,7 +48,7 @@ redis:6379> ZREVRANK leaderboard:455 user:2
 (integer) 0
 ```
 
-## Commands
+## Basic commands
 
 * [ZADD](/commands/zadd) adds a new member and associated score to a sorted set. If the member already exists, the score is updated.
 * [ZRANGE](/commands/zrange) returns members of a sorted set, sorted within a given range.

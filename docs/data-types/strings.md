@@ -38,19 +38,19 @@ redis:6379> INCRBY views:page:2 10
 
 A single Redis string can be a maximum of 512 MB.
 
-## Commands
+## Basic commands
 
 ### Getting and setting Strings
 
 * [SET](/commands/set) stores a string value.
-* [SETNX](/commands/setnx) stores a string value only if the key doesn't already exist. Useful for implemeting locks.
+* [SETNX](/commands/setnx) stores a string value only if the key doesn't already exist. Useful for implementing locks.
 * [GET](/commands/get) retrieve a string value.
 * [MGET](/commands/mget) retrieve multiple string values in a single operation.
 
-### Manging counters
+### Managing counters
 
 * [INCR](/commands/incr), [INCRBY](/commands/incrby), [DECR](/commands/decr), and [DECRBY](/commands/decrby) atomically increment and decrement counters stored at a given key.
-* A parellel set of commands existing for floating point counters: [INCRBYFLOAT](/commands/incrbyfloat) and [DECRBYFLOAT](/commands/decrbyfloat).
+* Another command exists for floating point counters: [INCRBYFLOAT](/commands/incrbyfloat). Note that you can use this command to decrement a float by passing in a negative number.
 
 ### Bitfields
 
@@ -60,7 +60,7 @@ See the [complete list of string commands](/commands/?group=string).
 
 ## Performance
 
-Most string operations are O(1), which means they're highly efficient. However, be careful with the [SUBSTR](/commands/substr), [GETRANGE](/commands/getrange), and [SETRANGE](/commands/setrange)commands, which can be O(n). These random-access string commands may cause performance issues when dealing with very large strings.
+Most string operations are O(1), which means they're highly efficient. However, be careful with the [SUBSTR](/commands/substr), [GETRANGE](/commands/getrange), and [SETRANGE](/commands/setrange) commands, which can be O(n). These random-access string commands may cause performance issues when dealing with very large strings.
 
 ## Alternatives
 

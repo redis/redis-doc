@@ -1,5 +1,5 @@
 ﻿---
-title: "Redis streams tutorial"
+title: "Redis Streams tutorial"
 linkTitle: "Streams tutorial"
 weight: 8
 description: >
