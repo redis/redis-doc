@@ -67,6 +67,7 @@ Benchmarking
 BigNumber
 BitOp
 Bitfields
+Bitwise
 C1
 C2
 C3
@@ -439,6 +440,7 @@ benchmarking
 big-endian
 bitfield
 bitop
+bitwise
 bitwise
 bool
 breakpoint

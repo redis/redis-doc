@@ -71,7 +71,7 @@ A [Redis stream](/docs/data-types/stream) is a data structure that acts like an 
 * See an [overview of Redis bitmaps](/docs/data-types/bitmaps/)
 * View the [Redis bitmap command reference](/commands/?group=bitmap)
 
-### Hyperloglog
+### HyperLogLog
 
 [Redis HyperLogLog](/docs/data-types/hyperloglogs) data structures provide probabilistic estimates of the cardinality (i.e., number of elements) of large sets.
 

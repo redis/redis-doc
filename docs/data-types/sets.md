@@ -64,7 +64,7 @@ See the [complete list of set commands](https://redis.io/commands/?group=set).
 
 Most set operations, including adding, removing, and checking whether an items is a set member, are O(1). This means that they're highly efficient.
 
-For large sets, with hundreds of thousands of members or more, you should exercise some caution when running the [SMEMBERS](/commands/smembers) command. This command is O(n) and returns the entire set in a single response. As an alternative, consider the [SSCAN](/commands/sscan), which lets you retreive all members of a set iteratively.
+For large sets, with hundreds of thousands of members or more, you should exercise some caution when running the [SMEMBERS](/commands/smembers) command. This command is O(n) and returns the entire set in a single response. As an alternative, consider the [SSCAN](/commands/sscan), which lets you retrieve all members of a set iteratively.
 
 ## Alternatives
 
