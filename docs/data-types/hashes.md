@@ -1,9 +1,9 @@
 ﻿---
-title: "Redis Hashes"
+title: "Redis hashes"
 linkTitle: "Hashes"
 weight: 5
 description: >
-    Introduction to Redis Hashes
+    Introduction to Redis hashes
 ---
 
 Redis hashes are record types structured as collections of field-value pairs. You can uses hashes to represent basic objects and to store groupings of counters, among other things.
@@ -57,11 +57,11 @@ See the [complete list of hash commands](https://redis.io/commands/?group=hash).
 
 Most Redis hash commands are O(1).
 
-A few command, such as [HGETALL](/commands/hgetall), are O(n), where _n_ is the number of field-value pairs.
+A few commands, such as [HGETALL](/commands/hgetall), are O(n), where _n_ is the number of field-value pairs.
 
 ## Limits
 
-Every hash can store up to 4,294,967,295 (2^32 - 1) field-value pairs. In practice, the means that your hashes will be limited only by the overall memory on the VMs hosting your Redis deployment.
+Every hash can store up to 4,294,967,295 (2^32 - 1) field-value pairs. In practice, this means that your hashes are limited only by the overall memory on the VMs hosting your Redis deployment.
 
 ## Learn more
 

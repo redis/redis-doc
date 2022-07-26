@@ -1,21 +1,21 @@
 ﻿---
-title: "Redis Bitmaps"
+title: "Redis bitmaps"
 linkTitle: "Bitmaps"
 weight: 11
 description: >
-    Introduction to Redis Bitmaps
+    Introduction to Redis bitmaps
 ---
 
-Redis bitmaps are an extension of the string data type that let you treat a string like a bit vector. You can also perform bitwise operations on one or more strings. Some examples of bitmap use cases include:
+Redis bitmaps are an extension of the string data type that lets you treat a string like a bit vector. You can also perform bitwise operations on one or more strings. Some examples of bitmap use cases include:
 
 * Efficient set representations for cases where the members of a set correspond to the integers 0-N.
 * Object permissions, where each bit represents a particular permission, similar to the way that file systems store permissions.
 
 ## Examples
 
-Imagine you have 1000 sensors deployed in the field, labeled 0-999. You want to quickly determine whether a given sensor has pinged the server within the hour. 
+Suppose you have 1000 sensors deployed in the field, labeled 0-999. You want to quickly determine whether a given sensor has pinged the server within the hour. 
 
-You can represent this using a bitmap whose key references the current hour.
+You can represent this scenario using a bitmap whose key references the current hour.
 
 * Sensor 123 pings the server on January 1, 2024 within the 00:00 hour.
 ```
@@ -49,5 +49,5 @@ See the [complete list of bitmap commands](https://redis.io/commands/?group=bitm
 
 ## Learn more
 
-* [Redis Bitmaps Explained](https://www.youtube.com/watch?v=oj8LdJQjhJo) is an entertaining video explainer that teaches you how you might use bitmaps for map exploration in an online game. 
+* [Redis Bitmaps Explained](https://www.youtube.com/watch?v=oj8LdJQjhJo) teaches you how to use bitmaps for map exploration in an online game. 
 * [Redis University's RU101](https://university.redis.com/courses/ru101/) covers Redis bitmaps in detail.

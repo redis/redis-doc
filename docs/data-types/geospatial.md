@@ -1,5 +1,5 @@
 ﻿---
-title: "Redis Geospatial"
+title: "Redis geospatial"
 linkTitle: "Geospatial"
 weight: 9
 description: >
@@ -12,7 +12,7 @@ Redis geospatial indexes let you store coordinates and search for them. This dat
 
 Suppose you're building a mobile app that lets you find all of the electric car charging stations closest to your current location.
 
-* Add several locations to a geospatial index:
+Add several locations to a geospatial index:
 ```
 redis:6379> GEOADD locations:ca -122.27652 37.805186 station:1
 (integer) 1
@@ -22,7 +22,7 @@ redis:6379> GEOADD locations:ca -122.2469854 37.8104049 station:3
 (integer) 1
 ```
 
-* Find all locations with a 1 kilometer radius of a given location, and return the distance to each location:
+Find all locations with a 1 kilometer radius of a given location, and return the distance to each location:
 ```
 redis:6379> GEOSEARCH locations:ca FROMLONLAT -122.2612767 37.7936847 BYRADIUS 5 km WITHDIST
 1) 1) "station:1"
@@ -35,7 +35,7 @@ redis:6379> GEOSEARCH locations:ca FROMLONLAT -122.2612767 37.7936847 BYRADIUS 5
 
 ## Basic commands
 
-[GEOADD](/commands/geoadd) add a location to a given geospatial index. Note that longitude comes before latitude with this command.
+[GEOADD](/commands/geoadd) adds a location to a given geospatial index. Note that longitude comes before latitude with this command.
 [GEOSEARCH](/commands/geosearch) returns locations with a given radius or rectangular box.
 
 See the [complete list of geospatial index commands](https://redis.io/commands/?group=geo).
