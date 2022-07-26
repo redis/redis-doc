@@ -3,7 +3,7 @@ title: "Redis Strings"
 linkTitle: "Strings"
 weight: 2
 description: >
-    Introduction to Redis Strings
+    Introduction to Redis strings
 ---
 
 Redis strings store sequences of bytes, including text, serialized objects, and binary arrays. As such, strings are the most basic Redis data type. They're often used for caching, but they support additional functionality that lets you implement counters and perform bitwise operations, too.

@@ -1,20 +1,20 @@
 ﻿---
-title: "Redis Sets"
+title: "Redis sets"
 linkTitle: "Sets"
 weight: 4
 description: >
-    Introduction to Redis Sets
+    Introduction to Redis sets
 ---
 
 A Redis set is an unordered collection of unique strings. You can use Redis sets to efficiently:
 
-* Track unique items (e.g., track all unique IP addresses accessing a given blog post)
-* Represent relations (e.g., the set of all users with a given role)
-* Perform common set operations such as intersection, unions, and differences
+* Track unique items (e.g., track all unique IP addresses accessing a given blog post).
+* Represent relations (e.g., the set of all users with a given role).
+* Perform common set operations such as intersection, unions, and differences.
 
 ## Examples
 
-* Store the set of "favorited" book IDs for users 123 and 456:
+* Store the set of favorited book IDs for users 123 and 456:
 ```
 redis:6379> SADD user:123:favorites 347
 (integer) 1
@@ -62,7 +62,7 @@ See the [complete list of set commands](https://redis.io/commands/?group=set).
 
 ## Performance
 
-Most set operations, including adding, removing, and checking whether an items is a set member, are O(1). This means that they're highly efficient.
+Most set operations, including adding, removing, and checking whether an item is a set member, are O(1). This means that they're highly efficient.
 
 For large sets, with hundreds of thousands of members or more, you should exercise some caution when running the [SMEMBERS](/commands/smembers) command. This command is O(n) and returns the entire set in a single response. As an alternative, consider the [SSCAN](/commands/sscan), which lets you retrieve all members of a set iteratively.
 

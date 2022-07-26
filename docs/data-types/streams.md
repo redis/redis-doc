@@ -3,7 +3,7 @@ title: "Redis Streams"
 linkTitle: "Streams"
 weight: 7
 description: >
-    Introduction to Redis Streams
+    Introduction to Redis streams
 ---
 
 A Redis stream is a data structure that acts like an append-only log. You can use streams to record and simultaneously syndicate events in real time. Examples of Redis stream use cases include:
@@ -64,7 +64,7 @@ See the [complete list of stream commands](https://redis.io/commands/?group=stre
 
 ## Performance
 
-Adding an entry to a streams is O(1). Accessing any single entry is O(n), where n is the length of the ID. Since stream IDs are typically short and of a fixed length, this effectively reduces to a constant time lookup. For details on why, note that streams are implemented as [radix trees](https://en.wikipedia.org/wiki/Radix_tree).
+Adding an entry to a streams is O(1). Accessing any single entry is O(n), where _n_ is the length of the ID. Since stream IDs are typically short and of a fixed length, this effectively reduces to a constant time lookup. For details on why, note that streams are implemented as [radix trees](https://en.wikipedia.org/wiki/Radix_tree).
 
 Simply put, Redis streams provide highly efficient inserts and reads. See each command's time complexity for the details.
 

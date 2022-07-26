@@ -6,7 +6,7 @@ description: >
     Introduction to the Redis HyperLogLog data type
 ---
 
-HyperLogLog is a data structure that estimates the cardinality of a set. As a probabilistic data structure, hyperloglog trades perfect accuracy for efficient space utilization.
+HyperLogLog is a data structure that estimates the cardinality of a set. As a probabilistic data structure, HyperLogLog trades perfect accuracy for efficient space utilization.
 
 ## Examples
 
@@ -28,7 +28,7 @@ redis:6379> PFCOUNT members
 
 ## Basic commands
 
-[PFADD](/commands/pfadd) add an item to a HyperLogLog.
+[PFADD](/commands/pfadd) adds an item to a HyperLogLog.
 [PFCOUNT](/commands/pfcount) returns an estimate of the number of items in the set.
 
 See the [complete list of HyperLogLog commands](https://redis.io/commands/?group=hyperloglog).
