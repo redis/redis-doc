@@ -8,7 +8,7 @@ aliases:
     - /topics/data-types
 ---
 
-Redis is a data structure server. At its core, Redis provides a collection of native data types that help you solve a wide variety of problems, from [caching](/docs/manual/client-side-caching/) to [queuing](/docs/data-types/lists/) to [event processing](/docs/data-types/stream/). Below is a short description of each data type, with links to broader overviews and command references.
+Redis is a data structure server. At its core, Redis provides a collection of native data types that help you solve a wide variety of problems, from [caching](/docs/manual/client-side-caching/) to [queuing](/docs/data-types/lists/) to [event processing](/docs/data-types/streams/). Below is a short description of each data type, with links to broader overviews and command references.
 
 If you'd like to try a comprehensive tutorial, see [Redis data types tutorial](/docs/data-types/tutorial/).
 
@@ -51,9 +51,9 @@ If you'd like to try a comprehensive tutorial, see [Redis data types tutorial](/
 
 ### Streams
 
-A [Redis stream](/docs/data-types/stream) is a data structure that acts like an append-only log. Streams are useful for recording events in the order they occur and then syndicating them for processing. For more information, see:
+A [Redis stream](/docs/data-types/streams) is a data structure that acts like an append-only log. Streams are useful for recording events in the order they occur and then syndicating them for processing. For more information, see:
 
-* [Overview of Redis Streams](/docs/data-types/stream)
+* [Overview of Redis Streams](/docs/data-types/streams)
 * [Redis Streams command reference](/commands/?group=streams)
 * [Redis Streams tutorial](/docs/data-types/streams-tutorial)
 
