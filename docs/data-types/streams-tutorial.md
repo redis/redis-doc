@@ -17,7 +17,7 @@ The Redis stream data type was introduced in Redis 5.0. Streams model a log data
 
 ## Streams basics
 
-Streams are an append-only data structure, the fundamental write command, called [XADD](/commands/xadd), appends a new entry to the specified stream.
+Streams are an append-only data structure. The fundamental write command, called [XADD](/commands/xadd), appends a new entry to the specified stream.
 
 Each stream entry consists of one or more field-value pairs, somewhat like a record or a Redis hash:
 

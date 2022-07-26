@@ -1,15 +1,15 @@
 ﻿---
-title: "Redis Lists"
+title: "Redis lists"
 linkTitle: "Lists"
 weight: 3
 description: >
-    Introduction to Redis Lists
+    Introduction to Redis lists
 ---
 
 Redis lists are lists of string values. Redis lists are frequently used to:
 
-* implement stacks and queues.
-* build queue management for background worker systems.
+* Implement stacks and queues.
+* Build queue management for background worker systems.
 
 ## Examples
 

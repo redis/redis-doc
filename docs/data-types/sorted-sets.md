@@ -1,9 +1,9 @@
 ﻿---
-title: "Redis Sorted Sets"
+title: "Redis sorted sets"
 linkTitle: "Sorted sets"
 weight: 6
 description: >
-    Introduction to Redis Sorted Sets
+    Introduction to Redis sorted sets
 ---
 
 A Redis sorted set is a collection of unique strings ordered by an associated score. When more then one string has the same score, the strings are ordered lexicographically. Some use cases for sorted sets include:
