@@ -157,4 +157,4 @@ Salvatore originally created Redis to scale [LLOOGG](https://github.com/antirez/
 
 ## How is Redis pronounced?
 
-"Redis" (/ˈrɛd-ɪs/) is pronounced like the word "red" plus the word "kiss" without the "k".
+"Redis" (/ˈrɛd-ɪs/) is pronounced like the word "red" plus the word "diss".
