@@ -16,7 +16,7 @@ on these types, like [appending to a string](/commands/append);
 [incrementing the value in a hash](/commands/hincrby); [pushing an element to a
 list](/commands/lpush); [computing set intersection](/commands/sinter),
 [union](/commands/sunion) and [difference](/commands/sdiff);
-or [getting the member with highest ranking in a sorted set](/commands/zrangebyscore).
+or [getting the member with highest ranking in a sorted set](/commands/zrange).
 
 To achieve top performance, Redis works with an
 **in-memory dataset**. Depending on your use case, Redis can persist your data either
