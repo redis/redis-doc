@@ -1,7 +1,7 @@
 ---
 title: "Redis data types"
 linkTitle: "Data types"
-description: Overview of the many data types supported by Redis
+description: Overview of data types supported by Redis
 weight: 2
 aliases:
     - /docs/manual/data-types
