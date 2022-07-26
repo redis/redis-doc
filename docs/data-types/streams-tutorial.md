@@ -63,7 +63,7 @@ Note that in this case, the minimum ID is 0-1 and that the command will not acce
 (error) ERR The ID specified in XADD is equal or smaller than the target stream top item
 ```
 
-It is also possible to use an explicit ID that only consists of the milliseconds part, and have the sequence part be automatically generated for the entry:
+If you're running Redis 7 or later, you can also provide an explicit ID consisting of the milliseconds part only. In this case, the sequence portion of the ID will be automatically generated. To do this, use the syntax below:
 
 ```
 > XADD somestream 0-* baz qux
