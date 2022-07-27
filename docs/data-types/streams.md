@@ -72,4 +72,4 @@ Simply put, Redis streams provide highly efficient inserts and reads. See each c
 
 * The [Redis Streams Tutorial](/docs/data-types/streams-tutorial.md) explains Redis streams with many examples.
 * [Redis Streams Explained](https://www.youtube.com/watch?v=Z8qcpXyMAiA) is an entertaining introduction to streams in Redis.
-* [Redis University's RU102](https://university.redis.com/courses/ru101/) is a free, online course dedicated to Redis Streams.
+* [Redis University's RU102](https://university.redis.com/courses/ru102/) is a free, online course dedicated to Redis Streams.
