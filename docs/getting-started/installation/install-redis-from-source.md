@@ -71,8 +71,8 @@ If successful, you'll see the startup logs for Redis. Redis will be running in t
 Check if screen exists with the following command, if not, it will be installed directly:
 
 {{< highlight bash  >}}
-if ! command -v screen > /dev/null; then
-    apt install screen -y
+if ! command -v screen > /dev/null; then \
+    apt install screen -y \
 fi
 {{< / highlight >}}
 
