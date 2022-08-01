@@ -55,7 +55,7 @@ Return the list of consumers from `mygroup`.
 
 ## See also
 
-`XINFO` | `XINFO GROUPS` | `XINFO STREAM` | XINFO HELP`
+`XINFO` | `XINFO GROUPS` | `XINFO STREAM` | `XINFO HELP`
 
 ## Related topics
 
