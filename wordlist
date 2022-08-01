@@ -151,6 +151,7 @@ Geohashes
 Geospatial
 Github
 Gottlieb
+groupname
 HLL
 HLLs
 HMAC-SHA256
@@ -211,6 +212,8 @@ Memcache
 MessagePack
 Movablekeys
 Mrkris
+mygroup
+mystream
 NAS
 NATted
 NFS
