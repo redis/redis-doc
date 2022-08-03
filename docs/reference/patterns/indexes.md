@@ -625,7 +625,7 @@ So by interleaving digits, our representation in the index would be:
 Let's see what are our ranges as we substitute the last 2, 4, 6, 8, ...
 bits with 0s ad 1s in the interleaved representation:
 
-    2 bits: x between 70 and 75, y between 200 and 201 (range=2)
+    2 bits: x between 74 and 75, y between 200 and 201 (range=2)
     4 bits: x between 72 and 75, y between 200 and 203 (range=4)
     6 bits: x between 72 and 79, y between 200 and 207 (range=8)
     8 bits: x between 64 and 79, y between 192 and 207 (range=16)
