@@ -15,7 +15,7 @@ Reading messages... (press Ctrl-C to quit)
 1) "ssubscribe"
 2) "orders"
 3) (integer) 1
-1) "message"
+1) "smessage"
 2) "orders"
 3) "hello"
 ```
