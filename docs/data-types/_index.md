@@ -95,7 +95,7 @@ For more information, see:
 
 ### HyperLogLog
 
-[Redis HyperLogLog](/docs/data-types/hyperloglogs) data structures provide probabilistic estimates of the cardinality (i.e., number of elements) of large sets. For more information, see:
+The [Redis HyperLogLog](/docs/data-types/hyperloglogs) data structures provide probabilistic estimates of the cardinality (i.e., number of elements) of large sets. For more information, see:
 
 * [Overview of Redis HyperLogLog](/docs/data-types/hyperloglogs)
 * [Redis HyperLogLog command reference](/commands/?group=hyperloglog)
