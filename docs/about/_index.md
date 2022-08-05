@@ -8,7 +8,7 @@ aliases:
   - /buzz
 ---
 
-Redis is an open source (BSD licensed), in-memory **data structure store** used as a database, cache, message broker, and streaming engine. Redis provides [data structures](/docs/data-types/) such as
+Redis is an open source (BSD licensed), in-memory __data structure store__ used as a database, cache, message broker, and streaming engine. Redis provides [data structures](/docs/data-types/) such as
 [strings](/docs/data-types/strings/), [hashes](/docs/data-types/hashes/), [lists](/docs/data-types/lists/), [sets](/docs/data-types/lists/), [sorted sets](/docs/data-types/sorted-sets/) with range queries, [bitmaps](/docs/data-types/bitmaps/), [hyperloglogs](/docs/data-types/hyperloglogs/), [geospatial indexes](/docs/data-types/geospatial/), and [streams](/docs/data-types/streams/). Redis has built-in [replication](/topics/replication), [Lua scripting](/commands/eval), [LRU eviction](/topics/lru-cache), [transactions](/topics/transactions), and different levels of [on-disk persistence](/topics/persistence), and provides high availability via [Redis Sentinel](/topics/sentinel) and automatic partitioning with [Redis Cluster](/topics/cluster-tutorial).
 
 You can run __atomic operations__
