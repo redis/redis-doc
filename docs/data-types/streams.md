@@ -1,36 +1,39 @@
 ---
 title: "Redis Streams"
 linkTitle: "Streams"
-weight: 7
+weight: 60
 description: >
     Introduction to Redis streams
 ---
 
-A Redis stream is a data structure that acts like an append-only log. You can use streams to record and simultaneously syndicate events in real time. Examples of Redis stream use cases include:
+A Redis stream is a data structure that acts like an append-only log.
+You can use streams to record and simultaneously syndicate events in real time.
+Examples of Redis stream use cases include:
 
 * Event sourcing (e.g., tracking user actions, clicks, etc.)
 * Sensor monitoring (e.g., readings from devices in the field) 
 * Notifications (e.g., storing a record of each user's notifications in a separate stream)
 
-Redis generates a unique ID for each stream entry. You can use these IDs to later retrieve their associated entries or to read and process all subsequent entries in the stream.
+Redis generates a unique ID for each stream entry.
+You can use these IDs to retrieve their associated entries later or to read and process all subsequent entries in the stream.
 
-Redis streams support several trimming strategies (to prevent streams from growing unbounded) and more than one consumption strategy (see [XREAD](/commands/xread), [XREADGROUP](/commands/xreadgroup), and [XRANGE](/commands/xrange)).
+Redis streams support several trimming strategies (to prevent streams from growing unbounded) and more than one consumption strategy (see `XREAD`, `XREADGROUP`, and `XRANGE`).
 
 ## Examples
 
 * Add several temperature readings to a stream
 ```
-redis:6379> XADD temperatures:us-ny:10007 * temp_f 87.2 pressure 29.69 humidity 46
+> XADD temperatures:us-ny:10007 * temp_f 87.2 pressure 29.69 humidity 46
 "1658354918398-0"
-redis:6379> XADD temperatures:us-ny:10007 * temp_f 83.1 pressure 29.21 humidity 46.5
+> XADD temperatures:us-ny:10007 * temp_f 83.1 pressure 29.21 humidity 46.5
 "1658354934941-0"
-redis:6379> XADD temperatures:us-ny:10007 * temp_f 81.9 pressure 28.37 humidity 43.7
+> XADD temperatures:us-ny:10007 * temp_f 81.9 pressure 28.37 humidity 43.7
 "1658354957524-0"
 ```
 
 * Read the first two stream entries starting at ID `1658354934941-0`:
 ```
-redis:6379> XRANGE temperatures:us-ny:10007 1658354934941-0 + COUNT 2
+> XRANGE temperatures:us-ny:10007 1658354934941-0 + COUNT 2
 1) 1) "1658354934941-0"
    2) 1) "temp_f"
       2) "83.1"
@@ -49,24 +52,27 @@ redis:6379> XRANGE temperatures:us-ny:10007 1658354934941-0 + COUNT 2
 
 * Read up to 100 new stream entries, starting at the end of the stream, and block for up to 300 ms if no entries are being written:
 ```
-redis:6379> XREAD COUNT 100 BLOCK 300 STREAMS tempertures:us-ny:10007 $
+> XREAD COUNT 100 BLOCK 300 STREAMS tempertures:us-ny:10007 $
 (nil)
 ```
 
 ## Basic commands
-
-* [XADD](/commands/xadd) adds a new entry to a stream.
-* [XREAD](/commands/xread) reads one or more entries, starting at a given position and moving forward in time.
-* [XRANGE](/commands/xrange) returns a range of entries between two supplied entry IDs.
-* [XLEN](/commands/xlen) returns the length of a stream.
+* `XADD` adds a new entry to a stream.
+* `XREAD` reads one or more entries, starting at a given position and moving forward in time.
+* `XRANGE` returns a range of entries between two supplied entry IDs.
+* `XLEN` returns the length of a stream.
  
 See the [complete list of stream commands](https://redis.io/commands/?group=stream).
 
 ## Performance
 
-Adding an entry to a streams is O(1). Accessing any single entry is O(n), where _n_ is the length of the ID. Since stream IDs are typically short and of a fixed length, this effectively reduces to a constant time lookup. For details on why, note that streams are implemented as [radix trees](https://en.wikipedia.org/wiki/Radix_tree).
+Adding an entry to a stream is O(1).
+Accessing any single entry is O(n), where _n_ is the length of the ID.
+Since stream IDs are typically short and of a fixed length, this effectively reduces to a constant time lookup.
+For details on why, note that streams are implemented as [radix trees](https://en.wikipedia.org/wiki/Radix_tree).
 
-Simply put, Redis streams provide highly efficient inserts and reads. See each command's time complexity for the details.
+Simply put, Redis streams provide highly efficient inserts and reads.
+See each command's time complexity for the details.
 
 ## Learn more
 
