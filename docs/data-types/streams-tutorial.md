@@ -1,7 +1,7 @@
 ﻿---
 title: "Redis Streams tutorial"
 linkTitle: "Streams tutorial"
-weight: 8
+weight: 61
 description: >
     A comprehensive tutorial on Redis streams
 aliases:
