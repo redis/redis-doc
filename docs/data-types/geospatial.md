@@ -11,7 +11,7 @@ This data structure is useful for finding nearby points within a given radius or
 
 ## Examples
 
-Suppose you're building a mobile app that lets you find all the electric car charging stations closest to your current location.
+Suppose you're building a mobile app that lets you find all of the electric car charging stations closest to your current location.
 
 Add several locations to a geospatial index:
 ```

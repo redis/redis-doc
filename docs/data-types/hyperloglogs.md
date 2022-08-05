@@ -6,12 +6,9 @@ description: >
     Introduction to the Redis HyperLogLog data type
 ---
 
-HyperLogLog (HLL) is a probabilistic data structure, a.k.a a sketch.
-Sketches trade perfect accuracy for efficient space utilization.
-Rather than storing the data, these structures maintain only summaries.
+HyperLogLog is a data structure that estimates the cardinality of a set. As a probabilistic data structure, HyperLogLog trades perfect accuracy for efficient space utilization.
 
-The HyperLogLog's purpose is to estimate the cardinality of a set, i.e., count unique things.
-The Redis HLL implementation takes up to 12KB to store and has a standard error of 0.81%.
+The Redis HyperLogLog implementation uses up to 12 KB and provides a standard error of 0.81%.
 
 ## Examples
 
