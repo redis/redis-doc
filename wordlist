@@ -1,3 +1,4 @@
+
 .rdb
 0s
 0x00060007
@@ -67,6 +68,7 @@ Benchmarking
 BigNumber
 BitOp
 Bitfields
+Bitwise
 C1
 C2
 C3
@@ -157,13 +159,17 @@ HMAC-SHA256
 HVM
 HW
 Hardcoded
+HashMaps
+HashSets
 Haversine
 Hexastore
 Hitmeister
 Homebrew
 Hotspot
 HyperLogLog
+HyperLogLog.
 HyperLogLogs
+Hyperloglogs
 IOPs
 IPC
 IPs
@@ -191,6 +197,7 @@ LRU
 LRU's
 LRU.
 LUA
+Leaderboards
 Leau
 Lehmann
 Levelgraph
@@ -222,7 +229,6 @@ NaN
 Nehalem
 NoSQL
 NodeJS
-nonprintable
 Noordhuis
 NullArray
 ODOWN
@@ -279,16 +285,20 @@ RM_.*
 RPC
 RSS
 RTT
+RU101
+RU102
 RW
 Rebranding
 Reconfiguring
 Reddit's
+RediSearch
 Redimension
 Redis-rb
 Redis-to-Lua
 RedisCallReply
 RedisConf
 RedisHost.
+RedisJSON
 RedisModule.*
 Redisson
 Redistributions
@@ -432,7 +442,10 @@ benchmarked
 benchmarking
 big-endian
 bitfield
+bitfield
+bitfields
 bitop
+bitwise
 bitwise
 bool
 breakpoint
@@ -513,6 +526,7 @@ endianness
 enum
 enum_val
 enum_vals
+enums
 epel-release
 epoll
 errno
@@ -525,6 +539,8 @@ eval-intro
 everysec
 executables
 expiries
+explainer
+explainers
 facto
 factorializing
 failover
@@ -538,6 +554,7 @@ failover.
 failovers
 fanout
 faq
+favorited
 fdatasync
 filesystem
 firewalled
@@ -592,6 +609,7 @@ iostat
 ip
 ip:port
 iterable
+iteratively
 jemalloc
 jpeg
 kB
@@ -618,6 +636,7 @@ launchd
 lazyfree-lazy-user-flush
 ldb
 leaderboard
+leaderboards
 len
 lenptr
 lexicographically
@@ -676,6 +695,7 @@ non-TCP
 non-TLS
 non-reachability
 non-virtualized
+nonprintable
 nopass
 notify-keyspace-events
 notifyKeyspaceEvent
@@ -913,4 +933,3 @@ zeroed-ACLs
 ziplists
 zset
 ˈrɛd-ɪs
-enums
