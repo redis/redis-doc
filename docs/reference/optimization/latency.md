@@ -625,3 +625,43 @@ The following is an example of what you'll see printed in the log file once the 
 Note: in the example the **DEBUG SLEEP** command was used in order to block the server. The stack trace is different if the server blocks in a different context.
 
 If you happen to collect multiple watchdog stack traces you are encouraged to send everything to the Redis Google Group: the more traces we obtain, the simpler it will be to understand what the problem with your instance is.
+
+Latency induced from reading smaps/smaps_rollup
+-----------------------------------------------------
+
+The **Pss** field in /proc/PID/smaps or /proc/PID/smaps_rollup represents the process's proportional share of memory mapping. For example, on a 4K memory page platform, a page is used by a single process, Pss += 4K; a page is shared by 2 processes, Pss += (4K / 2); and so on. This means that counting Pss needs to walk all the pages of a process and takes a long time. What is worse, the reader has to hold the lock(memory lock of target process in kernel), count Pss, and release the lock.
+
+During the reader holds the lock, some commands(Ex, SET) of Redis may trigger memory allocation from kernel, brk/sbrk/mmap syscalls require memory lock and hit a lock race.
+
+To trace the memory allocation latency from kernel by command:
+
+    /usr/share/bcc/tools/syscount -p PID -L -i 1
+
+    [17:07:07]
+    SYSCALL                   COUNT        TIME (us)
+    write                     53135       618934.378
+    read                      53145       132125.003
+    epoll_wait                30691        68529.396
+    brk                         412          694.596         --> good case
+    openat                       10          128.503
+    wait4                        10           17.422
+    close                        10           11.935
+
+    [17:07:08]
+    SYSCALL                   COUNT        TIME (us)
+    write                     47098       549036.562
+    read                      47111       117185.952
+    brk                         366       113277.664         --> bad case
+    epoll_wait                27060        58677.769
+    openat                        9          141.735
+    wait4                         9           16.160
+    close                         9            9.109
+    getpeername                   1            3.026
+
+To find out which process reads smaps:
+
+    /usr/share/bcc/tools/trace show_smap
+
+To find out which process reads smaps_rollup:
+
+    /usr/share/bcc/tools/trace show_smaps_rollup
