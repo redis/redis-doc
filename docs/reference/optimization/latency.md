@@ -162,6 +162,29 @@ as the main event loop.
 In most situations, these kind of system level optimizations are not needed.
 Only do them if you require them, and if you are familiar with them.
 
+It's possible to trace the real-time TCP round time trip (RTT) on Linux with the `tcprtt` utility.
+For example, here's how to use it on the server on a connection from the IP 192.168.122.100:
+
+    /usr/share/bcc/tools/tcprtt -i 1 --lport 6379 -A 192.168.122.100
+
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 31       |                                        |
+        64 -> 127        : 5150     |*******************                     |
+       128 -> 255        : 10327    |****************************************|
+       256 -> 511        : 1014     |***                                     |
+       512 -> 1023       : 10       |                                        |
+      1024 -> 2047       : 7        |                                        |
+      2048 -> 4095       : 14       |                                        |
+      4096 -> 8191       : 10       |                                        |
+
+The histogram makes it clear that some requests exhibit latency much higher than others.
+This suggests that the problem lies with the quality of your network service.
+
 Single threaded nature of Redis
 -------------------------------
 
