@@ -266,9 +266,12 @@ persist on disk. Huge pages are the cause of the following issue:
 2. In a busy instance, a few event loops runs will cause commands to target a few thousand of pages, causing the copy on write of almost the whole process memory.
 3. This will result in big latency and big memory usage.
 
-Make sure to **disable transparent huge pages** using the following command:
+Make sure to **disable transparent huge pages for entire system** using the following command:
 
     echo never > /sys/kernel/mm/transparent_hugepage/enabled
+
+Or **disable transparent huge pages for Redis alone** with a configuration directive in redis.conf (since Redis 6.2):
+    disable-thp yes
 
 Latency induced by swapping (operating system paging)
 -----------------------------------------------------
