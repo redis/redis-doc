@@ -3,7 +3,7 @@ title: "Redis bitfields"
 linkTitle: "Bitfields"
 weight: 130
 description: >
-    Introduction to Redis bitmaps
+    Introduction to Redis bitfields
 ---
 
 Redis bitfields let you perform bitwise arithmetic on integer field of arbitrary bit length. For example, you an operate on anything from unsigned, 32-bit integers to signed 5-bit integers.
