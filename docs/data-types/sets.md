@@ -79,5 +79,5 @@ If you need to index and query your data, consider [RediSearch](/docs/stack/sear
 
 ## Learn more
 
-* [Redis Sets Explained](https://www.youtube.com/watch?v=PB5SeOkkxQc) and [Redis Sets Elaborated](https://www.youtube.com/watch?v=aRw5ME_5kMY) are two short but thorough video explainers covering Redis sets.
+* [Redis Sets Explained](https://www.youtube.com/watch?v=PKdCppSNTGQ) and [Redis Sets Elaborated](https://www.youtube.com/watch?v=aRw5ME_5kMY) are two short but thorough video explainers covering Redis sets.
 * [Redis University's RU101](https://university.redis.com/courses/ru101/) explores Redis sets in detail.
