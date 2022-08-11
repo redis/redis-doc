@@ -43,6 +43,7 @@ You can represent these counters with one bitfield per player.
 > BITFIELD player:1:stats GET u32 #0 GET u32 #1
 1) (integer) 51
 2) (integer) 1
+```
 
 ## Basic commands
 
