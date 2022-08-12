@@ -1,0 +1,5 @@
+{
+    "name": "PBRedisClient",
+    "description": "RAD Studio client with support for all Redis commands, all possible data types and a native-like syntax",
+	"homepage": "https://pybridge.net/product/pbredisclient/",
+}
