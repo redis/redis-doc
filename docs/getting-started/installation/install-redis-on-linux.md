@@ -11,6 +11,15 @@ Most major Linux distributions provide packages for Redis.
 ## Install on Ubuntu/Debian
 
 You can install recent stable versions of Redis from the official `packages.redis.io` APT repository.
+
+{{% alert title="Prerequisites" color="warning" %}}
+If you're running a very minimal distribution (such as a Docker container) you may need to install `lsb-release` first:
+
+{{< highlight bash  >}}
+sudo apt install lsb-release"
+{{< / highlight  >}}
+{{% /alert  %}}
+
 Add the repository to the <code>apt</code> index, update it, and then install:
 
 {{< highlight bash  >}}
