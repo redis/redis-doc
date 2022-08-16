@@ -636,6 +636,7 @@ lookups
 loopback
 lpush
 lru_cache
+lsb_release
 lsb-release
 lua-api
 lua-replicate-commands
