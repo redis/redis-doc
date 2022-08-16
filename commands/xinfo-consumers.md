@@ -24,7 +24,7 @@ is name of the consumer group.
 
 ## Return
 
-XINFO CONSUMERS returns a list of consumers, with these elements:
+XINFO CONSUMERS returns an @array-reply of consumers, with these elements:
 
 - `name` - Consumer's name
 - `pending` - Number of pending messages for the client, which are messages that were delivered but are yet to be acknowledged.
