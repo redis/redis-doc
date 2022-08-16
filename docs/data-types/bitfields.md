@@ -6,7 +6,7 @@ description: >
     Introduction to Redis bitfields
 ---
 
-Redis bitfields let you perform arithmetics on integer fields of arbitrary bit length.
+Redis bitfields let you set, increment, and get integer values of arbitrary bit length.
 For example, you can operate on anything from unsigned 1-bit integers to signed 63-bit integers.
 
 These values are stored using binary-encoded Redis strings.
