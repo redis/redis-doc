@@ -1,11 +1,5 @@
 Returns the list of consumers that belong to the `groupname` consumer group of the stream stored at `key`.
 
-## Syntax
-
-{{< highlight bash >}}
-XINFO CONSUMERS key groupname
-{{< / highlight >}}
-
 [Examples](#examples)
 
 ## Required parameters
