@@ -474,8 +474,8 @@ Example of rule 3:
 
 Redis hashes look exactly how one might expect a "hash" to look, with field-value pairs:
 
-    > hmset user:1000 username antirez birthyear 1977 verified 1
-    OK
+    > hset user:1000 username antirez birthyear 1977 verified 1
+    (integer) 3
     > hget user:1000 username
     "antirez"
     > hget user:1000 birthyear
@@ -492,7 +492,7 @@ While hashes are handy to represent *objects*, actually the number of fields you
 put inside a hash has no practical limits (other than available memory), so you can use
 hashes in many different ways inside your application.
 
-The command `HMSET` sets multiple fields of the hash, while `HGET` retrieves
+The command `HSET` sets multiple fields of the hash, while `HGET` retrieves
 a single field. `HMGET` is similar to `HGET` but returns an array of values:
 
     > hmget user:1000 username birthyear no-such-field
