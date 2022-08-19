@@ -4,10 +4,10 @@ linkTitle: "Enterprise"
 weight: 7
 description: Learn about Redis Enterprise
 aliases:
-    - /docs/about/redis-enterprise
+
 ---
 
-If building, deploying, and running open-source Redis is consuming your team’s resources and you would like to scale out your real-time apps in a cost-efficient, fully supported environment, consider trying out enterprise-level Redis implementations. Read on to learn about Redis Enterprise and the benefits of its extended offerings.
+If building, deploying, and running open-source Redis is consuming your team's resources and you would like to scale out your real-time apps in a cost-efficient, fully supported environment, consider trying out enterprise-level Redis implementations. Read on to learn about Redis Enterprise and the benefits of its extended offerings.
 
 ## About Redis the company
 
@@ -19,7 +19,7 @@ If building, deploying, and running open-source Redis is consuming your team’s r
 * Data tiering
 * Additional security features
 * Several deployment options (managed cloud service, software packages, K8s)
-* Additional data models via 'source code available' modules
+* Additional data models via _source code available_ modules
 * Enterprise-grade support
 
 ![Redis OSS vs. Redis Enterprise](/docs/about/images/comparison-oss-vs-re-circle.svg "Redis OSS vs. Redis Enterprise")
