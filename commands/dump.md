@@ -30,4 +30,5 @@ If `key` does not exist a nil bulk reply is returned.
 ```cli
 SET mykey 10
 DUMP mykey
+
 ```
