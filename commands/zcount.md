@@ -11,11 +11,12 @@ Note: the command has a complexity of just O(log(N)) because it uses elements ra
 @integer-reply: the number of elements in the specified score range.
 
 @examples
+- `-inf +inf` : 'inf' stands for infinity, meaning from least negative infinity to maximum positive infinity.
 
 ```cli
 ZADD myzset 1 "one"
 ZADD myzset 2 "two"
 ZADD myzset 3 "three"
-ZCOUNT myzset -inf +inf  // -inf +inf : The meaning of this sentence is infinity.
+ZCOUNT myzset -inf +inf  
 ZCOUNT myzset (1 3
 ```
