@@ -31,7 +31,7 @@ XINFO CONSUMERS returns an @array-reply of consumers, with these elements:
 
 Return the list of consumers from `mygroup`.
 
-{{< highlight bash >}}
+```
 127.0.0.1:6379> XINFO CONSUMERS mystream mygroup
 1) 1) name
    2) "Alice"
@@ -39,7 +39,7 @@ Return the list of consumers from `mygroup`.
    4) (integer) 1
    5) idle
    6) (integer) 83841983
-{{< / highlight >}}
+```
 
 ## See also
 
