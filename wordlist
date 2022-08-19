@@ -114,6 +114,7 @@ Deauthenticate
 Deauthenticates
 Defrag
 Deno
+DevOps
 Diskless
 DistLock
 Dynomite
@@ -287,6 +288,7 @@ RC4
 RDB
 RDB-saving
 RedisGraph
+RedisInsight
 REDISMODULE_OPTIONS_HANDLE_REPL_ASYNC_LOAD
 RedisTimeSeries
 REDISPORT
@@ -394,6 +396,7 @@ Unmodifiable
 Unregister
 Untrusted
 Unwatches
+uptime
 Uptime
 VM
 VMs
