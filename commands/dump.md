@@ -29,5 +29,7 @@ If `key` does not exist a nil bulk reply is returned.
 
 ```cli
 SET mykey 10
+OK
 DUMP mykey
+"\x00\xc0\n\n\x00n\x9fWE\x0e\xaec\xbb"
 ```
