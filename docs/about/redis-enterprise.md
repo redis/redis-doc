@@ -4,7 +4,7 @@ linkTitle: "Enterprise"
 weight: 7
 description: Learn about Redis Enterprise
 aliases:
-
+    - /docs/about/redis-enterprise
 ---
 
 If building, deploying, and running open-source Redis is consuming your team’s resources and you would like to scale out your real-time apps in a cost-efficient, fully supported environment, consider trying out enterprise-level Redis implementations. Read on to learn about Redis Enterprise and the benefits of its extended offerings.
@@ -194,7 +194,7 @@ Ask [Redis Customer Success Team](https://redis.com/deployment/customer-success/
 * These aren't just lectures. You'll work with Redis directly, running commands and writing code to build the fastest applications on the planet.
 * Every course has an active Discord channel with instructors on-hand. You'll interact with other students and always get the answers you need quickly.
 
-To sign up for Redis courses, see [Redis University](https://university.redis.com/)
+To sign up for Redis courses, see [Redis University](https://university.redis.com/).
 
 ## Learn more
 
