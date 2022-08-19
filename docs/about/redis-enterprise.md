@@ -117,15 +117,11 @@ Redis Enterprise offers three types of implementations:
 
 ### Self-managed options
 
-#### Redis Enterprise Software (RS)
-
-Redis Software is the cluster software, downloadable for an installation managed by you. You download, install, and manage a Redis Enterprise Software cluster wherever you like:
+[Redis Software](https://redis.com/redis-enterprise-software/overview/) is the cluster software, downloadable for an installation managed by you. You download, install, and manage a Redis Enterprise Software cluster wherever you like:
 
 * IaaS cloud environments &mdash; Amazon Web Services (AWS), Google Cloud Platform (GCP), and Microsoft Azure
 * On-premise servers in a private datacenter
 • Physical servers, virtual machines (VMs), Kubernetes pods
-
-#### Redis Enterprise Software deployed via Kubernetes
 
 Redis provides a Kubernetes operator that deploys and manages a Redis Enterprise cluster. You can use the operator on premises or on a private or public cloud. You may choose a Kubernetes-based deployment:
 
@@ -137,9 +133,7 @@ The [Google Cloud Marketplace](https://console.cloud.google.com/marketplace/prod
 
 ### Fully managed options
 
-#### Redis Cloud
-
-Redis Cloud is a Database-as-a-Service provided by Redis. The fully managed cloud service is based on Redis Enterprise and accessible via a self-service portal, which gives you access to the subscription/database control plane. Redis manages the Redis Enterprise clusters and the complexity of the underlying infrastructure, leaving most of the database management to you. This is designed to be a developer-friendly experience.
+[Redis Cloud](https://redis.com/redis-enterprise-cloud/overview/) is a Database-as-a-Service provided by Redis. The fully managed cloud service is based on Redis Enterprise and accessible via a self-service portal, which gives you access to the subscription/database control plane. Redis manages the Redis Enterprise clusters and the complexity of the underlying infrastructure, leaving most of the database management to you. This is designed to be a developer-friendly experience.
 
 You can get started right now:
 
