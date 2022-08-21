@@ -16,7 +16,7 @@ You can install recent stable versions of Redis from the official `packages.redi
 If you're running a very minimal distribution (such as a Docker container) you may need to install `lsb-release` first:
 
 {{< highlight bash  >}}
-sudo apt install lsb-release"
+sudo apt install lsb-release
 {{< / highlight  >}}
 {{% /alert  %}}
 
