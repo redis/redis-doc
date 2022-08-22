@@ -40,11 +40,3 @@ Return the list of consumers from `mygroup`.
    5) idle
    6) (integer) 83841983
 ```
-
-## See also
-
-`XINFO` | `XINFO GROUPS` | `XINFO STREAM` | `XINFO HELP`
-
-## Related topics
-
-[Redis streams tutorial](docs/data-types/streams-tutorial)
