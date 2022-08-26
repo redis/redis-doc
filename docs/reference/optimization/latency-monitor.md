@@ -64,11 +64,11 @@ The framework monitors and logs latency spikes in the execution time of these ev
 * `fast-command`: O(1) and O(log N) commands.
 * `fork`: the `fork(2)` system call.
 * `rdb-unlink-temp-file`: the `unlink(2)` system call.
-* `aof-write`: writing to the AOF - a catchall event for `fsync(2)` system calls.
 * `aof-fsync-always`: the `fsync(2)` system call when invoked by the `appendfsync allways` policy.
-* `aof-write-pending-fsync`: the `fsync(2)` system call when there are pending writes.
-* `aof-write-active-child`: the `fsync(2)` system call when performed by a child process.
-* `aof-write-alone`: the `fsync(2)` system call when performed by the main process.
+* `aof-write`: writing to the AOF - a catchall event for `write(2)` system calls.
+* `aof-write-pending-fsync`: the `write(2)` system call when there are pending fsyncs.
+* `aof-write-active-child`: the `write(2)` system call when there are active child processes.
+* `aof-write-alone`: the `write(2)` system call when no pending fsync and no active child process.
 * `aof-fstat`: the `fstat(2)` system call.
 * `aof-rename`: the `rename(2)` system call for renaming the temporary file after completing `BGREWRITEAOF`.
 * `aof-rewrite-diff-write`: writing the differences accumulated while performing `BGREWRITEAOF`.
