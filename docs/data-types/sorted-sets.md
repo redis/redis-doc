@@ -33,15 +33,13 @@ Notice that `user:2`'s score is updated in the final `ZADD` call.
 
 * Get the top 3 players' scores:
 ```
-> ZRANGE leaderboard:455 0 4 REV WITHSCORES
+> ZRANGE leaderboard:455 0 2 REV WITHSCORES
 1) "user:2"
 2) "275"
 3) "user:3"
 4) "101"
 5) "user:1"
 6) "100"
-7) "user:4"
-8) "15"
 ```
 
 * What's the rank of user 2?
