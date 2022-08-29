@@ -66,7 +66,7 @@ The framework monitors and logs latency spikes in the execution time of these ev
 * `rdb-unlink-temp-file`: the `unlink(2)` system call.
 * `aof-fsync-always`: the `fsync(2)` system call when invoked by the `appendfsync allways` policy.
 * `aof-write`: writing to the AOF - a catchall event for `write(2)` system calls.
-* `aof-write-pending-fsync`: the `write(2)` system call when there are pending fsyncs.
+* `aof-write-pending-fsync`: the `write(2)` system call when there is a pending fsync.
 * `aof-write-active-child`: the `write(2)` system call when there are active child processes.
 * `aof-write-alone`: the `write(2)` system call when no pending fsync and no active child process.
 * `aof-fstat`: the `fstat(2)` system call.
