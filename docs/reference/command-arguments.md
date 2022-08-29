@@ -14,8 +14,7 @@ This key stores an array that describes the command's arguments.
 Every element in the _arguments_ array is a map with the following fields:
 
 * **name:** the argument's name, always present.
-  The name of an argument is given for identification purposes alone.
-  It isn't displayed during the command's syntax rendering.
+  The name is displayed during the command's syntax rendering as a placeholder for user input.
 * **type:** the argument's type, always present.
   An argument must have one of the following types:
   - **string:** a string argument.
@@ -41,8 +40,7 @@ Every element in the _arguments_ array is a map with the following fields:
   - **optional**: denotes that the argument is optional (for example, the _GET_ clause of the  `SET` command).
   - **multiple**: denotes that the argument may be repeated (such as the _key_ argument of `DEL`).
   - **multiple-token:** denotes the possible repetition of the argument with its preceding token (see `SORT`'s `GET pattern` clause).
-* **value:** the argument's value.
-  For arguments types other than _oneof_ and _block_, this is a string that describes the value in the command's syntax.
+* **arguments:** nested arguments.
   For the _oneof_ and _block_ types, this is an array of nested arguments, each being a map as described in this section.
 
 [tr]: /topics/key-specs
