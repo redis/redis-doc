@@ -207,21 +207,18 @@ of lock reacquisition attempts should be limited, otherwise one of the liveness
 properties is violated.
 
 ### Disclaimer about consistency
-Please consider giving a quite read to the Analysis of Redlock section at the end of this page.
-Martin Kleppman's article plus counterpoint to this analysis made by Antirez are very interesting
-and a couple of conclusions can be extracted from there. If you are very concerned about consistency and
-correctness, you should pay attention to the following topics:
 
-1. You should be implementing fencing tokens. This is especially important for processes that can take
-quite some time and it is not a problem only happening in Redlock but in any distributed locks system.
-Extending locks can be also be an option, but please don´t assume that a lock will be retained forever
-when the process which acquired it is still alive.
-2. [Redis is not using monotonic clock for TTL expiration mechanism and there are no plans to use them
-for now (August, 2022)](https://github.com/redis/redis/pull/7644#issuecomment-1206815232). There might be
-one scenario where a lock can be acquired by more than 1 process after some wall-clock shift. Even though
-the problem can be mitigated or even avoided by a) not allowing admins to change date manually, and also
-b) properly setting up NTP, it is still possible that this issue would happen in real life and consistency could be 
-compromised.
+Please consider thoroughly reviewing the [Analysis of Redlock](#analysis-of-redlock) section at the end of this page.
+Martin Kleppman's article and antirez's answer to it are very relevant.
+If you are concerned about consistency and correctness, you should pay attention to the following topics:
+
+1. You should implement fencing tokens.
+  This is especially important for processes that can take significant time and applies to any distributed locking system.
+  Extending locks' lifetime is also an option, but don´t assume that a lock is retained as long as the process that had acquired it is alive.
+2. ["Redis is not using monotonic clock for TTL expiration mechanism and there are no plans to use them
+for now" (August, 2022)](https://github.com/redis/redis/pull/7644#issuecomment-1206815232).
+  That means that a wall-clock shift may result in a lock being acquired by more than one process.
+  Even though the problem can be mitigated by preventing admins from manually setting the server's time and setting up NTP properly, there's still a chance of this issue occurring in real life and compromising consistency.
 
 ## Want to help?
 
