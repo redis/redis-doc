@@ -18,7 +18,7 @@ Every element in the _arguments_ array is a map with the following fields:
   It isn't displayed during the command's syntax rendering.
   The same name can appear more than once in the entire argument tree,
   but it is unique compared to other sibling arguments' names
-  This allows to attain a unique identifier for each argument (the concatination
+  This allows to attain a unique identifier for each argument (the concatenation
   of all names in the path from the root to any argument).
 * **display_text:** the argument's display string, present in arguments that have a displayable representation (all arguments that aren't oneof/block).
   This is the string used in the command's syntax rendering.
