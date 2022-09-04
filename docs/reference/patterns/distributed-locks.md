@@ -215,8 +215,7 @@ If you are concerned about consistency and correctness, you should pay attention
 1. You should implement fencing tokens.
   This is especially important for processes that can take significant time and applies to any distributed locking system.
   Extending locks' lifetime is also an option, but don´t assume that a lock is retained as long as the process that had acquired it is alive.
-2. ["Redis is not using monotonic clock for TTL expiration mechanism and there are no plans to use them
-for now" (August, 2022)](https://github.com/redis/redis/pull/7644#issuecomment-1206815232).
+2. Redis is not using monotonic clock for TTL expiration mechanism.
   That means that a wall-clock shift may result in a lock being acquired by more than one process.
   Even though the problem can be mitigated by preventing admins from manually setting the server's time and setting up NTP properly, there's still a chance of this issue occurring in real life and compromising consistency.
 
