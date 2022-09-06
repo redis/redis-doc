@@ -26,7 +26,7 @@ For example:
 
 This sets a user with two sets of permissions, one defined on the user and one defined with a selector.
 The root user permissions only allow executing the get command, but can be executed on any keys.
-The selector then grants a secondary set of permissions: access to the `SET` command to be executed on any key that starts with app1.
+The selector then grants a secondary set of permissions: access to the `SET` command to be executed on any key that starts with `app1`.
 Using multiple selectors allows you to grant permissions that are different depending on what keys are being accessed.
 
 When we want to be sure to define a user from scratch, without caring if
