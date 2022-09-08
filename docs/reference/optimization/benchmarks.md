@@ -114,7 +114,8 @@ Using pipelining results in a significant increase in performance.
 
 ### Pitfalls and misconceptions
 
-You can compare different versions of Redis on the same workload or the same version of Redis, but with
+The first point is obvious: the golden rule of a useful benchmark is to
+only compare apples and apples. You can compare different versions of Redis on the same workload or the same version of Redis, but with
 different options. If you plan to compare Redis to something else, then it is
 important to evaluate the functional and technical differences, and take them
 in account.
