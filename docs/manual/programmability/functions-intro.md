@@ -228,7 +228,7 @@ end
 
 local function my_hlastmodified(keys, args)
   local hash = keys[1]
-  return redis.call('HGET', keys[1], '_last_modified_')
+  return redis.call('HGET', hash, '_last_modified_')
 end
 
 redis.register_function('my_hset', my_hset)
