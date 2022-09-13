@@ -1,5 +1,5 @@
 ---
-title: "RESP protocol spec"
+title: "Protocol specification"
 linkTitle: "Protocol specification"
 weight: 1
 description: Redis serialization protocol (RESP) specification
@@ -16,7 +16,7 @@ RESP is a compromise among the following considerations:
 * Fast to parse.
 * Human readable.
 
-RESP can serialize different data types like integers, strings, and arrays.
+RESP can serialize different data types including integers, strings, and arrays.
 It also features an error-specific type.
 A client sends a request to the Redis server as an array of strings.
 The array's contents are the command and its arguments that the server should execute.
@@ -100,11 +100,11 @@ The following table summarizes RESP's data types:
 | [Bulk Strings](#bulk-strings) | RESP2 | Aggregate | `$` |
 | [Arrays](#arrays) | RESP2 | Aggregate | `*` |
 | [Nulls](#nulls) | RESP3 | Simple | `_` |
-| [Doubles](#doubles) | RESP3 | Simple | `,` |
 | [Booleans](#booleans) | RESP3 | Simple | `#` |
+| [Doubles](#doubles) | RESP3 | Simple | `,` |
+| [Big Numbers](#big-numbers) | RESP3 | Simple | `(` |
 | [Blob Errors](#blob-errors) | RESP3 | Aggregate | `!` |
 | [Verbatim Strings](#verbatim-strings) | RESP3 | Aggregate | `=` |
-| [Big Numbers](#big-numbers) | RESP3 | Simple | `(` |
 | [Maps](#maps) | RESP3 | Aggregate | `%` |
 | [Sets](#sets) | RESP3 | Aggregate | `~` |
 | [Pushes](#pushes) | RESP3 | Aggregate | `>` |
@@ -335,6 +335,14 @@ This duality has always been a redundancy that added zero semantical value to th
 The Null type, introduced in RESP3, aims to fix this wrong.
 {{% /alert %}}}}
 
+<a name="boolean-reply">
+
+### Booleans
+RESP Booleans encode true and false values in the following ways:
+
+    #t\r\n
+    #f\r\n
+
 <a name="double-reply"></a>
 
 ### Doubles
@@ -368,13 +376,26 @@ Lastly, positive and negative infinities are encoded as follows:
     ,inf\r\n
     ,-inf\r\n
 
-<a name="boolean-reply">
+<a name="big-number-reply"></a>
 
-### Booleans
-RESP Booleans encode true and false values in the following ways:
+### Big Numbers
+This type can encode integer values outside the range of signed 64-bit integers.
 
-    #t\r\n
-    #f\r\n
+Big Numbers use the following encoding:
+
+    (<big-number>\r\n
+
+* The left parenthesis character (`(`) as the first byte.
+* The number.
+* The CRLF terminator.
+
+Example:
+
+    (3492890328409238509324850943850943825024385\r\n
+
+Big numbers can be positive or negative and can't include a decimal part.
+Client libraries written in languages with a big number type should return a big number.
+When big numbers aren't supported, the client should return a string and signal to the caller that the reply is a big integer when possible (depending on the API used by the client library).
 
 <a name="blob-error-reply"></a>
 
@@ -431,27 +452,6 @@ For example, the Redis command `INFO` outputs a report that includes newlines.
 When using RESP3, `redis-cli` displays it correctly because it is sent as a Verbatim String reply (with its three bytes being "raw").
 When using RESP2, however, the `redis-cli` is hard-coded to look for the `INFO` command to ensure its correct display to the user.
 
-<a name="big-number-reply"></a>
-
-### Big Numbers
-This type can encode integer values outside the range of signed 64-bit integers.
-
-Big Numbers use the following encoding:
-
-    (<big-number>\r\n
-
-* The left parenthesis character (`(`) as the first byte.
-* The number.
-* The CRLF terminator.
-
-Example:
-
-    (3492890328409238509324850943850943825024385\r\n
-
-Big numbers can be positive or negative and can't include a decimal part.
-Client libraries written in languages with a big number type should return a big number.
-When big numbers aren't supported, the client should return a string and signal to the caller that the reply is a big integer when possible (depending on the API used by the client library).
-
 <a name="map-reply"></a>
 
 ### Maps
@@ -505,7 +505,7 @@ RESP Set's encoding is:
 Clients should return the native set type if it is available in their programming language.
 Alternatively, in the absence of a native set type, an array coupled with type information can be used (in C, for example).
 
-<a name="push-event">
+<a name="push-event"></a>
 
 ### Pushes
 RESP's Pushes contain out-of-band data.
@@ -534,7 +534,7 @@ This practice accomplishes two things:
   This is needed in Redis to make the transition to version 3 of the protocol gentler.
 2. The `HELLO` command returns information about the server and the protocol that the client can use for different goals.
 
-`HELLO` has the following syntax:
+The `HELLO` command has the following high-level syntax:
 
     HELLO <protocol-version> [optional-arguments]
 
@@ -554,7 +554,8 @@ Similarly, the client can easily detect a server that is only able to speak RESP
 
 The client can then proceed and use RESP2 to communicate with the server.
 
-Note that even if the protocol's version is supported, the `HELLO` command may return an error, perform no action and remain in RESP2 mode. For example, when used with invalid authentication credentials:
+Note that even if the protocol's version is supported, the `HELLO` command may return an error, perform no action and remain in RESP2 mode. 
+For example, when used with invalid authentication credentials in the command's optional `!AUTH` clause:
 
     Client: HELLO 3 AUTH default mypassword
     Server: -ERR invalid password
