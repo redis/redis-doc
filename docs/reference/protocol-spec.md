@@ -160,7 +160,7 @@ However, such a feature should not be considered vital as it is rarely useful, a
 <a name="integer-reply"></a>
 
 ### Integers
-This type is a CRLF-terminated string that represents an 64-bit integer.
+This type is a CRLF-terminated string that represents a signed 64-bit integer.
 Its encoding is prefixed by a colon (`:`) byte.
 
 For example, `:0\r\n` and `:1000\r\n` are integer replies (of zero and one thousand, respectively).
