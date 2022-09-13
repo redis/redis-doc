@@ -33,7 +33,7 @@ The protocol outlined here is only used for client-server communication.
 
 ## RESP versions
 Support for the first version of the RESP protocol was introduced in Redis 1.2.
-Using RESP1 with Redis 1.2 was optional and had mainly served for working the kinks out of the protocol.
+Using RESP with Redis 1.2 was optional and had mainly served the purpose of working the kinks out of the protocol.
 
 In Redis 2.0, the protocol's next version, a.k.a RESP2, became the standard communication manner for clients with the Redis server.
 
@@ -88,7 +88,7 @@ Aggregates can have varying numbers of sub-elements and nesting levels, such as 
 
 The first byte in an RESP-serialized payload identifies its type.
 Following bytes constitute the type's contents.
-The `\r\n` (CRLF) is the protocol's **terminator**, which always seperates its parts.
+The `\r\n` (CRLF) is the protocol's **terminator**, which always separates its parts.
 
 The following table summarizes RESP's data types:
 

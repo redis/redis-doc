@@ -69,6 +69,7 @@ BigNumber
 BitOp
 Bitfields
 Bitwise
+Booleans
 C1
 C2
 C3
@@ -869,6 +870,7 @@ suboptimal
 subsequence
 substring
 sudo
+superset
 swapdb
 swappability
 syncd
@@ -907,6 +909,7 @@ unregisters
 untrusted
 untuned
 unwatches
+uppercased
 urandom
 used_memory_scripts_eval
 usr
