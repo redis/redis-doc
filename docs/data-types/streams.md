@@ -52,7 +52,7 @@ Redis streams support several trimming strategies (to prevent streams from growi
 
 * Read up to 100 new stream entries, starting at the end of the stream, and block for up to 300 ms if no entries are being written:
 ```
-> XREAD COUNT 100 BLOCK 300 STREAMS tempertures:us-ny:10007 $
+> XREAD COUNT 100 BLOCK 300 STREAMS temperatures:us-ny:10007 $
 (nil)
 ```
 
