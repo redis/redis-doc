@@ -491,9 +491,6 @@ examples, for the sake of brevity, the long hex string was trimmed:
     11) "selectors"
     12) (empty array)
 
-Also, starting with Redis 6, the old command `CONFIG GET requirepass` will
-no longer return the clear text password, but instead the hashed password.
-
 Using SHA256 provides the ability to avoid storing the password in clear text
 while still allowing for a very fast `AUTH` command, which is a very important
 feature of Redis and is coherent with what clients expect from Redis.
