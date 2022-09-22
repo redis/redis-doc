@@ -1,0 +1,8 @@
+{
+    "name": "redis-rope",
+    "license": "MIT",
+    "description": "A native data type for manipulating large strings up to exponentially faster, based on splay trees.",
+    "github": [
+        "ekzhang"
+    ]
+}
