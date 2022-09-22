@@ -1,5 +1,5 @@
 {
     "name": "Redis OM for Node.js",
-    "description": "Object mapping, and more, for Redis and Node.js.",
+    "description": "Object mapping, and more, for Redis and Node.js. Written in TypeScript.",
     "recommended": true
 }
