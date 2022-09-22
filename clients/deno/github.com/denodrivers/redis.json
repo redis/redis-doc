@@ -1,5 +1,4 @@
 {
   "name": "redis",
-  "description": "🦕 Redis client for Deno 🍕",
-  "recommended": true
+  "description": "🦕 Redis client for Deno 🍕"
 }
