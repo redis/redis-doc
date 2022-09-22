@@ -1,0 +1,4 @@
+{
+  "name": "r2d2",
+  "description": "Fast, lightweight Redis client library for Deno."
+}
