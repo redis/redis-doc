@@ -29,7 +29,7 @@ To run a Redis command and return a standard output at the terminal, include the
 
 The reply of the command is "7". Since Redis replies are typed (strings, arrays, integers, nil, errors, etc.), you see the type of the reply between parentheses. This additional information may not be ideal when the output of `redis-cli` must be used as input of another command or redirected into a file.
 
-`redis-cli` only shows additional information for human readibility when it detects the standard output is a tty, or terminal. For all other outputs it will auto-enable the *raw output mode*, as in the following example:
+`redis-cli` only shows additional information for human readability when it detects the standard output is a tty, or terminal. For all other outputs it will auto-enable the *raw output mode*, as in the following example:
 
     $ redis-cli INCR mycounter > /tmp/output.txt
     $ cat /tmp/output.txt
@@ -261,7 +261,7 @@ In interactive mode the user types Redis commands at the prompt. The command
 is sent to the server, processed, and the reply is parsed back and rendered
 into a simpler form to read.
 
-Nothing special is needed for running the `redis-cli`in interactive mode -
+Nothing special is needed for running the `redis-cli` in interactive mode -
 just execute it without any arguments
 
     $ redis-cli
