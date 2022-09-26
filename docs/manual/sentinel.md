@@ -606,8 +606,8 @@ The `SENTINEL` command is the main API for Sentinel. The following is the list o
 * **SENTINEL FLUSHCONFIG** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
 * **SENTINEL FAILOVER `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
 * **SENTINEL GET-MASTER-ADDR-BY-NAME `<master name>`** Return the ip and port number of the master with that name. If a failover is in progress or terminated successfully for this master it returns the address and port of the promoted replica.
-* **SENTINEL INFO-CACHE** (`>= 3.2`) Return cached `INFO` output from masters and replicas.
-* **SENTINEL IS-MASTER-DOWN-BY-ADDR <ip> <port> <current-epoch> <runid>** Check if the master specified by ip:port is down from current Sentinel's point of view. This command is mostly for internal use.
+* **SENTINEL INFO-CACHE `<master name>`** (`>= 3.2`) Return cached `INFO` output from masters and replicas.
+* **SENTINEL IS-MASTER-DOWN-BY-ADDR `<ip>` `<port>` `<current-epoch>` `<runid>`** Check if the master specified by ip:port is down from current Sentinel's point of view. This command is mostly for internal use.
 * **SENTINEL MASTER `<master name>`** Show the state and info of the specified master.
 * **SENTINEL MASTERS** Show a list of monitored masters and their state.
 * **SENTINEL MONITOR** Start Sentinel's monitoring. Refer to the [_Reconfiguring Sentinel at Runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
@@ -617,7 +617,7 @@ The `SENTINEL` command is the main API for Sentinel. The following is the list o
 * **SENTINEL REPLICAS `<master name>`** (`>= 5.0`) Show a list of replicas for this master, and their state.
 * **SENTINEL SENTINELS `<master name>`** Show a list of sentinel instances for this master, and their state.
 * **SENTINEL SET** Set Sentinel's monitoring configuration. Refer to the [_Reconfiguring Sentinel at Runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
-* **SENTINEL SIMULATE-FAILURE (crash-after-election|crash-after-promotion|help)** (`>= 3.2`) This command simulates different Sentinel crash scenarios.
+* **SENTINEL SIMULATE-FAILURE `(crash-after-election|crash-after-promotion|help)`** (`>= 3.2`) This command simulates different Sentinel crash scenarios.
 * **SENTINEL RESET `<pattern>`** This command will reset all the masters with matching name. The pattern argument is a glob-style pattern. The reset process clears any previous state in a master (including a failover in progress), and removes every replica and sentinel already discovered and associated with the master.
 
 For connection management and administration purposes, Sentinel supports the following subset of Redis' commands:
@@ -634,7 +634,9 @@ For connection management and administration purposes, Sentinel supports the fol
 
 Lastly, Sentinel also supports the `SUBSCRIBE`, `UNSUBSCRIBE`, `PSUBSCRIBE` and `PUNSUBSCRIBE` commands. Refer to the [_Pub/Sub Messages_ section](#pubsub-messages) for more details.
 
-### Reconfiguring Sentinel at Runtime
+
+Reconfiguring Sentinel at Runtime
+---
 
 Starting with Redis version 2.8.4, Sentinel provides an API in order to add, remove, or change the configuration of a given master. Note that if you have multiple sentinels you should apply the changes to all to your instances for Redis Sentinel to work properly. This means that changing the configuration of a single Sentinel does not automatically propagate the changes to the other Sentinels in the network.
 
