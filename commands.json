@@ -6838,7 +6838,7 @@
         "summary": "Incrementally iterate hash fields and associated values",
         "since": "2.8.0",
         "group": "hash",
-        "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+        "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
         "acl_categories": [
             "@read",
             "@hash",
@@ -12689,7 +12689,7 @@
         "summary": "Incrementally iterate Set elements",
         "since": "2.8.0",
         "group": "set",
-        "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+        "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
         "acl_categories": [
             "@read",
             "@set",
@@ -16810,7 +16810,7 @@
         "summary": "Incrementally iterate sorted sets elements and associated scores",
         "since": "2.8.0",
         "group": "sorted-set",
-        "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..",
+        "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
         "acl_categories": [
             "@read",
             "@sortedset",
