@@ -305,7 +305,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
-*   `acl_access_denied_auth`: Number of AUTH authentication failures
+*   `acl_access_denied_auth`: Number of authentication failures
 *   `acl_access_denied_cmd`: Number of ACL denied accesses to run a command
 *   `acl_access_denied_key`: Number of ACL denied accesses to a key
 *   `acl_access_denied_channel`: Number of ACL denied accesses to a channel
