@@ -64,3 +64,7 @@ For larger doc changes, we ask that you first create an issue describing your pr
 ### Client libraries
 
 The Redis client libraries are nearly always open source and accepting of contributions. Consult the contribution guidelines for the library you're interested in.
+
+### Hacktoberfest
+
+Redis is participating in [Hacktoberfest 2022](/community/hacktoberfest/).
