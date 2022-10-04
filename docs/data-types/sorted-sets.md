@@ -52,8 +52,8 @@ Notice that `user:2`'s score is updated in the final `ZADD` call.
 
 * `ZADD` adds a new member and associated score to a sorted set. If the member already exists, the score is updated.
 * `ZRANGE` returns members of a sorted set, sorted within a given range.
-* `ZRANK` returns the rank the provided member, assuming the sorted is in ascending order.
-* `ZREVRANK` returns the rank the provided member, assuming the sorted set is in descending order.
+* `ZRANK` returns the rank of the provided member, assuming the sorted is in ascending order.
+* `ZREVRANK` returns the rank of the provided member, assuming the sorted set is in descending order.
  
 See the [complete list of sorted set commands](https://redis.io/commands/?group=sorted-set).
 
