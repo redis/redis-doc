@@ -9,9 +9,8 @@ If the user already exists, the provided ACL rules are simply applied
 
     ACL SETUSER virginia on allkeys +set
 
-The above command creates a user called `virginia` who is active
-(the _on_ rule), can access any key (_allkeys_ rule), and can call the
-set command (_+set_ rule). Then, you can use another SETUSER call to modify the user rules:
+The above command creates a user called `virginia` who is active(the _on_ rule), can access any key (_allkeys_ rule), and can call the set command (_+set_ rule).
+Then, you can use another `ACL SETUSER` call to modify the user rules:
 
     ACL SETUSER virginia +get
 
