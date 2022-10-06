@@ -34,9 +34,7 @@ it had previously defined rules associated, we can use the special rule
 
     ACL SETUSER antirez reset [... other rules ...]
 
-After resetting a user, it returns back to the status it had when it
-was just created: inactive (_off_ rule), can't execute any command, and can't
-access any key:
+After resetting a user, its ACL rules revert to the default: inactive, passwordless, can't execute any command nor access any key or channel:
 
     > ACL SETUSER antirez reset
     +OK
