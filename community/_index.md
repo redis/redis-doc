@@ -7,7 +7,7 @@ Since 2009, the Redis open source project has inspired an enthusiastic and activ
 
 ## Code of Conduct
 
-Redis has adopted the [Contributor Covenant Code of Conduct](https://github.com/redis/redis/blob/unstable/CONDUCT).
+Redis has adopted the [Contributor Covenant Code of Conduct](https://github.com/redis/redis/blob/unstable/CODE_OF_CONDUCT.md).
 
 ## Getting help
 
@@ -64,3 +64,7 @@ For larger doc changes, we ask that you first create an issue describing your pr
 ### Client libraries
 
 The Redis client libraries are nearly always open source and accepting of contributions. Consult the contribution guidelines for the library you're interested in.
+
+### Hacktoberfest
+
+Redis is participating in [Hacktoberfest 2022](/community/hacktoberfest/).

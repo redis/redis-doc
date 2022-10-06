@@ -35,7 +35,7 @@ vanilla sorted sets are limited to things where the indexing field is a number
 within a given range.
 
 The two commands to build these kind of indexes are `ZADD` and
-`ZRANGEBYSCORE` to respectively add items and retrieve items within a
+`ZRANGE` with the `BYSCORE` argument to respectively add items and retrieve items within a
 specified range.
 
 For instance, it is possible to index a set of person names by their
@@ -50,11 +50,11 @@ person and the score will be the age.
 In order to retrieve all persons with an age between 20 and 40, the following
 command can be used:
 
-    ZRANGEBYSCORE myindex 20 40
+    ZRANGE myindex 20 40 BYSCORE
     1) "Manuel"
     2) "Jon"
 
-By using the **WITHSCORES** option of `ZRANGEBYSCORE` it is also possible
+By using the **WITHSCORES** option of `ZRANGE` it is also possible
 to obtain the scores associated with the returned elements.
 
 The `ZCOUNT` command can be used in order to retrieve the number of elements
@@ -62,10 +62,10 @@ within a given range, without actually fetching the elements, which is also
 useful, especially given the fact the operation is executed in logarithmic
 time regardless of the size of the range.
 
-Ranges can be inclusive or exclusive, please refer to the `ZRANGEBYSCORE`
+Ranges can be inclusive or exclusive, please refer to the `ZRANGE`
 command documentation for more information.
 
-**Note**: Using the `ZREVRANGEBYSCORE` it is possible to query a range in
+**Note**: Using the `ZRANGE` with the `BYSCORE` and `REV` arguments, it is possible to query a range in
 reversed order, which is often useful when data is indexed in a given
 direction (ascending or descending) but we want to retrieve information
 the other way around.
@@ -93,7 +93,7 @@ could do:
     ZADD user.age.index 33 3
 
 This time the value associated with the score in the sorted set is the
-ID of the object. So once I query the index with `ZRANGEBYSCORE` I'll
+ID of the object. So once I query the index with `ZRANGE` with the `BYSCORE` argument, I'll
 also have to retrieve the information I need with `HGETALL` or similar
 commands. The obvious advantage is that objects can change without touching
 the index, as long as we don't change the indexed field.
@@ -170,7 +170,7 @@ the second is checked and so forth. If the common prefix of two strings is
 the same then the longer string is considered the greater of the two,
 so "foobar" is greater than "foo".
 
-There are commands such as `ZRANGEBYLEX` and `ZLEXCOUNT` that
+There are commands such as `ZRANGE` and `ZLEXCOUNT` that
 are able to query and count ranges in a lexicographically fashion, assuming
 they are used with sorted sets where all the elements have the same score.
 
@@ -198,9 +198,9 @@ are ordered lexicographically.
     3) "baaa"
     4) "bbbb"
 
-Now we can use `ZRANGEBYLEX` in order to perform range queries.
+Now we can use `ZRANGE` with the `BYLEX` argument in order to perform range queries.
 
-    ZRANGEBYLEX myindex [a (b
+    ZRANGE myindex [a (b BYLEX
     1) "aaaa"
     2) "abbb"
 
@@ -214,7 +214,7 @@ which are all the elements starting with `a`.
 There are also two more special characters indicating the infinitely negative
 string and the infinitely positive string, which are `-` and `+`.
 
-    ZRANGEBYLEX myindex [b +
+    ZRANGE myindex [b + BYLEX
     1) "baaa"
     2) "bbbb"
 
@@ -235,12 +235,12 @@ we'll just do:
     ZADD myindex 0 banana
 
 And so forth for each search query ever encountered. Then when we want to
-complete the user input, we execute a range query using `ZRANGEBYLEX`.
+complete the user input, we execute a range query using `ZRANGE` with the `BYLEX` argument.
 Imagine the user is typing "bit" inside the search form, and we want to
 offer possible search keywords starting for "bit". We send Redis a command
 like that:
 
-    ZRANGEBYLEX myindex "[bit" "[bit\xff"
+    ZRANGE myindex "[bit" "[bit\xff" BYLEX
 
 Basically we create a range using the string the user is typing right now
 as start, and the same string plus a trailing byte set to 255, which is `\xff` in the example, as the end of the range. This way we get all the strings that start for the string the user is typing.
@@ -269,7 +269,7 @@ We also need logic in order to increment the index if the search term
 already exists in the index, so what we'll actually do is something like
 that:
 
-    ZRANGEBYLEX myindex "[banana:" + LIMIT 0 1
+    ZRANGE myindex "[banana:" + BYLEX LIMIT 0 1
     1) "banana:1"
 
 This will return the single entry of `banana` if it exists. Then we
@@ -291,7 +291,7 @@ There is more: our goal is to just have items searched very frequently.
 So we need some form of purging. When we actually query the index
 in order to complete the user input, we may see something like that:
 
-    ZRANGEBYLEX myindex "[banana:" + LIMIT 0 10
+    ZRANGE myindex "[banana:" + BYLEX LIMIT 0 10
     1) "banana:123"
     2) "banaooo:1"
     3) "banned user:49"
@@ -355,7 +355,7 @@ we just store the entry as `key:value`:
 
 And search for the key with:
 
-    ZRANGEBYLEX myindex [mykey: + LIMIT 0 1
+    ZRANGE myindex [mykey: + BYLEX LIMIT 0 1
     1) "mykey:myvalue"
 
 Then we extract the part after the colon to retrieve the value.
@@ -436,7 +436,7 @@ With an index like that, to get all the products in room 56 having a price
 between 10 and 30 dollars is very easy. We can just run the following
 command:
 
-    ZRANGEBYLEX myindex [0056:0010.00 [0056:0030.00
+    ZRANGE myindex [0056:0010.00 [0056:0030.00 BYLEX
 
 The above is called a composed index. Its effectiveness depends on the
 order of the fields and the queries I want to run. For example the above
@@ -505,7 +505,7 @@ Now things start to be interesting, and I can query the graph in many
 different ways. For example, who are all the people `antirez`
 *is friend of*?
 
-    ZRANGEBYLEX myindex "[spo:antirez:is-friend-of:" "[spo:antirez:is-friend-of:\xff"
+    ZRANGE myindex "[spo:antirez:is-friend-of:" "[spo:antirez:is-friend-of:\xff" BYLEX
     1) "spo:antirez:is-friend-of:matteocollina"
     2) "spo:antirez:is-friend-of:wonderwoman"
     3) "spo:antirez:is-friend-of:spiderman"
@@ -513,7 +513,7 @@ different ways. For example, who are all the people `antirez`
 Or, what are all the relationships `antirez` and `matteocollina` have where
 the first is the subject and the second is the object?
 
-    ZRANGEBYLEX myindex "[sop:antirez:matteocollina:" "[sop:antirez:matteocollina:\xff"
+    ZRANGE myindex "[sop:antirez:matteocollina:" "[sop:antirez:matteocollina:\xff" BYLEX
     1) "sop:antirez:matteocollina:is-friend-of"
     2) "sop:antirez:matteocollina:was-at-conference-with"
     3) "sop:antirez:matteocollina:talked-with"
@@ -625,7 +625,7 @@ So by interleaving digits, our representation in the index would be:
 Let's see what are our ranges as we substitute the last 2, 4, 6, 8, ...
 bits with 0s ad 1s in the interleaved representation:
 
-    2 bits: x between 70 and 75, y between 200 and 201 (range=2)
+    2 bits: x between 74 and 75, y between 200 and 201 (range=2)
     4 bits: x between 72 and 75, y between 200 and 203 (range=4)
     6 bits: x between 72 and 79, y between 200 and 207 (range=8)
     8 bits: x between 64 and 79, y between 192 and 207 (range=16)
@@ -672,7 +672,7 @@ Turning this into code is simple. Here is a Ruby example:
                 y_range_end = y_range_start | ((2**exp)-1)
                 puts "#{x},#{y} x from #{x_range_start} to #{x_range_end}, y from #{y_range_start} to #{y_range_end}"
 
-                # Turn it into interleaved form for ZRANGEBYLEX query.
+                # Turn it into interleaved form for ZRANGE query.
                 # We assume we need 9 bits for each integer, so the final
                 # interleaved representation will be 18 bits.
                 xbin = x_range_start.to_s(2).rjust(9,'0')
@@ -681,7 +681,7 @@ Turning this into code is simple. Here is a Ruby example:
                 # Now that we have the start of the range, calculate the end
                 # by replacing the specified number of bits from 0 to 1.
                 e = s[0..-(bits+1)]+("1"*bits)
-                puts "ZRANGEBYLEX myindex [#{s} [#{e}"
+                puts "ZRANGE myindex [#{s} [#{e} BYLEX"
             }
         }
     end

@@ -49,6 +49,6 @@ or Logo other than as expressly described as permitted herein is not permitted b
     * b. Capitalization. Always distinguish the Mark from surrounding text with at least initial capital letters or in all capital letters, (e.g., as Redis or REDIS).
     * c. Adjective. Always use the Mark as an adjective modifying a noun, such as “the Redis software.”
     * d. Do not make any changes to the Logo. This means you may not add decorative elements, change the colors, change the proportions, distort it, add elements or combine it with other logos.
-7. **NOTIFY US OF ABUSE.** Do not make any changes to the Logo. This means you may not add decorative elements, change the colors, change the proportions, distort it, add elements or combine it with other logos.
+7. **NOTIFY US OF ABUSE.** Please notify Redis at [legal@redis.com](mailto:legal@redis.com) if you discover any violations of these guidelines.
 8. **MORE QUESTIONS?** If you have questions about this policy, or wish to request a license for any uses that are not specifically authorized in this policy, please contact us at legal@redis.com.
 

@@ -341,7 +341,7 @@ example "write deny-oom". The set of flags are:
 * **"blocking"**: The command has the potential to block the client.
 * **"allow-busy"**: Permit the command while the server is blocked either by
                     a script or by a slow module command, see
-                    RM_Yield.
+                    RedisModule_Yield.
 * **"getchannels-api"**: The command implements the interface to return
                          the arguments that are channels.
 
@@ -497,12 +497,12 @@ All fields except `version` are optional. Explanation of the fields:
   will which arguments are keys. Additionally, there are key specific flags.
 
     Key-specs cause the triplet (firstkey, lastkey, keystep) given in
-    RM_CreateCommand to be recomputed, but it is still useful to provide
-    these three parameters in RM_CreateCommand, to better support old Redis
-    versions where RM_SetCommandInfo is not available.
+    RedisModule_CreateCommand to be recomputed, but it is still useful to provide
+    these three parameters in RedisModule_CreateCommand, to better support old Redis
+    versions where RedisModule_SetCommandInfo is not available.
 
     Note that key-specs don't fully replace the "getkeys-api" (see
-    RM_CreateCommand, RM_IsKeysPositionRequest and RM_KeyAtPosWithFlags) so
+    RedisModule_CreateCommand, RedisModule_IsKeysPositionRequest and RedisModule_KeyAtPosWithFlags) so
     it may be a good idea to supply both key-specs and implement the
     getkeys-api.
 
@@ -949,7 +949,25 @@ The passed context 'ctx' may be NULL if necessary, see the
 
 **Available since:** 4.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from a `long long`
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a `long long`
+integer instead of taking a buffer and its length.
+
+The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
+enabling automatic memory management.
+
+The passed context 'ctx' may be NULL if necessary, see the
+[`RedisModule_CreateString()`](#RedisModule_CreateString) documentation for more info.
+
+<span id="RedisModule_CreateStringFromULongLong"></span>
+
+### `RedisModule_CreateStringFromULongLong`
+
+    RedisModuleString *RedisModule_CreateStringFromULongLong(RedisModuleCtx *ctx,
+                                                             unsigned long long ull);
+
+**Available since:** 7.0.3
+
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a `unsigned long long`
 integer instead of taking a buffer and its length.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -967,7 +985,7 @@ The passed context 'ctx' may be NULL if necessary, see the
 
 **Available since:** 6.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from a double
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a double
 instead of taking a buffer and its length.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -983,7 +1001,7 @@ enabling automatic memory management.
 
 **Available since:** 6.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from a long
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a long
 double.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -1001,7 +1019,7 @@ The passed context 'ctx' may be NULL if necessary, see the
 
 **Available since:** 4.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from another
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from another
 `RedisModuleString`.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -1148,6 +1166,20 @@ be used for read only accesses and never modified.
 Convert the string into a `long long` integer, storing it at `*ll`.
 Returns `REDISMODULE_OK` on success. If the string can't be parsed
 as a valid, strict `long long` (no spaces before/after), `REDISMODULE_ERR`
+is returned.
+
+<span id="RedisModule_StringToULongLong"></span>
+
+### `RedisModule_StringToULongLong`
+
+    int RedisModule_StringToULongLong(const RedisModuleString *str,
+                                      unsigned long long *ull);
+
+**Available since:** 7.0.3
+
+Convert the string into a `unsigned long long` integer, storing it at `*ull`.
+Returns `REDISMODULE_OK` on success. If the string can't be parsed
+as a valid, strict `unsigned long long` (no spaces before/after), `REDISMODULE_ERR`
 is returned.
 
 <span id="RedisModule_StringToDouble"></span>
@@ -1645,7 +1677,7 @@ Return:
   In case of an error, it's the module writer responsibility to translate the reply
   to RESP2 (or handle it differently by returning an error). Notice that for
   module writer convenience, it is possible to pass `0` as a parameter to the fmt
-  argument of `RM_Call` so that the `RedisModuleCallReply` will return in the same
+  argument of [`RedisModule_Call`](#RedisModule_Call) so that the `RedisModuleCallReply` will return in the same
   protocol (RESP2 or RESP3) as set in the current client's context.
 
 <span id="RedisModule_ReplyWithDouble"></span>
@@ -1837,8 +1869,8 @@ client exists, `REDISMODULE_OK` is returned, otherwise `REDISMODULE_ERR`
 is returned.
 
 When the client exist and the `ci` pointer is not NULL, but points to
-a structure of type `RedisModuleClientInfo`, previously initialized with
-the correct `REDISMODULE_CLIENTINFO_INITIALIZER`, the structure is populated
+a structure of type `RedisModuleClientInfoV`1, previously initialized with
+the correct `REDISMODULE_CLIENTINFO_INITIALIZER_V1`, the structure is populated
 with the following fields:
 
      uint64_t flags;         // REDISMODULE_CLIENTINFO_FLAG_*
@@ -1872,6 +1904,37 @@ returned:
      if (retval == REDISMODULE_OK) {
          printf("Address: %s\n", ci.addr);
      }
+
+<span id="RedisModule_GetClientNameById"></span>
+
+### `RedisModule_GetClientNameById`
+
+    RedisModuleString *RedisModule_GetClientNameById(RedisModuleCtx *ctx,
+                                                     uint64_t id);
+
+**Available since:** 7.0.3
+
+Returns the name of the client connection with the given ID.
+
+If the client ID does not exist or if the client has no name associated with
+it, NULL is returned.
+
+<span id="RedisModule_SetClientNameById"></span>
+
+### `RedisModule_SetClientNameById`
+
+    int RedisModule_SetClientNameById(uint64_t id, RedisModuleString *name);
+
+**Available since:** 7.0.3
+
+Sets the name of the client with the given ID. This is equivalent to the client calling
+`CLIENT SETNAME name`.
+
+Returns `REDISMODULE_OK` on success. On failure, `REDISMODULE_ERR` is returned
+and errno is set as follows:
+
+- ENOENT if the client does not exist
+- EINVAL if the name contains invalid characters
 
 <span id="RedisModule_PublishMessage"></span>
 
@@ -2352,7 +2415,7 @@ the previous index, rather than seeking from the ends of the list.
 
 This enables iteration to be done efficiently using a simple for loop:
 
-    long n = RM_ValueLength(key);
+    long n = RedisModule_ValueLength(key);
     for (long i = 0; i < n; i++) {
         RedisModuleString *elem = RedisModule_ListGet(key, i);
         // Do stuff...
@@ -3618,7 +3681,7 @@ Example code fragment:
 
      int RedisModule_OnLoad(RedisModuleCtx *ctx) {
          // some code here ...
-         BalancedTreeType = RM_CreateDataType(...);
+         BalancedTreeType = RedisModule_CreateDataType(...);
      }
 
 <span id="RedisModule_ModuleTypeSetValue"></span>
@@ -4453,7 +4516,7 @@ that a blocked client was used when the context was created, otherwise
 no `RedisModule_Reply`* call should be made at all.
 
 NOTE: If you're creating a detached thread safe context (bc is NULL),
-consider using `RM_GetDetachedThreadSafeContext` which will also retain
+consider using [`RedisModule_GetDetachedThreadSafeContext`](#RedisModule_GetDetachedThreadSafeContext) which will also retain
 the module ID and thus be more useful for logging.
 
 <span id="RedisModule_GetDetachedThreadSafeContext"></span>
@@ -4558,7 +4621,7 @@ is interested in. This can be an ORed mask of any of the following flags:
  - `REDISMODULE_NOTIFY_LOADED`: A special notification available only for modules,
                               indicates that the key was loaded from persistence.
                               Notice, when this event fires, the given key
-                              can not be retained, use RM_CreateStringFromString
+                              can not be retained, use RedisModule_CreateStringFromString
                               instead.
 
 We do not distinguish between key events and keyspace events, and it is up
@@ -4889,7 +4952,7 @@ Example:
         int bytes = read(fd,buf,sizeof(buf));
         printf("Read %d bytes \n", bytes);
     }
-    RM_EventLoopAdd(fd, REDISMODULE_EVENTLOOP_READABLE, onReadable, NULL);
+    RedisModule_EventLoopAdd(fd, REDISMODULE_EVENTLOOP_READABLE, onReadable, NULL);
 
 <span id="RedisModule_EventLoopDel"></span>
 
@@ -5930,7 +5993,7 @@ that is not desired, the `REDISMODULE_CMDFILTER_NOSELF` flag can be set when
 registering the filter.
 
 The `REDISMODULE_CMDFILTER_NOSELF` flag prevents execution flows that
-originate from the module's own `RM_Call()` from reaching the filter.  This
+originate from the module's own [`RedisModule_Call()`](#RedisModule_Call) from reaching the filter.  This
 flag is effective for all execution flows, including nested ones, as long as
 the execution begins from the module's command context or a thread-safe
 context that is associated with a blocking command.
@@ -6871,7 +6934,7 @@ the module can check if a certain set of flags are supported
 by the redis server version in use.
 Example:
 
-       int supportedFlags = RM_GetContextFlagsAll();
+       int supportedFlags = RedisModule_GetContextFlagsAll();
        if (supportedFlags & REDISMODULE_CTX_FLAGS_MULTI) {
              // REDISMODULE_CTX_FLAGS_MULTI is supported
        } else{
@@ -6892,7 +6955,7 @@ the module can check if a certain set of flags are supported
 by the redis server version in use.
 Example:
 
-       int supportedFlags = RM_GetKeyspaceNotificationFlagsAll();
+       int supportedFlags = RedisModule_GetKeyspaceNotificationFlagsAll();
        if (supportedFlags & REDISMODULE_NOTIFY_LOADED) {
              // REDISMODULE_NOTIFY_LOADED is supported
        } else{
@@ -7204,6 +7267,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_CreateStringFromLongLong`](#RedisModule_CreateStringFromLongLong)
 * [`RedisModule_CreateStringFromStreamID`](#RedisModule_CreateStringFromStreamID)
 * [`RedisModule_CreateStringFromString`](#RedisModule_CreateStringFromString)
+* [`RedisModule_CreateStringFromULongLong`](#RedisModule_CreateStringFromULongLong)
 * [`RedisModule_CreateStringPrintf`](#RedisModule_CreateStringPrintf)
 * [`RedisModule_CreateSubcommand`](#RedisModule_CreateSubcommand)
 * [`RedisModule_CreateTimer`](#RedisModule_CreateTimer)
@@ -7260,6 +7324,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_GetClientCertificate`](#RedisModule_GetClientCertificate)
 * [`RedisModule_GetClientId`](#RedisModule_GetClientId)
 * [`RedisModule_GetClientInfoById`](#RedisModule_GetClientInfoById)
+* [`RedisModule_GetClientNameById`](#RedisModule_GetClientNameById)
 * [`RedisModule_GetClientUserNameById`](#RedisModule_GetClientUserNameById)
 * [`RedisModule_GetClusterNodeInfo`](#RedisModule_GetClusterNodeInfo)
 * [`RedisModule_GetClusterNodesList`](#RedisModule_GetClusterNodesList)
@@ -7420,6 +7485,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_ServerInfoGetFieldSigned`](#RedisModule_ServerInfoGetFieldSigned)
 * [`RedisModule_ServerInfoGetFieldUnsigned`](#RedisModule_ServerInfoGetFieldUnsigned)
 * [`RedisModule_SetAbsExpire`](#RedisModule_SetAbsExpire)
+* [`RedisModule_SetClientNameById`](#RedisModule_SetClientNameById)
 * [`RedisModule_SetClusterFlags`](#RedisModule_SetClusterFlags)
 * [`RedisModule_SetCommandInfo`](#RedisModule_SetCommandInfo)
 * [`RedisModule_SetDisconnectCallback`](#RedisModule_SetDisconnectCallback)
@@ -7450,6 +7516,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_StringToLongDouble`](#RedisModule_StringToLongDouble)
 * [`RedisModule_StringToLongLong`](#RedisModule_StringToLongLong)
 * [`RedisModule_StringToStreamID`](#RedisModule_StringToStreamID)
+* [`RedisModule_StringToULongLong`](#RedisModule_StringToULongLong)
 * [`RedisModule_StringTruncate`](#RedisModule_StringTruncate)
 * [`RedisModule_SubscribeToKeyspaceEvents`](#RedisModule_SubscribeToKeyspaceEvents)
 * [`RedisModule_SubscribeToServerEvent`](#RedisModule_SubscribeToServerEvent)
