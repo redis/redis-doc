@@ -1,5 +1,5 @@
 Renames `key` to `newkey` if `newkey` does not yet exist.
-It returns an error when `key` does not exist.
+It returns an error when `key` exists.
 
 In Cluster mode, both `key` and `newkey` must be in the same **hash slot**, meaning that in practice only keys that have the same hash tag can be reliably renamed in cluster.
 
