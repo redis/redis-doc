@@ -102,8 +102,9 @@ The [Redis HyperLogLog](/docs/data-types/hyperloglogs) data structures provide p
 
 ## Extensions
 
-To extend the features provided by the included data types, use one of these options:
+To extend the features provided by the included data types, use these options:
 
 1. Write your own custom [server-side functions in Lua](/docs/manual/programmability/).
 1. Write your own Redis module using the [modules API](/docs/reference/modules/) or check out the [community-supported modules](/docs/modules/).
 1. Use [JSON](/docs/stack/json/), [querying](/docs/stack/search/), [time series](/docs/stack/timeseries/), and other capabilities provided by [Redis Stack](/docs/stack/).
+1. Collect, process, and analyze large datasets at scale and on any cloud using Redis Enterprise. For more information, see [Fastest Multi-Model Database for Modern Applications and Instant Experiences](https://redis.com/wp-content/uploads/2021/08/DS-Redis-Multi-Model.pdf) (datasheet).
