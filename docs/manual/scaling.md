@@ -17,7 +17,7 @@ If you plan to run a production Redis Cluster deployment or want to understand b
 ## Redis Cluster 101
 
 Redis Cluster provides a way to run a Redis installation where data is automatically sharded across multiple Redis nodes. 
-Redis Cluster also provides some degree of availability during partitions&mdash;in practical terms, the ability to continue the operations when some nodes fail or are unable to communicate. 
+Redis Cluster also provides some degree of availability during partitions&mdash;in practical terms, the ability to continue operations when some nodes fail or are unable to communicate. 
 However, the cluster stops to operate in the event of larger failures, for example, when the majority of masters are unavailable.
 
 So, with Redis Cluster, you get the ability to:
