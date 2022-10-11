@@ -23,7 +23,7 @@ Add several locations to a geospatial index:
 (integer) 1
 ```
 
-Find all locations within a 1 kilometer radius of a given location, and return the distance to each location:
+Find all locations within a 5 kilometer radius of a given location, and return the distance to each location:
 ```
 > GEOSEARCH locations:ca FROMLONLAT -122.2612767 37.7936847 BYRADIUS 5 km WITHDIST
 1) 1) "station:1"
