@@ -16,8 +16,7 @@ evict old data as you add new data. This behavior is well known in the
 developer community, since it is the default behavior for the popular
 *memcached* system.
 
-This page covers the more general topic of the Redis `maxmemory` directive used to limit the memory usage to a fixed amount. This page it also covers in
-depth the LRU eviction algorithm used by Redis, that is actually an approximation of
+This page covers the more general topic of the Redis `maxmemory` directive used to limit the memory usage to a fixed amount. It also extensively covers the LRU eviction algorithm used by Redis, which is actually an approximation of
 the exact LRU.
 
 ## `Maxmemory` configuration directive
