@@ -82,4 +82,4 @@ If you want to run redis in the background
 screen -S Redis redis-server
 {{< / highlight >}}
 
-To stop Redis, enter `Ctrl-C`.
+To stop Redis, enter `Ctrl-C` or `screen -X Redis quit`.
