@@ -68,6 +68,8 @@ redis-server
 
 If successful, you'll see the startup logs for Redis. Redis will be running in the foreground.
 
+### Starting and stopping Redis in the background
+
 Type `screen` to check if screen exists... If screen is not installed, run the following...
 
 {{< highlight bash  >}}
