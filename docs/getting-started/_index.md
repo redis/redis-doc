@@ -14,6 +14,7 @@ This is a guide to getting started with Redis. You'll learn how to install, run,
 
 How you install Redis depends on your operating system. See the guide below that best fits your needs:
 
+* [Install Redis by Script]({{< ref "/docs/getting-started/installation/install-redis-by-script.md" >}})
 * [Install Redis from Source]({{< ref "/docs/getting-started/installation/install-redis-from-source.md" >}})
 * [Install Redis on Linux]({{< ref "/docs/getting-started/installation/install-redis-on-linux.md" >}})
 * [Install Redis on macOS]({{< ref "/docs/getting-started/installation/install-redis-on-mac-os.md" >}})
