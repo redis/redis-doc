@@ -68,12 +68,10 @@ redis-server
 
 If successful, you'll see the startup logs for Redis. Redis will be running in the foreground.
 
-Check if screen exists with the following command, if not, it will be installed directly:
+Type `screen` to check if screen exists... If screen is not installed, run the following...
 
 {{< highlight bash  >}}
-if ! command -v screen > /dev/null; then \
-    apt install screen -y \
-fi
+apt install screen -y
 {{< / highlight >}}
 
 If you want to run redis in the background
