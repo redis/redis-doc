@@ -1,0 +1,4 @@
+{
+    "name": "redis-client",
+    "description": "Simple low level client for Redis 6+"
+}

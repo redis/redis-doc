@@ -2,7 +2,7 @@
 title: "ACL"
 linkTitle: "ACL"
 weight: 1
-description: Redis access control list
+description: Redis Access Control List
 aliases:
     - /topics/acl
 ---
@@ -203,7 +203,7 @@ Now the user can do something, but will refuse to do other things:
 Things are working as expected. In order to inspect the configuration of the
 user alice (remember that user names are case sensitive), it is possible to
 use an alternative to `ACL LIST` which is designed to be more suitable for
-computers to read, while `ACL LIST` is more human readable.
+computers to read, while `ACL GETUSER` is more human readable.
 
     > ACL GETUSER alice
     1) "flags"
@@ -490,9 +490,6 @@ examples, for the sake of brevity, the long hex string was trimmed:
     10) "&*"
     11) "selectors"
     12) (empty array)
-
-Also, starting with Redis 6, the old command `CONFIG GET requirepass` will
-no longer return the clear text password, but instead the hashed password.
 
 Using SHA256 provides the ability to avoid storing the password in clear text
 while still allowing for a very fast `AUTH` command, which is a very important

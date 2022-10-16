@@ -63,7 +63,7 @@ as the one used in the redis.conf file, with the exception that the keyword
 is prefixed with `--`.
 
 Note that internally this generates an in-memory temporary config file
-(possibly concatenating the config file passed by the user if any) where
+(possibly concatenating the config file passed by the user, if any) where
 arguments are translated into the format of redis.conf.
 
 Changing Redis configuration while the server is running
@@ -71,20 +71,21 @@ Changing Redis configuration while the server is running
 
 It is possible to reconfigure Redis on the fly without stopping and restarting
 the service, or querying the current configuration programmatically using the
-special commands [`CONFIG SET`](/commands/config-set) and
-[`CONFIG GET`](/commands/config-get)
+special commands `CONFIG SET` and `CONFIG GET`.
 
 Not all of the configuration directives are supported in this way, but most
-are supported as expected. Please refer to the
-[`CONFIG SET`](/commands/config-set) and [`CONFIG GET`](/commands/config-get)
-pages for more information.
+are supported as expected.
+Please refer to the `CONFIG SET` and `CONFIG GET` pages for more information.
 
 Note that modifying the configuration on the fly **has no effects on the
 redis.conf file** so at the next restart of Redis the old configuration will
 be used instead.
 
 Make sure to also modify the `redis.conf` file accordingly to the configuration
-you set using [`CONFIG SET`](/commands/config-set). You can do it manually or you can use [`CONFIG REWRITE`](/commands/config-rewrite), which will automatically scan your `redis.conf` file and update the fields which don't match the current configuration value. Fields non existing but set to the default value are not added. Comments inside your configuration file are retained.
+you set using `CONFIG SET`.
+You can do it manually, or you can use `CONFIG REWRITE`, which will automatically scan your `redis.conf` file and update the fields which don't match the current configuration value.
+Fields non existing but set to the default value are not added.
+Comments inside your configuration file are retained.
 
 Configuring Redis as a cache
 ---
@@ -101,5 +102,5 @@ time to live for keys using the `EXPIRE` command (or equivalent) since
 all the keys will be evicted using an approximated LRU algorithm as long
 as we hit the 2 megabyte memory limit.
 
-Basically in this configuration Redis acts in a similar way to memcached.
+Basically, in this configuration Redis acts in a similar way to memcached.
 We have more extensive documentation about using Redis as an LRU cache [here](/topics/lru-cache).

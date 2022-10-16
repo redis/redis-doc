@@ -275,6 +275,7 @@ Here is the meaning of all fields in the **stats** section:
      subscriptions
 *   `pubsub_patterns`: Global number of pub/sub pattern with client
      subscriptions
+*   `pubsubshard_channels`: Global number of pub/sub shard channels with client subscriptions. Added in Redis 7.0.3
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
 *   `total_forks`: Total number of fork operations since the server start
 *   `migrate_cached_sockets`: The number of sockets open for `MIGRATE` purposes
@@ -304,6 +305,10 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `acl_access_denied_auth`: Number of authentication failures
+*   `acl_access_denied_cmd`: Number of commands rejected because of access denied to the command
+*   `acl_access_denied_key`: Number of commands rejected because of access denied to a key
+*   `acl_access_denied_channel`: Number of commands rejected because of access denied to a channel 
 
 Here is the meaning of all fields in the **replication** section:
 

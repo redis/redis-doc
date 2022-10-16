@@ -206,6 +206,19 @@ However this does not technically change the algorithm, so the maximum number
 of lock reacquisition attempts should be limited, otherwise one of the liveness
 properties is violated.
 
+### Disclaimer about consistency
+
+Please consider thoroughly reviewing the [Analysis of Redlock](#analysis-of-redlock) section at the end of this page.
+Martin Kleppman's article and antirez's answer to it are very relevant.
+If you are concerned about consistency and correctness, you should pay attention to the following topics:
+
+1. You should implement fencing tokens.
+  This is especially important for processes that can take significant time and applies to any distributed locking system.
+  Extending locks' lifetime is also an option, but don´t assume that a lock is retained as long as the process that had acquired it is alive.
+2. Redis is not using monotonic clock for TTL expiration mechanism.
+  That means that a wall-clock shift may result in a lock being acquired by more than one process.
+  Even though the problem can be mitigated by preventing admins from manually setting the server's time and setting up NTP properly, there's still a chance of this issue occurring in real life and compromising consistency.
+
 ## Want to help?
 
 If you are into distributed systems, it would be great to have your opinion / analysis. Also reference implementations in other languages could be great.

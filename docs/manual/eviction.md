@@ -16,8 +16,7 @@ evict old data as you add new data. This behavior is well known in the
 developer community, since it is the default behavior for the popular
 *memcached* system.
 
-This page covers the more general topic of the Redis `maxmemory` directive used to limit the memory usage to a fixed amount. This page it also covers in
-depth the LRU eviction algorithm used by Redis, that is actually an approximation of
+This page covers the more general topic of the Redis `maxmemory` directive used to limit the memory usage to a fixed amount. It also extensively covers the LRU eviction algorithm used by Redis, which is actually an approximation of
 the exact LRU.
 
 ## `Maxmemory` configuration directive
@@ -55,7 +54,7 @@ The following policies are available:
 * **volatile-lfu**: Removes least frequently used keys with the `expire` field set to `true`.
 * **allkeys-random**: Randomly removes keys to make space for the new data added.
 * **volatile-random**: Randomly removes keys with `expire` field set to `true`.
-* **volatile-ttl**: Removes least frequently used keys with `expire` field set to `true` and the shortest remaining time-to-live (TTL) value.
+* **volatile-ttl**: Removes keys with `expire` field set to `true` and the shortest remaining time-to-live (TTL) value.
 
 The policies **volatile-lru**, **volatile-lfu**, **volatile-random**, and **volatile-ttl** behave like **noeviction** if there are no keys to evict matching the prerequisites.
 
@@ -169,7 +168,7 @@ lfu-log-factor 10
 lfu-decay-time 1
 ```
 
-The decay time is the obvious one, it is the amount of minutes a counter should be decayed, when sampled and found to be older than that value. A special value of `0` means: always decay the counter every time is scanned, and is rarely useful.
+The decay time is the obvious one, it is the amount of minutes a counter should be decayed, when sampled and found to be older than that value. A special value of `0` means: we will never decay the counter.
 
 The counter *logarithm factor* changes how many hits are needed to saturate the frequency counter, which is just in the range 0-255. The higher the factor, the more accesses are needed to reach the maximum. The lower the factor, the better is the resolution of the counter for low accesses, according to the following table:
 

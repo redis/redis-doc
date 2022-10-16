@@ -85,7 +85,7 @@ When replicas connect to masters, they use the `PSYNC` command to send
 their old master replication ID and the offsets they processed so far. This way
 the master can send just the incremental part needed. However if there is not
 enough *backlog* in the master buffers, or if the replica is referring to an
-history (replication ID) which is no longer known, than a full resynchronization
+history (replication ID) which is no longer known, then a full resynchronization
 happens: in this case the replica will get a full copy of the dataset, from scratch.
 
 This is how a full synchronization works in more details:
@@ -106,7 +106,7 @@ As already said, replicas are able to automatically reconnect when the master-re
 In the previous section we said that if two instances have the same replication
 ID and replication offset, they have exactly the same data. However it is useful
 to understand what exactly is the replication ID, and why instances have actually
-two replication IDs the main ID and the secondary ID.
+two replication IDs: the main ID and the secondary ID.
 
 A replication ID basically marks a given *history* of the data set. Every time
 an instance restarts from scratch as a master, or a replica is promoted to master,
@@ -114,7 +114,7 @@ a new replication ID is generated for this instance. The replicas connected to
 a master will inherit its replication ID after the handshake. So two instances
 with the same ID are related by the fact that they hold the same data, but
 potentially at a different time. It is the offset that works as a logical time
-to understand, for a given history (replication ID) who holds the most updated
+to understand, for a given history (replication ID), who holds the most updated
 data set.
 
 For instance, if two instances A and B have the same replication ID, but one
@@ -196,7 +196,7 @@ To minimize the risks (if you insist on using writable replicas) we suggest you 
 * Don't configure an instance as a writable replica as an intermediary step when upgrading a set of instances in a running system.
   In general, don't configure an instance as a writable replica if it can ever be promoted to a master if you want to guarantee data consistency.
 
-Historically, there were some use cases that were consider legitimate for writable replicas.
+Historically, there were some use cases that were considered legitimate for writable replicas.
 As of version 7.0, these use cases are now all obsolete and the same can be achieved by other means.
 For example:
 
@@ -279,7 +279,7 @@ uses three main techniques to make the replication of expired keys
 able to work:
 
 1. Replicas don't expire keys, instead they wait for masters to expire the keys. When a master expires a key (or evict it because of LRU), it synthesizes a `DEL` command which is transmitted to all the replicas.
-2. However because of master-driven expire, sometimes replicas may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. In to deal with that the replica uses its logical clock to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way replicas avoid reporting logically expired keys are still existing. In practical terms, an HTML fragments cache that uses replicas to scale will avoid returning items that are already older than the desired time to live.
+2. However because of master-driven expire, sometimes replicas may still have in memory keys that are already logically expired, since the master was not able to provide the `DEL` command in time. To deal with that the replica uses its logical clock to report that a key does not exist **only for read operations** that don't violate the consistency of the data set (as new commands from the master will arrive). In this way replicas avoid reporting logically expired keys that are still existing. In practical terms, an HTML fragments cache that uses replicas to scale will avoid returning items that are already older than the desired time to live.
 3. During Lua scripts executions no key expiries are performed. As a Lua script runs, conceptually the time in the master is frozen, so that a given key will either exist or not for all the time the script runs. This prevents keys expiring in the middle of a script, and is needed to send the same script to the replica in a way that is guaranteed to have the same effects in the data set.
 
 Once a replica is promoted to a master it will start to expire keys independently, and will not require any help from its old master.
@@ -320,7 +320,7 @@ replicas and so forth.
 ## Partial sync after restarts and failovers
 
 Since Redis 4.0, when an instance is promoted to master after a failover,
-it will be still able to perform a partial resynchronization with the replicas
+it will still be able to perform a partial resynchronization with the replicas
 of the old master. To do so, the replica remembers the old replication ID and
 offset of its former master, so can provide part of the backlog to the connecting
 replicas even if they ask for the old replication ID.

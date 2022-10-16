@@ -9,8 +9,8 @@ aliases:
 ---
 
 Redis includes the `redis-benchmark` utility that simulates running commands done
-by N clients at the same time sending M total queries. The utility provides
-a default set of tests, or a custom set of tests can be supplied.
+by N clients while at the same time sending M total queries. The utility provides
+a default set of tests, or you can supply a custom set of tests.
 
 The following options are supported:
 
@@ -22,7 +22,7 @@ The following options are supported:
      -a <password>      Password for Redis Auth
      -c <clients>       Number of parallel connections (default 50)
      -n <requests>      Total number of requests (default 100000)
-     -d <size>          Data size of SET/GET value in bytes (default 2)
+     -d <size>          Data size of SET/GET value in bytes (default 3)
      --dbnum <db>       SELECT the specified db number (default 0)
      -k <boolean>       1=keep alive 0=reconnect (default 1)
      -r <keyspacelen>   Use random keys for SET/GET/INCR, random values for SADD
@@ -103,7 +103,7 @@ multiple commands at once, a feature often exploited by real world applications.
 Redis pipelining is able to dramatically improve the number of operations per
 second a server is able do deliver.
 
-This is an example of running the benchmark in a MacBook Air 11" using a
+Consider this example of running the benchmark using a
 pipelining of 16 commands:
 
     $ redis-benchmark -n 1000000 -t set,get -P 16 -q
@@ -115,8 +115,7 @@ Using pipelining results in a significant increase in performance.
 ### Pitfalls and misconceptions
 
 The first point is obvious: the golden rule of a useful benchmark is to
-only compare apples and apples. Different versions of Redis can be compared
-on the same workload for instance. Or the same version of Redis, but with
+only compare apples and apples. You can compare different versions of Redis on the same workload or the same version of Redis, but with
 different options. If you plan to compare Redis to something else, then it is
 important to evaluate the functional and technical differences, and take them
 in account.

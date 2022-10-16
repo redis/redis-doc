@@ -5,7 +5,7 @@ weight: 1
 description: Use Redis on Windows for development
 ---
 
-Redis is not officially supported on Windows. However, you can install Redis on Windows for development by the following the instructions below.
+Redis is not officially supported on Windows. However, you can install Redis on Windows for development by following the instructions below.
 
 To install Redis on Windows, you'll first need to enable [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux). WSL2 lets you run Linux binaries natively on Windows. For this method to work, you'll need to be running Windows 10 version 2004 and higher or Windows 11.
 
@@ -15,7 +15,7 @@ Microsoft provides [detailed instructions for installing WSL](https://docs.micro
 
 ## Install Redis
 
-Once you're running Ubuntu on Windows, you can follow the steps detailed at [Install on Ubuntu/Debian](install-redis-on-linux#install-on-ubuntu-debian) to install recent stable versions of Redis from the official `packages.redis.io` APT repository.
+Once you're running Ubuntu on Windows, you can follow the steps detailed at [Install on Ubuntu/Debian](../install-redis-on-linux#install-on-ubuntu-debian) to install recent stable versions of Redis from the official `packages.redis.io` APT repository.
 Add the repository to the <code>apt</code> index, update it, and then install:
 
 {{< highlight bash  >}}

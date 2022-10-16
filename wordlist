@@ -1,3 +1,4 @@
+
 .rdb
 0s
 0x00060007
@@ -67,6 +68,7 @@ Benchmarking
 BigNumber
 BitOp
 Bitfields
+Bitwise
 C1
 C2
 C3
@@ -156,14 +158,19 @@ HLLs
 HMAC-SHA256
 HVM
 HW
+Hacktoberfest
 Hardcoded
+HashMaps
+HashSets
 Haversine
 Hexastore
 Hitmeister
 Homebrew
 Hotspot
 HyperLogLog
+HyperLogLog.
 HyperLogLogs
+Hyperloglogs
 IOPs
 IPC
 IPs
@@ -180,6 +187,7 @@ Jemalloc
 KEYSPACE
 Keyspace
 KeyspaceNotification
+Kleppman's
 Kleppmann
 L3
 LDB
@@ -191,6 +199,7 @@ LRU
 LRU's
 LRU.
 LUA
+Leaderboards
 Leau
 Lehmann
 Levelgraph
@@ -217,7 +226,9 @@ NFS
 NIC
 NICs
 NOOP
+NTP
 NUMA
+NX
 NaN
 Nehalem
 NoSQL
@@ -234,6 +245,7 @@ OpenBSD
 OpenSSL
 Opteron
 PEL
+PELs
 PEM
 PFAIL
 PHPRedisMutex
@@ -273,39 +285,25 @@ RESP3's
 RESP3-typed
 RESP3.
 REdis
-RM_CreateCommand
-RM_CreateStringFromString
-RM_IsKeysPositionRequest
-RM_KeyAtPosWithFlags
-RM_SetCommandInfo
+RM_.*
 RPC
 RSS
 RTT
+RU101
+RU102
 RW
 Rebranding
 Reconfiguring
 Reddit's
+RediSearch
 Redimension
 Redis-rb
 Redis-to-Lua
 RedisCallReply
 RedisConf
 RedisHost.
-RedisModule
-RedisModuleCallReply
-RedisModuleClientInfo
-RedisModuleCommandKeySpec
-RedisModuleConfigChange
-RedisModuleCronLoop
-RedisModuleCtx
-RedisModuleEvent_ReplAsyncLoad
-RedisModuleFlushInfo
-RedisModuleLoadingProgress
-RedisModuleModuleChange
-RedisModuleString
-RedisModuleSwapDbInfo
-RedisModule_GetClientInfoById
-RedisModule_UnblockClient
+RedisJSON
+RedisModule.*
 Redisson
 Redistributions
 Redlock
@@ -367,6 +365,7 @@ T2
 TCL
 TCP
 TLS
+TTL
 TTLs
 Tthe
 Twemproxy
@@ -414,6 +413,7 @@ allocator's
 allocators
 analytics
 antirez
+antirez's
 aof
 aof-1
 aof-2
@@ -448,7 +448,10 @@ benchmarked
 benchmarking
 big-endian
 bitfield
+bitfield
+bitfields
 bitop
+bitwise
 bitwise
 bool
 breakpoint
@@ -529,6 +532,7 @@ endianness
 enum
 enum_val
 enum_vals
+enums
 epel-release
 epoll
 errno
@@ -541,6 +545,8 @@ eval-intro
 everysec
 executables
 expiries
+explainer
+explainers
 facto
 factorializing
 failover
@@ -554,6 +560,7 @@ failover.
 failovers
 fanout
 faq
+favorited
 fdatasync
 filesystem
 firewalled
@@ -579,6 +586,7 @@ getkeys-api
 github
 globals
 gpg
+hacktoberfest
 handleClientsWithPendingWrites
 hardcoded
 hardlinks
@@ -608,6 +616,7 @@ iostat
 ip
 ip:port
 iterable
+iteratively
 jemalloc
 jpeg
 kB
@@ -634,6 +643,7 @@ launchd
 lazyfree-lazy-user-flush
 ldb
 leaderboard
+leaderboards
 len
 lenptr
 lexicographically
@@ -653,6 +663,7 @@ lookups
 loopback
 lpush
 lru_cache
+lsb-release
 lsb_release
 lua-api
 lua-replicate-commands
@@ -692,6 +703,7 @@ non-TCP
 non-TLS
 non-reachability
 non-virtualized
+nonprintable
 nopass
 notify-keyspace-events
 notifyKeyspaceEvent
@@ -920,6 +932,7 @@ volatile-ttl
 vtype
 wget
 wherefrom
+whitespace
 whitespaces
 whos-using-redis
 xff
@@ -928,4 +941,3 @@ zeroed-ACLs
 ziplists
 zset
 ˈrɛd-ɪs
-enums
