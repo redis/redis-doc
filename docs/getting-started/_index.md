@@ -21,7 +21,7 @@ How you install Redis depends on your operating system and whether you'd like to
 * [Install Redis with Redis Stack and RedisInsight](/docs/stack/get-started/install)
 
 {{% alert title="Note" color="warning" %}}
-If you plan to run Redis at scale with large datasets, consider using extended [Redis Enterprise](/docs/about/redis-enterprise) options: software, cloud, and hybrid/multi-cloud. Want to learn how to install and run Redis Enterprise Software? See [Get started with Redis Enterprise Software](https://docs.redis.com/latest/rs/installing-upgrading/get-started-redis-enterprise-software/).
+If you plan to run Redis at scale with large datasets, consider using extended [Redis Enterprise](/docs/about/redis-enterprise/) options: software, cloud, and hybrid/multi-cloud. Want to learn how to install and run Redis Enterprise Software? See [Get started with Redis Enterprise Software](https://docs.redis.com/latest/rs/installing-upgrading/get-started-redis-enterprise-software/).
 {{% /alert %}}
 
 Once you have Redis up and running, and can connect using `redis-cli`, you can continue with the steps below.
