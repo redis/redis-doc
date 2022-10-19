@@ -7,9 +7,9 @@ aliases:
   - /topics/sentinel
 ---
 
-Redis Sentinel provides high availability for Redis when not using [Redis Cluster](/docs/manual/scaling). 
+Redis Sentinel provides high availability for Redis when not using [Redis Cluster](/docs/manual/scaling). For more information on high-availability architecture and how Redis Enterprise handles high availability, see [High Availability Architecture Demystified](https://redis.com/blog/high-availability-architecture/).
 
-Redis Sentinel also provides other collateral tasks such as monitoring,
+Redis Sentinel provides other collateral tasks such as monitoring,
 notifications and acts as a configuration provider for clients.
 
 This is the full list of Sentinel capabilities at a macroscopic level (i.e. the *big picture*):
