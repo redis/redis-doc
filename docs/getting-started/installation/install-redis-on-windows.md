@@ -7,7 +7,7 @@ description: Use Redis on Windows for development
 
 Redis is not officially supported on Windows. However, you can install Redis on Windows for development by following the instructions below.
 
-To install Redis on Windows, you'll first need to enable [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux). WSL2 lets you run Linux binaries natively on Windows. For this method to work, you'll need to be running Windows 10 version 2004 and higher or Windows 11.
+To install Redis on Windows, you'll first need to enable [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux). WSL2 lets you run Linux binaries natively on Windows. For this method to work, you'll need to be running either Windows 10 (>= version 2004) or Windows 11.
 
 ## Install or enable WSL2
 
@@ -16,7 +16,7 @@ Microsoft provides [detailed instructions for installing WSL](https://docs.micro
 ## Install Redis
 
 Once you're running Ubuntu on Windows, you can follow the steps detailed at [Install on Ubuntu/Debian](../install-redis-on-linux#install-on-ubuntu-debian) to install recent stable versions of Redis from the official `packages.redis.io` APT repository.
-Add the repository to the <code>apt</code> index, update it, and then install:
+Add the repository to the <code>apt</code> index, update it, and then install as follows:
 
 {{< highlight bash  >}}
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
@@ -27,7 +27,9 @@ sudo apt-get update
 sudo apt-get install redis
 {{< / highlight  >}}
 
-Lastly, start the Redis server like so:
+## Start the Redis server
+
+Finally, start the Redis server like so:
 
 {{< highlight bash  >}}
 sudo service redis-server start
@@ -42,3 +44,10 @@ redis-cli
 127.0.0.1:6379> ping
 PONG
 {{< / highlight >}}
+
+## Next steps
+
+Once you have a running Redis instance, you may want to:
+
+* [Try the Redis CLI tutorial](/manual/cli)
+* [Connect using one of the Redis clients](/docs/clients)
