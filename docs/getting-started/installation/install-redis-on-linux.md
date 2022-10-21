@@ -36,7 +36,7 @@ sudo apt install redis
 
 ## Install from Snapcraft
 
-Snapcraft is a univeral Linux package manager. The [Snapcraft store](https://snapcraft.io/store) provides [Redis packages](https://snapcraft.io/redis) for many Linux distributions.
+Snapcraft is a universal Linux package manager. The [Snapcraft store](https://snapcraft.io/store) provides [Redis packages](https://snapcraft.io/redis) for many Linux distributions.
 
 If your Linux does not currently have [snap](https://snapcraft.io/) installed, you may install it by following the instructions described in [Installing snapd](https://snapcraft.io/docs/installing-snapd).
 
