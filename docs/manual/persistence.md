@@ -11,15 +11,16 @@ aliases: [
 ]
 ---
 
-Persistence refers to the writing of data to durable storage, such as a solid-state disk (SSD). Redis itself provides a range of persistence options. For information on how Redis Enterprise handles persistence, see [Durable Redis: Data Persistence Storage](https://redis.com/redis-enterprise/technology/durable-redis/) and [Configure database persistence](https://docs.redis.com/latest/rs/databases/configure/database-persistence/). Here are Redis options:
+Persistence refers to the writing of data to durable storage, such as a solid-state disk (SSD). Redis provides a range of persistence options. These include:
 
-* **RDB** (Redis Database): The RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
-* **AOF** (Append Only File): The AOF persistence logs every write operation received by the server, that will be played again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself, in an append-only fashion. Redis is able to [rewrite](#log-rewriting) the log in the background when it gets too big.
-* **No persistence**: If you wish, you can disable persistence completely, if you want your data to just exist as long as the server is running.
-* **RDB + AOF**: It is possible to combine both AOF and RDB in the same instance. Notice that, in this case, when Redis restarts the AOF file will be used to reconstruct the original dataset since it is guaranteed to be the most complete.
+* **RDB** (Redis Database): RDB persistence performs point-in-time snapshots of your dataset at specified intervals.
+* **AOF** (Append Only File): AOF persistence logs every write operation received by the server. These operations can then be replayed again at server startup, reconstructing the original dataset. Commands are logged using the same format as the Redis protocol itself.
+* **No persistence**: You can disable persistence completely. This is sometimes used when caching.
+* **RDB + AOF**: You can also combine both AOF and RDB in the same instance.
 
-The most important thing to understand is the different trade-offs between the
-RDB and AOF persistence.
+If you'd rather not think about the tradeoffs between these different persistence strategies, you may want to consider [Redis Enterprise's persistence options](https://docs.redis.com/latest/rs/databases/configure/database-persistence/), which can be pre-configured using a UI.
+
+To learn more about how to evaluate your Redis persistence strategy, read on.
 
 ## RDB advantages
 
