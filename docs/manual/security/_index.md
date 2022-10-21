@@ -11,7 +11,7 @@ This document provides an introduction to the topic of security from the point o
 view of Redis. It covers the access control provided by Redis, code security concerns,
 attacks that can be triggered from the outside by selecting malicious inputs, and
 other similar topics. 
-You can learn more about access control, data protection and encryption, secure Redis architectures, and secure deployment techniques by attending the Redis University [security course](https://university.redis.com/courses/ru330/).
+You can learn more about access control, data protection and encryption, secure Redis architectures, and secure deployment techniques by taking the [Redis University security course](https://university.redis.com/courses/ru330/).
 
 For security-related contacts, open an issue on GitHub, or when you feel it
 is really important to preserve the security of the communication, use the
