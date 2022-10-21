@@ -1,7 +1,7 @@
 ---
-title: "Installing Redis"
-linkTitle: "Install"
+title: "Install Redis"
+linkTitle: "Install Redis"
 weight: 1
 description: >
-    Install Redis on Linux, macOS, and Windows
+    Install Redis on Linux, macOS, Windows, and from source
 ---

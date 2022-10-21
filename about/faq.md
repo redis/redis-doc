@@ -5,6 +5,7 @@ weight: 100
 description: >
     Commonly asked questions when getting started with Redis
 aliases:
+    - /about/faq
     - /docs/getting-started/faq
 ---
 ## How is Redis different from other key-value stores?
