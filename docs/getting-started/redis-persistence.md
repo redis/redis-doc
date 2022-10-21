@@ -3,7 +3,7 @@ title: "Redis persistence"
 linkTitle: "Redis persistence"
 weight: 5
 description: >
-    Learn how Redis peristence works
+    Learn how Redis persistence works
 aliases:
     - /docs/getting-started/redis-persistence
 ---

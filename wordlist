@@ -547,6 +547,7 @@ executables
 expiries
 explainer
 explainers
+explore-redis
 facto
 factorializing
 failover
@@ -604,6 +605,7 @@ idx'-th
 indexable
 ing
 init
+install-redis-clients
 int_vals
 internals-eventlib
 internals-rediseventlib
@@ -729,6 +731,7 @@ parsable
 perf
 perf_events
 performance-on-cpu
+persistence
 php-redis-lock
 pid
 pidfile
@@ -757,6 +760,7 @@ programmatically
 programmatically-generated
 pseudorandom
 pubsub
+quickstart
 qsort
 queueing
 radix
@@ -787,9 +791,11 @@ redis-benchmark
 redis-check-aof
 redis-cli
 redis-doc
+redis-for-development
 redis-hashes
 redis-lua
 redis-macOS-demo
+redis-persistence
 redis-rb-cluster
 redis-server
 redis-stable
@@ -832,6 +838,7 @@ scalable
 sdown
 sds
 se
+secure-redis
 seeked
 semantical
 serverCron
