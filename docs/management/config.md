@@ -1,7 +1,7 @@
 ---
 title: "Redis configuration"
 linkTitle: "Configuration"
-weight: 1
+weight: 2
 description: >
     Overview of redis.conf, the Redis configuration file
 aliases:

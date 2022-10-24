@@ -1,7 +1,7 @@
 ---
 title: "High availability with Redis Sentinel"
 linkTitle: "High availability with Sentinel"
-weight: 1
+weight: 4
 description: High availability for non-clustered Redis
 aliases:
   - /topics/sentinel

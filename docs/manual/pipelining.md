@@ -1,7 +1,7 @@
 ---
 title: "Redis pipelining"
 linkTitle: "Pipelining"
-weight: 1
+weight: 2
 description: How to optimize round-trip times by batching Redis commands
 aliases:
   - /topics/pipelining

@@ -1,7 +1,7 @@
 ---
 title: "Troubleshooting Redis"
 linkTitle: "Troubleshooting"
-weight: 1
+weight: 9
 description: Problems with Redis? Start here.
 aliases:
     - /topics/problems

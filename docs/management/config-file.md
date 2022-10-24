@@ -1,7 +1,7 @@
 ---
 title: "Redis configuration file example"
 linkTitle: "Configuration example"
-weight: 1
+weight: 3
 description: >
     The self-documented `redis.conf` file that's shipped with every version.
 ---

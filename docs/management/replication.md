@@ -1,7 +1,7 @@
 ---
 title: Redis replication
 linkTitle: Replication
-weight: 1
+weight: 5
 description: How Redis supports high availability and failover with replication
 aliases: [
     /topics/replication,

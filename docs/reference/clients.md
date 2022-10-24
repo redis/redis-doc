@@ -1,7 +1,7 @@
 ---
 title: "Redis client handling"
 linkTitle: "Client handling"
-weight: 1
+weight: 5
 description: >
     How the Redis server manages client connections
 aliases:

@@ -1,7 +1,7 @@
 ---
  title: "Command key specifications"
  linkTitle: "Command key specifications"
- weight: 1
+ weight: 3
  description: What are command key specification and how to use them in your client
  aliases:
    - /topics/key-specs

@@ -1,7 +1,7 @@
 ---
 title: "Debugging"
 linkTitle: "Debugging"
-weight: 1
+weight: 10
 description: >
     A guide to debugging Redis server processes
 aliases:

@@ -1,7 +1,7 @@
 ---
 title: "ARM support"
 linkTitle: "ARM support"
-weight: 1
+weight: 11
 description: >
     Exploring Redis on the ARM CPU Architecture
 aliases:

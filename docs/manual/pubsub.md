@@ -1,7 +1,7 @@
 ---
 title: Redis Pub/Sub
 linkTitle: "Pub/sub"
-weight: 1
+weight: 4
 description: How to use pub/sub channels in Redis
 aliases:
   - /topics/pubsub

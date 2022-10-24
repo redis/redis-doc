@@ -1,7 +1,7 @@
 ---
 title: "Clients"
 linkTitle: "Clients"
-weight: 10
+weight: 4
 description: Redis clients
 layout: bazzar
 bazzar: clients
