@@ -6,8 +6,7 @@ description: >
     Performance engineering guide for on-CPU profiling and tracing
 aliases: [
     /topics/performance-on-cpu,
-    /docs/reference/optimization/cpu-profiling,
-    /docs/management/optimization/cpu-profiling
+    /docs/reference/optimization/cpu-profiling
 ]
 ---
 

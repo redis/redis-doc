@@ -7,9 +7,7 @@ description: >
 aliases: [
     /topics/debugging,
     /docs/reference/debugging,
-    /docs/reference/debugging.md,
-    /docs/management/debugging,
-    /docs/management/debugging.md
+    /docs/reference/debugging.md
 ]
 ---
 

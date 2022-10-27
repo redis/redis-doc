@@ -6,9 +6,7 @@ description: Security model and features in Redis
 aliases: [
     /topics/security,
     /docs/manual/security,
-    /docs/manual/security.md,
-    /docs/management/security,
-    /docs/management/security.md
+    /docs/manual/security.md
 ]
 ---
 

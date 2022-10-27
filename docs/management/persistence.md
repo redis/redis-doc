@@ -7,9 +7,7 @@ aliases: [
     /topics/persistence,
     /topics/persistence.md,
     /docs/management/persistence,
-    /docs/management/persistence.md, 
-    /docs/manual/persistence,
-    /docs/manual/persistence.md
+    /docs/management/persistence.md
 ]
 ---
 

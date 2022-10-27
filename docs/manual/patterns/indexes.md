@@ -6,8 +6,7 @@ description: >
     Building secondary indexes in Redis
 aliases: [
     /topics/indexing,
-    /docs/reference/patterns/indexes,
-    /docs/manual/indexes
+    /docs/reference/patterns/indexes
 ]
 ---
 

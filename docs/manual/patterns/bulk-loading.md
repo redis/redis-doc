@@ -6,8 +6,7 @@ description: >
     Writing data in bulk using the Redis protocol
 aliases: [
     /topics/mass-insertion,
-    /docs/reference/patterns/bulk-loading,
-    /docs/manual/bulk-loading
+    /docs/reference/patterns/bulk-loading
 ]
 ---
 

@@ -6,9 +6,7 @@ description: Redis Access Control List
 aliases: [
     /topics/acl,
     /docs/manual/security/acl,
-    /docs/manual/security/acl.md,
-    /docs/management/security/acl,
-    /docs/management/security/acl.md
+    /docs/manual/security/acl.md
 ]
 ---
 

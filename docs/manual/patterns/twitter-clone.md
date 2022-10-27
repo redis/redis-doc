@@ -4,8 +4,7 @@ linkTitle: "Patterns example"
 description: Learn several Redis patterns by building a Twitter clone
 weight: 20
 aliases: [
-    /docs/reference/patterns/twitter-clone,
-    /docs/manual/twitter-clone
+    /docs/reference/patterns/twitter-clone
 ]
 ---
 

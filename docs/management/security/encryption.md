@@ -6,9 +6,7 @@ description: Redis TLS support
 aliases: [
     /topics/encryption,
     /docs/manual/security/encryption,
-    /docs/manual/security/encryption.md,
-    /docs/management/security/encryption,
-    /docs/management/security/encryption.md
+    /docs/manual/security/encryption.md
 ]
 ---
 

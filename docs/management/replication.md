@@ -7,9 +7,7 @@ aliases: [
     /topics/replication,
     /topics/replication.md,
     /docs/manual/replication,
-    /docs/manual/replication.md,
-    /docs/management/replication,
-    /docs/management/replication.md
+    /docs/manual/replication.md
 ]
 ---
 

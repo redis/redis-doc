@@ -6,9 +6,7 @@ description: Problems with Redis? Start here.
 aliases: [
     /topics/problems,
     /docs/manual/troubleshooting,
-    /docs/manual/troubleshooting.md,
-    /docs/management/troubleshooting,
-    /docs/management/troubleshooting.md
+    /docs/manual/troubleshooting.md
 ]
 ---
 

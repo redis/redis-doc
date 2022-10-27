@@ -7,9 +7,7 @@ aliases: [
     /topics/cluster-tutorial,
     /topics/partitioning,
     /docs/manual/scaling,
-    /docs/manual/scaling.md,
-    /docs/management/scaling,
-    /docs/management/scaling.md
+    /docs/manual/scaling.md
 ]
 ---
 

@@ -4,8 +4,7 @@ linkTitle: "Patterns"
 description: Novel patterns for working with Redis data structures
 weight: 6
 aliases: [
-    /docs/reference/patterns,
-    /docs/manual/patterns
+    /docs/reference/patterns
 ]
 ---
 

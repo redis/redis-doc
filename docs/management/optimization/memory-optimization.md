@@ -5,8 +5,7 @@ description: Strategies for optimizing memory usage in Redis
 weight: 1
 aliases: [
     /topics/memory-optimization,
-    /docs/reference/optimization/memory-optimization,
-    /docs/management/optimization/memory-optimization
+    /docs/reference/optimization/memory-optimization
 ]
 ---
 

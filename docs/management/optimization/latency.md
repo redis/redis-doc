@@ -5,8 +5,7 @@ weight: 1
 description: Finding the causes of slow responses
 aliases: [
     /topics/latency,
-    /docs/reference/optimization/latency,
-    /docs/management/optimization/latency
+    /docs/reference/optimization/latency
 ]
 ---
 

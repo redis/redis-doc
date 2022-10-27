@@ -6,8 +6,7 @@ description: >
     A Distributed Lock Pattern with Redis
 aliases: [
     /topics/distlock,
-    /docs/reference/patterns/distributed-locks,
-    /docs/manual/distributed-locks
+    /docs/reference/patterns/distributed-locks
 ]
 ---
 Distributed locks are a very useful primitive in many environments where

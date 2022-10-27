@@ -5,8 +5,7 @@ weight: 1
 description: Discovering slow server events in Redis
 aliases: [
     /topics/latency-monitor,
-    /docs/reference/optimization/latency-monitor,
-    /docs/management/optimization/latency-monitor
+    /docs/reference/optimization/latency-monitor
 ]
 ---
 

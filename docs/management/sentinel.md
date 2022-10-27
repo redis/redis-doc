@@ -6,9 +6,7 @@ description: High availability for non-clustered Redis
 aliases: [
     /topics/sentinel,
     /docs/manual/sentinel,
-    /docs/manual/sentinel.md,
-    /docs/management/sentinel,
-    /docs/management/sentinel.md
+    /docs/manual/sentinel.md
 ]
 ---
 

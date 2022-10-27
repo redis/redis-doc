@@ -5,8 +5,7 @@ weight: 3
 description: >
     The self-documented `redis.conf` file that's shipped with every version.
 aliases: [
-    /docs/management/config-file,
-    /docs/manual/config-file
+    /docs/management/config-file
     ]
 ---
 
