@@ -3,9 +3,14 @@ title: Scaling with Redis Cluster
 linkTitle: Scaling
 weight: 6
 description: Horizontal scaling with Redis Cluster
-aliases:
-  - /topics/cluster-tutorial
-  - /topics/partitioning
+aliases: [
+    /topics/cluster-tutorial,
+    /topics/partitioning,
+    /docs/manual/scaling,
+    /docs/manual/scaling.md,
+    /docs/management/scaling,
+    /docs/management/scaling.md
+]
 ---
 
 Redis scales horizontally with a deployment topology called Redis Cluster. 

@@ -3,8 +3,11 @@ title: "Diagnosing latency issues"
 linkTitle: "Latency diagnosis"
 weight: 1
 description: Finding the causes of slow responses
-aliases:
-    - /topics/latency
+aliases: [
+    /topics/latency,
+    /docs/reference/optimization/latency,
+    /docs/management/optimization/latency
+]
 ---
 
 This document will help you understand what the problem could be if you

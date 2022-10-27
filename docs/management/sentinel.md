@@ -3,8 +3,13 @@ title: "High availability with Redis Sentinel"
 linkTitle: "High availability with Sentinel"
 weight: 4
 description: High availability for non-clustered Redis
-aliases:
-  - /topics/sentinel
+aliases: [
+    /topics/sentinel,
+    /docs/manual/sentinel,
+    /docs/manual/sentinel.md,
+    /docs/management/sentinel,
+    /docs/management/sentinel.md
+]
 ---
 
 Redis Sentinel provides high availability for Redis when not using [Redis Cluster](/docs/manual/scaling). 

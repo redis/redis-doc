@@ -6,8 +6,10 @@ description: How Redis writes data to disk (append-only files, snapshots, etc.)
 aliases: [
     /topics/persistence,
     /topics/persistence.md,
-    /manual/persistence,
-    /manual/persistence.md,
+    /docs/management/persistence,
+    /docs/management/persistence.md, 
+    /docs/manual/persistence,
+    /docs/manual/persistence.md
 ]
 ---
 

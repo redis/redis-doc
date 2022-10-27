@@ -4,8 +4,13 @@ linkTitle: "Debugging"
 weight: 10
 description: >
     A guide to debugging Redis server processes
-aliases:
-    - /topics/debugging
+aliases: [
+    /topics/debugging,
+    /docs/reference/debugging,
+    /docs/reference/debugging.md,
+    /docs/management/debugging,
+    /docs/management/debugging.md
+]
 ---
 
 Redis is developed with an emphasis on stability. We do our best with

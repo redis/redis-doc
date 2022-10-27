@@ -4,8 +4,11 @@ linkTitle: "Configuration"
 weight: 2
 description: >
     Overview of redis.conf, the Redis configuration file
-aliases:
-    - /docs/manual/config
+aliases: [
+    /docs/management/config,
+    /docs/manual/config
+    ]
+
 ---
 
 Redis is able to start without a configuration file using a built-in default

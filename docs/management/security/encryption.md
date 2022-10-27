@@ -3,8 +3,13 @@ title: "TLS"
 linkTitle: "TLS"
 weight: 1
 description: Redis TLS support
-aliases:
-    - /topics/encryption
+aliases: [
+    /topics/encryption,
+    /docs/manual/security/encryption,
+    /docs/manual/security/encryption.md,
+    /docs/management/security/encryption,
+    /docs/management/security/encryption.md
+]
 ---
 
 SSL/TLS is supported by Redis starting with version 6 as an optional feature

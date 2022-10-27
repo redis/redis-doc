@@ -4,8 +4,11 @@ linkTitle: "Benchmarking"
 weight: 1
 description: >
     Using the redis-benchmark utility to benchmark a Redis server
-aliases:
-    - /topics/benchmarks
+aliases: [
+    /topics/benchmarks,
+    /docs/reference/optimization/benchmarks,
+    /docs/management/optimization/benchmarks
+]
 ---
 
 Redis includes the `redis-benchmark` utility that simulates running commands done
