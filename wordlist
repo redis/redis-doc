@@ -483,6 +483,7 @@ configEpoch
 configs
 const
 cpu
+cpu-profiling
 cron
 cryptographic
 ctx
