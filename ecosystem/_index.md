@@ -1,6 +1,7 @@
 ---
 title: Ecosystem
 linkTitle: Ecosystem
+type: docs
 ---
 
 WORK IN PROGRESS:
