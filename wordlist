@@ -478,10 +478,12 @@ codenamed
 commandstats
 commnad
 config
+config-file
 configEpoch
 configs
 const
 cpu
+cpu-profiling
 cron
 cryptographic
 ctx

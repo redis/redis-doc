@@ -7,7 +7,7 @@ aliases: [
     /topics/admin,
     /topics/admin.md,
     /manual/admin,
-    /manual/admin.md,
+    /manual/admin.md
 ]
 ---
 

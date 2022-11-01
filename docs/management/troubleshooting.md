@@ -1,10 +1,13 @@
 ---
 title: "Troubleshooting Redis"
 linkTitle: "Troubleshooting"
-weight: 1
+weight: 9
 description: Problems with Redis? Start here.
-aliases:
-    - /topics/problems
+aliases: [
+    /topics/problems,
+    /docs/manual/troubleshooting,
+    /docs/manual/troubleshooting.md
+]
 ---
 
 This page tries to help you with what to do if you have issues with Redis. Part of the Redis project is helping people that are experiencing problems because we don't like to leave people alone with their issues.

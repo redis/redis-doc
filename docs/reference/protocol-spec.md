@@ -1,7 +1,7 @@
 ---
 title: "RESP protocol spec"
 linkTitle: "Protocol spec"
-weight: 1
+weight: 4
 description: Redis serialization protocol (RESP) specification
 aliases:
     - /topics/protocol

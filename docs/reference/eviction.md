@@ -1,7 +1,7 @@
 ---
 title: Key eviction
 linkTitle: Eviction
-weight: 1
+weight: 6
 description: Overview of Redis key eviction policies (LRU, LFU, etc.)
 aliases: [
     /topics/lru_cache,

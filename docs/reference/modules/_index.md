@@ -1,7 +1,7 @@
 ---
 title: "Redis modules API"
 linkTitle: "Modules API"
-weight: 1
+weight: 2
 description: >
     Introduction to writing Redis modules
 aliases:

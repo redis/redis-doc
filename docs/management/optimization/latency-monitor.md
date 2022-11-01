@@ -3,8 +3,10 @@ title: "Redis latency monitoring"
 linkTitle: "Latency monitoring"
 weight: 1
 description: Discovering slow server events in Redis
-aliases:
-    - /topics/latency-monitor
+aliases: [
+    /topics/latency-monitor,
+    /docs/reference/optimization/latency-monitor
+]
 ---
 
 Redis is often used for demanding use cases, where it

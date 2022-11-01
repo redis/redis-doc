@@ -4,8 +4,10 @@ linkTitle: "Bulk loading"
 weight: 1
 description: >
     Writing data in bulk using the Redis protocol
-aliases:
-    - /topics/mass-insertion
+aliases: [
+    /topics/mass-insertion,
+    /docs/reference/patterns/bulk-loading
+]
 ---
 
 Bulk loading is the process of loading Redis with a large amount of pre-existing data. Ideally, you want to perform this operation quickly and efficiently. This document describes some strategies for bulk loading data in Redis.

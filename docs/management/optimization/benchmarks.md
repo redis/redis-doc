@@ -3,9 +3,12 @@ title: "Redis benchmark"
 linkTitle: "Benchmarking"
 weight: 1
 description: >
-    Using the redis-benchmark utility to benchmark a Redis server
-aliases:
-    - /topics/benchmarks
+    Using the redis-benchmark utility on a Redis server
+aliases: [
+    /topics/benchmarks,
+    /docs/reference/optimization/benchmarks,
+    /docs/reference/optimization/benchmarks.md
+]
 ---
 
 Redis includes the `redis-benchmark` utility that simulates running commands done
@@ -287,4 +290,4 @@ documentation for more information about its goals and capabilities.
 
 * [memtier_benchmark](https://github.com/redislabs/memtier_benchmark) from [Redis Ltd.](https://twitter.com/RedisInc) is a NoSQL Redis and Memcache traffic generation and benchmarking tool.
 * [rpc-perf](https://github.com/twitter/rpc-perf) from [Twitter](https://twitter.com/twitter) is a tool for benchmarking RPC services that supports Redis and Memcache.
-* [YCSB](https://github.com/brianfrankcooper/YCSB) from [Yahoo @Yahoo](https://twitter.com/Yahoo) is a benchmarking framework with clients to many databases, including Redis.
+* [YCSB](https://github.com/brianfrankcooper/YCSB) from [Yahoo @Yahoo](https://twitter.com/Yahoo) is a benchmarking framework with clients to many databases, including Redis. 

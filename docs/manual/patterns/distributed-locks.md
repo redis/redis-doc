@@ -3,9 +3,12 @@ title: "Distributed Locks with Redis"
 linkTitle: "Distributed locks"
 weight: 1
 description: >
-    A Distributed Lock Pattern with Redis
-aliases:
-    - /topics/distlock
+    A distributed lock pattern with Redis
+aliases: [
+    /topics/distlock,
+    /docs/reference/patterns/distributed-locks,
+    /docs/reference/patterns/distributed-locks.md
+]
 ---
 Distributed locks are a very useful primitive in many environments where
 different processes must operate with shared resources in a mutually
