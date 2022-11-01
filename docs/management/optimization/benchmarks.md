@@ -59,7 +59,7 @@ as in the following example:
 
 This example runs the tests for the `SET` and `LPUSH` commands and uses quiet mode (see the `-q` switch).
 
-You can even benchmark a specfic command:
+You can even benchmark a specific command:
 
     $ redis-benchmark -n 100000 -q script load "redis.call('set','foo','bar')"
     script load redis.call('set','foo','bar'): 69881.20 requests per second
