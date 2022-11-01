@@ -2,12 +2,12 @@
 title: Redis persistence
 linkTitle: Persistence
 weight: 7
-description: How Redis writes data to disk (append-only files, snapshots, etc.)
+description: How Redis writes data to disk
 aliases: [
     /topics/persistence,
     /topics/persistence.md,
-    /docs/management/persistence,
-    /docs/management/persistence.md
+    /docs/manual/persistence,
+    /docs/manual/persistence.md
 ]
 ---
 
