@@ -6,6 +6,7 @@ description: >
     Using the redis-benchmark utility to benchmark a Redis server
 aliases: [
     /topics/benchmarks,
+    /docs/reference/optimization/benchmarks,
     /docs/reference/optimization/benchmarks
 ]
 ---
