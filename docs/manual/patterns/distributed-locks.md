@@ -3,7 +3,7 @@ title: "Distributed Locks with Redis"
 linkTitle: "Distributed locks"
 weight: 1
 description: >
-    A Distributed Lock Pattern with Redis
+    A distributed lock pattern with Redis
 aliases: [
     /topics/distlock,
     /docs/reference/patterns/distributed-locks,

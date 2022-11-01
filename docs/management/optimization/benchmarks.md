@@ -3,7 +3,7 @@ title: "Redis benchmark"
 linkTitle: "Benchmarking"
 weight: 1
 description: >
-    Using the redis-benchmark utility to benchmark a Redis server
+    Using the redis-benchmark utility on a Redis server
 aliases: [
     /topics/benchmarks,
     /docs/reference/optimization/benchmarks,
