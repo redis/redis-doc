@@ -7,7 +7,7 @@ description: >
 aliases: [
     /topics/benchmarks,
     /docs/reference/optimization/benchmarks,
-    /docs/reference/optimization/benchmarks
+    /docs/reference/optimization/benchmarks.md
 ]
 ---
 
