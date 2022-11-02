@@ -1,9 +1,9 @@
 files:
   - '**/*.md'  
-  - '!ecosystem/clients/index.md'
-  - '!ecosystem/libraries/index.md'
-  - '!ecosystem/modules/index.md'
-  - '!ecosystem/tools/index.md'
+  - '!resources/clients/index.md'
+  - '!resources/libraries/index.md'
+  - '!resources/modules/index.md'
+  - '!resources/tools/index.md'
   - '!docs/reference/modules/modules-api-ref.md'
 dictionaries:
   - wordlist
