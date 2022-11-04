@@ -6,8 +6,7 @@ description: Overview of Redis key eviction policies (LRU, LFU, etc.)
 aliases: [
     /topics/lru_cache,
     /topics/lru_cache.md,
-    /manual/eviction,
-    /manual/eviction.md,
+    /docs/manual/eviction
 ]
 ---
 
