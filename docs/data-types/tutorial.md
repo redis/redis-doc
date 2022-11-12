@@ -303,7 +303,7 @@ Lists are useful for a number of tasks, two very representative use cases
 are the following:
 
 * Remember the latest updates posted by users into a social network.
-* Communication between processes, using a consumer-producer pattern where the producer pushes items into a list, and a consumer (usually a *worker*) consumes those items and executed actions. Redis has special list commands to make this use case both more reliable and efficient.
+* Communication between processes, using a consumer-producer pattern where the producer pushes items into a list, and a consumer (usually a *worker*) consumes those items and executes actions. Redis has special list commands to make this use case both more reliable and efficient.
 
 For example both the popular Ruby libraries [resque](https://github.com/resque/resque) and
 [sidekiq](https://github.com/mperham/sidekiq) use Redis lists under the hood in order to

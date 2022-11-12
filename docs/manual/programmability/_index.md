@@ -1,7 +1,7 @@
 ---
 title: "Redis programmability"
 linkTitle: "Programmability"
-weight: 1
+weight: 7
 description: >
    Extending Redis with Lua and Redis Functions
 aliases:

@@ -45,8 +45,6 @@ Redis regularly sponsors conferences and meetups. Recent conferences include:
 
 * [RedisConf 2020](https://www.youtube.com/c/Redisinc/playlists?view=50&sort=dd&shelf_id=4)
 
-If you're looking for a Redis meetup, check out [Redis Live](https://meetups.redis.com/redis-live/). This virtual, online meetup gets together each month to highlight members of the Redis community. 
-
 ## Contributing to Redis
 
 There are many ways to contribute to Redis, starting with documentation all the way to changes to the open source Redis server. Here are a few ways you can get involved.

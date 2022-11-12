@@ -12,12 +12,13 @@ This is a guide to getting started with Redis. You'll learn how to install, run,
 
 ## Install Redis
 
-How you install Redis depends on your operating system. See the guide below that best fits your needs:
+How you install Redis depends on your operating system and whether you'd like to install it bundled with Redis Stack and Redis UI. See the guide below that best fits your needs:
 
-* [Install Redis from Source]({{< ref "/docs/getting-started/installation/install-redis-from-source.md" >}})
-* [Install Redis on Linux]({{< ref "/docs/getting-started/installation/install-redis-on-linux.md" >}})
-* [Install Redis on macOS]({{< ref "/docs/getting-started/installation/install-redis-on-mac-os.md" >}})
-* [Install Redis on Windows]({{< ref "/docs/getting-started/installation/install-redis-on-windows.md" >}})
+* [Install Redis from Source](/docs/getting-started/installation/install-redis-from-source)
+* [Install Redis on Linux](/docs/getting-started/installation/install-redis-on-linux)
+* [Install Redis on macOS](/docs/getting-started/installation/install-redis-on-mac-os)
+* [Install Redis on Windows](/docs/getting-started/installation/install-redis-on-windows)
+* [Install Redis with Redis Stack and RedisInsight](/docs/stack/get-started/install)
 
 Once you have Redis up and running, and can connect using `redis-cli`, you can continue with the steps below.
 
