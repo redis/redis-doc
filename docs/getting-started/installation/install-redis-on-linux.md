@@ -43,3 +43,6 @@ sudo snap install redis
 {{< / highlight  >}}
 
 If your Linux does not currently have snap installed, install it using the instructions described in [Installing snapd](https://snapcraft.io/docs/installing-snapd).
+
+
+methods about how to install it on redhat/centos has been eaten by you yeah ??????????
