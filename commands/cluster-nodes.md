@@ -50,7 +50,7 @@ The meaning of each filed is the following:
    order among auxiliary fields. The auxiliary fields can appear at
    different position in the list from release to release. Both the key name and
    value can contain ASCII alphanumeric characters and the characters in
-   `!#$%&()*+-.:;<>?@[]^_{|}~` only. Auxiliary fields are explaned in detail in
+   `!#$%&()*+-.:;<>?@[]^_{|}~` only. Auxiliary fields are explained in detail in
    the section below.
 5. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`,
    `fail`, `handshake`, `noaddr`, `nofailover`, `noflags`. Flags are explained
