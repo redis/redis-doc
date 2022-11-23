@@ -74,7 +74,7 @@ The meaning of each filed is the following:
    end values.
 
 Auxiliary fields are:
-* `shard-id`: a 40s-character globally unique string generated when a node is created. A
+* `shard-id`: a 40-character globally unique string generated when a node is created. A
   node's shard id changes only when the node joins a different shard via
   `cluster replicate` and there the node's shard id is updated to its primary's.
 
