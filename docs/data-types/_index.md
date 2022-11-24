@@ -65,7 +65,7 @@ Streams help record events in the order they occur and then syndicate them for p
 For more information, see:
 
 * [Overview of Redis Streams](/docs/data-types/streams)
-* [Redis Streams command reference](/commands/?group=streams)
+* [Redis Streams command reference](/commands/?group=stream)
 * [Redis Streams tutorial](/docs/data-types/streams-tutorial)
 
 ### Geospatial indexes
