@@ -1,0 +1,8 @@
+{
+    "name": "redis-too",
+    "license": "BSD",
+    "description": "Redis module that implements a Jaccardian similarity and memory-based collaborative filtering recommendation engine",
+    "github": [
+        "hjr265"
+    ]
+}
