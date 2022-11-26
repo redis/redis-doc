@@ -1,0 +1,8 @@
+{
+    "name": "Redsync",
+    "description": "Distributed mutual exclusion lock using Redis for Go; Redsync implements the Redlock algorithm.",
+    "homepage": "https://github.com/go-redsync/redsync",
+    "github": [
+        "hjr265"
+    ]
+}
