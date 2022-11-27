@@ -38,55 +38,27 @@ Each line is composed of the following fields:
 
 The meaning of each filed is the following:
 
-1. `id`: The node ID, a 40-character globally unique string generated when a node
-   is created and never changed again (unless `CLUSTER RESET HARD` is used).
+1. `id`: The node ID, a 40-character globally unique string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
 2. `ip:port@cport`: The node address that clients should contact to run queries.
-3. `hostname`: A human readable string that can be configured via the
-   `cluster-annouce-hostname` setting. The max length of the string is 256
-   characters, excluding the null terminator. The name can contain ASCII 
-   alphanumeric characters, '-', and '.' only.
-4. `[,auxiliary_field=value]*`: A list of comma-separated key-value pairs that
-   represent various node properties, such as `shard-id`. There is no intrinsic
-   order among auxiliary fields. The auxiliary fields can appear at
-   different position in the list from release to release. Both the key name and
-   value can contain ASCII alphanumeric characters and the characters in
-   `!#$%&()*+-.:;<>?@[]^_{|}~` only. Auxiliary fields are explained in detail in
-   the section below.
-5. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`,
-   `fail`, `handshake`, `noaddr`, `nofailover`, `noflags`. Flags are explained
-   below.
-6. `master`: If the node is a replica, and the primary is known, the primary node ID,
-   otherwise the "-" character.
-7. `ping-sent`: Unix time at which the currently active ping was sent, or zero if there
-   are no pending pings, in milliseconds.
-8. `pong-recv`: Unix time the last pong was received, in milliseconds.
-9. `config-epoch`: The configuration epoch (or version) of the current node (or of the
-   current primary if the node is a replica). Each time there is a failover, a new, unique,
-   monotonically increasing configuration epoch is created. If multiple nodes claim to
-   serve the same hash slots, the one with the higher configuration epoch wins.
-10. `link-state`: The state of the link used for the node-to-node cluster bus. Use
-   this link to communicate with the node. Can be `connected` or `disconnected`.
-11. `slot`: A hash slot number or range. Starting from argument number 9, but there
-   may be up to 16384 entries in total (limit never reached). This is the list of hash
-   slots served by this node. If the entry is just a number, it is parsed as such.
-   If it is a range, it is in the form `start-end`, and means that the node is
-   responsible for all the hash slots from `start` to `end` including the start and
-   end values.
+3. `hostname`: A human readable string that can be configured via the `cluster-annouce-hostname` setting. The max length of the string is 256 characters, excluding the null terminator. The name can contain ASCII alphanumeric characters, '-', and '.' only.
+4. `[,auxiliary_field=value]*`: A list of comma-separated key-value pairs that represent various node properties, such as `shard-id`. There is no intrinsic order among auxiliary fields. The auxiliary fields can appear at different position in the list from release to release. Both the key name and value can contain ASCII alphanumeric characters and the characters in `!#$%&()*+-.:;<>?@[]^_{|}~` only. Auxiliary fields are explained in detail in the section below.
+5. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `nofailover`, `noflags`. Flags are explained below.
+6. `master`: If the node is a replica, and the primary is known, the primary node ID, otherwise the "-" character.
+7. `ping-sent`: Unix time at which the currently active ping was sent, or zero if there are no pending pings, in milliseconds.
+8. `pong-recv`: Unix time the last pong was received, in milliseconds.  9. `config-epoch`: The configuration epoch (or version) of the current node (or of the current primary if the node is a replica). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with the higher configuration epoch wins.
+10. `link-state`: The state of the link used for the node-to-node cluster bus. Use this link to communicate with the node. Can be `connected` or `disconnected`.
+11. `slot`: A hash slot number or range. Starting from argument number 9, but there may be up to 16384 entries in total (limit never reached). This is the list of hash slots served by this node. If the entry is just a number, it is parsed as such.  If it is a range, it is in the form `start-end`, and means that the node is responsible for all the hash slots from `start` to `end` including the start and end values.
 
 Auxiliary fields are:
-* `shard-id`: a 40-character globally unique string generated when a node is created. A
-  node's shard id changes only when the node joins a different shard via
-  `cluster replicate` and there the node's shard id is updated to its primary's.
+* `shard-id`: a 40-character globally unique string generated when a node is created. A node's shard id changes only when the node joins a different shard via `cluster replicate` and there the node's shard id is updated to its primary's.
 
 Flags are:
 
 * `myself`: The node you are contacting.
 * `master`: Node is a primary.
 * `slave`: Node is a replica.
-* `fail?`: Node is in `PFAIL` state. Not reachable for the node you are contacting,
-  but still logically reachable (not in `FAIL` state).
-* `fail`: Node is in `FAIL` state. It was not reachable for multiple nodes that
-  promoted the `PFAIL` state to `FAIL`.
+* `fail?`: Node is in `PFAIL` state. Not reachable for the node you are contacting, but still logically reachable (not in `FAIL` state).
+* `fail`: Node is in `FAIL` state. It was not reachable for multiple nodes that promoted the `PFAIL` state to `FAIL`.
 * `handshake`: Untrusted node, we are handshaking.
 * `noaddr`: No address known for this node.
 * `nofailover`: Replica will not try to failover.
