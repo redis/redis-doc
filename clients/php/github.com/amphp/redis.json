@@ -1,0 +1,7 @@
+{
+    "name": "amphp/redis",
+    "description": "An async redis client built on the amp concurrency framework.",
+    "twitter": [
+        "kelunik"
+    ]
+}

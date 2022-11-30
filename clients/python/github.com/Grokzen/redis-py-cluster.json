@@ -1,0 +1,7 @@
+{
+    "name": "redis-py-cluster",
+    "description": "Adds cluster support to redis-py < 4.1.0. Obsolete for 4.1.0 and above.",
+    "twitter": [
+        "grokzen"
+    ]
+}

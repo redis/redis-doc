@@ -1,0 +1,8 @@
+{
+    "name": "redis_hnsw",
+    "license": "MIT",
+    "description": "Redis module for Hierarchical Navigable Small World (HNSW) approxmiate nearest neighbor search",
+    "github": [
+        "zhao-lang"
+    ]
+}

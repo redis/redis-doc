@@ -1,0 +1,7 @@
+{
+    "name": "eredis",
+    "description": "Full Redis API plus ways to pull Redis data into an org-mode table and push it back when edited",
+    "twitter": [
+        "justinhj"
+    ]
+}

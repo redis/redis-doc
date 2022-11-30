@@ -1,0 +1,7 @@
+{
+    "name": "Credis",
+    "description": "Lightweight, standalone, unit-tested fork of Redisent which wraps phpredis for best performance if available.",
+    "twitter": [
+        "colinmollenhour"
+    ]
+}

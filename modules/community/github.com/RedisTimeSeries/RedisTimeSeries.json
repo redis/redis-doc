@@ -1,0 +1,9 @@
+{
+    "name": "RedisTimeSeries",
+    "license": "Redis Source Available License",
+    "description": "Time-series data structure for redis",
+    "github": [
+        "danni-m",
+        "RedisLabs"
+    ]
+}

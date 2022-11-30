@@ -1,0 +1,4 @@
+{
+    "name": "c+redis+client",
+    "description": "A redis client based on hiredis, supports cluster/pipeline and is thread safe and includes two files only. The transaction is on the way:)"
+}

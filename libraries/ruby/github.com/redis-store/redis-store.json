@@ -1,0 +1,7 @@
+{
+    "name": "Redis-store",
+    "description": "Namespaced Rack::Session, Rack::Cache, I18n and cache Redis stores for Ruby web frameworks.",
+    "twitter": [
+        "jodosha"
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "RedisGears",
+    "license": "Redis Source Available License",
+    "description": "Dynamic execution framework for your Redis data.",
+    "github": [
+        "MeirShpilraien",
+        "RedisLabs"
+    ]
+}

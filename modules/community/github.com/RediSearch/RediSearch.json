@@ -1,0 +1,9 @@
+{
+    "name": "RediSearch",
+    "license": "Redis Source Available License",
+    "description": "Full-Text search over Redis",
+    "github": [
+        "dvirsky",
+        "RedisLabs"
+    ]
+}

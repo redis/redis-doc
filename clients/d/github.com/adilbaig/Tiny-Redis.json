@@ -1,0 +1,8 @@
+{
+    "name": "Tiny Redis",
+    "description": "A Redis client for D2. Supports pipelining, transactions and Lua scripting",
+    "homepage": "http://adilbaig.github.io/Tiny-Redis/",
+    "twitter": [
+        "aidezigns"
+    ]
+}

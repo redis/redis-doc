@@ -1,0 +1,4 @@
+{
+    "name": "walrus",
+    "description": "A collection of lightweight utilities for working with Redis in Python. Includes ORM, autocompletion, full-text search, cache, locks, and more."
+}

@@ -1,0 +1,8 @@
+{
+    "name": "redis-cell",
+    "license": "MIT",
+    "description": "A Redis module that provides rate limiting in Redis as a single command.",
+    "github": [
+        "brandur"
+    ]
+}

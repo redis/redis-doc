@@ -1,0 +1,7 @@
+{
+    "name": "PHPRedMin",
+    "description": "Yet another web interface for Redis with multi-server support",
+    "twitter": [
+        "sasanrose"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "redis-cluster",
+    "description": "Redis cluster client on top of redis-rb. Support pipelining.",
+    "twitter": [
+        "bukalapak"
+    ]
+}

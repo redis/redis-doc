@@ -1,0 +1,7 @@
+{
+    "name": "RedisCli",
+    "description": "Basic client passing a (batch of) command(s) to redis-cli, getting back a (list of) character vector(s).",
+    "twitter": [
+        "CorentinBarbu"
+    ]
+}

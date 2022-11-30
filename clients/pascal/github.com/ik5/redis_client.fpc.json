@@ -1,0 +1,7 @@
+{
+    "name": "redis_client.fpc",
+    "description": "Object Pascal client implementation for the redis protocol and commands",
+    "twitter": [
+        "ik5"
+    ]
+}

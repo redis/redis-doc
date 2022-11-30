@@ -14,3 +14,7 @@ Note: an asynchronous `FLUSHDB` command only deletes keys that were present at t
 @return
 
 @simple-string-reply
+
+## Behavior change history
+
+*   `>= 6.2.0`: Default flush behavior now configurable by the **lazyfree-lazy-user-flush** configuration directive. 

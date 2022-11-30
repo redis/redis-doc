@@ -1,0 +1,8 @@
+{
+    "name": "RPQueue",
+    "description": "RPQueue offers a prioritized, periodic, and scheduled task system for Python using Redis",
+    "homepage": "https://pypi.python.org/pypi/rpqueue",
+    "twitter": [
+        "josiahcarlson"
+    ]
+}

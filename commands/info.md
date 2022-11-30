@@ -250,8 +250,12 @@ Here is the meaning of all fields in the **stats** section:
 *   `instantaneous_ops_per_sec`: Number of commands processed per second
 *   `total_net_input_bytes`: The total number of bytes read from the network
 *   `total_net_output_bytes`: The total number of bytes written to the network
+*   `total_net_repl_input_bytes`: The total number of bytes read from the network for replication purposes
+*   `total_net_repl_output_bytes`: The total number of bytes written to the network for replication purposes
 *   `instantaneous_input_kbps`: The network's read rate per second in KB/sec
 *   `instantaneous_output_kbps`: The network's write rate per second in KB/sec
+*   `instantaneous_input_repl_kbps`: The network's read rate per second in KB/sec for replication purposes
+*   `instantaneous_output_repl_kbps`: The network's write rate per second in KB/sec for replication purposes
 *   `rejected_connections`: Number of connections rejected because of
      `maxclients` limit
 *   `sync_full`: The number of full resyncs with replicas
@@ -271,6 +275,7 @@ Here is the meaning of all fields in the **stats** section:
      subscriptions
 *   `pubsub_patterns`: Global number of pub/sub pattern with client
      subscriptions
+*   `pubsubshard_channels`: Global number of pub/sub shard channels with client subscriptions. Added in Redis 7.0.3
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
 *   `total_forks`: Total number of fork operations since the server start
 *   `migrate_cached_sockets`: The number of sockets open for `MIGRATE` purposes
@@ -300,6 +305,10 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `acl_access_denied_auth`: Number of authentication failures
+*   `acl_access_denied_cmd`: Number of commands rejected because of access denied to the command
+*   `acl_access_denied_key`: Number of commands rejected because of access denied to a key
+*   `acl_access_denied_channel`: Number of commands rejected because of access denied to a channel 
 
 Here is the meaning of all fields in the **replication** section:
 

@@ -1,0 +1,7 @@
+{
+    "name": "ObjCHiredis",
+    "description": "Static Library for iOS4 device and Simulator, plus Objective-C Framework for MacOS 10.5 and higher",
+    "twitter": [
+        "loopole"
+    ]
+}

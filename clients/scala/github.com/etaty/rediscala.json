@@ -1,0 +1,7 @@
+{
+    "name": "rediscala",
+    "description": "A Redis client for Scala (2.10+) and (AKKA 2.2+) with non-blocking and asynchronous I/O operations.",
+    "twitter": [
+        "etaty"
+    ]
+}

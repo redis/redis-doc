@@ -1,0 +1,4 @@
+{
+    "name": "Kombu",
+    "description": "Python AMQP Framework with Redis support"
+}

@@ -1,0 +1,4 @@
+{
+    "name": "Noderis",
+    "description": "A fast, standalone Redis client without external dependencies. It can be used with callbacks, Promises and async-await as well at the same time. Clean, well designed and documented source code. Because of this supports code completion (WebStorm/PHPStorm)."
+}

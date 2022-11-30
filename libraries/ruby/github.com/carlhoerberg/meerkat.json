@@ -1,0 +1,8 @@
+{
+    "name": "Meerkat",
+    "description": "Rack middleware for Server Sent Events with multiple backends.",
+    "homepage": "https://carlhoerberg.github.io/meerkat/",
+    "twitter": [
+        "carlhoerberg"
+    ]
+}

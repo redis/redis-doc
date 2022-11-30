@@ -1,0 +1,8 @@
+{
+    "name": "Redis-ImageScout",
+    "license": "pHash Redis Source Available License",
+    "description": "Redis module for Indexing of pHash Image fingerprints for Near-Duplicate Detection",
+    "github": [
+        "starkdg"
+    ]
+}

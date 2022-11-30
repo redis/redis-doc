@@ -16,7 +16,7 @@ In order to enable tracking, use:
     CLIENT TRACKING on ... options ...
 
 The feature will remain active in the current connection for all its life,
-unless tracking is turned on with `CLIENT TRACKING off` at some point.
+unless tracking is turned off with `CLIENT TRACKING off` at some point.
 
 The following are the list of options that modify the behavior of the
 command when enabling tracking:

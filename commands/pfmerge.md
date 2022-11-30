@@ -1,4 +1,4 @@
-Merge multiple HyperLogLog values into an unique value that will approximate
+Merge multiple HyperLogLog values into a unique value that will approximate
 the cardinality of the union of the observed Sets of the source HyperLogLog
 structures.
 

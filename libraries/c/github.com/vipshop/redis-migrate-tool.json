@@ -1,0 +1,7 @@
+{
+    "name": "redis-migrate-tool",
+    "description": "A convenient and useful tool for migrating data between redis groups.",
+    "twitter": [
+        "diguo58"
+    ]
+}

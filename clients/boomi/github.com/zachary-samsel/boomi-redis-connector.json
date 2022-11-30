@@ -1,0 +1,4 @@
+{
+    "name": "Redis Connector for Dell Boomi",
+    "description": "A custom connector for Dell Boomi that utilizes the lettuce.io Java client to add Redis client support to the Dell Boomi iPaaS."
+}

@@ -1,0 +1,8 @@
+{
+    "name": "async-redis",
+    "description": "An async redis library for C++ based on libevpp/boost-asio",
+    "homepage": "https://github.com/hamidr/async-redis",
+    "twitter": [
+        "hamidr_"
+    ]
+}

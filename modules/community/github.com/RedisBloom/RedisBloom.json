@@ -1,0 +1,9 @@
+{
+    "name": "RedisBloom",
+    "license": "Redis Source Available License",
+    "description": "Scalable Bloom filters",
+    "github": [
+        "mnunberg",
+        "RedisLabs"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "ecredis",
+    "description": "Redis Cluster client that allows for connections to multiple clusters. Queries are send directly to eredis clients allowing for large throughput.",
+    "twitter": [
+        "HalloAppInc"
+    ]
+}

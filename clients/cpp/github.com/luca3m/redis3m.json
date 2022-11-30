@@ -1,0 +1,7 @@
+{
+    "name": "redis3m",
+    "description": "A C++ wrapper of hiredis, with also connection pooling, high availability and ready-to-use patterns",
+    "twitter": [
+        "luca3m"
+    ]
+}

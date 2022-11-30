@@ -1,0 +1,4 @@
+{
+    "name": "redis-cpp",
+    "description": "redis-cpp is a library in C++17 for executing Redis commands with support of the pipelines and publish / subscribe pattern"
+}

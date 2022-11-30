@@ -1,0 +1,8 @@
+{
+    "name": "monix-connect",
+    "description": "Monix integration with Redis",
+    "homepage": "https://monix.github.io/monix-connect/docs/redis",
+    "twitter": [
+        "paualarco"
+    ]
+}

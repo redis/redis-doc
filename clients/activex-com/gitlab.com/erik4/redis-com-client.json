@@ -1,0 +1,6 @@
+{
+    "name": "Redis COM client",
+    "description": "A COM wrapper for StackExchange.Redis that allows using Redis from a COM environment like Classic ASP (ASP 3.0) using vbscript, jscript or any other COM capable language.",
+    "recommended": true,
+    "homepage": "https://gitlab.com/erik4/redis-com-client"
+}

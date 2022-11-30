@@ -1,0 +1,8 @@
+{
+    "name": "JRedis",
+    "description": "A Redis client.",
+    "homepage": "https://code.google.com/p/jredis/",
+    "twitter": [
+        "SunOf27"
+    ]
+}

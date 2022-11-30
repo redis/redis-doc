@@ -1,0 +1,5 @@
+{
+    "name": "hiredis-cluster",
+    "description": "This is an updated fork of hiredis-cluster, the C client for Redis Cluster, with added TLS and AUTH support, decoupling hiredis as an external dependency, leak corrections and improved testing.",
+    "recommended": true
+}

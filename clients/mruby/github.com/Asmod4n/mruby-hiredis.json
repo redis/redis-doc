@@ -1,0 +1,7 @@
+{
+    "name": "mruby-hiredis",
+    "description": "Redis Client for mruby with Async support, pipelines and transactions",
+    "twitter": [
+        "Asmod4n"
+    ]
+}

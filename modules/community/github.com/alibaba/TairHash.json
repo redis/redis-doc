@@ -1,0 +1,8 @@
+{
+    "name": "TairHash",
+    "license": "Apache-2.0",
+    "description": "A redis module, similar to redis hash, but you can set expiration and version for field",
+    "github": [
+        "Alibaba"
+    ]
+}

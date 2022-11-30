@@ -1,0 +1,8 @@
+{
+    "name": "TairString",
+    "license": "Apache-2.0",
+    "description": "A redis module, similar to redis string, but you can set expire and version for the value. It also provides many very useful commands, such as cas/cad",
+    "github": [
+        "Alibaba"
+    ]
+}

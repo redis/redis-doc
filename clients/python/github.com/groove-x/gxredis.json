@@ -1,0 +1,7 @@
+{
+    "name": "gxredis",
+    "description": "Simple redis-py wrapper library",
+    "twitter": [
+        "loose_agilist"
+    ]
+}

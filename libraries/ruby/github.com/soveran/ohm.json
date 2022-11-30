@@ -1,0 +1,7 @@
+{
+    "name": "Ohm",
+    "description": "Object-hash mapping library for Redis.",
+    "twitter": [
+        "soveran"
+    ]
+}

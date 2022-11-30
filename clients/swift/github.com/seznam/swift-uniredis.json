@@ -1,0 +1,4 @@
+{
+    "name": "UniRedis",
+    "description": "Redis client for Swift on macOS and Linux, capable of pipelining and transactions, with transparent support for authentication and sentinel."
+}

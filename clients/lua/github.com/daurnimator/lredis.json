@@ -1,0 +1,7 @@
+{
+    "name": "lredis",
+    "description": "Redis library for Lua",
+    "twitter": [
+        "daurnimator"
+    ]
+}

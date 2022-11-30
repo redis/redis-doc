@@ -1,0 +1,4 @@
+{
+    "name": "ocaml-redis",
+    "description": "Synchronous and asynchronous (via Lwt) Redis client library in OCaml. Provides implementation of cache and mutex helpers."
+}

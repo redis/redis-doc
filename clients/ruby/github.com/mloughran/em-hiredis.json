@@ -1,0 +1,7 @@
+{
+    "name": "em-hiredis",
+    "description": "An EventMachine Redis client (uses hiredis).",
+    "twitter": [
+        "mloughran"
+    ]
+}

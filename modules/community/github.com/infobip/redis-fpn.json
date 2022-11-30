@@ -1,0 +1,8 @@
+{
+    "name": "redis-fpn",
+    "license": "Apache 2.0",
+    "description": "Redis module for Fixed Point Number data type",
+    "github": [
+        "xxlabaza"
+    ]
+}

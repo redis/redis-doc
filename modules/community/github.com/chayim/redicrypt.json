@@ -1,0 +1,8 @@
+{
+    "name": "redicrypt",
+    "license": "MIT",
+    "description": "Redis module for string encryption and decryption",
+    "github": [
+        "chayim"
+    ]
+}

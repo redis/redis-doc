@@ -1,0 +1,7 @@
+{
+    "name": "LettuceF",
+    "description": "Scala FP wrapper for Lettuce with Cats Effect",
+    "twitter": [
+        "naoh87"
+    ]
+}

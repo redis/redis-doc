@@ -1,0 +1,8 @@
+{
+    "name": "RedisPlatform",
+    "description": "A rpc platform that base on Redis, You can use it to do a lot of things, it can be a game server",
+    "homepage": "http://www.jacketzhong.com/?p=220",
+    "twitter": [
+        "jacketzhong"
+    ]
+}

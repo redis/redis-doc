@@ -1,0 +1,7 @@
+{
+    "name": "Ost",
+    "description": "Redis based queues and workers.",
+    "twitter": [
+        "soveran"
+    ]
+}

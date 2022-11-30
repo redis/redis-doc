@@ -1,0 +1,8 @@
+{
+    "name": "asyncio_redis",
+    "description": "Asynchronous Redis client that works with the asyncio event loop",
+    "homepage": "http://asyncio-redis.readthedocs.org/",
+    "twitter": [
+        "jonathan_s"
+    ]
+}

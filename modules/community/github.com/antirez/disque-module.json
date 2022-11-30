@@ -1,0 +1,8 @@
+{
+    "name": "Disque",
+    "license": "AGPL-3.0",
+    "description": "Disque, an in-memory, distributed job queue, ported as Redis module.",
+    "github": [
+        "antirez"
+    ]
+}

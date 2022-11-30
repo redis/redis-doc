@@ -1,0 +1,4 @@
+{
+    "name": "pyredis",
+    "description": "Python Client with support for Redis Cluster. Currently only Python 3 is supported."
+}

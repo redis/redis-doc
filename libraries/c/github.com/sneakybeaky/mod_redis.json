@@ -1,0 +1,4 @@
+{
+    "name": "Mod_redis",
+    "description": "An Apache HTTPD module for speaking to Redis via HTTP"
+}

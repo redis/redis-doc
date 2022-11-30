@@ -10,7 +10,7 @@ Example use cases for this command:
 
 ```
 > CLUSTER KEYSLOT somekey
-11058
+(integer) 11058
 > CLUSTER KEYSLOT foo{hash_tag}
 (integer) 2515
 > CLUSTER KEYSLOT bar{hash_tag}

@@ -18,5 +18,5 @@ Each element of the array is an array containing key name in the first entry, an
 ```cli
 COMMAND GETKEYS MSET a b c d e f
 COMMAND GETKEYS EVAL "not consulted" 3 key1 key2 key3 arg1 arg2 arg3 argN
-COMMAND GETKEYSANDFLAGS LMOST mylist1 mylist2 left left
+COMMAND GETKEYSANDFLAGS LMOVE mylist1 mylist2 left left
 ```

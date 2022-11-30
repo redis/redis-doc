@@ -1,0 +1,7 @@
+{
+    "name": "shipwire/redis",
+    "description": "A Redis client focused on streaming, with support for a print-like API, pipelining, Pub/Sub, and connection pooling.",
+    "twitter": [
+        "stephensearles"
+    ]
+}

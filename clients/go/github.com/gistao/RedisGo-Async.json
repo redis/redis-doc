@@ -1,0 +1,7 @@
+{
+    "name": "RedisGo-Async",
+    "description": "RedisGo-Async is a Go client for Redis, both asynchronous and synchronous modes are supported,,its API is fully compatible with redigo.",
+    "twitter": [
+        "gistao"
+    ]
+}

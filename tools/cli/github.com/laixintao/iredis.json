@@ -1,0 +1,8 @@
+{
+    "name": "iredis",
+    "description": "Interactive Redis: A Cli for Redis with AutoCompletion and Syntax Highlighting.",
+    "homepage": "https://iredis.io/",
+    "twitter": [
+        "laixintao"
+    ]
+}

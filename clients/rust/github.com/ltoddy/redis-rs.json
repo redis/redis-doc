@@ -1,0 +1,7 @@
+{
+    "name": "redisclient",
+    "description": "Redis client for Rust.",
+    "twitter": [
+        "ltoddygen"
+    ]
+}

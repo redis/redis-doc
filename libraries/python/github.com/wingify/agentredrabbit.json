@@ -1,0 +1,7 @@
+{
+    "name": "Agentredrabbit",
+    "description": "Transport agent that moves data from Redis to RabbitMQ",
+    "twitter": [
+        "wingify"
+    ]
+}

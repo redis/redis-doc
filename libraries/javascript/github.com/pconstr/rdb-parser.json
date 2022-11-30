@@ -1,0 +1,7 @@
+{
+    "name": "Rdb-parser",
+    "description": "node.js asynchronous streaming parser for Redis RDB database dumps.",
+    "twitter": [
+        "pconstr"
+    ]
+}

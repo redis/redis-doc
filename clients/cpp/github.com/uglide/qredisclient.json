@@ -1,0 +1,7 @@
+{
+    "name": "qredisclient",
+    "description": "Asynchronous Qt-based Redis client with SSL and SSH tunnelling support.",
+    "twitter": [
+        "u_glide"
+    ]
+}

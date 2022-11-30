@@ -1,0 +1,4 @@
+{
+    "name": "Redis library for SWI-Prolog",
+    "description": "Prolog redis client that exploits SWI-Prolog's extensions such as strings for compact replies and threads to deal with publish/subscribe."
+}

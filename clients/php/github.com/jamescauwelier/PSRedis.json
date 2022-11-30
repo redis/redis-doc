@@ -1,0 +1,7 @@
+{
+    "name": "PHP Sentinel Client",
+    "description": "A PHP sentinel client acting as an extension to your regular redis client",
+    "twitter": [
+        "jamescauwelier"
+    ]
+}

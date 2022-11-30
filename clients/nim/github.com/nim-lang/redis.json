@@ -1,0 +1,4 @@
+{
+    "name": "redis",
+    "description": "Redis client for Nim"
+}

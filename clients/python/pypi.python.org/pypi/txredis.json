@@ -1,0 +1,7 @@
+{
+    "name": "txredis",
+    "description": "Python/Twisted client for Redis key-value store",
+    "twitter": [
+        "dio_rian"
+    ]
+}

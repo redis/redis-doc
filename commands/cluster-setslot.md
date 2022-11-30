@@ -71,9 +71,15 @@ The `CLUSTER SETSLOT` command is an important piece used by Redis Cluster in ord
 1. Set the destination node slot to *importing* state using `CLUSTER SETSLOT <slot> IMPORTING <source-node-id>`.
 2. Set the source node slot to *migrating* state using `CLUSTER SETSLOT <slot> MIGRATING <destination-node-id>`.
 3. Get keys from the source node with `CLUSTER GETKEYSINSLOT` command and move them into the destination node using the `MIGRATE` command.
-4. Use `CLUSTER SETSLOT <slot> NODE <destination-node-id>` in the source or destination.
+4. Send `CLUSTER SETSLOT <slot> NODE <destination-node-id>` to the destination node.
+5. Send `CLUSTER SETSLOT <slot> NODE <destination-node-id>` to the source node.
+6. Send `CLUSTER SETSLOT <slot> NODE <destination-node-id>` to the other master nodes (optional).
 
 Notes:
 
 * The order of step 1 and 2 is important. We want the destination node to be ready to accept `ASK` redirections when the source node is configured to redirect.
-* Step 4 does not technically need to use `SETSLOT` in the nodes not involved in the resharding, since the configuration will eventually propagate itself, however it is a good idea to do so in order to stop nodes from pointing to the wrong node for the hash slot moved as soon as possible, resulting in less redirections to find the right node.
+* The order of step 4 and 5 is important.
+  The destination node is responsible for propagating the change to the rest of the cluster.
+  If the source node is informed before the destination node and the destination node crashes before it is set as new slot owner, the slot is left with no owner, even after a successful failover.
+* Step 6, sending `SETSLOT` to the nodes not involved in the resharding, is not technically necessary since the configuration will eventually propagate itself.
+  However, it is a good idea to do so in order to stop nodes from pointing to the wrong node for the hash slot moved as soon as possible, resulting in less redirections to find the right node.

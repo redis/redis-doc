@@ -1,0 +1,7 @@
+{
+    "name": "redis.go",
+    "description": "A client for the Redis key-value store.",
+    "twitter": [
+        "hoisie"
+    ]
+}

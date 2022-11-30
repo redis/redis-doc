@@ -1,0 +1,7 @@
+{
+    "name": "redis-protocol",
+    "description": "Up to 2.6 compatible high-performance Java, Java w/Netty & Scala (finagle) client",
+    "twitter": [
+        "spullara"
+    ]
+}

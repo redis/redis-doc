@@ -1,0 +1,8 @@
+{
+    "name": "Hangfire",
+    "description": "An easy way to perform fire-and-forget, delayed and recurring tasks inside ASP.NET apps",
+    "homepage": "http://hangfire.io",
+    "twitter": [
+        "odinserj"
+    ]
+}

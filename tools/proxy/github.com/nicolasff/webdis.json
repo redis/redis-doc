@@ -1,0 +1,8 @@
+{
+    "name": "Webdis",
+    "homepage": "https://webd.is/",
+    "description": "A fast HTTP interface for Redis.",
+    "twitter": [
+        "yowgi"
+    ]
+}

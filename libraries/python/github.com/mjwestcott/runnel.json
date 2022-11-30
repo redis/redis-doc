@@ -1,0 +1,7 @@
+{
+    "name": "Runnel",
+    "description": "Distributed event processing for Python based on Redis Streams",
+    "twitter": [
+        "mjwestcott"
+    ]
+}

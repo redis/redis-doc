@@ -1,0 +1,9 @@
+{
+    "name": "RediStack",
+    "description": "Non-blocking, event-driven Swift client for Redis built with SwiftNIO for all official Swift deployment environments.",
+    "recommended": true,
+    "homepage": "https://docs.redistack.info",
+    "twitter": [
+        "mordil"
+    ]
+}

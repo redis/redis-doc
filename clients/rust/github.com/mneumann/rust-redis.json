@@ -1,0 +1,7 @@
+{
+    "name": "rust-redis",
+    "description": "A Rust client library for Redis.",
+    "twitter": [
+        "mneumann"
+    ]
+}

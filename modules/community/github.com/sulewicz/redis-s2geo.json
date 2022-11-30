@@ -1,0 +1,8 @@
+{
+    "name": "redis-s2geo",
+    "license": "MIT",
+    "description": "Simple Redis Module for geospatial queries, which utilizes S2 Region Coverer algorithm for indexing. Allows point with polygon and polygon with polygon overlap tests in constant time.",
+    "github": [
+        "sulewicz"
+    ]
+}

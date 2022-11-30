@@ -1,0 +1,8 @@
+{
+    "name": "redis-tdigest",
+    "license": "MIT",
+    "description": "t-digest data structure wich can be used for accurate online accumulation of rank-based statistics such as quantiles and cumulative distribution at a point.",
+    "github": [
+        "usmanm"
+    ]
+}

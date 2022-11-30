@@ -1,0 +1,7 @@
+{
+    "name": "Celery",
+    "description": "Python task queue. Supports multiple backends.",
+    "twitter": [
+        "asksol"
+    ]
+}

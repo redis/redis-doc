@@ -1,0 +1,7 @@
+{
+    "name": "Pypredis",
+    "description": "A client focused on arbitrary sharding and parallel pipelining.",
+    "twitter": [
+        "pepijndevos"
+    ]
+}
