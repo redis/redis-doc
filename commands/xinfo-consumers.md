@@ -4,7 +4,8 @@ The following information is provided for each consumer in the group:
 
 * **name**: the consumer's name
 * **pending**: the number of pending messages for the client, which are messages that were delivered but are yet to be acknowledged
-* **idle**: the number of milliseconds that have passed since the consumer last interacted with the server
+* **idle**: the number of milliseconds that have passed since the consumer last interacted with the server (Example: `XREADGROUP`)
+* **inactive**: the number of milliseconds that have passed since the consumer last successfully interacted with the server (Example: `XREADGROUP` that actually read some entries into the PEL)
 
 @reply
 
@@ -20,10 +21,14 @@ The following information is provided for each consumer in the group:
    4) (integer) 1
    5) idle
    6) (integer) 9104628
+   7) inactive
+   8) (integer) 18104698
 2) 1) name
    2) "Bob"
    3) pending
    4) (integer) 1
    5) idle
    6) (integer) 83841983
+   7) inactive
+   8) (integer) 993841998
 ```

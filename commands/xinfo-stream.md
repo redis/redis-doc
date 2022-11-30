@@ -87,17 +87,19 @@ OK
         7) "pending"
         8) 1) 1) "1588152471065-0"
               2) "Alice"
-              3) (integer) 1588152520299
+              3) (integer) 1588152520288
               4) (integer) 1
         9) "consumers"
        10) 1) 1) "name"
               2) "Alice"
               3) "seen-time"
               4) (integer) 1588152520299
-              5) "pel-count"
-              6) (integer) 1
-              7) "pending"
-              8) 1) 1) "1588152471065-0"
-                    2) (integer) 1588152520299
-                    3) (integer) 1
+              5) "active-time"
+              6) (integer) 1588152520288
+              7) "pel-count"
+              8) (integer) 1
+              9) "pending"
+              10) 1) 1) "1588152471065-0"
+                     2) (integer) 1588152520288
+                     3) (integer) 1
 ```
