@@ -3,9 +3,9 @@ This command returns the list of consumers that belong to the `<groupname>` cons
 The following information is provided for each consumer in the group:
 
 * **name**: the consumer's name
-* **pending**: the number of pending messages for the client, which are messages that were delivered but are yet to be acknowledged
-* **idle**: the number of milliseconds that have passed since the consumer last interacted with the server (Example: `XREADGROUP`)
-* **inactive**: the number of milliseconds that have passed since the consumer last successfully interacted with the server (Example: `XREADGROUP` that actually read some entries into the PEL)
+* **pending**: the number of entries in the PEL: pending messages for the consumer, which are messages that were delivered but are yet to be acknowledged
+* **idle**: the number of milliseconds that have passed since the consumer's last attempted interaction (Examples: `XREADGROUP`, `XCLAIM`, `XAUTOCLAIM`)
+* **inactive**: the number of milliseconds that have passed since the consumer's last successful interaction (Examples: `XREADGROUP` that actually read some entries into the PEL, `XCLAIM`/`XAUTOCLAIM` that actually claimed some entries)
 
 @reply
 
