@@ -41,7 +41,7 @@ will just return every entry in the stream:
 ... other entries here ...
 ```
 
-The `-` ID is effectively just exactly as specifying `0-0`, while
+The `-` ID is effectively just exactly as specifying `0-1`, while
 `+` is equivalent to `18446744073709551615-18446744073709551615`, however
 they are nicer to type.
 
