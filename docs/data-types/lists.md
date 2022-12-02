@@ -77,7 +77,7 @@ The max length of a Redis list is 2^32 - 1 (4,294,967,295) elements.
 ## Basic commands
 
 * `LPUSH` adds a new element to the head of a list; `RPUSH` adds to the tail.
-* `LPOP` removes and returns an element from the head of a list; `RPOP`does the same but from the tails of a list. 
+* `LPOP` removes and returns an element from the head of a list; `RPOP` does the same but from the tails of a list. 
 * `LLEN` returns the length of a list.
 * `LMOVE` atomically moves elements from one list to another.
 * `LTRIM` reduces a list to the specified range of elements.
