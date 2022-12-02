@@ -16303,13 +16303,7 @@
             "@sortedset",
             "@fast"
         ],
-        "arity": -3,
-        "history": [
-            [
-                "7.2.0",
-                "Added the optional `WITHSCORE` argument."
-            ]
-        ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -16339,12 +16333,6 @@
             {
                 "name": "member",
                 "type": "string"
-            },
-            {
-                "name": "withscore",
-                "token": "WITHSCORE",
-                "type": "pure-token",
-                "optional": true
             }
         ],
         "command_flags": [
@@ -16781,13 +16769,7 @@
             "@sortedset",
             "@fast"
         ],
-        "arity": -3,
-        "history": [
-            [
-                "7.2.0",
-                "Added the optional `WITHSCORE` argument."
-            ]
-        ],
+        "arity": 3,
         "key_specs": [
             {
                 "begin_search": {
@@ -16817,12 +16799,6 @@
             {
                 "name": "member",
                 "type": "string"
-            },
-            {
-                "name": "withscore",
-                "token": "WITHSCORE",
-                "type": "pure-token",
-                "optional": true
             }
         ],
         "command_flags": [
