@@ -880,7 +880,7 @@ a user wants to receive a newsletter) of 4 billion of users using just 512 MB of
 Bits are set and retrieved using the `SETBIT` and `GETBIT` commands:
 
     > setbit key 10 1
-    (integer) 1
+    (integer) 0
     > getbit key 10
     (integer) 1
     > getbit key 11
