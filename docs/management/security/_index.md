@@ -84,7 +84,7 @@ Redis 6 introduced the concept of Access Control Lists, allowing
 named users to be created and assigned fine grain permissions.  Read more 
 about Access Control Lists [here](/docs/management/security/acl/).
 
-When the `reuirepass` setitng is enabled, Redis will refuse any query by
+When the `reuirepass` setting is enabled, Redis will refuse any query by
 unauthenticated clients. A client can authenticate itself by sending the
 **AUTH** command followed by the password.
 
