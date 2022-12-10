@@ -724,6 +724,7 @@ notifyKeyspaceEvent
 num-items
 numactl
 numkeys
+nullarray
 observability
 odown
 ok
