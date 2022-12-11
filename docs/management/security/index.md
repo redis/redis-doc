@@ -77,11 +77,11 @@ disable protected mode or manually bind all the interfaces.
 ## Authentication
 
 Redis provides two ways to authenticate clients.
-The first method is enabled by editing the **redis.conf** file, and providing a database password using the `requirepass` setting.
-This password is then used by all clients.
-
-Redis 6 introduced the concept of Access Control Lists, allowing named users to be created and assigned fine-grained permissions. 
+The recommended authentication method, introduced in Redis 6, is via Access Control Lists, allowing named users to be created and assigned fine-grained permissions.
 Read more about Access Control Lists [here](/docs/management/security/acl/).
+
+The legacy authentication method is enabled by editing the **redis.conf** file, and providing a database password using the `requirepass` setting.
+This password is then used by all clients.
 
 When the `reuirepass` setting is enabled, Redis will refuse any query by
 unauthenticated clients. A client can authenticate itself by sending the
@@ -99,7 +99,7 @@ redundancy. If firewalling or any other system implemented to protect Redis
 from external attackers fail, an external client will still not be able to
 access the Redis instance without knowledge of the authentication password.
 
-Since the AUTH command, like every other Redis command, is sent unencrypted, it
+Since the `AUTH` command, like every other Redis command, is sent unencrypted, it
 does not protect against an attacker that has enough access to the network to
 perform eavesdropping.
 
