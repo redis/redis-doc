@@ -3461,6 +3461,17 @@ Return the pointer and length of a string or error reply.
 Return a new string object from a call reply of type string, error or
 integer. Otherwise (wrong reply type) return NULL.
 
+<span id="RedisModule_SetContextUser"></span>
+
+### `RedisModule_SetContextUser`
+
+    void RedisModule_SetContextUser(RedisModuleCtx *ctx,
+                                    const RedisModuleUser *user);
+
+**Available since:** 7.0.6
+
+Modifies the user that [`RedisModule_Call`](#RedisModule_Call) will use (e.g. for ACL checks)
+
 <span id="RedisModule_Call"></span>
 
 ### `RedisModule_Call`
@@ -3494,7 +3505,17 @@ Exported API to call any Redis command from modules.
     * `0` -- Return the reply in auto mode, i.e. the reply format will be the
              same as the client attached to the given RedisModuleCtx. This will
              probably used when you want to pass the reply directly to the client.
-    * `C` -- Check if command can be executed according to ACL rules.
+    * `C` -- Run a command as the user attached to the context.
+             User is either attached automatically via the client that directly
+             issued the command and created the context or via RedisModule_SetContextUser.
+             If the context is not directly created by an issued command (such as a
+             background context and no user was set on it via RedisModule_SetContextUser,
+             RedisModule_Call will fail.
+             Checks if the command can be executed according to ACL rules and causes
+             the command to run as the determined user, so that any future user
+             dependent activity, such as ACL checks within scripts will proceed as
+             expected.
+             Otherwise, the command will run as the Redis unrestricted user.
     * `S` -- Run the command in a script mode, this means that it will raise
              an error if a command which are not allowed inside a script
              (flagged with the `deny-script` flag) is invoked (like SHUTDOWN).
@@ -5050,6 +5071,36 @@ for detailed usage.
 
 Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on failure
 and will set an errno describing why the operation failed.
+
+<span id="RedisModule_SetModuleUserACLString"></span>
+
+### `RedisModule_SetModuleUserACLString`
+
+    int RedisModule_SetModuleUserACLString(RedisModuleCtx *ctx,
+                                           RedisModuleUser *user,
+                                           const char *acl,
+                                           RedisModuleString **error);
+
+**Available since:** 7.0.6
+
+Sets the permission of a user with a complete ACL string, such as one
+would use on the redis ACL SETUSER command line API. This differs from
+[`RedisModule_SetModuleUserACL`](#RedisModule_SetModuleUserACL), which only takes single ACL operations at a time.
+
+Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on failure
+if a `RedisModuleString` is provided in error, a string describing the error
+will be returned
+
+<span id="RedisModule_GetModuleUserACLString"></span>
+
+### `RedisModule_GetModuleUserACLString`
+
+    RedisModuleString *RedisModule_GetModuleUserACLString(RedisModuleUser *user);
+
+**Available since:** 7.0.6
+
+Get the ACL string for a given user
+Returns a `RedisModuleString`
 
 <span id="RedisModule_GetCurrentUserName"></span>
 
@@ -7351,6 +7402,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_GetKeyspaceNotificationFlagsAll`](#RedisModule_GetKeyspaceNotificationFlagsAll)
 * [`RedisModule_GetLFU`](#RedisModule_GetLFU)
 * [`RedisModule_GetLRU`](#RedisModule_GetLRU)
+* [`RedisModule_GetModuleUserACLString`](#RedisModule_GetModuleUserACLString)
 * [`RedisModule_GetModuleUserFromUserName`](#RedisModule_GetModuleUserFromUserName)
 * [`RedisModule_GetMyClusterID`](#RedisModule_GetMyClusterID)
 * [`RedisModule_GetNotifyKeyspaceEvents`](#RedisModule_GetNotifyKeyspaceEvents)
@@ -7488,12 +7540,14 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_SetClientNameById`](#RedisModule_SetClientNameById)
 * [`RedisModule_SetClusterFlags`](#RedisModule_SetClusterFlags)
 * [`RedisModule_SetCommandInfo`](#RedisModule_SetCommandInfo)
+* [`RedisModule_SetContextUser`](#RedisModule_SetContextUser)
 * [`RedisModule_SetDisconnectCallback`](#RedisModule_SetDisconnectCallback)
 * [`RedisModule_SetExpire`](#RedisModule_SetExpire)
 * [`RedisModule_SetLFU`](#RedisModule_SetLFU)
 * [`RedisModule_SetLRU`](#RedisModule_SetLRU)
 * [`RedisModule_SetModuleOptions`](#RedisModule_SetModuleOptions)
 * [`RedisModule_SetModuleUserACL`](#RedisModule_SetModuleUserACL)
+* [`RedisModule_SetModuleUserACLString`](#RedisModule_SetModuleUserACLString)
 * [`RedisModule_SignalKeyAsReady`](#RedisModule_SignalKeyAsReady)
 * [`RedisModule_SignalModifiedKey`](#RedisModule_SignalModifiedKey)
 * [`RedisModule_StopTimer`](#RedisModule_StopTimer)
