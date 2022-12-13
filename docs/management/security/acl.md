@@ -142,7 +142,7 @@ Configure selectors for the user:
 
 Reset the user:
 
-* `reset` Performs the following actions: resetpass, resetkeys, resetchannels, off, -@all. The user returns to the same state it had immediately after its creation.
+* `reset` Performs the following actions: resetpass, resetkeys, resetchannels, allchannels (if acl-pubsub-default is set), off, clearselectors, -@all. The user returns to the same state it had immediately after its creation.
 
 ## Create and edit user ACLs with the ACL SETUSER command
 
