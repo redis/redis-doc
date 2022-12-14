@@ -169,8 +169,8 @@ users. If the user already exists, the command above will do nothing at all.
 Check the default user status:
 
     > ACL LIST
-    1) "user alice off &* -@all"
-    2) "user default on nopass ~* ~& +@all"
+    1) "user alice off resetchannels -@all"
+    2) "user default on nopass ~* &* +@all"
 
 The new user "alice" is:
 
@@ -178,7 +178,7 @@ The new user "alice" is:
 * The user also has no passwords set.
 * Cannot access any command. Note that the user is created by default without the ability to access any command, so the `-@all` in the output above could be omitted; however, `ACL LIST` attempts to be explicit rather than implicit.
 * There are no key patterns that the user can access.
-* The user can access all Pub/Sub channels.
+* There are no Pub/Sub channels that the user can access.
 
 New users are created with restrictive permissions by default. Starting with Redis 6.2, ACL provides Pub/Sub channels access management as well. To ensure backward compatibility with version 6.0 when upgrading to Redis 6.2, new users are granted the 'allchannels' permission by default. The default can be set to `resetchannels` via the `acl-pubsub-default` configuration directive.
 
@@ -211,7 +211,6 @@ computers to read, while `ACL GETUSER` is more human readable.
     > ACL GETUSER alice
     1) "flags"
     2) 1) "on"
-       2) "allchannels"
     3) "passwords"
     4) 1) "2d9c75..."
     5) "commands"
@@ -219,27 +218,19 @@ computers to read, while `ACL GETUSER` is more human readable.
     7) "keys"
     8) "~cached:*"
     9) "channels"
-    10) "&*"
+    10) ""
     11) "selectors"
-    12) 1) 1) "commands"
-           2) "-@all +set"
-           3) "keys"
-           4) "~*"
-           5) "channels"
-           6) "&*"
+    12) (empty array)
 
 The `ACL GETUSER` returns a field-value array that describes the user in more parsable terms. The output includes the set of flags, a list of key patterns, passwords, and so forth. The output is probably more readable if we use RESP3, so that it is returned as a map reply:
 
     > ACL GETUSER alice
     1# "flags" => 1~ "on"
-       2~ "allchannels"
     2# "passwords" => 1) "2d9c75273d72b32df726fb545c8a4edc719f0a95a6fd993950b10c474ad9c927"
     3# "commands" => "-@all +get"
     4# "keys" => "~cached:*"
-    5# "channels" => "&*"
-    6# "selectors" => 1) 1# "commands" => "-@all +set"
-        2# "keys" => "~*"
-        3# "channels" => "&*"
+    5# "channels" => ""
+    6# "selectors" => (empty array)
 
 *Note: from now on, we'll continue using the Redis default protocol, version 2*
 
@@ -248,7 +239,7 @@ Using another `ACL SETUSER` command (from a different user, because alice cannot
     > ACL SETUSER alice ~objects:* ~items:* ~public:*
     OK
     > ACL LIST
-    1) "user alice on >2d9c75... ~cached:* ~objects:* ~items:* ~public:* &* -@all +get"
+    1) "user alice on #2d9c75... ~cached:* ~objects:* ~items:* ~public:* resetchannels -@all +get"
     2) "user default on nopass ~* &* +@all"
 
 The user representation in memory is now as we expect it to be.
@@ -274,7 +265,7 @@ Will result in myuser being able to call both `GET` and `SET`:
 
     > ACL LIST
     1) "user default on nopass ~* &* +@all"
-    2) "user myuser off &* -@all +set +get"
+    2) "user myuser off resetchannels -@all +get +set"
 
 ## Command categories
 
@@ -330,7 +321,7 @@ The following is a list of command categories and their meanings:
 * **transaction** - `WATCH` / `MULTI` / `EXEC` related commands.
 * **write** - Writing to keys (values or metadata).
 
-Redis can also show you a list of all categories and the exact commands each category includes using the Redis `ACL` command's `CAT` subcommand. It can be used in two forms:
+Redis can also show you a list of all categories and the exact commands each category includes using the Redis `ACL CAT` command. It can be used in two forms:
 
     ACL CAT -- Will just list all the categories available
     ACL CAT <category-name> -- Will list all the commands inside the category
@@ -363,15 +354,17 @@ Examples:
 As you can see, so far there are 21 distinct categories. Now let's check what
 command is part of the *geo* category:
 
-    > ACL CAT geo
-    1) "geohash"
-    2) "georadius_ro"
-    3) "georadiusbymember"
-    4) "geopos"
-    5) "geoadd"
-    6) "georadiusbymember_ro"
-    7) "geodist"
-    8) "georadius"
+     > ACL CAT geo
+     1) "geohash"
+     2) "georadius_ro"
+     3) "georadiusbymember"
+     4) "geopos"
+     5) "geoadd"
+     6) "georadiusbymember_ro"
+     7) "geodist"
+     8) "georadius"
+     9) "geosearch"
+    10) "geosearchstore"
 
 Note that commands may be part of multiple categories. For example, an
 ACL rule like `+@geo -@read` will result in certain geo commands to be
@@ -451,7 +444,7 @@ For a concrete example, consider a user with ACL rules `+@all ~app1:* (+@readonl
 This user has full access on `app1:*` and readonly access on `app2:*`.
 However, some commands support reading data from one key, doing some transformation, and storing it into another key.
 One such command is the `COPY` command, which copies the data from the source key into the destination key.
-The example set of ACL rules is unable to handle a request copying data from `app2:user` into `app1:user`, since neither the root permission or the selector fully matches the command.
+The example set of ACL rules is unable to handle a request copying data from `app2:user` into `app1:user`, since neither the root permission nor the selector fully matches the command.
 However, using key selectors you can define a set of ACL rules that can handle this request `+@all ~app1:* %R~app2:*`.
 The first pattern is able to match `app1:user` and the second pattern is able to match `app2:user`.
 
@@ -462,7 +455,7 @@ The access flag maps to the read key permission.
 If the key has no logical operation flags, such as `EXISTS`, the user still needs either key read or key write permissions to execute the command. 
 
 Note: Side channels to accessing user data are ignored when it comes to evaluating whether read permissions are required to execute a command.
-This means that some write commands that return metadata about the modified key only require write permission on the key to execute:
+This means that some write commands that return metadata about the modified key only require write permission on the key to execute.
 For example, consider the following two commands:
 
 * `LPUSH key1 data`: modifies "key1" but only returns metadata about it, the size of the list after the push, so the command only requires write permission on "key1" to execute.
@@ -480,9 +473,6 @@ examples, for the sake of brevity, the long hex string was trimmed:
     > ACL GETUSER default
     1) "flags"
     2) 1) "on"
-       2) "allkeys"
-       3) "allcommands"
-       4) "allchannels"
     3) "passwords"
     4) 1) "2d9c75273d72b32df726fb545c8a4edc719f0a95a6fd993950b10c474ad9c927"
     5) "commands"
