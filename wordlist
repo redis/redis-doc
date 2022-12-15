@@ -809,6 +809,7 @@ redis-hashes
 redis-lua
 redis-macOS-demo
 redis-om-python
+redis-om-python.
 redis-py
 redis-rb-cluster
 redis-server
