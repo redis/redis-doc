@@ -271,6 +271,7 @@ Programmability
 PubSub-related
 Pubsub
 Pubsub.
+Pydantic
 R1
 R2
 RC1
@@ -381,6 +382,8 @@ TTLs
 Tthe
 Twemproxy
 UI
+ULID
+ULIds
 URI
 USD
 UTF-8
@@ -805,6 +808,8 @@ redis-doc
 redis-hashes
 redis-lua
 redis-macOS-demo
+redis-om-python
+redis-py
 redis-rb-cluster
 redis-server
 redis-stable
@@ -935,6 +940,7 @@ utf8
 utils
 value-ptr
 variadic
+venv
 virginia
 virtualized
 vm
