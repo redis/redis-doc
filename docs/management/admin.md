@@ -58,7 +58,7 @@ aliases: [
 
 ## Upgrading or restarting a Redis instance without downtime
 
-Redis is designed to be a long-running process in your server. You can modify many configuration options restart using the [CONFIG SET command](/commands/config-set). You can also switch from AOF to RDB snapshots persistence, or the other way around, without restarting Redis. Check the output of the `CONFIG GET *` command for more information.
+Redis is designed to be a long-running process in your server. You can modify many configuration options without restart using the [CONFIG SET command](/commands/config-set). You can also switch from AOF to RDB snapshots persistence, or the other way around, without restarting Redis. Check the output of the `CONFIG GET *` command for more information.
 
 From time to time, a restart is required, for example, to upgrade the Redis process to a newer version, or when you need to modify a configuration parameter that is currently not supported by the `CONFIG` command.
 
