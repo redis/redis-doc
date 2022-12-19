@@ -83,7 +83,7 @@ Read more about Access Control Lists [here](/docs/management/security/acl/).
 The legacy authentication method is enabled by editing the **redis.conf** file, and providing a database password using the `requirepass` setting.
 This password is then used by all clients.
 
-When the `reuirepass` setting is enabled, Redis will refuse any query by
+When the `requirepass` setting is enabled, Redis will refuse any query by
 unauthenticated clients. A client can authenticate itself by sending the
 **AUTH** command followed by the password.
 
