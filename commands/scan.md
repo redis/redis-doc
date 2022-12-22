@@ -82,7 +82,7 @@ Important: **there is no need to use the same COUNT value** for every iteration.
 
 ## The MATCH option
 
-It is possible to only iterate elements matching a given glob-style pattern, similarly to the behavior of the `KEYS` command that takes a pattern as only argument.
+It is possible to only iterate elements matching a given glob-style pattern, similarly to the behavior of the `KEYS` command that takes a pattern as its only argument.
 
 To do so, just append the `MATCH <pattern>` arguments at the end of the `SCAN` command (it works with all the SCAN family commands).
 
@@ -173,7 +173,7 @@ Since there is no state server side, but the full state is captured by the curso
 
 ## Calling SCAN with a corrupted cursor
 
-Calling `SCAN` with a broken, negative, out of range, or otherwise invalid cursor, will result into undefined behavior but never into a crash. What will be undefined is that the guarantees about the returned elements can no longer be ensured by the `SCAN` implementation.
+Calling `SCAN` with a broken, negative, out of range, or otherwise invalid cursor, will result in undefined behavior but never in a crash. What will be undefined is that the guarantees about the returned elements can no longer be ensured by the `SCAN` implementation.
 
 The only valid cursors to use are:
 
