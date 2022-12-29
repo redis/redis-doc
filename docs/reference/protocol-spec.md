@@ -7,8 +7,8 @@ aliases:
     - /topics/protocol
 ---
 
-Redis clients use a protocol called **RESP** (REdis Serialization Protocol) to communicate with the Redis server.
-While the protocol was designed specifically for Redis, it can be used for other client-server software projects.
+To communicate with the Redis server, Redis clients use a protocol called REdis Serialization Protocol (RESP).
+While the protocol was designed specifically for Redis, you can use it for other client-server software projects.
 
 RESP is a compromise among the following considerations:
 
@@ -22,12 +22,12 @@ A client sends a request to the Redis server as an array of strings.
 The array's contents are the command and its arguments that the server should execute.
 The server's reply type is command-specific.
 
-RESP is binary-safe and does not require processing bulk data transferred from one process to another because it uses prefixed length to transfer bulk data.
+RESP is binary-safe and uses prefixed length to transfer bulk data so it does not require processing bulk data transferred from one process to another .```
 
 RESP is the protocol you should implement in your Redis client.
 
 {{% alert title="Note" color="info" %}}
-The protocol outlined here is only used for client-server communication.
+The protocol outlined here is used only for client-server communication.
 [Redis Cluster](/docs/reference/cluster-spec) uses a different binary protocol for exchanging messages between nodes.
 {{% /alert %}}
 
@@ -35,7 +35,7 @@ The protocol outlined here is only used for client-server communication.
 Support for the first version of the RESP protocol was introduced in Redis 1.2.
 Using RESP with Redis 1.2 was optional and had mainly served the purpose of working the kinks out of the protocol.
 
-In Redis 2.0, the protocol's next version, a.k.a RESP2, became the standard communication manner for clients with the Redis server.
+In Redis 2.0, the protocol's next version, a.k.a RESP2, became the standard communication method for clients with the Redis server.
 
 [RESP3](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md) is a superset of RESP2 that mainly aims to make a client author's life a little bit easier.
 Redis 6.0 introduced experimental opt-in support to a subset of RESP3's features.
@@ -72,73 +72,71 @@ Excluding these exceptions, the Redis protocol is a simple request-response prot
 
 ## RESP protocol description
 RESP is essentially a serialization protocol that supports several data types.
-In RESP, the first byte of a datum determines its type.
+In RESP, the first byte of data determines its type.
 
 Redis generally uses RESP as a [request-response](#request-response-model) protocol in the following way:
 
-* Clients send commands to a Redis server as an [Array](#arrays) of [Bulk Strings](#bulk-strings).
-  The first (and sometimes also the second) Bulk String in the array is the command's name.
+* Clients send commands to a Redis server as an [array](#arrays) of [bulk strings](#bulk-strings).
+  The first (and sometimes also the second) bulk string in the array is the command's name.
   Subsequent elements of the array are the arguments for the command.
 * The server replies with a RESP type.
   The reply's type is determined by the command's implementation and possibly by the client's protocol version.
 
-We categorize every RESP data type as either **Simple** or **Aggregate**.
+We categorize every RESP data type as either _simple_ or _aggregate_.
 Simple types are similar to scalars in programming languages that represent plain literal values, for example, Booleans.
 Aggregates can have varying numbers of sub-elements and nesting levels, such as Arrays and Maps.
 
 The first byte in an RESP-serialized payload identifies its type.
 Following bytes constitute the type's contents.
-The `\r\n` (CRLF) is the protocol's **terminator**, which always separates its parts.
+The `\r\n` (CRLF) is the protocol's _terminator_, which always separates its parts.
 
 The following table summarizes RESP's data types:
 
 | RESP data type | Minimal protocol version | Category | First byte |
 | --- | --- | --- | --- |
-| [Simple Strings](#simple-strings) | RESP2 | Simple | `+` |
+| [Simple strings](#simple-strings) | RESP2 | Simple | `+` |
 | [Errors](#errors) | RESP2 | Simple | `-` |
 | [Integers](#integers) | RESP2 | Simple | `:` |
-| [Bulk Strings](#bulk-strings) | RESP2 | Aggregate | `$` |
+| [Bulk strings](#bulk-strings) | RESP2 | Aggregate | `$` |
 | [Arrays](#arrays) | RESP2 | Aggregate | `*` |
 | [Nulls](#nulls) | RESP3 | Simple | `_` |
 | [Booleans](#booleans) | RESP3 | Simple | `#` |
 | [Doubles](#doubles) | RESP3 | Simple | `,` |
-| [Big Numbers](#big-numbers) | RESP3 | Simple | `(` |
-| [Blob Errors](#blob-errors) | RESP3 | Aggregate | `!` |
-| [Verbatim Strings](#verbatim-strings) | RESP3 | Aggregate | `=` |
+| [Big numbers](#big-numbers) | RESP3 | Simple | `(` |
+| [Blob errors](#blob-errors) | RESP3 | Aggregate | `!` |
+| [Verbatim strings](#verbatim-strings) | RESP3 | Aggregate | `=` |
 | [Maps](#maps) | RESP3 | Aggregate | `%` |
 | [Sets](#sets) | RESP3 | Aggregate | `~` |
 | [Pushes](#pushes) | RESP3 | Aggregate | `>` |
 
 <a name="simple-string-reply"></a>
 
-### Simple Strings
-Simple Strings are encoded as follows: a plus (`+`) character, followed by a string.
+### Simple strings
+Simple strings are encoded as a plus (`+`) character, followed by a string.
 The string mustn't contain a CR or LF character (no newlines are allowed), and is terminated by CRLF (i.e., `\r\n`).
 
-Simple Strings transmit short, non-binary strings with minimal overhead.
+Simple strings transmit short, non-binary strings with minimal overhead.
 For example, many Redis commands reply with just "OK" on success.
 The encoding of this Simple String is the following 5 bytes:
 
     +OK\r\n
 
-When Redis replies with a Simple String, a client library should return to the caller a string value composed of the first character after the `+` up to the end of the string, excluding the final CRLF bytes.
+When Redis replies with a simple string, a client library should return to the caller a string value composed of the first character after the `+` up to the end of the string, excluding the final CRLF bytes.
 
-For sending binary-safe strings, use [Bulk Strings](#bulk-strings) instead.
+To send binary-safe strings, use [bulk strings](#bulk-strings) instead.
 
 <a name="error-reply"></a>
 
 ### Errors
 RESP has a specific data type for errors.
-Errors are similar to [Simple Strings](#simple-strings), but their first character is the minus (`-`) character.
-The difference between Simple Strings and Errors in RESP is that clients should treat errors as exceptions, where the string encoded in the Error type is the error message itself.
+Errors are similar to [simple strings](#simple-strings), but their first character is the minus (`-`) character.
+The difference between simple strings and errors in RESP is that clients should treat errors as exceptions, whereas the string encoded in the error type is the error message itself.
 
 The basic format is:
 
     -Error message\r\n
 
-Redis replies with an Error only when something goes wrong.
-For example, if you try to perform an operation against the wrong data type, or if the command
-does not exist.
+Redis replies with an error only when something goes wrong, for example, when you try to perform an operation against the wrong data type, or when the command does not exist.
 The client should raise an exception when it receives an Error reply.
 
 The following are examples of error replies:
@@ -147,15 +145,16 @@ The following are examples of error replies:
     -WRONGTYPE Operation against a key holding the wrong kind of value
 
 The first upper-case word after the `-`, up to the first space or newline, represents the kind of error returned.
-This word is called the **Error Prefix**.
-Note that the Error Prefix is only a convention used by Redis rather than a part of the RESP Error type.
+This word is called an _error prefix_.
+Note that the error prefix is a convention used by Redis rather than part of the RESP error type.
 
 For example, in Redis, `ERR` is a generic error, whereas `WRONGTYPE` is a more specific error that implies that the client attempted an operation against the wrong data type.
-The Error Prefix allows the client to understand the kind of error returned by the server without checking the exact error message.
+The error prefix allows the client to understand the type of error returned by the server without checking the exact error message.
 
-A client implementation may return different types of exceptions for various errors, or provide a generic way for trapping errors by directly providing the error name to the caller as a string.
+A client implementation can return different types of exceptions for various errors, or provide a generic way for trapping errors by directly providing the error name to the caller as a string.
 
-However, such a feature should not be considered vital as it is rarely useful, and simpler client implementations may return a generic error value, such as `false`.
+However, such a feature should not be considered vital as it is rarely useful. 
+Also, simpler client implementations can return a generic error value, such as `false`.
 
 <a name="integer-reply"></a>
 
@@ -165,23 +164,23 @@ Its encoding is prefixed by a colon (`:`) byte.
 
 For example, `:0\r\n` and `:1000\r\n` are integer replies (of zero and one thousand, respectively).
 
-Many Redis commands return RESP Integers, including `INCR`, `LLEN`, and `LASTSAVE`.
+Many Redis commands return RESP integers, including `INCR`, `LLEN`, and `LASTSAVE`.
 An integer, by itself, has no special meaning other than in the context of the command that returned it.
 For example, it is an incremental number for `INCR`, a UNIX timestamp for `LASTSAVE`, and so forth.
 However, the returned integer is guaranteed to be in the range of a signed 64-bit integer.
 
-In some cases, Integers can represent true and false Boolean values.
+In some cases, integers can represent true and false Boolean values.
 For instance, commands such as `EXISTS` and `SISMEMBER` return 1 for true and 0 for false.
 
-Other commands, including `SADD`, `SREM`, and `SETNX`, return 1 when the changed the data and 0 otherwise.
+Other commands, including `SADD`, `SREM`, and `SETNX`, return 1 when the data changes and 0 otherwise.
 
 <a name="bulk-string-reply"></a>
 
-### Bulk Strings
-A Bulk String represents a single binary-safe string.
-The string can be of any size, but Redis limits it by default up to 512MB (see the `proto-max-bulk-len` configuration directive).
+### Bulk strings
+A bulk string represents a single binary-safe string.
+The string can be of any size, but by default Redis limits it to 512 MB (see the `proto-max-bulk-len` configuration directive).
 
-RESP encodes Bulk Strings in the following way:
+RESP encodes bulk strings in the following way:
 
     $<length>\r\n<data>\r\n
 
@@ -201,25 +200,25 @@ The empty string's encoding is:
 
 <a name="nil-reply"></a>
 
-#### Null Bulk Strings
+#### Null bulk strings
 Whereas RESP3 has a dedicated data type for [null values](#nulls), RESP2 has no such type.
-Instead, due to historical reasons, the representation of null values in RESP2 is via predetermined forms of the [Bulk Strings](#bulk-strings) and Arrays types.
+Instead, due to historical reasons, the representation of null values in RESP2 is via predetermined forms of the [bulk strings](#bulk-strings) and [arrays](#arrays) types.
 
-The Null Bulk String represents a non-existing value.
+The null bulk string represents a non-existing value.
 The `GET` command returns the Null Bulk String when the target key doesn't exist.
 
-It is encoded as a Bulk String with the length of negative one (-1), like so:
+It is encoded as a bulk string with the length of negative one (-1), like so:
 
     $-1\r\n
 
-A Redis client should return a nil object when the server replies with a Null Bulk String rather than the empty string.
+A Redis client should return a nil object when the server replies with a null bulk string rather than the empty string.
 For example, a Ruby library should return `nil` while a C library should return `NULL` (or set a special flag in the reply object).
 
 <a name="array-reply"></a>
 
 ### Arrays
-Clients send commands to the Redis server as RESP Arrays.
-Similarly, some Redis commands that return collections of elements use Arrays as their replies. 
+Clients send commands to the Redis server as RESP arrays.
+Similarly, some Redis commands that return collections of elements use arrays as their replies. 
 An example is the `LRANGE` command that returns elements of a list.
 
 RESP Arrays' encoding uses the following format:
@@ -227,15 +226,15 @@ RESP Arrays' encoding uses the following format:
     *<number-of-elements>\r\n<element-1>...<element-n>
 
 * An asterisk (`*`) as the first byte.
-* The number of elements in the Array as a decimal number.
+* The number of elements in the array as a decimal number.
 * The CRLF terminator.
-* An additional RESP type for every element of the Array.
+* An additional RESP type for every element of the array.
 
 So an empty Array is just the following:
 
     *0\r\n
 
-Whereas the encoding of an array consisting of the two Bulk Strings "hello" and "world" is:
+Whereas the encoding of an array consisting of the two bulk strings "hello" and "world" is:
 
     *2\r\n$5\r\nhello\r\n$5\r\nworld\r\n
 
@@ -261,24 +260,24 @@ The first line the server sent is `*5\r\n`.
 This numeric value tells the client that five reply types are about to follow it.
 Then, every successive reply constitutes an element in the array.
 
-{{% alert title="Multi Bulk Reply" color="info" %}}
-In some places, the RESP Array type may be referred to as **Multi Bulk**.
+{{% alert title="Multi bulk reply" color="info" %}}
+In some places, the RESP Array type may be referred to as _multi bulk_.
 The two are the same.
 {{% /alert %}}
 
 <a name="nil-array-reply"></a>
 
-#### Null Arrays
+#### Null arrays
 Whereas RESP3 has a dedicated data type for [null values](#nulls), RESP2 has no such type. Instead, due to historical reasons, the representation of null values in RESP2 is via predetermined forms of the [Bulk Strings](#bulk-strings) and Arrays types.
 
-Null Arrays exist as an alternative way of representing a Null value.
-For instance, when the `BLPOP` command times out, it returns a Null Array.
+Null arrays exist as an alternative way of representing a null value.
+For instance, when the `BLPOP` command times out, it returns a null array.
 
-The encoding of a Null Array is that of an Array with the length of -1, i.e.:
+The encoding of a null array is that of an array with the length of -1, i.e.:
 
     *-1\r\n
 
-A client should return its caller a null object when Redis replies with a Null Array, rather than an empty array.
+When Redis replies with a null array, the client should return a null object rather than an empty array.
 This is necessary to distinguish between an empty list and a different condition (for instance, the timeout condition of the `BLPOP` command).
 
 Nested arrays are possible in RESP.
@@ -295,16 +294,16 @@ For example, a nested array of two arrays is encoded as follows:
 
 (The raw RESP encoding is split into multiple lines for readability).
 
-The above encodes a two-elements Array.
-The first element is an Array that, in turn, contains three Integers (1, 2, 3).
-The second element is another Array containing a Simple String and an Error.
+The above encodes a two-elements array.
+The first element is an array that, in turn, contains three integers (1, 2, 3).
+The second element is another array containing a simple string and an error.
 
-#### Null elements in Arrays
-Single elements of an Array may be [Null Bulk String](#null-bulk-strings).
+#### Null elements in arrays
+Single elements of an array may be [null bulk string](#null-bulk-strings).
 This is used in Redis replies to signal that these elements are missing and not empty strings. This can happen, for example, with the `SORT` command when used with the `GET pattern` option
 if the specified key is missing.
 
-Here's an example of an Array reply containing a Null element:
+Here's an example of an array reply containing a null element:
 
     *3\r\n
     $5\r\n
@@ -313,7 +312,7 @@ Here's an example of an Array reply containing a Null element:
     $5\r\n
     world\r\n
 
-Above, the second element is a Null.
+Above, the second element is null.
 The client library should return to its caller something like this:
 
     ["hello",nil,"world"]
@@ -321,7 +320,7 @@ The client library should return to its caller something like this:
 <a name="null-reply"></a>
 
 ### Nulls
-The Null data type represents non-existent values.
+The null data type represents non-existent values.
 
 Nulls' encoding is the underscore (`_`) character, followed by the CRLF terminator (`\r\n`).
 Here's Null's raw RESP encoding:
@@ -329,16 +328,16 @@ Here's Null's raw RESP encoding:
     _\r\n
 
 {{% alert title="Null Bulk String, Null Arrays and Nulls" color="info" %}}
-Due to historical reasons, RESP2 features two specially-crafted values for representing null values of Bulk Strings and Arrays.
+Due to historical reasons, RESP2 features two specially crafted values for representing null values of bulk strings and arrays.
 This duality has always been a redundancy that added zero semantical value to the protocol itself.
 
-The Null type, introduced in RESP3, aims to fix this wrong.
+The null type, introduced in RESP3, aims to fix this wrong.
 {{% /alert %}}}}
 
 <a name="boolean-reply">
 
 ### Booleans
-RESP Booleans encode true and false values in the following ways:
+RESP booleans encode true and false values in the following ways:
 
     #t\r\n
     #f\r\n
@@ -364,12 +363,12 @@ The floating point number must start with a digit, even if it is zero (0).
 Exponential notation is not supported.
 
 However, the decimal part is optional.
-The integer value of ten (10) can, therefore, be RESP-encoded both as an Integer as well as a Double:
+The integer value of ten (10) can, therefore, be RESP-encoded both as an integer as well as a double:
 
     :10\r\n
     ,10\r\n
 
-A Redis client should return native integer and double values to the caller in such cases, respectively, providing that these types are supported by the language of its implementation.
+In such cases, the Redis client should return native integer and double values, respectively, providing that these types are supported by the language of its implementation.
 
 Lastly, positive and negative infinities are encoded as follows:
 
@@ -378,10 +377,10 @@ Lastly, positive and negative infinities are encoded as follows:
 
 <a name="big-number-reply"></a>
 
-### Big Numbers
+### Big numbers
 This type can encode integer values outside the range of signed 64-bit integers.
 
-Big Numbers use the following encoding:
+Big numbers use the following encoding:
 
     (<big-number>\r\n
 
@@ -393,14 +392,14 @@ Example:
 
     (3492890328409238509324850943850943825024385\r\n
 
-Big numbers can be positive or negative and can't include a decimal part.
+Big numbers can be positive or negative but can't include decimals.
 Client libraries written in languages with a big number type should return a big number.
-When big numbers aren't supported, the client should return a string and signal to the caller that the reply is a big integer when possible (depending on the API used by the client library).
+When big numbers aren't supported, the client should return a string and, when possible, signal to the caller that the reply is a big integer (depending on the API used by the client library).
 
 <a name="blob-error-reply"></a>
 
-### Blob Errors
-This type combines the purpose of [Simple Errors](#simple-strings) with the expressive power of [Bulk Strings](#bulk-strings).
+### Blob errors
+This type combines the purpose of [simple errors](#simple-strings) with the expressive power of [bulk strings](#bulk-strings).
 
 It is encoded as:
 
@@ -412,7 +411,7 @@ It is encoded as:
 * The error itself.
 * A final CRLF.
 
-As a convention, the error begins with an uppercased word (space-delimited) that conveys the error's gist.
+As a convention, the error begins with an uppercase (space-delimited) word that conveys the error message.
 
 For instance, the error "SYNTAX invalid syntax" is represented by the following protocol encoding:
 
@@ -423,10 +422,10 @@ For instance, the error "SYNTAX invalid syntax" is represented by the following 
 
 <a name="verbatim-string-reply">
 
-### Verbatim Strings
-This type is similar to the [Bulk String](#bulk-strings), with the addition of providing a hint about the data's format.
+### Verbatim strings
+This type is similar to the [bulk string](#bulk-strings), with the addition of providing a hint about the data's format.
 
-A Verbatim String's RESP encoding is as follows:
+A verbatim string's RESP encoding is as follows:
 
     =<length>\r\n<three-bytes>:<data>\r\n
 
@@ -438,14 +437,14 @@ A Verbatim String's RESP encoding is as follows:
 * The data.
 * A final CRLF.
 
-Here's an example:
+Example:
 
     =15\r\n
     txt:Some string\r\n
 
 (The raw RESP encoding is split into multiple lines for readability).
 
-Some client libraries may ignore the difference between this type and the String type and return a native string in both cases.
+Some client libraries may ignore the difference between this type and the string type and return a native string in both cases.
 However, interactive clients, such as command line interfaces (e.g., [`redis-cli`](/docs/manual/cli)), can use this type and know that their output should be presented to the human user as is and without quoting the string.
 
 For example, the Redis command `INFO` outputs a report that includes newlines.
@@ -455,7 +454,7 @@ When using RESP2, however, the `redis-cli` is hard-coded to look for the `INFO` 
 <a name="map-reply"></a>
 
 ### Maps
-The RESP Map encodes a collection of key-value tuples, a.k.a a dictionary or a hash.
+The RESP map encodes a collection of key-value tuples, i.e., a dictionary or a hash.
 
 It is encoded as follows:
 
@@ -483,7 +482,7 @@ Can be encoded in RESP like so:
 
 (The raw RESP encoding is split into multiple lines for readability).
 
-Both Map keys and values can be any of RESP's types.
+Both map keys and values can be any of RESP's types.
 
 Redis clients should return the idiomatic dictionary type that their language provides.
 However, low-level programming languages (such as C, for example) will likely return an array along with type information that indicates to the caller that it is a dictionary.
@@ -493,12 +492,12 @@ However, low-level programming languages (such as C, for example) will likely re
 ### Sets
 Sets are somewhat like [Arrays](#arrays) but are unordered and should only contain unique elements.
 
-RESP Set's encoding is:
+RESP set's encoding is:
 
     ~<number-of-elements>\r\n<element-1>...<element-n>
 
 * A tilde (`~`) as the first byte.
-* The number of elements in the Set as a decimal number.
+* The number of elements in the set as a decimal number.
 * The CRLF terminator.
 * An additional RESP type for every element of the Set.
 
@@ -508,23 +507,23 @@ Alternatively, in the absence of a native set type, an array coupled with type i
 <a name="push-event"></a>
 
 ### Pushes
-RESP's Pushes contain out-of-band data.
+RESP's pushes contain out-of-band data.
 They are an exception to the protocol's request-response model and provide a generic _push mode_ for connections.
 
-Push events are encoded similarly to [Arrays](#arrays), differing only in their first byte:
+Push events are encoded similarly to [arrays](#arrays), differing only in their first byte:
 
     ><number-of-elements>\r\n<element-1>...<element-n>
 
 * A greater-than sign (`>`) as the first byte.
 * The number of elements as a decimal number.
 * The CRLF terminator.
-* An additional RESP type for every element of the Push Event.
+* An additional RESP type for every element of the push event.
 
 Pushed data may precede or follow any of RESP's data types but never inside them.
-That means a client won't find Push data in the middle of a Map reply, for example.
+That means a client won't find push data in the middle of a map reply, for example.
 It also means that pushed data may appear before or after a command's reply, as well as by itself (without calling any command).
 
-Clients should react to Pushes by invoking a callback that implements their handling of the pushed data.
+Clients should react to pushes by invoking a callback that implements their handling of the pushed data.
 
 ## Client handshake
 New RESP connections should begin the session by calling the `HELLO` command.
@@ -578,13 +577,13 @@ In Redis' RESP3 implementation, the following fields are also emitted:
 Now that you are familiar with the RESP serialization format, you can use it to help write a Redis client library.
 We can further specify how the interaction between the client and the server works:
 
-* A client sends the Redis server a RESP [Array](#arrays) consisting of only Bulk Strings.
+* A client sends the Redis server a RESP [array](#arrays) consisting of only bulk strings.
 * A Redis server replies to clients, sending any valid RESP data type as a reply.
 
 So, for example, a typical interaction could be the following.
 
 The client sends the command `LLEN mylist` to get the length of the list stored at the key _mylist_.
-Then the server replies with an [Integer](#integers) reply as in the following example (`C:` is the client, `S:` the server).
+Then the server replies with an [integer](#integers) reply as in the following example (`C:` is the client, `S:` the server).
 
     C: *2\r\n
     C: $4\r\n
@@ -607,7 +606,7 @@ For more information, see [Pipelining](/topics/pipelining).
 ## Inline commands
 Sometimes you may need to send a command to the Redis server but only have `telnet` available.
 While the Redis protocol is simple to implement, it is not ideal for interactive sessions, and `redis-cli` may not always be available.
-For this reason, Redis also accepts commands in the **inline command** format.
+For this reason, Redis also accepts commands in the _inline command_ format.
 
 The following example demonstrates a server/client exchange using an inline command (the server chat starts with `S:`, the client chat with `C:`):
 
@@ -627,12 +626,12 @@ Since no command starts with `*` (the identifying byte of RESP Arrays), Redis de
 While the Redis protocol is human-readable and easy to implement, its implementation can exhibit performance similar to that of a binary protocol.
 
 RESP uses prefixed lengths to transfer bulk data.
-That makes scanning the payload for special characters unnecessary (unlike parsing JSON , for example).
+That makes scanning the payload for special characters unnecessary (unlike parsing JSON, for example).
 For the same reason, quoting and escaping the payload isn't needed.
 
-Reading the length of Aggregate types (for example, Bulk Strings or Arrays) can be processed with code that performs a single operation per character while at the same time scanning for the CR character.
+Reading the length of aggregate types (for example, bulk strings or arrays) can be processed with code that performs a single operation per character while at the same time scanning for the CR character.
 
-This C code example illustrates the above:
+Example (in C):
 
 ```c
 #include <stdio.h>
