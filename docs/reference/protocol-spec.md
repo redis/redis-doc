@@ -1,8 +1,8 @@
 ---
-title: "RESP protocol spec"
+title: "Redis serialization protocol specification"
 linkTitle: "Protocol spec"
 weight: 4
-description: Redis serialization protocol (RESP) specification
+description: Redis serialization protocol (RESP) is the wire protocol that clients implement
 aliases:
     - /topics/protocol
 ---
@@ -57,7 +57,7 @@ Then, the server processes the command and sends the reply back to the client.
 
 This is the simplest model possible; however, there are some exceptions:
 
-* Redis supports [pipelining](#multiple-commands-and-pipelining).
+* Redis requests can be [pipelined](#multiple-commands-and-pipelining).
   Pipelining enables clients to send multiple commands at once and wait for replies later.
 * When a RESP2 connection subscribes to a [Pub/Sub](/docs/manual/pubsub) channel, the protocol changes semantics and becomes a *push* protocol.
   The client no longer requires sending commands because the server will automatically send new messages to the client (for the channels the client is subscribed to) as soon as they are received.
@@ -170,7 +170,7 @@ For example, it is an incremental number for `INCR`, a UNIX timestamp for `LASTS
 However, the returned integer is guaranteed to be in the range of a signed 64-bit integer.
 
 In some cases, integers can represent true and false Boolean values.
-For instance, commands such as `EXISTS` and `SISMEMBER` return 1 for true and 0 for false.
+For instance, `SISMEMBER` returns 1 for true and 0 for false.
 
 Other commands, including `SADD`, `SREM`, and `SETNX`, return 1 when the data changes and 0 otherwise.
 
@@ -178,7 +178,7 @@ Other commands, including `SADD`, `SREM`, and `SETNX`, return 1 when the data ch
 
 ### Bulk strings
 A bulk string represents a single binary-safe string.
-The string can be of any size, but by default Redis limits it to 512 MB (see the `proto-max-bulk-len` configuration directive).
+The string can be of any size, but by default, Redis limits it to 512 MB (see the `proto-max-bulk-len` configuration directive).
 
 RESP encodes bulk strings in the following way:
 
@@ -226,7 +226,7 @@ RESP Arrays' encoding uses the following format:
     *<number-of-elements>\r\n<element-1>...<element-n>
 
 * An asterisk (`*`) as the first byte.
-* The number of elements in the array as a decimal number.
+* The number of elements in the array as the string representation of an integer.
 * The CRLF terminator.
 * An additional RESP type for every element of the array.
 
@@ -260,6 +260,24 @@ The first line the server sent is `*5\r\n`.
 This numeric value tells the client that five reply types are about to follow it.
 Then, every successive reply constitutes an element in the array.
 
+All of the aggregate RESP types support nesting.
+For example, a nested array of two arrays is encoded as follows:
+
+    *2\r\n
+    *3\r\n
+    :1\r\n
+    :2\r\n
+    :3\r\n
+    *2\r\n
+    +Hello\r\n
+    -World\r\n
+
+(The raw RESP encoding is split into multiple lines for readability).
+
+The above encodes a two-elements array.
+The first element is an array that, in turn, contains three integers (1, 2, 3).
+The second element is another array containing a simple string and an error.
+
 {{% alert title="Multi bulk reply" color="info" %}}
 In some places, the RESP Array type may be referred to as _multi bulk_.
 The two are the same.
@@ -279,24 +297,6 @@ The encoding of a null array is that of an array with the length of -1, i.e.:
 
 When Redis replies with a null array, the client should return a null object rather than an empty array.
 This is necessary to distinguish between an empty list and a different condition (for instance, the timeout condition of the `BLPOP` command).
-
-Nested arrays are possible in RESP.
-For example, a nested array of two arrays is encoded as follows:
-
-    *2\r\n
-    *3\r\n
-    :1\r\n
-    :2\r\n
-    :3\r\n
-    *2\r\n
-    +Hello\r\n
-    -World\r\n
-
-(The raw RESP encoding is split into multiple lines for readability).
-
-The above encodes a two-elements array.
-The first element is an array that, in turn, contains three integers (1, 2, 3).
-The second element is another array containing a simple string and an error.
 
 #### Null elements in arrays
 Single elements of an array may be [null bulk string](#null-bulk-strings).
@@ -337,10 +337,13 @@ The null type, introduced in RESP3, aims to fix this wrong.
 <a name="boolean-reply">
 
 ### Booleans
-RESP booleans encode true and false values in the following ways:
+RESP booleans are encoded as follows:
 
-    #t\r\n
-    #f\r\n
+    #<boolean>\r\n
+
+* The octothorpe character (`#`) as the first byte.
+* A `t` character for true values, or an `f` character for false ones.
+* The CRLF terminator.
 
 <a name="double-reply"></a>
 
@@ -461,7 +464,7 @@ It is encoded as follows:
     %<number-of-entries>\r\n<key-1><value-1>...<key-n><value-n>
 
 * A percent character (`%`) as the first byte.
-* The number of entries, or key-value tuples, as a decimal number.
+* The number of entries, or key-value tuples, as the string representation of an integer.
 * The CRLF terminator.
 * Two additional RESP types for every key and value in the Map.
 
@@ -497,7 +500,7 @@ RESP set's encoding is:
     ~<number-of-elements>\r\n<element-1>...<element-n>
 
 * A tilde (`~`) as the first byte.
-* The number of elements in the set as a decimal number.
+* The number of elements in the set as the string representation of an integer.
 * The CRLF terminator.
 * An additional RESP type for every element of the Set.
 
@@ -515,7 +518,7 @@ Push events are encoded similarly to [arrays](#arrays), differing only in their 
     ><number-of-elements>\r\n<element-1>...<element-n>
 
 * A greater-than sign (`>`) as the first byte.
-* The number of elements as a decimal number.
+* The number of elements as the string representation of an integer.
 * The CRLF terminator.
 * An additional RESP type for every element of the push event.
 
