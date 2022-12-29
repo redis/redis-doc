@@ -286,7 +286,7 @@ The two are the same.
 <a name="nil-array-reply"></a>
 
 #### Null arrays
-Whereas RESP3 has a dedicated data type for [null values](#nulls), RESP2 has no such type. Instead, due to historical reasons, the representation of null values in RESP2 is via predetermined forms of the [Bulk Strings](#bulk-strings) and Arrays types.
+Whereas RESP3 has a dedicated data type for [null values](#nulls), RESP2 has no such type. Instead, due to historical reasons, the representation of null values in RESP2 is via predetermined forms of the [Bulk Strings](#bulk-strings) and [arrays](#arrays) types.
 
 Null arrays exist as an alternative way of representing a null value.
 For instance, when the `BLPOP` command times out, it returns a null array.
