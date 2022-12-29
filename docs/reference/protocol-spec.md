@@ -564,7 +564,7 @@ For example, when used with invalid authentication credentials in the command's 
     (the connection remains in RESP2 mode)
 
 A successful reply to the `HELLO` command is a map reply.
-The information in the reply is in partly server-dependent, but certain fields are mandatory for all the RESP3 implementations:
+The information in the reply is partly server-dependent, but certain fields are mandatory for all the RESP3 implementations:
 * **server**: "redis" (or other software name).
 * **version**: the server's version.
 * **proto**: the highest supported version of the RESP protocol.
@@ -580,7 +580,7 @@ In Redis' RESP3 implementation, the following fields are also emitted:
 Now that you are familiar with the RESP serialization format, you can use it to help write a Redis client library.
 We can further specify how the interaction between the client and the server works:
 
-* A client sends the Redis server a RESP [array](#arrays) consisting of only bulk strings.
+* A client sends the Redis server an [array](#arrays) consisting of only bulk strings.
 * A Redis server replies to clients, sending any valid RESP data type as a reply.
 
 So, for example, a typical interaction could be the following.

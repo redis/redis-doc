@@ -469,6 +469,7 @@ bitop
 bitwise
 bitwise
 bool
+booleans
 breakpoint
 broadcasted
 bt
@@ -728,6 +729,7 @@ num-items
 numactl
 numkeys
 observability
+octothorpe
 odown
 ok
 oldval
