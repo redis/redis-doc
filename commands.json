@@ -1302,7 +1302,7 @@
         "summary": "Remove and return members with scores in a sorted set or block until one is available",
         "since": "7.0.0",
         "group": "sorted-set",
-        "complexity": "O(K) + O(N*log(M)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
+        "complexity": "O(K) + O(M*log(N)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
         "acl_categories": [
             "@write",
             "@sortedset",
@@ -1653,77 +1653,90 @@
         "arity": -3,
         "arguments": [
             {
-                "name": "ip:port",
-                "type": "string",
-                "optional": true
-            },
-            {
-                "name": "client-id",
-                "type": "integer",
-                "token": "ID",
-                "since": "2.8.12",
-                "optional": true
-            },
-            {
-                "name": "normal_master_slave_pubsub",
+                "name": "filter",
                 "type": "oneof",
-                "token": "TYPE",
-                "since": "2.8.12",
-                "optional": true,
                 "arguments": [
                     {
-                        "name": "normal",
-                        "type": "pure-token",
-                        "token": "NORMAL"
+                        "name": "ip:port",
+                        "type": "string",
+                        "deprecated_since": "2.8.12"
                     },
                     {
-                        "name": "master",
-                        "type": "pure-token",
-                        "token": "MASTER",
-                        "since": "3.2.0"
-                    },
-                    {
-                        "name": "slave",
-                        "type": "pure-token",
-                        "token": "SLAVE"
-                    },
-                    {
-                        "name": "replica",
-                        "type": "pure-token",
-                        "token": "REPLICA",
-                        "since": "5.0.0"
-                    },
-                    {
-                        "name": "pubsub",
-                        "type": "pure-token",
-                        "token": "PUBSUB"
+                        "name": "new-format",
+                        "type": "oneof",
+                        "multiple": true,
+                        "arguments": [
+                            {
+                                "name": "client-id",
+                                "type": "integer",
+                                "token": "ID",
+                                "since": "2.8.12",
+                                "optional": true
+                            },
+                            {
+                                "name": "normal_master_slave_pubsub",
+                                "type": "oneof",
+                                "token": "TYPE",
+                                "since": "2.8.12",
+                                "optional": true,
+                                "arguments": [
+                                    {
+                                        "name": "normal",
+                                        "type": "pure-token",
+                                        "token": "NORMAL"
+                                    },
+                                    {
+                                        "name": "master",
+                                        "type": "pure-token",
+                                        "token": "MASTER",
+                                        "since": "3.2.0"
+                                    },
+                                    {
+                                        "name": "slave",
+                                        "type": "pure-token",
+                                        "token": "SLAVE"
+                                    },
+                                    {
+                                        "name": "replica",
+                                        "type": "pure-token",
+                                        "token": "REPLICA",
+                                        "since": "5.0.0"
+                                    },
+                                    {
+                                        "name": "pubsub",
+                                        "type": "pure-token",
+                                        "token": "PUBSUB"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "username",
+                                "type": "string",
+                                "token": "USER",
+                                "optional": true
+                            },
+                            {
+                                "name": "ip:port",
+                                "type": "string",
+                                "token": "ADDR",
+                                "optional": true
+                            },
+                            {
+                                "name": "ip:port",
+                                "type": "string",
+                                "token": "LADDR",
+                                "since": "6.2.0",
+                                "optional": true
+                            },
+                            {
+                                "name": "yes/no",
+                                "type": "string",
+                                "token": "SKIPME",
+                                "optional": true
+                            }
+                        ]
                     }
                 ]
-            },
-            {
-                "name": "username",
-                "type": "string",
-                "token": "USER",
-                "optional": true
-            },
-            {
-                "name": "ip:port",
-                "type": "string",
-                "token": "ADDR",
-                "optional": true
-            },
-            {
-                "name": "ip:port",
-                "type": "string",
-                "token": "LADDR",
-                "since": "6.2.0",
-                "optional": true
-            },
-            {
-                "name": "yes/no",
-                "type": "string",
-                "token": "SKIPME",
-                "optional": true
             }
         ],
         "command_flags": [
@@ -2142,9 +2155,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER ADDSLOTSRANGE": {
@@ -2179,9 +2189,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER BUMPEPOCH": {
@@ -2246,9 +2253,6 @@
         ],
         "command_flags": [
             "stale"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER DELSLOTS": {
@@ -2273,9 +2277,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER DELSLOTSRANGE": {
@@ -2310,9 +2311,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER FAILOVER": {
@@ -2349,9 +2347,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER FLUSHSLOTS": {
@@ -2369,9 +2364,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER FORGET": {
@@ -2395,9 +2387,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER GETKEYSINSLOT": {
@@ -2473,9 +2462,6 @@
         ],
         "command_flags": [
             "stale"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER LINKS": {
@@ -2531,9 +2517,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER MYID": {
@@ -2547,9 +2530,6 @@
         "arity": 2,
         "command_flags": [
             "stale"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER NODES": {
@@ -2614,9 +2594,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER RESET": {
@@ -2653,9 +2630,6 @@
             "admin",
             "noscript",
             "stale"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER SAVECONFIG": {
@@ -2673,9 +2647,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER SET-CONFIG-EPOCH": {
@@ -2699,9 +2670,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER SETSLOT": {
@@ -2751,9 +2719,6 @@
             "admin",
             "stale",
             "no_async_loading"
-        ],
-        "hints": [
-            "nondeterministic_output"
         ]
     },
     "CLUSTER SHARDS": {
@@ -3667,11 +3632,13 @@
                 "name": "key",
                 "type": "key",
                 "key_spec_index": 0,
+                "optional": true,
                 "multiple": true
             },
             {
                 "name": "arg",
                 "type": "string",
+                "optional": true,
                 "multiple": true
             }
         ],
@@ -3728,11 +3695,13 @@
                 "name": "key",
                 "type": "key",
                 "key_spec_index": 0,
+                "optional": true,
                 "multiple": true
             },
             {
                 "name": "arg",
                 "type": "string",
+                "optional": true,
                 "multiple": true
             }
         ],
@@ -4118,11 +4087,13 @@
                 "name": "key",
                 "type": "key",
                 "key_spec_index": 0,
+                "optional": true,
                 "multiple": true
             },
             {
                 "name": "arg",
                 "type": "string",
+                "optional": true,
                 "multiple": true
             }
         ],
@@ -4178,11 +4149,13 @@
                 "name": "key",
                 "type": "key",
                 "key_spec_index": 0,
+                "optional": true,
                 "multiple": true
             },
             {
                 "name": "arg",
                 "type": "string",
+                "optional": true,
                 "multiple": true
             }
         ],
@@ -4828,6 +4801,10 @@
             [
                 "6.2.0",
                 "Added the `ANY` option for `COUNT`."
+            ],
+            [
+                "7.0.0",
+                "Added support for uppercase unit names."
             ]
         ],
         "acl_categories": [
@@ -5023,6 +5000,12 @@
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
         "deprecated_since": "6.2.0",
         "replaced_by": "`GEOSEARCH` and `GEOSEARCHSTORE` with the `BYRADIUS` and `FROMMEMBER` arguments",
+        "history": [
+            [
+                "7.0.0",
+                "Added support for uppercase unit names."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@geo",
@@ -5488,6 +5471,12 @@
         "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+        "history": [
+            [
+                "7.0.0",
+                "Added support for uppercase unit names."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@geo",
@@ -5693,6 +5682,12 @@
         "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+        "history": [
+            [
+                "7.0.0",
+                "Added support for uppercase unit names."
+            ]
+        ],
         "acl_categories": [
             "@write",
             "@geo",
@@ -13801,6 +13796,12 @@
                 "type": "pure-token",
                 "token": "JUSTID",
                 "optional": true
+            },
+            {
+                "name": "id",
+                "type": "string",
+                "token": "LASTID",
+                "optional": true
             }
         ],
         "command_flags": [
@@ -15645,7 +15646,7 @@
         "summary": "Remove and return members with scores in a sorted set",
         "since": "7.0.0",
         "group": "sorted-set",
-        "complexity": "O(K) + O(N*log(M)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
+        "complexity": "O(K) + O(M*log(N)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
         "acl_categories": [
             "@write",
             "@sortedset",

@@ -1,7 +1,7 @@
 ---
 title: "Redis signal handling"
 linkTitle: "Signal handling"
-weight: 1
+weight: 8
 description: How Redis handles common Unix signals
 aliases:
     - /topics/signals

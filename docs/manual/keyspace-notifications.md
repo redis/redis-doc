@@ -1,7 +1,7 @@
 ---
 title: "Redis keyspace notifications"
 linkTitle: "Keyspace notifications"
-weight: 1
+weight: 3
 description: >
     Monitor changes to Redis keys and values in real time
 aliases:
@@ -74,7 +74,7 @@ following table:
     e     Evicted events (events generated when a key is evicted for maxmemory)
     m     Key miss events (events generated when a key that doesn't exist is accessed)
     n     New key events (Note: not included in the 'A' class)
-    A     Alias for "g$lshztxed", so that the "AKE" string means all the events except "m".
+    A     Alias for "g$lshztxed", so that the "AKE" string means all the events except "m" and "n".
 
 At least `K` or `E` should be present in the string, otherwise no event
 will be delivered regardless of the rest of the string.

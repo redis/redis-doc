@@ -10,7 +10,7 @@ aliases:
 
 The Redis command line interface (`redis-cli`) is a terminal program used to send commands to and read replies from the Redis server. It has two main modes: an interactive Read Eval Print Loop (REPL) mode where the user types Redis commands and receives replies, and a command mode where `redis-cli` is executed with additional arguments and the reply is printed to the standard output.
 
-In interactive mode, `redis-cli` has basic line editing capabilities to provide a familiar tyPING experience.
+In interactive mode, `redis-cli` has basic line editing capabilities to provide a familiar typing experience.
 
 To launch the program in special modes, you can use several options, including:
 
@@ -29,7 +29,7 @@ To run a Redis command and return a standard output at the terminal, include the
 
 The reply of the command is "7". Since Redis replies are typed (strings, arrays, integers, nil, errors, etc.), you see the type of the reply between parentheses. This additional information may not be ideal when the output of `redis-cli` must be used as input of another command or redirected into a file.
 
-`redis-cli` only shows additional information for human readibility when it detects the standard output is a tty, or terminal. For all other outputs it will auto-enable the *raw output mode*, as in the following example:
+`redis-cli` only shows additional information for human readability when it detects the standard output is a tty, or terminal. For all other outputs it will auto-enable the *raw output mode*, as in the following example:
 
     $ redis-cli INCR mycounter > /tmp/output.txt
     $ cat /tmp/output.txt
@@ -96,7 +96,7 @@ You can change the port using several command line options. To specify a differe
     PONG
 
 If your instance is password protected, the `-a <password>` option will
-preform authentication saving the need of explicitly using the `AUTH` command:
+perform authentication saving the need of explicitly using the `AUTH` command:
 
     $ redis-cli -a myUnguessablePazzzzzword123 PING
     PONG
@@ -261,7 +261,7 @@ In interactive mode the user types Redis commands at the prompt. The command
 is sent to the server, processed, and the reply is parsed back and rendered
 into a simpler form to read.
 
-Nothing special is needed for running the `redis-cli`in interactive mode -
+Nothing special is needed for running the `redis-cli` in interactive mode -
 just execute it without any arguments
 
     $ redis-cli

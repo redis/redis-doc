@@ -36,7 +36,7 @@ my_global_variable = 'some value'
 And similarly for the following global function declaration:
 
 ```lua
-function my_global_funcion()
+function my_global_function()
   -- Do something amazing
 end
 ```

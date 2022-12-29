@@ -108,6 +108,8 @@ DBs
 DEL'ition
 DLM
 DMA
+dnf
+DNF
 DNS
 DSL
 Deauthenticate
@@ -128,6 +130,7 @@ ENOENT
 ENOTSUP
 EOF
 EP
+EPEL
 EPSG:3785
 EPSG:900913
 ERANGE
@@ -159,6 +162,7 @@ HLLs
 HMAC-SHA256
 HVM
 HW
+Hacktoberfest
 Hardcoded
 HashMaps
 HashSets
@@ -187,6 +191,7 @@ Jemalloc
 KEYSPACE
 Keyspace
 KeyspaceNotification
+Kleppman's
 Kleppmann
 L3
 LDB
@@ -225,7 +230,9 @@ NFS
 NIC
 NICs
 NOOP
+NTP
 NUMA
+NX
 NaN
 Nehalem
 NoSQL
@@ -272,6 +279,7 @@ RC3
 RC4
 RDB
 RDB-saving
+RedisInsight
 REDISMODULE_OPTIONS_HANDLE_REPL_ASYNC_LOAD
 REDISPORT
 REPL
@@ -282,12 +290,19 @@ RESP3's
 RESP3-typed
 RESP3.
 REdis
+RHEL
+RM_CreateCommand
+RM_CreateStringFromString
+RM_IsKeysPositionRequest
+RM_KeyAtPosWithFlags
+RM_SetCommandInfo
 RM_.*
 RPC
 RSS
 RTT
 RU101
 RU102
+RU202
 RW
 Rebranding
 Reconfiguring
@@ -362,9 +377,11 @@ T2
 TCL
 TCP
 TLS
+TTL
 TTLs
 Tthe
 Twemproxy
+UI
 URI
 USD
 UTF-8
@@ -399,8 +416,10 @@ ZeroBrane
 Zhao
 acknowledgement
 acl
+acl-pubsub-default
 ad-hoc
 alice
+allchannels
 allkeys
 allkeys-lru
 allkeys-random
@@ -409,6 +428,7 @@ allocator's
 allocators
 analytics
 antirez
+antirez's
 aof
 aof-1
 aof-2
@@ -471,10 +491,12 @@ codenamed
 commandstats
 commnad
 config
+config-file
 configEpoch
 configs
 const
 cpu
+cpu-profiling
 cron
 cryptographic
 ctx
@@ -581,6 +603,7 @@ getkeys-api
 github
 globals
 gpg
+hacktoberfest
 handleClientsWithPendingWrites
 hardcoded
 hardlinks
@@ -657,8 +680,8 @@ lookups
 loopback
 lpush
 lru_cache
-lsb_release
 lsb-release
+lsb_release
 lua-api
 lua-replicate-commands
 lubs
@@ -732,6 +755,7 @@ pmessage
 ppa:redislabs
 pratical
 pre-conditions
+pre-configured
 pre-existing
 pre-imported
 pre-loaded
@@ -843,7 +867,6 @@ smaps
 snapd
 snapshotting
 somekey
-specfic
 spectrogram
 spellchecker-cli
 spiped

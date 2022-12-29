@@ -52,7 +52,7 @@ Redis streams support several trimming strategies (to prevent streams from growi
 
 * Read up to 100 new stream entries, starting at the end of the stream, and block for up to 300 ms if no entries are being written:
 ```
-> XREAD COUNT 100 BLOCK 300 STREAMS tempertures:us-ny:10007 $
+> XREAD COUNT 100 BLOCK 300 STREAMS temperatures:us-ny:10007 $
 (nil)
 ```
 
@@ -78,4 +78,4 @@ See each command's time complexity for the details.
 
 * The [Redis Streams Tutorial](/docs/data-types/streams-tutorial) explains Redis streams with many examples.
 * [Redis Streams Explained](https://www.youtube.com/watch?v=Z8qcpXyMAiA) is an entertaining introduction to streams in Redis.
-* [Redis University's RU102](https://university.redis.com/courses/ru102/) is a free, online course dedicated to Redis Streams.
+* [Redis University's RU202](https://university.redis.com/courses/ru202/) is a free, online course dedicated to Redis Streams.

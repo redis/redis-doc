@@ -93,7 +93,7 @@ The Redis client-side caching support is called _Tracking_, and has two modes:
 * In the _broadcasting_ mode, the server does not attempt to remember what keys a given client accessed, so this mode costs no memory at all in the server side. Instead clients subscribe to key prefixes such as `object:` or `user:`, and receive a notification message every time a key matching a subscribed prefix is touched.
 
 To recap, for now let's forget for a moment about the broadcasting mode, to
-focus on the first mode. We'll describe broadcasting later more in details.
+focus on the first mode. We'll describe broadcasting in more detail later.
 
 1. Clients can enable tracking if they want. Connections start without tracking enabled.
 2. When tracking is enabled, the server remembers what keys each client requested during the connection lifetime (by sending read commands about such keys).

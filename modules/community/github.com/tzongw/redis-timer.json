@@ -1,0 +1,8 @@
+{
+    "name": "redis-timer",
+    "license": "MIT",
+    "description": "A module allows the delayed execution of LUA scripts, both periodic and one-time, supports replication and cluster.",
+    "github": [
+        "tzongw"
+    ]
+}
