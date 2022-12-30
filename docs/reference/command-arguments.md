@@ -1,7 +1,7 @@
 ---
 title: "Redis command arguments"
 linkTitle: "Command arguments"
-weight: 1
+weight: 7
 description: How Redis commands expose their documentation programmatically
 aliases:
     - /topics/command-arguments

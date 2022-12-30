@@ -25,3 +25,6 @@ SETEX mykey 10 "Hello"
 TTL mykey
 GET mykey
 ```
+## See also
+
+`TTL`

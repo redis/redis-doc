@@ -3,7 +3,7 @@ title: "Install Redis on Linux"
 linkTitle: "Install on Linux"
 weight: 1
 description: >
-    How to install Redis on Ubuntu, RHEL, and CentOS
+    How to install Redis on Linux
 ---
 
 Most major Linux distributions provide packages for Redis.
@@ -34,6 +34,7 @@ sudo apt-get install redis
 ## Install from Snapcraft
 
 The [Snapcraft store](https://snapcraft.io/store) provides [Redis packages](https://snapcraft.io/redis) that can be installed on platforms that support snap.
+Snap is supported and available on most major Linux distributions.
 
 To install via snap, run:
 
@@ -41,4 +42,4 @@ To install via snap, run:
 sudo snap install redis
 {{< / highlight  >}}
 
-If your Linux does not currently have snap installed, you may install it by following the instructions described in [Installing snapd](https://snapcraft.io/docs/installing-snapd).
+If your Linux does not currently have snap installed, install it using the instructions described in [Installing snapd](https://snapcraft.io/docs/installing-snapd).

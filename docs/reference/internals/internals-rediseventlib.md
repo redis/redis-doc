@@ -17,7 +17,7 @@ Let us figure it out through a series of Q&As.
 Q: What do you expect a network server to be doing all the time? <br/>
 A: Watch for inbound connections on the port its listening and accept them.
 
-Q: Calling [accept](http://man.cx/accept%282%29 accept) yields a descriptor. What do I do with it?<br/>
+Q: Calling [accept](http://man.cx/accept%282%29) yields a descriptor. What do I do with it?<br/>
 A: Save the descriptor and do a non-blocking read/write operation on it.
 
 Q: Why does the read/write have to be non-blocking?<br/>

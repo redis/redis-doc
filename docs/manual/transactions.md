@@ -1,7 +1,7 @@
 ---
 title: Transactions
 linkTitle: Transactions
-weight: 1
+weight: 5
 description: How transactions work in Redis
 aliases:
   - /topics/transactions
@@ -221,7 +221,7 @@ instead.
 **NOTE**
 * In Redis versions before 6.0.9, an expired key would not cause a transaction
 to be aborted. [More on this](https://github.com/redis/redis/pull/7920)
-* Commands within a transaction wont trigger the `WATCH` condition since they
+* Commands within a transaction won't trigger the `WATCH` condition since they
 are only queued until the `EXEC` is sent.
 
 `WATCH` can be called multiple times. Simply all the `WATCH` calls will

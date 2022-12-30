@@ -107,6 +107,8 @@ DBs
 DEL'ition
 DLM
 DMA
+dnf
+DNF
 DNS
 DSL
 Deauthenticate
@@ -127,6 +129,7 @@ ENOENT
 ENOTSUP
 EOF
 EP
+EPEL
 EPSG:3785
 EPSG:900913
 ERANGE
@@ -275,6 +278,7 @@ RC3
 RC4
 RDB
 RDB-saving
+RedisInsight
 REDISMODULE_OPTIONS_HANDLE_REPL_ASYNC_LOAD
 REDISPORT
 REPL
@@ -285,12 +289,19 @@ RESP3's
 RESP3-typed
 RESP3.
 REdis
+RHEL
+RM_CreateCommand
+RM_CreateStringFromString
+RM_IsKeysPositionRequest
+RM_KeyAtPosWithFlags
+RM_SetCommandInfo
 RM_.*
 RPC
 RSS
 RTT
 RU101
 RU102
+RU202
 RW
 Rebranding
 Reconfiguring
@@ -369,6 +380,7 @@ TTL
 TTLs
 Tthe
 Twemproxy
+UI
 URI
 USD
 UTF-8
@@ -476,10 +488,12 @@ codenamed
 commandstats
 commnad
 config
+config-file
 configEpoch
 configs
 const
 cpu
+cpu-profiling
 cron
 cryptographic
 ctx
@@ -738,6 +752,7 @@ pmessage
 ppa:redislabs
 pratical
 pre-conditions
+pre-configured
 pre-existing
 pre-imported
 pre-loaded
@@ -849,7 +864,6 @@ smaps
 snapd
 snapshotting
 somekey
-specfic
 spectrogram
 spellchecker-cli
 spiped

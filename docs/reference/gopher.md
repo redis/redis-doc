@@ -1,7 +1,7 @@
 ---
 title: "Redis and the Gopher protocol"
 linkTitle: "Gopher protocol"
-weight: 1
+weight: 10
 description: The Redis Gopher protocol implementation
 aliases:
   - /topics/gopher
