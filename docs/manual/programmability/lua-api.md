@@ -201,7 +201,7 @@ redis> EVAL "return redis.error_reply('My very special reply error')" 0
 (error) My very special reply error
 ```
 
-For returing Redis status replies refer to [`redis.status_reply()`](#redis.status_reply).
+For returning Redis status replies refer to [`redis.status_reply()`](#redis.status_reply).
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
 ### <a name="redis.status_reply"></a> `redis.status_reply(x)`
