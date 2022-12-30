@@ -84,13 +84,13 @@ Redis generally uses RESP as a [request-response](#request-response-model) proto
 
 We categorize every RESP data type as either _simple_ or _aggregate_.
 Simple types are similar to scalars in programming languages that represent plain literal values, for example, Booleans.
-Aggregates can have varying numbers of sub-elements and nesting levels, such as Arrays and Maps.
+Aggregates, such as Arrays and Maps, can have varying numbers of sub-elements and nesting levels.
 
 The first byte in an RESP-serialized payload identifies its type.
-Following bytes constitute the type's contents.
+Subsequent bytes constitute the type's contents.
 The `\r\n` (CRLF) is the protocol's _terminator_, which always separates its parts.
 
-The following table summarizes RESP's data types:
+The following table summarizes the RESP data types that Redis supports:
 
 | RESP data type | Minimal protocol version | Category | First byte |
 | --- | --- | --- | --- |
