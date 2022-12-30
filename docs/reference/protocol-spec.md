@@ -95,7 +95,7 @@ The following table summarizes the RESP data types that Redis supports:
 | RESP data type | Minimal protocol version | Category | First byte |
 | --- | --- | --- | --- |
 | [Simple strings](#simple-strings) | RESP2 | Simple | `+` |
-| [Errors](#errors) | RESP2 | Simple | `-` |
+| [Simple Errors](#simple-errors) | RESP2 | Simple | `-` |
 | [Integers](#integers) | RESP2 | Simple | `:` |
 | [Bulk strings](#bulk-strings) | RESP2 | Aggregate | `$` |
 | [Arrays](#arrays) | RESP2 | Aggregate | `*` |
@@ -127,16 +127,16 @@ To send binary-safe strings, use [bulk strings](#bulk-strings) instead.
 
 <a name="error-reply"></a>
 
-### Errors
-RESP has a specific data type for errors.
-Errors are similar to [simple strings](#simple-strings), but their first character is the minus (`-`) character.
+### Simple errors
+RESP has specific data types for errors.
+Simple errors, or simply just errors, are similar to [simple strings](#simple-strings), but their first character is the minus (`-`) character.
 The difference between simple strings and errors in RESP is that clients should treat errors as exceptions, whereas the string encoded in the error type is the error message itself.
 
 The basic format is:
 
     -Error message\r\n
 
-Redis replies with an error only when something goes wrong, for example, when you try to perform an operation against the wrong data type, or when the command does not exist.
+Redis replies with an error only when something goes wrong, for example, when you try to operate against the wrong data type, or when the command does not exist.
 The client should raise an exception when it receives an Error reply.
 
 The following are examples of error replies:
@@ -404,7 +404,7 @@ When big numbers aren't supported, the client should return a string and, when p
 <a name="bulk-error-reply"></a>
 
 ### Bulk errors
-This type combines the purpose of [simple errors](#errors) with the expressive power of [bulk strings](#bulk-strings).
+This type combines the purpose of [simple errors](#simple-errors) with the expressive power of [bulk strings](#bulk-strings).
 
 It is encoded as:
 
