@@ -231,7 +231,7 @@ redis> EVAL "return redis.status_reply('TOCK')" 0
 TOCK
 ```
 
-For returing Redis error replies refer to [`redis.error_reply()`](#redis.error_reply).
+For returning Redis error replies refer to [`redis.error_reply()`](#redis.error_reply).
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
 ### <a name="redis.sha1hex"></a> `redis.sha1hex(x)`
