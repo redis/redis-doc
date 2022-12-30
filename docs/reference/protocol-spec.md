@@ -103,7 +103,7 @@ The following table summarizes the RESP data types that Redis supports:
 | [Booleans](#booleans) | RESP3 | Simple | `#` |
 | [Doubles](#doubles) | RESP3 | Simple | `,` |
 | [Big numbers](#big-numbers) | RESP3 | Simple | `(` |
-| [Blob errors](#blob-errors) | RESP3 | Aggregate | `!` |
+| [Bulk errors](#bulk-errors) | RESP3 | Aggregate | `!` |
 | [Verbatim strings](#verbatim-strings) | RESP3 | Aggregate | `=` |
 | [Maps](#maps) | RESP3 | Aggregate | `%` |
 | [Sets](#sets) | RESP3 | Aggregate | `~` |
@@ -401,10 +401,10 @@ Big numbers can be positive or negative but can't include decimals.
 Client libraries written in languages with a big number type should return a big number.
 When big numbers aren't supported, the client should return a string and, when possible, signal to the caller that the reply is a big integer (depending on the API used by the client library).
 
-<a name="blob-error-reply"></a>
+<a name="bulk-error-reply"></a>
 
-### Blob errors
-This type combines the purpose of [simple errors](#simple-strings) with the expressive power of [bulk strings](#bulk-strings).
+### Bulk errors
+This type combines the purpose of [simple errors](#errors) with the expressive power of [bulk strings](#bulk-strings).
 
 It is encoded as:
 
