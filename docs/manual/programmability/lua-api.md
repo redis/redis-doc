@@ -36,7 +36,7 @@ my_global_variable = 'some value'
 And similarly for the following global function declaration:
 
 ```lua
-function my_global_funcion()
+function my_global_function()
   -- Do something amazing
 end
 ```
@@ -201,7 +201,7 @@ redis> EVAL "return redis.error_reply('My very special reply error')" 0
 (error) My very special reply error
 ```
 
-For returing Redis status replies refer to [`redis.status_reply()`](#redis.status_reply).
+For returning Redis status replies refer to [`redis.status_reply()`](#redis.status_reply).
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
 ### <a name="redis.status_reply"></a> `redis.status_reply(x)`
@@ -231,7 +231,7 @@ redis> EVAL "return redis.status_reply('TOCK')" 0
 TOCK
 ```
 
-For returing Redis error replies refer to [`redis.error_reply()`](#redis.error_reply).
+For returning Redis error replies refer to [`redis.error_reply()`](#redis.error_reply).
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
 ### <a name="redis.sha1hex"></a> `redis.sha1hex(x)`
@@ -287,7 +287,7 @@ will produce a line similar to the following in your server's log:
 * Available in scripts: yes
 * Available in functions: yes
 
-This function allows the executing script to switch between [Redis Serialization Protocol (RESP)](/topics/protocol) versions for the replies returned by [`redis.call()](#redis.call) and [`redis.pall()](#redis.pcall).
+This function allows the executing script to switch between [Redis Serialization Protocol (RESP)](/topics/protocol) versions for the replies returned by [`redis.call()`](#redis.call) and [`redis.pcall()`](#redis.pcall).
 It expects a single numerical argument as the protocol's version.
 The default protocol version is _2_, but it can be switched to version _3_.
 

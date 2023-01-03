@@ -18,9 +18,13 @@ that needs to be enabled at compile time.
 ### Building
 
 To build with TLS support you'll need OpenSSL development libraries (e.g.
-libssl-dev on Debian/Ubuntu).
+`libssl-dev` on Debian/Ubuntu).
 
-Run `make BUILD_TLS=yes`.
+Build Redis with the following command:
+
+```sh
+make BUILD_TLS=yes
+```
 
 ### Tests
 

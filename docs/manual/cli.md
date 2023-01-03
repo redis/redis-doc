@@ -96,7 +96,7 @@ You can change the port using several command line options. To specify a differe
     PONG
 
 If your instance is password protected, the `-a <password>` option will
-preform authentication saving the need of explicitly using the `AUTH` command:
+perform authentication saving the need of explicitly using the `AUTH` command:
 
     $ redis-cli -a myUnguessablePazzzzzword123 PING
     PONG

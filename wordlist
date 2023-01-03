@@ -415,8 +415,10 @@ ZeroBrane
 Zhao
 acknowledgement
 acl
+acl-pubsub-default
 ad-hoc
 alice
+allchannels
 allkeys
 allkeys-lru
 allkeys-random
