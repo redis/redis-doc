@@ -77,12 +77,18 @@ environment (test, staging, production...).
 
 ```
 SUBSCRIBE first second
-1) "subscribe"
-2) "first"
-3) (integer) 1
-1) "subscribe"
-2) "second"
-3) (integer) 2
+*3
+$9
+subscribe
+$5
+first
+:1
+*3
+$9
+subscribe
+$6
+second
+:2
 ```
 
 At this point, from another client we issue a `PUBLISH` operation
@@ -95,9 +101,13 @@ against the channel named `second`:
 This is what the first client receives:
 
 ```
-1) "message"
-2) "second"
-3) "Hello"
+*3
+$7
+message
+$6
+second
+$5
+Hello
 ```
 
 Now the client unsubscribes itself from all the channels using the
@@ -105,12 +115,18 @@ Now the client unsubscribes itself from all the channels using the
 
 ```
 UNSUBSCRIBE
-1) "unsubscribe"
-2) "second"
-3) (integer) 1
-1) "unsubscribe"
-2) "first"
-3) (integer) 0
+*3
+$11
+unsubscribe
+$6
+second
+:1
+*3
+$11
+unsubscribe
+$5
+first
+:0
 ```
 
 ## Pattern-matching subscriptions
