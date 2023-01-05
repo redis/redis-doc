@@ -1,5 +1,5 @@
 {
     "name": "SwiftyRedis",
     "description": "SwiftyRedis is a high level async redis library for Swift. ",
-    "homepage": "https://michaelvanstraten.github.io/swifty-redis/documentation/swiftyredis/",
+    "homepage": "https://michaelvanstraten.github.io/swifty-redis/documentation/swiftyredis/"
 }
