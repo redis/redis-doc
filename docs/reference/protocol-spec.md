@@ -373,12 +373,11 @@ The integer value of ten (10) can, therefore, be RESP-encoded both as an integer
 
 In such cases, the Redis client should return native integer and double values, respectively, providing that these types are supported by the language of its implementation.
 
-Lastly, positive and negative infinities and NaNs are encoded as follows:
+The positive infinity, negative infinity and NaN values are encoded as follows:
 
     ,inf\r\n
     ,-inf\r\n
     ,nan\r\n
-    ,-nan\r\n
 
 <a name="big-number-reply"></a>
 
