@@ -1,4 +1,4 @@
 {
     "name": "rustis",
-    "description": "An asynchronous Redis client for Rust.",
+    "description": "An asynchronous Redis client for Rust."
 }
