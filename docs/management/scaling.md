@@ -37,7 +37,7 @@ Cluster bus is a node-to-node communication channel that uses a binary protocol,
 little bandwidth and processing time. 
 Nodes use the cluster bus for failure detection, configuration updates, failover authorization, and so forth. 
 Clients should never try to communicate with the cluster bus port, but rather use the Redis command port. 
-However, make sure you open both ports in your firewall, otherwise Redis cluster nodes won't be unable to communicate.
+However, make sure you open both ports in your firewall, otherwise Redis cluster nodes won't be able to communicate.
 
 For a Redis Cluster to work properly you need, for each node:
 
