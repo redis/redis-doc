@@ -9,7 +9,7 @@ An error is returned when `key` exists but does not hold a list value.
 @return
 
 @integer-reply: the length of the list after the insert operation, or `-1` when
-the value `pivot` was not found.
+the value `pivot` was not found, or `0` if the `key` does not exist.
 
 @examples
 
