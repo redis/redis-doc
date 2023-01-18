@@ -45,7 +45,8 @@ The meaning of each filed is the following:
 5. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `nofailover`, `noflags`. Flags are explained below.
 6. `master`: If the node is a replica, and the primary is known, the primary node ID, otherwise the "-" character.
 7. `ping-sent`: Unix time at which the currently active ping was sent, or zero if there are no pending pings, in milliseconds.
-8. `pong-recv`: Unix time the last pong was received, in milliseconds.  9. `config-epoch`: The configuration epoch (or version) of the current node (or of the current primary if the node is a replica). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with the higher configuration epoch wins.
+8. `pong-recv`: Unix time the last pong was received, in milliseconds.
+9. `config-epoch`: The configuration epoch (or version) of the current node (or of the current primary if the node is a replica). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with the higher configuration epoch wins.
 10. `link-state`: The state of the link used for the node-to-node cluster bus. Use this link to communicate with the node. Can be `connected` or `disconnected`.
 11. `slot`: A hash slot number or range. Starting from argument number 9, but there may be up to 16384 entries in total (limit never reached). This is the list of hash slots served by this node. If the entry is just a number, it is parsed as such.  If it is a range, it is in the form `start-end`, and means that the node is responsible for all the hash slots from `start` to `end` including the start and end values.
 
