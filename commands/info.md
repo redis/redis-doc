@@ -414,7 +414,7 @@ The **sentinel** section is only available in Redis Sentinel instances. It consi
 
 *   `sentinel_masters`: Number of Redis masters monitored by this Sentinel instance
 *   `sentinel_tilt`: A value of 1 means this sentinel is in TILT mode
-*   `sentinel_tilt_since_seconds`: Duration in seconds of current TILT, or -1 if not TILTed. Added in Redis 7.0.
+*   `sentinel_tilt_since_seconds`: Duration in seconds of current TILT, or -1 if not TILTed. Added in Redis 7.0.0
 *   `sentinel_running_scripts`: The number of scripts this Sentinel is currently executing
 *   `sentinel_scripts_queue_length`: The length of the queue of user scripts that are pending execution
 *   `sentinel_simulate_failure_flags`: Flags for the `SENTINEL SIMULATE-FAILURE` command
