@@ -4235,7 +4235,7 @@ latency-monitor-threshold.
 ## Blocking clients from modules
 
 For a guide about blocking commands in modules, see
-[https://redis.io/topics/modules-blocking-ops](https://redis.io/topics/modules-blocking-ops).
+[Redis modules and blocking commands](https://redis.io/topics/modules-blocking-ops).
 
 <span id="RedisModule_BlockClient"></span>
 
@@ -4249,25 +4249,20 @@ For a guide about blocking commands in modules, see
 
 **Available since:** 4.0.0
 
-Block a client in the context of a blocking command, returning a handle
-which will be used, later, in order to unblock the client with a call to
+Block a client in the context of a blocking command, returning a handle that will be used later to unblock the client with a call to
 [`RedisModule_UnblockClient()`](#RedisModule_UnblockClient). The arguments specify callback functions
 and a timeout after which the client is unblocked.
 
 The callbacks are called in the following contexts:
 
-    reply_callback:   called after a successful RedisModule_UnblockClient()
-                      call in order to reply to the client and unblock it.
+* `reply_callback`: called after a successful `RedisModule_UnblockClient()` call to reply to the client and unblock it.
 
-    timeout_callback: called when the timeout is reached or if `CLIENT UNBLOCK`
-                      is invoked, in order to send an error to the client.
+* `timeout_callback`: called to send an error to the client when the timeout is reached or if `CLIENT UNBLOCK` is invoked.
 
-    free_privdata:    called in order to free the private data that is passed
-                      by RedisModule_UnblockClient() call.
+* `free_privdata`: called to free the private data that is passed by `RedisModule_UnblockClient()` call.
 
-Note: [`RedisModule_UnblockClient`](#RedisModule_UnblockClient) should be called for every blocked client,
-      even if client was killed, timed-out or disconnected. Failing to do so
-      will result in memory leaks.
+Note: [`RedisModule_UnblockClient`](#RedisModule_UnblockClient) should be called for every blocked client, even if client was killed, timed-out or disconnected. 
+Failing to do so results in memory leaks.
 
 There are some cases where [`RedisModule_BlockClient()`](#RedisModule_BlockClient) cannot be used:
 
@@ -4395,12 +4390,9 @@ to compute reply or some reply obtained via networking.
 
 Note 1: this function can be called from threads spawned by the module.
 
-Note 2: when we unblock a client that is blocked for keys using the API
-[`RedisModule_BlockClientOnKeys()`](#RedisModule_BlockClientOnKeys), the privdata argument here is not used.
-Unblocking a client that was blocked for keys using this API will still
-require the client to get some reply, so the function will use the
-"timeout" handler in order to do so (The privdata provided in
-[`RedisModule_BlockClientOnKeys()`](#RedisModule_BlockClientOnKeys) is accessible from the timeout
+Note 2: when we unblock a client that is blocked for keys using the API [`RedisModule_BlockClientOnKeys()`](#RedisModule_BlockClientOnKeys), the `privdata` argument here is not used.
+Unblocking a client that was blocked for keys using this API will still require the client to get some reply, so the function will use the "timeout" handler in order to do so. 
+The `privdata` provided in [`RedisModule_BlockClientOnKeys()`](#RedisModule_BlockClientOnKeys) is accessible from the timeout
 callback via [`RedisModule_GetBlockedClientPrivateData`](#RedisModule_GetBlockedClientPrivateData)).
 
 <span id="RedisModule_AbortBlock"></span>
