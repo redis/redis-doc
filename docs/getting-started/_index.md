@@ -22,7 +22,7 @@ How you install Redis depends on your operating system and whether you'd like to
 
 Once you have Redis up and running, and can connect using `redis-cli`, you can continue with the steps below.
 
-## Exploring Redis with the CLI
+## Explore Redis using the CLI
 
 External programs talk to Redis using a TCP socket and a Redis specific protocol. This protocol is implemented in the Redis client libraries for the different programming languages. However to make hacking with Redis simpler Redis provides a command line utility that can be used to send commands to Redis. This program is called **redis-cli**.
 
@@ -45,8 +45,7 @@ Another interesting way to run `redis-cli` is without arguments: the program wil
 
 At this point you are able to talk with Redis. It is the right time to pause a bit with this tutorial and start the [fifteen minutes introduction to Redis data types](https://redis.io/topics/data-types-intro) in order to learn a few Redis commands. Otherwise if you already know a few basic Redis commands you can keep reading.
 
-Securing Redis
-===
+## Securing Redis
 
 By default Redis binds to **all the interfaces** and has no authentication at
 all. If you use Redis in a very controlled environment, separated from the
@@ -60,8 +59,7 @@ is exposed to the internet, it is a big security concern. If you are not 100% su
 
 Note that a Redis instance exposed to the internet without any security [is very simple to exploit](http://antirez.com/news/96), so make sure you understand the above and apply **at least** a firewall layer. After the firewall is in place, try to connect with `redis-cli` from an external host in order to prove yourself the instance is actually not reachable.
 
-Using Redis from your application
-===
+## Use Redis from your application
 
 Of course using Redis just from the command line interface is not enough as
 the goal is to use it from your application. In order to do so you need to
@@ -89,8 +87,7 @@ commands calling methods. A short interactive example using Ruby:
     >> r.get('foo')
     => "bar"
 
-Redis persistence
-=================
+## Redis persistence
 
 You can learn [how Redis persistence works on this page](https://redis.io/topics/persistence), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
 
@@ -99,8 +96,7 @@ You can learn [how Redis persistence works on this page](https://redis.io/topics
 This way Redis will make sure to save the data on disk before quitting.
 Reading the [persistence page](https://redis.io/topics/persistence) is strongly suggested in order to better understand how Redis persistence works.
 
-Installing Redis more properly
-==============================
+## Install Redis more properly
 
 Running Redis from the command line is fine just to hack a bit or for development. However, at some point you'll have some actual application to run on a real server. For this kind of usage you have two different choices:
 
@@ -158,5 +154,5 @@ Make sure that everything is working as expected:
 * Check that your Redis instance is correctly logging in the log file.
 * If it's a new machine where you can try it without problems make sure that after a reboot everything is still working.
 
-Note: In the above instructions we skipped many Redis configuration parameters that you would like to change, for instance in order to use AOF persistence instead of RDB persistence, or to setup replication, and so forth.
-Make sure to read the example [`redis.conf`](https://github.com/redis/redis/blob/6.2/redis.conf) file (that is heavily commented) and the other documentation you can find in this web site for more information.
+Note: The above instructions don't include all of the Redis configuration parameters that you could change, for instance, to use AOF persistence instead of RDB persistence, or to set up replication, and so forth.
+Make sure to read the example [`redis.conf`](https://github.com/redis/redis/blob/6.2/redis.conf) file (that is heavily commented).
