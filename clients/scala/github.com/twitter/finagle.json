@@ -1,4 +1,4 @@
 {
-    "name": "finagle-redis",
+    "name": "finagle",
     "description": "Redis client based on Finagle"
 }
