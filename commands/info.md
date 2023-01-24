@@ -12,6 +12,7 @@ The optional parameter can be used to select a specific section of information:
 *   `cpu`: CPU consumption statistics
 *   `commandstats`: Redis command statistics
 *   `latencystats`: Redis command latency percentile distribution statistics
+*   `sentinel`: Redis Sentinel section (only applicable to Sentinel instances)
 *   `cluster`: Redis Cluster section
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
@@ -409,6 +410,15 @@ For each error type, the following line is added:
 
 *   `errorstat_XXX`: `count=XXX`
 
+The **sentinel** section is only available in Redis Sentinel instances. It consists of the following fields:
+
+*   `sentinel_masters`: Number of Redis masters monitored by this Sentinel instance
+*   `sentinel_tilt`: A value of 1 means this sentinel is in TILT mode
+*   `sentinel_tilt_since_seconds`: Duration in seconds of current TILT, or -1 if not TILTed. Added in Redis 7.0.0
+*   `sentinel_running_scripts`: The number of scripts this Sentinel is currently executing
+*   `sentinel_scripts_queue_length`: The length of the queue of user scripts that are pending execution
+*   `sentinel_simulate_failure_flags`: Flags for the `SENTINEL SIMULATE-FAILURE` command
+    
 The **cluster** section currently only contains a unique field:
 
 *   `cluster_enabled`: Indicate Redis cluster is enabled
