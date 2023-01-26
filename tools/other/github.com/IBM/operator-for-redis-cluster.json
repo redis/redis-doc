@@ -1,0 +1,5 @@
+{
+    "name": "IBM Operator for Redis Cluster",
+    "description": "The goal of this project is to simplify the deployment and management of a Redis cluster in a Kubernetes environment. It started internally at Amadeus in 2016, where it was initially designed to run on Openshift. This is the third version of the Redis operator, which leverages the Operator SDK framework for operators."
+    "homepage": "https://ibm.github.io/operator-for-redis-cluster"
+}
