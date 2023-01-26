@@ -1,0 +1,4 @@
+{
+    "name": "Redis Operator",
+    "description": "Redis Operator creates/configures/manages high availability Redis with Sentinel automatic failover atop Kubernetes."
+}

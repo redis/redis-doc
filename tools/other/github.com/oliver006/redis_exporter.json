@@ -1,0 +1,4 @@
+{
+    "name": "Prometheus Redis Metrics Exporter",
+    "description": "Prometheus exporter for Redis metrics."
+}
