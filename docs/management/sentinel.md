@@ -117,7 +117,7 @@ One set of instances is called `mymaster`, and the other `resque`.
 
 The meaning of the arguments of `sentinel monitor` statements is the following:
 
-    sentinel monitor <master-group-name> <ip> <port> <quorum>
+    sentinel monitor <master_name> <ip> <port> <quorum>
 
 For the sake of clarity, let's check line by line what the configuration
 options mean:
