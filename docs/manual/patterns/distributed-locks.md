@@ -50,6 +50,7 @@ already available that can be used for reference.
 * [Redlock4Net](https://github.com/LiZhenNet/Redlock4Net) (C# .NET implementation).
 * [node-redlock](https://github.com/mike-marcacci/node-redlock) (NodeJS implementation). Includes support for lock extension.
 * [Deno DLM](https://github.com/oslabs-beta/Deno-Redlock) (Deno implementation)
+* [Rslock](https://github.com/hexcowboy/rslock) (Rust implementation). Includes async and lock extension support.
 
 ## Safety and Liveness Guarantees
 
