@@ -1,7 +1,7 @@
 ﻿---
 title: "Getting started with Redis"
 linkTitle: "Getting started"
-weight: 1
+weight: 20
 description: >
     How to get up and running with Redis
 aliases:
