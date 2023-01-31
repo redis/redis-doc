@@ -539,7 +539,7 @@ iteration. Because of the command that it uses this option is called `--scan`.
     key-446
     key-371
 
-Note that `head -10` is used in order to print only the first lines of the
+Note that `head -10` is used in order to print only the first ten lines of the
 output.
 
 Scanning is able to use the underlying pattern matching capability of
