@@ -215,7 +215,7 @@ the ethernet packet size (about 1500 bytes). Actually, processing 10 bytes,
 100 bytes, or 1000 bytes queries almost result in the same throughput.
 See the graph below.
 
-    ![Data size impact](https://github.com/redis/redis-doc/blob/master/docs/images/Data_size.png)
+    ![Data size impact](Data_size.png)
 
 + On multi CPU sockets servers, Redis performance becomes dependent on the
 NUMA configuration and process location. The most visible effect is that
@@ -229,7 +229,7 @@ Intel Nehalem EX, and Intel Westmere) with different relative placements.
 Please note this benchmark is not meant to compare CPU models between themselves
 (CPUs exact model and frequency are therefore not disclosed).
 
-    ![NUMA chart](https://github.com/redis/redis-doc/blob/master/docs/images/NUMA_chart.gif)
+    ![NUMA chart](NUMA_chart.gif)
 
 + With high-end configurations, the number of client connections is also an
 important factor. Being based on epoll/kqueue, the Redis event loop is quite
@@ -239,7 +239,7 @@ an instance with 30000 connections can only process half the throughput
 achievable with 100 connections. Here is an example showing the throughput of
 a Redis instance per number of connections:
 
-    ![connections chart](https://github.com/redis/redis-doc/blob/master/docs/images/Connections_chart.png)
+    ![connections chart](Connections_chart.png)
 
 + With high-end configurations, it is possible to achieve higher throughput by
 tuning the NIC(s) configuration and associated interruptions. Best throughput
