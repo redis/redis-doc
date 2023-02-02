@@ -48,8 +48,8 @@ When called with `RESET`:
 
 Each log entry is composed of the following fields:
 
-1. `count`: The number of security events detected within a 60 second periods that are represented by this entry.
-2. `reason`: The reason for which the ACL security events were logged. Either `command`, `key`, `channel`, or `auth`.
+1. `count`: The number of security events detected within a 60 second period that are represented by this entry.
+2. `reason`: The reason that the security events were logged. Either `command`, `key`, `channel`, or `auth`.
 3. `context`: The context that the security events were detected in. Either `toplevel`, `multi`, `lua`, or `module`.
 4. `object`: The resource that the user had insufficient permissions to access. `auth` when the reason is `auth`.
 5. `username`: The username that executed the command that caused the security events or the username that had a failed authentication attempt.
