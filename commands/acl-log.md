@@ -46,7 +46,7 @@ When called with `RESET`:
    20) (integer) 1675361492408
 ```
 
-Each LOG is composed of the following fields of the corresponding acl log and their values:
+Each log entry is composed of the following fields:
 
 1. `count`: The number of security events detected within a 60 second periods that are represented by this entry.
 2. `reason`: The reason for which the ACL security events were logged. Either `command`, `key`, `channel`, or `auth`.
@@ -56,5 +56,5 @@ Each LOG is composed of the following fields of the corresponding acl log and th
 6. `age-seconds`: Age of the log entry in seconds.
 7. `client-info`: Displays the client info of a client which caused one of the security events.
 8. `entry-id`: The sequence number of the entry (starting at 0) since the server process started. Can also be used to check if items were “lost”, if they fell between periods.
-9. `timestamp-created`: This timestamp is the unix-time in `milliseconds` at the time the entry was first created.
-10. `timestamp-last-updated`: A unix-time in `milliseconds` at the time the entry was last updated.
+9. `timestamp-created`: A UNIX timestamp in `milliseconds` at the time the entry was first created.
+10. `timestamp-last-updated`: A UNIX timestamp in `milliseconds` at the time the entry was last updated.
