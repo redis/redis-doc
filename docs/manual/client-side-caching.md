@@ -8,7 +8,8 @@ aliases:
     - /topics/client-side-caching
 ---
 
-Client-side caching is a technique used to create high performance services.
+Client-side caching is a technique based on the cache-aside pattern.
+This technology is used to create high-performance services.
 It exploits the memory available on application servers, servers that are
 usually distinct computers compared to the database nodes, to store some subset
 of the database information directly in the application side.
