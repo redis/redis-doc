@@ -273,7 +273,7 @@ replicate keys with expires, even when such keys are altered using Lua
 scripts.
 
 To implement such a feature Redis cannot rely on the ability of the master and
-replica to have syncd clocks, since this is a problem that cannot be solved
+replica to have synced clocks, since this is a problem that cannot be solved
 and would result in race conditions and diverging data sets, so Redis
 uses three main techniques to make the replication of expired keys
 able to work:
