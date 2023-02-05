@@ -1,5 +1,5 @@
 {
-    "name": "go-redis/redis",
+    "name": "go-redis",
     "description": "Redis client for Golang supporting Redis Sentinel and Redis Cluster out of the box.",
     "recommended": true
 }
