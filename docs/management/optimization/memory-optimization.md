@@ -80,7 +80,7 @@ with a constant time complexity in the average case, like a hash table.
 But many times hashes contain just a few fields. When hashes are small we can
 instead just encode them in an O(N) data structure, like a linear
 array with length-prefixed key value pairs. Since we do this only when N
-is small, the amortized time for HGET and HSET commands is still O(1): the
+is small, the amortized time for `HGET` and `HSET` commands is still O(1): the
 hash will be converted into a real hash table as soon as the number of elements
 it contains grows too large (you can configure the limit in redis.conf).
 
