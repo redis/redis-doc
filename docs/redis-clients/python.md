@@ -31,17 +31,6 @@ For faster performance, install redis with [`hiredis`](https://github.com/redis/
 pip install redis[hiredis]
 ```
 
-### Connect to your Redis database
-
-By default, `redis-py` uses a connection pool to manage connections. Each instance of a Redis class receives its own connection pool. You can, however, define your own `redis.ConnectionPool`.
-
-```sh
->>> pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
->>> r = redis.Redis(connection_pool=pool)
-```
-
-Alternatively, you might want to look at [async connections](https://redis.readthedocs.io/en/stable/examples/asyncio_examples.html), or [cluster connections](https://redis.readthedocs.io/en/stable/connections.html#cluster-client), or [async cluster connections](https://redis.readthedocs.io/en/stable/connections.html#async-cluster-client).
-
 ### Example
 
 Connect to localhost on port 6379, set a value in Redis, and retrieve it. All responses are returned as bytes in Python. To receive decoded strings, set `decode_responses=True`. For this, and more connection options, see [these examples](https://redis.readthedocs.io/en/stable/examples.html).
