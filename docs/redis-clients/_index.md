@@ -6,15 +6,7 @@ weight: 4
 
 ---
 
-Here, you will learn how to connect your application to a Redis database. If you're new to Redis, you might first want to understand how to:
-
-* [Get started with Redis](/docs/getting-started/) 
-* [Work with Redis CLI](/docs/manual/cli/)
-* [Batch Redis commands](/docs/manual/pipelining/)
-* [Configure and manage Redis in production](/docs/management/admin/)
-* [Secure your database](/docs/management/security/)
-* [Scale with Redis Cluster](/docs/management/scaling/)
-* [Set up high availability with Redis Sentinel](/docs/management/sentinel/)
+Here, you will learn how to connect your application to a Redis database. If you're new to Redis, If you're new to Redis, you might first want to [install Redis with Redis Stack and RedisInsight](/docs/stack/get-started/install).
 
 For more Redis topics, see [Using](/docs/manual/) and [Managing](/docs/management/) Redis.
 
