@@ -1,0 +1,7 @@
+{
+    "name": "redis-bash",
+    "description": "Bash library and example client to access Redis Databases",
+    "twitter": [
+        "syshero"
+    ]
+}

@@ -1,7 +1,0 @@
-{
-    "name": "redis.fy",
-    "description": "A Fancy Redis client library",
-    "twitter": [
-        "bakkdoor"
-    ]
-}

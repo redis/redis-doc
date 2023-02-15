@@ -2,7 +2,7 @@
 title: "Redis data types"
 linkTitle: "Data types"
 description: Overview of data types supported by Redis
-weight: 3
+weight: 40
 aliases:
     - /docs/manual/data-types
     - /topics/data-types
@@ -65,7 +65,7 @@ Streams help record events in the order they occur and then syndicate them for p
 For more information, see:
 
 * [Overview of Redis Streams](/docs/data-types/streams)
-* [Redis Streams command reference](/commands/?group=streams)
+* [Redis Streams command reference](/commands/?group=stream)
 * [Redis Streams tutorial](/docs/data-types/streams-tutorial)
 
 ### Geospatial indexes

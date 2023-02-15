@@ -80,7 +80,7 @@ This is a list of all the supported Redis ACL rules:
 * `#<hashedpassword>`: Adds the specified hashed password to the list of user passwords. A Redis hashed password is hashed with SHA256 and translated into a hexadecimal string. Example: `#c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2`.
 * `<password`: Like `>password` but removes the password instead of adding it.
 * `!<hashedpassword>`: Like `#<hashedpassword>` but removes the password instead of adding it.
-* `(<rule list>)`: (Available in Redis 7.0 and later) Creates a new selector to match rules against. Selectors are evaluated after the user permissions, and are evaluated according to the order they are defined. If a command matches either the user permissions or any selector, it is allowed. See [selectors](/topics/acl#selectors) for more information.
+* `(<rule list>)`: (Available in Redis 7.0 and later) Creates a new selector to match rules against. Selectors are evaluated after the user permissions, and are evaluated according to the order they are defined. If a command matches either the user permissions or any selector, it is allowed. See [selectors](/docs/management/security/acl#selectors) for more information.
 * `clearselectors`: (Available in Redis 7.0 and later) Deletes all of the selectors attached to the user.
 * `reset`: Removes any capability from the user. They are set to off, without passwords, unable to execute any command, unable to access any key.
 

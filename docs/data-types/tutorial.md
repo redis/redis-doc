@@ -659,7 +659,7 @@ a sorted set is associated with a floating point value, called *the score*
 (this is why the type is also similar to a hash, since every element
 is mapped to a value).
 
-Moreover, elements in a sorted sets are *taken in order* (so they are not
+Moreover, elements in a sorted set are *taken in order* (so they are not
 ordered on request, order is a peculiarity of the data structure used to
 represent sorted sets). They are ordered according to the following rule:
 
@@ -880,7 +880,7 @@ a user wants to receive a newsletter) of 4 billion of users using just 512 MB of
 Bits are set and retrieved using the `SETBIT` and `GETBIT` commands:
 
     > setbit key 10 1
-    (integer) 1
+    (integer) 0
     > getbit key 10
     (integer) 1
     > getbit key 11

@@ -2,5 +2,6 @@
 title: "Redis reference"
 linkTitle: "Reference"
 description: Specifications and protocols
-weight: 8
+weight: 70
+
 ---

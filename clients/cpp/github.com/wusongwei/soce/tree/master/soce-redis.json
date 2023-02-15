@@ -1,5 +1,0 @@
-{
-    "name": "soce-redis",
-    "description": "Based on hiredis, accesses the sever(single, sentinel, cluster) with the same interface, supports pipeline and async(by coroutine)",
-    "homepage": "https://github.com/wusongwei/soce/tree/master/soce-redis"
-}
