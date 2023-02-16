@@ -5,11 +5,13 @@ Client(s) can subscribe to a node covering a slot (primary/replica) to receive t
 All the specified shard channels needs to belong to a single slot to subscribe in a given `SSUBSCRIBE` call,
 A client can subscribe to channels across different slots over separate `SSUBSCRIBE` call.
 
+For more information about sharded Pub/Sub, see [Sharded Pub/Sub](/topics/pubsub#sharded-pubsub).
+
+@return
+
 When successful, this command doesn't return anything.
 Instead, for each shard channel, one message with the first element being the string "ssubscribe" is pushed as a confirmation that command succeeded.
 Note that this command can also return a -MOVED redirect.
-
-For more information about sharded Pub/Sub, see [Sharded Pub/Sub](/topics/pubsub#sharded-pubsub).
 
 @examples
 
