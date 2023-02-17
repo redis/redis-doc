@@ -10,4 +10,4 @@ For more information about sharded Pub/Sub, see [Sharded Pub/Sub](/topics/pubsub
 @return
 
 When successful, this command doesn't return anything.
-Instead, for each shard channel, one message with the first element being the string "sunsubscribe" is pushed as a confirmation that command succeeded.
+Instead, for each shard channel, one message with the first element being the string "sunsubscribe" is pushed as a confirmation that the command succeeded.

@@ -15,7 +15,7 @@ For more information, see [Pub/sub](/docs/manual/pubsub/).
 @return
 
 When successful, this command doesn't return anything.
-Instead, for each pattern, one message with the first element being the string "psubscribe" is pushed as a confirmation that command succeeded.
+Instead, for each pattern, one message with the first element being the string "psubscribe" is pushed as a confirmation that the command succeeded.
 
 ## Behavior change history
 
