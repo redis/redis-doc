@@ -40,7 +40,7 @@ client are `SUBSCRIBE`, `SSUBSCRIBE`, `SUNSUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE
 
 Please note that when a client using `redis-cli` is in subscription mode, 
 commands such as `UNSUBSCRIBE` and `PUNSUBSCRIBE` cannot be used because 
-`redis-cli` will not accept the commands once more and can only quit the mode with `Ctrl-C`.
+`redis-cli` will not accept any commands and can only quit the mode with `Ctrl-C`.
 
 ## Format of pushed messages
 
