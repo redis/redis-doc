@@ -38,7 +38,7 @@ stream of messages where the first element indicates the type of
 message. The commands that are allowed in the context of a subscribed
 client are `SUBSCRIBE`, `SSUBSCRIBE`, `SUNSUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `PUNSUBSCRIBE`, `PING`, `RESET`, and `QUIT`.
 
-Please note that when a client using `redis-cli` is in subscription mode, 
+Please note that when using `redis-cli`, in subscribed mode
 commands such as `UNSUBSCRIBE` and `PUNSUBSCRIBE` cannot be used because 
 `redis-cli` will not accept any commands and can only quit the mode with `Ctrl-C`.
 
