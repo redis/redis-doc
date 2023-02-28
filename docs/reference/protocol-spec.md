@@ -64,6 +64,8 @@ This is the simplest model possible; however, there are some exceptions:
 * The `MONITOR` command.
   Invoking the `MONITOR` command switches the connection to an ad-hoc push mode.
   The protocol of this mode is not specified but is obvious to parse.
+* [Protected mode](/docs/management/security/#protected-mode).
+  Connections opened from a non-loopback address to a Redis while in protected mode are automatically sent a `-DENIED` reply and terminated by the server.
 * The [RESP3 Push type](#resp3-pushes).
   As the name suggests, a push type allows the server to send out-of-band data to the connection.
   The server may push data at any time, and the data isn't necessarily related to specific commands executed by the client.
