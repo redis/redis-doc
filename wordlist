@@ -720,6 +720,7 @@ node-redlock
 noeviction
 non-TCP
 non-TLS
+non-loopback
 non-reachability
 non-virtualized
 nonprintable
