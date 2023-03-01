@@ -1,0 +1,8 @@
+{
+    "name": "RedisCBOR",
+    "license": "MIT",
+    "description": "A CBOR data type for Redis",
+    "github": [
+        "dahomey-technologies"
+    ]
+}
