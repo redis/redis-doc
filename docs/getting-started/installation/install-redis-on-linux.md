@@ -30,6 +30,13 @@ echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://pack
 sudo apt-get update
 sudo apt-get install redis
 {{< / highlight  >}}
+## Install on Arch
+
+You can install recent stable versions of Redis from the your distribution repository.
+{{< highlight bash  >}}
+sudo pacman -S lsb-release
+sudo pacman -S redis
+{{< / highlight  >}}
 
 ## Install from Snapcraft
 
