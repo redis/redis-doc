@@ -217,7 +217,7 @@ We can add new followers with:
 
     ZADD followers:1000 1401267618 1234 => Add user 1234 with time 1401267618
 
-Another important thing we need is a place were we can add the updates to display in the user's home page. We'll need to access this data in chronological order later, from the most recent update to the oldest, so the perfect kind of data structure for this is a List. Basically every new update will be `LPUSH`ed in the user updates key, and thanks to `LRANGE`, we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
+Another important thing we need is a place where we can add the updates to display in the user's home page. We'll need to access this data in chronological order later, from the most recent update to the oldest, so the perfect kind of data structure for this is a List. Basically every new update will be `LPUSH`ed in the user updates key, and thanks to `LRANGE`, we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
 
     posts:1000 => a List of post ids - every new post is LPUSHed here.
 
