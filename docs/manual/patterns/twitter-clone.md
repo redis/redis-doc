@@ -152,7 +152,7 @@ The Hash data type
 ---
 
 This is the last data structure we use in our program, and is extremely easy
-to gasp since there is an equivalent in almost every programming language out
+to grasp since there is an equivalent in almost every programming language out
 there: Hashes. Redis Hashes are basically like Ruby or Python hashes, a
 collection of fields associated with values:
 
