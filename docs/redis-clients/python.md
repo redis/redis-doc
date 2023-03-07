@@ -6,16 +6,13 @@ weight: 1
 
 ---
 
-Use one of the following options to connect your application to a Redis database:
-
-* [redis-py](#redis-py)
-* [redis-om-python](#redis-om-python)
+Install Redis and Redis client, then connect your Python application to a Redis database. 
 
 ## redis-py
 
-Get started with a Python client for Redis. Looking for a high-level library to handle object mapping? See [redis-om-python](#redis-om-python).
+Get started with the [redis-py](https://github.com/redis/redis-py) client for Redis.
 
-`redis-py` requires a running Redis server. See the [Getting started](/docs/getting-started/) for Redis installation instructions.
+`redis-py` requires a running Redis server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
 
 ### Install
 
@@ -25,17 +22,17 @@ To install `redis-py`, type:
 pip install redis
 ```
 
-For faster performance, install redis with [`hiredis`](https://github.com/redis/hiredis) support. This provides a compiled response parser, and for most cases requires zero code changes. By default, if `hiredis` >= 1.0 is available, `redis-py` attempts to use it for response parsing.
+For faster performance, install Redis with [`hiredis`](https://github.com/redis/hiredis) support. This provides a compiled response parser, and for most cases requires zero code changes. By default, if `hiredis` >= 1.0 is available, `redis-py` attempts to use it for response parsing.
 
 ```bash
 pip install redis[hiredis]
 ```
 
-### Example
+### Connect
 
 Connect to localhost on port 6379, set a value in Redis, and retrieve it. All responses are returned as bytes in Python. To receive decoded strings, set `decode_responses=True`. For this, and more connection options, see [these examples](https://redis.readthedocs.io/en/stable/examples.html).
 
-```sh
+```python
 >>> import redis
 >>> r = redis.Redis(host='localhost', port=6379, db=0)
 >>> r.set('foo', 'bar')
@@ -44,17 +41,115 @@ True
 b'bar'
 ```
 
-Explore the following topics to get up and running your application with Python: 
+### Example: Indexing and querying JSON documents
 
-* [Tutorials](https://redis.readthedocs.io/en/stable/examples.html)
+Import Redis.
+
+```python
+import redis
+from redis.commands.json.path import Path
+import redis.commands.search.aggregation as aggregations
+import redis.commands.search.reducers as reducers
+from redis.commands.search.field import TextField, NumericField, TagField
+from redis.commands.search.indexDefinition import IndexDefinition, IndexType
+from redis.commands.search.query import NumericFilter, Query
+```
+
+Connect to Redis.
+
+```python
+r = redis.Redis(host='localhost', port=36379)
+```
+
+Create a document.
+
+```python
+user1 = {
+    "user":{
+        "name": "Paul John",
+        "email": "paul.john@example.com",
+        "age": 42,
+        "city": "London"
+    }
+}
+user2 = {
+    "user":{
+        "name": "Eden Zamir",
+        "email": "eden.zamir@example.com",
+        "age": 29,
+        "city": "Tel Aviv"
+    }
+}
+user3 = {
+    "user":{
+        "name": "Paul Zamir",
+        "email": "paul.zamir@example.com",
+        "age": 35,
+        "city": "Tel Aviv"
+    }
+}
+```
+
+Use `JSON.SET` to set user value at the specified path.
+
+```python
+r.json().set("user:1", Path.root_path(), user1)
+r.json().set("user:2", Path.root_path(), user2)
+r.json().set("user:3", Path.root_path(), user3)
+```
+
+Define data types using `schema`.
+
+```python
+schema = (TextField("$.user.name", as_name="name"),TagField("$.user.city", as_name="city"), NumericField("$.user.age", as_name="age"))
+```
+
+Create an index.
+
+```python
+r.ft().create_index(schema, definition=IndexDefinition(prefix=["user:"], index_type=IndexType.JSON))
+b'OK'
+```
+
+Perform a simple search using `FT.SEARCH`.
+
+```python
+r.ft().search("Paul")
+Result{2 total, docs: [Document {'id': 'user:1', 'payload': None, 'json': '{"user":{"name":"Paul John","email":"paul.john@example.com","age":42,"city":"London"}}'}, Document {'id': 'user:3', 'payload': None, 'json': '{"user":{"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}}'}]}
+```
+
+Create a query. 
+
+```python
+q1 = Query("Paul").add_filter(NumericFilter("age", 30, 40))
+```
+
+Then, filter search results.
+
+```python
+r.ft().search(q1)
+Result{1 total, docs: [Document {'id': 'user:3', 'payload': None, 'json': '{"user":{"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}}'}]}
+```
+
+Query using JSON Path expressions.
+
+```python
+r.ft().search(Query("Paul").return_field("$.user.city", as_field="city")).docs
+[Document {'id': 'user:1', 'payload': None, 'city': 'London'},
+ Document {'id': 'user:3', 'payload': None, 'city': 'Tel Aviv'}]
+```
+
+Aggregate your results using `FT.AGGREGATE`.
+
+```python
+req = aggregations.AggregateRequest("Paul").sort_by("@age")
+r.ft().aggregate(req).rows
+[[b'age', b'35'], [b'age', b'42']]
+```
+
+### Learn more
+
 * [Command reference](https://redis-py.readthedocs.io/en/stable/commands.html)
-* [Source code](https://github.com/redis/redis-py)
+* [Tutorials](https://redis.readthedocs.io/en/stable/examples.html)
+* [GitHub](https://github.com/redis/redis-py)
  
-## redis-om-python
-
-[Redis OM Python](https://github.com/redis/redis-om-python) is a Redis client that provides high-level abstractions for managing document data in Redis. This tutorial shows you how to get up and running with Redis OM Python, Redis Stack, and the [Flask](https://flask.palletsprojects.com/) micro-framework.
-
-We'd love to see what you build with Redis Stack and Redis OM. [Join the Redis community on Discord](https://discord.gg/redis) to chat with us about all things Redis OM and Redis Stack. Read more about Redis OM Python [our announcement blog post](https://redis.com/blog/introducing-redis-om-for-python/).
-
-### Examples
-* [Build API](/docs/tutorials/python-om/)
