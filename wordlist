@@ -183,9 +183,14 @@ IS-MASTER-DOWN-BY-ADDR
 Identinal
 IoT
 Itamar
+Jedis
+JedisCluster
+JedisPool
+JedisPooled
 JSON
 JSON-encoded
 Janowski
+Javadocs
 Jemalloc
 KEYSPACE
 Keyspace
@@ -234,6 +239,7 @@ NUMA
 NX
 NaN
 Nehalem
+node-redis
 NoSQL
 NodeJS
 Noordhuis
@@ -263,6 +269,7 @@ PV
 Parameterization
 Pieter
 Pipelining
+Pool2
 Predis
 Prev
 Prioglio
@@ -368,6 +375,7 @@ Snapcraft
 Snapshotting
 Solaris-derived
 SomeOtherValue
+Sonatype
 SoundCloud
 StackOverflow
 StringDMA
