@@ -65,28 +65,22 @@ Create a document.
 
 ```python
 user1 = {
-    "user":{
-        "name": "Paul John",
-        "email": "paul.john@example.com",
-        "age": 42,
-        "city": "London"
-    }
+    "name": "Paul John",
+    "email": "paul.john@example.com",
+    "age": 42,
+    "city": "London"
 }
 user2 = {
-    "user":{
-        "name": "Eden Zamir",
-        "email": "eden.zamir@example.com",
-        "age": 29,
-        "city": "Tel Aviv"
-    }
+    "name": "Eden Zamir",
+    "email": "eden.zamir@example.com",
+    "age": 29,
+    "city": "Tel Aviv"
 }
 user3 = {
-    "user":{
-        "name": "Paul Zamir",
-        "email": "paul.zamir@example.com",
-        "age": 35,
-        "city": "Tel Aviv"
-    }
+    "name": "Paul Zamir",
+    "email": "paul.zamir@example.com",
+    "age": 35,
+    "city": "Tel Aviv"
 }
 ```
 
