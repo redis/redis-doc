@@ -84,7 +84,7 @@ user3 = {
 }
 ```
 
-Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed.
+Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax). 
 
 ```python
 rs = r.ft("idx:users")
