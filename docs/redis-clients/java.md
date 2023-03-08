@@ -45,7 +45,7 @@ Jedis is also distributed as a Maven dependency through Sonatype. To configure t
 docker run -p 6379:6379 -it redis/redis-stack:latest
 ```
 
-For many applications, it's best to use a connection pool. But `Jedis` also lets you connect to Redis Clusters, supporting the Redis Cluster Specification.
+For many applications, it's best to use a connection pool. But `Jedis` also lets you connect to Redis Clusters, supporting the [Redis Cluster Specification](/docs/reference/cluster-spec).
 
 
 #### Instantiate a Jedis connection pool
