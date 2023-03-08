@@ -142,9 +142,10 @@ Result{1 total, docs: [Document {'id': 'user:3', 'payload': None, 'json': '{"use
 Query using JSON Path expressions.
 
 ```python
-r.ft().search(Query("Paul").return_field("$.user.city", as_field="city")).docs
-[Document {'id': 'user:1', 'payload': None, 'city': 'London'},
- Document {'id': 'user:3', 'payload': None, 'city': 'Tel Aviv'}]
+rs.search(
+    Query("Paul").return_field("$.city", as_field="city")
+).docs
+# [Document {'id': 'user:1', 'payload': None, 'city': 'London'}, Document {'id': 'user:3', 'payload': None, 'city': 'Tel Aviv'}]
 ```
 
 Aggregate your results using `FT.AGGREGATE`.
