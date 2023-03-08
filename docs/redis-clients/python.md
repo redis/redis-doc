@@ -125,7 +125,11 @@ rs.search("Paul")
 Create a query. 
 
 ```python
-q1 = Query("Paul").add_filter(NumericFilter("age", 30, 40))
+rs.search(
+    Query("Paul").add_filter(
+        NumericFilter("age", 30, 40)
+    )
+)
 ```
 
 Then, filter search results.
