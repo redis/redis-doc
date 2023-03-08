@@ -6,7 +6,7 @@ weight: 2
 
 ---
 
-Install Redis and Redis client, then connect your Node.js application to a Redis database. 
+Install Redis and the Redis client, then connect your Node.js application to a Redis database. 
 
 ## node-redis
 
