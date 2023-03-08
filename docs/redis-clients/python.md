@@ -102,7 +102,7 @@ schema = (
 )
 ```
 
-Create an index.
+Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed.
 
 ```python
 r.ft().create_index(schema, definition=IndexDefinition(prefix=["user:"], index_type=IndexType.JSON))
