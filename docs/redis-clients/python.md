@@ -43,7 +43,7 @@ r.get('foo')
 
 ### Example: Indexing and querying JSON documents
 
-Import Redis.
+Make sure that you have Redis Stack and `redis-py` installed. Import dependencies:
 
 ```python
 import redis
