@@ -84,6 +84,19 @@ user3 = {
 }
 ```
 
+Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed.
+
+```python
+rs = r.ft("idx:users")
+rs.create_index(
+    schema,
+    definition=IndexDefinition(
+        prefix=["user:"], index_type=IndexType.JSON
+    )
+)
+# b'OK'
+```
+
 Use `JSON.SET` to set each user value at the specified path.
 
 ```python
@@ -100,13 +113,6 @@ schema = (
     TagField("$.city", as_name="city"), 
     NumericField("$.age", as_name="age")
 )
-```
-
-Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed.
-
-```python
-r.ft().create_index(schema, definition=IndexDefinition(prefix=["user:"], index_type=IndexType.JSON))
-b'OK'
 ```
 
 Perform a simple search using `FT.SEARCH`.
