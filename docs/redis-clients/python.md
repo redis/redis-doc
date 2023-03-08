@@ -30,7 +30,7 @@ pip install redis[hiredis]
 
 ### Connect
 
-Connect to localhost on port 6379, set a value in Redis, and retrieve it. All responses are returned as bytes in Python. To receive decoded strings, set `decode_responses=True`. For this, and more connection options, see [these examples](https://redis.readthedocs.io/en/stable/examples.html).
+Connect to localhost on port 6379, set a value in Redis, and retrieve it. All responses are returned as bytes in Python. To receive decoded strings, set `decode_responses=True`. For more connection options, see [these examples](https://redis.readthedocs.io/en/stable/examples.html).
 
 ```python
 import redis
