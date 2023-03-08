@@ -20,7 +20,7 @@ To include `Jedis` as a dependency in your application, you can:
 
 * Build from source - You get the most recent version.
 
-* Clone the GitHub project - Very easy; on the command line, you just need to `git clone git://github.com/xetorthio/jedis.git`.
+* Clone the GitHub project - On the command line, you just need to run `git clone git://github.com/xetorthio/jedis.git`.
 
 * Build from GitHub - Before you package it using maven, you have to pass the tests. To run the tests and package, run `make package`.
 
