@@ -16,7 +16,7 @@ Install Redis and the Redis client, then connect your Java application to a Redi
 
 To include `Jedis` as a dependency in your application, you can:
 
-* Use the JAR files - Download the latest Jedis and Apache Commons Pool2 JAR files from search.maven.org or any other Maven repository.
+* Use the JAR files - Download the latest Jedis and Apache Commons Pool2 JAR files from `search.maven.org` or any other Maven repository.
 
 * Build from source - You get the most recent version.
 
@@ -66,7 +66,7 @@ try (Jedis jedis = pool.getResource()) {
 }
 ```
 
-`Jedis` instances implement most Redis commands. See the [Jedis Javadocs](https://www.javadoc.io/doc/redis.clients/jedis/latest/redis/clients/jedis/Jedis.html) for the complete list of supported commands.
+`Jedis` instances implement most Redis commands. See the [Jedis Javadocs](https://www.javadoc.io/doc/redis.clients/jedis/latest/redis/clients/jedis/Jedis.html) for a complete list of supported commands.
 
 Because adding a `try-with-resources` block for each command can be cumbersome, consider using JedisPooled as an easier way to pool connections.
 
