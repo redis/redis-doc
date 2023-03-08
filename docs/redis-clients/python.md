@@ -16,7 +16,7 @@ Get started with the [redis-py](https://github.com/redis/redis-py) client for Re
 
 ### Install
 
-To install `redis-py`, type:
+To install `redis-py`, enter:
 
 ```bash
 pip install redis
