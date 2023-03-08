@@ -152,8 +152,8 @@ Aggregate your results using `FT.AGGREGATE`.
 
 ```python
 req = aggregations.AggregateRequest("Paul").sort_by("@age")
-r.ft().aggregate(req).rows
-[[b'age', b'35'], [b'age', b'42']]
+rs.aggregate(req).rows
+# [[b'age', b'35'], [b'age', b'42']]
 ```
 
 ### Learn more
