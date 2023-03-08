@@ -118,8 +118,8 @@ schema = (
 Perform a simple search using `FT.SEARCH`.
 
 ```python
-r.ft().search("Paul")
-Result{2 total, docs: [Document {'id': 'user:1', 'payload': None, 'json': '{"user":{"name":"Paul John","email":"paul.john@example.com","age":42,"city":"London"}}'}, Document {'id': 'user:3', 'payload': None, 'json': '{"user":{"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}}'}]}
+rs.search("Paul")
+# Result{2 total, docs: [Document {'id': 'user:3', 'payload': None, 'json': '{"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}'}, Document {'id': 'user:1', 'payload': None, 'json': '{"name":"Paul John","email":"paul.john@example.com","age":42,"city":"London"}'}]}
 ```
 
 Create a query. 
