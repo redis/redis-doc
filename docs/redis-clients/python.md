@@ -58,7 +58,7 @@ from redis.commands.search.query import NumericFilter, Query
 Connect to your Redis database.
 
 ```python
-r = redis.Redis(host='localhost', port=36379)
+r = redis.Redis(host='localhost', port=6379)
 ```
 
 Create a document.
