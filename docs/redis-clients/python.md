@@ -95,7 +95,11 @@ r.json().set("user:3", Path.root_path(), user3)
 Define indexed fields and their data types using `schema`. Use JSON path expressions to map specific JSON elements to the schema fields.
 
 ```python
-schema = (TextField("$.user.name", as_name="name"),TagField("$.user.city", as_name="city"), NumericField("$.user.age", as_name="age"))
+schema = (
+    TextField("$.name", as_name="name"), 
+    TagField("$.city", as_name="city"), 
+    NumericField("$.age", as_name="age")
+)
 ```
 
 Create an index.
