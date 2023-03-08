@@ -6,7 +6,7 @@ weight: 1
 
 ---
 
-Install Redis and Redis client, then connect your Python application to a Redis database. 
+Install Redis and the Redis client, then connect your Python application to a Redis database. 
 
 ## redis-py
 
