@@ -55,7 +55,7 @@ from redis.commands.search.indexDefinition import IndexDefinition, IndexType
 from redis.commands.search.query import NumericFilter, Query
 ```
 
-Connect to Redis.
+Connect to your Redis database.
 
 ```python
 r = redis.Redis(host='localhost', port=36379)
