@@ -104,7 +104,7 @@ await Promise.all([
 ]);
 ```
 
-Perform a search query using `FT.SEARCH` to find all the dogs, then sort the by age in descending order. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax/).
+Perform a search query using `FT.SEARCH` to find all the dogs, then sort the search results by age in descending order. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax/).
 
 ```js
 const results = await client.ft.search(
