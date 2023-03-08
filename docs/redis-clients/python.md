@@ -84,7 +84,7 @@ user3 = {
 }
 ```
 
-Use `JSON.SET` to set user value at the specified path.
+Use `JSON.SET` to set each user value at the specified path.
 
 ```python
 r.json().set("user:1", Path.root_path(), user1)
