@@ -6,7 +6,7 @@ weight: 3
 
 ---
 
-Install Redis and Redis client, then connect your Java application to a Redis database. 
+Install Redis and the Redis client, then connect your Java application to a Redis database. 
 
 ## Jedis
 
