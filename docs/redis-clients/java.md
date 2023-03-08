@@ -99,7 +99,7 @@ jedis.sadd("planets", "Mars");
 
 ### Example: Index and query using Jedis
 
-This example shows how to initialize the client, then how create an index and query it.
+This example shows how to initialize the client and how to create and query an index.
 
 #### Initialize the client
 
