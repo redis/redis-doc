@@ -26,7 +26,7 @@ To have `Jedis` as a dependency in your application you can:
 
 ### Configure a Maven dependency
 
-Jedis is also distributed as a Maven Dependency through Sonatype. To configure that, just add the following XML snippet to your `pom.xml` file.
+Jedis is also distributed as a Maven dependency through Sonatype. To configure this dependency, just add the following XML snippet to your `pom.xml` file.
 
 ```XML
 <dependency>
