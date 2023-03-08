@@ -14,7 +14,7 @@ Install Redis and the Redis client, then connect your Java application to a Redi
 
 ### Install
 
-To have `Jedis` as a dependency in your application you can:
+To include `Jedis` as a dependency in your application, you can:
 
 * Use the jar files - Download the latest Jedis and Apache Commons Pool2 jars from search.maven.org or any other maven repository.
 
