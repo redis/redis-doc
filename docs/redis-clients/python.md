@@ -61,7 +61,7 @@ Connect to your Redis database.
 r = redis.Redis(host='localhost', port=6379)
 ```
 
-Create a document.
+Create JSON documents to add to your database.
 
 ```python
 user1 = {
