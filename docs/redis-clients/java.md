@@ -68,7 +68,7 @@ try (Jedis jedis = pool.getResource()) {
 
 `Jedis` instances implement most Redis commands. See the [Jedis Javadocs](https://www.javadoc.io/doc/redis.clients/jedis/latest/redis/clients/jedis/Jedis.html) for the complete list of supported commands.
 
-Using a `try-with-resources` block for each command may be cumbersome, so you may consider using JedisPooled as an easier way of using connection pool.
+Because adding a `try-with-resources` block for each command can be cumbersome, consider using JedisPooled as an easier way to pool connections.
 
 ```
 JedisPooled jedis = new JedisPooled("localhost", 6379);
