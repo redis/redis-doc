@@ -14,7 +14,8 @@ Install Redis and the Redis client, then connect your Go application to a Redis 
 
 ### Install
 
-`go-redis` supports last two Go versions and only works with Go modules. So, first, you need to initialize a Go module:
+`go-redis` supports last two Go versions and only works with Go modules. 
+So, first, you need to initialize a Go module:
 
 ```
 go mod init github.com/my/repo
