@@ -51,7 +51,7 @@ createClient({
   url: 'redis://alice:foobared@awesome.redis.server:6380'
 });
 ```
-You can also use discrete parameters, UNIX sockets, and even TLS to connect. Details can be found in the client configuration guide.
+You can also use discrete parameters, UNIX sockets, and even TLS to connect. Details can be found in the [client configuration guide](https://redis.js.org/docs/client-configuration.md).
 
 To check if the client is connected and ready to send commands, use `client.isReady`, which returns a Boolean. `client.isOpen` is also available. This returns `true` when the client's underlying socket is open, and `false` when it isn't (for example, when the client is still connecting or reconnecting after a network error).
 
