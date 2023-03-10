@@ -10,9 +10,9 @@ Install Redis and the Redis client, then connect your Python application to a Re
 
 ## redis-py
 
-Get started with the [redis-py](https://github.com/redis/redis-py) client for Redis.
+Get started with the [redis-py](https://github.com/redis/redis-py) client for Redis. 
 
-`redis-py` requires a running Redis server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
+`redis-py` requires a running Redis server a running Redis or [Redis Stack](https://redis.io/docs/stack/get-started/install/) server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
 
 ### Install
 
@@ -118,10 +118,8 @@ r.json().set("user:3", Path.root_path(), user3)
 Let's find user 'Paul` and filter the results by age.
 
 ```python
-rs.search(
-    Query("Paul").add_filter(
-        NumericFilter("age", 30, 40)
-    )
+res = rs.search(
+    Query("Paul @age:[30 40]")
 )
 # Result{1 total, docs: [Document {'id': 'user:3', 'payload': None, 'json': '{"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}'}]}
 ```
