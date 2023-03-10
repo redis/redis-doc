@@ -20,11 +20,13 @@ number of elements and maximum element size for special encoded types
 using the following redis.conf directives.
 
 ```
-hash-max-ziplist-entries 512
-hash-max-ziplist-value 64
-zset-max-ziplist-entries 128
-zset-max-ziplist-value 64
+hash-max-ziplist-entries 512 (hash-max-listpack-entries for Redis >= 7.0)
+hash-max-ziplist-value 64 (hash-max-listpack-value for Redis >= 7.0)
+zset-max-ziplist-entries 128 (zset-max-listpack-entries 128 for Redis >= 7.0)
+zset-max-ziplist-value 64 (zset-max-listpack-value 64 for Redis >= 7.0)
 set-max-intset-entries 512
+set-max-listpack-entries 128 (Redis >= 7.2)
+set-max-listpack-value 64 (Redis >= 7.2)
 ```
 
 If a specially encoded value overflows the configured max size,
