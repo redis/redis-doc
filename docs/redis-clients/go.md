@@ -29,7 +29,7 @@ go get github.com/redis/go-redis/v9
 
 ### Connect
 
-To connect to a Redis Server:
+To connect to a Redis server:
 
 ```go
 import "github.com/redis/go-redis/v9"
@@ -187,7 +187,7 @@ bs, err := cmd.BoolSlice()
 
 ### redis.Nil
 
-go-redis exports the redis.Nil error and returns it whenever the Redis server responds with `(nil)`. You can use `redis-cli` to check what response Redis returns.
+`go-redis` exports the `redis.Nil` error and returns it whenever the Redis server responds with `(nil)`. You can use `redis-cli` to check what response Redis returns.
 
 This example uses `redis.Nil` to distinguish an empty string reply and a `nil` reply (`key does not exist`).
 
@@ -203,7 +203,7 @@ case val == "":
 }
 ```
 
-`GET` is not the only command that returns nil reply. For example, `BLPOP` and `ZSCORE` can also return `redis.Nil`.
+`GET` is not the only command that returns a `nil reply. For example, `BLPOP` and `ZSCORE` can also return `redis.Nil`.
 
 ### Conn
 
@@ -228,7 +228,7 @@ fmt.Println("client name", name)
 
 Commands that return multiple keys and values provide a helper to scan results into a struct, for example, commands like `HGETALL`, `HMGET`, and `MGET`.
 
-You can use redis struct field tag to change field names or completely ignore some fields:
+You can use the `redis` struct field tag to change field names or completely ignore some fields.
 
 ```go
 type Model struct {
