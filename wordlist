@@ -148,6 +148,7 @@ Fsyncing
 GDB
 GEODEL
 GET-MASTER-ADDR-BY-NAME
+go-redis
 GPG
 Gbit
 GeoHashes
@@ -496,6 +497,7 @@ cjson
 cleartext
 cli
 cluster-config-file
+Cmd
 cmsgpack
 codename
 codenamed
@@ -605,6 +607,7 @@ frequencyonly
 fsSL
 fsync
 fsyncing
+func
 gdb
 geo
 geohash
@@ -618,8 +621,11 @@ hacktoberfest
 handleClientsWithPendingWrites
 hardcoded
 hardlinks
+Healthcheck
+healthchecks
 hexastore
 hiredis
+holdApplicationUntilProxyStarts
 hostname
 hostnames
 hotspots
@@ -643,6 +649,7 @@ iojob
 iostat
 ip
 ip:port
+Istio
 iterable
 iteratively
 jemalloc
@@ -682,6 +689,7 @@ linkTitle
 little-endian
 liveness
 ln
+LoadX509KeyPair
 localhost
 log2
 logfile
@@ -896,6 +904,7 @@ status2
 stdin
 strace
 struct
+structs
 struct's
 struct-encoded
 subcommand
@@ -915,6 +924,7 @@ syscall
 systemctl
 taskset
 tcmalloc
+tcp
 tls-port
 tmp
 tmux
@@ -951,6 +961,7 @@ used_memory_scripts_eval
 usr
 utf8
 utils
+v9
 value-ptr
 variadic
 venv
