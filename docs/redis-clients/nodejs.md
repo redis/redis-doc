@@ -11,6 +11,7 @@ Install Redis and the Redis client, then connect your Node.js application to a R
 ## node-redis
 
 [node-redis](https://github.com/redis/node-redis) is a modern, high-performance Redis client for Node.js.
+`node-redis` requires a running Redis server a running Redis or [Redis Stack](https://redis.io/docs/stack/get-started/install/) server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
 
 ### Install
 
@@ -55,99 +56,142 @@ You can also use discrete parameters, UNIX sockets, and even TLS to connect. Det
 
 To check if the client is connected and ready to send commands, use `client.isReady`, which returns a Boolean. `client.isOpen` is also available. This returns `true` when the client's underlying socket is open, and `false` when it isn't (for example, when the client is still connecting or reconnecting after a network error).
 
-### Example: Index and query data stored in Redis hashes
-
-This example demonstrates how to index and query data stored in Redis hashes. 
+### Example: Indexing and querying JSON documents
 
 ```js
-import { createClient, SchemaFieldTypes } from 'redis';
-
+import {AggregateSteps, AggregateGroupByReducers, createClient, SchemaFieldTypes} from 'redis';
 const client = createClient();
-
 await client.connect();
-```
 
-Create an index using `FT.CREATE`.
-
-```js
 try {
-  await client.ft.create('idx:animals', {
-    name: {
-      type: SchemaFieldTypes.TEXT,
-      sortable: true
-    },
-    species: SchemaFieldTypes.TAG,
-    age: SchemaFieldTypes.NUMERIC
-  }, {
-    ON: 'HASH',
-    PREFIX: 'noderedis:animals'
-  });
+    await client.ft.create('idx:users', {
+        '$.name': {
+            type: SchemaFieldTypes.TEXT,
+            sortable: true
+        },
+        '$.city': {
+            type: SchemaFieldTypes.TEXT,
+            AS: 'city'
+        },
+        '$.age': {
+            type: SchemaFieldTypes.NUMERIC,
+            AS: 'age'
+        }
+    }, {
+        ON: 'JSON',
+        PREFIX: 'user:'
+    });
 } catch (e) {
-  if (e.message === 'Index already exists') {
-    console.log('Index exists already, skipped creation.');
-  } else {
-    // Something went wrong, perhaps RediSearch isn't installed...
-    console.error(e);
-    process.exit(1);
-  }
-}
-```
-
-Add some sample data using `HSET`.
-
-```js
-await Promise.all([
-  client.hSet('noderedis:animals:1', {name: 'Fluffy', species: 'cat', age: 3}),
-  client.hSet('noderedis:animals:2', {name: 'Ginger', species: 'cat', age: 4}),
-  client.hSet('noderedis:animals:3', {name: 'Rover', species: 'dog', age: 9}),
-  client.hSet('noderedis:animals:4', {name: 'Fido', species: 'dog', age: 7})
-]);
-```
-
-Perform a search query using `FT.SEARCH` to find all the dogs, then sort the search results by age in descending order. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax/).
-
-```js
-const results = await client.ft.search(
-  'idx:animals', 
-  '@species:{dog}',
-  {
-    SORTBY: {
-      BY: 'age',
-      DIRECTION: 'DESC' // or 'ASC (default if DIRECTION is not present)
+    if (e.message === 'Index already exists') {
+        console.log('Index exists already, skipped creation.');
+    } else {
+        // Something went wrong, perhaps RediSearch isn't installed...
+        console.error(e);
+        process.exit(1);
     }
-  }
-);
-
- results:
- {
-   total: 2,
-   documents: [
-     { 
-       id: 'noderedis:animals:3',
-       value: {
-         name: 'Rover',
-         species: 'dog',
-         age: '9'
-       }
-     },
-     {
-       id: 'noderedis:animals:4',
-       value: {
-         name: 'Fido',
-         species: 'dog',
-         age: '7'
-       }
-     }
-   ]
- }
-
-console.log(`Results found: ${results.total}.`);
-
-for (const doc of results.documents) {
-  // noderedis:animals:3: Rover, 9 years old.
-  // noderedis:animals:4: Fido, 7 years old.
-  console.log(`${doc.id}: ${doc.value.name}, ${doc.value.age} years old.`);
 }
+
+
+await Promise.all([
+    client.json.set('user:1', '$', {
+        "name": "Paul John",
+        "email": "paul.john@example.com",
+        "age": 42,
+        "city": "London"
+    }),
+    client.json.set('user:2', '$', {
+        "name": "Eden Zamir",
+        "email": "eden.zamir@example.com",
+        "age": 29,
+        "city": "Tel Aviv"
+    }),
+    client.json.set('user:3', '$', {
+        "name": "Paul Zamir",
+        "email": "paul.zamir@example.com",
+        "age": 35,
+        "city": "Tel Aviv"
+    }),
+]);
+
+let result = await client.ft.search(
+    'idx:users',
+    'Paul @age:[30 40]'
+);
+console.log(JSON.stringify(result, null, 2));
+/*
+{
+  "total": 1,
+  "documents": [
+    {
+      "id": "user:3",
+      "value": {
+        "name": "Paul Zamir",
+        "email": "paul.zamir@example.com",
+        "age": 35,
+        "city": "Tel Aviv"
+      }
+    }
+  ]
+}
+ */
+
+// Return only the city field
+result = await client.ft.search(
+    'idx:users',
+    'Paul @age:[30 40]',
+    {
+        RETURN: ['$.city']
+    }
+);
+console.log(JSON.stringify(result, null, 2));
+
+/*
+{
+  "total": 1,
+  "documents": [
+    {
+      "id": "user:3",
+      "value": {
+        "$.city": "Tel Aviv"
+      }
+    }
+  ]
+}
+ */
+
+// Count all users in the same city
+result = await client.ft.aggregate('idx:users', '*', {
+    STEPS: [
+        {
+            type: AggregateSteps.GROUPBY,
+            properties: ['@city'],
+            REDUCE: [
+                {
+                    type: AggregateGroupByReducers.COUNT,
+                    property: '@name',
+                    AS: 'count'
+                }
+            ]
+        }
+    ]
+})
+console.log(JSON.stringify(result, null, 2));
+
+/*
+{
+  "total": 2,
+  "results": [
+    {
+      "city": "London",
+      "count": "1"
+    },
+    {
+      "city": "Tel Aviv",
+      "count": "2"
+    }
+  ]
+}
+ */
 
 await client.quit();
 ```
