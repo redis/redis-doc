@@ -84,6 +84,16 @@ user3 = {
 }
 ```
 
+Define indexed fields and their data types using `schema`. Use JSON path expressions to map specific JSON elements to the schema fields.
+
+```python
+schema = (
+    TextField("$.name", as_name="name"), 
+    TagField("$.city", as_name="city"), 
+    NumericField("$.age", as_name="age")
+)
+```
+
 Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax). 
 
 ```python
@@ -105,17 +115,7 @@ r.json().set("user:2", Path.root_path(), user2)
 r.json().set("user:3", Path.root_path(), user3)
 ```
 
-Define indexed fields and their data types using `schema`. Use JSON path expressions to map specific JSON elements to the schema fields.
-
-```python
-schema = (
-    TextField("$.name", as_name="name"), 
-    TagField("$.city", as_name="city"), 
-    NumericField("$.age", as_name="age")
-)
-```
-
-Create a query. 
+Let's find user 'Paul` and filter the results by age.
 
 ```python
 rs.search(
@@ -123,13 +123,7 @@ rs.search(
         NumericFilter("age", 30, 40)
     )
 )
-```
-
-Then, filter search results.
-
-```python
-r.ft().search(q1)
-Result{1 total, docs: [Document {'id': 'user:3', 'payload': None, 'json': '{"user":{"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}}'}]}
+# Result{1 total, docs: [Document {'id': 'user:3', 'payload': None, 'json': '{"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}'}]}
 ```
 
 Query using JSON Path expressions.
