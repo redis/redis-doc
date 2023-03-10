@@ -55,7 +55,7 @@ You can also use discrete parameters, UNIX sockets, and even TLS to connect. Det
 
 To check if the client is connected and ready to send commands, use `client.isReady`, which returns a Boolean. `client.isOpen` is also available. This returns `true` when the client's underlying socket is open, and `false` when it isn't (for example, when the client is still connecting or reconnecting after a network error).
 
-### Example: Index and query data stored in Redis hashes using node-redis
+### Example: Index and query data stored in Redis hashes
 
 This example demonstrates how to index and query data stored in Redis hashes. 
 

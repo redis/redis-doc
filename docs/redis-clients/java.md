@@ -103,13 +103,13 @@ This example shows how to initialize the client and how to create and query an i
 
 #### Initialize the client
 
-To initialize the client with JedisPooled:
+To initialize the client with `JedisPooled`:
 
 ```
 JedisPooled client = new JedisPooled("localhost", 6379);
 ```
 
-To initialize the client with JedisCluster:
+To initialize the client with `JedisCluster`:
 
 ```
 Set<HostAndPort> nodes = new HashSet<>();
