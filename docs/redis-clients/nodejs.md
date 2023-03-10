@@ -15,12 +15,6 @@ Install Redis and the Redis client, then connect your Node.js application to a R
 
 ### Install
 
-Start Redis via Docker:
-
-```
-docker run -p 6379:6379 -it redis/redis-stack-server:latest
-```
-
 To install node-redis, run:
 
 ```
