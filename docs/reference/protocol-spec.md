@@ -494,6 +494,12 @@ Both map keys and values can be any of RESP's types.
 Redis clients should return the idiomatic dictionary type that their language provides.
 However, low-level programming languages (such as C, for example) will likely return an array along with type information that indicates to the caller that it is a dictionary.
 
+{{% alert title="Map pattern in RESP2" color="info" %}}
+RESP2 doesn't have a map type.
+Maps in RESP2 are represented by arrays, in which each element is a key-value tuple.
+Each tuple is an array with two elements, these being the key and the value.
+{{% /alert %}}
+
 <a name="set-reply"></a>
 
 ### Sets
