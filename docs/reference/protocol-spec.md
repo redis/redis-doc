@@ -351,7 +351,7 @@ RESP booleans are encoded as follows:
 <a name="double-reply"></a>
 
 ### Doubles
-The Double RESP type encodes a double-precision floating point valu
+The Double RESP type encodes a double-precision floating point value.
 Doubles are encoded as follows:
 
     ,<floating-point-number>\r\n
