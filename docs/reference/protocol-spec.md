@@ -351,8 +351,7 @@ RESP booleans are encoded as follows:
 <a name="double-reply"></a>
 
 ### Doubles
-The Double RESP type encodes a double-precision floating point value.
-
+The Double RESP type encodes a double-precision floating point valu
 Doubles are encoded as follows:
 
     ,<floating-point-number>\r\n
@@ -365,11 +364,20 @@ Here's the encoding of the number 1.23:
 
     ,1.23\r\n
 
-The floating point number must start with a digit, even if it is zero (0).
-Exponential notation is not supported.
+A floating point number may be made up of up to three parts:
 
-However, the decimal part is optional.
-The integer value of ten (10) can, therefore, be RESP-encoded both as an integer as well as a double:
+    <integral-part>[.<fractional-part>[<exponent-part]]
+
+The floating point number always begins with an integral.
+The integral part is made of one or more decimal digits.
+
+A fractional part may follow the integral.
+The fractional part begins with a dot (`.`), followed by one or more decimal digits.
+
+An exponent part may follow the fractional.
+The exponent part begins with the letters `E` or `e`, an optional `+` or `-`, followed by one or more decimal digits.
+
+Because the fractional part is optional, the integer value of ten (10) can, therefore, be RESP-encoded both as an integer as well as a double:
 
     :10\r\n
     ,10\r\n
