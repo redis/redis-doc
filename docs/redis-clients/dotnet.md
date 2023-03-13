@@ -1,7 +1,7 @@
 ---
 title: ".NET guide"
 linkTitle: ".NET"
-description: Connect your NRedisStack application to a Redis database
+description: Connect your .NET application to a Redis database
 weight: 5
 
 ---
