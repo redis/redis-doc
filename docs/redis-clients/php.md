@@ -59,7 +59,7 @@ $client = new Predis\Client([
 ]);
 ```
 
-To pass the same set of parameters using an URI string:
+To pass the same set of parameters using a URI string:
 
 ```php
 $client = new Predis\Client('tcp://10.0.0.1:6379');
@@ -81,13 +81,18 @@ need to configure an SSL proxy like stunnel. This can be useful when connecting 
 various cloud hosting providers. Encryption can be enabled with using the `tls` scheme and an array
 of suitable [options](http://php.net/manual/context.ssl.php) passed via the `ssl` parameter:
 
+To pass parameters using a named array:
+
 ```php
-// Named array of connection parameters:
 $client = new Predis\Client([
   'scheme' => 'tls',
   'ssl'    => ['cafile' => 'private.pem', 'verify_peer' => true],
 ]);
-// Same set of parameters, but using an URI string:
+```
+
+To pass the same set of parameters using a URI string:
+
+```php
 $client = new Predis\Client('tls://127.0.0.1?ssl[cafile]=private.pem&ssl[verify_peer]=1');
 ```
 

@@ -458,6 +458,10 @@ async
 atomicity
 auth
 authenticateClientWithUser
+autoloading
+Autoloading
+autoload
+autoloader
 auto-reconnection
 autocomplete
 backend
@@ -632,6 +636,7 @@ hotspots
 hyperloglog
 i8
 iamonds
+IANA
 idletime
 idx
 idx'-th
@@ -743,6 +748,7 @@ nonprintable
 nopass
 notify-keyspace-events
 notifyKeyspaceEvent
+NRedisStack
 num-items
 numactl
 numkeys
@@ -757,6 +763,7 @@ optionals
 overcommit
 p50
 p999
+Packagist
 pades
 pageview
 parameterization
@@ -773,7 +780,6 @@ pipelined
 pipelining
 pmessage
 ppa:redislabs
-pratical
 pre-conditions
 pre-configured
 pre-existing
@@ -782,6 +788,7 @@ pre-loaded
 pre-populated
 pre-sharding
 prepend
+Prepend
 preprocessing
 prerequesits
 prev
@@ -794,6 +801,7 @@ programmability
 programmatically
 programmatically-generated
 pseudorandom
+PSR-4
 pubsub
 qsort
 queueing
@@ -907,6 +915,7 @@ struct
 structs
 struct's
 struct-encoded
+stunnel
 subcommand
 subcommand's
 subcommand.
