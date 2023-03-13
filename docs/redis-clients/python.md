@@ -115,7 +115,7 @@ r.json().set("user:2", Path.root_path(), user2)
 r.json().set("user:3", Path.root_path(), user3)
 ```
 
-Let's find user 'Paul` and filter the results by age.
+Let's find user `Paul` and filter the results by age.
 
 ```python
 res = rs.search(

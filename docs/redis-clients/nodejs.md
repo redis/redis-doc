@@ -52,11 +52,17 @@ To check if the client is connected and ready to send commands, use `client.isRe
 
 ### Example: Indexing and querying JSON documents
 
+Make sure that you have Redis Stack and `node-redis` installed. Import dependencies:
+
 ```js
 import {AggregateSteps, AggregateGroupByReducers, createClient, SchemaFieldTypes} from 'redis';
 const client = createClient();
 await client.connect();
+```
 
+Create an index.
+
+```js
 try {
     await client.ft.create('idx:users', {
         '$.name': {
@@ -84,8 +90,11 @@ try {
         process.exit(1);
     }
 }
+```
 
+Create JSON documents to add to your database.
 
+```js
 await Promise.all([
     client.json.set('user:1', '$', {
         "name": "Paul John",
@@ -106,7 +115,11 @@ await Promise.all([
         "city": "Tel Aviv"
     }),
 ]);
+```
 
+Let's find user 'Paul` and filter the results by age.
+
+```js
 let result = await client.ft.search(
     'idx:users',
     'Paul @age:[30 40]'
@@ -128,8 +141,11 @@ console.log(JSON.stringify(result, null, 2));
   ]
 }
  */
+```
 
-// Return only the city field
+Return only the city field.
+
+```js
 result = await client.ft.search(
     'idx:users',
     'Paul @age:[30 40]',
@@ -152,8 +168,11 @@ console.log(JSON.stringify(result, null, 2));
   ]
 }
  */
+```
+ 
+Count all users in the same city.
 
-// Count all users in the same city
+```js
 result = await client.ft.aggregate('idx:users', '*', {
     STEPS: [
         {
