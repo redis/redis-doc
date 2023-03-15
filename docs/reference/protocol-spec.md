@@ -683,4 +683,5 @@ While comparable in performance to a binary protocol, the Redis protocol is sign
 
 * For testing purposes, use [Lua's type conversions](/topics/lua-api#lua-to-resp3-type-conversion) to have Redis reply with any RESP2/RESP3 needed.
   As an example, a RESP3 double can be generated like so:
-      EVAL "return { double = 6.379e-5 }" 0
+
+    EVAL "return { double = 6.379e-5 }" 0
