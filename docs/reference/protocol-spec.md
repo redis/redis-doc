@@ -163,7 +163,15 @@ Also, simpler client implementations can return a generic error value, such as `
 
 ### Integers
 This type is a CRLF-terminated string that represents a signed 64-bit integer.
-Its encoding is prefixed by a colon (`:`) byte.
+
+RESP encodes integers in the following way:
+
+    :[<sign>]<integer>\r\n
+
+* The colon (`:`) as the first byte.
+* An optional plus (`+`) or minus (`-`) as the sign.
+* One or more decimal digits (`0`..`9`) as the integer's value.
+* The CRLF terminator.
 
 For example, `:0\r\n` and `:1000\r\n` are integer replies (of zero and one thousand, respectively).
 
@@ -354,28 +362,18 @@ RESP booleans are encoded as follows:
 The Double RESP type encodes a double-precision floating point value.
 Doubles are encoded as follows:
 
-    ,<floating-point-number>\r\n
+    ,[<sign>]<integral>[.<fractional>][<E|e>[sign]<exponent>]\r\n
 
 * The comma character (`,`) as the first byte.
-* The floating point number.
+* An optional plus (`+`) or minus (`-`) as the sign.
+* The integral value that's represented by one or more decimal digits (`0`..`9`).
+* The optional fractional value that's represented by a dot (`.`), followed by one or more decimal digits (`0`..`9`).
+* The optional exponent value begins with a capital or lowercase letter E (`E` or `e`), followed by an optional plus (`+`) or minus (`-`) as the exponent's sign, ending with one or more decimal digits (`0`..`9`).
 * The CRLF terminator.
 
 Here's the encoding of the number 1.23:
 
     ,1.23\r\n
-
-A floating point number may be made up of up to three parts:
-
-    <integral-part>[.<fractional-part>][<exponent-part]
-
-The floating point number always begins with an integral.
-The integral part is made of one or more decimal digits.
-
-A fractional part may follow the integral.
-The fractional part begins with a dot (`.`), followed by one or more decimal digits.
-
-An exponent part may appear at the end of the number.
-The exponent part begins with the letters `E` or `e`, an optional `+` or `-`, followed by one or more decimal digits.
 
 Because the fractional part is optional, the integer value of ten (10) can, therefore, be RESP-encoded both as an integer as well as a double:
 
@@ -683,4 +681,4 @@ While comparable in performance to a binary protocol, the Redis protocol is sign
 
 * For testing purposes, use [Lua's type conversions](/topics/lua-api#lua-to-resp3-type-conversion) to have Redis reply with any RESP2/RESP3 needed.
   As an example, a RESP3 double can be generated like so:
-      EVAL "return { double = tonumber(ARGV[1]) }" 0 6.379e-5
+      EVAL "return { double = tonumber(ARGV[1]) }" 0 1e0
