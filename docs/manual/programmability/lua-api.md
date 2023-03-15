@@ -639,7 +639,7 @@ Although the default protocol for incoming client connections is RESP2, the scri
 
 * Lua Boolean -> [RESP3 Boolean reply](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#boolean-reply) (note that this is a change compared to the RESP2, in which returning a Boolean Lua `true` returned the number 1 to the Redis client, and returning a `false` used to return a `null`.
 * Lua table with a single _map_ field set to an associative Lua table -> [RESP3 map reply](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#map-type).
-* Lua table with a single _set field set to an associative Lua table -> [RESP3 set reply](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#set-type). Values can be set to anything and are discarded anyway.
+* Lua table with a single _set_ field set to an associative Lua table -> [RESP3 set reply](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#set-type). Values can be set to anything and are discarded anyway.
 * Lua table with a single _double_ field to an associative Lua table -> [RESP3 double reply](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#double-type).
 * Lua nil -> [RESP3 null](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#null-reply).
 
