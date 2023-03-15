@@ -374,7 +374,7 @@ The integral part is made of one or more decimal digits.
 A fractional part may follow the integral.
 The fractional part begins with a dot (`.`), followed by one or more decimal digits.
 
-An exponent part may follow the fractional.
+An exponent part may appear at the end of the number.
 The exponent part begins with the letters `E` or `e`, an optional `+` or `-`, followed by one or more decimal digits.
 
 Because the fractional part is optional, the integer value of ten (10) can, therefore, be RESP-encoded both as an integer as well as a double:
