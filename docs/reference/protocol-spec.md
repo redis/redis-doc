@@ -366,7 +366,7 @@ Here's the encoding of the number 1.23:
 
 A floating point number may be made up of up to three parts:
 
-    <integral-part>[.<fractional-part>[<exponent-part]]
+    <integral-part>[.<fractional-part>][<exponent-part]
 
 The floating point number always begins with an integral.
 The integral part is made of one or more decimal digits.
