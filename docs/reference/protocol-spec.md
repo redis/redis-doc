@@ -22,7 +22,7 @@ A client sends a request to the Redis server as an array of strings.
 The array's contents are the command and its arguments that the server should execute.
 The server's reply type is command-specific.
 
-RESP is binary-safe and uses prefixed length to transfer bulk data so it does not require processing bulk data transferred from one process to another .```
+RESP is binary-safe and uses prefixed length to transfer bulk data so it does not require processing bulk data transferred from one process to another.
 
 RESP is the protocol you should implement in your Redis client.
 
@@ -678,3 +678,9 @@ Then, the bulk data can be read with a single read operation that doesn't inspec
 Finally, the remaining CR and LF characters are discarded without additional processing.
 
 While comparable in performance to a binary protocol, the Redis protocol is significantly more straightforward to implement in most high-level languages, reducing the number of bugs in client software.
+
+## Tips for Redis client authors
+
+* For testing purposes, use [Lua's type conversions](/topics/lua-api#lua-to-resp3-type-conversion) to have Redis reply with any RESP2/RESP3 needed.
+  As an example, a RESP3 double can be generated like so:
+    EVAL "return { double = 6.379e-5 }" 0
