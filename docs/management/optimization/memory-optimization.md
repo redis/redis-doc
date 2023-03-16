@@ -19,7 +19,7 @@ Since this is a CPU / memory tradeoff it is possible to tune the maximum
 number of elements and maximum element size for special encoded types 
 using the following redis.conf directives (defaults are shown):
 
-Redis <= 6.2
+### Redis <= 6.2
 
 ```
 hash-max-ziplist-entries 512
@@ -29,7 +29,7 @@ zset-max-ziplist-value 64
 set-max-intset-entries 512
 ```
 
-Redis >= 7.0
+### Redis >= 7.0
 
 ```
 hash-max-listpack-entries 512
@@ -39,7 +39,9 @@ zset-max-listpack-value 64
 set-max-intset-entries 512
 ```
 
-Redis >= 7.2
+### Redis >= 7.2
+
+The following directives are also available:
 
 ```
 set-max-listpack-entries 128
