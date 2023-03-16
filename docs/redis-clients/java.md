@@ -3,185 +3,282 @@ title: "Java guide"
 linkTitle: "Java"
 description: Connect your Java application to a Redis database
 weight: 3
-
+​
 ---
-
+​
 Install Redis and the Redis client, then connect your Java application to a Redis database. 
-
+​
 ## Jedis
-
+​
 [Jedis](https://github.com/redis/jedis) is a Java client for Redis designed for performance and ease of use.
-
+​
 ### Install
-
+​
 To include `Jedis` as a dependency in your application, you can:
-
-* Use the JAR files - Download the latest Jedis and Apache Commons Pool2 JAR files from `search.maven.org` or any other Maven repository.
-
-* Build from source - You get the most recent version.
-
-* Clone the GitHub project - On the command line, you just need to run `git clone git://github.com/xetorthio/jedis.git`.
-
-* Build from GitHub - Before you package it using Maven, the unit tests must run successfully. To run the tests and build the package, run `make package`.
-
-### Configure a Maven dependency
-
-Jedis is also distributed as a Maven dependency through Sonatype. To configure this dependency, just add the following XML snippet to your `pom.xml` file.
-
-```XML
+​
+* If you use **Maven**, edit the pom.xml dependency file to add Jedis: 
+```
 <dependency>
     <groupId>redis.clients</groupId>
     <artifactId>jedis</artifactId>
-    <version>2.9.0</version>
-    <type>jar</type>
-    <scope>compile</scope>
+    <version>4.3.1</version>
 </dependency>
 ```
-### Connect
-
-#### Install a Redis Stack Docker
-
+* If you use **Gradle**: 
 ```
-docker run -p 6379:6379 -it redis/redis-stack:latest
-```
-
-For many applications, it's best to use a connection pool. But `Jedis` also lets you connect to Redis Clusters, supporting the [Redis Cluster Specification](/docs/reference/cluster-spec).
-
-
-#### Instantiate a Jedis connection pool
-
-You can instantiate a `Jedis` connection pool like so:
-
-```
-JedisPool pool = new JedisPool("localhost", 6379);
-```
-
-With a JedisPool instance, you can use a [`try-with-resources` block](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) to get a connection and run Redis commands.
-
-Here's how to run a single `SET` command within a `try-with-resources` block:
-
-```java
-try (Jedis jedis = pool.getResource()) {
-  jedis.set("clientName", "Jedis");
+repositories {
+    mavenCentral()
+}
+//...
+dependencies {
+    implementation 'redis.clients:jedis:4.3.1'
+    //...
 }
 ```
-
-`Jedis` instances implement most Redis commands. See the [Jedis Javadocs](https://www.javadoc.io/doc/redis.clients/jedis/latest/redis/clients/jedis/Jedis.html) for a complete list of supported commands.
-
+​
+* Use the JAR files - Download the latest Jedis and Apache Commons Pool2 JAR files from `search.maven.org` or any other Maven repository.
+​
+* [Build from source](https://github.com/redis/jedis)
+​
+​
+### Connect
+​
+For many applications, it's best to use a connection pool. You can instantiate and use a `Jedis` connection pool like so:
+​
+```
+package org.example;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+​
+public class Main {
+    public static void main(String[] args) {
+        JedisPool pool = new JedisPool("localhost", 6379);
+​
+        try (Jedis jedis = pool.getResource()) {
+            // Store & Retrieve a simple string
+            jedis.set("foo", "bar");
+            System.out.println(jedis.get("foo")); // prints bar
+            
+            // Store & Retrieve a HashMap
+            Map<String, String> hash = new HashMap<>();;
+            hash.put("name", "John");
+            hash.put("surname", "Smith");
+            hash.put("company", "Redis");
+            hash.put("age", "29");
+            jedis.hset("user-session:123", hash);
+            System.out.println(jedis.hgetAll("user-session:123"));
+            // Prints: {name=John, surname=Smith, company=Redis, age=29}
+        }
+    }
+}
+```
+​
 Because adding a `try-with-resources` block for each command can be cumbersome, consider using JedisPooled as an easier way to pool connections.
-
+​
 ```
+import redis.clients.jedis.JedisPooled;
+​
+// ...
+​
 JedisPooled jedis = new JedisPooled("localhost", 6379);
+jedis.set("foo", "bar");
+System.out.println(jedis.get("foo")); // prints "bar"
 ```
-
-Now you can send Redis commands from `Jedis`.
-
-```java
-jedis.sadd("planets", "Venus");
-```
-
+​
+​
 #### Connect to a Redis cluster
-
+​
  To connect to a Redis cluster, use `JedisCluster`. 
-
+​
 ```
+import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.HostAndPort;
+​
+//...
+​
 Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7379));
 jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7380));
 JedisCluster jedis = new JedisCluster(jedisClusterNodes);
 ```
-
-Now you can use the JedisCluster instance and send commands like you would with a standard pooled connection:
-
+​
+### Connect to your production Redis with TLS
+​
+When you deploy your application it's important to use TLS and follow [Redis security](https://redis.io/docs/management/security/) guidelines.
+​
+Before connecting your application to Redis server with enabled TLS you need to make sure that your certificates and private keys are in the right format.
+To convert user certificate and private key from *PEM* format to *pkcs12* use the following command:
+​
+```bash
+openssl pkcs12 -export -in ./redis_user.crt -inkey ./redis_user_private.key -out redis-user-keystore.p12 -name "redis"
+# Enter password to protect your pkcs12 file
+```
+​
+Server (CA) certificate should be converted to *JKS* format using the [keytool](https://docs.oracle.com/en/java/javase/12/tools/keytool.html) shipped with JDK:
+​
+```bash
+keytool -importcert -keystore truststore.jks \ 
+  -storepass REPLACE_WITH_YOUR_PASSWORD \
+  -file redis_ca.pem
+```
+​
+You can establish secure connection with your Redis using the following snippet
+​
 ```java
-jedis.sadd("planets", "Mars");
+package org.example;
+​
+import redis.clients.jedis.*;
+​
+import javax.net.ssl.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+​
+public class Main {
+​
+    public static void main(String[] args) throws GeneralSecurityException, IOException {
+        HostAndPort address = new HostAndPort("my-redis-instance.cloud.redislabs.com", 6379);
+​
+        SSLSocketFactory sslFactory = createSslSocketFactory(
+                "./truststore.jks",
+                "secret!", // use the password you specified for keytool command
+                "./redis-user-keystore.p12",
+                "secret!" // use the password you specified for openssl command
+        );
+​
+        JedisClientConfig config = DefaultJedisClientConfig.builder()
+                .ssl(true).sslSocketFactory(sslFactory)
+                .user("default") // user your Redis user. More info https://redis.io/docs/management/security/acl/
+                .password("secret!") // use your Redis password
+                .build();
+​
+        JedisPooled jedis = new JedisPooled(address, config);
+        jedis.set("foo", "bar");
+        System.out.println(jedis.get("foo")); // prints bar
+    }
+​
+    private static SSLSocketFactory createSslSocketFactory(
+            String caCertPath, String caCertPassword, String userCertPath, String userCertPassword)
+            throws IOException, GeneralSecurityException {
+​
+        KeyStore keyStore = KeyStore.getInstance("pkcs12");
+        keyStore.load(new FileInputStream(userCertPath), userCertPassword.toCharArray());
+​
+        KeyStore trustStore = KeyStore.getInstance("jks");
+        trustStore.load(new FileInputStream(caCertPath), caCertPassword.toCharArray());
+​
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("X509");
+        trustManagerFactory.init(trustStore);
+​
+        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("PKIX");
+        keyManagerFactory.init(keyStore, userCertPassword.toCharArray());
+​
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
+​
+        return sslContext.getSocketFactory();
+    }
+}
 ```
-
-### Example: Index and query using Jedis
-
-This example shows how to initialize the client and how to create and query an index.
-
-#### Initialize the client
-
-To initialize the client with `JedisPooled`:
-
-```
-JedisPooled client = new JedisPooled("localhost", 6379);
-```
-
-To initialize the client with `JedisCluster`:
-
-```
-Set<HostAndPort> nodes = new HashSet<>();
-nodes.add(new HostAndPort("127.0.0.1", 7379));
-nodes.add(new HostAndPort("127.0.0.1", 7380));
-
-JedisCluster client = new JedisCluster(nodes);
-```
-
-#### Create an index
-
-Define a schema for an index and create it.
-
+​
+### Example: Indexing and querying JSON documents
+​
+Make sure that you have Redis Stack and `Jedis` installed. Import dependencies and add sample `User` class:
+​
+​
 ```java
-Schema sc = new Schema()
-        .addTextField("title", 5.0)
-        .addTextField("body", 1.0)
-        .addNumericField("price");
-
-IndexDefinition def = new IndexDefinition()
-        .setPrefixes(new String[]{"item:", "product:"})
-        .setFilter("@price>100");
-
-client.ftCreate("item-index", IndexOptions.defaultOptions().setDefinition(def), sc);
+import redis.clients.jedis.JedisPooled;
+import redis.clients.jedis.search.*;
+import redis.clients.jedis.search.aggr.*;
+import redis.clients.jedis.search.schemafields.*;
+​
+class User {
+    private String name;
+    private String email;
+    private int age;
+    private String city;
+​
+    public User(String name, String email, int age, String city) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.city = city;
+    }
+​
+    //...
+}
 ```
-
-Add documents to the index.
-
+​
+Connect to your Redis database with `JedisPooled`:
+​
 ```java
-Map<String, Object> fields = new HashMap<>();
-fields.put("title", "hello world");
-fields.put("state", "NY");
-fields.put("body", "lorem ipsum");
-fields.put("price", 1337);
-
-client.hset("item:hw", RediSearchUtil.toStringMap(fields));
+JedisPooled jedis = new JedisPooled("localhost", 6379);
 ```
-
-#### Search the index
-
-Create a complex query.
-
+​
+Let's create some test data to add to your database.
+​
 ```java
-Query q = new Query("hello world")
-        .addFilter(new Query.NumericFilter("price", 0, 1000))
-        .limit(0, 5);
+User user1 = new User("Paul John", "paul.john@example.com", 42, "London");
+User user2 = new User("Eden Zamir", "eden.zamir@example.com", 29, "Tel Aviv");
+User user3 = new User("Paul Zamir", "paul.zamir@example.com", 35, "Tel Aviv");
 ```
-
-Now for the actual search:
-
+​
+Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax).
+​
 ```java
-SearchResult sr = client.ftSearch("item-index", q);
+jedis.ftCreate("idx:users",
+    FTCreateParams.createParams()
+            .on(IndexDataType.JSON)
+            .addPrefix("user:"),
+    TextField.of("$.name").as("name"),
+    TagField.of("$.city").as("city"),
+    NumericField.of("$.age").as("age")
+);
 ```
-
-To perform an aggregation query:
-
+​
+Use `JSON.SET` to set each user value at the specified path.
+```
+jedis.jsonSetWithEscape("user:1", user1);
+jedis.jsonSetWithEscape("user:2", user2);
+jedis.jsonSetWithEscape("user:3", user3);
+```
+​
+Let's find user `Paul` and filter the results by age.
+​
 ```java
-AggregationBuilder ab = new AggregationBuilder("hello")
-        .apply("@price/1000", "k")
-        .groupBy("@state", Reducers.avg("@k").as("avgprice"))
-        .filter("@avgprice>=2")
-        .sortBy(10, SortedField.asc("@state"));
+var query = new Query("Paul @age:[30 40]");
+var result = jedis.ftSearch("idx:users", query).getDocuments();
+System.out.println(result);
+// Prints: [id:user:3, score: 1.0, payload:null, properties:[$={"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}]]
 ```
-
-To get aggregation results:
-
+​
+Return only the city field.
+​
 ```java
-AggregationResult ar = client.ftAggregate("item-index", ab);
+var city_query = new Query("Paul @age:[30 40]");
+var city_result = jedis.ftSearch("idx:users", city_query.returnFields("city")).getDocuments();
+System.out.println(city_result);
+// Prints: [id:user:3, score: 1.0, payload:null, properties:[city=Tel Aviv]]
 ```
-
+​
+Count all users in the same city.
+​
+```java
+AggregationBuilder ab = new AggregationBuilder("*")
+        .groupBy("@city", Reducers.count().as("count"));
+AggregationResult ar = jedis.ftAggregate("idx:users", ab);
+​
+for (int idx=0; idx < ar.getTotalResults(); idx++) {
+    System.out.println(ar.getRow(idx).getString("city") + " - " + ar.getRow(idx).getString("count"));
+}
+// Prints:
+// London - 1
+// Tel Aviv - 2
+```
+​
 ### Learn more
-
-* [Packages and classes](https://www.javadoc.io/doc/redis.clients/jedis/latest/index.html)
+​
+* [Jedis API reference](https://www.javadoc.io/doc/redis.clients/jedis/latest/index.html)
 * [GitHub](https://github.com/redis/jedis)
  
