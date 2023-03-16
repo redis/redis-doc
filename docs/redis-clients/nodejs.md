@@ -206,7 +206,6 @@ result = await client.ft.aggregate('idx:users', '*', {
             REDUCE: [
                 {
                     type: AggregateGroupByReducers.COUNT,
-                    property: '@name',
                     AS: 'count'
                 }
             ]
