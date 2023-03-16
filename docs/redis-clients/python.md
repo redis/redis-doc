@@ -33,12 +33,25 @@ pip install redis[hiredis]
 Connect to localhost on port 6379, set a value in Redis, and retrieve it. All responses are returned as bytes in Python. To receive decoded strings, set `decode_responses=True`. For more connection options, see [these examples](https://redis.readthedocs.io/en/stable/examples.html).
 
 ```python
-import redis
-r = redis.Redis(host='localhost', port=6379, db=0)
+r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+
+# Store & Retrieve a simple string
 r.set('foo', 'bar')
 # True
 r.get('foo')
-# b'bar'
+# bar
+
+# Store & Retrieve a dict
+r.hset('user-session:123', mapping={
+    'name': 'John',
+    "surname": 'Smith',
+    "company": 'Redis',
+    "age": 29
+})
+# True
+
+r.hgetall('user-session:123')
+# {'surname': 'Smith', 'name': 'John', 'company': 'Redis', 'age': '29'}
 ```
 
 ### Example: Indexing and querying JSON documents
