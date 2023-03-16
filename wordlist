@@ -157,6 +157,7 @@ Geohashes
 Geospatial
 Github
 Gottlieb
+Gradle
 HLL
 HLLs
 HMAC-SHA256
@@ -188,6 +189,8 @@ Jedis
 JedisCluster
 JedisPool
 JedisPooled
+JKD
+JKS
 JSON
 JSON-encoded
 Janowski
@@ -672,6 +675,7 @@ keyspace
 keyspace-notifications
 keyspec
 keystep
+keytool
 knockknock
 kqueue
 last-failover-wins
@@ -779,6 +783,7 @@ pid
 pidfile
 pipelined
 pipelining
+pkcs12
 pmessage
 ppa:redislabs
 pre-conditions
