@@ -34,14 +34,20 @@ Connect to localhost on port 6379, set a value in Redis, and retrieve it. All re
 
 ```python
 r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+```
 
-# Store & Retrieve a simple string
+Store and retrieve a simple string.
+
+```python
 r.set('foo', 'bar')
 # True
 r.get('foo')
 # bar
+```
 
-# Store & Retrieve a dict
+Store and retrieve a dict.
+
+```python
 r.hset('user-session:123', mapping={
     'name': 'John',
     "surname": 'Smith',
@@ -74,7 +80,7 @@ Connect to your Redis database.
 r = redis.Redis(host='localhost', port=6379)
 ```
 
-Create JSON documents to add to your database.
+Specify which fields to return from the JSON document.
 
 ```python
 user1 = {
