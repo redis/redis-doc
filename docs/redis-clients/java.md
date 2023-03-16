@@ -90,7 +90,7 @@ System.out.println(jedis.get("foo")); // prints "bar"
 ​
 #### Connect to a Redis cluster
 ​
- To connect to a Redis cluster, use `JedisCluster`. 
+To connect to a Redis cluster, use `JedisCluster`. 
 ​
 ```
 import redis.clients.jedis.JedisCluster;
@@ -104,7 +104,7 @@ jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7380));
 JedisCluster jedis = new JedisCluster(jedisClusterNodes);
 ```
 ​
-### Connect to your production Redis with TLS
+#### Connect to your production Redis with TLS
 ​
 When you deploy your application, use TLS and follow the [Redis security](/docs/management/security/) guidelines.
 ​
