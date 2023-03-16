@@ -16,7 +16,7 @@ Install Redis and the Redis client, then connect your Java application to a Redi
 ​
 To include `Jedis` as a dependency in your application, edit the `pom.xml` dependency file, as follows.
 ​
-* If you use **Maven**: 
+* If you use **Maven**:   
 
   ```xml
   <dependency>
@@ -112,14 +112,14 @@ Before connecting your application to the TLS-enabled Redis server, ensure that 
 
 To convert user certificate and private key from the PEM format to `pkcs12`, use this command:
 ​
-```bash
+```
 openssl pkcs12 -export -in ./redis_user.crt -inkey ./redis_user_private.key -out redis-user-keystore.p12 -name "redis"
- # Enter password to protect your pkcs12 file
+# Enter password to protect your pkcs12 file
 ```
 ​
 Convert the server (CA) certificate to the JKS format using the [keytool](https://docs.oracle.com/en/java/javase/12/tools/keytool.html) shipped with JDK.
 ​
-```bash
+```
 keytool -importcert -keystore truststore.jks \ 
   -storepass REPLACE_WITH_YOUR_PASSWORD \
   -file redis_ca.pem
