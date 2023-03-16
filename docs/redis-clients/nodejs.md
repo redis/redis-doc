@@ -44,7 +44,7 @@ const value = await client.get('key');
 
 Store and retrieve a map.
 
-``js
+```js
 await client.hSet('user-session:123', {
     name: 'John',
     surname: 'Smith',
