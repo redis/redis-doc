@@ -189,7 +189,7 @@ Jedis
 JedisCluster
 JedisPool
 JedisPooled
-JKD
+JDK
 JKS
 JSON
 JSON-encoded
