@@ -79,10 +79,8 @@ public class Main {
 Because adding a `try-with-resources` block for each command can be cumbersome, consider using `JedisPooled` as an easier way to pool connections.
 ​
 ```
-import redis.clients.jedis.JedisPooled;
-​
-//...
-​
+import redis.clients.jedis.JedisPooled;​
+//...​
 JedisPooled jedis = new JedisPooled("localhost", 6379);
 jedis.set("foo", "bar");
 System.out.println(jedis.get("foo")); // prints "bar"
@@ -94,10 +92,8 @@ To connect to a Redis cluster, use `JedisCluster`.
 ​
 ```
 import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.HostAndPort;
-​
-//...
-​
+import redis.clients.jedis.HostAndPort;​
+//...​
 Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7379));
 jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7380));
@@ -114,9 +110,10 @@ To convert user certificate and private key from the PEM format to `pkcs12`, use
 ​
 ```
 openssl pkcs12 -export -in ./redis_user.crt -inkey ./redis_user_private.key -out redis-user-keystore.p12 -name "redis"
-# Enter password to protect your pkcs12 file
 ```
-​
+
+Enter password to protect your `pkcs12` file.
+
 Convert the server (CA) certificate to the JKS format using the [keytool](https://docs.oracle.com/en/java/javase/12/tools/keytool.html) shipped with JDK.
 ​
 ```
