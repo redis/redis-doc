@@ -1,0 +1,4 @@
+{
+    "name": "aioredis-cluster",
+    "description": "Redis Cluster client implementation based on aioredis v1.x.x"
+}
