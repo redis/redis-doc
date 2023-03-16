@@ -629,6 +629,7 @@ hacktoberfest
 handleClientsWithPendingWrites
 hardcoded
 hardlinks
+HashSets
 Healthcheck
 healthchecks
 hexastore
@@ -661,6 +662,8 @@ ip:port
 Istio
 iterable
 iteratively
+jedis
+jedisClusterNodes
 jemalloc
 jpeg
 kB
