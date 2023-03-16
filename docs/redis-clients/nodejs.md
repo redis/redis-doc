@@ -33,10 +33,35 @@ const client = createClient();
 client.on('error', err => console.log('Redis Client Error', err));
 
 await client.connect();
+```
 
+Store and retrieve a simple string.
+
+```js
 await client.set('key', 'value');
 const value = await client.get('key');
-await client.disconnect();
+```
+
+Store and retrieve a map.
+
+``js
+await client.hSet('user-session:123', {
+    name: 'John',
+    surname: 'Smith',
+    company: 'Redis',
+    age: 29
+})
+
+let userSession = await client.hGetAll('user-session:123');
+console.log(JSON.stringify(userSession, null, 2));
+/*
+{
+  "surname": "Smith",
+  "name": "John",
+  "company": "Redis",
+  "age": "29"
+}
+ */
 ```
 
 To connect to a different host or port, use a connection string in the format `redis[s]://[[username][:password]@][host][:port][/db-number]`:
