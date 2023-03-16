@@ -186,7 +186,6 @@ public class Main {
 ​
 Make sure that you have Redis Stack and `Jedis` installed. Import dependencies and add sample `User` class:
 ​
-​
 ```java
 import redis.clients.jedis.JedisPooled;
 import redis.clients.jedis.search.*;
@@ -210,7 +209,7 @@ class User {
 }
 ```
 ​
-Connect to your Redis database with `JedisPooled`:
+Connect to your Redis database with `JedisPooled`.
 ​
 ```java
 JedisPooled jedis = new JedisPooled("localhost", 6379);
