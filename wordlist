@@ -193,6 +193,7 @@ JSON-encoded
 Janowski
 Javadocs
 Jemalloc
+js
 KEYSPACE
 Keyspace
 KeyspaceNotification
@@ -967,6 +968,7 @@ untuned
 unwatches
 urandom
 used_memory_scripts_eval
+userSession
 usr
 utf8
 utils
