@@ -114,7 +114,7 @@ To convert user certificate and private key from the PEM format to `pkcs12`, use
 ​
 ```bash
 openssl pkcs12 -export -in ./redis_user.crt -inkey ./redis_user_private.key -out redis-user-keystore.p12 -name "redis"
-# Enter password to protect your pkcs12 file
+ # Enter password to protect your pkcs12 file
 ```
 ​
 Convert the server (CA) certificate to the JKS format using the [keytool](https://docs.oracle.com/en/java/javase/12/tools/keytool.html) shipped with JDK.
@@ -243,7 +243,7 @@ jedis.ftCreate("idx:users",
 ​
 Use `JSON.SET` to set each user value at the specified path.
 
-```
+```java
 jedis.jsonSetWithEscape("user:1", user1);
 jedis.jsonSetWithEscape("user:2", user2);
 jedis.jsonSetWithEscape("user:3", user3);
