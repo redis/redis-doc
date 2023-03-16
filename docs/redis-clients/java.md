@@ -152,7 +152,7 @@ public class Main {
 
         JedisClientConfig config = DefaultJedisClientConfig.builder()
                 .ssl(true).sslSocketFactory(sslFactory)
-                .user("default") // user your Redis user. More info https://redis.io/docs/management/security/acl/
+                .user("default") // use your Redis user. More info https://redis.io/docs/management/security/acl/
                 .password("secret!") // use your Redis password
                 .build();
 

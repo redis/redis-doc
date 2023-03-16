@@ -89,7 +89,7 @@ import redis
 
 r = redis.Redis(
     host="my-redis.cloud.redislabs.com", port=6379,
-    username="default", # user your Redis user. More info https://redis.io/docs/management/security/acl/
+    username="default", # use your Redis user. More info https://redis.io/docs/management/security/acl/
     password="secret", # use your Redis password
     ssl=True,
     ssl_certfile="./redis_user.crt",
