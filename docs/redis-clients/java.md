@@ -17,26 +17,26 @@ Install Redis and the Redis client, then connect your Java application to a Redi
 To include `Jedis` as a dependency in your application, you can:
 ​
 * If you use **Maven**, edit the pom.xml dependency file to add Jedis: 
-```
-<dependency>
-    <groupId>redis.clients</groupId>
-    <artifactId>jedis</artifactId>
-    <version>4.3.1</version>
-</dependency>
-```
+  ```
+  <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>4.3.1</version>
+  </dependency>
+  ```
 * If you use **Gradle**: 
-```
-repositories {
-    mavenCentral()
-}
-//...
-dependencies {
-    implementation 'redis.clients:jedis:4.3.1'
-    //...
-}
-```
+  ```
+  repositories {
+      mavenCentral()
+  }
+  //...
+  dependencies {
+      implementation 'redis.clients:jedis:4.3.1'
+      //...
+  }
+  ```
 ​
-* Use the JAR files - Download the latest Jedis and Apache Commons Pool2 JAR files from `search.maven.org` or any other Maven repository.
+* If you use the JAR files, download the latest Jedis and Apache Commons Pool2 JAR files from `search.maven.org` or any other Maven repository.
 ​
 * [Build from source](https://github.com/redis/jedis)
 ​
