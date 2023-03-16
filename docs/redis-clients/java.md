@@ -52,7 +52,7 @@ For many applications, it's best to use a connection pool. You can instantiate a
 package org.example;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-​
+
 public class Main {
     public static void main(String[] args) {
         JedisPool pool = new JedisPool("localhost", 6379);
@@ -81,7 +81,7 @@ Because adding a `try-with-resources` block for each command can be cumbersome, 
 ```
 import redis.clients.jedis.JedisPooled;
 ​
-// ...
+//...
 ​
 JedisPooled jedis = new JedisPooled("localhost", 6379);
 jedis.set("foo", "bar");
