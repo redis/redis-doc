@@ -14,18 +14,21 @@ Install Redis and the Redis client, then connect your Java application to a Redi
 ​
 ### Install
 ​
-To include `Jedis` as a dependency in your application, you can:
+To include `Jedis` as a dependency in your application, edit the `pom.xml` dependency file, as follows.
 ​
-* If you use **Maven**, edit the pom.xml dependency file to add Jedis: 
-  ```
+* If you use **Maven**: 
+
+  ```xml
   <dependency>
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
       <version>4.3.1</version>
   </dependency>
   ```
+
 * If you use **Gradle**: 
-  ```
+
+  ```xml
   repositories {
       mavenCentral()
   }
@@ -36,9 +39,9 @@ To include `Jedis` as a dependency in your application, you can:
   }
   ```
 ​
-* If you use the JAR files, download the latest Jedis and Apache Commons Pool2 JAR files from `search.maven.org` or any other Maven repository.
+* If you use the JAR files, download the latest Jedis and Apache Commons Pool2 JAR files from [Maven Central](https://central.sonatype.com/) or any other Maven repository.
 ​
-* [Build from source](https://github.com/redis/jedis)
+* Build from [source](https://github.com/redis/jedis)
 ​
 ​
 ### Connect
@@ -73,7 +76,7 @@ public class Main {
 }
 ```
 ​
-Because adding a `try-with-resources` block for each command can be cumbersome, consider using JedisPooled as an easier way to pool connections.
+Because adding a `try-with-resources` block for each command can be cumbersome, consider using `JedisPooled` as an easier way to pool connections.
 ​
 ```
 import redis.clients.jedis.JedisPooled;
@@ -83,8 +86,7 @@ import redis.clients.jedis.JedisPooled;
 JedisPooled jedis = new JedisPooled("localhost", 6379);
 jedis.set("foo", "bar");
 System.out.println(jedis.get("foo")); // prints "bar"
-```
-​
+```​
 ​
 #### Connect to a Redis cluster
 ​
@@ -104,17 +106,18 @@ JedisCluster jedis = new JedisCluster(jedisClusterNodes);
 ​
 ### Connect to your production Redis with TLS
 ​
-When you deploy your application it's important to use TLS and follow [Redis security](https://redis.io/docs/management/security/) guidelines.
+When you deploy your application, use TLS and follow the [Redis security](/docs/management/security/) guidelines.
 ​
-Before connecting your application to Redis server with enabled TLS you need to make sure that your certificates and private keys are in the right format.
-To convert user certificate and private key from *PEM* format to *pkcs12* use the following command:
+Before connecting your application to the TLS-enabled Redis server, ensure that your certificates and private keys are in the correct format.
+
+To convert user certificate and private key from the PEM format to `pkcs12`, use this command:
 ​
 ```bash
 openssl pkcs12 -export -in ./redis_user.crt -inkey ./redis_user_private.key -out redis-user-keystore.p12 -name "redis"
 # Enter password to protect your pkcs12 file
 ```
 ​
-Server (CA) certificate should be converted to *JKS* format using the [keytool](https://docs.oracle.com/en/java/javase/12/tools/keytool.html) shipped with JDK:
+Convert the server (CA) certificate to the JKS format using the [keytool](https://docs.oracle.com/en/java/javase/12/tools/keytool.html) shipped with JDK.
 ​
 ```bash
 keytool -importcert -keystore truststore.jks \ 
@@ -122,7 +125,7 @@ keytool -importcert -keystore truststore.jks \
   -file redis_ca.pem
 ```
 ​
-You can establish secure connection with your Redis using the following snippet
+Establish a secure connection with your Redis database using this snippet.
 ​
 ```java
 package org.example;
@@ -184,7 +187,9 @@ public class Main {
 ​
 ### Example: Indexing and querying JSON documents
 ​
-Make sure that you have Redis Stack and `Jedis` installed. Import dependencies and add sample `User` class:
+Make sure that you have Redis Stack and `Jedis` installed. 
+
+Import dependencies and add a sample `User` class:
 ​
 ```java
 import redis.clients.jedis.JedisPooled;
@@ -223,7 +228,7 @@ User user2 = new User("Eden Zamir", "eden.zamir@example.com", 29, "Tel Aviv");
 User user3 = new User("Paul Zamir", "paul.zamir@example.com", 35, "Tel Aviv");
 ```
 ​
-Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax).
+Create an index. In this example, all JSON documents with the key prefix `user:` are indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax).
 ​
 ```java
 jedis.ftCreate("idx:users",
@@ -237,6 +242,7 @@ jedis.ftCreate("idx:users",
 ```
 ​
 Use `JSON.SET` to set each user value at the specified path.
+
 ```
 jedis.jsonSetWithEscape("user:1", user1);
 jedis.jsonSetWithEscape("user:2", user2);
@@ -252,7 +258,7 @@ System.out.println(result);
 // Prints: [id:user:3, score: 1.0, payload:null, properties:[$={"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}]]
 ```
 ​
-Return only the city field.
+Return only the `city` field.
 ​
 ```java
 var city_query = new Query("Paul @age:[30 40]");
