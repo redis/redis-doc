@@ -59,7 +59,7 @@ benchmarks and tests to check the conversion time.
 When Redis is compiled as a 32-bit target, it uses a lot less memory per key, since pointers are small,
 but such an instance will be limited to 4 GB of maximum memory usage.
 To compile Redis as 32-bit binary use *make 32bit*.
-RDB and AOF files are compatible between 32-bit and 640bit instances
+RDB and AOF files are compatible between 32-bit and 64-bit instances
 (and between little and big endian of course) so you can switch from 32 to 64-bit, or the contrary, without problems.
 
 ## Bit and byte level operations
