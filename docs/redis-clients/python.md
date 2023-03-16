@@ -136,9 +136,9 @@ rs.search(
 Aggregate your results using `FT.AGGREGATE`.
 
 ```python
-req = aggregations.AggregateRequest("Paul").sort_by("@age")
-rs.aggregate(req).rows
-# [[b'age', b'35'], [b'age', b'42']]
+req = aggregations.AggregateRequest("*").group_by('@city', reducers.count().alias('count'))
+print(rs.aggregate(req).rows)
+# [[b'city', b'Tel Aviv', b'count', b'2'], [b'city', b'London', b'count', b'1']]
 ```
 
 ### Learn more
