@@ -19,7 +19,7 @@ data layout using Redis, and how to apply different data structures.
 
 Our Twitter clone, called [Retwis](https://github.com/antirez/retwis), is structurally simple, has very good performance, and can be distributed among any number of web and Redis servers with little efforts. [View the Retwis source code](https://github.com/antirez/retwis).
 
-I used PHP for the example since it can be read by everybody. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
+I used PHP for the example because of its universal readability. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
 A few clones exist (however not all the clones use the same data layout as the
 current version of this tutorial, so please, stick with the official PHP
 implementation for the sake of following the article better).
