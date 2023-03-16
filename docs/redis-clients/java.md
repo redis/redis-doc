@@ -14,7 +14,8 @@ Install Redis and the Redis client, then connect your Java application to a Redi
 
 ### Install
 
-To include `Jedis` as a dependency in your application, edit the `pom.xml` dependency file, as follows.
+To include `Jedis` as a dependency in your application, edit the `xml` dependency file, as follows.
+
 
 * If you use **Maven**:   
 
