@@ -41,8 +41,7 @@ To include `Jedis` as a dependency in your application, edit the `pom.xml` depen
 ​
 * If you use the JAR files, download the latest Jedis and Apache Commons Pool2 JAR files from [Maven Central](https://central.sonatype.com/) or any other Maven repository.
 ​
-* Build from [source](https://github.com/redis/jedis)
-​
+* Build from [source](https://github.com/redis/jedis)​
 ​
 ### Connect
 ​
@@ -80,7 +79,9 @@ Because adding a `try-with-resources` block for each command can be cumbersome, 
 ​
 ```
 import redis.clients.jedis.JedisPooled;​
+
 //...​
+
 JedisPooled jedis = new JedisPooled("localhost", 6379);
 jedis.set("foo", "bar");
 System.out.println(jedis.get("foo")); // prints "bar"
@@ -93,7 +94,9 @@ To connect to a Redis cluster, use `JedisCluster`.
 ```
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.HostAndPort;​
+
 //...​
+
 Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7379));
 jedisClusterNodes.add(new HostAndPort("127.0.0.1", 7380));
@@ -283,4 +286,3 @@ for (int idx=0; idx < ar.getTotalResults(); idx++) {
 ​
 * [Jedis API reference](https://www.javadoc.io/doc/redis.clients/jedis/latest/index.html)
 * [GitHub](https://github.com/redis/jedis)
- 
