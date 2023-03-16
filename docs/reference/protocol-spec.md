@@ -85,13 +85,23 @@ Redis generally uses RESP as a [request-response](#request-response-model) proto
 * The server replies with a RESP type.
   The reply's type is determined by the command's implementation and possibly by the client's protocol version.
 
-We categorize every RESP data type as either _simple_ or _aggregate_.
-Simple types are similar to scalars in programming languages that represent plain literal values, for example, Booleans.
-Aggregates, such as Arrays and Maps, can have varying numbers of sub-elements and nesting levels.
+RESP is **always** ASCII-encoded (UTF-8/Latin-1).
 
-The first byte in an RESP-serialized payload identifies its type.
+The `\r\n` (CRLF) is the protocol's _terminator_, which **always** separates its parts.
+
+The first byte in an RESP-serialized payload always identifies its type.
 Subsequent bytes constitute the type's contents.
-The `\r\n` (CRLF) is the protocol's _terminator_, which always separates its parts.
+
+We categorize every RESP data type as either _simple_, _bulk_ or _aggregate_.
+
+Simple types are similar to scalars in programming languages that represent plain literal values. Booleans and Integers are such examples.
+
+RESP strings are either _simple_ or _bulk_.
+Simple strings never contain carriage return (`\r`) or line feed (`\n`) characters.
+Bulk strings can contain any ASCII character and may also be referred to as _binary_ or _blob_.
+Note that bulk strings may be further encoded and decoded, e.g. with a wide multibyte encoding, by the client.
+
+Aggregates, such as Arrays and Maps, can have varying numbers of sub-elements and nesting levels.
 
 The following table summarizes the RESP data types that Redis supports:
 
@@ -116,7 +126,7 @@ The following table summarizes the RESP data types that Redis supports:
 
 ### Simple strings
 Simple strings are encoded as a plus (`+`) character, followed by a string.
-The string mustn't contain a CR or LF character (no newlines are allowed), and is terminated by CRLF (i.e., `\r\n`).
+The string mustn't contain a CR or LF character (no newlines are allowed) and is terminated by CRLF (i.e., `\r\n`).
 
 Simple strings transmit short, non-binary strings with minimal overhead.
 For example, many Redis commands reply with just "OK" on success.
@@ -162,15 +172,15 @@ Also, simpler client implementations can return a generic error value, such as `
 <a name="integer-reply"></a>
 
 ### Integers
-This type is a CRLF-terminated string that represents a signed 64-bit integer.
+This type is a CRLF-terminated string that represents a signed, base-10, 64-bit integer.
 
 RESP encodes integers in the following way:
 
-    :[<sign>]<integer>\r\n
+    :[<+|->]<value>\r\n
 
 * The colon (`:`) as the first byte.
 * An optional plus (`+`) or minus (`-`) as the sign.
-* One or more decimal digits (`0`..`9`) as the integer's value.
+* One or more decimal digits (`0`..`9`) as the integer's unsigned, base-10 value.
 * The CRLF terminator.
 
 For example, `:0\r\n` and `:1000\r\n` are integer replies (of zero and one thousand, respectively).
@@ -196,7 +206,7 @@ RESP encodes bulk strings in the following way:
     $<length>\r\n<data>\r\n
 
 * The dollar sign (`$`) as the first byte.
-* The length, or the number of bytes, composing the string (a prefixed length).
+* One or more decimal digits (`0`..`9`) as the string's length, in bytes, as an unsigned, base-10 value.
 * The CRLF terminator.
 * The data.
 * A final CRLF.
@@ -237,7 +247,7 @@ RESP Arrays' encoding uses the following format:
     *<number-of-elements>\r\n<element-1>...<element-n>
 
 * An asterisk (`*`) as the first byte.
-* The number of elements in the array as the string representation of an integer.
+* One or more decimal digits (`0`..`9`) as the number of elements in the array as an unsigned, base-10 value.
 * The CRLF terminator.
 * An additional RESP type for every element of the array.
 
@@ -350,7 +360,7 @@ The null type, introduced in RESP3, aims to fix this wrong.
 ### Booleans
 RESP booleans are encoded as follows:
 
-    #<boolean>\r\n
+    #<t|f>\r\n
 
 * The octothorpe character (`#`) as the first byte.
 * A `t` character for true values, or an `f` character for false ones.
@@ -362,13 +372,13 @@ RESP booleans are encoded as follows:
 The Double RESP type encodes a double-precision floating point value.
 Doubles are encoded as follows:
 
-    ,[<sign>]<integral>[.<fractional>][<E|e>[sign]<exponent>]\r\n
+    ,[<+|->]<integral>[.<fractional>][<E|e>[sign]<exponent>]\r\n
 
 * The comma character (`,`) as the first byte.
 * An optional plus (`+`) or minus (`-`) as the sign.
-* The integral value that's represented by one or more decimal digits (`0`..`9`).
-* The optional fractional value that's represented by a dot (`.`), followed by one or more decimal digits (`0`..`9`).
-* The optional exponent value begins with a capital or lowercase letter E (`E` or `e`), followed by an optional plus (`+`) or minus (`-`) as the exponent's sign, ending with one or more decimal digits (`0`..`9`).
+* One or more decimal digits (`0`..`9`) as an unsigned, base-10 integral value.
+* An optional dot (`.`), followed by one or more decimal digits (`0`..`9`) as an unsigned, base-10 fractional value.
+* An optional capital or lowercase letter E (`E` or `e`), followed by an optional plus (`+`) or minus (`-`) as the exponent's sign, ending with one or more decimal digits (`0`..`9`) as an unsigned, base-10 exponent value.
 * The CRLF terminator.
 
 Here's the encoding of the number 1.23:
@@ -395,17 +405,18 @@ This type can encode integer values outside the range of signed 64-bit integers.
 
 Big numbers use the following encoding:
 
-    (<big-number>\r\n
+    ([+|-]<number>\r\n
 
 * The left parenthesis character (`(`) as the first byte.
-* The number.
+* An optional plus (`+`) or minus (`-`) as the sign.
+* One or more decimal digits (`0`..`9`) as an unsigned, base-10 value.
 * The CRLF terminator.
 
 Example:
 
     (3492890328409238509324850943850943825024385\r\n
 
-Big numbers can be positive or negative but can't include decimals.
+Big numbers can be positive or negative but can't include fractionals.
 Client libraries written in languages with a big number type should return a big number.
 When big numbers aren't supported, the client should return a string and, when possible, signal to the caller that the reply is a big integer (depending on the API used by the client library).
 
@@ -419,7 +430,7 @@ It is encoded as:
     !<length>\r\n<error>\r\n
 
 * An exclamation mark (`!`) as the first byte.
-* The length of the error message in bytes.
+* One or more decimal digits (`0`..`9`) as the error's length, in bytes, as an unsigned, base-10 value.
 * The CRLF terminator.
 * The error itself.
 * A final CRLF.
@@ -436,17 +447,17 @@ For instance, the error "SYNTAX invalid syntax" is represented by the following 
 <a name="verbatim-string-reply">
 
 ### Verbatim strings
-This type is similar to the [bulk string](#bulk-strings), with the addition of providing a hint about the data's format.
+This type is similar to the [bulk string](#bulk-strings), with the addition of providing a hint about the data's encoding.
 
 A verbatim string's RESP encoding is as follows:
 
-    =<length>\r\n<three-bytes>:<data>\r\n
+    =<length>\r\n<encoding>:<data>\r\n
 
 * An equal sign (`=`) as the first byte.
-* The data's bytes length.
+* One or more decimal digits (`0`..`9`) as the string's total length, in bytes, as an unsigned, base-10 value.
 * The CRLF terminator.
-* Three (3) bytes of additional information about the data.
-* The colon (`:`) character.
+* Exactly three (3) bytes represent the data's encoding.
+* The colon (`:`) character separates the encoding and data.
 * The data.
 * A final CRLF.
 
@@ -461,7 +472,7 @@ Some client libraries may ignore the difference between this type and the string
 However, interactive clients, such as command line interfaces (e.g., [`redis-cli`](/docs/manual/cli)), can use this type and know that their output should be presented to the human user as is and without quoting the string.
 
 For example, the Redis command `INFO` outputs a report that includes newlines.
-When using RESP3, `redis-cli` displays it correctly because it is sent as a Verbatim String reply (with its three bytes being "raw").
+When using RESP3, `redis-cli` displays it correctly because it is sent as a Verbatim String reply (with its three bytes being "txt").
 When using RESP2, however, the `redis-cli` is hard-coded to look for the `INFO` command to ensure its correct display to the user.
 
 <a name="map-reply"></a>
@@ -474,9 +485,9 @@ It is encoded as follows:
     %<number-of-entries>\r\n<key-1><value-1>...<key-n><value-n>
 
 * A percent character (`%`) as the first byte.
-* The number of entries, or key-value tuples, as the string representation of an integer.
+* One or more decimal digits (`0`..`9`) as the number of entries, or key-value tuples, in the map as an unsigned, base-10 value.
 * The CRLF terminator.
-* Two additional RESP types for every key and value in the Map.
+* Two additional RESP types for every key and value in the map.
 
 For example, the following JSON object:
 
@@ -516,7 +527,7 @@ RESP set's encoding is:
     ~<number-of-elements>\r\n<element-1>...<element-n>
 
 * A tilde (`~`) as the first byte.
-* The number of elements in the set as the string representation of an integer.
+* One or more decimal digits (`0`..`9`) as the number of elements in the set as an unsigned, base-10 value.
 * The CRLF terminator.
 * An additional RESP type for every element of the Set.
 
@@ -534,7 +545,7 @@ Push events are encoded similarly to [arrays](#arrays), differing only in their 
     ><number-of-elements>\r\n<element-1>...<element-n>
 
 * A greater-than sign (`>`) as the first byte.
-* The number of elements as the string representation of an integer.
+* One or more decimal digits (`0`..`9`) as the number of elements in the message as an unsigned, base-10 value.
 * The CRLF terminator.
 * An additional RESP type for every element of the push event.
 
@@ -681,4 +692,7 @@ While comparable in performance to a binary protocol, the Redis protocol is sign
 
 * For testing purposes, use [Lua's type conversions](/topics/lua-api#lua-to-resp3-type-conversion) to have Redis reply with any RESP2/RESP3 needed.
   As an example, a RESP3 double can be generated like so:
-      EVAL "return { double = tonumber(ARGV[1]) }" 0 1e0
+  ```
+  EVAL "return { double = tonumber(ARGV[1]) }" 0 1e0
+  ```
+
