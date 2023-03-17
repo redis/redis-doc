@@ -99,7 +99,7 @@ Simple types are similar to scalars in programming languages that represent plai
 
 RESP strings are either _simple_ or _bulk_.
 Simple strings never contain carriage return (`\r`) or line feed (`\n`) characters.
-Bulk strings can contain any ASCII character and may also be referred to as _binary_ or _blob_.
+Bulk strings can contain any binary data and may also be referred to as _binary_ or _blob_.
 Note that bulk strings may be further encoded and decoded, e.g. with a wide multibyte encoding, by the client.
 
 Aggregates, such as Arrays and Maps, can have varying numbers of sub-elements and nesting levels.
