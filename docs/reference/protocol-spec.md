@@ -86,7 +86,9 @@ Redis generally uses RESP as a [request-response](#request-response-model) proto
 * The server replies with a RESP type.
   The reply's type is determined by the command's implementation and possibly by the client's protocol version.
 
-RESP is **always** ASCII-encoded (UTF-8/Latin-1).
+RESP is a binary protocol that uses control sequences encoded in standard ASCII.
+The `A` character, for example, is encoded with the binary byte of value 65.
+Similarly, the characters CR (`\r`), LF (`\n`) and SP (` `) have binary byte values of 13, 10 and 32, respectively.
 
 The `\r\n` (CRLF) is the protocol's _terminator_, which **always** separates its parts.
 
@@ -100,7 +102,7 @@ Simple types are similar to scalars in programming languages that represent plai
 RESP strings are either _simple_ or _bulk_.
 Simple strings never contain carriage return (`\r`) or line feed (`\n`) characters.
 Bulk strings can contain any binary data and may also be referred to as _binary_ or _blob_.
-Note that bulk strings may be further encoded and decoded, e.g. with a wide multibyte encoding, by the client.
+Note that bulk strings may be further encoded and decoded, e.g. with a wide multi-byte encoding, by the client.
 
 Aggregates, such as Arrays and Maps, can have varying numbers of sub-elements and nesting levels.
 
@@ -127,7 +129,7 @@ The following table summarizes the RESP data types that Redis supports:
 
 ### Simple strings
 Simple strings are encoded as a plus (`+`) character, followed by a string.
-The string mustn't contain a CR or LF character (no newlines are allowed) and is terminated by CRLF (i.e., `\r\n`).
+The string mustn't contain a CR (`\r`) or LF (`\n`) character and is terminated by CRLF (i.e., `\r\n`).
 
 Simple strings transmit short, non-binary strings with minimal overhead.
 For example, many Redis commands reply with just "OK" on success.
@@ -137,7 +139,7 @@ The encoding of this Simple String is the following 5 bytes:
 
 When Redis replies with a simple string, a client library should return to the caller a string value composed of the first character after the `+` up to the end of the string, excluding the final CRLF bytes.
 
-To send binary-safe strings, use [bulk strings](#bulk-strings) instead.
+To send binary strings, use [bulk strings](#bulk-strings) instead.
 
 <a name="error-reply"></a>
 
@@ -199,7 +201,7 @@ Other commands, including `SADD`, `SREM`, and `SETNX`, return 1 when the data ch
 <a name="bulk-string-reply"></a>
 
 ### Bulk strings
-A bulk string represents a single binary-safe string.
+A bulk string represents a single binary string.
 The string can be of any size, but by default, Redis limits it to 512 MB (see the `proto-max-bulk-len` configuration directive).
 
 RESP encodes bulk strings in the following way:
