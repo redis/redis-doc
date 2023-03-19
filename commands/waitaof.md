@@ -1,5 +1,5 @@
 This command blocks the current client until all the previous write commands are acknowledged as having been fsynced to the AOF of the local Redis and/or at least the specified number of replicas.
-If the timeout, specified in milliseconds, is reached, the command returns even if the specified number of acknowledgements has not been met.
+If the timeout, specified in milliseconds, is reached, the command returns even if the specified number of acknowledgments has not been met.
 
 The command **will always return** the number of masters and replicas that have fsynced all write commands sent by the current client before the `WAITAOF` command, both in the case where the specified thresholds were met, and when the timeout is reached.
 
@@ -14,7 +14,7 @@ A few remarks:
 Limitations
 ---
 It is possible to write a module or Lua script that propagate writes to the AOF but not the replication stream.
-(For modules, this is done using the `fmt` argument to `RedisModule_Call`, `RedisModule_Replicate`, or `RedisModule_EmitAOF`; For Lua scripts, this is achieved using `redis.set_repl`.)
+(For modules, this is done using the `fmt` argument to `RedisModule_Call` or `RedisModule_Replicate`; For Lua scripts, this is achieved using `redis.set_repl`.)
 
 These features are incompatible with the `WAITAOF` command as it is currently implemented, and using them in combination may result in incorrect behavior.
 
