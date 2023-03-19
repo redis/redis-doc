@@ -4,7 +4,7 @@ of replicas. If the timeout, specified in milliseconds, is reached, the command
 returns even if the specified number of replicas were not yet reached.
 
 The command **will always return** the number of replicas that acknowledged
-the write commands sent before the `WAIT` command, both in the case where
+the write commands sent by the current client before the `WAIT` command, both in the case where
 the specified number of replicas are reached, or when the timeout is reached.
 
 A few remarks:
