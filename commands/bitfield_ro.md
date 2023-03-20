@@ -16,4 +16,4 @@ BITFIELD_RO hello GET i8 16
 
 @return
 
-@array-reply: An array with each entry being the corresponding result of the subcommand given at the same position.
+@array-reply: An array of @number-reply, each entry being the result of the corresponding subcommand.
