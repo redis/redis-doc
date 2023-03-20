@@ -27,7 +27,7 @@ hex character.
 
 @return
 
-@bulk-string-reply: by default 64 bytes string representing 256 bits of pseudorandom data. Otherwise if an argument if needed, the output string length is the number of specified bits (rounded to the next multiple of 4) divided by 4.
+@bulk-string-reply: by default 64 bytes string representing 256 bits of pseudorandom data. Otherwise if an argument is provided, the output string length is the number of specified bits (rounded to the next multiple of 4) divided by 4.
 
 @examples
 
