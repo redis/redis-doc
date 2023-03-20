@@ -1,4 +1,4 @@
-Returns if `field` is an existing field in the hash stored at `key`.
+Returns whether `field` exists in the hash stored at `key`.
 
 @return
 
