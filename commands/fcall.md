@@ -1,5 +1,3 @@
-Invoke a function.
-
 Functions are loaded to the server with the `FUNCTION LOAD` command.
 The first argument is the name of a loaded function.
 

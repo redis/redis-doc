@@ -1,4 +1,4 @@
-Resets the statistics reported by Redis using the `INFO` and `LATENCY HISTOGRAM` commands.
+This command resets the statistics reported by Redis via the `INFO` and `LATENCY HISTOGRAM` commands.
 
 The following is a non-exhaustive list of values that are reset:
 

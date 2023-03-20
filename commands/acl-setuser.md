@@ -1,7 +1,3 @@
-Create an ACL user with the specified rules or modify the rules of an
-existing user. 
-
-Manipulate Redis ACL users interactively.
 If the username does not exist, the command creates the username without any privilege.
 It then reads from left to right all the [rules](#acl-rules) provided as successive arguments, setting the user ACL rules as specified.
 If the user already exists, the provided ACL rules are simply applied

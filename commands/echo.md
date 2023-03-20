@@ -1,4 +1,4 @@
-Returns `message`.
+Replies with `message`.
 
 @return
 
@@ -7,5 +7,5 @@ Returns `message`.
 @examples
 
 ```cli
-ECHO "Hello World!"
+ECHO "Hello, world!"
 ```

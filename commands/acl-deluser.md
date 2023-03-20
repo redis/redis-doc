@@ -1,12 +1,15 @@
-Delete all the specified ACL users and terminate all the connections that are
-authenticated with such users. Note: the special `default` user cannot be
-removed from the system, this is the default user that every new connection
-is authenticated with. The list of users may include usernames that do not
-exist, in such case no operation is performed for the non existing users.
+The list of users may include usernames that do not exist.
+In such cases, no operation is performed for the non-existing users.
+
+{{% alert title="Note" color="info" %}}
+The special `default` user cannot be removed from the system.
+It is the default user that every new connection is authenticated with.
+{{% /alert  %}}
 
 @return
 
-@integer-reply: The number of users that were deleted. This number will not always match the number of arguments since certain users may not exist.
+@integer-reply: The number of users that were deleted.
+This number won't always match the number of arguments, since certain users may not exist.
 
 @examples
 

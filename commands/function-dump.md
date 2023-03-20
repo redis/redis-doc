@@ -1,4 +1,3 @@
-Return the serialized payload of loaded libraries.
 You can restore the serialized payload later with the `FUNCTION RESTORE` command.
 
 For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).

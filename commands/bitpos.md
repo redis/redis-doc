@@ -1,5 +1,3 @@
-Return the position of the first bit set to 1 or 0 in a string.
-
 The position is returned, thinking of the string as an array of bits from left to
 right, where the first byte's most significant bit is at position 0, the second
 byte's most significant bit is at position 8, and so forth.

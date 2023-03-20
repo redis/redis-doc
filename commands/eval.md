@@ -1,5 +1,3 @@
-Invoke the execution of a server-side Lua script.
-
 The first argument is the script's source code.
 Scripts are written in [Lua](https://lua.org) and executed by the embedded [Lua 5.1](/topics/lua-api) interpreter in Redis.
 

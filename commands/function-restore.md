@@ -1,5 +1,3 @@
-Restore libraries from the serialized payload.
-
 You can use the optional _policy_ argument to provide a policy for handling existing libraries.
 The following policies are allowed:
 

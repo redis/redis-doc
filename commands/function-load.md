@@ -1,5 +1,3 @@
-Load a library to Redis.
-
 The command's gets a single mandatory parameter which is the source code that implements the library.
 The library payload must start with Shebang statement that provides a metadata about the library (like the engine to use and the library name).
 Shebang format: `#!<engine name> name=<library name>`. Currently engine name must be `lua`.

@@ -1,5 +1,3 @@
-Return an array of the server's command names.
-
 You can use the optional _FILTERBY_ modifier to apply one of the following filters:
 
  - **MODULE module-name**: get the commands that belong to the module specified by _module-name_.

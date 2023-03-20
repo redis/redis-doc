@@ -1,4 +1,4 @@
-Return documentary information about commands.
+This introspective command provides documentary information about the server's commands.
 
 By default, the reply includes all of the server's commands.
 You can use the optional _command-name_ argument to specify the names of one or more commands.

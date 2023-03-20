@@ -1,6 +1,3 @@
-Perform a bitwise operation between multiple keys (containing string values) and
-store the result in the destination key.
-
 The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR**
 and **NOT**, thus the valid forms to call the command are:
 

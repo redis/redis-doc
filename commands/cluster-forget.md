@@ -1,6 +1,6 @@
-The command is used in order to remove a node, specified via its node ID,
+The command is used to remove a node, specified via its node ID,
 from the set of *known nodes* of the Redis Cluster node receiving the command.
-In other words the specified node is removed from the *nodes table* of the
+In other words, the specified node is removed from the *nodes table* of the
 node receiving the command.
 
 Because when a given node is part of the cluster, all the other nodes

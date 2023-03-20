@@ -1,6 +1,6 @@
-Return information about the function that's currently running and information about the available execution engines.
+Return information about the function that's currently running, and information about the available execution engines.
 
-The reply is map with two keys:
+The reply is a map with two keys:
 
 1. `running_script`: information about the running script.
   If there's no in-flight function, the server replies with a _nil_.
@@ -8,8 +8,8 @@ The reply is map with two keys:
   * **name:** the name of the function.
   * **command:** the command and arguments used for invoking the function.
   * **duration_ms:** the function's runtime duration in milliseconds.
-2. `engines`: this is a map of maps. Each entry in the map represent a single engine.
-   Engine map contains statistics about the engine like number of functions and number of libraries.
+2. `engines`: this is a map of maps. Each entry of the map represents a single engine.
+   The engine map contains statistics about the engine, such as the number of functions and libraries.
 
 
 You can use this command to inspect the invocation of a long-running function and decide whether kill it with the `FUNCTION KILL` command.

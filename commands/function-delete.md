@@ -1,5 +1,3 @@
-Delete a library and all its functions.
-
 This command deletes the library called _library-name_ and all functions in it.
 If the library doesn't exist, the server returns an error.
 

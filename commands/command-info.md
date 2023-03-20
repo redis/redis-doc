@@ -1,5 +1,3 @@
-Returns @array-reply of details about multiple Redis commands.
-
 Same result format as `COMMAND` except you can specify which commands
 get returned.
 

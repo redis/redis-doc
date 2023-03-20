@@ -1,5 +1,4 @@
-Removes the specified keys.
-A key is ignored if it does not exist.
+Key names that don't exist are silently ignored.
 
 @return
 

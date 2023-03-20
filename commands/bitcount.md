@@ -1,6 +1,4 @@
-Count the number of set bits (population counting) in a string.
-
-By default all the bytes contained in the string are examined.
+By default, all the bytes contained in the string are examined.
 It is possible to specify the counting operation only in an interval passing the
 additional arguments _start_ and _end_.
 

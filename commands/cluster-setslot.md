@@ -1,4 +1,4 @@
-`CLUSTER SETSLOT` is responsible of changing the state of a hash slot in the receiving node in different ways. It can, depending on the subcommand used:
+`CLUSTER SETSLOT` is responsible for changing the state of a hash slot in the receiving node in different ways. It can, depending on the subcommand used:
 
 1. `MIGRATING` subcommand: Set a hash slot in *migrating* state.
 2. `IMPORTING` subcommand: Set a hash slot in *importing* state.

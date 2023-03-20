@@ -1,7 +1,4 @@
-Return an array with details about every Redis command.
-
-The `COMMAND` command is introspective.
-Its reply describes all commands that the server can process.
+This introspective command describes all commands that the server supports.
 Redis clients can call it to obtain the server's runtime capabilities during the handshake.
 
 `COMMAND` also has several subcommands.

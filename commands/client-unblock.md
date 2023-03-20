@@ -1,4 +1,4 @@
-This command can unblock, from a different connection, a client blocked in a blocking operation, such as for instance `BRPOP` or `XREAD` or `WAIT`.
+This command can unblock, from a different connection, a client blocked in a blocking operation, such as `BRPOP` or `XREAD` or `WAIT`.
 
 By default the client is unblocked as if the timeout of the command was
 reached, however if an additional (and optional) argument is passed, it is possible to specify the unblocking behavior, that can be **TIMEOUT** (the default) or **ERROR**. If **ERROR** is specified, the behavior is to unblock the client returning as error the fact that the client was force-unblocked. Specifically the client will receive the following error:

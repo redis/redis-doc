@@ -1,10 +1,8 @@
-Serialize the value stored at key in a Redis-specific format and return it to
-the user.
-The returned value can be synthesized back into a Redis key using the `RESTORE`
+The reply can be synthesized back into a Redis key using the `RESTORE`
 command.
 
-The serialization format is opaque and non-standard, however it has a few
-semantic characteristics:
+The serialization format is opaque and non-standard.
+However, it has a few semantic characteristics:
 
 * It contains a 64-bit checksum that is used to make sure errors will be
   detected.

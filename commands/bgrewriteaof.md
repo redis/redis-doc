@@ -1,8 +1,4 @@
-Instruct Redis to start an [Append Only File][tpaof] rewrite process.
-The rewrite will create a small optimized version of the current Append Only
-File.
-
-[tpaof]: /topics/persistence#append-only-file
+The rewrite process creates a compact version of the current [Append Only File][/topics/persistence#append-only-file].
 
 If `BGREWRITEAOF` fails, no data gets lost as the old AOF will be untouched.
 

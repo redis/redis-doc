@@ -1,6 +1,6 @@
-Forces a node to save the `nodes.conf` configuration on disk. Before to return
-the command calls `fsync(2)` in order to make sure the configuration is
-flushed on the computer disk.
+Forces a node to save the `nodes.conf` configuration on disk.
+Before returning, the command calls `fsync(2)` to make sure the configuration is
+flushed to disk.
 
 This command is mainly used in the event a `nodes.conf` node state file
 gets lost / deleted for some reason, and we want to generate it again from

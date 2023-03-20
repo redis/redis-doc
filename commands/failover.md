@@ -1,4 +1,3 @@
-This command will start a coordinated failover between the currently-connected-to master and one of its replicas.
 The failover is not synchronous, instead a background task will handle coordinating the failover. 
 It is designed to limit data loss and unavailability of the cluster during the failover.
 This command is analogous to the `CLUSTER FAILOVER` command for non-clustered Redis and is similar to the failover support provided by sentinel.

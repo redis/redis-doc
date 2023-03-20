@@ -1,6 +1,4 @@
-Save the DB in background.
-
-Normally the OK code is immediately returned.
+Normally, the command returns an "OK" immediately.
 Redis forks, the parent continues to serve the clients, the child saves the DB
 on disk then exits.
 
