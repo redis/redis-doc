@@ -14,7 +14,7 @@ Entries are displayed starting from the most recent.
 
 When called to show security events:
 
-@array-reply: a list of ACL security events.
+@array-reply: an array of @simple-string-reply elements representing ACL security events.
 
 When called with `RESET`:
 
