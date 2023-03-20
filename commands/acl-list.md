@@ -4,7 +4,7 @@ That means you can copy-paste the reply into a configuration file if you wish (b
 
 @return
 
-@array-reply: specifically, an array of @bulk-string elements.
+@array-reply: specifically, an array of @bulk-string-reply elements.
 
 @examples
 
