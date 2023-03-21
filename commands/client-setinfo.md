@@ -6,8 +6,6 @@ and ignore failures since they could be connected to an older version that doesn
 Currently the supported attributes are:
 * `lib-name` - meant to hold the name of the client library that's in use.
 * `lib-ver` - meant to hod the client library's version.
-* `lib-env` - meant to hold some OS or Cloud for cloud-native environment in which it's running, possibly including context provided by the user application.
-  In case of multiple values, `;` separator should be used.
 
 There is no limit to the length of these attributes. However it is not possible to use spaces, newlines, or other non-printable characters this would violate the format of the `CLIENT LIST` reply.
 
