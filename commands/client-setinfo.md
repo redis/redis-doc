@@ -5,9 +5,9 @@ and ignore failures since they could be connected to an older version that doesn
 
 Currently the supported attributes are:
 * `lib-name` - meant to hold the name of the client library that's in use.
-* `lib-ver` - meant to hod the client library's version.
+* `lib-ver` - meant to hold the client library's version.
 
-There is no limit to the length of these attributes. However it is not possible to use spaces, newlines, or other non-printable characters this would violate the format of the `CLIENT LIST` reply.
+There is no limit to the length of these attributes. However it is not possible to use spaces, newlines, or other non-printable characters that would violate the format of the `CLIENT LIST` reply.
 
 Note that these attributes are **not** cleared by the RESET command.
 
