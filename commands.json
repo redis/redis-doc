@@ -1103,7 +1103,6 @@
         "command_flags": [
             "write",
             "denyoom",
-            "noscript",
             "blocking"
         ]
     },
@@ -1245,7 +1244,6 @@
         ],
         "command_flags": [
             "write",
-            "noscript",
             "blocking"
         ]
     },
@@ -1304,7 +1302,6 @@
         ],
         "command_flags": [
             "write",
-            "noscript",
             "blocking"
         ]
     },
@@ -1389,7 +1386,6 @@
         "command_flags": [
             "write",
             "denyoom",
-            "noscript",
             "blocking"
         ],
         "doc_flags": [
@@ -1534,7 +1530,6 @@
         ],
         "command_flags": [
             "write",
-            "noscript",
             "blocking",
             "fast"
         ]
@@ -1594,7 +1589,6 @@
         ],
         "command_flags": [
             "write",
-            "noscript",
             "blocking",
             "fast"
         ]
@@ -2006,6 +2000,42 @@
         ],
         "command_flags": [
             "admin",
+            "noscript",
+            "loading",
+            "stale"
+        ]
+    },
+    "CLIENT NO-TOUCH": {
+        "summary": "Controls whether commands sent by the client will alter the LRU/LFU of the keys they access.",
+        "since": "7.2.0",
+        "group": "connection",
+        "complexity": "O(1)",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": 3,
+        "arguments": [
+            {
+                "name": "enabled",
+                "type": "oneof",
+                "arguments": [
+                    {
+                        "name": "on",
+                        "type": "pure-token",
+                        "display_text": "on",
+                        "token": "ON"
+                    },
+                    {
+                        "name": "off",
+                        "type": "pure-token",
+                        "display_text": "off",
+                        "token": "OFF"
+                    }
+                ]
+            }
+        ],
+        "command_flags": [
             "noscript",
             "loading",
             "stale"
@@ -14129,6 +14159,38 @@
         ],
         "arity": 3,
         "arguments": [
+            {
+                "name": "numreplicas",
+                "type": "integer",
+                "display_text": "numreplicas"
+            },
+            {
+                "name": "timeout",
+                "type": "integer",
+                "display_text": "timeout"
+            }
+        ],
+        "hints": [
+            "request_policy:all_shards",
+            "response_policy:agg_min"
+        ]
+    },
+    "WAITAOF": {
+        "summary": "Wait for all write commands sent in the context of the current connection to be synced to AOF of local host and/or replicas",
+        "since": "7.2.0",
+        "group": "generic",
+        "complexity": "O(1)",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": 4,
+        "arguments": [
+            {
+                "name": "numlocal",
+                "type": "integer",
+                "display_text": "numlocal"
+            },
             {
                 "name": "numreplicas",
                 "type": "integer",
