@@ -2135,6 +2135,42 @@
             "stale"
         ]
     },
+    "CLIENT SETINFO": {
+        "summary": "Set client or connection specific info",
+        "since": "7.2.0",
+        "group": "connection",
+        "complexity": "O(1)",
+        "acl_categories": [
+            "@slow",
+            "@connection"
+        ],
+        "arity": 4,
+        "arguments": [
+            {
+                "name": "attr",
+                "type": "oneof",
+                "arguments": [
+                    {
+                        "name": "libname",
+                        "type": "string",
+                        "display_text": "libname",
+                        "token": "LIB-NAME"
+                    },
+                    {
+                        "name": "libver",
+                        "type": "string",
+                        "display_text": "libver",
+                        "token": "LIB-VER"
+                    }
+                ]
+            }
+        ],
+        "command_flags": [
+            "noscript",
+            "loading",
+            "stale"
+        ]
+    },
     "CLIENT SETNAME": {
         "summary": "Set the current connection name",
         "since": "2.6.9",
@@ -15076,6 +15112,12 @@
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
+        "history": [
+            [
+                "7.2.0",
+                "Added the `inactive` field."
+            ]
+        ],
         "acl_categories": [
             "@read",
             "@stream",
@@ -15199,6 +15241,10 @@
             [
                 "7.0.0",
                 "Added the `max-deleted-entry-id`, `entries-added`, `recorded-first-entry-id`, `entries-read` and `lag` fields"
+            ],
+            [
+                "7.2.0",
+                "Added the `active-time` field, and changed the meaning of `seen-time`."
             ]
         ],
         "acl_categories": [
