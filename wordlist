@@ -158,6 +158,7 @@ Geospatial
 Github
 Gottlieb
 Gradle
+HashMap
 HLL
 HLLs
 HMAC-SHA256
@@ -390,6 +391,7 @@ T2
 TCL
 TCP
 TLS
+TLS-enabled
 TTL
 TTLs
 Tthe
