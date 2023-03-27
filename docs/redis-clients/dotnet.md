@@ -211,7 +211,7 @@ var user3 = new {
 };
 ```
 
-Create an index. In this example, all JSON documents with the key prefix `user:` are indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax).
+Create an index. In this example, all JSON documents with the key prefix `user:` are indexed. For more information, see [Query syntax](/docs/stack/search/reference/query_syntax).
 
 ```csharp
 var schema = new Schema()
