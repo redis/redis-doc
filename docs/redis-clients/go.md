@@ -2,7 +2,7 @@
 title: "Go guide"
 linkTitle: "Go"
 description: Connect your Go application to a Redis database
-weight: 4
+weight: 2
 
 ---
 
