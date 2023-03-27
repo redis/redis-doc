@@ -78,7 +78,7 @@ rc.set('foo', 'bar')
 rc.get('foo')
 # b'bar'
 ```
-For more information, see [Redis-Py Clustering](https://redis-py.readthedocs.io/en/stable/clustering.html).
+For more information, see [redis-py Clustering](https://redis-py.readthedocs.io/en/stable/clustering.html).
 
 #### Connect to your production Redis with TLS
 
@@ -102,7 +102,7 @@ r.set('foo', 'bar')
 r.get('foo')
 # b'bar'
 ```
-For more information, see [Redis-Py TLS examples](https://redis-py.readthedocs.io/en/stable/examples/ssl_connection_examples.html).
+For more information, see [redis-py TLS examples](https://redis-py.readthedocs.io/en/stable/examples/ssl_connection_examples.html).
 
 ### Example: Indexing and querying JSON documents
 
@@ -157,7 +157,7 @@ schema = (
 )
 ```
 
-Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax). 
+Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](/docs/stack/search/reference/query_syntax). 
 
 ```python
 rs = r.ft("idx:users")
