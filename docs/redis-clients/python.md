@@ -2,7 +2,7 @@
 title: "Python guide"
 linkTitle: "Python"
 description: Connect your Python application to a Redis database
-weight: 1
+weight: 5
 
 ---
 
