@@ -21,7 +21,7 @@ So, first, you need to initialize a Go module:
 go mod init github.com/my/repo
 ```
 
-To install go-redis/v9 (currently in beta):
+To install go-redis/v9:
 
 ```
 go get github.com/redis/go-redis/v9
@@ -32,9 +32,13 @@ go get github.com/redis/go-redis/v9
 To connect to a Redis server:
 
 ```go
-import "github.com/redis/go-redis/v9"
+import (
+	"context"
+	"fmt"
+	"github.com/redis/go-redis/v9"
+)
 
-rdb := redis.NewClient(&redis.Options{
+client := redis.NewClient(&redis.Options{
 	Addr:	  "localhost:6379",
 	Password: "", // no password set
 	DB:		  0,  // use default DB
@@ -49,60 +53,99 @@ if err != nil {
 	panic(err)
 }
 
-rdb := redis.NewClient(opt)
+client := redis.NewClient(opt)
 ```
 
-#### Using TLS
-
-To enable TLS/SSL, you need to provide an empty `tls.Config`. If you're using private certs, you need to specify them in the `tls.Config`. For more information, see [func LoadX509KeyPair](https://pkg.go.dev/crypto/tls#example-LoadX509KeyPair).
+Store and retrieve a simple string.
 
 ```go
-rdb := redis.NewClient(&redis.Options{
-	TLSConfig: &tls.Config{
-		MinVersion: tls.VersionTLS12,
-		//Certificates: []tls.Certificate{cert}
-	},
-})
-```
-
-If you are getting `x509: cannot validate certificate for xxx.xxx.xxx.xxx because it doesn't contain any IP SANs`, try to set `ServerName` option.
-
-```go
-rdb := redis.NewClient(&redis.Options{
-	TLSConfig: &tls.Config{
-		MinVersion: tls.VersionTLS12,
-		ServerName: "your.domain.com",
-	},
-})
-```
-
-#### Over SSH
-
-To connect over SSH channel:
-
-```go
-sshConfig := &ssh.ClientConfig{
-	User:			 "root",
-	Auth:			 []ssh.AuthMethod{ssh.Password("password")},
-	HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-	Timeout:		 15 * time.Second,
-}
-
-sshClient, err := ssh.Dial("tcp", "remoteIP:22", sshConfig)
+err := client.Set(ctx, "foo", "bar", 0).Err()
 if err != nil {
-	panic(err)
+    panic(err)
 }
 
-rdb := redis.NewClient(&redis.Options{
-	Addr: net.JoinHostPort("127.0.0.1", "6379"),
-	Dialer: func(ctx context.Context, network, addr string) (net.Conn, error) {
-		return sshClient.Dial(network, addr)
-	},
-	// Disable timeouts, because SSH does not support deadlines.
-	ReadTimeout:  -1,
-	WriteTimeout: -1,
+val, err := client.Get(ctx, "foo").Result()
+if err != nil {
+    panic(err)
+}
+fmt.Println("foo", val)
+```
+
+Store and retrieve a map.
+
+```go
+session := map[string]string{"name": "John", "surname": "Smith", "company": "Redis", "age": "29"}
+for k, v := range session {
+    err := client.HSet(ctx, "user-session:123", k, v).Err()
+    if err != nil {
+        panic(err)
+    }
+}
+
+userSession := client.HGetAll(ctx, "user-session:123").Val()
+fmt.Println(userSession)
+ ```
+
+#### Connect to a Redis cluster
+
+To connect to a Redis cluster, use `NewClusterClient`. 
+
+```go
+client := redis.NewClusterClient(&redis.ClusterOptions{
+    Addrs: []string{":16379", ":16380", ":16381", ":16382", ":16383", ":16384"},
+
+    // To route commands by latency or randomly, enable one of the following.
+    //RouteByLatency: true,
+    //RouteRandomly: true,
 })
 ```
+
+#### Connect to your production Redis with TLS
+
+When you deploy your application, use TLS and follow the [Redis security](/docs/management/security/) guidelines.
+
+Establish a secure connection with your Redis database using this snippet.
+
+```go
+// Load client cert
+cert, err := tls.LoadX509KeyPair("redis_user.crt", "redis_user_private.key")
+if err != nil {
+    log.Fatal(err)
+}
+
+// Load CA cert
+caCert, err := os.ReadFile("redis_ca.pem")
+if err != nil {
+    log.Fatal(err)
+}
+caCertPool := x509.NewCertPool()
+caCertPool.AppendCertsFromPEM(caCert)
+
+client := redis.NewClient(&redis.Options{
+    Addr:     "my-redis.cloud.redislabs.com:6379",
+    Username: "default", // use your Redis user. More info https://redis.io/docs/management/security/acl/
+    Password: "secret", // use your Redis password
+    TLSConfig: &tls.Config{
+        MinVersion:   tls.VersionTLS12,
+        Certificates: []tls.Certificate{cert},
+        RootCAs:      caCertPool,
+    },
+})
+
+//send SET command
+err = client.Set(ctx, "foo", "bar", 0).Err()
+if err != nil {
+    panic(err)
+}
+
+//send GET command and print the value
+val, err := client.Get(ctx, "foo").Result()
+if err != nil {
+    panic(err)
+}
+fmt.Println("foo", val)
+```
+
 
 #### dial tcp: i/o timeout
 

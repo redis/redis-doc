@@ -124,7 +124,7 @@ Connect to your Redis database.
 r = redis.Redis(host='localhost', port=6379)
 ```
 
-Specify which fields to return from the JSON document.
+Let's create some test data to add to your database.
 
 ```python
 user1 = {
