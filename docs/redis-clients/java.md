@@ -228,7 +228,7 @@ User user2 = new User("Eden Zamir", "eden.zamir@example.com", 29, "Tel Aviv");
 User user3 = new User("Paul Zamir", "paul.zamir@example.com", 35, "Tel Aviv");
 ```
 
-Create an index. In this example, all JSON documents with the key prefix `user:` are indexed. For more information, see [Query syntax](https://redis.io/docs/stack/search/reference/query_syntax).
+Create an index. In this example, all JSON documents with the key prefix `user:` are indexed. For more information, see [Query syntax](/docs/stack/search/reference/query_syntax).
 
 ```java
 jedis.ftCreate("idx:users",
