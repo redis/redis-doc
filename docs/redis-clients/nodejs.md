@@ -2,7 +2,7 @@
 title: "Node.js guide"
 linkTitle: "Node.js"
 description: Connect your Node.js application to a Redis database
-weight: 2
+weight: 4
 
 ---
 
