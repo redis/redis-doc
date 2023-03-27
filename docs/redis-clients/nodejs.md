@@ -11,7 +11,7 @@ Install Redis and the Redis client, then connect your Node.js application to a R
 ## node-redis
 
 [node-redis](https://github.com/redis/node-redis) is a modern, high-performance Redis client for Node.js.
-`node-redis` requires a running Redis server a running Redis or [Redis Stack](https://redis.io/docs/stack/get-started/install/) server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
+`node-redis` requires a running Redis or [Redis Stack](https://redis.io/docs/stack/get-started/install/) server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
 
 ### Install
 
