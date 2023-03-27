@@ -1,5 +1,5 @@
 ---
-title: ".NET guide"
+title: "C#/.NET guide"
 linkTitle: "C#/.NET"
 description: Connect your .NET application to a Redis database
 weight: 1
