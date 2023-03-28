@@ -26,7 +26,7 @@ of methodologies and their steps are enumerated by Brendan Greg at the
 
 We recommend the Utilization Saturation and Errors (USE) Method for answering
 the question of what is your bottleneck. Check the following mapping between
-system resource, metric, and tools for a pratical deep dive:
+system resource, metric, and tools for a practical deep dive:
 [USE method](http://www.brendangregg.com/USEmethod/use-rosetta.html). 
 
 ### Ensuring the CPU is your bottleneck
