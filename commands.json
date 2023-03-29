@@ -1,6 +1,6 @@
 {
     "ACL": {
-        "summary": "A container for Access List Control commands ",
+        "summary": "A container for Access List Control commands.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "Depends on subcommand.",
@@ -10,7 +10,7 @@
         "arity": -2
     },
     "ACL CAT": {
-        "summary": "List the ACL categories or the commands inside a category",
+        "summary": "Lists the ACL categories, or the commands inside a category.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(1) since the categories and commands are a fixed set.",
@@ -20,9 +20,9 @@
         "arity": -2,
         "arguments": [
             {
-                "name": "categoryname",
+                "name": "category",
                 "type": "string",
-                "display_text": "categoryname",
+                "display_text": "category",
                 "optional": true
             }
         ],
@@ -33,7 +33,7 @@
         ]
     },
     "ACL DELUSER": {
-        "summary": "Remove the specified ACL users and the associated rules",
+        "summary": "Deletes ACL users, and terminates their connections.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(1) amortized time considering the typical user.",
@@ -59,7 +59,7 @@
         ]
     },
     "ACL DRYRUN": {
-        "summary": "Returns whether the user can execute the given command without executing the command.",
+        "summary": "Simulates the execution of a command by a user, without executing the command.",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(1).",
@@ -96,7 +96,7 @@
         ]
     },
     "ACL GENPASS": {
-        "summary": "Generate a pseudorandom secure password to use for ACL users",
+        "summary": "Generates a pseudorandom, secure password that can be used to identify ACL users.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -119,7 +119,7 @@
         ]
     },
     "ACL GETUSER": {
-        "summary": "Get the rules for a specific ACL user",
+        "summary": "Lists the ACL rules of a user.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(N). Where N is the number of password, command and pattern rules that the user has.",
@@ -154,7 +154,7 @@
         ]
     },
     "ACL HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -168,7 +168,7 @@
         ]
     },
     "ACL LIST": {
-        "summary": "List the current ACL rules in ACL config file format",
+        "summary": "Dumps the effective rules in ACL file format.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(N). Where N is the number of configured users.",
@@ -186,7 +186,7 @@
         ]
     },
     "ACL LOAD": {
-        "summary": "Reload the ACLs from the configured ACL file",
+        "summary": "Reloads the rules from the configured ACL file.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(N). Where N is the number of configured users.",
@@ -204,7 +204,7 @@
         ]
     },
     "ACL LOG": {
-        "summary": "List latest events denied because of ACLs in place",
+        "summary": "Lists recent security events generated due to ACL rules.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(N) with N being the number of entries shown.",
@@ -248,7 +248,7 @@
         ]
     },
     "ACL SAVE": {
-        "summary": "Save the current ACL rules in the configured ACL file",
+        "summary": "Saves the effective ACL rules in the configured ACL file.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(N). Where N is the number of configured users.",
@@ -266,7 +266,7 @@
         ]
     },
     "ACL SETUSER": {
-        "summary": "Modify or create the rules for a specific ACL user",
+        "summary": "Creates and modifies an ACL user and its rules.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(N). Where N is the number of rules provided.",
@@ -308,7 +308,7 @@
         ]
     },
     "ACL USERS": {
-        "summary": "List the username of all the configured ACL rules",
+        "summary": "Lists all ACL users.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(N). Where N is the number of configured users.",
@@ -326,7 +326,7 @@
         ]
     },
     "ACL WHOAMI": {
-        "summary": "Return the name of the user associated to the current connection",
+        "summary": "Returns the authenticated username of the current connection.",
         "since": "6.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -341,7 +341,7 @@
         ]
     },
     "APPEND": {
-        "summary": "Append a value to a key",
+        "summary": "Appends a string to the value of a key. Creates the key if it doesn't exist.",
         "since": "2.0.0",
         "group": "string",
         "complexity": "O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.",
@@ -391,7 +391,7 @@
         ]
     },
     "ASKING": {
-        "summary": "Sent by cluster clients after an -ASK redirect",
+        "summary": "Signals that a cluster client is following an -ASK redirect.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -405,7 +405,7 @@
         ]
     },
     "AUTH": {
-        "summary": "Authenticate to the server",
+        "summary": "Authenticates the connection.",
         "since": "1.0.0",
         "group": "connection",
         "complexity": "O(N) where N is the number of passwords defined for the user",
@@ -444,7 +444,7 @@
         ]
     },
     "BGREWRITEAOF": {
-        "summary": "Asynchronously rewrite the append-only file",
+        "summary": "Asynchronously rewrites the append-only file to disk.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -461,7 +461,7 @@
         ]
     },
     "BGSAVE": {
-        "summary": "Asynchronously save the dataset to disk",
+        "summary": "Asynchronously saves the database(s) to disk.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -494,7 +494,7 @@
         ]
     },
     "BITCOUNT": {
-        "summary": "Count set bits in a string",
+        "summary": "Counts the number of set bits (population counting) in a string.",
         "since": "2.6.0",
         "group": "bitmap",
         "complexity": "O(N)",
@@ -580,7 +580,7 @@
         ]
     },
     "BITFIELD": {
-        "summary": "Perform arbitrary bitfield integer operations on strings",
+        "summary": "Performs arbitrary bitfield integer operations on strings.",
         "since": "3.2.0",
         "group": "bitmap",
         "complexity": "O(1) for each subcommand specified",
@@ -734,7 +734,7 @@
         ]
     },
     "BITFIELD_RO": {
-        "summary": "Perform arbitrary bitfield integer operations on strings. Read-only variant of BITFIELD",
+        "summary": "Performs arbitrary read-only bitfield integer operations on strings.",
         "since": "6.0.0",
         "group": "bitmap",
         "complexity": "O(1) for each subcommand specified",
@@ -798,7 +798,7 @@
         ]
     },
     "BITOP": {
-        "summary": "Perform bitwise operations between strings",
+        "summary": "Performs bitwise operations on multiple strings, and stores the result.",
         "since": "2.6.0",
         "group": "bitmap",
         "complexity": "O(N)",
@@ -897,7 +897,7 @@
         ]
     },
     "BITPOS": {
-        "summary": "Find first bit set or clear in a string",
+        "summary": "Finds the first set (1) or clear (0) bit in a string.",
         "since": "2.8.7",
         "group": "bitmap",
         "complexity": "O(N)",
@@ -995,7 +995,7 @@
         ]
     },
     "BLMOVE": {
-        "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
+        "summary": "Pops an element from a list, pushes it to another list and returns it. Blocks until an element is available otherwise. Deletes the list if the last element was moved.",
         "since": "6.2.0",
         "group": "list",
         "complexity": "O(1)",
@@ -1107,7 +1107,7 @@
         ]
     },
     "BLMPOP": {
-        "summary": "Pop elements from a list, or block until one is available",
+        "summary": "Pops the first element from one of multiple lists. Blocks until an element is available otherwise. Deletes the list if the last element was popped.",
         "since": "7.0.0",
         "group": "list",
         "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
@@ -1190,7 +1190,7 @@
         ]
     },
     "BLPOP": {
-        "summary": "Remove and get the first element in a list, or block until one is available",
+        "summary": "Removes and returns the first element in a list. Blocks until an element is available otherwise. Deletes the list if the last element was popped.",
         "since": "2.0.0",
         "group": "list",
         "complexity": "O(N) where N is the number of provided keys.",
@@ -1248,7 +1248,7 @@
         ]
     },
     "BRPOP": {
-        "summary": "Remove and get the last element in a list, or block until one is available",
+        "summary": "Removes and returns the last element in a list. Blocks until an element is available otherwise. Deletes the list if the last element was popped.",
         "since": "2.0.0",
         "group": "list",
         "complexity": "O(N) where N is the number of provided keys.",
@@ -1306,7 +1306,7 @@
         ]
     },
     "BRPOPLPUSH": {
-        "summary": "Pop an element from a list, push it to another list and return it; or block until one is available",
+        "summary": "Pops an element from a list, pushes it to another list and returns it. Block until an element is available otherwise. Deletes the list if the last element was popped.",
         "since": "2.2.0",
         "group": "list",
         "complexity": "O(1)",
@@ -1393,7 +1393,7 @@
         ]
     },
     "BZMPOP": {
-        "summary": "Remove and return members with scores in a sorted set or block until one is available",
+        "summary": "Removes and returns a member by score from one or more sorted sets. Blocks until a member is available otherwise. Deletes the sorted set if the last element was popped.",
         "since": "7.0.0",
         "group": "sorted-set",
         "complexity": "O(K) + O(M*log(N)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
@@ -1476,7 +1476,7 @@
         ]
     },
     "BZPOPMAX": {
-        "summary": "Remove and return the member with the highest score from one or more sorted sets, or block until one is available",
+        "summary": "Removes and returns the member with the highest score from one or more sorted sets. Blocks until a member available otherwise.  Deletes the sorted set if the last element was popped.",
         "since": "5.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
@@ -1535,7 +1535,7 @@
         ]
     },
     "BZPOPMIN": {
-        "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
+        "summary": "Removes and returns the member with the lowest score from one or more sorted sets. Blocks until a member is available otherwise. Deletes the sorted set if the last element was popped.",
         "since": "5.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
@@ -1594,7 +1594,7 @@
         ]
     },
     "CLIENT": {
-        "summary": "A container for client connection commands",
+        "summary": "A container for client connection commands.",
         "since": "2.4.0",
         "group": "connection",
         "complexity": "Depends on subcommand.",
@@ -1604,7 +1604,7 @@
         "arity": -2
     },
     "CLIENT CACHING": {
-        "summary": "Instruct the server about tracking or not keys in the next request",
+        "summary": "Instructs the server whether to track the keys in the next request.",
         "since": "6.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -1640,7 +1640,7 @@
         ]
     },
     "CLIENT GETNAME": {
-        "summary": "Get the current connection name",
+        "summary": "Returns the name of the connection.",
         "since": "2.6.9",
         "group": "connection",
         "complexity": "O(1)",
@@ -1656,7 +1656,7 @@
         ]
     },
     "CLIENT GETREDIR": {
-        "summary": "Get tracking notifications redirection client ID if any",
+        "summary": "Returns the client ID to which the connection's tracking notifications are redirected.",
         "since": "6.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -1672,7 +1672,7 @@
         ]
     },
     "CLIENT HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -1687,7 +1687,7 @@
         ]
     },
     "CLIENT ID": {
-        "summary": "Returns the client ID for the current connection",
+        "summary": "Returns the unique client ID of the connection.",
         "since": "5.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -1703,7 +1703,7 @@
         ]
     },
     "CLIENT INFO": {
-        "summary": "Returns information about the current client connection.",
+        "summary": "Returns information about the connection.",
         "since": "6.2.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -1722,7 +1722,7 @@
         ]
     },
     "CLIENT KILL": {
-        "summary": "Kill the connection of a client",
+        "summary": "Terminates open connections.",
         "since": "2.4.0",
         "group": "connection",
         "complexity": "O(N) where N is the number of client connections",
@@ -1875,7 +1875,7 @@
         ]
     },
     "CLIENT LIST": {
-        "summary": "Get the list of client connections",
+        "summary": "Lists open connections.",
         "since": "2.4.0",
         "group": "connection",
         "complexity": "O(N) where N is the number of client connections",
@@ -1967,7 +1967,7 @@
         ]
     },
     "CLIENT NO-EVICT": {
-        "summary": "Set client eviction mode for the current connection",
+        "summary": "Sets the client eviction mode of the connection.",
         "since": "7.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -2006,7 +2006,7 @@
         ]
     },
     "CLIENT NO-TOUCH": {
-        "summary": "Controls whether commands sent by the client will alter the LRU/LFU of the keys they access.",
+        "summary": "Controls whether commands sent by the client affect the LRU/LFU of accessed keys.",
         "since": "7.2.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -2042,7 +2042,7 @@
         ]
     },
     "CLIENT PAUSE": {
-        "summary": "Stop processing commands from clients for some time",
+        "summary": "Suspends commands processing.",
         "since": "3.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -2094,7 +2094,7 @@
         ]
     },
     "CLIENT REPLY": {
-        "summary": "Instruct the server whether to reply to commands",
+        "summary": "Instructs the server whether to reply to commands.",
         "since": "3.2.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -2136,7 +2136,7 @@
         ]
     },
     "CLIENT SETINFO": {
-        "summary": "Set client or connection specific info",
+        "summary": "Sets information specific to the client or connection.",
         "since": "7.2.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -2172,7 +2172,7 @@
         ]
     },
     "CLIENT SETNAME": {
-        "summary": "Set the current connection name",
+        "summary": "Sets the connection name.",
         "since": "2.6.9",
         "group": "connection",
         "complexity": "O(1)",
@@ -2195,7 +2195,7 @@
         ]
     },
     "CLIENT TRACKING": {
-        "summary": "Enable or disable server assisted client side caching support",
+        "summary": "Controls server-assisted client-side caching for the connection.",
         "since": "6.0.0",
         "group": "connection",
         "complexity": "O(1). Some options may introduce additional complexity.",
@@ -2275,7 +2275,7 @@
         ]
     },
     "CLIENT TRACKINGINFO": {
-        "summary": "Return information about server assisted client side caching for the current connection",
+        "summary": "Returns information about server-assisted client-side caching for the connection.",
         "since": "6.2.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -2291,7 +2291,7 @@
         ]
     },
     "CLIENT UNBLOCK": {
-        "summary": "Unblock a client blocked in a blocking command from a different connection",
+        "summary": "Unblocks a client blocked by a blocking command from a different connection.",
         "since": "5.0.0",
         "group": "connection",
         "complexity": "O(log N) where N is the number of client connections",
@@ -2336,7 +2336,7 @@
         ]
     },
     "CLIENT UNPAUSE": {
-        "summary": "Resume processing of clients that were paused",
+        "summary": "Resumes processing commands from paused clients.",
         "since": "6.2.0",
         "group": "connection",
         "complexity": "O(N) Where N is the number of paused clients",
@@ -2355,7 +2355,7 @@
         ]
     },
     "CLUSTER": {
-        "summary": "A container for cluster commands",
+        "summary": "A container for Redis Cluster commands.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "Depends on subcommand.",
@@ -2365,7 +2365,7 @@
         "arity": -2
     },
     "CLUSTER ADDSLOTS": {
-        "summary": "Assign new hash slots to receiving node",
+        "summary": "Assigns new hash slots to a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of hash slot arguments",
@@ -2390,7 +2390,7 @@
         ]
     },
     "CLUSTER ADDSLOTSRANGE": {
-        "summary": "Assign new hash slots to receiving node",
+        "summary": "Assigns new hash slot ranges to a node.",
         "since": "7.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments.",
@@ -2426,7 +2426,7 @@
         ]
     },
     "CLUSTER BUMPEPOCH": {
-        "summary": "Advance the cluster config epoch",
+        "summary": "Advances the cluster config epoch.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2446,7 +2446,7 @@
         ]
     },
     "CLUSTER COUNT-FAILURE-REPORTS": {
-        "summary": "Return the number of failure reports active for a given node",
+        "summary": "Returns the number of active failure reports active for a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the number of failure reports",
@@ -2472,7 +2472,7 @@
         ]
     },
     "CLUSTER COUNTKEYSINSLOT": {
-        "summary": "Return the number of local keys in the specified hash slot",
+        "summary": "Returns the number of keys in a hash slot.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2492,7 +2492,7 @@
         ]
     },
     "CLUSTER DELSLOTS": {
-        "summary": "Set hash slots as unbound in receiving node",
+        "summary": "Sets hash slots as unbound for a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of hash slot arguments",
@@ -2517,7 +2517,7 @@
         ]
     },
     "CLUSTER DELSLOTSRANGE": {
-        "summary": "Set hash slots as unbound in receiving node",
+        "summary": "Sets hash slot ranges as unbound for a node.",
         "since": "7.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of the slots between the start slot and end slot arguments.",
@@ -2591,7 +2591,7 @@
         ]
     },
     "CLUSTER FLUSHSLOTS": {
-        "summary": "Delete a node's own slots information",
+        "summary": "Deletes all slots information from a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2608,7 +2608,7 @@
         ]
     },
     "CLUSTER FORGET": {
-        "summary": "Remove a node from the nodes table",
+        "summary": "Removes a node from the nodes table.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2632,7 +2632,7 @@
         ]
     },
     "CLUSTER GETKEYSINSLOT": {
-        "summary": "Return local key names in the specified hash slot",
+        "summary": "Returns the key names in a hash slot.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the number of requested keys",
@@ -2660,7 +2660,7 @@
         ]
     },
     "CLUSTER HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2674,7 +2674,7 @@
         ]
     },
     "CLUSTER INFO": {
-        "summary": "Provides info about Redis Cluster node state",
+        "summary": "Returns information about the state of a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2690,7 +2690,7 @@
         ]
     },
     "CLUSTER KEYSLOT": {
-        "summary": "Returns the hash slot of the specified key",
+        "summary": "Returns the hash slot for a key.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the number of bytes in the key",
@@ -2710,7 +2710,7 @@
         ]
     },
     "CLUSTER LINKS": {
-        "summary": "Returns a list of all TCP links to and from peer nodes in cluster",
+        "summary": "Returns a list of all TCP links to and from peer nodes.",
         "since": "7.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of Cluster nodes",
@@ -2726,7 +2726,7 @@
         ]
     },
     "CLUSTER MEET": {
-        "summary": "Force a node cluster to handshake with another node",
+        "summary": "Forces a node to handshake with another node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2768,7 +2768,7 @@
         ]
     },
     "CLUSTER MYID": {
-        "summary": "Return the node id",
+        "summary": "Returns the ID of a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2781,7 +2781,7 @@
         ]
     },
     "CLUSTER MYSHARDID": {
-        "summary": "Return the node shard id",
+        "summary": "Returns the shard ID of a node.",
         "since": "7.2.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2797,7 +2797,7 @@
         ]
     },
     "CLUSTER NODES": {
-        "summary": "Get Cluster config for the node",
+        "summary": "Returns the cluster configuration for a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of Cluster nodes",
@@ -2813,7 +2813,7 @@
         ]
     },
     "CLUSTER REPLICAS": {
-        "summary": "List replica nodes of the specified master node",
+        "summary": "Lists the replica nodes of a master node.",
         "since": "5.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2839,7 +2839,7 @@
         ]
     },
     "CLUSTER REPLICATE": {
-        "summary": "Reconfigure a node as a replica of the specified master node",
+        "summary": "Configure a node as replica of a master node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2863,7 +2863,7 @@
         ]
     },
     "CLUSTER RESET": {
-        "summary": "Reset a Redis Cluster node",
+        "summary": "Resets a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the number of known nodes. The command may execute a FLUSHALL as a side effect.",
@@ -2901,7 +2901,7 @@
         ]
     },
     "CLUSTER SAVECONFIG": {
-        "summary": "Forces the node to save cluster state on disk",
+        "summary": "Forces a node to save the cluster configuration to disk.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2918,7 +2918,7 @@
         ]
     },
     "CLUSTER SET-CONFIG-EPOCH": {
-        "summary": "Set the configuration epoch in a new node",
+        "summary": "Sets the configuration epoch for a new node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2942,7 +2942,7 @@
         ]
     },
     "CLUSTER SETSLOT": {
-        "summary": "Bind a hash slot to a specific node",
+        "summary": "Binds a hash slot to a node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -2996,7 +2996,7 @@
         ]
     },
     "CLUSTER SHARDS": {
-        "summary": "Get array of cluster slots to node mappings",
+        "summary": "Returns the mapping of cluster slots to shards.",
         "since": "7.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of cluster nodes",
@@ -3012,7 +3012,7 @@
         ]
     },
     "CLUSTER SLAVES": {
-        "summary": "List replica nodes of the specified master node",
+        "summary": "Lists the replica nodes of a master node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -3043,7 +3043,7 @@
         ]
     },
     "CLUSTER SLOTS": {
-        "summary": "Get array of Cluster slot to node mappings",
+        "summary": "Returns the mapping of cluster slots to nodes.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(N) where N is the total number of Cluster nodes",
@@ -3074,7 +3074,7 @@
         ]
     },
     "COMMAND": {
-        "summary": "Get array of Redis command details",
+        "summary": "Returns detailed information about all commands.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(N) where N is the total number of Redis commands",
@@ -3092,7 +3092,7 @@
         ]
     },
     "COMMAND COUNT": {
-        "summary": "Get total number of Redis commands",
+        "summary": "Returns a count of commands.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(1)",
@@ -3107,7 +3107,7 @@
         ]
     },
     "COMMAND DOCS": {
-        "summary": "Get array of specific Redis command documentation",
+        "summary": "Returns documentary information about a command.",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of commands to look up",
@@ -3134,7 +3134,7 @@
         ]
     },
     "COMMAND GETKEYS": {
-        "summary": "Extract keys given a full Redis command",
+        "summary": "Extracts the key names from an arbitrary command.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(N) where N is the number of arguments to the command",
@@ -3163,7 +3163,7 @@
         ]
     },
     "COMMAND GETKEYSANDFLAGS": {
-        "summary": "Extract keys and access flags given a full Redis command",
+        "summary": "Extracts the key names and access flags for an arbitrary command.",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of arguments to the command",
@@ -3192,7 +3192,7 @@
         ]
     },
     "COMMAND HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -3207,7 +3207,7 @@
         ]
     },
     "COMMAND INFO": {
-        "summary": "Get array of specific Redis command details, or all when no argument is given.",
+        "summary": "Returns information about one, multiple or all commands.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(N) where N is the number of commands to look up",
@@ -3240,7 +3240,7 @@
         ]
     },
     "COMMAND LIST": {
-        "summary": "Get an array of Redis command names",
+        "summary": "Returns a list of command names.",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the total number of Redis commands",
@@ -3286,7 +3286,7 @@
         ]
     },
     "CONFIG": {
-        "summary": "A container for server configuration commands",
+        "summary": "A container for server configuration commands.",
         "since": "2.0.0",
         "group": "server",
         "complexity": "Depends on subcommand.",
@@ -3296,7 +3296,7 @@
         "arity": -2
     },
     "CONFIG GET": {
-        "summary": "Get the values of configuration parameters",
+        "summary": "Returns the effective values of configuration parameters.",
         "since": "2.0.0",
         "group": "server",
         "complexity": "O(N) when N is the number of configuration parameters provided",
@@ -3328,7 +3328,7 @@
         ]
     },
     "CONFIG HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -3342,7 +3342,7 @@
         ]
     },
     "CONFIG RESETSTAT": {
-        "summary": "Reset the stats returned by INFO",
+        "summary": "Resets the server's statistics.",
         "since": "2.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -3360,7 +3360,7 @@
         ]
     },
     "CONFIG REWRITE": {
-        "summary": "Rewrite the configuration file with the in memory configuration",
+        "summary": "Persists the effective configuration to file.",
         "since": "2.8.0",
         "group": "server",
         "complexity": "O(1)",
@@ -3378,7 +3378,7 @@
         ]
     },
     "CONFIG SET": {
-        "summary": "Set configuration parameters to the given values",
+        "summary": "Sets configuration parameters in-flight.",
         "since": "2.0.0",
         "group": "server",
         "complexity": "O(N) when N is the number of configuration parameters provided",
@@ -3425,7 +3425,7 @@
         ]
     },
     "COPY": {
-        "summary": "Copy a key",
+        "summary": "Copies the value of a key to a new key.",
         "since": "6.2.0",
         "group": "generic",
         "complexity": "O(N) worst case for collections, where N is the number of nested items. O(1) for string values.",
@@ -3507,7 +3507,7 @@
         ]
     },
     "DBSIZE": {
-        "summary": "Return the number of keys in the selected database",
+        "summary": "Returns the number of keys in the database.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -3527,7 +3527,7 @@
         ]
     },
     "DEBUG": {
-        "summary": "A container for debugging commands",
+        "summary": "A container for debugging commands.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "Depends on subcommand.",
@@ -3548,7 +3548,7 @@
         ]
     },
     "DECR": {
-        "summary": "Decrement the integer value of a key by one",
+        "summary": "Decrements the integer value of a key by one. Uses 0 as initial value if the key doesn't exist.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -3594,7 +3594,7 @@
         ]
     },
     "DECRBY": {
-        "summary": "Decrement the integer value of a key by the given number",
+        "summary": "Decrements a number from the integer value of a key. Uses 0 as initial value if the key doesn't exist.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -3645,7 +3645,7 @@
         ]
     },
     "DEL": {
-        "summary": "Delete a key",
+        "summary": "Deletes one or more keys.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(N) where N is the number of keys that will be removed. When a key to remove holds a value other than a string, the individual complexity for this key is O(M) where M is the number of elements in the list, set, sorted set or hash. Removing a single key that holds a string value is O(1).",
@@ -3693,7 +3693,7 @@
         ]
     },
     "DISCARD": {
-        "summary": "Discard all commands issued after MULTI",
+        "summary": "Discards a transaction.",
         "since": "2.0.0",
         "group": "transactions",
         "complexity": "O(N), when N is the number of queued commands",
@@ -3711,7 +3711,7 @@
         ]
     },
     "DUMP": {
-        "summary": "Return a serialized version of the value stored at the specified key.",
+        "summary": "Returns a serialized representation of the value stored at a key.",
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1) to access the key and additional O(N*M) to serialize it, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1).",
@@ -3757,7 +3757,7 @@
         ]
     },
     "ECHO": {
-        "summary": "Echo the given string",
+        "summary": "Returns the given string.",
         "since": "1.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -3780,7 +3780,7 @@
         ]
     },
     "EVAL": {
-        "summary": "Execute a Lua script server side",
+        "summary": "Executes a server-side Lua script.",
         "since": "2.6.0",
         "group": "scripting",
         "complexity": "Depends on the script that is executed.",
@@ -3847,7 +3847,7 @@
         ]
     },
     "EVALSHA": {
-        "summary": "Execute a Lua script server side",
+        "summary": "Executes a server-side Lua script by SHA1 digest.",
         "since": "2.6.0",
         "group": "scripting",
         "complexity": "Depends on the script that is executed.",
@@ -3913,7 +3913,7 @@
         ]
     },
     "EVALSHA_RO": {
-        "summary": "Execute a read-only Lua script server side",
+        "summary": "Executes a read-only server-side Lua script by SHA1 digest.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "Depends on the script that is executed.",
@@ -3979,7 +3979,7 @@
         ]
     },
     "EVAL_RO": {
-        "summary": "Execute a read-only Lua script server side",
+        "summary": "Executes a read-only server-side Lua script.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "Depends on the script that is executed.",
@@ -4046,7 +4046,7 @@
         ]
     },
     "EXEC": {
-        "summary": "Execute all commands issued after MULTI",
+        "summary": "Executes all commands in a transaction.",
         "since": "1.2.0",
         "group": "transactions",
         "complexity": "Depends on commands in the transaction",
@@ -4063,7 +4063,7 @@
         ]
     },
     "EXISTS": {
-        "summary": "Determine if a key exists",
+        "summary": "Determines whether one or more keys exist.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(N) where N is the number of keys to check.",
@@ -4117,7 +4117,7 @@
         ]
     },
     "EXPIRE": {
-        "summary": "Set a key's time to live in seconds",
+        "summary": "Sets the expiration time of a key in seconds.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -4204,7 +4204,7 @@
         ]
     },
     "EXPIREAT": {
-        "summary": "Set the expiration for a key as a UNIX timestamp",
+        "summary": "Sets the expiration time of a key to a Unix timestamp.",
         "since": "1.2.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -4291,7 +4291,7 @@
         ]
     },
     "EXPIRETIME": {
-        "summary": "Get the expiration Unix timestamp for a key",
+        "summary": "Returns the expiration time of a key as a Unix timestamp.",
         "since": "7.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -4335,7 +4335,7 @@
         ]
     },
     "FAILOVER": {
-        "summary": "Start a coordinated failover between this server and one of its replicas.",
+        "summary": "Starts a coordinated failover from a server to one of its replicas.",
         "since": "6.2.0",
         "group": "server",
         "complexity": "O(1)",
@@ -4393,7 +4393,7 @@
         ]
     },
     "FCALL": {
-        "summary": "Invoke a function",
+        "summary": "Invokes a function.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "Depends on the function that is executed.",
@@ -4460,7 +4460,7 @@
         ]
     },
     "FCALL_RO": {
-        "summary": "Invoke a read-only function",
+        "summary": "Invokes a read-only function.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "Depends on the function that is executed.",
@@ -4527,7 +4527,7 @@
         ]
     },
     "FLUSHALL": {
-        "summary": "Remove all keys from all databases",
+        "summary": "Removes all keys from all databases.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(N) where N is the total number of keys in all databases",
@@ -4580,7 +4580,7 @@
         ]
     },
     "FLUSHDB": {
-        "summary": "Remove all keys from the current database",
+        "summary": "Remove all keys from the current database.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of keys in the selected database",
@@ -4633,7 +4633,7 @@
         ]
     },
     "FUNCTION": {
-        "summary": "A container for function commands",
+        "summary": "A container for function commands.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "Depends on subcommand.",
@@ -4643,7 +4643,7 @@
         "arity": -2
     },
     "FUNCTION DELETE": {
-        "summary": "Delete a function by name",
+        "summary": "Deletes a library and its functions.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -4670,7 +4670,7 @@
         ]
     },
     "FUNCTION DUMP": {
-        "summary": "Dump all functions into a serialized binary payload",
+        "summary": "Dumps all libraries into a serialized binary payload.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(N) where N is the number of functions",
@@ -4684,7 +4684,7 @@
         ]
     },
     "FUNCTION FLUSH": {
-        "summary": "Deleting all functions",
+        "summary": "Deletes all libraries and functions.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(N) where N is the number of functions deleted",
@@ -4725,7 +4725,7 @@
         ]
     },
     "FUNCTION HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -4740,7 +4740,7 @@
         ]
     },
     "FUNCTION KILL": {
-        "summary": "Kill the function currently in execution.",
+        "summary": "Terminates a function during execution.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -4759,7 +4759,7 @@
         ]
     },
     "FUNCTION LIST": {
-        "summary": "List information about all the functions",
+        "summary": "Returns information about all libraries.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(N) where N is the number of functions",
@@ -4792,7 +4792,7 @@
         ]
     },
     "FUNCTION LOAD": {
-        "summary": "Create a function with the given arguments (name, code, description)",
+        "summary": "Creates a library.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(1) (considering compilation time is redundant)",
@@ -4827,7 +4827,7 @@
         ]
     },
     "FUNCTION RESTORE": {
-        "summary": "Restore all the functions on the given payload",
+        "summary": "Restores all libraries from a payload.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(N) where N is the number of functions on the payload",
@@ -4880,7 +4880,7 @@
         ]
     },
     "FUNCTION STATS": {
-        "summary": "Return information about the function currently running (name, description, duration)",
+        "summary": "Returns information about a function during execution.",
         "since": "7.0.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -4900,7 +4900,7 @@
         ]
     },
     "GEOADD": {
-        "summary": "Add one or more geospatial items in the geospatial index represented using a sorted set",
+        "summary": "Adds one or more members to a geospatial index. The key is created if it doesn't exist.",
         "since": "3.2.0",
         "group": "geo",
         "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
@@ -5000,7 +5000,7 @@
         ]
     },
     "GEODIST": {
-        "summary": "Returns the distance between two members of a geospatial index",
+        "summary": "Returns the distance between two members of a geospatial index.",
         "since": "3.2.0",
         "group": "geo",
         "complexity": "O(log(N))",
@@ -5084,7 +5084,7 @@
         ]
     },
     "GEOHASH": {
-        "summary": "Returns members of a geospatial index as standard geohash strings",
+        "summary": "Returns members from a geospatial index as geohash strings.",
         "since": "3.2.0",
         "group": "geo",
         "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
@@ -5134,7 +5134,7 @@
         ]
     },
     "GEOPOS": {
-        "summary": "Returns longitude and latitude of members of a geospatial index",
+        "summary": "Returns the longitude and latitude of members from a geospatial index.",
         "since": "3.2.0",
         "group": "geo",
         "complexity": "O(N) where N is the number of members requested.",
@@ -5184,7 +5184,7 @@
         ]
     },
     "GEORADIUS": {
-        "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point",
+        "summary": "Queries a geospatial index for members within a distance from a coordinate, optionally stores the result.",
         "since": "3.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
@@ -5404,7 +5404,7 @@
         ]
     },
     "GEORADIUSBYMEMBER": {
-        "summary": "Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member",
+        "summary": "Queries a geospatial index for members within a distance from a member, optionally stores the result.",
         "since": "3.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
@@ -5614,7 +5614,7 @@
         ]
     },
     "GEORADIUSBYMEMBER_RO": {
-        "summary": "A read-only variant for GEORADIUSBYMEMBER",
+        "summary": "Returns members from a geospatial index that are within a distance from a member.",
         "since": "3.2.10",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
@@ -5762,7 +5762,7 @@
         ]
     },
     "GEORADIUS_RO": {
-        "summary": "A read-only variant for GEORADIUS",
+        "summary": "Returns members from a geospatial index that are within a distance from a coordinate.",
         "since": "3.2.10",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.",
@@ -5922,7 +5922,7 @@
         ]
     },
     "GEOSEARCH": {
-        "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
+        "summary": "Queries a geospatial index for members inside an area of a box or a circle.",
         "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
@@ -6155,7 +6155,7 @@
         ]
     },
     "GEOSEARCHSTORE": {
-        "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
+        "summary": "Queries a geospatial index for members inside an area of a box or a circle, optionally stores the result.",
         "since": "6.2.0",
         "group": "geo",
         "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
@@ -6399,7 +6399,7 @@
         ]
     },
     "GET": {
-        "summary": "Get the value of a key",
+        "summary": "Returns the string value of a key.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -6443,7 +6443,7 @@
         ]
     },
     "GETBIT": {
-        "summary": "Returns the bit value at offset in the string value stored at key",
+        "summary": "Returns a bit value by offset.",
         "since": "2.2.0",
         "group": "bitmap",
         "complexity": "O(1)",
@@ -6492,7 +6492,7 @@
         ]
     },
     "GETDEL": {
-        "summary": "Get the value of a key and delete the key",
+        "summary": "Returns the string value of a key after deleting the key.",
         "since": "6.2.0",
         "group": "string",
         "complexity": "O(1)",
@@ -6537,7 +6537,7 @@
         ]
     },
     "GETEX": {
-        "summary": "Get the value of a key and optionally set its expiration",
+        "summary": "Returns the string value of a key after setting its expiration time.",
         "since": "6.2.0",
         "group": "string",
         "complexity": "O(1)",
@@ -6620,7 +6620,7 @@
         ]
     },
     "GETRANGE": {
-        "summary": "Get a substring of the string stored at a key",
+        "summary": "Returns a substring of the string stored at a key.",
         "since": "2.4.0",
         "group": "string",
         "complexity": "O(N) where N is the length of the returned string. The complexity is ultimately determined by the returned length, but because creating a substring from an existing string is very cheap, it can be considered O(1) for small strings.",
@@ -6673,7 +6673,7 @@
         ]
     },
     "GETSET": {
-        "summary": "Set the string value of a key and return its old value",
+        "summary": "Returns the previous string value of a key after setting it to a new value.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -6729,7 +6729,7 @@
         ]
     },
     "HDEL": {
-        "summary": "Delete one or more hash fields",
+        "summary": "Deletes one or more fields and their values from a hash. Deletes the hash if no fields remain.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the number of fields to be removed.",
@@ -6785,7 +6785,7 @@
         ]
     },
     "HELLO": {
-        "summary": "Handshake with Redis",
+        "summary": "Handshakes with the Redis server.",
         "since": "6.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -6849,7 +6849,7 @@
         ]
     },
     "HEXISTS": {
-        "summary": "Determine if a hash field exists",
+        "summary": "Determines whether a field exists in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1)",
@@ -6897,7 +6897,7 @@
         ]
     },
     "HGET": {
-        "summary": "Get the value of a hash field",
+        "summary": "Returns the value of a field in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1)",
@@ -6946,7 +6946,7 @@
         ]
     },
     "HGETALL": {
-        "summary": "Get all the fields and values in a hash",
+        "summary": "Returns all fields and values in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the size of the hash.",
@@ -6992,7 +6992,7 @@
         ]
     },
     "HINCRBY": {
-        "summary": "Increment the integer value of a hash field by the given number",
+        "summary": "Increments the integer value of a field in a hash by a number. Uses 0 as initial value if the field doesn't exist.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1)",
@@ -7048,7 +7048,7 @@
         ]
     },
     "HINCRBYFLOAT": {
-        "summary": "Increment the float value of a hash field by the given amount",
+        "summary": "Increments the floating point value of a field by a number. Uses 0 as initial value if the field doesn't exist.",
         "since": "2.6.0",
         "group": "hash",
         "complexity": "O(1)",
@@ -7104,7 +7104,7 @@
         ]
     },
     "HKEYS": {
-        "summary": "Get all the fields in a hash",
+        "summary": "Returns all fields in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the size of the hash.",
@@ -7150,7 +7150,7 @@
         ]
     },
     "HLEN": {
-        "summary": "Get the number of fields in a hash",
+        "summary": "Returns the number of fields in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1)",
@@ -7193,7 +7193,7 @@
         ]
     },
     "HMGET": {
-        "summary": "Get the values of all the given hash fields",
+        "summary": "Returns the values of all fields in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the number of fields being requested.",
@@ -7243,7 +7243,7 @@
         ]
     },
     "HMSET": {
-        "summary": "Set multiple hash fields to multiple values",
+        "summary": "Sets the values of multiple fields.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the number of fields being set.",
@@ -7310,7 +7310,7 @@
         ]
     },
     "HRANDFIELD": {
-        "summary": "Get one or multiple random fields from a hash",
+        "summary": "Returns one or more random fields from a hash.",
         "since": "6.2.0",
         "group": "hash",
         "complexity": "O(N) where N is the number of fields returned",
@@ -7375,7 +7375,7 @@
         ]
     },
     "HSCAN": {
-        "summary": "Incrementally iterate hash fields and associated values",
+        "summary": "Iterates over fields and values of a hash.",
         "since": "2.8.0",
         "group": "hash",
         "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
@@ -7440,7 +7440,7 @@
         ]
     },
     "HSET": {
-        "summary": "Set the string value of a hash field",
+        "summary": "Creates or modifies the value of a field in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.",
@@ -7508,7 +7508,7 @@
         ]
     },
     "HSETNX": {
-        "summary": "Set the value of a hash field, only if the field does not exist",
+        "summary": "Sets the value of a field in a hash only when the field doesn't exist.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(1)",
@@ -7563,7 +7563,7 @@
         ]
     },
     "HSTRLEN": {
-        "summary": "Get the length of the value of a hash field",
+        "summary": "Returns the length of the value of a field.",
         "since": "3.2.0",
         "group": "hash",
         "complexity": "O(1)",
@@ -7611,7 +7611,7 @@
         ]
     },
     "HVALS": {
-        "summary": "Get all the values in a hash",
+        "summary": "Returns all values in a hash.",
         "since": "2.0.0",
         "group": "hash",
         "complexity": "O(N) where N is the size of the hash.",
@@ -7657,7 +7657,7 @@
         ]
     },
     "INCR": {
-        "summary": "Increment the integer value of a key by one",
+        "summary": "Increments the integer value of a key by one. Uses 0 as initial value if the key doesn't exist.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -7703,7 +7703,7 @@
         ]
     },
     "INCRBY": {
-        "summary": "Increment the integer value of a key by the given amount",
+        "summary": "Increments the integer value of a key by a number. Uses 0 as initial value if the key doesn't exist.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -7754,7 +7754,7 @@
         ]
     },
     "INCRBYFLOAT": {
-        "summary": "Increment the float value of a key by the given amount",
+        "summary": "Increment the floating point value of a key by a number. Uses 0 as initial value if the key doesn't exist.",
         "since": "2.6.0",
         "group": "string",
         "complexity": "O(1)",
@@ -7805,7 +7805,7 @@
         ]
     },
     "INFO": {
-        "summary": "Get information and statistics about the server",
+        "summary": "Returns information and statistics about the server.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -7840,7 +7840,7 @@
         ]
     },
     "KEYS": {
-        "summary": "Find all keys matching the given pattern",
+        "summary": "Returns all key names that match a pattern.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(N) with N being the number of keys in the database, under the assumption that the key names in the database and the given pattern have limited length.",
@@ -7867,7 +7867,7 @@
         ]
     },
     "LASTSAVE": {
-        "summary": "Get the UNIX time stamp of the last successful save to disk",
+        "summary": "Returns the Unix timestamp of the last successful save to disk.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -7887,7 +7887,7 @@
         ]
     },
     "LATENCY": {
-        "summary": "A container for latency diagnostics commands",
+        "summary": "A container for latency diagnostics commands.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "Depends on subcommand.",
@@ -7897,7 +7897,7 @@
         "arity": -2
     },
     "LATENCY DOCTOR": {
-        "summary": "Return a human readable latency analysis report.",
+        "summary": "Returns a human-readable latency analysis report.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(1)",
@@ -7920,7 +7920,7 @@
         ]
     },
     "LATENCY GRAPH": {
-        "summary": "Return a latency graph for the event.",
+        "summary": "Returns a latency graph for an event.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(1)",
@@ -7950,7 +7950,7 @@
         ]
     },
     "LATENCY HELP": {
-        "summary": "Show helpful text about the different subcommands.",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(1)",
@@ -7964,7 +7964,7 @@
         ]
     },
     "LATENCY HISTOGRAM": {
-        "summary": "Return the cumulative distribution of latencies of a subset of commands or all.",
+        "summary": "Returns the cumulative distribution of latencies of a subset or all commands.",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of commands with latency information being retrieved.",
@@ -7996,7 +7996,7 @@
         ]
     },
     "LATENCY HISTORY": {
-        "summary": "Return timestamp-latency samples for the event.",
+        "summary": "Returns timestamp-latency samples for an event.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(1)",
@@ -8026,7 +8026,7 @@
         ]
     },
     "LATENCY LATEST": {
-        "summary": "Return the latest latency samples for all events.",
+        "summary": "Returns the latest latency samples for all events.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(1)",
@@ -8049,7 +8049,7 @@
         ]
     },
     "LATENCY RESET": {
-        "summary": "Reset latency data for one or more events.",
+        "summary": "Resets the latency data for one or more events.",
         "since": "2.8.13",
         "group": "server",
         "complexity": "O(1)",
@@ -8080,7 +8080,7 @@
         ]
     },
     "LCS": {
-        "summary": "Find longest common substring",
+        "summary": "Finds the longest common substring.",
         "since": "7.0.0",
         "group": "string",
         "complexity": "O(N*M) where N and M are the lengths of s1 and s2, respectively",
@@ -8157,7 +8157,7 @@
         ]
     },
     "LINDEX": {
-        "summary": "Get an element from a list by its index",
+        "summary": "Returns an element from a list by its index.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(N) where N is the number of elements to traverse to get to the element at index. This makes asking for the first or the last element of the list O(1).",
@@ -8205,7 +8205,7 @@
         ]
     },
     "LINSERT": {
-        "summary": "Insert an element before or after another element in a list",
+        "summary": "Inserts an element before or after another element in a list.",
         "since": "2.2.0",
         "group": "list",
         "complexity": "O(N) where N is the number of elements to traverse before seeing the value pivot. This means that inserting somewhere on the left end on the list (head) can be considered O(1) and inserting somewhere on the right end (tail) is O(N).",
@@ -8277,7 +8277,7 @@
         ]
     },
     "LLEN": {
-        "summary": "Get the length of a list",
+        "summary": "Returns the length of a list.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(1)",
@@ -8320,7 +8320,7 @@
         ]
     },
     "LMOVE": {
-        "summary": "Pop an element from a list, push it to another list and return it",
+        "summary": "Returns an element after popping it from one list and pushing it to another. Deletes the list if the last element was moved.",
         "since": "6.2.0",
         "group": "list",
         "complexity": "O(1)",
@@ -8425,7 +8425,7 @@
         ]
     },
     "LMPOP": {
-        "summary": "Pop elements from a list",
+        "summary": "Returns multiple elements from a list after removing them. Deletes the list if the last element was popped.",
         "since": "7.0.0",
         "group": "list",
         "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
@@ -8501,7 +8501,7 @@
         ]
     },
     "LOLWUT": {
-        "summary": "Display some computer art and the Redis version",
+        "summary": "Displays computer art and the Redis version",
         "since": "5.0.0",
         "group": "server",
         "acl_categories": [
@@ -8524,7 +8524,7 @@
         ]
     },
     "LPOP": {
-        "summary": "Remove and get the first elements in a list",
+        "summary": "Returns the first elements in a list after removing it. Deletes the list if the last element was popped.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(N) where N is the number of elements returned",
@@ -8582,7 +8582,7 @@
         ]
     },
     "LPOS": {
-        "summary": "Return the index of matching elements on a list",
+        "summary": "Returns the index of matching elements in a list.",
         "since": "6.0.6",
         "group": "list",
         "complexity": "O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.",
@@ -8651,7 +8651,7 @@
         ]
     },
     "LPUSH": {
-        "summary": "Prepend one or multiple elements to a list",
+        "summary": "Prepends one or more elements to a list. Creates the key if it doesn't exist.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
@@ -8708,7 +8708,7 @@
         ]
     },
     "LPUSHX": {
-        "summary": "Prepend an element to a list, only if the list exists",
+        "summary": "Prepends one or more elements to a list only when the list exists.",
         "since": "2.2.0",
         "group": "list",
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
@@ -8765,7 +8765,7 @@
         ]
     },
     "LRANGE": {
-        "summary": "Get a range of elements from a list",
+        "summary": "Returns a range of elements from a list.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(S+N) where S is the distance of start offset from HEAD for small lists, from nearest end (HEAD or TAIL) for large lists; and N is the number of elements in the specified range.",
@@ -8818,7 +8818,7 @@
         ]
     },
     "LREM": {
-        "summary": "Remove elements from a list",
+        "summary": "Removes elements from a list. Deletes the list if the last element was removed.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(N+M) where N is the length of the list and M is the number of elements removed.",
@@ -8871,7 +8871,7 @@
         ]
     },
     "LSET": {
-        "summary": "Set the value of an element in a list by its index",
+        "summary": "Sets the value of an element in a list by its index.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(N) where N is the length of the list. Setting either the first or the last element of the list is O(1).",
@@ -8925,7 +8925,7 @@
         ]
     },
     "LTRIM": {
-        "summary": "Trim a list to the specified range",
+        "summary": "Removes elements from both ends a list. Deletes the list if all elements were trimmed.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(N) where N is the number of elements to be removed by the operation.",
@@ -8978,7 +8978,7 @@
         ]
     },
     "MEMORY": {
-        "summary": "A container for memory diagnostics commands",
+        "summary": "A container for memory diagnostics commands.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "Depends on subcommand.",
@@ -8988,7 +8988,7 @@
         "arity": -2
     },
     "MEMORY DOCTOR": {
-        "summary": "Outputs memory problems report",
+        "summary": "Outputs a memory problems report.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -9003,7 +9003,7 @@
         ]
     },
     "MEMORY HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -9017,7 +9017,7 @@
         ]
     },
     "MEMORY MALLOC-STATS": {
-        "summary": "Show allocator internal stats",
+        "summary": "Returns the allocator statistics.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "Depends on how much memory is allocated, could be slow",
@@ -9032,7 +9032,7 @@
         ]
     },
     "MEMORY PURGE": {
-        "summary": "Ask the allocator to release memory",
+        "summary": "Asks the allocator to release memory.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "Depends on how much memory is allocated, could be slow",
@@ -9046,7 +9046,7 @@
         ]
     },
     "MEMORY STATS": {
-        "summary": "Show memory usage details",
+        "summary": "Returns details about memory usage.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -9061,7 +9061,7 @@
         ]
     },
     "MEMORY USAGE": {
-        "summary": "Estimate the memory usage of a key",
+        "summary": "Estimates the memory usage of a key.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of samples.",
@@ -9109,7 +9109,7 @@
         ]
     },
     "MGET": {
-        "summary": "Get the values of all the given keys",
+        "summary": "Atomically returns the string values of one or more keys.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(N) where N is the number of keys to retrieve.",
@@ -9157,7 +9157,7 @@
         ]
     },
     "MIGRATE": {
-        "summary": "Atomically transfer a key from a Redis instance to another one.",
+        "summary": "Atomically transfers a key from one Redis instance to another.",
         "since": "2.6.0",
         "group": "generic",
         "complexity": "This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.",
@@ -9335,7 +9335,7 @@
         ]
     },
     "MODULE": {
-        "summary": "A container for module commands",
+        "summary": "A container for module commands.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "Depends on subcommand.",
@@ -9345,7 +9345,7 @@
         "arity": -2
     },
     "MODULE HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -9359,7 +9359,7 @@
         ]
     },
     "MODULE LIST": {
-        "summary": "List all modules loaded by the server",
+        "summary": "Returns all loaded modules.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of loaded modules.",
@@ -9378,7 +9378,7 @@
         ]
     },
     "MODULE LOAD": {
-        "summary": "Load a module",
+        "summary": "Loads a module.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -9409,7 +9409,7 @@
         ]
     },
     "MODULE LOADEX": {
-        "summary": "Load a module with extended parameters",
+        "summary": "Loads a module using extended parameters.",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -9461,7 +9461,7 @@
         ]
     },
     "MODULE UNLOAD": {
-        "summary": "Unload a module",
+        "summary": "Unloads a module.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -9485,7 +9485,7 @@
         ]
     },
     "MONITOR": {
-        "summary": "Listen for all requests received by the server in real time",
+        "summary": "Listens for all requests received by the server in real-time.",
         "since": "1.0.0",
         "group": "server",
         "acl_categories": [
@@ -9502,7 +9502,7 @@
         ]
     },
     "MOVE": {
-        "summary": "Move a key to another database",
+        "summary": "Moves a key to another database.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -9552,7 +9552,7 @@
         ]
     },
     "MSET": {
-        "summary": "Set multiple keys to multiple values",
+        "summary": "Atomically creates or modifies the string values of one or more keys.",
         "since": "1.0.1",
         "group": "string",
         "complexity": "O(N) where N is the number of keys to set.",
@@ -9612,7 +9612,7 @@
         ]
     },
     "MSETNX": {
-        "summary": "Set multiple keys to multiple values, only if none of the keys exist",
+        "summary": "Atomically modifies the string values of one or more keys only when all keys don't exist.",
         "since": "1.0.1",
         "group": "string",
         "complexity": "O(N) where N is the number of keys to set.",
@@ -9672,7 +9672,7 @@
         ]
     },
     "MULTI": {
-        "summary": "Mark the start of a transaction block",
+        "summary": "Starts a transaction.",
         "since": "1.2.0",
         "group": "transactions",
         "complexity": "O(1)",
@@ -9690,7 +9690,7 @@
         ]
     },
     "OBJECT": {
-        "summary": "A container for object introspection commands",
+        "summary": "A container for object introspection commands.",
         "since": "2.2.3",
         "group": "generic",
         "complexity": "Depends on subcommand.",
@@ -9700,7 +9700,7 @@
         "arity": -2
     },
     "OBJECT ENCODING": {
-        "summary": "Inspect the internal encoding of a Redis object",
+        "summary": "Returns the internal encoding of a Redis object.",
         "since": "2.2.3",
         "group": "generic",
         "complexity": "O(1)",
@@ -9745,7 +9745,7 @@
         ]
     },
     "OBJECT FREQ": {
-        "summary": "Get the logarithmic access frequency counter of a Redis object",
+        "summary": "Returns the logarithmic access frequency counter of a Redis object.",
         "since": "4.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -9790,7 +9790,7 @@
         ]
     },
     "OBJECT HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "6.2.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -9805,7 +9805,7 @@
         ]
     },
     "OBJECT IDLETIME": {
-        "summary": "Get the time since a Redis object was last accessed",
+        "summary": "Returns the time since the last access to a Redis object.",
         "since": "2.2.3",
         "group": "generic",
         "complexity": "O(1)",
@@ -9850,7 +9850,7 @@
         ]
     },
     "OBJECT REFCOUNT": {
-        "summary": "Get the number of references to the value of the key",
+        "summary": "Returns the reference count of a value of a key.",
         "since": "2.2.3",
         "group": "generic",
         "complexity": "O(1)",
@@ -9895,7 +9895,7 @@
         ]
     },
     "PERSIST": {
-        "summary": "Remove the expiration from a key",
+        "summary": "Removes the expiration time of a key.",
         "since": "2.2.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -9939,7 +9939,7 @@
         ]
     },
     "PEXPIRE": {
-        "summary": "Set a key's time to live in milliseconds",
+        "summary": "Sets the expiration time of a key in milliseconds.",
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -10026,7 +10026,7 @@
         ]
     },
     "PEXPIREAT": {
-        "summary": "Set the expiration for a key as a UNIX timestamp specified in milliseconds",
+        "summary": "Sets the expiration time of a key to a Unix milliseconds timestamp.",
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -10113,7 +10113,7 @@
         ]
     },
     "PEXPIRETIME": {
-        "summary": "Get the expiration Unix timestamp for a key in milliseconds",
+        "summary": "Returns the expiration time of a key as a Unix milliseconds timestamp.",
         "since": "7.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -10157,7 +10157,7 @@
         ]
     },
     "PFADD": {
-        "summary": "Adds the specified elements to the specified HyperLogLog.",
+        "summary": "Adds elements to a HyperLogLog key. Creates the key if it doesn't exist.",
         "since": "2.8.9",
         "group": "hyperloglog",
         "complexity": "O(1) to add every element.",
@@ -10209,7 +10209,7 @@
         ]
     },
     "PFCOUNT": {
-        "summary": "Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).",
+        "summary": "Returns the approximated cardinality of the set(s) observed by the HyperLogLog key(s).",
         "since": "2.8.9",
         "group": "hyperloglog",
         "complexity": "O(1) with a very small average constant time when called with a single key. O(N) with N being the number of keys, and much bigger constant times, when called with multiple keys.",
@@ -10254,7 +10254,7 @@
         ]
     },
     "PFDEBUG": {
-        "summary": "Internal commands for debugging HyperLogLog values",
+        "summary": "Internal commands for debugging HyperLogLog values.",
         "since": "2.8.9",
         "group": "hyperloglog",
         "complexity": "N/A",
@@ -10309,7 +10309,7 @@
         ]
     },
     "PFMERGE": {
-        "summary": "Merge N different HyperLogLogs into a single one.",
+        "summary": "Merges one or more HyperLogLog values into a single key.",
         "since": "2.8.9",
         "group": "hyperloglog",
         "complexity": "O(N) to merge N HyperLogLogs, but with high constant times.",
@@ -10380,7 +10380,7 @@
         ]
     },
     "PFSELFTEST": {
-        "summary": "An internal command for testing HyperLogLog values",
+        "summary": "An internal command for testing HyperLogLog values.",
         "since": "2.8.9",
         "group": "hyperloglog",
         "complexity": "N/A",
@@ -10399,7 +10399,7 @@
         ]
     },
     "PING": {
-        "summary": "Ping the server",
+        "summary": "Returns the server's liveliness response.",
         "since": "1.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -10425,7 +10425,7 @@
         ]
     },
     "PSETEX": {
-        "summary": "Set the value and expiration in milliseconds of a key",
+        "summary": "Sets both string value and expiration time in milliseconds of a key. The key is created if it doesn't exist.",
         "since": "2.6.0",
         "group": "string",
         "complexity": "O(1)",
@@ -10484,7 +10484,7 @@
         ]
     },
     "PSUBSCRIBE": {
-        "summary": "Listen for messages published to channels matching the given patterns",
+        "summary": "Listens for messages published to channels that match one or more patterns.",
         "since": "2.0.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of patterns the client is already subscribed to.",
@@ -10509,7 +10509,7 @@
         ]
     },
     "PSYNC": {
-        "summary": "Internal command used for replication",
+        "summary": "An internal command used in replication.",
         "since": "2.8.0",
         "group": "server",
         "acl_categories": [
@@ -10538,7 +10538,7 @@
         ]
     },
     "PTTL": {
-        "summary": "Get the time to live for a key in milliseconds",
+        "summary": "Returns the expiration time in milliseconds of a key.",
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -10591,7 +10591,7 @@
         ]
     },
     "PUBLISH": {
-        "summary": "Post a message to a channel",
+        "summary": "Posts a message to a channel.",
         "since": "2.0.0",
         "group": "pubsub",
         "complexity": "O(N+M) where N is the number of clients subscribed to the receiving channel and M is the total number of subscribed patterns (by any client).",
@@ -10620,7 +10620,7 @@
         ]
     },
     "PUBSUB": {
-        "summary": "A container for Pub/Sub commands",
+        "summary": "A container for Pub/Sub commands.",
         "since": "2.8.0",
         "group": "pubsub",
         "complexity": "Depends on subcommand.",
@@ -10630,7 +10630,7 @@
         "arity": -2
     },
     "PUBSUB CHANNELS": {
-        "summary": "List active channels",
+        "summary": "Returns the active channels.",
         "since": "2.8.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns)",
@@ -10654,7 +10654,7 @@
         ]
     },
     "PUBSUB HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "6.2.0",
         "group": "pubsub",
         "complexity": "O(1)",
@@ -10668,7 +10668,7 @@
         ]
     },
     "PUBSUB NUMPAT": {
-        "summary": "Get the count of unique patterns pattern subscriptions",
+        "summary": "Returns a count of unique pattern subscriptions.",
         "since": "2.8.0",
         "group": "pubsub",
         "complexity": "O(1)",
@@ -10684,7 +10684,7 @@
         ]
     },
     "PUBSUB NUMSUB": {
-        "summary": "Get the count of subscribers for channels",
+        "summary": "Returns a count of subscribers to channels.",
         "since": "2.8.0",
         "group": "pubsub",
         "complexity": "O(N) for the NUMSUB subcommand, where N is the number of requested channels",
@@ -10709,7 +10709,7 @@
         ]
     },
     "PUBSUB SHARDCHANNELS": {
-        "summary": "List active shard channels",
+        "summary": "Returns the active shard channels.",
         "since": "7.0.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of active shard channels, and assuming constant time pattern matching (relatively short shard channels).",
@@ -10733,7 +10733,7 @@
         ]
     },
     "PUBSUB SHARDNUMSUB": {
-        "summary": "Get the count of subscribers for shard channels",
+        "summary": "Returns the count of subscribers of shard channels.",
         "since": "7.0.0",
         "group": "pubsub",
         "complexity": "O(N) for the SHARDNUMSUB subcommand, where N is the number of requested shard channels",
@@ -10758,7 +10758,7 @@
         ]
     },
     "PUNSUBSCRIBE": {
-        "summary": "Stop listening for messages posted to channels matching the given patterns",
+        "summary": "Stops listening to messages published to channels that match one or more patterns.",
         "since": "2.0.0",
         "group": "pubsub",
         "complexity": "O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).",
@@ -10784,7 +10784,7 @@
         ]
     },
     "QUIT": {
-        "summary": "Close the connection",
+        "summary": "Closes the connection.",
         "since": "1.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -10808,7 +10808,7 @@
         ]
     },
     "RANDOMKEY": {
-        "summary": "Return a random key from the keyspace",
+        "summary": "Returns a random key name from the database.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -10827,7 +10827,7 @@
         ]
     },
     "READONLY": {
-        "summary": "Enables read queries for a connection to a cluster replica node",
+        "summary": "Enables read-only queries for a connection to a Redis Cluster replica node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -10843,7 +10843,7 @@
         ]
     },
     "READWRITE": {
-        "summary": "Disables read queries for a connection to a cluster replica node",
+        "summary": "Enables read-write queries for a connection to a Reids Cluster replica node.",
         "since": "3.0.0",
         "group": "cluster",
         "complexity": "O(1)",
@@ -10859,7 +10859,7 @@
         ]
     },
     "RENAME": {
-        "summary": "Rename a key",
+        "summary": "Renames a key and overwrites the destination.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -10927,7 +10927,7 @@
         ]
     },
     "RENAMENX": {
-        "summary": "Rename a key, only if the new key does not exist",
+        "summary": "Renames a key only when the target key name doesn't exist.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -11002,7 +11002,7 @@
         ]
     },
     "REPLCONF": {
-        "summary": "An internal command for configuring the replication stream",
+        "summary": "An internal command for configuring the replication stream.",
         "since": "3.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -11024,7 +11024,7 @@
         ]
     },
     "REPLICAOF": {
-        "summary": "Make the server a replica of another instance, or promote it as master.",
+        "summary": "Configures a server as replica of another, or promotes it to a master.",
         "since": "5.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -11054,7 +11054,7 @@
         ]
     },
     "RESET": {
-        "summary": "Reset the connection",
+        "summary": "Resets the connection.",
         "since": "6.2.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -11073,7 +11073,7 @@
         ]
     },
     "RESTORE": {
-        "summary": "Create a key using the provided serialized value, previously obtained using DUMP.",
+        "summary": "Creates a key from the serialized representation of a value.",
         "since": "2.6.0",
         "group": "generic",
         "complexity": "O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
@@ -11174,7 +11174,7 @@
         ]
     },
     "RESTORE-ASKING": {
-        "summary": "An internal command for migrating keys in a cluster",
+        "summary": "An internal command for migrating keys in a cluster.",
         "since": "3.0.0",
         "group": "server",
         "complexity": "O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).",
@@ -11279,7 +11279,7 @@
         ]
     },
     "ROLE": {
-        "summary": "Return the role of the instance in the context of replication",
+        "summary": "Returns the replication role.",
         "since": "2.8.12",
         "group": "server",
         "complexity": "O(1)",
@@ -11297,7 +11297,7 @@
         ]
     },
     "RPOP": {
-        "summary": "Remove and get the last elements in a list",
+        "summary": "Returns and removes the last elements of a list. Deletes the list if the lst element was popped.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(N) where N is the number of elements returned",
@@ -11355,7 +11355,7 @@
         ]
     },
     "RPOPLPUSH": {
-        "summary": "Remove the last element in a list, prepend it to another list and return it",
+        "summary": "Returns the last element of a list after removing and pushing it to another list. Deletes the list if the lst element was popped.",
         "since": "1.2.0",
         "group": "list",
         "complexity": "O(1)",
@@ -11429,7 +11429,7 @@
         ]
     },
     "RPUSH": {
-        "summary": "Append one or multiple elements to a list",
+        "summary": "Appends one or more elements to a list. Creates the key if it doesn't exist.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
@@ -11486,7 +11486,7 @@
         ]
     },
     "RPUSHX": {
-        "summary": "Append an element to a list, only if the list exists",
+        "summary": "Appends an element to a list only when the list exists.",
         "since": "2.2.0",
         "group": "list",
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
@@ -11543,7 +11543,7 @@
         ]
     },
     "SADD": {
-        "summary": "Add one or more members to a set",
+        "summary": "Adds one or more members to a set. Creates the key if it doesn't exist.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.",
@@ -11600,7 +11600,7 @@
         ]
     },
     "SAVE": {
-        "summary": "Synchronously save the dataset to disk",
+        "summary": "Synchronously saves the database(s) to disk.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(N) where N is the total number of keys in all databases",
@@ -11618,7 +11618,7 @@
         ]
     },
     "SCAN": {
-        "summary": "Incrementally iterate the keys space",
+        "summary": "Iterates over the key names in the database.",
         "since": "2.8.0",
         "group": "generic",
         "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
@@ -11672,7 +11672,7 @@
         ]
     },
     "SCARD": {
-        "summary": "Get the number of members in a set",
+        "summary": "Returns the number of members in a set.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(1)",
@@ -11715,7 +11715,7 @@
         ]
     },
     "SCRIPT": {
-        "summary": "A container for Lua scripts management commands",
+        "summary": "A container for Lua scripts management commands.",
         "since": "2.6.0",
         "group": "scripting",
         "complexity": "Depends on subcommand.",
@@ -11725,7 +11725,7 @@
         "arity": -2
     },
     "SCRIPT DEBUG": {
-        "summary": "Set the debug mode for executed scripts.",
+        "summary": "Sets the debug mode of server-side Lua scripts.",
         "since": "3.2.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -11765,7 +11765,7 @@
         ]
     },
     "SCRIPT EXISTS": {
-        "summary": "Check existence of scripts in the script cache.",
+        "summary": "Determines whether server-side Lua scripts exist in the script cache.",
         "since": "2.6.0",
         "group": "scripting",
         "complexity": "O(N) with N being the number of scripts to check (so checking a single script is an O(1) operation).",
@@ -11791,7 +11791,7 @@
         ]
     },
     "SCRIPT FLUSH": {
-        "summary": "Remove all the scripts from the script cache.",
+        "summary": "Removes all server-side Lua scripts from the script cache.",
         "since": "2.6.0",
         "group": "scripting",
         "complexity": "O(N) with N being the number of scripts in cache",
@@ -11837,7 +11837,7 @@
         ]
     },
     "SCRIPT HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -11852,7 +11852,7 @@
         ]
     },
     "SCRIPT KILL": {
-        "summary": "Kill the script currently in execution.",
+        "summary": "Terminates a server-side Lua script during execution.",
         "since": "2.6.0",
         "group": "scripting",
         "complexity": "O(1)",
@@ -11871,7 +11871,7 @@
         ]
     },
     "SCRIPT LOAD": {
-        "summary": "Load the specified Lua script into the script cache.",
+        "summary": "Loads a server-side Lua script to the script cache.",
         "since": "2.6.0",
         "group": "scripting",
         "complexity": "O(N) with N being the length in bytes of the script body.",
@@ -11897,7 +11897,7 @@
         ]
     },
     "SDIFF": {
-        "summary": "Subtract multiple sets",
+        "summary": "Returns the difference of multiple sets.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N) where N is the total number of elements in all given sets.",
@@ -11944,7 +11944,7 @@
         ]
     },
     "SDIFFSTORE": {
-        "summary": "Subtract multiple sets and store the resulting set in a key",
+        "summary": "Stores the difference of multiple sets in a key.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N) where N is the total number of elements in all given sets.",
@@ -12013,7 +12013,7 @@
         ]
     },
     "SELECT": {
-        "summary": "Change the selected database for the current connection",
+        "summary": "Changes the selected database.",
         "since": "1.0.0",
         "group": "connection",
         "complexity": "O(1)",
@@ -12036,7 +12036,7 @@
         ]
     },
     "SET": {
-        "summary": "Set the string value of a key",
+        "summary": "Sets the string value of a key, ignoring its type. The key is created if it doesn't exist.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -12176,7 +12176,7 @@
         ]
     },
     "SETBIT": {
-        "summary": "Sets or clears the bit at offset in the string value stored at key",
+        "summary": "Sets or clears the bit at offset of the string value. Creates the key if it doesn't exist.",
         "since": "2.2.0",
         "group": "bitmap",
         "complexity": "O(1)",
@@ -12231,7 +12231,7 @@
         ]
     },
     "SETEX": {
-        "summary": "Set the value and expiration of a key",
+        "summary": "Sets the string value and expiration time of a key. Creates the key if it doesn't exist.",
         "since": "2.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -12290,7 +12290,7 @@
         ]
     },
     "SETNX": {
-        "summary": "Set the value of a key, only if the key does not exist",
+        "summary": "Set the string value of a key only when the key doesn't exist.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(1)",
@@ -12345,7 +12345,7 @@
         ]
     },
     "SETRANGE": {
-        "summary": "Overwrite part of a string at key starting at the specified offset",
+        "summary": "Overwrites a part of a string value with another by an offset. Creates the key if it doesn't exist.",
         "since": "2.2.0",
         "group": "string",
         "complexity": "O(1), not counting the time taken to copy the new string in place. Usually, this string is very small so the amortized complexity is O(1). Otherwise, complexity is O(M) with M being the length of the value argument.",
@@ -12399,7 +12399,7 @@
         ]
     },
     "SHUTDOWN": {
-        "summary": "Synchronously save the dataset to disk and then shut down the server",
+        "summary": "Synchronously saves the database(s) to disk and shuts down the Redis server.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(N) when saving, where N is the total number of keys in all databases when saving data, otherwise O(1)",
@@ -12470,7 +12470,7 @@
         ]
     },
     "SINTER": {
-        "summary": "Intersect multiple sets",
+        "summary": "Returns the intersect of multiple sets.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
@@ -12517,7 +12517,7 @@
         ]
     },
     "SINTERCARD": {
-        "summary": "Intersect multiple sets and return the cardinality of the result",
+        "summary": "Returns the number of members of the intersect of multiple sets.",
         "since": "7.0.0",
         "group": "set",
         "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
@@ -12574,7 +12574,7 @@
         ]
     },
     "SINTERSTORE": {
-        "summary": "Intersect multiple sets and store the resulting set in a key",
+        "summary": "Stores the intersect of multiple sets in a key.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
@@ -12643,7 +12643,7 @@
         ]
     },
     "SISMEMBER": {
-        "summary": "Determine if a given value is a member of a set",
+        "summary": "Determines whether a member belongs to a set.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(1)",
@@ -12691,7 +12691,7 @@
         ]
     },
     "SLAVEOF": {
-        "summary": "Make the server a replica of another instance, or promote it as master.",
+        "summary": "Sets a Redis server as a replica of another, or promotes it to being a master.",
         "since": "1.0.0",
         "group": "server",
         "complexity": "O(1)",
@@ -12726,7 +12726,7 @@
         ]
     },
     "SLOWLOG": {
-        "summary": "A container for slow log commands",
+        "summary": "A container for slow log commands.",
         "since": "2.2.12",
         "group": "server",
         "complexity": "Depends on subcommand.",
@@ -12736,7 +12736,7 @@
         "arity": -2
     },
     "SLOWLOG GET": {
-        "summary": "Get the slow log's entries",
+        "summary": "Returns the slow log's entries.",
         "since": "2.2.12",
         "group": "server",
         "complexity": "O(N) where N is the number of entries returned",
@@ -12785,7 +12785,7 @@
         ]
     },
     "SLOWLOG LEN": {
-        "summary": "Get the slow log's length",
+        "summary": "Returns the number of entries in the slow log.",
         "since": "2.2.12",
         "group": "server",
         "complexity": "O(1)",
@@ -12807,7 +12807,7 @@
         ]
     },
     "SLOWLOG RESET": {
-        "summary": "Clear all entries from the slow log",
+        "summary": "Clears all entries from the slow log.",
         "since": "2.2.12",
         "group": "server",
         "complexity": "O(N) where N is the number of entries in the slowlog",
@@ -12828,7 +12828,7 @@
         ]
     },
     "SMEMBERS": {
-        "summary": "Get all the members in a set",
+        "summary": "Returns all members of a set.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N) where N is the set cardinality.",
@@ -12874,7 +12874,7 @@
         ]
     },
     "SMISMEMBER": {
-        "summary": "Returns the membership associated with the given elements for a set",
+        "summary": "Determines whether multiple members belong to a set.",
         "since": "6.2.0",
         "group": "set",
         "complexity": "O(N) where N is the number of elements being checked for membership",
@@ -12924,7 +12924,7 @@
         ]
     },
     "SMOVE": {
-        "summary": "Move a member from one set to another",
+        "summary": "Moves a member from one set to another.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(1)",
@@ -12998,7 +12998,7 @@
         ]
     },
     "SORT": {
-        "summary": "Sort the elements in a list, set or sorted set",
+        "summary": "Sorts the elements in a list, a set, or a sorted set, optionally storing the result.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
@@ -13142,7 +13142,7 @@
         ]
     },
     "SORT_RO": {
-        "summary": "Sort the elements in a list, set or sorted set. Read-only variant of SORT.",
+        "summary": "Returns the sorted elements of a list, a set, or a sorted set.",
         "since": "7.0.0",
         "group": "generic",
         "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
@@ -13264,7 +13264,7 @@
         ]
     },
     "SPOP": {
-        "summary": "Remove and return one or multiple random members from a set",
+        "summary": "Returns one or more random members from a set after removing them. Deletes the set if the last member was popped.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "Without the count argument O(1), otherwise O(N) where N is the value of the passed count.",
@@ -13432,7 +13432,7 @@
         ]
     },
     "SREM": {
-        "summary": "Remove one or more members from a set",
+        "summary": "Removes one or more members from a set. Deletes the set if the last member was removed.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N) where N is the number of members to be removed.",
@@ -13488,7 +13488,7 @@
         ]
     },
     "SSCAN": {
-        "summary": "Incrementally iterate Set elements",
+        "summary": "Iterates over members of a set.",
         "since": "2.8.0",
         "group": "set",
         "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
@@ -13553,7 +13553,7 @@
         ]
     },
     "SSUBSCRIBE": {
-        "summary": "Listen for messages published to the given shard channels",
+        "summary": "Listens for messages published to shard channels.",
         "since": "7.0.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of shard channels to subscribe to.",
@@ -13597,7 +13597,7 @@
         ]
     },
     "STRLEN": {
-        "summary": "Get the length of the value stored in a key",
+        "summary": "Returns the length of a string value.",
         "since": "2.2.0",
         "group": "string",
         "complexity": "O(1)",
@@ -13640,7 +13640,7 @@
         ]
     },
     "SUBSCRIBE": {
-        "summary": "Listen for messages published to the given channels",
+        "summary": "Listens for messages published to channels.",
         "since": "2.0.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of channels to subscribe to.",
@@ -13665,7 +13665,7 @@
         ]
     },
     "SUBSTR": {
-        "summary": "Get a substring of the string stored at a key",
+        "summary": "Returns a substring from a string value.",
         "since": "1.0.0",
         "group": "string",
         "complexity": "O(N) where N is the length of the returned string. The complexity is ultimately determined by the returned length, but because creating a substring from an existing string is very cheap, it can be considered O(1) for small strings.",
@@ -13723,7 +13723,7 @@
         ]
     },
     "SUNION": {
-        "summary": "Add multiple sets",
+        "summary": "Returns the union of multiple sets.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N) where N is the total number of elements in all given sets.",
@@ -13770,7 +13770,7 @@
         ]
     },
     "SUNIONSTORE": {
-        "summary": "Add multiple sets and store the resulting set in a key",
+        "summary": "Stores the union of multiple sets in a key.",
         "since": "1.0.0",
         "group": "set",
         "complexity": "O(N) where N is the total number of elements in all given sets.",
@@ -13839,7 +13839,7 @@
         ]
     },
     "SUNSUBSCRIBE": {
-        "summary": "Stop listening for messages posted to the given shard channels",
+        "summary": "Stops listening to messages posted to shard channels.",
         "since": "7.0.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of clients already subscribed to a shard channel.",
@@ -13884,7 +13884,7 @@
         ]
     },
     "SWAPDB": {
-        "summary": "Swaps two Redis databases",
+        "summary": "Swaps two Redis databases.",
         "since": "4.0.0",
         "group": "server",
         "complexity": "O(N) where N is the count of clients watching or blocking on keys from both databases.",
@@ -13913,7 +13913,7 @@
         ]
     },
     "SYNC": {
-        "summary": "Internal command used for replication",
+        "summary": "An internal command used in replication.",
         "since": "1.0.0",
         "group": "server",
         "acl_categories": [
@@ -13930,7 +13930,7 @@
         ]
     },
     "TIME": {
-        "summary": "Return the current server time",
+        "summary": "Returns the server time.",
         "since": "2.6.0",
         "group": "server",
         "complexity": "O(1)",
@@ -13948,7 +13948,7 @@
         ]
     },
     "TOUCH": {
-        "summary": "Alters the last access time of a key(s). Returns the number of existing keys specified.",
+        "summary": "Returns the number of existing keys out of those specified after updating the time they were last accessed.",
         "since": "3.2.1",
         "group": "generic",
         "complexity": "O(N) where N is the number of keys that will be touched.",
@@ -13996,7 +13996,7 @@
         ]
     },
     "TTL": {
-        "summary": "Get the time to live for a key in seconds",
+        "summary": "Returns the expiration time in seconds of a key.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -14049,7 +14049,7 @@
         ]
     },
     "TYPE": {
-        "summary": "Determine the type stored at key",
+        "summary": "Determines the type of value stored at a key.",
         "since": "1.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -14092,7 +14092,7 @@
         ]
     },
     "UNLINK": {
-        "summary": "Delete a key asynchronously in another thread. Otherwise it is just as DEL, but non blocking.",
+        "summary": "Asynchronously deletes one or more keys.",
         "since": "4.0.0",
         "group": "generic",
         "complexity": "O(1) for each key removed regardless of its size. Then the command does O(N) work in a different thread in order to reclaim memory, where N is the number of allocations the deleted objects where composed of.",
@@ -14141,7 +14141,7 @@
         ]
     },
     "UNSUBSCRIBE": {
-        "summary": "Stop listening for messages posted to the given channels",
+        "summary": "Stops listening to messages posted to channels.",
         "since": "2.0.0",
         "group": "pubsub",
         "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
@@ -14167,7 +14167,7 @@
         ]
     },
     "UNWATCH": {
-        "summary": "Forget about all watched keys",
+        "summary": "Forgets about watched keys of a transaction.",
         "since": "2.2.0",
         "group": "transactions",
         "complexity": "O(1)",
@@ -14185,7 +14185,7 @@
         ]
     },
     "WAIT": {
-        "summary": "Wait for the synchronous replication of all the write commands sent in the context of the current connection",
+        "summary": "Blocks until the asynchronous replication of all preceding write commands sent by the connection is completed.",
         "since": "3.0.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -14212,7 +14212,7 @@
         ]
     },
     "WAITAOF": {
-        "summary": "Wait for all write commands sent in the context of the current connection to be synced to AOF of local host and/or replicas",
+        "summary": "Blocks until all of the preceding write commands sent by the connection are written to the append-only file of the master and/or replicas.",
         "since": "7.2.0",
         "group": "generic",
         "complexity": "O(1)",
@@ -14247,7 +14247,7 @@
         ]
     },
     "WATCH": {
-        "summary": "Watch the given keys to determine execution of the MULTI/EXEC block",
+        "summary": "Monitors changes to keys to determine the execution of a transaction.",
         "since": "2.2.0",
         "group": "transactions",
         "complexity": "O(1) for every key.",
@@ -14293,7 +14293,7 @@
         ]
     },
     "XACK": {
-        "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
+        "summary": "Returns the number of messages that were successfully acknowledged by the consumer group member of a stream.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1) for each message ID processed.",
@@ -14348,7 +14348,7 @@
         ]
     },
     "XADD": {
-        "summary": "Appends a new entry to a stream",
+        "summary": "Appends a new message to a stream. Creates the key if it doesn't exist.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1) when adding a new entry, O(N) when trimming where N being the number of entries evicted.",
@@ -14507,7 +14507,7 @@
         ]
     },
     "XAUTOCLAIM": {
-        "summary": "Changes (or acquires) ownership of messages in a consumer group, as if the messages were delivered to the specified consumer.",
+        "summary": "Changes, or acquires, ownership of messages in a consumer group, as if the messages were delivered to as consumer group member.",
         "since": "6.2.0",
         "group": "stream",
         "complexity": "O(1) if COUNT is small.",
@@ -14594,7 +14594,7 @@
         ]
     },
     "XCLAIM": {
-        "summary": "Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.",
+        "summary": "Changes, or acquires, ownership of a message in a consumer group, as if the message was delivered a consumer group member.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(log N) with N being the number of messages in the PEL of the consumer group.",
@@ -14704,7 +14704,7 @@
         ]
     },
     "XDEL": {
-        "summary": "Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.",
+        "summary": "Returns the number of messages after removing them from a stream.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1) for each single item to delete in the stream, regardless of the stream size.",
@@ -14754,7 +14754,7 @@
         ]
     },
     "XGROUP": {
-        "summary": "A container for consumer groups commands",
+        "summary": "A container for consumer groups commands.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "Depends on subcommand.",
@@ -14764,7 +14764,7 @@
         "arity": -2
     },
     "XGROUP CREATE": {
-        "summary": "Create a consumer group.",
+        "summary": "Creates a consumer group.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -14850,7 +14850,7 @@
         ]
     },
     "XGROUP CREATECONSUMER": {
-        "summary": "Create a consumer in a consumer group.",
+        "summary": "Creates a consumer in a consumer group.",
         "since": "6.2.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -14904,7 +14904,7 @@
         ]
     },
     "XGROUP DELCONSUMER": {
-        "summary": "Delete a consumer from a consumer group.",
+        "summary": "Deletes a consumer from a consumer group.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -14957,7 +14957,7 @@
         ]
     },
     "XGROUP DESTROY": {
-        "summary": "Destroy a consumer group.",
+        "summary": "Destroys a consumer group.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) where N is the number of entries in the group's pending entries list (PEL).",
@@ -15005,7 +15005,7 @@
         ]
     },
     "XGROUP HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15020,7 +15020,7 @@
         ]
     },
     "XGROUP SETID": {
-        "summary": "Set a consumer group to an arbitrary last delivered ID value.",
+        "summary": "Sets the last-delivered ID of a consumer group.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15098,7 +15098,7 @@
         ]
     },
     "XINFO": {
-        "summary": "A container for stream introspection commands",
+        "summary": "A container for stream introspection commands.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "Depends on subcommand.",
@@ -15108,7 +15108,7 @@
         "arity": -2
     },
     "XINFO CONSUMERS": {
-        "summary": "List the consumers in a consumer group",
+        "summary": "Returns a list of the consumers in a consumer group.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15165,7 +15165,7 @@
         ]
     },
     "XINFO GROUPS": {
-        "summary": "List the consumer groups of a stream",
+        "summary": "Returns a list of the consumer groups of a stream.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15214,7 +15214,7 @@
         ]
     },
     "XINFO HELP": {
-        "summary": "Show helpful text about the different subcommands",
+        "summary": "Returns helpful text about the different subcommands.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15229,7 +15229,7 @@
         ]
     },
     "XINFO STREAM": {
-        "summary": "Get information about a stream",
+        "summary": "Returns information about a stream.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15306,7 +15306,7 @@
         ]
     },
     "XLEN": {
-        "summary": "Return the number of entries in a stream",
+        "summary": "Return the number of messages in a stream.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15349,7 +15349,7 @@
         ]
     },
     "XPENDING": {
-        "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
+        "summary": "Returns the information and entries from a stream consumer group's pending entries list.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). O(M), where M is the total number of entries scanned when used with the IDLE filter. When the command returns just the summary and the list of consumers is small, it runs in O(1) time; otherwise, an additional O(N) time for iterating every consumer.",
@@ -15442,7 +15442,7 @@
         ]
     },
     "XRANGE": {
-        "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval",
+        "summary": "Returns the messages from a stream within a range of IDs.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
@@ -15508,10 +15508,9 @@
         ]
     },
     "XREAD": {
-        "summary": "Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.",
+        "summary": "Returns messages from multiple streams with IDs greater than the ones requested. Blocks until a message is available otherwise.",
         "since": "5.0.0",
         "group": "stream",
-        "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
         "acl_categories": [
             "@read",
             "@stream",
@@ -15583,7 +15582,7 @@
         ]
     },
     "XREADGROUP": {
-        "summary": "Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.",
+        "summary": "Returns new or historical messages from a stream for a consumer in agroup. Blocks until a message is available otherwise.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
@@ -15682,7 +15681,7 @@
         ]
     },
     "XREVRANGE": {
-        "summary": "Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE",
+        "summary": "Returns the messages from a stream within a range of IDs in reverse order.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).",
@@ -15748,7 +15747,7 @@
         ]
     },
     "XSETID": {
-        "summary": "An internal command for replicating stream values",
+        "summary": "An internal command for replicating stream values.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(1)",
@@ -15820,7 +15819,7 @@
         ]
     },
     "XTRIM": {
-        "summary": "Trims the stream to (approximately if '~' is passed) a certain size",
+        "summary": "Deletes messages from the beginning of a stream.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.",
@@ -15929,7 +15928,7 @@
         ]
     },
     "ZADD": {
-        "summary": "Add one or more members to a sorted set, or update its score if it already exists",
+        "summary": "Adds one or more members to a sorted set, or updates their scores. Creates the key if it doesn't exist.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(log(N)) for each item added, where N is the number of elements in the sorted set.",
@@ -16061,7 +16060,7 @@
         ]
     },
     "ZCARD": {
-        "summary": "Get the number of members in a sorted set",
+        "summary": "Returns the number of members in a sorted set.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(1)",
@@ -16104,7 +16103,7 @@
         ]
     },
     "ZCOUNT": {
-        "summary": "Count the members in a sorted set with scores within the given values",
+        "summary": "Returns the count of members in a sorted set that have scores within a range.",
         "since": "2.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
@@ -16158,7 +16157,7 @@
         ]
     },
     "ZDIFF": {
-        "summary": "Subtract multiple sorted sets",
+        "summary": "Returns the difference between multiple sorted sets.",
         "since": "6.2.0",
         "group": "sorted-set",
         "complexity": "O(L + (N-K)log(N)) worst case where L is the total number of elements in all the sets, N is the size of the first set, and K is the size of the result set.",
@@ -16215,7 +16214,7 @@
         ]
     },
     "ZDIFFSTORE": {
-        "summary": "Subtract multiple sorted sets and store the resulting sorted set in a new key",
+        "summary": "Stores the difference of multiple sorted sets in a key.",
         "since": "6.2.0",
         "group": "sorted-set",
         "complexity": "O(L + (N-K)log(N)) worst case where L is the total number of elements in all the sets, N is the size of the first set, and K is the size of the result set.",
@@ -16290,7 +16289,7 @@
         ]
     },
     "ZINCRBY": {
-        "summary": "Increment the score of a member in a sorted set",
+        "summary": "Increments the score of a member in a sorted set.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(log(N)) where N is the number of elements in the sorted set.",
@@ -16346,7 +16345,7 @@
         ]
     },
     "ZINTER": {
-        "summary": "Intersect multiple sorted sets",
+        "summary": "Returns the intersect of multiple sorted sets.",
         "since": "6.2.0",
         "group": "sorted-set",
         "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
@@ -16437,7 +16436,7 @@
         ]
     },
     "ZINTERCARD": {
-        "summary": "Intersect multiple sorted sets and return the cardinality of the result",
+        "summary": "Returns the number of members of the intersect of multiple sorted sets.",
         "since": "7.0.0",
         "group": "sorted-set",
         "complexity": "O(N*K) worst case with N being the smallest input sorted set, K being the number of input sorted sets.",
@@ -16494,7 +16493,7 @@
         ]
     },
     "ZINTERSTORE": {
-        "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
+        "summary": "Stores the intersect of multiple sorted sets in a key.",
         "since": "2.0.0",
         "group": "sorted-set",
         "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
@@ -16603,7 +16602,7 @@
         ]
     },
     "ZLEXCOUNT": {
-        "summary": "Count the number of members in a sorted set between a given lexicographical range",
+        "summary": "Returns the number of members in a sorted set within a lexicographical range.",
         "since": "2.8.9",
         "group": "sorted-set",
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
@@ -16657,7 +16656,7 @@
         ]
     },
     "ZMPOP": {
-        "summary": "Remove and return members with scores in a sorted set",
+        "summary": "Returns the highest- or lowest-scoring members from one or more sorted sets after removing them. Deletes the sorted set if the last member was popped.",
         "since": "7.0.0",
         "group": "sorted-set",
         "complexity": "O(K) + O(M*log(N)) where K is the number of provided keys, N being the number of elements in the sorted set, and M being the number of elements popped.",
@@ -16733,7 +16732,7 @@
         ]
     },
     "ZMSCORE": {
-        "summary": "Get the score associated with the given members in a sorted set",
+        "summary": "Returns the score of one or more members in a sorted set.",
         "since": "6.2.0",
         "group": "sorted-set",
         "complexity": "O(N) where N is the number of members being requested.",
@@ -16783,7 +16782,7 @@
         ]
     },
     "ZPOPMAX": {
-        "summary": "Remove and return members with the highest scores in a sorted set",
+        "summary": "Returns the highest-scoring members from a sorted set after removing them. Deletes the sorted set if the last member was popped.",
         "since": "5.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
@@ -16834,7 +16833,7 @@
         ]
     },
     "ZPOPMIN": {
-        "summary": "Remove and return members with the lowest scores in a sorted set",
+        "summary": "Returns the lowest-scoring members from a sorted set after removing them. Deletes the sorted set if the last member was popped.",
         "since": "5.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.",
@@ -16885,10 +16884,10 @@
         ]
     },
     "ZRANDMEMBER": {
-        "summary": "Get one or multiple random elements from a sorted set",
+        "summary": "Returns one or more random members from a sorted set.",
         "since": "6.2.0",
         "group": "sorted-set",
-        "complexity": "O(N) where N is the number of elements returned",
+        "complexity": "O(N) where N is the number of members returned",
         "acl_categories": [
             "@read",
             "@sortedset",
@@ -16950,7 +16949,7 @@
         ]
     },
     "ZRANGE": {
-        "summary": "Return a range of members in a sorted set",
+        "summary": "Returns members in a sorted set within a range of indexes.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
@@ -17063,7 +17062,7 @@
         ]
     },
     "ZRANGEBYLEX": {
-        "summary": "Return a range of members in a sorted set, by lexicographical range",
+        "summary": "Returns members in a sorted set within a lexicographical range.",
         "since": "2.8.9",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
@@ -17139,7 +17138,7 @@
         ]
     },
     "ZRANGEBYSCORE": {
-        "summary": "Return a range of members in a sorted set, by score",
+        "summary": "Returns members in a sorted set within a range of scores.",
         "since": "1.0.5",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
@@ -17229,7 +17228,7 @@
         ]
     },
     "ZRANGESTORE": {
-        "summary": "Store a range of members from sorted set into another key",
+        "summary": "Stores a range of members from sorted set in a key.",
         "since": "6.2.0",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.",
@@ -17351,7 +17350,7 @@
         ]
     },
     "ZRANK": {
-        "summary": "Determine the index of a member in a sorted set",
+        "summary": "Returns the index of a member in a sorted set ordered by ascending scores.",
         "since": "2.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N))",
@@ -17413,7 +17412,7 @@
         ]
     },
     "ZREM": {
-        "summary": "Remove one or more members from a sorted set",
+        "summary": "Removes one or more members from a sorted set. Deletes the sorted set if all members were removed.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.",
@@ -17469,7 +17468,7 @@
         ]
     },
     "ZREMRANGEBYLEX": {
-        "summary": "Remove all members in a sorted set between the given lexicographical range",
+        "summary": "Removes members in a sorted set within a lexicographical range. Deletes the sorted set if all members were removed.",
         "since": "2.8.9",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
@@ -17522,7 +17521,7 @@
         ]
     },
     "ZREMRANGEBYRANK": {
-        "summary": "Remove all members in a sorted set within the given indexes",
+        "summary": "Removes members in a sorted set within a range of indexes. Deletes the sorted set if all members were removed.",
         "since": "2.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
@@ -17575,7 +17574,7 @@
         ]
     },
     "ZREMRANGEBYSCORE": {
-        "summary": "Remove all members in a sorted set within the given scores",
+        "summary": "Removes members in a sorted set within a range of scores. Deletes the sorted set if all members were removed.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements removed by the operation.",
@@ -17628,7 +17627,7 @@
         ]
     },
     "ZREVRANGE": {
-        "summary": "Return a range of members in a sorted set, by index, with scores ordered from high to low",
+        "summary": "Returns members in a sorted set within a range of indexes in reverse order.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
@@ -17693,7 +17692,7 @@
         ]
     },
     "ZREVRANGEBYLEX": {
-        "summary": "Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.",
+        "summary": "Returns members in a sorted set within a lexicographical range in reverse order.",
         "since": "2.8.9",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
@@ -17769,7 +17768,7 @@
         ]
     },
     "ZREVRANGEBYSCORE": {
-        "summary": "Return a range of members in a sorted set, by score, with scores ordered from high to low",
+        "summary": "Returns members in a sorted set within a range of scores in reverse order.",
         "since": "2.2.0",
         "group": "sorted-set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).",
@@ -17858,7 +17857,7 @@
         ]
     },
     "ZREVRANK": {
-        "summary": "Determine the index of a member in a sorted set, with scores ordered from high to low",
+        "summary": "Returns the index of a member in a sorted set ordered by descending scores.",
         "since": "2.0.0",
         "group": "sorted-set",
         "complexity": "O(log(N))",
@@ -17920,7 +17919,7 @@
         ]
     },
     "ZSCAN": {
-        "summary": "Incrementally iterate sorted sets elements and associated scores",
+        "summary": "Iterates over members and scores of a sorted set.",
         "since": "2.8.0",
         "group": "sorted-set",
         "complexity": "O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.",
@@ -17985,7 +17984,7 @@
         ]
     },
     "ZSCORE": {
-        "summary": "Get the score associated with the given member in a sorted set",
+        "summary": "Returns the score of a member in a sorted set.",
         "since": "1.2.0",
         "group": "sorted-set",
         "complexity": "O(1)",
@@ -18034,7 +18033,7 @@
         ]
     },
     "ZUNION": {
-        "summary": "Add multiple sorted sets",
+        "summary": "Returns the union of multiple sorted sets.",
         "since": "6.2.0",
         "group": "sorted-set",
         "complexity": "O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
@@ -18125,7 +18124,7 @@
         ]
     },
     "ZUNIONSTORE": {
-        "summary": "Add multiple sorted sets and store the resulting sorted set in a new key",
+        "summary": "Stores the union of multiple sorted sets in a key.",
         "since": "2.0.0",
         "group": "sorted-set",
         "complexity": "O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.",
