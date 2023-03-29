@@ -5,7 +5,7 @@ Returns whether `field` exists in the hash stored at `key`.
 @integer-reply, specifically:
 
 * `1` if the hash contains `field`.
-* `0` if the hash does not contain `field`, or `key` does not exist.
+* `0` if the hash does not contain `field`, or `key` doesn't exist.
 
 @examples
 

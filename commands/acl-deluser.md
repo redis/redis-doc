@@ -3,7 +3,7 @@ In such cases, no operation is performed for the non-existing users.
 
 {{% alert title="Note" color="info" %}}
 The special `default` user cannot be removed from the system.
-It is the default user that every new connection is authenticated with.
+It is the user that's automatically assigned to all new connections.
 {{% /alert  %}}
 
 @return

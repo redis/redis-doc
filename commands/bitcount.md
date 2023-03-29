@@ -1,10 +1,8 @@
 By default, all the bytes contained in the string are examined.
 It is possible to specify the counting operation only in an interval passing the
-additional arguments _start_ and _end_.
+additional _start_ and _end_ arguments.
 
-Like for the `GETRANGE` command start and end can contain negative values in
-order to index bytes starting from the end of the string, where -1 is the last
-byte, -2 is the penultimate, and so forth.
+Similarly to the `GETRANGE` command, both _start_ and _end_ can be negative values to index bytes starting from the end of the string, where -1 is the last byte, -2 is the penultimate, and so forth.
 
 Non-existent keys are treated as empty strings, so the command will return zero.
 

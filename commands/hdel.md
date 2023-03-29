@@ -1,12 +1,15 @@
-Removes the specified fields from the hash stored at `key`.
-Specified fields that do not exist within this hash are ignored.
-If `key` does not exist, it is treated as an empty hash and this command returns
+Fields that don't exist within this hash are ignored.
+If `key` doesn't exist, it is treated as an empty hash and this command returns
 `0`.
+
+{{% alert title="Note" color="info" %}}
+A Redis hash always consists of one or more fields and their respective values.
+When the last field is deleted, the hash is automatically deleted from the database.
+{{% /alert  %}}
 
 @return
 
-@integer-reply: the number of fields that were removed from the hash, not
-including specified but non existing fields.
+@integer-reply: the number of fields that were removed from the hash, excluding any specified but non-existing fields.
 
 @examples
 

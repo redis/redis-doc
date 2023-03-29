@@ -1,5 +1,3 @@
-Return the distance between two members in the geospatial index represented by the sorted set.
-
 Given a sorted set representing a geospatial index, populated using the `GEOADD` command, the command returns the distance between the two specified members in the specified unit.
 
 If one or both the members are missing, the command returns NULL.
