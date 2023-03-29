@@ -4,6 +4,4 @@ The command is only available when the `maxmemory-policy` configuration directiv
 
 @return
 
-@integer-reply
-
-The idle time in seconds.
+@integer-reply: the idle time in seconds, or @nil-reply if `key` doesn't exist.

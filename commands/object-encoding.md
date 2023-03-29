@@ -18,4 +18,4 @@ All the specially encoded types are automatically converted to the general type 
 
 @return
 
-@bulk-string-reply: the encoding of the object, or `nil` if the key doesn't exist
+@bulk-string-reply: the encoding of the object, or @nil-reply if `key` doesn't exist.

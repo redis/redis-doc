@@ -4,7 +4,4 @@ The command is only available when the `maxmemory-policy` configuration directiv
 
 @return
 
-@integer-reply if `key` exists
-@nil-reply if `key` doesn't exists
-
-The counter's value.
+@integer-reply: the counter's value, or @nil-reply if `key` doesn't exist.
