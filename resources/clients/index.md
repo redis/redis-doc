@@ -6,7 +6,7 @@ description: Implementations of the Redis protocol in different programming lang
 layout: bazzar
 bazzar: clients
 aliases:
-    - /clients
-    - /clients/
+    - /resources/clients
+    - /resources/clients/
 ---
 
