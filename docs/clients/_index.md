@@ -1,7 +1,7 @@
 ---
-title: "Redis client libraries"
-linkTitle: "Clients"
-description: Connect your application to a Redis database
+title: "Get started using Redis clients"
+linkTitle: "Client quickstarts"
+description: Get started using Redis clients. Select your library and connect your application to a Redis database. Then, try an example.
 weight: 45
 
 ---
