@@ -1,7 +1,7 @@
 ---
 title: "RESP protocol spec"
 linkTitle: "Protocol spec"
-weight: 1
+weight: 4
 description: Redis serialization protocol (RESP) specification
 aliases:
     - /topics/protocol
@@ -215,7 +215,7 @@ integers and a bulk string can be encoded as follows:
     :2\r\n
     :3\r\n
     :4\r\n
-    $6\r\n
+    $5\r\n
     hello\r\n
 
 (The reply was split into multiple lines for clarity).

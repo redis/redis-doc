@@ -1,6 +1,0 @@
-{
-    "name": "Redis",
-    "language": "Smalltalk",
-    "repository": "http://www.squeaksource.com/Redis",
-    "description": "Smalltalk Redis client."
-}

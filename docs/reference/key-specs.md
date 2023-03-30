@@ -1,7 +1,7 @@
 ---
  title: "Command key specifications"
  linkTitle: "Command key specifications"
- weight: 1
+ weight: 3
  description: What are command key specification and how to use them in your client
  aliases:
    - /topics/key-specs
@@ -25,7 +25,7 @@ Even if the client encounters an unfamiliar type of key specification, it can al
 
 That said, most cluster-aware clients only require a single key name to perform correct command routing, so it is possible that although a command features one unfamiliar specification, its other specification may still be usable by the client.
 
-Key specifications are maps with three keys:
+Key specifications are maps with the following keys:
 
 1. **begin_search:**: the starting index for keys' extraction.
 2. **find_keys:** the rule for identifying the keys relative to the BS.

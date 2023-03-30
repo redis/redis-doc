@@ -102,6 +102,33 @@ consumers that are processing new things.
 
 To see how the command actually replies, please check the `XREAD` command page.
 
+## What happens when a pending message is deleted?
+
+Entries may be deleted from the stream due to trimming or explicit calls to `XDEL` at any time.
+By design, Redis doesn't prevent the deletion of entries that are present in the stream's PELs.
+When this happens, the PELs retain the deleted entries' IDs, but the actual entry payload is no longer available.
+Therefore, when reading such PEL entries, Redis will return a null value in place of their respective data.
+
+Example:
+
+```
+> XADD mystream 1 myfield mydata
+"1-0"
+> XGROUP CREATE mystream mygroup 0
+OK
+> XREADGROUP GROUP mygroup myconsumer STREAMS mystream >
+1) 1) "mystream"
+   2) 1) 1) "1-0"
+         2) 1) "myfield"
+            2) "mydata"
+> XDEL mystream 1-0
+(integer) 1
+> XREADGROUP GROUP mygroup myconsumer STREAMS mystream 0
+1) 1) "mystream"
+   2) 1) 1) "1-0"
+         2) (nil)
+```
+
 @return
 
 @array-reply, specifically:

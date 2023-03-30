@@ -277,9 +277,15 @@ it allows the ACLs to be checked before the command is executed.
 
 Register a new command in the Redis server, that will be handled by
 calling the function pointer 'cmdfunc' using the RedisModule calling
-convention. The function returns `REDISMODULE_ERR` if the specified command
-name is already busy or a set of invalid flags were passed, otherwise
-`REDISMODULE_OK` is returned and the new command is registered.
+convention.
+
+The function returns `REDISMODULE_ERR` in these cases:
+- If creation of module command is called outside the `RedisModule_OnLoad`.
+- The specified command is already busy.
+- The command name contains some chars that are not allowed.
+- A set of invalid flags were passed.
+
+Otherwise `REDISMODULE_OK` is returned and the new command is registered.
 
 This function must be called during the initialization of the module
 inside the `RedisModule_OnLoad()` function. Calling this function outside
@@ -341,7 +347,7 @@ example "write deny-oom". The set of flags are:
 * **"blocking"**: The command has the potential to block the client.
 * **"allow-busy"**: Permit the command while the server is blocked either by
                     a script or by a slow module command, see
-                    RM_Yield.
+                    RedisModule_Yield.
 * **"getchannels-api"**: The command implements the interface to return
                          the arguments that are channels.
 
@@ -363,7 +369,8 @@ This information is used by ACL, Cluster and the `COMMAND` command.
 NOTE: The scheme described above serves a limited purpose and can
 only be used to find keys that exist at constant indices.
 For non-trivial key arguments, you may pass 0,0,0 and use
-[`RedisModule_SetCommandInfo`](#RedisModule_SetCommandInfo) to set key specs using a more advanced scheme.
+[`RedisModule_SetCommandInfo`](#RedisModule_SetCommandInfo) to set key specs using a more advanced scheme and use
+[`RedisModule_SetCommandACLCategories`](#RedisModule_SetCommandACLCategories) to set Redis ACL categories of the commands.
 
 <span id="RedisModule_GetCommand"></span>
 
@@ -422,6 +429,28 @@ Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` in case of the followi
 * `parent` is already a subcommand (we do not allow more than one level of command nesting)
 * `parent` is a command with an implementation (`RedisModuleCmdFunc`) (A parent command should be a pure container of subcommands)
 * `parent` already has a subcommand called `name`
+* Creating a subcommand is called outside of `RedisModule_OnLoad`.
+
+<span id="RedisModule_SetCommandACLCategories"></span>
+
+### `RedisModule_SetCommandACLCategories`
+
+    int RedisModule_SetCommandACLCategories(RedisModuleCommand *command,
+                                            const char *aclflags);
+
+**Available since:** unreleased
+
+[`RedisModule_SetCommandACLCategories`](#RedisModule_SetCommandACLCategories) can be used to set ACL categories to module
+commands and subcommands. The set of ACL categories should be passed as
+a space separated C string 'aclflags'.
+
+Example, the acl flags 'write slow' marks the command as part of the write and 
+slow ACL categories.
+
+On success `REDISMODULE_OK` is returned. On error `REDISMODULE_ERR` is returned.
+
+This function can only be called during the `RedisModule_OnLoad` function. If called
+outside of this function, an error is returned.
 
 <span id="RedisModule_SetCommandInfo"></span>
 
@@ -497,12 +526,12 @@ All fields except `version` are optional. Explanation of the fields:
   will which arguments are keys. Additionally, there are key specific flags.
 
     Key-specs cause the triplet (firstkey, lastkey, keystep) given in
-    RM_CreateCommand to be recomputed, but it is still useful to provide
-    these three parameters in RM_CreateCommand, to better support old Redis
-    versions where RM_SetCommandInfo is not available.
+    RedisModule_CreateCommand to be recomputed, but it is still useful to provide
+    these three parameters in RedisModule_CreateCommand, to better support old Redis
+    versions where RedisModule_SetCommandInfo is not available.
 
     Note that key-specs don't fully replace the "getkeys-api" (see
-    RM_CreateCommand, RM_IsKeysPositionRequest and RM_KeyAtPosWithFlags) so
+    RedisModule_CreateCommand, RedisModule_IsKeysPositionRequest and RedisModule_KeyAtPosWithFlags) so
     it may be a good idea to supply both key-specs and implement the
     getkeys-api.
 
@@ -753,7 +782,7 @@ Otherwise zero is returned.
 
 ### `RedisModule_Milliseconds`
 
-    long long RedisModule_Milliseconds(void);
+    mstime_t RedisModule_Milliseconds(void);
 
 **Available since:** 4.0.0
 
@@ -768,6 +797,31 @@ Return the current UNIX time in milliseconds.
 **Available since:** 7.0.0
 
 Return counter of micro-seconds relative to an arbitrary point in time.
+
+<span id="RedisModule_Microseconds"></span>
+
+### `RedisModule_Microseconds`
+
+    ustime_t RedisModule_Microseconds();
+
+**Available since:** unreleased
+
+Return the current UNIX time in microseconds
+
+<span id="RedisModule_CachedMicroseconds"></span>
+
+### `RedisModule_CachedMicroseconds`
+
+    ustime_t RedisModule_CachedMicroseconds();
+
+**Available since:** unreleased
+
+Return the cached UNIX time in microseconds.
+It is updated in the server cron job and before executing a command.
+It is useful for complex call stacks, such as a command causing a
+key space notification, causing a module to execute a [`RedisModule_Call`](#RedisModule_Call),
+causing another notification, etc.
+It makes sense that all this callbacks would use the same clock.
 
 <span id="RedisModule_BlockedClientMeasureTimeStart"></span>
 
@@ -851,6 +905,13 @@ See [`RedisModule_SignalModifiedKey()`](#RedisModule_SignalModifiedKey).
 `REDISMODULE_OPTIONS_HANDLE_REPL_ASYNC_LOAD`:
 Setting this flag indicates module awareness of diskless async replication (repl-diskless-load=swapdb)
 and that redis could be serving reads during replication instead of blocking with LOADING status.
+
+`REDISMODULE_OPTIONS_ALLOW_NESTED_KEYSPACE_NOTIFICATIONS`:
+Declare that the module wants to get nested key-space notifications.
+By default, Redis will not fire key-space notifications that happened inside
+a key-space notification callback. This flag allows to change this behavior
+and fire nested key-space notifications. Notice: if enabled, the module
+should protected itself from infinite recursion.
 
 <span id="RedisModule_SignalModifiedKey"></span>
 
@@ -949,7 +1010,25 @@ The passed context 'ctx' may be NULL if necessary, see the
 
 **Available since:** 4.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from a `long long`
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a `long long`
+integer instead of taking a buffer and its length.
+
+The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
+enabling automatic memory management.
+
+The passed context 'ctx' may be NULL if necessary, see the
+[`RedisModule_CreateString()`](#RedisModule_CreateString) documentation for more info.
+
+<span id="RedisModule_CreateStringFromULongLong"></span>
+
+### `RedisModule_CreateStringFromULongLong`
+
+    RedisModuleString *RedisModule_CreateStringFromULongLong(RedisModuleCtx *ctx,
+                                                             unsigned long long ull);
+
+**Available since:** 7.0.3
+
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a `unsigned long long`
 integer instead of taking a buffer and its length.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -967,7 +1046,7 @@ The passed context 'ctx' may be NULL if necessary, see the
 
 **Available since:** 6.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from a double
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a double
 instead of taking a buffer and its length.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -983,7 +1062,7 @@ enabling automatic memory management.
 
 **Available since:** 6.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from a long
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from a long
 double.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -1001,7 +1080,7 @@ The passed context 'ctx' may be NULL if necessary, see the
 
 **Available since:** 4.0.0
 
-Like `RedisModule_CreatString()`, but creates a string starting from another
+Like [`RedisModule_CreateString()`](#RedisModule_CreateString), but creates a string starting from another
 `RedisModuleString`.
 
 The returned string must be released with [`RedisModule_FreeString()`](#RedisModule_FreeString) or by
@@ -1150,6 +1229,20 @@ Returns `REDISMODULE_OK` on success. If the string can't be parsed
 as a valid, strict `long long` (no spaces before/after), `REDISMODULE_ERR`
 is returned.
 
+<span id="RedisModule_StringToULongLong"></span>
+
+### `RedisModule_StringToULongLong`
+
+    int RedisModule_StringToULongLong(const RedisModuleString *str,
+                                      unsigned long long *ull);
+
+**Available since:** 7.0.3
+
+Convert the string into a `unsigned long long` integer, storing it at `*ull`.
+Returns `REDISMODULE_OK` on success. If the string can't be parsed
+as a valid, strict `unsigned long long` (no spaces before/after), `REDISMODULE_ERR`
+is returned.
+
 <span id="RedisModule_StringToDouble"></span>
 
 ### `RedisModule_StringToDouble`
@@ -1193,7 +1286,8 @@ is not a valid string representation of a stream ID. The special IDs "+" and
 
 ### `RedisModule_StringCompare`
 
-    int RedisModule_StringCompare(RedisModuleString *a, RedisModuleString *b);
+    int RedisModule_StringCompare(const RedisModuleString *a,
+                                  const RedisModuleString *b);
 
 **Available since:** 4.0.0
 
@@ -1645,7 +1739,7 @@ Return:
   In case of an error, it's the module writer responsibility to translate the reply
   to RESP2 (or handle it differently by returning an error). Notice that for
   module writer convenience, it is possible to pass `0` as a parameter to the fmt
-  argument of `RM_Call` so that the `RedisModuleCallReply` will return in the same
+  argument of [`RedisModule_Call`](#RedisModule_Call) so that the `RedisModuleCallReply` will return in the same
   protocol (RESP2 or RESP3) as set in the current client's context.
 
 <span id="RedisModule_ReplyWithDouble"></span>
@@ -1837,8 +1931,8 @@ client exists, `REDISMODULE_OK` is returned, otherwise `REDISMODULE_ERR`
 is returned.
 
 When the client exist and the `ci` pointer is not NULL, but points to
-a structure of type `RedisModuleClientInfo`, previously initialized with
-the correct `REDISMODULE_CLIENTINFO_INITIALIZER`, the structure is populated
+a structure of type `RedisModuleClientInfoV`1, previously initialized with
+the correct `REDISMODULE_CLIENTINFO_INITIALIZER_V1`, the structure is populated
 with the following fields:
 
      uint64_t flags;         // REDISMODULE_CLIENTINFO_FLAG_*
@@ -1872,6 +1966,37 @@ returned:
      if (retval == REDISMODULE_OK) {
          printf("Address: %s\n", ci.addr);
      }
+
+<span id="RedisModule_GetClientNameById"></span>
+
+### `RedisModule_GetClientNameById`
+
+    RedisModuleString *RedisModule_GetClientNameById(RedisModuleCtx *ctx,
+                                                     uint64_t id);
+
+**Available since:** 7.0.3
+
+Returns the name of the client connection with the given ID.
+
+If the client ID does not exist or if the client has no name associated with
+it, NULL is returned.
+
+<span id="RedisModule_SetClientNameById"></span>
+
+### `RedisModule_SetClientNameById`
+
+    int RedisModule_SetClientNameById(uint64_t id, RedisModuleString *name);
+
+**Available since:** 7.0.3
+
+Sets the name of the client with the given ID. This is equivalent to the client calling
+`CLIENT SETNAME name`.
+
+Returns `REDISMODULE_OK` on success. On failure, `REDISMODULE_ERR` is returned
+and errno is set as follows:
+
+- ENOENT if the client does not exist
+- EINVAL if the name contains invalid characters
 
 <span id="RedisModule_PublishMessage"></span>
 
@@ -1982,6 +2107,8 @@ Available flags and their meaning:
  * `REDISMODULE_CTX_FLAGS_RESP3`: Indicate the that client attached to this
                                 context is using RESP3.
 
+ * `REDISMODULE_CTX_FLAGS_SERVER_STARTUP`: The Redis instance is starting
+
 <span id="RedisModule_AvoidReplicaTraffic"></span>
 
 ### `RedisModule_AvoidReplicaTraffic`
@@ -2060,13 +2187,41 @@ operations on the key.
 The return value is the handle representing the key, that must be
 closed with [`RedisModule_CloseKey()`](#RedisModule_CloseKey).
 
-If the key does not exist and WRITE mode is requested, the handle
+If the key does not exist and `REDISMODULE_WRITE` mode is requested, the handle
 is still returned, since it is possible to perform operations on
 a yet not existing key (that will be created, for example, after
-a list push operation). If the mode is just READ instead, and the
+a list push operation). If the mode is just `REDISMODULE_READ` instead, and the
 key does not exist, NULL is returned. However it is still safe to
 call [`RedisModule_CloseKey()`](#RedisModule_CloseKey) and [`RedisModule_KeyType()`](#RedisModule_KeyType) on a NULL
 value.
+
+Extra flags that can be pass to the API under the mode argument:
+* `REDISMODULE_OPEN_KEY_NOTOUCH` - Avoid touching the LRU/LFU of the key when opened.
+* `REDISMODULE_OPEN_KEY_NONOTIFY` - Don't trigger keyspace event on key misses.
+* `REDISMODULE_OPEN_KEY_NOSTATS` - Don't update keyspace hits/misses counters.
+* `REDISMODULE_OPEN_KEY_NOEXPIRE` - Avoid deleting lazy expired keys.
+* `REDISMODULE_OPEN_KEY_NOEFFECTS` - Avoid any effects from fetching the key.
+
+<span id="RedisModule_GetOpenKeyModesAll"></span>
+
+### `RedisModule_GetOpenKeyModesAll`
+
+    int RedisModule_GetOpenKeyModesAll();
+
+**Available since:** unreleased
+
+
+Returns the full OpenKey modes mask, using the return value
+the module can check if a certain set of OpenKey modes are supported
+by the redis server version in use.
+Example:
+
+       int supportedMode = RedisModule_GetOpenKeyModesAll();
+       if (supportedMode & REDISMODULE_OPEN_KEY_NOTOUCH) {
+             // REDISMODULE_OPEN_KEY_NOTOUCH is supported
+       } else{
+             // REDISMODULE_OPEN_KEY_NOTOUCH is not supported
+       }
 
 <span id="RedisModule_CloseKey"></span>
 
@@ -2352,7 +2507,7 @@ the previous index, rather than seeking from the ends of the list.
 
 This enables iteration to be done efficiently using a simple for loop:
 
-    long n = RM_ValueLength(key);
+    long n = RedisModule_ValueLength(key);
     for (long i = 0; i < n; i++) {
         RedisModuleString *elem = RedisModule_ListGet(key, i);
         // Do stuff...
@@ -3237,6 +3392,7 @@ Return the reply type as one of the following:
 - `REDISMODULE_REPLY_BIG_NUMBER`
 - `REDISMODULE_REPLY_VERBATIM_STRING`
 - `REDISMODULE_REPLY_ATTRIBUTE`
+- `REDISMODULE_REPLY_PROMISE`
 
 <span id="RedisModule_CallReplyLength"></span>
 
@@ -3376,6 +3532,40 @@ Returns:
 The `key` and `value` arguments are used to return by reference, and may be
 NULL if not required.
 
+<span id="RedisModule_CallReplyPromiseSetUnblockHandler"></span>
+
+### `RedisModule_CallReplyPromiseSetUnblockHandler`
+
+    void RedisModule_CallReplyPromiseSetUnblockHandler(RedisModuleCallReply *reply,
+                                                       RedisModuleOnUnblocked on_unblock,
+                                                       void *private_data);
+
+**Available since:** unreleased
+
+Set unblock handler (callback and private data) on the given promise `RedisModuleCallReply`.
+The given reply must be of promise type (`REDISMODULE_REPLY_PROMISE`).
+
+<span id="RedisModule_CallReplyPromiseAbort"></span>
+
+### `RedisModule_CallReplyPromiseAbort`
+
+    int RedisModule_CallReplyPromiseAbort(RedisModuleCallReply *reply,
+                                          void **private_data);
+
+**Available since:** unreleased
+
+Abort the execution of a given promise `RedisModuleCallReply`.
+return `REDMODULE_OK` in case the abort was done successfully and `REDISMODULE_ERR`
+if its not possible to abort the execution (execution already finished).
+In case the execution was aborted (`REDMODULE_OK` was returned), the `private_data` out parameter
+will be set with the value of the private data that was given on '[`RedisModule_CallReplyPromiseSetUnblockHandler`](#RedisModule_CallReplyPromiseSetUnblockHandler)'
+so the caller will be able to release the private data.
+
+If the execution was aborted successfully, it is promised that the unblock handler will not be called.
+That said, it is possible that the abort operation will successes but the operation will still continue.
+This can happened if, for example, a module implements some blocking command and does not respect the
+disconnect callback. For pure Redis commands this can not happened.
+
 <span id="RedisModule_CallReplyStringPtr"></span>
 
 ### `RedisModule_CallReplyStringPtr`
@@ -3397,6 +3587,17 @@ Return the pointer and length of a string or error reply.
 
 Return a new string object from a call reply of type string, error or
 integer. Otherwise (wrong reply type) return NULL.
+
+<span id="RedisModule_SetContextUser"></span>
+
+### `RedisModule_SetContextUser`
+
+    void RedisModule_SetContextUser(RedisModuleCtx *ctx,
+                                    const RedisModuleUser *user);
+
+**Available since:** 7.0.6
+
+Modifies the user that [`RedisModule_Call`](#RedisModule_Call) will use (e.g. for ACL checks)
 
 <span id="RedisModule_Call"></span>
 
@@ -3431,7 +3632,17 @@ Exported API to call any Redis command from modules.
     * `0` -- Return the reply in auto mode, i.e. the reply format will be the
              same as the client attached to the given RedisModuleCtx. This will
              probably used when you want to pass the reply directly to the client.
-    * `C` -- Check if command can be executed according to ACL rules.
+    * `C` -- Run a command as the user attached to the context.
+             User is either attached automatically via the client that directly
+             issued the command and created the context or via RedisModule_SetContextUser.
+             If the context is not directly created by an issued command (such as a
+             background context and no user was set on it via RedisModule_SetContextUser,
+             RedisModule_Call will fail.
+             Checks if the command can be executed according to ACL rules and causes
+             the command to run as the determined user, so that any future user
+             dependent activity, such as ACL checks within scripts will proceed as
+             expected.
+             Otherwise, the command will run as the Redis unrestricted user.
     * `S` -- Run the command in a script mode, this means that it will raise
              an error if a command which are not allowed inside a script
              (flagged with the `deny-script` flag) is invoked (like SHUTDOWN).
@@ -3444,6 +3655,38 @@ Exported API to call any Redis command from modules.
              invoking the command, the error is returned using errno mechanism.
              This flag allows to get the error also as an error CallReply with
              relevant error message.
+    * 'D' -- A "Dry Run" mode. Return before executing the underlying call().
+             If everything succeeded, it will return with a NULL, otherwise it will
+             return with a CallReply object denoting the error, as if it was called with
+             the 'E' code.
+    * 'K' -- Allow running blocking commands. If enabled and the command gets blocked, a
+             special REDISMODULE_REPLY_PROMISE will be returned. This reply type
+             indicates that the command was blocked and the reply will be given asynchronously.
+             The module can use this reply object to set a handler which will be called when
+             the command gets unblocked using RedisModule_CallReplyPromiseSetUnblockHandler.
+             The handler must be set immediately after the command invocation (without releasing
+             the Redis lock in between). If the handler is not set, the blocking command will
+             still continue its execution but the reply will be ignored (fire and forget),
+             notice that this is dangerous in case of role change, as explained below.
+             The module can use RedisModule_CallReplyPromiseAbort to abort the command invocation
+             if it was not yet finished (see RedisModule_CallReplyPromiseAbort documentation for more
+             details). It is also the module's responsibility to abort the execution on role change, either by using
+             server event (to get notified when the instance becomes a replica) or relying on the disconnect
+             callback of the original client. Failing to do so can result in a write operation on a replica.
+             Unlike other call replies, promise call reply **must** be freed while the Redis GIL is locked.
+             Notice that on unblocking, the only promise is that the unblock handler will be called,
+             If the blocking RedisModule_Call caused the module to also block some real client (using RedisModule_BlockClient),
+             it is the module responsibility to unblock this client on the unblock handler.
+             On the unblock handler it is only allowed to perform the following:
+             * Calling additional Redis commands using RedisModule_Call
+             * Open keys using RedisModule_OpenKey
+             * Replicate data to the replica or AOF
+
+             Specifically, it is not allowed to call any Redis module API which are client related such as:
+             * RedisModule_Reply* API's
+             * RedisModule_BlockClient
+             * RedisModule_GetCurrentUserName
+
 * **...**: The actual arguments to the Redis command.
 
 On success a `RedisModuleCallReply` object is returned, otherwise
@@ -3602,12 +3845,16 @@ documentation, especially [https://redis.io/topics/modules-native-types](https:/
   so that meta information such as key name and db id can be obtained.
 * **copy2**: Similar to `copy`, but provides the `RedisModuleKeyOptCtx` parameter
   so that meta information such as key names and db ids can be obtained.
+* **aux_save2**: Similar to `aux_save`, but with small semantic change, if the module
+  saves nothing on this callback then no data about this aux field will be written to the
+  RDB and it will be possible to load the RDB even if the module is not loaded.
 
 Note: the module name "AAAAAAAAA" is reserved and produces an error, it
 happens to be pretty lame as well.
 
-If there is already a module registering a type with the same name,
-and if the module name or encver is invalid, NULL is returned.
+If [`RedisModule_CreateDataType()`](#RedisModule_CreateDataType) is called outside of `RedisModule_OnLoad()` function,
+there is already a module registering a type with the same name,
+or if the module name or encver is invalid, NULL is returned.
 Otherwise the new type is registered into Redis, and a reference of
 type `RedisModuleType` is returned: the caller of the function should store
 this reference into a global variable to make future use of it in the
@@ -3618,7 +3865,7 @@ Example code fragment:
 
      int RedisModule_OnLoad(RedisModuleCtx *ctx) {
          // some code here ...
-         BalancedTreeType = RM_CreateDataType(...);
+         BalancedTreeType = RedisModule_CreateDataType(...);
      }
 
 <span id="RedisModule_ModuleTypeSetValue"></span>
@@ -4153,15 +4400,75 @@ latency-monitor-threshold.
 For a guide about blocking commands in modules, see
 [https://redis.io/topics/modules-blocking-ops](https://redis.io/topics/modules-blocking-ops).
 
+<span id="RedisModule_RegisterAuthCallback"></span>
+
+### `RedisModule_RegisterAuthCallback`
+
+    void RedisModule_RegisterAuthCallback(RedisModuleCtx *ctx,
+                                          RedisModuleAuthCallback cb);
+
+**Available since:** unreleased
+
+This API registers a callback to execute in addition to normal password based authentication.
+Multiple callbacks can be registered across different modules. When a Module is unloaded, all the
+auth callbacks registered by it are unregistered.
+The callbacks are attempted (in the order of most recently registered first) when the AUTH/HELLO
+(with AUTH field provided) commands are called.
+The callbacks will be called with a module context along with a username and a password, and are
+expected to take one of the following actions:
+(1) Authenticate - Use the `RedisModule_AuthenticateClient`* API and return `REDISMODULE_AUTH_HANDLED`.
+This will immediately end the auth chain as successful and add the OK reply.
+(2) Deny Authentication - Return `REDISMODULE_AUTH_HANDLED` without authenticating or blocking the
+client. Optionally, `err` can be set to a custom error message and `err` will be automatically
+freed by the server.
+This will immediately end the auth chain as unsuccessful and add the ERR reply.
+(3) Block a client on authentication - Use the [`RedisModule_BlockClientOnAuth`](#RedisModule_BlockClientOnAuth) API and return
+`REDISMODULE_AUTH_HANDLED`. Here, the client will be blocked until the [`RedisModule_UnblockClient`](#RedisModule_UnblockClient) API is used
+which will trigger the auth reply callback (provided through the [`RedisModule_BlockClientOnAuth`](#RedisModule_BlockClientOnAuth)).
+In this reply callback, the Module should authenticate, deny or skip handling authentication.
+(4) Skip handling Authentication - Return `REDISMODULE_AUTH_NOT_HANDLED` without blocking the
+client. This will allow the engine to attempt the next module auth callback.
+If none of the callbacks authenticate or deny auth, then password based auth is attempted and
+will authenticate or add failure logs and reply to the clients accordingly.
+
+Note: If a client is disconnected while it was in the middle of blocking module auth, that
+occurrence of the AUTH or HELLO command will not be tracked in the INFO command stats.
+
+The following is an example of how non-blocking module based authentication can be used:
+
+     int auth_cb(RedisModuleCtx *ctx, RedisModuleString *username, RedisModuleString *password, RedisModuleString **err) {
+         const char *user = RedisModule_StringPtrLen(username, NULL);
+         const char *pwd = RedisModule_StringPtrLen(password, NULL);
+         if (!strcmp(user,"foo") && !strcmp(pwd,"valid_password")) {
+             RedisModule_AuthenticateClientWithACLUser(ctx, "foo", 3, NULL, NULL, NULL);
+             return REDISMODULE_AUTH_HANDLED;
+         }
+
+         else if (!strcmp(user,"foo") && !strcmp(pwd,"wrong_password")) {
+             RedisModuleString *log = RedisModule_CreateString(ctx, "Module Auth", 11);
+             RedisModule_ACLAddLogEntryByUserName(ctx, username, log, REDISMODULE_ACL_LOG_AUTH);
+             RedisModule_FreeString(ctx, log);
+             const char *err_msg = "Auth denied by Misc Module.";
+             *err = RedisModule_CreateString(ctx, err_msg, strlen(err_msg));
+             return REDISMODULE_AUTH_HANDLED;
+         }
+         return REDISMODULE_AUTH_NOT_HANDLED;
+      }
+
+     int RedisModule_OnLoad(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
+         if (RedisModule_Init(ctx,"authmodule",1,REDISMODULE_APIVER_1)== REDISMODULE_ERR)
+             return REDISMODULE_ERR;
+         RedisModule_RegisterAuthCallback(ctx, auth_cb);
+         return REDISMODULE_OK;
+     }
+
 <span id="RedisModule_BlockClient"></span>
 
 ### `RedisModule_BlockClient`
 
     RedisModuleBlockedClient *RedisModule_BlockClient(RedisModuleCtx *ctx,
                                                       RedisModuleCmdFunc reply_callback,
-                                                      RedisModuleCmdFunc timeout_callback,
-                                                      void (*free_privdata)(RedisModuleCtx*, void*),
-                                                      long long timeout_ms);
+                                                      ;
 
 **Available since:** 4.0.0
 
@@ -4204,18 +4511,49 @@ is not account for the total command duration. To include such time you should
 use [`RedisModule_BlockedClientMeasureTimeStart()`](#RedisModule_BlockedClientMeasureTimeStart) and [`RedisModule_BlockedClientMeasureTimeEnd()`](#RedisModule_BlockedClientMeasureTimeEnd) one,
 or multiple times within the blocking command background work.
 
+<span id="RedisModule_BlockClientOnAuth"></span>
+
+### `RedisModule_BlockClientOnAuth`
+
+    RedisModuleBlockedClient *RedisModule_BlockClientOnAuth(RedisModuleCtx *ctx,
+                                                            RedisModuleAuthCallback reply_callback,
+                                                            ;
+
+**Available since:** unreleased
+
+Block the current client for module authentication in the background. If module auth is not in
+progress on the client, the API returns NULL. Otherwise, the client is blocked and the `RedisModule_BlockedClient`
+is returned similar to the [`RedisModule_BlockClient`](#RedisModule_BlockClient) API.
+Note: Only use this API from the context of a module auth callback.
+
+<span id="RedisModule_BlockClientGetPrivateData"></span>
+
+### `RedisModule_BlockClientGetPrivateData`
+
+    void *RedisModule_BlockClientGetPrivateData(RedisModuleBlockedClient *blocked_client);
+
+**Available since:** unreleased
+
+Get the private data that was previusely set on a blocked client
+
+<span id="RedisModule_BlockClientSetPrivateData"></span>
+
+### `RedisModule_BlockClientSetPrivateData`
+
+    void RedisModule_BlockClientSetPrivateData(RedisModuleBlockedClient *blocked_client,
+                                               void *private_data);
+
+**Available since:** unreleased
+
+Set private data on a blocked client
+
 <span id="RedisModule_BlockClientOnKeys"></span>
 
 ### `RedisModule_BlockClientOnKeys`
 
     RedisModuleBlockedClient *RedisModule_BlockClientOnKeys(RedisModuleCtx *ctx,
                                                             RedisModuleCmdFunc reply_callback,
-                                                            RedisModuleCmdFunc timeout_callback,
-                                                            void (*free_privdata)(RedisModuleCtx*, void*),
-                                                            long long timeout_ms,
-                                                            RedisModuleString **keys,
-                                                            int numkeys,
-                                                            void *privdata);
+                                                            ;
 
 **Available since:** 6.0.0
 
@@ -4277,6 +4615,25 @@ Note: Under normal circumstances [`RedisModule_UnblockClient`](#RedisModule_Unbl
       handled as if it were timed-out (You must implement the timeout
       callback in that case).
 
+<span id="RedisModule_BlockClientOnKeysWithFlags"></span>
+
+### `RedisModule_BlockClientOnKeysWithFlags`
+
+    RedisModuleBlockedClient *RedisModule_BlockClientOnKeysWithFlags(RedisModuleCtx *ctx,
+                                                                     RedisModuleCmdFunc reply_callback,
+                                                                     ;
+
+**Available since:** unreleased
+
+Same as [`RedisModule_BlockClientOnKeys`](#RedisModule_BlockClientOnKeys), but can take `REDISMODULE_BLOCK_`* flags
+Can be either `REDISMODULE_BLOCK_UNBLOCK_DEFAULT`, which means default behavior (same
+as calling [`RedisModule_BlockClientOnKeys`](#RedisModule_BlockClientOnKeys))
+
+The flags is a bit mask of these:
+
+- `REDISMODULE_BLOCK_UNBLOCK_DELETED`: The clients should to be awakened in case any of `keys` are deleted.
+                                       Mostly useful for commands that require the key to exist (like XREADGROUP)
+
 <span id="RedisModule_SignalKeyAsReady"></span>
 
 ### `RedisModule_SignalKeyAsReady`
@@ -4288,8 +4645,6 @@ Note: Under normal circumstances [`RedisModule_UnblockClient`](#RedisModule_Unbl
 This function is used in order to potentially unblock a client blocked
 on keys with [`RedisModule_BlockClientOnKeys()`](#RedisModule_BlockClientOnKeys). When this function is called,
 all the clients blocked for this key will get their `reply_callback` called.
-
-Note: The function has no effect if the signaled key doesn't exist.
 
 <span id="RedisModule_UnblockClient"></span>
 
@@ -4453,7 +4808,7 @@ that a blocked client was used when the context was created, otherwise
 no `RedisModule_Reply`* call should be made at all.
 
 NOTE: If you're creating a detached thread safe context (bc is NULL),
-consider using `RM_GetDetachedThreadSafeContext` which will also retain
+consider using [`RedisModule_GetDetachedThreadSafeContext`](#RedisModule_GetDetachedThreadSafeContext) which will also retain
 the module ID and thus be more useful for logging.
 
 <span id="RedisModule_GetDetachedThreadSafeContext"></span>
@@ -4554,11 +4909,17 @@ is interested in. This can be an ORed mask of any of the following flags:
  - `REDISMODULE_NOTIFY_STREAM`: Stream events
  - `REDISMODULE_NOTIFY_MODULE`: Module types events
  - `REDISMODULE_NOTIFY_KEYMISS`: Key-miss events
+                               Notice, key-miss event is the only type
+                               of event that is fired from within a read command.
+                               Performing RedisModule_Call with a write command from within
+                               this notification is wrong and discourage. It will
+                               cause the read command that trigger the event to be
+                               replicated to the AOF/Replica.
  - `REDISMODULE_NOTIFY_ALL`: All events (Excluding `REDISMODULE_NOTIFY_KEYMISS`)
  - `REDISMODULE_NOTIFY_LOADED`: A special notification available only for modules,
                               indicates that the key was loaded from persistence.
                               Notice, when this event fires, the given key
-                              can not be retained, use RM_CreateStringFromString
+                              can not be retained, use RedisModule_CreateStringFromString
                               instead.
 
 We do not distinguish between key events and keyspace events, and it is up
@@ -4585,7 +4946,39 @@ Warning: the notification callbacks are performed in a synchronous manner,
 so notification callbacks must to be fast, or they would slow Redis down.
 If you need to take long actions, use threads to offload them.
 
+Moreover, the fact that the notification is executed synchronously means
+that the notification code will be executed in the middle on Redis logic
+(commands logic, eviction, expire). Changing the key space while the logic
+runs is dangerous and discouraged. In order to react to key space events with
+write actions, please refer to `RedisModule_AddPostExecutionUnitJob`.
+
 See [https://redis.io/topics/notifications](https://redis.io/topics/notifications) for more information.
+
+<span id="RedisModule_AddPostNotificationJob"></span>
+
+### `RedisModule_AddPostNotificationJob`
+
+    int RedisModule_AddPostNotificationJob(RedisModuleCtx *ctx,
+                                           RedisModulePostNotificationJobFunc callback,
+                                           void *privdata,
+                                           void (*free_privdata)(void*));
+
+**Available since:** unreleased
+
+When running inside a key space notification callback, it is dangerous and highly discouraged to perform any write
+operation (See [`RedisModule_SubscribeToKeyspaceEvents`](#RedisModule_SubscribeToKeyspaceEvents)). In order to still perform write actions in this scenario,
+Redis provides [`RedisModule_AddPostNotificationJob`](#RedisModule_AddPostNotificationJob) API. The API allows to register a job callback which Redis will call
+when the following condition are promised to be fulfilled:
+1. It is safe to perform any write operation.
+2. The job will be called atomically along side the key space notification.
+
+Notice, one job might trigger key space notifications that will trigger more jobs.
+This raises a concerns of entering an infinite loops, we consider infinite loops
+as a logical bug that need to be fixed in the module, an attempt to protect against
+infinite loops by halting the execution could result in violation of the feature correctness
+and so Redis will make no attempt to protect the module from infinite loops.
+
+'`free_pd`' can be NULL and in such case will not be used.
 
 <span id="RedisModule_GetNotifyKeyspaceEvents"></span>
 
@@ -4889,7 +5282,7 @@ Example:
         int bytes = read(fd,buf,sizeof(buf));
         printf("Read %d bytes \n", bytes);
     }
-    RM_EventLoopAdd(fd, REDISMODULE_EVENTLOOP_READABLE, onReadable, NULL);
+    RedisModule_EventLoopAdd(fd, REDISMODULE_EVENTLOOP_READABLE, onReadable, NULL);
 
 <span id="RedisModule_EventLoopDel"></span>
 
@@ -4987,6 +5380,36 @@ for detailed usage.
 
 Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on failure
 and will set an errno describing why the operation failed.
+
+<span id="RedisModule_SetModuleUserACLString"></span>
+
+### `RedisModule_SetModuleUserACLString`
+
+    int RedisModule_SetModuleUserACLString(RedisModuleCtx *ctx,
+                                           RedisModuleUser *user,
+                                           const char *acl,
+                                           RedisModuleString **error);
+
+**Available since:** 7.0.6
+
+Sets the permission of a user with a complete ACL string, such as one
+would use on the redis ACL SETUSER command line API. This differs from
+[`RedisModule_SetModuleUserACL`](#RedisModule_SetModuleUserACL), which only takes single ACL operations at a time.
+
+Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on failure
+if a `RedisModuleString` is provided in error, a string describing the error
+will be returned
+
+<span id="RedisModule_GetModuleUserACLString"></span>
+
+### `RedisModule_GetModuleUserACLString`
+
+    RedisModuleString *RedisModule_GetModuleUserACLString(RedisModuleUser *user);
+
+**Available since:** 7.0.6
+
+Get the ACL string for a given user
+Returns a `RedisModuleString`
 
 <span id="RedisModule_GetCurrentUserName"></span>
 
@@ -5098,6 +5521,22 @@ If the user is able to access the pubsub channel then `REDISMODULE_OK` is return
 **Available since:** 7.0.0
 
 Adds a new entry in the ACL log.
+Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on error.
+
+For more information about ACL log, please refer to [https://redis.io/commands/acl-log](https://redis.io/commands/acl-log)
+
+<span id="RedisModule_ACLAddLogEntryByUserName"></span>
+
+### `RedisModule_ACLAddLogEntryByUserName`
+
+    int RedisModule_ACLAddLogEntryByUserName(RedisModuleCtx *ctx,
+                                             RedisModuleString *username,
+                                             RedisModuleString *object,
+                                             RedisModuleACLLogEntryReason reason);
+
+**Available since:** unreleased
+
+Adds a new entry in the ACL log with the `username` `RedisModuleString` provided.
 Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on error.
 
 For more information about ACL log, please refer to [https://redis.io/commands/acl-log](https://redis.io/commands/acl-log)
@@ -5870,7 +6309,7 @@ And the function registerAPI() is:
         static int api_loaded = 0;
         if (api_loaded != 0) return 1; // APIs already resolved.
 
-        myFunctionPointer = RedisModule_GetOtherModuleAPI("...");
+        myFunctionPointer = RedisModule_GetSharedAPI("...");
         if (myFunctionPointer == NULL) return 0;
 
         return 1;
@@ -5930,7 +6369,7 @@ that is not desired, the `REDISMODULE_CMDFILTER_NOSELF` flag can be set when
 registering the filter.
 
 The `REDISMODULE_CMDFILTER_NOSELF` flag prevents execution flows that
-originate from the module's own `RM_Call()` from reaching the filter.  This
+originate from the module's own [`RedisModule_Call()`](#RedisModule_Call) from reaching the filter.  This
 flag is effective for all execution flows, including nested ones, as long as
 the execution begins from the module's command context or a thread-safe
 context that is associated with a blocking command.
@@ -6586,6 +7025,22 @@ Here is a list of events you can use as 'eid' and related sub events:
                                    // name of each modified configuration item 
         uint32_t num_changes;      // The number of elements in the config_names array
 
+* `RedisModule_Event_Key`
+
+    Called when a key is removed from the keyspace. We can't modify any key in
+    the event.
+    The following sub events are available:
+
+    * `REDISMODULE_SUBEVENT_KEY_DELETED`
+    * `REDISMODULE_SUBEVENT_KEY_EXPIRED`
+    * `REDISMODULE_SUBEVENT_KEY_EVICTED`
+    * `REDISMODULE_SUBEVENT_KEY_OVERWRITTEN`
+
+    The data pointer can be casted to a RedisModuleKeyInfo
+    structure with the following fields:
+
+        RedisModuleKey *key;    // Key name
+
 The function returns `REDISMODULE_OK` if the module was successfully subscribed
 for the specified event. If the API is called from a wrong context or unsupported event
 is given then `REDISMODULE_ERR` is returned.
@@ -6693,6 +7148,7 @@ Example implementation:
 
 If the registration fails, `REDISMODULE_ERR` is returned and one of the following
 errno is set:
+* EBUSY: Registering the Config outside of `RedisModule_OnLoad`.
 * EINVAL: The provided flags are invalid for the registration or the name of the config contains invalid characters.
 * EALREADY: The provided configuration name is already used.
 
@@ -6795,6 +7251,7 @@ Create an integer config that server clients can interact with via the
 
 Applies all pending configurations on the module load. This should be called
 after all of the configurations have been registered for the module inside of `RedisModule_OnLoad`.
+This will return `REDISMODULE_ERR` if it is called outside `RedisModule_OnLoad`.
 This API needs to be called when configurations are provided in either `MODULE LOADEX`
 or provided as startup arguments.
 
@@ -6857,6 +7314,27 @@ returns `REDISMODULE_OK` if when key is valid.
 
 ## Miscellaneous APIs
 
+<span id="RedisModule_GetModuleOptionsAll"></span>
+
+### `RedisModule_GetModuleOptionsAll`
+
+    int RedisModule_GetModuleOptionsAll();
+
+**Available since:** unreleased
+
+
+Returns the full module options flags mask, using the return value
+the module can check if a certain set of module options are supported
+by the redis server version in use.
+Example:
+
+       int supportedFlags = RedisModule_GetModuleOptionsAll();
+       if (supportedFlags & REDISMODULE_OPTIONS_ALLOW_NESTED_KEYSPACE_NOTIFICATIONS) {
+             // REDISMODULE_OPTIONS_ALLOW_NESTED_KEYSPACE_NOTIFICATIONS is supported
+       } else{
+             // REDISMODULE_OPTIONS_ALLOW_NESTED_KEYSPACE_NOTIFICATIONS is not supported
+       }
+
 <span id="RedisModule_GetContextFlagsAll"></span>
 
 ### `RedisModule_GetContextFlagsAll`
@@ -6871,7 +7349,7 @@ the module can check if a certain set of flags are supported
 by the redis server version in use.
 Example:
 
-       int supportedFlags = RM_GetContextFlagsAll();
+       int supportedFlags = RedisModule_GetContextFlagsAll();
        if (supportedFlags & REDISMODULE_CTX_FLAGS_MULTI) {
              // REDISMODULE_CTX_FLAGS_MULTI is supported
        } else{
@@ -6892,7 +7370,7 @@ the module can check if a certain set of flags are supported
 by the redis server version in use.
 Example:
 
-       int supportedFlags = RM_GetKeyspaceNotificationFlagsAll();
+       int supportedFlags = RedisModule_GetKeyspaceNotificationFlagsAll();
        if (supportedFlags & REDISMODULE_NOTIFY_LOADED) {
              // REDISMODULE_NOTIFY_LOADED is supported
        } else{
@@ -7156,20 +7634,27 @@ There is no guarantee that this info is always available, so this may return -1.
 ## Function index
 
 * [`RedisModule_ACLAddLogEntry`](#RedisModule_ACLAddLogEntry)
+* [`RedisModule_ACLAddLogEntryByUserName`](#RedisModule_ACLAddLogEntryByUserName)
 * [`RedisModule_ACLCheckChannelPermissions`](#RedisModule_ACLCheckChannelPermissions)
 * [`RedisModule_ACLCheckCommandPermissions`](#RedisModule_ACLCheckCommandPermissions)
 * [`RedisModule_ACLCheckKeyPermissions`](#RedisModule_ACLCheckKeyPermissions)
 * [`RedisModule_AbortBlock`](#RedisModule_AbortBlock)
+* [`RedisModule_AddPostNotificationJob`](#RedisModule_AddPostNotificationJob)
 * [`RedisModule_Alloc`](#RedisModule_Alloc)
 * [`RedisModule_AuthenticateClientWithACLUser`](#RedisModule_AuthenticateClientWithACLUser)
 * [`RedisModule_AuthenticateClientWithUser`](#RedisModule_AuthenticateClientWithUser)
 * [`RedisModule_AutoMemory`](#RedisModule_AutoMemory)
 * [`RedisModule_AvoidReplicaTraffic`](#RedisModule_AvoidReplicaTraffic)
 * [`RedisModule_BlockClient`](#RedisModule_BlockClient)
+* [`RedisModule_BlockClientGetPrivateData`](#RedisModule_BlockClientGetPrivateData)
+* [`RedisModule_BlockClientOnAuth`](#RedisModule_BlockClientOnAuth)
 * [`RedisModule_BlockClientOnKeys`](#RedisModule_BlockClientOnKeys)
+* [`RedisModule_BlockClientOnKeysWithFlags`](#RedisModule_BlockClientOnKeysWithFlags)
+* [`RedisModule_BlockClientSetPrivateData`](#RedisModule_BlockClientSetPrivateData)
 * [`RedisModule_BlockedClientDisconnected`](#RedisModule_BlockedClientDisconnected)
 * [`RedisModule_BlockedClientMeasureTimeEnd`](#RedisModule_BlockedClientMeasureTimeEnd)
 * [`RedisModule_BlockedClientMeasureTimeStart`](#RedisModule_BlockedClientMeasureTimeStart)
+* [`RedisModule_CachedMicroseconds`](#RedisModule_CachedMicroseconds)
 * [`RedisModule_Call`](#RedisModule_Call)
 * [`RedisModule_CallReplyArrayElement`](#RedisModule_CallReplyArrayElement)
 * [`RedisModule_CallReplyAttribute`](#RedisModule_CallReplyAttribute)
@@ -7180,6 +7665,8 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_CallReplyInteger`](#RedisModule_CallReplyInteger)
 * [`RedisModule_CallReplyLength`](#RedisModule_CallReplyLength)
 * [`RedisModule_CallReplyMapElement`](#RedisModule_CallReplyMapElement)
+* [`RedisModule_CallReplyPromiseAbort`](#RedisModule_CallReplyPromiseAbort)
+* [`RedisModule_CallReplyPromiseSetUnblockHandler`](#RedisModule_CallReplyPromiseSetUnblockHandler)
 * [`RedisModule_CallReplyProto`](#RedisModule_CallReplyProto)
 * [`RedisModule_CallReplySetElement`](#RedisModule_CallReplySetElement)
 * [`RedisModule_CallReplyStringPtr`](#RedisModule_CallReplyStringPtr)
@@ -7204,6 +7691,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_CreateStringFromLongLong`](#RedisModule_CreateStringFromLongLong)
 * [`RedisModule_CreateStringFromStreamID`](#RedisModule_CreateStringFromStreamID)
 * [`RedisModule_CreateStringFromString`](#RedisModule_CreateStringFromString)
+* [`RedisModule_CreateStringFromULongLong`](#RedisModule_CreateStringFromULongLong)
 * [`RedisModule_CreateStringPrintf`](#RedisModule_CreateStringPrintf)
 * [`RedisModule_CreateSubcommand`](#RedisModule_CreateSubcommand)
 * [`RedisModule_CreateTimer`](#RedisModule_CreateTimer)
@@ -7260,6 +7748,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_GetClientCertificate`](#RedisModule_GetClientCertificate)
 * [`RedisModule_GetClientId`](#RedisModule_GetClientId)
 * [`RedisModule_GetClientInfoById`](#RedisModule_GetClientInfoById)
+* [`RedisModule_GetClientNameById`](#RedisModule_GetClientNameById)
 * [`RedisModule_GetClientUserNameById`](#RedisModule_GetClientUserNameById)
 * [`RedisModule_GetClusterNodeInfo`](#RedisModule_GetClusterNodeInfo)
 * [`RedisModule_GetClusterNodesList`](#RedisModule_GetClusterNodesList)
@@ -7286,9 +7775,12 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_GetKeyspaceNotificationFlagsAll`](#RedisModule_GetKeyspaceNotificationFlagsAll)
 * [`RedisModule_GetLFU`](#RedisModule_GetLFU)
 * [`RedisModule_GetLRU`](#RedisModule_GetLRU)
+* [`RedisModule_GetModuleOptionsAll`](#RedisModule_GetModuleOptionsAll)
+* [`RedisModule_GetModuleUserACLString`](#RedisModule_GetModuleUserACLString)
 * [`RedisModule_GetModuleUserFromUserName`](#RedisModule_GetModuleUserFromUserName)
 * [`RedisModule_GetMyClusterID`](#RedisModule_GetMyClusterID)
 * [`RedisModule_GetNotifyKeyspaceEvents`](#RedisModule_GetNotifyKeyspaceEvents)
+* [`RedisModule_GetOpenKeyModesAll`](#RedisModule_GetOpenKeyModesAll)
 * [`RedisModule_GetRandomBytes`](#RedisModule_GetRandomBytes)
 * [`RedisModule_GetRandomHexChars`](#RedisModule_GetRandomHexChars)
 * [`RedisModule_GetSelectedDb`](#RedisModule_GetSelectedDb)
@@ -7347,6 +7839,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_MallocSizeDict`](#RedisModule_MallocSizeDict)
 * [`RedisModule_MallocSizeString`](#RedisModule_MallocSizeString)
 * [`RedisModule_MallocUsableSize`](#RedisModule_MallocUsableSize)
+* [`RedisModule_Microseconds`](#RedisModule_Microseconds)
 * [`RedisModule_Milliseconds`](#RedisModule_Milliseconds)
 * [`RedisModule_ModuleTypeGetType`](#RedisModule_ModuleTypeGetType)
 * [`RedisModule_ModuleTypeGetValue`](#RedisModule_ModuleTypeGetValue)
@@ -7361,6 +7854,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_RandomKey`](#RedisModule_RandomKey)
 * [`RedisModule_Realloc`](#RedisModule_Realloc)
 * [`RedisModule_RedactClientCommandArgument`](#RedisModule_RedactClientCommandArgument)
+* [`RedisModule_RegisterAuthCallback`](#RedisModule_RegisterAuthCallback)
 * [`RedisModule_RegisterBoolConfig`](#RedisModule_RegisterBoolConfig)
 * [`RedisModule_RegisterClusterMessageReceiver`](#RedisModule_RegisterClusterMessageReceiver)
 * [`RedisModule_RegisterCommandFilter`](#RedisModule_RegisterCommandFilter)
@@ -7420,14 +7914,18 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_ServerInfoGetFieldSigned`](#RedisModule_ServerInfoGetFieldSigned)
 * [`RedisModule_ServerInfoGetFieldUnsigned`](#RedisModule_ServerInfoGetFieldUnsigned)
 * [`RedisModule_SetAbsExpire`](#RedisModule_SetAbsExpire)
+* [`RedisModule_SetClientNameById`](#RedisModule_SetClientNameById)
 * [`RedisModule_SetClusterFlags`](#RedisModule_SetClusterFlags)
+* [`RedisModule_SetCommandACLCategories`](#RedisModule_SetCommandACLCategories)
 * [`RedisModule_SetCommandInfo`](#RedisModule_SetCommandInfo)
+* [`RedisModule_SetContextUser`](#RedisModule_SetContextUser)
 * [`RedisModule_SetDisconnectCallback`](#RedisModule_SetDisconnectCallback)
 * [`RedisModule_SetExpire`](#RedisModule_SetExpire)
 * [`RedisModule_SetLFU`](#RedisModule_SetLFU)
 * [`RedisModule_SetLRU`](#RedisModule_SetLRU)
 * [`RedisModule_SetModuleOptions`](#RedisModule_SetModuleOptions)
 * [`RedisModule_SetModuleUserACL`](#RedisModule_SetModuleUserACL)
+* [`RedisModule_SetModuleUserACLString`](#RedisModule_SetModuleUserACLString)
 * [`RedisModule_SignalKeyAsReady`](#RedisModule_SignalKeyAsReady)
 * [`RedisModule_SignalModifiedKey`](#RedisModule_SignalModifiedKey)
 * [`RedisModule_StopTimer`](#RedisModule_StopTimer)
@@ -7450,6 +7948,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_StringToLongDouble`](#RedisModule_StringToLongDouble)
 * [`RedisModule_StringToLongLong`](#RedisModule_StringToLongLong)
 * [`RedisModule_StringToStreamID`](#RedisModule_StringToStreamID)
+* [`RedisModule_StringToULongLong`](#RedisModule_StringToULongLong)
 * [`RedisModule_StringTruncate`](#RedisModule_StringTruncate)
 * [`RedisModule_SubscribeToKeyspaceEvents`](#RedisModule_SubscribeToKeyspaceEvents)
 * [`RedisModule_SubscribeToServerEvent`](#RedisModule_SubscribeToServerEvent)

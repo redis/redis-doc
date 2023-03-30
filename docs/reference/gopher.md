@@ -1,13 +1,13 @@
 ---
 title: "Redis and the Gopher protocol"
 linkTitle: "Gopher protocol"
-weight: 1
+weight: 10
 description: The Redis Gopher protocol implementation
 aliases:
   - /topics/gopher
 ---
 
-** Note: Support for Gopher was removed is Redis 7.0 **
+** Note: Support for Gopher was removed in Redis 7.0 **
 
 Redis contains an implementation of the Gopher protocol, as specified in
 the [RFC 1436](https://www.ietf.org/rfc/rfc1436.txt).

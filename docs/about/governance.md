@@ -57,11 +57,11 @@ The core team aims to form and empower a community of contributors by further de
     * Day-to-day approval of pull requests and closing issues
     * Opening new issues for discussion
 * **Major decisions** that have a significant impact on the Redis architecture, design, or philosophy as well as core-team structure or membership changes should preferably be determined by full consensus. If the team is not able to achieve a full consensus, a majority vote is required. Examples of major decisions:
-    *   Fundamental changes to the Redis core
-    *   Adding a new data structure
-    *   Creating a new version of RESP (Redis Serialization Protocol)
-    *   Changes that affect backward compatibility
-    *   Adding or changing core team members
+    * Fundamental changes to the Redis core
+    * Adding a new data structure
+    * Creating a new version of RESP (Redis Serialization Protocol)
+    * Changes that affect backward compatibility
+    * Adding or changing core team members
 * Project leads have a right to veto major decisions
 
 #### Core team membership

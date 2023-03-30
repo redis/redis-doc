@@ -2,7 +2,7 @@
 title: "Redis command tips"
 linkTitle: "Command tips"
 weight: 1
-description: Programm
+description: Get additional information about a command
 aliases:
     - /topics/command-tips
 ---
@@ -20,21 +20,21 @@ However, the following sections describe proposed tips and demonstrate the conve
 
 This tip indicates that the command's output isn't deterministic.
 That means that calls to the command may yield different results with the same arguments and data.
-That difference could be the result of the command's random nature (e.g., `RANDOMKEY` and `SPOP`); the call's timing (e.g. `TTL`); or generic differences that relate to the server's state (e.g. `INFO` and `CLIENT LIST`).
+That difference could be the result of the command's random nature (e.g., `RANDOMKEY` and `SPOP`); the call's timing (e.g., `TTL`); or generic differences that relate to the server's state (e.g., `INFO` and `CLIENT LIST`).
 
 **Note:**
-prior to Redis 7.0, this tip was the _random_ command flag.
+Prior to Redis 7.0, this tip was the _random_ command flag.
 
 ## nondeterministic_output_order
 
-The existence of this tip indicates that the command's output is deterministic, but its ordering is random (e.g. `HGETALL` and `SMEMBERS`).
+The existence of this tip indicates that the command's output is deterministic, but its ordering is random (e.g., `HGETALL` and `SMEMBERS`).
 
 **Note:**
-prior to Redis 7.0, this tip was the _sort_\__for_\__script_ flag.
+Prior to Redis 7.0, this tip was the _sort_\__for_\__script_ flag.
 
 ## request_policy
 
-This tip can help clients determine the shard(s) to send the command in clustering mode.
+This tip can help clients determine the shards to send the command in clustering mode.
 The default behavior a client should implement for commands without the _request_policy_ tip is as follows:
 
 1. The command doesn't accept key name arguments: the client can execute the command on an arbitrary shard.

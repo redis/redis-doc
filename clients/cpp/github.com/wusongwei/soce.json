@@ -1,0 +1,4 @@
+{
+    "name": "soce-redis",
+    "description": "Based on hiredis, accesses the sever(single, sentinel, cluster) with the same interface, supports pipeline and async(by coroutine)"
+}

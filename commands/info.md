@@ -12,6 +12,7 @@ The optional parameter can be used to select a specific section of information:
 *   `cpu`: CPU consumption statistics
 *   `commandstats`: Redis command statistics
 *   `latencystats`: Redis command latency percentile distribution statistics
+*   `sentinel`: Redis Sentinel section (only applicable to Sentinel instances)
 *   `cluster`: Redis Cluster section
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
@@ -194,7 +195,7 @@ Here is the meaning of all fields in the **persistence** section:
      if any
 *   `rdb_last_cow_size`: The size in bytes of copy-on-write memory during
      the last RDB save operation
-*   `rdb_last_load_keys_expired`: Number volatile keys deleted during the last RDB loading. Added in Redis 7.0.
+*   `rdb_last_load_keys_expired`: Number of volatile keys deleted during the last RDB loading. Added in Redis 7.0.
 *   `rdb_last_load_keys_loaded`: Number of keys loaded during the last RDB loading. Added in Redis 7.0.
 *   `aof_enabled`: Flag indicating AOF logging is activated
 *   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is
@@ -275,6 +276,7 @@ Here is the meaning of all fields in the **stats** section:
      subscriptions
 *   `pubsub_patterns`: Global number of pub/sub pattern with client
      subscriptions
+*   `pubsubshard_channels`: Global number of pub/sub shard channels with client subscriptions. Added in Redis 7.0.3
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
 *   `total_forks`: Total number of fork operations since the server start
 *   `migrate_cached_sockets`: The number of sockets open for `MIGRATE` purposes
@@ -304,6 +306,10 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `acl_access_denied_auth`: Number of authentication failures
+*   `acl_access_denied_cmd`: Number of commands rejected because of access denied to the command
+*   `acl_access_denied_key`: Number of commands rejected because of access denied to a key
+*   `acl_access_denied_channel`: Number of commands rejected because of access denied to a channel 
 
 Here is the meaning of all fields in the **replication** section:
 
@@ -404,6 +410,15 @@ For each error type, the following line is added:
 
 *   `errorstat_XXX`: `count=XXX`
 
+The **sentinel** section is only available in Redis Sentinel instances. It consists of the following fields:
+
+*   `sentinel_masters`: Number of Redis masters monitored by this Sentinel instance
+*   `sentinel_tilt`: A value of 1 means this sentinel is in TILT mode
+*   `sentinel_tilt_since_seconds`: Duration in seconds of current TILT, or -1 if not TILTed. Added in Redis 7.0.0
+*   `sentinel_running_scripts`: The number of scripts this Sentinel is currently executing
+*   `sentinel_scripts_queue_length`: The length of the queue of user scripts that are pending execution
+*   `sentinel_simulate_failure_flags`: Flags for the `SENTINEL SIMULATE-FAILURE` command
+    
 The **cluster** section currently only contains a unique field:
 
 *   `cluster_enabled`: Indicate Redis cluster is enabled
