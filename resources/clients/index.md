@@ -8,6 +8,5 @@ bazzar: clients
 aliases:
     - /clients
     - /clients/
-    - /docs/clients
 ---
 
