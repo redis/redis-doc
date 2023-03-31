@@ -1,4 +1,5 @@
-Returns the string length of the value associated with `field` in the hash stored at `key`. If the `key` or the `field` do not exist, 0 is returned.
+Returns the string length of the value associated with `field` in the hash stored at `key`.
+If either `key` or `field` doesn't exist, 0 is returned.
 
 @return
 

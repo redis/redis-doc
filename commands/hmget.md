@@ -7,8 +7,7 @@ a non-existing `key` will return a list of `nil` values.
 
 @return
 
-@array-reply: list of values associated with the given fields, in the same
-order as they are requested.
+@array-reply: list of @bulk-string-reply (or @nil-reply) corresponding to the given fields, in the same order as they were requested.
 
 ```cli
 HSET myhash field1 "Hello"

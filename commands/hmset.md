@@ -1,7 +1,6 @@
-Sets the specified fields to their respective values in the hash stored at
-`key`.
-This command overwrites any specified fields already existing in the hash.
-If `key` does not exist, a new key holding a hash is created.
+Sets the specified fields to their respective values in the hash stored at `key`.
+The command overwrites all specified fields that already exist in the hash.
+If `key` doesn't exist, a new key is created for the hash.
 
 @return
 

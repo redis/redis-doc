@@ -1,6 +1,5 @@
-Sets `field` in the hash stored at `key` to `value`, only if `field` does not
-yet exist.
-If `key` does not exist, a new key holding a hash is created.
+Sets `field` in the hash stored at `key` to `value`, only if `field` doesn't exist yet.
+If `key` doesn't exist, a new key is created for the hash.
 If `field` already exists, this operation has no effect.
 
 @return

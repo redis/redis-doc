@@ -13,7 +13,7 @@ The optional `WITHVALUES` modifier changes the reply so it includes the respecti
 @bulk-string-reply: without the additional `count` argument, the command returns a Bulk Reply with the randomly selected field, or `nil` when `key` does not exist.
 
 @array-reply: when the additional `count` argument is passed, the command returns an array of fields, or an empty array when `key` does not exist.
-If the `WITHVALUES` modifier is used, the reply is a list fields and their values from the hash.
+If the `WITHVALUES` modifier is used, the reply is a list of fields and their values from the hash.
 
 @examples
 
