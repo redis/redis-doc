@@ -2,11 +2,11 @@
 
 It is the blocking version because it blocks the connection when there are no
 members to pop from any of the given sorted sets.
-A member with the highest score is popped from first sorted set that is
+A member with the highest score is popped from the first sorted set that is
 non-empty, with the given keys being checked in the order that they are given.
 
-The `timeout` argument is interpreted as a double value specifying the maximum
-number of seconds to block. A timeout of zero can be used to block indefinitely.
+The _timeout_ argument is interpreted as a double value specifying the maximum
+number of seconds to block. A _timeout_ of zero can be used to block indefinitely.
 
 See the [BZPOPMIN documentation][cb] for the exact semantics, since `BZPOPMAX`
 is identical to `BZPOPMIN` with the only difference being that it pops members
@@ -18,7 +18,7 @@ with the highest scores instead of popping the ones with the lowest scores.
 
 @array-reply: specifically:
 
-* A `nil` multi-bulk when no element could be popped and the timeout expired.
+* A @nil-reply when no element could be popped and the _timeout_ expired.
 * A three-element multi-bulk with the first element being the name of the key
   where a member was popped, the second element is the popped member itself,
   and the third element is the score of the popped element.

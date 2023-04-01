@@ -1,5 +1,5 @@
 A connection can use the `CLIENT TRACKING` command to enable [tracking](/topics/client-side-caching) notifications.
-The connection redirect the notifications to another connection.
+The connection can redirect the notifications to another connection.
 This introspective command lets clients query the server about a connection's redirect status.
 
 @return

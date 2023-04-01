@@ -9,7 +9,7 @@ Versions lower than Redis 6 were only able to understand the one-argument versio
 
 This form authenticates against the password set with `requirepass`.
 With this configuration, Redis will deny any command executed by unauthenticated clients.
-New connections always begin as unauthenticated, but can call `AUTH` to authenticate.
+New connections always begin as unauthenticated but can call `AUTH` to authenticate.
 
 If the password provided via `AUTH` matches the password in the configuration file, the server replies with the `OK` status code and starts accepting commands.
 Otherwise, an error is returned and the client needs to try a new password.

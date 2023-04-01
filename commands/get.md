@@ -1,10 +1,9 @@
-If `key` doesn't exist the special value `nil` is returned.
-An error is returned if the value stored at `key` is not a string, because `GET`
-only handles string values.
+If _key_ doesn't exist, the special value `nil` is returned.
+An error is returned if the value stored at _key_ is not a string, because `GET` only handles string values.
 
 @return
 
-@bulk-string-reply: the value of `key`, or a @nil-reply when `key` does not exist.
+@bulk-string-reply: the value of _key_, or a @nil-reply when _key_ doesn't exist.
 
 @examples
 

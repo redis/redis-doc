@@ -1,4 +1,4 @@
-Replies with `message`.
+Replies with _message_.
 
 @return
 

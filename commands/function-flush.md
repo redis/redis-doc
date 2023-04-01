@@ -1,4 +1,5 @@
-Unless called with the optional mode argument, the `lazyfree-lazy-user-flush` configuration directive sets the effective behavior. Valid modes are:
+Unless called with the optional mode argument, the `lazyfree-lazy-user-flush` configuration directive sets the effective behavior.
+Valid modes are:
 
 * `ASYNC`: Asynchronously flush the libraries.
 * `!SYNC`: Synchronously flush the libraries.

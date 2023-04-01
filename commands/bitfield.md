@@ -1,12 +1,18 @@
-The command treats a Redis string as an array of bits, and is capable of addressing specific integer fields of varying bit widths and arbitrary non (necessary) aligned offset. In practical terms using this command you can set, for example, a signed 5 bits integer at bit offset 1234 to a specific value, retrieve a 31 bit unsigned integer from offset 4567. Similarly the command handles increments and decrements of the specified integers, providing guaranteed and well specified overflow and underflow behavior that the user can configure.
+The command treats a Redis string as an array of bits.
+It's capable of addressing specific integer fields of varying bit widths and arbitrary non (necessary) aligned offset.
+In practical terms, using this command you can set, for example, a signed 5-bit integer at bit offset 1234 to a specific value, and retrieve a 31-bit unsigned integer from offset 4567.
+Similarly, the command handles increments and decrements of the specified integers, providing guaranteed and well-specified overflow and underflow behavior that the user can configure.
 
-`BITFIELD` is able to operate with multiple bit fields in the same command call. It takes a list of operations to perform, and returns an array of replies, where each array matches the corresponding operation in the list of arguments.
+`BITFIELD` can operate with multiple bit fields in the same command call.
+It takes a list of operations to perform and returns an array of replies, where each array matches the corresponding operation in the list of arguments.
 
-For example the following command increments a 5 bit signed integer at bit offset 100, and gets the value of the 4 bit unsigned integer at bit offset 0:
+For example, the following command increments a 5-bit signed integer at bit offset 100, and gets the value of the 4-bit unsigned integer at bit offset 0:
 
-    > BITFIELD mykey INCRBY i5 100 1 GET u4 0
-    1) (integer) 1
-    2) (integer) 0
+```
+> BITFIELD mykey INCRBY i5 100 1 GET u4 0
+1) (integer) 1
+2) (integer) 0
+```
 
 Note that:
 
@@ -29,16 +35,14 @@ There is another subcommand that only changes the behavior of successive
 Where an integer encoding is expected, it can be composed by prefixing with `i` for signed integers and `u` for unsigned integers with the number of bits of our integer encoding. So for example `u8` is an unsigned integer of 8 bits and `i16` is a
 signed integer of 16 bits.
 
-The supported encodings are up to 64 bits for signed integers, and up to 63 bits for
-unsigned integers. This limitation with unsigned integers is due to the fact
-that currently the Redis protocol is unable to return 64 bit unsigned integers
-as replies.
+The supported encodings are up to 64 bits for signed integers and up to 63 bits for
+unsigned integers.
+This limitation with unsigned integers is because currently the Redis protocol is unable to return 64-bit unsigned integers as replies.
 
 ## Bits and positional offsets
 
-There are two ways in order to specify offsets in the bitfield command.
-If a number without any prefix is specified, it is used just as a zero based
-bit offset inside the string.
+There are two ways to specify offsets in the bitfield command.
+If a number without any prefix is specified, it is used just as a zero-based bit offset inside the string.
 
 However if the offset is prefixed with a `#` character, the specified offset
 is multiplied by the integer encoding's width, so for example:
@@ -55,9 +59,9 @@ Using the `OVERFLOW` command the user is able to fine-tune the behavior of
 the increment or decrement overflow (or underflow) by specifying one of
 the following behaviors:
 
-* **WRAP**: wrap around, both with signed and unsigned integers. In the case of unsigned integers, wrapping is like performing the operation modulo the maximum value the integer can contain (the C standard behavior). With signed integers instead wrapping means that overflows restart towards the most negative value and underflows towards the most positive ones, so for example if an `i8` integer is set to the value 127, incrementing it by 1 will yield `-128`.
-* **SAT**: uses saturation arithmetic, that is, on underflows the value is set to the minimum integer value, and on overflows to the maximum integer value. For example incrementing an `i8` integer starting from value 120 with an increment of 10, will result into the value 127, and further increments will always keep the value at 127. The same happens on underflows, but towards the value is blocked at the most negative value.
-* **FAIL**: in this mode no operation is performed on overflows or underflows detected. The corresponding return value is set to NULL to signal the condition to the caller.
+* **WRAP**: wrap-around, both with signed and unsigned integers. In the case of unsigned integers, wrapping is like performing the operation modulo the maximum value the integer can contain (the C standard behavior). With signed integers instead wrapping means that overflows restart towards the most negative value and underflows towards the most positive ones, so for example if an `i8` integer is set to the value 127, incrementing it by 1 will yield `-128`.
+* **SAT**: uses saturation arithmetic, that is, on underflows, the value is set to the minimum integer value, and on overflows to the maximum integer value. For example, incrementing an `i8` integer starting from value 120 with an increment of 10, will result in the value 127, and further increments will always keep the value at 127. The same happens on underflows, but the value is blocked at the most negative value.
+* **FAIL**: in this mode, no operation is performed on overflows or underflows detected. The corresponding return value is set to NULL to signal the condition to the caller.
 
 Note that each `OVERFLOW` statement only affects the `!INCRBY` and `!SET`
 commands that follow it in the list of subcommands, up to the next `OVERFLOW`
@@ -80,8 +84,7 @@ By default, **WRAP** is used if not otherwise specified.
 
 ## Return value
 
-The command returns an array with each entry being the corresponding result of
-the sub command given at the same position. `OVERFLOW` subcommands don't count
+The command returns an array with each entry being the corresponding result of the sub-command given at the same position. `OVERFLOW` subcommands don't count
 as generating a reply.
 
 The following is an example of `OVERFLOW FAIL` returning NULL.
@@ -98,7 +101,8 @@ Fun fact: Reddit's 2017 April fools' project [r/place](https://reddit.com/r/plac
 
 ## Performance considerations
 
-Usually `BITFIELD` is a fast command, however note that addressing far bits of currently short strings will trigger an allocation that may be more costly than executing the command on bits already existing.
+Usually, `BITFIELD` is a fast command.
+However, note that addressing far bits of currently short strings will trigger an allocation that may be more costly than executing the command on bits already existing.
 
 ## Orders of bits
 
@@ -111,6 +115,5 @@ bitmap previously set to all zeroes, will produce the following representation:
     |00000001|01110000|
     +--------+--------+
 
-When offsets and integer sizes are aligned to bytes boundaries, this is the
-same as big endian, however when such alignment does not exist, its important
-to also understand how the bits inside a byte are ordered.
+When offsets and integer sizes are aligned to byte boundaries, this is the
+same as big-endian, however, when such alignment does not exist, it's important to also understand how the bits inside a byte are ordered.

@@ -1,4 +1,4 @@
-`GETEX` is similar to `GET`, but is a write command with additional options.
+`GETEX` is similar to `GET`, but is a write command that supports additional options.
 
 ## Options
 
@@ -12,7 +12,7 @@ The `GETEX` command supports a set of options that modify its behavior:
 
 @return
 
-@bulk-string-reply: the value of `key`, or `nil` when `key` does not exist.
+@bulk-string-reply: the value of _key_, or @nil-reply when _key_ doesn't exist.
 
 @examples
 

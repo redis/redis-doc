@@ -1,9 +1,6 @@
-Same result format as `COMMAND` except you can specify which commands
-get returned.
+Same result format as `COMMAND` except you can specify which commands get returned.
 
-If you request details about non-existing commands, their return
-position will be nil.
-
+If you request details about non-existing commands, their return position will be `nil`.
 
 @return
 

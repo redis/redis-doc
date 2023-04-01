@@ -1,7 +1,6 @@
 The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR**
 and **NOT**, thus the valid forms to call the command are:
 
-
 * `BITOP AND destkey srckey1 srckey2 srckey3 ... srckeyN`
 * `BITOP OR  destkey srckey1 srckey2 srckey3 ... srckeyN`
 * `BITOP XOR destkey srckey1 srckey2 srckey3 ... srckeyN`
@@ -10,7 +9,7 @@ and **NOT**, thus the valid forms to call the command are:
 As you can see **NOT** is special as it only takes an input key, because it
 performs inversion of bits so it only makes sense as a unary operator.
 
-The result of the operation is always stored at `destkey`.
+The result of the operation is always stored at _destkey_.
 
 ## Handling of strings with different lengths
 
@@ -18,14 +17,14 @@ When an operation is performed between strings having different lengths, all the
 strings shorter than the longest string in the set are treated as if they were
 zero-padded up to the length of the longest string.
 
-The same holds true for non-existent keys, that are considered as a stream of
+The same holds for non-existent keys, which are considered as a stream of
 zero bytes up to the length of the longest string.
 
 @return
 
 @integer-reply
 
-The size of the string stored in the destination key, that is equal to the
+The size of the string stored in the destination key is equal to the
 size of the longest input string.
 
 @examples
@@ -37,11 +36,11 @@ BITOP AND dest key1 key2
 GET dest
 ```
 
-## Pattern: real time metrics using bitmaps
+## Pattern: real-time metrics using bitmaps
 
 `BITOP` is a good complement to the pattern documented in the `BITCOUNT` command
 documentation.
-Different bitmaps can be combined in order to obtain a target bitmap where
+Different bitmaps can be combined to obtain a target bitmap where
 the population counting operation is performed.
 
 See the article called "[Fast easy realtime metrics using Redis
@@ -55,5 +54,5 @@ bitmaps][hbgc212fermurb]" for an interesting use cases.
 Care should be taken when running it against long input strings.
 
 For real-time metrics and statistics involving large inputs a good approach is
-to use a replica (with replica-read-only option enabled) where the bit-wise
+to use a replica (with the `replica-read-only` option enabled) where the bit-wise
 operations are performed to avoid blocking the master instance.

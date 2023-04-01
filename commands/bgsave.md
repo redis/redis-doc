@@ -3,7 +3,7 @@ Redis forks, the parent continues to serve the clients, the child saves the DB
 on disk then exits.
 
 An error is returned if there is already a background save running or if there
-is another non-background-save process running, specifically an in-progress AOF
+is another non-background-save process running specifically an in-progress AOF
 rewrite.
 
 If `BGSAVE SCHEDULE` is used, the command will immediately return `OK` when an

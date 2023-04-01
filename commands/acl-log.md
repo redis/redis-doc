@@ -50,13 +50,24 @@ When called with `RESET`:
 
 Each log entry is composed of the following fields:
 
-1. `count`: The number of security events detected within a 60 second period that are represented by this entry.
-2. `reason`: The reason that the security events were logged. Either `command`, `key`, `channel`, or `auth`.
-3. `context`: The context that the security events were detected in. Either `toplevel`, `multi`, `lua`, or `module`.
-4. `object`: The resource that the user had insufficient permissions to access. `auth` when the reason is `auth`.
-5. `username`: The username that executed the command that caused the security events or the username that had a failed authentication attempt.
-6. `age-seconds`: Age of the log entry in seconds.
-7. `client-info`: Displays the client info of a client which caused one of the security events.
-8. `entry-id`: The sequence number of the entry (starting at 0) since the server process started. Can also be used to check if items were “lost”, if they fell between periods.
-9. `timestamp-created`: A UNIX timestamp in `milliseconds` at the time the entry was first created.
-10. `timestamp-last-updated`: A UNIX timestamp in `milliseconds` at the time the entry was last updated.
+1. **count**: the number of security events detected within a 60-second period.
+2. **reason**: the trigger of the security events.
+  Can be one of the following:
+    1. **command**: no permissions to execute a command.
+    2. **key**: no permissions to access a key.
+    3. **channel**: no permissions to access a Pub/Sub channel.
+    4. **auth**: failed authentication attempt.
+3. **context**: the caller's context that generated the events.
+  Can be one of the following:
+    1. **toplevel**: regular client context.
+    2. **multi**: a transaction context.
+    3. **lua**: a script or function context.
+    4. **module**: a module context.
+4. **object**: the resource that the user had insufficient permissions to access, or "auth" when the reason is "auth".
+5. **username**: the username that executed the command that caused the security events, or the username that had a failed authentication attempt.
+6. **age-seconds**: the entry's age in seconds.
+7. **client-info**: information about the client in the same format as `CLIENT INFO`.
+8. **entry-id**: the sequence number of the entry (starting at 0) since the server process started.
+  Can also be used to check if items were "lost" between one call to the next.
+9. **timestamp-created**: the Unix timestamp in milliseconds of the time that the entry was first created.
+10. **timestamp-last-updated**: the Unix timestamp in milliseconds of the time that the entry was last updated.

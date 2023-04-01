@@ -1,7 +1,7 @@
-Each `key` argument adds one to the reply if it exists in the database.
+Each _key_ argument adds one to the reply if it exists in the database.
 
-Note that if the same existing key is mentioned in the arguments multiple times, it will be counted multiple times.
-So, if `somekey` exists, then `EXISTS somekey somekey` will return 2.
+Note that if the same key is given multiple times, it will be counted multiple times.
+So, if "somekey" exists, then `EXISTS somekey somekey` will return 2.
 
 @return
 

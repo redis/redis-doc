@@ -18,12 +18,15 @@ The link above is to the latest development version.
 It is possible to switch persistence from RDB snapshotting to append-only file (or any other combination) using the `CONFIG SET` command.
 For more information about how to do that please check the [persistence page][tp].
 
-Basically, setting the `appendonly` parameter to `yes`, will start a background process to save the initial append-only file (obtained from the in-memory data set).
+Setting the `appendonly` parameter to `yes`, will start a background process to save the initial append-only file (obtained from the in-memory data set).
 It will append all the subsequent commands on the append-only file, thus having the same effect as a Redis server that started with AOF turned on since the start.
 
 You can have both the AOF enabled with RDB snapshotting if you want, the two options are not mutually exclusive.
 
+As of Redis v7.0, setting "sensitive" parameters is disabled by default.
+See the `enable-protected-configs` configuration directive in redis.conf for more details.
+
 @return
 
 @simple-string-reply: `OK` when the configuration was set properly.
-Otherwise an error is returned.
+Otherwise, an error is returned.

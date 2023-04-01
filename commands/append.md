@@ -1,6 +1,6 @@
-If `key` already exists and is a string, this command appends the `value` at the
+If _key_ already exists and is a string, this command appends the _value_ at the
 end of the string.
-If `key` does not exist it is created and set as an empty string, so `APPEND`
+If _key_ doesn't exist, it is created and set as an empty string, so `APPEND`
 will be similar to `SET` in this special case.
 
 @return
@@ -28,8 +28,8 @@ APPEND timeseries "fixed-size sample"
 
 Accessing individual elements in the time series is not hard:
 
-* `STRLEN` can be used in order to obtain the number of samples.
-* `GETRANGE` allows for random access of elements.
+* `STRLEN` can be used to obtain the number of samples.
+* `GETRANGE` allows for random access to elements.
   If our time series have associated time information we can easily implement
   a binary search to get range combining `GETRANGE` with the Lua scripting
   engine available in Redis 2.6.

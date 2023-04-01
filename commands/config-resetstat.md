@@ -2,12 +2,12 @@ This command resets the statistics reported by Redis via the `INFO` and `LATENCY
 
 The following is a non-exhaustive list of values that are reset:
 
-* Keyspace hits and misses
-* Number of expired keys
-* Command and error statistics
-* Connections received, rejected and evicted
-* Persistence statistics
-* Active defragmentation statistics
+* Keyspace hits and misses.
+* The number of expired keys.
+* Command and error statistics.
+* Connections received, rejected and evicted.
+* Persistence statistics.
+* Active defragmentation statistics.
 
 @return
 

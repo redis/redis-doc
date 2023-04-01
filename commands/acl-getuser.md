@@ -1,4 +1,4 @@
-The command lists the ACL rules that apply to the user, and consist of:
+The command lists the ACL rules that apply to the user and consist of:
 
 * User flags
 * Password hashes
@@ -21,7 +21,7 @@ Selectors are listed in the order they were applied to the user, and include inf
 
 @array-reply: a list of ACL rule definitions for the user.
 
-If `user` does not exist a @nil-reply is returned.
+If _user_ does not exist a @nil-reply is returned.
 
 @examples
 

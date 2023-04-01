@@ -1,31 +1,17 @@
-After the timeout has expired, the key will automatically be deleted.
-A key with an associated timeout is often said to be _volatile_ in Redis
-terminology.
+After the _seconds_ timeout has expired, the _key_ will automatically be deleted.
+A key with an associated timeout is often said to be _volatile_ in Redis terminology.
 
-The timeout will only be cleared by commands that delete or overwrite the
-contents of the key, including `DEL`, `SET`, `GETSET` and all the `*STORE`
-commands.
-This means that all the operations that conceptually _alter_ the value stored at
-the key without replacing it with a new one will leave the timeout untouched.
-For instance, incrementing the value of a key with `INCR`, pushing a new value
-into a list with `LPUSH`, or altering the field value of a hash with `HSET` are
-all operations that will leave the timeout untouched.
+The timeout, or time-to-live (TTL), will only be cleared by commands that delete or overwrite the contents of the key, including `DEL`, `SET`, `GETSET` and all the `*STORE` commands.
+This means that all the operations that conceptually _alter_ the value stored at the key without replacing it with a new one will leave the timeout untouched.
+For instance, incrementing the value of a key with `INCR`, pushing a new value into a list with `LPUSH`, or altering the field value of a hash with `HSET` are all operations that will leave the timeout untouched.
 
-The timeout can also be cleared, turning the key back into a persistent key,
-using the `PERSIST` command.
+The timeout can also be cleared, turning the key back into a persistent key, using the `PERSIST` command.
 
-If a key is renamed with `RENAME`, the associated time to live is transferred to
-the new key name.
+If a key is renamed with `RENAME`, the associated time to live is transferred to the new key name.
 
-If a key is overwritten by `RENAME`, like in the case of an existing key `Key_A`
-that is overwritten by a call like `RENAME Key_B Key_A`, it does not matter if
-the original `Key_A` had a timeout associated or not, the new key `Key_A` will
-inherit all the characteristics of `Key_B`.
+If a key is overwritten by `RENAME`, like in the case of an existing key `Key_A` that is overwritten by a call like `RENAME Key_B Key_A`, it does not matter if the original `Key_A` had a timeout associated or not, the new key `Key_A` will inherit all the characteristics of `Key_B`.
 
-Note that calling `EXPIRE`/`PEXPIRE` with a non-positive timeout or
-`EXPIREAT`/`PEXPIREAT` with a time in the past will result in the key being
-[deleted][del] rather than expired (accordingly, the emitted [key event][ntf]
-will be `del`, not `expired`).
+Note that calling `EXPIRE`/`PEXPIRE` with a non-positive timeout or `EXPIREAT`/`PEXPIREAT` with a time in the past will result in the key being [deleted][del] rather than expired (accordingly, the emitted [key event][ntf] will be `del`, not `expired`).
 
 [del]: /commands/del
 [ntf]: /topics/notifications
@@ -36,25 +22,23 @@ The `EXPIRE` command supports a set of options:
 
 * `NX` -- Set expiry only when the key has no expiry
 * `XX` -- Set expiry only when the key has an existing expiry
-* `GT` -- Set expiry only when the new expiry is greater than current one
-* `LT` -- Set expiry only when the new expiry is less than current one
+* `GT` -- Set expiry only when the new expiry is greater than the current one
+* `LT` -- Set expiry only when the new expiry is less than the current one
 
-A non-volatile key is treated as an infinite TTL for the purpose of `GT` and `LT`.
+A non-volatile key is treated as having an infinite TTL when called with `GT` and `LT`.
 The `GT`, `LT` and `NX` options are mutually exclusive.
 
 ## Refreshing expires
 
-It is possible to call `EXPIRE` using as argument a key that already has an
-existing expire set.
-In this case the time to live of a key is _updated_ to the new value.
-There are many useful applications for this, an example is documented in the
-_Navigation session_ pattern section below.
+It is possible to call `EXPIRE` on a key that already has a TTL set.
+In this case, the time-to-live of the key is _updated_ to the new value.
+There are many useful applications for this, an example is documented in the _Navigation session_ pattern section below.
 
 ## Differences in Redis prior 2.1.3
 
 In Redis versions prior **2.1.3** altering a key with an expire set using a
 command altering its value had the effect of removing the key entirely.
-This semantics was needed because of limitations in the replication layer that
+These semantics were needed because of limitations in the replication layer that
 are now fixed.
 
 `EXPIRE` would return 0 and not alter the timeout for a key with a timeout set.
@@ -64,7 +48,7 @@ are now fixed.
 @integer-reply, specifically:
 
 * `1` if the timeout was set.
-* `0` if the timeout was not set. e.g. key doesn't exist, or operation skipped due to the provided arguments.
+* `0` if the timeout was not set. e.g. key doesn't exist, or when the operation was skipped due to the provided arguments.
 
 @examples
 

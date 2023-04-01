@@ -1,7 +1,6 @@
-Atomically sets `key` to `value` and returns the old value stored at `key`.
-Returns an error when `key` exists but does not hold a string value.  Any 
-previous time to live associated with the key is discarded on successful 
-`SET` operation.
+Atomically sets _key_ to _value_ and returns the old value stored at _key_.
+Returns an error when _key_ exists but does not hold a string value.
+Any previous time-to0live associated with the key is discarded on successful `SET` operation.
 
 ## Design pattern
 
@@ -19,7 +18,7 @@ GET mycounter
 
 @return
 
-@bulk-string-reply: the old value stored at `key`, or `nil` when `key` did not exist.
+@bulk-string-reply: the old value stored at _key_, or @nil-reply when _key_ doesn't exist.
 
 @examples
 

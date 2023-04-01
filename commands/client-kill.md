@@ -2,7 +2,7 @@ This command supports two formats, the old format:
 
     CLIENT KILL addr:port
 
-The `ip:port` should match a line returned by the `CLIENT LIST` command (`addr` field).
+The `addr:port` should match a line returned by the `CLIENT LIST` command (`addr` field).
 
 The new format:
 

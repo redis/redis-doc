@@ -1,6 +1,6 @@
 Given a sorted set representing a geospatial index, populated using the `GEOADD` command, the command returns the distance between the two specified members in the specified unit.
 
-If one or both the members are missing, the command returns NULL.
+If one or both members are missing, the command returns a `nil`.
 
 The unit must be one of the following, and defaults to meters:
 

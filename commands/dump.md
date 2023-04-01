@@ -1,5 +1,4 @@
-The reply can be synthesized back into a Redis key using the `RESTORE`
-command.
+The reply can be synthesized back into a Redis key using the `RESTORE` command.
 
 The serialization format is opaque and non-standard.
 However, it has a few semantic characteristics:
@@ -13,11 +12,10 @@ However, it has a few semantic characteristics:
   versions with incompatible RDB formats will refuse to process the serialized
   value.
 
-The serialized value does NOT contain expire information.
-In order to capture the time to live of the current value the `PTTL` command
-should be used.
+The serialized value does **NOT** contain expire information.
+To capture the time-to-live of the current value the `PTTL` command should be used.
 
-If `key` does not exist a nil bulk reply is returned.
+If _key_ doesn't exist a `nil` reply is returned.
 
 @return
 

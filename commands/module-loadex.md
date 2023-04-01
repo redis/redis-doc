@@ -10,6 +10,9 @@ Any additional arguments that follow the `ARGS` keyword are passed unmodified to
 **Note**: modules can also be loaded at server startup with `loadmodule`
 configuration directive in `redis.conf`.
 
+As of Redis v7.0, this command is disabled by default.
+See the `enable-module-command` configuration directive in redis.conf for more details.
+
 @return
 
 @simple-string-reply: `OK` if module was loaded.
