@@ -846,6 +846,7 @@ redis
 redis-benchmark
 redis-check-aof
 redis-cli
+redis-clients
 redis-doc
 redis-hashes
 redis-lua
