@@ -20,6 +20,7 @@ SUBSCRIBE channel11 4chan
 ```
 
 Messages sent by other clients to these channels will be pushed by Redis to all the subscribed clients.
+Subscribers receive the messages in the order that the messages are published.
 
 A client subscribed to one or more channels shouldn't issue commands, although it can `SUBSCRIBE` and `UNSUBSCRIBE` to and from other channels.
 The replies to subscription and unsubscribing operations are sent in the form of messages so that the client can just read a coherent stream of messages where the first element indicates the type of message.
@@ -184,7 +185,6 @@ It restricts the propagation of messages to be within the shard of a cluster.
 Hence, the amount of data passing through the cluster bus is limited in comparison to global Pub/Sub where each message propagates to each node in the cluster.
 This allows users to horizontally scale the Pub/Sub usage by adding more shards.
  
-
 ## Programming example
 
 Pieter Noordhuis provided a great example using EventMachine and Redis to create [a multi user high performance web chat](https://gist.github.com/pietern/348262).
