@@ -1,22 +1,13 @@
-Atomically returns and removes the first/last element (head/tail depending on
-the `wherefrom` argument) of the list stored at `source`, and pushes the
-element at the first/last element (head/tail depending on the `whereto`
-argument) of the list stored at `destination`.
+Atomically returns and removes the first/last element (head/tail depending on the _wherefrom_ argument) of the list stored at _source_, and pushes the element at the first/last element (head/tail depending on the _whereto_ argument) of the list stored at _destination_.
 
-For example: consider `source` holding the list `a,b,c`, and `destination`
-holding the list `x,y,z`.
-Executing `LMOVE source destination RIGHT LEFT` results in `source` holding
-`a,b` and `destination` holding `c,x,y,z`.
+For example, consider a key called "src" that's the following list: "a", "b" and "c".
+The "dst" key is a list that consists of "x", "y", and "z".
+Executing `LMOVE src dst RIGHT LEFT` results in "src" containing only "a" and "b", whereas "dst" contains "c", "x", "y" and "z".
 
-If `source` does not exist, the value `nil` is returned and no operation is
-performed.
-If `source` and `destination` are the same, the operation is equivalent to
-removing the first/last element from the list and pushing it as first/last
-element of the list, so it can be considered as a list rotation command (or a
-no-op if `wherefrom` is the same as `whereto`).
+If _source_ doesn't exist, the value `nil` is returned and no operation is performed.
+If _source_ and _destination_ are the same, the operation is equivalent to removing the first/last element from the list and pushing it as first/last element of the list, so it can be considered as a list rotation command (or a no-op if _wherefrom_ is the same as _whereto_).
 
-This command comes in place of the now deprecated `RPOPLPUSH`. Doing
-`LMOVE RIGHT LEFT` is equivalent.
+This command comes in place of the now deprecated `RPOPLPUSH`. Doing `LMOVE RIGHT LEFT` is equivalent.
 
 @return
 

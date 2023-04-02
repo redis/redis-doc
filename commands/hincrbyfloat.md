@@ -1,14 +1,14 @@
-Increment the floating-point number value of the specified `field` of a hash stored at `key` by the specified `increment`.
+Increment the floating-point number value of the specified _field_ of a hash stored at _key_ by the specified _increment_.
 Use a negative increment value to **decrement** the hash field's value.
 If the field doesn't exist, it is set to `0` before the operation.
-An error is returned if the field's value or increment aren't a string representation of a floating-point number.
+An error is returned if the field's value or increment aren't string representations of a floating-point number.
 
 The behavior of this command is identical to the one of the `INCRBYFLOAT` command.
 Please refer to the documentation of `INCRBYFLOAT` for further information.
 
 @return
 
-@bulk-string-reply: the value of `field` after the increment.
+@bulk-string-reply: the value of _field_ after the increment.
 
 @examples
 

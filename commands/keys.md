@@ -1,20 +1,19 @@
-Returns all keys matching `pattern`.
+Returns all keys matching_`pattern_.
 
 While the time complexity for this operation is O(N), the constant times are
 fairly low.
-For example, Redis running on an entry level laptop can scan a 1 million key
+For example, Redis running on an entry-level laptop can scan a 1 million key
 database in 40 milliseconds.
 
-**Warning**: consider `KEYS` as a command that should only be used in production
-environments with extreme care.
+{{% alert title="Warning" color="warning" %}}
+Consider `KEYS` as a command that should only be used in production environments with extreme care.
 It may ruin performance when it is executed against large databases.
-This command is intended for debugging and special operations, such as changing
-your keyspace layout.
-Don't use `KEYS` in your regular application code.
-If you're looking for a way to find keys in a subset of your keyspace, consider
-using `SCAN` or [sets][tdts].
+This command is intended for debugging and special operations, such as changing your keyspace layout.
 
-[tdts]: /topics/data-types#sets
+Don't use `KEYS` in your regular application code.
+If you're looking for a way to find keys in a subset of your keyspace, consider using `SCAN` or [sets](/docs/data-types/sets).
+{{% /alert  %}}
+
 
 Supported glob-style patterns:
 
@@ -28,7 +27,7 @@ Use `\` to escape special characters if you want to match them verbatim.
 
 @return
 
-@array-reply: list of keys matching `pattern`.
+@array-reply: list of keys matching _pattern_.
 
 @examples
 

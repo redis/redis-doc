@@ -1,11 +1,11 @@
-Returns whether `field` exists in the hash stored at `key`.
+Returns whether _field_ exists in the hash stored at _key_.
 
 @return
 
 @integer-reply, specifically:
 
-* `1` if the hash contains `field`.
-* `0` if the hash does not contain `field`, or `key` doesn't exist.
+* `1` if the hash contains the _field_.
+* `0` if the hash doesn't contain the _field_, or _key_ doesn't exist.
 
 @examples
 

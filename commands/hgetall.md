@@ -9,7 +9,7 @@ Prefer using `HSCAN` for iterating over hashes with a large number of fields.
 @return
 
 @array-reply: list of fields and their values stored in the hash, or an
-empty list when `key` does not exist.
+empty list when _key_ doesn't exist.
 
 @examples
 

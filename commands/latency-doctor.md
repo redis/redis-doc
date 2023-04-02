@@ -1,7 +1,7 @@
 The `LATENCY DOCTOR` command reports about different latency-related issues and advises about possible remedies.
 
 This command is the most powerful analysis tool in the latency monitoring
-framework, and is able to provide additional statistical data like the average
+framework, and can provide additional statistical data like the average
 period between latency spikes, the median deviation, and a human-readable
 analysis of the event. For certain events, like `fork`, additional information
 is provided, like the rate at which the system forks processes.

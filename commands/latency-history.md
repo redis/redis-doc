@@ -1,10 +1,10 @@
-The `LATENCY HISTORY` command returns the raw data of the `event`'s latency spikes time series.
+The `LATENCY HISTORY` command returns the raw data of the _event_'s latency spikes time series.
 
-This is useful to an application that wants to fetch raw data in order to perform monitoring, display graphs, and so forth.
+This is useful to an application that wants to fetch raw data to perform monitoring, display graphs, and so forth.
 
-The command will return up to 160 timestamp-latency pairs for the `event`.
+The command will return up to 160 timestamp-latency pairs for the _event_.
 
-Valid values for `event` are:
+Valid values for _event_ are:
 * `active-defrag-cycle`
 * `aof-fsync-always`
 * `aof-stat`
@@ -40,5 +40,4 @@ For more information refer to the [Latency Monitoring Framework page][lm].
 
 @array-reply: specifically:
 
-The command returns an array where each element is a two elements array
-representing the timestamp and the latency of the event.
+The command returns an array where each element is a two-element array representing the timestamp and the latency of the event.

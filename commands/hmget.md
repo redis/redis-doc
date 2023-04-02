@@ -1,9 +1,9 @@
-Returns the values associated with the specified `fields` in the hash stored at
-`key`.
+Returns the values associated with the specified _fields_ in the hash stored at
+_key_.
 
-For every `field` that does not exist in the hash, a `nil` value is returned.
+For every _field_ that doesn't exist in the hash, a `nil` value is returned.
 Because non-existing keys are treated as empty hashes, running `HMGET` against
-a non-existing `key` will return a list of `nil` values.
+a non-existing keys will return a list of `nil` values.
 
 @return
 

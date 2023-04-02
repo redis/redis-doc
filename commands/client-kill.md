@@ -14,7 +14,7 @@ With the new form, it is possible to kill clients by different attributes instea
 * `CLIENT KILL LADDR ip:port`. Kill all clients connected to specified local (bind) address.
 * `CLIENT KILL ID client-id`. Allows to kill a client by its unique `ID` field. Client `ID`'s are retrieved using the `CLIENT LIST` command.
 * `CLIENT KILL TYPE type`, where *type* is one of `normal`, `master`, `replica` and `pubsub`. This closes the connections of **all the clients** in the specified class. Note that clients blocked into the `MONITOR` command are considered to belong to the `normal` class.
-* `CLIENT KILL USER username`. Closes all the connections that are authenticated with the specified [ACL](/topics/acl) username, however it returns an error if the username does not map to an existing ACL user.
+* `CLIENT KILL USER username`. Closes all the connections that are authenticated with the specified [ACL](/topics/acl) username, however, it returns an error if the username doesn't map to an existing ACL user.
 * `CLIENT KILL SKIPME yes/no`. By default this option is set to `yes`, that is, the client calling the command will not get killed, however setting this option to `no` will have the effect of also killing the client calling the command.
 
 It is possible to provide multiple filters at the same time. The command will handle multiple filters via logical AND. For example:

@@ -1,14 +1,13 @@
-Inserts `element` in the list stored at `key` either before or after the reference
-value `pivot`.
+Inserts _element_ in the list stored at _key_ either before or after the reference
+value _pivot_.
 
-When `key` does not exist, it is considered an empty list and no operation is
-performed.
+When the _key_ doesn't exist, it is considered an empty list and no operation is performed.
 
-An error is returned when `key` exists but does not hold a list value.
+An error is returned when the _key_ exists but doesn't hold a list value.
 
 @return
 
-@integer-reply: the list length after a successful insert operation, `0` if the `key` doesn't exist, and `-1` when the `pivot` wasn't found.
+@integer-reply: the list length after a successful insert operation, `0` if the _key_ doesn't exist, and `-1` when the _pivot_ wasn't found.
 
 @examples
 

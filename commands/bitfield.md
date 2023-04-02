@@ -16,7 +16,7 @@ For example, the following command increments a 5-bit signed integer at bit offs
 
 Note that:
 
-1. Addressing with `!GET` bits outside the current string length (including the case the key does not exist at all), results in the operation to be performed like the missing part all consists of bits set to 0.
+1. Addressing with `!GET` bits outside the current string length (including the case the key doesn't exist at all), results in the operation to be performed like the missing part all consists of bits set to 0.
 2. Addressing with `!SET` or `!INCRBY` bits outside the current string length will enlarge the string, zero-padding it, as needed, for the minimal length needed, according to the most far bit touched.
 
 ## Supported subcommands and integer encoding

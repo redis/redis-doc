@@ -12,7 +12,7 @@ Note: an asynchronous `FLUSHDB` command only deletes keys that were present at t
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.
 
 ## Behavior change history
 

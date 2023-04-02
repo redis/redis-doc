@@ -113,7 +113,7 @@ This can be a problem with some applications where we want a more reliable messa
 
 Using blocking list operations it is possible to mount different blocking
 primitives.
-For instance, for some applications, you may need to block waiting for elements into a [Redis set](/docs/data-types/sets/) so that as far as a new element is added to the Set, it is
+For instance, for some applications, you may need to block waiting for elements into a [Redis set](/docs/data-types/sets) so that as far as a new element is added to the Set, it is
 possible to retrieve it without resorting to polling.
 This would require a blocking version of `SPOP` that is not available, but using
 blocking list operations we can easily accomplish this task.

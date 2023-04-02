@@ -1,8 +1,8 @@
 Return the UNIX TIME of the last DB save executed with success.
-A client may check if a `BGSAVE` command succeeded reading the `LASTSAVE` value,
+A client may check if a `BGSAVE` command succeeded by reading the `LASTSAVE` value,
 then issuing a `BGSAVE` command and checking at regular intervals every N
 seconds if `LASTSAVE` changed. Redis considers the database saved successfully at startup.
 
 @return
 
-@integer-reply: an UNIX time stamp.
+@integer-reply: a Unix timestamp.

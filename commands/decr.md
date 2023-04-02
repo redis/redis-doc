@@ -1,6 +1,6 @@
 Decrements the number stored at _key_ by one.
 If the key doesn't exist, it is set to `0` before the operation.
-An error is returned if the key contains a value of the wrong type, or contains a string that can not be represented as an integer.
+An error is returned if the key contains a value of the wrong type, or contains a string that can't be represented as an integer.
 This operation is limited to **64-bit signed integers**.
 
 See `INCR` for more information about increment/decrement operations.

@@ -5,7 +5,7 @@ For more information please refer to [Introduction to Redis Functions](/topics/f
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.
 
 @examples
 

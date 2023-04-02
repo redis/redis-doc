@@ -1,9 +1,9 @@
-Returns the string length of the value associated with `field` in the hash stored at `key`.
-If either `key` or `field` doesn't exist, 0 is returned.
+Returns the string length of the value associated with _field_ in the hash stored at _key_.
+If either _key_ or _field_ doesn't exist, 0 is returned.
 
 @return
 
-@integer-reply: the string length of the value associated with `field`, or zero when `field` is not present in the hash or `key` does not exist at all.
+@integer-reply: the string length of the value associated with _field_, or zero when _field_ is not present in the hash or _key_ doesn't exist at all.
 
 @examples
 

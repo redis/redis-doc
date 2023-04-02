@@ -21,7 +21,7 @@ Selectors are listed in the order they were applied to the user, and include inf
 
 @array-reply: a list of ACL rule definitions for the user.
 
-If _user_ does not exist a @nil-reply is returned.
+If _user_ doesn't exist a @nil-reply is returned.
 
 @examples
 

@@ -12,7 +12,7 @@ Note: an asynchronous `FLUSHALL` command only deletes keys that were present at 
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.
 
 ## Behavior change history
 

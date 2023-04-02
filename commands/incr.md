@@ -1,21 +1,17 @@
-Increments the number stored at `key` by one.
-If the key does not exist, it is set to `0` before performing the operation.
-An error is returned if the key contains a value of the wrong type or contains a
-string that can not be represented as integer.
-This operation is limited to 64 bit signed integers.
+Increments the number stored at _key_ by one.
+If the key doesn't exist, it is set to `0` before the operation.
+An error is returned if the key contains a value of the wrong type, or contains a string that can't be represented as an integer.
+This operation is limited to **64-bit signed integers**.
 
 **Note**: this is a string operation because Redis does not have a dedicated
 integer type.
-The string stored at the key is interpreted as a base-10 **64 bit signed
-integer** to execute the operation.
+The string stored at the key is interpreted as a base-10 **64-bit signed integer** to execute the operation.
 
-Redis stores integers in their integer representation, so for string values
-that actually hold an integer, there is no overhead for storing the string
-representation of the integer.
+Redis stores integers in their integer representation, so for string values that hold an integer, there is no overhead for storing the string representation of the integer.
 
 @return
 
-@integer-reply: the value of `key` after the increment
+@integer-reply: the value of _key_ after the increment
 
 @examples
 

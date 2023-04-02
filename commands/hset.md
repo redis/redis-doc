@@ -1,7 +1,7 @@
-Sets the specified fields to their respective values in the hash stored at `key`.
+Sets the specified fields to their respective values in the hash stored at _key_.
 
 The command overwrites all specified fields that already exist in the hash.
-If `key` doesn't exist, a new key is created for the hash.
+If the _key_ doesn't exist, a new key is created for the hash.
 
 @return
 

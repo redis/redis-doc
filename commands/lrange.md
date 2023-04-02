@@ -1,12 +1,8 @@
-Returns the specified elements of the list stored at `key`.
-The offsets `start` and `stop` are zero-based indexes, with `0` being the first
-element of the list (the head of the list), `1` being the next element and so
-on.
+Returns the specified elements of the list stored at _key_.
+The offsets _start_ and _stop_ are zero-based indexes, with `0` being the first element of the list (the head of the list), `1` being the next element and so on.
 
-These offsets can also be negative numbers indicating offsets starting at the
-end of the list.
-For example, `-1` is the last element of the list, `-2` the penultimate, and so
-on.
+These offsets can also be negative numbers indicating offsets starting at the end of the list.
+For example, `-1` is the last element of the list, `-2` is the penultimate, and so on.
 
 ## Consistency with range functions in various programming languages
 
@@ -18,9 +14,9 @@ or Python's `range()` function).
 
 ## Out-of-range indexes
 
-Out of range indexes will not produce an error.
-If `start` is larger than the end of the list, an empty list is returned.
-If `stop` is larger than the actual end of the list, Redis will treat it like
+Out-of-range indexes will not produce an error.
+If _start_ is larger than the end of the list, an empty list is returned.
+If _stop_ is larger than the actual end of the list, Redis will treat it like
 the last element of the list.
 
 @return
