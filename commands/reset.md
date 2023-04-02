@@ -1,8 +1,6 @@
-This command performs a full reset of the connection's server-side context, 
-mimicking the effect of disconnecting and reconnecting again.
+This command performs a full reset of the connection's server-side context, mimicking the effect of disconnecting and reconnecting again.
 
-When the command is called from a regular client connection, it does the
-following:
+When the command is called from a regular client connection, it does the following:
 
 * Discards the current `MULTI` transaction block, if one exists.
 * Unwatches all keys `WATCH`ed by the connection.
@@ -20,4 +18,4 @@ following:
 
 @return
 
-@simple-string-reply: always 'RESET'.
+@simple-string-reply: always `RESET`.

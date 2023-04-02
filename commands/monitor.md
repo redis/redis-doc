@@ -1,11 +1,8 @@
-`MONITOR` is a debugging command that streams back every command processed by
-the Redis server.
+`MONITOR` is a debugging command that streams back every command processed by the Redis server.
 It can help in understanding what is happening to the database.
 This command can both be used via `redis-cli` and via `telnet`.
 
-The ability to see all the requests processed by the server is useful in order
-to spot bugs in an application both when using Redis as a database and as a
-distributed caching system.
+The ability to see all the requests processed by the server is useful to spot bugs in an application both when using Redis as a database and as a distributed caching system.
 
 ```
 $ redis-cli monitor

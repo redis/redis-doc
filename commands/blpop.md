@@ -1,8 +1,11 @@
 `BLPOP` is a blocking list pop primitive.
-It is the blocking version of `LPOP` because it blocks the connection when there
-are no elements to pop from any of the given lists.
-An element is popped from the head of the first list that is non-empty, with the
-given keys being checked in the order that they are given.
+It is the blocking version of `LPOP` because it blocks the connection when there are no elements to pop from any of the given lists.
+An element is popped from the head of the first list that is non-empty, with the given keys being checked in the order that they are given.
+
+{{% alert title="Note" color="info" %}}
+A Redis list always consists of one or element.
+When the last element is popped, the list is automatically deleted from the database.
+{{% /alert  %}}
 
 ## Non-blocking behavior
 
@@ -20,7 +23,7 @@ BLPOP list1 list2 list3 0
 ```
 
 `BLPOP` guarantees to return an element from the list stored at `list2` (since
-it is the first non empty list when checking `list1`, `list2` and `list3` in
+it is the first non-empty list when checking `list1`, `list2` and `list3` in
 that order).
 
 ## Blocking behavior

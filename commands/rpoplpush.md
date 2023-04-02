@@ -1,17 +1,16 @@
-Atomically returns and removes the last element (tail) of the list stored at
-`source`, and pushes the element at the first element (head) of the list stored
-at `destination`.
+Atomically returns and removes the last element (tail) of the list stored at _source_, and pushes the element at the first element (head) of the list stored at _destination_.
 
-For example: consider `source` holding the list `a,b,c`, and `destination`
-holding the list `x,y,z`.
-Executing `RPOPLPUSH` results in `source` holding `a,b` and `destination`
-holding `c,x,y,z`.
+For example: consider a key called "src" with the list "a", "b" and "c", and a "dst" key with the list "x", "y" and "z".
+Executing `RPOPLPUSH src dst` results in "src" consisting of "a" and "b", and "dst"
+of "c", "x", "y" and "z".
 
-If `source` does not exist, the value `nil` is returned and no operation is
-performed.
-If `source` and `destination` are the same, the operation is equivalent to
-removing the last element from the list and pushing it as first element of the
-list, so it can be considered as a list rotation command.
+If _source_ doesn't exist, the value `nil` is returned and no operation is performed.
+If _source_ and _destination_ are the same, the operation is equivalent to removing the last element from the list and pushing it as the first element of the list, so it can be considered a list rotation command.
+
+{{% alert title="Note" color="info" %}}
+A Redis list always consists of one or element.
+When the last element is popped, the list is automatically deleted from the database.
+{{% /alert  %}}
 
 @return
 

@@ -7,4 +7,4 @@ of a connection back to readwrite.
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.

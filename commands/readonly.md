@@ -16,4 +16,4 @@ master node. This may happen because:
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.

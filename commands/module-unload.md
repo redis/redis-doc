@@ -1,8 +1,5 @@
-Unloads a module.
-
-This command unloads the module specified by `name`. Note that the module's name
-is reported by the `MODULE LIST` command, and may differ from the dynamic
-library's filename.
+This command unloads the module specified by _name_.
+Note that the module's name is reported by the `MODULE LIST` command, and may differ from the dynamic library's filename.
 
 Known limitations:
 
@@ -13,4 +10,4 @@ See the `enable-module-command` configuration directive in redis.conf for more d
 
 @return
 
-@simple-string-reply: `OK` if module was unloaded.
+@simple-string-reply: `OK` if the module was unloaded.

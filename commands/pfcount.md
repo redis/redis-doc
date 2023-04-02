@@ -2,14 +2,13 @@ When called with a single key, returns the approximated cardinality computed by 
 
 When called with multiple keys, returns the approximated cardinality of the union of the HyperLogLogs passed, by internally merging the HyperLogLogs stored at the provided keys into a temporary HyperLogLog.
 
-The HyperLogLog data structure can be used in order to count **unique** elements in a set using just a small constant amount of memory, specifically 12k bytes for every HyperLogLog (plus a few bytes for the key itself).
+The HyperLogLog data structure can be used ito count **unique** elements in a set using just a small constant amount of memory, specifically 12k bytes for every HyperLogLog (plus a few bytes for the key itself).
 
-The returned cardinality of the observed set is not exact, but approximated with a standard error of 0.81%.
+The returned cardinality of the observed set is not exact but approximated with a standard error of 0.81%.
 
-For example in order to take the count of all the unique search queries performed in a day, a program needs to call `PFADD` every time a query is processed. The estimated number of unique queries can be retrieved with `PFCOUNT` at any time.
+For example, to take the count of all the unique search queries performed in a day, a program needs to call `PFADD` every time a query is processed. The estimated number of unique queries can be retrieved with `PFCOUNT` at any time.
 
-Note: as a side effect of calling this function, it is possible that the HyperLogLog is modified, since the last 8 bytes encode the latest computed cardinality
-for caching purposes. So `PFCOUNT` is technically a write command.
+Note: as a side effect of calling this function, the HyperLogLog may be modified, since the last 8 bytes encode the latest computed cardinality for caching purposes. So `PFCOUNT` is technically a write command.
 
 @return
 

@@ -1,7 +1,5 @@
-Move `key` from the currently selected database (see `SELECT`) to the specified
-destination database.
-When `key` already exists in the destination database, or it does not exist in
-the source database, it does nothing.
+Move _key_ from the currently selected database (see `SELECT`) to the specified destination database.
+When _key_ already exists in the destination _db_, or it doesn't exist in the source database, the command does nothing.
 It is possible to use `MOVE` as a locking primitive because of this.
 
 @return
