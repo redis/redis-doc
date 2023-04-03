@@ -1,9 +1,8 @@
-Returns the set cardinality (number of elements) of the set stored at `key`.
+Returns the cardinality (number of elements) of the set stored at _key_.
 
 @return
 
-@integer-reply: the cardinality (number of elements) of the set, or `0` if `key`
-does not exist.
+@integer-reply: the cardinality (number of elements) of the set, or `0` if _key_ doesn't exist.
 
 @examples
 

@@ -9,7 +9,7 @@ Otherwise, if a _pattern_ is specified, only channels matching the specified glo
 In a Redis Cluster clients can subscribe to every node, and can also publish to every other node.
 The cluster will make sure that published messages are forwarded as needed.
 That said, `PUBSUB`'s replies in a cluster only report information from the node's Pub/Sub context, rather than the entire cluster.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

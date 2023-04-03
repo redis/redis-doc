@@ -6,7 +6,7 @@ Clients shouldn't use this command.
 
 Instead, clients should simply close the connection when they're not used anymore.
 Terminating a connection on the client side is preferable, as it eliminates `TIME_WAIT` lingering sockets on the server side.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

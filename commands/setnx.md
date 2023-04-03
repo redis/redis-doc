@@ -1,6 +1,6 @@
-Set `key` to hold string `value` if `key` does not exist.
-In that case, it is equal to `SET`.
-When `key` already holds a value, no operation is performed.
+Set _key_ to the string _value_, if and only if _key_ doesn't exist.
+In that case, the command is identical to `SET`.
+When _key_ already exists, no operation is performed.
 `SETNX` is short for "**SET** if **N**ot e**X**ists".
 
 @return

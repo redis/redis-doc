@@ -5,7 +5,7 @@ In this case, the command will return an empty list.
 
 {{% alert title="Cluster note" color="info" %}}
 In a Redis Cluster, `PUBSUB`'s replies in a cluster only report information from the node's Pub/Sub context, rather than the entire cluster.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

@@ -7,9 +7,9 @@ See the [BLPOP documentation][cb] for the exact semantics, since `BRPOP` is iden
 [cb]: /commands/blpop
 
 {{% alert title="Note" color="info" %}}
-A Redis list always consists of one or element.
+A Redis list always consists of one or elements.
 When the last element is popped, the list is automatically deleted from the database.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

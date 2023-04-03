@@ -1,5 +1,4 @@
-Set `key` to hold the string `value` and set `key` to timeout after a given
-number of seconds.
+Set _key_ to the string _value_ and its expiry time to _seconds_.
 This command is equivalent to:
 
 ```
@@ -7,11 +6,11 @@ SET key value EX seconds
 ```
 
 
-An error is returned when `seconds` is invalid.
+An error is returned when _seconds_ isn't a valid value.
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.
 
 @examples
 

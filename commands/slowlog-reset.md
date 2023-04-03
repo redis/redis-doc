@@ -1,7 +1,7 @@
-This command resets the slow log, clearing all entries in it.
+This command resets the slow log, deleting all entries from it.
 
-Once deleted the information is lost forever.
+Once deleted, the slow log's information is lost forever.
 
-@reply
+@return
 
-@simple-string-reply: `OK`
+@simple-string-reply: `OK`.

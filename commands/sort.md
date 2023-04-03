@@ -34,11 +34,9 @@ Redis is UTF-8 aware, assuming you correctly set the `!LC_COLLATE` environment
 variable.
 
 The number of returned elements can be limited using the `!LIMIT` modifier.
-This modifier takes the `offset` argument, specifying the number of elements to
-skip and the `count` argument, specifying the number of elements to return from
-starting at `offset`.
+This modifier takes the _offset_ argument, specifying the number of elements to skip and the _count_ argument, specifying the number of elements to return from starting at _offset_.
 The following example will return 10 elements of the sorted version of `mylist`,
-starting at element 0 (`offset` is zero-based):
+starting at element 0 (_offset_ is zero-based):
 
 ```
 SORT mylist LIMIT 0 10
@@ -150,5 +148,5 @@ key is accessed to retrieve the specified hash field.
 
 @return
 
-@array-reply: without passing the `store` option the command returns a list of sorted elements.
-@integer-reply: when the `store` option is specified the command returns the number of sorted elements in the destination list.
+@array-reply: without passing the `STORE` option the command returns a list of sorted elements.
+@integer-reply: when the `STORE` option is specified the command returns the number of sorted elements in the destination list.

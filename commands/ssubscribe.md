@@ -11,7 +11,7 @@ For more information about sharded Pub/Sub, see [Sharded Pub/Sub](/topics/pubsub
 
 When successful, this command doesn't return anything.
 Instead, for each shard channel, one message with the first element being the string "ssubscribe" is pushed as a confirmation that the command succeeded.
-Note that this command can also return a -MOVED redirect.
+Note that this command can also return a `-MOVED` redirect.
 
 @examples
 

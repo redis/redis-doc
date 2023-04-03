@@ -8,9 +8,9 @@ A _timeout_ of zero can be used to block indefinitely.
 See `RPOPLPUSH` for more information.
 
 {{% alert title="Note" color="info" %}}
-A Redis list always consists of one or element.
+A Redis list always consists of one or elements.
 When the last element is popped, the list is automatically deleted from the database.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

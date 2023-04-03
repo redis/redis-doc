@@ -12,7 +12,7 @@ This command is intended for debugging and special operations, such as changing 
 
 Don't use `KEYS` in your regular application code.
 If you're looking for a way to find keys in a subset of your keyspace, consider using `SCAN` or [sets](/docs/data-types/sets).
-{{% /alert  %}}
+{{% /alert %}}
 
 
 Supported glob-style patterns:

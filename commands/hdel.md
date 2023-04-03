@@ -5,7 +5,7 @@ If _key_ doesn't exist, it is treated as an empty hash and this command returns
 {{% alert title="Note" color="info" %}}
 A Redis hash always consists of one or more fields and their respective values.
 When the last field is deleted, the hash is automatically deleted from the database.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

@@ -6,7 +6,7 @@ The following information is provided for each consumer in the group:
 * **pending**: the number of pending messages for the client, which are messages that were delivered but are yet to be acknowledged
 * **idle**: the number of milliseconds that have passed since the consumer last interacted with the server
 
-@reply
+@return
 
 @array-reply: a list of consumers.
 

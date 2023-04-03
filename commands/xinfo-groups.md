@@ -39,7 +39,7 @@ However, the lag is only temporarily unavailable.
 It is restored automatically during regular operation as consumers keep processing messages.
 Once the consumer group delivers the last message in the stream to its members, it will be set with the correct logical read counter, and tracking its lag can be resumed.
 
-@reply
+@return
 
 @array-reply: a list of consumer groups.
 

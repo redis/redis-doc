@@ -4,7 +4,7 @@ In the reply, every field name is followed by its value, so the length of the re
 This command requires space and time that are proportional to the hash's number of fields.
 Given this command's complexity, you should use caution when calling it in production.
 Prefer using `HSCAN` for iterating over hashes with a large number of fields.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

@@ -15,7 +15,7 @@ However, in Redis 7.0 and above, they are now also returned in the same format a
 
 {{% alert title="Note" color="info" %}}
 This description of command rules reflects the user's effective permissions, so while it may not be identical to the set of rules used to configure the user, it is still functionally identical.
-{{% /alert  %}}
+{{% /alert %}}
 
 Selectors are listed in the order they were applied to the user, and include information about commands, key patterns, and channel patterns.
 

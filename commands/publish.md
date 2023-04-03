@@ -3,7 +3,7 @@ Posts the _message_ to the given _channel_.
 {{% alert title="Cluster note" color="info" %}}
 In a Redis Cluster, clients can publish to every node.
 The cluster makes sure that published messages are forwarded as needed, so clients can subscribe to any channel by connecting to any one of the nodes.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 

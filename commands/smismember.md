@@ -1,6 +1,7 @@
-Returns whether each `member` is a member of the set stored at `key`.
+Checks and reports whether each _member_ is a member of the set stored at _key_.
 
-For every `member`, `1` is returned if the value is a member of the set, or `0` if the element is not a member of the set or if `key` does not exist.
+For every _member_, `1` is returned if the value is a member of the set.
+A `0` is returned for each member that doesn't belong to the set, or if _key_ doesn't exist.
 
 @return
 

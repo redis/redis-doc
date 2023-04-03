@@ -8,9 +8,9 @@ If _source_ doesn't exist, the value `nil` is returned and no operation is perfo
 If _source_ and _destination_ are the same, the operation is equivalent to removing the last element from the list and pushing it as the first element of the list, so it can be considered a list rotation command.
 
 {{% alert title="Note" color="info" %}}
-A Redis list always consists of one or element.
+A Redis list always consists of one or elements.
 When the last element is popped, the list is automatically deleted from the database.
-{{% /alert  %}}
+{{% /alert %}}
 
 @return
 
@@ -29,26 +29,15 @@ LRANGE myotherlist 0 -1
 
 ## Pattern: Reliable queue
 
-Redis is often used as a messaging server to implement processing of background
-jobs or other kinds of messaging tasks.
-A simple form of queue is often obtained pushing values into a list in the
-producer side, and waiting for this values in the consumer side using `RPOP`
-(using polling), or `BRPOP` if the client is better served by a blocking
-operation.
+Redis is often used as a messaging server to implement the processing of background jobs or other kinds of messaging tasks.
+A simple form of a queue is often obtained by pushing values into a list on the producer's side and waiting for these values on the consumer's side using `RPOP` (using polling), or `BRPOP` if the client is better served by a blocking operation.
 
-However in this context the obtained queue is not _reliable_ as messages can
-be lost, for example in the case there is a network problem or if the consumer
-crashes just after the message is received but before it can be processed.
+However, in this context the obtained queue is not _reliable_ as messages can be lost, for example in the case there is a network problem or if the consumer crashes just after the message is received but before it can be processed.
 
-`RPOPLPUSH` (or `BRPOPLPUSH` for the blocking variant) offers a way to avoid
-this problem: the consumer fetches the message and at the same time pushes it
-into a _processing_ list.
-It will use the `LREM` command in order to remove the message from the
-_processing_ list once the message has been processed.
+`RPOPLPUSH` (or `BRPOPLPUSH` for the blocking variant) offers a way to avoid this problem: the consumer fetches the message and at the same time pushes it into a _processing_ list.
+It will use the `LREM` command to remove the message from the _processing_ list once the message has been processed.
 
-An additional client may monitor the _processing_ list for items that remain
-there for too much time, pushing timed out items into the queue
-again if needed.
+An additional client may monitor the _processing_ list for items that remain there for too much time, pushing timed-out items into the queue again if needed.
 
 ## Pattern: Circular list
 
