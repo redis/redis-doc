@@ -24,7 +24,7 @@ Subscribers receive the messages in the order that the messages are published.
 
 A client subscribed to one or more channels shouldn't issue commands, although it can `SUBSCRIBE` and `UNSUBSCRIBE` to and from other channels.
 The replies to subscription and unsubscribing operations are sent in the form of messages so that the client can just read a coherent stream of messages where the first element indicates the type of message.
-The commands that are allowed in the context of a subscribed client are:
+The commands that are allowed in the context of a subscribed RESP2 client are:
 
 * `PING`
 * `PSUBSCRIBE`
@@ -35,6 +35,8 @@ The commands that are allowed in the context of a subscribed client are:
 * `SUBSCRIBE`
 * `SUNSUBSCRIBE`
 * `UNSUBSCRIBE`
+
+However, if RESP3 is used (see `HELLO`), a client can issue any commands while in the subscribed state.
 
 Please note that when using `redis-cli`, in subscribed mode commands such as `UNSUBSCRIBE` and `PUNSUBSCRIBE` cannot be used because `redis-cli` will not accept any commands and can only quit the mode with `Ctrl-C`.
 
