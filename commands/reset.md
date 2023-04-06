@@ -15,6 +15,8 @@ When the command is called from a regular client connection, it does the followi
   appropriate.
 * Deauthenticates the connection, requiring a call `AUTH` to reauthenticate when
   authentication is enabled.
+* Turns off `NO-EVICT` mode.
+* Turns off `NO-TOUCH` mode.
 
 @return
 
