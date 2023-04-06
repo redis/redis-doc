@@ -1,5 +1,5 @@
-Alters the last access time of a key(s).
-A key is ignored if it does not exist.
+Alters the last access time of one or more keys.
+A key is ignored if it doesn't exist.
 
 @return
 

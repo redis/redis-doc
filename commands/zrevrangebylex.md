@@ -1,10 +1,11 @@
-When all the elements in a sorted set are inserted with the same score, in order to force lexicographical ordering, this command returns all the elements in the sorted set at `key` with a value between `max` and `min`.
+When all the members in a sorted set are inserted with the same score, to force lexicographical ordering, this command returns the number of members in the sorted set at the _key_ with a value between _max_ and _min_.
+
 
 Apart from the reversed ordering, `ZREVRANGEBYLEX` is similar to `ZRANGEBYLEX`.
 
 @return
 
-@array-reply: list of elements in the specified score range.
+@array-reply: list of members in the specified score range.
 
 @examples
 

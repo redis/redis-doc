@@ -1,15 +1,13 @@
-Computes the difference between the first and all successive input sorted sets
-and stores the result in `destination`. The total number of input keys is
-specified by `numkeys`.
+Computes the difference between the first and all successive input sorted sets and stores the result in _destination_.
+The total number of input keys is specified by the _numkeys_ argument.
 
-Keys that do not exist are considered to be empty sets.
+Keys that don't exist are considered to be empty sorted sets.
 
-If `destination` already exists, it is overwritten.
+If _destination_ already exists, it is overwritten.
 
 @return
 
-@integer-reply: the number of elements in the resulting sorted set at
-`destination`.
+@integer-reply: the number of members in the resulting sorted set at _destination_.
 
 @examples
 

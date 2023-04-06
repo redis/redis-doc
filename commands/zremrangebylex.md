@@ -1,10 +1,11 @@
-When all the elements in a sorted set are inserted with the same score, in order to force lexicographical ordering, this command removes all elements in the sorted set stored at `key` between the lexicographical range specified by `min` and `max`.
+When all the members in a sorted set are inserted with the same score, to force lexicographical ordering, this command removes the number of members in the sorted set at the _key_ with a value between _min_ and _max_.
 
-The meaning of `min` and `max` are the same of the `ZRANGEBYLEX` command. Similarly, this command actually removes the same elements that `ZRANGEBYLEX` would return if called with the same `min` and `max` arguments.
+The _min_ and _max_ arguments have the same meaning as described for `ZRANGEBYLEX`.
+Similarly, this command removes the same members that `ZRANGEBYLEX` would return if called with the same _min_ and _max_ arguments.
 
 @return
 
-@integer-reply: the number of elements removed.
+@integer-reply: the number of members that were removed.
 
 @examples
 

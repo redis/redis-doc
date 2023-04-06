@@ -1,33 +1,23 @@
-Read data from one or multiple streams, only returning entries with an
-ID greater than the last received ID reported by the caller.
-This command has an option to block if items are not available, in a similar
-fashion to `BRPOP` or `BZPOPMIN` and others.
+Read entries from one or multiple streams, only returning entries with an ID greater than the last received ID reported by the caller.
+This command can optionally block the client if entries aren't available, in a similar
+fashion to `BRPOP`, `BZPOPMIN` and others.
 
-Please note that before reading this page, if you are new to streams,
-we recommend to read [our introduction to Redis Streams](/topics/streams-intro).
+Please note that before reading this page, if you are new to streams, we recommend that you first read [our introduction to Redis Streams](/topics/streams-intro).
 
 ## Non-blocking usage
 
-If the **BLOCK** option is not used, the command is synchronous, and can
-be considered somewhat related to `XRANGE`: it will return a range of items
-inside streams, however it has two fundamental differences compared to `XRANGE`
-even if we just consider the synchronous usage:
+If the `BLOCK` option isn't used, the command is synchronous, and can be considered somewhat related to `XRANGE`: it will return a range of items inside streams.
+However, it has two fundamental differences compared to `XRANGE` even if we just consider the synchronous usage:
 
-* This command can be called with multiple streams if we want to read at
-  the same time from a number of keys. This is a key feature of `XREAD` because
-  especially when blocking with **BLOCK**, to be able to listen with a single
-  connection to multiple keys is a vital feature.
-* While `XRANGE` returns items in a range of IDs, `XREAD` is more suited in
-  order to consume the stream starting from the first entry which is greater
-  than any other entry we saw so far. So what we pass to `XREAD` is, for each
-  stream, the ID of the last element that we received from that stream.
+* This command can be called with multiple streams if we want to read at the same time from a multiple keys.
+  This is a key feature of `XREAD` because especially when blocking with `BLOCK`, being able to listen with a single connection to multiple keys is a vital feature.
+* While `XRANGE` returns items in a range of IDs, `XREAD` is more suited to consume the stream starting from the first entry which is greater than any other entry we saw so far.
+  So what we pass to `XREAD` is, for each stream, the ID of the last element that we received from that stream.
 
-For example, if I have two streams `mystream` and `writers`, and I want to
-read data from both the streams starting from the first element they contain,
-I could call `XREAD` like in the following example.
+For example, if I have two streams - "mystream" and "writers" - and I want to
+read data from both streams starting from the first element they contain, I could call `XREAD` like in the following example.
 
-Note: we use the **COUNT** option in the example, so that for each stream
-the call will return at maximum two elements per stream.
+Note: we use the **COUNT** option in the example, so that for each stream the call will return at most two elements per stream.
 
 ```
 > XREAD COUNT 2 STREAMS mystream writers 0-0 0-0
@@ -59,18 +49,14 @@ the call will return at maximum two elements per stream.
             4) "Austen"
 ```
 
-The **STREAMS** option is mandatory and MUST be the final option because
-such option gets a variable length of argument in the following format:
+The `STREAMS` argument is mandatory and **MUST** be the final option because
+it is followed a variable length of arguments in the following format:
 
     STREAMS key_1 key_2 key_3 ... key_N ID_1 ID_2 ID_3 ... ID_N
 
-So we start with a list of keys, and later continue with all the associated
-IDs, representing *the last ID we received for that stream*, so that the
-call will serve us only greater IDs from the same stream.
+So we start with a list of keys, and later continue with all the associated IDs, representing *the last ID we received for that stream*, so that the call will serve us only greater IDs from the same stream.
 
-For instance in the above example, the last items that we received
-for the stream `mystream` has ID `1526999352406-0`, while for the
-stream `writers` has the ID `1526985685298-0`.
+For instance, in the above example, the last items that we received for the stream "mystream" has ID `1526999352406-0`, while the stream "writers" has the ID `1526985685298-0`.
 
 To continue iterating the two streams I'll call:
 

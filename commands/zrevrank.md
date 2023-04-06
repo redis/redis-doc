@@ -1,23 +1,21 @@
-Returns the rank of `member` in the sorted set stored at `key`, with the scores
-ordered from high to low.
-The rank (or index) is 0-based, which means that the member with the highest
-score has rank `0`.
+Returns the rank of _member_ in the sorted set stored at _key_, ordered by descending scores.
 
-The optional `WITHSCORE` argument supplements the command's reply with the score of the element returned.
+The rank (or index) is 0-based, which means that the member with the highest score has a rank of `0`.
 
-Use `ZRANK` to get the rank of an element with the scores ordered from low to
-high.
+The optional `WITHSCORE` argument supplements the command's reply with the member's score.
+
+Use `ZRANK` to get the rank of a member by ascending score order.
 
 @return
 
-* If `member` exists in the sorted set:
-  * using `WITHSCORE`, @array-reply: an array containing the rank and score of `member`.
-  * without using `WITHSCORE`, @integer-reply: the rank of `member`.
-* If `member` does not exist in the sorted set or `key` does not exist:
-  * using `WITHSCORE`, @array-reply: `nil`.
-  * without using `WITHSCORE`, @bulk-string-reply: `nil`.
+* If _member_ exists in the sorted set:
+  * using `WITHSCORE`, @array-reply: an array containing the rank and score of _member_.
+  * without using `WITHSCORE`, @integer-reply: the rank of _member_.
+* If _member_ doesn't exist in the sorted set or _key_ doesn't exist:
+  * using `WITHSCORE`, array @nil-reply.
+  * without using `WITHSCORE`, @nil-reply.
   
-Note that in RESP3 null and nullarray are the same, but in RESP2 they are not.
+Note that in RESP3 there's only one null reply, but RESP2 has both a regular null and a null array.
 
 @examples
 

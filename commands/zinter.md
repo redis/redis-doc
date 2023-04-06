@@ -1,12 +1,10 @@
-This command is similar to `ZINTERSTORE`, but instead of storing the resulting
-sorted set, it is returned to the client.
+This command is similar to `ZINTERSTORE`, but instead of storing the resulting sorted set, it is returned to the client.
 
 For a description of the `WEIGHTS` and `AGGREGATE` options, see `ZUNIONSTORE`.
 
 @return
 
-@array-reply: the result of intersection (optionally with their scores, in case 
-the `WITHSCORES` option is given).
+@array-reply: the result of intersection (optionally with their scores, in case the `WITHSCORES` option is given).
 
 @examples
 

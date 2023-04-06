@@ -1,9 +1,8 @@
-Removes all elements in the sorted set stored at `key` with a score between
-`min` and `max` (inclusive).
+Removes all members in the sorted set stored at _key_ with scores between _min_ and _max_ (inclusive).
 
 @return
 
-@integer-reply: the number of elements removed.
+@integer-reply: the number of members removed.
 
 @examples
 

@@ -1,14 +1,13 @@
-Removes and returns up to `count` members with the highest scores in the sorted
-set stored at `key`.
+Removes and returns up to _count_ members with the highest scores in the sorted set stored at _key_.
 
-When left unspecified, the default value for `count` is 1. Specifying a `count`
-value that is higher than the sorted set's cardinality will not produce an
-error. When returning multiple elements, the one with the highest score will
-be the first, followed by the elements with lower scores.
+If unspecified, the default value for _count_ is 1.
+Specifying a _count_ value that is higher than the sorted set's cardinality will not produce an
+error.
+When returning multiple members, the one with the highest score will be the first, followed by the members with lower scores.
 
 @return
 
-@array-reply: list of popped elements and scores.
+@array-reply: list of popped members and scores.
 
 @examples
 

@@ -1,20 +1,15 @@
-Increments the score of `member` in the sorted set stored at `key` by
-`increment`.
-If `member` does not exist in the sorted set, it is added with `increment` as
-its score (as if its previous score was `0.0`).
-If `key` does not exist, a new sorted set with the specified `member` as its
-sole member is created.
+Increments the score of the _member_ in the sorted set stored at the _key_ by _increment_.
+If the _member_ doesn't exist in the sorted set, it is added with the _increment_ as its score (as if its previous score was `0.0`).
+If _key_ doesn't exist, a new sorted set is created with the specified _member_ as its sole member.
 
-An error is returned when `key` exists but does not hold a sorted set.
+An error is returned when the _key_ exists but doesn't store a sorted set.
 
-The `score` value should be the string representation of a numeric value, and
-accepts double precision floating point numbers.
+The _score_ should be the string representation of a numeric value and accepts double-precision floating point numbers.
 It is possible to provide a negative value to decrement the score.
 
 @return
 
-@bulk-string-reply: the new score of `member` (a double precision floating point
-number), represented as string.
+@bulk-string-reply: the new score of the _member_ (a double-precision floating point number), represented as a string.
 
 @examples
 

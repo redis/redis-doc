@@ -1,14 +1,14 @@
-This command returns the list of consumers that belong to the `<groupname>` consumer group of the stream stored at `<key>`.
+This command returns the list of consumers that belong to the consumer group _groupname_ of the stream stored at _key_.
 
 The following information is provided for each consumer in the group:
 
-* **name**: the consumer's name
-* **pending**: the number of pending messages for the client, which are messages that were delivered but are yet to be acknowledged
-* **idle**: the number of milliseconds that have passed since the consumer last interacted with the server
+* **name**: the consumer's name.
+* **pending**: the number of pending messages for the client, which are messages that were delivered but are yet to be acknowledged.
+* **idle**: the number of milliseconds that have passed since the consumer last interacted with the server.
 
 @return
 
-@array-reply: a list of consumers.
+@array-reply: a list of consumers and their attributes as described above.
 
 @examples
 

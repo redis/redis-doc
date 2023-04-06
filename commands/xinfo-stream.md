@@ -1,4 +1,4 @@
-This command returns information about the stream stored at `<key>`.
+This command returns information about the stream stored at _key_.
 
 The informative details provided by this command are:
 
@@ -14,14 +14,14 @@ The informative details provided by this command are:
 
 The optional `FULL` modifier provides a more verbose reply.
 When provided, the `FULL` reply includes an **entries** array that consists of the stream entries (ID and field-value tuples) in ascending order.
-Furthermore, **groups** is also an array, and for each of the consumer groups it consists of the information reported by `XINFO GROUPS` and `XINFO CONSUMERS`.
+Furthermore, **groups** is also an array, and each of the consumer groups consists of the information reported by `XINFO GROUPS` and `XINFO CONSUMERS`.
 
-The `COUNT` option can be used to limit the number of stream and PEL entries that are returned (The first `<count>` entries are returned).
-The default `COUNT` is 10 and a `COUNT` of 0 means that all entries will be returned (execution time may be long if the stream has a lot of entries).
+The `COUNT` option can be used to limit the number of stream and PEL entries that are returned (The first _count_ entries are returned).
+The default value for `COUNT` is 10 and a `COUNT` of 0 means that all entries will be returned (execution time may be long if the stream has a lot of entries).
 
 @return
 
-@array-reply: a list of informational bits
+@array-reply: a list of informational bits.
 
 @examples
 

@@ -1,9 +1,9 @@
-`XTRIM` trims the stream by evicting older entries (entries with lower IDs) if needed.
+`XTRIM` removes entries from the beginning of the stream at _key_.
 
 Trimming the stream can be done using one of these strategies:
 
-* `MAXLEN`: Evicts entries as long as the stream's length exceeds the specified `threshold`, where `threshold` is a positive integer.
-* `MINID`: Evicts entries with IDs lower than `threshold`, where `threshold` is a stream ID.
+* `MAXLEN`: evicts entries as long as the stream's length exceeds the specified _threshold, where the _threshold_ is a positive integer.
+* `MINID`: evicts entries with IDs lower than the _threshold, where the _threshold_ is a stream ID.
 
 For example, this will trim the stream to exactly the latest 1000 items:
 
@@ -21,8 +21,8 @@ By default, or when provided with the optional `=` argument, the command perform
 
 Depending on the strategy, exact trimming means:
 
-* `MAXLEN`: the trimmed stream's length will be exactly the minimum between its original length and the specified `threshold`.
-* `MINID`: the oldest ID in the stream will be exactly the maximum between its original oldest ID and the specified `threshold`.
+* `MAXLEN`: the trimmed stream's length will be exactly the minimum between its original length and the specified _threshold_.
+* `MINID`: the oldest ID in the stream will be exactly the maximum between its original oldest ID and the specified _threshold_.
 
 Nearly exact trimming
 ---
@@ -35,14 +35,14 @@ For example:
 XTRIM mystream MAXLEN ~ 1000
 ```
 
-The `~` argument between the `MAXLEN` strategy and the `threshold` means that the user is requesting to trim the stream so its length is **at least** the `threshold`, but possibly slightly more.
+The `~` argument between the `MAXLEN` strategy and the _threshold_ means that the user is requesting to trim the stream so its length is **at least** the _threshold_, but possibly slightly more.
 In this case, Redis will stop trimming early when performance can be gained (for example, when a whole macro node in the data structure can't be removed).
-This makes trimming much more efficient, and it is usually what you want, although after trimming, the stream may have few tens of additional entries over the `threshold`.
+This makes trimming much more efficient, and it is usually what you want, although after trimming, the stream may have a few tens of additional entries over the _threshold_.
 
 Another way to control the amount of work done by the command when using the `~`, is the `LIMIT` clause. 
-When used, it specifies the maximal `count` of entries that will be evicted.
-When `LIMIT` and `count` aren't specified, the default value of 100 * the number of entries in a macro node will be implicitly used as the `count`.
-Specifying the value 0 as `count` disables the limiting mechanism entirely.
+When used, it specifies the maximal _count_ of entries that will be evicted.
+When `LIMIT` and _count_ aren't specified, the default value of 100 * the number of entries in a macro node will be implicitly used as the _count_.
+Specifying the value 0 as the _count_ disables the limiting mechanism entirely.
 
 @return
 

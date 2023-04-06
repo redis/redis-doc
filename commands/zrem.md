@@ -1,14 +1,13 @@
-Removes the specified members from the sorted set stored at `key`.
-Non existing members are ignored.
+Removes the specified members from the sorted set stored at _key_.
+Non-existing members are ignored.
 
-An error is returned when `key` exists and does not hold a sorted set.
+An error is returned when _key_ exists and doesn't store a sorted set.
 
 @return
 
 @integer-reply, specifically:
 
-* The number of members removed from the sorted set, not including non existing
-  members.
+* The number of members removed from the sorted set, excluding non-existing members.
 
 @examples
 

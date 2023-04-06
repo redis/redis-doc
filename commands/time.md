@@ -1,16 +1,13 @@
-The `TIME` command returns the current server time as a two items lists: a Unix
-timestamp and the amount of microseconds already elapsed in the current second.
-Basically the interface is very similar to the one of the `gettimeofday` system
-call.
+The `TIME` command returns the current server time as a list with two items:
+
+1. The Unix timestamp in seconds.
+2. Microseconds count.
+
+Basically, the interface is very similar to that of the `gettimeofday` system call.
 
 @return
 
-@array-reply, specifically:
-
-A multi bulk reply containing two elements:
-
-* unix time in seconds.
-* microseconds.
+@array-reply, specifically, a two-element array consisting of the Unix timestamp in seconds and the microseconds' count.
 
 @examples
 

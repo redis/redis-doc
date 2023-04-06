@@ -52,4 +52,4 @@ OK
 (integer) 1
 ```
 
-In the following example the first call to `WAIT` does not use a timeout and asks for the write to reach 1 replica. It returns with success. In the second attempt instead we put a timeout, and ask for the replication of the write to two replicas. Since there is a single replica available, after one second `WAIT` unblocks and returns 1, the number of replicas reached.
+In the following example, the first call to `WAIT` does not use a timeout and asks for the write to reach 1 replica. It returns with success. In the second attempt instead we put a timeout, and ask for the replication of the write to two replicas. Since there is a single replica available, after one second `WAIT` unblocks and returns 1, the number of replicas reached.

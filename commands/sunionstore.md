@@ -1,7 +1,6 @@
-This command is equal to `SUNION`, but instead of returning the resulting set,
-it is stored in `destination`.
+This command is equal to `SUNION`, but instead of returning the resulting set, it is stored in _destination_.
 
-If `destination` already exists, it is overwritten.
+If _destination_ already exists, it is overwritten.
 
 @return
 

@@ -2,7 +2,7 @@ Flushes all the previously watched keys for a [transaction][tt].
 
 [tt]: /topics/transactions
 
-If you call `EXEC` or `DISCARD`, there's no need to manually call `UNWATCH`.
+There's no need to call `UNWATCH` after calling `EXEC` or `DISCARD`.
 
 @return
 

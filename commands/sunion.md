@@ -9,7 +9,7 @@ key3 = {a,c,e}
 SUNION key1 key2 key3 = {a,b,c,d,e}
 ```
 
-Keys that do not exist are considered to be empty sets.
+Keys that don't exist are considered to be empty sets.
 
 @return
 

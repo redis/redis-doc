@@ -1,6 +1,6 @@
 Subscribes the client to the specified channels.
 
-Once the client enters the subscribed state it is not supposed to issue any other commands, except:
+Once a RESP2 client enters the subscribed state it isn't supposed to issue any other commands, except:
 
 * `PING`
 * `PSUBSCRIBE`

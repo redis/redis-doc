@@ -6,7 +6,7 @@ The function handles out-of-range requests by limiting the resulting range to th
 
 @return
 
-@bulk-string-reply
+@bulk-string-reply: the range from the string.
 
 @examples
 
