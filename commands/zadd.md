@@ -33,9 +33,9 @@ Larger integers, or fractions, are internally represented in exponential form, s
 
 Sorted sets are sorted by their score in an ascending way.
 The same member only exists a single time, no repeated members are permitted.
-The score can be modified both by `ZADD` that will update the member score, and as a side effect, its position on the sorted set, and by `ZINCRBY` which can be used to update the score relative to its previous value.
+The score can be modified both by `ZADD` which will update the member score, and as a side effect, its position on the sorted set, and by `ZINCRBY` which can be used to update the score relative to its previous value.
 
-The current score of an member can be retrieved using the `ZSCORE` command, which can also be used to verify if an member already exists or not.
+The current score of a member can be retrieved using the `ZSCORE` command, which can also be used to verify if a member already exists or not.
 
 For an introduction to sorted sets, see the data types page on [sorted sets][tdtss].
 

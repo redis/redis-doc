@@ -161,7 +161,7 @@ The `!TYPE` option is only available on the whole-database `SCAN`, not `HSCAN` o
 
 The _type_ argument is the same string name that the `TYPE` command returns.
 Note a quirk where some Redis types, such as GeoHashes, HyperLogLogs, Bitmaps, and Bitfields, may internally be implemented using other Redis types, such as a string or zset, so can't be distinguished from other keys of that same type by `SCAN`.
-For example, a sorted set and and a geospatial index:
+For example, a sorted set and a geospatial index:
 
 ```
 redis> GEOADD geokey 0 0 value

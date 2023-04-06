@@ -21,7 +21,7 @@ Here is the meaning of the fields:
 * **addr**: address/port of the client.
 * **laddr**: address/port of local address client connected to (bind address).
 * **fd**: file descriptor corresponding to the socket.
-* **name**: the name set by the client with **CLIENT SETNAME**.
+* **name**: the name set by the client with `CLIENT SETNAME`.
 * **age**: total duration of the connection in seconds.
 * **idle**: idle time of the connection in seconds.
 * **flags**: client flags (see below).
@@ -29,7 +29,7 @@ Here is the meaning of the fields:
 * **sub**: number of channel subscriptions.
 * **psub**: number of pattern-matching subscriptions.
 * **ssub**: number of shard channel subscriptions. Added in Redis 7.0.3.
-* **multi**: number of commands in a MULTI/EXEC context.
+* **multi**: number of commands in a `MULTI`/`EXEC` context.
 * **qbuf**: query buffer length (0 means no query pending).
 * **qbuf-free**: free space of the query buffer (0 means the buffer is full).
 * **argv-mem**: incomplete arguments for the next command (already extracted from query buffer).
@@ -39,7 +39,7 @@ Here is the meaning of the fields:
 * **omem**: output buffer memory usage.
 * **tot-mem**: total memory consumed by this client in its various buffers.
 * **events**: file descriptor events (see below).
-* **cmd**: last command played.
+* **cmd**: the last command sent and processed.
 * **user**: the authenticated username of the client.
 * **redir**: client id of current client tracking redirection.
 * **resp**: client RESP protocol version. Added in Redis 7.0.

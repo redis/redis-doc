@@ -2,7 +2,7 @@ When called with a single key, returns the approximated cardinality computed by 
 
 When called with multiple keys, returns the approximated cardinality of the union of the HyperLogLogs passed, by internally merging the HyperLogLogs stored at the provided keys into a temporary HyperLogLog.
 
-The HyperLogLog data structure can be used ito count **unique** elements in a set using just a small constant amount of memory, specifically 12k bytes for every HyperLogLog (plus a few bytes for the key itself).
+The HyperLogLog data structure can be used to count **unique** elements in a set using just a small constant amount of memory, specifically 12k bytes for every HyperLogLog (plus a few bytes for the key itself).
 
 The returned cardinality of the observed set is not exact but approximated with a standard error of 0.81%.
 

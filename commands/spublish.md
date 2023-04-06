@@ -13,7 +13,7 @@ Note that in a Redis Cluster, only clients that are connected to the same node a
 
 @examples
 
-For examplem the following command publishes to channel "orders" with a subscriber already waiting for message(s).
+For example, the following command publishes to channel "orders" with a subscriber already waiting for message(s).
     
 ```
 > spublish orders hello
