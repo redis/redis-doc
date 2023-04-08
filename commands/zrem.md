@@ -3,6 +3,11 @@ Non-existing members are ignored.
 
 An error is returned when _key_ exists and doesn't store a sorted set.
 
+{{% alert title="Note" color="info" %}}
+A Redis sorted set always consists of at least one member.
+When the last member is removed, the sorted set is automatically deleted from the database.
+{{% /alert %}}
+
 @return
 
 @integer-reply, specifically:

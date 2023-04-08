@@ -11,7 +11,7 @@ Elements are popped from either the left or right of the first non-empty list ba
 The number of returned elements is limited to the lower between the non-empty list's length, and the _count_ argument (which defaults to 1).
 
 {{% alert title="Note" color="info" %}}
-A Redis list always consists of one or elements.
+A Redis list always consists of at least one element.
 When the last element is popped, the list is automatically deleted from the database.
 {{% /alert %}}
 

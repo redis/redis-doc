@@ -5,6 +5,11 @@ Specifying a _count_ value that is higher than the sorted set's cardinality will
 error.
 When returning multiple members, the one with the lowest score will be the first, followed by the members with greater scores.
 
+{{% alert title="Note" color="info" %}}
+A Redis sorted set always consists of at least one member.
+When the last member is popped, the sorted set is automatically deleted from the database.
+{{% /alert %}}
+
 @return
 
 @array-reply: list of popped members and scores.

@@ -3,6 +3,11 @@ When all the members in a sorted set are inserted with the same score, to force 
 The _min_ and _max_ arguments have the same meaning as described for `ZRANGEBYLEX`.
 Similarly, this command removes the same members that `ZRANGEBYLEX` would return if called with the same _min_ and _max_ arguments.
 
+{{% alert title="Note" color="info" %}}
+A Redis sorted set always consists of at least one member.
+When the last member is removed, the sorted set is automatically deleted from the database.
+{{% /alert %}}
+
 @return
 
 @integer-reply: the number of members that were removed.

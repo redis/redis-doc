@@ -6,7 +6,7 @@ If _key_ doesn't exist, it is treated as an empty set and this command returns
 An error is returned when the value stored at _key_ is not a set.
 
 {{% alert title="Note" color="info" %}}
-A Redis set always consists of one or members.
+A Redis set always consists of at least one member.
 When the last member is removed, the set is automatically deleted from the database.
 {{% /alert %}}
 

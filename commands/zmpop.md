@@ -13,6 +13,11 @@ The optional `COUNT` can be used to specify the number of members to pop and is 
 
 The number of popped members is the minimum from the sorted set's cardinality and `COUNT`'s value.
 
+{{% alert title="Note" color="info" %}}
+A Redis sorted set always consists of at least one member.
+When the last member is popped, the sorted set is automatically deleted from the database.
+{{% /alert %}}
+
 @return
 
 @array-reply: specifically:

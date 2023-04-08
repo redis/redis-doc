@@ -3,7 +3,7 @@ It is the blocking version of `LPOP` because it blocks the connection when there
 An element is popped from the head of the first list that is non-empty, with the given keys being checked in the order that they are given.
 
 {{% alert title="Note" color="info" %}}
-A Redis list always consists of one or elements.
+A Redis list always consists of at least one element.
 When the last element is popped, the list is automatically deleted from the database.
 {{% /alert %}}
 

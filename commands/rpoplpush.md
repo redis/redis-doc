@@ -8,7 +8,7 @@ If _source_ doesn't exist, the value `nil` is returned and no operation is perfo
 If _source_ and _destination_ are the same, the operation is equivalent to removing the last element from the list and pushing it as the first element of the list, so it can be considered a list rotation command.
 
 {{% alert title="Note" color="info" %}}
-A Redis list always consists of one or elements.
+A Redis list always consists of at least one element.
 When the last element is popped, the list is automatically deleted from the database.
 {{% /alert %}}
 

@@ -4,7 +4,7 @@ By default, the command pops a single element from the beginning of the list.
 When provided with the optional _count_ argument, the reply will consist of up to _count_ elements, depending on the list's length.
 
 {{% alert title="Note" color="info" %}}
-A Redis list always consists of one or elements.
+A Redis list always consists of at least one element.
 When the last element is popped, the list is automatically deleted from the database.
 {{% /alert %}}
 

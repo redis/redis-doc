@@ -6,7 +6,7 @@ By default, the command pops a single member from the set.
 When provided with the optional _count_ argument, the reply will consist of up to _count_ members, depending on the set's cardinality.
 
 {{% alert title="Note" color="info" %}}
-A Redis set always consists of one or members.
+A Redis set always consists of at least one member.
 When the last member is popped, the set is automatically deleted from the database.
 {{% /alert %}}
 
