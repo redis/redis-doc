@@ -1,4 +1,5 @@
 Increment the floating-point number value of the specified _field_ of a [Redis hash](/docs/data-types/hashes) stored at the _key_ by the specified _increment_.
+
 Use a negative increment value to **decrement** the hash field's value.
 If the field doesn't exist, it is set to `0` before the operation.
 An error is returned if the field's value or increment aren't string representations of a floating-point number.

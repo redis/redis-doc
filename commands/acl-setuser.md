@@ -1,4 +1,6 @@
-If the [Access Control List (ACL)](/docs/management/security/acl) _username_ doesn't exist, the command creates the username without any privilege.
+The command create or updates the [Access Control List (ACL)](/docs/management/security/acl) _username_.
+
+If the _username_ doesn't exist, the command creates the username without any privilege.
 It then reads from left to right all the [rules](#acl-rules) provided as successive arguments, setting the user ACL rules as specified.
 If the user already exists, the provided ACL rules are simply applied *in addition* to the rules already set.
 For example:

@@ -1,4 +1,5 @@
 `BRPOP` is a blocking list pop primitive.
+
 It removes and returns the last elements of the [Redis list](/docs/data-types/lists) stored at _key_.
 
 It is the blocking version of `RPOP` because it blocks the connection when there are no elements to pop from any of the given lists.

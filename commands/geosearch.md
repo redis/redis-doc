@@ -1,4 +1,5 @@
 Return the members of a sorted set populated with geospatial information using `GEOADD`, which are inside the border of the area specified by a given shape.
+
 This command extends the `GEORADIUS` command, so in addition to searching within circular areas, it supports searching within rectangular areas.
 
 This command should be used in place of the deprecated `GEORADIUS` and `GEORADIUSBYMEMBER` commands.

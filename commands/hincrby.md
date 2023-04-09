@@ -1,4 +1,5 @@
 Increments the number stored at the _field_ in the [Redis hash](/docs/data-types/hashes) stored at the _key_ by the _increment_.
+
 If the _key_ doesn't exist, a new key holding a hash is created.
 If the _field_ doesn't exist, the value is set to `0` before the operation is
 performed.

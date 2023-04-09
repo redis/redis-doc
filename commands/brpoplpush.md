@@ -1,4 +1,5 @@
 `BRPOPLPUSH` is the blocking variant of `RPOPLPUSH`.
+
 It atomically returns and removes the last element (tail) of the [Redis list](/docs/data-types/lists) stored at _source_, and pushes the element at the first element (head) of the list stored at _destination_.
 
 When _source_ contains elements, this command behaves exactly like `RPOPLPUSH`.

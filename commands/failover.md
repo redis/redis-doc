@@ -1,4 +1,5 @@
 The failover is not synchronous, allowing a background task will handle coordinating the failover. 
+
 It is designed to limit data loss and unavailability of the cluster during the failover.
 This command is analogous to the `CLUSTER FAILOVER` command for non-clustered Redis and is similar to the failover support provided by Redis Sentinel.
 

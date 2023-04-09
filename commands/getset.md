@@ -1,4 +1,5 @@
 Atomically sets the _key_ to the [Redis string](/docs/data-types/strings) _value_ and returns the old value stored at the _key_.
+
 Returns an error when the _key_ exists but doesn't hold a string value.
 Any previous time-to-live associated with the key is discarded on successful `SET` operation.
 

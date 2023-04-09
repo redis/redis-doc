@@ -1,4 +1,5 @@
 Delete all the keys of the currently-selected DB.
+
 This command never fails.
 
 See the `SELECT` command for more information about logical databases.

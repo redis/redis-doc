@@ -1,4 +1,5 @@
 Performs a bitwise operation on multiple [Redis bitmap](/docs/data-types/bitmaps) values stored at _key_, and stores the result in _destkey_.
+
 The `BITOP` command supports four bitwise operations: **AND**, **OR**, **XOR** and **NOT**, thus the valid forms to call the command are:
 
 * `BITOP AND destkey srckey1 srckey2 srckey3 ... srckeyN`

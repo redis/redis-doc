@@ -61,7 +61,7 @@ These key names are obtained by substituting the first occurrence of `*` with th
 ## Skip sorting the elements
 
 The `!BY` option can also take a non-existent key, which causes `SORT` to skip the sorting operation.
-This is useful if you want to retrieve external keys (see the `!GET` optionbelow) without the overhead of sorting.
+This is useful if you want to retrieve external keys (see the `!GET` option below) without the overhead of sorting.
 
 ```
 SORT mylist BY nosort

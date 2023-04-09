@@ -1,5 +1,6 @@
 `BZPOPMAX` is the blocking variant of the sorted set `ZPOPMAX` primitive.
-It emoves and returns up to _count_ members with the highest scores in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
+
+It removes and returns up to _count_ members with the highest scores in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
 
 It is the blocking version because it blocks the connection when there are no
 members to pop from any of the given sorted sets.

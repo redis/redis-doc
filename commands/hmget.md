@@ -1,5 +1,4 @@
-Returns the values associated with the specified _fields_ in the [Redis hash](/docs/data-types/hashes) stored at
-_key_.
+Returns the values associated with the specified _fields_ in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
 For every _field_ that doesn't exist in the hash, a `nil` value is returned.
 Because non-existing keys are treated as empty hashes, running `HMGET` against non-existing keys will return a list of `nil` values.

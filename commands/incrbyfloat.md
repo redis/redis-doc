@@ -1,5 +1,5 @@
-Increment the [Redis string](/docs/data-types/strings) representing a floating point number stored at the _key_ by the
-specified _increment_.
+Increment the [Redis string](/docs/data-types/strings) representing a floating point number stored at the _key_ by the specified _increment_.
+
 By using a negative _increment_ value, the result is that the value stored at the key is decremented (by the obvious properties of addition).
 If the key doesn't exist, it is set to `0` before the operation.
 

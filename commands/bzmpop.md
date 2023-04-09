@@ -1,4 +1,5 @@
 `BZMPOP` is the blocking variant of `ZMPOP`.
+
 It pops one or more members from the first non-empty [Redis sorted set](/docs/data-types/sorted-sets) in the provided list of _key_ names.
 
 When any of the sorted sets contain elements, this command behaves exactly like `ZMPOP`.

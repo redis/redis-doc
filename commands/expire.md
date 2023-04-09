@@ -1,3 +1,5 @@
+Set the time-to-live (TTL) to _seconds_ for _key_.
+
 After the _seconds_ timeout has expired, the _key_ will automatically be deleted.
 A key with an associated timeout is often said to be _volatile_ in Redis terminology.
 

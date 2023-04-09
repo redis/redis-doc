@@ -1,4 +1,5 @@
 Returns the string length of the value associated with the _field_ in the [Redis hash](/docs/data-types/hashes) stored at the _key_.
+
 If either _key_ or _field_ doesn't exist, 0 is returned.
 
 @return

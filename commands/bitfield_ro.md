@@ -1,4 +1,5 @@
 This is a read-only variant of the `BITFIELD` command.
+
 It only accepts the `!GET` subcommand, and can safely be used in read-only replicas.
 
 Since the original `BITFIELD` has `!SET` and `!INCRBY` options, it is technically flagged as a writing command in the Redis commands table.

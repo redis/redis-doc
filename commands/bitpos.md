@@ -1,4 +1,5 @@
 Returns the position of the first bit set to "1" or "0" in a [Redis bitmap](/docs/data-types/bitmaps) stored at _key_.
+
 The position is returned, thinking of the string as an array of bits from left to right, where the first byte's most significant bit is at position 0, the second byte's most significant bit is at position 8, and so forth.
 
 The same bit position convention is followed by `GETBIT` and `SETBIT`.

@@ -1,5 +1,6 @@
 Increments the number stored as a [Redis string](/docs/data-types/strings) stored at _key_ by _increment_.
-If the k_ey doesn't exist, it is set to `0` before the operation.
+
+If the _key_ doesn't exist, it is set to `0` before the operation.
 An error is returned if the key contains a value of the wrong type, or contains a string that can't be represented as an integer.
 This operation is limited to **64-bit signed integers**.
 

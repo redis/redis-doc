@@ -1,4 +1,5 @@
 By default, all the bytes contained in the [Redis bitmap](/docs/data-types/bitmaps) that's stored at the _key_ are examined.
+
 It is possible to specify the counting operation only in an interval passing the
 additional _start_ and _end_ arguments.
 

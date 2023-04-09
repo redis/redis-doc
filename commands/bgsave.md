@@ -1,4 +1,5 @@
 Normally, the command returns an "OK" immediately.
+
 In the background Redis forks, and while the parent continues to serve the clients, the child [saves the database to disk as an RDB file](/docs/management/persistence#rdb-advantages), and then exits.
 
 An error is returned if there is already a background save running or if there is another non-background-save process running specifically an in-progress AOF rewrite.
