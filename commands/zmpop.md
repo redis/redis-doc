@@ -1,4 +1,4 @@
-Pops one or more members from the first non-empty sorted set in the provided list of key names.
+Pops one or more members from the first non-empty [Redis sorted set](/docs/data-types/sorted-sets) in the provided list of _key_ names.
 
 `ZMPOP` and `BZMPOP` are similar to the following, more limited, commands:
 

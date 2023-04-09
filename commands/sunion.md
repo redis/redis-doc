@@ -1,4 +1,4 @@
-Returns the members of the set resulting from the union of all the given sets.
+Returns the members of the [Redis set](/docs/data-types/sets) resulting from the union of all the given sets.
 
 For example:
 

@@ -1,4 +1,6 @@
 `BLPOP` is a blocking list pop primitive.
+It removes and returns the first elements of the [Redis list](/docs/data-types/lists) stored at _key_.
+
 It is the blocking version of `LPOP` because it blocks the connection when there are no elements to pop from any of the given lists.
 An element is popped from the head of the first list that is non-empty, with the given keys being checked in the order that they are given.
 

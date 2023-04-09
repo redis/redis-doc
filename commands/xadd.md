@@ -1,4 +1,4 @@
-Appends the specified stream entry to the stream at the specified _key_.
+Appends the specified entry to the [Redis stream](/docs/data-types/streams) at the specified _key_.
 If the _key_ doesn't exist, as a side effect of running this command the key is created with a stream value.
 The creation of the stream _key_ can be disabled with the `NOMKSTREAM` option.
 

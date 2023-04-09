@@ -1,9 +1,9 @@
-Returns all keys matching_`pattern_.
+Returns all key names that match the _pattern_ in the currently-selected database.
 
-While the time complexity for this operation is O(N), the constant times are
-fairly low.
-For example, Redis running on an entry-level laptop can scan a 1 million key
-database in 40 milliseconds.
+See the `SELECT` command for more information about logical databases.
+
+While the time complexity for this operation is O(N), the constant times are fairly low.
+For example, Redis running on an entry-level laptop can scan a 1 million key database in 40 milliseconds.
 
 {{% alert title="Warning" color="warning" %}}
 Consider `KEYS` as a command that should only be used in production environments with extreme care.

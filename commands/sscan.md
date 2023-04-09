@@ -1,3 +1,5 @@
+This command iterates the members of a [Redis set](/docs/data-types/sets) stored at _key_.
+
 See `SCAN` for `SSCAN` documentation.
 
 @return

@@ -1,4 +1,6 @@
-Return a random key from the currently selected database (see `SELECT`).
+Return a random key name from the currently selected database.
+
+See the `SELECT` command for more information about logical databases.
 
 @return
 

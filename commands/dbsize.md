@@ -1,5 +1,6 @@
 The number of keys depends on the selected database.
-See the `SELECT` command for more information.
+
+See the `SELECT` command for more information about logical databases.
 
 @return
 

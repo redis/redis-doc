@@ -1,4 +1,5 @@
-Move _member_ from the set at _source_ to the set at _destination_.
+Move _member_ from the [Redis set](/docs/data-types/sets) at _source_ to the set at _destination_.
+
 This operation is atomic.
 In every given moment the element will appear to be a member of _source_ **or**
 _destination_ to other clients.

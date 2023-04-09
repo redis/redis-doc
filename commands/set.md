@@ -1,5 +1,7 @@
-Set _key_ to the string _value_.
+Set _key_ to the [Redis string](/docs/data-types/strings) _value_.
+
 If _key_ already exists, it is overwritten, **regardless of its type**.
+
 Any previous time-to-live associated with the key is discarded on successful `SET` operation.
 
 ## Options

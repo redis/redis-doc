@@ -1,4 +1,4 @@
-The command lists the ACL rules that apply to the user and consist of:
+The command lists the [Access Control List (ACL)](/docs/management/security/acl#acl-rules) rules that apply to the user and consist of:
 
 * User flags
 * Password hashes

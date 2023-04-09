@@ -1,4 +1,5 @@
-Remove the specified members from the set stored at _key_.
+Remove the specified members from the [Redis set](/docs/data-types/sets) stored at _key_.
+
 Specified members that are not members of the set are ignored.
 If _key_ doesn't exist, it is treated as an empty set and this command returns
 `0`.

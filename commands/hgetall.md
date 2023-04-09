@@ -1,4 +1,4 @@
-In the reply, every field name is followed by its value, so the length of the reply is twice the size of the hash.
+In the reply, every field name is followed by its value, so the length of the reply is twice the size of the [Redis hash](/docs/data-types/hashes).
 
 {{% alert title="Warning" color="warning" %}}
 This command requires space and time that are proportional to the hash's number of fields.

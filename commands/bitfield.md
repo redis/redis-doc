@@ -1,4 +1,4 @@
-The command treats a Redis string as an array of bits.
+The command treats a [Redis string](/docs/data-types/strings) stored at _key_ as an array of bits, that is a [Redis bitfield](/docs/data-types/bitfields).
 It's capable of addressing specific integer fields of varying bit widths and arbitrary non (necessary) aligned offset.
 In practical terms, using this command you can set, for example, a signed 5-bit integer at bit offset 1234 to a specific value, and retrieve a 31-bit unsigned integer from offset 4567.
 Similarly, the command handles increments and decrements of the specified integers, providing guaranteed and well-specified overflow and underflow behavior that the user can configure.

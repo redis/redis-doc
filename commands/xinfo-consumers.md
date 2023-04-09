@@ -1,4 +1,4 @@
-This command returns the list of consumers that belong to the consumer group _groupname_ of the stream stored at _key_.
+This command returns the list of consumers that belong to the consumer group _groupname_ of the [Redis stream](/docs/data-types/streams) stored at _key_.
 
 The following information is provided for each consumer in the group:
 

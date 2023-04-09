@@ -1,4 +1,4 @@
-Sets the given keys to their respective values.
+Sets the given keys to their respective [Redis string](/docs/data-types/strings) values.
 `MSETNX` will not perform any operation at all even if just a single key already exists.
 
 Because of this semantic `MSETNX` can be used to set different keys representing different fields of a unique logic object in a way that ensures that either all the fields or none at all are set.

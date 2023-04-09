@@ -1,6 +1,5 @@
-The position is returned, thinking of the string as an array of bits from left to
-right, where the first byte's most significant bit is at position 0, the second
-byte's most significant bit is at position 8, and so forth.
+Returns the position of the first bit set to "1" or "0" in a [Redis bitmap](/docs/data-types/bitmaps) stored at _key_.
+The position is returned, thinking of the string as an array of bits from left to right, where the first byte's most significant bit is at position 0, the second byte's most significant bit is at position 8, and so forth.
 
 The same bit position convention is followed by `GETBIT` and `SETBIT`.
 
@@ -31,7 +30,7 @@ If we look for clear bits (the bit argument is 0) and the string only contains b
 The function considers the right of the string as padded with zeros if you look for clear bits and specify no range or the _start_ argument **only**.
 
 However, this behavior changes if you are looking for clear bits and specify a range with both _start_ and _end_.
-If no clear bit is found in the specified range, the function returns -1 as the user specified a clear range and there are no 0 bits in that range.
+If a clear bit isn't found in the specified range, the function returns -1 as the user specified a clear range and there are no 0 bits in that range.
 
 @examples
 

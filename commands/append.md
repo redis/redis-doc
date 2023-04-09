@@ -1,6 +1,6 @@
-If _key_ already exists and is a string, this command appends the _value_ at the
+If _key_ already exists and is a [Redis string](/docs/data-types/strings), this command appends the _value_ at the
 end of the string.
-If _key_ doesn't exist, it is created and set as an empty string, so `APPEND`
+If _key_ doesn't exist, it is created and set as an empty string (""), so `APPEND`
 will be similar to `SET` in this special case.
 
 @return

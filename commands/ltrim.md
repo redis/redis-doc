@@ -1,4 +1,4 @@
-Trim an existing list so that it will contain only the specified range of elements specified.
+Trim an existing [Redis list](/docs/data-types/lists) so that it will contain only the specified range of elements specified.
 Both _start_ and _stop_ are zero-based indexes, where `0` is the first element of the list (the head), `1` is the next element and so on.
 
 For example: `LTRIM foobar 0 2` will modify the list stored at "foobar" so that only the first three elements of the list will remain.

@@ -1,13 +1,13 @@
-Given a sorted set representing a geospatial index, populated using the `GEOADD` command, the command returns the distance between the two specified members in the specified unit.
+Given [Redis geospatial index](/docs/data-types/geospatial) that's stored at _key, the command returns the distance between the two specified members in the specified unit.
 
 If one or both members are missing, the command returns a `nil`.
 
 The unit must be one of the following, and defaults to meters:
 
-* **m** for meters.
-* **km** for kilometers.
-* **mi** for miles.
-* **ft** for feet.
+* `M` for meters.
+* `KM` for kilometers.
+* `MI` for miles.
+* `FT` for feet.
 
 The distance is computed assuming that the Earth is a perfect sphere, so errors up to 0.5% are possible in edge cases.
 

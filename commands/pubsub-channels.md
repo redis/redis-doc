@@ -1,4 +1,4 @@
-Lists the Pub/Sub channels that are active for the instance.
+Lists the [Redis Pub/Sub](/docs/manual/pubsub) channels that are active for the instance.
 
 An active channel is a Pub/Sub channel with one or more subscribers (excluding clients subscribed to patterns).
 

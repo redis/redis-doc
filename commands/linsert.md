@@ -1,5 +1,4 @@
-Inserts _element_ in the list stored at _key_ either before or after the reference
-value _pivot_.
+Inserts _element_ into the [Redis list](/docs/data-types/lists) stored at _key_ either before or after the reference value _pivot_.
 
 When the _key_ doesn't exist, it is considered an empty list and no operation is performed.
 

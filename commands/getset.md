@@ -1,5 +1,5 @@
-Atomically sets _key_ to _value_ and returns the old value stored at _key_.
-Returns an error when _key_ exists but does not hold a string value.
+Atomically sets the _key_ to the [Redis string](/docs/data-types/strings) _value_ and returns the old value stored at the _key_.
+Returns an error when the _key_ exists but doesn't hold a string value.
 Any previous time-to-live associated with the key is discarded on successful `SET` operation.
 
 ## Design pattern
@@ -16,7 +16,7 @@ GET mycounter
 
 @return
 
-@bulk-string-reply: the old value stored at _key_, or @nil-reply when _key_ doesn't exist.
+@bulk-string-reply: the old value stored at _key_, or @nil-reply when the _key_ doesn't exist.
 
 @examples
 

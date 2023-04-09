@@ -1,4 +1,5 @@
-The command returns the stream entries matching a given range of IDs.
+The command returns the entries matching a given range of IDs from the [Redis stream](/docs/data-types/streams) at _key_.
+
 The range is specified by a _start_ and _end_ ID.
 All the entries with an ID between the two specified or exactly one of the two IDs specified (closed interval) are returned.
 

@@ -1,3 +1,5 @@
+This command iterates the fields and values of a [Redis hash](/docs/data-types/hashes) stored at _key_.
+
 See `SCAN` for `HSCAN` documentation.
 
 @return

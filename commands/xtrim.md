@@ -1,4 +1,4 @@
-`XTRIM` removes entries from the beginning of the stream at _key_.
+`XTRIM` removes entries from the beginning of the [Redis stream](/docs/data-types/streams) at _key_.
 
 Trimming the stream can be done using one of these strategies:
 

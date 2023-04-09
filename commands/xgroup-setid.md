@@ -1,4 +1,4 @@
-Set the **last delivered ID** for a consumer group.
+Set the **last delivered ID** for a consumer _group_ of the [Redis stream](/docs/data-types/streams) at _key_.
 
 Normally, a consumer group's last delivered ID is set when the group is created with `XGROUP CREATE`.
 The `XGROUP SETID` command allows modifying the group's last delivered ID, without having to delete and recreate the group.

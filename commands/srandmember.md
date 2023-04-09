@@ -1,4 +1,4 @@
-When called with just the _key_ argument, return a random member of the set that's stored at _key_.
+When called with just the _key_ argument, return a random member of the [Redis set](/docs/data-types/sets) that's stored at _key_.
 
 If the provided _count_ argument is positive, return an array of **distinct members**.
 The array's length is either _count_ or the set's cardinality (`SCARD`), whichever is lower.

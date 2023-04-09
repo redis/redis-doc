@@ -1,4 +1,4 @@
-Removes and returns up to _count_ members with the highest scores in the sorted set stored at _key_.
+Removes and returns up to _count_ members with the highest scores in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
 
 If unspecified, the default value for _count_ is 1.
 Specifying a _count_ value that is higher than the sorted set's cardinality will not produce an

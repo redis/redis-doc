@@ -1,3 +1,5 @@
+All [Access Control List (ACL)](/docs/management/security/acl) usernames are included in the reply.
+
 @return
 
 An array of strings.

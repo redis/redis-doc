@@ -1,4 +1,4 @@
-This command is similar to `GET`, except for the fact that it also deletes the _key_ on success (if, and only if, the key's value type is a string).
+This command is similar to `GET`, except for the fact that it also deletes the _key_ on success (if, and only if, the key's value type is a [Redis string](/docs/data-types/strings)).
 
 @return
 

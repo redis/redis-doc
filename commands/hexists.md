@@ -1,4 +1,4 @@
-Returns whether _field_ exists in the hash stored at _key_.
+Returns whether the _field_ exists in the [Redis hash](/docs/data-types/hashes) stored at the _key_.
 
 @return
 

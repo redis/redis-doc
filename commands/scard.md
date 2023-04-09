@@ -1,4 +1,4 @@
-Returns the cardinality (number of elements) of the set stored at _key_.
+Returns the cardinality (number of elements) of the [Redis set](/docs/data-types/sets) stored at _key_.
 
 @return
 

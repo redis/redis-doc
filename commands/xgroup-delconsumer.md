@@ -1,4 +1,4 @@
-The `XGROUP DELCONSUMER` command deletes the _consumer_ from the consumer _group_.
+The `XGROUP DELCONSUMER` command deletes the _consumer_ from the consumer _group_ of the [Redis stream](/docs/data-types/streams) at _key_.
 
 Sometimes it may be useful to remove old consumers since they are no longer used.
 

@@ -1,4 +1,4 @@
-Removes and returns one or more random members from the set value store at _key_.
+Removes and returns one or more random members from the [Redis set](/docs/data-types/sets) value store at _key_.
 
 This operation is similar to `SRANDMEMBER` which returns one or more random elements from a set but doesn't remove them.
 
@@ -18,7 +18,7 @@ When called without the _count_ argument:
 
 When called with the `count` argument:
 
-@array-reply: the removed members, or an empty array when _key_ doesn't exist.
+@array-reply: the removed members, or an empty array when the _key_ doesn't exist.
 
 @examples
 

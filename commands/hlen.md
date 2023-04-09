@@ -1,4 +1,4 @@
-Returns the number of fields contained in the hash stored at _key_.
+Returns the number of fields contained in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
 @return
 

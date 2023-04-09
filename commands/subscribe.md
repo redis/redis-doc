@@ -1,4 +1,4 @@
-Subscribes the client to the specified channels.
+Subscribes the client to the [Redis Pub/Sub](/docs/manual/pubsub) specified channels.
 
 Once a RESP2 client enters the subscribed state it isn't supposed to issue any other commands, except:
 

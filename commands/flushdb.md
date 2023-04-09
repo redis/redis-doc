@@ -1,5 +1,7 @@
-Delete all the keys of the currently selected DB.
+Delete all the keys of the currently-selected DB.
 This command never fails.
+
+See the `SELECT` command for more information about logical databases.
 
 By default, `FLUSHDB` will synchronously flush all keys from the database.
 

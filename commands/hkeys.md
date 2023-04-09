@@ -1,4 +1,4 @@
-Returns all field names in the hash stored at _key_.
+Returns all field names in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
 {{% alert title="Warning" color="warning" %}}
 This command requires space and time that are proportional to the hash's number of fields.
@@ -8,7 +8,7 @@ Prefer using `HSCAN` for iterating over hashes with a large number of fields.
 
 @return
 
-@array-reply: list of fields in the hash, or an empty list when _key_ doesn't exist.
+@array-reply: list of fields in the hash, or an empty list when the _key_ doesn't exist.
 
 @examples
 

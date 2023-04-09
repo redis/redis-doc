@@ -1,4 +1,4 @@
-Returns the number of members in the sorted set at _key_ with a score between _min_ and _max_.
+Returns the number of members in the [Redis sorted set](/docs/data-types/sorted-sets) at _key_ with a score between _min_ and _max_.
 
 The _min_ and _max_ arguments have the same semantics as described for `ZRANGEBYSCORE`.
 

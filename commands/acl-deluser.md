@@ -1,4 +1,4 @@
-The list of users may include usernames that do not exist.
+The list of users may include usernames that don't exist in the [Access Control List (ACL)](/docs/management/security/acl).
 In such cases, no operation is performed for the non-existing users.
 
 {{% alert title="Note" color="info" %}}

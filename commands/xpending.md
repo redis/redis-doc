@@ -1,3 +1,5 @@
+Returns the information and entries from a consumer group's *Pending Entries List (PEL)* of the [Redis stream](/docs/data-types/streams) at _key_.
+
 Fetching data from a stream via a consumer group, and not acknowledging such data, has the effect of creating *pending entries*.
 This is well explained in the `XREADGROUP` command, and even better in our [introduction to Redis Streams](/topics/streams-intro).
 The `XACK` command will immediately remove the pending entry from the *Pending Entries List* (PEL) since once a message is successfully processed, there is no longer a need for the consumer group to track it and to remember the current owner of the message.

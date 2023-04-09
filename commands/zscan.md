@@ -1,3 +1,5 @@
+This command iterates the members of a [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
+
 See `SCAN` for `ZSCAN` documentation.
 
 @array-reply: specifically, an array with two elements.

@@ -2,6 +2,7 @@ This command copies the value stored at the _source_ key to the _destination_ ke
 
 By default, the _destination_ key is created in the same logical database used by the connection.
 The `DB` option allows specifying an alternative logical database index for the destination key.
+See the `SELECT` command for more information about logical databases.
 
 The command returns an error when the _destination_ key already exists.
 The `REPLACE` option removes the _destination_ key before copying the value to it.

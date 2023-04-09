@@ -1,4 +1,4 @@
-This command is identical to `SDIFF`, but instead of returning the resulting set, it is stored in _destination_.
+This command is identical to `SDIFF`, but instead of returning the resulting [Redis set](/docs/data-types/sets), it is stored in the _destination_.
 
 If `destination` already exists, it is overwritten.
 

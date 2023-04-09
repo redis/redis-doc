@@ -1,4 +1,5 @@
-Removes the specified entries from a stream at _key_, and returns the number of entries deleted.
+Removes the specified entries from a [Redis stream](/docs/data-types/streams) at _key_, and returns the number of entries deleted.
+
 This number may be less than the number of IDs passed to the command in the case where some of the specified IDs do not exist in the stream.
 
 Normally you may think of a Redis stream as an append-only data structure.

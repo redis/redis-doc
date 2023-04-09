@@ -1,4 +1,5 @@
 This command is exactly like `XRANGE`, but with the notable difference of returning the entries in reverse order.
+
 Also, note that the range arguments for this command are reversed, so the first argument is the _end_ ID and then the _start_ ID.
 The reply will include all the elements in the range, starting from the _end_.
 

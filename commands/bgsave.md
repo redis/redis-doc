@@ -1,17 +1,11 @@
 Normally, the command returns an "OK" immediately.
-Redis forks, the parent continues to serve the clients, the child saves the DB
-on disk then exits.
+In the background Redis forks, and while the parent continues to serve the clients, the child [saves the database to disk as an RDB file](/docs/management/persistence#rdb-advantages), and then exits.
 
-An error is returned if there is already a background save running or if there
-is another non-background-save process running specifically an in-progress AOF
-rewrite.
+An error is returned if there is already a background save running or if there is another non-background-save process running specifically an in-progress AOF rewrite.
 
-If `BGSAVE SCHEDULE` is used, the command will immediately return `OK` when an
-AOF rewrite is in progress and schedule the background save to run at the next
-opportunity.
+If `BGSAVE SCHEDULE` is used, the command will immediately return `OK` when an AOF rewrite is in progress and schedule the background save to run at the next opportunity.
 
-A client may be able to check if the operation succeeded using the `LASTSAVE`
-command.
+A client may be able to check if the operation succeeded using the `LASTSAVE` command.
 
 Please refer to the [persistence documentation][tp] for detailed information.
 

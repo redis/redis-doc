@@ -1,10 +1,12 @@
-This command supports two formats, the old format:
+This command supports two formats: old and new.
+
+The old format is as follows:
 
     CLIENT KILL addr:port
 
 The `addr:port` should match a line returned by the `CLIENT LIST` command (`addr` field).
 
-The new format:
+The new format is as follows:
 
     CLIENT KILL <filter> <value> ... ... <filter> <value>
 

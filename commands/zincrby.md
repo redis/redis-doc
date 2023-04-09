@@ -1,4 +1,5 @@
-Increments the score of the _member_ in the sorted set stored at the _key_ by _increment_.
+Increments the score of the _member_ in the [Redis sorted set](/docs/data-types/sorted-sets) stored at the _key_ by _increment_.
+
 If the _member_ doesn't exist in the sorted set, it is added with the _increment_ as its score (as if its previous score was `0.0`).
 If _key_ doesn't exist, a new sorted set is created with the specified _member_ as its sole member.
 

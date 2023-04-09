@@ -1,4 +1,4 @@
-When called with just the _key_ argument, return a random member from the sorted set value stored at _key_.
+When called with just the _key_ argument, return a random member from the [Redis sorted set](/docs/data-types/sorted-sets) value stored at _key_.
 
 If the provided _count_ argument is positive, return an array of **distinct members**.
 The array's length is either _count_ or the sorted set's cardinality (`ZCARD`), whichever is lower.

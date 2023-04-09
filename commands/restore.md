@@ -3,14 +3,14 @@ Create a _key_ associated with a value that is obtained by deserializing the pro
 If _ttl_ is 0, the key is created without an expiration time.
 Otherwise, the specified _ttl_ (time-to-live, in milliseconds) is set.
 
-If the `ABSTTL` modifier was used, _ttl_ should represent an absolute [Unix timestamp][hewowu] (in milliseconds) in which the key will expire.
+If the `ABSTTL` modifier was used, the _ttl_ should represent an absolute [Unix timestamp][hewowu] (in milliseconds) in which the key will expire.
 
 [hewowu]: http://en.wikipedia.org/wiki/Unix_time
 
 For eviction purposes, you may use the `IDLETIME` or `FREQ` modifiers.
 See `OBJECT` for more information.
 
-`!RESTORE` will return a "Target key name is busy" error when _key_ already exists unless you use the `REPLACE` modifier.
+`!RESTORE` will return a "Target key name is busy" error when the _key_ already exists unless you use the `REPLACE` modifier.
 
 `!RESTORE` checks the RDB version and data checksum.
 If they don't match an error is returned.

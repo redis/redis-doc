@@ -1,4 +1,5 @@
 This command is a read-only variant of the `SORT` command.
+
 It is identical to `SORT`, but doesn't support the `STORE` option, and can safely be used on read-only replicas.
 
 Since the original `SORT` has a `STORE` option it is technically flagged as a writing command in the Redis command table.

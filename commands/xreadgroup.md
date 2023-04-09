@@ -1,4 +1,5 @@
 The `XREADGROUP` command is a special version of the `XREAD` command that supports consumer groups.
+
 It is advisable that you first become acquainted with the `XREAD` command before reading this page.
 
 Moreover, if you are new to streams, we recommend that you read our [introduction to Redis Streams](/topics/streams-intro).

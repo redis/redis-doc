@@ -1,4 +1,4 @@
-When called with just the _key_ argument, return a random field from the hash value stored at the _key_.
+When called with just the _key_ argument, return a random field from the [Redis hash](/docs/data-types/hashes) that's stored at the _key_.
 
 If the provided _count_ argument is positive, return an array of **distinct fields**.
 The array's length is either _count_ or the hash's number of fields (`HLEN`), whichever is lower.
@@ -12,7 +12,7 @@ The optional `WITHVALUES` modifier changes the reply so it includes the respecti
 
 @bulk-string-reply: without the additional _count_ argument, the command returns a Bulk Reply with the randomly selected field, or @nil-reply when the _key_ doesn't exist.
 
-@array-reply: when the additional _count_ argument is passed, the command returns an array of fields, or an empty array when _key_ doesn't exist.
+@array-reply: when the additional _count_ argument is passed, the command returns an array of fields, or an empty array when the _key_ doesn't exist.
 If the `WITHVALUES` modifier is used, the reply is a list of fields and their values from the hash.
 
 @examples

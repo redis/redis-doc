@@ -1,4 +1,5 @@
-In the context of a stream consumer group, this command changes the ownership of a pending message, so that the new owner is the consumer specified as the command argument.
+In the context of a [Redis stream](/docs/data-types/streams) consumer group, this command changes the ownership of a pending message, so that the new owner is the consumer specified as the command argument.
+
 Normally this is what happens:
 
 1. There is a stream with an associated consumer group.

@@ -1,4 +1,5 @@
-This command transfers ownership of pending stream entries that match the specified criteria.
+This command transfers ownership of pending [Redis stream](/docs/data-types/streams) entries that match the specified criteria.
+
 Conceptually, `XAUTOCLAIM`  is equivalent to calling `XPENDING` and then `XCLAIM`, but provides a more straightforward way to deal with message delivery failures via `SCAN`-like semantics.
 
 Like `XCLAIM`, the command operates on the stream entries at _key_ and in the context of the provided consumer _group_.

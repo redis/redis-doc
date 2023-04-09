@@ -1,4 +1,5 @@
-Returns "PONG" if called without an argument, otherwise returns a copy of the argument as a bulk string.
+Returns "PONG" if called without an argument.
+Otherwise returns the argument provided.
 
 This command is useful for:
 1. Testing whether a connection is still alive.

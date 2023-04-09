@@ -1,4 +1,4 @@
-Check and report whether _member_ is a member of the set stored at _key_.
+Check and report whether the _member_ is a member of the [Redis set](/docs/data-types/sets) stored at _key_.
 
 @return
 

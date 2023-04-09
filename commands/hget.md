@@ -1,4 +1,4 @@
-Returns the value associated with _field_ in the hash stored at _key_.
+Returns the value associated with the _field_ in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
 @return
 

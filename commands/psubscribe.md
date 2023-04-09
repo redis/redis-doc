@@ -1,4 +1,4 @@
-Subscribes the client to the given Pub/Sub channel patterns.
+Subscribes the client to the given [Redis Pub/Sub](/docs/manual/pubsub) channel patterns.
 
 Supported glob-style patterns:
 

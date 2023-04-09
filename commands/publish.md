@@ -1,4 +1,4 @@
-Posts the _message_ to the given _channel_.
+Posts the _message_ to the given [Redis Pub/Sub](/docs/manual/pubsub) _channel_.
 
 {{% alert title="Cluster note" color="info" %}}
 In a Redis Cluster, clients can publish to every node.

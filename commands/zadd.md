@@ -1,4 +1,5 @@
-Adds all the specified members with the specified scores to the sorted set stored at _key_.
+Adds all the specified members with their scores to the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
+
 It is possible to specify multiple score/member pairs.
 If a specified _member_ is already a member of the sorted set, the score is updated and the member is reinserted at the right position to ensure the correct ordering.
 

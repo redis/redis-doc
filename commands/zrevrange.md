@@ -1,4 +1,5 @@
-Returns the specified range of members in the sorted set stored at _key_.
+Returns the specified range of members in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
+
 The members are considered to be ordered from the highest to the lowest score.
 Descending lexicographical order is used for elements with equal scores.
 

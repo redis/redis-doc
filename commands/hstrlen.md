@@ -1,9 +1,9 @@
-Returns the string length of the value associated with _field_ in the hash stored at _key_.
+Returns the string length of the value associated with the _field_ in the [Redis hash](/docs/data-types/hashes) stored at the _key_.
 If either _key_ or _field_ doesn't exist, 0 is returned.
 
 @return
 
-@integer-reply: the string length of the value associated with _field_, or zero when _field_ is not present in the hash or _key_ doesn't exist at all.
+@integer-reply: the string length of the value associated with the _field_, or zero when the _field_ isn't present in the hash or the _key_ doesn't exist at all.
 
 @examples
 

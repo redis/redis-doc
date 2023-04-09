@@ -1,5 +1,6 @@
-Removes the specified members from the sorted set stored at _key_.
-Non-existing members are ignored.
+Removes the specified members from the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
+
+Members that don't exist are silently ignored.
 
 An error is returned when _key_ exists and doesn't store a sorted set.
 

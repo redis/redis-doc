@@ -1,4 +1,4 @@
-Merge multiple HyperLogLog values into a unique value that will approximate the cardinality of the union of the observed Sets of the source HyperLogLog structures.
+Merge multiple [Redis HyperLogLog](/docs/data-types/hyperloglogs) values into a unique value that will approximate the cardinality of the union of the observed Sets of the source HyperLogLog structures.
 
 The computed merged HyperLogLog is written to the _destkey_, which is created if doesn't exist (defaulting to an empty HyperLogLog).
 

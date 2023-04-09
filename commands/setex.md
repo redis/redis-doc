@@ -1,4 +1,5 @@
-Set _key_ to the string _value_ and its expiry time to _seconds_.
+Set _key_ to the [Redis string](/docs/data-types/strings) _value_ and its expiry time to _seconds_.
+
 This command is equivalent to:
 
 ```

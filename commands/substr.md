@@ -1,4 +1,4 @@
-Returns the substring of the string value stored at _key_, determined by the offsets _start_ and _end_ (both are inclusive).
+Returns the substring of the [Redis string](/docs/data-types/strings) value stored at _key_, determined by the offsets _start_ and _end_ (both are inclusive).
 Negative offsets can be used to provide an offset starting from the end of the string.
 So -1 means the last character, -2 the penultimate and so forth.
 

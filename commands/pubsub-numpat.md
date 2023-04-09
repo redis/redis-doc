@@ -1,4 +1,4 @@
-Returns the number of unique patterns that are subscribed to by clients (that are performed using the `PSUBSCRIBE` command) for the instance.
+Returns the number of unique patterns that are subscribed to by [Redis Pub/Sub](/docs/manual/pubsub) clients (that were subscribed using the `PSUBSCRIBE` command) for the instance.
 
 Note that this isn't the count of clients subscribed to patterns, but the total number of unique patterns all the clients are subscribed to.
 

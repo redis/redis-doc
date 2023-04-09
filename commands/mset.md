@@ -1,4 +1,4 @@
-`MSET` creates or updates existing values with new values, much like `SET` does.
+`MSET` creates or updates existing [Redis string](/docs/data-types/strings) values with new values, much like `SET` does.
 Also like `SET`, the command ignores the type of existing keys.
 See `MSETNX` if you don't want to overwrite existing values.
 

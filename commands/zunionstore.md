@@ -1,4 +1,5 @@
-Computes the union of _numkeys_ sorted sets given by the specified keys, and stores the result in _destination_.
+Computes the union of _numkeys_ [Redis sorted sets](/docs/data-types/sorted-sets) given by the specified keys, and stores the result in _destination_.
+
 The total number of input keys is specified by the _numkeys_ argument.
 
 By default, the resulting score of a member is the sum of its scores in the sorted sets where it exists.

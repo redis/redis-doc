@@ -1,7 +1,6 @@
-The `INFO` command returns information and statistics about the server in a
-format that is simple to parse by computers and easy to read by humans.
+The `INFO` command returns information and statistics about the server in a format that is simple to parse by computers and easy to read by humans.
 
-The optional parameter can be used to select a specific section of information:
+The optional _section_ parameter can be used to select a specific section of information:
 
 *   `server`: General information about the Redis server
 *   `clients`: Client connections section
@@ -21,7 +20,7 @@ The optional parameter can be used to select a specific section of information:
 
 It can also take the following values:
 
-*   `all`: Return all sections (excluding module generated ones)
+*   `all`: Return all sections (excluding module-generated ones)
 *   `default`: Return only the default set of sections
 *   `everything`: Includes `all` and `modules`
 
@@ -42,7 +41,7 @@ INFO
 
 Please note depending on the version of Redis some of the fields have been
 added or removed. A robust client application should therefore parse the
-result of this command by skipping unknown properties, and gracefully handle
+result of this command by skipping unknown properties, and gracefully handles
 missing fields.
 
 Here is the description of fields for Redis >= 2.4.

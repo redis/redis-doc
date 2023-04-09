@@ -1,4 +1,4 @@
-Returns the cardinality (number of members) of the sorted set stored at _key_.
+Returns the cardinality (number of members) of the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
 
 @return
 

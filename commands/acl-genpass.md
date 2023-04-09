@@ -1,4 +1,4 @@
-ACL users need a solid password to authenticate with the server without security risks.
+[Access Control List (ACL)](/docs/management/security/acl) users need a solid password to authenticate with the server without security risks.
 Such password isn't meant to be remembered by humans, only by computers, so it can be very long and strong (unguessable by an external attacker).
 The `ACL GENPASS` command generates a password starting from `/dev/urandom` if available, otherwise (in systems without `/dev/urandom`) it uses a weaker system that is likely still better than picking a weak password by hand.
 
@@ -9,7 +9,7 @@ This means that the application developer can feel free to abuse `ACL GENPASS` t
 
 The command output is a hexadecimal representation of a binary string.
 By default, it emits 256 bits (or 64 hexadecimal characters).
-The user can provide, as an argument, a number between 1 and 1024, as the number of bits to emit.
+The user can provide, as the _bits_ argument, a number between 1 and 1024, as the number of bits to emit.
 Note that the number of bits is always rounded up to the next multiple of 4.
 So, for instance, asking for a password that's 1 bit long, will result in 4 bits being emitted, in the form of a single hexadecimal character.
 

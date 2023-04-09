@@ -1,4 +1,4 @@
-This command returns information about the stream stored at _key_.
+This command returns information about the [Redis stream](/docs/data-types/streams) stored at _key_.
 
 The informative details provided by this command are:
 

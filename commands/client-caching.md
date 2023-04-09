@@ -1,4 +1,4 @@
-This command controls the tracking of the keys in the next command executed by the connection, when tracking is enabled in `OPTIN` or `OPTOUT` mode.
+When tracking is enabled in `OPTIN` or `OPTOUT` modes, this command controls the tracking of the keys in the next command executed by the connection.
 Please check the [client side caching documentation](/topics/client-side-caching) for
 background information.
 

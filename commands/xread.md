@@ -1,4 +1,5 @@
-Read entries from one or multiple streams, only returning entries with an ID greater than the last received ID reported by the caller.
+Read entries from one or multiple [Redis streams](/docs/data-types/streams), only returning entries with an ID greater than the last received ID reported by the caller.
+
 This command can optionally block the client if entries aren't available, in a similar
 fashion to `BRPOP`, `BZPOPMIN` and others.
 

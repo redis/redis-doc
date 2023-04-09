@@ -1,5 +1,5 @@
-Each entry of the reply's array is the definition of a single ACL user.
-The format is the same as used in the redis.conf file, or the external ACL file.
+Each entry of the reply's array is the definition of a single [Access Control List (ACL)](/docs/management/security/acl) user.
+The format is the same as the one used in the redis.conf file, or the external ACL file.
 That means you can copy-paste the reply into a configuration file if you wish (but make sure to also check `ACL SAVE`).
 
 @return

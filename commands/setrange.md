@@ -1,4 +1,5 @@
-Overwrites part of the string stored at _key_, starting at the specified offset, for the entire length of _value_.
+Overwrites part of the [Redis string](/docs/data-types/strings) stored at _key_, starting at the specified offset, for the entire length of _value_.
+
 If the _offset_ is larger than the current length of the string at _key_, the string is padded with zero-bytes to make the _offset_ fit.
 Non-existing keys are considered empty strings, so this command will make sure it holds a string large enough to be able to set _value_ at _offset_.
 

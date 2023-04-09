@@ -1,4 +1,4 @@
-Posts a message to the given shard channel.
+Posts a message to the given [Redis Pub/Sub](/docs/manual/pubsub) shard channel.
 
 In Redis Cluster, shard channels are assigned to slots by the same algorithm used to assign keys to slots.
 A shard message must be sent to a node that owns the slot the shard channel is hashed to. 

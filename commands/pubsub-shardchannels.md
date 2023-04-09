@@ -1,4 +1,4 @@
-Lists the Pub/Sub channels that are active for the shard.
+Lists the [Redis Pub/Sub](/docs/manual/pubsub) channels that are active for the shard.
 
 An active shard channel is a Pub/Sub shard channel with one or more subscribers.
 

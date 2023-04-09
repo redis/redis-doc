@@ -1,6 +1,6 @@
-Returns the number of subscribers (exclusive of clients subscribed to patterns) for the specified channels.
+Returns the number of [Redis Pub/Sub](/docs/manual/pubsub) subscribers (exclusive of clients subscribed to patterns) for the specified channels.
 
-Note that it is valid to call this command without channels. In this case it will just return an empty list.
+Note that it is valid to call this command without channels. In this case, it will just return an empty list.
 
 {{% alert title="Cluster note" color="info" %}}
 In a Redis Cluster clients can subscribe to every node, and can also publish to every other node.

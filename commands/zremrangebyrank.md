@@ -1,4 +1,4 @@
-Removes all elements in the sorted set stored at _key_ with ranks between _start_ and _stop_.
+Removes all elements in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_ with ranks between _start_ and _stop_.
 
 Both _start_ and _stop_ are 0-based indexes, with `0` being the member with the lowest score.
 These indexes can be negative numbers, where they indicate offsets starting at the member with the highest score.

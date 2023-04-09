@@ -1,4 +1,4 @@
-When all the members in a sorted set are inserted with the same score, to force lexicographical ordering, this command removes the number of members in the sorted set at the _key_ with a value between _min_ and _max_.
+When all the members in a [Redis sorted set](/docs/data-types/sorted-sets) are inserted with the same score, to force lexicographical ordering, this command removes the number of members in the sorted set at the _key_ with a value between _min_ and _max_.
 
 The _min_ and _max_ arguments have the same meaning as described for `ZRANGEBYLEX`.
 Similarly, this command removes the same members that `ZRANGEBYLEX` would return if called with the same _min_ and _max_ arguments.

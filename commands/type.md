@@ -1,4 +1,5 @@
 Returns the string representation of the type of the value stored at _key_.
+
 For core Redis data types, the type can be one of the following:
 
 * **"string"**: for the [string](/docs/data-types/strings), [bitmap](/docs/data-types/bitmaps), [bitfield](/docs/data-types/bitfields) and [HyperLogLog](/docs/data-types/hyperloglogs) data types.

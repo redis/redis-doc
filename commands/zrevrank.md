@@ -1,4 +1,4 @@
-Returns the rank of _member_ in the sorted set stored at _key_, ordered by descending scores.
+Returns the rank of _member_ in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_, ordered by descending scores.
 
 The rank (or index) is 0-based, which means that the member with the highest score has a rank of `0`.
 

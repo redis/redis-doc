@@ -1,4 +1,4 @@
-When no channels are specified, the client is unsubscribed from all the previously subscribed channels.
+When no [Redis Pub/Sub](/docs/manual/pubsub) channels are specified, the client is unsubscribed from all the previously subscribed channels.
 In this case, a message for every unsubscribed channel will be sent to the client.
 
 @return

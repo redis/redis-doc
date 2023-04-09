@@ -1,4 +1,4 @@
-Key names that don't exist are silently ignored.
+Keys that don't exist are silently ignored and aren't included in the reply.
 
 @return
 

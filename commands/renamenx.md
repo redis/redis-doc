@@ -1,7 +1,7 @@
 Renames _key_ to _newkey_ if and only if _newkey_ doesn't exist.
-The command returns an error when _key_ doesn't exist.
+The command returns an error when the _key_ doesn't exist.
 
-In Cluster mode, both _key_ and _newkey_ must be in the same **hash slot**, meaning that in practice only keys that have the same hashtag can be reliably renamed in the cluster.
+In Cluster mode, both the _key_ and the _newkey_ must be in the same **hash slot**, meaning that in practice only keys that have the same hashtag can be reliably renamed in the cluster.
 
 @return
 

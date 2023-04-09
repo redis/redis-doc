@@ -1,4 +1,4 @@
-Atomically returns and removes the first/last element (head/tail depending on the _wherefrom_ argument) of the list stored at _source_, and pushes the element at the first/last element (head/tail depending on the _whereto_ argument) of the list stored at _destination_.
+Atomically returns and removes the first/last element (head/tail depending on the _wherefrom_ argument) of the [Redis list](/docs/data-types/lists) stored at the _source_, and pushes the element as the first/last element (head/tail depending on the _whereto_ argument) of the list stored at the _destination_.
 
 For example, consider a key called "src" that's the following list: "a", "b" and "c".
 The "dst" key is a list that consists of "x", "y", and "z".
@@ -27,46 +27,25 @@ LRANGE myotherlist 0 -1
 
 ## Pattern: Reliable queue
 
-Redis is often used as a messaging server to implement processing of background
-jobs or other kinds of messaging tasks.
-A simple form of queue is often obtained pushing values into a list in the
-producer side, and waiting for this values in the consumer side using `RPOP`
-(using polling), or `BRPOP` if the client is better served by a blocking
-operation.
+Redis is often used as a messaging server to implement the processing of background jobs or other kinds of messaging tasks.
+A simple form of a queue is often obtained by pushing values into a list on the producer's side and waiting for these values on the consumer's side using `RPOP` (using polling), or `BRPOP` if the client is better served by a blocking operation.
 
-However in this context the obtained queue is not _reliable_ as messages can
-be lost, for example in the case there is a network problem or if the consumer
-crashes just after the message is received but it is still to process.
+However, in this context the obtained queue ** isn't reliable** as messages can be lost, for example in the case there is a network problem or if the consumer crashes just after the message is received but it is still to process.
 
-`LMOVE` (or `BLMOVE` for the blocking variant) offers a way to avoid
-this problem: the consumer fetches the message and at the same time pushes it
-into a _processing_ list.
-It will use the `LREM` command in order to remove the message from the
-_processing_ list once the message has been processed.
+`LMOVE` (or `BLMOVE` for the blocking variant) offers a way to avoid this problem: the consumer fetches the message and at the same time pushes it into a _processing_ list.
+It will use the `LREM` command to remove the message from the _processing_ list once the message has been processed.
 
-An additional client may monitor the _processing_ list for items that remain
-there for too much time, and will push those timed out items into the queue
-again if needed.
+An additional client may monitor the _processing_ list for items that remain there for too much time and will push those timed-out items into the queue again if needed.
 
 ## Pattern: Circular list
 
-Using `LMOVE` with the same source and destination key, a client can visit
-all the elements of an N-elements list, one after the other, in O(N) without
-transferring the full list from the server to the client using a single `LRANGE`
-operation.
+Using `LMOVE` with the same source and destination key, a client can visit all the elements of an N-elements list, one after the other, in O(N) without transferring the full list from the server to the client using a single `LRANGE` operation.
 
 The above pattern works even in the following conditions:
-
-* There are multiple clients rotating the list: they'll fetch different
-  elements, until all the elements of the list are visited, and the process
-  restarts.
+* Multiple clients are rotating the list: they'll fetch different elements until all the elements of the list are visited, and the process restarts.
 * Even if other clients are actively pushing new items at the end of the list.
 
-The above makes it very simple to implement a system where a set of items must
-be processed by N workers continuously as fast as possible.
-An example is a monitoring system that must check that a set of web sites are
-reachable, with the smallest delay possible, using a number of parallel workers.
+The above makes it very simple to implement a system where a set of items must be processed by N workers continuously as fast as possible.
+An example is a monitoring system that must check that a set of websites are reachable, with the smallest delay possible, using several parallel workers.
 
-Note that this implementation of workers is trivially scalable and reliable,
-because even if a message is lost the item is still in the queue and will be
-processed at the next iteration.
+Note that this implementation of workers is trivially scalable and reliable because even if a message is lost the item is still in the queue and will be processed at the next iteration.

@@ -1,4 +1,4 @@
-Returns the specified range of members in the sorted set stored at _key_.
+Returns the specified range of members in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
 
 `ZRANGE` can perform different types of range queries: by index (rank), by the score, or by lexicographical order.
 

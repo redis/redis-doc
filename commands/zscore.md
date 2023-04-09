@@ -1,4 +1,4 @@
-Returns the score of a _member_ in the sorted set at _key_.
+Returns the score of a _member_ in the [Redis sorted set](/docs/data-types/sorted-sets) at _key_.
 
 If the _member_ doesn't belong to the sorted set, or the _key_ doesn't exist, `nil` is returned.
 

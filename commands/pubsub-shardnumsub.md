@@ -1,4 +1,4 @@
-Returns the number of subscribers for the specified shard channels.
+Returns the number of [Redis Pub/Sub](/docs/manual/pubsub) subscribers for the specified shard channels.
 
 Note that it is valid to call this command without channels.
 In this case, the command will return an empty list.

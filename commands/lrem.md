@@ -1,4 +1,5 @@
-Removes the first _count_ occurrences of elements equal to _element_ from the list stored at _key_.
+Removes the first _count_ occurrences of elements equal to _element_ from the [Redis list](/docs/data-types/lists) stored at the _key_.
+
 The _count_ argument influences the operation in the following ways:
 
 * `count > 0`: Remove elements equal to _element_ moving from head to tail.

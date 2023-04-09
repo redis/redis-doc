@@ -1,16 +1,16 @@
 The `SCAN` command and the closely related commands `SSCAN`, `HSCAN` and `ZSCAN` are used to incrementally iterate over a collection of elements.
 
 * `SCAN` iterates the set of keys in the currently selected Redis database.
-* `SSCAN` iterates elements of Sets types.
-* `HSCAN` iterates fields of Hash types and their associated values.
-* `ZSCAN` iterates elements of Sorted Set types and their associated scores.
+* `HSCAN` iterates fields of [Redis hash](/docs/data-types/hashes) types and their associated values.
+* `SSCAN` iterates members of [Redis set](/docs/data-types/sets) types.
+* `ZSCAN` iterates members of [Redis sorted set](/docs/data-types/sorted-sets) types and their associated scores.
 
 Since these commands allow for incremental iteration, returning only a small number of elements per call, they can be used in production without the downside of commands like `KEYS` or `SMEMBERS` that may block the server for a long time (even several seconds) when called against big collections of keys or elements.
 
-However, while blocking commands like `SMEMBERS` can provide all the elements that are part of a Set in a given moment, The `SCAN` family of commands only offers limited guarantees about the returned elements since the collection that we incrementally iterate can change during the iteration process.
+However, while blocking commands like `SMEMBERS` can provide all the elements that are part of a set in a given moment, the `SCAN` family of commands only offers limited guarantees about the returned elements since the collection that we incrementally iterate can change during the iteration process.
 
 Note that `SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` all work very similarly, so this documentation covers all four commands.
-However, an obvious difference is that in the case of `SSCAN`, `HSCAN` and `ZSCAN` the first argument is the name of the key holding the Set, Hash or Sorted Set value.
+However, an obvious difference is that in the case of `SSCAN`, `HSCAN` and `ZSCAN` the first argument is the name of the key holding the set, hash or sorted set value.
 The `SCAN` command does not need any key name argument as it iterates keys in the current database, so the iterated object is the database itself.
 
 ## SCAN basic usage
@@ -101,7 +101,7 @@ It is possible to only iterate elements matching a given glob-style pattern, sim
 To do so, just append the `MATCH <pattern>` arguments at the end of the `SCAN` command (it works with all the `SCAN` family commands).
 
 This is an example of iteration using `MATCH`:
-
+[label](hdel.md)
 ```
 redis> sadd myset 1 2 3 foo foobar feelsgood
 (integer) 6

@@ -1,7 +1,8 @@
 Returns the remaining time-to-live (TTL) of a _key_.
+
 This introspection capability allows a Redis client to check how many seconds a given key will continue to be part of the dataset.
 
-In Redis 2.6 and older, the command returns `-1` if the key doesn't exist or if the key exists but has no associated expire.
+In Redis 2.6 and older, the command returns `-1` if the key doesn't exist or if the key exists but has no associated expiry.
 
 Starting with Redis 2.8 the return value in case of errors had changed:
 

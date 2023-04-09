@@ -1,4 +1,4 @@
-This command can be used to test the permissions of a given user without having to enable the user or cause the side effects of running the command.
+This command can be used to test the [Access Control List (ACL)](/docs/management/security/acl) permissions of a given _username_ without having to enable the user or cause the side effects of running the _command_.
 
 @return
 

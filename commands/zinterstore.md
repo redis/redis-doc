@@ -1,4 +1,5 @@
-Computes the intersection of exactly _numkeys_ sorted sets given by the specified keys, and stores the result in the _destination_.
+Computes the intersection of exactly _numkeys_ [Redis sorted sets](/docs/data-types/sorted-sets) given by the specified keys, and stores the result in the _destination_.
+
 It is mandatory to provide the number of input keys (_numkeys_) before any other arguments.
 
 By default, the resulting score of a member is the sum of its scores in the sorted sets where it exists.

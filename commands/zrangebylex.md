@@ -1,4 +1,4 @@
-When all the members in a sorted set are inserted with the same score, to force lexicographical ordering, this command returns the number of members in the sorted set at the _key_ with a value between _min_ and _max_.
+When all the members in a s[Redis sorted set](/docs/data-types/sorted-sets) are inserted with the same score, to force lexicographical ordering, this command returns the number of members in the sorted set at the _key_ with a value between _min_ and _max_.
 
 If the members in the sorted set have different scores, the returned members are unspecified.
 

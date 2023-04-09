@@ -1,4 +1,4 @@
-Adds all the _element_ arguments to the HyperLogLog data structure stored at _key_.
+Adds all the _element_ arguments to the [Redis HyperLogLog](/docs/data-types/hyperloglogs) data structure stored at _key_.
 As a side effect of this command, the HyperLogLog internals may be updated to reflect a different estimation of the number of unique items added so far (the cardinality of the set).
 
 If the approximated cardinality estimated by the HyperLogLog changed after executing the command, `PFADD` returns 1, otherwise 0 is returned.

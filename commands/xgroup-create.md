@@ -1,4 +1,4 @@
-Create a new consumer group uniquely identified by _groupname_ for the stream stored at _key_.
+Create a new consumer group uniquely identified by _groupname_ for the [Redis stream](/docs/data-types/streams) stored at _key_.
 
 Every group has a unique name in a given stream. 
 When a consumer group with the same name already exists, the command returns a `-BUSYGROUP` error.

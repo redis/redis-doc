@@ -1,4 +1,5 @@
-The `XACK` command removes one or multiple messages from the *Pending Entries List* (PEL) of a stream consumer group.
+The `XACK` command removes one or multiple messages from the *Pending Entries List* (PEL) of a [Redis stream](/docs/data-types/streams) consumer group.
+
 A message is pending, and as such stored inside the PEL, when it was delivered to some consumer, normally as a side effect of calling `XREADGROUP`, or when a consumer took ownership of a message calling `XCLAIM`.
 The pending message was delivered to a consumer but the server isn't sure yet whether it was processed at least once.
 So, new calls to `XREADGROUP` to grab the messages history for a consumer (for instance using an ID of 0), will return such messages.

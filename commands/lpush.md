@@ -1,4 +1,4 @@
-Insert all the specified values at the head of the list stored at the _key_.
+Insert all the specified values at the head of the [Redis list](/docs/data-types/lists) stored at the _key_.
 If the _key_ doesn't exist, it is created as an empty list before performing the push operations.
 When the _key_ holds a value that isn't a list, an error is returned.
 

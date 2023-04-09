@@ -1,4 +1,5 @@
-Computes the difference between the first and all successive input sorted sets and stores the result in _destination_.
+Computes the difference between the first and all successive input [Redis sorted sets](/docs/data-types/sorted-sets) and stores the result in _destination_.
+
 The total number of input keys is specified by the _numkeys_ argument.
 
 Keys that don't exist are considered to be empty sorted sets.

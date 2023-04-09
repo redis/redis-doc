@@ -11,10 +11,8 @@ When the command is called from a regular client connection, it does the followi
 * Sets the protocol version to RESP2.
 * `SELECT`s database 0.
 * Exits `MONITOR` mode, when applicable.
-* Aborts Pub/Sub's subscription state (`SUBSCRIBE` and `PSUBSCRIBE`), when
-  appropriate.
-* Deauthenticates the connection, requiring a call `AUTH` to reauthenticate when
-  authentication is enabled.
+* Aborts Pub/Sub's subscription state (`SUBSCRIBE` and `PSUBSCRIBE`), when appropriate.
+* Deauthenticates the connection, requiring a call `AUTH` to reauthenticate when authentication is enabled.
 * Turns off `NO-EVICT` mode.
 * Turns off `NO-TOUCH` mode.
 

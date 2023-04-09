@@ -1,4 +1,4 @@
-This command is similar to `ZINTER`, but instead of returning the result set, it returns just the cardinality of the result.
+This command is similar to `ZINTER`, but instead of returning the result sorted set, it returns just the cardinality of the result.
 
 Keys that don't exist are considered to be empty sorted sets.
 Therefore, if even one of the keys doesn't exist, the resulting sorted set is also empty, since the intersection with an empty set always results in an empty set.

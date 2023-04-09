@@ -1,4 +1,5 @@
 `BLMOVE` is the blocking variant of `LMOVE`.
+It atomically returns and removes the first/last element (head/tail depending on the _wherefrom_ argument) of the [Redis list](/docs/data-types/lists) stored at _source_, and pushes the element at the first/last element (head/tail depending on the _whereto_ argument) of the list stored at _destination_.
 
 When the _source_ contains elements, this command behaves exactly like `LMOVE`.
 When used inside a `MULTI`/`EXEC` block, this command behaves exactly like `LMOVE`.

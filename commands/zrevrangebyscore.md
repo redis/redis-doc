@@ -1,4 +1,5 @@
-Returns all the elements in the sorted set at _key_ with a score between _max_ and _min_ (including elements with scores equal to _max_ or _min_).
+Returns all the elements in the [Redis sorted set](/docs/data-types/sorted-sets) at _key_ with a score between _max_ and _min_ (including elements with scores equal to _max_ or _min_).
+
 Contrary to the default ordering of sorted sets, this command orders the members by theirs scores in descending order.
 
 Members that have the same scores are returned in reverse lexicographical order.

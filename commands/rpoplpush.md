@@ -1,4 +1,4 @@
-Atomically returns and removes the last element (tail) of the list stored at _source_, and pushes the element at the first element (head) of the list stored at _destination_.
+Atomically returns and removes the last element (tail) of the [Redis list](/docs/data-types/lists) stored at _source_, and pushes the element at the first element (head) of the list stored at _destination_.
 
 For example: consider a key called "src" with the list "a", "b" and "c", and a "dst" key with the list "x", "y" and "z".
 Executing `RPOPLPUSH src dst` results in "src" consisting of "a" and "b", and "dst"

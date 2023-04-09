@@ -1,4 +1,5 @@
 `BLMPOP` is the blocking variant of `LMPOP`.
+It pops one or more elements from the first non-empty [Redis list](/docs/data-types/lists) _key_ from the list of provided key names.
 
 When any of the lists contains elements, this command behaves exactly like `LMPOP`.
 When used inside a `MULTI`/`EXEC` block, this command behaves exactly like `LMPOP`.

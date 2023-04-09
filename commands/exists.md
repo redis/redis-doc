@@ -1,4 +1,6 @@
-Each _key_ argument adds one to the reply if it exists in the database.
+Each _key_ argument adds one to the reply if it exists in the currently-selected database.
+
+See the `SELECT` command for more information about logical databases.
 
 Note that if the same key is given multiple times, it will be counted multiple times.
 So, if "somekey" exists, then `EXISTS somekey somekey` will return 2.

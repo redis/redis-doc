@@ -1,5 +1,5 @@
-The command returns the index of matching elements inside a Redis list.
-By default, when no options are given, it will scan the list from head to tail, looking for the first match of _element_.
+The command returns the index of matching elements inside a [Redis list](/docs/data-types/lists) stored at _key_.
+By default, when no options are given, it will scan the list from head to tail, looking for the first match of the _element_.
 If the _element_ is found, its index (the zero-based position in the list) is returned. 
 Otherwise, if no match is found, `nil` is returned.
 

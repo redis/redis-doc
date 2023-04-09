@@ -1,6 +1,6 @@
-Returns all the members of the set value stored at `key`.
+Returns all the members of the [Redis set](/docs/data-types/sets) value stored at _key_.
 
-This has the same effect as running `SINTER` with one argument `key`.
+This has the same effect as running `SINTER` with a single _key_ argument.
 
 {{% alert title="Warning" color="warning" %}}
 This command requires space and time that are proportional to the set's cardinality.

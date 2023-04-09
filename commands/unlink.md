@@ -1,4 +1,5 @@
 This command is very similar to `DEL`: it removes the specified keys.
+
 Just like `DEL` a key is ignored if it doesn't exist.
 
 However, `UNLINK` performs the actual memory reclaiming in a different thread, so it isn't blocking, while `DEL` is.

@@ -1,4 +1,5 @@
-Returns the number of entries inside the stream at _key_.
+Returns the number of entries inside the [Redis stream](/docs/data-types/streams) at _key_.
+
 If the specified key doesn't exist, the command returns zero, as if the stream was empty.
 However, note that, unlike other Redis types, zero-length streams are possible, so you should call `TYPE` or `EXISTS` to check whether a key exists or not.
 

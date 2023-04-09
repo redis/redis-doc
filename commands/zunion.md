@@ -1,4 +1,4 @@
-This command is similar to `ZUNIONSTORE`, but instead of storing the resulting sorted set, it is returned to the client.
+This command is similar to `ZUNIONSTORE`, but instead of storing the resulting [Redis sorted set](/docs/data-types/sorted-sets), it is returned to the client.
 
 For a description of the `WEIGHTS` and `AGGREGATE` options, see `ZUNIONSTORE`.
 
