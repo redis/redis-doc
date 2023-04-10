@@ -163,7 +163,7 @@ local reply = redis.pcall('ECHO', unpack(ARGV))
 if reply['err'] ~= nil then
   -- Handle the error sometime, but for now just log it
   redis.log(redis.LOG_WARNING, reply['err'])
-  reply['err'] = 'Something is wrong, but no worries, everything is under control'
+  reply['err'] = 'ERR Something is wrong, but no worries, everything is under control'
 end
 return reply
 ```
@@ -172,7 +172,7 @@ Evaluating this script with more than one argument will return:
 
 ```
 redis> EVAL "..." 0 hello world
-(error) Something is wrong, but no worries, everything is under control
+(error) ERR Something is wrong, but no worries, everything is under control
 ```
 
 ### <a name="redis.error_reply"></a> `redis.error_reply(x)`
