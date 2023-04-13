@@ -163,7 +163,7 @@ local reply = redis.pcall('ECHO', unpack(ARGV))
 if reply['err'] ~= nil then
   -- Handle the error sometime, but for now just log it
   redis.log(redis.LOG_WARNING, reply['err'])
-  reply['err'] = 'Something is wrong, but no worries, everything is under control'
+  reply['err'] = 'ERR Something is wrong, but no worries, everything is under control'
 end
 return reply
 ```
@@ -172,7 +172,7 @@ Evaluating this script with more than one argument will return:
 
 ```
 redis> EVAL "..." 0 hello world
-(error) Something is wrong, but no worries, everything is under control
+(error) ERR Something is wrong, but no worries, everything is under control
 ```
 
 ### <a name="redis.error_reply"></a> `redis.error_reply(x)`
@@ -187,7 +187,7 @@ The helper accepts a single string argument and returns a Lua table with the _er
 The outcome of the following code is that _error1_ and _error2_ are identical for all intents and purposes:
 
 ```lua
-local text = 'My very special error'
+local text = 'ERR My very special error'
 local reply1 = { err = text }
 local reply2 = redis.error_reply(text)
 ```
@@ -195,14 +195,18 @@ local reply2 = redis.error_reply(text)
 Therefore, both forms are valid as means for returning an error reply from scripts:
 
 ```
-redis> EVAL "return { err = 'My very special table error' }" 0
-(error) My very special table error
-redis> EVAL "return redis.error_reply('My very special reply error')" 0
-(error) My very special reply error
+redis> EVAL "return { err = 'ERR My very special table error' }" 0
+(error) ERR My very special table error
+redis> EVAL "return redis.error_reply('ERR My very special reply error')" 0
+(error) ERR My very special reply error
 ```
 
 For returning Redis status replies refer to [`redis.status_reply()`](#redis.status_reply).
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
+
+**Note:**
+By convention, Redis uses the first word of an error string as a unique error code for specific errors or `ERR` for general-purpose errors.
+Scripts are advised to follow this convention, as shown in the example above, but this is not mandatory.
 
 ### <a name="redis.status_reply"></a> `redis.status_reply(x)`
 
