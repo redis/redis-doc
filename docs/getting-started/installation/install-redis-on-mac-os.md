@@ -12,7 +12,7 @@ This guide shows you how to install Redis on macOS using Homebrew. Homebrew is t
 First, make sure you have Homebrew installed. From the terminal, run:
 
 {{< highlight bash  >}}
-$ brew --version
+brew --version
 {{< / highlight >}}
 
 If this command fails, you'll need to [follow the Homebrew installation instructions](https://brew.sh/).
