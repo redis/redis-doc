@@ -205,9 +205,8 @@ For returning Redis status replies refer to [`redis.status_reply()`](#redis.stat
 Refer to the [Data type conversion](#data-type-conversion) for returning other response types.
 
 **Note:**
-By convention, Redis uses the first word of an error string as a unique error code for
-specific errors or `ERR` for general-purpose errors. Scripts are advised to follow this
-convention, as shown in the example above, but this is not mandatory.
+By convention, Redis uses the first word of an error string as a unique error code for specific errors or `ERR` for general-purpose errors.
+Scripts are advised to follow this convention, as shown in the example above, but this is not mandatory.
 
 ### <a name="redis.status_reply"></a> `redis.status_reply(x)`
 
