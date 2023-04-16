@@ -17,11 +17,9 @@ aliases: [
 
 * Deploy Redis using the Linux operating system. Redis is also tested on OS X, and from time to time on FreeBSD and OpenBSD systems. However, Linux is where most of the stress testing is performed, and where most production deployments are run.
 
-* Set the Linux kernel overcommit memory setting to 1. Add `vm.overcommit_memory = 1` to `/etc/sysctl.conf`. Then, reboot or run the command `sysctl vm.overcommit_memory=1` to activate the setting.
+* Set the Linux kernel overcommit memory setting to 1. Add `vm.overcommit_memory = 1` to `/etc/sysctl.conf`. Then, reboot or run the command `sysctl vm.overcommit_memory=1` to activate the setting. See [FAQ: Background saving fails with a fork() error on Linux?](https://redis.io/docs/getting-started/faq/#background-saving-fails-with-a-fork-error-on-linux) for details. 
 
-* To ensure the Linux kernel feature Transparent Huge Pages does not impact Redis memory usage and latency, use this command:
-
-`echo never > /sys/kernel/mm/transparent_hugepage/enabled`
+* To ensure the Linux kernel feature Transparent Huge Pages does not impact Redis memory usage and latency, run the command: `echo never > /sys/kernel/mm/transparent_hugepage/enabled` to disable it. See [Latency Diagnosis - Latency induced by transparent huge pages](https://redis.io/docs/management/optimization/latency/#latency-induced-by-transparent-huge-pages) for additional context. 
 
 ### Memory
 
