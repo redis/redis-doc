@@ -11297,7 +11297,7 @@
         ]
     },
     "RPOP": {
-        "summary": "Returns and removes the last elements of a list. Deletes the list if the lst element was popped.",
+        "summary": "Returns and removes the last elements of a list. Deletes the list if the last element was popped.",
         "since": "1.0.0",
         "group": "list",
         "complexity": "O(N) where N is the number of elements returned",
@@ -11355,7 +11355,7 @@
         ]
     },
     "RPOPLPUSH": {
-        "summary": "Returns the last element of a list after removing and pushing it to another list. Deletes the list if the lst element was popped.",
+        "summary": "Returns the last element of a list after removing and pushing it to another list. Deletes the list if the last element was popped.",
         "since": "1.2.0",
         "group": "list",
         "complexity": "O(1)",
