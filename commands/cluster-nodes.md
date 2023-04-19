@@ -36,7 +36,7 @@ Each line is composed of the following fields:
 <id> <ip:port@cport[,hostname[,auxiliary_field=value]*]> <flags> <master> <ping-sent> <pong-recv> <config-epoch> <link-state> <slot> <slot> ... <slot>
 ```
 
-The meaning of each filed is the following:
+The meaning of each field is the following:
 
 1. `id`: The node ID, a 40-character globally unique string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
 2. `ip:port@cport`: The node address that clients should contact to run queries.
