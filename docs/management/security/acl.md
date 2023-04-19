@@ -574,3 +574,8 @@ No keys need to be accessed, so this translates to the following rules:
     ACL setuser replica-user on >somepassword +psync +replconf +ping
 
 Note that you don't need to configure the replicas to allow the master to be able to execute any set of commands. The master is always authenticated as the root user from the point of view of replicas.
+
+## ACLs in cluster mode
+
+Clusters do not yet support ACLs.
+When the master is down in cluster state, failover does not proceed.
