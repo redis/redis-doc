@@ -228,7 +228,7 @@ For instance on a Linux/AMD64 system, the memory is divided in 4 kB pages.
 To convert virtual addresses to physical addresses, each process stores
 a page table (actually represented as a tree) containing at least a pointer
 per page of the address space of the process. So a large 24 GB Redis instance
-requires a page table of 24 GB / 4 kB * 8 = 48 .
+requires a page table of 24 GB / 4 kB * 8 = 48M .
 
 When a background save is performed, this instance will have to be forked,
 which will involve allocating and copying 48 MB of memory. It takes time
