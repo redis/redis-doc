@@ -23,15 +23,6 @@ Redis modules have the ability to implement blocking commands as well,
 this documentation shows how the API works and describes a few patterns
 that can be used in order to model blocking commands.
 
-NOTE: This API is currently *experimental*, so it can only be used if
-the macro `REDISMODULE_EXPERIMENTAL_API` is defined. This is required because
-these calls are still not in their final stage of design, so may change
-in the future, certain parts may be deprecated and so forth.
-
-To use this part of the modules API include the modules header like that:
-
-    #define REDISMODULE_EXPERIMENTAL_API
-    #include "redismodule.h"
 
 How blocking and resuming works.
 ---
