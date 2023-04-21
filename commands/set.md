@@ -38,6 +38,10 @@ GET mykey
 SET anotherkey "will expire in a minute" EX 60
 ```
 
+### Code examples
+
+{{< clients-example set_and_get />}}
+
 ## Patterns
 
 **Note:** The following pattern is discouraged in favor of [the Redlock algorithm](https://redis.io/topics/distlock) which is only a bit more complex to implement, but offers better guarantees and is fault tolerant.
