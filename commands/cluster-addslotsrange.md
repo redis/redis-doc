@@ -19,7 +19,7 @@ The same operation can be completed with the following `CLUSTER ADDSLOTSRANGE` c
 
 This command only works in cluster mode and is useful in the following Redis Cluster operations:
 
-1. To create a new `cluster ADDSLOTSRANGE` is used in order to initially setup master nodes splitting the available hash slots among them.
+1. To create a new cluster, `CLUSTER ADDSLOTSRANGE` is used to initially set up master nodes splitting the available hash slots among them.
 2. In order to fix a broken cluster where certain slots are unassigned.
 
 @return
