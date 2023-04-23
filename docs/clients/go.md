@@ -59,12 +59,12 @@ client := redis.NewClient(opt)
 Store and retrieve a simple string.
 
 ```go
-err := client.Set(ctx, "foo", "bar", 0).Err()
+err := client.Set(context.Background(), "foo", "bar", 0).Err()
 if err != nil {
     panic(err)
 }
 
-val, err := client.Get(ctx, "foo").Result()
+val, err := client.Get(context.Background(), "foo").Result()
 if err != nil {
     panic(err)
 }
@@ -76,13 +76,13 @@ Store and retrieve a map.
 ```go
 session := map[string]string{"name": "John", "surname": "Smith", "company": "Redis", "age": "29"}
 for k, v := range session {
-    err := client.HSet(ctx, "user-session:123", k, v).Err()
+    err := client.HSet(context.Background(), "user-session:123", k, v).Err()
     if err != nil {
         panic(err)
     }
 }
 
-userSession := client.HGetAll(ctx, "user-session:123").Val()
+userSession := client.HGetAll(context.Background(), "user-session:123").Val()
 fmt.Println(userSession)
  ```
 
@@ -133,13 +133,13 @@ client := redis.NewClient(&redis.Options{
 })
 
 //send SET command
-err = client.Set(ctx, "foo", "bar", 0).Err()
+err = client.Set(context.Background(), "foo", "bar", 0).Err()
 if err != nil {
     panic(err)
 }
 
 //send GET command and print the value
-val, err := client.Get(ctx, "foo").Result()
+val, err := client.Get(context.Background(), "foo").Result()
 if err != nil {
     panic(err)
 }
