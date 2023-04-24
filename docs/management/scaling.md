@@ -304,7 +304,7 @@ If you don't want to create a Redis Cluster by configuring and executing
 individual instances manually as explained above, there is a much simpler
 system (but you'll not learn the same amount of operational details).
 
-Find the `utils/create-cluster` directory in the Redis distribution.
+Run the `make` command at the root and then find the `utils/create-cluster` directory in the Redis distribution.
 There is a script called `create-cluster` inside (same name as the directory
 it is contained into), it's a simple bash script. In order to start
 a 6 nodes cluster with 3 masters and 3 replicas just type the following
