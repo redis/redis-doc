@@ -59,6 +59,8 @@ client := redis.NewClient(opt)
 Store and retrieve a simple string.
 
 ```go
+ctx := context.Background()
+
 err := client.Set(ctx, "foo", "bar", 0).Err()
 if err != nil {
     panic(err)
