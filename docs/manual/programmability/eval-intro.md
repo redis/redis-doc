@@ -179,7 +179,7 @@ In this case, the application should first load it with `SCRIPT LOAD` and then c
 Most of [Redis' clients](/clients) already provide utility APIs for doing that automatically.
 Please consult your client's documentation regarding the specific details.
 
-### `EVALSHA` in the context of pipelining
+### `!EVALSHA` in the context of pipelining
 
 Special care should be given executing `EVALSHA` in the context of a [pipelined request](/topics/pipelining).
 The commands in a pipelined request run in the order they are sent, but other clients' commands may be interleaved for execution between these.
@@ -206,7 +206,7 @@ However, from the point of view of the Redis client, there are only two ways to 
 Practically speaking, it is much simpler for the client to assume that in the context of a given connection, cached scripts are guaranteed to be there unless the administrator explicitly invoked the `SCRIPT FLUSH` command.
 The fact that the user can count on Redis to retain cached scripts is semantically helpful in the context of pipelining.
 
-## The `SCRIPT` command
+## The `!SCRIPT` command
 
 The Redis `SCRIPT` provides several ways for controlling the scripting subsystem.
 These are:
