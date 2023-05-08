@@ -189,98 +189,41 @@ public class Main {
 
 Make sure that you have Redis Stack and `Jedis` installed. 
 
-Import dependencies and add a sample `User` class:
+Connect to your Redis database.
 
-```java
-import redis.clients.jedis.JedisPooled;
-import redis.clients.jedis.search.*;
-import redis.clients.jedis.search.aggr.*;
-import redis.clients.jedis.search.schemafields.*;
+{{< clients-example search_quickstart connect Java />}}
 
-class User {
-    private String name;
-    private String email;
-    private int age;
-    private String city;
+Add a sample `Bicycle` class:
 
-    public User(String name, String email, int age, String city) {
-        this.name = name;
-        this.email = email;
-        this.age = age;
-        this.city = city;
-    }
-
-    //...
-}
-```
-
-Connect to your Redis database with `JedisPooled`.
-
-```java
-JedisPooled jedis = new JedisPooled("localhost", 6379);
-```
+{{< clients-example search_quickstart data_class Java />}}
 
 Let's create some test data to add to your database.
 
-```java
-User user1 = new User("Paul John", "paul.john@example.com", 42, "London");
-User user2 = new User("Eden Zamir", "eden.zamir@example.com", 29, "Tel Aviv");
-User user3 = new User("Paul Zamir", "paul.zamir@example.com", 35, "Tel Aviv");
-```
+{{< clients-example search_quickstart data_sample Java />}}
 
-Create an index. In this example, all JSON documents with the key prefix `user:` are indexed. For more information, see [Query syntax](/docs/stack/search/reference/query_syntax).
+Define indexed fields and their data types using `schema`. Use JSON path expressions to map specific JSON elements to the schema fields.
 
-```java
-jedis.ftCreate("idx:users",
-    FTCreateParams.createParams()
-            .on(IndexDataType.JSON)
-            .addPrefix("user:"),
-    TextField.of("$.name").as("name"),
-    TagField.of("$.city").as("city"),
-    NumericField.of("$.age").as("age")
-);
-```
+{{< clients-example search_quickstart define_index Java />}}
 
-Use `JSON.SET` to set each user value at the specified path.
+Create an index. In this example, all JSON documents with the key prefix `bicycle:` will be indexed.
 
-```java
-jedis.jsonSetWithEscape("user:1", user1);
-jedis.jsonSetWithEscape("user:2", user2);
-jedis.jsonSetWithEscape("user:3", user3);
-```
+{{< clients-example search_quickstart create_index Java />}}
 
-Let's find user `Paul` and filter the results by age.
+Use `JSON.SET` to add bicycle data to the database.
 
-```java
-var query = new Query("Paul @age:[30 40]");
-var result = jedis.ftSearch("idx:users", query).getDocuments();
-System.out.println(result);
-// Prints: [id:user:3, score: 1.0, payload:null, properties:[$={"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}]]
-```
+{{< clients-example search_quickstart add_documents Java />}}
 
-Return only the `city` field.
+Let's find a folding bicycle and filter the results by price range. For more information, see [Query syntax](/docs/stack/search/reference/query_syntax).
 
-```java
-var city_query = new Query("Paul @age:[30 40]");
-var city_result = jedis.ftSearch("idx:users", city_query.returnFields("city")).getDocuments();
-System.out.println(city_result);
-// Prints: [id:user:3, score: 1.0, payload:null, properties:[city=Tel Aviv]]
-```
+{{< clients-example search_quickstart query_single_term_and_num_range Java />}}
 
-Count all users in the same city.
+Return only the `price` field.
 
-```java
-AggregationBuilder ab = new AggregationBuilder("*")
-        .groupBy("@city", Reducers.count().as("count"));
-AggregationResult ar = jedis.ftAggregate("idx:users", ab);
+{{< clients-example search_quickstart query_single_term_limit_fields Java />}}
 
-for (int idx=0; idx < ar.getTotalResults(); idx++) {
-    System.out.println(ar.getRow(idx).getString("city") + " - " + ar.getRow(idx).getString("count"));
-}
-// Prints:
-// London - 1
-// Tel Aviv - 2
-```
+Count all bicycles based on their condition with `FT.AGGREGATE`.
+
+{{< clients-example search_quickstart simple_aggregation Java />}}
 
 ### Learn more
 

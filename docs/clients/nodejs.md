@@ -136,161 +136,39 @@ You can also use discrete parameters and UNIX sockets. Details can be found in t
 
 ### Example: Indexing and querying JSON documents
 
-Make sure that you have Redis Stack and `node-redis` installed. Import dependencies:
+Make sure that you have Redis Stack and `node-redis` installed.
 
-```js
-import {AggregateSteps, AggregateGroupByReducers, createClient, SchemaFieldTypes} from 'redis';
-const client = createClient();
-await client.connect();
-```
+Connect to your Redis database.
 
-Create an index.
+{{< clients-example search_quickstart connect Node.js />}}
 
-```js
-try {
-    await client.ft.create('idx:users', {
-        '$.name': {
-            type: SchemaFieldTypes.TEXT,
-            sortable: true
-        },
-        '$.city': {
-            type: SchemaFieldTypes.TEXT,
-            AS: 'city'
-        },
-        '$.age': {
-            type: SchemaFieldTypes.NUMERIC,
-            AS: 'age'
-        }
-    }, {
-        ON: 'JSON',
-        PREFIX: 'user:'
-    });
-} catch (e) {
-    if (e.message === 'Index already exists') {
-        console.log('Index exists already, skipped creation.');
-    } else {
-        // Something went wrong, perhaps RediSearch isn't installed...
-        console.error(e);
-        process.exit(1);
-    }
-}
-```
+Let's create some test data to add to your database.
 
-Create JSON documents to add to your database.
+{{< clients-example search_quickstart data_sample Node.js />}}
 
-```js
-await Promise.all([
-    client.json.set('user:1', '$', {
-        "name": "Paul John",
-        "email": "paul.john@example.com",
-        "age": 42,
-        "city": "London"
-    }),
-    client.json.set('user:2', '$', {
-        "name": "Eden Zamir",
-        "email": "eden.zamir@example.com",
-        "age": 29,
-        "city": "Tel Aviv"
-    }),
-    client.json.set('user:3', '$', {
-        "name": "Paul Zamir",
-        "email": "paul.zamir@example.com",
-        "age": 35,
-        "city": "Tel Aviv"
-    }),
-]);
-```
+Define indexed fields and their data types using `schema`. Use JSON path expressions to map specific JSON elements to the schema fields.
 
-Let's find user 'Paul` and filter the results by age.
+{{< clients-example search_quickstart define_index Node.js />}}
 
-```js
-let result = await client.ft.search(
-    'idx:users',
-    'Paul @age:[30 40]'
-);
-console.log(JSON.stringify(result, null, 2));
-/*
-{
-  "total": 1,
-  "documents": [
-    {
-      "id": "user:3",
-      "value": {
-        "name": "Paul Zamir",
-        "email": "paul.zamir@example.com",
-        "age": 35,
-        "city": "Tel Aviv"
-      }
-    }
-  ]
-}
- */
-```
+Create an index. In this example, all JSON documents with the key prefix `bicycle:` will be indexed.
 
-Return only the city field.
+{{< clients-example search_quickstart create_index Node.js />}}
 
-```js
-result = await client.ft.search(
-    'idx:users',
-    'Paul @age:[30 40]',
-    {
-        RETURN: ['$.city']
-    }
-);
-console.log(JSON.stringify(result, null, 2));
+Use `JSON.SET` to add bicycle data to the database.
 
-/*
-{
-  "total": 1,
-  "documents": [
-    {
-      "id": "user:3",
-      "value": {
-        "$.city": "Tel Aviv"
-      }
-    }
-  ]
-}
- */
-```
+{{< clients-example search_quickstart add_documents Node.js />}}
+
+Let's find a folding bicycle and filter the results by price range. For more information, see [Query syntax](/docs/stack/search/reference/query_syntax).
+
+{{< clients-example search_quickstart query_single_term_and_num_range Node.js />}}
+
+Return only the `price` field.
+
+{{< clients-example search_quickstart query_single_term_limit_fields Node.js />}}
  
-Count all users in the same city.
+Count all bicycles based on their condition with `FT.AGGREGATE`.
 
-```js
-result = await client.ft.aggregate('idx:users', '*', {
-    STEPS: [
-        {
-            type: AggregateSteps.GROUPBY,
-            properties: ['@city'],
-            REDUCE: [
-                {
-                    type: AggregateGroupByReducers.COUNT,
-                    AS: 'count'
-                }
-            ]
-        }
-    ]
-})
-console.log(JSON.stringify(result, null, 2));
-
-/*
-{
-  "total": 2,
-  "results": [
-    {
-      "city": "London",
-      "count": "1"
-    },
-    {
-      "city": "Tel Aviv",
-      "count": "2"
-    }
-  ]
-}
- */
-
-await client.quit();
-```
+{{< clients-example search_quickstart simple_aggregation Node.js />}}
 
 ### Learn more
 
