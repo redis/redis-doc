@@ -20,7 +20,7 @@ are pursuing a performance regression investigation you will need a concise
 methodical way of monitoring and analyzing Redis performance. 
 
 To do so you can rely on different methodologies (some more suited than other 
-depending on the class of issues/analysis we intent to make). A curated list
+depending on the class of issues/analysis we intend to make). A curated list
 of methodologies and their steps are enumerated by Brendan Greg at the
 [following link](http://www.brendangregg.com/methodology.html). 
 
@@ -71,13 +71,13 @@ and cache misses, etc.
 For that we will rely on toolkits (perf, bcc tools), and hardware specific PMCs
 (Performance Monitoring Counters), to proceed with:
 
-- Hotspot analysis (pref or bcc tools): to profile code execution and determine which functions are consuming the most time and thus are targets for optimization. We'll present two options to collect, report, and visualize hotspots either with perf or bcc/BPF tracing tools.
+- Hotspot analysis (perf or bcc tools): to profile code execution and determine which functions are consuming the most time and thus are targets for optimization. We'll present two options to collect, report, and visualize hotspots either with perf or bcc/BPF tracing tools.
 
 - Call counts analysis: to count events including function calls, enabling us to correlate several calls/components at once, relying on bcc/BPF tracing tools.
 
 - Hardware event sampling: crucial for understanding CPU behavior, including memory I/O, stall cycles, and cache misses.
 
-### Tool prerequesits
+### Tool prerequisites
 
 The following steps rely on Linux perf_events (aka ["perf"](https://man7.org/linux/man-pages/man1/perf.1.html)), [bcc/BPF tracing tools](https://github.com/iovisor/bcc), and Brendan Greg’s [FlameGraph repo](https://github.com/brendangregg/FlameGraph).
 
