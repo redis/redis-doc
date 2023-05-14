@@ -1,7 +1,7 @@
 {
     "name": "RedisStateMachine",
     "license": "Redis Source Available License",
-    "description": "A module for storing state machines in",
+    "description": "A module for storing state machines, and transitioning them in Redis",
     "github": [
         "chayim",
         "RedisLabs"
