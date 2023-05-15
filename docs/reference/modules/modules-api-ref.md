@@ -50,6 +50,7 @@ aliases:
 * [Module fork API](#section-module-fork-api)
 * [Server hooks implementation](#section-server-hooks-implementation)
 * [Module Configurations API](#section-module-configurations-api)
+* [RDB load/save API](#section-rdb-load-save-api)
 * [Key eviction API](#section-key-eviction-api)
 * [Miscellaneous APIs](#section-miscellaneous-apis)
 * [Defrag API](#section-defrag-api)
@@ -802,7 +803,7 @@ Return counter of micro-seconds relative to an arbitrary point in time.
 
 ### `RedisModule_Microseconds`
 
-    ustime_t RedisModule_Microseconds();
+    ustime_t RedisModule_Microseconds(void);
 
 **Available since:** unreleased
 
@@ -812,7 +813,7 @@ Return the current UNIX time in microseconds
 
 ### `RedisModule_CachedMicroseconds`
 
-    ustime_t RedisModule_CachedMicroseconds();
+    ustime_t RedisModule_CachedMicroseconds(void);
 
 **Available since:** unreleased
 
@@ -1410,6 +1411,30 @@ the usage is, for example:
 and not just:
 
     RedisModule_ReplyWithError(ctx,"Wrong Type");
+
+The function always returns `REDISMODULE_OK`.
+
+<span id="RedisModule_ReplyWithErrorFormat"></span>
+
+### `RedisModule_ReplyWithErrorFormat`
+
+    int RedisModule_ReplyWithErrorFormat(RedisModuleCtx *ctx,
+                                         const char *fmt,
+                                         ...);
+
+**Available since:** unreleased
+
+Reply with the error create from a printf format and arguments.
+
+If the error code is already passed in the string 'fmt', the error
+code provided is used, otherwise the string "-ERR " for the generic
+error code is automatically added.
+
+The usage is, for example:
+
+    RedisModule_ReplyWithErrorFormat(ctx, "An error: %s", "foo");
+
+    RedisModule_ReplyWithErrorFormat(ctx, "-WRONGTYPE Wrong Type: %s", "foo");
 
 The function always returns `REDISMODULE_OK`.
 
@@ -2113,7 +2138,7 @@ Available flags and their meaning:
 
 ### `RedisModule_AvoidReplicaTraffic`
 
-    int RedisModule_AvoidReplicaTraffic();
+    int RedisModule_AvoidReplicaTraffic(void);
 
 **Available since:** 6.0.0
 
@@ -2206,7 +2231,7 @@ Extra flags that can be pass to the API under the mode argument:
 
 ### `RedisModule_GetOpenKeyModesAll`
 
-    int RedisModule_GetOpenKeyModesAll();
+    int RedisModule_GetOpenKeyModesAll(void);
 
 **Available since:** unreleased
 
@@ -4950,7 +4975,7 @@ Moreover, the fact that the notification is executed synchronously means
 that the notification code will be executed in the middle on Redis logic
 (commands logic, eviction, expire). Changing the key space while the logic
 runs is dangerous and discouraged. In order to react to key space events with
-write actions, please refer to `RedisModule_AddPostExecutionUnitJob`.
+write actions, please refer to [`RedisModule_AddPostNotificationJob`](#RedisModule_AddPostNotificationJob).
 
 See [https://redis.io/topics/notifications](https://redis.io/topics/notifications) for more information.
 
@@ -4984,7 +5009,7 @@ and so Redis will make no attempt to protect the module from infinite loops.
 
 ### `RedisModule_GetNotifyKeyspaceEvents`
 
-    int RedisModule_GetNotifyKeyspaceEvents();
+    int RedisModule_GetNotifyKeyspaceEvents(void);
 
 **Available since:** 6.0.0
 
@@ -6295,7 +6320,7 @@ command should return an error.
 
 Here is an example:
 
-    int ... myCommandImplementation() {
+    int ... myCommandImplementation(void) {
        if (getExternalAPIs() == 0) {
             reply with an error here if we cannot have the APIs
        }
@@ -6507,7 +6532,7 @@ it does not include the allocation size of the keys and values.
 
 ### `RedisModule_GetUsedMemoryRatio`
 
-    float RedisModule_GetUsedMemoryRatio();
+    float RedisModule_GetUsedMemoryRatio(void);
 
 **Available since:** 6.0.0
 
@@ -6527,7 +6552,7 @@ currently used, relative to the Redis "maxmemory" configuration.
 
 ### `RedisModule_ScanCursorCreate`
 
-    RedisModuleScanCursor *RedisModule_ScanCursorCreate();
+    RedisModuleScanCursor *RedisModule_ScanCursorCreate(void);
 
 **Available since:** 6.0.0
 
@@ -7255,6 +7280,81 @@ This will return `REDISMODULE_ERR` if it is called outside `RedisModule_OnLoad`.
 This API needs to be called when configurations are provided in either `MODULE LOADEX`
 or provided as startup arguments.
 
+<span id="section-rdb-load-save-api"></span>
+
+## RDB load/save API
+
+<span id="RedisModule_RdbStreamCreateFromFile"></span>
+
+### `RedisModule_RdbStreamCreateFromFile`
+
+    RedisModuleRdbStream *RedisModule_RdbStreamCreateFromFile(const char *filename);
+
+**Available since:** unreleased
+
+Create a stream object to save/load RDB to/from a file.
+
+This function returns a pointer to `RedisModuleRdbStream` which is owned
+by the caller. It requires a call to [`RedisModule_RdbStreamFree()`](#RedisModule_RdbStreamFree) to free
+the object.
+
+<span id="RedisModule_RdbStreamFree"></span>
+
+### `RedisModule_RdbStreamFree`
+
+    void RedisModule_RdbStreamFree(RedisModuleRdbStream *stream);
+
+**Available since:** unreleased
+
+Release an RDB stream object.
+
+<span id="RedisModule_RdbLoad"></span>
+
+### `RedisModule_RdbLoad`
+
+    int RedisModule_RdbLoad(RedisModuleCtx *ctx,
+                            RedisModuleRdbStream *stream,
+                            int flags);
+
+**Available since:** unreleased
+
+Load RDB file from the `stream`. Dataset will be cleared first and then RDB
+file will be loaded.
+
+`flags` must be zero. This parameter is for future use.
+
+On success `REDISMODULE_OK` is returned, otherwise `REDISMODULE_ERR` is returned
+and errno is set accordingly.
+
+Example:
+
+    RedisModuleRdbStream *s = RedisModule_RdbStreamCreateFromFile("exp.rdb");
+    RedisModule_RdbLoad(ctx, s, 0);
+    RedisModule_RdbStreamFree(s);
+
+<span id="RedisModule_RdbSave"></span>
+
+### `RedisModule_RdbSave`
+
+    int RedisModule_RdbSave(RedisModuleCtx *ctx,
+                            RedisModuleRdbStream *stream,
+                            int flags);
+
+**Available since:** unreleased
+
+Save dataset to the RDB stream.
+
+`flags` must be zero. This parameter is for future use.
+
+On success `REDISMODULE_OK` is returned, otherwise `REDISMODULE_ERR` is returned
+and errno is set accordingly.
+
+Example:
+
+    RedisModuleRdbStream *s = RedisModule_RdbStreamCreateFromFile("exp.rdb");
+    RedisModule_RdbSave(ctx, s, 0);
+    RedisModule_RdbStreamFree(s);
+
 <span id="section-key-eviction-api"></span>
 
 ## Key eviction API
@@ -7318,7 +7418,7 @@ returns `REDISMODULE_OK` if when key is valid.
 
 ### `RedisModule_GetModuleOptionsAll`
 
-    int RedisModule_GetModuleOptionsAll();
+    int RedisModule_GetModuleOptionsAll(void);
 
 **Available since:** unreleased
 
@@ -7339,7 +7439,7 @@ Example:
 
 ### `RedisModule_GetContextFlagsAll`
 
-    int RedisModule_GetContextFlagsAll();
+    int RedisModule_GetContextFlagsAll(void);
 
 **Available since:** 6.0.9
 
@@ -7360,7 +7460,7 @@ Example:
 
 ### `RedisModule_GetKeyspaceNotificationFlagsAll`
 
-    int RedisModule_GetKeyspaceNotificationFlagsAll();
+    int RedisModule_GetKeyspaceNotificationFlagsAll(void);
 
 **Available since:** 6.0.9
 
@@ -7381,7 +7481,7 @@ Example:
 
 ### `RedisModule_GetServerVersion`
 
-    int RedisModule_GetServerVersion();
+    int RedisModule_GetServerVersion(void);
 
 **Available since:** 6.0.9
 
@@ -7393,7 +7493,7 @@ Example for 6.0.7 the return value will be 0x00060007.
 
 ### `RedisModule_GetTypeMethodVersion`
 
-    int RedisModule_GetTypeMethodVersion();
+    int RedisModule_GetTypeMethodVersion(void);
 
 **Available since:** 6.2.0
 
@@ -7852,6 +7952,10 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_PublishMessage`](#RedisModule_PublishMessage)
 * [`RedisModule_PublishMessageShard`](#RedisModule_PublishMessageShard)
 * [`RedisModule_RandomKey`](#RedisModule_RandomKey)
+* [`RedisModule_RdbLoad`](#RedisModule_RdbLoad)
+* [`RedisModule_RdbSave`](#RedisModule_RdbSave)
+* [`RedisModule_RdbStreamCreateFromFile`](#RedisModule_RdbStreamCreateFromFile)
+* [`RedisModule_RdbStreamFree`](#RedisModule_RdbStreamFree)
 * [`RedisModule_Realloc`](#RedisModule_Realloc)
 * [`RedisModule_RedactClientCommandArgument`](#RedisModule_RedactClientCommandArgument)
 * [`RedisModule_RegisterAuthCallback`](#RedisModule_RegisterAuthCallback)
@@ -7879,6 +7983,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_ReplyWithEmptyArray`](#RedisModule_ReplyWithEmptyArray)
 * [`RedisModule_ReplyWithEmptyString`](#RedisModule_ReplyWithEmptyString)
 * [`RedisModule_ReplyWithError`](#RedisModule_ReplyWithError)
+* [`RedisModule_ReplyWithErrorFormat`](#RedisModule_ReplyWithErrorFormat)
 * [`RedisModule_ReplyWithLongDouble`](#RedisModule_ReplyWithLongDouble)
 * [`RedisModule_ReplyWithLongLong`](#RedisModule_ReplyWithLongLong)
 * [`RedisModule_ReplyWithMap`](#RedisModule_ReplyWithMap)
