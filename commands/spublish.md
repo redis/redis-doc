@@ -1,10 +1,10 @@
-Posts a message to the given shard channel.
+Posts a message to the given [Redis Pub/Sub](/docs/manual/pubsub) shard channel.
 
 In Redis Cluster, shard channels are assigned to slots by the same algorithm used to assign keys to slots.
-A shard message must be sent to a node that own the slot the shard channel is hashed to. 
+A shard message must be sent to a node that owns the slot the shard channel is hashed to. 
 The cluster makes sure that published shard messages are forwarded to all the node in the shard, so clients can subscribe to a shard channel by connecting to any one of the nodes in the shard.
 
-For more information about sharded pubsub, see [Sharded Pubsub](/topics/pubsub#sharded-pubsub).
+For more information about sharded Pub/Sub, see [Sharded Pub/Sub](/topics/pubsub#sharded-pubsub).
 
 @return
 
@@ -13,7 +13,7 @@ Note that in a Redis Cluster, only clients that are connected to the same node a
 
 @examples
 
-For example the following command publish to channel `orders` with a subscriber already waiting for message(s).
+For example, the following command publishes to channel "orders" with a subscriber already waiting for message(s).
     
 ```
 > spublish orders hello

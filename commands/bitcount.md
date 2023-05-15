@@ -1,12 +1,9 @@
-Count the number of set bits (population counting) in a string.
+By default, all the bytes contained in the [Redis bitmap](/docs/data-types/bitmaps) that's stored at the _key_ are examined.
 
-By default all the bytes contained in the string are examined.
 It is possible to specify the counting operation only in an interval passing the
-additional arguments _start_ and _end_.
+additional _start_ and _end_ arguments.
 
-Like for the `GETRANGE` command start and end can contain negative values in
-order to index bytes starting from the end of the string, where -1 is the last
-byte, -2 is the penultimate, and so forth.
+Similarly to the `GETRANGE` command, both _start_ and _end_ can be negative values to index bytes starting from the end of the string, where -1 is the last byte, -2 is the penultimate, and so forth.
 
 Non-existent keys are treated as empty strings, so the command will return zero.
 
@@ -42,15 +39,13 @@ features.
 
 Using the `SETBIT` command this is trivial to accomplish, identifying every day
 with a small progressive integer.
-For instance day 0 is the first day the application was put online, day 1 the
-next day, and so forth.
+For instance, day 0 is the first day the application was put online, day 1 is the next, and so forth.
 
 Every time a user performs a page view, the application can register that in
-the current day the user visited the web site using the `SETBIT` command setting
+the current day, the user visited the website using the `SETBIT` command setting
 the bit corresponding to the current day.
 
-Later it will be trivial to know the number of single days the user visited the
-web site simply calling the `BITCOUNT` command against the bitmap.
+Later it will be trivial to know the number of single days the user visited the website by simply calling the `BITCOUNT` command against the bitmap.
 
 A similar pattern where user IDs are used instead of days is described
 in the article called "[Fast easy realtime metrics using Redis
@@ -68,7 +63,7 @@ command like `GET` or `INCR`.
 
 When the bitmap is big, there are two alternatives:
 
-* Taking a separated key that is incremented every time the bitmap is modified.
+* Taking a separate key that is incremented every time the bitmap is modified.
   This can be very efficient and atomic using a small Redis Lua script.
 * Running the bitmap incrementally using the `BITCOUNT` _start_ and _end_
   optional parameters, accumulating the results client-side, and optionally

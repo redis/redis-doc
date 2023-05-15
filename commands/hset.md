@@ -1,7 +1,7 @@
-Sets the specified fields to their respective values in the hash stored at `key`.
+Sets the specified fields to their respective values in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
-This command overwrites the values of specified fields that exist in the hash.
-If `key` doesn't exist, a new key holding a hash is created.
+The command overwrites all specified fields that already exist in the hash.
+If the _key_ doesn't exist, a new key is created for the hash.
 
 @return
 

@@ -1,22 +1,24 @@
-Return the members of a sorted set populated with geospatial information using `GEOADD`, which are within the borders of the area specified by a given shape. This command extends the `GEORADIUS` command, so in addition to searching within circular areas, it supports searching within rectangular areas.
+Return the members of a sorted set populated with geospatial information using `GEOADD`, which are inside the border of the area specified by a given shape.
+
+This command extends the `GEORADIUS` command, so in addition to searching within circular areas, it supports searching within rectangular areas.
 
 This command should be used in place of the deprecated `GEORADIUS` and `GEORADIUSBYMEMBER` commands.
 
 The query's center point is provided by one of these mandatory options:
 
-* `FROMMEMBER`: Use the position of the given existing `<member>` in the sorted set.
-* `FROMLONLAT`: Use the given `<longitude>` and `<latitude>` position.
+* `FROMMEMBER`: Use the position of the given existing _member_ in the sorted set.
+* `FROMLONLAT`: Use the given _longitude_ and _latitude_ position.
 
 The query's shape is provided by one of these mandatory options:
 
-* `BYRADIUS`: Similar to `GEORADIUS`, search inside circular area according to given `<radius>`.
-* `BYBOX`: Search inside an axis-aligned rectangle, determined by `<height>` and `<width>`.
+* `BYRADIUS`: Similar to `GEORADIUS`, search inside a circular area according to the given _radius_.
+* `BYBOX`: Search inside an axis-aligned rectangle, determined by _height_ and _width_.
 
 The command optionally returns additional information using the following options:
 
 * `WITHDIST`: Also return the distance of the returned items from the specified center point. The distance is returned in the same unit as specified for the radius or height and width arguments.
 * `WITHCOORD`: Also return the longitude and latitude of the matching items.
-* `WITHHASH`: Also return the raw geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low level hacks or debugging and is otherwise of little interest for the general user.
+* `WITHHASH`: Also return the raw Geohash-encoded sorted set score of the item, in the form of a 52 bit unsigned integer. This is only useful for low-level hacks or debugging and is otherwise of little interest to the general user.
 
 Matching items are returned unsorted by default. To sort them, use one of the following two options:
 
@@ -25,8 +27,8 @@ Matching items are returned unsorted by default. To sort them, use one of the fo
 
 All matching items are returned by default. To limit the results to the first N matching items, use the **COUNT `<count>`** option.
 When the `ANY` option is used, the command returns as soon as enough matches are found.  This means that the results returned may not be the ones closest to the specified point, but the effort invested by the server to generate them is significantly less.
-When `ANY` is not provided, the command will perform an effort that is proportional to the number of items matching the specified area and sort them,
-so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned.
+When `ANY` is not provided, the command will perform an effort that is proportional to the number of items matching the specified area and sorting them,
+so to query large areas with a small `COUNT` option may be slow even if just a few results are returned.
 
 @return
 

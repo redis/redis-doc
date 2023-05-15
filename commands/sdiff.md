@@ -1,5 +1,4 @@
-Returns the members of the set resulting from the difference between the first
-set and all the successive sets.
+Returns the members of the set resulting from the difference between the first [Redis set](/docs/data-types/sets) and all the successive sets.
 
 For example:
 
@@ -10,7 +9,7 @@ key3 = {a,c,e}
 SDIFF key1 key2 key3 = {b,d}
 ```
 
-Keys that do not exist are considered to be empty sets.
+Keys that don't exist are considered to be empty sets.
 
 @return
 

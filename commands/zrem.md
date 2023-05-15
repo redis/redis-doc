@@ -1,14 +1,19 @@
-Removes the specified members from the sorted set stored at `key`.
-Non existing members are ignored.
+Removes the specified members from the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
 
-An error is returned when `key` exists and does not hold a sorted set.
+Members that don't exist are silently ignored.
+
+An error is returned when _key_ exists and doesn't store a sorted set.
+
+{{% alert title="Note" color="info" %}}
+A Redis sorted set always consists of at least one member.
+When the last member is removed, the sorted set is automatically deleted from the database.
+{{% /alert %}}
 
 @return
 
 @integer-reply, specifically:
 
-* The number of members removed from the sorted set, not including non existing
-  members.
+* The number of members removed from the sorted set, excluding non-existing members.
 
 @examples
 

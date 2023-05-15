@@ -1,4 +1,3 @@
-
 .rdb
 0s
 0x00060007
@@ -40,6 +39,7 @@
 97a3a64667477371c4479320d683e4c8db5858b1
 A1
 ACKs
+ACL's
 ACLs
 AMD64
 AOF
@@ -153,6 +153,7 @@ GPG
 Gbit
 GeoHashes
 Geohash
+Geohash-encoded
 Geohashes
 Geospatial
 Github
@@ -519,6 +520,7 @@ config-file
 configEpoch
 configs
 const
+consumername
 cpu
 cpu-profiling
 cron
@@ -549,12 +551,14 @@ deny-oom
 deserialize
 deserialized
 deserializing
+destkey
 desync
 desynchronize
 dev
 dir
 diskless
 distlock
+dst
 dup-sentinel
 eBPF
 earts
@@ -628,6 +632,7 @@ getkeys-api
 github
 globals
 gpg
+groupname
 hacktoberfest
 handleClientsWithPendingWrites
 hardcoded
@@ -738,6 +743,7 @@ moduleType
 modules-api-ref
 movablekeys
 mutex
+mycounter
 mylist
 mymaster
 myuser
@@ -747,6 +753,8 @@ namespacing
 natively
 netcat
 newjobs
+newkey
+newkey.
 nils
 no-appendfsync-on-rewrite
 node-redlock
@@ -813,6 +821,7 @@ proc
 programmability
 programmatically
 programmatically-generated
+protover
 pseudorandom
 PSR-4
 pubsub
@@ -959,6 +968,7 @@ tradeoff
 tradeoffs
 transactional
 try-failover
+ttl
 tty
 tunable
 typemethods_ptr

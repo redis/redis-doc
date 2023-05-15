@@ -1,6 +1,5 @@
-Restore libraries from the serialized payload.
-
 You can use the optional _policy_ argument to provide a policy for handling existing libraries.
+
 The following policies are allowed:
 
 * **APPEND:** appends the restored libraries to the existing libraries and aborts on collision. 
@@ -12,4 +11,4 @@ For more information please refer to [Introduction to Redis Functions](/topics/f
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.

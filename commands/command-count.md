@@ -1,4 +1,4 @@
-Returns @integer-reply of number of total commands in this Redis server.
+This introspective command counts all commands supported by the server.
 
 @return
 

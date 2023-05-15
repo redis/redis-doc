@@ -1,12 +1,10 @@
-Returns the score of `member` in the sorted set at `key`.
+Returns the score of a _member_ in the [Redis sorted set](/docs/data-types/sorted-sets) at _key_.
 
-If `member` does not exist in the sorted set, or `key` does not exist, `nil` is
-returned.
+If the _member_ doesn't belong to the sorted set, or the _key_ doesn't exist, `nil` is returned.
 
 @return
 
-@bulk-string-reply: the score of `member` (a double precision floating point number),
-represented as string.
+@bulk-string-reply: the score of the _member_ (a double-precision floating point number), represented as a string.
 
 @examples
 

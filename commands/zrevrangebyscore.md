@@ -1,18 +1,14 @@
-Returns all the elements in the sorted set at `key` with a score between `max`
-and `min` (including elements with score equal to `max` or `min`).
-In contrary to the default ordering of sorted sets, for this command the
-elements are considered to be ordered from high to low scores.
+Returns all the elements in the [Redis sorted set](/docs/data-types/sorted-sets) at _key_ with a score between _max_ and _min_ (including elements with scores equal to _max_ or _min_).
 
-The elements having the same score are returned in reverse lexicographical
-order.
+Contrary to the default ordering of sorted sets, this command orders the members by theirs scores in descending order.
 
-Apart from the reversed ordering, `ZREVRANGEBYSCORE` is similar to
-`ZRANGEBYSCORE`.
+Members that have the same scores are returned in reverse lexicographical order.
+
+Apart from the reversed ordering, `ZREVRANGEBYSCORE` is similar to `ZRANGEBYSCORE`.
 
 @return
 
-@array-reply: list of elements in the specified score range (optionally
-with their scores).
+@array-reply: list of members in the specified score range (optionally with their scores).
 
 @examples
 

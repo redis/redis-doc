@@ -1,12 +1,11 @@
-This command is similar to `SINTER`, but instead of returning the result set, it returns just the cardinality of the result.
-Returns the cardinality of the set which would result from the intersection of all the given sets.
+This command is similar to `SINTER`, but instead of returning the resulting set's members, it returns the cardinality (number of members) of the operation.
 
-Keys that do not exist are considered to be empty sets.
-With one of the keys being an empty set, the resulting set is also empty (since set intersection with an empty set always results in an empty set).
+Keys that don't exist are considered to be empty sets.
+Therefore, if even one of the keys doesn't exist, the resulting set is also empty, since the intersection with an empty set always results in an empty set.
 
 By default, the command calculates the cardinality of the intersection of all given sets.
-When provided with the optional `LIMIT` argument (which defaults to 0 and means unlimited), if the intersection cardinality reaches limit partway through the computation, the algorithm will exit and yield limit as the cardinality.
-Such implementation ensures a significant speedup for queries where the limit is lower than the actual intersection cardinality.
+When provided with the optional `LIMIT` argument (which defaults to 0, which means unlimited), if the intersection cardinality reaches the _limit_ partway through the computation, the algorithm will exit and yield _limit_ as the cardinality.
+This implementation ensures a significant speedup for queries where the _limit_ is lower than the actual intersection cardinality.
 
 @return
 

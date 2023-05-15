@@ -1,5 +1,7 @@
-Return the number of keys in the currently-selected database.
+The number of keys depends on the selected database.
+
+See the `SELECT` command for more information about logical databases.
 
 @return
 
-@integer-reply
+@integer-reply: the number of keys in the database.

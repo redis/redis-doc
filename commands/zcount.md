@@ -1,14 +1,13 @@
-Returns the number of elements in the sorted set at `key` with a score between
-`min` and `max`.
+Returns the number of members in the [Redis sorted set](/docs/data-types/sorted-sets) at _key_ with a score between _min_ and _max_.
 
-The `min` and `max` arguments have the same semantic as described for
-`ZRANGEBYSCORE`.
+The _min_ and _max_ arguments have the same semantics as described for `ZRANGEBYSCORE`.
 
-Note: the command has a complexity of just O(log(N)) because it uses elements ranks (see `ZRANK`) to get an idea of the range. Because of this there is no need to do a work proportional to the size of the range.
+Note: the command has a complexity of just O(log(N)) because it uses members' ranks (see `ZRANK`) to get an idea of the range.
+Because of this, there is no need to do work proportional to the size of the range.
 
 @return
 
-@integer-reply: the number of elements in the specified score range.
+@integer-reply: the number of members in the specified score range.
 
 @examples
 

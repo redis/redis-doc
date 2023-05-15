@@ -1,23 +1,22 @@
-The command behavior is the following:
+The command's behavior is as follows:
 
-* If there are any replicas lagging behind in replication:
+* If any replicas are lagging behind:
   * Pause clients attempting to write by performing a `CLIENT PAUSE` with the `WRITE` option.
   * Wait up to the configured `shutdown-timeout` (default 10 seconds) for replicas to catch up the replication offset.
 * Stop all the clients.
-* Perform a blocking SAVE if at least one **save point** is configured.
+* Perform a blocking `SAVE` if at least one **save point** is configured.
 * Flush the Append Only File if AOF is enabled.
-* Quit the server.
+* Terminate the server.
 
-If persistence is enabled this commands makes sure that Redis is switched off
-without any data loss.
+If persistence is enabled this command makes sure that Redis is switched off without any data loss.
 
-Note: A Redis instance that is configured for not persisting on disk (no AOF
-configured, nor "save" directive) will not dump the RDB file on `SHUTDOWN`, as
-usually you don't want Redis instances used only for caching to block on when
-shutting down.
+{{% alert title="Note" color="info" %}}
+A Redis instance that isn't configured with persistence (no AOF configured, nor "save" directive) won't dump the RDB file during `SHUTDOWN`, as in most cases you don't want Redis instances used solely for caching to block when shutting down.
+{{% /alert %}}
+
 
 Also note: If Redis receives one of the signals `SIGTERM` and `SIGINT`, the same shutdown sequence is performed.
-See also [Signal Handling](/topics/signals).
+See also [Signal Handling](/docs/reference/signals/).
 
 ## Modifiers
 
@@ -34,15 +33,12 @@ Specifically:
 ## Conditions where a SHUTDOWN fails
 
 When a save point is configured or the **SAVE** modifier is specified, the shutdown may fail if the RDB file can't be saved.
-Then, the server continues to run in order to ensure no data loss.
+Then, the server continues to run to ensure no data loss.
 This may be bypassed using the **FORCE** modifier, causing the server to exit anyway.
 
-When the Append Only File is enabled the shutdown may fail because the
-system is in a state that does not allow to safely immediately persist
-on disk.
+When the Append Only File is enabled the shutdown may fail because the system is in a state that does not allow it to safely immediately persist on disk.
 
-Normally if there is an AOF child process performing an AOF rewrite, Redis
-will simply kill it and exit.
+Normally if there is an AOF child process performing an AOF rewrite, Redis will simply kill it and exit.
 However, there are situations where it is unsafe to do so and, unless the **FORCE** modifier is specified, the **SHUTDOWN** command will be refused with an error instead.
 This happens in the following situations:
 
@@ -58,13 +54,13 @@ The second command will not have any problem to execute since the AOF is no long
 ## Minimize the risk of data loss
 
 Since Redis 7.0, the server waits for lagging replicas up to a configurable `shutdown-timeout`, by default 10 seconds, before shutting down.
-This provides a best effort minimizing the risk of data loss in a situation where no save points are configured and AOF is disabled.
+This provides the best effort of minimizing the risk of data loss in a situation where no save points are configured and AOF is disabled.
 Before version 7.0, shutting down a heavily loaded master node in a diskless setup was more likely to result in data loss.
 To minimize the risk of data loss in such setups, it's advised to trigger a manual `FAILOVER` (or `CLUSTER FAILOVER`) to demote the master to a replica and promote one of the replicas to be the new master, before shutting down a master node.
 
 @return
 
-@simple-string-reply: `OK` if `ABORT` was specified and shutdown was aborted.
+@simple-string-reply: `OK`, if `ABORT` was specified and shutdown was aborted.
 On successful shutdown, nothing is returned since the server quits and the connection is closed.
 On failure, an error is returned.
 

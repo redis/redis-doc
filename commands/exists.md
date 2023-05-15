@@ -1,10 +1,13 @@
-Returns if `key` exists.
+Each _key_ argument adds one to the reply if it exists in the currently-selected database.
 
-The user should be aware that if the same existing key is mentioned in the arguments multiple times, it will be counted multiple times. So if `somekey` exists, `EXISTS somekey somekey` will return 2.
+See the `SELECT` command for more information about logical databases.
+
+Note that if the same key is given multiple times, it will be counted multiple times.
+So, if "somekey" exists, then `EXISTS somekey somekey` will return 2.
 
 @return
 
-@integer-reply, specifically the number of keys that exist from those specified as arguments.
+@integer-reply: the number of keys that exist.
 
 @examples
 

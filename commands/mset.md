@@ -1,10 +1,9 @@
-Sets the given keys to their respective values.
-`MSET` replaces existing values with new values, just as regular `SET`.
+`MSET` creates or updates existing [Redis string](/docs/data-types/strings) values with new values, much like `SET` does.
+Also like `SET`, the command ignores the type of existing keys.
 See `MSETNX` if you don't want to overwrite existing values.
 
 `MSET` is atomic, so all given keys are set at once.
-It is not possible for clients to see that some of the keys were updated while
-others are unchanged.
+Clients can't see that some of the keys were updated while others are unchanged.
 
 @return
 

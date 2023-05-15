@@ -1,14 +1,19 @@
-Remove the specified members from the set stored at `key`.
-Specified members that are not a member of this set are ignored.
-If `key` does not exist, it is treated as an empty set and this command returns
+Remove the specified members from the [Redis set](/docs/data-types/sets) stored at _key_.
+
+Specified members that are not members of the set are ignored.
+If _key_ doesn't exist, it is treated as an empty set and this command returns
 `0`.
 
-An error is returned when the value stored at `key` is not a set.
+An error is returned when the value stored at _key_ is not a set.
+
+{{% alert title="Note" color="info" %}}
+A Redis set always consists of at least one member.
+When the last member is removed, the set is automatically deleted from the database.
+{{% /alert %}}
 
 @return
 
-@integer-reply: the number of members that were removed from the set, not
-including non existing members.
+@integer-reply: the number of members that were removed from the set, excluding non-existing members.
 
 @examples
 

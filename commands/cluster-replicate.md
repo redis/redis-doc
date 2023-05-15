@@ -1,4 +1,3 @@
-The command reconfigures a node as a replica of the specified master.
 If the node receiving the command is an *empty master*, as a side effect
 of the command, the node role is changed from master to replica.
 

@@ -1,16 +1,13 @@
-This command is exactly like `XRANGE`, but with the notable difference of
-returning the entries in reverse order, and also taking the start-end
-range in reverse order: in `XREVRANGE` you need to state the *end* ID
-and later the *start* ID, and the command will produce all the element
-between (or exactly like) the two IDs, starting from the *end* side.
+This command is exactly like `XRANGE`, but with the notable difference of returning the entries in reverse order.
 
-So for instance, to get all the elements from the higher ID to the lower
-ID one could use:
+Also, note that the range arguments for this command are reversed, so the first argument is the _end_ ID and then the _start_ ID.
+The reply will include all the elements in the range, starting from the _end_.
+
+So for instance, to get all the elements from the higher ID to the lower ID one could use:
 
     XREVRANGE somestream + -
 
-Similarly to get just the last element added into the stream it is
-enough to send:
+Similarly to obtain just the last element added into the stream it is enough to send:
 
     XREVRANGE somestream + - COUNT 1
 
@@ -18,11 +15,9 @@ enough to send:
 
 @array-reply, specifically:
 
-The command returns the entries with IDs matching the specified range,
-from the higher ID to the lower ID matching.
-The returned entries are complete, that means that the ID and all the fields
-they are composed are returned. Moreover the entries are returned with
-their fields and values in the exact same order as `XADD` added them.
+The command returns the entries with IDs matching the specified range.
+The returned entries are complete, which means that the ID and all the fields they are composed of are returned.
+Moreover, the entries are returned with their fields and values in the same order as `XADD` added them.
 
 @examples
 

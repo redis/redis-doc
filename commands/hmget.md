@@ -1,14 +1,11 @@
-Returns the values associated with the specified `fields` in the hash stored at
-`key`.
+Returns the values associated with the specified _fields_ in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
-For every `field` that does not exist in the hash, a `nil` value is returned.
-Because non-existing keys are treated as empty hashes, running `HMGET` against
-a non-existing `key` will return a list of `nil` values.
+For every _field_ that doesn't exist in the hash, a `nil` value is returned.
+Because non-existing keys are treated as empty hashes, running `HMGET` against non-existing keys will return a list of `nil` values.
 
 @return
 
-@array-reply: list of values associated with the given fields, in the same
-order as they are requested.
+@array-reply: list of @bulk-string-reply (or @nil-reply) corresponding to the given fields, in the same order as they were requested.
 
 ```cli
 HSET myhash field1 "Hello"

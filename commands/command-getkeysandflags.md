@@ -1,5 +1,3 @@
-Returns @array-reply of keys from a full Redis command and their usage flags.
-
 `COMMAND GETKEYSANDFLAGS` is a helper command to let you find the keys from a full Redis command together with flags indicating what each key is used for.
 
 `COMMAND` provides information on how to find the key names of each command (see `firstkey`, [key specifications](/topics/key-specs#logical-operation-flags), and `movablekeys`),

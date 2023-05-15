@@ -1,8 +1,4 @@
-Instruct Redis to start an [Append Only File][tpaof] rewrite process.
-The rewrite will create a small optimized version of the current Append Only
-File.
-
-[tpaof]: /topics/persistence#append-only-file
+The rewrite process creates a compact version of the current [Append Only File][/topics/persistence#append-only-file].
 
 If `BGREWRITEAOF` fails, no data gets lost as the old AOF will be untouched.
 
@@ -16,7 +12,7 @@ Specifically:
   AOF rewrite will be scheduled for a later time.
 * If the AOF rewrite could start, but the attempt at starting it fails (for instance because of an error in creating the child process), an error is returned to the caller.
 
-Since Redis 2.4 the AOF rewrite is automatically triggered by Redis, however the
+Since Redis 2.4 the AOF rewrite is automatically triggered by Redis, however, the
 `BGREWRITEAOF` command can be used to trigger a rewrite at any time.
 
 Please refer to the [persistence documentation][tp] for detailed information.
@@ -25,6 +21,6 @@ Please refer to the [persistence documentation][tp] for detailed information.
 
 @return
 
-@simple-string-reply: A simple string reply indicating that the rewriting started or is about to start ASAP, when the call is executed with success.
+@simple-string-reply: A simple string reply indicating that the rewriting started or is about to start ASAP when the call is executed with success.
 
 The command may reply with an error in certain cases, as documented above.

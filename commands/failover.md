@@ -1,7 +1,7 @@
-This command will start a coordinated failover between the currently-connected-to master and one of its replicas.
-The failover is not synchronous, instead a background task will handle coordinating the failover. 
+The failover is not synchronous, allowing a background task will handle coordinating the failover. 
+
 It is designed to limit data loss and unavailability of the cluster during the failover.
-This command is analogous to the `CLUSTER FAILOVER` command for non-clustered Redis and is similar to the failover support provided by sentinel.
+This command is analogous to the `CLUSTER FAILOVER` command for non-clustered Redis and is similar to the failover support provided by Redis Sentinel.
 
 The specific details of the default failover flow are as follows:
 
@@ -9,7 +9,7 @@ The specific details of the default failover flow are as follows:
 2. The master will monitor its replicas, waiting for a replica to indicate that it has fully consumed the replication stream. If the master has multiple replicas, it will only wait for the first replica to catch up.
 3. The master will then demote itself to a replica. This is done to prevent any dual master scenarios. NOTE: The master will not discard its data, so it will be able to rollback if the replica rejects the failover request in the next step.
 4. The previous master will send a special PSYNC request to the target replica, `PSYNC FAILOVER`, instructing the target replica to become a master.
-5. Once the previous master receives acknowledgement the `PSYNC FAILOVER` was accepted it will unpause its clients. If the PSYNC request is rejected, the master will abort the failover and return to normal.
+5. Once the previous master receives acknowledgement that the `PSYNC FAILOVER` was accepted it will unpause its clients. If the PSYNC request is rejected, the master will abort the failover and return to normal.
 
 The field `master_failover_state` in `INFO replication` can be used to track the current state of the failover, which has the following values:
 
@@ -29,14 +29,14 @@ If this value is not specified, the timeout can be considered to be "infinite".
 
 * `TO` *HOST* *PORT* -- This option allows designating a specific replica, by its host and port, to failover to. The master will wait specifically for this replica to catch up to its replication offset, and then failover to it.
 
-* `FORCE` -- If both the `TIMEOUT` and `TO` options are set, the force flag can also be used to designate that that once the timeout has elapsed, the master should failover to the target replica instead of rolling back.
+* `FORCE` -- If both the `TIMEOUT` and `TO` options are set, the force flag can also be used to designate that once the timeout has elapsed, the master should failover to the target replica instead of rolling back.
 This can be used for a best-effort attempt at a failover without data loss, but limiting write outage.
 
 NOTE: The master will always rollback if the `PSYNC FAILOVER` request is rejected by the target replica. 
 
 ## Failover abort
 
-The failover command is intended to be safe from data loss and corruption, but can encounter some scenarios it can not automatically remediate from and may get stuck. 
+The failover command is intended to be safe from data loss and corruption but can encounter some scenarios it can not automatically remediate from and may get stuck. 
 For this purpose, the `FAILOVER ABORT` command exists, which will abort an ongoing failover and return the master to its normal state. 
 The command has no side effects if issued in the `waiting-for-sync` state but can introduce multi-master scenarios in the `failover-in-progress` state. 
 If a multi-master scenario is encountered, you will need to manually identify which master has the latest data and designate it as the master and have the other replicas.

@@ -1,8 +1,8 @@
-This command is like `ZRANGE`, but stores the result in the `<dst>` destination key.
+This command is like `ZRANGE`, but stores the result in the _dst_ destination key.
 
 @return
 
-@integer-reply: the number of elements in the resulting sorted set.
+@integer-reply: the number of members in the resulting sorted set.
 
 @examples
 

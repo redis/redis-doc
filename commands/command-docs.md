@@ -1,4 +1,4 @@
-Return documentary information about commands.
+This introspective command provides documentary information about the server's commands.
 
 By default, the reply includes all of the server's commands.
 You can use the optional _command-name_ argument to specify the names of one or more commands.
@@ -33,7 +33,7 @@ The following keys may be included in the mapped reply:
   Possible values are:
   - _deprecated:_ the command is deprecated.
   - _syscmd:_ a system command that isn't meant to be called by users.
-* **deprecated_since:** the Redis version that deprecated the command (or for module commands, the module version)..
+* **deprecated_since:** the Redis version that deprecated the command (or for module commands, the module version).
 * **replaced_by:** the alternative for a deprecated command.
 * **history:** an array of historical notes describing changes to the command's behavior or arguments.
   Each entry is an array itself, made up of two elements:

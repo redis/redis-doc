@@ -1,5 +1,5 @@
-This command, that can only be sent to a Redis Cluster replica node, forces
-the replica to start a manual failover of its master instance.
+This command can only be sent to a Redis Cluster replica node.
+It forces the replica to start a manual failover of its master instance.
 
 A manual failover is a special kind of failover that is usually executed when
 there are no actual failures, but we wish to swap the current master with one

@@ -1,8 +1,5 @@
 The command returns the number of *failure reports* for the specified node.
-Failure reports are the way Redis Cluster uses in order to promote a
-`PFAIL` state, that means a node is not reachable, to a `FAIL` state,
-that means that the majority of masters in the cluster agreed within
-a window of time that the node is not reachable.
+Failure reports are the means that Redis Cluster uses to promote a `PFAIL` state, which means a node is not reachable, to a `FAIL` state, which means that the majority of masters in the cluster agreed within a window of time that the node is not reachable.
 
 A few more details:
 

@@ -1,5 +1,4 @@
-The command shows a list of all the usernames of the currently configured
-users in the Redis ACL system.
+All [Access Control List (ACL)](/docs/management/security/acl) usernames are included in the reply.
 
 @return
 

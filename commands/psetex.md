@@ -1,5 +1,4 @@
-`PSETEX` works exactly like `SETEX` with the sole difference that the expire
-time is specified in milliseconds instead of seconds.
+`PSETEX` works exactly like `SETEX` with the sole difference that the expiry time is specified in milliseconds instead of seconds.
 
 @examples
 

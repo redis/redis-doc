@@ -1,8 +1,8 @@
-Returns the number of fields contained in the hash stored at `key`.
+Returns the number of fields contained in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
 @return
 
-@integer-reply: number of fields in the hash, or `0` when `key` does not exist.
+@integer-reply: number of fields in the hash, or `0` when _key_ doesn't exist.
 
 @examples
 

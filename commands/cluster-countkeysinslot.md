@@ -1,7 +1,5 @@
-Returns the number of keys in the specified Redis Cluster hash slot. The
-command only queries the local data set, so contacting a node
-that is not serving the specified hash slot will always result in a count of
-zero being returned.
+The command queries only the node's data set.
+The reply of this command, when executed against a node that isn't serving the specified hash slot, is always zero (0).
 
 ```
 > CLUSTER COUNTKEYSINSLOT 7000

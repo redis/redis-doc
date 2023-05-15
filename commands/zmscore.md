@@ -1,11 +1,10 @@
-Returns the scores associated with the specified `members` in the sorted set stored at `key`.
+Returns the scores associated with the specified members in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_.
 
-For every `member` that does not exist in the sorted set, a `nil` value is returned.
+For every _member_ that doesn't exist in the sorted set, a `nil` value is returned.
 
 @return
 
-@array-reply: list of scores or `nil` associated with the specified `member` values (a double precision floating point number),
-represented as strings.
+@array-reply: list of scores or @nil-reply associated with the specified _member_ values (a double-precision floating point number), represented as strings.
 
 @examples
 

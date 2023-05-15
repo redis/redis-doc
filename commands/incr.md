@@ -1,21 +1,18 @@
-Increments the number stored at `key` by one.
-If the key does not exist, it is set to `0` before performing the operation.
-An error is returned if the key contains a value of the wrong type or contains a
-string that can not be represented as integer.
-This operation is limited to 64 bit signed integers.
+Increments the number stored as a [Redis string](/docs/data-types/strings) stored at _key_ by one.
+
+If the _key_ doesn't exist, it is set to `0` before the operation.
+An error is returned if the key contains a value of the wrong type, or contains a string that can't be represented as an integer.
+This operation is limited to **64-bit signed integers**.
 
 **Note**: this is a string operation because Redis does not have a dedicated
 integer type.
-The string stored at the key is interpreted as a base-10 **64 bit signed
-integer** to execute the operation.
+The string stored at the key is interpreted as a base-10 **64-bit signed integer** to execute the operation.
 
-Redis stores integers in their integer representation, so for string values
-that actually hold an integer, there is no overhead for storing the string
-representation of the integer.
+Redis stores integers in their integer representation, so for string values that hold an integer, there is no overhead for storing the string representation of the integer.
 
 @return
 
-@integer-reply: the value of `key` after the increment
+@integer-reply: the value of the _key_ after the increment
 
 @examples
 
@@ -29,9 +26,9 @@ GET mykey
 
 The counter pattern is the most obvious thing you can do with Redis atomic
 increment operations.
-The idea is simply send an `INCR` command to Redis every time an operation
+The idea is simply to send an `INCR`` command to Redis every time an operation
 occurs.
-For instance in a web application we may want to know how many page views this
+For instance, in a web application, we may want to know how many page views this
 user did every day of the year.
 
 To do so the web application may simply increment a key every time the user
@@ -81,18 +78,14 @@ ELSE
 END
 ```
 
-Basically we have a counter for every IP, for every different second.
-But this counters are always incremented setting an expire of 10 seconds so that
-they'll be removed by Redis automatically when the current second is a different
-one.
+Basically, we have a counter for every IP, for every different second.
+But these counters are always incremented setting an expiry of 10 seconds so that they'll be removed by Redis automatically when the current second is a different one.
 
-Note the used of `MULTI` and `EXEC` in order to make sure that we'll both
-increment and set the expire at every API call.
+Note the use of `MULTI` and `EXEC` to make sure that we'll both increment and set the expire at every API call.
 
 ## Pattern: Rate limiter 2
 
-An alternative implementation uses a single counter, but is a bit more complex
-to get it right without race conditions.
+An alternative implementation uses a single counter but is a bit more complex to get it right without race conditions.
 We'll examine different variants.
 
 ```
@@ -109,18 +102,13 @@ ELSE
 END
 ```
 
-The counter is created in a way that it only will survive one second, starting
-from the first request performed in the current second.
-If there are more than 10 requests in the same second the counter will reach a
-value greater than 10, otherwise it will expire and start again from 0.
+The counter is created in a way that it only will survive one second, starting from the first request performed in the current second.
+If there are more than 10 requests in the same second the counter will reach a value greater than 10, otherwise, it will expire and start again from 0.
 
 **In the above code there is a race condition**.
-If for some reason the client performs the `INCR` command but does not perform
-the `EXPIRE` the key will be leaked until we'll see the same IP address again.
+If for some reason the client performs the `INCR` command but does not perform the `EXPIRE` the key will be leaked until we'll see the same IP address again.
 
-This can be fixed easily turning the `INCR` with optional `EXPIRE` into a Lua
-script that is send using the `EVAL` command (only available since Redis version
-2.6).
+This can be fixed easily by turning the `INCR` with optional `EXPIRE` into a Lua script that is sent using the `EVAL` command (only available since Redis version 2.6).
 
 ```
 local current
@@ -130,11 +118,8 @@ if current == 1 then
 end
 ```
 
-There is a different way to fix this issue without using scripting, by using
-Redis lists instead of counters.
-The implementation is more complex and uses more advanced features but has the
-advantage of remembering the IP addresses of the clients currently performing an
-API call, that may be useful or not depending on the application.
+There is a different way to fix this issue without using scripting, by using Redis lists instead of counters.
+The implementation is more complex and uses more advanced features but has the advantage of remembering the IP addresses of the clients currently performing an API call, which may be useful or not depending on the application.
 
 ```
 FUNCTION LIMIT_API_CALL(ip)
@@ -156,8 +141,5 @@ END
 
 The `RPUSHX` command only pushes the element if the key already exists.
 
-Note that we have a race here, but it is not a problem: `EXISTS` may return
-false but the key may be created by another client before we create it inside
-the `MULTI` / `EXEC` block.
-However this race will just miss an API call under rare conditions, so the rate
-limiting will still work correctly.
+Note that we have a race here, but it is not a problem: `EXISTS` may return false but the key may be created by another client before we create it inside the `MULTI` / `EXEC` block.
+However, this race will just miss an API call under rare conditions, so the rate-limiting will still work correctly.

@@ -1,12 +1,11 @@
-The `MEMORY USAGE` command reports the number of bytes that a key and its value
-require to be stored in RAM.
+The `MEMORY USAGE` command reports the number of bytes that a _key_ and its value require to be stored in RAM.
 
-The reported usage is the total of memory allocations for data and
-administrative overheads that a key its value require.
+The reported usage is the total of memory allocations for data and administrative overheads that a key and its value require.
 
-For nested data types, the optional `SAMPLES` option can be provided, where
-`count` is the number of sampled nested values. The samples are averaged to estimate the total size.
-By default, this option is set to `5`. To sample the all of the nested values, use `SAMPLES 0`.
+For nested data types, the optional `SAMPLES` option can be provided, where _count_ is the number of sampled nested values.
+The samples are averaged to estimate the total size.
+By default, this option is set to `5`. 
+To sample all of the nested values, use `SAMPLES 0`.
 
 @examples
 
@@ -37,4 +36,4 @@ OK
 
 @return
 
-@integer-reply: the memory usage in bytes, or `nil` when the key does not exist.
+@integer-reply: the memory usage in bytes, or @nil-reply when the _key_ doesn't exist.

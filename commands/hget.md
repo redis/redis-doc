@@ -1,9 +1,8 @@
-Returns the value associated with `field` in the hash stored at `key`.
+Returns the value associated with the _field_ in the [Redis hash](/docs/data-types/hashes) stored at _key_.
 
 @return
 
-@bulk-string-reply: the value associated with `field`, or `nil` when `field` is not
-present in the hash or `key` does not exist.
+@bulk-string-reply: the value associated with _field_, or @nil-reply when _field_ doesn't exist in the hash or when _key_ doesn't exist.
 
 @examples
 

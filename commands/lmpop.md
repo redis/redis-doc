@@ -1,21 +1,26 @@
-Pops one or more elements from the first non-empty list key from the list of provided key names.
+Pops one or more elements from the first non-empty [Redis list](/docs/data-types/lists) _key_ from the list of provided key names.
 
 `LMPOP` and `BLMPOP` are similar to the following, more limited, commands:
 
-- `LPOP` or `RPOP` which take only one key, and can return multiple elements.
-- `BLPOP` or `BRPOP` which take multiple keys, but return only one element from just one key.
+* `LPOP` or `RPOP`, which take only one key, and can return multiple elements.
+* `BLPOP` or `BRPOP`, which take multiple keys, but return only one element from just one key.
 
 See `BLMPOP` for the blocking variant of this command.
 
 Elements are popped from either the left or right of the first non-empty list based on the passed argument.
-The number of returned elements is limited to the lower between the non-empty list's length, and the count argument (which defaults to 1).
+The number of returned elements is limited to the lower between the non-empty list's length, and the _count_ argument (which defaults to 1).
+
+{{% alert title="Note" color="info" %}}
+A Redis list always consists of at least one element.
+When the last element is popped, the list is automatically deleted from the database.
+{{% /alert %}}
 
 @return
 
 @array-reply: specifically:
 
-* A `nil` when no element could be popped.
-* A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of elements.
+* A @nil-reply when no element could be popped.
+* A two-element array with the first element being the name of the key from which elements were popped and the second element being an array of elements.
 
 @examples
 

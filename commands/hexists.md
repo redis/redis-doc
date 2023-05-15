@@ -1,11 +1,11 @@
-Returns if `field` is an existing field in the hash stored at `key`.
+Returns whether the _field_ exists in the [Redis hash](/docs/data-types/hashes) stored at the _key_.
 
 @return
 
 @integer-reply, specifically:
 
-* `1` if the hash contains `field`.
-* `0` if the hash does not contain `field`, or `key` does not exist.
+* `1` if the hash contains the _field_.
+* `0` if the hash doesn't contain the _field_, or _key_ doesn't exist.
 
 @examples
 

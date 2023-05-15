@@ -1,16 +1,15 @@
-Removes the first `count` occurrences of elements equal to `element` from the list
-stored at `key`.
-The `count` argument influences the operation in the following ways:
+Removes the first _count_ occurrences of elements equal to _element_ from the [Redis list](/docs/data-types/lists) stored at the _key_.
 
-* `count > 0`: Remove elements equal to `element` moving from head to tail.
-* `count < 0`: Remove elements equal to `element` moving from tail to head.
-* `count = 0`: Remove all elements equal to `element`.
+The _count_ argument influences the operation in the following ways:
+
+* `count > 0`: Remove elements equal to _element_ moving from head to tail.
+* `count < 0`: Remove elements equal to _element_ moving from tail to head.
+* `count = 0`: Remove all elements equal to _element_.
 
 For example, `LREM list -2 "hello"` will remove the last two occurrences of
-`"hello"` in the list stored at `list`.
+"hello" in the list stored at "list".
 
-Note that non-existing keys are treated like empty lists, so when `key` does not
-exist, the command will always return `0`.
+Note that non-existing keys are treated like empty lists, so when _key_ doesn't exist, the command will always return `0`.
 
 @return
 

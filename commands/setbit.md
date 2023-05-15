@@ -1,24 +1,16 @@
-Sets or clears the bit at _offset_ in the string value stored at _key_.
+Sets or clears the bit at _offset_ in the [Redis bitmap](/docs/data-types/bitmaps) value stored at _key_.
 
-The bit is either set or cleared depending on _value_, which can be either 0 or
+The bit is either set or cleared depending on the _value_, which can be either 0 or
 1.
 
-When _key_ does not exist, a new string value is created.
+When the _key_ doesn't exist, a new string value is created.
 The string is grown to make sure it can hold a bit at _offset_.
-The _offset_ argument is required to be greater than or equal to 0, and smaller
-than 2^32 (this limits bitmaps to 512MB).
-When the string at _key_ is grown, added bits are set to 0.
+The _offset_ argument is required to be greater than or equal to 0, and smaller than 2^32 (this limits bitmaps to 512MB).
+When the string at the _key_ is grown, added bits are set to 0.
 
-**Warning**: When setting the last possible bit (_offset_ equal to 2^32 -1) and
-the string value stored at _key_ does not yet hold a string value, or holds a
-small string value, Redis needs to allocate all intermediate memory which can
-block the server for some time.
-On a 2010 MacBook Pro, setting bit number 2^32 -1 (512MB allocation) takes
-~300ms, setting bit number 2^30 -1 (128MB allocation) takes ~80ms, setting bit
-number 2^28 -1 (32MB allocation) takes ~30ms and setting bit number 2^26 -1 (8MB
-allocation) takes ~8ms.
-Note that once this first allocation is done, subsequent calls to `SETBIT` for
-the same _key_ will not have the allocation overhead.
+**Warning**: When setting the last possible bit (_offset_ equal to 2^32 -1) and the string value stored at _key_ does not yet hold a string value, or holds a small string value, Redis needs to allocate all intermediate memory which can block the server for some time.
+On a 2010 MacBook Pro, setting bit number 2^32 -1 (512MB allocation) takes ~300ms, setting bit number 2^30 -1 (128MB allocation) takes ~80ms, setting bit number 2^28 -1 (32MB allocation) takes ~30ms and setting bit number 2^26 -1 (8MB allocation) takes ~8ms.
+Note that once this first allocation is done, subsequent calls to `SETBIT` for the same _key_ will not have the allocation overhead.
 
 @return
 
@@ -34,24 +26,17 @@ GET mykey
 
 ## Pattern: accessing the entire bitmap
 
-There are cases when you need to set all the bits of single bitmap at once, for
-example when initializing it to a default non-zero value. It is possible to do
-this with multiple calls to the `SETBIT` command, one for each bit that needs to
-be set. However, so as an optimization you can use a single `SET` command to set
-the entire bitmap.
+There are cases when you need to set all the bits of a single bitmap at once, for example when initializing it to a default non-zero value.
+It is possible to do this with multiple calls to the `SETBIT` command, one for each bit that needs to be set.
+So, as an optimization, you can use a single `SET` command to set the entire bitmap.
 
-Bitmaps are not an actual data type, but a set of bit-oriented operations
-defined on the String type (for more information refer to the
-[Bitmaps section of the Data Types Introduction page][ti]). This means that
-bitmaps can be used with string commands, and most importantly with `SET` and
-`GET`.
+Bitmaps are not an actual data type, but a set of bit-oriented operations defined on the String type (for more information refer to the [Bitmaps section of the Data Types Introduction page][ti]).
+This means that bitmaps can be used with string commands, and most importantly with `SET` and `GET`.
 
-Because Redis' strings are binary-safe, a bitmap is trivially encoded as a bytes
-stream. The first byte of the string corresponds to offsets 0..7 of
-the bitmap, the second byte to the 8..15 range, and so forth.
+Because Redis' strings are binary-safe, a bitmap is trivially encoded as a bytes stream.
+The first byte of the string corresponds to offsets 0..7 of the bitmap, the second byte to the 8..15 range, and so forth.
 
-For example, after setting a few bits, getting the string value of the bitmap
-would look like this:
+For example, after setting a few bits, getting the string value of the bitmap would look like this:
 
 ```
 > SETBIT bitmapsarestrings 2 1
@@ -64,20 +49,15 @@ would look like this:
 "42"
 ```
 
-By getting the string representation of a bitmap, the client can then parse the
-response's bytes by extracting the bit values using native bit operations in its
-native programming language. Symmetrically, it is also possible to set an entire
-bitmap by performing the bits-to-bytes encoding in the client and calling `SET`
-with the resultant string.
+By getting the string representation of a bitmap, the client can then parse the response's bytes by extracting the bit values using native bit operations in its native programming language. 
+Symmetrically, it is also possible to set an entire bitmap by performing the bits-to-bytes encoding in the client and calling `SET` with the resultant string.
 
 [ti]: /topics/data-types-intro#bitmaps
 
 ## Pattern: setting multiple bits
 
-`SETBIT` excels at setting single bits, and can be called several times when
-multiple bits need to be set. To optimize this operation you can replace
-multiple `SETBIT` calls with a single call to the variadic `BITFIELD` command
-and the use of fields of type `u1`.
+`SETBIT` excels at setting single bits and can be called several times when multiple bits need to be set.
+To optimize this operation you can replace multiple `SETBIT` calls with a single call to the variadic `BITFIELD` command and use fields of type `u1`.
 
 For example, the example above could be replaced by:
 
@@ -87,9 +67,8 @@ For example, the example above could be replaced by:
 
 ## Advanced Pattern: accessing bitmap ranges
 
-It is also possible to use the `GETRANGE` and `SETRANGE` string commands to
-efficiently access a range of bit offsets in a bitmap. Below is a sample
-implementation in idiomatic Redis Lua scripting that can be run with the `EVAL`
+It is also possible to use the `GETRANGE` and `SETRANGE` string commands to efficiently access a range of bit offsets in a bitmap.
+Below is a sample implementation in idiomatic Redis Lua scripting that can be run with the `EVAL`
 command:
 
 ```
@@ -158,4 +137,4 @@ end
 ```
 
 **Note:** the implementation for getting a range of bit offsets from a bitmap is
-left as an exercise to the reader.
+left as an exercise for the reader.

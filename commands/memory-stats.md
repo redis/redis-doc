@@ -1,5 +1,4 @@
-The `MEMORY STATS` command returns an @array-reply about the memory usage of the
-server.
+The `MEMORY STATS` command returns the memory usage statistics for the server.
 
 The information about memory usage is provided as metrics and their respective
 values. The following metrics are reported:

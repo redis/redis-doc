@@ -1,15 +1,15 @@
-This command returns the list of consumers that belong to the `<groupname>` consumer group of the stream stored at `<key>`.
+This command returns the list of consumers that belong to the consumer group _groupname_ of the [Redis stream](/docs/data-types/streams) stored at _key_.
 
 The following information is provided for each consumer in the group:
 
-* **name**: the consumer's name
-* **pending**: the number of entries in the PEL: pending messages for the consumer, which are messages that were delivered but are yet to be acknowledged
-* **idle**: the number of milliseconds that have passed since the consumer's last attempted interaction (Examples: `XREADGROUP`, `XCLAIM`, `XAUTOCLAIM`)
-* **inactive**: the number of milliseconds that have passed since the consumer's last successful interaction (Examples: `XREADGROUP` that actually read some entries into the PEL, `XCLAIM`/`XAUTOCLAIM` that actually claimed some entries)
+* **name**: the consumer's name.
+* **pending**: the number of pending messages for the client, which are messages that were delivered but are yet to be acknowledged.
+* **idle**: the number of milliseconds that have passed since the consumer last interacted with the server (with `XREADGROUP`, `XCLAIM` or `XAUTOCLAIM`).
+* **inactive**: the number of milliseconds that have passed since the consumer's last successful interaction (for example, `XREADGROUP` that actually read some entries into the PEL, or `XCLAIM`/`XAUTOCLAIM` that actually claimed some entries)
 
-@reply
+@return
 
-@array-reply: a list of consumers.
+@array-reply: a list of consumers and their attributes as described above.
 
 @examples
 

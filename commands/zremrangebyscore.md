@@ -1,9 +1,13 @@
-Removes all elements in the sorted set stored at `key` with a score between
-`min` and `max` (inclusive).
+Removes all members in the [Redis sorted set](/docs/data-types/sorted-sets) stored at _key_ with scores between _min_ and _max_ (inclusive).
+
+{{% alert title="Note" color="info" %}}
+A Redis sorted set always consists of at least one member.
+When the last member is removed, the sorted set is automatically deleted from the database.
+{{% /alert %}}
 
 @return
 
-@integer-reply: the number of elements removed.
+@integer-reply: the number of members removed.
 
 @examples
 

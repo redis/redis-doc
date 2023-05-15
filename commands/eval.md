@@ -1,11 +1,9 @@
-Invoke the execution of a server-side Lua script.
-
-The first argument is the script's source code.
+The first argument, _script_, is the script's source code verbatim.
 Scripts are written in [Lua](https://lua.org) and executed by the embedded [Lua 5.1](/topics/lua-api) interpreter in Redis.
 
-The second argument is the number of input key name arguments, followed by all the keys accessed by the script.
+The second argument, _numkeys_, is the number of input key name arguments, followed by all the keys accessed by the script.
 These names of input keys are available to the script as the [_KEYS_ global runtime variable](/topics/lua-api#the-keys-global-variable)
-Any additional input arguments **should not** represent names of keys.
+Any additional input arguments **should not** represent the names of keys.
 
 **Important:**
 to ensure the correct execution of scripts, both in standalone and clustered deployments, all names of keys that a script accesses must be explicitly provided as input key arguments.

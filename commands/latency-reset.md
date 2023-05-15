@@ -1,11 +1,8 @@
 The `LATENCY RESET` command resets the latency spikes time series of all, or only some, events.
 
-When the command is called without arguments, it resets all the
-events, discarding the currently logged latency spike events, and resetting
-the maximum event time register.
+When the command is called without arguments, it resets all the events, discarding the currently logged latency spike events, and resetting the maximum event time register.
 
-It is possible to reset only specific events by providing the `event` names
-as arguments.
+It is possible to reset only specific events by providing the _event_ names as arguments.
 
 Valid values for `event` are:
 * `active-defrag-cycle`

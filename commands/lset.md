@@ -1,11 +1,11 @@
-Sets the list element at `index` to `element`.
-For more information on the `index` argument, see `LINDEX`.
+Sets the element at _index_ to _element_ in the [Redis list](/docs/data-types/lists) that's stored at _key_.
+For more information about the _index_ argument, see `LINDEX`.
 
-An error is returned for out of range indexes.
+An error is returned for out-of-range indexes.
 
 @return
 
-@simple-string-reply
+@simple-string-reply: `OK`.
 
 @examples
 

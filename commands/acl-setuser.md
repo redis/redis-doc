@@ -1,36 +1,34 @@
-Create an ACL user with the specified rules or modify the rules of an
-existing user. 
+The command create or updates the [Access Control List (ACL)](/docs/management/security/acl) _username_.
 
-Manipulate Redis ACL users interactively.
-If the username does not exist, the command creates the username without any privilege.
+If the _username_ doesn't exist, the command creates the username without any privilege.
 It then reads from left to right all the [rules](#acl-rules) provided as successive arguments, setting the user ACL rules as specified.
-If the user already exists, the provided ACL rules are simply applied
-*in addition* to the rules already set. For example:
+If the user already exists, the provided ACL rules are simply applied *in addition* to the rules already set.
+For example:
 
     ACL SETUSER virginia on allkeys +set
 
-The above command creates a user called `virginia` who is active(the _on_ rule), can access any key (_allkeys_ rule), and can call the set command (_+set_ rule).
+The above command creates a user called "virginia" who is active(the _on_ rule), can access any key (_allkeys_ rule), and can call the set command (_+set_ rule).
 Then, you can use another `ACL SETUSER` call to modify the user rules:
 
     ACL SETUSER virginia +get
 
-The above rule applies the new rule to the user `virginia`, so other than `SET`, the user `virginia` can now also use the `GET` command.
+The above rule applies the new rule to the user "virginia", so other than `SET`, the user "virginia" can now also use the `GET` command.
 
 Starting from Redis 7.0, ACL rules can also be grouped into multiple distinct sets of rules, called _selectors_.
 Selectors are added by wrapping the rules in parentheses and providing them just like any other rule.
-In order to execute a command, either the root permissions (rules defined outside of parenthesis) or any of the selectors (rules defined inside parenthesis) must match the given command.
+To execute a command, either the root permissions (rules defined outside of parenthesis) or any of the selectors (rules defined inside parenthesis) must match the given command.
 For example:
 
     ACL SETUSER virginia on +GET allkeys (+SET ~app1*)
 
 This sets a user with two sets of permissions, one defined on the user and one defined with a selector.
 The root user permissions only allow executing the get command, but can be executed on any keys.
-The selector then grants a secondary set of permissions: access to the `SET` command to be executed on any key that starts with `app1`.
+The selector then grants a secondary set of permissions: access to the `SET` command to be executed on any key that starts with "app1".
 Using multiple selectors allows you to grant permissions that are different depending on what keys are being accessed.
 
 When we want to be sure to define a user from scratch, without caring if
 it had previously defined rules associated, we can use the special rule
-`reset` as first rule, in order to flush all the other existing rules:
+`reset` as first rule, to flush all the other existing rules:
 
     ACL SETUSER antirez reset [... other rules ...]
 
@@ -45,7 +43,7 @@ ACL rules are either words like "on", "off", "reset", "allkeys", or are
 special rules that start with a special character, and are followed by
 another string (without any space in between), like "+SET".
 
-The following documentation is a reference manual about the capabilities of this command, however our [ACL tutorial](/topics/acl) may be a more gentle introduction to how the ACL system works in general.
+The following documentation is a reference manual about the capabilities of this command, however, our [ACL tutorial](/topics/acl) may be a more gentle introduction to how the ACL system works in general.
 
 ## ACL rules
 

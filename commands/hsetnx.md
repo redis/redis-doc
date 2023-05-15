@@ -1,14 +1,14 @@
-Sets `field` in the hash stored at `key` to `value`, only if `field` does not
-yet exist.
-If `key` does not exist, a new key holding a hash is created.
-If `field` already exists, this operation has no effect.
+Sets _field_ in the [Redis hash](/docs/data-types/hashes) stored at _key_ to _value_, if and only if the _field_ doesn't exist yet.
+
+If the _key_ doesn't exist, a new key is created for the hash.
+If the _field_ already exists, this operation has no effect.
 
 @return
 
 @integer-reply, specifically:
 
-* `1` if `field` is a new field in the hash and `value` was set.
-* `0` if `field` already exists in the hash and no operation was performed.
+* `1` if the _field_ is new in the hash and the _value_ was set.
+* `0` if the _field_ already exists in the hash and no operation was performed.
 
 @examples
 

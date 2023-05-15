@@ -1,4 +1,3 @@
-Returns an integer identifying the hash slot the specified key hashes to.
 This command is mainly useful for debugging and testing, since it exposes
 via an API the underlying Redis implementation of the hashing algorithm.
 Example use cases for this command:

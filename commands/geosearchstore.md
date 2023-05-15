@@ -1,4 +1,4 @@
-This command is like `GEOSEARCH`, but stores the result in destination key.
+This command is identical to `GEOSEARCH`, but stores the result in the _destination_ key.
 
 This command replaces the now deprecated `GEORADIUS` and `GEORADIUSBYMEMBER`.
 

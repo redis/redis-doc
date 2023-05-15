@@ -1,11 +1,10 @@
-This command is exactly like `GEORADIUS` with the sole difference that instead
-of taking, as the center of the area to query, a longitude and latitude value, it takes the name of a member already existing inside the geospatial index represented by the sorted set.
+This command is exactly like `GEORADIUS` with the sole difference that instead of taking, as the center of the area to query, a longitude and latitude value, it takes the name of a _member_ that belongs to the [Redis geospatial index](/docs/data-types/geospatial) stored at _key_.
 
-The position of the specified member is used as the center of the query.
+The position of the specified - is used as the center of the query.
 
 Please check the example below and the `GEORADIUS` documentation for more information about the command and its options.
 
-Note that `GEORADIUSBYMEMBER_RO` is also available since Redis 3.2.10 and Redis 4.0.0 in order to provide a read-only command that can be used in replicas. See the `GEORADIUS` page for more information.
+Note that `GEORADIUSBYMEMBER_RO` is also available since Redis 3.2.10 and Redis 4.0.0 to provide a read-only command that can be used in replicas. See the `GEORADIUS` page for more information.
 
 @examples
 
