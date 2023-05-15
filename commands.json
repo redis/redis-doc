@@ -3107,7 +3107,7 @@
         ]
     },
     "COMMAND DOCS": {
-        "summary": "Returns documentary information about a command.",
+        "summary": "Returns documentary information about one, multiple or all commands.",
         "since": "7.0.0",
         "group": "server",
         "complexity": "O(N) where N is the number of commands to look up",
@@ -5378,20 +5378,25 @@
                 ]
             },
             {
-                "name": "storekey",
-                "type": "key",
-                "display_text": "key",
-                "key_spec_index": 1,
-                "token": "STORE",
-                "optional": true
-            },
-            {
-                "name": "storedistkey",
-                "type": "key",
-                "display_text": "key",
-                "key_spec_index": 2,
-                "token": "STOREDIST",
-                "optional": true
+                "name": "store",
+                "type": "oneof",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "storekey",
+                        "type": "key",
+                        "display_text": "key",
+                        "key_spec_index": 1,
+                        "token": "STORE"
+                    },
+                    {
+                        "name": "storedistkey",
+                        "type": "key",
+                        "display_text": "key",
+                        "key_spec_index": 2,
+                        "token": "STOREDIST"
+                    }
+                ]
             }
         ],
         "command_flags": [
@@ -5588,20 +5593,25 @@
                 ]
             },
             {
-                "name": "storekey",
-                "type": "key",
-                "display_text": "key",
-                "key_spec_index": 1,
-                "token": "STORE",
-                "optional": true
-            },
-            {
-                "name": "storedistkey",
-                "type": "key",
-                "display_text": "key",
-                "key_spec_index": 2,
-                "token": "STOREDIST",
-                "optional": true
+                "name": "store",
+                "type": "oneof",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "storekey",
+                        "type": "key",
+                        "display_text": "key",
+                        "key_spec_index": 1,
+                        "token": "STORE"
+                    },
+                    {
+                        "name": "storedistkey",
+                        "type": "key",
+                        "display_text": "key",
+                        "key_spec_index": 2,
+                        "token": "STOREDIST"
+                    }
+                ]
             }
         ],
         "command_flags": [
@@ -15582,7 +15592,7 @@
         ]
     },
     "XREADGROUP": {
-        "summary": "Returns new or historical messages from a stream for a consumer in agroup. Blocks until a message is available otherwise.",
+        "summary": "Returns new or historical messages from a stream for a consumer in a group. Blocks until a message is available otherwise.",
         "since": "5.0.0",
         "group": "stream",
         "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
