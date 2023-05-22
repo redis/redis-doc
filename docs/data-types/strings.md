@@ -7,34 +7,88 @@ description: >
 ---
 
 Redis strings store sequences of bytes, including text, serialized objects, and binary arrays.
-As such, strings are the most basic Redis data type.
+As such, strings are the simplest type of value you can associate with
+a Redis key.
 They're often used for caching, but they support additional functionality that lets you implement counters and perform bitwise operations, too.
 
-## Examples
+Since Redis keys are strings, when we use the string type as a value too,
+we are mapping a string to another string. The string data type is useful
+for a number of use cases, like caching HTML fragments or pages.
 
-* Store and then retrieve a string in Redis:
+Let's play a bit with the string type, using `redis-cli` (all the examples
+will be performed via `redis-cli` in this tutorial).
 
-```
-> SET user:1 salvatore
-OK
-> GET user:1
-"salvatore"
-```
+    > set mykey somevalue
+    OK
+    > get mykey
+    "somevalue"
 
-* Store a serialized JSON string and set it to expire 100 seconds from now:
+As you can see using the [`SET`](/commands/set) and the [`GET`](/commands/get) commands are the way we set
+and retrieve a string value. Note that [`SET`](/commands/set) will replace any existing value
+already stored into the key, in the case that the key already exists, even if
+the key is associated with a non-string value. So [`SET`](/commands/set) performs an assignment.
 
-```
-> SET ticket:27 "\"{'username': 'priya', 'ticket_id': 321}\"" EX 100
-```
+Values can be strings (including binary data) of every kind, for instance you
+can store a jpeg image inside a value. A value can't be bigger than 512 MB.
 
-* Increment a counter:
+The [`SET`](/commands/set) command has interesting options, that are provided as additional
+arguments. For example, I may ask [`SET`](/commands/set) to fail if the key already exists,
+or the opposite, that it only succeed if the key already exists:
 
-```
-> INCR views:page:2
-(integer) 1
-> INCRBY views:page:2 10
-(integer) 11
-```
+    > set mykey newval nx
+    (nil)
+    > set mykey newval xx
+    OK
+
+There are a number of other commands for operating on strings. For example
+the [`GETSET`](/commands/getset) command sets a key to a new value, returning the old value as the
+result. You can use this command, for example, if you have a
+system that increments a Redis key using [`INCR`](/commands/incr)
+every time your web site receives a new visitor. You may want to collect this
+information once every hour, without losing a single increment.
+You can [`GETSET`](/commands/getset) the key, assigning it the new value of "0" and reading the
+old value back.
+
+The ability to set or retrieve the value of multiple keys in a single
+command is also useful for reduced latency. For this reason there are
+the [`MSET`](/commands/mset) and [`MGET`](/commands/mget) commands:
+
+    > mset a 10 b 20 c 30
+    OK
+    > mget a b c
+    1) "10"
+    2) "20"
+    3) "30"
+
+When [`MGET`](/commands/mget) is used, Redis returns an array of values.
+
+### Strings as counters
+Even if strings are the basic values of Redis, there are interesting operations
+you can perform with them. For instance, one is atomic increment:
+
+    > set counter 100
+    OK
+    > incr counter
+    (integer) 101
+    > incr counter
+    (integer) 102
+    > incrby counter 50
+    (integer) 152
+
+The [INCR](/commands/incr) command parses the string value as an integer,
+increments it by one, and finally sets the obtained value as the new value.
+There are other similar commands like [INCRBY](/commands/incrby),
+[DECR](/commands/decr) and [DECRBY](/commands/decrby). Internally it's
+always the same command, acting in a slightly different way.
+
+What does it mean that INCR is atomic?
+That even multiple clients issuing INCR against
+the same key will never enter into a race condition. For instance, it will never
+happen that client 1 reads "10", client 2 reads "10" at the same time, both
+increment to 11, and set the new value to 11. The final value will always be
+12 and the read-increment-set operation is performed while all the other
+clients are not executing a command at the same time.
+
 
 ## Limits
 

@@ -1,7 +1,7 @@
 ---
 title: Transactions
 linkTitle: Transactions
-weight: 5
+weight: 6
 description: How transactions work in Redis
 aliases:
   - /topics/transactions

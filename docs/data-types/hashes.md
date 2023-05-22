@@ -9,6 +9,47 @@ description: >
 Redis hashes are record types structured as collections of field-value pairs.
 You can use hashes to represent basic objects and to store groupings of counters, among other things.
 
+    > hset user:1000 username antirez birthyear 1977 verified 1
+    (integer) 3
+    > hget user:1000 username
+    "antirez"
+    > hget user:1000 birthyear
+    "1977"
+    > hgetall user:1000
+    1) "username"
+    2) "antirez"
+    3) "birthyear"
+    4) "1977"
+    5) "verified"
+    6) "1"
+
+While hashes are handy to represent *objects*, actually the number of fields you can
+put inside a hash has no practical limits (other than available memory), so you can use
+hashes in many different ways inside your application.
+
+The command [`HSET`](/commands/hset) sets multiple fields of the hash, while [`HGET`](/commands/hget) retrieves
+a single field. [`HMGET`](/commands/hmget) is similar to [`HGET`](/commands/hget) but returns an array of values:
+
+    > hmget user:1000 username birthyear no-such-field
+    1) "antirez"
+    2) "1977"
+    3) (nil)
+
+There are commands that are able to perform operations on individual fields
+as well, like [`HINCRBY`](/commands/hincrby):
+
+    > hincrby user:1000 birthyear 10
+    (integer) 1987
+    > hincrby user:1000 birthyear 10
+    (integer) 1997
+
+You can find the [full list of hash commands in the documentation](https://redis.io/commands#hash).
+
+It is worth noting that small hashes (i.e., a few elements with small values) are
+encoded in special way in memory that make them very memory efficient.
+
+
+
 ## Examples
 
 * Represent a basic user profile as a hash:
