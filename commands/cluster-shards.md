@@ -49,7 +49,7 @@ The endpoint may also be the string `"?"` if the node is configured to use hostn
 This is considered a configuration error.
 An empty string `""` is another abnormal value of the endpoint field, as well as for the ip field, which is returned if the node doesn't know its own IP address.
 This can happen in a cluster that consists of only one node.
-Clients may treat the empty string in the same way as NULL, that is the same endpoint it used to send the current command to, while `"?"` should be treated as an unknonwn node, not necessarily the same node as the one serving the current command.
+Clients may treat the empty string in the same way as NULL, that is the same endpoint it used to send the current command to, while `"?"` should be treated as an unknown node, not necessarily the same node as the one serving the current command.
 
 @return
 
