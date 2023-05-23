@@ -45,6 +45,11 @@ The endpoint, along with the port, defines the location that clients should use 
 A NULL value for the endpoint indicates the node has an unknown endpoint and the client should connect to the same endpoint it used to send the `CLUSTER SHARDS` command but with the port returned from the command.
 This unknown endpoint configuration is useful when the Redis nodes are behind a load balancer that Redis doesn't know the endpoint of.
 Which endpoint is set is determined by the `cluster-preferred-endpoint-type` config.
+The endpoint may also be the string `"?"` if the node is configured to use hostnames as the preferred endpoint type but no hostname is configured using `cluster-announce-hostname`.
+This is considered a configuration error.
+An empty string `""` is another abnormal value of the endpoint field, as well as for the ip field, which is returned if the node doesn't know its own IP address.
+This can happen in a cluster that consists of only one node.
+Clients may treat the empty string in the same way as NULL, that is the same endpoint it used to send the current command to, while `"?"` should be treated as an unknonwn node, not necessarily the same node as the one serving the current command.
 
 @return
 
