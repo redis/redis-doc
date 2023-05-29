@@ -13,8 +13,8 @@ The Redis HyperLogLog implementation uses up to 12 KB and provides a standard er
 Counting unique items usually requires an amount of memory
 proportional to the number of items you want to count, because you need
 to remember the elements you have already seen in the past in order to avoid
-counting them multiple times. However there is a set of algorithms that trade
-memory for precision: you end with an estimated measure with a standard error,
+counting them multiple times. However, a set of algorithms exist that trade 
+memory for precision: they return an estimated measure with a standard error, which, in the case of the Redis implementation for HyperLogLog, is less than 1%.
 which in the case of the Redis implementation is less than 1%.  The
 magic of this algorithm is that you no longer need to use an amount of memory
 proportional to the number of items counted, and instead can use a
