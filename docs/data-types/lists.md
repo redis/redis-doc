@@ -156,7 +156,7 @@ An example will make it more clear:
     2) "2"
     3) "3"
 
-The above [`LTRIM`](/commands/ltrim) command tells Redis to take just list elements from index
+The above [`LTRIM`](/commands/ltrim) command tells Redis to keep just list elements from index
 0 to 2, everything else will be discarded. This allows for a very simple but
 useful pattern: doing a List push operation + a List trim operation together
 in order to add a new element and discard elements exceeding a limit:
@@ -164,7 +164,7 @@ in order to add a new element and discard elements exceeding a limit:
     LPUSH mylist <some element>
     LTRIM mylist 0 999
 
-The above combination adds a new element and takes only the 1000
+The above combination adds a new element and keeps only the 1000
 newest elements into the list. With [`LRANGE`](/commands/lrange) you can access the top items
 without any need to remember very old data.
 
