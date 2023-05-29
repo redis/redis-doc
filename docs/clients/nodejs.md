@@ -151,7 +151,7 @@ try {
     await client.ft.create('idx:users', {
         '$.name': {
             type: SchemaFieldTypes.TEXT,
-            sortable: true
+            SORTABLE: true
         },
         '$.city': {
             type: SchemaFieldTypes.TEXT,
