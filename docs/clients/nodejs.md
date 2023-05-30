@@ -97,7 +97,7 @@ cluster.on('error', (err) => console.log('Redis Cluster Error', err));
 await cluster.connect();
 
 await cluster.set('foo', 'bar');
-const value = await cluster.get('bar');
+const value = await cluster.get('foo');
 console.log(value); // returns 'bar'
 
 await cluster.quit();
