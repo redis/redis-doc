@@ -17,6 +17,41 @@ Some examples of bitmap use cases include:
 * Efficient set representations for cases where the members of a set correspond to the integers 0-N.
 * Object permissions, where each bit represents a particular permission, similar to the way that file systems store permissions.
 
+## Basic commands
+
+* `SETBIT` sets a bit at the provided offset to 0 or 1.
+* `GETBIT` returns the value of a bit at a given offset.
+* `BITOP` lets you perform bitwise operations against one or more strings.
+
+See the [complete list of bitmap commands](https://redis.io/commands/?group=bitmap).
+
+
+## Examples
+
+Suppose you have 1000 sensors deployed in the field, labeled 0-999.
+You want to quickly determine whether a given sensor has pinged the server within the hour. 
+
+You can represent this scenario using a bitmap whose key references the current hour.
+
+* Sensor 123 pings the server on January 1, 2024 within the 00:00 hour.
+```
+> SETBIT pings:2024-01-01-00:00 123 1
+(integer) 0
+```
+
+* Did sensor 123 ping the server on January 1, 2024 within the 00:00 hour?
+```
+> GETBIT pings:2024-01-01-00:00 123
+1
+```
+
+* What about server 456?
+```
+> GETBIT pings:2024-01-01-00:00 456
+0
+```
+
+
 
 Bit operations are divided into two groups: constant-time single bit
 operations, like setting a bit to 1 or 0, or getting its value, and
@@ -84,38 +119,7 @@ instead of setting all the bits into a key, a trivial strategy is just
 to store M bits per key and obtain the key name with `bit-number/M` and
 the Nth bit to address inside the key with `bit-number MOD M`.
 
-## Examples
 
-Suppose you have 1000 sensors deployed in the field, labeled 0-999.
-You want to quickly determine whether a given sensor has pinged the server within the hour. 
-
-You can represent this scenario using a bitmap whose key references the current hour.
-
-* Sensor 123 pings the server on January 1, 2024 within the 00:00 hour.
-```
-> SETBIT pings:2024-01-01-00:00 123 1
-(integer) 0
-```
-
-* Did sensor 123 ping the server on January 1, 2024 within the 00:00 hour?
-```
-> GETBIT pings:2024-01-01-00:00 123
-1
-```
-
-* What about server 456?
-```
-> GETBIT pings:2024-01-01-00:00 456
-0
-```
-
-## Basic commands
-
-* `SETBIT` sets a bit at the provided offset to 0 or 1.
-* `GETBIT` returns the value of a bit at a given offset.
-* `BITOP` lets you perform bitwise operations against one or more strings.
-
-See the [complete list of bitmap commands](https://redis.io/commands/?group=bitmap).
 
 ## Performance
 

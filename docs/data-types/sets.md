@@ -13,6 +13,52 @@ You can use Redis sets to efficiently:
 * Represent relations (e.g., the set of all users with a given role).
 * Perform common set operations such as intersection, unions, and differences.
 
+## Basic commands
+
+* `SADD` adds a new member to a set.
+* `SREM` removes the specified member from the set.
+* `SISMEMBER` tests a string for set membership.
+* `SINTER` returns the set of members that two or more sets have in common (i.e., the intersection).
+* `SCARD` returns the size (a.k.a. cardinality) of a set.
+
+See the [complete list of set commands](https://redis.io/commands/?group=set).
+
+## Examples
+
+* Store the set of favorited book IDs for users 123 and 456:
+```
+> SADD user:123:favorites 347
+(integer) 1
+> SADD user:123:favorites 561
+(integer) 1
+> SADD user:123:favorites 742
+(integer) 1
+> SADD user:456:favorites 561
+(integer) 1
+```
+
+* Check whether user 123 likes books 742 and 299
+```
+> SISMEMBER user:123:favorites 742
+(integer) 1
+> SISMEMBER user:123:favorites 299
+(integer) 0
+```
+
+* Do user 123 and 456 have any favorite books in common?
+```
+> SINTER user:123:favorites user:456:favorites
+1) "561"
+```
+
+* How many books has user 123 favorited?
+```
+> SCARD user:123:favorites
+(integer) 3
+```
+
+## Tutorial
+
 The [`SADD`](/commands/sadd) command adds new elements to a set. It's also possible
 to do a number of other operations against sets like testing if a given element
 already exists, performing the intersection, union or difference between
@@ -143,53 +189,9 @@ When you need to just get random elements without removing them from the
 set, there is the [`SRANDMEMBER`](/commands/srandmember) command suitable for the task. It also features
 the ability to return both repeating and non-repeating elements.
 
-## Examples
-
-* Store the set of favorited book IDs for users 123 and 456:
-```
-> SADD user:123:favorites 347
-(integer) 1
-> SADD user:123:favorites 561
-(integer) 1
-> SADD user:123:favorites 742
-(integer) 1
-> SADD user:456:favorites 561
-(integer) 1
-```
-
-* Check whether user 123 likes books 742 and 299
-```
-> SISMEMBER user:123:favorites 742
-(integer) 1
-> SISMEMBER user:123:favorites 299
-(integer) 0
-```
-
-* Do user 123 and 456 have any favorite books in common?
-```
-> SINTER user:123:favorites user:456:favorites
-1) "561"
-```
-
-* How many books has user 123 favorited?
-```
-> SCARD user:123:favorites
-(integer) 3
-```
-
 ## Limits
 
 The max size of a Redis set is 2^32 - 1 (4,294,967,295) members.
-
-## Basic commands
-
-* `SADD` adds a new member to a set.
-* `SREM` removes the specified member from the set.
-* `SISMEMBER` tests a string for set membership.
-* `SINTER` returns the set of members that two or more sets have in common (i.e., the intersection).
-* `SCARD` returns the size (a.k.a. cardinality) of a set.
-
-See the [complete list of set commands](https://redis.io/commands/?group=set).
 
 ## Performance
 

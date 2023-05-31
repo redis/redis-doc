@@ -1,9 +1,11 @@
 ﻿---
-title: "Redis HyperLogLog"
+title: "HyperLogLog"
 linkTitle: "HyperLogLog"
-weight: 90
+weight: 1
 description: >
-    Introduction to the Redis HyperLogLog data type
+    HyperLogLog is a probabilistic data structure that estimates the cardinality of a set.
+aliases:
+    - /docs/data-types/hyperloglogs/
 ---
 
 HyperLogLog is a probabilistic data structure that estimates the cardinality of a set. As a probabilistic data structure, HyperLogLog trades perfect accuracy for efficient space utilization.
@@ -15,10 +17,10 @@ proportional to the number of items you want to count, because you need
 to remember the elements you have already seen in the past in order to avoid
 counting them multiple times. However, a set of algorithms exist that trade 
 memory for precision: they return an estimated measure with a standard error, 
-which, in the case of the Redis implementation for HyperLogLog, is less than 1%.  The
-magic of this algorithm is that you no longer need to use an amount of memory
+which, in the case of the Redis implementation for HyperLogLog, is less than 1%.
+The magic of this algorithm is that you no longer need to use an amount of memory
 proportional to the number of items counted, and instead can use a
-constant amount of memory! 12k bytes in the worst case, or a lot less if your
+constant amount of memory; 12k bytes in the worst case, or a lot less if your
 HyperLogLog (We'll just call them HLL from now) has seen very few elements.
 
 HLLs in Redis, while technically a different data structure, are encoded
@@ -42,8 +44,8 @@ same:
         > pfcount hll
         (integer) 4
 
-An example of use case for this data structure is counting unique queries
-performed by users in a search form every day.
+Some examples of use cases for this data structure is counting unique queries
+performed by users in a search form every day, number of unique visitors to a web page and other similar cases.
 
 Redis is also able to perform the union of HLLs, please check the
 [full documentation](/commands#hyperloglog) for more information.
