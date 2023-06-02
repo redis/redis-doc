@@ -1,6 +1,6 @@
 ---
-title: "The Redis keyspace"
-linkTitle: "The Redis Keyspace"
+title: "Keyspace"
+linkTitle: "Keyspace"
 weight: 1
 description: >
     Managing keys in Redis: Key expiration, scanning, altering and querying the key space
