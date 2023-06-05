@@ -13,10 +13,10 @@ Most major Linux distributions provide packages for Redis.
 You can install recent stable versions of Redis from the official `packages.redis.io` APT repository.
 
 {{% alert title="Prerequisites" color="warning" %}}
-If you're running a very minimal distribution (such as a Docker container) you may need to install `lsb-release` first:
+If you're running a very minimal distribution (such as a Docker container) you may need to install `lsb-release` and `curl` first:
 
 {{< highlight bash  >}}
-sudo apt install lsb-release
+sudo apt install lsb-release curl
 {{< / highlight  >}}
 {{% /alert  %}}
 
