@@ -1,4 +1,4 @@
-This command blocks the current client until all the previous write commands are acknowledged as having been fsynced to the AOF of the local Redis and/or at least the specified number of replicas.
+This command blocks the current client until all previous write commands by that client are acknowledged as having been fsynced to the AOF of the local Redis and/or at least the specified number of replicas.
 If the timeout, specified in milliseconds, is reached, the command returns even if the specified number of acknowledgments has not been met.
 
 The command **will always return** the number of masters and replicas that have fsynced all write commands sent by the current client before the `WAITAOF` command, both in the case where the specified thresholds were met, and when the timeout is reached.
