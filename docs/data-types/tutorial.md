@@ -843,7 +843,7 @@ and get the element's value discarding the prefix.
 If you want to see the feature in the context of a more serious demo,
 check the [Redis autocomplete demo](http://autocomplete.redis.io).
 
-Updating the score: leader boards
+Updating the score: leaderboards
 ---
 
 Just a final note about sorted sets before switching to the next topic.
@@ -852,7 +852,7 @@ an element already included in the sorted set will update its score
 (and position) with O(log(N)) time complexity.  As such, sorted sets are suitable
 when there are tons of updates.
 
-Because of this characteristic a common use case is leader boards.
+Because of this characteristic a common use case is leaderboards.
 The typical application is a Facebook game where you combine the ability to
 take users sorted by their high score, plus the get-rank operation, in order
 to show the top-N users, and the user rank in the leader board (e.g., "you are
