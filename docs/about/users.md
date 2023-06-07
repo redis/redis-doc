@@ -10,8 +10,8 @@ aliases:
 
 A list of well known companies using Redis:
 
-* [Twitter](https://twitter.com)
-* [GitHub](https://github.com)
+* [Twitter](https://www.twitter.com)
+* [GitHub](https://www.github.com)
 * [Snapchat](https://www.snapchat.com)
 * [Craigslist](https://www.craigslist.org)
 * [StackOverflow](https://stackoverflow.com)

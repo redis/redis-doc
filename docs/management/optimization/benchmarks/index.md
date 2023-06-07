@@ -71,9 +71,9 @@ The following options are supported:
                         in order of preference from highest to lowest separated by colon (":").
                         See the ciphers(1ssl) manpage for more information about the syntax of this string.
      --tls-ciphersuites <list> Sets the list of preferred ciphersuites (TLSv1.3)
-                    in order of preference from highest to lowest separated by colon (":").
-                    See the ciphers(1ssl) manpage for more information about the syntax of this string,
-                    and specifically for TLSv1.3 ciphersuites.
+                        in order of preference from highest to lowest separated by colon (":").
+                        See the ciphers(1ssl) manpage for more information about the syntax of this string,
+                        and specifically for TLSv1.3 ciphersuites.
      --help             Output this help and exit.
      --version          Output version and exit.
 
