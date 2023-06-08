@@ -875,6 +875,12 @@ over one of its replicas and remove the node after it turned into a replica of t
 new master. Obviously this does not help when you want to reduce the actual
 number of masters in your cluster, in that case, a resharding is needed.
 
+Additionally, there is a special scenario where you want to remove a failed node. You should not use the `del-node` command because you will encounter a "connection refused" error. Instead, you can use the `call` command  :
+
+    redis-cli --cluster call 127.0.0.1:7000 cluster forget `<node-id>`
+
+This command will execute `cluster forget` command on every node. 
+
 #### Replica migration
 
 In Redis Cluster, you can reconfigure a replica to replicate with a
