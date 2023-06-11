@@ -331,7 +331,7 @@ It then picks five random elements (`SRANDMEMBER`) from the intersection and sto
 Finally, before returning, it deletes the temporary key that stores the intersection of the two source sets.
 
 In this case, only the new set with its five randomly-chosen elements needs to be replicated.
-Replicating the `SUNIONSTORE` command and the `DEL'ition` of the temporary key is unnecessary and wasteful.
+Replicating the `SUNIONSTORE` command and the `DEL`ition of the temporary key is unnecessary and wasteful.
 
 The `redis.set_repl()` function instructs the server how to treat subsequent write commands in terms of replication.
 It accepts a single input argument that only be one of the following:
