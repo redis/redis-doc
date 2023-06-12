@@ -306,6 +306,13 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `stat_reply_buffer_shrinks`: Total number of output buffer shrinks
+*   `stat_reply_buffer_expands`: Total number of output buffer expands
+*   `eventloop_cycles`: Total number of eventloop cycles
+*   `eventloop_duration_sum`: Total time consumption of eventloop
+*   `eventloop_duration_cmd_sum`: Total time consumption of executing commands
+*   `instantaneous_eventloop_cycles_per_sec`: Number of eventloop cycles per second
+*   `instantaneous_eventloop_duration_usec`: Average time consumption of one eventloop cycle in microseconds
 *   `acl_access_denied_auth`: Number of authentication failures
 *   `acl_access_denied_cmd`: Number of commands rejected because of access denied to the command
 *   `acl_access_denied_key`: Number of commands rejected because of access denied to a key
@@ -432,6 +439,13 @@ The statistics are the number of keys, and the number of keys with an expiration
 For each database, the following line is added:
 
 *   `dbXXX`: `keys=XXX,expires=XXX`
+
+The **debug** section is for some experimental or temporary metrics. It will not be displayed when `INFO` or even `INFO ALL` is called, and it is only displayed when `INFO DEBUG` is called.
+
+*   `eventloop_duration_aof_sum`: Total time consumption of flushing AOF in eventloop
+*   `eventloop_duration_cron_sum`: Total time consumption of cron (serverCron and beforeSleep, but excluding IO and AOF flushing)
+*   `eventloop_duration_max`: The max time consumption of one eventloop cycle in microseconds
+*   `eventloop_cmd_per_cycle_max`: The max number of commands processed in one eventloop cycle
 
 [hcgcpgp]: http://code.google.com/p/google-perftools/
 
