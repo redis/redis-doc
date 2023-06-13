@@ -265,7 +265,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `expired_keys`: Total number of key expiration events
 *   `expired_stale_perc`: The percentage of keys probably expired
 *   `expired_time_cap_reached_count`: The count of times that active expiry cycles have stopped early
-*   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spend on active expiry cycles
+*   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spent on active expiry cycles
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `evicted_clients`: Number of evicted clients due to `maxmemory-clients` limit. Added in Redis 7.0.
 *   `total_eviction_exceeded_time`:  Total time `used_memory` was greater than `maxmemory` since server startup, in milliseconds
@@ -306,6 +306,13 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `stat_reply_buffer_shrinks`: Total number of output buffer shrinks
+*   `stat_reply_buffer_expands`: Total number of output buffer expands
+*   `eventloop_cycles`: Total number of eventloop cycles
+*   `eventloop_duration_sum`: Total time spent in the eventloop in microseconds (including I/O and command processing)
+*   `eventloop_duration_cmd_sum`: Total time spent on executing commands in microseconds
+*   `instantaneous_eventloop_cycles_per_sec`: Number of eventloop cycles per second
+*   `instantaneous_eventloop_duration_usec`: Average time spent in a single eventloop cycle in microseconds
 *   `acl_access_denied_auth`: Number of authentication failures
 *   `acl_access_denied_cmd`: Number of commands rejected because of access denied to the command
 *   `acl_access_denied_key`: Number of commands rejected because of access denied to a key
@@ -432,6 +439,14 @@ The statistics are the number of keys, and the number of keys with an expiration
 For each database, the following line is added:
 
 *   `dbXXX`: `keys=XXX,expires=XXX`
+
+The **debug** section contains experimental metrics, which might change or get removed in future versions.
+It won't be included when `INFO` or `INFO ALL` are called, and it is returned only when `INFO DEBUG` is used.
+
+*   `eventloop_duration_aof_sum`: Total time spent on flushing AOF in eventloop in microseconds
+*   `eventloop_duration_cron_sum`: Total time consumption of cron in microseconds (including serverCron and beforeSleep, but excluding IO and AOF flushing)
+*   `eventloop_duration_max`: The maximal time spent in a single eventloop cycle in microseconds
+*   `eventloop_cmd_per_cycle_max`: The maximal number of commands processed in a single eventloop cycle
 
 [hcgcpgp]: http://code.google.com/p/google-perftools/
 
