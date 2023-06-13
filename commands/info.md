@@ -309,7 +309,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `stat_reply_buffer_shrinks`: Total number of output buffer shrinks
 *   `stat_reply_buffer_expands`: Total number of output buffer expands
 *   `eventloop_cycles`: Total number of eventloop cycles
-*   `eventloop_duration_sum`: Total time consumption of eventloop
+*   `eventloop_duration_sum`: Total time consumption of eventloop (including IO and command processing)
 *   `eventloop_duration_cmd_sum`: Total time consumption of executing commands
 *   `instantaneous_eventloop_cycles_per_sec`: Number of eventloop cycles per second
 *   `instantaneous_eventloop_duration_usec`: Average time consumption of one eventloop cycle in microseconds
