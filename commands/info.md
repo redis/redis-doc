@@ -440,7 +440,7 @@ For each database, the following line is added:
 
 *   `dbXXX`: `keys=XXX,expires=XXX`
 
-The **debug** section is for some experimental or temporary metrics. It will not be displayed when `INFO` or even `INFO ALL` is called, and it is only displayed when `INFO DEBUG` is called.
+The **debug** section is for experimental metrics, which might change or get removed in future versions. It will not be displayed when `INFO` or even `INFO ALL` is called, and it is only displayed when `INFO DEBUG` is called.
 
 *   `eventloop_duration_aof_sum`: Total time consumption of flushing AOF in eventloop
 *   `eventloop_duration_cron_sum`: Total time consumption of cron (serverCron and beforeSleep, but excluding IO and AOF flushing)
