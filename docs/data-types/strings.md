@@ -68,7 +68,7 @@ These random-access string commands may cause performance issues when dealing wi
 
 ## Alternatives
 
-If you're storing structured data as a serialized string, you may also want to consider [Redis hashes](/docs/data-types/hashes) or [RedisJSON](/docs/stack/json).
+If you're storing structured data as a serialized string, you may also want to consider Redis [hashes](/docs/data-types/hashes) or [JSON](/docs/stack/json).
 
 ## Learn more
 
