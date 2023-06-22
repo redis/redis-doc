@@ -104,7 +104,6 @@ Costin
 Craigslist
 Ctrl-a
 DBs
-DEL'ition
 DLM
 DMA
 dnf
@@ -481,6 +480,7 @@ bazzar
 bc
 bcc
 bcc's
+beforeSleep
 behaviour
 benchmarked
 benchmarking
@@ -583,6 +583,7 @@ errorstats
 ethernet
 eval
 eval-intro
+eventloop
 everysec
 executables
 expiries
@@ -1015,3 +1016,4 @@ fsynced
 fsyncs
 WAITAOF
 Redises
+ition

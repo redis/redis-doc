@@ -133,16 +133,16 @@ return redis.call('ECHO', 'Echo, echo... eco... o...')
 ```
 
 If and when `redis.call()` triggers a runtime exception, the raw exception is raised back to the user as an error, automatically.
-Therefore, attempting to execute the following ephemeral script will fail and generate a runtime exception because `ECHO` accepts exactly zero or one argument:
+Therefore, attempting to execute the following ephemeral script will fail and generate a runtime exception because `ECHO` accepts exactly one argument:
 
 ```lua
 redis> EVAL "return redis.call('ECHO', 'Echo,', 'echo... ', 'eco... ', 'o...')" 0
-(error) ERR Error running script (call to b0345693f4b77517a711221050e76d24ae60b7f7): @user_script:1: @user_script: 1: Wrong number of args calling Redis command from script
+(error) ERR Wrong number of args calling Redis command from script script: b0345693f4b77517a711221050e76d24ae60b7f7, on @user_script:1.
 ```
 
 Note that the call can fail due to various reasons, see [Execution under low memory conditions](/topics/eval-intro#execution-under-low-memory-conditions) and [Script flags](#script_flags)
 
-To handle Redis runtime errors use `redis.pcall() instead.
+To handle Redis runtime errors use `redis.pcall()` instead.
 
 ### <a name="redis.pcall"></a> `redis.pcall(command [,arg...])`
 
@@ -331,7 +331,7 @@ It then picks five random elements (`SRANDMEMBER`) from the intersection and sto
 Finally, before returning, it deletes the temporary key that stores the intersection of the two source sets.
 
 In this case, only the new set with its five randomly-chosen elements needs to be replicated.
-Replicating the `SUNIONSTORE` command and the `DEL'ition of the temporary key is unnecessary and wasteful.
+Replicating the `SUNIONSTORE` command and the `DEL`ition of the temporary key is unnecessary and wasteful.
 
 The `redis.set_repl()` function instructs the server how to treat subsequent write commands in terms of replication.
 It accepts a single input argument that only be one of the following:
@@ -379,7 +379,7 @@ For more information, please refer to [`Replicating commands instead of scripts`
 * Available in scripts: yes
 * Available in functions: no
 
-This function triggers a breakpoint when using the Redis Lua debugger](/topics/ldb).
+This function triggers a breakpoint when using the [Redis Lua debugger](/topics/ldb).
 
 ### <a name="redis.debug"></a> `redis.debug(x)`
 
@@ -538,7 +538,7 @@ that reply is automatically converted to Redis' protocol.
 Put differently; there's a one-to-one mapping between Redis' replies and Lua's data types and a one-to-one mapping between Lua's data types and the [Redis Protocol](/topics/protocol) data types.
 The underlying design is such that if a Redis type is converted into a Lua type and converted back into a Redis type, the result is the same as the initial value.
 
-Type conversion from Redis protocol replies (i.e., the replies from `redis.call()` and `redis.pcall()` to Lua data types depends on the Redis Serialization Protocol version used by the script.
+Type conversion from Redis protocol replies (i.e., the replies from `redis.call()` and `redis.pcall()`) to Lua data types depends on the Redis Serialization Protocol version used by the script.
 The default protocol version during script executions is RESP2.
 The script may switch the replies' protocol versions by calling the `redis.setresp()` function.
 
@@ -648,7 +648,7 @@ Although the default protocol for incoming client connections is RESP2, the scri
 * Lua nil -> [RESP3 null](https://github.com/redis/redis-specifications/blob/master/protocol/RESP3.md#null-reply).
 
 However, if the connection is set use the RESP2 protocol, and even if the script replies with RESP3-typed responses, Redis will automatically perform a RESP3 to RESP2 conversion of the reply as is the case for regular commands.
-That means, for example, that returning the RESP3 map type to a RESP2 connection will result in the repy being converted to a flat RESP2 array that consists of alternating field names and their values, rather than a RESP3 map.
+That means, for example, that returning the RESP3 map type to a RESP2 connection will result in the reply being converted to a flat RESP2 array that consists of alternating field names and their values, rather than a RESP3 map.
 
 ## Additional notes about scripting
 
