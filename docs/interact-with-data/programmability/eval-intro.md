@@ -6,6 +6,7 @@ description: >
    Executing Lua in Redis
 aliases:
     - /topics/eval-intro
+    - /docs/manual/programmability/eval-intro/
 ---
 
 Redis lets users upload and execute Lua scripts on the server.

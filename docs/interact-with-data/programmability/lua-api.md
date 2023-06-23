@@ -6,6 +6,7 @@ description: >
    Executing Lua in Redis
 aliases:
     - /topics/lua-api
+    - /docs/manual/programmability/lua-api/
 ---
 
 Redis includes an embedded [Lua 5.1](https://www.lua.org/) interpreter.

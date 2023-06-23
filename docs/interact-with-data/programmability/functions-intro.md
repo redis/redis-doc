@@ -6,6 +6,7 @@ description: >
    Scripting with Redis 7 and beyond
 aliases:
     - /topics/functions-intro
+    - /docs/manual/programmability/functions-intro/
 ---
 
 Redis Functions is an API for managing code to be executed on the server. This feature, which became available in Redis 7, supersedes the use of [EVAL](/docs/manual/programmability/eval-intro) in prior versions of Redis.
