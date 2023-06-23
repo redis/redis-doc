@@ -39,3 +39,5 @@ You can use Redis from [most programming languages](/clients).
 Redis is written in **ANSI C** and works on most POSIX systems like Linux,
 \*BSD, and Mac OS X, without external dependencies. Linux and OS X are the two operating systems where Redis is developed and tested the most, and we **recommend using Linux for deployment**. Redis may work in Solaris-derived systems like SmartOS, but support is *best effort*.
 There is no official support for Windows builds.
+
+<hr>

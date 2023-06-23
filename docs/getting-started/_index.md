@@ -158,3 +158,5 @@ Make sure that everything is working as expected:
 
 Note: The above instructions don't include all of the Redis configuration parameters that you could change, for instance, to use AOF persistence instead of RDB persistence, or to set up replication, and so forth.
 Make sure to read the example [`redis.conf`](https://github.com/redis/redis/blob/6.2/redis.conf) file (that is heavily commented).
+
+<hr>
