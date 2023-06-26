@@ -3,35 +3,35 @@ title: "Redis modules API"
 linkTitle: "Modules API"
 weight: 2
 description: >
-    Introduction to writing Redis modules
+    Introduction to writing Redis features
 aliases:
     - /topics/modules-intro
 ---
 
-The modules documentation is composed of the following pages:
+The Redis features, formerly called modules, documentation is composed of the following pages:
 
-* Introduction to Redis modules (this file). An overview about Redis Modules system and API. It's a good idea to start your reading here.
-* [Implementing native data types](/topics/modules-native-types) covers the implementation of native data types into modules.
+* Introduction to Redis features (this file). An overview about the Redis features system and API. It's a good idea to start your reading here.
+* [Implementing native data types](/topics/modules-native-types) covers the implementation of native data types into feature modules.
 * [Blocking operations](/topics/modules-blocking-ops) shows how to write blocking commands that will not reply immediately, but will block the client, without blocking the Redis server, and will provide a reply whenever will be possible.
-* [Redis modules API reference](/topics/modules-api-ref) is generated from module.c top comments of RedisModule functions. It is a good reference in order to understand how each function works.
+* [Redis features API reference](/topics/modules-api-ref) is generated from module.c top comments of RedisModule functions. It is a good reference in order to understand how each function works.
 
-Redis modules make it possible to extend Redis functionality using external
+Redis features make it possible to extend Redis functionality using external, loadable
 modules, rapidly implementing new Redis commands with features
 similar to what can be done inside the core itself.
 
-Redis modules are dynamic libraries that can be loaded into Redis at
+Redis feature modules are dynamic libraries that can be loaded into Redis at
 startup, or using the `MODULE LOAD` command. Redis exports a C API, in the
 form of a single C header file called `redismodule.h`. Modules are meant
 to be written in C, however it will be possible to use C++ or other languages
 that have C binding functionalities.
 
-Modules are designed in order to be loaded into different versions of Redis,
+Feature modules are designed in order to be loaded into different versions of Redis,
 so a given module does not need to be designed, or recompiled, in order to
 run with a specific version of Redis. For this reason, the module will
 register to the Redis core using a specific API version. The current API
 version is "1".
 
-This document is about an alpha version of Redis modules. API, functionalities
+This document is about an alpha version of Redis feature modules. API, functionalities
 and other details may change in the future.
 
 ## Loading modules
@@ -176,7 +176,7 @@ Otherwise, `REDISMODULE_OK` should be returned.
 
 ## Setup and dependencies of a Redis module
 
-Redis modules don't depend on Redis or some other library, nor they
+Redis feature modules don't depend on Redis or some other library, nor they
 need to be compiled with a specific `redismodule.h` file. In order
 to create a new module, just copy a recent version of `redismodule.h`
 in your source tree, link all the libraries you want, and create
