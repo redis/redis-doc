@@ -75,7 +75,7 @@ Sets membership checks on large datasets (or on streaming data) can use a lot of
 If you're concerned about memory usage and don't need perfect precision, consider a [Bloom filter or Cuckoo filter](/docs/stack/bloom) as an alternative to a set.
 
 Redis sets are frequently used as a kind of index.
-If you need to index and query your data, consider [RediSearch](/docs/stack/search) and [RedisJSON](/docs/stack/json).
+If you need to index and query your data, consider the [JSON](/docs/stack/json) data type and the [Search and query](/docs/stack/search) features.
 
 ## Learn more
 
