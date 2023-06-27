@@ -93,7 +93,7 @@ Here is the meaning of all fields in the **clients** section:
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
 *   `total_blocking_keys`: Number of blocking keys. Added in Redis 7.2.
-*   `total_blocking_keys_on_nokey`: Number of blocking keys which have at least 1 client which would like to be unblocked on when the key is deleted. Added in Redis 7.2.
+*   `total_blocking_keys_on_nokey`: Number of blocking keys that one or more clients that would like to be unblocked when the key is deleted. Added in Redis 7.2.
 
 Here is the meaning of all fields in the **memory** section:
 
