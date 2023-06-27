@@ -7,7 +7,7 @@ The following information is provided for each consumer in the group:
 * **idle**: the number of milliseconds that have passed since the consumer's last attempted interaction (Examples: `XREADGROUP`, `XCLAIM`, `XAUTOCLAIM`)
 * **inactive**: the number of milliseconds that have passed since the consumer's last successful interaction (Examples: `XREADGROUP` that actually read some entries into the PEL, `XCLAIM`/`XAUTOCLAIM` that actually claimed some entries)
 
-@reply
+@return
 
 @array-reply: a list of consumers.
 
