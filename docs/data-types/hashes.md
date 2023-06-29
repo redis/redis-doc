@@ -9,19 +9,24 @@ description: >
 Redis hashes are record types structured as collections of field-value pairs.
 You can use hashes to represent basic objects and to store groupings of counters, among other things.
 
-    > hset user:1000 username antirez birthyear 1977 verified 1
-    (integer) 3
-    > hget user:1000 username
-    "antirez"
-    > hget user:1000 birthyear
-    "1977"
-    > hgetall user:1000
-    1) "username"
-    2) "antirez"
-    3) "birthyear"
-    4) "1977"
-    5) "verified"
-    6) "1"
+{{< clients-example hash_tutorial set_get_all >}}
+> hset bike:1 model Deimos brand Ergonom type 'Enduro bikes' price 4972
+(integer) 4
+> hget bike:1 model
+"Deimos"
+> hget bike:1 price
+"4972"
+> hgetall bike:1
+1) "model"
+2) "Deimos"
+3) "brand"
+4) "Ergonom"
+5) "type"
+6) "Enduro bikes"
+7) "price"
+8) "4972"
+
+{{< /clients-example >}}
 
 While hashes are handy to represent *objects*, actually the number of fields you can
 put inside a hash has no practical limits (other than available memory), so you can use
@@ -30,18 +35,22 @@ hashes in many different ways inside your application.
 The command [`HSET`](/commands/hset) sets multiple fields of the hash, while [`HGET`](/commands/hget) retrieves
 a single field. [`HMGET`](/commands/hmget) is similar to [`HGET`](/commands/hget) but returns an array of values:
 
-    > hmget user:1000 username birthyear no-such-field
-    1) "antirez"
-    2) "1977"
-    3) (nil)
+{{< clients-example hash_tutorial hmget >}}
+> hmget user:1000 username birthyear no-such-field
+1) "antirez"
+2) "1977"
+3) (nil)
+{{< /clients-example >}}
 
 There are commands that are able to perform operations on individual fields
 as well, like [`HINCRBY`](/commands/hincrby):
 
-    > hincrby user:1000 birthyear 10
-    (integer) 1987
-    > hincrby user:1000 birthyear 10
-    (integer) 1997
+{{< clients-example hash_tutorial hincrby >}}
+> hincrby bike:1 price 100
+(integer) 5072
+> hincrby bike:1 price -100
+(integer) 4972
+{{< /clients-example >}}
 
 You can find the [full list of hash commands in the documentation](https://redis.io/commands#hash).
 
@@ -60,41 +69,24 @@ See the [complete list of hash commands](https://redis.io/commands/?group=hash).
 
 ## Examples
 
-* Represent a basic user profile as a hash:
-```
-> HSET user:123 username martina firstName Martina lastName Elisa country GB
-(integer) 4
-> HGET user:123 username
-"martina"
-> HGETALL user:123
-1) "username"
-2) "martina"
-3) "firstName"
-4) "Martina"
-5) "lastName"
-6) "Elisa"
-7) "country"
-8) "GB"
-```
-
-* Store counters for the number of times device 777 had pinged the server, issued a request, or sent an error:
-```
-> HINCRBY device:777:stats pings 1
+* Store counters for the number of times bike:1 has been ridden, has crashed, or has changed owners:
+{{< clients-example hash_tutorial incrby_get_mget >}}
+> HINCRBY bike:1:stats rides 1
 (integer) 1
-> HINCRBY device:777:stats pings 1
+> HINCRBY bike:1:stats rides 1
 (integer) 2
-> HINCRBY device:777:stats pings 1
+> HINCRBY bike:1:stats rides 1
 (integer) 3
-> HINCRBY device:777:stats errors 1
+> HINCRBY bike:1:stats crashes 1
 (integer) 1
-> HINCRBY device:777:stats requests 1
+> HINCRBY bike:1:stats owners 1
 (integer) 1
-> HGET device:777:stats pings
+> HGET bike:1:stats rides
 "3"
-> HMGET device:777:stats requests errors
+> HMGET bike:1:stats owners crashes
 1) "1"
 2) "1"
-```
+{{< /clients-example >}}
 
 
 ## Performance
