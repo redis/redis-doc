@@ -1,6 +1,8 @@
 This command blocks the current client until all previous write commands by that client are acknowledged as having been fsynced to the AOF of the local Redis and/or at least the specified number of replicas.
 
-`numlocal` represents the number of local fsyncs required to be confirmed before proceeding. When `numlocal` is set to 1, it means the command should wait until the data written to the Redis instance is confirmed to be persisted to the local AOF file.
+`numlocal` represents the number of local fsyncs required to be confirmed before proceeding.
+When `numlocal` is set to 1, the command blocks until the data written to the Redis instance is confirmed to be persisted to the local AOF file.
+The value 0 disables this check.
 
 If the timeout, specified in milliseconds, is reached, the command returns even if the specified number of acknowledgments has not been met.
 
