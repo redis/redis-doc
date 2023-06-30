@@ -124,6 +124,8 @@ EDOM
 EEXIST
 EFBIG
 EINVAL
+Enduro
+Ergonom
 ENOENT
 ENOTSUP
 EOF
@@ -216,6 +218,7 @@ Leaderboards
 Leau
 Lehmann
 Levelgraph
+licensor
 LibLZF
 Linode
 Liveness
