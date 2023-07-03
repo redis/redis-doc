@@ -32,7 +32,7 @@ You can represent this scenario using a bitmap whose key references the current 
 1
 ```
 
-* What about server 456?
+* What about sensor 456?
 ```
 > GETBIT pings:2024-01-01-00:00 456
 0
