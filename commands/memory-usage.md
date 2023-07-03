@@ -10,29 +10,32 @@ By default, this option is set to `5`. To sample the all of the nested values, u
 
 @examples
 
-With Redis v4.0.1 64-bit and **jemalloc**, the empty string measures as follows:
+With Redis v7.2.0 64-bit and **jemalloc**, the empty string measures as follows:
 
 ```
 > SET "" ""
 OK
 > MEMORY USAGE ""
-(integer) 51
+(integer) 56
 ```
 
 These bytes are pure overhead at the moment as no actual data is stored, and are
-used for maintaining the internal data structures of the server. Longer keys and
+used for maintaining the internal data structures of the server (include internal allocator fragmentation). Longer keys and
 values show asymptotically linear usage.
 
 ```
 > SET foo bar
 OK
 > MEMORY USAGE foo
-(integer) 54
-> SET cento 01234567890123456789012345678901234567890123
-45678901234567890123456789012345678901234567890123456789
+(integer) 56
+> SET foo2 mybar
 OK
-127.0.0.1:6379> MEMORY USAGE cento
-(integer) 153
+> MEMORY USAGE foo2
+(integer) 64
+> SET foo3 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+OK
+> MEMORY USAGE foo3
+(integer) 160
 ```
 
 @return
