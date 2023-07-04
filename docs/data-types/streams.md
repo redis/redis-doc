@@ -81,7 +81,7 @@ See each command's time complexity for the details.
 
 ## Streams basics
 
-Streams are an append-only data structure. The fundamental write command, called [XADD](/commands/xadd), appends a new entry to the specified stream.
+Streams are an append-only data structure. The fundamental write command, called `XADD`, appends a new entry to the specified stream.
 
 Each stream entry consists of one or more field-value pairs, somewhat like a record or a Redis hash:
 

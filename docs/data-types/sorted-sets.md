@@ -81,7 +81,7 @@ Note: 0 and -1 means from element index 0 to the last element (-1 works
 here just as it does in the case of the `LRANGE` command).
 
 What if I want to order them the opposite way, youngest to oldest?
-Use [ZREVRANGE](/commands/zrevrange) instead of [ZRANGE](/commands/zrange):
+Use `ZREVRANGE` instead of `ZRANGE`:
 
     > zrevrange hackers 0 -1
     1) "Linus Torvalds"

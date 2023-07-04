@@ -59,7 +59,7 @@ See the [complete list of set commands](https://redis.io/commands/?group=set).
 
 ## Tutorial
 
-The [`SADD`](/commands/sadd) command adds new elements to a set. It's also possible
+The `SADD` command adds new elements to a set. It's also possible
 to do a number of other operations against sets like testing if a given element
 already exists, performing the intersection, union or difference between
 multiple sets, and so forth.
@@ -124,7 +124,7 @@ a Redis hash, which maps tag IDs to tag names.
 There are other non trivial operations that are still easy to implement
 using the right Redis commands. For instance we may want a list of all the
 objects with the tags 1, 2, 10, and 27 together. We can do this using
-the [`SINTER`](/commands/sinter) command, which performs the intersection between different
+the `SINTER` command, which performs the intersection between different
 sets. We can use:
 
     > sinter tag:1:news tag:2:news tag:10:news tag:27:news
@@ -133,7 +133,7 @@ sets. We can use:
 In addition to intersection you can also perform
 unions, difference, extract a random element, and so forth.
 
-The command to extract an element is called [`SPOP`](/commands/spop), and is handy to model
+The command to extract an element is called `SPOP`, and is handy to model
 certain problems. For example in order to implement a web-based poker game,
 you may want to represent your deck with a set. Imagine we use a one-char
 prefix for (C)lubs, (D)iamonds, (H)earts, (S)pades:
@@ -144,7 +144,7 @@ prefix for (C)lubs, (D)iamonds, (H)earts, (S)pades:
       S7 S8 S9 S10 SJ SQ SK
     (integer) 52
 
-Now we want to provide each player with 5 cards. The [`SPOP`](/commands/spop) command
+Now we want to provide each player with 5 cards. The `SPOP` command
 removes a random element, returning it to the client, so it is the
 perfect operation in this case.
 
@@ -153,7 +153,7 @@ game we'll need to populate the deck of cards again, which may not be
 ideal. So to start, we can make a copy of the set stored in the `deck` key
 into the `game:1:deck` key.
 
-This is accomplished using [`SUNIONSTORE`](/commands/sunionstore), which normally performs the
+This is accomplished using `SUNIONSTORE`, which normally performs the
 union between multiple sets, and stores the result into another set.
 However, since the union of a single set is itself, I can copy my deck
 with:
@@ -178,7 +178,7 @@ One pair of jacks, not great...
 
 This is a good time to introduce the set command that provides the number
 of elements inside a set. This is often called the *cardinality of a set*
-in the context of set theory, so the Redis command is called [`SCARD`](/commands/scard).
+in the context of set theory, so the Redis command is called `SCARD`.
 
     > scard game:1:deck
     (integer) 47
@@ -186,7 +186,7 @@ in the context of set theory, so the Redis command is called [`SCARD`](/commands
 The math works: 52 - 5 = 47.
 
 When you need to just get random elements without removing them from the
-set, there is the [`SRANDMEMBER`](/commands/srandmember) command suitable for the task. It also features
+set, there is the `SRANDMEMBER` command suitable for the task. It also features
 the ability to return both repeating and non-repeating elements.
 
 ## Limits

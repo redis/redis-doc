@@ -23,16 +23,16 @@ will be performed via `redis-cli` in this tutorial).
     > get mykey
     "somevalue"
 
-As you can see using the [`SET`](/commands/set) and the [`GET`](/commands/get) commands are the way we set
-and retrieve a string value. Note that [`SET`](/commands/set) will replace any existing value
+As you can see using the `SET` and the `GET` commands are the way we set
+and retrieve a string value. Note that `SET` will replace any existing value
 already stored into the key, in the case that the key already exists, even if
-the key is associated with a non-string value. So [`SET`](/commands/set) performs an assignment.
+the key is associated with a non-string value. So `SET` performs an assignment.
 
 Values can be strings (including binary data) of every kind, for instance you
 can store a jpeg image inside a value. A value can't be bigger than 512 MB.
 
-The [`SET`](/commands/set) command has interesting options, that are provided as additional
-arguments. For example, I may ask [`SET`](/commands/set) to fail if the key already exists,
+The `SET` command has interesting options, that are provided as additional
+arguments. For example, I may ask `SET` to fail if the key already exists,
 or the opposite, that it only succeed if the key already exists:
 
     > set mykey newval nx
@@ -41,17 +41,17 @@ or the opposite, that it only succeed if the key already exists:
     OK
 
 There are a number of other commands for operating on strings. For example
-the [`GETSET`](/commands/getset) command sets a key to a new value, returning the old value as the
+the `GETSET` command sets a key to a new value, returning the old value as the
 result. You can use this command, for example, if you have a
-system that increments a Redis key using [`INCR`](/commands/incr)
+system that increments a Redis key using `INCR`
 every time your web site receives a new visitor. You may want to collect this
 information once every hour, without losing a single increment.
-You can [`GETSET`](/commands/getset) the key, assigning it the new value of "0" and reading the
+You can `GETSET` the key, assigning it the new value of "0" and reading the
 old value back.
 
 The ability to set or retrieve the value of multiple keys in a single
 command is also useful for reduced latency. For this reason there are
-the [`MSET`](/commands/mset) and [`MGET`](/commands/mget) commands:
+the `MSET` and `MGET` commands:
 
     > mset a 10 b 20 c 30
     OK
@@ -60,7 +60,7 @@ the [`MSET`](/commands/mset) and [`MGET`](/commands/mget) commands:
     2) "20"
     3) "30"
 
-When [`MGET`](/commands/mget) is used, Redis returns an array of values.
+When `MGET` is used, Redis returns an array of values.
 
 ### Strings as counters
 Even if strings are the basic values of Redis, there are interesting operations
@@ -75,10 +75,10 @@ you can perform with them. For instance, one is atomic increment:
     > incrby counter 50
     (integer) 152
 
-The [INCR](/commands/incr) command parses the string value as an integer,
+The `INCRBY` command parses the string value as an integer,
 increments it by one, and finally sets the obtained value as the new value.
-There are other similar commands like [INCRBY](/commands/incrby),
-[DECR](/commands/decr) and [DECRBY](/commands/decrby). Internally it's
+There are other similar commands like `INCRBY`,
+`DECR` and `DECRBY`. Internally it's
 always the same command, acting in a slightly different way.
 
 What does it mean that INCR is atomic?
@@ -106,7 +106,7 @@ By default, a single Redis string can be a maximum of 512 MB.
 ### Managing counters
 
 * `INCRBY` atomically increments (and decrements when passing a negative number) counters stored at a given key.
-* Another command exists for floating point counters: [INCRBYFLOAT](/commands/incrbyfloat).
+* Another command exists for floating point counters: `INCRBYFLOAT`.
 
 ### Bitwise operations
 

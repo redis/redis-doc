@@ -105,7 +105,7 @@ an Array are very different from the properties of a List implemented using a
 Redis lists are implemented via Linked Lists. This means that even if you have
 millions of elements inside a list, the operation of adding a new element in
 the head or in the tail of the list is performed *in constant time*. The speed of adding a
-new element with the [`LPUSH`](/commands/lpush) command to the head of a list with ten
+new element with the `LPUSH` command to the head of a list with ten
 elements is the same as adding an element to the head of list with 10
 million elements.
 
@@ -125,10 +125,10 @@ Sorted sets are covered in the [Sorted sets](/docs/data-types/sorted-sets) tutor
 
 ### First steps with Redis Lists
 
-The [`LPUSH`](/commands/lpush) command adds a new element into a list, on the
-left (at the head), while the [`RPUSH`](/commands/rpush) command adds a new
+The `LPUSH` command adds a new element into a list, on the
+left (at the head), while the `RPUSH` command adds a new
 element into a list, on the right (at the tail). Finally the
-[`LRANGE`](/commands/lrange) command extracts ranges of elements from lists:
+`LRANGE` command extracts ranges of elements from lists:
 
     > rpush mylist A
     (integer) 1
@@ -141,13 +141,13 @@ element into a list, on the right (at the tail). Finally the
     2) "A"
     3) "B"
 
-Note that [LRANGE](/commands/lrange) takes two indexes, the first and the last
+Note that `LRANGE` takes two indexes, the first and the last
 element of the range to return. Both the indexes can be negative, telling Redis
 to start counting from the end: so -1 is the last element, -2 is the
 penultimate element of the list, and so forth.
 
-As you can see [`RPUSH`](/commands/rpush) appended the elements on the right of the list, while
-the final [`LPUSH`](/commands/lpush) appended the element on the left.
+As you can see `RPUSH` appended the elements on the right of the list, while
+the final `LPUSH` appended the element on the left.
 
 Both commands are *variadic commands*, meaning that you are free to push
 multiple elements into a list in a single call:
@@ -208,7 +208,7 @@ posted by users into Redis lists.
 To describe a common use case step by step, imagine your home page shows the latest
 photos published in a photo sharing social network and you want to speedup access.
 
-* Every time a user posts a new photo, we add its ID into a list with [`LPUSH`](/commands/lpush).
+* Every time a user posts a new photo, we add its ID into a list with `LPUSH`.
 * When users visit the home page, we use `LRANGE 0 9` in order to get the latest 10 posted items.
 
 ### Capped lists
@@ -217,9 +217,9 @@ In many use cases we just want to use lists to store the *latest items*,
 whatever they are: social network updates, logs, or anything else.
 
 Redis allows us to use lists as a capped collection, only remembering the latest
-N items and discarding all the oldest items using the [`LTRIM`](/commands/ltrim) command.
+N items and discarding all the oldest items using the `LTRIM` command.
 
-The [`LTRIM`](/commands/ltrim) command is similar to [`LRANGE`](/commands/lrange), but **instead of displaying the
+The `LTRIM` command is similar to `LRANGE`, but **instead of displaying the
 specified range of elements** it sets this range as the new list value. All
 the elements outside the given range are removed.
 
@@ -234,7 +234,7 @@ An example will make it more clear:
     2) "2"
     3) "3"
 
-The above [`LTRIM`](/commands/ltrim) command tells Redis to keep just list elements from index
+The above `LTRIM` command tells Redis to keep just list elements from index
 0 to 2, everything else will be discarded. This allows for a very simple but
 useful pattern: doing a List push operation + a List trim operation together
 in order to add a new element and discard elements exceeding a limit:
@@ -243,10 +243,10 @@ in order to add a new element and discard elements exceeding a limit:
     LTRIM mylist 0 999
 
 The above combination adds a new element and keeps only the 1000
-newest elements into the list. With [`LRANGE`](/commands/lrange) you can access the top items
+newest elements into the list. With `LRANGE` you can access the top items
 without any need to remember very old data.
 
-Note: while [`LRANGE`](/commands/lrange) is technically an O(N) command, accessing small ranges
+Note: while `LRANGE` is technically an O(N) command, accessing small ranges
 towards the head or the tail of the list is a constant time operation.
 
 Blocking operations on lists
@@ -261,23 +261,23 @@ a different process in order to actually do some kind of work with those
 items. This is the usual producer / consumer setup, and can be implemented
 in the following simple way:
 
-* To push items into the list, producers call [`LPUSH`](/commands/lpush).
-* To extract / process items from the list, consumers call [`RPOP`](/commands/rpop).
+* To push items into the list, producers call `LPUSH`.
+* To extract / process items from the list, consumers call `RPOP`.
 
 However it is possible that sometimes the list is empty and there is nothing
-to process, so [`RPOP`](/commands/rpop) just returns NULL. In this case a consumer is forced to wait
-some time and retry again with [`RPOP`](/commands/rpop). This is called *polling*, and is not
+to process, so `RPOP` just returns NULL. In this case a consumer is forced to wait
+some time and retry again with `RPOP`. This is called *polling*, and is not
 a good idea in this context because it has several drawbacks:
 
 1. Forces Redis and clients to process useless commands (all the requests when the list is empty will get no actual work done, they'll just return NULL).
-2. Adds a delay to the processing of items, since after a worker receives a NULL, it waits some time. To make the delay smaller, we could wait less between calls to [`RPOP`](/commands/rpop), with the effect of amplifying problem number 1, i.e. more useless calls to Redis.
+2. Adds a delay to the processing of items, since after a worker receives a NULL, it waits some time. To make the delay smaller, we could wait less between calls to `RPOP`, with the effect of amplifying problem number 1, i.e. more useless calls to Redis.
 
-So Redis implements commands called [`BRPOP`](/commands/brpop) and [`BLPOP`](/commands/blpop) which are versions
-of [`RPOP`](/commands/rpop) and [`LPOP`](/commands/lpop) able to block if the list is empty: they'll return to
+So Redis implements commands called `BRPOP` and `BLPOP` which are versions
+of `RPOP` and `LPOP` able to block if the list is empty: they'll return to
 the caller only when a new element is added to the list, or when a user-specified
 timeout is reached.
 
-This is an example of a [`BRPOP`](/commands/brpop) call we could use in the worker:
+This is an example of a `BRPOP` call we could use in the worker:
 
     > brpop tasks 5
     1) "tasks"
@@ -291,17 +291,17 @@ also specify multiple lists and not just one, in order to wait on multiple
 lists at the same time, and get notified when the first list receives an
 element.
 
-A few things to note about [`BRPOP`](/commands/brpop):
+A few things to note about `BRPOP`:
 
 1. Clients are served in an ordered way: the first client that blocked waiting for a list, is served first when an element is pushed by some other client, and so forth.
-2. The return value is different compared to [`RPOP`](/commands/rpop): it is a two-element array since it also includes the name of the key, because [`BRPOP`](/commands/brpop) and [`BLPOP`](/commands/blpop) are able to block waiting for elements from multiple lists.
+2. The return value is different compared to `RPOP`: it is a two-element array since it also includes the name of the key, because `BRPOP` and `BLPOP` are able to block waiting for elements from multiple lists.
 3. If the timeout is reached, NULL is returned.
 
 There are more things you should know about lists and blocking ops. We
 suggest that you read more on the following:
 
-* It is possible to build safer queues or rotating queues using [`LMOVE`](/commands/lmove).
-* There is also a blocking variant of the command, called [`BLMOVE`](/commands/blmove).
+* It is possible to build safer queues or rotating queues using `LMOVE`.
+* There is also a blocking variant of the command, called `BLMOVE`.
 
 ## Automatic creation and removal of keys
 
@@ -309,7 +309,7 @@ So far in our examples we never had to create empty lists before pushing
 elements, or removing empty lists when they no longer have elements inside.
 It is Redis' responsibility to delete keys when lists are left empty, or to create
 an empty list if the key does not exist and we are trying to add elements
-to it, for example, with [`LPUSH`](/commands/lpush).
+to it, for example, with `LPUSH`.
 
 This is not specific to lists, it applies to all the Redis data types
 composed of multiple elements -- Streams, Sets, Sorted Sets and Hashes.
@@ -318,7 +318,7 @@ Basically we can summarize the behavior with three rules:
 
 1. When we add an element to an aggregate data type, if the target key does not exist, an empty aggregate data type is created before adding the element.
 2. When we remove elements from an aggregate data type, if the value remains empty, the key is automatically destroyed. The Stream data type is the only exception to this rule.
-3. Calling a read-only command such as [`LLEN`](/commands/llen) (which returns the length of the list), or a write command removing elements, with an empty key, always produces the same result as if the key is holding an empty aggregate type of the type the command expects to find.
+3. Calling a read-only command such as `LLEN` (which returns the length of the list), or a write command removing elements, with an empty key, always produces the same result as if the key is holding an empty aggregate type of the type the command expects to find.
 
 Examples of rule 1:
 

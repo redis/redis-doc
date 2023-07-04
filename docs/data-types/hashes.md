@@ -32,8 +32,8 @@ While hashes are handy to represent *objects*, actually the number of fields you
 put inside a hash has no practical limits (other than available memory), so you can use
 hashes in many different ways inside your application.
 
-The command [`HSET`](/commands/hset) sets multiple fields of the hash, while [`HGET`](/commands/hget) retrieves
-a single field. [`HMGET`](/commands/hmget) is similar to [`HGET`](/commands/hget) but returns an array of values:
+The command `HSET` sets multiple fields of the hash, while `HGET` retrieves
+a single field. `HMGET` is similar to `HGET` but returns an array of values:
 
 {{< clients-example hash_tutorial hmget >}}
 > hmget user:1000 username birthyear no-such-field
@@ -43,7 +43,7 @@ a single field. [`HMGET`](/commands/hmget) is similar to [`HGET`](/commands/hget
 {{< /clients-example >}}
 
 There are commands that are able to perform operations on individual fields
-as well, like [`HINCRBY`](/commands/hincrby):
+as well, like `HINCRBY`:
 
 {{< clients-example hash_tutorial hincrby >}}
 > hincrby bike:1 price 100
