@@ -36,9 +36,9 @@ The command `HSET` sets multiple fields of the hash, while `HGET` retrieves
 a single field. `HMGET` is similar to `HGET` but returns an array of values:
 
 {{< clients-example hash_tutorial hmget >}}
-> hmget user:1000 username birthyear no-such-field
-1) "antirez"
-2) "1977"
+> hmget bike:1 model price no-such-field
+1) "Deimos"
+2) "4972"
 3) (nil)
 {{< /clients-example >}}
 
