@@ -1,6 +1,6 @@
 ﻿---
-title: "Getting started with Redis"
-linkTitle: "Getting started"
+title: "Get started with Redis"
+linkTitle: "Get started"
 
 weight: 20
 
