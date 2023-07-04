@@ -8,13 +8,13 @@ depending on the set's cardinality.
 
 @return
 
-When called without the `count` argument:
+* When called without the `count` argument:
 
-@bulk-string-reply: the removed member, or `nil` when `key` does not exist.
+  * @bulk-string-reply: the removed member, or `nil` when `key` does not exist.
 
-When called with the `count` argument:
+* When called with the `count` argument:
 
-@array-reply: the removed members, or an empty array when `key` does not exist.
+  *  @array-reply: the removed members, or an empty array when `key` does not exist.
 
 @examples
 
