@@ -13,10 +13,10 @@ Rather, published messages are characterized into channels, without knowledge of
 Subscribers express interest in one or more channels and only receive messages that are of interest, without knowledge of what (if any) publishers there are.
 This decoupling of publishers and subscribers allows for greater scalability and a more dynamic network topology.
 
-For instance, to subscribe to channels "channel11" and "4chan" the client issues a `SUBSCRIBE` providing the names of the channels:
+For instance, to subscribe to channels "channel11" and "ch:00" the client issues a `SUBSCRIBE` providing the names of the channels:
 
 ```bash
-SUBSCRIBE channel11 4chan
+SUBSCRIBE channel11 ch:00
 ```
 
 Messages sent by other clients to these channels will be pushed by Redis to all the subscribed clients.
