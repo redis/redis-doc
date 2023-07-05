@@ -1,6 +1,6 @@
 ﻿---
-title: "Getting started with Redis"
-linkTitle: "Getting started"
+title: "Get started with Redis"
+linkTitle: "Get started"
 
 weight: 20
 
@@ -68,26 +68,6 @@ the goal is to use it from your application. In order to do so you need to
 download and install a Redis client library for your programming language.
 You'll find a [full list of clients for different languages in this page](https://redis.io/clients).
 
-For instance if you happen to use the Ruby programming language our best advice
-is to use the [Redis-rb](https://github.com/redis/redis-rb) client.
-You can install it using the command **gem install redis**.
-
-These instructions are Ruby specific but actually many library clients for
-popular languages look quite similar: you create a Redis object and execute
-commands calling methods. A short interactive example using Ruby:
-
-    >> require 'rubygems'
-    => false
-    >> require 'redis'
-    => true
-    >> r = Redis.new
-    => #<Redis client v4.5.1 for redis://127.0.0.1:6379/0>
-    >> r.ping
-    => "PONG"
-    >> r.set('foo','bar')
-    => "OK"
-    >> r.get('foo')
-    => "bar"
 
 ## Redis persistence
 
@@ -158,3 +138,5 @@ Make sure that everything is working as expected:
 
 Note: The above instructions don't include all of the Redis configuration parameters that you could change, for instance, to use AOF persistence instead of RDB persistence, or to set up replication, and so forth.
 Make sure to read the example [`redis.conf`](https://github.com/redis/redis/blob/6.2/redis.conf) file (that is heavily commented).
+
+<hr>

@@ -2,7 +2,7 @@
 title: "Redis data types"
 linkTitle: "Data types"
 description: Overview of data types supported by Redis
-weight: 40
+weight: 35
 aliases:
     - /docs/manual/data-types
     - /topics/data-types
@@ -107,3 +107,5 @@ To extend the features provided by the included data types, use one of these opt
 1. Write your own custom [server-side functions in Lua](/docs/manual/programmability/).
 1. Write your own Redis module using the [modules API](/docs/reference/modules/) or check out the [community-supported modules](/docs/modules/).
 1. Use [JSON](/docs/stack/json/), [querying](/docs/stack/search/), [time series](/docs/stack/timeseries/), and other capabilities provided by [Redis Stack](/docs/stack/).
+
+<hr>

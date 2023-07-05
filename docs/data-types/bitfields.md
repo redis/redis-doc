@@ -12,6 +12,13 @@ For example, you can operate on anything from unsigned 1-bit integers to signed 
 These values are stored using binary-encoded Redis strings.
 Bitfields support atomic read, write and increment operations, making them a good choice for managing counters and similar numerical values.
 
+
+## Basic commands
+
+* `BITFIELD` atomically sets, increments and reads one or more values.
+* `BITFIELD_RO` is a read-only variant of `BITFIELD`.
+
+
 ## Examples
 
 Suppose you're keeping track of activity in an online game.
@@ -46,10 +53,6 @@ You can represent these counters with one bitfield per player.
 2) (integer) 1
 ```
 
-## Basic commands
-
-* `BITFIELD` atomically sets, increments and reads one or more values.
-* `BITFIELD_RO` is a read-only variant of `BITFIELD`.
 
 ## Performance
 

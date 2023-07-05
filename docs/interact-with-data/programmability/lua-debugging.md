@@ -5,6 +5,7 @@ description: How to use the built-in Lua debugger
 weight: 4
 aliases:
   - /topics/ldb
+  - /docs/manual/programmability/lua-debugging/
 ---
 
 Starting with version 3.2 Redis includes a complete Lua debugger, that can be

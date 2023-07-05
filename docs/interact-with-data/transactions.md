@@ -1,10 +1,11 @@
 ---
 title: Transactions
 linkTitle: Transactions
-weight: 5
+weight: 30
 description: How transactions work in Redis
 aliases:
   - /topics/transactions
+  - /docs/manual/transactions/
 ---
 
 Redis Transactions allow the execution of a group of commands

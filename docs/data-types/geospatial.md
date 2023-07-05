@@ -9,6 +9,14 @@ description: >
 Redis geospatial indexes let you store coordinates and search for them.
 This data structure is useful for finding nearby points within a given radius or bounding box.
 
+## Basic commands
+
+* `GEOADD` adds a location to a given geospatial index (note that longitude comes before latitude with this command).
+* `GEOSEARCH` returns locations with a given radius or a bounding box.
+
+See the [complete list of geospatial index commands](https://redis.io/commands/?group=geo).
+
+
 ## Examples
 
 Suppose you're building a mobile app that lets you find all of the electric car charging stations closest to your current location.
@@ -33,13 +41,6 @@ Find all locations within a 5 kilometer radius of a given location, and return t
 3) 1) "station:3"
    2) "2.2441"
 ```
-
-## Basic commands
-
-* `GEOADD` adds a location to a given geospatial index (note that longitude comes before latitude with this command).
-* `GEOSEARCH` returns locations with a given radius or a bounding box.
-
-See the [complete list of geospatial index commands](https://redis.io/commands/?group=geo).
 
 ## Learn more
 

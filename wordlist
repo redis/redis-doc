@@ -61,6 +61,7 @@ B2
 B3
 BCC's
 BDFL-style
+birthyear
 BPF
 BPF's
 BPF-optimized
@@ -124,6 +125,8 @@ EDOM
 EEXIST
 EFBIG
 EINVAL
+Enduro
+Ergonom
 ENOENT
 ENOTSUP
 EOF
@@ -169,13 +172,19 @@ HashMaps
 HashSets
 Haversine
 Hexastore
+hget
+hgetall
+hincrby
+hmget
 Hitmeister
 Homebrew
 Hotspot
+hset
 HyperLogLog
 HyperLogLog.
 HyperLogLogs
 Hyperloglogs
+hyperloglogs
 IOPs
 IPC
 IPs
@@ -184,6 +193,7 @@ IPv6
 IS-MASTER-DOWN-BY-ADDR
 Identinal
 IoT
+incrby_get_mget
 Itamar
 Jedis
 JedisCluster
@@ -216,11 +226,14 @@ Leaderboards
 Leau
 Lehmann
 Levelgraph
+licensor
+licensor's
 LibLZF
 Linode
 Liveness
 Lua
 Lua's
+lua-debugging
 Lua-to-Redis
 Lucraft
 M1
@@ -258,6 +271,7 @@ Ok
 OpenBSD
 OpenSSL
 Opteron
+ORM
 PEL
 PELs
 PEM
@@ -352,6 +366,7 @@ S1
 S2
 S3
 S4
+SaaS
 SCP
 SDOWN
 SHA-256
