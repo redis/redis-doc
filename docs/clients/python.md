@@ -12,7 +12,7 @@ Install Redis and the Redis client, then connect your Python application to a Re
 
 Get started with the [redis-py](https://github.com/redis/redis-py) client for Redis. 
 
-`redis-py` requires a running Redis or [Redis Stack](/docs/stack/get-started/install/) server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
+`redis-py` requires a running Redis or [Redis Stack](/docs/getting-started/install-stack/) server. See [Getting started](/docs/getting-started/) for Redis installation instructions.
 
 ### Install
 

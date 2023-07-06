@@ -20,7 +20,7 @@ How you install Redis depends on your operating system and whether you'd like to
 * [Install Redis on Linux](/docs/getting-started/installation/install-redis-on-linux)
 * [Install Redis on macOS](/docs/getting-started/installation/install-redis-on-mac-os)
 * [Install Redis on Windows](/docs/getting-started/installation/install-redis-on-windows)
-* [Install Redis with Redis Stack and RedisInsight](/docs/stack/get-started/install)
+* [Install Redis with Redis Stack and RedisInsight](/docs/getting-started/install-stack/)
 
 Once you have Redis up and running, and can connect using `redis-cli`, you can continue with the steps below.
 
