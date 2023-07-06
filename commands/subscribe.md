@@ -5,8 +5,6 @@ other commands, except for additional `SUBSCRIBE`, `SSUBSCRIBE`, `PSUBSCRIBE`, `
 `PUNSUBSCRIBE`, `PING`, `RESET` and `QUIT` commands.
 However, if RESP3 is used (see `HELLO`) it is possible for a client to issue any commands while in subscribed state.
 
-For more information, see [Pub/sub](/docs/manual/pubsub/).
-
 @return
 
 When successful, this command doesn't return anything.
