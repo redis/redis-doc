@@ -19,9 +19,9 @@ If you're ready to get started, see the following guides for the official client
 
 The Redis OM client libraries let you use the document modeling, indexing, and querying capabilities of Redis Stack much like the way you'd use an [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping). The following Redis OM libraries support Redis Stack:
 
-* [Redis OM .NET](/docs/clients/stack-dotnet/)
-* [Redis OM Node](/docs/clients/stack-node/)
-* [Redis OM Python](/docs/clients/stack-python/)
-* [Redis OM Spring](/docs/clients/stack-spring/)
+* [Redis OM .NET](/docs/clients/om-clients/stack-dotnet/)
+* [Redis OM Node](/docs/clients/om-clients/stack-node/)
+* [Redis OM Python](/docs/clients/om-clients/stack-python/)
+* [Redis OM Spring](/docs/clients/om-clients/stack-spring/)
 
 <hr>

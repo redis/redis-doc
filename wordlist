@@ -966,6 +966,7 @@ systemctl
 taskset
 tcmalloc
 tcp
+the-redis-keyspace
 tls-port
 tmp
 tmux

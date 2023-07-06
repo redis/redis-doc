@@ -4,13 +4,15 @@ linkTitle: "Keyspace"
 weight: 1
 description: >
     Managing keys in Redis: Key expiration, scanning, altering and querying the key space
+alias:
+  - /docs/manual/the-redis-keyspace    
 ---
 
 Redis keys are binary safe; this means that you can use any binary sequence as a
 key, from a string like "foo" to the content of a JPEG file.
 The empty string is also a valid key.
 
-A few other rules about keys:
+A few other rules about keys: 
 
 * Very long keys are not a good idea. For instance a key of 1024 bytes is a bad
   idea not only memory-wise, but also because the lookup of the key in the

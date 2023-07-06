@@ -157,7 +157,7 @@ schema = (
 )
 ```
 
-Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](/docs/stack/search/reference/query_syntax). 
+Create an index. In this example, all JSON documents with the key prefix `user:` will be indexed. For more information, see [Query syntax](/docs/interact/search-and-query/query/). 
 
 ```python
 rs = r.ft("idx:users")
