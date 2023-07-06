@@ -6,6 +6,7 @@ description: How to use pub/sub channels in Redis
 aliases:
   - /topics/pubsub
   - /docs/manual/pub-sub
+  - /docs/manual/pubsub
 ---
 
 `SUBSCRIBE`, `UNSUBSCRIBE` and `PUBLISH` implement the [Publish/Subscribe messaging paradigm](http://en.wikipedia.org/wiki/Publish/subscribe) where (citing Wikipedia) senders (publishers) are not programmed to send their messages to specific receivers (subscribers).

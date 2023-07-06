@@ -12,7 +12,8 @@ Redis is a data structure server.
 At its core, Redis provides a collection of native data types that help you solve a wide variety of problems, from [caching](/docs/manual/client-side-caching/) to [queuing](/docs/data-types/lists/) to [event processing](/docs/data-types/streams/).
 Below is a short description of each data type, with links to broader overviews and command references.
 
-If you'd like to try a comprehensive tutorial, see the [Redis data types tutorial](/docs/data-types/tutorial/).
+If you'd like to try a comprehensive tutorial for each data structure, see their overview pages below.
+
 
 ## Core
 
@@ -66,7 +67,6 @@ For more information, see:
 
 * [Overview of Redis Streams](/docs/data-types/streams)
 * [Redis Streams command reference](/commands/?group=stream)
-* [Redis Streams tutorial](/docs/data-types/streams-tutorial)
 
 ### Geospatial indexes
 
