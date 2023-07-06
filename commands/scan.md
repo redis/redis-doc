@@ -12,7 +12,7 @@ However while blocking commands like `SMEMBERS` are able to provide all the elem
 Note that `SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` all work very similarly, so this documentation covers all the four commands. However an obvious difference is that in the case of `SSCAN`, `HSCAN` and `ZSCAN` the first argument is the name of the key holding the Set, Hash or Sorted Set value. The `SCAN` command does not need any key name argument as it iterates keys in the current database, so the iterated object is the database itself.
 
 
-For more information on `SCAN` please refer to the [Redis Keyspace](/docs/manual/the-redis-keyspace.md) tutorial.
+For more information on `SCAN` please refer to the [Redis Keyspace](/docs/manual/keyspace.md) tutorial.
 
 ## Return value
 
