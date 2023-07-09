@@ -16,7 +16,6 @@ The optional parameter can be used to select a specific section of information:
 *   `cluster`: Redis Cluster section
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
-*   `modules`: Module related sections
 *   `errorstats`: Redis error statistics
 
 It can also take the following values:
