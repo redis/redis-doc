@@ -3005,6 +3005,7 @@
         ],
         "arity": 2,
         "command_flags": [
+            "loading",
             "stale"
         ],
         "hints": [
@@ -3064,6 +3065,7 @@
         ],
         "arity": 2,
         "command_flags": [
+            "loading",
             "stale"
         ],
         "doc_flags": [
@@ -10497,7 +10499,7 @@
         "summary": "Listens for messages published to channels that match one or more patterns.",
         "since": "2.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of patterns the client is already subscribed to.",
+        "complexity": "O(N) where N is the number of patterns to subscribe to.",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -10771,7 +10773,7 @@
         "summary": "Stops listening to messages published to channels that match one or more patterns.",
         "since": "2.0.0",
         "group": "pubsub",
-        "complexity": "O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).",
+        "complexity": "O(N) where N is the number of patterns to unsubscribe.",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -13852,7 +13854,7 @@
         "summary": "Stops listening to messages posted to shard channels.",
         "since": "7.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of clients already subscribed to a shard channel.",
+        "complexity": "O(N) where N is the number of shard channels to unsubscribe.",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -14154,7 +14156,7 @@
         "summary": "Stops listening to messages posted to channels.",
         "since": "2.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+        "complexity": "O(N) where N is the number of channels to unsubscribe.",
         "acl_categories": [
             "@pubsub",
             "@slow"
