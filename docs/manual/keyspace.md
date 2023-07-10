@@ -4,7 +4,7 @@ linkTitle: "Keyspace"
 weight: 1
 description: >
     Managing keys in Redis: Key expiration, scanning, altering and querying the key space
-alias:
+aliases:
   - /docs/manual/the-redis-keyspace    
 ---
 
