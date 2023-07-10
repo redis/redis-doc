@@ -1,8 +1,0 @@
-{
-    "name": "redisims",
-    "license": "MIT",
-    "description": "A lightweight Redis module following the If Modified Since (IMS) pattern for caching",
-    "github": [
-        "Clement-Jean"
-    ]
-}
