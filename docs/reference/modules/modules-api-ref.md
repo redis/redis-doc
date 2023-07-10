@@ -1426,15 +1426,15 @@ The function always returns `REDISMODULE_OK`.
 
 Reply with the error create from a printf format and arguments.
 
-If the error code is already passed in the string 'fmt', the error
-code provided is used, otherwise the string "-ERR " for the generic
-error code is automatically added.
+Note that 'fmt' must contain all the error, including
+the initial error code. The function only provides the initial "-", so
+the usage is, for example:
 
-The usage is, for example:
+    RedisModule_ReplyWithErrorFormat(ctx,"ERR Wrong Type: %s",type);
 
-    RedisModule_ReplyWithErrorFormat(ctx, "An error: %s", "foo");
+and not just:
 
-    RedisModule_ReplyWithErrorFormat(ctx, "-WRONGTYPE Wrong Type: %s", "foo");
+    RedisModule_ReplyWithErrorFormat(ctx,"Wrong Type: %s",type);
 
 The function always returns `REDISMODULE_OK`.
 
@@ -5005,6 +5005,9 @@ and so Redis will make no attempt to protect the module from infinite loops.
 
 '`free_pd`' can be NULL and in such case will not be used.
 
+Return `REDISMODULE_OK` on success and `REDISMODULE_ERR` if was called while loading data from disk (AOF or RDB) or
+if the instance is a readonly replica.
+
 <span id="RedisModule_GetNotifyKeyspaceEvents"></span>
 
 ### `RedisModule_GetNotifyKeyspaceEvents`
@@ -6481,6 +6484,16 @@ or used elsewhere.
 Modify the filtered command by deleting an argument at the specified
 position.
 
+<span id="RedisModule_CommandFilterGetClientId"></span>
+
+### `RedisModule_CommandFilterGetClientId`
+
+    unsigned long long RedisModule_CommandFilterGetClientId(RedisModuleCommandFilterCtx *fctx);
+
+**Available since:** unreleased
+
+Get Client ID for client that issued the command we are filtering
+
 <span id="RedisModule_MallocSize"></span>
 
 ### `RedisModule_MallocSize`
@@ -7780,6 +7793,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_CommandFilterArgInsert`](#RedisModule_CommandFilterArgInsert)
 * [`RedisModule_CommandFilterArgReplace`](#RedisModule_CommandFilterArgReplace)
 * [`RedisModule_CommandFilterArgsCount`](#RedisModule_CommandFilterArgsCount)
+* [`RedisModule_CommandFilterGetClientId`](#RedisModule_CommandFilterGetClientId)
 * [`RedisModule_CreateCommand`](#RedisModule_CreateCommand)
 * [`RedisModule_CreateDataType`](#RedisModule_CreateDataType)
 * [`RedisModule_CreateDict`](#RedisModule_CreateDict)
