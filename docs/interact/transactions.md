@@ -112,11 +112,11 @@ LPOP a
 EXEC
 *2
 +OK
--ERR Operation against a key holding the wrong kind of value
+-WRONGTYPE Operation against a key holding the wrong kind of value
 ```
 
 `EXEC` returned two-element [bulk string reply](/topics/protocol#bulk-string-reply) where one is an `OK` code and
-the other an `-ERR` reply. It's up to the client library to find a
+the other an error reply. It's up to the client library to find a
 sensible way to provide the error to the user.
 
 It's important to note that
