@@ -7,7 +7,7 @@ description: Use Redis on Windows for development
 
 Redis is not officially supported on Windows. However, you can install Redis on Windows for development by following the instructions below.
 
-To install Redis on Windows, you'll first need to enable [Scoop](https://scoop.sh). Scoop is a tool that enables installing and managing software packages on Windows systems using the Scoop package manager.
+To install Redis on Windows, you'll first need to install [Scoop](https://scoop.sh). Scoop is a tool that enables installing and managing software packages on Windows systems using the Scoop package manager.
 
 ## Install Scoop
 
