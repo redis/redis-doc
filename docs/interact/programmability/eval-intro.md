@@ -22,7 +22,7 @@ These include:
 
 * Providing locality by executing logic where data lives. Data locality reduces overall latency and saves networking resources.
 * Blocking semantics that ensure the script's atomic execution.
-* Enabling the composition of simple capabilities that are either missing from Redis or are too niche to a part of it.
+* Enabling the composition of simple capabilities that are either missing from Redis or are too niche to be a part of it.
 
 Lua lets you run part of your application logic inside Redis.
 Such scripts can perform conditional updates across multiple keys, possibly combining several different data types atomically.
