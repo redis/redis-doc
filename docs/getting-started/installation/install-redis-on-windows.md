@@ -7,30 +7,27 @@ description: Use Redis on Windows for development
 
 Redis is not officially supported on Windows. However, you can install Redis on Windows for development by following the instructions below.
 
-To install Redis on Windows, you'll first need to enable [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install) (Windows Subsystem for Linux). WSL2 lets you run Linux binaries natively on Windows. For this method to work, you'll need to be running Windows 10 version 2004 and higher or Windows 11.
+To install Redis on Windows, you'll first need to enable [Scoop](https://scoop.sh). Scoop is a tool that enables installing and managing software packages on Windows systems using the Scoop package manager.
 
-## Install or enable WSL2
+## Install Scoop
 
-Microsoft provides [detailed instructions for installing WSL](https://docs.microsoft.com/en-us/windows/wsl/install). Follow these instructions, and take note of the default Linux distribution it installs. This guide assumes Ubuntu.
+Scoop has a pretty clean [installation process](https://github.com/ScoopInstaller/Scoop#installation). Type the following command
+{{< highlight bash  >}}
+iwr -useb get.scoop.sh | iex
+{{< / highlight  >}}
 
 ## Install Redis
 
-Once you're running Ubuntu on Windows, you can follow the steps detailed at [Install on Ubuntu/Debian](../install-redis-on-linux#install-on-ubuntu-debian) to install recent stable versions of Redis from the official `packages.redis.io` APT repository.
-Add the repository to the <code>apt</code> index, update it, and then install:
+Simply install `redis` through Scoop that installs the two main shims for you, `redis-cli` & `redis-server`
 
 {{< highlight bash  >}}
-curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-
-sudo apt-get update
-sudo apt-get install redis
+scoop install redis
 {{< / highlight  >}}
 
 Lastly, start the Redis server like so:
 
 {{< highlight bash  >}}
-sudo service redis-server start
+redis-server
 {{< / highlight  >}}
 
 ## Connect to Redis
