@@ -17,9 +17,7 @@ It is also used by `redis-cli` in order to manage a cluster.
 ## Serialization format
 
 The output of the command is just a space-separated CSV string, where
-each line represents a node in the cluster. The auxiliary fields 
-(including shard ID, human node name and extra port number) stored in
-nodes.conf file are currently hidden from client commands. The following
+each line represents a node in the cluster. The following
 is an example of output on Redis 7.2.0.
 
 ```
