@@ -440,7 +440,7 @@ Permissions are defined as individual characters that map to the following key p
 Permissions can be composed together by specifying multiple characters. 
 Specifying the permission as 'RW' is considered full access and is analogous to just passing in `~<pattern>`.
 
-For a concrete example, consider a user with ACL rules `+@all ~app1:* (+@readonly ~app2:*)`.
+For a concrete example, consider a user with ACL rules `+@all ~app1:* (+@read ~app2:*)`.
 This user has full access on `app1:*` and readonly access on `app2:*`.
 However, some commands support reading data from one key, doing some transformation, and storing it into another key.
 One such command is the `COPY` command, which copies the data from the source key into the destination key.
