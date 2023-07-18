@@ -79,15 +79,15 @@ See the [complete series of list commands](https://redis.io/commands/?group=list
 {{< /clients-example >}}
 
 * To limit the length of a list you can call `LTRIM`:
-{{< clients-example list_tutorial ltrim >}}
-    > lpush bikes:repairs:priority bike:1 bike:2 bike:3 bike:4 bike:5
-    (integer) 5
-    > ltrim bikes:repairs 0 2
-    OK
-    > lrange bikes:repairs 0 -1
-    1) "bike:5"
-    2) "bike:4"
-    3) "bike:3"
+{{< clients-example list_tutorial ltrim.1 >}}
+> RPUSH bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
+(integer) 5
+> LTRIM bikes:repairs 0 2
+OK
+> LRANGE bikes:repairs 0 -1
+1) "bike:1"
+2) "bike:2"
+3) "bike:3"
 {{< /clients-example >}}
 
 ### What are Lists?
@@ -131,16 +131,16 @@ element into a list, on the right (at the tail). Finally the
 `LRANGE` command extracts ranges of elements from lists:
 
 {{< clients-example list_tutorial lpush_rpush >}}
-    > rpush bikes:repairs bike:1
-    (integer) 1
-    > rpush bikes:repairs bike:2
-    (integer) 2
-    > lpush bikes:repairs bike:important_bike
-    (integer) 3
-    > lrange bikes:repairs 0 -1
-    1) "bike:important_bike"
-    2) "bike:1"
-    3) "bike:2"
+> RPUSH bikes:repairs bike:1
+(integer) 1
+> RPUSH bikes:repairs bike:2
+(integer) 2
+> LPUSH bikes:repairs bike:important_bike
+(integer) 3
+> LRANGE bikes:repairs 0 -1
+1) "bike:important_bike"
+2) "bike:1"
+3) "bike:2"
 {{< /clients-example >}}
 
 Note that `LRANGE` takes two indexes, the first and the last
@@ -155,15 +155,15 @@ Both commands are *variadic commands*, meaning that you are free to push
 multiple elements into a list in a single call:
 
 {{< clients-example list_tutorial variadic >}}
-    > rpush bikes:repairs bike:1 bike:2 bike:3
-    (integer) 3
-    > lpush bikes:repairs bike:important_bike bike:very_important_bike
-    > lrange mylist 0 -1
-    1) "bike:very_important_bike"
-    2) "bike:important_bike"
-    3) "bike:1"
-    4) "bike:2"
-    5) "bike:3"
+> RPUSH bikes:repairs bike:1 bike:2 bike:3
+(integer) 3
+> LPUSH bikes:repairs bike:important_bike bike:very_important_bike
+> LRANGE mylist 0 -1
+1) "bike:very_important_bike"
+2) "bike:important_bike"
+3) "bike:1"
+4) "bike:2"
+5) "bike:3"
 {{< /clients-example >}}
 
 An important operation defined on Redis lists is the ability to *pop elements*.
@@ -175,16 +175,16 @@ sequence of commands the list is empty and there are no more elements to
 pop:
 
 {{< clients-example list_tutorial lpop_rpop >}}
-    > rpush bikes:repairs bike:1 bike:2 bike:3
-    (integer) 3
-    > rpop bikes:repairs
-    "bike:3"
-    > lpop bikes:repairs
-    "bike:1"
-    > rpop bikes:repairs
-    "bike:2"
-    > rpop bikes:repairs
-    (nil)
+> RPUSH bikes:repairs bike:1 bike:2 bike:3
+(integer) 3
+> RPOP bikes:repairs
+"bike:3"
+> LPOP bikes:repairs
+"bike:1"
+> RPOP bikes:repairs
+"bike:2"
+> RPOP bikes:repairs
+(nil)
 {{< /clients-example >}}
 
 Redis returned a NULL value to signal that there are no elements in the
@@ -227,14 +227,14 @@ For example, if you're adding bikes on the end of a list of repairs, but only
 want to worry about the 3 that have been on the list the longest:
 
 {{< clients-example list_tutorial ltrim >}}
-    > rpush bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
-    (integer) 5
-    > ltrim bikes:repairs 0 2
-    OK
-    > lrange bikes:repairs 0 -1
-    1) "bike:1"
-    2) "bike:2"
-    3) "bike:3"
+> RPUSH bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
+(integer) 5
+> LTRIM bikes:repairs 0 2
+OK
+> LRANGE bikes:repairs 0 -1
+1) "bike:1"
+2) "bike:2"
+3) "bike:3"
 {{< /clients-example >}}
 
 The above `LTRIM` command tells Redis to keep just list elements from index
@@ -244,14 +244,14 @@ in order to add a new element and discard elements exceeding a limit. Using
 `LTRIM` with negative indices can then be used to keep only the 3 most recently added:
 
 {{< clients-example list_tutorial ltrim_end_of_list >}}
-    > rpush bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
-    (integer) 5
-    > ltrim bikes:repairs -3 -1
-    OK
-    > lrange bikes:repairs 0 -1
-    1) "bike:3"
-    2) "bike:4"
-    3) "bike:5"
+> RPUSH bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
+(integer) 5
+> LTRIM bikes:repairs -3 -1
+OK
+> LRANGE bikes:repairs 0 -1
+1) "bike:3"
+2) "bike:4"
+3) "bike:5"
 {{< /clients-example >}}
 
 The above combination adds new elements and keeps only the 3
@@ -292,17 +292,17 @@ timeout is reached.
 This is an example of a `BRPOP` call we could use in the worker:
 
 {{< clients-example list_tutorial brpop >}}
-    > rpush bikes:repairs bike:1 bike:2
-    (integer) 5
-    > brpop bikes:repairs 1
-    1) "bikes:repairs"
-    2) "bike:2"
-    > brpop bikes:repairs 1
-    1) "bikes:repairs"
-    2) "bike:1"
-    > brpop bikes:repairs 1
-    (nil)
-    (2.01s)
+> RPUSH bikes:repairs bike:1 bike:2
+(integer) 5
+> BRPOP bikes:repairs 1
+1) "bikes:repairs"
+2) "bike:2"
+> BRPOP bikes:repairs 1
+1) "bikes:repairs"
+2) "bike:1"
+> BRPOP bikes:repairs 1
+(nil)
+(2.01s)
 {{< /clients-example >}}
 
 It means: "wait for elements in the list `tasks`, but return if after 5 seconds
@@ -345,38 +345,38 @@ Basically we can summarize the behavior with three rules:
 Examples of rule 1:
 
 {{< clients-example list_tutorial rule_1 >}}
-    > del new_bikes
-    (integer) 1
-    > lpush new_bikes bike:1 bike:2 bike:3
-    (integer) 3
+> DEL new_bikes
+(integer) 1
+> LPUSH new_bikes bike:1 bike:2 bike:3
+(integer) 3
 {{< /clients-example >}}
 
 However we can't perform operations against the wrong type if the key exists:
 
 {{< clients-example list_tutorial rule_1.1 >}}
-    > set new_bikes bike:1
-    OK
-    > type new_bikes
-    string
-    > lpush new_bikes bike:2 bike:3
-    (error) WRONGTYPE Operation against a key holding the wrong kind of value
+> SET new_bikes bike:1
+OK
+> TYPE new_bikes
+string
+> LPUSH new_bikes bike:2 bike:3
+(error) WRONGTYPE Operation against a key holding the wrong kind of value
 {{< /clients-example >}}
 
 Example of rule 2:
 
 {{< clients-example list_tutorial rule_2 >}}
-    > rpush bikes:repairs bike:1 bike:2 bike:3
-    (integer) 3
-    > exists bikes:repairs
-    (integer) 1
-    > lpop bikes:repairs
-    "bike:3"
-    > lpop bikes:repairs
-    "bike:2"
-    > lpop bikes:repairs
-    "bike:1"
-    > exists bikes:repairs
-    (integer) 0
+> RPUSH bikes:repairs bike:1 bike:2 bike:3
+(integer) 3
+> EXISTS bikes:repairs
+(integer) 1
+> LPOP bikes:repairs
+"bike:3"
+> LPOP bikes:repairs
+"bike:2"
+> LPOP bikes:repairs
+"bike:1"
+> EXISTS bikes:repairs
+(integer) 0
 {{< /clients-example >}}
 
 The key no longer exists after all the elements are popped.
@@ -384,12 +384,12 @@ The key no longer exists after all the elements are popped.
 Example of rule 3:
 
 {{< clients-example list_tutorial rule_3 >}}
-    > del bikes:repairs
-    (integer) 0
-    > llen bikes:repairs
-    (integer) 0
-    > lpop bikes:repairs
-    (nil)
+> DEL bikes:repairs
+(integer) 0
+> LLEN bikes:repairs
+(integer) 0
+> LPOP bikes:repairs
+(nil)
 {{< /clients-example >}}
 
 
