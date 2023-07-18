@@ -35,60 +35,60 @@ See the [complete series of list commands](https://redis.io/commands/?group=list
 ## Examples
 
 * Treat a list like a queue (first in, first out):
-```
-> LPUSH work:queue:ids 101
+{{< clients-example list_tutorial queue >}}
+> LPUSH bikes:repairs bike:1
 (integer) 1
-> LPUSH work:queue:ids 237
+> LPUSH bikes:repairs bike:2
 (integer) 2
-> RPOP work:queue:ids
-"101"
-> RPOP work:queue:ids
-"237"
-```
+> RPOP bikes:repairs
+"bike:1"
+> RPOP bikes:repairs
+"bike:2"
+{{< /clients-example >}}
 
 * Treat a list like a stack (first in, last out):
-```
-> LPUSH work:queue:ids 101
+{{< clients-example list_tutorial stack >}}
+> LPUSH bikes:repairs bike:1
 (integer) 1
-> LPUSH work:queue:ids 237
+> LPUSH bikes:repairs bike:2
 (integer) 2
-> LPOP work:queue:ids
-"237"
-> LPOP work:queue:ids
-"101"
-```
+> LPOP bikes:repairs
+"bike:2"
+> LPOP bikes:repairs
+"bike:1"
+{{< /clients-example >}}
 
 * Check the length of a list:
-```
-> LLEN work:queue:ids
+{{< clients-example list_tutorial llen >}}
+> LLEN bikes:repairs
 (integer) 0
-```
+{{< /clients-example >}}
 
 * Atomically pop an element from one list and push to another:
-```
-> LPUSH board:todo:ids 101
+{{< clients-example list_tutorial lmove_lrange >}}
+> LPUSH bikes:repairs bike:1
 (integer) 1
-> LPUSH board:todo:ids 273
+> LPUSH bikes:repairs bike:2
 (integer) 2
-> LMOVE board:todo:ids board:in-progress:ids LEFT LEFT
-"273"
-> LRANGE board:todo:ids 0 -1
-1) "101"
-> LRANGE board:in-progress:ids 0 -1
-1) "273"
-```
+> LMOVE bikes:repairs bikes:finished LEFT LEFT
+"bike:2"
+> LRANGE bikes:repairs 0 -1
+1) "bike:1"
+> LRANGE bikes:finished 0 -1
+1) "bike:2"
+{{< /clients-example >}}
 
-* To create a capped list that never grows beyond 100 elements, you can call `LTRIM` after each call to `LPUSH`:
-```
-> LPUSH notifications:user:1 "You've got mail!"
-(integer) 1
-> LTRIM notifications:user:1 0 99
-OK
-> LPUSH notifications:user:1 "Your package will be delivered at 12:01 today."
-(integer) 2
-> LTRIM notifications:user:1 0 99
-OK
-```
+* To limit the length of a list you can call `LTRIM`:
+{{< clients-example list_tutorial ltrim >}}
+    > lpush bikes:repairs:priority bike:1 bike:2 bike:3 bike:4 bike:5
+    (integer) 5
+    > ltrim bikes:repairs 0 2
+    OK
+    > lrange bikes:repairs 0 -1
+    1) "bike:5"
+    2) "bike:4"
+    3) "bike:3"
+{{< /clients-example >}}
 
 ### What are Lists?
 To explain the List data type it's better to start with a little bit of theory,
@@ -130,16 +130,18 @@ left (at the head), while the `RPUSH` command adds a new
 element into a list, on the right (at the tail). Finally the
 `LRANGE` command extracts ranges of elements from lists:
 
-    > rpush mylist A
+{{< clients-example list_tutorial lpush_rpush >}}
+    > rpush bikes:repairs bike:1
     (integer) 1
-    > rpush mylist B
+    > rpush bikes:repairs bike:2
     (integer) 2
-    > lpush mylist first
+    > lpush bikes:repairs bike:important_bike
     (integer) 3
-    > lrange mylist 0 -1
-    1) "first"
-    2) "A"
-    3) "B"
+    > lrange bikes:repairs 0 -1
+    1) "bike:important_bike"
+    2) "bike:1"
+    3) "bike:2"
+{{< /clients-example >}}
 
 Note that `LRANGE` takes two indexes, the first and the last
 element of the range to return. Both the indexes can be negative, telling Redis
@@ -152,40 +154,38 @@ the final `LPUSH` appended the element on the left.
 Both commands are *variadic commands*, meaning that you are free to push
 multiple elements into a list in a single call:
 
-    > rpush mylist 1 2 3 4 5 "foo bar"
-    (integer) 9
+{{< clients-example list_tutorial variadic >}}
+    > rpush bikes:repairs bike:1 bike:2 bike:3
+    (integer) 3
+    > lpush bikes:repairs bike:important_bike bike:very_important_bike
     > lrange mylist 0 -1
-    1) "first"
-    2) "A"
-    3) "B"
-    4) "1"
-    5) "2"
-    6) "3"
-    7) "4"
-    8) "5"
-    9) "foo bar"
+    1) "bike:very_important_bike"
+    2) "bike:important_bike"
+    3) "bike:1"
+    4) "bike:2"
+    5) "bike:3"
+{{< /clients-example >}}
 
 An important operation defined on Redis lists is the ability to *pop elements*.
 Popping elements is the operation of both retrieving the element from the list,
 and eliminating it from the list, at the same time. You can pop elements
 from left and right, similarly to how you can push elements in both sides
-of the list:
-
-    > rpush mylist a b c
-    (integer) 3
-    > rpop mylist
-    "c"
-    > rpop mylist
-    "b"
-    > rpop mylist
-    "a"
-
-We added three elements and popped three elements, so at the end of this
+of the list. We'll add three elements and popp three elements, so at the end of this
 sequence of commands the list is empty and there are no more elements to
-pop. If we try to pop yet another element, this is the result we get:
+pop:
 
-    > rpop mylist
+{{< clients-example list_tutorial lpop_rpop >}}
+    > rpush bikes:repairs bike:1 bike:2 bike:3
+    (integer) 3
+    > rpop bikes:repairs
+    "bike:3"
+    > lpop bikes:repairs
+    "bike:1"
+    > rpop bikes:repairs
+    "bike:2"
+    > rpop bikes:repairs
     (nil)
+{{< /clients-example >}}
 
 Redis returned a NULL value to signal that there are no elements in the
 list.
@@ -223,26 +223,38 @@ The `LTRIM` command is similar to `LRANGE`, but **instead of displaying the
 specified range of elements** it sets this range as the new list value. All
 the elements outside the given range are removed.
 
-An example will make it more clear:
+For example, if you're adding bikes on the end of a list of repairs, but only
+want to worry about the 3 that have been on the list the longest:
 
-    > rpush mylist 1 2 3 4 5
+{{< clients-example list_tutorial ltrim >}}
+    > rpush bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
     (integer) 5
-    > ltrim mylist 0 2
+    > ltrim bikes:repairs 0 2
     OK
-    > lrange mylist 0 -1
-    1) "1"
-    2) "2"
-    3) "3"
+    > lrange bikes:repairs 0 -1
+    1) "bike:1"
+    2) "bike:2"
+    3) "bike:3"
+{{< /clients-example >}}
 
 The above `LTRIM` command tells Redis to keep just list elements from index
 0 to 2, everything else will be discarded. This allows for a very simple but
 useful pattern: doing a List push operation + a List trim operation together
-in order to add a new element and discard elements exceeding a limit:
+in order to add a new element and discard elements exceeding a limit. Using 
+`LTRIM` with negative indices can then be used to keep only the 3 most recently added:
 
-    LPUSH mylist <some element>
-    LTRIM mylist 0 999
+{{< clients-example list_tutorial ltrim_end_of_list >}}
+    > rpush bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
+    (integer) 5
+    > ltrim bikes:repairs -3 -1
+    OK
+    > lrange bikes:repairs 0 -1
+    1) "bike:3"
+    2) "bike:4"
+    3) "bike:5"
+{{< /clients-example >}}
 
-The above combination adds a new element and keeps only the 1000
+The above combination adds new elements and keeps only the 3
 newest elements into the list. With `LRANGE` you can access the top items
 without any need to remember very old data.
 
@@ -279,9 +291,19 @@ timeout is reached.
 
 This is an example of a `BRPOP` call we could use in the worker:
 
-    > brpop tasks 5
-    1) "tasks"
-    2) "do_something"
+{{< clients-example list_tutorial brpop >}}
+    > rpush bikes:repairs bike:1 bike:2
+    (integer) 5
+    > brpop bikes:repairs 1
+    1) "bikes:repairs"
+    2) "bike:2"
+    > brpop bikes:repairs 1
+    1) "bikes:repairs"
+    2) "bike:1"
+    > brpop bikes:repairs 1
+    (nil)
+    (2.01s)
+{{< /clients-example >}}
 
 It means: "wait for elements in the list `tasks`, but return if after 5 seconds
 no element is available".
@@ -322,45 +344,53 @@ Basically we can summarize the behavior with three rules:
 
 Examples of rule 1:
 
-    > del mylist
+{{< clients-example list_tutorial rule_1 >}}
+    > del new_bikes
     (integer) 1
-    > lpush mylist 1 2 3
+    > lpush new_bikes bike:1 bike:2 bike:3
     (integer) 3
+{{< /clients-example >}}
 
 However we can't perform operations against the wrong type if the key exists:
 
-    > set foo bar
+{{< clients-example list_tutorial rule_1.1 >}}
+    > set new_bikes bike:1
     OK
-    > lpush foo 1 2 3
-    (error) WRONGTYPE Operation against a key holding the wrong kind of value
-    > type foo
+    > type new_bikes
     string
+    > lpush new_bikes bike:2 bike:3
+    (error) WRONGTYPE Operation against a key holding the wrong kind of value
+{{< /clients-example >}}
 
 Example of rule 2:
 
-    > lpush mylist 1 2 3
+{{< clients-example list_tutorial rule_2 >}}
+    > rpush bikes:repairs bike:1 bike:2 bike:3
     (integer) 3
-    > exists mylist
+    > exists bikes:repairs
     (integer) 1
-    > lpop mylist
-    "3"
-    > lpop mylist
-    "2"
-    > lpop mylist
-    "1"
-    > exists mylist
+    > lpop bikes:repairs
+    "bike:3"
+    > lpop bikes:repairs
+    "bike:2"
+    > lpop bikes:repairs
+    "bike:1"
+    > exists bikes:repairs
     (integer) 0
+{{< /clients-example >}}
 
 The key no longer exists after all the elements are popped.
 
 Example of rule 3:
 
-    > del mylist
+{{< clients-example list_tutorial rule_3 >}}
+    > del bikes:repairs
     (integer) 0
-    > llen mylist
+    > llen bikes:repairs
     (integer) 0
-    > lpop mylist
+    > lpop bikes:repairs
     (nil)
+{{< /clients-example >}}
 
 
 ## Limits
