@@ -170,7 +170,7 @@ An important operation defined on Redis lists is the ability to *pop elements*.
 Popping elements is the operation of both retrieving the element from the list,
 and eliminating it from the list, at the same time. You can pop elements
 from left and right, similarly to how you can push elements in both sides
-of the list. We'll add three elements and popp three elements, so at the end of this
+of the list. We'll add three elements and pop three elements, so at the end of this
 sequence of commands the list is empty and there are no more elements to
 pop:
 
