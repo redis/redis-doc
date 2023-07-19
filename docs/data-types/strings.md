@@ -15,12 +15,13 @@ Since Redis keys are strings, when we use the string type as a value too,
 we are mapping a string to another string. The string data type is useful
 for a number of use cases, like caching HTML fragments or pages.
 
-{{< clients-example set_tutorial set_get >}}
-    > set bike:1 Deimos
+Let's play a bit with the string type, using `redis-cli` (all the examples
+will be performed via `redis-cli` in this tutorial).
+
+    > set mykey somevalue
     OK
-    > get bike:1
-    "Deimos"
-{{< /clients-example >}}
+    > get mykey
+    "somevalue"
 
 As you can see using the `SET` and the `GET` commands are the way we set
 and retrieve a string value. Note that `SET` will replace any existing value
@@ -34,12 +35,10 @@ The `SET` command has interesting options, that are provided as additional
 arguments. For example, I may ask `SET` to fail if the key already exists,
 or the opposite, that it only succeed if the key already exists:
 
-{{< clients-example set_tutorial setnx_xx >}}
-    > set bike:1 bike nx
+    > set mykey newval nx
     (nil)
-    > set bike:1 bike xx
+    > set mykey newval xx
     OK
-{{< /clients-example >}}
 
 There are a number of other commands for operating on strings. For example
 the `GETSET` command sets a key to a new value, returning the old value as the
@@ -54,14 +53,12 @@ The ability to set or retrieve the value of multiple keys in a single
 command is also useful for reduced latency. For this reason there are
 the `MSET` and `MGET` commands:
 
-{{< clients-example set_tutorial mset >}}
-    > mset bike:1 "Deimos" bike:2 "Ares" bike:3 "Vanth"
+    > mset a 10 b 20 c 30
     OK
-    > mget bike:1 bike:2 bike:3
-    1) "Deimos"
-    2) "Ares"
-    3) "Vanth"
-{{< /clients-example >}}
+    > mget a b c
+    1) "10"
+    2) "20"
+    3) "30"
 
 When `MGET` is used, Redis returns an array of values.
 
@@ -69,14 +66,14 @@ When `MGET` is used, Redis returns an array of values.
 Even if strings are the basic values of Redis, there are interesting operations
 you can perform with them. For instance, one is atomic increment:
 
-{{< clients-example set_tutorial incr >}}
-    > set total_crashes 0
+    > set counter 100
     OK
-    > incr total_crashes
-    (integer) 1
-    > incrby total_crashes 10
-    (integer) 11
-{{< /clients-example >}}
+    > incr counter
+    (integer) 101
+    > incr counter
+    (integer) 102
+    > incrby counter 50
+    (integer) 152
 
 The `INCRBY` command parses the string value as an integer,
 increments it by one, and finally sets the obtained value as the new value.
