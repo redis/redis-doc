@@ -50,7 +50,7 @@ In cases where the client should adopt a behavior different than the default, th
   This tip is in-use by commands that don't accept key name arguments.
   The command operates atomically per shard.
 - **multi_shard:** the client should execute the command on several shards.
-  The client should split the inputs according to the hash slots of its input key name arguments. For example, the command `MSET {foo} baz {foo}1 baz1 bar vaz` should be split to `MSET {foo} baz {foo}1 baz1` and `MSET bar vaz`. The commands must be split even if all the slots are managed by the same shard.
+  The client should split the inputs according to the hash slots of its input key name arguments. For example, the command `MSET {foo} baz {foo}1 baz1 bar vaz` should be split to `MSET {foo} baz {foo}1 baz1` and `MSET bar vaz`. If the keys are hashed to more than a single slot, the command must be split even if all the slots are managed by the same shard.
   Examples for such commands include `MSET`, `MGET` and `DEL`.
   However, note that `SUNIONSTORE` isn't considered as _multi_shard_ because all of its keys must belong to the same hash slot.
 - **special:** indicates a non-trivial form of the client's request policy, such as the `SCAN` command.
