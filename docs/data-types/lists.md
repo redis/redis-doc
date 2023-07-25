@@ -239,9 +239,9 @@ OK
 
 The above `LTRIM` command tells Redis to keep just list elements from index
 0 to 2, everything else will be discarded. This allows for a very simple but
-useful pattern: doing a List push operation + a List trim operation together
-in order to add a new element and discard elements exceeding a limit. Using 
-`LTRIM` with negative indices can then be used to keep only the 3 most recently added:
+useful pattern: doing a List push operation + a List trim operation together 
+to add a new element and discard elements exceeding a limit. Using 
+`LTRIM` with negative indexes can then be used to keep only the 3 most recently added:
 
 {{< clients-example list_tutorial ltrim_end_of_list >}}
 > RPUSH bikes:repairs bike:1 bike:2 bike:3 bike:4 bike:5
