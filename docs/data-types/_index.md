@@ -6,6 +6,7 @@ weight: 35
 aliases:
     - /docs/manual/data-types
     - /topics/data-types
+    - /docs/data-types/tutorial
 ---
 
 Redis is a data structure server.
