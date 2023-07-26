@@ -960,7 +960,7 @@ by the application, and how. There are three different cases:
 3. Multiple keys operations, or transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
 
 The third case is not handled by Redis Cluster: the application requires to
-be modified in order to don't use multi keys operations or only use them in
+be modified in order not to use multi keys operations or only use them in
 the context of the same hash tag.
 
 Case 1 and 2 are covered, so we'll focus on those two cases, that are handled
