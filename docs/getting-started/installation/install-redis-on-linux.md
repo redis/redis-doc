@@ -31,6 +31,18 @@ sudo apt-get update
 sudo apt-get install redis
 {{< / highlight  >}}
 
+## Install on Arch Linux
+
+You can use `pacman` package manager to install it and then start/enable the service:
+
+{{< highlight bash  >}}
+sudo pacman -S redis
+
+sudo systemctl start redis.service
+{{< / highlight  >}}
+
+For further details like clients, check [redis arch wiki](https://wiki.archlinux.org/title/redis)
+
 ## Install from Snapcraft
 
 The [Snapcraft store](https://snapcraft.io/store) provides [Redis packages](https://snapcraft.io/redis) that can be installed on platforms that support snap.
