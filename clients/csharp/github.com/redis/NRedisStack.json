@@ -1,5 +1,5 @@
 {
     "name": "NRedisStack",
     "description": "This client is developed by Redis to bring RedisStack support to CSharp.",
-    "recommended": true
+    "official": true
 }
