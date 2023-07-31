@@ -19,7 +19,7 @@ See the [complete list of geospatial index commands](https://redis.io/commands/?
 
 ## Examples
 
-Suppose you're building a mobile app that lets you find all of the rentable bike stations closest to your current location.
+Suppose you're building a mobile app that lets you find all of the bike rental stations closest to your current location.
 
 Add several locations to a geospatial index:
 {{< clients-example geo_tutorial geoadd >}}
