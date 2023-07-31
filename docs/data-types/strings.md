@@ -78,7 +78,7 @@ you can perform with them. For instance, one is atomic increment:
     (integer) 11
 {{< /clients-example >}}
 
-The `INCRBY` command parses the string value as an integer,
+The `INCR` command parses the string value as an integer,
 increments it by one, and finally sets the obtained value as the new value.
 There are other similar commands like `INCRBY`,
 `DECR` and `DECRBY`. Internally it's
