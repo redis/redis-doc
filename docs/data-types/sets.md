@@ -74,12 +74,10 @@ multiple sets, and so forth.
 {{< /clients-example >}}
 
 Here I've added three elements to my set and told Redis to return all the
-elements. There is no order guarantee with a set -- Redis is free to return the
-elements in any order at every call, since there is no contract with the
-user about element ordering.
+elements. There is no order guarantee with a set. Redis is free to return the
+elements in any order at every call.
 
-Redis has commands to test for membership. This can be both a single item
-or a variadic command to test membership for multiple items at once:
+Redis has commands to test for set membership. These commands can be used on single as well as multiple items:
 
 {{< clients-example sets_tutorial smismember >}}
 > SISMEMBER bikes:racing:france bike:1
