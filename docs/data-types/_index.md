@@ -37,7 +37,7 @@ For more information, see:
 ### Sets
 
 [Redis sets](/docs/data-types/sets) are unordered collections of unique strings that act like the sets from your favorite programming language (for example, [Java HashSets](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html), [Python sets](https://docs.python.org/3.10/library/stdtypes.html#set-types-set-frozenset), and so on).
-With a Redis set, you can add, remove, and test for existence O(1) time (in other words, regardless of the number of set elements).
+With a Redis set, you can add, remove, and test for existence in O(1) time (in other words, regardless of the number of set elements).
 For more information, see:
 
 * [Overview of Redis sets](/docs/data-types/sets/)
