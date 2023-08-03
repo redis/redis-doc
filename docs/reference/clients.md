@@ -112,7 +112,7 @@ Every client is also subject to a query buffer limit. This is a non-configurable
 
 Redis is built to handle a very large number of client connections.
 Client connections tend to consume memory, and when there are many of them, the aggregate memory consumption can be extremely high, leading to data eviction or out-of-memory errors.
-These cases can be mitigated to an extent using [output buffer limits](#output-buffers-limits), but Redis allows us a more robust configuration to limit the aggregate memory used by all clients' connections.
+These cases can be mitigated to an extent using [output buffer limits](#output-buffer-limits), but Redis allows us a more robust configuration to limit the aggregate memory used by all clients' connections.
 
 
 This mechanism is called **client eviction**, and it's essentially a safety mechanism that will disconnect clients once the aggregate memory usage of all clients is above a threshold.
