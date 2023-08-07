@@ -70,6 +70,7 @@ BigNumber
 BitOp
 Bitfields
 Bitwise
+brpop
 C1
 C2
 C3
@@ -185,6 +186,8 @@ HyperLogLog.
 HyperLogLogs
 Hyperloglogs
 hyperloglogs
+incr
+incrby
 IOPs
 IPC
 IPs
@@ -218,6 +221,7 @@ LF
 LFU
 LHF
 LLOOGG
+lmove_lrange
 LRU
 LRU's
 LRU.
@@ -231,6 +235,14 @@ licensor's
 LibLZF
 Linode
 Liveness
+llen
+lmove_lrange
+lpop
+lpop_rpop
+lpush_rpush
+lrange
+ltrim
+ltrim_end_of_list
 Lua
 Lua's
 lua-debugging
@@ -244,8 +256,11 @@ Matteo
 Maxmemory
 Memcache
 MessagePack
+mget
 Movablekeys
 Mrkris
+mset
+multisets
 NAS
 NATted
 NFS
@@ -360,6 +375,7 @@ Retwis
 Retwis-J
 Retwis-RB
 Roshi
+rpush
 Rx/Tx
 Rslock
 S1
@@ -382,15 +398,23 @@ SSD
 SSL
 SVGs
 SYNC_RDB_START
+sadd
+sadd_smembers
 Sandboxed
 Sanfilippo
 Sanfilippo's
+scard
 ScarletLock
+sdiff
 Selectable
+setnx_xx
 Sharded
 Shuttleworth
+sinter
+sismember
 Slicehost
 SmartOS
+smismember
 Snapchat
 Snapcraft
 Snapshotting
@@ -398,6 +422,7 @@ Solaris-derived
 SomeOtherValue
 Sonatype
 SoundCloud
+srem
 StackOverflow
 StringDMA
 Subcommands
@@ -780,6 +805,7 @@ num-items
 numactl
 numkeys
 nullarray
+nx
 observability
 odown
 ok
@@ -1022,6 +1048,7 @@ wherefrom
 whitespace
 whitespaces
 whos-using-redis
+WRONGTYPE
 xff
 xzvf
 zeroed-ACLs
