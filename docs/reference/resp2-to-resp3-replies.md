@@ -1,6 +1,6 @@
 ---
 title: "RESP2 to RESP3 replies migration guide"
-linkTitle: "RESP2 to RESP3 replies migration guide"
+linkTitle: "RESP2 to RESP3 migration"
 weight: 4
 description: RESP2 to RESP3 replies reference for clients developers
 aliases:
