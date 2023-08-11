@@ -20,23 +20,22 @@ handling process. This documentation provides a reference for developers to migr
 
 
 ### Cluster Management
-| **Command**    | **RESP2 Reply**                                                       | **RESP3 Reply**                                                                              |
+| Command        | RESP2 Reply                                                           | RESP3 Reply                                                                                  |
 |----------------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
 | CLUSTER SLOTS  | Array<\[number, number, ...\[BlobString, number, BlobString, Array]]> | Array<\[number, number, ...\[BlobString, number, BlobString, Map\<BlobString, BlobString>]]> |
 | CLUSTER SHARDS | Array                                                                 | Map                                                                                          |
 
 ### Connection management
-| **Command**               | **RESP2 Reply** | **RESP3 Reply** |
-|---------------------------|-----------------|-----------------|
-| CLIENT INFO               | BlobString      | VerbatimString  |
-| CLIENT LIST               | BlobString      | VerbatimString  |
+| Command     | RESP2 Reply | RESP3 Reply    |
+|-------------|-------------|----------------|
+| CLIENT INFO | BlobString  | VerbatimString |
+| CLIENT LIST | BlobString  | VerbatimString |
 
 
 ### Generic
-|             |                 |                        |
-|-------------|-----------------|------------------------|
-| **Command** | **RESP2 Reply** | **RESP3 Reply**        |
-| RANDOMKEY   | BlobString      | null &#124; BlobString |
+| Command   | RESP2 Reply | RESP3 Reply            |
+|-----------|-------------|------------------------|
+| RANDOMKEY | BlobString  | null &#124; BlobString |
 
 ### Geo
 | Command                     | RESP2 Reply        | RESP3 Reply    |
@@ -47,10 +46,8 @@ handling process. This documentation provides a reference for developers to migr
 
 
 ### Hash
-|                      |                    |                                  |
+| Command              | RESP2 Reply        | RESP3 Reply                      |
 |----------------------|--------------------|----------------------------------|
-| **Command**          | **RESP2 Reply**    | **RESP3 Reply**                  |
-| **Hash**             |                    |                                  |
 | HGETALL              | Array              | Map                              |
 | HRANDFIELD WITHVALUE | Array\<BlobString> | Array<\[BlobString, BlobString]> |
 
@@ -62,13 +59,13 @@ handling process. This documentation provides a reference for developers to migr
 
 
 ### Server Management
-| Command**    | RESP2 Reply                                                                                          | RESP3 Reply                                  |
-|--------------|------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| MODULE LIST  | Array<\[BlobString<‘name’>, BlobString, BlobString<‘version’>, number]>                              | Array<{ name: BlobString, version: number }> |
-| MEMORY STATS | Array                                                                                                | Map                                          |
-| ACL LOG      | \[..., ‘age-seconds’, BlobString, …]                                                                 | { …, ‘age-seconds’: Double }                 |
-| ACL GETUSER  | Array                                                                                                | Map                                          |
-| COMMAND      | Array<\[BlobString,number,Set\<BlobString>,number,number,number,Set\<BlobString>,Set\<BlobString>,]> |                                              |
+| Command      | RESP2 Reply                                                                                                 | RESP3 Reply                                  |
+|--------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------|
+| MODULE LIST  | Array<\[BlobString<‘name’>, BlobString, BlobString<‘version’>, number]>                                     | Array<{ name: BlobString, version: number }> |
+| MEMORY STATS | Array                                                                                                       | Map                                          |
+| ACL LOG      | \[..., ‘age-seconds’, BlobString, …]                                                                        | { …, ‘age-seconds’: Double }                 |
+| ACL GETUSER  | Array                                                                                                       | Map                                          |
+| COMMAND      | Array<\[BlobString, number, Set\<BlobString>, number, number, number, Set\<BlobString>, Set\<BlobString>,]> |                                              |
 
 ### Sentinel
 | Command             | RESP2 Reply | RESP3 Reply |
