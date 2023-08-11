@@ -1,0 +1,8 @@
+{
+    "name": "qstudio",
+    "description": "Free tool that allows querying, charting, analysis and exporting data from Redis.",
+    "homepage": "https://www.timestored.com/qstudio/",
+    "twitter": [
+        "TimeStored"
+    ]
+}
