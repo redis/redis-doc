@@ -136,6 +136,7 @@ bitwise
 bitwise
 bool
 Booleans
+booleans
 BPF
 BPF-optimized
 BPF's
@@ -341,6 +342,7 @@ formatter
 france_location
 FreeBSD
 FreeString
+fractionals
 frequencyonly
 fsSL
 fsync
@@ -618,6 +620,8 @@ noeviction
 non-reachability
 non-TCP
 non-TLS
+non-loopback
+non-reachability
 non-virtualized
 nonprintable
 NOOP
@@ -639,6 +643,7 @@ NX
 nx
 observability
 ODOWN
+octothorpe
 odown
 Ok
 ok
@@ -969,7 +974,8 @@ suboptimal
 subsequence
 substring
 sudo
-SVGs
+SVGsSVGs
+superset
 swapdb
 swappability
 SYNC_RDB_START
@@ -991,6 +997,7 @@ tmp
 tmux
 toolkits
 topologies
+tonumber
 tradeoff
 tradeoffs
 transactional
@@ -1029,6 +1036,7 @@ untrusted
 untuned
 Unwatches
 unwatches
+uppercased
 urandom
 URI
 USD
