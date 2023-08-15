@@ -17,6 +17,7 @@
 1s
 1th
 2GB
+3am
 300ms
 30ms
 32bit
@@ -25,11 +26,14 @@
 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e
 3GB
 3MB
+4am
 4GB
 4k
+5am
 500MB
 512MB
 5GB
+6am
 60s
 6sync
 80ms
@@ -131,6 +135,7 @@ Bitwise
 bitwise
 bitwise
 bool
+Booleans
 BPF
 BPF-optimized
 BPF's
