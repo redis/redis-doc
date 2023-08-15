@@ -37,7 +37,7 @@ Cluster bus is a node-to-node communication channel that uses a binary protocol,
 little bandwidth and processing time. 
 Nodes use the cluster bus for failure detection, configuration updates, failover authorization, and so forth. 
 Clients should never try to communicate with the cluster bus port, but rather use the Redis command port. 
-However, make sure you open both ports in your firewall, otherwise Redis cluster nodes won't be unable to communicate.
+However, make sure you open both ports in your firewall, otherwise Redis cluster nodes won't be able to communicate.
 
 For a Redis Cluster to work properly you need, for each node:
 
@@ -960,7 +960,7 @@ by the application, and how. There are three different cases:
 3. Multiple keys operations, or transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
 
 The third case is not handled by Redis Cluster: the application requires to
-be modified in order to don't use multi keys operations or only use them in
+be modified in order to not use multi keys operations or only use them in
 the context of the same hash tag.
 
 Case 1 and 2 are covered, so we'll focus on those two cases, that are handled

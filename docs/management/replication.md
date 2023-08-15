@@ -200,14 +200,14 @@ Historically, there were some use cases that were considered legitimate for writ
 As of version 7.0, these use cases are now all obsolete and the same can be achieved by other means.
 For example:
 
-* Computing slow Set or Sorted set operations and storing the result in temporary local keys using commands like [SUNIONSTORE](/commands/sunionstore) and [ZINTERSTORE](/commands/zinterstore).
-  Instead, use commands that return the result without storing it, such as [SUNION](/commands/sunion) and [ZINTER](/commands/zinter).
+* Computing slow Set or Sorted set operations and storing the result in temporary local keys using commands like `SUNIONSTORE` and `ZINTERSTORE`.
+  Instead, use commands that return the result without storing it, such as `SUNION` and `ZINTER`.
 
-* Using the [SORT](/commands/sort) command (which is not considered a read-only command because of the optional STORE option and therefore cannot be used on a read-only replica).
-  Instead, use [SORT_RO](/commands/sort_ro), which is a read-only command.
+* Using the `SORT` command (which is not considered a read-only command because of the optional STORE option and therefore cannot be used on a read-only replica).
+  Instead, use `SORT_RO`, which is a read-only command.
 
-* Using [EVAL](/commands/eval) and [EVALSHA](/commands/evalsha) are also not considered read-only commands, because the Lua script may call write commands.
-  Instead, use [EVAL_RO](/commands/eval_ro) and [EVALSHA_RO](/commands/evalsha_ro) where the Lua script can only call read-only commands.
+* Using `EVAL` and `EVALSHA` are also not considered read-only commands, because the Lua script may call write commands.
+  Instead, use `EVAL_RO` and `EVALSHA_RO` where the Lua script can only call read-only commands.
 
 While writes to a replica will be discarded if the replica and the master resync or if the replica is restarted, there is no guarantee that they will sync automatically.
 
@@ -273,7 +273,7 @@ replicate keys with expires, even when such keys are altered using Lua
 scripts.
 
 To implement such a feature Redis cannot rely on the ability of the master and
-replica to have syncd clocks, since this is a problem that cannot be solved
+replica to have synced clocks, since this is a problem that cannot be solved
 and would result in race conditions and diverging data sets, so Redis
 uses three main techniques to make the replication of expired keys
 able to work:

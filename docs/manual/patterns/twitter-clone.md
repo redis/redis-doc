@@ -19,7 +19,7 @@ data layout using Redis, and how to apply different data structures.
 
 Our Twitter clone, called [Retwis](https://github.com/antirez/retwis), is structurally simple, has very good performance, and can be distributed among any number of web and Redis servers with little efforts. [View the Retwis source code](https://github.com/antirez/retwis).
 
-I used PHP for the example since it can be read by everybody. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
+I used PHP for the example because of its universal readability. The same (or better) results can be obtained using Ruby, Python, Erlang, and so on.
 A few clones exist (however not all the clones use the same data layout as the
 current version of this tutorial, so please, stick with the official PHP
 implementation for the sake of following the article better).
@@ -152,7 +152,7 @@ The Hash data type
 ---
 
 This is the last data structure we use in our program, and is extremely easy
-to gasp since there is an equivalent in almost every programming language out
+to grasp since there is an equivalent in almost every programming language out
 there: Hashes. Redis Hashes are basically like Ruby or Python hashes, a
 collection of fields associated with values:
 
@@ -217,7 +217,7 @@ We can add new followers with:
 
     ZADD followers:1000 1401267618 1234 => Add user 1234 with time 1401267618
 
-Another important thing we need is a place were we can add the updates to display in the user's home page. We'll need to access this data in chronological order later, from the most recent update to the oldest, so the perfect kind of data structure for this is a List. Basically every new update will be `LPUSH`ed in the user updates key, and thanks to `LRANGE`, we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
+Another important thing we need is a place where we can add the updates to display in the user's home page. We'll need to access this data in chronological order later, from the most recent update to the oldest, so the perfect kind of data structure for this is a List. Basically every new update will be `LPUSH`ed in the user updates key, and thanks to `LRANGE`, we can implement pagination and so on. Note that we use the words _updates_ and _posts_ interchangeably, since updates are actually "little posts" in some way.
 
     posts:1000 => a List of post ids - every new post is LPUSHed here.
 

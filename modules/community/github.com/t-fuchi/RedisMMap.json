@@ -1,0 +1,8 @@
+{
+    "name": "RedisMMap",
+    "license": "MIT",
+    "description": "Redis module for accessing values on mmapped file.",
+    "github": [
+        "t-fuchi"
+    ]
+}

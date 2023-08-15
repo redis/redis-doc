@@ -17,11 +17,9 @@ aliases: [
 
 * Deploy Redis using the Linux operating system. Redis is also tested on OS X, and from time to time on FreeBSD and OpenBSD systems. However, Linux is where most of the stress testing is performed, and where most production deployments are run.
 
-* Set the Linux kernel overcommit memory setting to 1. Add `vm.overcommit_memory = 1` to `/etc/sysctl.conf`. Then, reboot or run the command `sysctl vm.overcommit_memory=1` to activate the setting.
+* Set the Linux kernel overcommit memory setting to 1. Add `vm.overcommit_memory = 1` to `/etc/sysctl.conf`. Then, reboot or run the command `sysctl vm.overcommit_memory=1` to activate the setting. See [FAQ: Background saving fails with a fork() error on Linux?](https://redis.io/docs/getting-started/faq/#background-saving-fails-with-a-fork-error-on-linux) for details. 
 
-* To ensure the Linux kernel feature Transparent Huge Pages does not impact Redis memory usage and latency, use this command:
-
-`echo never > /sys/kernel/mm/transparent_hugepage/enabled`
+* To ensure the Linux kernel feature Transparent Huge Pages does not impact Redis memory usage and latency, run the command: `echo never > /sys/kernel/mm/transparent_hugepage/enabled` to disable it. See [Latency Diagnosis - Latency induced by transparent huge pages](https://redis.io/docs/management/optimization/latency/#latency-induced-by-transparent-huge-pages) for additional context. 
 
 ### Memory
 
@@ -58,7 +56,7 @@ aliases: [
 
 ## Upgrading or restarting a Redis instance without downtime
 
-Redis is designed to be a long-running process in your server. You can modify many configuration options without a restart using the [CONFIG SET command](/commands/config-set). You can also switch from AOF to RDB snapshots persistence, or the other way around, without restarting Redis. Check the output of the `CONFIG GET *` command for more information.
+Redis is designed to be a long-running process in your server. You can modify many configuration options without a restart using the `CONFIG SET` command. You can also switch from AOF to RDB snapshots persistence, or the other way around, without restarting Redis. Check the output of the `CONFIG GET *` command for more information.
 
 From time to time, a restart is required, for example, to upgrade the Redis process to a newer version, or when you need to modify a configuration parameter that is currently not supported by the `CONFIG` command.
 
@@ -76,7 +74,7 @@ Follow these steps to avoid downtime.
 
 * Configure all your clients to use the new instance (the replica). Note that you may want to use the `CLIENT PAUSE` command to ensure that no client can write to the old master during the switch.
 
-* Once you confirm that the master is no longer receiving any queries (you can check this using the [MONITOR command](/commands/monitor)), elect the replica to master using the `REPLICAOF NO ONE` command, and then shut down your master.
+* Once you confirm that the master is no longer receiving any queries (you can check this using the `MONITOR` command), elect the replica to master using the `REPLICAOF NO ONE` command, and then shut down your master.
 
 If you are using [Redis Sentinel](/topics/sentinel) or [Redis Cluster](/topics/cluster-tutorial), the simplest way to upgrade to newer versions is to upgrade one replica after the other. Then you can perform a manual failover to promote one of the upgraded replicas to master, and finally promote the last replica.
 

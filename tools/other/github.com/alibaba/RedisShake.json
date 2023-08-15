@@ -1,0 +1,4 @@
+{
+    "name": "redis-shake",
+    "description": "redis-shake is a tool for Redis data migration and data filtering."
+}

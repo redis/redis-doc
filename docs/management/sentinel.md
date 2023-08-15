@@ -117,7 +117,7 @@ One set of instances is called `mymaster`, and the other `resque`.
 
 The meaning of the arguments of `sentinel monitor` statements is the following:
 
-    sentinel monitor <master-group-name> <ip> <port> <quorum>
+    sentinel monitor <master-name> <ip> <port> <quorum>
 
 For the sake of clarity, let's check line by line what the configuration
 options mean:
@@ -809,8 +809,8 @@ In order for Sentinels to connect to Redis server instances when they are
 configured with ACL, the Sentinel configuration must include the
 following directives:
 
-    sentinel auth-user <master-group-name> <username>
-    sentinel auth-pass <master-group-name> <password>
+    sentinel auth-user <master-name> <username>
+    sentinel auth-pass <master-name> <password>
 
 Where `<username>` and `<password>` are the username and password for accessing the group's instances. These credentials should be provisioned on all of the group's Redis instances with the minimal control permissions. For example:
 
@@ -842,7 +842,7 @@ In order for Sentinels to connect to Redis server instances when they are
 configured with `requirepass`, the Sentinel configuration must include the
 `sentinel auth-pass` directive, in the format:
 
-    sentinel auth-pass <master-group-name> <password>
+    sentinel auth-pass <master-name> <password>
 
 Configuring Sentinel instances with authentication
 ---

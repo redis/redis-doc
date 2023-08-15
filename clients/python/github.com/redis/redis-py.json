@@ -1,5 +1,5 @@
 {
     "name": "redis-py",
-    "description": "Mature and supported. Currently the way to go for Python.",
-    "recommended": true
+    "description": "Mature and supported. The way to go for Python.",
+    "official": true
 }

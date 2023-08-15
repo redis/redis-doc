@@ -1,0 +1,4 @@
+{
+    "name": "redis-rdb-cli",
+    "description": "A tool that can parse, filter, split, merge rdb and analyze memory usage offline. It can also sync 2 redis data and allow user define there own sink service to migrate redis data to somewhere."
+}

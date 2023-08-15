@@ -9,43 +9,53 @@ description: >
 Redis hashes are record types structured as collections of field-value pairs.
 You can use hashes to represent basic objects and to store groupings of counters, among other things.
 
-## Examples
-
-* Represent a basic user profile as a hash:
-```
-> HSET user:123 username martina firstName Martina lastName Elisa country GB
+{{< clients-example hash_tutorial set_get_all >}}
+> hset bike:1 model Deimos brand Ergonom type 'Enduro bikes' price 4972
 (integer) 4
-> HGET user:123 username
-"martina"
-> HGETALL user:123
-1) "username"
-2) "martina"
-3) "firstName"
-4) "Martina"
-5) "lastName"
-6) "Elisa"
-7) "country"
-8) "GB"
-```
+> hget bike:1 model
+"Deimos"
+> hget bike:1 price
+"4972"
+> hgetall bike:1
+1) "model"
+2) "Deimos"
+3) "brand"
+4) "Ergonom"
+5) "type"
+6) "Enduro bikes"
+7) "price"
+8) "4972"
 
-* Store counters for the number of times device 777 had pinged the server, issued a request, or sent an error:
-```
-> HINCRBY device:777:stats pings 1
-(integer) 1
-> HINCRBY device:777:stats pings 1
-(integer) 2
-> HINCRBY device:777:stats pings 1
-(integer) 3
-> HINCRBY device:777:stats errors 1
-(integer) 1
-> HINCRBY device:777:stats requests 1
-(integer) 1
-> HGET device:777:stats pings
-"3"
-> HMGET device:777:stats requests errors
-1) "1"
-2) "1"
-```
+{{< /clients-example >}}
+
+While hashes are handy to represent *objects*, actually the number of fields you can
+put inside a hash has no practical limits (other than available memory), so you can use
+hashes in many different ways inside your application.
+
+The command `HSET` sets multiple fields of the hash, while `HGET` retrieves
+a single field. `HMGET` is similar to `HGET` but returns an array of values:
+
+{{< clients-example hash_tutorial hmget >}}
+> hmget bike:1 model price no-such-field
+1) "Deimos"
+2) "4972"
+3) (nil)
+{{< /clients-example >}}
+
+There are commands that are able to perform operations on individual fields
+as well, like `HINCRBY`:
+
+{{< clients-example hash_tutorial hincrby >}}
+> hincrby bike:1 price 100
+(integer) 5072
+> hincrby bike:1 price -100
+(integer) 4972
+{{< /clients-example >}}
+
+You can find the [full list of hash commands in the documentation](https://redis.io/commands#hash).
+
+It is worth noting that small hashes (i.e., a few elements with small values) are
+encoded in special way in memory that make them very memory efficient.
 
 ## Basic commands
 
@@ -55,6 +65,29 @@ You can use hashes to represent basic objects and to store groupings of counters
 * `HINCRBY` increments the value at a given field by the integer provided.
 
 See the [complete list of hash commands](https://redis.io/commands/?group=hash).
+
+
+## Examples
+
+* Store counters for the number of times bike:1 has been ridden, has crashed, or has changed owners:
+{{< clients-example hash_tutorial incrby_get_mget >}}
+> HINCRBY bike:1:stats rides 1
+(integer) 1
+> HINCRBY bike:1:stats rides 1
+(integer) 2
+> HINCRBY bike:1:stats rides 1
+(integer) 3
+> HINCRBY bike:1:stats crashes 1
+(integer) 1
+> HINCRBY bike:1:stats owners 1
+(integer) 1
+> HGET bike:1:stats rides
+"3"
+> HMGET bike:1:stats owners crashes
+1) "1"
+2) "1"
+{{< /clients-example >}}
+
 
 ## Performance
 

@@ -45,6 +45,10 @@ The endpoint, along with the port, defines the location that clients should use 
 A NULL value for the endpoint indicates the node has an unknown endpoint and the client should connect to the same endpoint it used to send the `CLUSTER SHARDS` command but with the port returned from the command.
 This unknown endpoint configuration is useful when the Redis nodes are behind a load balancer that Redis doesn't know the endpoint of.
 Which endpoint is set is determined by the `cluster-preferred-endpoint-type` config.
+An empty string `""` is another abnormal value of the endpoint field, as well as for the ip field, which is returned if the node doesn't know its own IP address.
+This can happen in a cluster that consists of only one node or the node has not yet been joined with the rest of the cluster.
+The value `?` is displayed if the node is incorrectly configured to use announced hostnames but no hostname is configured using `cluster-announce-hostname`.
+Clients may treat the empty string in the same way as NULL, that is the same endpoint it used to send the current command to, while `"?"` should be treated as an unknown node, not necessarily the same node as the one serving the current command.
 
 @return
 
@@ -66,14 +70,12 @@ Which endpoint is set is determined by the `cluster-preferred-endpoint-type` con
           6) "127.0.0.1"
           7) "endpoint"
           8) "127.0.0.1"
-          9) "hostname"
-         10) ""
-         11) "role"
-         12) "master"
-         13) "replication-offset"
-         14) (integer) 72156
-         15) "health"
-         16) "online"
+          9) "role"
+         10) "master"
+         11) "replication-offset"
+         12) (integer) 72156
+         13) "health"
+         14) "online"
       2)  1) "id"
           2) "1901f5962d865341e81c85f9f596b1e7160c35ce"
           3) "port"
@@ -82,14 +84,12 @@ Which endpoint is set is determined by the `cluster-preferred-endpoint-type` con
           6) "127.0.0.1"
           7) "endpoint"
           8) "127.0.0.1"
-          9) "hostname"
-         10) ""
-         11) "role"
-         12) "replica"
-         13) "replication-offset"
-         14) (integer) 72156
-         15) "health"
-         16) "online"
+          9) "role"
+         10) "replica"
+         11) "replication-offset"
+         12) (integer) 72156
+         13) "health"
+         14) "online"
 2) 1) "slots"
    2) 1) (integer) 10923
       2) (integer) 16383
@@ -102,14 +102,12 @@ Which endpoint is set is determined by the `cluster-preferred-endpoint-type` con
           6) "127.0.0.1"
           7) "endpoint"
           8) "127.0.0.1"
-          9) "hostname"
-         10) ""
-         11) "role"
-         12) "master"
-         13) "replication-offset"
-         14) (integer) 72156
-         15) "health"
-         16) "online"
+          9) "role"
+         10) "master"
+         11) "replication-offset"
+         12) (integer) 72156
+         13) "health"
+         14) "online"
       2)  1) "id"
           2) "6daa25c08025a0c7e4cc0d1ab255949ce6cee902"
           3) "port"
@@ -118,14 +116,12 @@ Which endpoint is set is determined by the `cluster-preferred-endpoint-type` con
           6) "127.0.0.1"
           7) "endpoint"
           8) "127.0.0.1"
-          9) "hostname"
-         10) ""
-         11) "role"
-         12) "replica"
-         13) "replication-offset"
-         14) (integer) 72156
-         15) "health"
-         16) "online"
+          9) "role"
+         10) "replica"
+         11) "replication-offset"
+         12) (integer) 72156
+         13) "health"
+         14) "online"
 3) 1) "slots"
    2) 1) (integer) 5461
       2) (integer) 10922
@@ -138,14 +134,12 @@ Which endpoint is set is determined by the `cluster-preferred-endpoint-type` con
           6) "127.0.0.1"
           7) "endpoint"
           8) "127.0.0.1"
-          9) "hostname"
-         10) ""
-         11) "role"
-         12) "master"
-         13) "replication-offset"
-         14) (integer) 72156
-         15) "health"
-         16) "online"
+          9) "role"
+         10) "master"
+         11) "replication-offset"
+         12) (integer) 72156
+         13) "health"
+         14) "online"
       2)  1) "id"
           2) "da6d5847aa019e9b9d2a8aa24a75f856fd3456cc"
           3) "port"
@@ -154,12 +148,10 @@ Which endpoint is set is determined by the `cluster-preferred-endpoint-type` con
           6) "127.0.0.1"
           7) "endpoint"
           8) "127.0.0.1"
-          9) "hostname"
-         10) ""
-         11) "role"
-         12) "replica"
-         13) "replication-offset"
-         14) (integer) 72156
-         15) "health"
-         16) "online"
+          9) "role"
+         10) "replica"
+         11) "replication-offset"
+         12) (integer) 72156
+         13) "health"
+         14) "online"
 ```

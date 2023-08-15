@@ -1,4 +1,0 @@
-{
-    "name": "redis-async",
-    "description": "Asynchronous redis client library for PHP."
-}
