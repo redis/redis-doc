@@ -45,7 +45,7 @@ See the [complete list of stream commands](https://redis.io/commands/?group=stre
 {{< /clients-example >}}
 
 * Read two stream entries starting at ID `1691765278160-0`:
-{{< clients-example streams_tutorial xrange >}}
+{{< clients-example stream_tutorial xrange >}}
 > XRANGE race:france 1691765278160-0 + COUNT 2
 1) 1) "1691765278160-0"
    2) 1) "rider"
@@ -118,7 +118,7 @@ The format of such IDs may look strange at first, and the gentle reader may wond
 
 If for some reason the user needs incremental IDs that are not related to time but are actually associated to another external system ID, as previously mentioned, the `XADD` command can take an explicit ID instead of the `*` wildcard ID that triggers auto-generation, like in the following examples:
 
-{{< clients-example streams_toturial xadd_id >}}
+{{< clients-example stream_toturial xadd_id >}}
 > XADD race:usa 0-1 racer Castilla
 0-1
 > XADD race:usa 0-2 racer Norem
@@ -127,14 +127,14 @@ If for some reason the user needs incremental IDs that are not related to time b
 
 Note that in this case, the minimum ID is 0-1 and that the command will not accept an ID equal or smaller than a previous one:
 
-{{< clients-example streams_toturial xadd_bad_id >}}
+{{< clients-example stream_toturial xadd_bad_id >}}
 > XADD race:usa 0-1 racer Prickett
 (error) ERR The ID specified in XADD is equal or smaller than the target stream top item
 {{< /clients-example >}}
 
 If you're running Redis 7 or later, you can also provide an explicit ID consisting of the milliseconds part only. In this case, the sequence portion of the ID will be automatically generated. To do this, use the syntax below:
 
-{{< clients-example streams_toturial xadd_7 >}}
+{{< clients-example stream_toturial xadd_7 >}}
 > XADD race:usa 0-* racer Prickett
 0-3
 {{< /clients-example >}}
@@ -153,7 +153,7 @@ Redis Streams support all three of the query modes described above via different
 
 To query the stream by range we are only required to specify two IDs, *start* and *end*. The range returned will include the elements having start or end as ID, so the range is inclusive. The two special IDs `-` and `+` respectively mean the smallest and the greatest ID possible.
 
-{{< clients-example streams_toturial xrange_all >}}
+{{< clients-example stream_toturial xrange_all >}}
 > XRANGE race:france - +
 1) 1) "1691762745152-0"
    2) 1) "rider"
@@ -195,7 +195,7 @@ To query the stream by range we are only required to specify two IDs, *start* an
 
 Each entry returned is an array of two items: the ID and the list of field-value pairs. We already said that the entry IDs have a relation with the time, because the part at the left of the `-` character is the Unix time in milliseconds of the local node that created the stream entry, at the moment the entry was created (however note that streams are replicated with fully specified `XADD` commands, so the replicas will have identical IDs to the master). This means that I could query a range of time using `XRANGE`. In order to do so, however, I may want to omit the sequence part of the ID: if omitted, in the start of the range it will be assumed to be 0, while in the end part it will be assumed to be the maximum sequence number available. This way, querying using just two milliseconds Unix times, we get all the entries that were generated in that range of time, in an inclusive way. For instance, if I want to query a two milliseconds period I could use:
 
-{{< clients-example streams_toturial xrange_time >}}
+{{< clients-example stream_toturial xrange_time >}}
 > XRANGE race:france 1691765375864 1691765375866
 1) 1) "1691765375865-0"
    2) 1) "rider"
@@ -210,7 +210,7 @@ Each entry returned is an array of two items: the ID and the list of field-value
 
 I have only a single entry in this range, however in real data sets, I could query for ranges of hours, or there could be many items in just two milliseconds, and the result returned could be huge. For this reason, `XRANGE` supports an optional **COUNT** option at the end. By specifying a count, I can just get the first *N* items. If I want more, I can get the last ID returned, increment the sequence part by one, and query again. Let's see this in the following example. Let's assume that the stream `race:france` was populated with 4 items. To start my iteration, getting 2 items per command, I start with the full range, but with a count of 2.
 
-{{< clients-example streams_toturial xrange_step_1 >}}
+{{< clients-example stream_toturial xrange_step_1 >}}
 > XRANGE race:france - + COUNT 2
 1) 1) "1691762745152-0"
    2) 1) "rider"
@@ -234,7 +234,7 @@ I have only a single entry in this range, however in real data sets, I could que
 
 In order to continue the iteration with the next two items, I have to pick the last ID returned, that is `1691765278160-0` and add the prefix `(` to it. The resulting exclusive range interval, that is `(1691765278160-0` in this case, can now be used as the new *start* argument for the next `XRANGE` call:
 
-{{< clients-example streams_toturial xrange_step_2 >}}
+{{< clients-example stream_toturial xrange_step_2 >}}
 > XRANGE race:france (1691765278160-0 + COUNT 2
 1) 1) "1691765289770-0"
    2) 1) "rider"
@@ -258,7 +258,7 @@ In order to continue the iteration with the next two items, I have to pick the l
 
 Now that we've gotten 4 items out of a stream that only had 4 things in it, if we try to get more items, we'll get an empty array:
 
-{{< clients-example streams_toturial xrange_empty >}}
+{{< clients-example stream_toturial xrange_empty >}}
 > XRANGE race:france (1691765375865-0 + COUNT 2
 (empty array)
 {{< /clients-example >}}
@@ -267,7 +267,7 @@ Since `XRANGE` complexity is *O(log(N))* to seek, and then *O(M)* to return M el
 
 The command `XREVRANGE` is the equivalent of `XRANGE` but returning the elements in inverted order, so a practical use for `XREVRANGE` is to check what is the last item in a Stream:
 
-{{< clients-example streams_toturial xrevrange >}}
+{{< clients-example stream_toturial xrevrange >}}
 > XREVRANGE race:france + - COUNT 1
 1) 1) "1691765375865-0"
    2) 1) "rider"
@@ -292,7 +292,7 @@ When we do not want to access items by a range in a stream, usually what we want
 
 The command that provides the ability to listen for new messages arriving into a stream is called `XREAD`. It's a bit more complex than `XRANGE`, so we'll start showing simple forms, and later the whole command layout will be provided.
 
-{{< clients-example streams_toturial xread >}}
+{{< clients-example stream_toturial xread >}}
 > XREAD COUNT 2 STREAMS race:france 0
 1) 1) "race:france"
    2) 1) 1) "1691762745152-0"
@@ -391,7 +391,7 @@ Now it's time to zoom in to see the fundamental consumer group commands. They ar
 
 Assuming I have a key `race:france` of type stream already existing, in order to create a consumer group I just need to do the following:
 
-{{< clients-example streams_toturial xgroup_create >}}
+{{< clients-example stream_toturial xgroup_create >}}
 > XGROUP CREATE race:france france_location $
 OK
 {{< /clients-example >}}
@@ -400,7 +400,7 @@ As you can see in the command above when creating the consumer group we have to 
 
 `XGROUP CREATE` also supports creating the stream automatically, if it doesn't exist, using the optional `MKSTREAM` subcommand as the last argument:
 
-{{< clients-example streams_toturial xgroup_create_mkstream >}}
+{{< clients-example stream_toturial xgroup_create_mkstream >}}
 > XGROUP CREATE race:italy italy_racers $ MKSTREAM
 OK
 {{< /clients-example >}}
@@ -412,7 +412,7 @@ Now that the consumer group is created we can immediately try to read messages v
 We'll add racers to the race:italy stream and try reading something using the consumer group:
 Note: *here racer is the field name, and the name is the associated value, remember that stream items are small dictionaries.*
 
-{{< clients-example streams_toturial xgroup_read >}}
+{{< clients-example stream_toturial xgroup_read >}}
 > XADD race:italy * racer Castilla
 "1691766245113-0"
 > XADD race:italy * racer Royce
@@ -441,7 +441,7 @@ This is almost always what you want, however it is also possible to specify a re
 
 We can test this behavior immediately specifying an ID of 0, without any **COUNT** option: we'll just see the only pending message, that is, the one about apples:
 
-{{< clients-example streams_toturial xgroup_read_id >}}
+{{< clients-example stream_toturial xgroup_read_id >}}
 > XREADGROUP GROUP italy_racers Alice STREAMS race:italy 0
 1) 1) "race:italy"
    2) 1) 1) "1691766245113-0"
@@ -451,7 +451,7 @@ We can test this behavior immediately specifying an ID of 0, without any **COUNT
 
 However, if we acknowledge the message as processed, it will no longer be part of the pending messages history, so the system will no longer report anything:
 
-{{< clients-example streams_toturial xack >}}
+{{< clients-example stream_toturial xack >}}
 > XACK race:italy italy_racers 1691766245113-0
 (integer) 1
 > XREADGROUP GROUP italy_racers Alice STREAMS race:italy 0
@@ -463,7 +463,7 @@ Don't worry if you yet don't know how `XACK` works, the idea is just that proces
 
 Now it's Bob's turn to read something:
 
-{{< clients-example streams_toturial xgroup_read_bob >}}
+{{< clients-example stream_toturial xgroup_read_bob >}}
 > XREADGROUP GROUP italy_racers Bob COUNT 2 STREAMS race:italy >
 1) 1) "race:italy"
    2) 1) 1) "1691766256307-0"
@@ -555,7 +555,7 @@ The first step of this process is just a command that provides observability of 
 This is a read-only command which is always safe to call and will not change ownership of any message.
 In its simplest form, the command is called with two arguments, which are the name of the stream and the name of the consumer group.
 
-{{< clients-example streams_toturial xpending >}}
+{{< clients-example stream_toturial xpending >}}
 > XPENDING race:italy italy_racers
 1) (integer) 2
 2) "1691766256307-0"
@@ -575,7 +575,7 @@ XPENDING <key> <groupname> [[IDLE <min-idle-time>] <start-id> <end-id> <count> [
 
 By providing a start and end ID (that can be just `-` and `+` as in `XRANGE`) and a count to control the amount of information returned by the command, we are able to know more about the pending messages. The optional final argument, the consumer name, is used if we want to limit the output to just messages pending for a given consumer, but won't use this feature in the following example.
 
-{{< clients-example streams_toturial xpending_plus_minus >}}
+{{< clients-example stream_toturial xpending_plus_minus >}}
 > XPENDING race:italy italy_racers - + 10
 1) 1) "1691766256307-0"
    2) "Bob"
@@ -592,7 +592,7 @@ We have two messages from Bob, and they are idle for 60000+ milliseconds, about 
 
 Note that nobody prevents us from checking what the first message content was by just using `XRANGE`.
 
-{{< clients-example streams_toturial xrange_pending >}}
+{{< clients-example stream_toturial xrange_pending >}}
 > XRANGE race:italy 1691766256307-0 1691766256307-0
 1) 1) "1691766256307-0"
    2) 1) "racer"
@@ -618,7 +618,7 @@ However, as a side effect, claiming a message will reset its idle time and will 
 
 This is the result of the command execution:
 
-{{< clients-example streams_toturial xclaim >}}
+{{< clients-example stream_toturial xclaim >}}
 > XCLAIM race:italy italy_racers Alice 60000 1691766256307-0
 1) 1) "1691766256307-0"
    2) 1) "racer"
@@ -646,7 +646,7 @@ XAUTOCLAIM <key> <group> <consumer> <min-idle-time> <start> [COUNT count] [JUSTI
 
 So, in the example above, I could have used automatic claiming to claim a single message like this:
 
-{{< clients-example streams_toturial xautoclaim >}}
+{{< clients-example stream_toturial xautoclaim >}}
 > XAUTOCLAIM race:italy italy_racers Alice 60000 0-0 COUNT 1
 1) "1691766261145-0"
 2) 1) 1) "1691766256307-0"
@@ -657,7 +657,7 @@ So, in the example above, I could have used automatic claiming to claim a single
 Like `XCLAIM`, the command replies with an array of the claimed messages, but it also returns a stream ID that allows iterating the pending entries.
 The stream ID is a cursor, and I can use it in my next call to continue in claiming idle pending messages:
 
-{{< clients-example streams_toturial xautoclaim_cursor >}}
+{{< clients-example stream_toturial xautoclaim_cursor >}}
 > XAUTOCLAIM race:italy italy_racers Lora 60000 1526569498055-0 COUNT 1
 1) "0-0"
 2) 1) 1) "1691766261145-0"
@@ -682,7 +682,7 @@ However we may want to do more than that, and the `XINFO` command is an observab
 
 This command uses subcommands in order to show different information about the status of the stream and its consumer groups. For instance **XINFO STREAM <key>** reports information about the stream itself.
 
-{{< clients-example streams_toturial xinfo >}}
+{{< clients-example stream_toturial xinfo >}}
 > XINFO STREAM race:italy
  1) "length"
  2) (integer) 5
@@ -706,7 +706,7 @@ This command uses subcommands in order to show different information about the s
 
 The output shows information about how the stream is encoded internally, and also shows the first and last message in the stream. Another piece of information available is the number of consumer groups associated with this stream. We can dig further asking for more information about the consumer groups.
 
-{{< clients-example streams_toturial xinfo_groups >}}
+{{< clients-example stream_toturial xinfo_groups >}}
 > XINFO GROUPS race:italy
 1) 1) "name"
    2) "italy_racers"
@@ -722,7 +722,7 @@ As you can see in this and in the previous output, the `XINFO` command outputs a
 
 The output of the example above, where the **GROUPS** subcommand is used, should be clear observing the field names. We can check in more detail the state of a specific consumer group by checking the consumers that are registered in the group.
 
-{{< clients-example streams_toturial xinfo_consumers >}}}
+{{< clients-example stream_toturial xinfo_consumers >}}
 > XINFO CONSUMERS race:italy italy_racers
 1) 1) "name"
    2) "Alice"
