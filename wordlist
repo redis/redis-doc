@@ -70,6 +70,7 @@ BigNumber
 BitOp
 Bitfields
 Bitwise
+Booleans
 brpop
 C1
 C2
@@ -271,6 +272,7 @@ NTP
 NUMA
 NX
 NaN
+NaNs
 Nehalem
 node-redis
 NoSQL
@@ -532,6 +534,7 @@ bitop
 bitwise
 bitwise
 bool
+booleans
 breakpoint
 broadcasted
 bt
@@ -655,6 +658,7 @@ foo0
 foo1
 foo2
 formatter
+fractionals
 frequencyonly
 fsSL
 fsync
@@ -794,6 +798,7 @@ node-redlock
 noeviction
 non-TCP
 non-TLS
+non-loopback
 non-reachability
 non-virtualized
 nonprintable
@@ -807,6 +812,7 @@ numkeys
 nullarray
 nx
 observability
+octothorpe
 odown
 ok
 oldval
@@ -984,6 +990,7 @@ suboptimal
 subsequence
 substring
 sudo
+superset
 swapdb
 swappability
 syncd
@@ -998,6 +1005,7 @@ tmp
 tmux
 toolkits
 topologies
+tonumber
 tradeoff
 tradeoffs
 transactional
@@ -1024,6 +1032,7 @@ unregisters
 untrusted
 untuned
 unwatches
+uppercased
 urandom
 used_memory_scripts_eval
 userSession
