@@ -805,7 +805,7 @@ However trimming with **MAXLEN** can be expensive: streams are represented by ma
 XADD race:italy MAXLEN ~ 1000 * ... entry fields here ...
 ```
 
-The `~` argument between the **MAXLEN** option and the actual count means, I don't really need this to be exactly 1000 items. It can be 1000 or 1010 or 1030, just make sure to save at least 1000 items. With this argument, the trimming is performed only when we can remove a whole node. This makes it much more efficient, and it is usually what you want. You'll note here that the client libraries have various implementations of this, For example, the Python client defaults to approximate and has to be explicitly set to a true length.
+The `~` argument between the **MAXLEN** option and the actual count means, I don't really need this to be exactly 1000 items. It can be 1000 or 1010 or 1030, just make sure to save at least 1000 items. With this argument, the trimming is performed only when we can remove a whole node. This makes it much more efficient, and it is usually what you want. You'll note here that the client libraries have various implementations of this. For example, the Python client defaults to approximate and has to be explicitly set to a true length.
 
 There is also the `XTRIM` command, which performs something very similar to what the **MAXLEN** option does above, except that it can be run by itself:
 
