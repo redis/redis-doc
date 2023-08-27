@@ -356,7 +356,7 @@ Due to historical reasons, RESP2 features two specially crafted values for repre
 This duality has always been a redundancy that added zero semantical value to the protocol itself.
 
 The null type, introduced in RESP3, aims to fix this wrong.
-{{% /alert %}}}}
+{{% /alert %}}
 
 <a name="boolean-reply">
 
