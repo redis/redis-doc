@@ -7,30 +7,31 @@ aliases:
     - /topics/resp2-to-resp3-replies/
 ---
 
-In the journey from RESP2 to [RESP3](https://redis.io/docs/reference/protocol-spec/), one of the primary motivations was 
-to streamline the developer experience by simplifying response parsing. Over time, it became evident that developers 
-frequently performed specific data transformations on RESP2 replies. Addressing these transformations directly at the 
-protocol level not only reduces the overhead for developers but also ensures a more consistent and efficient data 
-handling process. This documentation provides a reference for developers to migrate their clients from RESP2 to RESP3.
+In the journey from RESP2 to [RESP3](https://redis.io/docs/reference/protocol-spec/), one of the primary motivations was to streamline the developer experience by simplifying response parsing. 
+Over time, it became evident that developers frequently performed specific data transformations on RESP2 replies, which required hardcoded transformations per command. 
+Addressing these transformations directly at the protocol level reduces clients' overhead and ensures a more consistent and efficient replies handling process.  
+This documentation provides a reference for developers to migrate their clients from RESP2 to RESP3.
 
 ### Command Replies Comparison
-- If you see any missing commands, please [open an issue](https://github.com/redis/redis-doc/issues/new?title=RESP2-to-RESP3%20command%20is%20missing)
-- `null` was "promoted" from a subtype of `BlobString` and `Array` to its own type, these changes are not included in this list.
-- The types are described using [“TypeScript like” syntax](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
-
+- RESP3 introduces many new [simple types and aggregates]((https://redis.io/docs/reference/protocol-spec/#resp-protocol-description)).
+The following tables compare only commands with non-trivial changes in replies, primarily for new aggregates introduced in RESP3 that require major changes in the client implementation.
+- The types are described using [“TypeScript like” syntax](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html): 
+  - `[a, b]` stands for [a tuple](https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types) where we know the exact number of elements and types at specific positions.
+  - `Array<a>` stands for [an array](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#arrays) where we know the type of elements but not the number of elements.
 
 ### Cluster Management
 | Command        | RESP2 Reply                                                           | RESP3 Reply                                                                                  |
 |----------------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
 | CLUSTER SLOTS  | Array<\[number, number, ...\[BlobString, number, BlobString, Array]]> | Array<\[number, number, ...\[BlobString, number, BlobString, Map\<BlobString, BlobString>]]> |
 | CLUSTER SHARDS | Array                                                                 | Map                                                                                          |
+ | CLUSTER INFO   | BlobString                                                            | VerbatimString                                                                               |
+ | CLUSTER NODES  | BlobString                                                            | VerbatimString                                                                               |
 
 ### Connection management
 | Command     | RESP2 Reply | RESP3 Reply    |
 |-------------|-------------|----------------|
 | CLIENT INFO | BlobString  | VerbatimString |
 | CLIENT LIST | BlobString  | VerbatimString |
-
 
 ### Generic
 | Command   | RESP2 Reply | RESP3 Reply            |
@@ -44,7 +45,6 @@ handling process. This documentation provides a reference for developers to migr
 | GEORADIUSBYMEMBER WITHCOORD | \[..., BlobString] | \[..., Double] |
 | GEOSEARCH WITHCOORD         | \[..., BlobString] | \[..., Double] |
 
-
 ### Hash
 | Command              | RESP2 Reply        | RESP3 Reply                      |
 |----------------------|--------------------|----------------------------------|
@@ -57,15 +57,16 @@ handling process. This documentation provides a reference for developers to migr
 | FUNCTION LIST          | Array<\[‘library\_name’, BlobString, ‘engine’, BlobString, ‘functions’, Array<\[‘name’, BlobString, ‘description’, BlobString &#124; null, ‘flags’, Array\<BlobString>]>]>                              | Array<\[{ library\_name: BlobString, engine: BlobString, functions: Array<{ name: BlobString, description: BlobString &#124; null, flags: Set\<BlobString> }> }]>                            |
 | FUNCTION LIST WITHCODE | Array<\[‘library\_name’, BlobString, ‘engine’, BlobString, ‘functions’, Array<\[‘name’, BlobString, ‘description’, BlobString &#124; null, ‘flags’, Array\<BlobString>]>, ‘library\_code’, BlobString]> | Array<\[{ library\_name: BlobString, engine: BlobString, functions: Array<{ name: BlobString, description: BlobString &#124; null, flags: Set\<BlobString> }>, library\_code: BlobString }]> |
 
-
 ### Server Management
-| Command      | RESP2 Reply                                                                                                 | RESP3 Reply                                  |
-|--------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| MODULE LIST  | Array<\[BlobString<‘name’>, BlobString, BlobString<‘version’>, number]>                                     | Array<{ name: BlobString, version: number }> |
-| MEMORY STATS | Array                                                                                                       | Map                                          |
-| ACL LOG      | \[..., ‘age-seconds’, BlobString, …]                                                                        | { …, ‘age-seconds’: Double }                 |
-| ACL GETUSER  | Array                                                                                                       | Map                                          |
-| COMMAND      | Array<\[BlobString, number, Set\<BlobString>, number, number, number, Set\<BlobString>, Set\<BlobString>,]> |                                              |
+| Command       | RESP2 Reply                                                                                                 | RESP3 Reply                                  |
+|---------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------|
+| MODULE LIST   | Array<\[BlobString<‘name’>, BlobString, BlobString<‘version’>, number]>                                     | Array<{ name: BlobString, version: number }> |
+| MEMORY STATS  | Array                                                                                                       | Map                                          |
+| ACL LOG       | \[..., ‘age-seconds’, BlobString, …]                                                                        | { …, ‘age-seconds’: Double }                 |
+| ACL GETUSER   | Array                                                                                                       | Map                                          |
+| COMMAND       | Array<\[BlobString, number, Set\<BlobString>, number, number, number, Set\<BlobString>, Set\<BlobString>,]> |                                              |
+| INFO          | BlobString                                                                                                  | VerbatimString                               |
+| MEMORY DOCTOR | BlobString                                                                                                  | VerbatimString                               |
 
 ### Sentinel
 | Command             | RESP2 Reply | RESP3 Reply |
