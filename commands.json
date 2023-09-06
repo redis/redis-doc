@@ -56,6 +56,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "ACL DRYRUN": {
@@ -263,6 +267,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "ACL SETUSER": {
@@ -305,6 +313,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "ACL USERS": {
@@ -2169,6 +2181,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CLIENT SETNAME": {
@@ -2192,6 +2208,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CLIENT TRACKING": {
@@ -3359,6 +3379,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CONFIG REWRITE": {
@@ -3377,6 +3401,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CONFIG SET": {
@@ -8088,7 +8116,7 @@
         ],
         "hints": [
             "request_policy:all_nodes",
-            "response_policy:all_succeeded"
+            "response_policy:agg_sum"
         ]
     },
     "LCS": {
