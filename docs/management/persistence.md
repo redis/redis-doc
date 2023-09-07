@@ -259,26 +259,35 @@ and starts appending new data into the new file.
 
 ### How I can switch to AOF, if I'm currently using dump.rdb snapshots?
 
-There is a different procedure to do this in version 2.0 and later versions, as you
-can guess it's simpler since Redis 2.2 and does not require a restart at all.
+If you want to enable AOF in a server that is currently using RDB snapshots, you need to convert the data by enabling AOF via CONFIG command on the live server first.
+
+**IMPORTANT:** not following this procedure (e.g. just changing the config and restarting the server) can result in data loss!
 
 **Redis >= 2.2**
 
+Preparations:
+
 * Make a backup of your latest dump.rdb file.
 * Transfer this backup to a safe place.
-* Issue the following two commands:
-* `redis-cli config set appendonly yes`
-* `redis-cli config set save ""`
-* Make sure your database contains the same number of keys it contained.
+
+Switch to AOF on live database:
+
+* Enable AOF: `redis-cli config set appendonly yes`
+* Optionally disable RDB: `redis-cli config set save ""`
+* Wait for AOF rewrite to finish persisting the data. You can do that by
+  watching `INFO persistence`, waiting for `aof_rewrite_in_progress` and
+  `aof_rewrite_scheduled` to be `0`, and validate that
+  `aof_last_bgrewrite_status` is `ok`.
+* **IMPORTANT:** Update your `redis.conf` (potentially through `CONFIG
+  REWRITE`) and ensure that it matches the config above. (If you forget this
+  step, when you restart the server, the configuration changes will be lost and
+  the server will start again with the old configuration, resulting in a loss
+  of your data.)
+
+Next time you restart the server:
+
+* Make sure your database contains the same number of keys it contained previously.
 * Make sure writes are appended to the append only file correctly.
-
-The first CONFIG command enables the Append Only File persistence.
-
-The second CONFIG command is used to turn off snapshotting persistence. This is optional, if you wish you can take both the persistence methods enabled.
-
-**IMPORTANT:** remember to edit your redis.conf to turn on the AOF, otherwise
-when you restart the server the configuration changes will be lost and the
-server will start again with the old configuration.
 
 **Redis 2.0**
 
@@ -293,7 +302,6 @@ server will start again with the old configuration.
 * Make sure that writes are appended to the append only file correctly.
 
 ## Interactions between AOF and RDB persistence
-
 
 Redis >= 2.4 makes sure to avoid triggering an AOF rewrite when an RDB
 snapshotting operation is already in progress, or allowing a `BGSAVE` while the
