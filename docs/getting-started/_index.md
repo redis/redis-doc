@@ -12,6 +12,8 @@ aliases:
 
 This is a guide to getting started with Redis. You'll learn how to install, run, and experiment with the Redis server process.
 
+While you can install Redis on any of the platforms listed below, you might also consider using Redis Cloud by creating a [free account](https://docs.redis.com/latest/rc/rc-quickstart/).
+
 ## Install Redis
 
 How you install Redis depends on your operating system and whether you'd like to install it bundled with Redis Stack and Redis UI. See the guide below that best fits your needs:
