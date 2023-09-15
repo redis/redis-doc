@@ -82,7 +82,7 @@ END
 ```
 
 Basically we have a counter for every IP, for every different second.
-But this counters are always incremented setting an expire of 10 seconds so that
+But these counters are always incremented setting an expire of 10 seconds so that
 they'll be removed by Redis automatically when the current second is a different
 one.
 
