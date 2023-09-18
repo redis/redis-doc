@@ -38,7 +38,7 @@ Let's start with a simple example, we'll add all our racers and the score they g
 (integer) 1
 > ZADD racer_scores 8 "Sam-Bodden" 10 "Royce" 6 "Ford" 14 "Prickett"
 (integer) 4
-{{ /clients-example> }}
+{{< /clients-example >}}
 
 
 As you can see `ZADD` is similar to `SADD`, but takes one additional argument
@@ -53,7 +53,7 @@ Implementation note: Sorted sets are implemented via a
 dual-ported data structure containing both a skip list and a hash table, so
 every time we add an element Redis performs an O(log(N)) operation. That's
 good, but when we ask for sorted elements Redis does not have to do any work at
-all, it's already all sorted. Note that the `ZRANGE` order is low to high, while the `ZREVRANGE` order is high to low:
+all, it's already sorted. Note that the `ZRANGE` order is low to high, while the `ZREVRANGE` order is high to low:
 
 {{< clients-example ss_tutorial zrange >}}
 > ZRANGE racer_scores 0 -1
@@ -70,7 +70,7 @@ all, it's already all sorted. Note that the `ZRANGE` order is low to high, while
 4) "Norem"
 5) "Sam-Bodden"
 6) "Ford"
-{{ /clients-example> }}
+{{< /clients-example >}}
 
 Note: 0 and -1 means from element index 0 to the last element (-1 works
 here just as it does in the case of the `LRANGE` command).
@@ -91,7 +91,7 @@ It is possible to return scores as well, using the `WITHSCORES` argument:
 10) "12"
 11) "Prickett"
 12) "14"
-{{ /clients-example> }}
+{{< /clients-example >}}
 
 ### Operating on ranges
 
@@ -105,12 +105,12 @@ use the `ZRANGEBYSCORE` command to do it:
 2) "Sam-Bodden"
 3) "Norem"
 4) "Royce"
-{{ /clients-example> }}
+{{< /clients-example >}}
 
 We asked Redis to return all the elements with a score between negative
 infinity and 10 (both extremes are included).
 
-To remove an element we'd simply call `ZREM` with the racers name. 
+To remove an element we'd simply call `ZREM` with the racer's name. 
 It's also possible to remove ranges of elements. Let's remove racer Castilla along with all
 the racers with strictly fewer than 10 points:
 
@@ -123,14 +123,14 @@ the racers with strictly fewer than 10 points:
 1) "Norem"
 2) "Royce"
 3) "Prickett"
-{{ /clients-example> }}
+{{< /clients-example >}}
 
 `ZREMRANGEBYSCORE` is perhaps not the best command name,
 but it can be very useful, and returns the number of removed elements.
 
 Another extremely useful operation defined for sorted set elements
 is the get-rank operation. It is possible to ask what is the
-position of an element in the set of the ordered elements. 
+position of an element in the set of ordered elements. 
 The `ZREVRANK` command is also available in order to get the rank, considering
 the elements sorted a descending way.
 
@@ -139,7 +139,7 @@ the elements sorted a descending way.
 (integer) 0
 > ZREVRANK racer_scores "Norem"
 (integer) 3
-{{ /clients-example> }}
+{{< /clients-example >}}
 
 ### Lexicographical scores
 
@@ -153,7 +153,7 @@ The main commands to operate with lexicographical ranges are `ZRANGEBYLEX`,
 `ZREVRANGEBYLEX`, `ZREMRANGEBYLEX` and `ZLEXCOUNT`.
 
 For example, let's add again our list of famous hackers, but this time
-use a score of zero for all the elements. We'll see that because of the sorted sets ordering rules, they are already sorted lexicographically. Using `ZRANGEBYLEX` we can ask for lexicographical ranges:
+using a score of zero for all the elements. We'll see that because of the sorted sets ordering rules, they are already sorted lexicographically. Using `ZRANGEBYLEX` we can ask for lexicographical ranges:
 
 {{< clients-example ss_tutorial zadd_lex >}}
 > ZADD racer_scores 0 "Norem" 0 "Sam-Bodden" 0 "Royce" 0 "Castilla" 0 "Prickett" 0 "Ford"
@@ -168,7 +168,7 @@ use a score of zero for all the elements. We'll see that because of the sorted s
 > ZRANGEBYLEX racer_scores [A [L
 1) "Castilla"
 2) "Ford"
-{{ /clients-example> }}
+{{< /clients-example >}}
 
 Ranges can be inclusive or exclusive (depending on the first character),
 also string infinite and minus infinite are specified respectively with
@@ -203,7 +203,7 @@ the #4932 best score here").
 
 ## Examples
 
-* There are two ways we can use a sorted set to represent a leaderbaord. If we know a racers new score, we can update it directly via the `ZADD` command. However if we want to add points to an existing score, we can use the `ZINCRBY` command.
+* There are two ways we can use a sorted set to represent a leaderbaord. If we know a racer's new score, we can update it directly via the `ZADD` command. However, if we want to add points to an existing score, we can use the `ZINCRBY` command.
 {{< clients-example ss_tutorial leaderboard >}}
 > ZADD racer_scores 100 "Wood"
 (integer) 1
@@ -215,9 +215,9 @@ the #4932 best score here").
 "150"
 > ZINCRBY racer_scores 50 "Henshaw"
 "200"
-{{ /clients-example> }}
+{{< /clients-example >}}
 
-You'll see that `ZADD` returns 0 when the member already exists, and the score is updated while `ZINCRBY` returns the new score. The score for racer Henshaw went from 100, was changed to 150 with no regard for what score was there before, and then was incremented by 50 to 200.
+You'll see that `ZADD` returns 0 when the member already exists (the score is updated), while `ZINCRBY` returns the new score. The score for racer Henshaw went from 100, was changed to 150 with no regard for what score was there before, and then was incremented by 50 to 200.
 
 ## Basic commands
 
@@ -241,6 +241,10 @@ Redis sorted sets are sometimes used for indexing other Redis data structures.
 If you need to index and query your data, consider the [JSON](/docs/stack/json) data type and the [Search and query](/docs/stack/search) features.
 
 ## Learn more
+
+* [Redis Sorted Sets Explained](https://www.youtube.com/watch?v=MUKlxdBQZ7g) is an entertaining introduction to sorted sets in Redis.
+* [Redis University's RU101](https://university.redis.com/courses/ru101/) explores Redis sorted sets in detail.
+
 
 * [Redis Sorted Sets Explained](https://www.youtube.com/watch?v=MUKlxdBQZ7g) is an entertaining introduction to sorted sets in Redis.
 * [Redis University's RU101](https://university.redis.com/courses/ru101/) explores Redis sorted sets in detail.
