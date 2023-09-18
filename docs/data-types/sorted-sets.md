@@ -149,7 +149,7 @@ position of an element in the set of the ordered elements.
     (integer) 4
 
 The `ZREVRANK` command is also available in order to get the rank, considering
-the elements sorted a descending way.
+the elements sorted in a descending way.
 
 ### Lexicographical scores
 
