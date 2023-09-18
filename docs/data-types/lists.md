@@ -305,7 +305,7 @@ This is an example of a `BRPOP` call we could use in the worker:
 (2.01s)
 {{< /clients-example >}}
 
-It means: "wait for elements in the list `tasks`, but return if after 5 seconds
+It means: "wait for elements in the list `bikes:repairs`, but return if after 1 second
 no element is available".
 
 Note that you can use 0 as timeout to wait for elements forever, and you can
