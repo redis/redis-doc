@@ -1,6 +1,6 @@
 ---
-title: Scaling with Redis Cluster
-linkTitle: Scaling
+title: Scale with Redis Cluster
+linkTitle: Scale with Redis Cluster
 weight: 6
 description: Horizontal scaling with Redis Cluster
 aliases: [
