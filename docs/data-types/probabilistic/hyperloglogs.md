@@ -1,4 +1,4 @@
-﻿---
+---
 title: "HyperLogLog"
 linkTitle: "HyperLogLog"
 weight: 1
@@ -37,12 +37,22 @@ only contains a state that does not include actual elements, the API is the
 same:
 
 * Every time you see a new element, you add it to the count with `PFADD`.
-* Every time you want to retrieve the current approximation of the unique elements *added* with `PFADD` so far, you use the `PFCOUNT`.
+* Every time you want to retrieve the current approximation of the unique elements *added* with `PFADD` so far, you use the `PFCOUNT`. Two different HLLs can be merged into a single one using `PFMERGE` and since HLLs approximate unique elements, the result of the merge is the approximated number of unique elements in the union of the source HLLs.
 
-        > pfadd hll a b c d
-        (integer) 1
-        > pfcount hll
-        (integer) 4
+{{< clients-example hll_tutorial pfadd >}}
+
+{{< clients-example hll_tutorial pfadd >}}
+> PFADD bikes Hyperion Deimos Phoebe Quaoar
+(integer) 1
+> PFCOUNT bikes
+(integer) 4
+> PFADD commuter_bikes Salacia Mimas Quaoar
+(integer) 1
+> PFMERGE all_bikes bikes commuter_bikes
+OK
+> PFCOUNT all_bikes
+(integer) 6
+{{< /clients-example >}}
 
 Some examples of use cases for this data structure is counting unique queries
 performed by users in a search form every day, number of unique visitors to a web page and other similar cases.
@@ -68,25 +78,6 @@ Storing the IP address or any other kind of personal identifier is against the l
 
 One HyperLogLog is created per page (video/song) per period, and every IP/identifier is added to it on every visit.
 
-
-## Examples
-
-* Add some items to the HyperLogLog:
-```
-> PFADD members 123
-(integer) 1
-> PFADD members 500
-(integer) 1
-> PFADD members 12
-(integer) 1
-```
-
-* Estimate the number of members in the set:
-```
-> PFCOUNT members
-(integer) 3
-```
-
 ## Basic commands
 
 * `PFADD` adds an item to a HyperLogLog.
@@ -108,3 +99,4 @@ The HyperLogLog can estimate the cardinality of sets with up to 18,446,744,073,7
 
 * [Redis new data structure: the HyperLogLog](http://antirez.com/news/75) has a lot of details about the data structure and its implementation in Redis.
 * [Redis HyperLogLog Explained](https://www.youtube.com/watch?v=MunL8nnwscQ) shows you how to use Redis HyperLogLog data structures to build a traffic heat map.
+
