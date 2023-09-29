@@ -36,7 +36,7 @@ If the compile succeeds, you'll find several Redis binaries in the `src` directo
 To install these binaries in `/usr/local/bin`, run:
 
 {{< highlight bash  >}}
-make install
+sudo make install
 {{< / highlight >}}
 
 ### Starting and stopping Redis in the foreground
@@ -50,3 +50,5 @@ redis-server
 If successful, you'll see the startup logs for Redis, and Redis will be running in the foreground.
 
 To stop Redis, enter `Ctrl-C`.
+
+For a more complete installation, continue with [these instructions](/docs/getting-started/#install-redis-more-properly).

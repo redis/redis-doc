@@ -87,17 +87,20 @@ Running Redis from the command line is fine just to hack a bit or for developmen
 * Run Redis using screen.
 * Install Redis in your Linux box in a proper way using an init script, so that after a restart everything will start again properly.
 
-A proper install using an init script is strongly suggested.
-The following instructions can be used to perform a proper installation using the init script shipped with Redis version 2.4 or higher in a Debian or Ubuntu based distribution.
+A proper install using an init script is strongly recommended. Note: the available packages for supported Linux distributions already include the capability of starting the Redis server from `/etc/init`.
 
-We assume you already copied **redis-server** and **redis-cli** executables under /usr/local/bin.
+**Note**: the remainder of this section assumes you've [installed Redis from its source code](/docs/getting-started/installation/install-redis-from-source/). If instead you have installed Redis Stack, you will need to download a [basic init script](https://raw.githubusercontent.com/redis/redis/7.2/utils/redis_init_script) and then modify both it and the following instructions to conform to the way Redis Stack was installed on your platform. For example, on Ubuntu 20.04 LTS, Redis Stack is installed in `/opt/redis-stack`, not `/usr/local`, so you'll need to adjust accordingly.
+
+The following instructions can be used to perform a proper installation using the init script shipped with the Redis source code, `/path/to/redis-stable/utils/redis_init_script`.
+
+If you have not yet run `make install` after building the Redis source, you will need to do so before continuing. By default, `make install` will copy the `redis-server` and `redis-cli` binaries to `/usr/local/bin`.
 
 * Create a directory in which to store your Redis config files and your data:
 
         sudo mkdir /etc/redis
         sudo mkdir /var/redis
 
-* Copy the init script that you'll find in the Redis distribution under the **utils** directory into `/etc/init.d`. We suggest calling it with the name of the port where you are running this instance of Redis. For example:
+* Copy the init script that you'll find in the Redis distribution under the **utils** directory into `/etc/init.d`. We suggest calling it with the name of the port where you are running this instance of Redis. Make sure the resulting file has `0755` permissions.
 
         sudo cp utils/redis_init_script /etc/init.d/redis_6379
 
@@ -105,25 +108,25 @@ We assume you already copied **redis-server** and **redis-cli** executables unde
 
         sudo vi /etc/init.d/redis_6379
 
-Make sure to modify **REDISPORT** accordingly to the port you are using.
+Make sure to set the **REDISPORT** variable to the port you are using.
 Both the pid file path and the configuration file name depend on the port number.
 
-* Copy the template configuration file you'll find in the root directory of the Redis distribution into `/etc/redis/` using the port number as name, for instance:
+* Copy the template configuration file you'll find in the root directory of the Redis distribution into `/etc/redis/` using the port number as the name, for instance:
 
         sudo cp redis.conf /etc/redis/6379.conf
 
-* Create a directory inside `/var/redis` that will work as data and working directory for this Redis instance:
+* Create a directory inside `/var/redis` that will work as both data and working directory for this Redis instance:
 
         sudo mkdir /var/redis/6379
 
 * Edit the configuration file, making sure to perform the following changes:
     * Set **daemonize** to yes (by default it is set to no).
-    * Set the **pidfile** to `/var/run/redis_6379.pid` (modify the port if needed).
-    * Change the **port** accordingly. In our example it is not needed as the default port is already 6379.
+    * Set the **pidfile** to `/var/run/redis_6379.pid`, modifying the port as necessary.
+    * Change the **port** accordingly. In our example it is not needed as the default port is already `6379`.
     * Set your preferred **loglevel**.
     * Set the **logfile** to `/var/log/redis_6379.log`
     * Set the **dir** to `/var/redis/6379` (very important step!)
-* Finally add the new Redis init script to all the default runlevels using the following command:
+* Finally, add the new Redis init script to all the default runlevels using the following command:
 
         sudo update-rc.d redis_6379 defaults
 
@@ -133,12 +136,12 @@ You are done! Now you can try running your instance with:
 
 Make sure that everything is working as expected:
 
-* Try pinging your instance with redis-cli.
-* Do a test save with `redis-cli save` and check that the dump file is correctly stored into `/var/redis/6379/` (you should find a file called `dump.rdb`).
-* Check that your Redis instance is correctly logging in the log file.
-* If it's a new machine where you can try it without problems make sure that after a reboot everything is still working.
+* Try pinging your instance within a `redis-cli` session using the `PING` command.
+* Do a test save with `redis-cli save` and check that a dump file is correctly saved to `/var/redis/6379/dump.rdb`.
+* Check that your Redis instance is logging to the `/var/log/redis_6379.log` file.
+* If it's a new machine where you can try it without problems, make sure that after a reboot everything is still working.
 
-Note: The above instructions don't include all of the Redis configuration parameters that you could change, for instance, to use AOF persistence instead of RDB persistence, or to set up replication, and so forth.
-Make sure to read the example [`redis.conf`](https://github.com/redis/redis/blob/6.2/redis.conf) file (that is heavily commented).
+Note: The above instructions don't include all of the Redis configuration parameters that you could change. For example, to use AOF persistence instead of RDB persistence, or to set up replication, and so forth.
+Make sure to read the example [redis.conf](/docs/management/config-file/) file, which is heavily annotated to help guide you on making changes, and also the [configuration article on this site](/docs/management/config/).
 
 <hr>
