@@ -40,8 +40,6 @@ same:
 * When you want to retrieve the current approximation of unique elements added using the `PFADD` command, you can use the `PFCOUNT` command. If you need to merge two different HLLs, the `PFMERGE` command is available. Since HLLs provide approximate counts of unique elements, the result of the merge will give you an approximation of the number of unique elements across both source HLLs.
 
 {{< clients-example hll_tutorial pfadd >}}
-
-{{< clients-example hll_tutorial pfadd >}}
 > PFADD bikes Hyperion Deimos Phoebe Quaoar
 (integer) 1
 > PFCOUNT bikes
