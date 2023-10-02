@@ -37,7 +37,7 @@ only contains a state that does not include actual elements, the API is the
 same:
 
 * Every time you see a new element, you add it to the count with `PFADD`.
-* Every time you want to retrieve the current approximation of the unique elements *added* with `PFADD` so far, you use the `PFCOUNT`. Two different HLLs can be merged into a single one using `PFMERGE` and since HLLs approximate unique elements, the result of the merge is the approximated number of unique elements in the union of the source HLLs.
+* When you want to retrieve the current approximation of unique elements added using the `PFADD` command, you can use the `PFCOUNT` command. If you need to merge two different HLLs, the `PFMERGE` command is available. Since HLLs provide approximate counts of unique elements, the result of the merge will give you an approximation of the number of unique elements across both source HLLs.
 
 {{< clients-example hll_tutorial pfadd >}}
 
