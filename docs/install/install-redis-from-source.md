@@ -4,6 +4,8 @@ linkTitle: "Install from Source"
 weight: 5
 description: >
     Compile and install Redis from source
+aliases:
+- /docs/getting-started/installation/install-redis-from-source
 ---
 
 You can compile and install Redis from source on variety of platforms and operating systems including Linux and macOS. Redis has no dependencies other than a C  compiler and `libc`.
@@ -51,4 +53,4 @@ If successful, you'll see the startup logs for Redis, and Redis will be running 
 
 To stop Redis, enter `Ctrl-C`.
 
-For a more complete installation, continue with [these instructions](/docs/getting-started/#install-redis-more-properly).
+For a more complete installation, continue with [these instructions](/docs/install/#install-redis-more-properly).

@@ -84,10 +84,13 @@ Running Redis from the command line is fine just to hack a bit or for developmen
 
 A proper install using an init script is strongly recommended. 
 
-> **Note:** The available packages for supported Linux distributions already include the capability of starting the Redis server from `/etc/init`.
+{{% alert title="Note" color="warning" %}}
+The available packages for supported Linux distributions already include the capability of starting the Redis server from `/etc/init`.
+{{% /alert  %}}
 
-
-> **Note**: The remainder of this section assumes you've [installed Redis from its source code](/docs/install/install-redis-from-source/). If instead you have installed Redis Stack, you will need to download a [basic init script](https://raw.githubusercontent.com/redis/redis/7.2/utils/redis_init_script) and then modify both it and the following instructions to conform to the way Redis Stack was installed on your platform. For example, on Ubuntu 20.04 LTS, Redis Stack is installed in `/opt/redis-stack`, not `/usr/local`, so you'll need to adjust accordingly.
+{{% alert title="Note" color="warning" %}}
+The remainder of this section assumes you've [installed Redis from its source code](/docs/install/install-redis-from-source/). If instead you have installed Redis Stack, you will need to download a [basic init script](https://raw.githubusercontent.com/redis/redis/7.2/utils/redis_init_script) and then modify both it and the following instructions to conform to the way Redis Stack was installed on your platform. For example, on Ubuntu 20.04 LTS, Redis Stack is installed in `/opt/redis-stack`, not `/usr/local`, so you'll need to adjust accordingly.
+{{% /alert  %}}
 
 The following instructions can be used to perform a proper installation using the init script shipped with the Redis source code, `/path/to/redis-stable/utils/redis_init_script`.
 
@@ -105,7 +108,7 @@ If you have not yet run `make install` after building the Redis source, you will
     ```
     sudo cp utils/redis_init_script /etc/init.d/redis_6379
     ```
-    
+
 * Edit the init script.
 
     ```
@@ -153,7 +156,9 @@ Make sure that everything is working as expected:
 3. Check that your Redis instance is logging to the `/var/log/redis_6379.log` file.
 4. If it's a new machine where you can try it without problems, make sure that after a reboot everything is still working.
 
-> **Note**: The above instructions don't include all of the Redis configuration parameters that you could change. For example, to use AOF persistence instead of RDB persistence, or to set up replication, and so forth.
+{{% alert title="Note" color="warning" %}}
+The above instructions don't include all of the Redis configuration parameters that you could change. For example, to use AOF persistence instead of RDB persistence, or to set up replication, and so forth.
+{{% /alert  %}}
 
 You should also read the example [redis.conf](/docs/management/config-file/) file, which is heavily annotated to help guide you on making changes. Further details can also be found in the [configuration article on this site](/docs/management/config/).
 
