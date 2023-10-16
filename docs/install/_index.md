@@ -1,8 +1,8 @@
 ---
-title: "Install"
+title: "Install Redis or Redis Stack"
 linkTitle: "Install"
-weight: 3
-description: Install Redis or Redis Stack
+weight: 30
+description: How to install your preferred Redis flavor on your target platform
 aliases:
   - /docs/getting-started
 ---
