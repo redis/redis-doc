@@ -3,7 +3,8 @@ title: "Python guide"
 linkTitle: "Python"
 description: Connect your Python application to a Redis database
 weight: 5
-
+aliases:
+  - /docs/clients/python/
 ---
 
 Install Redis and the Redis client, then connect your Python application to a Redis database. 

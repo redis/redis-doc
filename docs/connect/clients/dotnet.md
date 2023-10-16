@@ -3,7 +3,8 @@ title: "C#/.NET guide"
 linkTitle: "C#/.NET"
 description: Connect your .NET application to a Redis database
 weight: 1
-
+aliases:
+  - /docs/clients/dotnet/
 ---
 
 Install Redis and the Redis client, then connect your .NET application to a Redis database. 

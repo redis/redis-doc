@@ -3,7 +3,8 @@ title: "Node.js guide"
 linkTitle: "Node.js"
 description: Connect your Node.js application to a Redis database
 weight: 4
-
+aliases:
+  - /docs/clients/nodejs/
 ---
 
 Install Redis and the Redis client, then connect your Node.js application to a Redis database. 
