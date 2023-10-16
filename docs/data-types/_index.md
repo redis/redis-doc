@@ -1,6 +1,6 @@
 ---
 title: "Redis data types"
-linkTitle: "Data types"
+linkTitle: "Understand data types"
 description: Overview of data types supported by Redis
 weight: 35
 aliases:
