@@ -1,8 +1,8 @@
 ---
-title: Connect with UI-s or client libraries
+title: Connect to Redis
 linkTitle: Connect
-description: Learn how to use Redis interfaces and client libraries
-weight: 30
+description: Learn how to use user interfaces and client libraries
+weight: 35
 aliases:
   - /docs/ui
 ---
