@@ -1,6 +1,6 @@
 ---
 title: "Install Redis on Windows"
-linkTitle: "Install on Windows"
+linkTitle: "Windows"
 weight: 1
 description: Use Redis on Windows for development
 aliases:

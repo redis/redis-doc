@@ -1,6 +1,6 @@
 ---
 title: "Install Redis on macOS"
-linkTitle: "Install on macOS"
+linkTitle: "MacOS"
 weight: 1
 description: Use Homebrew to install and start Redis on macOS
 aliases:
