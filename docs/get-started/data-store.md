@@ -5,11 +5,12 @@ weight: 1
 description: Understand how to use basic Redis data types
 ---
 
-This quick start guide will demonstrate you how to:
+This quick start guide shows you how to:
 
-* Store data under a key in Redis
-* Retrieve data under a key from Redis
-* Scan the keyspace for keys that match a specific key pattern
+1. Get started with Redis 
+2. Store data under a key in Redis
+3. Retrieve data with a key from Redis
+4. Scan the keyspace for keys that match a specific key pattern
 
 The examples in this article refer to a simple bicycle inventory.
 
@@ -20,7 +21,7 @@ The easiest way to get started with Redis is to use Redis Cloud:
 1. Create a [free account](https://redis.com/try-free?utm_source=redisio&utm_medium=referral&utm_campaign=2023-09-try_free&utm_content=cu-redis_cloud_users).
 2. Follow the instructions to create a free database.
    
-   <img src="../img/free-cloud-db.png" width="400px">
+   <img src="../img/free-cloud-db.png" width="500px">
 
 You can alternatively follow the [installation guides](/docs/install/) to install Redis on your local machine.
 
@@ -31,8 +32,7 @@ The first step is to connect to Redis. You can find further details about the co
 {{< clients-example search_quickstart connect >}}
 > redis-cli -h 127.0.0.1 -p 6379
 {{< /clients-example>}}
-
-
+<br/>
 {{% alert title="Tip" color="warning" %}}
 You can copy and paste the connection details from the Redis Cloud database configuration page. Here is an example connection string of a Cloud database that is hosted in the AWS region `us-east-1` and listens on port 16379: `redis-16379.c283.us-east-1-4.ec2.cloud.redislabs.com:16379`. The connection string has the format `host:port`.
 {{% /alert  %}}
