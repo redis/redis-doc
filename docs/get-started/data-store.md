@@ -22,7 +22,7 @@ The easiest way to get started with Redis is to use Redis Cloud:
    
    <img src="./img/free-cloud-db.png" width="400px">
 
-You can alternatively follow the instructions under the [installation section](/docs/install/) of this documentation site to install Redis on your local machine.
+You can alternatively follow the [installation guides](/docs/install/) to install Redis on your local machine.
 
 ## Connect
 
