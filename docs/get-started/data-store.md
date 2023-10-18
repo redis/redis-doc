@@ -43,11 +43,9 @@ Redis stands for Remote Dictionary Server. You can use the same data types as in
 
 Similar to byte arrays, Redis strings store sequences of bytes, including text, serialized objects, counter values, and binary arrays. The following example shows you how to set and get a string value:
 
-{{< clients-example set_tutorial set_get >}}
-    > SET bike:1 Deimos
-    OK
-    > GET bike:1
-    "Deimos"
+{{< clients-example set_and_get >}}
+SET bike:1 "Process 134"
+GET bike:1
 {{< /clients-example >}}
 
 Hashes are the equivalent of dictionaries (dicts or hash maps). Among other things, you can use hashes to represent plain objects and to store groupings of counters. The following example explains how to set and access field values of an object:
