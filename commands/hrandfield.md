@@ -18,7 +18,7 @@ If the `WITHVALUES` modifier is used, the reply is a list fields and their value
 @examples
 
 ```cli
-HMSET coin heads obverse tails reverse edge null
+HSET coin heads obverse tails reverse edge null
 HRANDFIELD coin
 HRANDFIELD coin
 HRANDFIELD coin -5 WITHVALUES

@@ -7,7 +7,7 @@ Returns the string length of the value associated with `field` in the hash store
 @examples
 
 ```cli
-HMSET myhash f1 HelloWorld f2 99 f3 -256
+HSET myhash f1 HelloWorld f2 99 f3 -256
 HSTRLEN myhash f1
 HSTRLEN myhash f2
 HSTRLEN myhash f3
