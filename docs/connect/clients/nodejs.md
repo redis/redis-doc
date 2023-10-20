@@ -5,6 +5,7 @@ description: Connect your Node.js application to a Redis database
 weight: 4
 aliases:
   - /docs/clients/nodejs/
+  - /docs/redis-clients/nodejs/
 ---
 
 Install Redis and the Redis client, then connect your Node.js application to a Redis database. 

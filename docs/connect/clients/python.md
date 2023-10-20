@@ -5,6 +5,7 @@ description: Connect your Python application to a Redis database
 weight: 5
 aliases:
   - /docs/clients/python/
+  - /docs/redis-clients/python/
 ---
 
 Install Redis and the Redis client, then connect your Python application to a Redis database. 
