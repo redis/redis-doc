@@ -1,9 +1,11 @@
 ---
 title: "Install Redis on Linux"
-linkTitle: "Install on Linux"
+linkTitle: "Linux"
 weight: 1
 description: >
     How to install Redis on Linux
+aliases:
+- /docs/getting-started/installation/install-redis-on-linux
 ---
 
 Most major Linux distributions provide packages for Redis.

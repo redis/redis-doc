@@ -3,7 +3,9 @@ title: "Java guide"
 linkTitle: "Java"
 description: Connect your Java application to a Redis database
 weight: 3
-
+aliases:
+  - /docs/clients/java/
+  - /docs/redis-clients/java/
 ---
 
 Install Redis and the Redis client, then connect your Java application to a Redis database. 

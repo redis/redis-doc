@@ -3,7 +3,8 @@ title: "Go guide"
 linkTitle: "Go"
 description: Connect your Go application to a Redis database
 weight: 2
-
+aliases:
+  - /docs/clients/go/
 ---
 
 Install Redis and the Redis client, then connect your Go application to a Redis database. 
