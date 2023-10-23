@@ -67,7 +67,7 @@ This is the simplest model possible; however, there are some exceptions:
   The protocol of this mode is not specified but is obvious to parse.
 * [Protected mode](/docs/management/security/#protected-mode).
   Connections opened from a non-loopback address to a Redis while in protected mode are denied and terminated by the server.
-  Before terminating the connection, Redis unconditionally sends `-DENIED` reply, irregardless of whether the client writes to the socket.
+  Before terminating the connection, Redis unconditionally sends a `-DENIED` reply, regardless of whether the client writes to the socket.
 * The [RESP3 Push type](#resp3-pushes).
   As the name suggests, a push type allows the server to send out-of-band data to the connection.
   The server may push data at any time, and the data isn't necessarily related to specific commands executed by the client.
@@ -298,7 +298,7 @@ For example, a nested array of two arrays is encoded as follows:
 
 (The raw RESP encoding is split into multiple lines for readability).
 
-The above encodes a two-elements array.
+The above encodes a two-element array.
 The first element is an array that, in turn, contains three integers (1, 2, 3).
 The second element is another array containing a simple string and an error.
 
