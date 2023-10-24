@@ -25,14 +25,14 @@ Some examples of bitmap use cases include:
 See the [complete list of bitmap commands](https://redis.io/commands/?group=bitmap).
 
 
-## Examples
+## Example
 
 Suppose you have 1000 cyclists racing through the country-side, labeled 0-999.
-You want to quickly determine whether a given rider has pinged the server within the hour. 
+You want to quickly determine whether a given rider has pinged a tracking server within the hour. 
 
 You can represent this scenario using a bitmap whose key references the current hour.
 
-* Rider 123 pings the server on January 1, 2024 within the 00:00 hour. We can then confirm that rider 123 pinged the server. We can then check to see if rider 456 has pinged the server for that same hour.
+* Rider 123 pings the server on January 1, 2024 within the 00:00 hour. You can then confirm that rider 123 pinged the server. You can also check to see if rider 456 has pinged the server for that same hour.
 
 {{< clients-example bitmap_tutorial ping >}}
 > SETBIT pings:2024-01-01-00:00 123 1
