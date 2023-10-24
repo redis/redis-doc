@@ -326,7 +326,7 @@ Apart from the fact that `XREAD` can access multiple streams at once, and that w
 > XREAD BLOCK 0 STREAMS race:france $
 ```
 
-Note that in the example above, other than removing **COUNT**, I specified the new **BLOCK** option with a timeout of 0 milliseconds (that means to never timeout). Moreover, instead of passing a normal ID for the stream `race:france` I passed the special ID `$`. This special ID means that `XREAD` should use as last ID the maximum ID already stored in the stream `mystream`, so that we will receive only *new* messages, starting from the time we started listening. This is similar to the `tail -f` Unix command in some way.
+Note that in the example above, other than removing **COUNT**, I specified the new **BLOCK** option with a timeout of 0 milliseconds (that means to never timeout). Moreover, instead of passing a normal ID for the stream `race:france` I passed the special ID `$`. This special ID means that `XREAD` should use as last ID the maximum ID already stored in the stream `race:france`, so that we will receive only *new* messages, starting from the time we started listening. This is similar to the `tail -f` Unix command in some way.
 
 Note that when the **BLOCK** option is used, we do not have to use the special ID `$`. We can use any valid ID. If the command is able to serve our request immediately without blocking, it will do so, otherwise it will block. Normally if we want to consume the stream starting from new entries, we start with the ID `$`, and after that we continue using the ID of the last message received to make the next call, and so forth.
 
