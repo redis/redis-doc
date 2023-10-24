@@ -17,10 +17,10 @@ While you can install Redis on any of the platforms listed below, you might also
 
 How you install Redis depends on your operating system and whether you'd like to install it bundled with Redis Stack and Redis UI. See the guide below that best fits your needs:
 
-* [Install Redis from Source](/docs/install/install-redis-from-source)
-* [Install Redis on Linux](/docs/install/install-redis-on-linux)
-* [Install Redis on macOS](/docs/install/install-redis-on-mac-os)
-* [Install Redis on Windows](/docs/install/install-redis-on-windows)
+* [Install Redis from Source](/docs/install/install-redis/install-redis-from-source)
+* [Install Redis on Linux](/docs/install/install-redis/install-redis-on-linux)
+* [Install Redis on macOS](/docs/install/install-redis/install-redis-on-mac-os)
+* [Install Redis on Windows](/docs/install/install-redis/install-redis-on-windows)
 * [Install Redis with Redis Stack and RedisInsight](/docs/install/install-stack/)
 
 
