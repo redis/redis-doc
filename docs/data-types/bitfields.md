@@ -39,7 +39,7 @@ Suppose you want to maintain two metrics for various bicycles: the current price
 > BITFIELD bike:1:stats GET u32 #0 GET u32 #1
 1) (integer) 1450
 2) (integer) 2
-{{< /clients-examples >}}
+{{< /clients-example >}}
 
 
 ## Performance
