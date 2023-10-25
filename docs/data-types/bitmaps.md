@@ -41,7 +41,7 @@ You can represent this scenario using a bitmap whose key references the current 
 1
 > GETBIT pings:2024-01-01-00:00 456
 0
-{{< /clients-examples >}}
+{{< /clients-example >}}
 
 
 ## Bit Operations
@@ -78,7 +78,7 @@ string, instead of running for the whole length of the string. We can trivially 
 {{< clients-example bitmap_tutorial bitcount >}}
 > BITCOUNT pings:2024-01-01-00:00
 (integer) 1
-{{< /clients-examples >}}
+{{< /clients-example >}}
 
 For example imagine you want to know the longest streak of daily visits of
 your web site users. You start counting days starting from zero, that is the
