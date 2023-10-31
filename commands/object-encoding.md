@@ -15,7 +15,3 @@ Redis objects can be encoded in different ways:
 * Sorted Sets can be encoded as `ziplist` or `skiplist` format. As for the List type small sorted sets can be specially encoded using `ziplist`, while the `skiplist` encoding is the one that works with sorted sets of any size.
 
 All the specially encoded types are automatically converted to the general type once you perform an operation that makes it impossible for Redis to retain the space saving encoding.
-
-@return
-
-@bulk-string-reply: the encoding of the object, or `nil` if the key doesn't exist

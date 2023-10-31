@@ -10,13 +10,6 @@ that either all the fields or none at all are set.
 It is not possible for clients to see that some of the keys were updated while
 others are unchanged.
 
-@return
-
-@integer-reply, specifically:
-
-* `1` if the all the keys were set.
-* `0` if no key was set (at least one key already existed).
-
 @examples
 
 ```cli

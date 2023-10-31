@@ -38,8 +38,3 @@ configuration parameter used in the [redis.conf][hgcarr22rc] file:
 Note that you should look at the redis.conf file relevant to the version you're
 working with as configuration options might change between versions. The link
 above is to the latest development version.
-
-
-@return
-
-The return type of the command is a @array-reply.

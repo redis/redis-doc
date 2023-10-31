@@ -7,7 +7,3 @@ The reply format is identical to that of `CLIENT LIST`, and the content consists
 ```cli
 CLIENT INFO
 ```
-
-@return
-
-@bulk-string-reply: a unique string, as described at the `CLIENT LIST` page, for the current client.

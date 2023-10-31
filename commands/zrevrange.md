@@ -4,11 +4,6 @@ Descending lexicographical order is used for elements with equal score.
 
 Apart from the reversed ordering, `ZREVRANGE` is similar to `ZRANGE`.
 
-@return
-
-@array-reply: list of elements in the specified range (optionally with
-their scores).
-
 @examples
 
 ```cli

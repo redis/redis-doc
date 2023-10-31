@@ -3,10 +3,6 @@ You can restore the serialized payload later with the `FUNCTION RESTORE` command
 
 For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).
 
-@return
-
-@bulk-string-reply: the serialized payload
-
 @examples
 
 The following example shows how to dump loaded libraries using `FUNCTION DUMP` and then it calls `FUNCTION FLUSH` deletes all the libraries.

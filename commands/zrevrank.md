@@ -8,17 +8,6 @@ The optional `WITHSCORE` argument supplements the command's reply with the score
 Use `ZRANK` to get the rank of an element with the scores ordered from low to
 high.
 
-@return
-
-* If `member` exists in the sorted set:
-  * using `WITHSCORE`, @array-reply: an array containing the rank and score of `member`.
-  * without using `WITHSCORE`, @integer-reply: the rank of `member`.
-* If `member` does not exist in the sorted set or `key` does not exist:
-  * using `WITHSCORE`, @array-reply: `nil`.
-  * without using `WITHSCORE`, @bulk-string-reply: `nil`.
-  
-Note that in RESP3 null and nullarray are the same, but in RESP2 they are not.
-
 @examples
 
 ```cli

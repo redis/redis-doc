@@ -39,13 +39,6 @@ The model assumes that the Earth is a sphere since it uses the Haversine formula
 The introduced errors are not an issue when used, for example, by social networks and similar applications requiring this type of querying. 
 However, in the worst case, the error may be up to 0.5%, so you may want to consider other systems for error-critical applications.
 
-@return
-
-@integer-reply, specifically:
-
-* When used without optional arguments, the number of elements added to the sorted set (excluding score updates).
-* If the `CH` option is specified, the number of elements that were changed (added or updated).
-
 @examples
 
 ```cli

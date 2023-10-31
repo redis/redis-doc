@@ -26,13 +26,6 @@ It can also take the following values:
 
 When no parameter is provided, the `default` option is assumed.
 
-@return
-
-@bulk-string-reply: as a collection of text lines.
-
-Lines can contain a section name (starting with a # character) or a property.
-All the properties are in the form of `field:value` terminated by `\r\n`.
-
 ```cli
 INFO
 ```

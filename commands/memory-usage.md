@@ -37,7 +37,3 @@ OK
 > MEMORY USAGE foo3
 (integer) 160
 ```
-
-@return
-
-@integer-reply: the memory usage in bytes, or `nil` when the key does not exist.

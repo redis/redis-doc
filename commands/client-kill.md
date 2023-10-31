@@ -41,13 +41,3 @@ the client point of view, the connection can never be closed
 in the middle of the execution of a command. However, the client
 will notice the connection has been closed only when the
 next command is sent (and results in network error).
-
-@return
-
-When called with the three arguments format:
-
-@simple-string-reply: `OK` if the connection exists and has been closed
-
-When called with the filter / value format:
-
-@integer-reply: the number of clients killed.

@@ -60,13 +60,6 @@ are now fixed.
 
 `EXPIRE` would return 0 and not alter the timeout for a key with a timeout set.
 
-@return
-
-@integer-reply, specifically:
-
-* `1` if the timeout was set.
-* `0` if the timeout was not set. e.g. key doesn't exist, or operation skipped due to the provided arguments.
-
 @examples
 
 ```cli

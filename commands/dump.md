@@ -21,10 +21,6 @@ should be used.
 
 If `key` does not exist a nil bulk reply is returned.
 
-@return
-
-@bulk-string-reply: the serialized value.
-
 @examples
 
 ```

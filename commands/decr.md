@@ -6,10 +6,6 @@ This operation is limited to **64 bit signed integers**.
 
 See `INCR` for extra information on increment/decrement operations.
 
-@return
-
-@integer-reply: the value of `key` after the decrement
-
 @examples
 
 ```cli

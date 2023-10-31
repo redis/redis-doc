@@ -196,12 +196,6 @@ Each element in the array represents one subcommand and follows the same specifi
 [td]: /topics/key-specs
 [tr]: /topics/key-specs
 
-@return
-
-@array-reply: a nested list of command details.
-
-The order of commands in the array is random.
-
 @examples
 
 The following is `COMMAND`'s output for the `GET` command:

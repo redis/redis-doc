@@ -147,8 +147,3 @@ SORT mylist BY weight_*->fieldname GET object_*->fieldname
 The string `->` is used to separate the key name from the hash field name.
 The key is substituted as documented above, and the hash stored at the resulting
 key is accessed to retrieve the specified hash field.
-
-@return
-
-@array-reply: without passing the `store` option the command returns a list of sorted elements.
-@integer-reply: when the `store` option is specified the command returns the number of sorted elements in the destination list.

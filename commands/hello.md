@@ -55,7 +55,3 @@ protocol to the specified version and also accepts the following options:
 
 * `AUTH <username> <password>`: directly authenticate the connection in addition to switching to the specified protocol version. This makes calling `AUTH` before `HELLO` unnecessary when setting up a new connection. Note that the `username` can be set to "default" to authenticate against a server that does not use ACLs, but rather the simpler `requirepass` mechanism of Redis prior to version 6.
 * `SETNAME <clientname>`: this is the equivalent of calling `CLIENT SETNAME`.
-
-@return
-
-@array-reply: a list of server properties. The reply is a map instead of an array when RESP3 is selected. The command returns an error if the `protover` requested does not exist.

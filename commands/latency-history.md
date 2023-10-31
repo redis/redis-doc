@@ -35,10 +35,3 @@ Valid values for `event` are:
 For more information refer to the [Latency Monitoring Framework page][lm].
 
 [lm]: /topics/latency-monitor
-
-@return
-
-@array-reply: specifically:
-
-The command returns an array where each element is a two elements array
-representing the timestamp and the latency of the event.

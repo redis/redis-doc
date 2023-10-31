@@ -84,12 +84,6 @@ This is a list of all the supported Redis ACL rules:
 * `clearselectors`: (Available in Redis 7.0 and later) Deletes all of the selectors attached to the user.
 * `reset`: Removes any capability from the user. They are set to off, without passwords, unable to execute any command, unable to access any key.
 
-@return
-
-@simple-string-reply: `OK` on success.
-
-If the rules contain errors, the error is returned.
-
 @examples
 
 ```

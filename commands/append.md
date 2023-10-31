@@ -3,10 +3,6 @@ end of the string.
 If `key` does not exist it is created and set as an empty string, so `APPEND`
 will be similar to `SET` in this special case.
 
-@return
-
-@integer-reply: the length of the string after the append operation.
-
 @examples
 
 ```cli

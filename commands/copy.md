@@ -8,13 +8,6 @@ index for the destination key.
 The command returns zero when the `destination` key already exists. The
 `REPLACE` option removes the `destination` key before copying the value to it.
 
-@return
-
-@integer-reply, specifically:
-
-* `1` if `source` was copied.
-* `0` if `source` was not copied.
-
 @examples
 
 ```

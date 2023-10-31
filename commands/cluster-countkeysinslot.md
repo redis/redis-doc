@@ -7,7 +7,3 @@ zero being returned.
 > CLUSTER COUNTKEYSINSLOT 7000
 (integer) 50341
 ```
-
-@return
-
-@integer-reply: The number of keys in the specified hash slot, or an error if the hash slot is invalid.

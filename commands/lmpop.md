@@ -10,13 +10,6 @@ See `BLMPOP` for the blocking variant of this command.
 Elements are popped from either the left or right of the first non-empty list based on the passed argument.
 The number of returned elements is limited to the lower between the non-empty list's length, and the count argument (which defaults to 1).
 
-@return
-
-@array-reply: specifically:
-
-* A `nil` when no element could be popped.
-* A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of elements.
-
 @examples
 
 ```cli

@@ -78,12 +78,6 @@ By default, **WRAP** is used if not otherwise specified.
     1) (integer) 0
     2) (integer) 3
 
-## Return value
-
-The command returns an array with each entry being the corresponding result of
-the sub command given at the same position. `OVERFLOW` subcommands don't count
-as generating a reply.
-
 The following is an example of `OVERFLOW FAIL` returning NULL.
 
     > BITFIELD mykey OVERFLOW FAIL incrby u2 102 1

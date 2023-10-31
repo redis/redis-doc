@@ -37,10 +37,6 @@ write command was executed in the context of a given client. When `WAIT` is
 called Redis checks if the specified number of replicas already acknowledged
 this offset or a greater one.
 
-@return
-
-@integer-reply: The command returns the number of replicas reached by all the writes performed in the context of the current connection.
-
 @examples
 
 ```

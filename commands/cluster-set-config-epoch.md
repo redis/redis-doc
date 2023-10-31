@@ -19,7 +19,3 @@ configuration epoch.
 So, using `CLUSTER SET-CONFIG-EPOCH`, when a new cluster is created, we can
 assign a different progressive configuration epoch to each node before
 joining the cluster together.
-
-@return
-
-@simple-string-reply: `OK` if the command was executed successfully, otherwise an error is returned.

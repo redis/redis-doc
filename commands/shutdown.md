@@ -62,12 +62,6 @@ This provides a best effort minimizing the risk of data loss in a situation wher
 Before version 7.0, shutting down a heavily loaded master node in a diskless setup was more likely to result in data loss.
 To minimize the risk of data loss in such setups, it's advised to trigger a manual `FAILOVER` (or `CLUSTER FAILOVER`) to demote the master to a replica and promote one of the replicas to be the new master, before shutting down a master node.
 
-@return
-
-@simple-string-reply: `OK` if `ABORT` was specified and shutdown was aborted.
-On successful shutdown, nothing is returned since the server quits and the connection is closed.
-On failure, an error is returned.
-
 ## Behavior change history
 
 *   `>= 7.0.0`: Introduced waiting for lagging replicas before exiting.

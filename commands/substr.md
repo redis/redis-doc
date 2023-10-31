@@ -7,10 +7,6 @@ So -1 means the last character, -2 the penultimate and so forth.
 The function handles out of range requests by limiting the resulting range to
 the actual length of the string.
 
-@return
-
-@bulk-string-reply
-
 @examples
 
 ```cli
