@@ -7,7 +7,7 @@ aliases:
 - /docs/getting-started/installation/install-redis-on-mac-os
 ---
 
-This guide shows you how to install Redis on macOS using Homebrew. Homebrew is the easiest way to install Redis on macOS. If you'd prefer to build Redis from the source files on macOS, see [Installing Redis from Source](/docs/install/install-redis-from-source).
+This guide shows you how to install Redis on macOS using Homebrew. Homebrew is the easiest way to install Redis on macOS. If you'd prefer to build Redis from the source files on macOS, see [Installing Redis from Source](/docs/install/install-redis/install-redis-from-source).
 
 ## Prerequisites
 
