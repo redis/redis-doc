@@ -5,10 +5,6 @@ The `min` and `max` arguments have the same meaning as described for
 
 Note: the command has a complexity of just O(log(N)) because it uses elements ranks (see `ZRANK`) to get an idea of the range. Because of this there is no need to do a work proportional to the size of the range.
 
-@return
-
-@integer-reply: the number of elements in the specified score range.
-
 @examples
 
 ```cli

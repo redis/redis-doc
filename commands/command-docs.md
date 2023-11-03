@@ -44,10 +44,6 @@ The following keys may be included in the mapped reply:
 
 [td]: /topics/command-arguments
 
-@return
-
-@array-reply: a map as a flattened array as described above.
-
 @examples
 
 ```cli

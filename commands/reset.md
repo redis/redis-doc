@@ -19,7 +19,3 @@ following:
   authentication is enabled.
 * Turns off `NO-EVICT` mode.
 * Turns off `NO-TOUCH` mode.
-
-@return
-
-@simple-string-reply: always 'RESET'.

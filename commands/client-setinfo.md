@@ -10,7 +10,3 @@ Currently the supported attributes are:
 There is no limit to the length of these attributes. However it is not possible to use spaces, newlines, or other non-printable characters that would violate the format of the `CLIENT LIST` reply.
 
 Note that these attributes are **not** cleared by the RESET command.
-
-@return
-
-@simple-string-reply: `OK` if the attribute name was successfully set.

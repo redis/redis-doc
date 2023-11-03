@@ -6,10 +6,6 @@ value that is higher than the sorted set's cardinality will not produce an
 error. When returning multiple elements, the one with the highest score will
 be the first, followed by the elements with lower scores.
 
-@return
-
-@array-reply: list of popped elements and scores.
-
 @examples
 
 ```cli

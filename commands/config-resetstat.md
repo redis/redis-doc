@@ -8,7 +8,3 @@ The following is a non-exhaustive list of values that are reset:
 * Connections received, rejected and evicted
 * Persistence statistics
 * Active defragmentation statistics
-
-@return
-
-@simple-string-reply: always `OK`.

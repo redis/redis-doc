@@ -9,10 +9,6 @@ Note: This description of command rules reflects the user's effective permission
 
 Selectors are listed in the order they were applied to the user, and include information about commands, key patterns, and channel patterns.
 
-@array-reply: a list of ACL rule definitions for the user.
-
-If `user` does not exist a @nil-reply is returned.
-
 @examples
 
 Here's an example configuration for a user

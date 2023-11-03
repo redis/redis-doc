@@ -1,9 +1,5 @@
 This command is like `ZRANGE`, but stores the result in the `<dst>` destination key.
 
-@return
-
-@integer-reply: the number of elements in the resulting sorted set.
-
 @examples
 
 ```cli

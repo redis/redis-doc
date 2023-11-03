@@ -35,10 +35,6 @@ In addition, Redis replicas asynchronously ping their master with two replicatio
 Redis remembers, for each client, the replication offset of the produced replication stream when the last write command was executed in the context of that client.
 When `WAITAOF` is called, Redis checks if the local Redis and/or the specified number of replicas have confirmed fsyncing this offset or a greater one to their AOF.
 
-@return
-
-@array-reply: The command returns an array of two integers: The first is the number of local Redises (0 or 1) that have fsynced to AOF  all writes performed in the context of the current connection; The second is the number of replicas that have acknowledged doing the same.
-
 @examples
 
 ```

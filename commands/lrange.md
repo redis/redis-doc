@@ -23,10 +23,6 @@ If `start` is larger than the end of the list, an empty list is returned.
 If `stop` is larger than the actual end of the list, Redis will treat it like
 the last element of the list.
 
-@return
-
-@array-reply: list of elements in the specified range.
-
 @examples
 
 ```cli

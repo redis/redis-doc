@@ -20,7 +20,3 @@ Each entry from the slow log is comprised of the following six values:
 The entry's unique ID can be used in order to avoid processing slow log entries multiple times (for instance you may have a script sending you an email alert for every new slow log entry).
 The ID is never reset in the course of the Redis server execution, only a server
 restart will reset it.
-
-@return
-
-@array-reply: a list of slow log entries.

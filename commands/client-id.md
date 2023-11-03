@@ -12,9 +12,3 @@ introduced also in Redis 5 together with `CLIENT ID`. Check the `CLIENT UNBLOCK`
 ```cli
 CLIENT ID
 ```
-
-@return
-
-@integer-reply
-
-The id of the client.

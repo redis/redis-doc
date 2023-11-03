@@ -35,14 +35,6 @@ useful to normal users:
 4. `FORCE`: Creates the pending message entry in the PEL even if certain specified IDs are not already in the PEL assigned to a different client. However the message must be exist in the stream, otherwise the IDs of non existing messages are ignored.
 5. `JUSTID`: Return just an array of IDs of messages successfully claimed, without returning the actual message. Using this option means the retry counter is not incremented.
 
-@return
-
-@array-reply, specifically:
-
-The command returns all the messages successfully claimed, in the same format
-as `XRANGE`. However if the `JUSTID` option was specified, only the message
-IDs are reported, without including the actual message.
-
 @examples
 
 ```

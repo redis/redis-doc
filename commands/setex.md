@@ -6,12 +6,7 @@ This command is equivalent to:
 SET key value EX seconds
 ```
 
-
 An error is returned when `seconds` is invalid.
-
-@return
-
-@simple-string-reply
 
 @examples
 

@@ -41,16 +41,49 @@ into account:
     These keywords will get expanded and auto-linked to relevant parts of the
     documentation.
 
-There should be at least two predefined sections: description and return value.
-The return value section is marked using the @return keyword:
+Each command will have a description and both RESP2 and RESP3 return values.
+Regarding the return values, these are contained in the files:
+
+* `resp2_replies.json`
+* `resp3_replies.json`
+
+Each file is a dictionary with a matching set of keys. Each key is an array of strings that,
+when processed, produce Markdown content. Here's an example:
 
 ```
-Returns all keys matching the given pattern.
-
-@return
-
-@multi-bulk-reply: all the keys that matched the pattern.
+{
+  ...
+  "ACL CAT": [
+    "One of the following:",
+    "* [Array reply](/docs/reference/protocol-spec#arrays): an array of [Bulk string reply](/docs/reference/protocol-spec#bulk-strings) elements representing ACL categories or commands in a given category.",
+    "* [Simple error reply](/docs/reference/protocol-spec#simple-errors): the command returns an error if an invalid category name is given."
+  ],
+  ...
+}
 ```
+
+**Important**: when adding or editing return values, be sure to edit both files. Use the following
+links for the reply type. Note: do not use `@reply-type` specifiers; use only the Markdown link.
+
+```md
+@simple-string-reply: [Simple string reply](https://redis.io/docs/reference/protocol-spec#simple-strings)
+@simple-error-reply: [Simple error reply](https://redis.io/docs/reference/protocol-spec#simple-errors)
+@integer-reply: [Integer reply](https://redis.io/docs/reference/protocol-spec#integers)
+@bulk-string-reply: [Bulk string reply](https://redis.io/docs/reference/protocol-spec#bulk-strings)
+@array-reply: [Array reply](https://redis.io/docs/reference/protocol-spec#arrays)
+@nil-reply: [Nil reply](https://redis.io/docs/reference/protocol-spec#bulk-strings)
+@null-reply: [Null reply](https://redis.io/docs/reference/protocol-spec#nulls)
+@boolean-reply: [Boolean reply](https://redis.io/docs/reference/protocol-spec#booleans)
+@double-reply: [Double reply](https://redis.io/docs/reference/protocol-spec#doubles)
+@big-number-reply: [Big number reply](https://redis.io/docs/reference/protocol-spec#big-numbers)
+@bulk-error-reply: [Bulk error reply](https://redis.io/docs/reference/protocol-spec#bulk-errors)
+@verbatim-string-reply: [Verbatim string reply](https://redis.io/docs/reference/protocol-spec#verbatim-strings)
+@map-reply: [Map reply](https://redis.io/docs/reference/protocol-spec#maps)
+@set-reply: [Set reply](https://redis.io/docs/reference/protocol-spec#sets)
+@push-reply: [Push reply](https://redis.io/docs/reference/protocol-spec#pushes)
+```
+
+**Note:** RESP3 return schemas are not currently included in the `resp2/resp3_replies.json` files for Redis Stack modules.
 
 ## Styling guidelines
 

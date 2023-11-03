@@ -76,7 +76,3 @@ Then we may want to know what commands are part of a given category:
 30) "psync"
 31) "sort"
 ```
-
-@return
-
-@array-reply: a list of ACL categories or a list of commands inside a given category. The command may return an error if an invalid category name is given as argument.

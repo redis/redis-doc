@@ -6,11 +6,6 @@ get returned.
 If you request details about non-existing commands, their return
 position will be nil.
 
-
-@return
-
-@array-reply: nested list of command details.
-
 @examples
 
 ```cli

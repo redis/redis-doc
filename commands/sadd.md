@@ -5,11 +5,6 @@ members.
 
 An error is returned when the value stored at `key` is not a set.
 
-@return
-
-@integer-reply: the number of elements that were added to the set, not including
-all the elements already present in the set.
-
 @examples
 
 ```cli

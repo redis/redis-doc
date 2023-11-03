@@ -3,10 +3,6 @@ For every key that does not hold a string value or does not exist, the special
 value `nil` is returned.
 Because of this, the operation never fails.
 
-@return
-
-@array-reply: list of values at the specified keys.
-
 @examples
 
 ```cli

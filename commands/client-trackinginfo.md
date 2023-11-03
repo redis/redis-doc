@@ -1,8 +1,6 @@
 The command returns information about the current client connection's use of the [server assisted client side caching](/topics/client-side-caching) feature.
 
-@return
-
-@array-reply: a list of tracking information sections and their respective values, specifically:
+Here's the list of tracking information sections and their respective values:
 
 * **flags**: A list of tracking flags used by the connection. The flags and their meanings are as follows:
   * `off`: The connection isn't using server assisted client side caching.

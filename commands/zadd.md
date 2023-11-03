@@ -58,17 +58,6 @@ The lexicographic ordering used is binary, it compares strings as array of bytes
 
 If the user inserts all the elements in a sorted set with the same score (for example 0), all the elements of the sorted set are sorted lexicographically, and range queries on elements are possible using the command `ZRANGEBYLEX` (Note: it is also possible to query sorted sets by range of scores using `ZRANGEBYSCORE`).
 
-@return
-
-@integer-reply, specifically:
-
-* When used without optional arguments, the number of elements added to the sorted set (excluding score updates).
-* If the `CH` option is specified, the number of elements that were changed (added or updated).
-
-If the `INCR` option is specified, the return value will be @bulk-string-reply:
-
-* The new score of `member` (a double precision floating point number) represented as string, or `nil` if the operation was aborted (when called with either the `XX` or the `NX` option).
-
 @examples
 
 ```cli

@@ -11,7 +11,3 @@ See original `SORT` for more details.
 ```
 SORT_RO mylist BY weight_*->fieldname GET object_*->fieldname
 ```
-
-@return
-
-@array-reply: a list of sorted elements.

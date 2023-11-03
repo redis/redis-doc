@@ -41,8 +41,3 @@ This command only works in cluster mode and may be useful for
 debugging and in order to manually orchestrate a cluster configuration
 when a new cluster is created. It is currently not used by `redis-cli`,
 and mainly exists for API completeness.
-
-@return
-
-@simple-string-reply: `OK` if the command was successful. Otherwise
-an error is returned.

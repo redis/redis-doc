@@ -13,7 +13,3 @@ the Redis process in a hard way and preventing it from persisting with half-writ
 information.
 
 For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
-
-@return
-
-@simple-string-reply

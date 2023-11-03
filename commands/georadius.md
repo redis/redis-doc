@@ -33,23 +33,6 @@ By default the command returns the items to the client. It is possible to store 
 * `!STORE`: Store the items in a sorted set populated with their geospatial information.
 * `!STOREDIST`: Store the items in a sorted set populated with their distance from the center as a floating point number, in the same unit specified in the radius.
 
-@return
-
-@array-reply, specifically:
-
-* Without any `WITH` option specified, the command just returns a linear array like ["New York","Milan","Paris"].
-* If `WITHCOORD`, `WITHDIST` or `WITHHASH` options are specified, the command returns an array of arrays, where each sub-array represents a single item.
-
-When additional information is returned as an array of arrays for each item, the first item in the sub-array is always the name of the returned item. The other information is returned in the following order as successive elements of the sub-array.
-
-1. The distance from the center as a floating point number, in the same unit specified in the radius.
-2. The geohash integer.
-3. The coordinates as a two items x,y array (longitude,latitude).
-
-So for example the command `GEORADIUS Sicily 15 37 200 km WITHCOORD WITHDIST` will return each item in the following way:
-
-    ["Palermo","190.4424",["13.361389338970184","38.115556395496299"]]
-
 ## Read-only variants
 
 Since `GEORADIUS` and `GEORADIUSBYMEMBER` have a `STORE` and `STOREDIST` option they are technically flagged as writing commands in the Redis command table. For this reason read-only replicas will flag them, and Redis Cluster replicas will redirect them to the master instance even if the connection is in read-only mode (see the `READONLY` command of Redis Cluster).

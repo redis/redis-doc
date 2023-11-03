@@ -4,10 +4,6 @@ same used in the redis.conf file or the external ACL file, so you can
 cut and paste what is returned by the ACL LIST command directly inside a
 configuration file if you wish (but make sure to check `ACL SAVE`).
 
-@return
-
-An array of strings.
-
 @examples
 
 ```

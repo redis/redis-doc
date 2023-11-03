@@ -6,12 +6,6 @@ The array's length is either `count` or the set's cardinality (`SCARD`), whichev
 If called with a negative `count`, the behavior changes and the command is allowed to return the **same element multiple times**.
 In this case, the number of returned elements is the absolute value of the specified `count`.
 
-@return
-
-@bulk-string-reply: without the additional `count` argument, the command returns a Bulk Reply with the randomly selected element, or `nil` when `key` does not exist.
-
-@array-reply: when the additional `count` argument is passed, the command returns an array of elements, or an empty array when `key` does not exist.
-
 @examples
 
 ```cli

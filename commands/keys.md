@@ -26,10 +26,6 @@ Supported glob-style patterns:
 
 Use `\` to escape special characters if you want to match them verbatim.
 
-@return
-
-@array-reply: list of keys matching `pattern`.
-
 @examples
 
 ```cli

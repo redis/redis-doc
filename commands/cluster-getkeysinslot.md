@@ -14,7 +14,3 @@ of the `CLUSTER SETSLOT` command documentation.
 2) "key_89793"
 3) "key_92937"
 ```
-
-@return
-
-@array-reply: From 0 to *count* key names in a Redis array reply.
