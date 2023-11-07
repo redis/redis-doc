@@ -1336,8 +1336,8 @@
   "ZRANK": [
     "One of the following:",
     "* [Null reply](/docs/reference/protocol-spec#nulls): if the key does not exist or the member does not exist in the sorted set.",
-    "* [Integer reply](/docs/reference/protocol-spec#integers): the rank of the member when _WITHSCORES_ is not used.",
-    "* [Array reply](/docs/reference/protocol-spec#arrays): the rank and score of the member when _WITHSCORES_ is used."
+    "* [Integer reply](/docs/reference/protocol-spec#integers): the rank of the member when _WITHSCORE_ is not used.",
+    "* [Array reply](/docs/reference/protocol-spec#arrays): the rank and score of the member when _WITHSCORE_ is used."
   ],
   "ZREM": [
     "[Integer reply](/docs/reference/protocol-spec#integers): the number of members removed from the sorted set, not including non-existing members."
