@@ -132,7 +132,7 @@ Another extremely useful operation defined for sorted set elements
 is the get-rank operation. It is possible to ask what is the
 position of an element in the set of ordered elements. 
 The `ZREVRANK` command is also available in order to get the rank, considering
-the elements sorted a descending way.
+the elements sorted in a descending way.
 
 {{< clients-example ss_tutorial zrank >}}
 > ZRANK racer_scores "Norem"
