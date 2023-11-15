@@ -603,7 +603,7 @@ once you use the `MONITOR` command. All commands received by the active Redis in
     1460100081.165665 [0 127.0.0.1:51706] "set" "shipment:8000736522714:status" "sorting"
     1460100083.053365 [0 127.0.0.1:51707] "get" "shipment:8000736522714:status"
 
-Note that it is possible to use to pipe the output, so you can monitor
+Note that it is possible to pipe the output, so you can monitor
 for specific patterns using tools such as `grep`.
 
 ## Monitoring the latency of Redis instances
