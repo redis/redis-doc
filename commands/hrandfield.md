@@ -11,7 +11,7 @@ The optional `WITHVALUES` modifier changes the reply so it includes the respecti
 @examples
 
 ```cli
-HMSET coin heads obverse tails reverse edge null
+HSET coin heads obverse tails reverse edge null
 HRANDFIELD coin
 HRANDFIELD coin
 HRANDFIELD coin -5 WITHVALUES
