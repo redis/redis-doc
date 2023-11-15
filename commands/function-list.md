@@ -15,7 +15,3 @@ The following information is provided for each of the libraries in the response:
 * **library_code:** the library's source code (when given the `WITHCODE` modifier).
 
 For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).
-
-@return
-
-@array-reply

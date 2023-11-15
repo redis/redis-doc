@@ -1,0 +1,8 @@
+{
+    "name": "Radish",
+    "description": "Simple and Fast Redis client written in and for Gleam",
+    "homepage": "https://hexdocs.pm/radish",
+    "twitter": [
+        "massivefermion"
+    ]
+}

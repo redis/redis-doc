@@ -25,10 +25,6 @@ rounded to the next multiple of 4. So for instance asking for just 1
 bit password will result in 4 bits to be emitted, in the form of a single
 hex character.
 
-@return
-
-@bulk-string-reply: by default 64 bytes string representing 256 bits of pseudorandom data. Otherwise if an argument if needed, the output string length is the number of specified bits (rounded to the next multiple of 4) divided by 4.
-
 @examples
 
 ```

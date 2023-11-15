@@ -80,11 +80,6 @@ In this particular case, running a single `MONITOR` client can reduce the
 throughput by more than 50%.
 Running more `MONITOR` clients will reduce throughput even more.
 
-@return
-
-**Non standard return value**, just dumps the received commands in an infinite
-flow.
-
 ## Behavior change history
 
 *   `>= 6.0.0`: `AUTH` excluded from the command's output.

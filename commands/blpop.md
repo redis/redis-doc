@@ -82,15 +82,6 @@ thing that happens when the timeout is reached.
 If you like science fiction, think of time flowing at infinite speed inside a
 `MULTI` / `EXEC` block...
 
-@return
-
-@array-reply: specifically:
-
-* A `nil` multi-bulk when no element could be popped and the timeout expired.
-* A two-element multi-bulk with the first element being the name of the key
-  where an element was popped and the second element being the value of the
-  popped element.
-
 @examples
 
 ```

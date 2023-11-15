@@ -7,11 +7,6 @@ from a full Redis command.
 but in some cases it's not possible to find keys of certain commands and then the entire command must be parsed to discover some / all key names.
 You can use `COMMAND GETKEYS` or `COMMAND GETKEYSANDFLAGS` to discover key names directly from how Redis parses the commands.
 
-
-@return
-
-@array-reply: list of keys from your command.
-
 @examples
 
 ```cli

@@ -5,10 +5,6 @@ If the library doesn't exist, the server returns an error.
 
 For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).
 
-@return
-
-@simple-string-reply
-
 @examples
 
 ```

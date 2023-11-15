@@ -35,10 +35,6 @@ Since Redis 3.2.10 / 4.0.0, this command also prevents keys to be evicted or
 expired during the time clients are paused. This way the dataset is guaranteed
 to be static not just from the point of view of clients not being able to write, but also from the point of view of internal operations.
 
-@return
-
-@simple-string-reply: The command returns OK or an error if the timeout is invalid.
-
 ## Behavior change history
 
 *   `>= 3.2.0`: Client pause prevents client pause and key eviction as well.

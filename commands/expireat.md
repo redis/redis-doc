@@ -27,13 +27,6 @@ The `EXPIREAT` command supports a set of options:
 A non-volatile key is treated as an infinite TTL for the purpose of `GT` and `LT`.
 The `GT`, `LT` and `NX` options are mutually exclusive.
 
-@return
-
-@integer-reply, specifically:
-
-* `1` if the timeout was set.
-* `0` if the timeout was not set. e.g. key doesn't exist, or operation skipped due to the provided arguments.
-
 @examples
 
 ```cli

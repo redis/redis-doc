@@ -16,9 +16,9 @@ we are mapping a string to another string. The string data type is useful
 for a number of use cases, like caching HTML fragments or pages.
 
 {{< clients-example set_tutorial set_get >}}
-    > set bike:1 Deimos
+    > SET bike:1 Deimos
     OK
-    > get bike:1
+    > GET bike:1
     "Deimos"
 {{< /clients-example >}}
 

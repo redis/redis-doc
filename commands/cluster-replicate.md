@@ -20,7 +20,3 @@ only if the following additional conditions are met:
 2. The node is empty, no keys are stored at all in the key space.
 
 If the command succeeds the new replica will immediately try to contact its master in order to replicate from it.
-
-@return
-
-@simple-string-reply: `OK` if the command was executed successfully, otherwise an error is returned.

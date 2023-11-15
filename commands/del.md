@@ -1,10 +1,6 @@
 Removes the specified keys.
 A key is ignored if it does not exist.
 
-@return
-
-@integer-reply: The number of keys that were removed.
-
 @examples
 
 ```cli

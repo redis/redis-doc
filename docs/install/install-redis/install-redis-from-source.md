@@ -1,9 +1,11 @@
 ---
 title: "Install Redis from Source"
-linkTitle: "Install from Source"
+linkTitle: "Source code"
 weight: 5
 description: >
     Compile and install Redis from source
+aliases:
+- /docs/getting-started/installation/install-redis-from-source
 ---
 
 You can compile and install Redis from source on variety of platforms and operating systems including Linux and macOS. Redis has no dependencies other than a C  compiler and `libc`.
@@ -36,7 +38,7 @@ If the compile succeeds, you'll find several Redis binaries in the `src` directo
 To install these binaries in `/usr/local/bin`, run:
 
 {{< highlight bash  >}}
-make install
+sudo make install
 {{< / highlight >}}
 
 ### Starting and stopping Redis in the foreground
@@ -50,3 +52,5 @@ redis-server
 If successful, you'll see the startup logs for Redis, and Redis will be running in the foreground.
 
 To stop Redis, enter `Ctrl-C`.
+
+For a more complete installation, continue with [these instructions](/docs/install/#install-redis-more-properly).

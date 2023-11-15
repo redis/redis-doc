@@ -1,0 +1,8 @@
+{
+    "name": "FalkorDB",
+    "license": "SSPL",
+    "description": "A graph database with a Cypher-based querying language using sparse adjacency matrices",
+    "github": [
+        "FalkorDB"
+    ]
+}

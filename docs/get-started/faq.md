@@ -63,10 +63,9 @@ and not refreshed on cache misses.
 
 ## How can I reduce Redis' overall memory usage?
 
-If you can, use Redis 32 bit instances. Also make good use of small hashes,
-lists, sorted sets, and sets of integers, since Redis is able to represent
-those data types in the special case of a few elements in a much more compact
-way. There is more info in the [Memory Optimization page](/topics/memory-optimization).
+A good practice is to consider memory consumption when mapping your logical data model to the physical data model within Redis. These considerations include using specific data types, key patterns, and normalization.
+
+Beyond data modeling, there is more info in the [Memory Optimization page](/topics/memory-optimization).
 
 ## What happens if Redis runs out of memory?
 

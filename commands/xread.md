@@ -197,19 +197,6 @@ are not removed from the stream when clients are served, so every
 client waiting will be served as soon as an `XADD` command provides
 data to the stream.
 
-@return
-
-@array-reply, specifically:
-
-The command returns an array of results: each element of the returned
-array is an array composed of a two element containing the key name and
-the entries reported for that key. The entries reported are full stream
-entries, having IDs and the list of all the fields and values. Field and
-values are guaranteed to be reported in the same order they were added
-by `XADD`.
-
-When **BLOCK** is used, on timeout a null reply is returned.
-
 Reading the [Redis Streams introduction](/topics/streams-intro) is highly
 suggested in order to understand more about the streams overall behavior
 and semantics.

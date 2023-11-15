@@ -1,11 +1,12 @@
 ---
-title: "Get started using Redis clients"
-linkTitle: "Client quickstarts"
-description: Get started using Redis clients. Select your library and connect your application to a Redis database. Then, try an example.
+title: "Connect with Redis clients"
+linkTitle: "Clients"
+description: Connect your application to a Redis database and try an example
 weight: 45
 aliases:
  - /docs/redis-clients
  - /docs/stack/get-started/clients/
+ - /docs/clients/
 ---
 
 Here, you will learn how to connect your application to a Redis database. If you're new to Redis, you might first want to [install Redis with Redis Stack and RedisInsight](/docs/getting-started/install-stack/).

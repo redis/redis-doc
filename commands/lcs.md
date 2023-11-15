@@ -70,10 +70,3 @@ Finally to also have the match len:
 3) "len"
 4) (integer) 6
 ```
-
-@return
-
-* Without modifiers the string representing the longest common substring is returned.
-* When `LEN` is given the command returns the length of the longest common substring.
-* When `IDX` is given the command returns an array with the LCS length and all the ranges in both the strings, start and end offset for each string, where there are matches. When `WITHMATCHLEN` is given each array representing a match will also have the length of the match (see examples).
-

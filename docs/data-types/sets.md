@@ -141,7 +141,7 @@ set without removing it using the `SRANDMEMBER` command:
 
 {{< clients-example sets_tutorial srem >}}
 > SADD bikes:racing:france bike:1 bike:2 bike:3 bike:4 bike:5
-(integer) 3
+(integer) 5
 > SREM bikes:racing:france bike:1
 (integer) 1
 > SPOP bikes:racing:france

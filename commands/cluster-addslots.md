@@ -45,7 +45,3 @@ This means that this command should be used with care only by applications
 orchestrating Redis Cluster, like `redis-cli`, and the command if used
 out of the right context can leave the cluster in a wrong state or cause
 data loss.
-
-@return
-
-@simple-string-reply: `OK` if the command was successful. Otherwise an error is returned.

@@ -33,14 +33,10 @@ values. The following metrics are reported:
      minus `startup.allocated`) and `keys.count` 
 *   `dataset.bytes`: The size in bytes of the dataset, i.e. `overhead.total`
      subtracted from `total.allocated` (see `INFO`'s `used_memory_dataset`)
-*   `dataset.percentage`: The percentage of `dataset.bytes` out of the net
+*   `dataset.percentage`: The percentage of `dataset.bytes` out of the total
      memory usage
-*   `peak.percentage`: The percentage of `peak.allocated` out of
-     `total.allocated`
+*   `peak.percentage`: The percentage of `total.allocated` out of
+     `peak.allocated`
 *   `fragmentation`: See `INFO`'s `mem_fragmentation_ratio`
-
-@return
-
-@array-reply: nested list of memory usage metrics and their values
 
 **A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.

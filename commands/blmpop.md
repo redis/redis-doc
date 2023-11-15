@@ -6,10 +6,3 @@ When all lists are empty, Redis will block the connection until another client p
 A `timeout` of zero can be used to block indefinitely.
 
 See `LMPOP` for more information.
-
-@return
-
-@array-reply: specifically:
-
-* A `nil` when no element could be popped, and timeout is reached.
-* A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of elements.

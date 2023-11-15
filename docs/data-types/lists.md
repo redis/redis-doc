@@ -293,7 +293,7 @@ This is an example of a `BRPOP` call we could use in the worker:
 
 {{< clients-example list_tutorial brpop >}}
 > RPUSH bikes:repairs bike:1 bike:2
-(integer) 5
+(integer) 2
 > BRPOP bikes:repairs 1
 1) "bikes:repairs"
 2) "bike:2"
@@ -304,6 +304,7 @@ This is an example of a `BRPOP` call we could use in the worker:
 (nil)
 (2.01s)
 {{< /clients-example >}}
+
 
 It means: "wait for elements in the list `bikes:repairs`, but return if after 1 second
 no element is available".
@@ -346,7 +347,7 @@ Examples of rule 1:
 
 {{< clients-example list_tutorial rule_1 >}}
 > DEL new_bikes
-(integer) 1
+(integer) 0
 > LPUSH new_bikes bike:1 bike:2 bike:3
 (integer) 3
 {{< /clients-example >}}

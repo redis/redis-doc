@@ -11073,14 +11073,44 @@
         "arity": 3,
         "arguments": [
             {
-                "name": "host",
-                "type": "string",
-                "display_text": "host"
-            },
-            {
-                "name": "port",
-                "type": "integer",
-                "display_text": "port"
+                "name": "args",
+                "type": "oneof",
+                "arguments": [
+                    {
+                        "name": "host-port",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "host",
+                                "type": "string",
+                                "display_text": "host"
+                            },
+                            {
+                                "name": "port",
+                                "type": "integer",
+                                "display_text": "port"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "no-one",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "no",
+                                "type": "pure-token",
+                                "display_text": "no",
+                                "token": "NO"
+                            },
+                            {
+                                "name": "one",
+                                "type": "pure-token",
+                                "display_text": "one",
+                                "token": "ONE"
+                            }
+                        ]
+                    }
+                ]
             }
         ],
         "command_flags": [
@@ -12743,14 +12773,44 @@
         "arity": 3,
         "arguments": [
             {
-                "name": "host",
-                "type": "string",
-                "display_text": "host"
-            },
-            {
-                "name": "port",
-                "type": "integer",
-                "display_text": "port"
+                "name": "args",
+                "type": "oneof",
+                "arguments": [
+                    {
+                        "name": "host-port",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "host",
+                                "type": "string",
+                                "display_text": "host"
+                            },
+                            {
+                                "name": "port",
+                                "type": "integer",
+                                "display_text": "port"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "no-one",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "no",
+                                "type": "pure-token",
+                                "display_text": "no",
+                                "token": "NO"
+                            },
+                            {
+                                "name": "one",
+                                "type": "pure-token",
+                                "display_text": "one",
+                                "token": "ONE"
+                            }
+                        ]
+                    }
+                ]
             }
         ],
         "command_flags": [

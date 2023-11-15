@@ -439,7 +439,7 @@ This is almost always what you want, however it is also possible to specify a re
 * If the ID is the special ID `>` then the command will return only new messages never delivered to other consumers so far, and as a side effect, will update the consumer group's *last ID*.
 * If the ID is any other valid numerical ID, then the command will let us access our *history of pending messages*. That is, the set of messages that were delivered to this specified consumer (identified by the provided name), and never acknowledged so far with `XACK`.
 
-We can test this behavior immediately specifying an ID of 0, without any **COUNT** option: we'll just see the only pending message, that is, the one about apples:
+We can test this behavior immediately specifying an ID of 0, without any **COUNT** option: we'll just see the only pending message, that is, the one about Castilla:
 
 {{< clients-example stream_tutorial xgroup_read_id >}}
 > XREADGROUP GROUP italy_riders Alice STREAMS race:italy 0
@@ -474,7 +474,7 @@ Now it's Bob's turn to read something:
             2) "Sam-Bodden"
 {{< /clients-example >}}
 
-Bob asked for a maximum of two messages and is reading via the same group `mygroup`. So what happens is that Redis reports just *new* messages. As you can see the "apple" message is not delivered, since it was already delivered to Alice, so Bob gets orange and strawberry, and so forth.
+Bob asked for a maximum of two messages and is reading via the same group `mygroup`. So what happens is that Redis reports just *new* messages. As you can see the "Castilla" message is not delivered, since it was already delivered to Alice, so Bob gets Royce and Sam-Bodden and so forth.
 
 This way Alice, Bob, and any other consumer in the group, are able to read different messages from the same stream, to read their history of yet to process messages, or to mark messages as processed. This allows creating different topologies and semantics for consuming messages from a stream.
 

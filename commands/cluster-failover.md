@@ -61,7 +61,3 @@ Because of this the **TAKEOVER** option should be used with care.
   To check that the masters are aware of a new replica, you can send `CLUSTER NODES` or `CLUSTER REPLICAS` to each of the master nodes and check that it appears as a replica, before sending `CLUSTER FAILOVER` to the replica.
 * To check that the failover has actually happened you can use `ROLE`, `INFO REPLICATION` (which indicates "role:master" after successful failover), or `CLUSTER NODES` to verify that the state of the cluster has changed sometime after the command was sent.
 * To check if the failover has failed, check the replica's log for "Manual failover timed out", which is logged if the replica has given up after a few seconds.
-
-@return
-
-@simple-string-reply: `OK` if the command was accepted and a manual failover is going to be attempted. An error if the operation cannot be executed, for example if we are talking with a node which is already a master.

@@ -39,7 +39,3 @@ I have a few advices for you:
 For more information refer to the [Latency Monitoring Framework page][lm].
 
 [lm]: /topics/latency-monitor
-
-@return
-
-@bulk-string-reply

@@ -65,8 +65,3 @@ just a single key exists.
 * `!KEYS` -- If the key argument is an empty string, the command will instead migrate all the keys that follow the `!KEYS` option (see the above section for more info).
 * `!AUTH` -- Authenticate with the given password to the remote instance.
 * `AUTH2` -- Authenticate with the given username and password pair (Redis 6 or greater ACL auth style).
-
-@return
-
-@simple-string-reply: The command returns OK on success, or `NOKEY` if no keys were
-found in the source instance.

@@ -3,13 +3,6 @@ Non existing members are ignored.
 
 An error is returned when `key` exists and does not hold a sorted set.
 
-@return
-
-@integer-reply, specifically:
-
-* The number of members removed from the sorted set, not including non existing
-  members.
-
 @examples
 
 ```cli

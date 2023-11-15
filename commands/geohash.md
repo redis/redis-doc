@@ -18,13 +18,6 @@ have the following properties:
 2. It is possible to use them in `geohash.org` URLs such as `http://geohash.org/<geohash-string>`. This is an [example of such URL](http://geohash.org/sqdtr74hyu0).
 3. Strings with a similar prefix are nearby, but the contrary is not true, it is possible that strings with different prefixes are nearby too.
 
-@return
-
-@array-reply, specifically:
-
-The command returns an array where each element is the Geohash corresponding to
-each member name passed as argument to the command.
-
 @examples
 
 ```cli

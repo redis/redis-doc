@@ -27,7 +27,3 @@ command when enabling tracking:
 * `OPTIN`: when broadcasting is NOT active, normally don't track keys in read only commands, unless they are called immediately after a `CLIENT CACHING yes` command.
 * `OPTOUT`: when broadcasting is NOT active, normally track keys in read only commands, unless they are called immediately after a `CLIENT CACHING no` command.
 * `NOLOOP`: don't send notifications about keys modified by this connection itself.
-
-@return
-
-@simple-string-reply: `OK` if the connection was successfully put in tracking mode or if the tracking mode was successfully disabled. Otherwise an error is returned.

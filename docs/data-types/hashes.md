@@ -10,13 +10,13 @@ Redis hashes are record types structured as collections of field-value pairs.
 You can use hashes to represent basic objects and to store groupings of counters, among other things.
 
 {{< clients-example hash_tutorial set_get_all >}}
-> hset bike:1 model Deimos brand Ergonom type 'Enduro bikes' price 4972
+> HSET bike:1 model Deimos brand Ergonom type 'Enduro bikes' price 4972
 (integer) 4
-> hget bike:1 model
+> HGET bike:1 model
 "Deimos"
-> hget bike:1 price
+> HGET bike:1 price
 "4972"
-> hgetall bike:1
+> HGETALL bike:1
 1) "model"
 2) "Deimos"
 3) "brand"
@@ -36,7 +36,7 @@ The command `HSET` sets multiple fields of the hash, while `HGET` retrieves
 a single field. `HMGET` is similar to `HGET` but returns an array of values:
 
 {{< clients-example hash_tutorial hmget >}}
-> hmget bike:1 model price no-such-field
+> HMGET bike:1 model price no-such-field
 1) "Deimos"
 2) "4972"
 3) (nil)
@@ -46,9 +46,9 @@ There are commands that are able to perform operations on individual fields
 as well, like `HINCRBY`:
 
 {{< clients-example hash_tutorial hincrby >}}
-> hincrby bike:1 price 100
+> HINCRBY bike:1 price 100
 (integer) 5072
-> hincrby bike:1 price -100
+> HINCRBY bike:1 price -100
 (integer) 4972
 {{< /clients-example >}}
 

@@ -19,10 +19,6 @@ Furthermore, **groups** is also an array, and for each of the consumer groups it
 The `COUNT` option can be used to limit the number of stream and PEL entries that are returned (The first `<count>` entries are returned).
 The default `COUNT` is 10 and a `COUNT` of 0 means that all entries will be returned (execution time may be long if the stream has a lot of entries).
 
-@return
-
-@array-reply: a list of informational bits
-
 @examples
 
 Default reply:

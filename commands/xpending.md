@@ -127,11 +127,3 @@ The `XPENDING` command allows iterating over the pending entries just like
 prefixing the ID of the last-read pending entry with the `(` character that
 denotes an open (exclusive) range, and proving it to the subsequent call to the
 command.
-
-@return
-
-@array-reply, specifically:
-
-The command returns data in different format depending on the way it is
-called, as previously explained in this page. However the reply is always
-an array of items.

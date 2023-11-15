@@ -10,10 +10,6 @@ It is possible to use one of the following modifiers to dictate the flushing mod
 
 For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
 
-@return
-
-@simple-string-reply
-
 ## Behavior change history
 
 *   `>= 6.2.0`: Default flush behavior now configurable by the **lazyfree-lazy-user-flush** configuration directive. 

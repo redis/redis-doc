@@ -12,10 +12,6 @@ SDIFF key1 key2 key3 = {b,d}
 
 Keys that do not exist are considered to be empty sets.
 
-@return
-
-@array-reply: list with members of the resulting set.
-
 @examples
 
 ```cli

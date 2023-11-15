@@ -20,8 +20,3 @@ is active and retains all changes to the data set once it ends.
 * `NO`. Disables scripts debug mode.
 
 For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
-
-@return
-
-@simple-string-reply: `OK`.
-

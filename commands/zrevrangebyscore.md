@@ -9,11 +9,6 @@ order.
 Apart from the reversed ordering, `ZREVRANGEBYSCORE` is similar to
 `ZRANGEBYSCORE`.
 
-@return
-
-@array-reply: list of elements in the specified score range (optionally
-with their scores).
-
 @examples
 
 ```cli

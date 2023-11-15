@@ -7,11 +7,6 @@ However, if RESP3 is used (see `HELLO`) it is possible for a client to issue any
 
 For more information, see [Pub/sub](/docs/interact/pubsub/).
 
-@return
-
-When successful, this command doesn't return anything.
-Instead, for each channel, one message with the first element being the string "subscribe" is pushed as a confirmation that the command succeeded.
-
 ## Behavior change history
 
 *   `>= 6.2.0`: `RESET` can be called to exit subscribed state.

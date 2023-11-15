@@ -7,6 +7,7 @@ description: >
 aliases:
     - /docs/manual/cli
     - /docs/management/cli
+    - /docs/ui/cli
 ---
 
 In interactive mode, `redis-cli` has basic line editing capabilities to provide a familiar typing experience.
