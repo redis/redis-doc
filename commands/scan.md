@@ -205,7 +205,7 @@ Also note that this behavior is specific of `SSCAN`, `HSCAN` and `ZSCAN`. `SCAN`
 
 ## Further reading
 
-For more information on `SCAN` please refer to the [The Redis Keyspace](/docs/manual/keyspace) tutorial.
+For more information about managing keys, please refer to the [The Redis Keyspace](/docs/manual/keyspace) tutorial.
 
 ## Additional examples
 
