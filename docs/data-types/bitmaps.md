@@ -27,8 +27,8 @@ See the [complete list of bitmap commands](https://redis.io/commands/?group=bitm
 
 ## Example
 
-Suppose you have 1000 cyclists racing through the country-side, labeled 0-999.
-You want to quickly determine whether a given rider has pinged a tracking server within the hour. 
+Suppose you have 1000 cyclists racing through the country-side, with sensors on their bikes labeled 0-999.
+You want to quickly determine whether a given sensor has pinged a tracking server within the hour to check in on a rider. 
 
 You can represent this scenario using a bitmap whose key references the current hour.
 
