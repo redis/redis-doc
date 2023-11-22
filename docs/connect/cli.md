@@ -122,6 +122,11 @@ option and the URI pattern `redis://user:password@host:port/dbnum`:
     $ redis-cli -u redis://LJenkins:p%40ssw0rd@redis-16379.hosted.com:16379/0 PING
     PONG
 
+**NOTE:**
+User, password and dbnum are optional.
+For authentication without a username, use username `default`.
+For TLS, use the scheme `rediss`.
+
 ## SSL/TLS
 
 By default, `redis-cli` uses a plain TCP connection to connect to Redis.
