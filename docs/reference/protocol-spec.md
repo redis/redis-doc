@@ -516,8 +516,9 @@ However, low-level programming languages (such as C, for example) will likely re
 
 {{% alert title="Map pattern in RESP2" color="info" %}}
 RESP2 doesn't have a map type.
-Maps in RESP2 are represented by arrays, in which each two element is a key-value tuple.
-Each tuple is an array with two elements, these being the key and the value.
+A map in RESP2 is represented by a flat array containing the keys and the values.
+The first element is a key, followed by the corresponding value, then the next key and so on, like this:
+`key1, value1, key2, value2, ...`.
 {{% /alert %}}
 
 <a name="set-reply"></a>
