@@ -39,7 +39,7 @@ You can copy and paste the connection details from the Redis Cloud database conf
 
 ## Store and retrieve data
 
-Redis stands for Remote Dictionary Server. You can use the same data types as in your local programming environment but on the server side within Redis.
+Redis stands for Remote Dictionary Server. You can use the same data types as in your local programming environment and on the server side within Redis.
 
 Similar to byte arrays, Redis strings store sequences of bytes, including text, serialized objects, counter values, and binary arrays. The following example shows you how to set and get a string value:
 
