@@ -274,20 +274,15 @@ Switch to AOF on live database:
 
 * Enable AOF: `redis-cli config set appendonly yes`
 * Optionally disable RDB: `redis-cli config set save ""`
-* Wait for AOF rewrite to finish persisting the data. You can do that by
-  watching `INFO persistence`, waiting for `aof_rewrite_in_progress` and
-  `aof_rewrite_scheduled` to be `0`, and validate that
-  `aof_last_bgrewrite_status` is `ok`.
-* **IMPORTANT:** Update your `redis.conf` (potentially through `CONFIG
-  REWRITE`) and ensure that it matches the config above. (If you forget this
-  step, when you restart the server, the configuration changes will be lost and
-  the server will start again with the old configuration, resulting in a loss
-  of your data.)
+* Make sure writes are appended to the append only file correctly.
+* **IMPORTANT:** Update your `redis.conf` (potentially through `CONFIG REWRITE`) and ensure that it matches the config above.
+  (If you forget this step, when you restart the server, the configuration changes will be lost and the server will start again with the old configuration, resulting in a loss of your data.)
 
 Next time you restart the server:
 
+* Wait for AOF rewrite to finish persisting the data.
+  You can do that by watching `INFO persistence`, waiting for `aof_rewrite_in_progress` and `aof_rewrite_scheduled` to be `0`, and validate that `aof_last_bgrewrite_status` is `ok`.
 * Make sure your database contains the same number of keys it contained previously.
-* Make sure writes are appended to the append only file correctly.
 
 **Redis 2.0**
 
