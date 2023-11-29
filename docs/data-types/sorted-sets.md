@@ -244,7 +244,3 @@ If you need to index and query your data, consider the [JSON](/docs/stack/json) 
 
 * [Redis Sorted Sets Explained](https://www.youtube.com/watch?v=MUKlxdBQZ7g) is an entertaining introduction to sorted sets in Redis.
 * [Redis University's RU101](https://university.redis.com/courses/ru101/) explores Redis sorted sets in detail.
-
-
-* [Redis Sorted Sets Explained](https://www.youtube.com/watch?v=MUKlxdBQZ7g) is an entertaining introduction to sorted sets in Redis.
-* [Redis University's RU101](https://university.redis.com/courses/ru101/) explores Redis sorted sets in detail.
