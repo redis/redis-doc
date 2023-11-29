@@ -26,6 +26,8 @@ Supported glob-style patterns:
 
 Use `\` to escape special characters if you want to match them verbatim.
 
+Note that using patterns with hash tags which can imply a specific slot can save complexity, as Redis would only iterate over keys in the slot, rather than the whole database. For example, with the pattern `{a}h*llo`, Redis would only try to match it with the keys in slot 15495, which hash tag `{a}` implies.
+
 @examples
 
 ```cli
