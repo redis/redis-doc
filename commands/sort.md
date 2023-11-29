@@ -105,8 +105,7 @@ SORT mylist BY weight_* GET object_* GET #
 
 ## Restrictions for using external keys
 
-When enabling `Redis cluster-mode` there is no way to guarantee the existence of the external keys on the node which the command is processed on.
-In this case, any use of `GET` or `BY` which reference external key pattern will cause the command to fail with an error.
+Specially, in `Redis cluster-mode`, `BY` or `GET` can only be used when pattern contains hash tag and implies a specific slot which the key is also in, which means any key matching this pattern must be in the same slot as the key, and therefore in the same node. For example, in cluster mode, `{mylist}weight_*` is acceptable as a pattern when sorting `mylist`, while pattern `{abc}weight_*` will be denied, causing the command to fail with an error.
 
 Starting from Redis 7.0, any use of `GET` or `BY` which reference external key pattern will only be allowed in case the current user running the command has full key read permissions.
 Full key read permissions can be set for the user by, for example, specifying `'%R~*'` or `'~*` with the relevant command access rules.
