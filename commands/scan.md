@@ -148,6 +148,7 @@ redis 127.0.0.1:6379>
 
 As you can see most of the calls returned zero elements, but the last call where a `COUNT` of 1000 was used in order to force the command to do more scanning for that iteration.
 
+Note that when enabling `Redis cluster-mode`, using a pattern with hash tag which can imply a specific slot can save complexity, as any key matching the pattern will be in the same slot, Redis would only iterate over keys in the slot, rather than the whole database. For example, with the pattern `{a}h*llo`, Redis would only try to match it with the keys in slot 15495, which hash tag `{a}` implies.
 
 ## The TYPE option
 
