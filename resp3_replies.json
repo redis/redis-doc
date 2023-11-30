@@ -767,7 +767,9 @@
     "* [Bulk string reply](/docs/reference/protocol-spec#bulk-strings): the encoding of the object."
   ],
   "OBJECT FREQ": [
-    "[Integer reply](/docs/reference/protocol-spec#integers): the counter's value."
+    "One of the following:",
+    "[Integer reply](/docs/reference/protocol-spec#integers): the counter's value.",
+    "[Null reply](/docs/reference/protocol-spec#nulls): if _key_ doesn't exist."
   ],
   "OBJECT HELP": [
     "[Array reply](/docs/reference/protocol-spec#arrays): a list of sub-commands and their descriptions."
