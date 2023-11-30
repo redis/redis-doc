@@ -174,12 +174,12 @@ It is important to note that the **TYPE** filter is also applied after elements 
 
 ## The NOSCORES/NOVALUES option
 
-When using `HSCAN`, you can use `NOVALUES` option to make Redis return only the keys in the hash table, without their corresponding values.
+When using `HSCAN`, you can use the `NOVALUES` option to make Redis return only the keys in the hash table without their corresponding values.
 
-Similarly, when using `ZSCAN`, you can use `NOSCORES` option to make Redis return only the members in the zset, without their corresponding scores.
+Similarly, when using `ZSCAN`, you can use the `NOSCORES` option to make Redis return only the members in the sorted set without their corresponding scores.
 
 ```
-redis 127.0.0.1:6379> HMSET myhash a 1 b 2
+redis 127.0.0.1:6379> HSET myhash a 1 b 2
 OK
 redis 127.0.0.1:6379> HSCAN myhash 0
 1) "0"
