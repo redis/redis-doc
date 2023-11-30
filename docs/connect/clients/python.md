@@ -26,6 +26,10 @@ pip install redis
 
 For faster performance, install Redis with [`hiredis`](https://github.com/redis/hiredis) support. This provides a compiled response parser, and for most cases requires zero code changes. By default, if `hiredis` >= 1.0 is available, `redis-py` attempts to use it for response parsing.
 
+{{% alert title="Note" %}}
+The Python `distutils` packaging scheme is no longer part of Python 3.12 and greater. If you're having difficulties getting `redis-py` installed in a Python 3.12 environment, consider updating to a recent release of `redis-py`.
+{{% /alert %}}
+
 ```bash
 pip install redis[hiredis]
 ```
