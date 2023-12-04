@@ -26,7 +26,10 @@ Supported glob-style patterns:
 
 Use `\` to escape special characters if you want to match them verbatim.
 
-Note that when enabling `Redis cluster-mode`, using a pattern with hash tag which can imply a specific slot can save complexity, as any key matching the pattern will be in the same slot, Redis would only iterate over keys in the slot, rather than the whole database. For example, with the pattern `{a}h*llo`, Redis would only try to match it with the keys in slot 15495, which hash tag `{a}` implies.
+Note that when enabling `Redis cluster-mode`, using a pattern with hash tag that implies a specific slot can save complexity.
+Because any key matching the pattern will be in the same slot.
+Redis would only iterate over keys in the slot, rather than the whole database.
+For example, with the pattern `{a}h*llo`, Redis would only try to match it with the keys in slot 15495, which hash tag `{a}` implies.
 
 @examples
 
