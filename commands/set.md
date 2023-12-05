@@ -6,10 +6,10 @@ Any previous time to live associated with the key is discarded on successful `SE
 
 The `SET` command supports a set of options that modify its behavior:
 
-* `EX` *seconds* -- Set the specified expire time, in seconds.
-* `PX` *milliseconds* -- Set the specified expire time, in milliseconds.
-* `EXAT` *timestamp-seconds* -- Set the specified Unix time at which the key will expire, in seconds.
-* `PXAT` *timestamp-milliseconds* -- Set the specified Unix time at which the key will expire, in milliseconds.
+* `EX` *seconds* -- Set the specified expire time, in seconds (a positive integer).
+* `PX` *milliseconds* -- Set the specified expire time, in milliseconds (a positive integer).
+* `EXAT` *timestamp-seconds* -- Set the specified Unix time at which the key will expire, in seconds (a positive integer).
+* `PXAT` *timestamp-milliseconds* -- Set the specified Unix time at which the key will expire, in milliseconds (a positive integer).
 * `NX` -- Only set the key if it does not already exist.
 * `XX` -- Only set the key if it already exists.
 * `KEEPTTL` -- Retain the time to live associated with the key.
