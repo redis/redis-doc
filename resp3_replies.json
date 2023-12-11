@@ -1105,7 +1105,7 @@
     "One of the following:",
     "* [Null reply](/docs/reference/protocol-spec#nulls): if the key does not exist.",
     "* [Bulk string reply](/docs/reference/protocol-spec#bulk-strings): when called without the _count_ argument, the removed member.",
-    "* [Array reply](/docs/reference/protocol-spec#arrays): when called with the _count_ argument, a aist of the removed members."
+    "* [Array reply](/docs/reference/protocol-spec#arrays): when called with the _count_ argument, a list of the removed members."
   ],
   "SPUBLISH": [
     "[Integer reply](/docs/reference/protocol-spec#integers): the number of clients that received the message. Note that in a Redis Cluster, only clients that are connected to the same node as the publishing client are included in the count"
