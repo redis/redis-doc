@@ -1,9 +1,9 @@
 ---
 Title: Install RedisInsight on AWS EC2
-date: 2023-01-15 10:00:00 +0530
+date: 2024-01-15 10:00:00
 weight: 50
 categories: ["RI"]
-path: install-redisinsight/install-on-aws/
+path: install/install-redisinsight/install-on-aws/
 altTag: Install RedisInsight on AWS EC2
 ---
 This tutorial shows how to install RedisInsight on an AWS EC2 instance and manage ElastiCache Redis instances using RedisInsight. To complete this tutorial you must have access to the AWS Console and permissions to launch EC2 instances.
