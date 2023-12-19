@@ -1,25 +1,28 @@
 ---
-title: "RESP2 to RESP3 replies migration guide"
+title: "RESP2 to RESP3 reply migration guide"
 linkTitle: "RESP2 to RESP3 migration"
 weight: 4
-description: RESP2 to RESP3 replies reference for clients developers
+description: RESP2 to RESP3 reply reference for client library developers
 aliases:
     - /topics/resp2-to-resp3-replies/
 ---
 
-In the journey from RESP2 to [RESP3](https://redis.io/docs/reference/protocol-spec/), one of the primary motivations was to streamline the developer experience by simplifying response parsing. 
-Over time, it became evident that developers frequently performed specific data transformations on RESP2 replies, which required hardcoded transformations per command. 
-Addressing these transformations directly at the protocol level reduces clients' overhead and ensures a more consistent and efficient replies handling process.  
-This documentation provides a reference for developers to migrate their clients from RESP2 to RESP3.
+The primary motivation for creating the [RESP3](https://redis.io/docs/reference/protocol-spec/) protocol, the successor to RESP2, was to streamline the developer experience by simplifying response parsing. 
+It became evident that developers frequently performed specific data transformations on RESP2 replies, which required hardcoded transformations for each command. 
+Addressing these transformations directly at the protocol level reduces client overhead and ensures a more consistent and efficient reply-handling process.  
+This documentation provides a reference guide to help developers migrate their clients from RESP2 to RESP3.
 
-### Command Replies Comparison
-- RESP3 introduces many new [simple types and aggregates]((https://redis.io/docs/reference/protocol-spec/#resp-protocol-description)).
-The following tables compare only commands with non-trivial changes in replies, primarily for new aggregates introduced in RESP3 that require major changes in the client implementation.
+**Note**:
+> Each of the Redis base command manual pages now includes both RESP2 and RESP3 responses.
+
+### Command replies comparison
+- RESP3 introduces many new [simple and aggregate reply types]((https://redis.io/docs/reference/protocol-spec/#resp-protocol-description)).
+The following tables compare only commands with non-trivial changes to their replies, primarily for new aggregates introduced in RESP3 that require major changes in the client implementation.
 - The types are described using [“TypeScript like” syntax](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html): 
-  - `[a, b]` stands for [a tuple](https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types) where we know the exact number of elements and types at specific positions.
-  - `Array<a>` stands for [an array](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#arrays) where we know the type of elements but not the number of elements.
+  - `[a, b]` stands for [a tuple](https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types) where the exact number of elements and types at specific positions are known.
+  - `Array<a>` stands for [an array](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#arrays) where the type of elements is known but not the number of elements.
 
-### Cluster Management
+### Cluster management
 | Command        | RESP2 Reply                                                           | RESP3 Reply                                                                                  |
 |----------------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
 | CLUSTER SLOTS  | Array<\[number, number, ...\[BlobString, number, BlobString, Array]]> | Array<\[number, number, ...\[BlobString, number, BlobString, Map\<BlobString, BlobString>]]> |
@@ -51,13 +54,13 @@ The following tables compare only commands with non-trivial changes in replies, 
 | HGETALL              | Array              | Map                              |
 | HRANDFIELD WITHVALUE | Array\<BlobString> | Array<\[BlobString, BlobString]> |
 
-### Scripting and Functions
+### Scripting and functions
 | Command                | RESP2 Reply                                                                                                                                                                                             | RESP3 Reply                                                                                                                                                                                  |
 |------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FUNCTION LIST          | Array<\[‘library\_name’, BlobString, ‘engine’, BlobString, ‘functions’, Array<\[‘name’, BlobString, ‘description’, BlobString &#124; null, ‘flags’, Array\<BlobString>]>]>                              | Array<\[{ library\_name: BlobString, engine: BlobString, functions: Array<{ name: BlobString, description: BlobString &#124; null, flags: Set\<BlobString> }> }]>                            |
 | FUNCTION LIST WITHCODE | Array<\[‘library\_name’, BlobString, ‘engine’, BlobString, ‘functions’, Array<\[‘name’, BlobString, ‘description’, BlobString &#124; null, ‘flags’, Array\<BlobString>]>, ‘library\_code’, BlobString]> | Array<\[{ library\_name: BlobString, engine: BlobString, functions: Array<{ name: BlobString, description: BlobString &#124; null, flags: Set\<BlobString> }>, library\_code: BlobString }]> |
 
-### Server Management
+### Server management
 | Command       | RESP2 Reply                                                                                                 | RESP3 Reply                                  |
 |---------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------|
 | MODULE LIST   | Array<\[BlobString<‘name’>, BlobString, BlobString<‘version’>, number]>                                     | Array<{ name: BlobString, version: number }> |
@@ -83,7 +86,7 @@ The following tables compare only commands with non-trivial changes in replies, 
 |----------------------------------------------------------------------|-------------|-------------|
 | SINTER <br/>SPOP COUNT<br/>SMEMBERS<br/>SRANDMEMBER COUNT<br/>SUNION | Array       | Set         |
 
-### Sorted Set
+### Sorted set
 | Command                  | RESP2 Reply                                                 | RESP3 Reply                                             |
 |--------------------------|-------------------------------------------------------------|---------------------------------------------------------|
 | ZADD INCR                | BlobString                                                  | Double                                                  |
