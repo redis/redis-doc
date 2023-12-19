@@ -8,7 +8,7 @@ aliases:
   - /docs/getting-started
 ---
 
-You can install both [Redis](https://redis.io/docs/about/) or [Redis Stack](/docs/about/about-stack) locally on your machine. Redis and Redis Stack are available on Linux, macOS, and Windows. 
+You can install [Redis](https://redis.io/docs/about/) or [Redis Stack](/docs/about/about-stack) locally on your machine. Redis and Redis Stack are available on Linux, macOS, and Windows. 
 
 Here are the installation instructions:
 
