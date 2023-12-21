@@ -158,7 +158,7 @@ By default Redis is configured to:
 * Saturate the counter at, around, one million requests.
 * Decay the counter every one minute.
 
-Those should be reasonable values and were tested experimental, but the user may want to play with these configuration settings to pick optimal values.
+Those should be reasonable values and were tested experimentally, but the user may want to play with these configuration settings to pick optimal values.
 
 Instructions about how to tune these parameters can be found inside the example `redis.conf` file in the source distribution. Briefly, they are:
 
