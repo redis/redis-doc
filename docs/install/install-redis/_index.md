@@ -23,14 +23,15 @@ How you install Redis depends on your operating system and whether you'd like to
 * [Install Redis on Windows](/docs/install/install-redis/install-redis-on-windows)
 * [Install Redis with Redis Stack and RedisInsight](/docs/install/install-stack/)
 
+Refer to [Redis Administration](/docs/management/admin/) for detailed setup tips.
 
 ## Test if you can connect using the CLI
 
-Once you have Redis up and running, you can connect using `redis-cli`.
+After you have Redis up and running, you can connect using `redis-cli`.
 
-External programs talk to Redis using a TCP socket and a Redis specific protocol. This protocol is implemented in the Redis client libraries for the different programming languages. However to make hacking with Redis simpler Redis provides a command line utility that can be used to send commands to Redis. This program is called **redis-cli**.
+External programs talk to Redis using a TCP socket and a Redis specific protocol. This protocol is implemented in the Redis client libraries for the different programming languages. However, to make hacking with Redis simpler, Redis provides a command line utility that can be used to send commands to Redis. This program is called **redis-cli**.
 
-The first thing to do in order to check if Redis is working properly is sending a **PING** command using redis-cli:
+The first thing to do to check if Redis is working properly is sending a **PING** command using redis-cli:
 
 ```
 $ redis-cli ping
@@ -49,33 +50,33 @@ PONG
 
 ## Securing Redis
 
-By default Redis binds to **all the interfaces** and has no authentication at all. If you use Redis in a very controlled environment, separated from the external internet and in general from attackers, that's fine. However if an unhardened Redis is exposed to the internet, it is a big security concern. If you are not 100% sure your environment is secured properly, please check the following steps in order to make Redis more secure:
+By default Redis binds to **all the interfaces** and has no authentication at all. If you use Redis in a very controlled environment, separated from the external internet and in general from attackers, that's fine. However, if an unhardened Redis is exposed to the internet, it is a big security concern. If you are not 100% sure your environment is secured properly, please check the following steps in order to make Redis more secure:
 
 1. Make sure the port Redis uses to listen for connections (by default 6379 and additionally 16379 if you run Redis in cluster mode, plus 26379 for Sentinel) is firewalled, so that it is not possible to contact Redis from the outside world.
-2. Use a configuration file where the `bind` directive is set in order to guarantee that Redis listens on only the network interfaces you are using. For example only the loopback interface (127.0.0.1) if you are accessing Redis just locally from the same computer, and so forth.
-3. Use the `requirepass` option in order to add an additional layer of security so that clients will require to authenticate using the `AUTH` command.
-4. Use [spiped](http://www.tarsnap.com/spiped.html) or another SSL tunneling software in order to encrypt traffic between Redis servers and Redis clients if your environment requires encryption.
+2. Use a configuration file where the `bind` directive is set in order to guarantee that Redis listens on only the network interfaces you are using. For example, only the loopback interface (127.0.0.1) if you are accessing Redis locally from the same computer.
+3. Use the `requirepass` option to add an additional layer of security so that clients will be required to authenticate using the `AUTH` command.
+4. Use [spiped](http://www.tarsnap.com/spiped.html) or another SSL tunneling software to encrypt traffic between Redis servers and Redis clients if your environment requires encryption.
 
-Note that a Redis instance exposed to the internet without any security [is very simple to exploit](http://antirez.com/news/96), so make sure you understand the above and apply **at least** a firewall layer. After the firewall is in place, try to connect with `redis-cli` from an external host in order to prove yourself the instance is actually not reachable.
+Note that a Redis instance exposed to the internet without any security [is very simple to exploit](http://antirez.com/news/96), so make sure you understand the above and apply **at least** a firewall layer. After the firewall is in place, try to connect with `redis-cli` from an external host to confirm that the instance is not reachable.
 
 ## Use Redis from your application
 
-Of course using Redis just from the command line interface is not enough as the goal is to use it from your application. In order to do so you need to download and install a Redis client library for your programming language.
+Of course using Redis just from the command line interface is not enough as the goal is to use it from your application. To do so, you need to download and install a Redis client library for your programming language.
 
 You'll find a [full list of clients for different languages in this page](/clients).
 
 
 ## Redis persistence
 
-You can learn [how Redis persistence works on this page](/docs/management/persistence/), however what is important to understand for a quick start is that by default, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time (for instance after at least five minutes if you have at least 100 changes in your data), so if you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Otherwise make sure to shutdown the database using the **SHUTDOWN** command:
+You can learn [how Redis persistence works on this page](/docs/management/persistence/). iT is important to understand that, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time. For example, after at least five minutes if you have at least 100 changes in your data. If you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Alternatively, you can save the data on disk before quitting by using the **SHUTDOWN** command:
 
 ```
 $ redis-cli shutdown
 ```
 
-This way Redis will make sure to save the data on disk before quitting. Reading the [persistence page](/docs/management/persistence/) is strongly suggested in order to better understand how Redis persistence works.
+This way, Redis will save the data on disk before quitting. Reading the [persistence page](/docs/management/persistence/) is strongly suggested to better understand how Redis persistence works.
 
-## Install Redis more properly
+## Install Redis properly
 
 Running Redis from the command line is fine just to hack a bit or for development. However, at some point you'll have some actual application to run on a real server. For this kind of usage you have two different choices:
 
@@ -135,8 +136,8 @@ Both the pid file path and the configuration file name depend on the port number
     * Set the **pidfile** to `/var/run/redis_6379.pid`, modifying the port as necessary.
     * Change the **port** accordingly. In our example it is not needed as the default port is already `6379`.
     * Set your preferred **loglevel**.
-    * Set the **logfile** to `/var/log/redis_6379.log`
-    * Set the **dir** to `/var/redis/6379` (very important step!)
+    * Set the **logfile** to `/var/log/redis_6379.log`.
+    * Set the **dir** to `/var/redis/6379` (very important step!).
 * Finally, add the new Redis init script to all the default runlevels using the following command:
 
     ```
