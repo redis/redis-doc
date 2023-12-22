@@ -68,7 +68,7 @@ You'll find a [full list of clients for different languages in this page](/clien
 
 ## Redis persistence
 
-You can learn [how Redis persistence works on this page](/docs/management/persistence/). iT is important to understand that, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time. For example, after at least five minutes if you have at least 100 changes in your data. If you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Alternatively, you can save the data on disk before quitting by using the **SHUTDOWN** command:
+You can learn [how Redis persistence works on this page](/docs/management/persistence/). It is important to understand that, if you start Redis with the default configuration, Redis will spontaneously save the dataset only from time to time. For example, after at least five minutes if you have at least 100 changes in your data. If you want your database to persist and be reloaded after a restart make sure to call the **SAVE** command manually every time you want to force a data set snapshot. Alternatively, you can save the data on disk before quitting by using the **SHUTDOWN** command:
 
 ```
 $ redis-cli shutdown
