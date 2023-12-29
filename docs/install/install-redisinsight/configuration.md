@@ -34,4 +34,4 @@ The following environment variables can be set to configure RedisInsight:
 | RI_TRUSTED_ORIGINS | Configures the trusted origins of the application. | String | `""` |
 | RI_PROXY_ENABLE | Enables Subpath Proxy for the application. | Boolean | `False` |
 | RI_PROXY_PATH | Configures Subpath Proxy path for the application. Examples:  `"/redisinsight"`, `"/myapp"` | String | `""` |
-| RI_PROXY_PREFIX | Sets the Subpath proxy prefix HTTP header field name for the application. The application uses the value from this HTTP header key as proxy subpath.  | String | `"X-Forwarded-Prefix"` |
+| RI_PROXY_PREFIX | Sets the Subpath proxy prefix HTTP header field name for the application. The application uses the value from this HTTP header key as a proxy subpath.  | String | `"X-Forwarded-Prefix"` |
