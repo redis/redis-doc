@@ -187,104 +187,126 @@ public class Main {
 }
 ```
 
-### Example: Indexing and querying JSON documents
+### Production usage
 
-Make sure that you have Redis Stack and `Jedis` installed. 
+### Configuring Connection pool
+As was covered in the previous section, it's recommended to use `JedisPool` or `JedisPooled`. 
+`JedisPooled` is available since Jedis 4.0.0 and is a wrapper around `JedisPool` that provides a simpler API.
+A connection pool holds a specified amount of connections. 
+Creates more connections when needed and terminates them when they are unwanted.
 
-Import dependencies and add a sample `User` class:
+Here is a simplified connection lifecycle in the pool:
+
+1. A connection is requested from the pool.
+2. A connection is served. 
+   - An idle connection is served when there are available non-active connections or, 
+   - A connection is created when the number of connections is under maxTotal. 
+3. The connection becomes active.
+4. The connection is released back to the pool.
+5. The connection is marked as stale. 
+6. The connection is kept idle for `minEvictableIdleTime`. 
+7. The connection becomes evictable if the number of connections is greater than `minIdle`. 
+8. The connection is ready to be closed.
+
+It's important to configure connection pool correctly. 
+To configure the connection pool, use `GenericObjectPoolConfig` from [Apache Commons Pool2](https://commons.apache.org/proper/commons-pool/apidocs/org/apache/commons/pool2/impl/GenericObjectPoolConfig.html).
+
+
 
 ```java
-import redis.clients.jedis.JedisPooled;
-import redis.clients.jedis.search.*;
-import redis.clients.jedis.search.aggr.*;
-import redis.clients.jedis.search.schemafields.*;
 
-class User {
-    private String name;
-    private String email;
-    private int age;
-    private String city;
+ConnectionPoolConfig poolConfig = new ConnectionPoolConfig();
+// maximum active connections in the pool,
+// tune this according to your needs and application type
+// default is 8
+poolConfig.setMaxTotal(8);
 
-    public User(String name, String email, int age, String city) {
-        this.name = name;
-        this.email = email;
-        this.age = age;
-        this.city = city;
-    }
+// maximum idle connections in the pool, default is 8
+poolConfig.setMaxIdle(8);
+// minimum idle connections in the pool, default 0
+poolConfig.setMinIdle(0);
 
-    //...
-}
+// Enables waiting for a connection to become available.
+poolConfig.setBlockWhenExhausted(true);
+// The maximum number of seconds to wait for a connection to become available
+poolConfig.setMaxWait(Duration.ofSeconds(1));
+
+// Enables sending a PING command periodically while the connection is idle.
+poolConfig.setTestWhileIdle(true);
+// controls the period between checks for idle connections in the pool
+poolConfig.setTimeBetweenEvictionRuns(Duration.ofSeconds(1));
+
+// JedisPooled does all hard work on fetching and releasing connection to the pool
+// to prevent connection starvation
+JedisPooled jedis = new JedisPooled(poolConfig, "localhost", 6379);
 ```
 
-Connect to your Redis database with `JedisPooled`.
 
+### Timeout
+
+To set a timeout for a connection, use `JedisPooled` or `JedisPool` constructor with `timeout` parameter or `JedisClientConfig` with `socketTimeout` parameter:
 ```java
-JedisPooled jedis = new JedisPooled("localhost", 6379);
-```
+HostAndPort hostAndPort = new HostAndPort("localhost", 6379);
 
-Let's create some test data to add to your database.
-
-```java
-User user1 = new User("Paul John", "paul.john@example.com", 42, "London");
-User user2 = new User("Eden Zamir", "eden.zamir@example.com", 29, "Tel Aviv");
-User user3 = new User("Paul Zamir", "paul.zamir@example.com", 35, "Tel Aviv");
-```
-
-Create an index. In this example, all JSON documents with the key prefix `user:` are indexed. For more information, see [Query syntax](/docs/interact/search-and-query/query/).
-
-```java
-jedis.ftCreate("idx:users",
-    FTCreateParams.createParams()
-            .on(IndexDataType.JSON)
-            .addPrefix("user:"),
-    TextField.of("$.name").as("name"),
-    TagField.of("$.city").as("city"),
-    NumericField.of("$.age").as("age")
+JedisPooled jedisWithTimeout = new JedisPooled(hostAndPort, 
+    DefaultJedisClientConfig.builder()
+        .socketTimeoutMillis(5000)  // set timeout to 5 seconds
+        .build(),
+    poolConfig
 );
 ```
 
-Use `JSON.SET` to set each user value at the specified path.
 
-```java
-jedis.jsonSetWithEscape("user:1", user1);
-jedis.jsonSetWithEscape("user:2", user2);
-jedis.jsonSetWithEscape("user:3", user3);
+### Exception handling
+The Jedis Exception Hierarchy is rooted on JedisException which implements RuntimeException and are therefore all unchecked exceptions.
+```
+JedisException
+├── JedisDataException
+│   ├── JedisRedirectionException
+│   │   ├── JedisMovedDataException
+│   │   └── JedisAskDataException
+│   ├── AbortedTransactionException
+│   ├── JedisAccessControlException
+│   └── JedisNoScriptException
+├── JedisClusterException
+│   ├── JedisClusterOperationException
+│   ├── JedisConnectionException
+│   └── JedisValidationException
+└── InvalidURIException
 ```
 
-Let's find user `Paul` and filter the results by age.
+#### General Exceptions
+In general, Jedis can throw the following exceptions while executing commands:
+- `JedisConnectionException` - when the connection to Redis is lost or closed unexpectedly. [Configure failover] to handle this exception automatically with Resilience4J and build-in Jedis failover mechanism.  
+- `JedisAccessControlException` - when the user does not have the permission to execute the command or user and/or password are incorrect.
+- `JedisDataException` - when there is a problem with the data being sent to or received from the Redis server. Usually, the error message will contain more information about the failed command.
+- `JedisException` - this exception is a catch-all exception that can be thrown for any other unexpected errors.
 
+Conditions when `JedisException` can be thrown:
+- Bad Return from health check with `PING` command
+- Failure during SHUTDOWN
+- Pub/Sub failure when issuing commands (disconnect)
+- Any unknown server messages
+- Sentinel: can connect to sentinel but master is not monitored or all Sentinels are down.
+- MULTI or DISCARD command failed 
+- Shard commands key hash check failed or no Reachable Shards
+- Retry deadline exceeded/number of attempts (Retry Command Executor)
+- POOL - pool exhausted, error adding idle objects, returning broken resources to the pool
+
+All the Jedis exceptions are runtime exceptions and in most cases irrecoverable, so in general bubble up the API capturing the error message.
+
+## DNS cache and Redis
+
+When you connect to a Redis with multiple endpoints, such as [Redis Enterprise Active-Active](https://redis.com/redis-enterprise/technology/active-active-geo-distribution/), it's recommended to disable JVM DNS cache to load-balance requests across multiple endpoints.
+
+You can do this in your application's code with the following snippet:
 ```java
-var query = new Query("Paul @age:[30 40]");
-var result = jedis.ftSearch("idx:users", query).getDocuments();
-System.out.println(result);
-// Prints: [id:user:3, score: 1.0, payload:null, properties:[$={"name":"Paul Zamir","email":"paul.zamir@example.com","age":35,"city":"Tel Aviv"}]]
-```
-
-Return only the `city` field.
-
-```java
-var city_query = new Query("Paul @age:[30 40]");
-var city_result = jedis.ftSearch("idx:users", city_query.returnFields("city")).getDocuments();
-System.out.println(city_result);
-// Prints: [id:user:3, score: 1.0, payload:null, properties:[city=Tel Aviv]]
-```
-
-Count all users in the same city.
-
-```java
-AggregationBuilder ab = new AggregationBuilder("*")
-        .groupBy("@city", Reducers.count().as("count"));
-AggregationResult ar = jedis.ftAggregate("idx:users", ab);
-
-for (int idx=0; idx < ar.getTotalResults(); idx++) {
-    System.out.println(ar.getRow(idx).getString("city") + " - " + ar.getRow(idx).getString("count"));
-}
-// Prints:
-// London - 1
-// Tel Aviv - 2
+java.security.Security.setProperty("networkaddress.cache.ttl","0");
+java.security.Security.setProperty("networkaddress.cache.negative.ttl", "0");
 ```
 
 ### Learn more
 
 * [Jedis API reference](https://www.javadoc.io/doc/redis.clients/jedis/latest/index.html)
+* [Failover with Jedis](https://github.com/redis/jedis/blob/master/docs/failover.md)
 * [GitHub](https://github.com/redis/jedis)
