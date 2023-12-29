@@ -49,7 +49,10 @@ In cases where the client should adopt a behavior different than the default, th
 * **all_shards:** the client should execute the command on all master shards (e.g., the `DBSIZE` command).
   This tip is in-use by commands that don't accept key name arguments.
   The command operates atomically per shard.
-- **multi_shard:** the client should execute the command on several shards.
+- **any_shard:** the client should execute the command on any master shard.
+  This tip is can be used by commands that should be executed on different master shards to spread the load. 
+  Examples of such commands include `FT.SEARCH`, `FT.AGGREGATE` and `TS.MGET`.
+* **multi_shard:** the client should execute the command on several shards.
   The shards that execute the command are determined by the hash slots of its input key name arguments.
   Examples for such commands include `MSET`, `MGET` and `DEL`.
   However, note that `SUNIONSTORE` isn't considered as _multi_shard_ because all of its keys must belong to the same hash slot.
