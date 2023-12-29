@@ -114,7 +114,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `used_memory_lua`: Number of bytes used by the Lua engine for EVAL scripts. Deprecated in Redis 7.0, renamed to `used_memory_vm_eval`
 *   `used_memory_vm_eval`: Number of bytes used by the script VM engines for EVAL framework (not part of used_memory). Added in Redis 7.0
 *   `used_memory_lua_human`: Human readable representation of previous value. Deprecated in Redis 7.0
-*   `used_memory_scripts_eval`: Number of bytes overhead by the Eval scripts (part of used_memory). Added in Redis 7.0
+*   `used_memory_scripts_eval`: Number of bytes overhead by the EVAL scripts (part of used_memory). Added in Redis 7.0
 *   `number_of_cached_scripts`: The number of EVAL scripts cached by the server. Added in Redis 7.0
 *   `number_of_functions`: The number of functions. Added in Redis 7.0
 *   `number_of_libraries`: The number of libraries. Added in Redis 7.0
