@@ -112,9 +112,18 @@ Here is the meaning of all fields in the **memory** section:
      the net memory usage (`used_memory` minus `used_memory_startup`)
 *   `total_system_memory`: The total amount of memory that the Redis host has
 *   `total_system_memory_human`: Human readable representation of previous value
-*   `used_memory_lua`: Number of bytes used by the Lua engine
-*   `used_memory_lua_human`: Human readable representation of previous value
-*   `used_memory_scripts`: Number of bytes used by cached Lua scripts
+*   `used_memory_lua`: Number of bytes used by the Lua engine for EVAL scripts. Deprecated in Redis 7.0, renamed to `used_memory_vm_eval`
+*   `used_memory_vm_eval`: Number of bytes used by the script VM engines for EVAL framework (not part of used_memory). Added in Redis 7.0
+*   `used_memory_lua_human`: Human readable representation of previous value. Deprecated in Redis 7.0
+*   `used_memory_scripts_eval`: Number of bytes overhead by the EVAL scripts (part of used_memory). Added in Redis 7.0
+*   `number_of_cached_scripts`: The number of EVAL scripts cached by the server. Added in Redis 7.0
+*   `number_of_functions`: The number of functions. Added in Redis 7.0
+*   `number_of_libraries`: The number of libraries. Added in Redis 7.0
+*   `used_memory_vm_functions`: Number of bytes used by the script VM engines for Functions framework (not part of used_memory). Added in Redis 7.0
+*   `used_memory_vm_total`: `used_memory_vm_eval` + `used_memory_vm_functions` (not part of used_memory). Added in Redis 7.0
+*   `used_memory_vm_total_human`: Human readable representation of previous value.
+*   `used_memory_functions`: Number of bytes overhead by Function scripts (part of used_memory). Added in Redis 7.0
+*   `used_memory_scripts`: `used_memory_scripts_eval` + `used_memory_functions` (part of used_memory). Added in Redis 7.0
 *   `used_memory_scripts_human`: Human readable representation of previous value
 *   `maxmemory`: The value of the `maxmemory` configuration directive
 *   `maxmemory_human`: Human readable representation of previous value
