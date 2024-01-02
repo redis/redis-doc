@@ -47,7 +47,7 @@ However, Redis does the following two things when serving clients:
 In Redis 2.4 there was a hard-coded limit for the maximum number of clients
 that could be handled simultaneously.
 
-In Redis 2.6 and newer, this limit is configurable by `maxclients` directive in `redis.conf` (set by default to 10000 clients).
+In Redis 2.6 and newer, this limit is configurable setting the `maxclients` directive in `redis.conf`. The default is 10,000 clients.
 
 However, Redis checks with the kernel what the maximum number of file
 descriptors that we are able to open is (the *soft limit* is checked). If the
