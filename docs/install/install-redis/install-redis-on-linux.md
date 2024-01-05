@@ -50,7 +50,7 @@ sudo apt install lsb-release curl gpg
    {{< highlight bash  >}}
    redis-cli ping
    {{< / highlight  >}}   
-   If the connection is succesfful you get `PONG` in response.
+   If the connection is successful, `PONG` is returned.
    
 ## Install from Snapcraft
 
