@@ -30,6 +30,12 @@ cd redis-stable
 make
 {{< / highlight >}}
 
+To build with TLS support, you'll need OpenSSL development libraries (e.g. libssl-dev on Debian/Ubuntu) and run:
+
+{{< highlight bash >}}
+make BUILD_TLS=yes
+{{< / highlight >}}
+
 If the compile succeeds, you'll find several Redis binaries in the `src` directory, including:
 
 * **redis-server**: the Redis Server itself
