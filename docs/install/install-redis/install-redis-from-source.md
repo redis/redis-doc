@@ -30,7 +30,7 @@ cd redis-stable
 make
 {{< / highlight >}}
 
-To build with TLS support, you'll need OpenSSL development libraries (e.g. libssl-dev on Debian/Ubuntu) and run:
+To build with TLS support, you'll need to install OpenSSL development libraries (e.g., libssl-dev on Debian/Ubuntu) and then run:
 
 {{< highlight bash >}}
 make BUILD_TLS=yes
