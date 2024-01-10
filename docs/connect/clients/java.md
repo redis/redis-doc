@@ -191,7 +191,7 @@ public class Main {
 
 ### Configuring Connection pool
 As was covered in the previous section, it's recommended to use `JedisPool` or `JedisPooled`. 
-`JedisPooled` is available since Jedis 4.0.0 and is a wrapper around `JedisPool` that provides a simpler API.
+`JedisPooled` is available since Jedis 4.0.0 and provides similar capabilities as `JedisPool` with a simpler API.
 A connection pool holds a specified amount of connections. 
 Creates more connections when needed and terminates them when they are unwanted.
 
