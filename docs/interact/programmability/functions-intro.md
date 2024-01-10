@@ -272,14 +272,20 @@ redis> FUNCTION LIST
          2) "my_hset"
          3) "description"
          4) (nil)
+         5) "flags"
+         6) (empty array)
       2) 1) "name"
          2) "my_hgetall"
          3) "description"
          4) (nil)
+         5) "flags"
+         6) (empty array)
       3) 1) "name"
          2) "my_hlastmodified"
          3) "description"
          4) (nil)
+         5) "flags"
+         6) (empty array)
 ```
 
 You can see that it is easy to update our library with new capabilities.
