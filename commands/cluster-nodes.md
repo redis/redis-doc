@@ -38,7 +38,8 @@ Each line is composed of the following fields:
 The meaning of each field is the following:
 
 1. `id`: The node ID, a 40-character globally unique string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
-2. `ip:port@cport`: The node address that clients should contact to run queries.
+2. `ip:port@cport`: The node address that clients should contact to run queries, along with the used cluster bus port.
+   `:0@0` can be expected when the address is no longer known for this node ID, hence flagged with `noaddr`.
 3. `hostname`: A human readable string that can be configured via the `cluster-annouce-hostname` setting. The max length of the string is 256 characters, excluding the null terminator. The name can contain ASCII alphanumeric characters, '-', and '.' only.
 5. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `nofailover`, `noflags`. Flags are explained below.
 6. `master`: If the node is a replica, and the primary is known, the primary node ID, otherwise the "-" character.
