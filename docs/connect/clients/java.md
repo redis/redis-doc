@@ -190,17 +190,16 @@ public class Main {
 ### Production usage
 
 ### Configuring Connection pool
-As was covered in the previous section, it's recommended to use `JedisPool` or `JedisPooled`. 
-`JedisPooled` is available since Jedis 4.0.0 and provides similar capabilities as `JedisPool` with a simpler API.
-A connection pool holds a specified amount of connections. 
-Creates more connections when needed and terminates them when they are unwanted.
+As mentioned in the previous section, use `JedisPool` or `JedisPooled` to create a connection pool.
+`JedisPooled`, added in Jedis version 4.0.0, provides capabilities similar to `JedisPool` but with a more straightforward API.
+A connection pool holds a specified number of connections, creates more connections when necessary, and terminates them when they are no longer needed.
 
-Here is a simplified connection lifecycle in the pool:
+Here is a simplified connection lifecycle in a pool:
 
 1. A connection is requested from the pool.
-2. A connection is served. 
-   - An idle connection is served when there are available non-active connections or, 
-   - A connection is created when the number of connections is under maxTotal. 
+2. A connection is served:
+   - An idle connection is served when non-active connections are available, or 
+   - A new connection is created when the number of connections is under `maxTotal`. 
 3. The connection becomes active.
 4. The connection is released back to the pool.
 5. The connection is marked as stale. 
@@ -208,13 +207,10 @@ Here is a simplified connection lifecycle in the pool:
 7. The connection becomes evictable if the number of connections is greater than `minIdle`. 
 8. The connection is ready to be closed.
 
-It's important to configure connection pool correctly. 
-To configure the connection pool, use `GenericObjectPoolConfig` from [Apache Commons Pool2](https://commons.apache.org/proper/commons-pool/apidocs/org/apache/commons/pool2/impl/GenericObjectPoolConfig.html).
-
-
+It's important to configure the connection pool correctly. 
+Use `GenericObjectPoolConfig` from [Apache Commons Pool2](https://commons.apache.org/proper/commons-pool/apidocs/org/apache/commons/pool2/impl/GenericObjectPoolConfig.html).
 
 ```java
-
 ConnectionPoolConfig poolConfig = new ConnectionPoolConfig();
 // maximum active connections in the pool,
 // tune this according to your needs and application type
@@ -241,24 +237,25 @@ poolConfig.setTimeBetweenEvictionRuns(Duration.ofSeconds(1));
 JedisPooled jedis = new JedisPooled(poolConfig, "localhost", 6379);
 ```
 
-
 ### Timeout
 
-To set a timeout for a connection, use `JedisPooled` or `JedisPool` constructor with `timeout` parameter or `JedisClientConfig` with `socketTimeout` parameter:
+To set a timeout for a connection, use the `JedisPooled` or `JedisPool` constructor with the `timeout` parameter, or use `JedisClientConfig` with the `socketTimeout` and `connectionTimeout` parameters:
+
 ```java
 HostAndPort hostAndPort = new HostAndPort("localhost", 6379);
 
-JedisPooled jedisWithTimeout = new JedisPooled(hostAndPort, 
+JedisPooled jedisWithTimeout = new JedisPooled(hostAndPort,
     DefaultJedisClientConfig.builder()
         .socketTimeoutMillis(5000)  // set timeout to 5 seconds
+        .connectionTimeoutMillis(5000) // set connection timeout to 5 seconds
         .build(),
     poolConfig
 );
 ```
 
-
 ### Exception handling
-The Jedis Exception Hierarchy is rooted on JedisException which implements RuntimeException and are therefore all unchecked exceptions.
+The Jedis Exception Hierarchy is rooted on `JedisException`, which implements `RuntimeException`, and are therefore all unchecked exceptions.
+
 ```
 JedisException
 ├── JedisDataException
@@ -277,13 +274,14 @@ JedisException
 
 #### General Exceptions
 In general, Jedis can throw the following exceptions while executing commands:
-- `JedisConnectionException` - when the connection to Redis is lost or closed unexpectedly. [Configure failover] to handle this exception automatically with Resilience4J and build-in Jedis failover mechanism.  
-- `JedisAccessControlException` - when the user does not have the permission to execute the command or user and/or password are incorrect.
+
+- `JedisConnectionException` - when the connection to Redis is lost or closed unexpectedly. Configure failover to handle this exception automatically with Resilience4J and the built-in Jedis failover mechanism.  
+- `JedisAccessControlException` - when the user does not have the permission to execute the command or the user ID and/or password are incorrect.
 - `JedisDataException` - when there is a problem with the data being sent to or received from the Redis server. Usually, the error message will contain more information about the failed command.
 - `JedisException` - this exception is a catch-all exception that can be thrown for any other unexpected errors.
 
 Conditions when `JedisException` can be thrown:
-- Bad Return from health check with `PING` command
+- Bad return from a health check with the `PING` command
 - Failure during SHUTDOWN
 - Pub/Sub failure when issuing commands (disconnect)
 - Any unknown server messages
@@ -293,11 +291,11 @@ Conditions when `JedisException` can be thrown:
 - Retry deadline exceeded/number of attempts (Retry Command Executor)
 - POOL - pool exhausted, error adding idle objects, returning broken resources to the pool
 
-All the Jedis exceptions are runtime exceptions and in most cases irrecoverable, so in general bubble up the API capturing the error message.
+All the Jedis exceptions are runtime exceptions and in most cases irrecoverable, so in general bubble up to the API capturing the error message.
 
 ## DNS cache and Redis
 
-When you connect to a Redis with multiple endpoints, such as [Redis Enterprise Active-Active](https://redis.com/redis-enterprise/technology/active-active-geo-distribution/), it's recommended to disable JVM DNS cache to load-balance requests across multiple endpoints.
+When you connect to a Redis with multiple endpoints, such as [Redis Enterprise Active-Active](https://redis.com/redis-enterprise/technology/active-active-geo-distribution/), it's recommended to disable the JVM's DNS cache to load-balance requests across multiple endpoints.
 
 You can do this in your application's code with the following snippet:
 ```java
