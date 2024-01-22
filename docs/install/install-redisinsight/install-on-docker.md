@@ -17,19 +17,26 @@ The first step is to [install Docker for your operating system](https://docs.doc
 
 Next, run the RedisInsight container.
 
+1. If you do not want to persist your RedisInsight data.
+
 ```bash
-{docker run -v redisinsight:/db -p 8001:8001 redis/redisinsight:latest}
+docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
+```
+2. If you want to persist your RedisInsight data, make sure that the user inside the container has the necessary permissions on the mounted volume (`/db` in the example below)
+
+```bash
+docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/db
 ```
 
-Then, point your browser to [http://localhost:8001](http://localhost:8001).
+Then, point your browser to [http://localhost:5540](http://localhost:5540).
 
-RedisInsight also provides a health check endpoint at [http://localhost:8001/healthcheck/](http://localhost:8001/healthcheck/) to monitor the health of the running container.
+RedisInsight also provides a health check endpoint at [http://localhost:5540/healthcheck/](http://localhost:5540/healthcheck/) to monitor the health of the running container.
 
 If everything worked, you should see the following output in the terminal:
 
 ```
 Starting webserver...
-Visit http://0.0.0.0:8001 in your web browser.
+Visit http://0.0.0.0:5540 in your web browser.
 Press CTRL-C to exit.
 ```
 
