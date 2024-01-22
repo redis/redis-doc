@@ -1,6 +1,6 @@
 ---
 Title: Configure RedisInsight
-date: 2024-01-15 10:00:00
+date: 2024-01-30 10:00:00
 weight: 60
 categories: ["RI"]
 path: install/install-redisinsight/configuration
@@ -26,12 +26,7 @@ The following environment variables can be set to configure RedisInsight:
 
 | Environment variable | Description | Type | Default |
 | --- | --- | --- | --- |
-| RI_APP_PORT | Port which RedisInsight should listen to. | Number | `8001` |
+| RI_APP_PORT | Port which RedisInsight should listen to. | Number | `5540` |
 | RI_APP_HOST | Host which RedisInsight should listen to. | String | `0.0.0.0` on Docker and `127.0.0.1` on Windows, Mac, and Linux. |
-| RI_HOME_DIR | Sets the storage directory where RedisInsight stores application data (such as local databases, logs, and snapshot files). | String | `"~/.redisinsight"` on desktop, `"/db"` on docker. |
-| RILOGDIR | Sets the logging storage directory where RedisInsight stores application logs. | String | "~/.redisinsight" on desktop, "/db" on docker. |
 | RI_LOG_LEVEL | Configures the log level of the application. Possible values are - `"DEBUG"`, `"INFO"`, `"WARNING"`, `"ERROR`" and `"CRITICAL"`. | String | `"WARNING"` |
-| RI_TRUSTED_ORIGINS | Configures the trusted origins of the application. | String | `""` |
-| RI_PROXY_ENABLE | Enables Subpath Proxy for the application. | Boolean | `False` |
-| RI_PROXY_PATH | Configures Subpath Proxy path for the application. Examples:  `"/redisinsight"`, `"/myapp"` | String | `""` |
-| RI_PROXY_PREFIX | Sets the Subpath proxy prefix HTTP header field name for the application. The application uses the value from this HTTP header key as a proxy subpath.  | String | `"X-Forwarded-Prefix"` |
+| RI_FILES_LOGGER | Log to file	| Boolean | `False` |
