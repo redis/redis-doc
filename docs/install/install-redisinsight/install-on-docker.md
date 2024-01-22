@@ -1,6 +1,6 @@
 ---
 Title: Install RedisInsight on Docker
-date: 2024-01-15 10:00:00
+date: 2024-01-30 10:00:00
 weight: 30
 categories: ["RI"]
 path: install/install-redisinsight/install-on-docker/
