@@ -80,8 +80,6 @@ docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/db
 ```
-
-
 Find the IP Address of your EC2 instances, and launch your browser at `http://<EC2 IP Address>:5540`. Accept the EULA and start using RedisInsight.
 
 Summary
