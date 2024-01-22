@@ -36,7 +36,7 @@ Next, launch an EC2 instance.
    * Assign the IAM role that you created in Step 1
 1. Under the storage section, ensure at least 100 GiB storage
 1. Under security group, ensure that:
-    * Incoming traffic is allowed on port 8001
+    * Incoming traffic is allowed on port 5540
     * Incoming traffic is allowed on port 22 only during installation
 1. Review and launch the ec2 instance
 
