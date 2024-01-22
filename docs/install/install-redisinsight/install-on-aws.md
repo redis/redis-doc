@@ -1,6 +1,6 @@
 ---
 Title: Install RedisInsight on AWS EC2
-date: 2024-01-15 10:00:00
+date: 2024-01-30 10:00:00
 weight: 50
 categories: ["RI"]
 path: install/install-redisinsight/install-on-aws/
@@ -68,15 +68,21 @@ Next, install Docker on the EC2 instance. Run the following commands:
 Step 5: Run RedisInsight Docker Container
 -------
 
-Finally, we can now install RedisInsight. Run the following command
+Finally, we can now install RedisInsight. Run the following command to download and run the RedisInsight docker image.
+
+1. If you do not wat to persist your RedisInsight data.
 
 ```bash
-docker run -v redisinsight:/db -p 8001:8001 redis/redisinsight:latest
+docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
+```
+2. If you want to persist your RedisInsight data, make sure that the user inside the container has the necessary permissions on the mounted volume (`/db` in the example below)
+
+```bash
+docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/db
 ```
 
-This command downloads and runs the RedisInsight docker image and exposes it as a web page on port 8001.
 
-Find the IP Address of your EC2 instances, and a launch your browser to `http://<EC2 IP Address>:8001`. You should see the Databases page of RedisInsight. Accept the EULA and start using RedisInsight.
+Find the IP Address of your EC2 instances, and launch your browser at `http://<EC2 IP Address>:5540`. Accept the EULA and start using RedisInsight.
 
 Summary
 ------
