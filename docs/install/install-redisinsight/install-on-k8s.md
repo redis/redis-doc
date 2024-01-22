@@ -1,6 +1,6 @@
 ---
 Title: Install RedisInsight on Kubernetes
-date: 2024-01-15 10:00:00
+date: 2024-01-30 10:00:00
 weight: 40
 categories: ["RI"]
 path: install/install-redisinsight/install-on-k8s/
@@ -32,7 +32,7 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 8001
+      targetPort: 5540
   selector:
     app: redisinsight
 ---
@@ -62,7 +62,7 @@ spec:
         - name: db #Pod volumes to mount into the container's filesystem. Cannot be updated.
           mountPath: /db
         ports:
-        - containerPort: 8001 #exposed container port and protocol
+        - containerPort: 5540 #exposed container port and protocol
           protocol: TCP
       volumes:
       - name: db
@@ -121,7 +121,7 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 8001
+      targetPort: 5540
   selector:
     app: redisinsight
 ---
@@ -184,7 +184,7 @@ spec:
           - name: db #Pod volumes to mount into the container's filesystem. Cannot be updated.
             mountPath: /db
           ports:
-          - containerPort: 8001 #exposed container port and protocol
+          - containerPort: 5540 #exposed container port and protocol
             protocol: TCP
 ```
 
@@ -230,17 +230,17 @@ spec:
           - name: REDISINSIGHT_HOST
             value: "0.0.0.0"
           - name: REDISINSIGHT_PORT
-            value: "8001"
+            value: "5540"
         volumeMounts:
         - name: db #Pod volumes to mount into the container's filesystem. Cannot be updated.
           mountPath: /db
         ports:
-        - containerPort: 8001 #exposed conainer port and protocol
+        - containerPort: 5540 #exposed conainer port and protocol
           protocol: TCP
         livenessProbe:
            httpGet:
               path : /healthcheck/ # exposed RI endpoint for healthcheck
-              port: 8001 # exposed container port
+              port: 5540 # exposed container port
            initialDelaySeconds: 5 # number of seconds to wait after the container starts to perform liveness probe
            periodSeconds: 5 # period in seconds after which liveness probe is performed
            failureThreshold: 1 # number of liveness probe failures after which container restarts
@@ -262,10 +262,10 @@ If the deployment will be exposed by a service whose name is 'redisinsight', set
 3. Once the deployment has been successfully applied and the deployment complete, access RedisInsight. This can be accomplished by exposing the deployment as a K8s Service or by using port forwarding, as in the example below:
 
 ```sh
-kubectl port-forward deployment/redisinsight 8001
+kubectl port-forward deployment/redisinsight 5540
 ```
 
-Open your browser and point to <http://localhost:8001>
+Open your browser and point to <http://localhost:5540>
 
 ## Helm Chart (Experimental)
 
