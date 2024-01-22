@@ -70,7 +70,7 @@ Step 5: Run RedisInsight Docker Container
 
 Finally, we can now install RedisInsight. Run the following command to download and run the RedisInsight docker image.
 
-1. If you do not wat to persist your RedisInsight data.
+1. If you do not want to persist your RedisInsight data.
 
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
