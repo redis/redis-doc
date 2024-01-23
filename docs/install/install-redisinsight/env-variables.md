@@ -3,7 +3,7 @@ Title: Supported environment variables
 date: 2024-01-30 10:00:00
 weight: 60
 categories: ["RI"]
-path: install/install-redisinsight/env_variables
+path: install/install-redisinsight/env-variables
 altTag: Supported environment variables
 ---
 You can configure RedisInsight with the following environment variables.
