@@ -75,11 +75,13 @@ Finally, we can now install RedisInsight. Run the following command to download 
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
 ```
-2. If you want to persist your RedisInsight data, make sure that the user inside the container has the necessary permissions on the mounted volume (`/db` in the example below)
+2. If you want to persist your RedisInsight data, create the source directory in advance (`redisinsight` in the example below) with the needed permissions and ownership to avoid permission errors.
+After the source directory is created, run the following command.
 
 ```bash
-docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/db
+docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/data
 ```
+
 Find the IP Address of your EC2 instances, and launch your browser at `http://<EC2 IP Address>:5540`. Accept the EULA and start using RedisInsight.
 
 Summary
