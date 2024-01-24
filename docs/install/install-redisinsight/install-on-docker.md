@@ -22,39 +22,11 @@ Next, run the RedisInsight container.
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
 ```
-2. If you want to persist your RedisInsight data, make sure that the user inside the container has the necessary permissions on the mounted volume (`/db` in the example below)
+2. If you want to persist your RedisInsight data, create the source directory in advance (`redisinsight` in the example below) with the needed permissions and ownership to avoid permission errors.
+After the source directory is created, run the following command.
 
 ```bash
-docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/db
+docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/data
 ```
 
 Then, point your browser to [http://localhost:5540](http://localhost:5540).
-
-RedisInsight also provides a health check endpoint at [http://localhost:5540/healthcheck/](http://localhost:5540/healthcheck/) to monitor the health of the running container.
-
-If everything worked, you should see the following output in the terminal:
-
-```
-Starting webserver...
-Visit http://0.0.0.0:5540 in your web browser.
-Press CTRL-C to exit.
-```
-
-### Resolving permission errors
-
-If the previous command returns a permissions error, ensure the directory you pass as a volume to the container has necessary permissions for the container to access it. Run the following command:
-
-```bash
-{chown -R 1001 redisinsight}
-```
-
-### Adding flags to the run command
-
-You can use additional flags with the `docker run` command:
-
-1. You can add the `-it` flag to see the logs and view the progress.
-1. On Linux, you can add `--network host`. This makes it easy to work with redis running on your local machine.
-1. To analyze RDB files stored in S3, you can add the access key and secret access key as environment variables using the `-e` flag.
-
-    For example: `-e AWS_ACCESS_KEY=<aws access key> -e AWS_SECRET_KEY=<aws secret access key>`
-
