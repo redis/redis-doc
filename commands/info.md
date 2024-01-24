@@ -321,6 +321,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `acl_access_denied_cmd`: Number of commands rejected because of access denied to the command
 *   `acl_access_denied_key`: Number of commands rejected because of access denied to a key
 *   `acl_access_denied_channel`: Number of commands rejected because of access denied to a channel 
+*   `instantaneous_command_duration_usec`: Average time spent in a single command in microseconds
 
 Here is the meaning of all fields in the **replication** section:
 
