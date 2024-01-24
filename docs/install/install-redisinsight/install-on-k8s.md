@@ -26,8 +26,8 @@ metadata:
                                    # environment variables that
                                    # conflicts with redisinsight
                                    # application's environment
-                                   # variables `REDISINSIGHT_HOST` and
-                                   # `REDISINSIGHT_PORT`
+                                   # variables `RI_APP_HOST` and
+                                   # `RI_APP_PORT`
 spec:
   type: LoadBalancer
   ports:
@@ -57,15 +57,15 @@ spec:
 
       - name:  redisinsight #Container name (DNS_LABEL, unique)
         image: redis/redisinsight:latest #repo/image
-        imagePullPolicy: IfNotPresent #Always pull image
+        imagePullPolicy: IfNotPresent #Installs the latest RedisInsight version
         volumeMounts:
-        - name: db #Pod volumes to mount into the container's filesystem. Cannot be updated.
-          mountPath: /db
+        - name: data #Pod volumes to mount into the container's filesystem. Cannot be updated.
+          mountPath: /data
         ports:
         - containerPort: 5540 #exposed container port and protocol
           protocol: TCP
       volumes:
-      - name: db
+      - name: data
         emptyDir: {} # node-ephemeral volume https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
 ```
 
@@ -115,8 +115,8 @@ metadata:
                                    # environment variables that
                                    # conflicts with redisinsight
                                    # application's environment
-                                   # variables `REDISINSIGHT_HOST` and
-                                   # `REDISINSIGHT_PORT`
+                                   # variables `RI_APP_HOST` and
+                                   # `RI_APP_PORT`
 spec:
   type: LoadBalancer
   ports:
@@ -159,7 +159,7 @@ spec:
         app: redisinsight #label for pod/s
     spec:
       volumes:
-        - name: db
+        - name: data
           persistentVolumeClaim:
             claimName: redisinsight-pv-claim
       initContainers:
@@ -169,11 +169,11 @@ spec:
             - /bin/sh
             - '-c'
             - |
-              chown -R 1001 /db
+              chown -R 1001 /data
           resources: {}
           volumeMounts:
-            - name: db
-              mountPath: /db
+            - name: data
+              mountPath: /data
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       containers:
@@ -181,8 +181,8 @@ spec:
           image: redis/redisinsight:latest #repo/image
           imagePullPolicy: IfNotPresent #Always pull image
           volumeMounts:
-          - name: db #Pod volumes to mount into the container's filesystem. Cannot be updated.
-            mountPath: /db
+          - name: data #Pod volumes to mount into the container's filesystem. Cannot be updated.
+            mountPath: /data
           ports:
           - containerPort: 5540 #exposed container port and protocol
             protocol: TCP
@@ -224,28 +224,21 @@ spec:
         imagePullPolicy: IfNotPresent #Always pull image
         env:
           # If there's a service named 'redisinsight' that exposes the
-          # deployment, we manually set `REDISINSIGHT_HOST` and
-          # `REDISINSIGHT_PORT` to override the service environment
+          # deployment, we manually set `RI_APP_HOST` and
+          # `RI_APP_PORT` to override the service environment
           # variables.
-          - name: REDISINSIGHT_HOST
+          - name: RI_APP_HOST
             value: "0.0.0.0"
-          - name: REDISINSIGHT_PORT
+          - name: RI_APP_PORT
             value: "5540"
         volumeMounts:
-        - name: db #Pod volumes to mount into the container's filesystem. Cannot be updated.
-          mountPath: /db
+        - name: data #Pod volumes to mount into the container's filesystem. Cannot be updated.
+          mountPath: /data
         ports:
         - containerPort: 5540 #exposed conainer port and protocol
           protocol: TCP
-        livenessProbe:
-           httpGet:
-              path : /healthcheck/ # exposed RI endpoint for healthcheck
-              port: 5540 # exposed container port
-           initialDelaySeconds: 5 # number of seconds to wait after the container starts to perform liveness probe
-           periodSeconds: 5 # period in seconds after which liveness probe is performed
-           failureThreshold: 1 # number of liveness probe failures after which container restarts
       volumes:
-      - name: db
+      - name: data
         emptyDir: {} # node-ephemeral volume https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
 ```
 
@@ -256,7 +249,7 @@ kubectl apply -f redisinsight.yaml
 ```
 
 {{< note >}}
-If the deployment will be exposed by a service whose name is 'redisinsight', set `REDISINSIGHT_HOST` and `REDISINSIGHT_PORT` environment variables to override the environment variables created by the service.
+If the deployment will be exposed by a service whose name is 'redisinsight', set `RI_APP_HOST` and `RI_APP_PORT` environment variables to override the environment variables created by the service.
 {{< /note >}}
 
 3. Once the deployment has been successfully applied and the deployment complete, access RedisInsight. This can be accomplished by exposing the deployment as a K8s Service or by using port forwarding, as in the example below:
@@ -266,49 +259,3 @@ kubectl port-forward deployment/redisinsight 5540
 ```
 
 Open your browser and point to <http://localhost:5540>
-
-## Helm Chart (Experimental)
-
-You can download the RedisInsight helm chart from **[here](/pkgs/redisinsight-chart-0.1.0.tgz)**.
-
-1. After downloading, install the helm chart using the following command:
-
-```sh
-helm install redisinsight redisinsight-chart-0.1.0.tgz --set service.type=NodePort
-```
-
-{{< note >}}
-The service type is [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport) which allows us to access redisinsight from outside k8s cluster.
-{{< /note >}}
-
-You get the following output:
-```
-NAME: redisinsight
-LAST DEPLOYED: Wed Dec 16 10:46:08 2020
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-NOTES:
-1. Get the application URL by running these commands:
-  export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services redisinsight-redisinsight-chart)
-  export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
-  echo http://$NODE_IP:$NODE_PORT
-
-```
-
-2. Run the commands mentioned in the output to get the end point:
-
-```sh
-export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services redisinsight-redisinsight-chart)
-export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
-echo http://$NODE_IP:$NODE_PORT #Example: http://172.17.0.2:32388
-
-```
-
-3. Open your browser and point to `http://<endpoint>:<port>` from the previous command.
-
-4. To uninstall the helm chart:
-
-```sh
-helm uninstall redisinsight
-```
