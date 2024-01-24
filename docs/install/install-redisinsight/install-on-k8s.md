@@ -235,8 +235,15 @@ spec:
         - name: data #Pod volumes to mount into the container's filesystem. Cannot be updated.
           mountPath: /data
         ports:
-        - containerPort: 5540 #exposed conainer port and protocol
+        - containerPort: 5540 #exposed container port and protocol
           protocol: TCP
+      livenessProbe:
+           httpGet:
+              path : /healthcheck/ # exposed RI endpoint for healthcheck
+              port: 5540 # exposed container port
+           initialDelaySeconds: 5 # number of seconds to wait after the container starts to perform liveness probe
+           periodSeconds: 5 # period in seconds after which liveness probe is performed
+           failureThreshold: 1 # number of liveness probe failures after which container restarts
       volumes:
       - name: data
         emptyDir: {} # node-ephemeral volume https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
