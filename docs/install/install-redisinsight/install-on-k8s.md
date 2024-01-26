@@ -59,13 +59,13 @@ spec:
         image: redis/redisinsight:latest #repo/image
         imagePullPolicy: IfNotPresent #Installs the latest RedisInsight version
         volumeMounts:
-        - name: data #Pod volumes to mount into the container's filesystem. Cannot be updated.
+        - name: redisinsight #Pod volumes to mount into the container's filesystem. Cannot be updated.
           mountPath: /data
         ports:
         - containerPort: 5540 #exposed container port and protocol
           protocol: TCP
       volumes:
-      - name: data
+      - name: redisinsight
         emptyDir: {} # node-ephemeral volume https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
 ```
 
@@ -159,7 +159,7 @@ spec:
         app: redisinsight #label for pod/s
     spec:
       volumes:
-        - name: data
+        - name: redisinsight
           persistentVolumeClaim:
             claimName: redisinsight-pv-claim
       initContainers:
@@ -172,7 +172,7 @@ spec:
               chown -R 1001 /data
           resources: {}
           volumeMounts:
-            - name: data
+            - name: redisinsight
               mountPath: /data
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -181,7 +181,7 @@ spec:
           image: redis/redisinsight:latest #repo/image
           imagePullPolicy: IfNotPresent #Always pull image
           volumeMounts:
-          - name: data #Pod volumes to mount into the container's filesystem. Cannot be updated.
+          - name: redisinsight #Pod volumes to mount into the container's filesystem. Cannot be updated.
             mountPath: /data
           ports:
           - containerPort: 5540 #exposed container port and protocol
@@ -232,7 +232,7 @@ spec:
           - name: RI_APP_PORT
             value: "5540"
         volumeMounts:
-        - name: data #Pod volumes to mount into the container's filesystem. Cannot be updated.
+        - name: redisinsight #Pod volumes to mount into the container's filesystem. Cannot be updated.
           mountPath: /data
         ports:
         - containerPort: 5540 #exposed container port and protocol
@@ -245,7 +245,7 @@ spec:
            periodSeconds: 5 # period in seconds after which liveness probe is performed
            failureThreshold: 1 # number of liveness probe failures after which container restarts
       volumes:
-      - name: data
+      - name: redisinsight
         emptyDir: {} # node-ephemeral volume https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
 ```
 
