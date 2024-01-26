@@ -300,8 +300,8 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
-*   `client_query_buffer_limit_disconnections`: Total number of clients reached query buffer length limit
-*   `client_output_buffer_limit_disconnections`: Total number of clients reached output buffer length limit
+*   `client_query_buffer_limit_disconnections`: Total number of disconnections due to client reaching query buffer limit
+*   `client_output_buffer_limit_disconnections`: Total number of disconnections due to client reaching output buffer limit
 *   `reply_buffer_shrinks`: Total number of output buffer shrinks
 *   `reply_buffer_expands`: Total number of output buffer expands
 *   `eventloop_cycles`: Total number of eventloop cycles
