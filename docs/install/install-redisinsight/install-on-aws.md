@@ -84,6 +84,8 @@ docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redi
 
 Find the IP Address of your EC2 instances, and launch your browser at `http://<EC2 IP Address>:5540`. Accept the EULA and start using RedisInsight.
 
+RedisInsight also provides a health check endpoint at http://localhost:5540/healthcheck/ to monitor the health of the running container.
+
 Summary
 ------
 
