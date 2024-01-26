@@ -30,3 +30,5 @@ docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redi
 ```
 
 Then, point your browser to [http://localhost:5540](http://localhost:5540).
+
+RedisInsight also provides a health check endpoint at http://localhost:5540/healthcheck/ to monitor the health of the running container.
