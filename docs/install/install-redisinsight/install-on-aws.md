@@ -43,7 +43,7 @@ Next, launch an EC2 instance.
 Step 3: Verify Permissions and Connectivity
 ----------
 
-Next, verify the EC2 instance has the required IAM permissions, and can connect to ElastiCache Redis instances.
+Next, verify that the EC2 instance has the required IAM permissions, and can connect to ElastiCache Redis instances.
 
 1. SSH into the newly launched EC2 instance
 1. Open a command prompt
@@ -75,16 +75,17 @@ Finally, we can now install RedisInsight. Run the following command to download 
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
 ```
-2. If you want to persist your RedisInsight data, create the source directory in advance (`redisinsight` in the example below) with the needed permissions and ownership to avoid permission errors.
-After the source directory is created, run the following command.
+2. If you want to persist your RedisInsight data, attach docker volume to the `/data` path.
 
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/data
 ```
 
+If the previous command returns a permission error, ensure that the user with `ID = 1000` has necessary permission to access the volume provided (`redisinsight` in the command above).
+
 Find the IP Address of your EC2 instances, and launch your browser at `http://<EC2 IP Address>:5540`. Accept the EULA and start using RedisInsight.
 
-RedisInsight also provides a health check endpoint at http://localhost:5540/healthcheck/ to monitor the health of the running container.
+RedisInsight also provides a health check endpoint at `http://<EC2 IP Address>:5540/api/health/` to monitor the health of the running container.
 
 Summary
 ------
