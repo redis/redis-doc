@@ -1,7 +1,7 @@
 ---
 title: "Install on AWS EC2"
 linkTitle: "Install on AWS EC2"
-weight: 1
+weight: 2
 description: >
     How to install RedisInsight on AWS EC2
 ---
