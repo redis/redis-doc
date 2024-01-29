@@ -1,20 +1,19 @@
 ---
-Title: Install RedisInsight on Kubernetes
-date: 2024-01-30 10:00:00
-weight: 40
-categories: ["RI"]
-path: install/install-redisinsight/install-on-k8s/
-altTag: Install RedisInsight on Kubernetes
+title: "Install on Kubernetes"
+linkTitle: "Install on Kubernetes"
+weight: 3
+description: >
+    How to install RedisInsight on Kubernetes
 ---
-In this walkthrough, we will install RedisInsight on [Kubernetes](https://kubernetes.io/).
+This tutorial shows how to install RedisInsight on [Kubernetes](https://kubernetes.io/) (K8s).
 This is an easy way to use RedisInsight with a [Redis Enterprise K8s deployment](https://redis.io/docs/about/redis-enterprise/#:~:text=and%20Multi%2Dcloud-,Redis%20Enterprise%20Software,-Redis%20Enterprise%20Software).
 
 ## Create the RedisInsight deployment and service
 
 Below is an annotated YAML file that will create a RedisInsight
-deployment and a service in a k8s cluster.
+deployment and a service in a K8s cluster.
 
-1. Create a new file redisinsight.yaml with the content below
+1. Create a new file named `redisinsight.yaml` with the content below.
 
 ```yaml
 # RedisInsight service with name 'redisinsight-service'
@@ -69,13 +68,13 @@ spec:
         emptyDir: {} # node-ephemeral volume https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
 ```
 
-2. Create the RedisInsight deployment and service
+2. Create the RedisInsight deployment and service:
 
 ```sh
 kubectl apply -f redisinsight.yaml
 ```
 
-3. Once the deployment and service are successfully applied and complete, access RedisInsight. This can be accomplished by using the `<external-ip>` of the service we created to reach redisinsight.
+3. Once the deployment and service are successfully applied and complete, access RedisInsight. This can be accomplished by listing using the `<external-ip>` of the service we created to reach RedisInsight.
 
 ```sh
 $ kubectl get svc redisinsight-service
@@ -255,11 +254,11 @@ spec:
 kubectl apply -f redisinsight.yaml
 ```
 
-{{< note >}}
+{{< alert title="Note" >}}
 If the deployment will be exposed by a service whose name is 'redisinsight', set `RI_APP_HOST` and `RI_APP_PORT` environment variables to override the environment variables created by the service.
-{{< /note >}}
+{{< /alert >}}
 
-3. Once the deployment has been successfully applied and the deployment complete, access RedisInsight. This can be accomplished by exposing the deployment as a K8s Service or by using port forwarding, as in the example below:
+3. Once the deployment has been successfully applied and the deployment is complete, access RedisInsight. This can be accomplished by exposing the deployment as a K8s Service or by using port forwarding, as in the example below:
 
 ```sh
 kubectl port-forward deployment/redisinsight 5540
