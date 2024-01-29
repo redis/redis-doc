@@ -1,7 +1,7 @@
 ---
 title: "Install on Kubernetes"
 linkTitle: "Install on Kubernetes"
-weight: 3
+weight: 4
 description: >
     How to install RedisInsight on Kubernetes
 ---
