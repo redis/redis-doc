@@ -1,7 +1,7 @@
 ---
 title: "Environment variables"
 linkTitle: "Environment variables"
-weight: 4
+weight: 1
 description: >
     RedisInsight supported environment variables
 ---
