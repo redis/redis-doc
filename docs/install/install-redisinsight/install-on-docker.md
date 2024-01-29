@@ -14,7 +14,7 @@ The first step is to [install Docker for your operating system](https://docs.doc
 
 ## Run RedisInsight Docker image
 
-You can start RedisInsight using one of the options described below.
+You can install RedisInsight using one of the options described below.
 
 1. If you do not want to persist your RedisInsight data:
 
