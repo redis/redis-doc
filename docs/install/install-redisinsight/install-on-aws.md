@@ -74,7 +74,7 @@ Finally, install RedisInsight using one of the options described below.
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest
 ```
-2. If you want to persist your RedisInsight data, attach the Docker volume to the `/data` path.
+2. If you want to persist your RedisInsight data, first attach the Docker volume to the `/data` path and then run the following command:
 
 ```bash
 docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/data
