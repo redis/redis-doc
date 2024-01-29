@@ -74,7 +74,7 @@ spec:
 kubectl apply -f redisinsight.yaml
 ```
 
-3. Once the deployment and service are successfully applied and complete, access RedisInsight. This can be accomplished by listing using the `<external-ip>` of the service we created to reach RedisInsight.
+3. Once the deployment and service are successfully applied and complete, access RedisInsight. This can be accomplished by using the `<external-ip>` of the service we created to reach RedisInsight.
 
 ```sh
 $ kubectl get svc redisinsight-service
