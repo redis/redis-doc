@@ -67,7 +67,7 @@ Next, install Docker on the EC2 instance. Run the following commands:
 Step 5: Run RedisInsight in the Docker container
 -------
 
-Finally, install RedisInsight. Run the following command to download and run the RedisInsight Docker image.
+Finally, install RedisInsight using one of the options described below.
 
 1. If you do not want to persist your RedisInsight data:
 
