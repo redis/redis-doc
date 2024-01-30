@@ -172,11 +172,9 @@ redis 127.0.0.1:6379> SCAN 0 TYPE zset
 
 It is important to note that the **TYPE** filter is also applied after elements are retrieved from the database, so the option does not reduce the amount of work the server has to do to complete a full iteration, and for rare types you may receive no elements in many iterations.
 
-## The NOSCORES/NOVALUES option
+## The NOVALUES option
 
 When using `HSCAN`, you can use the `NOVALUES` option to make Redis return only the keys in the hash table without their corresponding values.
-
-Similarly, when using `ZSCAN`, you can use the `NOSCORES` option to make Redis return only the members in the sorted set without their corresponding scores.
 
 ```
 redis 127.0.0.1:6379> HSET myhash a 1 b 2
@@ -188,18 +186,6 @@ redis 127.0.0.1:6379> HSCAN myhash 0
    3) "b"
    4) "2"
 redis 127.0.0.1:6379> HSCAN myhash 0 NOVALUES
-1) "0"
-2) 1) "a"
-   2) "b"
-redis 127.0.0.1:6379> ZADD myzset 1 a 2 b
-(integer) 2
-redis 127.0.0.1:6379> ZSCAN myzset 0
-1) "0"
-2) 1) "a"
-   2) "1"
-   3) "b"
-   4) "2"
-redis 127.0.0.1:6379> ZSCAN myzset 0 NOSCORES
 1) "0"
 2) 1) "a"
    2) "b"
