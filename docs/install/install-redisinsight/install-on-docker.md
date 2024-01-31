@@ -29,6 +29,6 @@ docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redi
 
 If the previous command returns a permission error, ensure that the user with `ID = 1000` has the necessary permissions to access the volume provided (`redisinsight` in the command above).
 
-Next, point your browser to `[http://localhost:5540](http://localhost:5540)`.
+Next, point your browser to `http://localhost:5540`.
 
 RedisInsight also provides a health check endpoint at `http://localhost:5540/api/health/` to monitor the health of the running container.
