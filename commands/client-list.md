@@ -20,6 +20,7 @@ Here is the meaning of the fields:
 * `psub`: number of pattern matching subscriptions
 * `ssub`: number of shard channel subscriptions. Added in Redis 7.0.3
 * `multi`: number of commands in a MULTI/EXEC context
+* `watch`: number of keys this client is currently watching.
 * `qbuf`: query buffer length (0 means no query pending)
 * `qbuf-free`: free space of the query buffer (0 means the buffer is full)
 * `argv-mem`: incomplete arguments for the next command (already extracted from query buffer)
