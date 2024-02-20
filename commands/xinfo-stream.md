@@ -12,9 +12,39 @@ The informative details provided by this command are:
 * **first-entry**: the ID and field-value tuples of the first entry in the stream
 * **last-entry**: the ID and field-value tuples of the last entry in the stream
 
+### The `FULL` modifier
+
 The optional `FULL` modifier provides a more verbose reply.
 When provided, the `FULL` reply includes an **entries** array that consists of the stream entries (ID and field-value tuples) in ascending order.
 Furthermore, **groups** is also an array, and for each of the consumer groups it consists of the information reported by `XINFO GROUPS` and `XINFO CONSUMERS`.
+
+The following information is provided for each of the groups:
+
+* **name**: the consumer group's name
+* **last-delivered-id**: the ID of the last entry delivered to the group's consumers
+* **entries-read**: the logical "read counter" of the last entry delivered to the group's consumers
+* **lag**: the number of entries in the stream that are still waiting to be delivered to the group's consumers, or a NULL when that number can't be determined.
+* **pel-count**: the length of the group's pending entries list (PEL), which are messages that were delivered but are yet to be acknowledged
+* **pending**: an array with pending entries information (see below)
+* **consumers**: an array with consumers information (see below)
+
+The following information is provided for each pending entry:
+
+1. The ID of the message.
+2. The name of the consumer that fetched the message and has still to acknowledge it. We call it the current *owner* of the message.
+3. The UNIX timestamp of when the message was delivered to this consumer.
+4. The number of times this message was delivered.
+
+The following information is provided for each consumer:
+
+* **name**: the consumer's name
+* **seen-time**: the UNIX timestamp of the last attempted interaction (Examples: `XREADGROUP`, `XCLAIM`, `XAUTOCLAIM`)
+* **active-time**: the UNIX timestamp of the last successful interaction (Examples: `XREADGROUP` that actually read some entries into the PEL, `XCLAIM`/`XAUTOCLAIM` that actually claimed some entries)
+* **pel-count**: the number of entries in the PEL: pending messages for the consumer, which are messages that were delivered but are yet to be acknowledged
+* **pending**: an array with pending entries information, has the same structure as described above, except the consumer name is omitted (redundant, since anyway we are in a specific consumer context)
+
+Note that before Redis 7.2.0 **seen-time** used to denote the last successful interaction.
+In 7.2.0 **active-time** was added and **seen-time** was changed to denote the last attempted interaction.
 
 The `COUNT` option can be used to limit the number of stream and PEL entries that are returned (The first `<count>` entries are returned).
 The default `COUNT` is 10 and a `COUNT` of 0 means that all entries will be returned (execution time may be long if the stream has a lot of entries).

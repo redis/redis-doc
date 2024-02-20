@@ -7,6 +7,9 @@ The following information is provided for each consumer in the group:
 * **idle**: the number of milliseconds that have passed since the consumer's last attempted interaction (Examples: `XREADGROUP`, `XCLAIM`, `XAUTOCLAIM`)
 * **inactive**: the number of milliseconds that have passed since the consumer's last successful interaction (Examples: `XREADGROUP` that actually read some entries into the PEL, `XCLAIM`/`XAUTOCLAIM` that actually claimed some entries)
 
+Note that before Redis 7.2.0 **idle** used to denote the time passed since last successful interaction.
+In 7.2.0 **inactive** was added and **idle** was changed to denote the time passed since last attempted interaction.
+
 @examples
 
 ```
