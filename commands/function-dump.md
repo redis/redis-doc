@@ -9,22 +9,24 @@ The following example shows how to dump loaded libraries using `FUNCTION DUMP` a
 Then, it restores the original libraries from the serialized payload with `FUNCTION RESTORE`.
 
 ```
+redis> FUNCTION LOAD "#!lua name=mylib \n redis.register_function('myfunc', function(keys, args) return args[1] end)"
+"mylib"
 redis> FUNCTION DUMP
-"\xf6\x05mylib\x03LUA\x00\xc3@D@J\x1aredis.register_function('my@\x0b\x02', @\x06`\x12\x11keys, args) return`\x0c\a[1] end)\n\x00@\n)\x11\xc8|\x9b\xe4"
+"\xf5\xc3@X@]\x1f#!lua name=mylib \n redis.registe\rr_function('my@\x0b\x02', @\x06`\x12\nkeys, args) 6\x03turn`\x0c\a[1] end)\x0c\x00\xba\x98\xc2\xa2\x13\x0e$\a"
 redis> FUNCTION FLUSH
 OK
-redis> FUNCTION RESTORE "\xf6\x05mylib\x03LUA\x00\xc3@D@J\x1aredis.register_function('my@\x0b\x02', @\x06`\x12\x11keys, args) return`\x0c\a[1] end)\n\x00@\n)\x11\xc8|\x9b\xe4"
+redis> FUNCTION RESTORE "\xf5\xc3@X@]\x1f#!lua name=mylib \n redis.registe\rr_function('my@\x0b\x02', @\x06`\x12\nkeys, args) 6\x03turn`\x0c\a[1] end)\x0c\x00\xba\x98\xc2\xa2\x13\x0e$\a"
 OK
 redis> FUNCTION LIST
 1) 1) "library_name"
    2) "mylib"
    3) "engine"
    4) "LUA"
-   5) "description"
-   6) (nil)
-   7) "functions"
-   8) 1) 1) "name"
+   5) "functions"
+   6) 1) 1) "name"
          2) "myfunc"
          3) "description"
          4) (nil)
+         5) "flags"
+         6) (empty array)
 ```
