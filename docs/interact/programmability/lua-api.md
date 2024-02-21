@@ -689,7 +689,7 @@ _os_ provides a set of functions for dealing with date, time, and system command
 More details can be found in the [Operating System Facilities](https://www.lua.org/manual/5.1/manual.html#5.8).
 Note that for sandbox security, currently only the following os functions is exposed:
 
-* [`struct.clock()`](#os.clock)
+* `os.clock()`
 
 ### <a name="struct-library"></a> _struct_ library
 
