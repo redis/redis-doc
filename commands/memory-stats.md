@@ -38,14 +38,14 @@ values. The following metrics are reported:
      memory usage
 *   `peak.percentage`: The percentage of `total.allocated` out of
      `peak.allocated`
-*   `allocator.allocated` : See `INFO`'s `allocator_allocated`
-*   `allocator.active` : See `INFO`'s `allocator_active`
-*   `allocator.resident` : See `INFO`'s `allocator_resident`
-*   `allocator.muzzy` : See `INFO`'s `allocator_muzzy`
-*   `allocator-fragmentation.ratio` : See `INFO`'s `allocator_frag_ratio`
-*   `allocator-fragmentation.bytes` : See `INFO`'s `allocator_frag_bytes`
-*   `allocator-rss.ratio` : See `INFO`'s `allocator_rss_ratio`
-*   `allocator-rss.bytes` : See `INFO`'s `allocator_rss_bytes`
+*   `allocator.allocated`: See `INFO`'s `allocator_allocated`
+*   `allocator.active`: See `INFO`'s `allocator_active`
+*   `allocator.resident`: See `INFO`'s `allocator_resident`
+*   `allocator.muzzy`: See `INFO`'s `allocator_muzzy`
+*   `allocator-fragmentation.ratio`: See `INFO`'s `allocator_frag_ratio`
+*   `allocator-fragmentation.bytes`: See `INFO`'s `allocator_frag_bytes`
+*   `allocator-rss.ratio`: See `INFO`'s `allocator_rss_ratio`
+*   `allocator-rss.bytes`: See `INFO`'s `allocator_rss_bytes`
 *   `rss-overhead.ratio`: See `INFO`'s `rss_overhead_ratio`
 *   `rss-overhead.bytes`: See `INFO`'s `rss_overhead_bytes`
 *   `fragmentation`: See `INFO`'s `mem_fragmentation_ratio`
