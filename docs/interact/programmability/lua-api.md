@@ -698,6 +698,7 @@ Note that for sandbox security, currently only the following os functions is exp
 * Available in functions: yes
 
 _struct_ is a library for packing and unpacking C-like structures in Lua.
+It provides the following functions:
 
 * [`struct.pack()`](#struct.pack)
 * [`struct.unpack()`](#struct.unpack)
