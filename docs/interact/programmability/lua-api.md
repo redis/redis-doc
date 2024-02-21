@@ -670,9 +670,7 @@ The following [standard Lua libraries](https://www.lua.org/manual/5.1/manual.htm
 * The [_String Manipulation (string)_ library](https://www.lua.org/manual/5.1/manual.html#5.4)
 * The [_Table Manipulation (table)_ library](https://www.lua.org/manual/5.1/manual.html#5.5)
 * The [_Mathematical Functions (math)_ library](https://www.lua.org/manual/5.1/manual.html#5.6)
-* The [_Operating System Facilities (os)_ library](https://www.lua.org/manual/5.1/manual.html#5.8)
-  Note that for sandbox security, currently only the following os API is exposed:
-  * `os.clock()`
+* The [_Operating System Facilities (os)_ library](#os-library)
 
 In addition, the following external libraries are loaded and accessible to scripts:
 
@@ -681,6 +679,18 @@ In addition, the following external libraries are loaded and accessible to scrip
 * The [_cmsgpack_ library](#cmsgpack-library)
 * The [_bitop_ library](#bitop-library)
 
+### <a name="os-library"></a> _os_ library
+
+* Since version: 8.0.0
+* Available in scripts: yes
+* Available in functions: yes
+
+_os_ provides a set of functions for dealing with date, time, and system commands.
+More details can be found in the [Operating System Facilities](https://www.lua.org/manual/5.1/manual.html#5.8).
+Note that for sandbox security, currently only the following os functions is exposed:
+
+* [`struct.clock()`](#os.clock)
+
 ### <a name="struct-library"></a> _struct_ library
 
 * Since version: 2.6.0
@@ -688,7 +698,6 @@ In addition, the following external libraries are loaded and accessible to scrip
 * Available in functions: yes
 
 _struct_ is a library for packing and unpacking C-like structures in Lua.
-It provides the following functions:
 
 * [`struct.pack()`](#struct.pack)
 * [`struct.unpack()`](#struct.unpack)
