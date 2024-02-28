@@ -23,13 +23,13 @@ values. The following metrics are reported:
 *   `dbXXX`: For each of the server's databases, the overheads of the main and
      expiry dictionaries (`overhead.hashtable.main` and
     `overhead.hashtable.expires`, respectively) are reported in bytes
-*   `overhead.hashtable.lut`: Total overhead of dictionary buckets in databases
-*   `overhead.hashtable.rehashing`: Temporary memory overhead of database dictionaries rehashing
+*   `overhead.hashtable.lut`: Total overhead of dictionary buckets in databases (Added in Redis 8.0)
+*   `overhead.hashtable.rehashing`: Temporary memory overhead of database dictionaries currently being rehashed (Added in Redis 8.0) 
 *   `overhead.total`: The sum of all overheads, i.e. `startup.allocated`,
      `replication.backlog`, `clients.slaves`, `clients.normal`, `aof.buffer` and
      those of the internal data structures that are used in managing the
      Redis keyspace (see `INFO`'s `used_memory_overhead`)
-*   `database.dict.rehashing.count`: Number of DB dictionaries being rehashed
+*   `database.dict.rehashing.count`: Number of DB dictionaries currently being rehashed (Added in Redis 8.0)
 *   `keys.count`: The total number of keys stored across all databases in the
      server
 *   `keys.bytes-per-key`: The ratio between `dataset.bytes` and `keys.count` 
