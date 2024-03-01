@@ -172,6 +172,25 @@ redis 127.0.0.1:6379> SCAN 0 TYPE zset
 
 It is important to note that the **TYPE** filter is also applied after elements are retrieved from the database, so the option does not reduce the amount of work the server has to do to complete a full iteration, and for rare types you may receive no elements in many iterations.
 
+## The NOVALUES option
+
+When using `HSCAN`, you can use the `NOVALUES` option to make Redis return only the keys in the hash table without their corresponding values.
+
+```
+redis 127.0.0.1:6379> HSET myhash a 1 b 2
+OK
+redis 127.0.0.1:6379> HSCAN myhash 0
+1) "0"
+2) 1) "a"
+   2) "1"
+   3) "b"
+   4) "2"
+redis 127.0.0.1:6379> HSCAN myhash 0 NOVALUES
+1) "0"
+2) 1) "a"
+   2) "b"
+```
+
 ## Multiple parallel iterations
 
 It is possible for an infinite number of clients to iterate the same collection at the same time, as the full state of the iterator is in the cursor, that is obtained and returned to the client at every call. No server side state is taken at all.
