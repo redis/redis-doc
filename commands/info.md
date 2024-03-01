@@ -84,7 +84,9 @@ Here is the meaning of all fields in the **clients** section:
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
 *   `pubsub_clients`: Number of clients in pubsub mode (`SUBSCRIBE`, `PSUBSCRIBE`, `SSUBSCRIBE`). Added in Redis 8.0
+*   `watching_clients`: Number of clients in watching mode (`WATCH`). Added in Redis 8.0
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
+*   `total_watched_keys`: Number of watched keys. Added in Redis 8.0.
 *   `total_blocking_keys`: Number of blocking keys. Added in Redis 7.2.
 *   `total_blocking_keys_on_nokey`: Number of blocking keys that one or more clients that would like to be unblocked when the key is deleted. Added in Redis 7.2.
 
