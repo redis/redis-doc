@@ -150,6 +150,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `mem_replication_backlog`: Memory used by replication backlog
 *   `mem_total_replication_buffers`: Total memory consumed for replication buffers - Added in Redis 7.0.
 *   `mem_allocator`: Memory allocator, chosen at compile time.
+*   `mem_overhead_db_hashtable_rehashing`: Temporary memory overhead of database dictionaries currently being rehashed - Added in 8.0.
 *   `active_defrag_running`: When `activedefrag` is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize.
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
