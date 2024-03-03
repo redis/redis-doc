@@ -601,9 +601,9 @@
     "[Bulk string reply](/docs/reference/protocol-spec#bulk-strings): the value of the key after the increment."
   ],
   "INFO": [
-    "[Bulk string reply](/docs/reference/protocol-spec#bulk-strings): a map of info fields, one field per line in the form of <field>:<value> where the value can be a comma separated map like <key>=<val>. Also contains section header lines starting with `#` and blank lines.",
+    "[Bulk string reply](/docs/reference/protocol-spec#bulk-strings): a map of info fields, one field per line in the form of `<field>:<value>` where the value can be a comma separated map like `<key>=<val>`. Also contains section header lines starting with `#` and blank lines.",
     "",
-    "Lines can contain a section name (starting with a # character) or a property. All the properties are in the form of `field:value` terminated by `\r\n`."
+    "Lines can contain a section name (starting with a `#` character) or a property. All the properties are in the form of `field:value` terminated by `\\r\\n`."
   ],
   "KEYS": [
     "[Array reply](/docs/reference/protocol-spec#arrays): a list of keys matching _pattern_."
