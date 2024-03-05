@@ -9,9 +9,34 @@ Redis objects can be encoded in different ways:
     - `embstr`, an embedded string, which is an object where the internal simple dynamic string, `sds`, is an unmodifiable string allocated in the same chuck as the object itself.
       `embstr` can be strings with lengths up to the hardcoded limit of `OBJ_ENCODING_EMBSTR_SIZE_LIMIT` or 44 bytes. 
 
-* Lists can be encoded as `ziplist` or `linkedlist`. The `ziplist` is the special representation that is used to save space for small lists.
-* Sets can be encoded as `intset` or `hashtable`. The `intset` is a special encoding used for small sets composed solely of integers.
-* Hashes can be encoded as `ziplist` or `hashtable`. The `ziplist` is a special encoding used for small hashes.
-* Sorted Sets can be encoded as `ziplist` or `skiplist` format. As for the List type small sorted sets can be specially encoded using `ziplist`, while the `skiplist` encoding is the one that works with sorted sets of any size.
+* Lists can be encoded as:
+ 
+    - `linkedlist`, normal list encoding. No longer used, it is an old list encoding.
+    - `ziplist`, Redis <= 6.2, a special encoding used for small lists.
+    - `listpack`, Redis >= 7.0, a special encoding used for small lists.
+    - `quicklist`, encoded as linkedlist of ziplists or listpacks.
+
+* Sets can be encoded as:
+
+    - `hashtable`, normal set encoding.
+    - `intset`, a special encoding used for small sets composed solely of integers.
+    - `listpack`, Redis >= 7.2, a special encoding used for small sets.
+
+* Hashes can be encoded as:
+
+    - `zipmap`, normal hash encoding. No longer used, it is an old hash encoding.
+    - `hashtable`, normal hash encoding.
+    - `ziplist`, Redis <= 6.2, a special encoding used for small hashes.
+    - `listpack`, Redis >= 7.0, a special encoding used for small hashes.
+
+* Sorted Sets can be encoded as:
+
+    - `skiplist` normal sorted set encoding.
+    - `ziplist`, Redis <= 6.2, a special encoding used for small sorted sets.
+    - `listpack`, Redis >= 7.0, a special encoding used for small sorted sets.
+
+* Streams can be encoded as:
+
+  - `stream` normal stream encoding, encoded as a radix tree of listpacks.
 
 All the specially encoded types are automatically converted to the general type once you perform an operation that makes it impossible for Redis to retain the space saving encoding.
