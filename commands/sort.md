@@ -109,7 +109,7 @@ Before 8.0, when enabling `Redis cluster-mode` there is no way to guarantee the 
 
 Starting from 8.0, pattern with hash tag can be mapped to a slot, and so in `Redis cluster-mode`, the use of `BY` or `GET` is allowed when pattern contains hash tag and implies a specific slot which the key is also in, which means any key matching this pattern must be in the same slot as the key, and therefore in the same node. For example, in cluster mode, `{mylist}weight_*` is acceptable as a pattern when sorting `mylist`, while pattern `{abc}weight_*` will be denied, causing the command to fail with an error.
 
-To use pattern with hash tag, see https://redis.io/docs/reference/cluster-spec/#hash-tags for more information.
+To use pattern with hash tag, see [Hash tags](/docs/reference/cluster-spec/#hash-tags) for more information.
 
 Starting from Redis 7.0, any use of `GET` or `BY` which reference external key pattern will only be allowed in case the current user running the command has full key read permissions.
 Full key read permissions can be set for the user by, for example, specifying `'%R~*'` or `'~*` with the relevant command access rules.
