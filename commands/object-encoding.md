@@ -11,32 +11,32 @@ Redis objects can be encoded in different ways:
 
 * Lists can be encoded as:
  
-    - `linkedlist`, normal list encoding. No longer used, it is an old list encoding.
-    - `ziplist`, Redis <= 6.2, a special encoding used for small lists.
-    - `listpack`, Redis >= 7.0, a special encoding used for small lists.
+    - `linkedlist`, simple list encoding. No longer used, an old list encoding.
+    - `ziplist`, Redis <= 6.2, a space-efficient encoding used for small lists.
+    - `listpack`, Redis >= 7.0, a space-efficient encoding used for small lists.
     - `quicklist`, encoded as linkedlist of ziplists or listpacks.
 
 * Sets can be encoded as:
 
     - `hashtable`, normal set encoding.
     - `intset`, a special encoding used for small sets composed solely of integers.
-    - `listpack`, Redis >= 7.2, a special encoding used for small sets.
+    - `listpack`, Redis >= 7.2, a space-efficient encoding used for small sets.
 
 * Hashes can be encoded as:
 
-    - `zipmap`, normal hash encoding. No longer used, it is an old hash encoding.
+    - `zipmap`, no longer used, an old hash encoding.
     - `hashtable`, normal hash encoding.
-    - `ziplist`, Redis <= 6.2, a special encoding used for small hashes.
-    - `listpack`, Redis >= 7.0, a special encoding used for small hashes.
+    - `ziplist`, Redis <= 6.2, a space-efficient encoding used for small hashes.
+    - `listpack`, Redis >= 7.0, a space-efficient encoding used for small hashes.
 
 * Sorted Sets can be encoded as:
 
-    - `skiplist` normal sorted set encoding.
-    - `ziplist`, Redis <= 6.2, a special encoding used for small sorted sets.
-    - `listpack`, Redis >= 7.0, a special encoding used for small sorted sets.
+    - `skiplist`, normal sorted set encoding.
+    - `ziplist`, Redis <= 6.2, a space-efficient encoding used for small sorted sets.
+    - `listpack`, Redis >= 7.0, a space-efficient encoding used for small sorted sets.
 
 * Streams can be encoded as:
 
-  - `stream` normal stream encoding, encoded as a radix tree of listpacks.
+  - `stream`, encoded as a radix tree of listpacks.
 
 All the specially encoded types are automatically converted to the general type once you perform an operation that makes it impossible for Redis to retain the space saving encoding.
