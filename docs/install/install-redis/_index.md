@@ -90,7 +90,7 @@ The available packages for supported Linux distributions already include the cap
 {{% /alert  %}}
 
 {{% alert title="Note" color="warning" %}}
-The remainder of this section assumes you've [installed Redis from its source code](/docs/install/install-redis-from-source/). If instead you have installed Redis Stack, you will need to download a [basic init script](https://raw.githubusercontent.com/redis/redis/7.2/utils/redis_init_script) and then modify both it and the following instructions to conform to the way Redis Stack was installed on your platform. For example, on Ubuntu 20.04 LTS, Redis Stack is installed in `/opt/redis-stack`, not `/usr/local`, so you'll need to adjust accordingly.
+The remainder of this section assumes you've [installed Redis from its source code](/docs/install/install-redis/install-redis-from-source/). If instead you have installed Redis Stack, you will need to download a [basic init script](https://raw.githubusercontent.com/redis/redis/7.2/utils/redis_init_script) and then modify both it and the following instructions to conform to the way Redis Stack was installed on your platform. For example, on Ubuntu 20.04 LTS, Redis Stack is installed in `/opt/redis-stack`, not `/usr/local`, so you'll need to adjust accordingly.
 {{% /alert  %}}
 
 The following instructions can be used to perform a proper installation using the init script shipped with the Redis source code, `/path/to/redis-stable/utils/redis_init_script`.
