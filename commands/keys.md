@@ -26,6 +26,13 @@ Supported glob-style patterns:
 
 Use `\` to escape special characters if you want to match them verbatim.
 
+When using [Redis Cluster](/docs/management/scaling/), the search is optimized for patterns that imply a single slot.
+If a pattern can only match keys of one slot,
+Redis only iterates over keys in that slot, rather than the whole database,
+when searching for keys matching the pattern.
+For example, with the pattern `{a}h*llo`, Redis would only try to match it with the keys in slot 15495, which hash tag `{a}` implies.
+To use pattern with hash tag, see [Hash tags](/docs/reference/cluster-spec/#hash-tags) in the Cluster specification for more information.
+
 @examples
 
 ```cli
