@@ -956,7 +956,7 @@
     "[Bulk string reply](/docs/reference/protocol-spec#bulk-strings): the SHA1 digest of the script added into the script cache."
   ],
   "SDIFF": [
-    "[Array reply](/docs/reference/protocol-spec#arrays): a list with the members of the resulting set."
+    "[Set reply](/docs/reference/protocol-spec#sets): the resulting set."
   ],
   "SDIFFSTORE": [
     "[Integer reply](/docs/reference/protocol-spec#integers): the number of elements in the resulting set."
@@ -1054,7 +1054,7 @@
     "[Simple string reply](/docs/reference/protocol-spec#simple-strings): `OK` if _ABORT_ was specified and shutdown was aborted. On successful shutdown, nothing is returned because the server quits and the connection is closed. On failure, an error is returned."
   ],
   "SINTER": [
-    "[Array reply](/docs/reference/protocol-spec#arrays): a list with the members of the resulting set."
+    "[Set reply](/docs/reference/protocol-spec#sets): the resulting set."
   ],
   "SINTERCARD": [
     "[Integer reply](/docs/reference/protocol-spec#integers): the number of the elements in the resulting intersection."
@@ -1084,7 +1084,7 @@
     "[Simple string reply](/docs/reference/protocol-spec#simple-strings): `OK`."
   ],
   "SMEMBERS": [
-    "[Array reply](/docs/reference/protocol-spec#arrays): all members of the set."
+    "[Set reply](/docs/reference/protocol-spec#sets): all members of the set."
   ],
   "SMISMEMBER": [
     "[Array reply](/docs/reference/protocol-spec#arrays): a list representing the membership of the given elements, in the same order as they are requested."
@@ -1105,7 +1105,7 @@
     "One of the following:",
     "* [Null reply](/docs/reference/protocol-spec#nulls): if the key does not exist.",
     "* [Bulk string reply](/docs/reference/protocol-spec#bulk-strings): when called without the _count_ argument, the removed member.",
-    "* [Array reply](/docs/reference/protocol-spec#arrays): when called with the _count_ argument, a list of the removed members."
+    "* [Set reply](/docs/reference/protocol-spec#sets): when called with the _count_ argument, a set of the removed members."
   ],
   "SPUBLISH": [
     "[Integer reply](/docs/reference/protocol-spec#integers): the number of clients that received the message. Note that in a Redis Cluster, only clients that are connected to the same node as the publishing client are included in the count"
@@ -1136,7 +1136,7 @@
     "[Bulk string reply](/docs/reference/protocol-spec#bulk-strings): the substring of the string value stored at key, determined by the offsets start and end (both are inclusive)."
   ],
   "SUNION": [
-    "[Array reply](/docs/reference/protocol-spec#arrays): a list with the members of the resulting set."
+    "[Set reply](/docs/reference/protocol-spec#sets): the resulting set."
   ],
   "SUNIONSTORE": [
     "[Integer reply](/docs/reference/protocol-spec#integers): Number of the elements in the resulting set."
