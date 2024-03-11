@@ -22,7 +22,7 @@ wget https://download.redis.io/redis-stable.tar.gz
 
 ## Compiling Redis
 
-To compile Redis, first the tarball, change to the root directory, and then run `make`:
+To compile Redis, first extract the tarball, change to the root directory, and then run `make`:
 
 {{< highlight bash >}}
 tar -xzvf redis-stable.tar.gz
