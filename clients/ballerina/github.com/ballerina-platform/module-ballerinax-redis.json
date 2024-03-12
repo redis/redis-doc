@@ -1,5 +1,5 @@
 {
-    "name": "ballerinax-redis",
+    "name": "Ballerina Redis Client",
     "description": "Official Redis client for Ballerina language with the support for Redis clusters, connection pooling and secure connections.",
     "homepage": "https://central.ballerina.io/ballerinax/redis/latest",
     "repository": "https://github.com/ballerina-platform/module-ballerinax-redis",
