@@ -193,7 +193,7 @@ stream this can be easily achieved using the `XREVRANGE` command, like so:
 ```
 But if there are many streams involved, this approach is quickly becoming
 too slow, having to issue a command per stream.
-Instead, starting from redis 7.6, the `+` sign can be used as a special ID,
+Instead, starting from redis 8.0, the `+` sign can be used as a special ID,
 requesting the last available entry in a stream. For example:
 
 ```
