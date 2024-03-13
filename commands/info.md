@@ -276,6 +276,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spent on active expiry cycles
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `evicted_clients`: Number of evicted clients due to `maxmemory-clients` limit. Added in Redis 7.0.
+*   `evicted_scripts`: Number of evicted EVAL scripts due to LRU policy, see `EVAL` for more details. Added in Redis 8.0.
 *   `total_eviction_exceeded_time`:  Total time `used_memory` was greater than `maxmemory` since server startup, in milliseconds
 *   `current_eviction_exceeded_time`: The time passed since `used_memory` last rose above `maxmemory`, in milliseconds
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
