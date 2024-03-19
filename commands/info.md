@@ -463,4 +463,8 @@ It won't be included when `INFO` or `INFO ALL` are called, and it is returned on
 
 **A note about the word slave used in this man page**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.
 
-**Modules generated sections**: Starting with Redis 6, modules can inject their info into the `INFO` command, these are excluded by default even when the `all` argument is provided (it will include a list of loaded modules but not their generated info fields). To get these you must use either the `modules` argument or `everything`.,
+**Modules generated sections**: Starting with Redis 6, modules can inject their info into the `INFO` command, these are excluded by default even when the `all` argument is provided (it will include a list of loaded modules but not their generated info fields). To get these you must use either the `modules` argument or `everything`.
+
+**Errorstats generated sections**: Starting with Redis 8, errorstats will be disabled when error code abuse is detected on the server side.
+The server will print the warning log and the current errors code list, clear the errors code, and then replace it with a single `ERRORSTATS_DISABLED` error code to indicate that it is disabled in `INFO`.
+It can be re-enabled using via `CONFIG RESETSTAT`.
