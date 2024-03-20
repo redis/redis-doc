@@ -51,8 +51,8 @@ just the subset of events we are interested in.
 
 ### Configuration
 
-By default keyspace event notifications are disabled because while not
-very sensible the feature uses some CPU power. Notifications are enabled
+By default, keyspace event notifications are disabled because, while not
+very perceptible, the feature uses some CPU power. Notifications are enabled
 using the `notify-keyspace-events` of redis.conf or via the **CONFIG SET**.
 
 Setting the parameter to the empty string disables notifications.
