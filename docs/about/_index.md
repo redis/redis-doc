@@ -2,14 +2,17 @@
 title: Introduction to Redis
 linkTitle: "About"
 weight: 10
-description: Learn about the Redis open source project
+description: Learn about Redis
 aliases:
   - /topics/introduction
   - /buzz
 ---
 
-Redis is an open source (BSD licensed), in-memory __data structure store__ used as a database, cache, message broker, and streaming engine. Redis provides [data structures](/docs/data-types/) such as
-[strings](/docs/data-types/strings/), [hashes](/docs/data-types/hashes/), [lists](/docs/data-types/lists/), [sets](/docs/data-types/sets/), [sorted sets](/docs/data-types/sorted-sets/) with range queries, [bitmaps](/docs/data-types/bitmaps/), [hyperloglogs](/docs/data-types/hyperloglogs/), [geospatial indexes](/docs/data-types/geospatial/), and [streams](/docs/data-types/streams/). Redis has built-in [replication](/topics/replication), [Lua scripting](/commands/eval), [LRU eviction](/docs/reference/eviction/), [transactions](/topics/transactions), and different levels of [on-disk persistence](/topics/persistence), and provides high availability via [Redis Sentinel](/topics/sentinel) and automatic partitioning with [Redis Cluster](/topics/cluster-tutorial).
+Redis is an open source (BSD licensed), in-memory __data structure store__ used as a database, cache, message broker, and streaming engine. 
+
+> Future releases of Redis will be dual-licensed under a source-available license. You can choose between the [Redis Source Available License 2.0 (RSALv2)](/docs/about/license) or the Server Side Public License v1 (SSPLv1). 
+
+Redis provides [data structures](/docs/data-types/) such as [strings](/docs/data-types/strings/), [hashes](/docs/data-types/hashes/), [lists](/docs/data-types/lists/), [sets](/docs/data-types/sets/), [sorted sets](/docs/data-types/sorted-sets/) with range queries, [bitmaps](/docs/data-types/bitmaps/), [hyperloglogs](/docs/data-types/hyperloglogs/), [geospatial indexes](/docs/data-types/geospatial/), and [streams](/docs/data-types/streams/). Redis has built-in [replication](/topics/replication), [Lua scripting](/commands/eval), [LRU eviction](/docs/reference/eviction/), [transactions](/topics/transactions), and different levels of [on-disk persistence](/topics/persistence), and provides high availability via [Redis Sentinel](/topics/sentinel) and automatic partitioning with [Redis Cluster](/topics/cluster-tutorial).
 
 You can run __atomic operations__
 on these types, like [appending to a string](/commands/append);
