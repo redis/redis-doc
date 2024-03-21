@@ -51,7 +51,3 @@ The command does not succeed and returns an error in the following cases:
 1. The specified node ID is not found in the nodes table.
 2. The node receiving the command is a replica, and the specified node ID identifies its current master.
 3. The node ID identifies the same node we are sending the command to.
-
-@return
-
-@simple-string-reply: `OK` if the command was executed successfully, otherwise an error is returned.

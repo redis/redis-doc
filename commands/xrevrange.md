@@ -14,16 +14,6 @@ enough to send:
 
     XREVRANGE somestream + - COUNT 1
 
-@return
-
-@array-reply, specifically:
-
-The command returns the entries with IDs matching the specified range,
-from the higher ID to the lower ID matching.
-The returned entries are complete, that means that the ID and all the fields
-they are composed are returned. Moreover the entries are returned with
-their fields and values in the exact same order as `XADD` added them.
-
 @examples
 
 ```cli

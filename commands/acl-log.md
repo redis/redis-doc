@@ -8,16 +8,6 @@ The optional argument specifies how many entries to show. By default
 up to ten failures are returned. The special `RESET` argument clears the log.
 Entries are displayed starting from the most recent.
 
-@return
-
-When called to show security events:
-
-@array-reply: a list of ACL security events.
-
-When called with `RESET`:
-
-@simple-string-reply: `OK` if the security log was cleared.
-
 @examples
 
 ```

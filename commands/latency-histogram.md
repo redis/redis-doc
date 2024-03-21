@@ -34,10 +34,3 @@ To delete the latency histograms' data use the `CONFIG RESETSTAT` command.
       5# (integer) 16 => (integer) 99968
       6# (integer) 33 => (integer) 100000
 ```
-
-@return
-
-@array-reply: specifically:
-
-The command returns a map where each key is a command name.
-The value is a map with a key for the total calls, and a map of the histogram time buckets.

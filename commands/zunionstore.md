@@ -21,11 +21,6 @@ the minimum or maximum score of an element across the inputs where it exists.
 
 If `destination` already exists, it is overwritten.
 
-@return
-
-@integer-reply: the number of elements in the resulting sorted set at
-`destination`.
-
 @examples
 
 ```cli

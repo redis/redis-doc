@@ -11,12 +11,7 @@ Use `\` to escape special characters if you want to match them verbatim.
 Once the client enters the subscribed state it is not supposed to issue any other commands, except for additional `SUBSCRIBE`, `SSUBSCRIBE`, `PSUBSCRIBE`, `UNSUBSCRIBE`, `SUNSUBSCRIBE`, `PUNSUBSCRIBE`, `PING`, `RESET` and `QUIT` commands.
 However, if RESP3 is used (see `HELLO`) it is possible for a client to issue any commands while in subscribed state.
 
-For more information, see [Pub/sub](/docs/manual/pubsub/).
-
-@return
-
-When successful, this command doesn't return anything.
-Instead, for each pattern, one message with the first element being the string "psubscribe" is pushed as a confirmation that the command succeeded.
+For more information, see [Pub/sub](/docs/interact/pubsub/).
 
 ## Behavior change history
 

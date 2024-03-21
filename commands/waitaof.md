@@ -1,4 +1,9 @@
 This command blocks the current client until all previous write commands by that client are acknowledged as having been fsynced to the AOF of the local Redis and/or at least the specified number of replicas.
+
+`numlocal` represents the number of local fsyncs required to be confirmed before proceeding.
+When `numlocal` is set to 1, the command blocks until the data written to the Redis instance is confirmed to be persisted to the local AOF file.
+The value 0 disables this check.
+
 If the timeout, specified in milliseconds, is reached, the command returns even if the specified number of acknowledgments has not been met.
 
 The command **will always return** the number of masters and replicas that have fsynced all write commands sent by the current client before the `WAITAOF` command, both in the case where the specified thresholds were met, and when the timeout is reached.
@@ -34,10 +39,6 @@ In addition, Redis replicas asynchronously ping their master with two replicatio
 
 Redis remembers, for each client, the replication offset of the produced replication stream when the last write command was executed in the context of that client.
 When `WAITAOF` is called, Redis checks if the local Redis and/or the specified number of replicas have confirmed fsyncing this offset or a greater one to their AOF.
-
-@return
-
-@array-reply: The command returns an array of two integers: The first is the number of local Redises (0 or 1) that have fsynced to AOF  all writes performed in the context of the current connection; The second is the number of replicas that have acknowledged doing the same.
 
 @examples
 

@@ -8,11 +8,6 @@ You can use `COMMAND GETKEYS` or `COMMAND GETKEYSANDFLAGS` to discover key names
 
 Refer to [key specifications](/topics/key-specs#logical-operation-flags) for information about the meaning of the key flags.
 
-@return
-
-@array-reply: list of keys from your command.
-Each element of the array is an array containing key name in the first entry, and flags in the second.
-
 @examples
 
 ```cli

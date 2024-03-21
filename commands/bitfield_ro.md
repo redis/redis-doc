@@ -13,7 +13,3 @@ See original `BITFIELD` for more details.
 ```
 BITFIELD_RO hello GET i8 16
 ```
-
-@return
-
-@array-reply: An array with each entry being the corresponding result of the subcommand given at the same position.

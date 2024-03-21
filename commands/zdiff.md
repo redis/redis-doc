@@ -1,11 +1,6 @@
 This command is similar to `ZDIFFSTORE`, but instead of storing the resulting
 sorted set, it is returned to the client.
 
-@return
-
-@array-reply: the result of the difference (optionally with their scores, in case
-the `WITHSCORES` option is given).
-
 @examples
 
 ```cli

@@ -19,7 +19,3 @@ To enable consumer group lag tracking, specify the optional `entries_read` named
 An arbitrary ID is any ID that isn't the ID of the stream's first entry, last entry, or zero ("0-0") ID.
 Use it to find out how many entries are between the arbitrary ID (excluding it) and the stream's last entry.
 Set the `entries_read` the stream's `entries_added` subtracted by the number of entries.
-
-@return
-
-@simple-string-reply: `OK` on success.

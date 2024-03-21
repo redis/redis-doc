@@ -14,15 +14,6 @@ with the highest scores instead of popping the ones with the lowest scores.
 
 [cb]: /commands/bzpopmin
 
-@return
-
-@array-reply: specifically:
-
-* A `nil` multi-bulk when no element could be popped and the timeout expired.
-* A three-element multi-bulk with the first element being the name of the key
-  where a member was popped, the second element is the popped member itself,
-  and the third element is the score of the popped element.
-
 @examples
 
 ```

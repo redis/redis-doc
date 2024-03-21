@@ -41,12 +41,6 @@ All networking information after the third nested reply are replicas of the mast
 
 If a cluster instance has non-contiguous slots (e.g. 1-400,900,1800-6000) then master and replica networking information results will be duplicated for each top-level slot range reply.
 
-@return
-
-@array-reply: nested list of slot ranges with networking information.
-
-@examples
-
 ```
 > CLUSTER SLOTS
 1) 1) (integer) 0

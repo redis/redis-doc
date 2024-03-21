@@ -7,7 +7,3 @@ library's filename.
 Known limitations:
 
 *   Modules that register custom data types can not be unloaded.
-
-@return
-
-@simple-string-reply: `OK` if module was unloaded.

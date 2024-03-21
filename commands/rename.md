@@ -4,10 +4,6 @@ If `newkey` already exists it is overwritten, when this happens `RENAME` execute
 
 In Cluster mode, both `key` and `newkey` must be in the same **hash slot**, meaning that in practice only keys that have the same hash tag can be reliably renamed in cluster.
 
-@return
-
-@simple-string-reply
-
 @examples
 
 ```cli

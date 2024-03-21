@@ -28,10 +28,3 @@ OK
 For more information refer to the [Latency Monitoring Framework page][lm].
 
 [lm]: /topics/latency-monitor
-
-@return
-
-@array-reply: specifically:
-
-The command returns an array where each element is a four elements array
-representing the event's name, timestamp, latest and all-time latency measurements.

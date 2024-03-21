@@ -16,7 +16,6 @@ The optional parameter can be used to select a specific section of information:
 *   `cluster`: Redis Cluster section
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
-*   `modules`: Module related sections
 *   `errorstats`: Redis error statistics
 
 It can also take the following values:
@@ -26,13 +25,6 @@ It can also take the following values:
 *   `everything`: Includes `all` and `modules`
 
 When no parameter is provided, the `default` option is assumed.
-
-@return
-
-@bulk-string-reply: as a collection of text lines.
-
-Lines can contain a section name (starting with a # character) or a property.
-All the properties are in the form of `field:value` terminated by `\r\n`.
 
 ```cli
 INFO
@@ -91,7 +83,10 @@ Here is the meaning of all fields in the **clients** section:
 *   `blocked_clients`: Number of clients pending on a blocking call (`BLPOP`,
      `BRPOP`, `BRPOPLPUSH`, `BLMOVE`, `BZPOPMIN`, `BZPOPMAX`)
 *   `tracking_clients`: Number of clients being tracked (`CLIENT TRACKING`)
+*   `pubsub_clients`: Number of clients in pubsub mode (`SUBSCRIBE`, `PSUBSCRIBE`, `SSUBSCRIBE`). Added in Redis 8.0
+*   `watching_clients`: Number of clients in watching mode (`WATCH`). Added in Redis 8.0
 *   `clients_in_timeout_table`: Number of clients in the clients timeout table
+*   `total_watched_keys`: Number of watched keys. Added in Redis 8.0.
 *   `total_blocking_keys`: Number of blocking keys. Added in Redis 7.2.
 *   `total_blocking_keys_on_nokey`: Number of blocking keys that one or more clients that would like to be unblocked when the key is deleted. Added in Redis 7.2.
 
@@ -119,9 +114,18 @@ Here is the meaning of all fields in the **memory** section:
      the net memory usage (`used_memory` minus `used_memory_startup`)
 *   `total_system_memory`: The total amount of memory that the Redis host has
 *   `total_system_memory_human`: Human readable representation of previous value
-*   `used_memory_lua`: Number of bytes used by the Lua engine
-*   `used_memory_lua_human`: Human readable representation of previous value
-*   `used_memory_scripts`: Number of bytes used by cached Lua scripts
+*   `used_memory_lua`: Number of bytes used by the Lua engine for EVAL scripts. Deprecated in Redis 7.0, renamed to `used_memory_vm_eval`
+*   `used_memory_vm_eval`: Number of bytes used by the script VM engines for EVAL framework (not part of used_memory). Added in Redis 7.0
+*   `used_memory_lua_human`: Human readable representation of previous value. Deprecated in Redis 7.0
+*   `used_memory_scripts_eval`: Number of bytes overhead by the EVAL scripts (part of used_memory). Added in Redis 7.0
+*   `number_of_cached_scripts`: The number of EVAL scripts cached by the server. Added in Redis 7.0
+*   `number_of_functions`: The number of functions. Added in Redis 7.0
+*   `number_of_libraries`: The number of libraries. Added in Redis 7.0
+*   `used_memory_vm_functions`: Number of bytes used by the script VM engines for Functions framework (not part of used_memory). Added in Redis 7.0
+*   `used_memory_vm_total`: `used_memory_vm_eval` + `used_memory_vm_functions` (not part of used_memory). Added in Redis 7.0
+*   `used_memory_vm_total_human`: Human readable representation of previous value.
+*   `used_memory_functions`: Number of bytes overhead by Function scripts (part of used_memory). Added in Redis 7.0
+*   `used_memory_scripts`: `used_memory_scripts_eval` + `used_memory_functions` (part of used_memory). Added in Redis 7.0
 *   `used_memory_scripts_human`: Human readable representation of previous value
 *   `maxmemory`: The value of the `maxmemory` configuration directive
 *   `maxmemory_human`: Human readable representation of previous value
@@ -140,6 +144,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `allocator_allocated`: Total bytes allocated form the allocator, including internal-fragmentation. Normally the same as `used_memory`.
 *   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
 *   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting).
+*   `allocator_muzzy`: Total bytes of 'muzzy' memory (RSS) in the allocator. Muzzy memory is memory that has been freed, but not yet fully returned to the operating system. It can be reused immediately when needed or reclaimed by the OS when system pressure increases.
 *   `mem_not_counted_for_evict`: Used memory that's not counted for key eviction. This is basically transient replica and AOF buffers.
 *   `mem_clients_slaves`: Memory used by replica clients - Starting Redis 7.0, replica buffers share memory with the replication backlog, so this field can show 0 when replicas don't trigger an increase of memory usage.
 *   `mem_clients_normal`: Memory used by normal clients
@@ -148,6 +153,7 @@ Here is the meaning of all fields in the **memory** section:
 *   `mem_replication_backlog`: Memory used by replication backlog
 *   `mem_total_replication_buffers`: Total memory consumed for replication buffers - Added in Redis 7.0.
 *   `mem_allocator`: Memory allocator, chosen at compile time.
+*   `mem_overhead_db_hashtable_rehashing`: Temporary memory overhead of database dictionaries currently being rehashed - Added in 8.0.
 *   `active_defrag_running`: When `activedefrag` is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize.
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
@@ -270,6 +276,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spent on active expiry cycles
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
 *   `evicted_clients`: Number of evicted clients due to `maxmemory-clients` limit. Added in Redis 7.0.
+*   `evicted_scripts`: Number of evicted EVAL scripts due to LRU policy, see `EVAL` for more details. Added in Redis 8.0.
 *   `total_eviction_exceeded_time`:  Total time `used_memory` was greater than `maxmemory` since server startup, in milliseconds
 *   `current_eviction_exceeded_time`: The time passed since `used_memory` last rose above `maxmemory`, in milliseconds
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
@@ -308,8 +315,10 @@ Here is the meaning of all fields in the **stats** section:
 *   `total_writes_processed`: Total number of write events processed
 *   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
 *   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
-*   `stat_reply_buffer_shrinks`: Total number of output buffer shrinks
-*   `stat_reply_buffer_expands`: Total number of output buffer expands
+*   `client_query_buffer_limit_disconnections`: Total number of disconnections due to client reaching query buffer limit
+*   `client_output_buffer_limit_disconnections`: Total number of disconnections due to client reaching output buffer limit
+*   `reply_buffer_shrinks`: Total number of output buffer shrinks
+*   `reply_buffer_expands`: Total number of output buffer expands
 *   `eventloop_cycles`: Total number of eventloop cycles
 *   `eventloop_duration_sum`: Total time spent in the eventloop in microseconds (including I/O and command processing)
 *   `eventloop_duration_cmd_sum`: Total time spent on executing commands in microseconds

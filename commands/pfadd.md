@@ -8,12 +8,6 @@ To call the command without elements but just the variable name is valid, this w
 
 For an introduction to HyperLogLog data structure check the `PFCOUNT` command page.
 
-@return
-
-@integer-reply, specifically:
-
-* 1 if at least 1 HyperLogLog internal register was altered. 0 otherwise.
-
 @examples
 
 ```cli

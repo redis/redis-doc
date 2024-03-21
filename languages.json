@@ -1,6 +1,7 @@
 {
     "ActionScript": "actionscript",
     "ActiveX/COM+": "activex-com",
+    "Ballerina": "ballerina",
     "Bash": "bash",
     "Boomi": "boomi",
     "C": "c",
@@ -18,6 +19,7 @@
     "Erlang": "erlang",
     "Fancy": "fancy",
     "gawk": "gawk",
+    "Gleam": "gleam",
     "GNU Prolog": "gnu-prolog",
     "Go": "go",
     "Haskell": "haskell",

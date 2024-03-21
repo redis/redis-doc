@@ -8,17 +8,10 @@ In this case, the number of returned fields is the absolute value of the specifi
 
 The optional `WITHVALUES` modifier changes the reply so it includes the respective values of the randomly selected hash fields.
 
-@return
-
-@bulk-string-reply: without the additional `count` argument, the command returns a Bulk Reply with the randomly selected field, or `nil` when `key` does not exist.
-
-@array-reply: when the additional `count` argument is passed, the command returns an array of fields, or an empty array when `key` does not exist.
-If the `WITHVALUES` modifier is used, the reply is a list fields and their values from the hash.
-
 @examples
 
 ```cli
-HMSET coin heads obverse tails reverse edge null
+HSET coin heads obverse tails reverse edge null
 HRANDFIELD coin
 HRANDFIELD coin
 HRANDFIELD coin -5 WITHVALUES

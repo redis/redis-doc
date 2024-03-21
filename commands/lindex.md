@@ -7,10 +7,6 @@ Here, `-1` means the last element, `-2` means the penultimate and so forth.
 
 When the value at `key` is not a list, an error is returned.
 
-@return
-
-@bulk-string-reply: the requested element, or `nil` when `index` is out of range.
-
 @examples
 
 ```cli

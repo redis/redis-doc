@@ -20,10 +20,6 @@ The command will return an error in the following circumstances:
 
 For more information please refer to [Introduction to Redis Functions](/topics/functions-intro).
 
-@return
-
-@string - the library name that was loaded
-
 @examples
 
 The following example will create a library named `mylib` with a single function, `myfunc`, that returns the first argument it gets.

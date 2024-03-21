@@ -28,19 +28,6 @@ When the `ANY` option is used, the command returns as soon as enough matches are
 When `ANY` is not provided, the command will perform an effort that is proportional to the number of items matching the specified area and sort them,
 so to query very large areas with a very small `COUNT` option may be slow even if just a few results are returned.
 
-@return
-
-@array-reply, specifically:
-
-* Without any `WITH` option specified, the command just returns a linear array like ["New York","Milan","Paris"].
-* If `WITHCOORD`, `WITHDIST` or `WITHHASH` options are specified, the command returns an array of arrays, where each sub-array represents a single item.
-
-When additional information is returned as an array of arrays for each item, the first item in the sub-array is always the name of the returned item. The other information is returned in the following order as successive elements of the sub-array.
-
-1. The distance from the center as a floating point number, in the same unit specified in the shape.
-2. The geohash integer.
-3. The coordinates as a two items x,y array (longitude,latitude).
-
 @examples
 
 ```cli

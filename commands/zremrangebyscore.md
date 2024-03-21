@@ -1,10 +1,6 @@
 Removes all elements in the sorted set stored at `key` with a score between
 `min` and `max` (inclusive).
 
-@return
-
-@integer-reply: the number of elements removed.
-
 @examples
 
 ```cli

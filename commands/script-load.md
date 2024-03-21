@@ -10,8 +10,3 @@ The command works in the same way even if the script was already present in the
 script cache.
 
 For more information about `EVAL` scripts please refer to [Introduction to Eval Scripts](/topics/eval-intro).
-
-@return
-
-@bulk-string-reply This command returns the SHA1 digest of the script added into the
-script cache.

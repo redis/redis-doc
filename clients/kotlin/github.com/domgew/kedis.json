@@ -1,0 +1,4 @@
+{
+    "name": "Kedis",
+    "description": "Redis client library for Kotlin Multiplatform (JVM + Native)"
+}

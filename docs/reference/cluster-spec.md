@@ -199,6 +199,23 @@ Examples:
 * For the key `foo{bar}{zap}` the substring `bar` will be hashed, since the algorithm stops at the first valid or invalid (without bytes inside) match of `{` and `}`.
 * What follows from the algorithm is that if the key starts with `{}`, it is guaranteed to be hashed as a whole. This is useful when using binary data as key names.
 
+#### Glob-style patterns
+
+Commands accepting a glob-style pattern, including `KEYS`, `SCAN` and `SORT`, are optimized for patterns that imply a single slot.
+This means that if all keys that can match a pattern must belong to a specific slot, only this slot is searched for keys matching the pattern.
+The pattern slot optimization is introduced in Redis 8.0.
+
+The optimization kicks in when the pattern meets the following conditions:
+
+* the pattern contains a hashtag,
+* there are no wildcards or escape characters before the hashtag, and
+* the hashtag within curly braces doesn't contain any wildcards or escape characters.
+
+For example, `SCAN 0 MATCH {abc}*` can successfully recognize the hashtag and scans only the slot corresponding to `abc`.
+However, the patterns `*{abc}`, `{a*c}`, or `{a\*bc}` cannot recognize the hashtag, so all slots need to be scanned.
+
+#### Hash slot example code
+
 Adding the hash tags exception, the following is an implementation of the `HASH_SLOT` function in Ruby and C language.
 
 Ruby example code:

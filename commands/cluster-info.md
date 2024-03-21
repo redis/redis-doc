@@ -46,7 +46,3 @@ Here are the explanation of these fields:
 * `cluster_stats_messages_publishshard_sent` and `cluster_stats_messages_publishshard_received`: Pub/Sub Publish shard propagation, see [Sharded Pubsub](/topics/pubsub#sharded-pubsub).
 
 More information about the Current Epoch and Config Epoch variables are available in the [Redis Cluster specification document](/topics/cluster-spec#cluster-current-epoch).
-
-@return
-
-@bulk-string-reply: A map between named fields and values in the form of `<field>:<value>` lines separated by newlines composed by the two bytes `CRLF`.

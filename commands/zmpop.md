@@ -12,13 +12,6 @@ The optional `COUNT` can be used to specify the number of elements to pop, and i
 
 The number of popped elements is the minimum from the sorted set's cardinality and `COUNT`'s value.
 
-@return
-
-@array-reply: specifically:
-
-* A `nil` when no element could be popped.
-* A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of the popped elements. Every entry in the elements array is also an array that contains the member and its score.
-
 @examples
 
 ```cli

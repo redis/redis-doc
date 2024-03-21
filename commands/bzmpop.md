@@ -6,11 +6,3 @@ When all sorted sets are empty, Redis will block the connection until another cl
 A `timeout` of zero can be used to block indefinitely.
 
 See `ZMPOP` for more information.
-
-@return
-
-@array-reply: specifically:
-
-* A `nil` when no element could be popped.
-* A two-element array with the first element being the name of the key from which elements were popped, and the second element is an array of the popped elements. Every entry in the elements array is also an array that contains the member and its score.
-
