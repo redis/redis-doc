@@ -3,13 +3,6 @@ In that case, it is equal to `SET`.
 When `key` already holds a value, no operation is performed.
 `SETNX` is short for "**SET** if **N**ot e**X**ists".
 
-@return
-
-@integer-reply, specifically:
-
-* `1` if the key was set
-* `0` if the key was not set
-
 @examples
 
 ```cli

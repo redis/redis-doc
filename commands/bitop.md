@@ -24,13 +24,6 @@ zero-padded up to the length of the longest string.
 The same holds true for non-existent keys, that are considered as a stream of
 zero bytes up to the length of the longest string.
 
-@return
-
-@integer-reply
-
-The size of the string stored in the destination key, that is equal to the
-size of the longest input string.
-
 @examples
 
 ```cli

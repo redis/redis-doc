@@ -6,11 +6,6 @@ Keys that do not exist are considered to be empty sets.
 
 If `destination` already exists, it is overwritten.
 
-@return
-
-@integer-reply: the number of elements in the resulting sorted set at
-`destination`.
-
 @examples
 
 ```cli

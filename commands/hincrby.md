@@ -6,10 +6,6 @@ performed.
 
 The range of values supported by `HINCRBY` is limited to 64 bit signed integers.
 
-@return
-
-@integer-reply: the value at `field` after the increment operation.
-
 @examples
 
 Since the `increment` argument is signed, both increment and decrement

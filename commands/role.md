@@ -69,10 +69,6 @@ The sentinel output is composed of the following parts:
 1. The string `sentinel`.
 2. An array of master names monitored by this Sentinel instance.
 
-@return
-
-@array-reply: where the first element is one of `master`, `slave`, `sentinel` and the additional elements are role-specific as illustrated above.
-
 @examples
 
 ```cli

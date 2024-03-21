@@ -1,0 +1,8 @@
+{
+  "name": "Redis::Cluster::Fast",
+  "description": "A fast Perl binding for Redis Cluster",
+  "homepage": "http://search.cpan.org/dist/Redis-Cluster-Fast/",
+  "twitter": [
+    "plainbanana"
+  ]
+}

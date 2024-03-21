@@ -3,10 +3,6 @@ already exists and holds a list.
 In contrary to `LPUSH`, no operation will be performed when `key` does not yet
 exist.
 
-@return
-
-@integer-reply: the length of the list after the push operation.
-
 @examples
 
 ```cli

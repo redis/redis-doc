@@ -18,10 +18,6 @@ no-op if `wherefrom` is the same as `whereto`).
 This command comes in place of the now deprecated `RPOPLPUSH`. Doing
 `LMOVE RIGHT LEFT` is equivalent.
 
-@return
-
-@bulk-string-reply: the element being popped and pushed.
-
 @examples
 
 ```cli

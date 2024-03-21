@@ -6,11 +6,6 @@ The cluster makes sure that published shard messages are forwarded to all the no
 
 For more information about sharded pubsub, see [Sharded Pubsub](/topics/pubsub#sharded-pubsub).
 
-@return
-
-@integer-reply: the number of clients that received the message.
-Note that in a Redis Cluster, only clients that are connected to the same node as the publishing client are included in the count.
-
 @examples
 
 For example the following command publish to channel `orders` with a subscriber already waiting for message(s).

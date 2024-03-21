@@ -60,10 +60,6 @@ command:
 
 It is important to note that step 3 is the only time when a Redis Cluster node will create a new config epoch without agreement from other nodes. This only happens when a manual configuration is operated. However it is impossible that this creates a non-transient setup where two nodes have the same config epoch, since Redis Cluster uses a config epoch collision resolution algorithm.
 
-@return
-
-@simple-string-reply: All the subcommands return `OK` if the command was successful. Otherwise an error is returned.
-
 ## Redis Cluster live resharding explained
 
 The `CLUSTER SETSLOT` command is an important piece used by Redis Cluster in order to migrate all the keys contained in one hash slot from one node to another. This is how the migration is orchestrated, with the help of other commands as well. We'll call the node that has the current ownership of the hash slot the `source` node, and the node where we want to migrate the `destination` node.

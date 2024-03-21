@@ -17,6 +17,7 @@ instead of killing just by address. The following filters are available:
 * `CLIENT KILL TYPE type`, where *type* is one of `normal`, `master`, `replica` and `pubsub`. This closes the connections of **all the clients** in the specified class. Note that clients blocked into the `MONITOR` command are considered to belong to the `normal` class.
 * `CLIENT KILL USER username`. Closes all the connections that are authenticated with the specified [ACL](/topics/acl) username, however it returns an error if the username does not map to an existing ACL user.
 * `CLIENT KILL SKIPME yes/no`. By default this option is set to `yes`, that is, the client calling the command will not get killed, however setting this option to `no` will have the effect of also killing the client calling the command.
+* `CLIENT KILL MAXAGE maxage`. Closes all the connections that are older than the specified age, in seconds.
 
 It is possible to provide multiple filters at the same time. The command will handle multiple filters via logical AND. For example:
 
@@ -41,13 +42,3 @@ the client point of view, the connection can never be closed
 in the middle of the execution of a command. However, the client
 will notice the connection has been closed only when the
 next command is sent (and results in network error).
-
-@return
-
-When called with the three arguments format:
-
-@simple-string-reply: `OK` if the connection exists and has been closed
-
-When called with the filter / value format:
-
-@integer-reply: the number of clients killed.

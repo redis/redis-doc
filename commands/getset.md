@@ -17,10 +17,6 @@ GETSET mycounter "0"
 GET mycounter
 ```
 
-@return
-
-@bulk-string-reply: the old value stored at `key`, or `nil` when `key` did not exist.
-
 @examples
 
 ```cli

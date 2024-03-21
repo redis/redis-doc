@@ -1,6 +1,6 @@
 ---
-title: Scaling with Redis Cluster
-linkTitle: Scaling
+title: Scale with Redis Cluster
+linkTitle: Scale with Redis Cluster
 weight: 6
 description: Horizontal scaling with Redis Cluster
 aliases: [
@@ -875,6 +875,14 @@ over one of its replicas and remove the node after it turned into a replica of t
 new master. Obviously this does not help when you want to reduce the actual
 number of masters in your cluster, in that case, a resharding is needed.
 
+There is a special scenario where you want to remove a failed node.
+You should not use the `del-node` command because it tries to connect to all nodes and you will encounter a "connection refused" error.
+Instead, you can use the `call` command:
+
+    redis-cli --cluster call 127.0.0.1:7000 cluster forget `<node-id>`
+
+This command will execute `CLUSTER FORGET` command on every node. 
+
 #### Replica migration
 
 In Redis Cluster, you can reconfigure a replica to replicate with a
@@ -960,7 +968,7 @@ by the application, and how. There are three different cases:
 3. Multiple keys operations, or transactions, or Lua scripts involving multiple keys are used with key names not having an explicit, or the same, hash tag.
 
 The third case is not handled by Redis Cluster: the application requires to
-be modified in order to don't use multi keys operations or only use them in
+be modified in order to not use multi keys operations or only use them in
 the context of the same hash tag.
 
 Case 1 and 2 are covered, so we'll focus on those two cases, that are handled

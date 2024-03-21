@@ -10,11 +10,6 @@ This command comes in place of the now deprecated `BRPOPLPUSH`. Doing
 
 See `LMOVE` for more information.
 
-@return
-
-@bulk-string-reply: the element being popped from `source` and pushed to `destination`.
-If `timeout` is reached, a @nil-reply is returned.
-
 ## Pattern: Reliable queue
 
 Please see the pattern description in the `LMOVE` documentation.

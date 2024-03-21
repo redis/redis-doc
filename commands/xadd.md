@@ -72,17 +72,6 @@ Will add a new entry but will also evict old entries so that the stream will con
 For further information about Redis streams please check our
 [introduction to Redis Streams document](/topics/streams-intro).
 
-@return
-
-@bulk-string-reply, specifically:
-
-The command returns the ID of the added entry. The ID is the one auto-generated
-if `*` is passed as ID argument, otherwise the command just returns the same ID
-specified by the user during insertion.
-
-The command returns a @nil-reply when used with the `NOMKSTREAM` option and the
-key doesn't exist.
-
 @examples
 
 ```cli

@@ -8,13 +8,6 @@ In this case, the number of returned elements is the absolute value of the speci
 
 The optional `WITHSCORES` modifier changes the reply so it includes the respective scores of the randomly selected elements from the sorted set.
 
-@return
-
-@bulk-string-reply: without the additional `count` argument, the command returns a Bulk Reply with the randomly selected element, or `nil` when `key` does not exist.
-
-@array-reply: when the additional `count` argument is passed, the command returns an array of elements, or an empty array when `key` does not exist.
-If the `WITHSCORES` modifier is used, the reply is a list elements and their scores from the sorted set.
-
 @examples
 
 ```cli

@@ -42,7 +42,3 @@ The command has no side effects if issued in the `waiting-for-sync` state but ca
 If a multi-master scenario is encountered, you will need to manually identify which master has the latest data and designate it as the master and have the other replicas.
 
 NOTE: `REPLICAOF` is disabled while a failover is in progress, this is to prevent unintended interactions with the failover that might cause data loss.
-
-@return
-
-@simple-string-reply: `OK` if the command was accepted and a coordinated failover is in progress. An error if the operation cannot be executed.

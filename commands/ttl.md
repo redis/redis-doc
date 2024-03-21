@@ -11,10 +11,6 @@ Starting with Redis 2.8 the return value in case of error changed:
 
 See also the `PTTL` command that returns the same information with milliseconds resolution (Only available in Redis 2.6 or greater).
 
-@return
-
-@integer-reply: TTL in seconds, or a negative value in order to signal an error (see the description above).
-
 @examples
 
 ```cli

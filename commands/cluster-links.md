@@ -42,7 +42,3 @@ Each map is composed of the following attributes of the corresponding cluster li
 4. `events`: Events currently registered for the link. `r` means readable event, `w` means writable event.
 5. `send-buffer-allocated`: Allocated size of the link's send buffer, which is used to buffer outgoing messages toward the peer.
 6. `send-buffer-used`: Size of the portion of the link's send buffer that is currently holding data(messages).
-
-@return
-
-@array-reply: An array of maps where each map contains various attributes and their values of a cluster link.

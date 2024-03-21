@@ -1,10 +1,6 @@
 The command shows a list of all the usernames of the currently configured
 users in the Redis ACL system.
 
-@return
-
-An array of strings.
-
 @examples
 
 ```

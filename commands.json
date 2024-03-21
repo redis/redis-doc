@@ -56,6 +56,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "ACL DRYRUN": {
@@ -263,6 +267,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "ACL SETUSER": {
@@ -305,6 +313,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "ACL USERS": {
@@ -2169,6 +2181,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CLIENT SETNAME": {
@@ -2192,6 +2208,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CLIENT TRACKING": {
@@ -2816,7 +2836,7 @@
         "summary": "Lists the replica nodes of a master node.",
         "since": "5.0.0",
         "group": "cluster",
-        "complexity": "O(1)",
+        "complexity": "O(N) where N is the number of replicas.",
         "acl_categories": [
             "@admin",
             "@slow",
@@ -3005,6 +3025,7 @@
         ],
         "arity": 2,
         "command_flags": [
+            "loading",
             "stale"
         ],
         "hints": [
@@ -3015,7 +3036,7 @@
         "summary": "Lists the replica nodes of a master node.",
         "since": "3.0.0",
         "group": "cluster",
-        "complexity": "O(1)",
+        "complexity": "O(N) where N is the number of replicas.",
         "deprecated_since": "5.0.0",
         "replaced_by": "`CLUSTER REPLICAS`",
         "acl_categories": [
@@ -3064,6 +3085,7 @@
         ],
         "arity": 2,
         "command_flags": [
+            "loading",
             "stale"
         ],
         "doc_flags": [
@@ -3357,6 +3379,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CONFIG REWRITE": {
@@ -3375,6 +3401,10 @@
             "noscript",
             "loading",
             "stale"
+        ],
+        "hints": [
+            "request_policy:all_nodes",
+            "response_policy:all_succeeded"
         ]
     },
     "CONFIG SET": {
@@ -5003,7 +5033,7 @@
         "summary": "Returns the distance between two members of a geospatial index.",
         "since": "3.2.0",
         "group": "geo",
-        "complexity": "O(log(N))",
+        "complexity": "O(1)",
         "acl_categories": [
             "@read",
             "@geo",
@@ -5087,7 +5117,7 @@
         "summary": "Returns members from a geospatial index as geohash strings.",
         "since": "3.2.0",
         "group": "geo",
-        "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+        "complexity": "O(1) for each member requested.",
         "acl_categories": [
             "@read",
             "@geo",
@@ -5137,7 +5167,7 @@
         "summary": "Returns the longitude and latitude of members from a geospatial index.",
         "since": "3.2.0",
         "group": "geo",
-        "complexity": "O(N) where N is the number of members requested.",
+        "complexity": "O(1) for each member requested.",
         "acl_categories": [
             "@read",
             "@geo",
@@ -8086,7 +8116,7 @@
         ],
         "hints": [
             "request_policy:all_nodes",
-            "response_policy:all_succeeded"
+            "response_policy:agg_sum"
         ]
     },
     "LCS": {
@@ -9675,10 +9705,6 @@
         "command_flags": [
             "write",
             "denyoom"
-        ],
-        "hints": [
-            "request_policy:multi_shard",
-            "response_policy:agg_min"
         ]
     },
     "MULTI": {
@@ -10497,7 +10523,7 @@
         "summary": "Listens for messages published to channels that match one or more patterns.",
         "since": "2.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of patterns the client is already subscribed to.",
+        "complexity": "O(N) where N is the number of patterns to subscribe to.",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -10771,7 +10797,7 @@
         "summary": "Stops listening to messages published to channels that match one or more patterns.",
         "since": "2.0.0",
         "group": "pubsub",
-        "complexity": "O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).",
+        "complexity": "O(N) where N is the number of patterns to unsubscribe.",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -10833,6 +10859,7 @@
         ],
         "hints": [
             "request_policy:all_shards",
+            "response_policy:special",
             "nondeterministic_output"
         ]
     },
@@ -11046,14 +11073,44 @@
         "arity": 3,
         "arguments": [
             {
-                "name": "host",
-                "type": "string",
-                "display_text": "host"
-            },
-            {
-                "name": "port",
-                "type": "integer",
-                "display_text": "port"
+                "name": "args",
+                "type": "oneof",
+                "arguments": [
+                    {
+                        "name": "host-port",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "host",
+                                "type": "string",
+                                "display_text": "host"
+                            },
+                            {
+                                "name": "port",
+                                "type": "integer",
+                                "display_text": "port"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "no-one",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "no",
+                                "type": "pure-token",
+                                "display_text": "no",
+                                "token": "NO"
+                            },
+                            {
+                                "name": "one",
+                                "type": "pure-token",
+                                "display_text": "one",
+                                "token": "ONE"
+                            }
+                        ]
+                    }
+                ]
             }
         ],
         "command_flags": [
@@ -11678,7 +11735,8 @@
         ],
         "hints": [
             "nondeterministic_output",
-            "request_policy:special"
+            "request_policy:special",
+            "response_policy:special"
         ]
     },
     "SCARD": {
@@ -12715,14 +12773,44 @@
         "arity": 3,
         "arguments": [
             {
-                "name": "host",
-                "type": "string",
-                "display_text": "host"
-            },
-            {
-                "name": "port",
-                "type": "integer",
-                "display_text": "port"
+                "name": "args",
+                "type": "oneof",
+                "arguments": [
+                    {
+                        "name": "host-port",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "host",
+                                "type": "string",
+                                "display_text": "host"
+                            },
+                            {
+                                "name": "port",
+                                "type": "integer",
+                                "display_text": "port"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "no-one",
+                        "type": "block",
+                        "arguments": [
+                            {
+                                "name": "no",
+                                "type": "pure-token",
+                                "display_text": "no",
+                                "token": "NO"
+                            },
+                            {
+                                "name": "one",
+                                "type": "pure-token",
+                                "display_text": "one",
+                                "token": "ONE"
+                            }
+                        ]
+                    }
+                ]
             }
         ],
         "command_flags": [
@@ -13852,7 +13940,7 @@
         "summary": "Stops listening to messages posted to shard channels.",
         "since": "7.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of clients already subscribed to a shard channel.",
+        "complexity": "O(N) where N is the number of shard channels to unsubscribe.",
         "acl_categories": [
             "@pubsub",
             "@slow"
@@ -14154,7 +14242,7 @@
         "summary": "Stops listening to messages posted to channels.",
         "since": "2.0.0",
         "group": "pubsub",
-        "complexity": "O(N) where N is the number of clients already subscribed to a channel.",
+        "complexity": "O(N) where N is the number of channels to unsubscribe.",
         "acl_categories": [
             "@pubsub",
             "@slow"

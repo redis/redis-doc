@@ -1,0 +1,5 @@
+{
+  "name": "librdb",
+  "description": "Redis RDB file parser, with JSON, RESP and RDB-loader extensions",
+  "recommended": true
+}

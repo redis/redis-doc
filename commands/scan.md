@@ -9,7 +9,7 @@ Since these commands allow for incremental iteration, returning only a small num
 
 However while blocking commands like `SMEMBERS` are able to provide all the elements that are part of a Set in a given moment, The SCAN family of commands only offer limited guarantees about the returned elements since the collection that we incrementally iterate can change during the iteration process.
 
-Note that `SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` all work very similarly, so this documentation covers all the four commands. However an obvious difference is that in the case of `SSCAN`, `HSCAN` and `ZSCAN` the first argument is the name of the key holding the Set, Hash or Sorted Set value. The `SCAN` command does not need any key name argument as it iterates keys in the current database, so the iterated object is the database itself.
+Note that `SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` all work very similarly, so this documentation covers all four commands. However an obvious difference is that in the case of `SSCAN`, `HSCAN` and `ZSCAN` the first argument is the name of the key holding the Set, Hash or Sorted Set value. The `SCAN` command does not need any key name argument as it iterates keys in the current database, so the iterated object is the database itself.
 
 ## SCAN basic usage
 
@@ -50,6 +50,15 @@ As you can see the **SCAN return value** is an array of two values: the first va
 
 Since in the second call the returned cursor is 0, the server signaled to the caller that the iteration finished, and the collection was completely explored. Starting an iteration with a cursor value of 0, and calling `SCAN` until the returned cursor is 0 again is called a **full iteration**.
 
+## Return value
+
+`SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` return a two element multi-bulk reply, where the first element is a string representing an unsigned 64 bit number (the cursor), and the second element is a multi-bulk with an array of elements.
+
+* `SCAN` array of elements is a list of keys.
+* `SSCAN` array of elements is a list of Set members.
+* `HSCAN` array of elements contain two elements, a field and a value, for every returned element of the Hash.
+* `ZSCAN` array of elements contain two elements, a member and its associated score, for every returned element of the Sorted Set.
+
 ## Scan guarantees
 
 The `SCAN` command, and the other commands in the `SCAN` family, are able to provide to the user a set of guarantees associated to full iterations.
@@ -66,17 +75,17 @@ However because `SCAN` has very little state associated (just the cursor) it has
 
 `SCAN` family functions do not guarantee that the number of elements returned per call are in a given range. The commands are also allowed to return zero elements, and the client should not consider the iteration complete as long as the returned cursor is not zero.
 
-However the number of returned elements is reasonable, that is, in practical terms SCAN may return a maximum number of elements in the order of a few tens of elements when iterating a large collection, or may return all the elements of the collection in a single call when the iterated collection is small enough to be internally represented as an encoded data structure (this happens for small sets, hashes and sorted sets).
+However the number of returned elements is reasonable, that is, in practical terms `SCAN` may return a maximum number of elements in the order of a few tens of elements when iterating a large collection, or may return all the elements of the collection in a single call when the iterated collection is small enough to be internally represented as an encoded data structure (this happens for small Sets, Hashes and Sorted Sets).
 
 However there is a way for the user to tune the order of magnitude of the number of returned elements per call using the **COUNT** option.
 
 ## The COUNT option
 
-While `SCAN` does not provide guarantees about the number of elements returned at every iteration, it is possible to empirically adjust the behavior of `SCAN` using the **COUNT** option. Basically with COUNT the user specified the *amount of work that should be done at every call in order to retrieve elements from the collection*. This is **just a hint** for the implementation, however generally speaking this is what you could expect most of the times from the implementation.
+While `SCAN` does not provide guarantees about the number of elements returned at every iteration, it is possible to empirically adjust the behavior of `SCAN` using the **COUNT** option. Basically with COUNT the user specifies the *amount of work that should be done at every call in order to retrieve elements from the collection*. This is **just a hint** for the implementation, however generally speaking this is what you could expect most of the times from the implementation.
 
-* The default COUNT value is 10.
-* When iterating the key space, or a Set, Hash or Sorted Set that is big enough to be represented by a hash table, assuming no **MATCH** option is used, the server will usually return *count* or a bit more than *count* elements per call. Please check the *why SCAN may return all the elements at once* section later in this document.
-* When iterating Sets encoded as intsets (small sets composed of just integers), or Hashes and Sorted Sets encoded as ziplists (small hashes and sets composed of small individual values), usually all the elements are returned in the first `SCAN` call regardless of the COUNT value.
+* The default `COUNT` value is 10.
+* When iterating the key space, or a Set, Hash or Sorted Set that is big enough to be represented by a hash table, assuming no **MATCH** option is used, the server will usually return *count* or a few more than *count* elements per call. Please check the *why SCAN may return all the elements at once* section later in this document.
+* When iterating Sets encoded as intsets (small sets composed of just integers), or Hashes and Sorted Sets encoded as ziplists (small hashes and sets composed of small individual values), usually all the elements are returned in the first `SCAN` call regardless of the `COUNT` value.
 
 Important: **there is no need to use the same COUNT value** for every iteration. The caller is free to change the count from one iteration to the other as required, as long as the cursor passed in the next call is the one obtained in the previous call to the command.
 
@@ -84,7 +93,7 @@ Important: **there is no need to use the same COUNT value** for every iteration.
 
 It is possible to only iterate elements matching a given glob-style pattern, similarly to the behavior of the `KEYS` command that takes a pattern as its only argument.
 
-To do so, just append the `MATCH <pattern>` arguments at the end of the `SCAN` command (it works with all the SCAN family commands).
+To do so, just append the `MATCH <pattern>` arguments at the end of the `SCAN` command (it works with all the `SCAN` family commands).
 
 This is an example of iteration using **MATCH**:
 
@@ -137,8 +146,14 @@ redis 127.0.0.1:6379> scan 176 MATCH *11* COUNT 1000
 redis 127.0.0.1:6379>
 ```
 
-As you can see most of the calls returned zero elements, but the last call where a COUNT of 1000 was used in order to force the command to do more scanning for that iteration.
+As you can see most of the calls returned zero elements, but the last call where a `COUNT` of 1000 was used in order to force the command to do more scanning for that iteration.
 
+When using [Redis Cluster](/docs/management/scaling/), the search is optimized for patterns that imply a single slot.
+If a pattern can only match keys of one slot,
+Redis only iterates over keys in that slot, rather than the whole database,
+when searching for keys matching the pattern.
+For example, with the pattern `{a}h*llo`, Redis would only try to match it with the keys in slot 15495, which hash tag `{a}` implies.
+To use pattern with hash tag, see [Hash tags](/docs/reference/cluster-spec/#hash-tags) in the Cluster specification for more information.
 
 ## The TYPE option
 
@@ -162,6 +177,25 @@ redis 127.0.0.1:6379> SCAN 0 TYPE zset
 ```
 
 It is important to note that the **TYPE** filter is also applied after elements are retrieved from the database, so the option does not reduce the amount of work the server has to do to complete a full iteration, and for rare types you may receive no elements in many iterations.
+
+## The NOVALUES option
+
+When using `HSCAN`, you can use the `NOVALUES` option to make Redis return only the keys in the hash table without their corresponding values.
+
+```
+redis 127.0.0.1:6379> HSET myhash a 1 b 2
+OK
+redis 127.0.0.1:6379> HSCAN myhash 0
+1) "0"
+2) 1) "a"
+   2) "1"
+   3) "b"
+   4) "2"
+redis 127.0.0.1:6379> HSCAN myhash 0 NOVALUES
+1) "0"
+2) 1) "a"
+   2) "b"
+```
 
 ## Multiple parallel iterations
 
@@ -194,14 +228,9 @@ However once the data structures are bigger and are promoted to use real hash ta
 
 Also note that this behavior is specific of `SSCAN`, `HSCAN` and `ZSCAN`. `SCAN` itself never shows this behavior because the key space is always represented by hash tables.
 
-## Return value
+## Further reading
 
-`SCAN`, `SSCAN`, `HSCAN` and `ZSCAN` return a two elements multi-bulk reply, where the first element is a string representing an unsigned 64 bit number (the cursor), and the second element is a multi-bulk with an array of elements.
-
-* `SCAN` array of elements is a list of keys.
-* `SSCAN` array of elements is a list of Set members.
-* `HSCAN` array of elements contain two elements, a field and a value, for every returned element of the Hash.
-* `ZSCAN` array of elements contain two elements, a member and its associated score, for every returned element of the sorted set.
+For more information about managing keys, please refer to the [The Redis Keyspace](/docs/manual/keyspace) tutorial.
 
 ## Additional examples
 

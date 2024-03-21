@@ -50,10 +50,6 @@ This can happen in a cluster that consists of only one node or the node has not 
 The value `?` is displayed if the node is incorrectly configured to use announced hostnames but no hostname is configured using `cluster-announce-hostname`.
 Clients may treat the empty string in the same way as NULL, that is the same endpoint it used to send the current command to, while `"?"` should be treated as an unknown node, not necessarily the same node as the one serving the current command.
 
-@return
-
-@array-reply: nested list of a map of hash ranges and shard nodes.
-
 @examples
 
 ```

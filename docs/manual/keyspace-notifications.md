@@ -1,7 +1,7 @@
 ---
 title: "Redis keyspace notifications"
 linkTitle: "Keyspace notifications"
-weight: 3
+weight: 4
 description: >
     Monitor changes to Redis keys and values in real time
 aliases:

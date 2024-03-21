@@ -47,8 +47,7 @@ However, Redis does the following two things when serving clients:
 In Redis 2.4 there was a hard-coded limit for the maximum number of clients
 that could be handled simultaneously.
 
-In Redis 2.6 and newer, this limit is dynamic: by default it is set to 10000 clients, unless
-otherwise stated by the `maxclients` directive in `redis.conf`.
+In Redis 2.6 and newer, this limit is configurable using the `maxclients` directive in `redis.conf`. The default is 10,000 clients.
 
 However, Redis checks with the kernel what the maximum number of file
 descriptors that we are able to open is (the *soft limit* is checked). If the
@@ -112,7 +111,7 @@ Every client is also subject to a query buffer limit. This is a non-configurable
 
 Redis is built to handle a very large number of client connections.
 Client connections tend to consume memory, and when there are many of them, the aggregate memory consumption can be extremely high, leading to data eviction or out-of-memory errors.
-These cases can be mitigated to an extent using [output buffer limits](#output-buffers-limits), but Redis allows us a more robust configuration to limit the aggregate memory used by all clients' connections.
+These cases can be mitigated to an extent using [output buffer limits](#output-buffer-limits), but Redis allows us a more robust configuration to limit the aggregate memory used by all clients' connections.
 
 
 This mechanism is called **client eviction**, and it's essentially a safety mechanism that will disconnect clients once the aggregate memory usage of all clients is above a threshold.

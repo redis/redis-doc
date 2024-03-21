@@ -13,13 +13,6 @@ The unit must be one of the following, and defaults to meters:
 
 The distance is computed assuming that the Earth is a perfect sphere, so errors up to 0.5% are possible in edge cases.
 
-@return
-
-@bulk-string-reply, specifically:
-
-The command returns the distance as a double (represented as a string)
-in the specified unit, or NULL if one or both the elements are missing.
-
 @examples
 
 ```cli

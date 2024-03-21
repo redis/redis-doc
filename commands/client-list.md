@@ -5,14 +5,6 @@ You can use one of the optional subcommands to filter the list. The `TYPE type` 
 
 The `ID` filter only returns entries for clients with IDs matching the `client-id` arguments.
 
-@return
-
-@bulk-string-reply: a unique string, formatted as follows:
-
-* One client connection per line (separated by LF)
-* Each line is composed of a succession of `property=value` fields separated
-  by a space character.
-
 Here is the meaning of the fields:
 
 * `id`: a unique 64-bit client ID
@@ -28,6 +20,7 @@ Here is the meaning of the fields:
 * `psub`: number of pattern matching subscriptions
 * `ssub`: number of shard channel subscriptions. Added in Redis 7.0.3
 * `multi`: number of commands in a MULTI/EXEC context
+* `watch`: number of keys this client is currently watching. Added in Redis 8.0
 * `qbuf`: query buffer length (0 means no query pending)
 * `qbuf-free`: free space of the query buffer (0 means the buffer is full)
 * `argv-mem`: incomplete arguments for the next command (already extracted from query buffer)
@@ -49,6 +42,7 @@ A: connection to be closed ASAP
 b: the client is waiting in a blocking operation
 c: connection to be closed after writing entire reply
 d: a watched keys has been modified - EXEC will fail
+e: the client is excluded from the client eviction mechanism
 i: the client is waiting for a VM I/O (deprecated)
 M: the client is a master
 N: no specific flag set
@@ -60,6 +54,7 @@ u: the client is unblocked
 U: the client is connected via a Unix domain socket
 x: the client is in a MULTI/EXEC context
 t: the client enabled keys tracking in order to perform client side caching
+T: the client will not touch the LRU/LFU of the keys it accesses
 R: the client tracking target client is invalid
 B: the client enabled broadcast tracking mode 
 ```

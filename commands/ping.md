@@ -10,12 +10,6 @@ multi-bulk with a "pong" in the first position and an empty bulk in the second
 position, unless an argument is provided in which case it returns a copy
 of the argument.
 
-@return
-
-@simple-string-reply, and specifically `PONG`, when no argument is provided.
-
-@bulk-string-reply the argument provided, when applicable.
-
 @examples
 
 ```cli

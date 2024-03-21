@@ -18,10 +18,6 @@ exists unless you use the `REPLACE` modifier.
 `!RESTORE` checks the RDB version and data checksum.
 If they don't match an error is returned.
 
-@return
-
-@simple-string-reply: The command returns OK on success.
-
 @examples
 
 ```

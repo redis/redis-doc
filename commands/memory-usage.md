@@ -2,7 +2,7 @@ The `MEMORY USAGE` command reports the number of bytes that a key and its value
 require to be stored in RAM.
 
 The reported usage is the total of memory allocations for data and
-administrative overheads that a key its value require.
+administrative overheads that a key and its value require.
 
 For nested data types, the optional `SAMPLES` option can be provided, where
 `count` is the number of sampled nested values. The samples are averaged to estimate the total size.
@@ -37,7 +37,3 @@ OK
 > MEMORY USAGE foo3
 (integer) 160
 ```
-
-@return
-
-@integer-reply: the memory usage in bytes, or `nil` when the key does not exist.

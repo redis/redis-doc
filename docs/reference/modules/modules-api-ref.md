@@ -439,7 +439,7 @@ Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` in case of the followi
     int RedisModule_SetCommandACLCategories(RedisModuleCommand *command,
                                             const char *aclflags);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 [`RedisModule_SetCommandACLCategories`](#RedisModule_SetCommandACLCategories) can be used to set ACL categories to module
 commands and subcommands. The set of ACL categories should be passed as
@@ -805,7 +805,7 @@ Return counter of micro-seconds relative to an arbitrary point in time.
 
     ustime_t RedisModule_Microseconds(void);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Return the current UNIX time in microseconds
 
@@ -815,7 +815,7 @@ Return the current UNIX time in microseconds
 
     ustime_t RedisModule_CachedMicroseconds(void);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Return the cached UNIX time in microseconds.
 It is updated in the server cron job and before executing a command.
@@ -1422,19 +1422,19 @@ The function always returns `REDISMODULE_OK`.
                                          const char *fmt,
                                          ...);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Reply with the error create from a printf format and arguments.
 
-If the error code is already passed in the string 'fmt', the error
-code provided is used, otherwise the string "-ERR " for the generic
-error code is automatically added.
+Note that 'fmt' must contain all the error, including
+the initial error code. The function only provides the initial "-", so
+the usage is, for example:
 
-The usage is, for example:
+    RedisModule_ReplyWithErrorFormat(ctx,"ERR Wrong Type: %s",type);
 
-    RedisModule_ReplyWithErrorFormat(ctx, "An error: %s", "foo");
+and not just:
 
-    RedisModule_ReplyWithErrorFormat(ctx, "-WRONGTYPE Wrong Type: %s", "foo");
+    RedisModule_ReplyWithErrorFormat(ctx,"Wrong Type: %s",type);
 
 The function always returns `REDISMODULE_OK`.
 
@@ -2233,7 +2233,7 @@ Extra flags that can be pass to the API under the mode argument:
 
     int RedisModule_GetOpenKeyModesAll(void);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 
 Returns the full OpenKey modes mask, using the return value
@@ -3565,7 +3565,7 @@ NULL if not required.
                                                        RedisModuleOnUnblocked on_unblock,
                                                        void *private_data);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Set unblock handler (callback and private data) on the given promise `RedisModuleCallReply`.
 The given reply must be of promise type (`REDISMODULE_REPLY_PROMISE`).
@@ -3577,7 +3577,7 @@ The given reply must be of promise type (`REDISMODULE_REPLY_PROMISE`).
     int RedisModule_CallReplyPromiseAbort(RedisModuleCallReply *reply,
                                           void **private_data);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Abort the execution of a given promise `RedisModuleCallReply`.
 return `REDMODULE_OK` in case the abort was done successfully and `REDISMODULE_ERR`
@@ -4432,7 +4432,7 @@ For a guide about blocking commands in modules, see
     void RedisModule_RegisterAuthCallback(RedisModuleCtx *ctx,
                                           RedisModuleAuthCallback cb);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 This API registers a callback to execute in addition to normal password based authentication.
 Multiple callbacks can be registered across different modules. When a Module is unloaded, all the
@@ -4544,7 +4544,7 @@ or multiple times within the blocking command background work.
                                                             RedisModuleAuthCallback reply_callback,
                                                             ;
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Block the current client for module authentication in the background. If module auth is not in
 progress on the client, the API returns NULL. Otherwise, the client is blocked and the `RedisModule_BlockedClient`
@@ -4557,7 +4557,7 @@ Note: Only use this API from the context of a module auth callback.
 
     void *RedisModule_BlockClientGetPrivateData(RedisModuleBlockedClient *blocked_client);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Get the private data that was previusely set on a blocked client
 
@@ -4568,7 +4568,7 @@ Get the private data that was previusely set on a blocked client
     void RedisModule_BlockClientSetPrivateData(RedisModuleBlockedClient *blocked_client,
                                                void *private_data);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Set private data on a blocked client
 
@@ -4648,7 +4648,7 @@ Note: Under normal circumstances [`RedisModule_UnblockClient`](#RedisModule_Unbl
                                                                      RedisModuleCmdFunc reply_callback,
                                                                      ;
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Same as [`RedisModule_BlockClientOnKeys`](#RedisModule_BlockClientOnKeys), but can take `REDISMODULE_BLOCK_`* flags
 Can be either `REDISMODULE_BLOCK_UNBLOCK_DEFAULT`, which means default behavior (same
@@ -4988,7 +4988,7 @@ See [https://redis.io/topics/notifications](https://redis.io/topics/notification
                                            void *privdata,
                                            void (*free_privdata)(void*));
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 When running inside a key space notification callback, it is dangerous and highly discouraged to perform any write
 operation (See [`RedisModule_SubscribeToKeyspaceEvents`](#RedisModule_SubscribeToKeyspaceEvents)). In order to still perform write actions in this scenario,
@@ -5004,6 +5004,9 @@ infinite loops by halting the execution could result in violation of the feature
 and so Redis will make no attempt to protect the module from infinite loops.
 
 '`free_pd`' can be NULL and in such case will not be used.
+
+Return `REDISMODULE_OK` on success and `REDISMODULE_ERR` if was called while loading data from disk (AOF or RDB) or
+if the instance is a readonly replica.
 
 <span id="RedisModule_GetNotifyKeyspaceEvents"></span>
 
@@ -5559,7 +5562,7 @@ For more information about ACL log, please refer to [https://redis.io/commands/a
                                              RedisModuleString *object,
                                              RedisModuleACLLogEntryReason reason);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Adds a new entry in the ACL log with the `username` `RedisModuleString` provided.
 Returns `REDISMODULE_OK` on success and `REDISMODULE_ERR` on error.
@@ -6481,6 +6484,16 @@ or used elsewhere.
 Modify the filtered command by deleting an argument at the specified
 position.
 
+<span id="RedisModule_CommandFilterGetClientId"></span>
+
+### `RedisModule_CommandFilterGetClientId`
+
+    unsigned long long RedisModule_CommandFilterGetClientId(RedisModuleCommandFilterCtx *fctx);
+
+**Available since:** 7.2.0
+
+Get Client ID for client that issued the command we are filtering
+
 <span id="RedisModule_MallocSize"></span>
 
 ### `RedisModule_MallocSize`
@@ -7290,7 +7303,7 @@ or provided as startup arguments.
 
     RedisModuleRdbStream *RedisModule_RdbStreamCreateFromFile(const char *filename);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Create a stream object to save/load RDB to/from a file.
 
@@ -7304,7 +7317,7 @@ the object.
 
     void RedisModule_RdbStreamFree(RedisModuleRdbStream *stream);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Release an RDB stream object.
 
@@ -7316,7 +7329,7 @@ Release an RDB stream object.
                             RedisModuleRdbStream *stream,
                             int flags);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Load RDB file from the `stream`. Dataset will be cleared first and then RDB
 file will be loaded.
@@ -7340,7 +7353,7 @@ Example:
                             RedisModuleRdbStream *stream,
                             int flags);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 Save dataset to the RDB stream.
 
@@ -7420,7 +7433,7 @@ returns `REDISMODULE_OK` if when key is valid.
 
     int RedisModule_GetModuleOptionsAll(void);
 
-**Available since:** unreleased
+**Available since:** 7.2.0
 
 
 Returns the full module options flags mask, using the return value
@@ -7780,6 +7793,7 @@ There is no guarantee that this info is always available, so this may return -1.
 * [`RedisModule_CommandFilterArgInsert`](#RedisModule_CommandFilterArgInsert)
 * [`RedisModule_CommandFilterArgReplace`](#RedisModule_CommandFilterArgReplace)
 * [`RedisModule_CommandFilterArgsCount`](#RedisModule_CommandFilterArgsCount)
+* [`RedisModule_CommandFilterGetClientId`](#RedisModule_CommandFilterGetClientId)
 * [`RedisModule_CreateCommand`](#RedisModule_CreateCommand)
 * [`RedisModule_CreateDataType`](#RedisModule_CreateDataType)
 * [`RedisModule_CreateDict`](#RedisModule_CreateDict)

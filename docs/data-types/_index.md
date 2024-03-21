@@ -1,18 +1,20 @@
 ---
-title: "Redis data types"
-linkTitle: "Data types"
+title: "Understand Redis data types"
+linkTitle: "Understand data types"
 description: Overview of data types supported by Redis
-weight: 40
+weight: 35
 aliases:
     - /docs/manual/data-types
     - /topics/data-types
+    - /docs/data-types/tutorial
 ---
 
 Redis is a data structure server.
 At its core, Redis provides a collection of native data types that help you solve a wide variety of problems, from [caching](/docs/manual/client-side-caching/) to [queuing](/docs/data-types/lists/) to [event processing](/docs/data-types/streams/).
 Below is a short description of each data type, with links to broader overviews and command references.
 
-If you'd like to try a comprehensive tutorial, see the [Redis data types tutorial](/docs/data-types/tutorial/).
+If you'd like to try a comprehensive tutorial for each data structure, see their overview pages below.
+
 
 ## Core
 
@@ -35,7 +37,7 @@ For more information, see:
 ### Sets
 
 [Redis sets](/docs/data-types/sets) are unordered collections of unique strings that act like the sets from your favorite programming language (for example, [Java HashSets](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html), [Python sets](https://docs.python.org/3.10/library/stdtypes.html#set-types-set-frozenset), and so on).
-With a Redis set, you can add, remove, and test for existence O(1) time (in other words, regardless of the number of set elements).
+With a Redis set, you can add, remove, and test for existence in O(1) time (in other words, regardless of the number of set elements).
 For more information, see:
 
 * [Overview of Redis sets](/docs/data-types/sets/)
@@ -66,7 +68,6 @@ For more information, see:
 
 * [Overview of Redis Streams](/docs/data-types/streams)
 * [Redis Streams command reference](/commands/?group=stream)
-* [Redis Streams tutorial](/docs/data-types/streams-tutorial)
 
 ### Geospatial indexes
 
@@ -107,3 +108,5 @@ To extend the features provided by the included data types, use one of these opt
 1. Write your own custom [server-side functions in Lua](/docs/manual/programmability/).
 1. Write your own Redis module using the [modules API](/docs/reference/modules/) or check out the [community-supported modules](/docs/modules/).
 1. Use [JSON](/docs/stack/json/), [querying](/docs/stack/search/), [time series](/docs/stack/timeseries/), and other capabilities provided by [Redis Stack](/docs/stack/).
+
+<hr>

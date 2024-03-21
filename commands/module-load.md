@@ -7,7 +7,3 @@ unmodified to the module.
 
 **Note**: modules can also be loaded at server startup with `loadmodule`
 configuration directive in `redis.conf`.
-
-@return
-
-@simple-string-reply: `OK` if module was loaded.

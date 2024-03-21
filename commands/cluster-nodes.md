@@ -17,31 +17,30 @@ It is also used by `redis-cli` in order to manage a cluster.
 ## Serialization format
 
 The output of the command is just a space-separated CSV string, where
-each line represents a node in the cluster. Starting from 7.2.0, the
-output of the command always contains a new auxiliary field called
-shard-id. The following is an example of output on Redis 7.2.0.
+each line represents a node in the cluster. The following
+is an example of output on Redis 7.2.0.
 
 ```
-07c37dfeb235213a872192d90877d0cd55635b91 127.0.0.1:30004@31004,,shard-id=69bc080733d1355567173199cff4a6a039a2f024 slave e7d1eecce10fd6bb5eb35b9f99a514335d9ba9ca 0 1426238317239 4 connected
-67ed2db8d677e59ec4a4cefb06858cf2a1a89fa1 127.0.0.1:30002@31002,,shard-id=114f6674a35b84949fe567f5dfd41415ee776261 master - 0 1426238316232 2 connected 5461-10922
-292f8b365bb7edb5e285caf0b7e6ddc7265d2f4f 127.0.0.1:30003@31003,,shard-id=fdb36c73e72dd027bc19811b7c219ef6e55c550e master - 0 1426238318243 3 connected 10923-16383
-6ec23923021cf3ffec47632106199cb7f496ce01 127.0.0.1:30005@31005,,shard-id=114f6674a35b84949fe567f5dfd41415ee776261 slave 67ed2db8d677e59ec4a4cefb06858cf2a1a89fa1 0 1426238316232 5 connected
-824fe116063bc5fcf9f4ffd895bc17aee7731ac3 127.0.0.1:30006@31006,,shard-id=fdb36c73e72dd027bc19811b7c219ef6e55c550e slave 292f8b365bb7edb5e285caf0b7e6ddc7265d2f4f 0 1426238317741 6 connected
-e7d1eecce10fd6bb5eb35b9f99a514335d9ba9ca 127.0.0.1:30001@31001,,shard-id=69bc080733d1355567173199cff4a6a039a2f024 myself,master - 0 0 1 connected 0-5460
+07c37dfeb235213a872192d90877d0cd55635b91 127.0.0.1:30004@31004,hostname4 slave e7d1eecce10fd6bb5eb35b9f99a514335d9ba9ca 0 1426238317239 4 connected
+67ed2db8d677e59ec4a4cefb06858cf2a1a89fa1 127.0.0.1:30002@31002,hostname2 master - 0 1426238316232 2 connected 5461-10922
+292f8b365bb7edb5e285caf0b7e6ddc7265d2f4f 127.0.0.1:30003@31003,hostname3 master - 0 1426238318243 3 connected 10923-16383
+6ec23923021cf3ffec47632106199cb7f496ce01 127.0.0.1:30005@31005,hostname5 slave 67ed2db8d677e59ec4a4cefb06858cf2a1a89fa1 0 1426238316232 5 connected
+824fe116063bc5fcf9f4ffd895bc17aee7731ac3 127.0.0.1:30006@31006,hostname6 slave 292f8b365bb7edb5e285caf0b7e6ddc7265d2f4f 0 1426238317741 6 connected
+e7d1eecce10fd6bb5eb35b9f99a514335d9ba9ca 127.0.0.1:30001@31001,hostname1 myself,master - 0 0 1 connected 0-5460
 ```
 
 Each line is composed of the following fields:
 
 ```
-<id> <ip:port@cport[,hostname[,auxiliary_field=value]*]> <flags> <master> <ping-sent> <pong-recv> <config-epoch> <link-state> <slot> <slot> ... <slot>
+<id> <ip:port@cport[,hostname]> <flags> <master> <ping-sent> <pong-recv> <config-epoch> <link-state> <slot> <slot> ... <slot>
 ```
 
 The meaning of each field is the following:
 
 1. `id`: The node ID, a 40-character globally unique string generated when a node is created and never changed again (unless `CLUSTER RESET HARD` is used).
-2. `ip:port@cport`: The node address that clients should contact to run queries.
+2. `ip:port@cport`: The node address that clients should contact to run queries, along with the used cluster bus port.
+   `:0@0` can be expected when the address is no longer known for this node ID, hence flagged with `noaddr`.
 3. `hostname`: A human readable string that can be configured via the `cluster-annouce-hostname` setting. The max length of the string is 256 characters, excluding the null terminator. The name can contain ASCII alphanumeric characters, '-', and '.' only.
-4. `[,auxiliary_field=value]*`: A list of comma-separated key-value pairs that represent various node properties, such as `shard-id`. There is no intrinsic order among auxiliary fields. The auxiliary fields can appear at different position in the list from release to release. Both the key name and value can contain ASCII alphanumeric characters and the characters in `!#$%&()*+-.:;<>?@[]^_{|}~` only. Auxiliary fields are explained in detail in the section below.
 5. `flags`: A list of comma separated flags: `myself`, `master`, `slave`, `fail?`, `fail`, `handshake`, `noaddr`, `nofailover`, `noflags`. Flags are explained below.
 6. `master`: If the node is a replica, and the primary is known, the primary node ID, otherwise the "-" character.
 7. `ping-sent`: Unix time at which the currently active ping was sent, or zero if there are no pending pings, in milliseconds.
@@ -49,9 +48,6 @@ The meaning of each field is the following:
 9. `config-epoch`: The configuration epoch (or version) of the current node (or of the current primary if the node is a replica). Each time there is a failover, a new, unique, monotonically increasing configuration epoch is created. If multiple nodes claim to serve the same hash slots, the one with the higher configuration epoch wins.
 10. `link-state`: The state of the link used for the node-to-node cluster bus. Use this link to communicate with the node. Can be `connected` or `disconnected`.
 11. `slot`: A hash slot number or range. Starting from argument number 9, but there may be up to 16384 entries in total (limit never reached). This is the list of hash slots served by this node. If the entry is just a number, it is parsed as such.  If it is a range, it is in the form `start-end`, and means that the node is responsible for all the hash slots from `start` to `end` including the start and end values.
-
-Auxiliary fields are:
-* `shard-id`: a 40-character globally unique string generated when a node is created. A node's shard id changes only when the node joins a different shard via `cluster replicate` and there the node's shard id is updated to its primary's.
 
 Flags are:
 
@@ -108,9 +104,5 @@ Note that:
 
 1. Migration and importing slots are only added to the node flagged as `myself`. This information is local to a node, for its own slots.
 2. Importing and migrating slots are provided as **additional info**. If the node has a given hash slot assigned, it will be also a plain number in the list of hash slots, so clients that don't have a clue about hash slots migrations can just skip this special fields.
-
-@return
-
-@bulk-string-reply: The serialized cluster configuration.
 
 **A note about the word slave used in this man page and command name**: Starting with Redis 5, if not for backward compatibility, the Redis project no longer uses the word slave. Unfortunately in this command the word slave is part of the protocol, so we'll be able to remove such occurrences only when this API will be naturally deprecated.

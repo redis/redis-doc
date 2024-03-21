@@ -2,10 +2,6 @@ When all the elements in a sorted set are inserted with the same score, in order
 
 Apart from the reversed ordering, `ZREVRANGEBYLEX` is similar to `ZRANGEBYLEX`.
 
-@return
-
-@array-reply: list of elements in the specified score range.
-
 @examples
 
 ```cli

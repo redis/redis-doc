@@ -35,7 +35,7 @@ The following keys may be included in the mapped reply:
   - _syscmd:_ a system command that isn't meant to be called by users.
 * **deprecated_since:** the Redis version that deprecated the command (or for module commands, the module version)..
 * **replaced_by:** the alternative for a deprecated command.
-* **history:** an array of historical notes describing changes to the command's behavior or arguments.
+* **history:** an array of historical notes describing changes to the command's output or arguments. It should not contain information about behavioral changes.
   Each entry is an array itself, made up of two elements:
   1. The Redis version that the entry applies to.
   2. The description of the change.
@@ -43,10 +43,6 @@ The following keys may be included in the mapped reply:
   Please refer to the [Redis command arguments][td] page for more information.
 
 [td]: /topics/command-arguments
-
-@return
-
-@array-reply: a map as a flattened array as described above.
 
 @examples
 
