@@ -11,9 +11,9 @@ of the list, where `-1` is the last element of the list, `-2` the penultimate
 element and so on.
 
 Out of range indexes will not produce an error: if `start` is larger than the
-end of the list, or `start > end`, the result will be an empty list (which
+end of the list, or `start > stop`, the result will be an empty list (which
 causes `key` to be removed).
-If `end` is larger than the end of the list, Redis will treat it like the last
+If `stop` is larger than the end of the list, Redis will treat it like the last
 element of the list.
 
 A common use of `LTRIM` is together with `LPUSH` / `RPUSH`.
