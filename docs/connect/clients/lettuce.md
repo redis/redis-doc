@@ -169,9 +169,9 @@ Lettuce uses `ClientResources` for efficient management of shared resources like
 For connection pooling, Lettuce leverages `RedisClient` or `RedisClusterClient`, which can handle multiple concurrent connections efficiently.
 
 A typical approach with Lettuce is to create a single `RedisClient` instance and reuse it to establish connections to your Redis server(s).
-These connections are multiplexed; that is, multiple commands can be run concurrently over a single or a small set of connections, making explicit pooling less critical than in blocking clients like Jedis.
+These connections are multiplexed; that is, multiple commands can be run concurrently over a single or a small set of connections, making explicit pooling less critical.
 
-Lettuce comes with an asynchronous, non-blocking pool implementation to be used with Lettuces asynchronous connection methods. It does not require additional dependencies.
+Lettuce provides pool config to be used with Lettuces asynchronous connection methods.
 
 
 ```java
@@ -194,9 +194,10 @@ public class Pool {
     String host = "localhost";
     int port = 6379;
 
-    CompletionStage<BoundedAsyncPool<StatefulRedisConnection<String, String>>> poolFuture = AsyncConnectionPoolSupport.createBoundedObjectPoolAsync(
-        () -> client.connectAsync(StringCodec.UTF8, RedisURI.create(host, port)),
-        BoundedPoolConfig.create());
+    CompletionStage<BoundedAsyncPool<StatefulRedisConnection<String, String>>> poolFuture
+        = AsyncConnectionPoolSupport.createBoundedObjectPoolAsync(
+            () -> client.connectAsync(StringCodec.UTF8, RedisURI.create(host, port)),
+            BoundedPoolConfig.create());
 
     // await poolFuture initialization to avoid NoSuchElementException: Pool exhausted when starting your application
     AsyncPool<StatefulRedisConnection<String, String>> pool = poolFuture.toCompletableFuture()
