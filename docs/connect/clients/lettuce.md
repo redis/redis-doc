@@ -9,7 +9,7 @@ Install Redis and the Redis client, then connect your Lettuce application to a R
 
 ## Lettuce
 
-Lettuce offers a powerful and efficient way to interact with Redis through its asynchronous and reactive APIs. By leveraging these capabilities, developers can build high-performance, scalable Java applications that make optimal use of Redis's capabilities.
+Lettuce offers a powerful and efficient way to interact with Redis through its asynchronous and reactive APIs. By leveraging these capabilities, you can build high-performance, scalable Java applications that make optimal use of Redis's capabilities.
 
 ## Install
 
@@ -171,7 +171,7 @@ For connection pooling, Lettuce leverages `RedisClient` or `RedisClusterClient`,
 A typical approach with Lettuce is to create a single `RedisClient` instance and reuse it to establish connections to your Redis server(s).
 These connections are multiplexed; that is, multiple commands can be run concurrently over a single or a small set of connections, making explicit pooling less critical.
 
-Lettuce provides pool config to be used with Lettuces asynchronous connection methods.
+Lettuce provides pool config to be used with Lettuce asynchronous connection methods.
 
 
 ```java
@@ -230,7 +230,7 @@ In this setup, `LettuceConnectionFactory` is a custom class you would need to im
 
 ## DNS cache and Redis
 
-When you connect to a Redis with multiple endpoints, such as Redis Enterprise Active-Active, it's recommended to disable the JVM's DNS cache to load-balance requests across multiple endpoints.
+When you connect to a Redis database with multiple endpoints, such as Redis Enterprise Active-Active, it's recommended to disable the JVM's DNS cache to load-balance requests across multiple endpoints.
 
 You can do this in your application's code with the following snippet:
 
