@@ -19,6 +19,7 @@ Redis lists are frequently used to:
 * `LLEN` returns the length of a list.
 * `LMOVE` atomically moves elements from one list to another.
 * `LTRIM` reduces a list to the specified range of elements.
+* `LRANGE` retrieve a range of elements from a list.
 
 ### Blocking commands
 
