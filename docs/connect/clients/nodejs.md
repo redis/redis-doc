@@ -136,166 +136,75 @@ await client.disconnect();
 
 You can also use discrete parameters and UNIX sockets. Details can be found in the [client configuration guide](https://github.com/redis/node-redis/blob/master/docs/client-configuration.md).
 
-### Example: Indexing and querying JSON documents
+### Production usage
 
-Make sure that you have Redis Stack and `node-redis` installed. Import dependencies:
+#### Handling errors
+Node-Redis provides [multiple events to handle various scenarios](https://github.com/redis/node-redis?tab=readme-ov-file#events) among which the most critical is the `error` event.
+This event is triggered whenever an error occurs within the client.
 
-```js
-import {AggregateSteps, AggregateGroupByReducers, createClient, SchemaFieldTypes} from 'redis';
-const client = createClient();
-await client.connect();
+**It is crucial to listen for error events.**
+
+If a client does not have at least one error listener registered and an error occurs, that error will be thrown, potentially causing the Node.js process to exit unexpectedly.
+See [the EventEmitter docs](https://nodejs.org/api/events.html#events_error_events) for more details.
+
+```typescript
+const client = createClient({
+  // ... client options
+});
+// Always ensure there's a listener for errors in the client to prevent process crashes due to unhandled errors
+client.on('error', error => {
+    console.error(`Redis client error: ${error}`)
+});
 ```
 
-Create an index.
 
-```js
-try {
-    await client.ft.create('idx:users', {
-        '$.name': {
-            type: SchemaFieldTypes.TEXT,
-            SORTABLE: true
-        },
-        '$.city': {
-            type: SchemaFieldTypes.TEXT,
-            AS: 'city'
-        },
-        '$.age': {
-            type: SchemaFieldTypes.NUMERIC,
-            AS: 'age'
+#### Handling reconnections
+
+If the socket unexpectedly closes, such as due to network issues, the client rejects all commands already sent, as they might have been executed on the server.
+The rest of pending commands will remain queued in memory until a new socket is established.  
+The client uses `reconnectStrategy` to decide when to attempt to reconnect. 
+The default strategy is to calculate delay before each attempt based on the attempt number `Math.min(retries * 50, 500)`. You can customize this strategy by passing a supported value to `reconnectStrategy` option:
+
+1. Define a callback `(retries: number, cause: Error) => false | number | Error` **(recommended)**
+```typescript
+const client = createClient({
+  socket: {
+    reconnectStrategy: function(retries) {
+        if (retries > 20) {
+            console.log("Too many attempts to reconnect. Redis connection was terminated");
+            return new Error("Too many retries.");
+        } else {
+            return retries * 500;
         }
-    }, {
-        ON: 'JSON',
-        PREFIX: 'user:'
-    });
-} catch (e) {
-    if (e.message === 'Index already exists') {
-        console.log('Index exists already, skipped creation.');
-    } else {
-        // Something went wrong, perhaps RediSearch isn't installed...
-        console.error(e);
-        process.exit(1);
     }
-}
+  }
+});
+client.on('error', error => {
+    console.error(`Redis client error: ${error}`)
+});
 ```
+In the provided reconnection strategy callback, the client attempts to reconnect up to 20 times with a delay of `retries * 500` milliseconds between attempts. 
+After approximately 2 minutes, the client logs an error message and terminates the connection if the maximum retry limit is exceeded.
 
-Create JSON documents to add to your database.
+2. Use a numerical value to set a fixed delay in milliseconds.
+3. Use `false` to disable reconnection attempts. This option should only be used for testing purposes.
 
-```js
-await Promise.all([
-    client.json.set('user:1', '$', {
-        "name": "Paul John",
-        "email": "paul.john@example.com",
-        "age": 42,
-        "city": "London"
-    }),
-    client.json.set('user:2', '$', {
-        "name": "Eden Zamir",
-        "email": "eden.zamir@example.com",
-        "age": 29,
-        "city": "Tel Aviv"
-    }),
-    client.json.set('user:3', '$', {
-        "name": "Paul Zamir",
-        "email": "paul.zamir@example.com",
-        "age": 35,
-        "city": "Tel Aviv"
-    }),
-]);
-```
+#### Timeout
 
-Let's find user 'Paul` and filter the results by age.
-
-```js
-let result = await client.ft.search(
-    'idx:users',
-    'Paul @age:[30 40]'
-);
-console.log(JSON.stringify(result, null, 2));
-/*
-{
-  "total": 1,
-  "documents": [
-    {
-      "id": "user:3",
-      "value": {
-        "name": "Paul Zamir",
-        "email": "paul.zamir@example.com",
-        "age": 35,
-        "city": "Tel Aviv"
-      }
-    }
-  ]
-}
- */
-```
-
-Return only the city field.
-
-```js
-result = await client.ft.search(
-    'idx:users',
-    'Paul @age:[30 40]',
-    {
-        RETURN: ['$.city']
-    }
-);
-console.log(JSON.stringify(result, null, 2));
-
-/*
-{
-  "total": 1,
-  "documents": [
-    {
-      "id": "user:3",
-      "value": {
-        "$.city": "Tel Aviv"
-      }
-    }
-  ]
-}
- */
-```
- 
-Count all users in the same city.
-
-```js
-result = await client.ft.aggregate('idx:users', '*', {
-    STEPS: [
-        {
-            type: AggregateSteps.GROUPBY,
-            properties: ['@city'],
-            REDUCE: [
-                {
-                    type: AggregateGroupByReducers.COUNT,
-                    AS: 'count'
-                }
-            ]
-        }
-    ]
-})
-console.log(JSON.stringify(result, null, 2));
-
-/*
-{
-  "total": 2,
-  "results": [
-    {
-      "city": "London",
-      "count": "1"
-    },
-    {
-      "city": "Tel Aviv",
-      "count": "2"
-    }
-  ]
-}
- */
-
-await client.quit();
+To set a timeout for a connection, use the `connectTimeout` option:
+```typescript
+const client = createClient({
+  // setting a 10-second timeout  
+  connectTimeout: 10000 // in milliseconds
+});
+client.on('error', error => {
+    console.error(`Redis client error: ${error}`)
+});
 ```
 
 ### Learn more
 
+* [Node-Redis Configuration Options](https://github.com/redis/node-redis/blob/master/docs/client-configuration.md)
 * [Redis commands](https://redis.js.org/#node-redis-usage-redis-commands)
 * [Programmability](https://redis.js.org/#node-redis-usage-programmability)
 * [Clustering](https://redis.js.org/#node-redis-usage-clustering)
