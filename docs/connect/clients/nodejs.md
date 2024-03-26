@@ -162,8 +162,9 @@ client.on('error', error => {
 
 #### Handling reconnections
 
-If the socket unexpectedly closes, such as due to network issues, the client rejects all commands already sent, as they might have been executed on the server.
-The rest of pending commands will remain queued in memory until a new socket is established.  
+If network issues or other problems unexpectedly close the socket, the client will reject all commands already sent, since the server might have already executed them.
+The rest of the pending commands will remain queued in memory until a new socket is established.  
+
 The client uses `reconnectStrategy` to decide when to attempt to reconnect. 
 The default strategy is to calculate the delay before each attempt based on the attempt number `Math.min(retries * 50, 500)`. You can customize this strategy by passing a supported value to `reconnectStrategy` option:
 
