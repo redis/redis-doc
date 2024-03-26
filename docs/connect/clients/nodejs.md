@@ -155,7 +155,7 @@ const client = createClient({
 });
 // Always ensure there's a listener for errors in the client to prevent process crashes due to unhandled errors
 client.on('error', error => {
-    console.error(`Redis client error: ${error}`)
+    console.error(`Redis client error:`, error);
 });
 ```
 
@@ -163,7 +163,8 @@ client.on('error', error => {
 #### Handling reconnections
 
 If network issues or other problems unexpectedly close the socket, the client will reject all commands already sent, since the server might have already executed them.
-The rest of the pending commands will remain queued in memory until a new socket is established.  
+The rest of the pending commands will remain queued in memory until a new socket is established.
+This behaviour is controlled by the `enableOfflineQueue` option, which is enabled by default.
 
 The client uses `reconnectStrategy` to decide when to attempt to reconnect. 
 The default strategy is to calculate the delay before each attempt based on the attempt number `Math.min(retries * 50, 500)`. You can customize this strategy by passing a supported value to `reconnectStrategy` option:
@@ -183,9 +184,7 @@ const client = createClient({
     }
   }
 });
-client.on('error', error => {
-    console.error(`Redis client error: ${error}`)
-});
+client.on('error', error => console.error('Redis client error:', error));
 ```
 In the provided reconnection strategy callback, the client attempts to reconnect up to 20 times with a delay of `retries * 500` milliseconds between attempts. 
 After approximately two minutes, the client logs an error message and terminates the connection if the maximum retry limit is exceeded.
@@ -202,9 +201,7 @@ const client = createClient({
   // setting a 10-second timeout  
   connectTimeout: 10000 // in milliseconds
 });
-client.on('error', error => {
-    console.error(`Redis client error: ${error}`)
-});
+client.on('error', error => console.error('Redis client error:', error));
 ```
 
 ### Learn more
