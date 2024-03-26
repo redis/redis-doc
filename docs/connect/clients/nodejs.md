@@ -145,7 +145,7 @@ This event is triggered whenever an error occurs within the client.
 
 **It is crucial to listen for error events.**
 
-If a client does not have at least one error listener registered and an error occurs, that error will be thrown, potentially causing the Node.js process to exit unexpectedly.
+If a client does not register at least one error listener and an error occurs, the system will throw that error, potentially causing the Node.js process to exit unexpectedly.
 See [the EventEmitter docs](https://nodejs.org/api/events.html#events_error_events) for more details.
 
 ```typescript
