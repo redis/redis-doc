@@ -139,7 +139,8 @@ You can also use discrete parameters and UNIX sockets. Details can be found in t
 ### Production usage
 
 #### Handling errors
-Node-Redis provides [multiple events to handle various scenarios](https://github.com/redis/node-redis?tab=readme-ov-file#events) among which the most critical is the `error` event.
+Node-Redis provides [multiple events to handle various scenarios](https://github.com/redis/node-redis?tab=readme-ov-file#events), among which the most critical is the `error` event.
+
 This event is triggered whenever an error occurs within the client.
 
 **It is crucial to listen for error events.**
