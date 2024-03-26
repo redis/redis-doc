@@ -2,7 +2,7 @@
 title: "Java guide"
 linkTitle: "Java"
 description: Connect your Java application to a Redis database
-weight: 3
+weight: 1
 aliases:
   - /docs/clients/java/
   - /docs/redis-clients/java/

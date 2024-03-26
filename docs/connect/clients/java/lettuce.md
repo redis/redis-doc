@@ -2,7 +2,7 @@
 title: "Lettuce guide"
 linkTitle: "Lettuce"
 description: Connect your Lettuce application to a Redis database
-weight: 3
+weight: 2
 ---
 
 Install Redis and the Redis client, then connect your Lettuce application to a Redis database.
