@@ -187,7 +187,8 @@ client.on('error', error => {
 });
 ```
 In the provided reconnection strategy callback, the client attempts to reconnect up to 20 times with a delay of `retries * 500` milliseconds between attempts. 
-After approximately 2 minutes, the client logs an error message and terminates the connection if the maximum retry limit is exceeded.
+After approximately two minutes, the client logs an error message and terminates the connection if the maximum retry limit is exceeded.
+
 
 2. Use a numerical value to set a fixed delay in milliseconds.
 3. Use `false` to disable reconnection attempts. This option should only be used for testing purposes.
