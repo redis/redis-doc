@@ -1,6 +1,6 @@
 ---
 title: "Connect with Redis Java clients"
-linkTitle: "Java clients"
+linkTitle: "Java"
 description: Connect your application to a Redis database using Java and try an example
 weight: 3
 ---
