@@ -1,6 +1,6 @@
 ---
-title: "Java guide"
-linkTitle: "Java"
+title: "Jedis guide"
+linkTitle: "Jedis"
 description: Connect your Java application to a Redis database
 weight: 1
 aliases:
