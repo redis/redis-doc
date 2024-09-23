@@ -2226,6 +2226,7 @@ Extra flags that can be pass to the API under the mode argument:
 * `REDISMODULE_OPEN_KEY_NOSTATS` - Don't update keyspace hits/misses counters.
 * `REDISMODULE_OPEN_KEY_NOEXPIRE` - Avoid deleting lazy expired keys.
 * `REDISMODULE_OPEN_KEY_NOEFFECTS` - Avoid any effects from fetching the key.
+* `REDISMODULE_OPEN_KEY_ACCESS_EXPIRED` - Access expired keys that have not yet been deleted.
 
 <span id="RedisModule_GetOpenKeyModesAll"></span>
 
