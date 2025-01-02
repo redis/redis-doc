@@ -7,6 +7,7 @@ The optional parameter can be used to select a specific section of information:
 *   `clients`: Client connections section
 *   `memory`: Memory consumption related information
 *   `persistence`: RDB and AOF related information
+*   `threads`: I/O threads information
 *   `stats`: General statistics
 *   `replication`: Master/replica replication information
 *   `cpu`: CPU consumption statistics
@@ -251,6 +252,15 @@ If a load operation is on-going, these additional fields will be added:
 *   `loading_loaded_perc`: Same value expressed as a percentage
 *   `loading_eta_seconds`: ETA in seconds for the load to be complete
 
+The **threads** section provides statistics on I/O threads.
+ The statistics are the number of assigned clients,
+ the number of read events processed, and the number of write events processed.
+ Added in Redis 8.0.
+
+For each I/O thread, the following line is added:
+
+*   `io_thread_XXX`: `clients=XXX,reads=XXX,writes=XXX`
+
 Here is the meaning of all fields in the **stats** section:
 
 *   `total_connections_received`: Total number of connections accepted by the
@@ -313,8 +323,8 @@ Here is the meaning of all fields in the **stats** section:
 *   `dump_payload_sanitizations`: Total number of dump payload deep integrity validations (see `sanitize-dump-payload` config).
 *   `total_reads_processed`: Total number of read events processed
 *   `total_writes_processed`: Total number of write events processed
-*   `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
-*   `io_threaded_writes_processed`: Number of write events processed by the main and I/O threads
+*   `io_threaded_reads_processed`: Number of read events processed by the I/O threads
+*   `io_threaded_writes_processed`: Number of write events processed by the I/O threads
 *   `client_query_buffer_limit_disconnections`: Total number of disconnections due to client reaching query buffer limit
 *   `client_output_buffer_limit_disconnections`: Total number of disconnections due to client reaching output buffer limit
 *   `reply_buffer_shrinks`: Total number of output buffer shrinks

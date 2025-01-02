@@ -34,6 +34,7 @@ Here is the meaning of the fields:
 * `user`: the authenticated username of the client
 * `redir`: client id of current client tracking redirection
 * `resp`: client RESP protocol version. Added in Redis 7.0
+* `io-thread`: id of I/O thread assigned to the client. Added in Redis 8.0
 
 The client flags can be a combination of:
 
