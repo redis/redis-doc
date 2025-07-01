@@ -114,7 +114,7 @@ value greater than 10, otherwise it will expire and start again from 0.
 If for some reason the client performs the `INCR` command but does not perform
 the `EXPIRE` the key will be leaked until we'll see the same IP address again.
 
-This can be fixed easily turning the `INCR` with optional `EXPIRE` into a Lua
+One way to fix this is by turning the `INCR` with optional `EXPIRE` into a Lua
 script that is send using the `EVAL` command (only available since Redis version
 2.6).
 
@@ -126,7 +126,31 @@ if current == 1 then
 end
 ```
 
-There is a different way to fix this issue without using scripting, by using
+Another way to fix this, which doesn't require Lua, is to use the `NX` option of `EXPIRE`.
+
+```
+FUNCTION LIMIT_API_CALL(ip)
+MULTI
+    INCR(ip)
+    EXPIRE(ip,10,NX)
+EXEC
+current = RESPONSE_OF_INCR_WITHIN_MULTI
+IF current > 10 THEN
+    ERROR "too many requests per second"
+ELSE
+    PERFORM_API_CALL()
+END
+```
+
+Here, EXPIRE with NX is a no-op if there is already an expiry value set. So it only
+has an effect when this key was created just now by the call to INCR, and it isn't necessary
+to have a test for `current == 1` to get the desired behavior. The use of MULTI
+ensures that EXPIRE will always be called whenever INCR is. So keys cannot be created
+this way without having an expiry set, and we don't have to worry about leaking keys.
+Compared to Rate Limiter 1 pattern, it is a little simpler, and doesn't rely on clock synchronization
+across your web servers in order to work well.
+
+There is another way to fix this issue without using scripting, by using
 Redis lists instead of counters.
 The implementation is more complex and uses more advanced features but has the
 advantage of remembering the IP addresses of the clients currently performing an
